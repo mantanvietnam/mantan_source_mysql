@@ -1,0 +1,1 @@
+<?php getFileTheme('layout/template/createTemplate.php');?>

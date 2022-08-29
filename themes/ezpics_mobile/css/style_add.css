@@ -1,0 +1,15 @@
+.box-account, .box-create-template {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1000;
+  top: 0;
+  right: -100%;
+  background: #000000;
+  padding: 0 0 100px 0;
+  transition: 0.4s all !important;
+}
+.box-account.active, .box-create-template.active {
+  right: 0;
+}

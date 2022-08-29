@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+// @import "./fonts.scss";
+$font: 'FontAwesome';
+$black: #000000;
+$yellow: #FDDF4F;
+$blue: #008A50;
+$red: #f44336;
+html {
+    overflow-x: hidden;
+    &.active {
+        overflow: hidden;
+    }
+}
+body {  
+    box-sizing: border-box;
+    color: #000000;
+    padding: 0 !important;
+    font-size: 12px;
+    transition: .3s all;
+    position: relative;
+    font-family: 'SVN-Gilroy';
+    overflow-x: hidden;
+    &.active {
+        overflow: hidden;
+    }
+
+    h1, 
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p, 
+    label,
+    ul,
+    li, 
+    .card,
+    a {
+        text-decoration: none !important;
+        transition: .2s all;
+        margin-bottom: 0;
+        outline: none !important;
+    }
+
+    a {
+        transition: .3s all !important;
+        color:#000000;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    input,
+    button {
+        outline: none !important;
+        box-shadow: none;
+        transition: .3s all;
+    }
+
+    .slick-slide {
+        height: auto;
+
+        img {
+            display: inline;
+        }
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1140px;
+        padding: 0 15px;
+        .row {
+            margin: 0 -5px;
+            >div {
+                padding: 0 5px;
+            }
+        }
+    }  
+
+    .container-fluid {
+        padding: 0 100px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .slick-slider {
+        margin-bottom: 0;
+    }
+}
+
+@keyframes anim_light{
+    0%, 100% {
+        -webkit-filter: drop-shadow(0px 0px 6px #EBA000);
+    }
+    50% {
+        -webkit-filter: drop-shadow(0px 0px 2px #EBA000);
+    }
+}
+
+
+.menu-bottom {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+    bottom: 0;
+    .menu-home {
+        position: absolute;
+        left: -2px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+        border-radius: 100%;
+        border: 6px solid #000000;
+        width: 82px;
+        height: 82px;
+        background: #000000;
+    }
+    .menu {
+        padding: 20px 40px 10px 120px;
+        background: linear-gradient(180deg, #FFE06D 0%, #FFC83D 100%);
+        border-radius: 0 0 15px 15px;
+        position: relative;
+    }
+    ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+} 
+
+.menu-head {
+    padding: 5px 0;
+    background: linear-gradient(180deg, #FFDF6B 0%, #FFC83E 100%);
+    width: 100%;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    position: fixed;
+    .content-menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .left {
+            flex: 0 0 47px;
+            margin-right: 20px;
+            position: relative;
+            .avarta-user {
+                &.active {
+                    opacity: 0;
+                    pointer-events: none;
+                }
+                img {
+                    width: 100%;
+                    height: 47px;
+                    border-radius: 100%;
+                    object-fit: cover;
+                }
+            }
+            .clc-back {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+                opacity: 0;
+                &.active {
+                    pointer-events: unset;
+                    opacity: 1;
+                }
+            }
+        }
+        .right {
+            flex: 0 0 calc(100% - 67px);
+        }
+    }
+}
+.box-search {
+    position: relative;
+    .txt_srearch {
+        width: 100%;
+        height: 30px;
+        background: #fff;
+        border: 0;
+        border-radius: 50px;
+        padding: 0 20px 0 35px;
+        font-size: 12px;
+        color: #969696;
+        font-weight: 500;
+    }
+    .btn_search {
+        background: transparent;
+        border: 0;
+        position: absolute;
+        top: 3px;
+        left: 5px;
+        width: 30px;
+    }
+}
