@@ -177,4 +177,16 @@ function getFileTheme($file)
 	include(__DIR__.'/../themes/'.$themeActive.'/'.$file);
 }
 
+function showEditorInput($idEditor='',$nameEditor='',$content='')
+{
+	echo '<textarea class="form-control" id="'.$idEditor.'" name="'.$nameEditor.'" style="height: 500px;">'.$content.'</textarea>
+
+		<script type="text/javascript">
+		  bkLib.onDomLoaded(function() {
+		    new nicEditor({maxHeight : 500}).panelInstance("'.$idEditor.'");
+		  });
+		</script>
+	';
+}
+
 ?>

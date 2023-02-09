@@ -1,0 +1,55 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h4 class="fw-bold py-3 mb-4">2TOP CRM</h4>
+  <p><a href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <!-- Responsive Table -->
+  <div class="card">
+    <h5 class="card-header">Chương trình từ thiện</h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+          <tr class="text-nowrap">
+            <th>Tên chương trình</th>
+            <th>Thời gian diễn ra</th>
+            <th>Địa điểm tổ chức</th>
+            <th>Số người đóng góp</th>
+            <th>Số tiền đóng góp</th>
+            <th>Trạng thái</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php 
+            if(!empty($listData)){
+              foreach ($listData as $item) {
+                echo '<tr>
+                        <td>'.$item->title.'</td>
+                        <td>'.date('d/m/Y', $item->time_event_start).' đến '.date('d/m/Y', $item->time_event_end).'</td>
+                        <td>'.$item->address.'</td>
+                        <td><a href="/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM.php/?id_charity='.$item->id.'">'.number_format($item->person_donate).'</a></td>
+                        <td>'.number_format($item->money_donate).'đ</td>
+                        <td>'.$item->status.'</td>
+                        <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM.php/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </td>
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_donate-view-admin-charity-deleteCharityCRM.php/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </td>
+                      </tr>';
+              }
+            }else{
+              echo '<tr>
+                      <td colspan="10" align="center">Chưa có chương trình từ thiện</td>
+                    </tr>';
+            }
+          ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--/ Responsive Table -->
+</div>

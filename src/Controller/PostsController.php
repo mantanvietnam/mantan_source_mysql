@@ -50,11 +50,11 @@ class PostsController extends AppController{
 
 	            // xử lý thời gian đăng
 	            $today= getdate();
-	            $datePost = explode('-', $dataSend['date']);
+	            $datePost = explode('/', $dataSend['date']);
 	            
 	            if(!empty($datePost))
 	            {
-		              $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[2], $datePost[0]);
+		            $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
 	            }
 
 	            if(empty($dataSend['idCategory'])){
@@ -128,11 +128,11 @@ class PostsController extends AppController{
 
 	            // xử lý thời gian đăng
 	            $today = getdate();
-	            $datePost = explode('-', $dataSend['date']);
+	            $datePost = explode('/', $dataSend['date']);
 	            
 	            if(!empty($datePost))
 	            {
-		              $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[2], $datePost[0]);
+		              $time= mktime($today['hours'], $today['minutes'], $today['seconds'], $datePost[1], $datePost[0], $datePost[2]);
 	            }
 
 	            // tạo dữ liệu save

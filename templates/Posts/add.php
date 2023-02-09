@@ -34,7 +34,7 @@
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
                   <label class="form-label">Thời gian đăng *</label>
-                  <input type="date" class="form-control" name="date" value="" required />
+                  <input type="text" class="form-control datepicker" name="date" value="" required />
                 </div>
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
@@ -67,7 +67,7 @@
               <div class="col-12 col-sm-12 col-md-12">
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-message">Nội dung bải viết</label>
-                  <textarea class="form-control" id="content" name="content" style="height: 500px;"></textarea>
+                  <?php showEditorInput('content', 'content', '');?>
                 </div>
               </div>
             </div>
@@ -78,9 +78,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  bkLib.onDomLoaded(function() {
-    new nicEditor({maxHeight : 500}).panelInstance('content');
-  }); // Thay thế text area có id là area1 trở thành WYSIWYG editor sử dụng nicEditor
-</script>

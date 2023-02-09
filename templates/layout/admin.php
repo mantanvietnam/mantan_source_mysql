@@ -43,12 +43,13 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/assets_admin/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="/assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/assets_admin/css/demo.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -64,7 +65,7 @@
     <script src="/assets_admin/vendor/js/bootstrap.js"></script>
     <script src="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script type="text/javascript" src="https://js.nicedit.com/nicEdit-latest.js"></script>
-
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="/assets_admin/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
@@ -469,7 +470,13 @@
       </script>
     <?php }?>
 
-    
+    <script>
+    $( function() {
+      $( ".datepicker" ).datepicker({
+        dateFormat: "dd/mm/yy"
+      });
+    } );
+    </script>
 
     <!-- Vendors JS -->
     <script src="/assets_admin/vendor/libs/apex-charts/apexcharts.js"></script>
