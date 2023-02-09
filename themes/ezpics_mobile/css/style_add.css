@@ -13,3 +13,8 @@
 .box-account.active, .box-create-template.active {
   right: 0;
 }
+
+.frm-layer .item.flex-1 input {
+  width: calc(100% - 60px) !important;
+  flex: 0 0 calc(100% - 60px) !important;
+}

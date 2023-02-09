@@ -116,6 +116,11 @@ body {
     width: 100%;
     z-index: 1001;
     bottom: 0;
+    &.active {
+        opacity: 0;
+        z-index: -1;
+        pointer-events: none;
+    }
     .menu-home {
         position: absolute;
         left: -2px;

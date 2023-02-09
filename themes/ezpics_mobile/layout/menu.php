@@ -3,7 +3,7 @@
 <div class="menu-bottom">
 	<div class="menu">
 		<div class="menu-home">
-			<a href=""><img src="<?php echo $urlThemeActive;?>images/menu-1.png" class="img-fluid" alt=""></a>
+			<a href="javascript:void(0);" onclick="backToHome();"><img src="<?php echo $urlThemeActive;?>images/menu-1.png" class="img-fluid" alt=""></a>
 		</div>
 		<ul>
 			<li><a href=""><img src="<?php echo $urlThemeActive;?>images/menu-2.png" class="img-fluid" alt=""></a></li>
@@ -26,7 +26,7 @@
 <div class="menu-bottom">
 	<div class="menu">
 		<div class="menu-home">
-			<a href=""><img src="<?php echo $urlThemeActive;?>images/menu-1.png" class="img-fluid" alt=""></a>
+			<a href="javascript:void(0);" onclick="backToHome();"><img src="<?php echo $urlThemeActive;?>images/menu-1.png" class="img-fluid" alt=""></a>
 		</div>
 		<ul>
 			<li><a href=""><img src="<?php echo $urlThemeActive;?>images/menu-2.png" class="img-fluid" alt=""></a></li>

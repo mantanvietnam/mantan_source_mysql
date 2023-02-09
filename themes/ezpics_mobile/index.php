@@ -311,7 +311,8 @@ include_once('layout/menu-top.php');
 	</section>
 
 	<section class="boxShow box-account"></section>
-	<section class="boxShow box-create-template"></section>
+	
+	<section class="boxShow box-create-template box-detail-edit"></section>
 	
 </main>
 

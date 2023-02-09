@@ -76,6 +76,11 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/posts/add', ['controller' => 'Posts', 'action' => 'add']);
         $builder->connect('/posts/delete', ['controller' => 'Posts', 'action' => 'delete']);
 
+        $builder->connect('/pages/list', ['controller' => 'Posts', 'action' => 'list_page']);
+        $builder->connect('/pages/add', ['controller' => 'Posts', 'action' => 'add_page']);
+        $builder->connect('/pages/delete', ['controller' => 'Posts', 'action' => 'delete_page']);
+        $builder->connect('/pages/info/*', ['controller' => 'Homes', 'action' => 'info_page']);
+
         $builder->connect('/apis/*', ['controller' => 'Apis', 'action' => 'index']);
 
         $builder->connect('/plugins/admin/*', ['controller' => 'Plugins', 'action' => 'admin']);

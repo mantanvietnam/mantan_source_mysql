@@ -131,7 +131,7 @@ $(document).ready(function(){
     });
     $('.back-data').click(function(){
         $('.box-detail-product, .clc-back').removeClass('active');
-        $('.back-home').click();
+        $('.back-home, .back-temp').click();
     });
     $('.btn-checkpass').click(function(){
         $('.checkpass').hide();
@@ -160,5 +160,83 @@ $(document).ready(function(){
         $('.box-money, html, body').removeClass('active');
 
     });
+
+    $('.clc-detail-temp').click(function(){
+        $('.box-detail-template, .avarta-user, .back-temp, html, body').addClass('active');
+    });
+    $('.back-temp').click(function(){
+        $('.box-detail-template, .avarta-user, .back-temp, html, body').removeClass('active');
+    });
+
+    $('.clc_layer').click(function(){
+        $('.clc_layer').removeClass('active')
+        $(this).addClass('active');
+    });
+
+    $('.layer-1').click(function(){
+        $('.active-event').slideDown(300);
+        $('.info-txt-tb').slideUp(300);
+        $('.menu-bottom, .draggable').addClass('active');
+    });
+
+    $('.lock-layer a').click(function(){
+        $(this).toggleClass('active');
+        $('.choose-top a.active').toggleClass('lock-v') 
+    });
+
+    $('.choose-top a').click(function(){
+        var tab_id = $(this).attr('data-tab');
+
+        $('.choose-top a').removeClass('active');
+        $('.content-tab-choose').removeClass('active');
+
+        $(this).addClass('active');
+        $("#"+tab_id).addClass('active');
+    })
+
+    $('.creat-layout').click(function(){
+        $('.box-detail-edit, .back-layer, html, body').addClass('active');
+    })
+    $('.back-layer').click(function(){
+        $('.box-detail-edit, .back-layer, html, body').removeClass('active');
+    })
+
+    $(".layer-1").click(function() {
+        $(".draggable").draggableTouch();
+    });
+    // $(".draggable").draggableTouch(); 
+    // $("#enable-transform").click(function() {
+    //     $(".draggable").draggableTouch({useTransform:true});
+    // });
+    // $("#disable").click(function() {
+    //     $(".draggable").draggableTouch("disable");
+    // });
+    
+    $(".draggable").bind("dragstart", function(e, pos) {
+        console.log("dragstart:", this, pos.left + "," + pos.top);
+
+        // var tab_id = $(this).attr('data-tab');
+        // $('.choose-top a').removeClass('active');
+        // $('.content-tab-choose').removeClass('active');
+        // $(this).addClass('active');
+        // $("#"+tab_id).addClass('active');
+
+    }).bind("dragend", function(e, pos) {
+        console.log("dragend:", this, pos.left + "," + pos.top);
+    });
+
+    if ("ontouchstart" in document.documentElement) {
+        window.console = {
+            log: function(a, b, c) {
+                if (a && b && c)
+                    $("<div>" + a + " " + b + " " + c + "</div>").appendTo($("#console"));
+                else if (a && b)
+                    $("<div>" + a + " " + b + "</div>").appendTo($("#console"));
+                else if (a)
+                    $("<div>" + a + "</div>").appendTo($("#console"));
+            }
+        };
+    }
 })
 
+ 

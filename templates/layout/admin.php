@@ -63,7 +63,7 @@
     <script src="/assets_admin/vendor/libs/popper/popper.js"></script>
     <script src="/assets_admin/vendor/js/bootstrap.js"></script>
     <script src="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+    <script type="text/javascript" src="https://js.nicedit.com/nicEdit-latest.js"></script>
 
     <script src="/assets_admin/vendor/js/menu.js"></script>
     <!-- endbuild -->
@@ -463,7 +463,9 @@
       </div>
 
       <script type="text/javascript">
-        $('#showMess').modal('show');
+        $(document).ready(function(){
+          $('#showMess').modal('show');
+        }
       </script>
     <?php }?>
 

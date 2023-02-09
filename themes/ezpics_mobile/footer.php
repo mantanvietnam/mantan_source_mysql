@@ -14,6 +14,7 @@
 </div>
 
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo $urlThemeActive;?>js/jquery.draggableTouch.js"></script>
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>js/lib/slick.min.js"></script> 
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>js/wow.min.js"></script> 
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>js/private.js"></script> 
