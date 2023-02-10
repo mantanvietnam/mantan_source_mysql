@@ -38,6 +38,8 @@ function addCustomer($data)
 
     if(!empty($data['phone'])){
         $data['phone'] = trim(str_replace(array(' ','.','-'), '', $data['phone']));
+        $data['phone'] = str_replace('+84','0',$data['phone']);
+
         $conditions = array();
         $conditions['phone'] = $data['phone'];
         $checkCustomer = $modelCustomer->find()->where($conditions)->all()->toList();
@@ -46,6 +48,7 @@ function addCustomer($data)
         }else{
             $save = $modelCustomer->newEmptyEntity();
             if(empty($data['full_name'])) $data['full_name'] = $data['phone'];
+            if(empty($data['pass'])) $data['pass'] = $data['phone'];
             if(empty($data['status'])) $data['status'] = 'active';
             if(empty($data['sex'])) $data['sex'] = 1;
             if(empty($data['avatar'])) $data['avatar'] = 'https://quayso.xyz/app/Plugin/quayso/view/manager/img/avtar-default.png';
@@ -59,6 +62,9 @@ function addCustomer($data)
             $save->id_messenger = @$data['id_messenger'];
             $save->avatar = $data['avatar'];
             $save->status = $data['status'];
+            $save->pass = md5($data['pass']);
+            $save->id_parent = (int) @$data['id_parent'];
+            $save->id_level = (int) @$data['id_level'];
 
             $modelCustomer->save($save);
 

@@ -22,7 +22,7 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
                 echo '<tr>
-                        <td><img src="'.$item->full_name.'" width="100" /></td>
+                        <td><img src="'.$item->avatar.'" width="100" /></td>
                         <td>'.$item->full_name.'</td>
                         <td>'.$item->email.'</td>
                         <td>'.$item->phone.'</td>

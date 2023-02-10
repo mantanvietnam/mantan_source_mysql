@@ -29,8 +29,9 @@ function addCustomerCRM($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['full_name']) && !empty($data['phone'])){
-        	$data['phone'] = trim(str_replace(array(' ','.','-'), '', $data['phone']));
+        if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 	        // tạo dữ liệu save
 	        $data->full_name = $dataSend['full_name'];
@@ -42,6 +43,8 @@ function addCustomerCRM($input)
 	        $data->id_messenger = $dataSend['id_messenger'];
 	        $data->avatar = $dataSend['avatar'];
 	        $data->status = $dataSend['status'];
+	        $data->id_parent = (int) @$dataSend['id_parent'];
+	        $data->id_level = (int) @$dataSend['id_level'];
 
 	        if(empty($data->pass)){
 	        	$data->pass = md5($dataSend['phone']);
