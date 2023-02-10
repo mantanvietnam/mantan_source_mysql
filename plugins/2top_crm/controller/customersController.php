@@ -43,6 +43,10 @@ function addCustomerCRM($input)
 	        $data->avatar = $dataSend['avatar'];
 	        $data->status = $dataSend['status'];
 
+	        if(empty($data->pass)){
+	        	$data->pass = md5($dataSend['phone']);
+	        }
+
 	        $modelCustomer->save($data);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
