@@ -35,6 +35,10 @@ global $routesTheme;
 
 global $session;
 
+global $infoSite;
+global $contactSite;
+global $smtpSite;
+
 
 $metaTitleMantan = 'Mantan Source';
 
@@ -188,5 +192,20 @@ function showEditorInput($idEditor='',$nameEditor='',$content='')
 		</script>
 	';
 }
+
+function mantan_header()
+{
+	global $checkMantanHeader;
+	global $infoMantanSource;
+	global $infoSite;
+
+	$checkMantanHeader= true;
+	$infoMantanSource['verName']= 'v2.0';
+	
+	echo '  <meta name="generator" content="Mantan Source'.$infoMantanSource['verName'].'" />
+			<meta name="application-name" content="Mantan Source '.$infoMantanSource['verName'].'">
+			<meta name="Publisher" CONTENT="Mantan Source '.$infoMantanSource['verName'].'">
+	'.@$infoSite['Option']['value']['embedScript'];
+}	
 
 ?>

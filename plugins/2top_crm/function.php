@@ -44,6 +44,15 @@ function addCustomer($data)
         $conditions['phone'] = $data['phone'];
         $checkCustomer = $modelCustomer->find()->where($conditions)->all()->toList();
         if(!empty($checkCustomer)){
+            if(!empty($data['avatar'])) $checkCustomer[0]->avatar = $data['avatar'];
+            if(!empty($data['full_name'])) $checkCustomer[0]->full_name = $data['full_name'];
+            if(!empty($data['id_messenger'])) $checkCustomer[0]->id_messenger = $data['id_messenger'];
+            if(!empty($data['email'])) $checkCustomer[0]->email = $data['email'];
+            if(!empty($data['id_parent'])) $checkCustomer[0]->id_parent = $data['id_parent'];
+            if(!empty($data['id_level'])) $checkCustomer[0]->id_level = $data['id_level'];
+
+            $modelCustomer->save($checkCustomer[0]);
+
             return $checkCustomer[0]->id;
         }else{
             $save = $modelCustomer->newEmptyEntity();

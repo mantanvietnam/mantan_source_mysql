@@ -8,8 +8,9 @@
       <table class="table">
         <thead>
           <tr class="text-nowrap">
-            <th>Ảnh đại diện</th>
-            <th>Họ tên</th>
+            <th>ID</th>
+            <th width="110">Ảnh đại diện</th>
+            <th width="150">Họ tên</th>
             <th>Email</th>
             <th>Điện thoại</th>
             <th>Trạng thái</th>
@@ -22,6 +23,7 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
                 echo '<tr>
+                        <td>'.$item->id.'</td>
                         <td><img src="'.$item->avatar.'" width="100" /></td>
                         <td>'.$item->full_name.'</td>
                         <td>'.$item->email.'</td>

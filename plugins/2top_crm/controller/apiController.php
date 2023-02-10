@@ -22,6 +22,10 @@ function saveCustomerAPI($input)
 		}
 
 		if(empty($dataSend['id_city'])) $dataSend['id_city']=1;
+		if(empty($dataSend['status'])) $dataSend['status']='lock';
+		if(empty($dataSend['pass'])) $dataSend['pass']= $dataSend['phone'];
+		if(empty($dataSend['id_parent'])) $dataSend['id_parent']= 0;
+		if(empty($dataSend['id_level'])) $dataSend['id_level']= 0;
 
 		if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
 			$dataCustomer = array(	'full_name'=>$dataSend['full_name'],
