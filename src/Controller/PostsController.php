@@ -23,16 +23,60 @@ class PostsController extends AppController{
 	}
 
 	public function list(){
+		global $urlCurrent;
+
 		$modelPosts = $this->Posts;
 
         $conditions = array('type'=>'post');
-        $listData = $modelPosts->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        $limit = 20;
+		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		if($page<1) $page = 1;
+
+        $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelPosts->find()->where($conditions)->all()->toList();
+	    $totalData = count($totalData);
+
+	    $balance = $totalData % $limit;
+	    $totalPage = ($totalData - $balance) / $limit;
+	    if ($balance > 0)
+	        $totalPage+=1;
+
+	    $back = $page - 1;
+	    $next = $page + 1;
+	    if ($back <= 0)
+	        $back = 1;
+	    if ($next >= $totalPage)
+	        $next = $totalPage;
+
+	    if (isset($_GET['page'])) {
+	        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+	        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+	    } else {
+	        $urlPage = $urlCurrent;
+	    }
+	    if (strpos($urlPage, '?') !== false) {
+	        if (count($_GET) >= 1) {
+	            $urlPage = $urlPage . '&page=';
+	        } else {
+	            $urlPage = $urlPage . 'page=';
+	        }
+	    } else {
+	        $urlPage = $urlPage . '?page=';
+	    }
+
+	    $this->set('page', $page);
+	    $this->set('totalPage', $totalPage);
+	    $this->set('back', $back);
+	    $this->set('next', $next);
+	    $this->set('urlPage', $urlPage);
 
         $this->set('listData', $listData);
 	}
 
 	public function add(){
 		$modelPosts = $this->Posts;
+		$modelSlugs = $this->loadModel('Slugs');
 		
 		$infoPost = array();
 		$mess = '';
@@ -63,7 +107,6 @@ class PostsController extends AppController{
 
 	            // tạo dữ liệu save
 	            $infoPost->title = str_replace(array('"', "'"), '’', $dataSend['title']);
-	            $infoPost->slug = createSlugMantan($infoPost->title);
 	            $infoPost->author = $dataSend['author'];
 	            $infoPost->pin = (int) $dataSend['pin'];
 	            $infoPost->time = $time;
@@ -73,6 +116,25 @@ class PostsController extends AppController{
 	            $infoPost->description = $dataSend['description'];
 	            $infoPost->content = $dataSend['content'];
 	            $infoPost->type = 'post';
+
+	            // tạo slug
+	            $slug = createSlugMantan($infoPost->title);
+	            $slugNew = $slug;
+	            $number = 0;
+	            do{
+	            	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+	            }while (!empty($listData));
+
+	            // lưu url slug
+	            saveSlugURL($slugNew, 'posts', 'index');
+	            
+	            $infoPost->slug = $slugNew;
 
 	            $modelPosts->save($infoPost);
 	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -93,6 +155,9 @@ class PostsController extends AppController{
 			
 			if($data){
 	         	$modelPosts->delete($data);
+	         	
+	         	deleteSlugURL($data->slug);
+
 	         	return $this->redirect('/posts/list');
 	        }
 		}
@@ -101,16 +166,60 @@ class PostsController extends AppController{
 	}
 
 	public function listPage(){
+		global $urlCurrent;
+
 		$modelPosts = $this->Posts;
 
         $conditions = array('type'=>'page');
-        $listData = $modelPosts->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        $limit = 20;
+		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		if($page<1) $page = 1;
+		
+        $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelPosts->find()->where($conditions)->all()->toList();
+	    $totalData = count($totalData);
+
+	    $balance = $totalData % $limit;
+	    $totalPage = ($totalData - $balance) / $limit;
+	    if ($balance > 0)
+	        $totalPage+=1;
+
+	    $back = $page - 1;
+	    $next = $page + 1;
+	    if ($back <= 0)
+	        $back = 1;
+	    if ($next >= $totalPage)
+	        $next = $totalPage;
+
+	    if (isset($_GET['page'])) {
+	        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+	        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+	    } else {
+	        $urlPage = $urlCurrent;
+	    }
+	    if (strpos($urlPage, '?') !== false) {
+	        if (count($_GET) >= 1) {
+	            $urlPage = $urlPage . '&page=';
+	        } else {
+	            $urlPage = $urlPage . 'page=';
+	        }
+	    } else {
+	        $urlPage = $urlPage . '?page=';
+	    }
+
+	    $this->set('page', $page);
+	    $this->set('totalPage', $totalPage);
+	    $this->set('back', $back);
+	    $this->set('next', $next);
+	    $this->set('urlPage', $urlPage);
 
         $this->set('listData', $listData);
 	}
 
 	public function addPage(){
 		$modelPosts = $this->Posts;
+		$modelSlugs = $this->loadModel('Slugs');
 		
 		$infoPost = array();
 		$mess = '';
@@ -137,7 +246,6 @@ class PostsController extends AppController{
 
 	            // tạo dữ liệu save
 	            $infoPost->title = str_replace(array('"', "'"), '’', $dataSend['title']);
-	            $infoPost->slug = createSlugMantan($infoPost->title);
 	            $infoPost->author = $dataSend['author'];
 	            $infoPost->pin = (int) $dataSend['pin'];
 	            $infoPost->time = $time;
@@ -147,6 +255,25 @@ class PostsController extends AppController{
 	            $infoPost->description = $dataSend['description'];
 	            $infoPost->content = $dataSend['content'];
 	            $infoPost->type = 'page';
+
+	            // tạo slug
+	            $slug = createSlugMantan($infoPost->title);
+	            $slugNew = $slug;
+	            $number = 0;
+	            do{
+	            	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+	            }while (!empty($listData));
+
+	            // lưu url slug
+	            saveSlugURL($slugNew, 'posts', 'index');
+
+	            $infoPost->slug = $slugNew;
 
 	            $modelPosts->save($infoPost);
 	            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -167,6 +294,9 @@ class PostsController extends AppController{
 			
 			if($data){
 	         	$modelPosts->delete($data);
+
+	         	deleteSlugURL($data->slug);
+	         	
 	         	return $this->redirect('/pages/list');
 	        }
 		}

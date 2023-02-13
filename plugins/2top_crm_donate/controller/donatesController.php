@@ -2,17 +2,21 @@
 function listDonateCharityCRM($input)
 {
 	global $controller;
+	global $urlCurrent;
 
 	$modelDonate = $controller->loadModel('Donates');
 	$modelCharity = $controller->loadModel('Charities');
 
 	$conditions = array();
+	$limit = 20;
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+	if($page<1) $page = 1;
 
 	if(!empty($_GET['id_charity'])){
 		$conditions['id_charity'] = $_GET['id_charity'];
 	}
 
-    $listData = $modelDonate->find()->where($conditions)->all()->toList();
+    $listData = $modelDonate->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
 
     $listCharities= array();
     if(!empty($listData)){
@@ -23,6 +27,43 @@ function listDonateCharityCRM($input)
     	}
     }
 
+    $totalData = $modelDonate->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
     setVariable('listData', $listData);
     setVariable('listCharities', $listCharities);
 }

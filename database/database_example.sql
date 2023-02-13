@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th2 09, 2023 lúc 10:55 AM
--- Phiên bản máy phục vụ: 10.5.11-MariaDB
--- Phiên bản PHP: 7.4.29
+-- Host: localhost:8889
+-- Generation Time: Feb 10, 2023 at 02:58 PM
+-- Server version: 5.7.34
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `mmw_crmtrantoan2`
+-- Database: `mantansource`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admins`
+-- Table structure for table `admins`
 --
 
 CREATE TABLE `admins` (
@@ -36,7 +36,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `admins`
+-- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`) VALUES
@@ -45,16 +45,16 @@ INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `parent` int(11) NOT NULL DEFAULT 0,
-  `image` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `keyword` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `parent` int(11) NOT NULL DEFAULT '0',
+  `image` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
+  `keyword` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
+  `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
   `type` varchar(255) NOT NULL,
   `slug` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -62,7 +62,7 @@ CREATE TABLE `categories` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `options`
+-- Table structure for table `options`
 --
 
 CREATE TABLE `options` (
@@ -73,7 +73,7 @@ CREATE TABLE `options` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `options`
+-- Dumping data for table `options`
 --
 
 INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
@@ -88,7 +88,7 @@ INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -103,64 +103,89 @@ CREATE TABLE `posts` (
   `content` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `slug` varchar(255) NOT NULL,
   `time` int(11) NOT NULL,
-  `view` int(11) NOT NULL DEFAULT 0,
+  `view` int(11) NOT NULL DEFAULT '0',
   `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Chỉ mục cho các bảng đã đổ
+-- Table structure for table `slugs`
+--
+
+CREATE TABLE `slugs` (
+  `id` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `controller` varchar(255) NOT NULL,
+  `action` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `admins`
+-- Indexes for table `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `options`
+-- Indexes for table `options`
 --
 ALTER TABLE `options`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- Indexes for table `slugs`
+--
+ALTER TABLE `slugs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `admins`
+-- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT cho bảng `options`
+-- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `slugs`
+--
+ALTER TABLE `slugs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

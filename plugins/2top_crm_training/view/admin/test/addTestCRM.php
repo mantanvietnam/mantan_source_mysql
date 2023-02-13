@@ -1,0 +1,76 @@
+<!-- Helpers -->
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h4 class="fw-bold py-3 mb-4">Bài thi</h4>
+
+  <!-- Basic Layout -->
+    <div class="row">
+      <div class="col-xl">
+        <div class="card mb-12">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Thông tin bài thi</h5>
+          </div>
+          <div class="card-body">
+            <p><?php echo $mess;?></p>
+            <?= $this->Form->create(); ?>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Bài học (*)</label>
+                    <div class="input-group input-group-merge">
+                      <select required class="form-control" name="id_lesson" id="id_lesson">
+                        <option value="">Chọn bài học</option>
+                        <?php 
+                        if(!empty($listLesson)){
+                          foreach ($listLesson as $key => $item) {
+                            if(empty($data->id_lesson) || $data->id_lesson!=$item->id){
+                              echo '<option value="'.$item->id.'">'.$item->title.'</option>';
+                            }else{
+                              echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
+                            }
+                          }
+                        }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Tên bài thi (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                  </div>
+
+                  
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian thi (phút)</label>
+                    <input required type="text" class="form-control" placeholder="" name="time_test" id="time_test" value="<?php echo @$data->time_test;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-control" name="status" id="status">
+                        <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                        <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <label class="form-label">Ghi chú bài thi</label>
+                    <?php showEditorInput('description', 'description', @$data->description);?>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Lưu</button>
+            <?= $this->Form->end() ?>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>

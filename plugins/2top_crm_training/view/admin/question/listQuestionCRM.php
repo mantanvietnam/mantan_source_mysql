@@ -1,16 +1,15 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">2TOP CRM</h4>
-  <p><a href="/plugins/admin/2top_crm-view-admin-customer-addCustomerCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">2TOP CRM - CÂU HỎI TRẮC NGHIỆM</h4>
+  <p><a href="/plugins/admin/2top_crm_training-view-admin-question-addQuestionCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Câu hỏi trắc nghiệm</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr class="text-nowrap">
             <th>ID</th>
-            <th>Ảnh đại diện</th>
-            <th>Khách hàng</th>
+            <th>Câu hỏi</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -22,20 +21,15 @@
               foreach ($listData as $item) {
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td><img src="'.$item->avatar.'" width="100" /></td>
-                        <td>
-                          '.$item->full_name.'<br/>
-                          '.$item->phone.'<br/>
-                          '.$item->email.'
-                        </td>
+                        <td>'.$item->question.'</td>
                         <td>'.$item->status.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/2top_crm-view-admin-customer-addCustomerCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_training-view-admin-question-addQuestionCRM.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/plugins/admin/2top_crm-view-admin-customer-deleteCustomerCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-question-deleteQuestionCRM.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -43,7 +37,7 @@
               }
             }else{
               echo '<tr>
-                      <td colspan="10" align="center">Chưa có khách hàng</td>
+                      <td colspan="10" align="center">Chưa có dữ liệu</td>
                     </tr>';
             }
           ?>

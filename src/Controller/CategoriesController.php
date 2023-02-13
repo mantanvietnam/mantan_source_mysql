@@ -24,6 +24,7 @@ class CategoriesController extends AppController{
 
 	public function post(){
         $modelCategories = $this->Categories;
+        $modelSlugs = $this->loadModel('Slugs');
 
         if ($this->request->is('post')) {
             $dataSend = $this->request->getData();
@@ -37,12 +38,30 @@ class CategoriesController extends AppController{
 
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->slug = createSlugMantan($infoCategory->name);
             $infoCategory->parent = (int) $dataSend['parent'];
             $infoCategory->image = $dataSend['image'];
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'post';
+
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew);
+                $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            // lưu url slug
+            saveSlugURL($slugNew,'posts','category');
+
+            $infoCategory->slug = $slugNew;
 
             $modelCategories->save($infoCategory);
 
@@ -56,6 +75,7 @@ class CategoriesController extends AppController{
 
     public function album(){
         $modelCategories = $this->Categories;
+        $modelSlugs = $this->loadModel('Slugs');
 
         if ($this->request->is('post')) {
             $dataSend = $this->request->getData();
@@ -69,12 +89,30 @@ class CategoriesController extends AppController{
 
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->slug = createSlugMantan($infoCategory->name);
             $infoCategory->parent = (int) $dataSend['parent'];
             $infoCategory->image = $dataSend['image'];
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'album';
+
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew);
+                $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            // lưu url slug
+            saveSlugURL($slugNew,'albums','category');
+
+            $infoCategory->slug = $slugNew;
 
             $modelCategories->save($infoCategory);
 
@@ -88,6 +126,7 @@ class CategoriesController extends AppController{
 
     public function video(){
         $modelCategories = $this->Categories;
+        $modelSlugs = $this->loadModel('Slugs');
 
         if ($this->request->is('post')) {
             $dataSend = $this->request->getData();
@@ -101,12 +140,30 @@ class CategoriesController extends AppController{
 
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->slug = createSlugMantan($infoCategory->name);
             $infoCategory->parent = (int) $dataSend['parent'];
             $infoCategory->image = $dataSend['image'];
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'video';
+
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew);
+                $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            // lưu url slug
+            saveSlugURL($slugNew,'videos','category');
+
+            $infoCategory->slug = $slugNew;
 
             $modelCategories->save($infoCategory);
 
@@ -126,6 +183,9 @@ class CategoriesController extends AppController{
 			
 			if($data){
 	         	$modelCategories->delete($data);
+
+                deleteSlugURL($data->slug);
+
 	         	return $this->redirect('/categories/'.$data->type);
 	        }
 		}

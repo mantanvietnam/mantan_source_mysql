@@ -86,6 +86,8 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/plugins/admin/*', ['controller' => 'Plugins', 'action' => 'admin']);
         $builder->connect('/*', ['controller' => 'Plugins', 'action' => 'index']);
 
+        include('routes_slugs.php');
+        
         /*
          * Connect catchall routes for all controllers.
          *

@@ -104,3 +104,7 @@
   text-align: center;
   margin-top: 1rem;
 }
+.table th{
+  font-weight: bold;
+  text-align: center;
+}

@@ -208,4 +208,116 @@ function mantan_header()
 	'.@$infoSite['Option']['value']['embedScript'];
 }	
 
+function saveSlugURL($slug='', $controller='', $action='')
+{
+	global $controller;
+
+	if(!empty($slug) && !empty($controller) && !empty($action)){
+		$modelSlugs = $controller->loadModel('Slugs');
+
+		$infoSlug = $modelSlugs->newEmptyEntity();
+
+		$infoSlug->slug = $slug;
+		$infoSlug->controller = $controller;
+		$infoSlug->action = $action;
+
+		$modelSlugs->save($infoSlug);
+
+		$dir = __DIR__.'/routes_slugs.php';
+		$listData = $modelSlugs->find()->all()->toList();
+
+		if(!empty($listData)){
+			// write file routes_slugs.php
+			$string= '<?php ';
+			if(!empty($listData)){
+				foreach($listData as $data){
+					$string .= '$builder->connect("/'.$data->slug.'.html", ["controller" => "'.$data->controller.'", "action" => "'.$data->action.'"]);';
+				}
+			}
+			$string.= ' ?>';
+			$file = fopen($dir,'w');
+			fwrite($file,$string);
+			fclose($file);
+		}
+	}
+}
+
+function deleteSlugURL($slug='')
+{
+	global $controller;
+	$modelSlugs = $controller->loadModel('Slugs');
+
+	if(!empty($slug)){
+		$conditions = array('slug' => $slug);
+        $data = $modelSlugs->find()->where($conditions)->all()->toList();
+			
+		if($data){
+         	$modelSlugs->delete($data[0]);
+        }
+	}
+}
+
+function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form', $typeSend= 'POST')
+{
+	/*
+	$headers = array(
+        'Authorization: key=' .self::$API_ACCESS_KEY,
+        'Content-Type: application/json');
+	*/
+        
+    if($data){
+   		$stringSend= '';
+   		if($typeData=='form'){
+   			$stringSend= array();
+	   		foreach($data as $key=>$value){
+	   			$stringSend[]= $key.'='.$value;
+	   		}
+	   		
+
+	   		$stringSend= implode('&', $stringSend);
+	   	}elseif($typeData=='raw'){
+	   		$stringSend= json_encode($data);
+	   	}
+   		
+		$ch = curl_init();
+
+		if(strtoupper($typeSend)=='PUT'){
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+			curl_setopt($ch, CURLOPT_PUT, 1);
+			$header[]= 'Content-Length: '.strlen($stringSend);
+			//$stringSend= http_build_query($data);
+			//$stringSend= json_encode($data);
+		}else{
+			curl_setopt($ch, CURLOPT_POST, 1);
+		}
+
+		curl_setopt($ch, CURLOPT_URL,$url);
+		
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$stringSend);
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$server_output = curl_exec ($ch);
+
+		curl_close ($ch);
+
+		return $server_output;
+    }else{
+    	$opts = array(
+			'http'=>array(
+			    'method'=>"GET",
+			    'header'=>""
+			)
+		);
+
+		if(!empty($header)){
+			$opts['http']['header'].= implode('&', $header);
+		}
+
+		$context = stream_context_create($opts);
+	   	return file_get_contents($url, false, $context);
+    }
+}
+
 ?>
