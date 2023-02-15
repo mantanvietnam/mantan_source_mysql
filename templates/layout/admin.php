@@ -55,6 +55,7 @@
     <link rel="stylesheet" href="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <link rel="stylesheet" href="/assets_admin/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css" />
 
     <!-- Page CSS -->
 
@@ -68,6 +69,7 @@
     <script src="/assets_admin/vendor/js/menu.js"></script>
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
     <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script language="javascript" src="/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 
     <!-- endbuild -->
 
@@ -478,6 +480,12 @@
         dateFormat: "dd/mm/yy"
       });
     } );
+    </script>
+
+    <script type="text/javascript">
+      jQuery('.datetimepicker').datetimepicker({
+        format:'H:i d/m/Y'
+      });
     </script>
 
     <!-- Vendors JS -->

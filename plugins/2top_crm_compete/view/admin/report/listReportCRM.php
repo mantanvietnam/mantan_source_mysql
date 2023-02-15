@@ -12,8 +12,10 @@
             <th>Thời gian</th>
             <th>Tên mục tiêu</th>
             <th>Người thực hiện</th>
-            <th>Số điểm thưởng</th>
+            <th>Điểm thưởng</th>
             <th>Minh chứng</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +40,16 @@
                         <td>'.number_format($item->point).'</td>
                         
                         <td>'.$note.'</td>
+                        <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-report-addReportCRM.php/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </td>
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_compete-view-admin-report-deleteReportCRM.php/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
+                        </td>
                       </tr>';
               }
             }else{

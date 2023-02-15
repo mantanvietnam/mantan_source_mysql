@@ -35,6 +35,16 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Giới tính</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-control" name="sex" id="sex">
+                        <option value="1" <?php if(!empty($data->sex) && $data->sex=='1') echo 'selected'; ?> >Nam</option>
+                        <option value="0" <?php if(isset($data->sex) && $data->sex=='0') echo 'selected'; ?> >Nữ</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Trạng thái</label>
                     <div class="input-group input-group-merge">
                       <select class="form-control" name="status" id="status">
@@ -69,22 +79,22 @@
                     </div>
                   </div>
 
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-email">Giới tính</label>
-                    <div class="input-group input-group-merge">
-                      <select class="form-control" name="sex" id="sex">
-                        <option value="1" <?php if(!empty($data->sex) && $data->sex=='1') echo 'selected'; ?> >Nam</option>
-                        <option value="0" <?php if(isset($data->sex) && $data->sex=='0') echo 'selected'; ?> >Nữ</option>
-                      </select>
-                    </div>
-                  </div>
+                  
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">ID messenger</label>
                     <input type="text" class="form-control" placeholder="" name="id_messenger" id="id_messenger" value="<?php echo @$data->id_messenger;?>" />
                   </div>
 
-                  
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Người quản lý</label>
+                    <input type="text" class="form-control" placeholder="" name="id_parent" id="id_parent" value="<?php echo @$data->id_parent;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Hạng thành viên</label>
+                    <input type="text" class="form-control" placeholder="" name="id_level" id="id_level" value="<?php echo @$data->id_level;?>" />
+                  </div>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
