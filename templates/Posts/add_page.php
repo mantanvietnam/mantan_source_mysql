@@ -54,7 +54,7 @@
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
                   <label class="form-label">Hình minh họa *</label>
-                  <input type="text" class="form-control" name="image" value="" required />
+                  <?php showUploadFile('image','image','',0);?>
                 </div>
 
               </div>

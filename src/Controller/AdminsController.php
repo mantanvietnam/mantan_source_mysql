@@ -41,6 +41,9 @@ class AdminsController extends AppController{
 
                     if($infoAdmin){
                         $session->write('infoAdmin', $infoAdmin);
+                        $session->write('CheckAuthentication', true);
+                        $session->write('urlBaseUpload', '/upload/'.$infoAdmin->user.'/');
+
 
                         return $this->redirect('/admins');
                     }else{

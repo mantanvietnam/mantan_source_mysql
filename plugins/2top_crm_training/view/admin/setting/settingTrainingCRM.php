@@ -16,7 +16,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Logo (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="logo" id="logo" value="<?php echo @$data_value['logo'];?>" />
+                    <?php showUploadFile('logo','logo', @$data_value['logo'],0);?>
                   </div>
 
                   <div class="mb-3">

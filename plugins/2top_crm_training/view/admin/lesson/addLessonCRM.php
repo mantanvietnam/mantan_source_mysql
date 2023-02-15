@@ -51,7 +51,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Hình minh họa</label>
-                    <input type="text" class="form-control" placeholder="" name="image" id="image" value="<?php echo @$data->image;?>" />
+                    <?php showUploadFile('image','image',@$data->image,0);?>
                   </div>
 
                   <div class="mb-3">

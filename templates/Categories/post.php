@@ -89,7 +89,7 @@
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Hình minh họa</label>
-                  <input type="text" class="form-control" placeholder="" name="image" id="image" value="" />
+                  <?php showUploadFile('image','image','',0);?>
                 </div>
 
                 <div class="mb-3">

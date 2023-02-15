@@ -14,4 +14,5 @@ $sqlInstallDatabase .= "CREATE TABLE `questions` ( `id` INT NOT NULL AUTO_INCREM
 
 $sqlDeleteDatabase .= "DROP TABLE lessons; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='2top_crm_training'; ";
+$sqlDeleteDatabase .= "DELETE FROM `options` WHERE `key_word`='settingTraining2TOPCRM'; ";
 ?>

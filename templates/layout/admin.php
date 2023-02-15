@@ -64,9 +64,11 @@
     <script src="/assets_admin/vendor/libs/popper/popper.js"></script>
     <script src="/assets_admin/vendor/js/bootstrap.js"></script>
     <script src="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script type="text/javascript" src="https://js.nicedit.com/nicEdit-latest.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="/assets_admin/vendor/js/menu.js"></script>
+    <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
+    <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+
     <!-- endbuild -->
 
     <!-- Helpers -->

@@ -183,15 +183,40 @@ function getFileTheme($file)
 
 function showEditorInput($idEditor='',$nameEditor='',$content='')
 {
-	echo '<textarea class="form-control" id="'.$idEditor.'" name="'.$nameEditor.'" style="height: 500px;">'.$content.'</textarea>
-
-		<script type="text/javascript">
-		  bkLib.onDomLoaded(function() {
-		    new nicEditor({maxHeight : 500}).panelInstance("'.$idEditor.'");
-		  });
-		</script>
-	';
+	echo '	<textarea style="border: 1px solid #abadb3;height: auto;"  name="'.$nameEditor.'" id="'.$idEditor.'">'.$content.'</textarea>
+			<script type="text/javascript">
+				CKEDITOR.replace( "'.$idEditor.'"); 
+			</script>
+			';
 }
+
+function showUploadFile($idInput='',$nameInput='',$value='',$number='')
+{ 
+	echo '	<script type="text/javascript">
+				function BrowseServerImage'.$number.'()
+				{
+					var finder = new CKFinder();
+					finder.basePath = "../";	
+					finder.selectActionFunction = SetFileFieldImage'.$number.';
+					finder.popup();
+				}
+
+				function SetFileFieldImage'.$number.'( fileUrl )
+				{
+					document.getElementById("'.$idInput.'").value = fileUrl;
+				}
+			</script>
+
+			<div class="row">
+				<div class="col-8 col-xs-8 col-sm-8">
+					<input class="form-control" type="text" name="'.$nameInput.'" id="'.$idInput.'" value="'.$value.'" />
+				</div>
+				<div class="col-2 col-xs-2 col-sm-2">
+					<input type="button" class="btn btn-secondary" value="Upload" onclick="BrowseServerImage'.$number.'();" />
+				</div>
+			</div>';
+}
+
 
 function mantan_header()
 {

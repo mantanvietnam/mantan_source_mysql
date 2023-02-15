@@ -58,7 +58,7 @@
 
                   <div class="mb-3">
                     <label class="form-label">Hình đại diện</label>
-                    <input type="text" class="form-control" placeholder="" name="avatar" id="avatar" value="<?php echo @$data->avatar;?>" />
+                    <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
                   </div>
 
                   <div class="mb-3">
