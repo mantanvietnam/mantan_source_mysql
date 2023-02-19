@@ -39,7 +39,11 @@
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
                   </div>
 
-                  
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian bắt đầu thi (*)</label>
+                    <input required type="text" class="form-control datetimepicker" placeholder="" name="time_start" id="time_start" value="<?php if(!empty($data->time_start)) echo date('H:i d/m/Y', $data->time_start);?>" />
+                  </div>
+
                 </div>
 
                 <div class="col-md-6">
@@ -57,6 +61,12 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian kết thúc thi (*)</label>
+                    <input required type="text" class="form-control datetimepicker" placeholder="" name="time_end" id="time_end" value="<?php if(!empty($data->time_end)) echo date('H:i d/m/Y', $data->time_end);?>" />
+                  </div>
+
                 </div>
                 <div class="col-md-12">
                   <div class="mb-3">

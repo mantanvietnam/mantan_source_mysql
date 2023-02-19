@@ -10,7 +10,7 @@
               <h5 class="mb-0">Chủ đề</h5>
             </div>
             <div class="card-body">
-                <div class="table-responsive text-nowrap">
+                <div class="table-responsive">
                   <table class="table">
                     <thead>
                       <tr>

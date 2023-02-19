@@ -4,10 +4,10 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Chương trình từ thiện</h5>
-    <div class="table-responsive text-nowrap">
+    <div class="table-responsive">
       <table class="table">
         <thead>
-          <tr class="text-nowrap">
+          <tr class="">
             <th>Tên chương trình</th>
             <th>Thời gian diễn ra</th>
             <th>Địa điểm tổ chức</th>

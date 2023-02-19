@@ -11,12 +11,13 @@ function listDonateCharityCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+	$order = array('id'=>'desc');
 
 	if(!empty($_GET['id_charity'])){
 		$conditions['id_charity'] = $_GET['id_charity'];
 	}
 
-    $listData = $modelDonate->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelDonate->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     $listCharities= array();
     if(!empty($listData)){

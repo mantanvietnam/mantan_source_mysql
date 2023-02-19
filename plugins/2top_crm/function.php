@@ -43,6 +43,7 @@ function addCustomer($data)
         $conditions = array();
         $conditions['phone'] = $data['phone'];
         $checkCustomer = $modelCustomer->find()->where($conditions)->all()->toList();
+        
         if(!empty($checkCustomer)){
             if(!empty($data['avatar'])) $checkCustomer[0]->avatar = $data['avatar'];
             if(!empty($data['full_name'])) $checkCustomer[0]->full_name = $data['full_name'];
@@ -50,6 +51,9 @@ function addCustomer($data)
             if(!empty($data['email'])) $checkCustomer[0]->email = $data['email'];
             if(!empty($data['id_parent'])) $checkCustomer[0]->id_parent = $data['id_parent'];
             if(!empty($data['id_level'])) $checkCustomer[0]->id_level = $data['id_level'];
+            if(!empty($data['birthday_date'])) $checkCustomer[0]->birthday_date = $data['birthday_date'];
+            if(!empty($data['birthday_month'])) $checkCustomer[0]->birthday_month = $data['birthday_month'];
+            if(!empty($data['birthday_year'])) $checkCustomer[0]->birthday_year = $data['birthday_year'];
 
             $modelCustomer->save($checkCustomer[0]);
 
@@ -74,6 +78,10 @@ function addCustomer($data)
             $save->pass = md5($data['pass']);
             $save->id_parent = (int) @$data['id_parent'];
             $save->id_level = (int) @$data['id_level'];
+            
+            $save->birthday_date = (int) @$data['birthday_date'];
+            $save->birthday_month = (int) @$data['birthday_month'];
+            $save->birthday_year = (int) @$data['birthday_year'];
 
             $modelCustomer->save($save);
 

@@ -15,12 +15,13 @@ function listTestCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id_lesson'])){
         $conditions['id_lesson'] = (int) $_GET['id_lesson'];
     }
 
-    $listData = $modelTests->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelTests->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     
     if(!empty($listData)){
@@ -128,6 +129,38 @@ function addTestCRM($input)
 
             $data->slug = $slugNew;
 
+            // tính thời gian
+            $time_start = explode(' ', $dataSend['time_start']); 
+
+            $time = explode(':', $time_start[0]);
+            $date = explode('/', $time_start[1]);
+
+
+            if(!empty($time) && !empty($date))
+            {
+                $time_start= mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+                $time_start= time();
+            }
+
+            $time_end = explode(' ', $dataSend['time_end']); 
+
+            $time = explode(':', $time_end[0]);
+            $date = explode('/', $time_end[1]);
+
+
+            if(!empty($time) && !empty($date))
+            {
+                $time_end= mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+                $time_end= time();
+            }
+
+            $data->time_start = $time_start;
+            $data->time_end = $time_end;
+
+
+
 	        $modelTests->save($data);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -172,14 +205,22 @@ function testOnline($input)
 
     $modelTests = $controller->loadModel('Tests');
     $modelQuestions = $controller->loadModel('Questions');
+    $modelHistoryTests = $controller->loadModel('Historytests');
+    $modelCustomers = $controller->loadModel('Customers');
 
-    if(!empty($input['request']->getAttribute('params')['pass'][1])){
-        $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
-
-        $conditions = array('slug'=>$slug);
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+        
         $data = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->first();
 
         if(!empty($data)){
+            if(empty($dataSend['answer'])) $dataSend['answer'] = [];
+
             $conditionsSetting = array('key_word' => 'settingTraining2TOPCRM');
             $settingTraining2TOPCRM = $modelOptions->find()->where($conditionsSetting)->first();
             if(empty($settingTraining2TOPCRM)){
@@ -200,6 +241,9 @@ function testOnline($input)
             $answer_true= [];
 
             if(!empty($questions)){
+                // đảo ngẫu nhiên câu hỏi
+                shuffle($questions);
+
                 foreach ($questions as $key => $value) {
                     $answer_true[$value->id] = $value->option_true;
                 }
@@ -220,12 +264,46 @@ function testOnline($input)
 
                 $point = $total_true * 10/$number_question;
 
+                // lưu lịch sử thi
+                if(!empty($_GET['id_customer'])){
+                    $info_customer = $modelCustomers->get($_GET['id_customer']);
+                }
+
+                if(empty($info_customer)){
+                    if(!empty($_GET['id_messenger'])){
+                        $conditionsCustomer = array('id_messenger' => $_GET['id_messenger']);
+                        $info_customer = $modelCustomers->find()->where($conditionsCustomer)->first();
+
+                        $_GET['id_customer'] = @$info_customer->id;
+                    }
+                }
+
+                if(!empty($_GET['id_customer'])){
+                    $conditionsHistory['id_customer'] = (int) $_GET['id_customer'];
+                    $conditionsHistory['id_test'] = (int) $data->id;
+                    
+                    $history = $modelHistoryTests->find()->where($conditionsHistory)->first();
+                    if(empty($history)){
+                        $history = $modelHistoryTests->newEmptyEntity();
+                    }
+
+                    $history->id_customer = @$_GET['id_customer'];
+                    $history->id_test = $data->id;
+                    $history->point = $point;
+                    $history->total_true = $total_true;
+                    $history->number_question = $number_question;
+                    $history->time_start = @$dataSend['time_start'];
+                    $history->time_end = time();
+
+                    $modelHistoryTests->save($history);
+                }
+
                 // gửi thông báo cho smax.bot
                 $idMessenger = @$_GET['idMessenger'];
                 if(!empty($setting_value['idBot']) && !empty($setting_value['tokenBot']) && !empty($setting_value['idBlock']) && !empty($idMessenger) ){
                     $attributesSmax['point_true'] = $total_true;
                     $attributesSmax['point_total'] = $number_question;
-                    $attributesSmax['point'] = $point;
+                    $attributesSmax['point'] = $point*10;
 
                     $urlSmax = 'https://api.smax.bot/bots/' . $setting_value['idBot'] . '/users/' . $idMessenger . '/send?bot_token=' . $setting_value['tokenBot'] . '&block_id=' . $setting_value['idBlock'] . '&messaging_tag="CONFIRMED_EVENT_UPDATE"';
 

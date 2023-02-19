@@ -57,6 +57,11 @@
 
                 <div class="col-md-6">
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ngày sinh</label>
+                    <input type="text" class="form-control datepicker" placeholder="" name="birthday" id="birthday" value="<?php if(!empty($data->birthday_date) && !empty($data->birthday_month) && !empty($data->birthday_year)) echo $data->birthday_date.'/'.$data->birthday_month.'/'.$data->birthday_year;?>" />
+                  </div>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
                     <input type="text" class="form-control" placeholder="" name="address" id="address" value="<?php echo @$data->address;?>" />
                   </div>

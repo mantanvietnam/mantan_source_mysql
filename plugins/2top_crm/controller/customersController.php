@@ -10,8 +10,29 @@ function listCustomerCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+	$order = array('id'=>'desc');
 
-    $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+	if(!empty($_GET['id'])){
+		$conditions['id'] = (int) $_GET['id'];
+	}
+
+	if(!empty($_GET['phone'])){
+		$conditions['phone'] = $_GET['phone'];
+	}
+
+	if(!empty($_GET['email'])){
+		$conditions['email'] = $_GET['email'];
+	}
+
+	if(!empty($_GET['status'])){
+		$conditions['status'] = $_GET['status'];
+	}
+
+	if(!empty($_GET['full_name'])){
+		$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
+	}
+
+    $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     $totalData = $modelCustomer->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
@@ -91,6 +112,22 @@ function addCustomerCRM($input)
 	        if(empty($data->pass)){
 	        	$data->pass = md5($dataSend['phone']);
 	        }
+
+	        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
+			$birthday_date = 0;
+			$birthday_month = 0;
+			$birthday_year = 0;
+
+			$birthday = explode('/', trim($dataSend['birthday']));
+			if(count($birthday)==3){
+				$birthday_date = (int) $birthday[0];
+				$birthday_month = (int) $birthday[1];
+				$birthday_year = (int) $birthday[2];
+			}
+
+			$data->birthday_date = (int) @$birthday_date;
+			$data->birthday_month = (int) @$birthday_month;
+			$data->birthday_year = (int) @$birthday_year;
 
 	        $modelCustomer->save($data);
 

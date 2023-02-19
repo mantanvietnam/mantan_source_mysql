@@ -4,10 +4,10 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách đóng góp</h5>
-    <div class="table-responsive text-nowrap">
+    <div class="table-responsive">
       <table class="table">
         <thead>
-          <tr class="text-nowrap">
+          <tr class="">
             <th>Chương trình từ thiện</th>
             <th>Hình đại diện</th>
             <th>Người ủng hộ</th>

@@ -1,13 +1,59 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">2TOP CRM</h4>
   <p><a href="/plugins/admin/2top_crm-view-admin-customer-addCustomerCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
+  <!-- Form Search -->
+  <form method="get" action="">
+    <div class="card mb-4">
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Họ tên</label>
+            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+          
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--/ Form Search -->
+
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách khách hàng</h5>
-    <div class="table-responsive text-nowrap">
+    <div class="table-responsive">
       <table class="table">
         <thead>
-          <tr class="text-nowrap">
+          <tr class="">
             <th>ID</th>
             <th>Ảnh đại diện</th>
             <th>Khách hàng</th>

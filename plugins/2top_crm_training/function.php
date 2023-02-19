@@ -19,8 +19,13 @@ $menus[0]['sub'][2]= array(	'title'=>'Câu hỏi',
 							'permission'=>'listQuestionCRM'
 						);
 
+$menus[0]['sub'][3]= array(	'title'=>'Lịch sử thi',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-history-listHistoryTestCRM.php',
+							'classIcon'=>'bx bx-history',
+							'permission'=>'listHistoryTestCRM'
+						);
 
-$menus[0]['sub'][3]= array('title'=>'Cài đặt',
+$menus[0]['sub'][4]= array('title'=>'Cài đặt',
 							'url'=>'/',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settings2TopCRMTraining',
@@ -39,10 +44,3 @@ $menus[0]['sub'][3]= array('title'=>'Cài đặt',
 
 
 addMenuAdminMantan($menus);
-
-/*
-global $session;
-global $infoUser;
-
-$infoUser = $session->read('infoUser');
-*/

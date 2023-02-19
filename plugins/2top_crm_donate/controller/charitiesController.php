@@ -10,8 +10,9 @@ function listCharityCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+	$order = array('id'=>'desc');
 
-    $listData = $modelCharity->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelCharity->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     $totalData = $modelCharity->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);

@@ -17,6 +17,8 @@ function saveCustomerAPI($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(!empty($dataSend['sex'])){
+			$dataSend['sex'] = strtolower($dataSend['sex']);
+
 			if($dataSend['sex']=='male') $dataSend['sex']=1;
 			if($dataSend['sex']=='female') $dataSend['sex']=0;
 		}
@@ -28,6 +30,18 @@ function saveCustomerAPI($input)
 		if(empty($dataSend['id_level'])) $dataSend['id_level']= 0;
 
 		if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+			if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
+			$birthday_date = 0;
+			$birthday_month = 0;
+			$birthday_year = 0;
+
+			$birthday = explode('/', trim($dataSend['birthday']));
+			if(count($birthday)==3){
+				$birthday_date = (int) $birthday[0];
+				$birthday_month = (int) $birthday[1];
+				$birthday_year = (int) $birthday[2];
+			}
+
 			$dataCustomer = array(	'full_name'=>$dataSend['full_name'],
     								'phone'=>$dataSend['phone'],
     								'email'=>@$dataSend['email'],
@@ -40,6 +54,10 @@ function saveCustomerAPI($input)
     								'pass'=>@$dataSend['pass'],
     								'id_parent'=>@$dataSend['id_parent'],
     								'id_level'=>@$dataSend['id_level'],
+    								
+    								'birthday_date'=>(int) @$birthday_date,
+    								'birthday_month'=>(int) @$birthday_month,
+    								'birthday_year'=>(int) @$birthday_year,
     						);
     		$id_customer = addCustomer($dataCustomer);
     		

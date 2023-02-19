@@ -23,6 +23,22 @@
 		  font-weight: bold;
 		  font-size: 20px;
 		}
+		img{
+			max-width: 100%;
+			height: auto !important;
+		}
+		.question{
+			align-items: self-start;
+    		line-height: 1;
+		}
+		.number_question{
+			min-width: 100px;
+			float: left;
+		}
+		input[type="radio"] {
+		  height:15px !important; 
+		  width:15px !important;
+		}
 	</style>
 
 	<div class="container">
@@ -55,41 +71,54 @@
   			</div>
   			<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
   				<?= $this->Form->create(null, ['id'=>'form_answer']); ?>
+  				<input type="hidden" name="time_start" value="<?php echo time();?>" />
   				<?php 
-  					if($data->status == 'active'){
+  					if($data->status == 'active' && $data->time_start<=time() && $data->time_end>=time()){
+  						echo '<div class="row mb-3">
+  								<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">'.$data->description.'</div>
+  							</div>';
+
   						if(!empty($questions)){
   							if(!$submit){
 	  							$number = 0;
 	  							foreach ($questions as $key => $item) {
 	  								$number++;
+	  								if($number<10){
+	  									$numberShow = '00'.$number;
+	  								}elseif($number<100){
+	  									$numberShow = '0'.$number;
+	  								}else{
+	  									$numberShow = $number;
+	  								}
+
 	  								echo '	<div class="row mb-3">
 	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	  												<b>Câu hỏi '.$number.': </b>'.$item->question.'
+	  												<b class="number_question">Câu hỏi '.$numberShow.':</b> '.$item->question.'
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
-	  												<input type="radio" name="answer['.$item->id.']" id="answer-a-'.$item->id.'" value="a" style="margin-right: 5px;"> 
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question">
+	  												<input type="radio" name="answer['.$item->id.']" id="answer-a-'.$item->id.'" value="a" style="margin-right: 5px;"> A.
 	              									<label for="answer-a-'.$item->id.'">'.$item->option_a.'</label>
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
-	  												<input type="radio" name="answer['.$item->id.']" id="answer-b-'.$item->id.'" value="b" style="margin-right: 5px;"> 
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question">
+	  												<input type="radio" name="answer['.$item->id.']" id="answer-b-'.$item->id.'" value="b" style="margin-right: 5px;"> B.
 	              									<label for="answer-b-'.$item->id.'">'.$item->option_b.'</label>
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
-	  												<input type="radio" name="answer['.$item->id.']" id="answer-c-'.$item->id.'" value="c" style="margin-right: 5px;"> 
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question">
+	  												<input type="radio" name="answer['.$item->id.']" id="answer-c-'.$item->id.'" value="c" style="margin-right: 5px;"> C.
 	              									<label for="answer-c-'.$item->id.'">'.$item->option_c.'</label>
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
-	  												<input type="radio" name="answer['.$item->id.']" id="answer-d-'.$item->id.'" value="d" style="margin-right: 5px;"> 
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question">
+	  												<input type="radio" name="answer['.$item->id.']" id="answer-d-'.$item->id.'" value="d" style="margin-right: 5px;"> D.
 	              									<label for="answer-d-'.$item->id.'">'.$item->option_d.'</label>
 	  											</div>
 	  										</div>';
 	  							}
 
-	  							echo '<p><button onclick="process_exam();" type="button" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> NỘP BÀI</button></p>';
+	  							echo '<p><button id="buttonSend" onclick="process_exam();" type="button" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> NỘP BÀI</button></p>';
 	  						}else{
 	  							echo '<p class="text-center">Bạn đã trả lời đúng <b>'.$total_true.'</b> trên tổng số <b>'.$number_question.'</b> câu hỏi. Đạt <b class="text-danger">'.$point.'</b> điểm</p>';
 
@@ -99,6 +128,14 @@
 	  							$number = 0;
 	  							foreach ($questions as $key => $item) {
 	  								$number++;
+	  								if($number<10){
+	  									$numberShow = '00'.$number;
+	  								}elseif($number<100){
+	  									$numberShow = '0'.$number;
+	  								}else{
+	  									$numberShow = $number;
+	  								}
+
 	  								$tick_a = '<input type="radio" name="answer['.$item->id.']" value="" style="margin-right: 5px;">';
 	  								$tick_b = '<input type="radio" name="answer['.$item->id.']" value="" style="margin-right: 5px;">';
 	  								$tick_c = '<input type="radio" name="answer['.$item->id.']" value="" style="margin-right: 5px;">';
@@ -163,23 +200,23 @@
 
 	  								echo '	<div class="row mb-3">
 	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	  												<b>Câu hỏi '.$number.': </b>'.$item->question.'
+	  												<b class="number_question">Câu hỏi '.$numberShow.':</b> '.$item->question.'
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex '.$color_a.'">
-	  												'.$tick_a.' <label for="answer-a-'.$item->id.'">'.$item->option_a.'</label>
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question '.$color_a.'">
+	  												'.$tick_a.' A.<label for="answer-a-'.$item->id.'">'.$item->option_a.'</label>
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex '.$color_b.'">
-	  												'.$tick_b.' <label for="answer-b-'.$item->id.'">'.$item->option_b.'</label>
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question '.$color_b.'">
+	  												'.$tick_b.' B.<label for="answer-b-'.$item->id.'">'.$item->option_b.'</label>
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex '.$color_c.'">
-	  												'.$tick_c.' <label for="answer-c-'.$item->id.'">'.$item->option_c.'</label>
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question '.$color_c.'">
+	  												'.$tick_c.' C.<label for="answer-c-'.$item->id.'">'.$item->option_c.'</label>
 	  											</div>
 
-	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex '.$color_d.'">
-	  												'.$tick_d.' <label for="answer-d-'.$item->id.'">'.$item->option_d.'</label>
+	  											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex question '.$color_d.'">
+	  												'.$tick_d.' D.<label for="answer-d-'.$item->id.'">'.$item->option_d.'</label>
 	  											</div>
 	  										</div>';
 	  							}
@@ -187,7 +224,7 @@
 	  						}
   						}
   					}else{
-  						echo '<p class="text-center">Bài thi chưa bắt đầu</p>';
+  						echo '<p class="text-center">Bài thi chưa bắt đầu hoặc đã kết thúc</p>';
   					}
   				?>
             	<?= $this->Form->end() ?>
@@ -196,9 +233,17 @@
 	</div>
 
 	<script type="text/javascript">
+		var time_start = <?php echo $data->time_start;?>;
+		var time_end = <?php echo $data->time_end;?>;
+		var time_now = <?php echo time();?>;
+
 		var second_total = <?php echo $data->time_test*60;?>;
 		var status_test = '<?php echo $data->status;?>';
 		var submit = <?php echo (int) $submit;?>;
+
+		if((time_end-time_now)<second_total){
+			second_total = time_end-time_now;
+		}
 
 		function countdown()
 		{
@@ -216,11 +261,13 @@
 		function process_exam()
 		{
 		  clearInterval(refreshIntervalId);
+		  $('#buttonSend').html('ĐANG NỘP BÀI ...');
+		  $('#buttonSend').prop('disabled', true);
 		  $( "#form_answer" ).submit();
 		}
 
 		// đếm ngược thời gian làm bài thi
-		if(status_test=='active' && submit==0){
+		if(status_test=='active' && submit==0 && time_now>=time_start && time_now<=time_end){
 			var refreshIntervalId = setInterval(countdown, 1000);
 		}
 	</script>

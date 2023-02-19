@@ -14,12 +14,13 @@ function listTargetCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id_compete'])){
         $conditions['id_compete'] = $_GET['id_compete'];
     }
 
-    $listData = $modelTarget->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelTarget->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     // phân trang
     $totalData = $modelTarget->find()->where($conditions)->all()->toList();

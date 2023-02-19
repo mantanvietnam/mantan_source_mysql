@@ -4,10 +4,10 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Bài thi</h5>
-    <div class="table-responsive text-nowrap">
+    <div class="table-responsive">
       <table class="table">
         <thead>
-          <tr class="text-nowrap">
+          <tr class="">
             <th>ID</th>
             <th>Tên bài thi</th>
             <th>Thời gian thi</th>

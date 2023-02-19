@@ -16,6 +16,7 @@ function listReportCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id_compete'])){
         $conditions['id_compete'] = $_GET['id_compete'];
@@ -29,7 +30,7 @@ function listReportCRM($input)
         $conditions['id_customer'] = $_GET['id_customer'];
     }
 
-    $listData = $modelReport->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelReport->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     if(!empty($listData)){
         $listTarget = array();
@@ -146,6 +147,8 @@ function addReportCRM($input)
                 if(!empty($time) && !empty($date))
                 {
                     $time_report= mktime($time[0], $time[1], 0, $date[1], $date[0], $date[2]);
+                }else{
+                    $time_report = time();
                 }
 
                 

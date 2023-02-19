@@ -15,8 +15,9 @@ function listCompeteCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
 
-    $listData = $modelCompete->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelCompete->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     if(!empty($listData)){
         $listTarget = array();

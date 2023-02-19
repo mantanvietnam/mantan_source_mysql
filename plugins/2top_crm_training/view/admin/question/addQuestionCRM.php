@@ -64,13 +64,12 @@
                         <?php 
                         if(!empty($listTest)){
                           foreach ($listTest as $key => $item) {
-                            if(empty($data->id_test) || $data->id_test!=$item->id){
-                              echo '<option value="'.$item->id.'">'.$item->title.'</option>';
-                            }elseif(empty($_SESSION['id_test_choose']) && $_SESSION['id_test_choose']!=$item->id){
-                              echo '<option value="'.$item->id.'">'.$item->title.'</option>';
-                            }
-                            else{
+                            if(!empty($data->id_test) && $data->id_test==$item->id){
                               echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
+                            }elseif(!empty($_SESSION['id_test_choose']) && $_SESSION['id_test_choose']==$item->id){
+                              echo '<option selected value="'.$item->id.'">'.$item->title.'</option>';
+                            }else{
+                              echo '<option value="'.$item->id.'">'.$item->title.'</option>';
                             }
                           }
                         }

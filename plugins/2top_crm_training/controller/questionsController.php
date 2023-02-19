@@ -13,12 +13,13 @@ function listQuestionCRM($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id_test'])){
         $conditions['id_test'] = (int) $_GET['id_test'];
     }
 
-    $listData = $modelQuestions->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    $listData = $modelQuestions->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     // phân trang
     $totalData = $modelQuestions->find()->where($conditions)->all()->toList();
@@ -85,11 +86,11 @@ function addQuestionCRM($input)
 
         if(!empty($dataSend['question'])){
 	        // tạo dữ liệu save
-	        $data->question = $dataSend['question'];
-	        $data->option_a = $dataSend['option_a'];
-	        $data->option_b = $dataSend['option_b'];
-	        $data->option_c = $dataSend['option_c'];
-            $data->option_d = $dataSend['option_d'];
+	        $data->question = trim($dataSend['question']);
+	        $data->option_a = trim($dataSend['option_a']);
+	        $data->option_b = trim($dataSend['option_b']);
+	        $data->option_c = trim($dataSend['option_c']);
+            $data->option_d = trim($dataSend['option_d']);
             $data->option_true = $dataSend['option_true'];
             $data->id_test = $dataSend['id_test'];
 	        $data->status = $dataSend['status'];
