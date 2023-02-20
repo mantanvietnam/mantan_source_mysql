@@ -19,5 +19,10 @@ $menus[0]['sub'][2]= array(	'title'=>'Báo cáo thi đua',
 							'permission'=>'listReportCRM'
 						);
 
+$menus[0]['sub'][3]= array(	'title'=>'Tổng kết thi đua',
+							'url'=>'/plugins/admin/2top_crm_compete-view-admin-static-listStaticCompeteCRM.php',
+							'classIcon'=>'bx bx-bar-chart-alt',
+							'permission'=>'listStaticCompeteCRM'
+						);
 
 addMenuAdminMantan($menus);
