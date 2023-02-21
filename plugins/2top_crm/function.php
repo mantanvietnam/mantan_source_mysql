@@ -54,6 +54,7 @@ function addCustomer($data)
             if(!empty($data['birthday_date'])) $checkCustomer[0]->birthday_date = $data['birthday_date'];
             if(!empty($data['birthday_month'])) $checkCustomer[0]->birthday_month = $data['birthday_month'];
             if(!empty($data['birthday_year'])) $checkCustomer[0]->birthday_year = $data['birthday_year'];
+            if(isset($data['sex'])) $checkCustomer[0]->sex = $data['sex'];
 
             $modelCustomer->save($checkCustomer[0]);
 
@@ -63,14 +64,14 @@ function addCustomer($data)
             if(empty($data['full_name'])) $data['full_name'] = $data['phone'];
             if(empty($data['pass'])) $data['pass'] = $data['phone'];
             if(empty($data['status'])) $data['status'] = 'active';
-            if(empty($data['sex'])) $data['sex'] = 1;
+            if(!isset($data['sex'])) $data['sex'] = 1;
             if(empty($data['avatar'])) $data['avatar'] = 'https://quayso.xyz/app/Plugin/quayso/view/manager/img/avtar-default.png';
 
             $save->full_name = $data['full_name'];
             $save->phone = $data['phone'];
             $save->email = @$data['email'];
             $save->address = @$data['address'];
-            $save->sex = $data['sex'];
+            $save->sex = (int) $data['sex'];
             $save->id_city = @$data['id_city'];
             $save->id_messenger = @$data['id_messenger'];
             $save->avatar = $data['avatar'];

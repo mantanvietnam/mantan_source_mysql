@@ -8,12 +8,14 @@
       <table class="table">
         <thead>
           <tr class="">
+            <th>ID</th>
             <th>Tên chương trình</th>
             <th>Thời gian diễn ra</th>
             <th>Địa điểm tổ chức</th>
             <th>Số người đóng góp</th>
             <th>Số tiền đóng góp</th>
             <th>Trạng thái</th>
+            <th>Thống kê</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -23,17 +25,26 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
                 echo '<tr>
+                        <td>'.$item->id.'</td>
                         <td>'.$item->title.'</td>
                         <td>'.date('d/m/Y', $item->time_event_start).' đến '.date('d/m/Y', $item->time_event_end).'</td>
                         <td>'.$item->address.'</td>
                         <td><a href="/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM.php/?id_charity='.$item->id.'">'.number_format($item->person_donate).'</a></td>
                         <td>'.number_format($item->money_donate).'đ</td>
                         <td>'.$item->status.'</td>
+                        
+                        <td align="center">
+                          <a target="_blank" class="dropdown-item" href="/donate/'.$item->slug.'.html">
+                            <i class="bx bx-bar-chart-alt me-1"></i>
+                          </a>
+                        </td>
+
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
+                        
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_donate-view-admin-charity-deleteCharityCRM.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>

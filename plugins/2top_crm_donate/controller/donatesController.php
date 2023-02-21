@@ -17,6 +17,10 @@ function listDonateCharityCRM($input)
 		$conditions['id_charity'] = $_GET['id_charity'];
 	}
 
+	if(!empty($_GET['order_by_coin'])){
+		$order['coin'] = $_GET['order_by_coin'];
+	}
+
     $listData = $modelDonate->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     $listCharities= array();
@@ -156,15 +160,72 @@ function deleteDonateCharityCRM($input){
 	global $controller;
 
 	$modelDonate = $controller->loadModel('Donates');
+	$modelCharity = $controller->loadModel('Charities');
 	
 	if(!empty($_GET['id'])){
 		$data = $modelDonate->get($_GET['id']);
 		
 		if($data){
+			// cập nhập lại số tiền của chương trình từ thiện
+	        $infoCharity = $modelCharity->get( (int) $data->id_charity);
+	        if(!empty($infoCharity)){
+	        	$infoCharity->person_donate --;
+	        	$infoCharity->money_donate -= $data->coin;
+
+	        	$modelCharity->save($infoCharity);
+	        }
+
+	        // xóa lịch sử đóng góp
          	$modelDonate->delete($data);
         }
 	}
 
 	return $controller->redirect('/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM.php');
+}
+
+function listDonateCharity($input)
+{
+	global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+
+    $modelDonate = $controller->loadModel('Donates');
+	$modelCharity = $controller->loadModel('Charities');
+
+	if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+		if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('slug'=>$slug);
+        }
+        
+        $data = $modelCharity->find()->where($conditions)->order(['id' => 'DESC'])->first();
+
+        if(!empty($data)){
+        	$conditions = array('id_charity'=>$data->id);
+        	$donates = $modelDonate->find()->where($conditions)->all()->toList();
+
+        	// lấy cài đặt
+        	$conditionsSetting = array('key_word' => 'settingCharity2TOPCRM');
+            $settingCharity2TOPCRM = $modelOptions->find()->where($conditionsSetting)->first();
+            if(empty($settingCharity2TOPCRM)){
+                $settingCharity2TOPCRM = $modelOptions->newEmptyEntity();
+            }
+
+            $setting_value = array();
+            if(!empty($settingCharity2TOPCRM->value)){
+                $setting_value = json_decode($settingCharity2TOPCRM->value, true);
+            }
+           
+        	setVariable('donates', $donates);
+        	setVariable('data', $data);
+        	setVariable('setting_value', $setting_value);
+        }else{
+            return $controller->redirect('/?error=emptyDataCharity');
+        }
+	}else{
+        return $controller->redirect('/?error=emptySlugCharity');
+    }
 }
 ?>

@@ -14,6 +14,7 @@
             <th>Thời gian</th>
             <th>Mục tiêu</th>
             <th>Trạng thái</th>
+            <th>Thống kê</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -29,11 +30,19 @@
                         <td>'.date('d/m/Y', $item->date_start).' đến '.date('d/m/Y', $item->date_end).'</td>
                         <td><a href="/plugins/admin/2top_crm_compete-view-admin-target-listTargetCRM.php/?id_compete='.$item->id.'">'.$item->target.' mục tiêu</a></td>
                         <td>'.$item->status.'</td>
+                        
+                        <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-campain-staticCompeteCRM.php?id='.$item->id.'">
+                            <i class="bx bx-bar-chart-alt me-1"></i>
+                          </a>
+                        </td>
+
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/2top_crm_compete-view-admin-campain-addCompeteCRM.php?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
+
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_compete-view-admin-campain-deleteCompeteCRM.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>

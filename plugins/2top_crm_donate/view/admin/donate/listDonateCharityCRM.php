@@ -1,6 +1,33 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - ĐÓNG GÓP</h4>
   <p><a href="/plugins/admin/2top_crm_donate-view-admin-donate-addDonateCharityCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  
+  <!-- Form Search -->
+  <form method="get" action="">
+    <input type="hidden" name="id_charity" value="<?php echo @$_GET['id_charity'];?>">
+    <div class="card mb-4">
+      <h5 class="card-header">Sắp xếp theo</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-3">
+            <label class="form-label">Số tiền đóng góp</label>
+            <select name="order_by_coin" class="form-select color-dropdown">
+              <option value="">Không sắp xếp</option>
+              <option value="desc" <?php if(!empty($_GET['order_by_coin']) && $_GET['order_by_coin']=='desc') echo 'selected';?> >Từ cao đến thấp</option>
+              <option value="asc" <?php if(!empty($_GET['order_by_coin']) && $_GET['order_by_coin']=='asc') echo 'selected';?> >Từ thấp đến cao</option>
+            </select> 
+          </div>
+          
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--/ Form Search -->
+
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách đóng góp</h5>

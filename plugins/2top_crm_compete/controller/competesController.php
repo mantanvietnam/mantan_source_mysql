@@ -158,4 +158,47 @@ function deleteCompeteCRM($input){
 
 	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php');
 }
+
+function staticCompeteCRM($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê thi đua';
+
+    $modelCompete = $controller->loadModel('Competes');
+    $modelReport = $controller->loadModel('Reports');
+    $modelCustomer = $controller->loadModel('Customers');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelCompete->get($_GET['id']);
+
+        if($data){
+            $conditions['id_compete'] = (int) $_GET['id'];
+            $lisReports = $modelReport->find()->where($conditions)->all()->toList();
+            $staticPoint = [];
+            $customers = [];
+            if(!empty($lisReports)){
+                foreach ($lisReports as $item) {
+                    if(empty($staticPoint[$item->id_customer])){
+                        $staticPoint[$item->id_customer] = 0;
+                        $customers[$item->id_customer] = $modelCustomer->get($item->id_customer);
+                    }
+
+                    $staticPoint[$item->id_customer] += $item->point;
+                }
+            }
+
+            arsort($staticPoint);
+
+            setVariable('staticPoint', $staticPoint);
+            setVariable('customers', $customers);
+            setVariable('data', $data);
+        }else{
+            return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php');
+        }
+    }else{
+        return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php');
+    }
+}
 ?>

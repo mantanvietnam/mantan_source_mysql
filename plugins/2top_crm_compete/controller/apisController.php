@@ -54,9 +54,9 @@ function saveReportCompeteAPI($input)
             		$point_compete += $report->point;
             	}
             }
-            
+
 	        $return = array('code'=>0, 	
-						'set_attributes'=>array('point_compete'=>$point_compete),
+						//'set_attributes'=>array('point_compete'=>$point_compete),
 						'messages'=>array('text'=>'Lưu thông tin thành công')
 					);
             

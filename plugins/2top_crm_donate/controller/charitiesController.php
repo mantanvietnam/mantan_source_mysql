@@ -75,28 +75,49 @@ function addCharityCRM($input)
         if(!empty($dataSend['title'])){
 	        // tạo dữ liệu save
 	        $data->title = $dataSend['title'];
-	        $data->description = $dataSend['description'];
-	        $data->money_donate = (int) $dataSend['money_donate'];
-	        $data->address = $dataSend['address'];
-	        $data->id_city = $dataSend['id_city'];
-	        $data->person_donate = (int) $dataSend['person_donate'];
-	        $data->status = $dataSend['status'];
+	        $data->description = @$dataSend['description'];
+	        $data->money_donate = (int) @$dataSend['money_donate'];
+	        $data->address = @$dataSend['address'];
+	        $data->id_city = (int) @$dataSend['id_city'];
+	        $data->person_donate = (int) @$dataSend['person_donate'];
+	        $data->status = !empty($dataSend['status'])?$dataSend['status']:'active';
 
 	        $time_event_start = explode('/', $dataSend['time_event_start']);   
-            if(!empty($time_event_start))
+            if(count($time_event_start)==3)
             {
 	            $time_event_start= mktime(0, 0, 0, $time_event_start[1], $time_event_start[0], $time_event_start[2]);
+            }else{
+            	$time_event_start= time();
             }
 
             $time_event_end = explode('/', $dataSend['time_event_end']);   
-            if(!empty($time_event_end))
+            if(count($time_event_end)==3)
             {
 	            $time_event_end= mktime(23, 59, 59, $time_event_end[1], $time_event_end[0], $time_event_end[2]);
+            }else{
+            	$time_event_end = time()+7*24*60*60;
             }
 
 
 	        $data->time_event_start = $time_event_start;
 	        $data->time_event_end = $time_event_end;
+
+            // tạo slug
+            $slug = createSlugMantan($dataSend['title']);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew);
+                $listData = $modelCharity->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            $data->slug = $slugNew;
+            
 
 	        $modelCharity->save($data);
 

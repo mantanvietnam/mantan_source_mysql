@@ -11,6 +11,18 @@ $menus[0]['sub'][1]= array( 'title'=>'Danh sách đóng góp',
                             'classIcon'=>'bx bx-money-withdraw',
                             'permission'=>'listDonateCharityCRM'
                         );
+
+$menus[0]['sub'][2]= array( 'title'=>'Hướng dẫn APIs',
+                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-guide-guideCharityAPIsCRM.php',
+                            'classIcon'=>'bx bx-support',
+                            'permission'=>'guideCharityAPIsCRM'
+                        );
+
+$menus[0]['sub'][3]= array( 'title'=>'Cài đặt chung',
+                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-setting-settingCharityCRM.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingCharityCRM'
+                        );
 /*
 $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'url'=>'/',
