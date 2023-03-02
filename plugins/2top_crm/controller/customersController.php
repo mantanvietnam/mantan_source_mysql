@@ -3,6 +3,9 @@ function listCustomerCRM($input)
 {
 	global $controller;
 	global $urlCurrent;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
 
@@ -78,6 +81,9 @@ function addCustomerCRM($input)
 {
 	global $controller;
 	global $isRequestPost;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$mess= '';

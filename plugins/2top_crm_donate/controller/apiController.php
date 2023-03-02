@@ -77,7 +77,8 @@ function saveDonateAPI($input)
 				// tạo dữ liệu save
 		        $dataDonate->id_charity = $dataSend['id_charity'];
 		        $dataDonate->coin = (int) @$dataSend['coin'];
-		        $dataDonate->note = @$dataSend['note'];
+		        $dataDonate->note = (string) @$dataSend['note'];
+		        $dataDonate->image = (string) @$dataSend['image'];
 		        
 		        $dataDonate->full_name = $dataSend['full_name'];
 		        $dataDonate->phone = $dataSend['phone'];

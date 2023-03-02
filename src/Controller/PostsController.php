@@ -77,21 +77,21 @@ class PostsController extends AppController{
 	public function add(){
 		$modelPosts = $this->Posts;
 		$modelSlugs = $this->loadModel('Slugs');
+		$modelCategories = $this->loadModel('Categories');
 		
-		$infoPost = array();
 		$mess = '';
+
+		// lấy data edit
+	    if(!empty($_GET['id'])){
+	        $infoPost = $modelPosts->get( (int) $_GET['id']);
+	    }else{
+	        $infoPost = $modelPosts->newEmptyEntity();
+	    }
 
         if ($this->request->is('post')) {
         	$dataSend = $this->request->getData();
 
         	if(!empty($dataSend['title'])){
-	         
-	            if(!empty($dataSend['idEdit'])){
-	            	$infoPost = $modelPosts->get( (int) $dataSend['idEdit']);
-	            }else{
-	                $infoPost = $modelPosts->newEmptyEntity();
-	            }
-
 	            // xử lý thời gian đăng
 	            $today= getdate();
 	            $datePost = explode('/', $dataSend['date']);
@@ -121,18 +121,24 @@ class PostsController extends AppController{
 	            $slug = createSlugMantan($infoPost->title);
 	            $slugNew = $slug;
 	            $number = 0;
-	            do{
-	            	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-        			if(!empty($listData)){
-        				$number++;
-        				$slugNew = $slug.'-'.$number;
-        			}
-	            }while (!empty($listData));
+	            if(empty($infoPost->slug) || $infoPost->slug!=$slugNew){
+		            do{
+		            	$conditions = array('slug'=>$slugNew);
+	        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-	            // lưu url slug
-	            saveSlugURL($slugNew, 'posts', 'index');
+	        			if(!empty($listData)){
+	        				$number++;
+	        				$slugNew = $slug.'-'.$number;
+	        			}
+		            }while (!empty($listData));
+		        
+		            // lưu url slug
+		            saveSlugURL($slugNew, 'homes', 'info_page');
+		            if(!empty($infoPost->slug)){
+		            	deleteSlugURL($infoPost->slug);
+		            }
+		        }
 	            
 	            $infoPost->slug = $slugNew;
 
@@ -143,8 +149,12 @@ class PostsController extends AppController{
 	        }
         }
 
+        $conditions = array('type' => 'post');
+    	$listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
         $this->set('infoPost', $infoPost);
         $this->set('mess', $mess);
+        $this->set('listCategory', $listCategory);
 	}
 
 	public function delete(){
@@ -221,20 +231,19 @@ class PostsController extends AppController{
 		$modelPosts = $this->Posts;
 		$modelSlugs = $this->loadModel('Slugs');
 		
-		$infoPost = array();
 		$mess = '';
+
+		// lấy data edit
+	    if(!empty($_GET['id'])){
+	        $infoPost = $modelPosts->get( (int) $_GET['id']);
+	    }else{
+	        $infoPost = $modelPosts->newEmptyEntity();
+	    }
 
         if ($this->request->is('post')) {
         	$dataSend = $this->request->getData();
 
         	if(!empty($dataSend['title'])){
-	         
-	            if(!empty($dataSend['idEdit'])){
-	            	$infoPost = $modelPosts->get( (int) $dataSend['idEdit']);
-	            }else{
-	                $infoPost = $modelPosts->newEmptyEntity();
-	            }
-
 	            // xử lý thời gian đăng
 	            $today = getdate();
 	            $datePost = explode('/', $dataSend['date']);
@@ -260,18 +269,24 @@ class PostsController extends AppController{
 	            $slug = createSlugMantan($infoPost->title);
 	            $slugNew = $slug;
 	            $number = 0;
-	            do{
-	            	$conditions = array('slug'=>$slugNew);
-        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-        			if(!empty($listData)){
-        				$number++;
-        				$slugNew = $slug.'-'.$number;
-        			}
-	            }while (!empty($listData));
+	            if(empty($infoPost->slug) || $infoPost->slug!=$slugNew){
+		            do{
+		            	$conditions = array('slug'=>$slugNew);
+	        			$listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-	            // lưu url slug
-	            saveSlugURL($slugNew, 'posts', 'index');
+	        			if(!empty($listData)){
+	        				$number++;
+	        				$slugNew = $slug.'-'.$number;
+	        			}
+		            }while (!empty($listData));
+		        
+		            // lưu url slug
+		            saveSlugURL($slugNew, 'homes', 'info_page');
+		            if(!empty($infoPost->slug)){
+		            	deleteSlugURL($infoPost->slug);
+		            }
+		        }
 
 	            $infoPost->slug = $slugNew;
 

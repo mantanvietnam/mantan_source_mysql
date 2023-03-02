@@ -20,10 +20,12 @@ function settingCharityCRM($input)
         if(empty($dataSend['logo'])) $dataSend['logo'] = '/plugins/2top_crm_donate/view/home/img/logo.png';
         if(empty($dataSend['background'])) $dataSend['background'] = '/plugins/2top_crm_donate/view/home/img/background.png';
         if(empty($dataSend['textColor'])) $dataSend['textColor'] = '#000';
+        if(empty($dataSend['backgroundColor'])) $dataSend['backgroundColor'] = '#F7D225';
 
     	$value = array( 'logo' => $dataSend['logo'],
                         'background' => $dataSend['background'],
                         'textColor' => $dataSend['textColor'],
+                        'backgroundColor' => $dataSend['backgroundColor'],
                     );
 
         $data->key_word = 'settingCharity2TOPCRM';

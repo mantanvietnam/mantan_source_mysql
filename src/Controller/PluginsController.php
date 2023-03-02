@@ -64,7 +64,7 @@ class PluginsController extends AppController{
 	            	$input= array('fileProcess'=>$url,'request'=>$this->request);
 		            $plugin[0]($input);
 		            
-	            }elseif(!file_exists(__DIR__.'/../../plugins/'.$url)){
+	            }elseif(!file_exists(__DIR__.'/../../plugins/'.$url) && !file_exists(__DIR__.'/../../themes/'.$url)){
 			        $this->redirect('/admins');
 		        }
 

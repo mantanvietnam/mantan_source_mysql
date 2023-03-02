@@ -24,7 +24,7 @@
                         if(!empty($category_post)){
                           foreach ($category_post as $item) {
                             echo '<tr>
-                                    <td>'.$item->name.'</td>
+                                    <td><a target="_blank" href="/'.$item->slug.'.html">'.$item->name.'</a></td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', '.$item->parent.', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
@@ -74,7 +74,7 @@
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-email">Chuyên mục cha</label>
                   <div class="input-group input-group-merge">
-                    <select class="form-control" name="parent" id="parent">
+                    <select class="form-select" name="parent" id="parent">
                       <option value="0">Chuyên mục gốc</option>
                       <?php 
                         if(!empty($category_post)){

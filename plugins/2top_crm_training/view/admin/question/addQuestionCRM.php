@@ -44,7 +44,7 @@
                   <div class="mb-3">
                     <label class="form-label">Phương án đúng (*)</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="option_true" id="option_true" required>
+                      <select class="form-select" name="option_true" id="option_true" required>
                         <option value="">Chọn phương án đúng</option>
                         <option value="a" <?php if(!empty($data->option_true) && $data->option_true=='a') echo 'selected'; ?> >Phương án A</option>
                         <option value="b" <?php if(!empty($data->option_true) && $data->option_true=='b') echo 'selected'; ?> >Phương án B</option>
@@ -59,7 +59,7 @@
                   <div class="mb-3">
                     <label class="form-label">Bài thi (*)</label>
                     <div class="input-group input-group-merge">
-                      <select required class="form-control" name="id_test" id="id_test">
+                      <select required class="form-select" name="id_test" id="id_test">
                         <option value="">Chọn bài thi</option>
                         <?php 
                         if(!empty($listTest)){
@@ -83,7 +83,7 @@
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="status" id="status">
+                      <select class="form-select" name="status" id="status">
                         <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>

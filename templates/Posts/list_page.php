@@ -22,9 +22,9 @@
               foreach ($listData as $item) {
                 echo '<tr>
                         <td>'.date('d/m/Y', $item->time).'</td>
-                        <td><a href="/pages/info/'.$item->slug.'-'.$item->id.'.html" target="_blank">'.$item->title.'</a></td>
+                        <td><a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td align="center">
-                          <a class="dropdown-item" href="/posts/add/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/pages/add/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>

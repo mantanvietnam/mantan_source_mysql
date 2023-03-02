@@ -24,7 +24,7 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
-                                    <td>'.$item->name.'</td>
+                                    <td><a target="_blank" href="/training/'.$item->slug.'.html">'.$item->name.'</a></td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>

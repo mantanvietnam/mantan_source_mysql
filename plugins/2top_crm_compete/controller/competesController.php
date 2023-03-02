@@ -117,15 +117,18 @@ function addCompeteCRM($input)
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
             $number = 0;
-            do{
-            	$conditions = array('slug'=>$slugNew);
-    			$listData = $modelCompete->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-    			if(!empty($listData)){
-    				$number++;
-    				$slugNew = $slug.'-'.$number;
-    			}
-            }while (!empty($listData));
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelCompete->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
 
             $data->slug = $slugNew;
 

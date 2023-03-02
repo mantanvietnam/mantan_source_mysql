@@ -3,6 +3,7 @@
     <h4 class="fw-bold py-3 mb-4">Thông tin chung</h4>
 
     <!-- Basic Layout -->
+    <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>
       <div class="row">
         <div class="col-xl">

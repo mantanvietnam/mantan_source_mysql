@@ -427,5 +427,152 @@ class OptionsController extends AppController{
 
         return $this->redirect('/options/themes');
     }
+
+    public function menus(){
+        global $metaTitleMantan;
+
+        $metaTitleMantan = 'Cài đặt trình đơn';
+        $modelOptions = $this->Options;
+        $mess= '';
+        $modelCategories = $this->loadModel('Categories');
+        $modelPosts = $this->loadModel('Posts');
+        $modelMenus = $this->loadModel('Menus');
+
+        if ($this->request->is('post')) {
+            $dataSend = $this->request->getData();
+
+            if(!empty($dataSend['action'])){
+                if($dataSend['action']=='createMenu'){
+                    if(!empty($dataSend['name'])){
+                        $menu = $modelOptions->newEmptyEntity();
+
+                        if(!empty($dataSend['idEdit'])){
+                            $menu = $modelOptions->get((int) $dataSend['idEdit']);
+
+                            if(empty($menu)){
+                                $menu = $modelOptions->newEmptyEntity();
+                            }
+                        }
+
+                        $menu->key_word = 'menu';
+                        $menu->value = $dataSend['name'];
+                        $modelOptions->save($menu);
+
+                        $mess= '<p class="text-success">Lưu trình đơn thành công</p>';
+                    }else{
+                        $mess= '<p class="text-danger">Bạn chưa nhập tên trình đơn</p>';
+                    }
+                }elseif($dataSend['action']=='addLink'){
+                    if(!empty($dataSend['idMenu'])){
+                        if(!empty($dataSend['nameLink'])){
+                            if(!empty($dataSend['idLink'])){
+                                $link = $modelMenus->get((int) $dataSend['idLink']);
+
+                                if(empty($link)){
+                                    $link = $modelMenus->newEmptyEntity();
+                                }
+                            }else{
+                                $link = $modelMenus->newEmptyEntity();
+                            }
+
+                            $link->name = $dataSend['nameLink'];
+                            $link->link = @$dataSend['link'];
+                            $link->description = @$dataSend['desLink'];
+                            $link->id_menu = $dataSend['idMenu'];
+                            $link->id_parent = (int) @$dataSend['idParent'];
+                            $link->weighty = (int) @$dataSend['weighty'];
+
+                            $modelMenus->save($link);
+
+                            $mess= '<p class="text-success">Lưu liên kết thành công</p>';
+                        }else{
+                            $mess= '<p class="text-danger">Bạn chưa nhập tên liên kết</p>';
+                        }
+                    }else{
+                        $mess= '<p class="text-danger">Bạn cần Thêm mới trình đơn trước khi thêm liên kết</p>';
+                    }
+                }
+            }
+        }
+
+        $conditions = array('key_word' => 'menu');
+        $menus = $modelOptions->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+        if(empty($menus)){
+            $menus = $modelOptions->newEmptyEntity();
+        }
+
+        if(empty($_GET['id']) && !empty($menus)){
+            return $this->redirect('/options/menus/?id='.$menus[0]->id);
+        }
+
+        $menu = $modelOptions->get((int) @$_GET['id']);
+        if(empty($menu)){
+            $menu = $modelOptions->newEmptyEntity();
+        }
+
+        $conditions = array('type' => 'post');
+        $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+
+        $conditions = array('type' => 'album');
+        $category_album = $modelCategories->find()->where($conditions)->all()->toList();
+
+        $conditions = array('type' => 'video');
+        $category_video = $modelCategories->find()->where($conditions)->all()->toList();
+
+        $conditions = array('type' => 'page');
+        $pages = $modelPosts->find()->where($conditions)->all()->toList();
+
+        $conditions = array('id_menu' => (int) @$_GET['id']);
+        $listLinks = $modelMenus->find()->where($conditions)->order(['id_parent' => 'ASC', 'weighty'=>'ASC'])->all()->toList();
+
+        $links = [];
+        if(!empty($listLinks)){
+            foreach ($listLinks as $value) {
+                $check_parent = false;
+
+                if($value->id_parent == 0){
+                    $links[$value->id] = $value;
+                    $check_parent = true;
+                }else{
+                    if(!empty($links[$value->id_parent])){
+                        if(empty($links[$value->id_parent]->sub)){
+                            $links[$value->id_parent]->sub = [];
+                        }
+
+                        $links[$value->id_parent]->sub[$value->id] = $value;
+                        $check_parent = true;
+                    }else{
+                        if(!empty($links)){
+                            foreach ($links as $key2=>$value2) {
+                                if(!empty($value2->sub[$value->id_parent])){
+                                    if(empty($links[$key2]->sub[$value->id_parent]->sub)){
+                                        $links[$key2]->sub[$value->id_parent]->sub = [];
+                                    }
+
+                                    $links[$key2]->sub[$value->id_parent]->sub[$value->id] = $value;
+                                    $check_parent = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(!$check_parent){
+                    $links[$value->id] = $value;
+                }
+            }
+        }
+
+        //debug($links);
+
+        $this->set('menus', $menus);
+        $this->set('menu', $menu);
+        $this->set('mess', $mess);
+        $this->set('category_post', $category_post);
+        $this->set('category_album', $category_album);
+        $this->set('category_video', $category_video);
+        $this->set('pages', $pages);
+        $this->set('links', $links);
+    }
 }
 ?>

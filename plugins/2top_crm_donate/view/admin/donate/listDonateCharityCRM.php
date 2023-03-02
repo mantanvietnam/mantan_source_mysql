@@ -47,6 +47,11 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $note = '';
+                if(!empty($item->image)){
+                  $note = '<img src="$item->image" width="100" /><br/>';
+                }
+                $note .= $item->note;
                 echo '<tr>
                         <td>'.$listCharities[$item->id_charity]->title.'</td>
                         <td><img src="'.$item->avatar.'" width="100" /></td>
@@ -56,7 +61,7 @@
                           '.$item->email.'
                         </td>
                         <td>'.number_format($item->coin).'đ</td>
-                        <td>'.$item->note.'</td>
+                        <td>'.$note.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/2top_crm_donate-view-admin-donate-addDonateCharityCRM.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

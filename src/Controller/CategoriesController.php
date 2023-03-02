@@ -48,18 +48,24 @@ class CategoriesController extends AppController{
             $slug = createSlugMantan($infoCategory->name);
             $slugNew = $slug;
             $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew);
-                $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
+            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew){
+                do{
+                    $conditions = array('slug'=>$slugNew);
+                    $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                    if(!empty($listData)){
+                        $number++;
+                        $slugNew = $slug.'-'.$number;
+                    }
+                }while (!empty($listData));
+
+                // lưu url slug
+                saveSlugURL($slugNew,'homes','category_post');
+                if(!empty($infoCategory->slug)){
+                    deleteSlugURL($infoCategory->slug);
                 }
-            }while (!empty($listData));
-
-            // lưu url slug
-            saveSlugURL($slugNew,'posts','category');
+            }
 
             $infoCategory->slug = $slugNew;
 
@@ -99,18 +105,24 @@ class CategoriesController extends AppController{
             $slug = createSlugMantan($infoCategory->name);
             $slugNew = $slug;
             $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew);
-                $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+            
+            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew){
+                do{
+                    $conditions = array('slug'=>$slugNew);
+                    $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
+                    if(!empty($listData)){
+                        $number++;
+                        $slugNew = $slug.'-'.$number;
+                    }
+                }while (!empty($listData));
+
+                // lưu url slug
+                saveSlugURL($slugNew,'homes','category_album');
+                if(!empty($infoCategory->slug)){
+                    deleteSlugURL($infoCategory->slug);
                 }
-            }while (!empty($listData));
-
-            // lưu url slug
-            saveSlugURL($slugNew,'albums','category');
+            }
 
             $infoCategory->slug = $slugNew;
 
@@ -150,18 +162,24 @@ class CategoriesController extends AppController{
             $slug = createSlugMantan($infoCategory->name);
             $slugNew = $slug;
             $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew);
-                $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+            
+            if(empty($infoCategory->slug) || $infoCategory->slug!=$slugNew){
+                do{
+                    $conditions = array('slug'=>$slugNew);
+                    $listData = $modelSlugs->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
+                    if(!empty($listData)){
+                        $number++;
+                        $slugNew = $slug.'-'.$number;
+                    }
+                }while (!empty($listData));
+
+                // lưu url slug
+                saveSlugURL($slugNew,'homes','category_video');
+                if(!empty($infoCategory->slug)){
+                    deleteSlugURL($infoCategory->slug);
                 }
-            }while (!empty($listData));
-
-            // lưu url slug
-            saveSlugURL($slugNew,'videos','category');
+            }
 
             $infoCategory->slug = $slugNew;
 

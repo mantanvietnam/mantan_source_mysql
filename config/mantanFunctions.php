@@ -16,12 +16,16 @@
  * **********************************************************/
 
 global $hookMenuAdminMantan;
+global $hookMenusAppearanceMantan;
+global $variableGlobal;
 global $tmpVariable;
 global $themeActive;
 global $isRequestPost;
+global $csrfToken;
 
 global $modelCategories;
 global $modelOptions;
+global $modelPosts;
 
 global $urlCurrent;
 global $urlThemeActive;
@@ -38,6 +42,8 @@ global $session;
 global $infoSite;
 global $contactSite;
 global $smtpSite;
+
+$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts');
 
 
 $metaTitleMantan = 'Mantan Source';
@@ -151,6 +157,31 @@ function removeDirectory($dir)
 	}
 }
 
+function addMenusAppearance($category)
+{
+	/* $category= array(array(  'title'=>'Product',
+								'sub'=>array(
+											    array (
+											      'url' => $urlPlugins.'cat/car.html',
+											      'name' => 'Car'
+											    ), 
+											    array (
+											      'url' => $urlPlugins.'cat/moto.html',
+											      'name' => 'Moto',
+											      'sub' => array ('url' => $urlPlugins.'cat/honda.html',
+															      'name' => 'Honda'
+															     )
+											    )
+											)
+								)
+						);
+	*/
+	global $hookMenusAppearanceMantan;
+	if(!is_array($hookMenusAppearanceMantan)) $hookMenusAppearanceMantan= array();
+	
+	$hookMenusAppearanceMantan= array_merge($hookMenusAppearanceMantan,$category);
+}
+
 function addMenuAdminMantan($menus= array())
 {
 	global $hookMenuAdminMantan;
@@ -165,10 +196,70 @@ function setVariable($key,$value)
 	$tmpVariable[$key]= $value;
 }
 
+function getHeader()
+{
+	global $variableGlobal;
+	
+	foreach($variableGlobal as $variable){
+		global $$variable;
+	}
+
+	if(!empty($tmpVariable))
+	{
+		foreach($tmpVariable as $key=>$value)
+		{
+			$$key= $value;
+		}
+	}
+
+	include(__DIR__.'/../themes/'.$themeActive.'/header.php');
+}
+
+function getFooter()
+{
+	global $variableGlobal;
+	
+	foreach($variableGlobal as $variable){
+		global $$variable;
+	}
+
+	if(!empty($tmpVariable))
+	{
+		foreach($tmpVariable as $key=>$value)
+		{
+			$$key= $value;
+		}
+	}
+
+	include(__DIR__.'/../themes/'.$themeActive.'/footer.php');
+}
+
+function getSidebar()
+{	
+	global $variableGlobal;
+	
+	foreach($variableGlobal as $variable){
+		global $$variable;
+	}
+
+	if(!empty($tmpVariable))
+	{
+		foreach($tmpVariable as $key=>$value)
+		{
+			$$key= $value;
+		}
+	}
+
+	include(__DIR__.'/../themes/'.$themeActive.'/sidebar.php');
+}
+
 function getFileTheme($file)
 {	
-	global $themeActive;
-	global $tmpVariable;
+	global $variableGlobal;
+	
+	foreach($variableGlobal as $variable){
+		global $$variable;
+	}
 
 	if(!empty($tmpVariable))
 	{
@@ -230,20 +321,20 @@ function mantan_header()
 	echo '  <meta name="generator" content="Mantan Source'.$infoMantanSource['verName'].'" />
 			<meta name="application-name" content="Mantan Source '.$infoMantanSource['verName'].'">
 			<meta name="Publisher" CONTENT="Mantan Source '.$infoMantanSource['verName'].'">
-	'.@$infoSite['Option']['value']['embedScript'];
+	'.@$infoSite['code_script'];
 }	
 
-function saveSlugURL($slug='', $controller='', $action='')
+function saveSlugURL($slug='', $controllerAction='', $action='')
 {
 	global $controller;
 
-	if(!empty($slug) && !empty($controller) && !empty($action)){
+	if(!empty($slug) && !empty($controllerAction) && !empty($action)){
 		$modelSlugs = $controller->loadModel('Slugs');
 
 		$infoSlug = $modelSlugs->newEmptyEntity();
 
 		$infoSlug->slug = $slug;
-		$infoSlug->controller = $controller;
+		$infoSlug->controller = $controllerAction;
 		$infoSlug->action = $action;
 
 		$modelSlugs->save($infoSlug);
@@ -274,10 +365,10 @@ function deleteSlugURL($slug='')
 
 	if(!empty($slug)){
 		$conditions = array('slug' => $slug);
-        $data = $modelSlugs->find()->where($conditions)->all()->toList();
+        $data = $modelSlugs->find()->where($conditions)->first();
 			
-		if($data){
-         	$modelSlugs->delete($data[0]);
+		if(!empty($data)){
+         	$modelSlugs->delete($data);
         }
 	}
 }

@@ -17,7 +17,7 @@
                   <div class="mb-3">
                     <label class="form-label">Chiến dịch thi đua (*)</label>
                     <div class="input-group input-group-merge">
-                      <select required class="form-control" name="id_compete" id="id_compete">
+                      <select required class="form-select" name="id_compete" id="id_compete">
                         <option value="">Chọn chiến dịch</option>
                         <?php 
                         if(!empty($listCompete)){
@@ -42,7 +42,7 @@
                   <div class="mb-3">
                     <label class="form-label">Kiểu mục tiêu</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="type" id="type">
+                      <select class="form-select" name="type" id="type">
                         <option value="one" <?php if(!empty($data->type) && $data->type=='one') echo 'selected'; ?> >Thực hiện 1 lần</option>
                         <option value="multiple" <?php if(!empty($data->type) && $data->type=='multiple') echo 'selected'; ?> >Thực hiện nhiều lần</option>
                       </select>
@@ -61,7 +61,7 @@
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="status" id="status">
+                      <select class="form-select" name="status" id="status">
                         <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>

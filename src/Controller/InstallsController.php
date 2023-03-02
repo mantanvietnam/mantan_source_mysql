@@ -21,6 +21,8 @@ class InstallsController extends AppController{
 
 		$sql .= "CREATE TABLE `slugs` ( `id` INT NOT NULL AUTO_INCREMENT , `slug` VARCHAR(255) NOT NULL , `controller` VARCHAR(255) NOT NULL , `action` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
+		$sql .= "CREATE TABLE `menus` ( `id` INT NOT NULL AUTO_INCREMENT , `id_menu` INT NOT NULL , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , `link` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , `description` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL , `id_parent` INT NOT NULL , `weighty` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
 		// chèn dữ liệu mẫu
 		$sql .= "INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`) VALUES (NULL, 'admin', '0c909a141f1f2c0a1cb602b0b2d7d050', 'Trần Mạnh', 'tranmanhbk179@gmail.com'); ";
 

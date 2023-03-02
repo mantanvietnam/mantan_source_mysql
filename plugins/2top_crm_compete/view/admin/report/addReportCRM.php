@@ -21,7 +21,7 @@
 
                   <div class="mb-3">
                     <label class="form-label">Chiến dịch thi đua (*)</label>
-                    <select required class="form-control" name="id_compete" id="id_compete" onchange="showTarget();">
+                    <select required class="form-select" name="id_compete" id="id_compete" onchange="showTarget();">
                         <option value="">Chọn chiến dịch</option>
                         <?php 
                         if(!empty($listCompete)){
@@ -39,7 +39,7 @@
 
                   <div class="mb-3">
                     <label class="form-label">Mục tiêu thi đua (*)</label>
-                    <select required class="form-control" name="id_target" id="id_target" onchange="chooseTarget();">
+                    <select required class="form-select" name="id_target" id="id_target" onchange="chooseTarget();">
                         <option value="">Chọn mục tiêu</option>
                     </select>
                   </div>
@@ -53,7 +53,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Người báo cáo (*)</label>
-                    <select required class="form-control" name="id_customer" id="id_customer">
+                    <select required class="form-select" name="id_customer" id="id_customer">
                       <option value="">Chọn người báo cáo</option>
                       <?php 
                       if(!empty($listCustomer)){

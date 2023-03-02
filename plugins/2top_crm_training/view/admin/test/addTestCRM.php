@@ -17,7 +17,7 @@
                   <div class="mb-3">
                     <label class="form-label">Bài học (*)</label>
                     <div class="input-group input-group-merge">
-                      <select required class="form-control" name="id_lesson" id="id_lesson">
+                      <select required class="form-select" name="id_lesson" id="id_lesson">
                         <option value="">Chọn bài học</option>
                         <?php 
                         if(!empty($listLesson)){
@@ -55,7 +55,7 @@
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="status" id="status">
+                      <select class="form-select" name="status" id="status">
                         <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>

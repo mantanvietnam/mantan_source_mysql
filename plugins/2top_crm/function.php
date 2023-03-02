@@ -6,6 +6,12 @@ $menus[0]['sub'][0]= array(	'title'=>'Khách hàng',
 							'classIcon'=>'bx bxs-user-detail',
 							'permission'=>'listCustomerCRM'
 						);
+
+$menus[0]['sub'][1]= array( 'title'=>'Hướng dẫn APIs',
+                            'url'=>'/plugins/admin/2top_crm-view-admin-guide-guideCustomerAPIsCRM.php',
+                            'classIcon'=>'bx bx-support',
+                            'permission'=>'guideCustomerAPIsCRM'
+                        );
 /*
 $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'url'=>'/',

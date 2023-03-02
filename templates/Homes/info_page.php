@@ -1,6 +1,9 @@
 <?php 
-global $tmpVariable;
-global $themeActive;
+global $variableGlobal;
+	
+foreach($variableGlobal as $variable){
+	global $$variable;
+}
 
 if(!empty($tmpVariable)){
 	foreach($tmpVariable as $key=>$value){
@@ -8,5 +11,5 @@ if(!empty($tmpVariable)){
 	}
 }
 
-include_once(__DIR__.'/../../themes/'.$themeActive.'/page.php');
+include_once(__DIR__.'/../../themes/'.$themeActive.'/post.php');
 ?>

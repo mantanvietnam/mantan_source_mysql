@@ -117,15 +117,18 @@ function addTestCRM($input)
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
             $number = 0;
-            do{
-            	$conditions = array('slug'=>$slugNew);
-    			$listData = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-    			if(!empty($listData)){
-    				$number++;
-    				$slugNew = $slug.'-'.$number;
-    			}
-            }while (!empty($listData));
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
 
             $data->slug = $slugNew;
 
@@ -196,138 +199,4 @@ function deleteTestCRM($input){
 	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-test-listTestCRM.php');
 }
 
-// for home
-function testOnline($input)
-{
-    global $controller;
-    global $isRequestPost;
-    global $modelOptions;
-
-    $modelTests = $controller->loadModel('Tests');
-    $modelQuestions = $controller->loadModel('Questions');
-    $modelHistoryTests = $controller->loadModel('Historytests');
-    $modelCustomers = $controller->loadModel('Customers');
-
-    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
-        if(!empty($_GET['id'])){
-            $conditions = array('id'=>$_GET['id']);
-        }else{
-            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
-            $conditions = array('slug'=>$slug);
-        }
-        
-        $data = $modelTests->find()->where($conditions)->order(['id' => 'DESC'])->first();
-
-        if(!empty($data)){
-            if(empty($dataSend['answer'])) $dataSend['answer'] = [];
-
-            $conditionsSetting = array('key_word' => 'settingTraining2TOPCRM');
-            $settingTraining2TOPCRM = $modelOptions->find()->where($conditionsSetting)->first();
-            if(empty($settingTraining2TOPCRM)){
-                $settingTraining2TOPCRM = $modelOptions->newEmptyEntity();
-            }
-
-            $setting_value = array();
-            if(!empty($settingTraining2TOPCRM->value)){
-                $setting_value = json_decode($settingTraining2TOPCRM->value, true);
-            }
-
-            $conditionsQuestion = array('id_test'=>(int) $data->id);
-            $questions = $modelQuestions->find()->where($conditionsQuestion)->all()->toList();
-
-            $total_true = 0;
-            $point = 0;
-            $number_question = count($questions);
-            $answer_true= [];
-
-            if(!empty($questions)){
-                // đảo ngẫu nhiên câu hỏi
-                shuffle($questions);
-
-                foreach ($questions as $key => $value) {
-                    $answer_true[$value->id] = $value->option_true;
-                }
-            }
-
-            $submit = false;
-            if($isRequestPost){
-                $submit = true;
-                $dataSend = $input['request']->getData();
-
-                if(!empty($dataSend['answer'])){
-                    foreach ($dataSend['answer'] as $idQuestion => $option_choose) {
-                        if($option_choose == $answer_true[$idQuestion]){
-                            $total_true++;
-                        }
-                    }
-                }
-
-                $point = $total_true * 10/$number_question;
-
-                // lưu lịch sử thi
-                if(!empty($_GET['id_customer'])){
-                    $info_customer = $modelCustomers->get($_GET['id_customer']);
-                }
-
-                if(empty($info_customer)){
-                    if(!empty($_GET['id_messenger'])){
-                        $conditionsCustomer = array('id_messenger' => $_GET['id_messenger']);
-                        $info_customer = $modelCustomers->find()->where($conditionsCustomer)->first();
-
-                        $_GET['id_customer'] = @$info_customer->id;
-                    }
-                }
-
-                if(!empty($_GET['id_customer'])){
-                    $conditionsHistory['id_customer'] = (int) $_GET['id_customer'];
-                    $conditionsHistory['id_test'] = (int) $data->id;
-                    
-                    $history = $modelHistoryTests->find()->where($conditionsHistory)->first();
-                    if(empty($history)){
-                        $history = $modelHistoryTests->newEmptyEntity();
-                    }
-
-                    $history->id_customer = @$_GET['id_customer'];
-                    $history->id_test = $data->id;
-                    $history->point = $point;
-                    $history->total_true = $total_true;
-                    $history->number_question = $number_question;
-                    $history->time_start = @$dataSend['time_start'];
-                    $history->time_end = time();
-
-                    $modelHistoryTests->save($history);
-                }
-
-                // gửi thông báo cho smax.bot
-                $idMessenger = @$_GET['idMessenger'];
-                if(!empty($setting_value['idBot']) && !empty($setting_value['tokenBot']) && !empty($setting_value['idBlock']) && !empty($idMessenger) ){
-                    $attributesSmax['point_true'] = $total_true;
-                    $attributesSmax['point_total'] = $number_question;
-                    $attributesSmax['point'] = $point*10;
-
-                    $urlSmax = 'https://api.smax.bot/bots/' . $setting_value['idBot'] . '/users/' . $idMessenger . '/send?bot_token=' . $setting_value['tokenBot'] . '&block_id=' . $setting_value['idBlock'] . '&messaging_tag="CONFIRMED_EVENT_UPDATE"';
-
-                    $sendSmax = sendDataConnectMantan($urlSmax, $attributesSmax);
-                }
-
-                setVariable('answer', $dataSend['answer']);
-                setVariable('answer_true', $answer_true);
-            }
-
-
-            
-            setVariable('data', $data);
-            setVariable('questions', $questions);
-            setVariable('submit', $submit);
-            setVariable('point', $point);
-            setVariable('total_true', $total_true);
-            setVariable('number_question', $number_question);
-            setVariable('setting_value', $setting_value);
-        }else{
-            return $controller->redirect('/?error=emptyDataTest');
-        }
-    }else{
-        return $controller->redirect('/?error=emptySlugTest');
-    }
-}
 ?>

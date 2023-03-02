@@ -17,7 +17,7 @@
                   <div class="mb-3">
                     <label class="form-label">Sự kiện từ thiện (*)</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="id_charity" id="id_charity" required>
+                      <select class="form-select" name="id_charity" id="id_charity" required>
                         <?php 
                           if(!empty($listCharities)){
                             foreach ($listCharities as $item) {
@@ -59,6 +59,11 @@
                   <div class="mb-3">
                     <label class="form-label">Hình đại diện</label>
                     <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Hình lưu niệm</label>
+                    <?php showUploadFile('image','image',@$data->image,1);?>
                   </div>
 
                   <div class="mb-3">

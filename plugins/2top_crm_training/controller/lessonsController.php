@@ -100,20 +100,26 @@ function addLessonCRM($input)
 	        $data->image = $dataSend['image'];
 	        $data->status = $dataSend['status'];
 	        $data->description = $dataSend['description'];
+            $data->author = $dataSend['author'];
+            $data->youtube_code = $dataSend['youtube_code'];
+            $data->time_learn = (int) @$dataSend['time_learn'];
 
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
             $number = 0;
-            do{
-            	$conditions = array('slug'=>$slugNew);
-    			$listData = $modelLesson->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
-    			if(!empty($listData)){
-    				$number++;
-    				$slugNew = $slug.'-'.$number;
-    			}
-            }while (!empty($listData));
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelLesson->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
 
             $data->slug = $slugNew;
 

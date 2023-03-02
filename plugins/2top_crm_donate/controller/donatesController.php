@@ -107,6 +107,7 @@ function addDonateCharityCRM($input)
 	        $data->phone = $dataSend['phone'];
 	        $data->email = $dataSend['email'];
 	        $data->avatar = $dataSend['avatar'];
+	        $data->image = $dataSend['image'];
 	        $data->id_customer = 0;
 
 	        if(!empty($dataSend['phone'])){
@@ -141,6 +142,8 @@ function addDonateCharityCRM($input)
 
 		        	$modelCharity->save($infoCharity);
 		        }
+		    }else{
+		    	calculateMoney((int) $dataSend['id_charity']);
 		    }
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -166,17 +169,11 @@ function deleteDonateCharityCRM($input){
 		$data = $modelDonate->get($_GET['id']);
 		
 		if($data){
-			// cập nhập lại số tiền của chương trình từ thiện
-	        $infoCharity = $modelCharity->get( (int) $data->id_charity);
-	        if(!empty($infoCharity)){
-	        	$infoCharity->person_donate --;
-	        	$infoCharity->money_donate -= $data->coin;
-
-	        	$modelCharity->save($infoCharity);
-	        }
-
-	        // xóa lịch sử đóng góp
+			// xóa lịch sử đóng góp
          	$modelDonate->delete($data);
+
+         	// cập nhập lại số tiền của chương trình từ thiện
+			calculateMoney((int) $data->id_charity);
         }
 	}
 

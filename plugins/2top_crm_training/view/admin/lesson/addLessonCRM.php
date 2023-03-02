@@ -22,7 +22,7 @@
                   <div class="mb-3">
                     <label class="form-label">Danh mục</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="id_category" id="id_category">
+                      <select class="form-select" name="id_category" id="id_category">
                         <option value="">Chọn danh mục</option>
                         <?php 
                           foreach ($listCategory as $key => $item) {
@@ -40,11 +40,21 @@
                   <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="status" id="status">
+                      <select class="form-select" name="status" id="status">
                         <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Mã video Youtube</label>
+                    <input type="text" class="form-control phone-mask" name="youtube_code" id="youtube_code" value="<?php echo @$data->youtube_code;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Số lượt xem</label>
+                    <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
                   </div>
                 </div>
 
@@ -52,6 +62,16 @@
                   <div class="mb-3">
                     <label class="form-label">Hình minh họa</label>
                     <?php showUploadFile('image','image',@$data->image,0);?>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Người đào tạo</label>
+                    <input type="text" class="form-control phone-mask" name="author" id="author" value="<?php echo @$data->author;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Thời gian học (phút)</label>
+                    <input required type="number" class="form-control phone-mask" name="time_learn" id="time_learn" value="<?php echo @$data->time_learn;?>" />
                   </div>
 
                   <div class="mb-3">

@@ -14,6 +14,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
 	body {
@@ -126,38 +129,106 @@
 
 
 </style>
-<body>
+<body style="background-color: <?php echo @$setting_value['backgroundColor']; ?>;">
 	<div class="container" style="margin: 0 auto;max-width: 100%;padding-top: 15px;">
 		<center class="manmo_spiner">
 			<img src="<?php echo @$setting_value['logo']; ?>">
 
 			<h3 class="text-center" style="color: <?php echo @$setting_value['textColor']; ?>;">
 				<i class="fa fa-star" aria-hidden="true"></i>
-				<b>DANH SÁCH NGƯỜI ĐÓNG GÓP</b>
+				<b style="font-size: 16px;">DANH SÁCH NGƯỜI ĐÓNG GÓP</b>
 				<i class="fa fa-star" aria-hidden="true"></i>
 			</h3>
 
 			<p class="text-center" style="color: <?php echo @$setting_value['textColor']; ?>;">
 				<b><?php echo $data->title;?></b>
 			</p>
+			<p class="text-center" style="color: <?php echo @$setting_value['textColor']; ?>;">
+				<?php echo 'Diễn ra từ '.date('d/m/Y', $data->time_event_start).' đến '.date('d/m/Y', $data->time_event_end);?> 
+			</p>
+			<p class="text-center" style="color: <?php echo @$setting_value['textColor']; ?>;">
+				Tổng số người quyên góp: <b><?php echo number_format(count($donates));?> người</b>
+			</p>
+			<p class="text-center" style="color: <?php echo @$setting_value['textColor']; ?>;">
+				Tổng số tiền quyên góp: <b><?php echo number_format($data->money_donate);?>đ</b>
+			</p>
+			<p>
+				<button type="button" class="btn btn-warning" onclick="$('#slideImageDonate').modal('show');">Xem hình ảnh</button>
+			</p>
+
 		</center>
   		<div class="row justify-content-center">
   			<div class="col-12 col-xs-12 col-sm-8 col-md-6 col-lg-6 col-xl-6">
-  				<div class="wr_list_user_hist">
-	      			<ol class="wr_fowhidden" style="color: <?php echo @$setting_value['textColor']; ?>;">
-	      				<?php
-	      				if(!empty($donates)){
-	      					foreach($donates as $item){
-	      						echo '<li>'.$item->full_name.' ('.$item->phone.')</li>';
-	      					}
-	      				}
-	      				?>
-	      			</ol>
+  				<div class="wr_list_user_hist" style="color: <?php echo @$setting_value['textColor']; ?>;">
+	      			<div class="table-responsive">
+		      			<table class="table table-bordered" style="border-color: <?php echo @$setting_value['textColor']; ?>; color: <?php echo @$setting_value['textColor']; ?>;">
+		      				<?php
+		      				if(!empty($donates)){
+		      					$stt = 0;
+		      					foreach($donates as $item){
+		      						$stt++;
+		      						echo '	<tr>
+		      									<td class="text-center align-middle">'.number_format($stt).'</td>
+		      									<td class="text-center align-middle"><img src="'.$item->avatar.'" width="100" /></td>
+		      									<td class="text-center align-middle text-nowrap" >'.$item->full_name.'</td>							
+		      									<td class="text-center align-middle">******'.substr($item->phone, -4).'</td>
+												<td class="text-center align-middle text-nowrap" >'.number_format($item->coin).'đ'.'</td>
+		      								</tr>';
+		      					}
+		      				}
+		      				?>
+		      			</table>
+		      		</div>
 	      		</div>
     		</div>
   		</div>
 	</div>
 	
+	<div class="modal" id="slideImageDonate" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Hình ảnh sự kiện</h5>
+	      </div>
+	      <div class="modal-body">
+	        <div class="owl-carousel owl-theme">
+	        	<?php
+  				if(!empty($donates)){
+  					foreach($donates as $item){
+  						if(!empty($item->image)){
+	  						echo '<div class="item"><img src="'.$item->image.'" width="100%" /></div>';
+	  					}
+  					}
+  				}
+  				?>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#slideImageDonate').modal('hide');">Đóng</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<script type="text/javascript">
+		$('.owl-carousel').owlCarousel({
+		    loop:true,
+		    center:true,
+		    margin:10,
+		    autoplay:true,
+		    responsive:{
+		        0:{
+		            items:1
+		        },
+		        600:{
+		            items:1
+		        },
+		        1000:{
+		            items:3
+		        }
+		    }
+		})
+	</script>
 </body>
 </html>
 

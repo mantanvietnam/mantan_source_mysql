@@ -49,10 +49,14 @@ class AppController extends Controller
         global $session;
         global $modelOptions;
         global $modelCategories;
+        global $modelPosts;
         global $urlCurrent;
         global $isRequestPost;
         global $controller;
         global $csrfToken;
+        global $infoSite;
+        global $contactSite;
+        global $smtpSite;
 
         $session = $this->request->getSession();
         $urlCurrent = $_SERVER['REQUEST_URI'];
@@ -64,6 +68,32 @@ class AppController extends Controller
         // load model hệ thống
         $modelOptions = $this->loadModel('Options');
         $modelCategories = $this->loadModel('Categories');
+        $modelPosts = $this->loadModel('Posts');
+
+        // load cấu hình web
+        $contactSite = $modelOptions->newEmptyEntity();
+        $contactSite = $modelOptions->find()->where(array('key_word' => 'contact_site'))->first();
+        $contact_site_value = array();
+        if(!empty($contactSite->value)){
+            $contact_site_value = json_decode($contactSite->value, true);
+        }
+        $contactSite = $contact_site_value;
+
+        $infoSite = $modelOptions->newEmptyEntity();
+        $infoSite = $modelOptions->find()->where(array('key_word' => 'seo_site'))->first();
+        $info_site_value = array();
+        if(!empty($infoSite->value)){
+            $info_site_value = json_decode($infoSite->value, true);
+        }
+        $infoSite = $info_site_value;
+
+        $smtpSite = $modelOptions->newEmptyEntity();
+        $smtpSite = $modelOptions->find()->where(array('key_word' => 'smtp_site'))->first();
+        $smtp_site_value = array();
+        if(!empty($smtpSite->value)){
+            $smtp_site_value = json_decode($smtpSite->value, true);
+        }
+        $smtpSite = $smtp_site_value;
         
         // load plugin đã cài đặt
         $conditions = array('key_word' => 'plugins_site');

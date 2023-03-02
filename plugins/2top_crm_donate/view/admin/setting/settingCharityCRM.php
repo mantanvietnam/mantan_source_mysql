@@ -28,11 +28,15 @@
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Màu chữ</label>
+                    <label class="form-label">Mã màu chữ</label>
                     <input type="text" class="form-control phone-mask" name="textColor" id="textColor" value="<?php echo @$data_value['textColor'];?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Mã màu nền</label>
+                    <input type="text" class="form-control phone-mask" name="backgroundColor" id="backgroundColor" value="<?php echo @$data_value['backgroundColor'];?>" />
+                  </div>
                 </div>
-                
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button>

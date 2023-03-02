@@ -50,13 +50,20 @@ return static function (RouteBuilder $routes) {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
+        include('routes_slugs.php');
+
         $builder->connect('/', ['controller' => 'Homes', 'action' => 'index']);
+
+        $builder->connect('/apis/updateLinkMenu', ['controller' => 'Apis', 'action' => 'updateLinkMenu']);
+
+        $builder->connect('/menus/delete', ['controller' => 'Menus', 'action' => 'delete']);
 
         $builder->connect('/admins', ['controller' => 'Admins', 'action' => 'index']);
         $builder->connect('/admins/login', ['controller' => 'Admins', 'action' => 'login']);
         $builder->connect('/admins/logout', ['controller' => 'Admins', 'action' => 'logout']);
 
         $builder->connect('/options/infoSite', ['controller' => 'Options', 'action' => 'infoSite']);
+        $builder->connect('/options/menus', ['controller' => 'Options', 'action' => 'menus']);
 
         $builder->connect('/options/plugins', ['controller' => 'Options', 'action' => 'plugins']);
         $builder->connect('/options/activePlugin', ['controller' => 'Options', 'action' => 'activePlugin']);
@@ -79,14 +86,18 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/pages/list', ['controller' => 'Posts', 'action' => 'list_page']);
         $builder->connect('/pages/add', ['controller' => 'Posts', 'action' => 'add_page']);
         $builder->connect('/pages/delete', ['controller' => 'Posts', 'action' => 'delete_page']);
-        $builder->connect('/pages/info/*', ['controller' => 'Homes', 'action' => 'info_page']);
+
+        $builder->connect('/search/*', ['controller' => 'Homes', 'action' => 'search']);
+        $builder->connect('/posts/info/*', ['controller' => 'Homes', 'action' => 'info_page']);
+        $builder->connect('/posts/category/*', ['controller' => 'Homes', 'action' => 'category_post']);
+        $builder->connect('/posts/', ['controller' => 'Homes', 'action' => 'category_post']);
+        $builder->connect('/albums/category/*', ['controller' => 'Homes', 'action' => 'category_album']);
+        $builder->connect('/videos/category/*', ['controller' => 'Homes', 'action' => 'category_video']);
 
         $builder->connect('/apis/*', ['controller' => 'Apis', 'action' => 'index']);
 
         $builder->connect('/plugins/admin/*', ['controller' => 'Plugins', 'action' => 'admin']);
         $builder->connect('/*', ['controller' => 'Plugins', 'action' => 'index']);
-
-        include('routes_slugs.php');
         
         /*
          * Connect catchall routes for all controllers.

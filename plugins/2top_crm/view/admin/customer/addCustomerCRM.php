@@ -37,7 +37,7 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Giới tính</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="sex" id="sex">
+                      <select class="form-select" name="sex" id="sex">
                         <option value="1" <?php if(!empty($data->sex) && $data->sex=='1') echo 'selected'; ?> >Nam</option>
                         <option value="0" <?php if(isset($data->sex) && $data->sex=='0') echo 'selected'; ?> >Nữ</option>
                       </select>
@@ -47,7 +47,7 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Trạng thái</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="status" id="status">
+                      <select class="form-select" name="status" id="status">
                         <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>
@@ -69,7 +69,7 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Thành phố</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-control" name="id_city" id="id_city">
+                      <select class="form-select" name="id_city" id="id_city">
                         <?php 
                           $listCity = getListCity();
                           foreach ($listCity as $key => $city) {
