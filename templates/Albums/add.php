@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/posts/list">Bài viết</a> /</span>
-    Thông tin bài viết
+    <span class="text-muted fw-light"><a href="/albums/list">Album ảnh</a> /</span>
+    Thông tin album hình ảnh
   </h4>
 
   <!-- Basic Layout -->
@@ -19,30 +19,23 @@
                 </div>
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label">Tác giả</label>
-                  <input type="text" class="form-control" name="author" value="<?php echo @$infoPost->author;?>" />
-                </div>
-
-                <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label">Ghim lên đầu</label>
-                  <div class="row">
-                    <div class="col-6">
-                      <input type="radio" name="pin" value="1" <?php if(!empty($infoPost->pin) && $infoPost->pin==1) echo 'checked';?> /> Có 
-                    </div>
-                    <div class="col-6">
-                      <input type="radio" name="pin" value="0" <?php if(empty($infoPost->pin)) echo 'checked';?> /> Không 
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mb-3 col-12 col-sm-12 col-md-12">
                   <label class="form-label">Thời gian đăng *</label>
-                  <input type="text" class="form-control datepicker" name="date" value="<?php if(empty($infoPost->time)) $infoPost->time = time();echo date('d/m/Y', $infoPost->time);?>" required />
+                  <input type="text" class="form-control datepicker" name="date" value="<?php if(empty($infoPost->time_create)) $infoPost->time_create = time();echo date('d/m/Y', $infoPost->time_create);?>" required />
                 </div>
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
                   <label class="form-label">Hình minh họa *</label>
                   <?php showUploadFile('image','image',@$infoPost->image,0);?>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-email">Trạng thái</label>
+                  <div class="input-group input-group-merge">
+                    <select class="form-select" name="status" id="status">
+                      <option value="active" <?php if(!empty($infoPost->status) && $infoPost->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                      <option value="lock" <?php if(!empty($infoPost->status) && $infoPost->status=='lock') echo 'selected'; ?> >Khóa</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -54,7 +47,7 @@
                     <?php 
                       if(!empty($listCategory)){
                         foreach ($listCategory as $key => $value) {
-                          if(empty($infoPost->idCategory) || $infoPost->idCategory!=$value->id){
+                          if(empty($infoPost->id_category) || $infoPost->id_category!=$value->id){
                             echo '<option value="'.$value->id.'">'.$value->name.'</option>';
                           }else{
                             echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
@@ -66,24 +59,20 @@
                 </div>
 
                 <div class="mb-3 col-12 col-sm-12 col-md-12">
-                  <label class="form-label">Từ khóa</label>
-                  <input type="text" class="form-control" name="keyword" value="<?php echo @$infoPost->keyword;?>" />
+                  <label class="form-label">Tác giả</label>
+                  <input type="text" class="form-control" name="author" value="<?php echo @$infoPost->author;?>" />
                 </div>
 
+                
+
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-message">Mô tả ngắn *</label>
-                  <textarea class="form-control" name="description" required rows="5"><?php echo @$infoPost->description;?></textarea>
+                  <label class="form-label" for="basic-default-message">Mô tả ngắn</label>
+                  <textarea class="form-control" name="description" rows="5"><?php echo @$infoPost->description;?></textarea>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-12">
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-message">Nội dung bải viết</label>
-                  <?php showEditorInput('content', 'content', @$infoPost->content);?>
-                </div>
-              </div>
             </div>
-            <button type="submit" class="btn btn-primary">Lưu bài viết</button>
+            <button type="submit" class="btn btn-primary">Lưu thông tin</button>
           <?= $this->Form->end() ?>
         </div>
       </div>

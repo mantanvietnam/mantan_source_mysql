@@ -87,12 +87,22 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/pages/add', ['controller' => 'Posts', 'action' => 'add_page']);
         $builder->connect('/pages/delete', ['controller' => 'Posts', 'action' => 'delete_page']);
 
+        $builder->connect('/albums/list', ['controller' => 'Albums', 'action' => 'list']);
+        $builder->connect('/albums/add', ['controller' => 'Albums', 'action' => 'add']);
+        $builder->connect('/albums/delete', ['controller' => 'Albums', 'action' => 'delete']);
+
+        $builder->connect('/albuminfos/list', ['controller' => 'Albuminfos', 'action' => 'list']);
+        $builder->connect('/albuminfos/add', ['controller' => 'Albuminfos', 'action' => 'add']);
+        $builder->connect('/albuminfos/delete', ['controller' => 'Albuminfos', 'action' => 'delete']);
+
+        $builder->connect('/videos/list', ['controller' => 'Videos', 'action' => 'list']);
+        $builder->connect('/videos/add', ['controller' => 'Videos', 'action' => 'add']);
+        $builder->connect('/videos/delete', ['controller' => 'Videos', 'action' => 'delete']);
+
         $builder->connect('/search/*', ['controller' => 'Homes', 'action' => 'search']);
-        $builder->connect('/posts/info/*', ['controller' => 'Homes', 'action' => 'info_page']);
-        $builder->connect('/posts/category/*', ['controller' => 'Homes', 'action' => 'category_post']);
         $builder->connect('/posts/', ['controller' => 'Homes', 'action' => 'category_post']);
-        $builder->connect('/albums/category/*', ['controller' => 'Homes', 'action' => 'category_album']);
-        $builder->connect('/videos/category/*', ['controller' => 'Homes', 'action' => 'category_video']);
+        $builder->connect('/albums/', ['controller' => 'Homes', 'action' => 'category_album']);
+        $builder->connect('/videos/', ['controller' => 'Homes', 'action' => 'category_video']);
 
         $builder->connect('/apis/*', ['controller' => 'Apis', 'action' => 'index']);
 

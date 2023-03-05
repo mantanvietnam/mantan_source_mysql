@@ -1,5 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">THỐNG KÊ THI ĐUA</h4>
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php">Chiến dịch thi đua</a> /</span>
+    Thống kê thi đua
+  </h4>
   
   <!-- Responsive Table -->
   <div class="card">

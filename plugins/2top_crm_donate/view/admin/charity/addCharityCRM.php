@@ -1,6 +1,9 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Chương trình từ thiện</h4>
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_donate-view-admin-charity-listCharityCRM.php">Chương trình từ thiện</a> /</span>
+    Thông tin chương trình
+  </h4>
 
   <!-- Basic Layout -->
     <div class="row">

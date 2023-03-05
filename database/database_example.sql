@@ -1,71 +1,147 @@
--- Adminer 4.8.1 MySQL 5.7.34 dump
+-- phpMyAdmin SQL Dump
+-- version 5.1.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Generation Time: Mar 03, 2023 at 02:46 PM
+-- Server version: 5.7.34
+-- PHP Version: 7.4.21
 
-SET NAMES utf8;
-SET time_zone = '+00:00';
-SET foreign_key_checks = 0;
-SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-DROP TABLE IF EXISTS `admins`;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `savepdfwp`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `fullName` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`) VALUES
-(1,	'admin',	'0192023a7bbd73250516f069df18b500',	'Trần Mạnh',	'tranmanhbk179@gmail.com');
+--
+-- Dumping data for table `admins`
+--
 
-DROP TABLE IF EXISTS `categories`;
+INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`) VALUES
+(1, 'admin', '0192023a7bbd73250516f069df18b500', 'Trần Mạnh', 'tranmanhbk179@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albuminfos`
+--
+
+CREATE TABLE `albuminfos` (
+  `id` int(11) NOT NULL,
+  `id_album` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albums`
+--
+
+CREATE TABLE `albums` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `time_create` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `author` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `parent` int(11) NOT NULL DEFAULT '0',
   `image` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
   `keyword` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
   `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
   `type` varchar(255) NOT NULL,
-  `slug` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `slug` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `menus`;
+--
+-- Table structure for table `menus`
+--
+
 CREATE TABLE `menus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `link` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `id_parent` int(11) NOT NULL,
-  `weighty` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `weighty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `options`;
+--
+-- Table structure for table `options`
+--
+
 CREATE TABLE `options` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `key_word` varchar(255) NOT NULL,
   `value` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `version` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `version` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
-(2,	'seo_site',	'{\"title\":\"Mantan Source\",\"keyword\":\"\",\"description\":\"\",\"number_post\":\"10\",\"code_script\":\"\"}',	NULL),
-(3,	'contact_site',	'{\"phone\":\"0816560000\",\"email\":\"tranmanhbk179@gmail.com\",\"address\":\"\"}',	NULL),
-(4,	'smtp_site',	'{\"email\":\"mantansource@gmail.com\",\"pass\":\"mantansource\",\"display_name\":\"Mantan Source\",\"server\":\"ssl:\\/\\/smtp.gmail.com\",\"port\":\"465\"}',	NULL),
-(5,	'plugins_site',	'[]',	NULL),
-(6,	'theme_active_site',	'toptop',	NULL),
-(7,	'plugin_installed',	'[]',	NULL),
-(8,	'theme_installed',	'[\"toptop\"]',	NULL);
+--
+-- Dumping data for table `options`
+--
 
-DROP TABLE IF EXISTS `posts`;
+INSERT INTO `options` (`id`, `key_word`, `value`, `version`) VALUES
+(2, 'seo_site', '{\"title\":\"Mantan Source\",\"keyword\":\"\",\"description\":\"\",\"number_post\":\"10\",\"code_script\":\"\"}', NULL),
+(3, 'contact_site', '{\"phone\":\"0816560000\",\"email\":\"tranmanhbk179@gmail.com\",\"address\":\"\"}', NULL),
+(4, 'smtp_site', '{\"email\":\"mantansource@gmail.com\",\"pass\":\"mantansource\",\"display_name\":\"Mantan Source\",\"server\":\"ssl:\\/\\/smtp.gmail.com\",\"port\":\"465\"}', NULL),
+(5, 'plugins_site', '[]', NULL),
+(6, 'theme_active_site', 'toptop', NULL),
+(7, 'plugin_installed', '[]', NULL),
+(8, 'theme_installed', '[\"toptop\"]', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
 CREATE TABLE `posts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `title` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `keyword` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `pin` tinyint(1) NOT NULL,
@@ -77,19 +153,158 @@ CREATE TABLE `posts` (
   `slug` varchar(255) NOT NULL,
   `time` int(11) NOT NULL,
   `view` int(11) NOT NULL DEFAULT '0',
-  `type` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `slugs`;
+--
+-- Table structure for table `slugs`
+--
+
 CREATE TABLE `slugs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `controller` varchar(255) NOT NULL,
-  `action` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `action` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- 2023-02-25 17:27:06
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `time_create` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `author` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `youtube_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `albuminfos`
+--
+ALTER TABLE `albuminfos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `albums`
+--
+ALTER TABLE `albums`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menus`
+--
+ALTER TABLE `menus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `options`
+--
+ALTER TABLE `options`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `slugs`
+--
+ALTER TABLE `slugs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `albuminfos`
+--
+ALTER TABLE `albuminfos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `albums`
+--
+ALTER TABLE `albums`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `menus`
+--
+ALTER TABLE `menus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `options`
+--
+ALTER TABLE `options`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `slugs`
+--
+ALTER TABLE `slugs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

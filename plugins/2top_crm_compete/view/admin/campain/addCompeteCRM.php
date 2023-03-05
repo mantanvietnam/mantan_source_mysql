@@ -1,6 +1,9 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Chiến dịch thi đua</h4>
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_compete-view-admin-campain-listCompeteCRM.php">Chiến dịch thi đua</a> /</span>
+    Thông tin chiến dịch
+  </h4>
 
   <!-- Basic Layout -->
     <div class="row">

@@ -47,7 +47,7 @@ class HomesController extends AppController{
                 }
 
                 // lấy danh sách tin tức khác
-                $conditions = array('type'=>'post', 'id !='=>$data->id, 'type'=>$data->type);
+                $conditions = array('id !='=>$data->id, 'type'=>$data->type);
                 $limit = 3;
                 $page = 1;
                 $order = array('id'=>'desc');
@@ -232,6 +232,293 @@ class HomesController extends AppController{
         $this->set('urlPage', $urlPage);
 
         $this->set('listPosts', $listData);
+        $this->set('category', $category);
+    }
+
+    public function infoAlbum()
+    {
+        global $themeActive;
+        global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $modelAlbums = $this->loadModel('Albums');
+        $modelAlbuminfos = $this->loadModel('Albuminfos');
+
+        $slug= $_SERVER['REQUEST_URI'];
+       
+        if(!empty($slug)){
+            $slug = str_replace('.html', '', $slug);
+            $slug = str_replace('/', '', $slug);
+
+            $conditions = array('slug'=>$slug);
+
+            $data = $modelAlbums->find()->where($conditions)->first();
+        
+            if($data){
+                // lấy danh sách ảnh trong album
+                $conditions = array('id_album'=>$data->id);
+                $data->listImages = $modelAlbuminfos->find()->where($conditions)->all()->toList();
+
+                if(function_exists('albumTheme')){
+                    $url= '/themes/'.$themeActive.'/album.php';
+
+                    $input= array('fileProcess'=>$url,'request'=>$this->request);
+                    albumTheme($input);
+                }
+
+                // lấy danh sách album khác
+                $conditions = array('id !='=>$data->id);
+                $limit = 3;
+                $page = 1;
+                $order = array('id'=>'desc');
+                
+                $otherData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                $metaTitleMantan = $data->title;
+                $metaDescriptionMantan = $data->description;
+
+                $this->set('album', $data);
+                $this->set('otherAlbums', $otherData);
+            } else {
+                return $this->redirect('/');
+            }
+        } else {
+            return $this->redirect('/');
+        }
+    }
+
+    public function categoryAlbum()
+    {
+        global $themeActive;
+        global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+        global $urlCurrent;
+        global $modelCategories;
+        global $infoSite;
+
+        $modelAlbums = $this->loadModel('Albums');
+
+        $slug= $_SERVER['REQUEST_URI'];
+        $conditions = ['type'=>'post'];
+        $category = $modelCategories->newEmptyEntity();
+
+        if(!empty($slug)){
+            $slug = str_replace('.html', '', $slug);
+            $slug = str_replace('/', '', $slug);
+
+            $conditions = array('slug'=>$slug);
+
+            $category = $modelCategories->find()->where($conditions)->first();
+
+            if(!empty($category)){
+                $conditions = array('id_category'=>$category->id);
+            }else{
+                $category = $modelCategories->newEmptyEntity();
+            }
+        }
+
+        $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+
+        $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelAlbums->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        if(function_exists('categoryAlbumTheme')){
+            $url= '/themes/'.$themeActive.'/category_album.php';
+
+            $input= array('fileProcess'=>$url,'request'=>$this->request);
+            categoryAlbumTheme($input);
+        }
+
+        if(empty($category->name)) $category->name = 'Album hình ảnh';
+        if(empty($category->keyword)) $category->keyword = 'thư viện hình ảnh';
+        if(empty($category->description)) $category->description = 'Danh sách các album hình ảnh thuộc chuyên mục '.$category->name.' trang '.$page;
+
+        $metaTitleMantan = $category->name;
+        $metaKeywordsMantan = $category->keyword;
+        $metaDescriptionMantan = $category->description;
+
+        $this->set('page', $page);
+        $this->set('totalPage', $totalPage);
+        $this->set('back', $back);
+        $this->set('next', $next);
+        $this->set('urlPage', $urlPage);
+
+        $this->set('listAlbums', $listData);
+        $this->set('category', $category);
+    }
+
+    public function infoVideo()
+    {
+        global $themeActive;
+        global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $modelVideos = $this->loadModel('Videos');
+
+        $slug= $_SERVER['REQUEST_URI'];
+       
+        if(!empty($slug)){
+            $slug = str_replace('.html', '', $slug);
+            $slug = str_replace('/', '', $slug);
+
+            $conditions = array('slug'=>$slug);
+
+            $data = $modelVideos->find()->where($conditions)->first();
+        
+            if($data){
+                if(function_exists('videoTheme')){
+                    $url= '/themes/'.$themeActive.'/video.php';
+
+                    $input= array('fileProcess'=>$url,'request'=>$this->request);
+                    videoTheme($input);
+                }
+
+                // lấy danh sách album khác
+                $conditions = array('id !='=>$data->id);
+                $limit = 3;
+                $page = 1;
+                $order = array('id'=>'desc');
+                
+                $otherData = $modelVideos->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+                $metaTitleMantan = $data->title;
+                $metaDescriptionMantan = $data->description;
+
+                $this->set('video', $data);
+                $this->set('otherVideos', $otherData);
+            } else {
+                return $this->redirect('/');
+            }
+        } else {
+            return $this->redirect('/');
+        }
+    }
+
+    public function categoryVideo()
+    {
+        global $themeActive;
+        global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+        global $urlCurrent;
+        global $modelCategories;
+        global $infoSite;
+
+        $modelVideos = $this->loadModel('Videos');
+
+        $slug= $_SERVER['REQUEST_URI'];
+        $conditions = ['type'=>'post'];
+        $category = $modelCategories->newEmptyEntity();
+
+        if(!empty($slug)){
+            $slug = str_replace('.html', '', $slug);
+            $slug = str_replace('/', '', $slug);
+
+            $conditions = array('slug'=>$slug);
+
+            $category = $modelCategories->find()->where($conditions)->first();
+
+            if(!empty($category)){
+                $conditions = array('id_category'=>$category->id);
+            }else{
+                $category = $modelCategories->newEmptyEntity();
+            }
+        }
+
+        $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+
+        $listData = $modelVideos->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelVideos->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        if(function_exists('categoryAlbumTheme')){
+            $url= '/themes/'.$themeActive.'/category_album.php';
+
+            $input= array('fileProcess'=>$url,'request'=>$this->request);
+            categoryAlbumTheme($input);
+        }
+
+        if(empty($category->name)) $category->name = 'Videos';
+        if(empty($category->keyword)) $category->keyword = 'thư viện video';
+        if(empty($category->description)) $category->description = 'Danh sách các video thuộc chuyên mục '.$category->name.' trang '.$page;
+
+        $metaTitleMantan = $category->name;
+        $metaKeywordsMantan = $category->keyword;
+        $metaDescriptionMantan = $category->description;
+
+        $this->set('page', $page);
+        $this->set('totalPage', $totalPage);
+        $this->set('back', $back);
+        $this->set('next', $next);
+        $this->set('urlPage', $urlPage);
+
+        $this->set('listVideos', $listData);
         $this->set('category', $category);
     }
 }

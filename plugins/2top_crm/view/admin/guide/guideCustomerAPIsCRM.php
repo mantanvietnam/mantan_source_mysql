@@ -7,7 +7,7 @@
     <div class="row table-responsive">
       <div class="col-12">
         <div class="card-body">
-          <p class="text-danger">API lưu ủng hộ</p>
+          <p class="text-danger">API lưu khách hàng</p>
           <p>Link api: https://domain/apis/saveCustomerAPI</p>
           
           <p class="text-danger">Dữ liệu gửi đi</p>

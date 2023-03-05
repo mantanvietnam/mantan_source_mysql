@@ -1,6 +1,9 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Bài học</h4>
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php">Bài học</a> /</span>
+    Thông tin bài học
+  </h4>
 
   <!-- Basic Layout -->
     <div class="row">

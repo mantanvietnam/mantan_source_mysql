@@ -1,6 +1,9 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Câu hỏi trắc nghiệm</h4>
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM.php">Câu hỏi trắc nghiệm</a> /</span>
+    Nội dung câu hỏi
+  </h4>
 
   <!-- Basic Layout -->
     <div class="row">

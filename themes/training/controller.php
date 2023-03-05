@@ -127,4 +127,60 @@ function categoryPostTheme($input)
 
 }
 
+function categoryAlbumTheme($input)
+{
+
+}
+
+function categoryVideoTheme($input)
+{
+
+}
+
+function albumTheme($input)
+{
+    global $controller;
+    global $modelCategories;
+
+    $modelLesson = $controller->loadModel('Lessons');
+
+    // lấy danh mục đào tạo
+    $conditions = array('type' => '2top_crm_training');
+    $listCategoryLessons = $modelCategories->find()->where($conditions)->all()->toList();
+
+    // lấy danh sách bài học mới nhất
+    $conditions = array();
+    $limit = 5;
+    $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listLessons = $modelLesson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    setVariable('listCategoryLessons', $listCategoryLessons);
+    setVariable('listLessons', $listLessons);
+}
+
+function videoTheme($input)
+{
+    global $controller;
+    global $modelCategories;
+
+    $modelLesson = $controller->loadModel('Lessons');
+
+    // lấy danh mục đào tạo
+    $conditions = array('type' => '2top_crm_training');
+    $listCategoryLessons = $modelCategories->find()->where($conditions)->all()->toList();
+
+    // lấy danh sách bài học mới nhất
+    $conditions = array();
+    $limit = 5;
+    $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listLessons = $modelLesson->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    setVariable('listCategoryLessons', $listCategoryLessons);
+    setVariable('listLessons', $listLessons);
+}
+
 ?>
