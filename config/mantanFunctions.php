@@ -314,6 +314,9 @@ function mantan_header()
 	global $checkMantanHeader;
 	global $infoMantanSource;
 	global $infoSite;
+	global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
 
 	$checkMantanHeader= true;
 	$infoMantanSource['verName']= 'v2.0';
@@ -321,6 +324,42 @@ function mantan_header()
 	echo '  <meta name="generator" content="Mantan Source'.$infoMantanSource['verName'].'" />
 			<meta name="application-name" content="Mantan Source '.$infoMantanSource['verName'].'">
 			<meta name="Publisher" CONTENT="Mantan Source '.$infoMantanSource['verName'].'">
+
+			<meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+			<title>'.$metaTitleMantan.'</title>
+			<meta name="description" content="'.$metaDescriptionMantan.'" />
+			<meta name="keywords" content="'.$metaKeywordsMantan.'" />
+
+			<!-- Google / Search Engine Tags -->
+		  	<meta itemprop="name" content="'.$metaTitleMantan.'">
+		  	<meta itemprop="description" content="'.$metaDescriptionMantan.'">
+		  	<meta itemprop="image" content="'.@$infoSite['image_share'].'">
+		    
+		    <!-- Facebook Meta Tags -->
+			<meta property="og:title" content="'.$metaTitleMantan.'"/>
+			<meta property="og:type" content="website"/>
+			<meta property="og:description" content="'.$metaDescriptionMantan.'"/>
+			<meta property="og:url" content="https://manmo.vn/"/>
+			<meta property="og:site_name" content="'.$metaTitleMantan.'"/>
+			<meta property="og:image" content="'.@$infoSite['image_share'].'" />
+			<meta property="og:image:alt" content="Hình ảnh '.$metaTitleMantan.'" />
+			<meta property="fb:admins" content="" />
+			<meta property="fb:app_id" content="1695746487308818" /> 
+			<meta property="og:image:width" content="900" />
+			<meta property="og:image:height" content="603" />
+
+		    <!-- Twitter Meta Tags -->
+		    <meta name="twitter:card" content="summary_large_image">
+		    <meta name="twitter:title" content="'.$metaTitleMantan.'">
+		    <meta name="twitter:description" content="'.$metaDescriptionMantan.'">
+		    <meta name="twitter:image" content="'.@$infoSite['image_share'].'">
+				
+		    <!-- Favicon -->
+    		<link rel="icon" type="image/x-icon" href="'.@$infoSite['favicon'].'" />
+
 	'.@$infoSite['code_script'];
 }	
 

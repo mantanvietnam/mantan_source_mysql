@@ -6,7 +6,7 @@
     <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>
       <div class="row">
-        <div class="col-xl">
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Cài đặt SEO</h5>
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="col-xl">
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Thông tin liên hệ</h5>
@@ -86,7 +86,7 @@
           </div>
         </div>
 
-        <div class="col-xl">
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Cài đặt SMTP gửi email</h5>
@@ -126,6 +126,32 @@
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Cổng kết nối</label>
                   <input type="text" class="form-control" placeholder="465" name="smtp_port" value="<?php echo @$smtp_site_value['port'];?>" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Hình ảnh</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Logo</label>
+                  <?php showUploadFile('logo','logo', @$seo_site_value['logo'],1);?>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Ành minh họa khi chia sẻ</label>
+                  <?php showUploadFile('image_share','image_share', @$seo_site_value['image_share'],2);?>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Favicon</label>
+                  <?php showUploadFile('favicon','favicon', @$seo_site_value['favicon'],3);?>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>

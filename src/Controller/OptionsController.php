@@ -57,6 +57,9 @@ class OptionsController extends AppController{
                             'description' => $dataSend['description'],
                             'number_post' => $dataSend['number_post'],
                             'code_script' => $dataSend['code_script'],
+                            'logo' => $dataSend['logo'],
+                            'image_share' => $dataSend['image_share'],
+                            'favicon' => $dataSend['favicon'],
                         );
 
             $seo_site->key_word = 'seo_site';
