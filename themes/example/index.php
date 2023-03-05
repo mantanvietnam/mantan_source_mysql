@@ -1,0 +1,3 @@
+<?php getHeader();?>
+
+<?php getFooter();?>
