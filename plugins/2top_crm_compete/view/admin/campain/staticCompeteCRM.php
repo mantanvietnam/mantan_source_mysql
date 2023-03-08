@@ -8,7 +8,7 @@
   <div class="card">
     <h5 class="card-header"><?php echo $data->title;?></h5>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>STT</th>

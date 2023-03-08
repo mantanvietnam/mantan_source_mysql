@@ -53,10 +53,11 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
                         <li class="nav-item active">
-                            <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                            <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Khóa học</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/training">Khóa học</a>
+                            <!--
                             <ul class="lv-1">
                                 <li>
                                     <a href="nav-link" href="#">Menu lv2</a>
@@ -68,12 +69,19 @@
                                     <a href="nav-link" href="#">Menu lv2</a>
                                 </li>
                             </ul>
+                            -->
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Tin tức - Sự kiện</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posts">Tin tức - Sự kiện</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Cơ hội hợp tác</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/albums">Hình ảnh</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/videos">Video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Liên hệ</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center form-active-btn user-login-success">

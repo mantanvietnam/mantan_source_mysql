@@ -11,7 +11,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách hình ảnh trong album <b><?php echo $infoAlbum->title;?></b></h5>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Hình ảnh</th>

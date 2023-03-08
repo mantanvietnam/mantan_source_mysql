@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                  <table class="table">
+                  <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th>Tên chủ đề</th>

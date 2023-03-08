@@ -39,7 +39,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách lịch sử thi</h5>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>

@@ -1,0 +1,179 @@
+<!-- Helpers -->
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-product-listProduct.php">Sản phẩm</a> /</span>
+    Thông tin sản phẩm
+  </h4>
+
+  <!-- Basic Layout -->
+    <div class="row">
+      <div class="col-xl">
+        <div class="card mb-12">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Thông tin sản phẩm</h5>
+          </div>
+          <div class="card-body">
+            <p><?php echo $mess;?></p>
+            <?= $this->Form->create(); ?>
+              <div class="row">
+                <div class="col-12">
+                  <div class="nav-align-top mb-4">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+                          Mô tả sản phẩm
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-info" aria-controls="navs-top-info" aria-selected="false">
+                          Thông tin sản phẩm
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
+                          Hình ảnh
+                        </button>
+                      </li>
+                    </ul>
+
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="navs-top-home" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Tên sản phẩm (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="title" id="title" value="<?php echo @$data->title;?>" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Mã sản phẩm (*)</label>
+                              <input type="text" class="form-control phone-mask" name="code" id="code" value="<?php echo @$data->code;?>" required />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Danh mục (*)</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="id_category" id="id_category" required>
+                                  <option value="">Chọn danh mục</option>
+                                  <?php 
+                                  if(!empty($listCategory)){
+                                    foreach ($listCategory as $key => $item) {
+                                      if(empty($data->id_category) || $data->id_category!=$item->id){
+                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                      }
+                                    }
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Nhà sản xuất</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="id_manufacturer" id="id_manufacturer">
+                                  <option value="">Chọn nhà sản xuất</option>
+                                  <?php 
+                                  if(!empty($listManufacturer)){
+                                    foreach ($listManufacturer as $key => $item) {
+                                      if(empty($data->id_manufacturer) || $data->id_manufacturer!=$item->id){
+                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                      }
+                                    }
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Ghim lên đầu</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="hot" id="hot">
+                                  <option value="1" <?php if(!empty($data->hot) && $data->hot=='1') echo 'selected'; ?> >Có</option>
+                                  <option value="0" <?php if(empty($data->hot)) echo 'selected'; ?> >Không</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Trạng thái</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="status" id="status">
+                                  <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                  <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Số lượt xem</label>
+                              <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Từ khóa</label>
+                              <input type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword;?>" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Mô tả ngắn</label>
+                              <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Giá bán</label>
+                              <input type="text" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Giá bán cũ</label>
+                              <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Số lượng</label>
+                              <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label">Thông tin mô tả về sản phẩm</label>
+                              <?php showEditorInput('info', 'info', @$data->info);?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Hình minh họa</label>
+                              <?php showUploadFile('image','image',@$data->image,0);?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Lưu</button>
+            <?= $this->Form->end() ?>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>

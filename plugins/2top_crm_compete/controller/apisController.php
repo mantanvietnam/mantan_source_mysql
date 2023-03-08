@@ -7,7 +7,7 @@ function saveReportCompeteAPI($input)
 
 	$return = array('code'=>1,
 					'set_attributes'=>array(),
-					'messages'=>array('text'=>'')
+					'messages'=>array(array('text'=>''))
 				);
 	
 	if($isRequestPost){
@@ -57,13 +57,13 @@ function saveReportCompeteAPI($input)
 
 	        $return = array('code'=>0, 	
 						//'set_attributes'=>array('point_compete'=>$point_compete),
-						'messages'=>array('text'=>'Lưu thông tin thành công')
+						'messages'=>array(array('text'=>'Lưu thông tin thành công'))
 					);
             
 	    }else{
 	    	$return = array('code'=>2, 	
     						'set_attributes'=>array(),
-    						'messages'=>array('text'=>'Gửi thiếu dữ liệu')
+    						'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
     					);
 	    }
 	}

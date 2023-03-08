@@ -73,15 +73,15 @@ function addCustomer($data)
             if(!isset($data['sex'])) $data['sex'] = 1;
             if(empty($data['avatar'])) $data['avatar'] = 'https://quayso.xyz/app/Plugin/quayso/view/manager/img/avtar-default.png';
 
-            $save->full_name = $data['full_name'];
-            $save->phone = $data['phone'];
-            $save->email = @$data['email'];
-            $save->address = @$data['address'];
+            $save->full_name = (string) $data['full_name'];
+            $save->phone = (string) $data['phone'];
+            $save->email = (string) @$data['email'];
+            $save->address = (string) @$data['address'];
             $save->sex = (int) $data['sex'];
-            $save->id_city = @$data['id_city'];
-            $save->id_messenger = @$data['id_messenger'];
-            $save->avatar = $data['avatar'];
-            $save->status = $data['status'];
+            $save->id_city = (int) @$data['id_city'];
+            $save->id_messenger = (string) @$data['id_messenger'];
+            $save->avatar = (string) $data['avatar'];
+            $save->status = (string) $data['status'];
             $save->pass = md5($data['pass']);
             $save->id_parent = (int) @$data['id_parent'];
             $save->id_level = (int) @$data['id_level'];

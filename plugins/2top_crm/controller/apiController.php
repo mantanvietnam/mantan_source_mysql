@@ -7,7 +7,7 @@ function saveCustomerAPI($input)
 
 	$return = array('code'=>1,
 					'set_attributes'=>array('id_customer'=>0),
-					'messages'=>array('text'=>'')
+					'messages'=>array(array('text'=>''))
 				);
 	
 	if($isRequestPost){
@@ -28,9 +28,10 @@ function saveCustomerAPI($input)
 		if(empty($dataSend['pass'])) $dataSend['pass']= $dataSend['phone'];
 		if(empty($dataSend['id_parent'])) $dataSend['id_parent']= 0;
 		if(empty($dataSend['id_level'])) $dataSend['id_level']= 0;
+		if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
 
 		if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
-			if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
+			
 			$birthday_date = 0;
 			$birthday_month = 0;
 			$birthday_year = 0;
@@ -47,13 +48,13 @@ function saveCustomerAPI($input)
     								'email'=>@$dataSend['email'],
     								'address'=>@$dataSend['address'],
     								'sex'=>@$dataSend['sex'],
-    								'id_city'=>@$dataSend['id_city'],
+    								'id_city'=>(int) @$dataSend['id_city'],
     								'id_messenger'=>@$dataSend['id_messenger'],
     								'avatar'=>@$dataSend['avatar'],
     								'status'=>@$dataSend['status'],
     								'pass'=>@$dataSend['pass'],
-    								'id_parent'=>@$dataSend['id_parent'],
-    								'id_level'=>@$dataSend['id_level'],
+    								'id_parent'=>(int) @$dataSend['id_parent'],
+    								'id_level'=>(int) @$dataSend['id_level'],
     								
     								'birthday_date'=>(int) @$birthday_date,
     								'birthday_month'=>(int) @$birthday_month,
@@ -63,15 +64,49 @@ function saveCustomerAPI($input)
     		
     		$return = array('code'=>0, 
     						'set_attributes'=>array('id_customer'=>$id_customer),
-    						'messages'=>array('text'=>'Lưu thông tin thành công')
+    						'messages'=>array(array('text'=>'Lưu thông tin thành công'))
     					);
 		}else{
 			$return = array('code'=>2,
 					'set_attributes'=>array('id_customer'=>0),
-					'messages'=>array('text'=>'Gửi thiếu dữ liệu')
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
 				);
 		}
 	}
+
+	return $return;
+}
+
+function searchCustomerAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+
+	$return= array();
+	$modelCustomer = $controller->loadModel('Customers');
+
+	$dataSend = $_REQUEST;
+
+	if(!empty($dataSend['term'])){
+		/*
+		$conditions['OR'] = [
+        						['phone'=>$dataSend['term']], 
+        						['full_name LIKE'=>'%'.$dataSend['term'].'%']
+        					];
+		*/
+        $conditions = ['full_name LIKE'=>'%'.$dataSend['term'].'%'];
+
+        $listData= $modelCustomer->find()->where($conditions)->all()->toList();
+        
+        if($listData){
+            foreach($listData as $data){
+                $return[]= array('id'=>$data->id,'label'=>$data->full_name.' '.$data->phone,'value'=>$data->id,'full_name'=>$data->full_name,'phone'=>$data->phone,'email'=>$data->email);
+            }
+        }else{
+        	$return= array(array('id'=>0, 'label'=>'Không tìm được khách hàng', 'value'=>'', 'full_name'=>'', 'phone'=>'', 'email'=>''));
+        }
+    }
+	
 
 	return $return;
 }

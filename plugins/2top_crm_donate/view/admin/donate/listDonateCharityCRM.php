@@ -32,7 +32,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách đóng góp</h5>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Chương trình từ thiện</th>

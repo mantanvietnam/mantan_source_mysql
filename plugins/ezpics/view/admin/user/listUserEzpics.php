@@ -4,7 +4,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách người dùng</h5>
     <div class="table-responsive text-nowrap">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="text-nowrap">
             <th>Ngày tạo</th>

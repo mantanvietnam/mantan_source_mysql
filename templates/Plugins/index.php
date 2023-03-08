@@ -1,9 +1,12 @@
 <?php
-	global $tmpVariable;
-	if(!empty($tmpVariable))
-	{
-		foreach($tmpVariable as $key=>$value)
-		{
+	global $variableGlobal;
+	
+	foreach($variableGlobal as $variable){
+		global $$variable;
+	}
+
+	if(!empty($tmpVariable)){
+		foreach($tmpVariable as $key=>$value){
 			$$key= $value;
 		}
 	}

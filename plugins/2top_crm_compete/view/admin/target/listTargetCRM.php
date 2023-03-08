@@ -5,7 +5,7 @@
   <div class="card">
     <h5 class="card-header">Mục tiêu thi đua</h5>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>

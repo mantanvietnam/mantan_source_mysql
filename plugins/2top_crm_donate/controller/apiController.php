@@ -6,7 +6,7 @@ function saveDonateAPI($input)
 	global $session;
 
 	$return = array('code'=>1,
-					'messages'=>array('text'=>'')
+					'messages'=>array(array('text'=>''))
 				);
 
 	$modelCustomer = $controller->loadModel('Customers');
@@ -100,12 +100,12 @@ function saveDonateAPI($input)
     		
     		$return = array('code'=>0, 
     						'set_attributes'=>array('id_customer'=>$info_customer->id),
-    						'messages'=>array('text'=>'Lưu thông tin thành công')
+    						'messages'=>array(array('text'=>'Lưu thông tin thành công'))
     					);
 		}else{
 			$return = array('code'=>2,
 					'set_attributes'=>array('id_customer'=>0),
-					'messages'=>array('text'=>'Gửi thiếu dữ liệu')
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
 				);
 		}
 	}

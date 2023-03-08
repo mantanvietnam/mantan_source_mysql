@@ -7,7 +7,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách bài viết</h5>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Ngày đăng</th>
