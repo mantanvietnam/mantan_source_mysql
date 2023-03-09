@@ -1,0 +1,123 @@
+<?php 
+function listQR($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách mã QR';
+
+	$modelSmartqr = $controller->loadModel('Smartqrs');
+    
+	$conditions = array();
+	$limit = 20;
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelSmartqr->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // phân trang
+    $totalData = $modelSmartqr->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
+}
+
+function addQR($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin mã QR';
+
+	$modelSmartqr = $controller->loadModel('Smartqrs');
+	$mess= '';
+
+	// lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelSmartqr->get( (int) $_GET['id']);
+    }else{
+        $data = $modelSmartqr->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['title'])){
+	        // tạo dữ liệu save
+	        $data->title = $dataSend['title'];
+            $data->code = $dataSend['code'];
+            $data->link_web = $dataSend['link_web'];
+            $data->link_ios = $dataSend['link_ios'];
+            $data->link_android = $dataSend['link_android'];
+            $data->type = $dataSend['type'];
+            $data->status = $dataSend['status'];
+            $data->logo = $dataSend['logo'];
+
+	        $modelSmartqr->save($data);
+
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+	    }
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+function deleteQR($input){
+	global $controller;
+
+	$modelSmartqr = $controller->loadModel('Smartqrs');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelSmartqr->get($_GET['id']);
+		
+		if($data){
+         	$modelSmartqr->delete($data);
+        }
+	}
+
+	return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR.php');
+}
+?>
