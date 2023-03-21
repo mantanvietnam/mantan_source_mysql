@@ -10,4 +10,6 @@ include('model/orders.php'); // đơn hàng
 
 include('model/manager_file.php'); // file của bạn
 
+include('model/contact.php'); // liên hệ
+
 ?>

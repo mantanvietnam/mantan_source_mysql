@@ -475,7 +475,7 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
     }
 }
 
-function uploadImage($user_id='', $name_input='')
+function uploadImage($user_id='', $name_input='', $$filenameImage='')
 {
 	$return = ['code'=>1, 'mess'=>''];
 
@@ -504,7 +504,11 @@ function uploadImage($user_id='', $name_input='')
 
             // Verify MYME type of the file
             if(in_array($filetype, $allowed)){
-            	$filenameImage = $user_id.'_'.date('Y_m_d_H_i_s').'_'.rand(0,10000).'.'.$ext;
+            	if(empty($$filenameImage)){
+	            	$filenameImage = $user_id.'_'.date('Y_m_d_H_i_s').'_'.rand(0,10000).'.'.$ext;
+	            }else{
+	            	$filenameImage = createSlugMantan($filenameImage).'.'.$ext;
+	            }
                 // Check whether file exists before uploading it
                 move_uploaded_file($_FILES[$name_input]["tmp_name"], __DIR__.'/../upload/admin/images/'.$user_id.'/'.$filenameImage);
 

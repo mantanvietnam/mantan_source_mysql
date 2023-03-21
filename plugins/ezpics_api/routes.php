@@ -6,7 +6,10 @@
 	$routesPlugin['checkLoginMemberAPI']= 'ezpics_api/view/checkLoginMemberAPI.php';
 	$routesPlugin['logoutMemberAPI']= 'ezpics_api/view/logoutMemberAPI.php';
 	$routesPlugin['getTopDesignerAPI']= 'ezpics_api/view/getTopDesignerAPI.php';
-	$routesPlugin['getInfoMember']= 'ezpics_api/view/getInfoMember.php';
+	$routesPlugin['getInfoMemberAPI']= 'ezpics_api/view/getInfoMemberAPI.php';
+	$routesPlugin['lockAccountAPI']= 'ezpics_api/view/lockAccountAPI.php';
+	$routesPlugin['saveChangePassAPI']= 'ezpics_api/view/saveChangePassAPI.php';
+	$routesPlugin['saveInfoUserAPI']= 'ezpics_api/view/saveInfoUserAPI.php';
 
 	// product
 	$routesPlugin['getNewProductAPI']= 'ezpics_api/view/getNewProductAPI.php';
@@ -36,5 +39,9 @@
 	// quản lý file
 	$routesPlugin['getMyFileAPI']= 'ezpics_api/view/getMyFileAPI.php';
 	$routesPlugin['removeBackgroundImageAPI']= 'ezpics_api/view/removeBackgroundImageAPI.php';
+
+	// liên hệ
+	$routesPlugin['saveContactAPI']= 'ezpics_api/view/saveContactAPI.php';
+	$routesPlugin['saveRequestDesignerAPI']= 'ezpics_api/view/saveRequestDesignerAPI.php';
 
 ?>

@@ -378,6 +378,7 @@ function buyProductAPI($input)
 	                    $order->product_id = $product->id;
 	                    $order->total = $product->sale_price;
 	                    $order->status = 2;
+	                    $order->type = 0;
 	                    $order->meta_payment = 'Mua mẫu thiết kế ID '.$product->id;
 	                    $order->created_at = date('Y-m-d H:i:s');
 	                    $modelOrder->save($order);

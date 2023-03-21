@@ -84,6 +84,7 @@ function removeBackgroundImageAPI($input)
                     $order->product_id = $data->id;
                     $order->total = $price_remove_background;
                     $order->status = 2;
+                    $order->type = 0;
                     $order->meta_payment = 'Xóa ảnh nền';
                     $order->created_at = date('Y-m-d H:i:s');
                     

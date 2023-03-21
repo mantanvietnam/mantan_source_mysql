@@ -237,7 +237,7 @@ function getTopDesignerAPI($input){
 	return 	array('listData'=>$listDesign);
 }
 
-function getInfoMember($input)
+function getInfoMemberAPI($input)
 {
 	global $isRequestPost;
 	global $controller;
@@ -258,6 +258,148 @@ function getInfoMember($input)
 				unset($checkPhone->token);
 				
 				$return = array('code'=>0, 'data'=>$checkPhone);
+			}else{
+				$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+				);
+		}
+	}
+
+	return $return;
+}
+
+function lockAccountAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($checkPhone)){
+				$checkPhone->status = 0;
+				$checkPhone->token = '';
+				$modelMember->save($checkPhone);
+				
+				$return = array('code'=>0);
+			}else{
+				$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+				);
+		}
+	}
+
+	return $return;
+}
+
+function saveChangePassAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token']) 
+			&& !empty($dataSend['passOld'])
+			&& !empty($dataSend['passNew'])
+			&& !empty($dataSend['passAgain'])
+
+		){
+			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($checkPhone)){
+				if($checkPhone->password == md5($dataSend['passOld']) ){
+					if($dataSend['passNew'] == $dataSend['passAgain']){
+						$checkPhone->password = md5($dataSend['passNew']);
+						$checkPhone->token = '';
+
+						$modelMember->save($checkPhone);
+
+						$return = array('code'=>0);
+					}else{
+						$return = array('code'=>5,
+									'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
+								);
+					}
+				}else{
+					$return = array('code'=>4,
+									'messages'=>array(array('text'=>'Mật khẩu cũ nhập không đúng'))
+								);
+				}
+			}else{
+				$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+				);
+		}
+	}
+
+	return $return;
+}
+
+function saveInfoUserAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token']) 
+			&& !empty($dataSend['name'])
+			&& !empty($dataSend['email'])
+
+		){
+			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($checkPhone)){
+				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+					$avatar = uploadImage($checkPhone->id, 'avatar', 'avatar_'.$checkPhone->id);
+				}
+
+				if(!empty($avatar['linkOnline'])){
+					$checkPhone->avatar = $avatar['linkOnline'];
+				}
+
+				$checkPhone->name = $dataSend['name'];
+				$checkPhone->email = $dataSend['email'];
+
+				$modelMember->save($checkPhone);
+
+				$return = array('code'=>0);
 			}else{
 				$return = array('code'=>3,
 									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
