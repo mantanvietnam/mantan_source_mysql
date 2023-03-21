@@ -11,6 +11,7 @@
             <th>ID</th>
             <th>Tiêu đề</th>
             <th>Mã QR</th>
+            <th>Lượt quét</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -27,6 +28,7 @@
                           <a href="/qrcode/'.$item->code.'" target="_blank"><img src="/qrcode/'.$item->code.'/?type=code" width="100" /></a> <br/>
                           <a href="/r/'.$item->code.'" target="_blank">'.$item->code.'</a>
                         </td>
+                        <td><a href="/plugins/admin/smartqr-view-admin-smartqr-staticQR.php/?id='.$item->id.'">'.number_format($item->number_scan).'</a></td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/smartqr-view-admin-smartqr-addQR.php/?id='.$item->id.'">

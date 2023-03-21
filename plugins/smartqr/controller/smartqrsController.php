@@ -9,6 +9,7 @@ function listQR($input)
     $metaTitleMantan = 'Danh sách mã QR';
 
 	$modelSmartqr = $controller->loadModel('Smartqrs');
+    $modelHistoryscanqr = $controller->loadModel('Historyscanqrs');
     
 	$conditions = array();
 	$limit = 20;
@@ -17,6 +18,14 @@ function listQR($input)
     $order = array('id'=>'desc');
     
     $listData = $modelSmartqr->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $conditions_scan = array('id_qr'=>$value->id);
+            $static = $modelHistoryscanqr->find()->where($conditions_scan)->all()->toList();
+            $listData[$key]->number_scan = count($static);
+        }
+    }
 
     // phân trang
     $totalData = $modelSmartqr->find()->where($conditions)->all()->toList();
@@ -57,6 +66,33 @@ function listQR($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+}
+
+function staticQR($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê quét mã QR';
+
+    $modelSmartqr = $controller->loadModel('Smartqrs');
+    $modelHistoryscanqr = $controller->loadModel('Historyscanqrs');
+    
+    if(!empty($_GET['id'])){
+        $infoQR = $modelSmartqr->get((int) $_GET['id']);
+
+        $conditions = array('id_qr'=>$_GET['id']);
+        $order = array('id'=>'desc');
+        
+        $listData = $modelHistoryscanqr->find()->where($conditions)->order($order)->all()->toList();
+        
+        setVariable('listData', $listData);
+        setVariable('infoQR', $infoQR);
+    }else{
+        return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR.php');
+    }
 }
 
 function addQR($input)

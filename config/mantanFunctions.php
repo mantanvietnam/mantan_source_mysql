@@ -475,4 +475,55 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
     }
 }
 
+function uploadImage($user_id='', $name_input='')
+{
+	$return = ['code'=>1, 'mess'=>''];
+
+	if(!empty($user_id) && !empty($name_input)){
+		if (!file_exists(__DIR__.'/../upload/admin/images/'.$user_id )) {
+	        mkdir(__DIR__.'/../upload/admin/images/'.$user_id, 0755, true);
+	    }
+	   
+	    if(isset($_FILES[$name_input]) && empty($_FILES[$name_input]["error"])){
+            $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+            $filename = $_FILES[$name_input]["name"];
+            $filetype = $_FILES[$name_input]["type"];
+            $filesize = $_FILES[$name_input]["size"];
+            
+            // Verify file extension
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if(!array_key_exists($ext, $allowed)){
+            	$return = ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
+            }
+
+            // Verify file size - 5MB maximum
+            $maxsize = 1024 * 1024 * 5;
+            if($filesize > $maxsize){
+            	$return = ['code'=>3, 'mess'=>'File ảnh vượt quá giới hạn cho phép 5Mb'];
+            }
+
+            // Verify MYME type of the file
+            if(in_array($filetype, $allowed)){
+            	$filenameImage = $user_id.'_'.date('Y_m_d_H_i_s').'_'.rand(0,10000).'.'.$ext;
+                // Check whether file exists before uploading it
+                move_uploaded_file($_FILES[$name_input]["tmp_name"], __DIR__.'/../upload/admin/images/'.$user_id.'/'.$filenameImage);
+
+                $return = ['code'=>0, 'mess'=>'Upload thành công', 'linkOnline'=>'https://apis.ezpics.vn/upload/admin/images/'.$user_id.'/'.$filenameImage, 'linkLocal'=>'upload/admin/images/'.$user_id.'/'.$filenameImage];
+                
+            } else{
+                $return = ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
+            }
+        }
+	}
+
+	return $return;
+}
+
+function removeFile($url='')
+{
+	if(!empty($url)){
+		unlink(__DIR__.'/../'.$url) ;
+	}
+}
+
 ?>

@@ -422,6 +422,9 @@ header nav {
 header nav .navbar-brand .brand-logo {
   width: max-content;
 }
+header nav .navbar-brand .brand-logo img {
+  height: 45px;
+}
 header nav .navbar-brand b {
   font-size: 16px;
   font-weight: 600;

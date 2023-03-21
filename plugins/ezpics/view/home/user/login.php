@@ -1,1 +1,0 @@
-<?php getFileTheme('layout/user/login.php');?>

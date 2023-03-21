@@ -42,7 +42,7 @@
                 <a class="navbar-brand py-0" href="/">
                     <div class="brand-contain d-flex flex-column align-items-center">
                         <div class="brand-logo">
-                            <img src="<?php echo $setting_value['logo'];?>" alt="">
+                            <img src="<?php echo @$setting_value['logo'];?>" alt="">
                         </div>
                     </div>
                 </a>
