@@ -83,7 +83,7 @@ function addCustomerCRM($input)
 	global $isRequestPost;
 	global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách khách hàng';
+    $metaTitleMantan = 'Thông tin khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$mess= '';
@@ -102,42 +102,49 @@ function addCustomerCRM($input)
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
         	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-	        // tạo dữ liệu save
-	        $data->full_name = $dataSend['full_name'];
-	        $data->phone = $dataSend['phone'];
-	        $data->email = $dataSend['email'];
-	        $data->address = $dataSend['address'];
-	        $data->sex = $dataSend['sex'];
-	        $data->id_city = $dataSend['id_city'];
-	        $data->id_messenger = $dataSend['id_messenger'];
-	        $data->avatar = $dataSend['avatar'];
-	        $data->status = $dataSend['status'];
-	        $data->id_parent = (int) @$dataSend['id_parent'];
-	        $data->id_level = (int) @$dataSend['id_level'];
+        	$conditions = ['phone'=>$dataSend['phone']];
+        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
 
-	        if(empty($data->pass)){
-	        	$data->pass = md5($dataSend['phone']);
-	        }
+        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
+		        // tạo dữ liệu save
+		        $data->full_name = $dataSend['full_name'];
+		        $data->phone = $dataSend['phone'];
+		        $data->email = $dataSend['email'];
+		        $data->address = $dataSend['address'];
+		        $data->sex = $dataSend['sex'];
+		        $data->id_city = $dataSend['id_city'];
+		        $data->id_messenger = $dataSend['id_messenger'];
+		        $data->avatar = $dataSend['avatar'];
+		        $data->status = $dataSend['status'];
+		        $data->id_parent = (int) @$dataSend['id_parent'];
+		        $data->id_level = (int) @$dataSend['id_level'];
 
-	        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
-			$birthday_date = 0;
-			$birthday_month = 0;
-			$birthday_year = 0;
+		        if(empty($data->pass)){
+		        	$data->pass = md5($dataSend['phone']);
+		        }
 
-			$birthday = explode('/', trim($dataSend['birthday']));
-			if(count($birthday)==3){
-				$birthday_date = (int) $birthday[0];
-				$birthday_month = (int) $birthday[1];
-				$birthday_year = (int) $birthday[2];
-			}
+		        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
+				$birthday_date = 0;
+				$birthday_month = 0;
+				$birthday_year = 0;
 
-			$data->birthday_date = (int) @$birthday_date;
-			$data->birthday_month = (int) @$birthday_month;
-			$data->birthday_year = (int) @$birthday_year;
+				$birthday = explode('/', trim($dataSend['birthday']));
+				if(count($birthday)==3){
+					$birthday_date = (int) $birthday[0];
+					$birthday_month = (int) $birthday[1];
+					$birthday_year = (int) $birthday[2];
+				}
 
-	        $modelCustomer->save($data);
+				$data->birthday_date = (int) @$birthday_date;
+				$data->birthday_month = (int) @$birthday_month;
+				$data->birthday_year = (int) @$birthday_year;
 
-	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+		        $modelCustomer->save($data);
+
+		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+		    }else{
+		    	$mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+		    }
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
 	    }
