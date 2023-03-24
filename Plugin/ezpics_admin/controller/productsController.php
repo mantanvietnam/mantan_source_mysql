@@ -4,6 +4,7 @@ function listProductAdmin($input)
 	global $controller;
 	global $urlCurrent;
 	global $metaTitleMantan;
+	global $modelCategories;
 
     $metaTitleMantan = 'Danh sách mẫu thiết kế';
 
@@ -15,6 +16,9 @@ function listProductAdmin($input)
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
 	$order = array('id'=>'desc');
+
+	if(!isset($_GET['type'])) $_GET['type'] = 'user_create';
+	if(!isset($_GET['status'])) $_GET['status'] = 1;
 
 	if(!empty($_GET['id'])){
 		$conditions['id'] = (int) $_GET['id'];
@@ -38,12 +42,26 @@ function listProductAdmin($input)
 		$conditions['type'] = $_GET['type'];
 	}
 
-	if(isset($_GET['status']) && $_GET['status']!=''){
-		$conditions['status'] = $_GET['status'];
+	if(isset($_GET['status'])){
+		if($_GET['status']!=''){
+			$conditions['status'] = $_GET['status'];
+		}
 	}
 
 	if(!empty($_GET['name'])){
 		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+	}
+
+	if(!empty($_GET['date_start'])){
+		$date_start = explode('/', $_GET['date_start']);
+		$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+		$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+	}
+
+	if(!empty($_GET['date_end'])){
+		$date_end = explode('/', $_GET['date_end']);
+		$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+		$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
 	}
 
     $listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -85,6 +103,10 @@ function listProductAdmin($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type'=>'product_categories');
+	$order = array('name'=>'asc');
+	$listCategory = $modelCategories->find()->where($conditions)->order($order)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -92,42 +114,51 @@ function listProductAdmin($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('listCategory', $listCategory);
 }
 
 function lockProductAdmin($input){
 	global $controller;
 
-	$modelMembers = $controller->loadModel('Members');
+	$modelProducts = $controller->loadModel('Products');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelMembers->get($_GET['id']);
+		$data = $modelProducts->get($_GET['id']);
 		
 		if($data){
 			$data->status = 0;
-			$data->token = '';
-         	$modelMembers->save($data);
+         	$modelProducts->save($data);
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
 }
 
 function deleteProductAdmin($input){
 	global $controller;
 
-	$modelLesson = $controller->loadModel('Lessons');
-    $modelTests = $controller->loadModel('Tests');
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelProductFavorite = $controller->loadModel('ProductFavorite');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelTests->get($_GET['id']);
+		$data = $modelProduct->get($_GET['id']);
 		
 		if($data){
-         	$modelTests->delete($data);
+         	// xóa mẫu thiết kế
+			$modelProduct->delete($data);
 
-         	deleteSlugURL($data->slug);
+			// xóa layer
+			$conditions = ['products_id'=>$data->id];
+			$modelProductDetail->deleteAll($conditions);
+
+			// xóa yêu thích
+			$conditions = ['product_id'=>$data->id];
+			$modelProductFavorite->deleteAll($conditions);
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-test-listTestCRM.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
 }
 ?>

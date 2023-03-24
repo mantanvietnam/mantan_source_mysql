@@ -13,4 +13,17 @@ $menus[0]['sub'][1]= array( 'title'=>'Mẫu thiết kế',
                             'permission'=>'listProductAdmin'
                         );
 
+$menus[0]['sub'][2]= array('title'=>'Cài đặt',
+                            'url'=>'/',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingsEzpics',
+                            'sub'=> array(array('title'=>'Danh mục thiết kế',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-category-listCategoryEzpics.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listCategoryEzpics',
+                                            ),
+                                    )
+                        );
+
+
 addMenuAdminMantan($menus);

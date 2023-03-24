@@ -22,27 +22,50 @@
             <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label class="form-label">Danh mục</label>
-            <input type="text" class="form-control" name="category_id" value="<?php if(!empty($_GET['category_id'])) echo $_GET['category_id'];?>">
+            <select name="category_id" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php
+              if(!empty($listCategory)){
+                foreach ($listCategory as $key => $value) {
+                  if(empty($_GET['category_id']) || $_GET['category_id']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
           </div>
 
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
               <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Đang đăng bán</option>
               <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
+              <option value="">Tất cả</option>
             </select>
           </div>
 
           <div class="col-md-2">
             <label class="form-label">Loại sản phẩm</label>
             <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
               <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
               <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
+              <option value="">Tất cả</option>
             </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Tạo từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
           
           <div class="col-md-1">
@@ -66,7 +89,7 @@
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
             <th>Chủ mẫu</th>
-            <th>Số lần bán</th>
+            <th>Thống kê</th>
             <th>Giá bán</th>
             <th>Trạng thái</th>
             <th>Khóa</th>
@@ -88,15 +111,24 @@
                 }
 
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td><img src="https://mobile.ezpics.vn/'.$item->image.'" width="100" /></td>
+                        <td>
+                          '.$item->id.'
+                        </td>
+                        <td>
+                          <img src="https://mobile.ezpics.vn/'.$item->image.'" width="100" /><br/>
+                          '.date('d/m/Y', strtotime($item->created_at)).'
+                        </td>
                         <td>'.$item->name.'<br/>'.$type.'</td>
                         <td>
                           '.$item->designer->name.'<br/>
                           '.$item->designer->phone.'<br/>
                           '.$item->designer->email.'
                         </td>
-                        <td>'.number_format($item->sold).'</td>
+                        <td>
+                          Sell: '.number_format($item->sold).'<br/>
+                          View: '.number_format($item->views).'<br/>
+                          Like: '.number_format($item->favorites).'<br/>
+                        </td>
                         <td>
                           '.number_format($item->sale_price).'<br/>
                           <del>'.number_format($item->price).'</del>
