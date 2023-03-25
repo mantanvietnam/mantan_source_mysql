@@ -37,14 +37,13 @@ function getNewProductAPI($input)
 	return 	array('listData'=>$listData);
 }
 
-function getProductByCategoryAPI($input)
+function searchProductAPI($input)
 {
 	global $isRequestPost;
 	global $controller;
 	global $session;
 
 	$modelProduct = $controller->loadModel('Products');
-	$modelProductCategory = $controller->loadModel('ProductCategory');
 
 	$dataSend = $input['request']->getData();
 
@@ -72,7 +71,48 @@ function getProductByCategoryAPI($input)
 		$conditions['category_id'] = (int) $dataSend['category_id'];
 	}
 
+	if(!empty($dataSend['price'])){
+		$price = explode('-', $dataSend['price']);
+		$conditions['sale_price >='] = (int) $price[0];
+		$conditions['sale_price <='] = (int) $price[1];
+	}
+
 	$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	return 	array('listData'=>$listProduct);
+}
+
+function getProductByCategoryAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductCategory = $controller->loadModel('ProductCategory');
+
+	$dataSend = $input['request']->getData();
+	$listProduct = [];
+
+	if(!empty($dataSend['category_id'])){
+		$conditions = array('status'=>1, 'type'=>'user_create','category_id'=>(int) $dataSend['category_id']);
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
+		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		$order = array('id'=>'desc');
+
+		if(!empty($dataSend['orderBy'])){
+			if(empty($dataSend['orderType'])) $dataSend['orderType'] = 'desc';
+			
+			switch ($dataSend['orderBy']) {
+				case 'price':$order = array('sale_price'=>$dataSend['orderType']);break;
+				case 'create':$order = array('id'=>$dataSend['orderType']);break;
+				case 'view':$order = array('views'=>$dataSend['orderType']);break;
+				case 'favorite':$order = array('favorites'=>$dataSend['orderType']);break;
+			}
+		}
+		
+		$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	}
 
 	return 	array('listData'=>$listProduct);
 }
@@ -113,10 +153,6 @@ function getProductAllCategoryAPI($input)
 					case 'view':$order = array('views'=>$dataSend['orderType']);break;
 					case 'favorite':$order = array('favorites'=>$dataSend['orderType']);break;
 				}
-			}
-
-			if(!empty($dataSend['name'])){
-				$conditions['name LIKE'] = '%'.$dataSend['name'].'%';
 			}
 
 			$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -252,7 +288,15 @@ function createProductAPI($input)
 				if($infoUser->type==1){
 					$newproduct = $modelProduct->newEmptyEntity();
 
-					$thumb = '';
+					$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+
+					if(isset($_FILES['background']) && empty($_FILES['background']["error"])){
+						$background = uploadImage($infoUser->id, 'background');
+
+						if(!empty($background['linkOnline'])){
+							$thumb = $background['linkOnline'];
+						}
+					}
 
 					$newproduct->name = $dataSend['name'];
 		            $newproduct->price = (int) @$dataSend['price'];

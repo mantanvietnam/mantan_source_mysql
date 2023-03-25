@@ -20,6 +20,7 @@
 	$routesPlugin['buyProductAPI']= 'ezpics_api/view/buyProductAPI.php';
 	$routesPlugin['deleteProductAPI']= 'ezpics_api/view/deleteProductAPI.php';
 	$routesPlugin['getIdProductCloneAPI']= 'ezpics_api/view/getIdProductCloneAPI.php';
+	$routesPlugin['searchProductAPI']= 'ezpics_api/view/searchProductAPI.php';
 	
 
 	// yêu thích sản phẩm

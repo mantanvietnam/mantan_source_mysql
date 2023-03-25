@@ -64,6 +64,14 @@ function saveRequestDesignerAPI($input)
 			if(!empty($checkPhone)){
 				$data = $modelContact->newEmptyEntity();
 
+				if(isset($_FILES['file_cv']) && empty($_FILES['file_cv']["error"])){
+					$file_cv = uploadImage($checkPhone->id, 'file_cv', 'file_cv_'.$checkPhone->id);
+				}
+
+				if(!empty($file_cv['linkOnline'])){
+					$data->meta = $file_cv['linkOnline'];
+				}
+
 				$data->customer_id = $checkPhone->id;
 				$data->content = $dataSend['content'];
 				$data->title = 'Đăng ký làm Designer';

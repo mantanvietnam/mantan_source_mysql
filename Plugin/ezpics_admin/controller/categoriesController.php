@@ -3,8 +3,10 @@ function listCategoryEzpics($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
+    global $controller;
 
     $metaTitleMantan = 'Danh mục mẫu thiết kế';
+    $modelProducts = $controller->loadModel('Products');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -49,6 +51,16 @@ function listCategoryEzpics($input){
     $conditions = array('type' => 'product_categories');
     $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
+    $totalProductSell = 0;
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $products = $modelProducts->find()->where(['category_id'=>$value->id, 'type'=>'user_create', 'status'=>1])->all()->toList();
+            $listData[$key]->number_product = count($products);
+            $totalProductSell += count($products);
+        }
+    }
+
     setVariable('listData', $listData);
+    setVariable('totalProductSell', $totalProductSell);
 }
 ?>

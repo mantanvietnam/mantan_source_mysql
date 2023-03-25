@@ -10,6 +10,7 @@
               <h5 class="mb-0">Chủ đề</h5>
             </div>
             <div class="card-body">
+                <p>Tổng số <?php echo number_format($totalProductSell);?> sản phẩm đang bán</p>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -24,7 +25,10 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
-                                    <td>'.$item->name.'</td>
+                                    <td>
+                                      <span class="text-danger">'.$item->name.'</span><br/>
+                                      '.number_format($item->number_product).' sản phẩm đang bán
+                                    </td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->meta_keyword.'\', \''.$item->meta_description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>

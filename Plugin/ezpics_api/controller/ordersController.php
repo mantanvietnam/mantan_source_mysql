@@ -7,6 +7,9 @@ function getHistoryTransactionAPI($input)
 
 	$modelOrder = $controller->loadModel('Orders');
 	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+
 	$return = array('listData'=>[]);
 
 	if($isRequestPost){
@@ -23,6 +26,25 @@ function getHistoryTransactionAPI($input)
 				$order = array('id'=>'desc');
 
 				$listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+				if(!empty($listData)){
+					foreach ($listData as $key => $value) {
+						$listData[$key]->image = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+						if($value->type == 0){
+							if(!empty($value->product_id)){
+								$product = $modelProduct->find()->where(['id'=>$value->product_id])->first();
+								if(!empty($product)){
+									$listData[$key]->image = $product->image;
+								}
+							}elseif(!empty($value->file_id)){
+								$file = $modelManagerFile->find()->where(['id'=>$value->file_id])->first();
+								if(!empty($file)){
+									$listData[$key]->image = $file->link;
+								}
+							}
+						}
+					}
+				}
 
 				$return = array('listData'=>$listData);
 			}
@@ -146,5 +168,90 @@ function saveRequestWithdrawAPI($input)
 	}
 
 	return 	$return;
+}
+
+function addMoneyTPBankAPI($input)
+{
+	global $modelOptions;
+	global $key_transaction;
+
+	$return['messages']= array(array('text'=>''));
+
+	if(!empty($_POST['message'])){
+
+	 	$keyApp= strtoupper($key_transaction);
+
+		$message = strtoupper($_POST['message']);
+
+		$description = explode('ND: ', $message);
+		$description = trim($description[1]);
+		$description = str_replace(array('IBFT ','THANH TOAN QR ','QR - '), '', $description);
+
+		$money = explode('PS:+', $message);
+		$money = explode('SD:', $money[1]);
+		$money = (int) str_replace(array('.','VND'), '', $money[0]);
+
+		if($money>0 && strlen(strstr($description, $keyApp)) > 0){
+			// xóa dấu chấm
+			$removeDot = explode('.', $description);
+			if(count($removeDot)>1){
+				for($i=0;$i<count($removeDot);$i++){
+					if(strlen(strstr($removeDot[$i], $keyApp)) > 0){
+						$description = $removeDot[$i];
+						break;
+					}
+				}
+			}
+
+			// xóa dấu chấm phẩy
+			$removeDot = explode(';', $description);
+			if(count($removeDot)>1){
+				for($i=0;$i<count($removeDot);$i++){
+					if(strlen(strstr($removeDot[$i], $keyApp)) > 0){
+						$description = $removeDot[$i];
+						break;
+					}
+				}
+			}
+
+
+			// $phone = trim(str_replace($keyApp,'',$description));
+			$removeSpace = explode(' ', trim($description));
+			$phone = $removeSpace[0];
+
+			if(!empty($removeSpace[1]) && $removeSpace[1]==$keyApp){
+				// Xóa gạch ngang
+				$remove = explode('-', $removeSpace[0]);
+				if(count($remove)>=2){
+					$removeSpace[0] = $remove[1];
+				}
+
+				$phone = $removeSpace[0];
+
+				$description = $phone.' '.$removeSpace[1];
+			}elseif(!empty($removeSpace[2]) && $removeSpace[2]==$keyApp){
+				// Xóa gạch ngang
+				$remove = explode('-', $removeSpace[1]);
+				if(count($remove)>=2){
+					$removeSpace[1] = $remove[1];
+				}
+
+				$phone = $removeSpace[1];
+				
+				$description = $phone.' '.$removeSpace[2];
+			}
+
+			process_add_money($money, $description);
+			
+			$return['messages']= array(array('text'=>'Cộng tiền thành công cho tài khoản '.$phone));
+		} else {
+			$return['messages']= array(array('text'=>'Sai cú pháp hoặc số tiền không đủ'));
+		}
+   	 	
+	}else{
+		$return['messages']= array(array('text'=>'Gửi thiếu nội dung SMS'));
+	}
+
+	return $return;
 }
 ?>
