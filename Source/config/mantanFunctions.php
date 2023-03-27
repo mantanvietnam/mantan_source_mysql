@@ -1,4 +1,8 @@
 <?php 
+use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+
 /**********************************************************
  *  Các file đã sửa
  *  1. /src/Controller/AppController.php sửa trong hàm initialize
@@ -527,6 +531,25 @@ function removeFile($url='')
 {
 	if(!empty($url)){
 		unlink(__DIR__.'/../'.$url) ;
+	}
+}
+
+function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',$typeConfig='default')
+{
+	global $contactSite;
+	global $smtpSite;
+
+	if(!empty($to) && !empty($subject)){
+		$from = [$contactSite['email'] => $smtpSite['display_name']];
+		
+		$mailer = new Mailer($typeConfig);
+		$mailer->setTransport($typeConfig)
+                    ->setFrom($from)
+                    ->setTo($to)
+                    ->setEmailFormat('html')
+                    ->setSubject($subject)
+                    ->deliver($content);   
+		    
 	}
 }
 

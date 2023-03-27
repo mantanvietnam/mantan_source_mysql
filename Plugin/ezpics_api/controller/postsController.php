@@ -28,7 +28,7 @@ function getInfoPostAPI($input)
 	$data = $modelPosts->newEmptyEntity();
 
 	if(!empty($dataSend['id'])){
-		$data = $modelPosts->get((int) $dataSend['id']);
+		$data = $modelPosts->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 		if(!empty($data)){
 			$data->view ++;

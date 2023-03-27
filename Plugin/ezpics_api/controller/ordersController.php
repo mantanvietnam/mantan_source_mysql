@@ -83,7 +83,7 @@ function saveRequestBankingAPI($input)
                 $order->meta_payment = $infoUser->phone.' ezpics '.$order->code;
                 $order->total = (int) $dataSend['money'];
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
-                $order->type = 1; // 0: mua hàng, 1: nạp tiền
+                $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
                 $order->created_at = date('Y-m-d H:i:s');
                 
                 $modelOrder->save($order);
@@ -137,7 +137,7 @@ function saveRequestWithdrawAPI($input)
 	                $order->meta_payment = 'Rút tiền '.$infoUser->phone;
 	                $order->total = (int) $dataSend['money'];
 	                $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
-	                $order->type = 0; // 0: mua hàng, 1: nạp tiền
+	                $order->type = 2; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
 	                $order->created_at = date('Y-m-d H:i:s');
 	                $order->note = '<p>Thông tin tài khoản nhận tiền</p>
 	                				<p>Ngân hàng: '.@$dataSend['name_bank'].'</p>
@@ -228,7 +228,7 @@ function addMoneyTPBankAPI($input)
 
 				$phone = $removeSpace[0];
 
-				$description = $phone.' '.$removeSpace[1];
+				$description = $phone.' '.$removeSpace[1].' '.$removeSpace[2];
 			}elseif(!empty($removeSpace[2]) && $removeSpace[2]==$keyApp){
 				// Xóa gạch ngang
 				$remove = explode('-', $removeSpace[1]);
@@ -238,12 +238,12 @@ function addMoneyTPBankAPI($input)
 
 				$phone = $removeSpace[1];
 				
-				$description = $phone.' '.$removeSpace[2];
+				$description = $phone.' '.$removeSpace[2].' '.$removeSpace[3];
 			}
 
-			process_add_money($money, $description);
+			$mess = process_add_money($money, $description);
 			
-			$return['messages']= array(array('text'=>'Cộng tiền thành công cho tài khoản '.$phone));
+			$return['messages']= array(array('text'=>$mess));
 		} else {
 			$return['messages']= array(array('text'=>'Sai cú pháp hoặc số tiền không đủ'));
 		}
@@ -253,5 +253,10 @@ function addMoneyTPBankAPI($input)
 	}
 
 	return $return;
+}
+
+function getNameBankAPI()
+{
+	return listBank();
 }
 ?>
