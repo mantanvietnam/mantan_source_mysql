@@ -91,6 +91,25 @@ class OptionsController extends AppController{
 
             $modelOptions->save($smtp_site);
 
+            // ghi file email.php
+            $configEmail = '<?php 
+                            $configMantanSource["EmailTransport"] = [
+                                                            "default" => [
+                                                                "host" => "'.$dataSend['smtp_server'].'",
+                                                                "port" => '.$dataSend['smtp_port'].',
+                                                                "username" => "'.$dataSend['smtp_email'].'",
+                                                                "password" => "'.$dataSend['smtp_pass'].'",
+                                                                "className" => "Smtp",
+                                                                "tls" => false,
+                                                                "client" => null,
+                                                                "url" => env("EMAIL_TRANSPORT_DEFAULT_URL", null),
+                                                            ],
+                                                        ];
+                            ?>';
+            $file = fopen(__DIR__.'/../../config/email.php','w');
+            fwrite($file,$configEmail);
+            fclose($file);
+
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
         }
 

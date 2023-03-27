@@ -6,6 +6,7 @@ global $number_bank;
 global $account_holders_bank;
 global $link_qr_bank;
 global $key_transaction;
+global $keyFirebase;
 
 $number_bank = '0693.122.8668';
 $name_bank = 'Tiên Phong Bank (TPB)';
@@ -15,6 +16,8 @@ $key_transaction = 'ezpics';
 
 $price_remove_background = 10000;
 $key_remove_bg = 'geBYsERw9PNMJHnQLtu1CE4d';
+
+$keyFirebase = 'BH3viH2U-wjNvMEzEEuAa7iCfLV5LKGEqFxc4VKSs0cbGfHqTkQyV4ZRJPiG1W5HqpDBmWpPheBCVD7fVuLIeLI';
 
 function createToken($length=30)
 {
@@ -60,11 +63,13 @@ function process_add_money($number=0, $desc='')
 {
     global $modelOption;
     global $key_transaction;
+    global $controller;
    
     $keyApp= strtoupper($key_transaction);
 
     if($number>0){
         $desc= explode(' ', $desc);
+
         if(!empty($desc[0]) && !empty($desc[1]) && !empty($desc[2])   ){
             $phone= $desc[0];
             $nameTool= $desc[1];
@@ -77,34 +82,52 @@ function process_add_money($number=0, $desc='')
                 $data = $modelMember->find()->where(array('phone'=>$phone))->first();
                
                 if($data){
-                    $checkOrder = $modelOrder->find()->where(array('id'=> (int) $orderCode))->first();
+                    $checkOrder = $modelOrder->find()->where(array('code'=> $orderCode))->first();
 
-                    if(empty($checkOrder)){
+                    if(!empty($checkOrder)){
+                        // cập nhập số dư tài khoản
                         $data->account_balance += $number;
+                        $modelMember->save($data);
                         
-                        if($modelMember->save($data)){
-                            $checkOrder->total = $number;
-                            $checkOrder->status = 2;
-                            $checkOrder->updated_at = date('Y-m-d H:i:s');
-                            
-                            $modelOrder->save($checkOrder);
+                        // cập nhập lại trạng thái đơn hàng
+                        $checkOrder->total = $number;
+                        $checkOrder->status = 2; // 2: đã xử lý xong
+                        $checkOrder->updated_at = date('Y-m-d H:i:s');
+                        
+                        $modelOrder->save($checkOrder);
 
+                        // gửi email
+                        if(!empty($data->email) && !empty($data->name)){
                             sendEmailAddMoney($data->email, $data->name, $number);
                         }
+
+                        // gửi thông báo về app
+                        $dataSendNotification= array('title'=>'Nạp tiền thành công Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Nạp thành công '.number_format($number).'đ vào tài khoản '.$phone,'action'=>'addMoneySuccess');
+
+                        if(!empty($data->token_device)){
+                            sendNotification($dataSendNotification, $data->token_device);
+                        }
+
+                        return 'Nạp tiền thành công cho tài khoản '.$phone;
+                    }else{
+                        return 'Không tìm thấy yêu cầu nạp tiền có mã là '.$orderCode;
                     }
+                }else{
+                    return 'Tài khoản '.$phone.' không tồn tại';
                 }
+            }else{
+                return 'Nội dung sai cú pháp';
             }
+        }else{
+            return 'Nội dung sai cú pháp';
         }
+    }else{
+        return 'Số tiền nạp phải lớn hơn 1.000đ';
     }
 }
 
 function sendEmailAddMoney($email='', $fullName='', $coin= '')
 {
-    global $modelOption;
-    global $contactSite;
-    global $smtpSite;
-
-    $from = array($contactSite['email'] => $smtpSite['Option']['value']['show']);
     $to = array();
 
     if(!empty($email)){
@@ -179,6 +202,95 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
         </body>
         </html>';
 
-        // $modelOption->sendMail($from, $to, $cc, $bcc, $subject, $content);
+        sendEmail($to, $cc, $bcc, $subject, $content);
     }
+}
+
+function listBank()
+{
+    return [
+            ['id'=>1, 'name'=>'An Bình', 'code'=>'ABBANK'],
+            ['id'=>2, 'name'=>'ANZ Việt Nam', 'code'=>'ANZVL'],
+            ['id'=>3, 'name'=>'Á Châu', 'code'=>'ACB'],
+            ['id'=>4, 'name'=>'Bắc Á', 'code'=>'Bac A Bank'],
+            ['id'=>5, 'name'=>'Bản Việt', 'code'=>'Viet Capital Bank'],
+            ['id'=>6, 'name'=>'Bảo Việt', 'code'=>'BAOVIET Bank'],
+            ['id'=>7, 'name'=>'Bưu điện Liên Việt', 'code'=>'LienVietPostBank'],
+            ['id'=>8, 'name'=>'Chính sách xã hội Việt Nam', 'code'=>'VBSP'],
+            ['id'=>9, 'name'=>'CIMB Việt Nam', 'code'=>'CIMB'],
+            ['id'=>10, 'name'=>'Công thương Việt Nam', 'code'=>'VietinBank'],
+            ['id'=>11, 'name'=>'Dầu khí toàn cầu', 'code'=>'GPBank'],
+            ['id'=>12, 'name'=>'Đại Chúng Việt Nam', 'code'=>'PVcomBank'],
+            ['id'=>13, 'name'=>'Đại Dương', 'code'=>'OceanBank'],
+            ['id'=>14, 'name'=>'Đầu tư và Phát triển Việt Nam', 'code'=>'BIDV'],
+            ['id'=>15, 'name'=>'Đông Á', 'code'=>'DongA Bank'],
+            ['id'=>16, 'name'=>'Đông Nam Á', 'code'=>'SeABank'],
+            ['id'=>17, 'name'=>'Hàng Hải', 'code'=>'MSB'],
+            ['id'=>18, 'name'=>'Hong Leong Việt Nam', 'code'=>'HLBVN'],
+            ['id'=>19, 'name'=>'Hợp tác xã Việt Nam', 'code'=>'Co-opBank'],
+            ['id'=>20, 'name'=>'HSBC Việt Nam', 'code'=>'HSBC'],
+            ['id'=>21, 'name'=>'Indovina', 'code'=>'IVB'],
+            ['id'=>22, 'name'=>'Kiên Long', 'code'=>'Kienlongbank'],
+            ['id'=>23, 'name'=>'Kỹ Thương', 'code'=>'Techcombank'],
+            ['id'=>24, 'name'=>'Liên doanh Việt Nga', 'code'=>'VRB'],
+            ['id'=>25, 'name'=>'Nam Á', 'code'=>'Nam A Bank'],
+            ['id'=>26, 'name'=>'Ngoại Thương Việt Nam', 'code'=>'Vietcombank'],
+            ['id'=>27, 'name'=>'NN&PT Nông thôn Việt Nam', 'code'=>'Agribank'],
+            ['id'=>28, 'name'=>'Phát triển Thành phố Hồ Chí Minh', 'code'=>'HDBank'],
+            ['id'=>29, 'name'=>'Phát triển Việt Nam', 'code'=>'VDB'],
+            ['id'=>30, 'name'=>'Phương Đông', 'code'=>'OCB'],
+            ['id'=>31, 'name'=>'Public Bank Việt Nam', 'code'=>'PBVN'],
+            ['id'=>32, 'name'=>'Quân Đội', 'code'=>'MB'],
+            ['id'=>33, 'name'=>'Quốc dân', 'code'=>'NCB'],
+            ['id'=>34, 'name'=>'Quốc Tế', 'code'=>'VIB'],
+            ['id'=>35, 'name'=>'Sài Gòn', 'code'=>'SCB'],
+            ['id'=>36, 'name'=>'Sài Gòn – Hà Nội', 'code'=>'SHB'],
+            ['id'=>37, 'name'=>'Sài Gòn Công Thương', 'code'=>'SAIGONBANK'],
+            ['id'=>38, 'name'=>'Sài Gòn Thương Tín', 'code'=>'Sacombank'],
+            ['id'=>39, 'name'=>'Shinhan Việt Nam', 'code'=>'SHBVN'],
+            ['id'=>40, 'name'=>'Standard Chartered Việt Nam', 'code'=>'SCBVL'],
+            ['id'=>41, 'name'=>'Tiên Phong', 'code'=>'TPBank'],
+            ['id'=>42, 'name'=>'UOB Việt Nam', 'code'=>'UOB'],
+            ['id'=>43, 'name'=>'Việt Á', 'code'=>'VietABank'],
+            ['id'=>44, 'name'=>'Việt Nam Thịnh Vượng', 'code'=>'VPBank'],
+            ['id'=>45, 'name'=>'Việt Nam Thương Tín', 'code'=>'Vietbank'],
+            ['id'=>46, 'name'=>'Woori Việt Nam', 'code'=>'Woori'],
+            ['id'=>47, 'name'=>'Xăng dầu Petrolimex', 'code'=>'PG Bank'],
+            ['id'=>48, 'name'=>'Xây dựng', 'code'=>'CB'],
+            ['id'=>49, 'name'=>'Xuất Nhập Khẩu', 'code'=>'Eximbank'],
+            
+            ];
+}
+
+function sendNotification($data,$target){
+    global $keyFirebase;
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array();
+    $fields['data'] = $data;
+    if(is_array($target)){
+        $fields['registration_ids'] = $target;
+    }else{
+        $fields['to'] = $target;
+    }
+
+    $headers = array(
+        'Content-Type:application/json',
+        'Authorization:key='.$keyFirebase
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+
+    }
+    curl_close($ch);
+
 }

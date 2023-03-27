@@ -1,6 +1,10 @@
 <?php
 	global $routesPlugin;
 
+	// fix lỗi database
+	// $routesPlugin['fixCategoryProduct']= 'ezpics_api/view/fixCategoryProduct.php';
+	$routesPlugin['fixPass']= 'ezpics_api/view/fixPass.php';
+
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';
 	$routesPlugin['checkLoginMemberAPI']= 'ezpics_api/view/checkLoginMemberAPI.php';
@@ -10,6 +14,9 @@
 	$routesPlugin['lockAccountAPI']= 'ezpics_api/view/lockAccountAPI.php';
 	$routesPlugin['saveChangePassAPI']= 'ezpics_api/view/saveChangePassAPI.php';
 	$routesPlugin['saveInfoUserAPI']= 'ezpics_api/view/saveInfoUserAPI.php';
+	$routesPlugin['checkLoginFacebookAPI']= 'ezpics_api/view/checkLoginFacebookAPI.php';
+	$routesPlugin['checkLoginGoogleAPI']= 'ezpics_api/view/checkLoginGoogleAPI.php';
+	$routesPlugin['checkLoginAppleAPI']= 'ezpics_api/view/checkLoginAppleAPI.php';
 
 	// product
 	$routesPlugin['getNewProductAPI']= 'ezpics_api/view/getNewProductAPI.php';
@@ -50,5 +57,6 @@
 	$routesPlugin['getHistoryTransactionAPI']= 'ezpics_api/view/getHistoryTransactionAPI.php';
 	$routesPlugin['saveRequestBankingAPI']= 'ezpics_api/view/saveRequestBankingAPI.php';
 	$routesPlugin['saveRequestWithdrawAPI']= 'ezpics_api/view/saveRequestWithdrawAPI.php';
+	$routesPlugin['getNameBankAPI']= 'ezpics_api/view/getNameBankAPI.php';
 
 ?>

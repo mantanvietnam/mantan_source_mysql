@@ -184,7 +184,7 @@ function getTrendProductAPI($input)
 
 	if(!empty($listData)){
 		foreach ($listData as $key => $value) {
-			$infoUser = $modelMember->get($value->user_id);
+			$infoUser = $modelMember->find()->where(['id'=>(int) $value->user_id])->first();
 
 			$listData[$key]->author = @$infoUser->name;
 		}
@@ -207,13 +207,13 @@ function getInfoProductAPI($input)
 	$otherData = [];
 
 	if(!empty($dataSend['id'])){
-		$data = $modelProduct->get((int) $dataSend['id']);
+		$data = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 		if(!empty($data)){
 			$data->views ++;
 			$modelProduct->save($data);
 
-			$infoUser = $modelMember->get($data->user_id);
+			$infoUser = $modelMember->find()->where(['id'=>(int) $data->user_id])->first();
 			$data->author = @$infoUser->name;
 
 			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id];
@@ -244,7 +244,7 @@ function deleteProductAPI($input)
 
 	if(!empty($dataSend['id']) && !empty($dataSend['token'])){
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-		$data = $modelProduct->get((int) $dataSend['id']);
+		$data = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 		if(!empty($data) && !empty($infoUser) && $data->user_id == $infoUser->id){
 			// xóa mẫu thiết kế
@@ -398,10 +398,11 @@ function buyProductAPI($input)
 	
 	if($isRequestPost){
 		if(!empty($dataSend['id']) && !empty($dataSend['token'])){
-			$product = $modelProduct->get((int) $dataSend['id']);
+			$product = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
 
 			if(!empty($product)){
 				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUserSell = $modelMember->find()->where(array('id'=>$product->user_id))->first();
 
 				if(!empty($infoUser->account_balance) && $infoUser->account_balance>=$product->sale_price){
 					$checkOrder = $modelOrder->find()->where(array('member_id'=>$infoUser->id, 'product_id'=>$product->id))->first();
@@ -415,17 +416,36 @@ function buyProductAPI($input)
 						$product->sold ++;
 						$modelProduct->save($product);
 
-						// tạo đơn mua hàng (lịch sử giao dịch)
+						// tạo đơn mua hàng của người mua (lịch sử giao dịch)
 						$order = $modelOrder->newEmptyEntity();
 						$order->code = 'B'.time().$infoUser->id.rand(0,10000);
 	                    $order->member_id = $infoUser->id;
 	                    $order->product_id = $product->id;
 	                    $order->total = $product->sale_price;
 	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-	                    $order->type = 0; // 0: mua hàng, 1: nạp tiền
+	                    $order->type = 0; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
 	                    $order->meta_payment = 'Mua mẫu thiết kế ID '.$product->id;
 	                    $order->created_at = date('Y-m-d H:i:s');
 	                    $modelOrder->save($order);
+
+	                    // tạo đơn bán hàng của người bán (lịch sử giao dịch)
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
+	                    $order->member_id = $infoUserSell->id;
+	                    $order->product_id = $product->id;
+	                    $order->total = $product->sale_price;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 3; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+	                    $order->meta_payment = 'Bán mẫu thiết kế ID '.$product->id;
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    $modelOrder->save($order);
+
+	                    // gửi thông báo về app cho người bán
+                        $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là '.number_format($product->sale_price).'đ','action'=>'addMoneySuccess');
+
+                        if(!empty($data->token_device)){
+                            sendNotification($dataSendNotification, $data->token_device);
+                        }
 
 	                    // tạo mẫu thiết kế mới
 	                    $newproduct = $modelProduct->newEmptyEntity();
@@ -591,7 +611,13 @@ function getMyProductFavoriteAPI($input)
 
 				if(!empty($listData)){
 					foreach ($listData as $key => $value) {
-						$listProduct[] = $modelProduct->get($value->product_id);
+						$product = $modelProduct->find()->where(['id'=>(int) $value->product_id])->first();
+
+						if(!empty($product)){
+							$listProduct[] = $product;
+						}else{
+							$modelProductFavorite->delete($value);
+						}
 					}
 				}
 
@@ -621,7 +647,7 @@ function saveFavoriteProductAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				$product = $modelProduct->get((int) $dataSend['product_id']);
+				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
 
 				if(!empty($product)){
 					$checkFavorite = $modelProductFavorite->find()->where(array('member_id'=>$infoUser->id, 'product_id'=>$product->id))->first();
@@ -681,7 +707,7 @@ function deleteFavoriteProductAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				$product = $modelProduct->get((int) $dataSend['product_id']);
+				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
 
 				if(!empty($product)){
 					$checkFavorite = $modelProductFavorite->find()->where(array('member_id'=>$infoUser->id, 'product_id'=>$product->id))->first();
@@ -736,7 +762,7 @@ function checkFavoriteProductAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				$product = $modelProduct->get((int) $dataSend['product_id']);
+				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
 
 				if(!empty($product)){
 					$checkFavorite = $modelProductFavorite->find()->where(array('member_id'=>$infoUser->id, 'product_id'=>$product->id))->first();
@@ -769,7 +795,8 @@ function getIdProductCloneAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				$product = $modelProduct->get((int) $dataSend['product_id']);
+				$product = $modelProduct->find()->where(['id'=>(int) $dataSend['product_id']])->first();
+
 				$productClone = $modelProduct->find()->where(array('user_id'=>$infoUser->id, 'product_id'=> $product->id))->first();
 
 				if(!empty($productClone)){

@@ -5,7 +5,7 @@
  * Note: It is not recommended to commit files with credentials such as app_local.php
  * into source code version control.
  */
-return [
+$configMantanSource = [
     /*
      * Debug Level:
      *
@@ -44,10 +44,10 @@ return [
              */
             //'port' => 'non_standard_port_number',
 
-            'username' => 'ezpics_home',
-            'password' => 'INJkaIvuc3',
+            'username' => 'mobi_ezpic',
+            'password' => '9kTLlTnJs',
 
-            'database' => 'ezpics_home',
+            'database' => 'mobi_ezpic',
             /*
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.
@@ -92,3 +92,7 @@ return [
         ],
     ],
 ];
+
+include('email.php');
+
+return $configMantanSource;

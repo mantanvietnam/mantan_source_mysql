@@ -84,7 +84,7 @@ function removeBackgroundImageAPI($input)
                     $order->file_id = $data->id;
                     $order->total = $price_remove_background;
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-                    $order->type = 0; // 0: mua hàng, 1: nạp tiền
+                    $order->type = 4; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
                     $order->meta_payment = 'Xóa ảnh nền';
                     $order->created_at = date('Y-m-d H:i:s');
                     
