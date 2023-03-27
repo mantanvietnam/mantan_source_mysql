@@ -1,12 +1,12 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin điểm đến di tích và danh lam</h4>
-  <p><a href="/plugins/admin/tayho360-admin-historicalSites-addHistoricalSitesAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin lễ hội</h4>
+  <p><a href="/plugins/admin/tayho360-admin-festival-addFestivalAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
             <tbody><tr>
                 <td>
-                    <label>Tên cơ quan hành chính</label>
+                    <label>Tên lễ hội</label>
                     <input type="" name="name" class="form-control" placeholder="Tên lễ hội" value="">
                 </td>
                  <td >
@@ -21,14 +21,14 @@
         </tbody></table>
     </form>
   <div class="card">
-    <h5 class="card-header">Danh sách Thông tin điểm đến di tích và danh lam</h5>
-      <p><?php echo $mess;?></p>
+    <h5 class="card-header">Danh sách Thông tin lễ hội</h5>
+      <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Hình ảnh</th>
-            <th>Tên di tích</th>
+            <th>Tên lễ hội</th>
             <th>Số điện thoại</th>
             <th>địa chỉ </th>
             <th>Sửa</th>
@@ -46,12 +46,12 @@
                         <td> '.$item->address.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-historicalSites-addHistoricalSitesAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="tayho360-admin-festival-addFestivalAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/stayho360-admin-historicalSites-deleteHistoricalSitesAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-festival-deleteFestivalAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -72,7 +72,7 @@
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <?php
-            if($totalPage>0){
+            if(@$totalPage>0){
                 if ($page > 5) {
                     $startPage = $page - 5;
                 } else {

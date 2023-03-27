@@ -1,25 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin điểm đến di tích và danh lam</h4>
-  <p><a href="/plugins/admin/tayho360-admin-historicalSites-addHistoricalSitesAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/ditichhienvat-admin-historicalSites-addHistoricalSitesAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <form action="" method="GET">
-           <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
-            <tbody><tr>
-                <td>
-                    <label>Tên cơ quan hành chính</label>
-                    <input type="" name="name" class="form-control" placeholder="Tên lễ hội" value="">
-                </td>
-                 <td >
-                    <br>
-                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
-                </td>
-               <!--  <td >
-                    <input type="submit" name="excel" value="Xuất excel">
-                </td> -->
-            </tr>
-        
-        </tbody></table>
-    </form>
   <div class="card">
     <h5 class="card-header">Danh sách Thông tin điểm đến di tích và danh lam</h5>
       <p><?php echo $mess;?></p>
@@ -46,12 +28,12 @@
                         <td> '.$item->address.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-historicalSites-addHistoricalSitesAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="ditichhienvat-admin-historicalSites-addHistoricalSitesAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/stayho360-admin-historicalSites-deleteHistoricalSitesAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ditichhienvat-admin-historicalSites-deleteHistoricalSitesAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
