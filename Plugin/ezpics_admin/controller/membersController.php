@@ -1,13 +1,13 @@
 <?php 
-function listCustomerCRM($input)
+function listMemberAdmin($input)
 {
 	global $controller;
 	global $urlCurrent;
 	global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách khách hàng';
+    $metaTitleMantan = 'Danh sách người dùng';
 
-	$modelCustomer = $controller->loadModel('Customers');
+	$modelMembers = $controller->loadModel('Members');
 
 	$conditions = array();
 	$limit = 20;
@@ -31,13 +31,13 @@ function listCustomerCRM($input)
 		$conditions['status'] = $_GET['status'];
 	}
 
-	if(!empty($_GET['full_name'])){
-		$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
+	if(!empty($_GET['name'])){
+		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 	}
 
-    $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-    $totalData = $modelCustomer->find()->where($conditions)->all()->toList();
+    $totalData = $modelMembers->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -77,69 +77,62 @@ function listCustomerCRM($input)
     setVariable('listData', $listData);
 }
 
-function addCustomerCRM($input)
+function addMemberAdmin($input)
 {
 	global $controller;
 	global $isRequestPost;
 	global $metaTitleMantan;
 
-    $metaTitleMantan = 'Thông tin khách hàng';
+    $metaTitleMantan = 'Thông tin người dùng';
 
-	$modelCustomer = $controller->loadModel('Customers');
+	$modelMembers = $controller->loadModel('Members');
 	$mess= '';
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelCustomer->get( (int) $_GET['id']);
+        $data = $modelMembers->get( (int) $_GET['id']);
     }else{
-        $data = $modelCustomer->newEmptyEntity();
+        $data = $modelMembers->newEmptyEntity();
     }
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['full_name']) && !empty($dataSend['phone'])){
+        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
         	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
         	$conditions = ['phone'=>$dataSend['phone']];
-        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
+        	$checkPhone = $modelMembers->find()->where($conditions)->first();
 
         	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
 		        // tạo dữ liệu save
-		        $data->full_name = $dataSend['full_name'];
-		        $data->phone = $dataSend['phone'];
-		        $data->email = $dataSend['email'];
-		        $data->address = $dataSend['address'];
-		        $data->sex = $dataSend['sex'];
-		        $data->id_city = $dataSend['id_city'];
-		        $data->id_messenger = $dataSend['id_messenger'];
+		        $data->name = $dataSend['name'];
 		        $data->avatar = $dataSend['avatar'];
-		        $data->status = $dataSend['status'];
-		        $data->id_parent = (int) @$dataSend['id_parent'];
-		        $data->id_level = (int) @$dataSend['id_level'];
+		        $data->phone = $dataSend['phone'];
+		        $data->aff = $dataSend['phone'];
+				$data->affsource = $dataSend['affsource'];
+				$data->email = $dataSend['email'];
+				
+				
+				$data->status = (int) $dataSend['status'];
+				$data->type = (int) $dataSend['type'];
+				$data->created_at = date('Y-m-d H:i:s');
 
-		        if(empty($data->pass)){
-		        	$data->pass = md5($dataSend['phone']);
-		        }
+				if(empty($_GET['id'])){
+					$data->account_balance = 100000; // tặng 100k cho tài khoản mới
 
-		        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
-				$birthday_date = 0;
-				$birthday_month = 0;
-				$birthday_year = 0;
+					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+					$data->password = md5($dataSend['password']);
 
-				$birthday = explode('/', trim($dataSend['birthday']));
-				if(count($birthday)==3){
-					$birthday_date = (int) $birthday[0];
-					$birthday_month = (int) $birthday[1];
-					$birthday_year = (int) $birthday[2];
+					$data->token = '';
+				}else{
+					if(!empty($dataSend['password'])){
+			        	$data->password = md5($dataSend['password']);
+			        }
 				}
 
-				$data->birthday_date = (int) @$birthday_date;
-				$data->birthday_month = (int) @$birthday_month;
-				$data->birthday_year = (int) @$birthday_year;
-
-		        $modelCustomer->save($data);
+		        $modelMembers->save($data);
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    }else{
@@ -154,19 +147,21 @@ function addCustomerCRM($input)
     setVariable('mess', $mess);
 }
 
-function deleteCustomerCRM($input){
+function lockMemberAdmin($input){
 	global $controller;
 
-	$modelCustomer = $controller->loadModel('Customers');
+	$modelMembers = $controller->loadModel('Members');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelCustomer->get($_GET['id']);
+		$data = $modelMembers->get($_GET['id']);
 		
 		if($data){
-         	$modelCustomer->delete($data);
+			$data->status = 0;
+			$data->token = '';
+         	$modelMembers->save($data);
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm-view-admin-customer-listCustomerCRM.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');
 }
 ?>

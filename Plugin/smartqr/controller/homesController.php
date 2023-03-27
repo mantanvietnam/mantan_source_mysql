@@ -212,7 +212,13 @@ function redirectSmartQR($input)
 
 			$modelHistoryscanqr->save($history);
 
-			return $controller->redirect($data->link_web);
+			if($detect->isAndroidOS()){
+				return $controller->redirect($data->link_android);
+			}elseif($detect->isiOS() || $detect->isiPadOS()){
+				return $controller->redirect($data->link_ios);
+			}else{
+				return $controller->redirect($data->link_web);
+			}
 		}
 	}
 

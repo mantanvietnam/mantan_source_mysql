@@ -81,7 +81,7 @@ function removeBackgroundImageAPI($input)
 					
 					$order->code = 'RB'.time().$infoUser->id.rand(0,10000);
                     $order->member_id = $infoUser->id;
-                    $order->product_id = $data->id;
+                    $order->file_id = $data->id;
                     $order->total = $price_remove_background;
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                     $order->type = 0; // 0: mua hàng, 1: nạp tiền

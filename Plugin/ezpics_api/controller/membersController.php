@@ -40,8 +40,8 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 100000; // tặng 100k cho tài khoản mới
-					$data->status = (int) $dataSend['status'];
-					$data->type = (int) $dataSend['type'];
+					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
+					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->token = createToken();
 					$data->created_at = date('Y-m-d H:i:s');
 
