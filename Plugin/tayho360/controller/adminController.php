@@ -1,6 +1,6 @@
 <?php 
 /*di tich lich sử */
-function listHistoricalSitesAdmin($input)
+/*function listHistoricalSitesAdmin($input)
 {
 	global $controller;
 	global $urlCurrent;
@@ -80,33 +80,6 @@ function listHistoricalSitesAdmin($input)
     setVariable('listData', $listData);
 }
 
-function staticQR($input)
-{
-    global $controller;
-    global $urlCurrent;
-    global $modelCategories;
-    global $metaTitleMantan;
-
-    $metaTitleMantan = 'Thống kê quét mã QR';
-
-    $modelSmartqr = $controller->loadModel('Smartqrs');
-    $modelHistoryscanqr = $controller->loadModel('Historyscanqrs');
-    
-    if(!empty($_GET['id'])){
-        $infoQR = $modelSmartqr->get((int) $_GET['id']);
-
-        $conditions = array('id_qr'=>$_GET['id']);
-        $order = array('id'=>'desc');
-        
-        $listData = $modelHistoryscanqr->find()->where($conditions)->order($order)->all()->toList();
-        
-        setVariable('listData', $listData);
-        setVariable('infoQR', $infoQR);
-    }else{
-        return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR.php');
-    }
-}
-
 function addHistoricalSitesAdmin($input)
 {
 	global $controller;
@@ -145,6 +118,7 @@ function addHistoricalSitesAdmin($input)
             $data->longitude = @$dataSend['longitude'];
             $data->image360 = @$dataSend['image360'];
             $data->content = @$dataSend['content'];
+            $data->status = @$dataSend['status'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
             
@@ -184,7 +158,7 @@ function deleteHistoricalSitesAdmin($input){
 	}
 
 	return $controller->redirect('/plugins/admin/tayho360-admin-historicalSites-listHistoricalSitesAdmin.php?status=3');
-}
+}*/
 
 // Cơ quan hành chính GovernanceAgencys
 

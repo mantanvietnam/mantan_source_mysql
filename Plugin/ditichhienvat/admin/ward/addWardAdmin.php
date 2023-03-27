@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php"> Điểm đến di tích và danh lam</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php">Phường Xã</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -18,7 +18,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin điểm đến di tích và danh lam</h5>
+            <h5 class="mb-0">Phường Xã</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;
@@ -29,25 +29,7 @@
                 <i>Tiêu đề<span class="required">*</span>:</i>
                 <input type="text" maxlength="100" name="name" id="name" value="<?php echo @$data['name'] ?>" class="form-control" required="">
             </div>
-            <div class="form-group col-sm-6">
-                <i>Trạnh thái:</i>
-                <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> >hiển thị
-                <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> >ẩn
-            </div>
-             <div class="form-group col-sm-6">
-                <i>Phường / xã:</i>
-               <select id="idward" class="form-select" required="" name="idward" >
-                <?php foreach(@$listWard as $item) { 
-                    if(@$data['idward']==@$item->id){
-                    ?>
-                     <option selected="" value="<?php echo @$item->id; ?>"><?php echo @$item->name; ?></option>     
-                     <?php }else{ ?>  
-
-                     <option value="<?php echo @$item->id; ?>"><?php echo @$item->name; ?></option>     
-                     <?php }}?>     
-                </select>
-            </div>
-            <div class="form-group col-sm-6">
+            <!--  <div class="form-group col-sm-6">
                 <i>Địa chỉ:</i>
                 <input type="text" maxlength="100" name="address" id="address" value="<?php echo @$data['address'] ?>" class="form-control">
             </div>
@@ -96,7 +78,7 @@
                <?php
                         showEditorInput('content','content',@$data['content'],1);
                     ?>                                          
-            </div>
+            </div> -->
         </div>
         
   
