@@ -17,6 +17,7 @@ $sqlInstallDatabase .= CREATE TABLE `craftvillages` ( `id` INT NOT NULL AUTO_INC
 
 $sqlInstallDatabase .= CREATE TABLE `restaurant` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `latitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL, `longitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `image360` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `content` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL, `status` BOOLEAN NULL DEFAULT NULL, `like` INT NULL DEFAULT NULL  , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
+$sqlInstallDatabase .= CREATE TABLE `hotels` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL ,`image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `introductory` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `latitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL, `longitude` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `image360` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `content` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL, `status` BOOLEAN NULL DEFAULT NULL, `like` INT NULL DEFAULT NULL, `priceday` FLOAT  NULL DEFAULT NULL,`pricehour` FLOAT NULL DEFAULT NULL, `pricenight` FLOAT  NULL DEFAULT NULL,  PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 $sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
 $sqlDeleteDatabase .= "DROP TABLE governanceAgencys; ";
@@ -24,6 +25,6 @@ $sqlDeleteDatabase .= "DROP TABLE festival; ";
 $sqlDeleteDatabase .= "DROP TABLE tours; ";
 $sqlDeleteDatabase .= "DROP TABLE craftvillages; ";
 $sqlDeleteDatabase .= "DROP TABLE restaurants; ";
+$sqlDeleteDatabase .= "DROP TABLE hotels; ";
 
 
- 

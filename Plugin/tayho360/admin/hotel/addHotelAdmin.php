@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php"> Nhà hàng</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php"> khách sạn</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -18,7 +18,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin nhà hàng</h5>
+            <h5 class="mb-0">Thông tin khách sạn</h5>
           </div>
           <div class="card-body">
             <p><?php echo @$mess;
@@ -72,6 +72,19 @@
                 <i>Kinh độ (long):</i>
                 <input type="text" name="longitude" class="form-control" id="longitude" value="<?php echo @$data['longitude'] ?>">
             </div>
+            <div class="form-group col-sm-2">
+                <i>Giá nghỉ giờ:</i>
+                <input type="number" name="pricehour" class="form-control" id="pricehour" value="<?php echo @$data['pricehour'] ?>">
+            </div>
+            <div class="form-group col-sm-2">
+                <i>Giá nghỉ đêm:</i>
+                <input type="number" name="pricenight" class="form-control" id="pricenight" value="<?php echo @$data['pricenight'] ?>">
+            </div>
+            <div class="form-group col-sm-2">
+                <i>Giá nghỉ ngày:</i>
+                <input type="number" name="priceday" class="form-control" id="priceday" value="<?php echo @$data['priceday'] ?>">
+            </div>
+
             
             <div class="form-group col-sm-6">
                 <i>Mô tả ngắn:</i>

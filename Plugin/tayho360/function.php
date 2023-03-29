@@ -39,4 +39,10 @@ $menus[0]['sub'][4]= array('title'=>'Nhà hàng',
 							
 						);
 
+$menus[0]['sub'][5]= array('title'=>'Khách sạn',
+							'url'=>'/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php',
+							'classIcon'=>'bx bxs-data',
+							'permission'=>'listTourAdmin',
+							
+						);
 addMenuAdminMantan($menus);

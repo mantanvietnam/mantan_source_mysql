@@ -29,6 +29,11 @@
                 <i>Tiêu đề<span class="required">*</span>:</i>
                 <input type="text" maxlength="100" name="name" id="name" value="<?php echo @$data['name'] ?>" class="form-control" required="">
             </div>
+            <div class="form-group col-sm-6">
+                <i>Trạnh thái:</i>
+                <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> >hiển thị
+                <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> >ẩn
+            </div>
              <div class="form-group col-sm-6">
                 <i>Địa chỉ:</i>
                 <input type="text" maxlength="100" name="address" id="address" value="<?php echo @$data['address'] ?>" class="form-control">
