@@ -2,6 +2,24 @@
   <h4 class="fw-bold py-3 mb-4">Thông tin hiện vật</h4>
   <p><a href="/plugins/admin/ditichhienvat-admin-artifact-addArtifactAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
+  <form action="" method="GET">
+           <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
+            <tbody><tr>
+                <td>
+                    <label>Tên hiện vật</label>
+                    <input type="" name="name" class="form-control" placeholder="Tên hiện vật" value="">
+                </td>
+                 <td >
+                    <br>
+                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
+                </td>
+               <!--  <td >
+                    <input type="submit" name="excel" value="Xuất excel">
+                </td> -->
+            </tr>
+        
+        </tbody></table>
+    </form>
   <div class="card">
     <h5 class="card-header">Danh sách Thông tin hiện vật</h5>
       <p><?php echo $mess;?></p>

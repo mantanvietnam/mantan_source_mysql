@@ -32,6 +32,11 @@ $menus[0]['sub'][3]= array('title'=>'Điểm đến làng nghề',
 							'permission'=>'listTourAdmin',
 							
 						);
-
+$menus[0]['sub'][4]= array('title'=>'Nhà hàng',
+							'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
+							'classIcon'=>'bx bxs-data',
+							'permission'=>'listTourAdmin',
+							
+						);
 
 addMenuAdminMantan($menus);
