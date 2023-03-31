@@ -29,6 +29,9 @@
           <tr class="">
             <th>Hình ảnh</th>
             <th>Tên hiện vật</th>
+            <th>Thuộc di tích</th>
+            <th>Chất liệu</th>
+            <th>Niên đại</th>
             <th>Sửa</th>
             <th>Xóa</th> 
           </tr>
@@ -36,10 +39,16 @@
         <tbody>
           <?php 
             if(!empty($listData)){
+              global $controller;
+              $modelHistoricalsite = $controller->loadModel('Historicalsites');
               foreach ($listData as $item) {
+                 $dataHistoricalsite = $modelHistoricalsite->get($item->idHistoricalsite);
                 echo '<tr>
                         <td><img src="'.$item->image.'" width="100"></td>
                         <td>'.$item->name.'</td>
+                        <td>'.$dataHistoricalsite->name.'</td>
+                        <td>'.$item->material.'</td>
+                        <td>'.$item->period.'</td>
                         
                         <td align="center">
                           <a class="dropdown-item" href="ditichhienvat-admin-artifact-addArtifactAdmin.php/?id='.$item->id.'">

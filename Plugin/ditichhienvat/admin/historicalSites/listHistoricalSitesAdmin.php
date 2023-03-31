@@ -1,13 +1,13 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin điểm đến di tích và danh lam</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin điểm đến Di tích và danh lam</h4>
   <p><a href="/plugins/admin/ditichhienvat-admin-historicalSites-addHistoricalSitesAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
             <tbody><tr>
                 <td>
-                    <label>Tên đến di tích và danh lam</label>
-                    <input type="" name="name" class="form-control" placeholder="Tên đến di tích và danh lam" value="">
+                    <label>Tên đến Di tích và danh lam</label>
+                    <input type="" name="name" class="form-control" placeholder="Tên đến Di tích và danh lam" value="">
                 </td>
                  <td >
                     <br>
@@ -21,14 +21,14 @@
         </tbody></table>
     </form>
   <div class="card">
-    <h5 class="card-header">Danh sách Thông tin điểm đến di tích và danh lam</h5>
+    <h5 class="card-header">Danh sách Thông tin điểm đến Di tích và danh lam</h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Hình ảnh</th>
-            <th>Tên di tích</th>
+            <th>Tên Di tích</th>
             <th>Số điện thoại</th>
             <th>địa chỉ </th>
             <th>Sửa</th>

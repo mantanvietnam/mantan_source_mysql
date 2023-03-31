@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php"> Điểm đến di tích và danh lam</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php"> Điểm đến Di tích và danh lam</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -18,7 +18,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin điểm đến di tích và danh lam</h5>
+            <h5 class="mb-0">Thông tin điểm đến Di tích và danh lam</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;
