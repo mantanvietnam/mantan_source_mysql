@@ -450,29 +450,37 @@ function addArtifactAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
+
         if(!empty($dataSend['name'])){
             // tạo dữ liệu save
             $data->name = @$dataSend['name'];
+            $data->status = @$dataSend['status'];
             $data->material = @$dataSend['material'];
             $data->idHistoricalsite = @$dataSend['idHistoricalsite'];
             $data->excavation = @$dataSend['excavation'];
             $data->period = @$dataSend['period'];
-            $data->year = @$dataSend['year'];
-            $data->certification = @$dataSend['certification'];
+            $data->century = @$dataSend['century'];
+            $data->location = @$dataSend['location'];
+            $data->color = @$dataSend['color'];
+            $data->registrationdate = @$dataSend['registrationdate'];
             $data->shape = @$dataSend['shape'];
-            $data->weight = @$dataSend['weight'];
-            $data->length = @$dataSend['length'];
-            $data->width = @$dataSend['width'];
-            $data->height = @$dataSend['height'];
+            $data->technique = @$dataSend['technique'];
+            $data->classify = @$dataSend['classify'];
+            $data->voter = @$dataSend['voter'];
+            $data->source = @$dataSend['source'];
+            $data->file = @$dataSend['file'];
             $data->image = @$dataSend['image'];
-            $data->image360 = @$dataSend['image360'];
+            $data->number = @$dataSend['number'];
+            $data->quantity = @$dataSend['quantity'];
+            $data->sign = @$dataSend['sign'];
+            $data->weight = @$dataSend['weight'];
+            $data->size = @$dataSend['size'];
             $data->introductory = @$dataSend['introductory'];
-            $data->content = @$dataSend['content'];
+            
            
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
-
-            
+   
 
 
             $modelArtifact->save($data);

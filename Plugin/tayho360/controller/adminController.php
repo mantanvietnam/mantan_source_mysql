@@ -1,167 +1,5 @@
 <?php 
-/*di tich lich sử */
-/*function listHistoricalSitesAdmin($input)
-{
-	global $controller;
-	global $urlCurrent;
-	global $modelCategories;
-    global $metaTitleMantan;
-
-    $metaTitleMantan = 'Danh sách điểm đến di tích và danh lam';
-
-	$modelHistoricalsite = $controller->loadModel('Historicalsites');
-    
-	$conditions = array();
-	$limit = 20;
-	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-	if($page<1) $page = 1;
-    $order = array('id'=>'desc');
-    
-    $listData = $modelHistoricalsite->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-    if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            $conditions_scan = array('id'=>$value->id);
-            $static = $modelHistoricalsite->find()->where($conditions_scan)->all()->toList();
-            $listData[$key]->number_scan = count($static);
-        }
-    }
-
-    // phân trang
-    $totalData = $modelHistoricalsite->find()->where($conditions)->all()->toList();
-    $totalData = count($totalData);
-
-    $balance = $totalData % $limit;
-    $totalPage = ($totalData - $balance) / $limit;
-    if ($balance > 0)
-        $totalPage+=1;
-
-    $back = $page - 1;
-    $next = $page + 1;
-    if ($back <= 0)
-        $back = 1;
-    if ($next >= $totalPage)
-        $next = $totalPage;
-
-    if (isset($_GET['page'])) {
-        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-    } else {
-        $urlPage = $urlCurrent;
-    }
-    if (strpos($urlPage, '?') !== false) {
-        if (count($_GET) >= 1) {
-            $urlPage = $urlPage . '&page=';
-        } else {
-            $urlPage = $urlPage . 'page=';
-        }
-    } else {
-        $urlPage = $urlPage . '?page=';
-    }
-    
-    if(@$_GET['status']==1){
-        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
-
-    }elseif(@$_GET['status']==2){
-        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
-
-    }elseif(@$_GET['status']==3){
-
-        $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
-    }
-
-    setVariable('mess', @$mess);
-    setVariable('page', $page);
-    setVariable('totalPage', $totalPage);
-    setVariable('back', $back);
-    setVariable('next', $next);
-    setVariable('urlPage', $urlPage);
-    
-    setVariable('listData', $listData);
-}
-
-function addHistoricalSitesAdmin($input)
-{
-	global $controller;
-	global $isRequestPost;
-	global $modelCategories;
-    global $metaTitleMantan;
-    global $session;
-    
-    $metaTitleMantan = 'Thông tin điểm đến di tích và danh lam';
-
-	$modelHistoricalsite = $controller->loadModel('Historicalsites');
-	$mess= '';
-
-	// lấy data edit
-    if(!empty($_GET['id'])){
-        $data = $modelHistoricalsite->get( (int) $_GET['id']);
-
-    }else{
-        $data = $modelHistoricalsite->newEmptyEntity();
-         $data->created = getdate()[0];
-    }
-
-
-	if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-
-        if(!empty($dataSend['name'])){
-	        // tạo dữ liệu save
-            $data->name = @$dataSend['name'];
-            $data->address = @$dataSend['address'];
-            $data->phone = @$dataSend['phone'];
-            $data->email = @$dataSend['email'];
-            $data->image = @$dataSend['image'];
-            $data->introductory = @$dataSend['introductory'];
-            $data->latitude = @$dataSend['latitude'];
-            $data->longitude = @$dataSend['longitude'];
-            $data->image360 = @$dataSend['image360'];
-            $data->content = @$dataSend['content'];
-            $data->status = @$dataSend['status'];
-            $data->urlSlug = createSlugMantan(trim($dataSend['name']));
-
-            
-
-
-	        $modelHistoricalsite->save($data);
-
-	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-
-             if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-historicalSites-listHistoricalSitesAdmin.php?status=2');
-            }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-historicalSites-listHistoricalSitesAdmin.php?status=1');
-            }
-            
-	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
-	    }
-    }
-
-
-
-    setVariable('data', $data);
-    setVariable('mess', $mess);
-}
-
-function deleteHistoricalSitesAdmin($input){
-	global $controller;
-
-	$modelHistoricalsite = $controller->loadModel('Historicalsites');
-	if(!empty($_GET['id'])){
-		$data = $modelHistoricalsite->get($_GET['id']);
-		
-		if($data){
-         	$modelHistoricalsite->delete($data);
-        }
-	}
-
-	return $controller->redirect('/plugins/admin/tayho360-admin-historicalSites-listHistoricalSitesAdmin.php?status=3');
-}*/
-
 // Cơ quan hành chính GovernanceAgencys
-
 function listGovernanceAgencysAdmin($input)
 {
     global $controller;
@@ -250,7 +88,6 @@ function listGovernanceAgencysAdmin($input)
     setVariable('listData', $listData);
 }
 
-
 function addGovernanceAgencysAdmin($input)
 {
     global $controller;
@@ -329,7 +166,6 @@ function deleteGovernanceAgencysAdmin($input){
 }
 
 // Lễ Hội Festival
-
 function listFestivalAdmin($input)
 {
     global $controller;
@@ -415,7 +251,6 @@ function listFestivalAdmin($input)
     setVariable('listData', $listData);
 }
 
-
 function addFestivalAdmin($input)
 {
     global $controller;
@@ -456,6 +291,9 @@ function addFestivalAdmin($input)
             $data->image360 = @$dataSend['image360'];
             $data->content = @$dataSend['content'];
             $data->status = @$dataSend['status'];
+            $data->holdtime = @$dataSend['holdtime'];
+            $data->headcommittee = @$dataSend['headcommittee'];
+            $data->organizationlevel = @$dataSend['organizationlevel'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
        
@@ -495,11 +333,8 @@ function deleteFestivalAdmin($input){
     return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php?status=3');
 }
 
-
 // Dịch vụ hỗ trợ du lịch Tour
-
-function listTourAdmin($input)
-{
+function listTourAdmin($input){
     global $controller;
     global $urlCurrent;
     global $modelCategories;
@@ -583,9 +418,7 @@ function listTourAdmin($input)
     setVariable('listData', $listData);
 }
 
-
-function addTourAdmin($input)
-{
+function addTourAdmin($input){
     global $controller;
     global $isRequestPost;
     global $modelCategories;
@@ -664,9 +497,7 @@ function deleteTourAdmin($input){
 }
 
 // Điểm đến làng nghề craftvillage 
-
-function listCraftvillageAdmin($input)
-{
+function listCraftvillageAdmin($input){
     global $controller;
     global $urlCurrent;
     global $modelCategories;
@@ -750,9 +581,7 @@ function listCraftvillageAdmin($input)
     setVariable('listData', $listData);
 }
 
-
-function addCraftvillageAdmin($input)
-{
+function addCraftvillageAdmin($input){
     global $controller;
     global $isRequestPost;
     global $modelCategories;
@@ -831,9 +660,7 @@ function deleteCraftvillageAdmin($input){
 }
 
 // Nhà hàng Restaurant
-
-function listRestaurantAdmin($input)
-{
+function listRestaurantAdmin($input){
     global $controller;
     global $urlCurrent;
     global $modelCategories;
@@ -917,9 +744,7 @@ function listRestaurantAdmin($input)
     setVariable('listData', $listData);
 }
 
-
-function addRestaurantAdmin($input)
-{
+function addRestaurantAdmin($input){
     global $controller;
     global $isRequestPost;
     global $modelCategories;
@@ -995,11 +820,8 @@ function deleteRestaurantAdmin($input){
     return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php?status=3');
 }
 
-
-// Khách sạn hotle
-
-function listHotelAdmin($input)
-{
+// Khách sạn hotel
+function listHotelAdmin($input){
     global $controller;
     global $urlCurrent;
     global $modelCategories;
@@ -1083,9 +905,7 @@ function listHotelAdmin($input)
     setVariable('listData', $listData);
 }
 
-
-function addHotelAdmin($input)
-{
+function addHotelAdmin($input){
     global $controller;
     global $isRequestPost;
     global $modelCategories;
@@ -1162,5 +982,334 @@ function deleteHotelAdmin($input){
     }
 
     return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php?status=3');
+}
+
+// Ảnh 360 Image360
+function listImage360Admin($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách khách sạn';
+
+    $modelImage360 = $controller->loadModel('Images');
+    
+    $conditions = array();
+     if(!empty($_GET['name'])){
+        $key=createSlugMantan($_GET['name']);
+
+        $conditions['urlSlug LIKE']= '%'.$key.'%';
+    }
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelImage360->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $conditions_scan = array('id'=>$value->id);
+            $static = $modelImage360->find()->where($conditions_scan)->all()->toList();
+            $listData[$key]->number_scan = count($static);
+        }
+    }
+
+    // phân trang
+    $totalData = $modelImage360->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    
+    if(@$_GET['status']==1){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==2){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==3){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
+    }
+
+    setVariable('mess', @$mess);
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
+}
+
+function addImage360Admin($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+
+
+    $modelImage360 = $controller->loadModel('Images');
+    $mess= '';
+
+    // lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelImage360->get( (int) $_GET['id']);
+
+    }else{
+        $data = $modelImage360->newEmptyEntity();
+         $data->created = getdate()[0];
+    }
+
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            // tạo dữ liệu save
+            $data->name = @$dataSend['name'];
+            $data->image = @$dataSend['image'];
+            $data->introductory = @$dataSend['introductory'];
+            $data->image360 = @$dataSend['image360'];
+            $data->status = @$dataSend['status'];
+            $data->urlSlug = createSlugMantan(trim($dataSend['name']));
+
+            $modelImage360->save($data);
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+             if(!empty($_GET['id'])){
+                return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin.php?status=2');
+            }else{
+                return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin.php?status=1');
+            }
+            
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+        }
+    }
+
+
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+function deleteImage360Admin($input){
+    global $controller;
+    $modelImage360 = $controller->loadModel('Images');
+    if(!empty($_GET['id'])){
+        $data = $modelImage360->get($_GET['id']);
+        
+        if($data){
+            $modelImage360->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin.php?status=3');
+}
+
+// Sự kện Event
+function listEventAdmin($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách khách sạn';
+
+    $modelEvent = $controller->loadModel('Events');
+    
+    $conditions = array();
+     if(!empty($_GET['name'])){
+        $key=createSlugMantan($_GET['name']);
+
+        $conditions['urlSlug LIKE']= '%'.$key.'%';
+    }
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelEvent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $conditions_scan = array('id'=>$value->id);
+            $static = $modelEvent->find()->where($conditions_scan)->all()->toList();
+            $listData[$key]->number_scan = count($static);
+        }
+    }
+
+    // phân trang
+    $totalData = $modelEvent->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    
+    if(@$_GET['status']==1){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==2){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==3){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
+    }
+
+    setVariable('mess', @$mess);
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
+}
+
+function addEventAdmin($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+
+
+    $modelEvent = $controller->loadModel('Events');
+    $mess= '';
+
+    // lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelEvent->get( (int) $_GET['id']);
+
+    }else{
+        $data = $modelEvent->newEmptyEntity();
+         $data->created = getdate()[0];
+    }
+
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+
+
+        if(!empty($dataSend['name'])){
+            // tạo dữ liệu save
+            $data->name = @$dataSend['name'];
+            $data->image = @$dataSend['image'];
+            $data->address = @$dataSend['address'];
+            if(!empty($dataSend['datestart'])){
+                $data->datestart = strtotime(str_replace("T", " ", @$dataSend['datestart']));
+            }else{
+                $data->datestart = '';
+            }
+            if(!empty($dataSend['dateend'])){
+                $data->dateend = strtotime(str_replace("T", " ", @$dataSend['dateend']));
+            }else{
+                $data->dateend = '';
+            }
+            $data->introductory = @$dataSend['introductory'];
+            $data->takesplace = @$dataSend['takesplace'];
+            $data->year = @$dataSend['year'];
+            $data->status = @$dataSend['status'];
+            $data->content = @$dataSend['content'];
+            $data->headcommittee = @$dataSend['headcommittee'];
+            $data->phone = @$dataSend['phone'];
+            $data->organizationlevel = @$dataSend['organizationlevel'];
+            $data->urlSlug = createSlugMantan(trim($dataSend['name']));
+
+            
+            $modelEvent->save($data);
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+             if(!empty($_GET['id'])){
+                return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=2');
+            }else{
+                return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=1');
+            }
+            
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+        }
+    }
+
+
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+function deleteEventAdmin($input){
+    global $controller;
+    $modelEvent = $controller->loadModel('Events');
+    if(!empty($_GET['id'])){
+        $data = $modelEvent->get($_GET['id']);
+        
+        if($data){
+            $modelEvent->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=3');
 }
  ?>

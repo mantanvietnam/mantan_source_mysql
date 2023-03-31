@@ -6,4 +6,6 @@ include('model/tour.php');
 include('model/craftvillage.php');
 include('model/restaurant.php');
 include('model/hotel.php');
+include('model/image360.php');
+include('model/event.php');
 ?>
