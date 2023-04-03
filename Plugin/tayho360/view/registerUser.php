@@ -1,0 +1,1 @@
+<?php getFileTheme('user/registerUser.php'); ?>

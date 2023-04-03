@@ -1,0 +1,1 @@
+<?php getFileTheme('entertainment/detailEntertainment.php'); ?>

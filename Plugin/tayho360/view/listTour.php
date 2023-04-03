@@ -1,0 +1,1 @@
+<?php getFileTheme('tour/listTour.php'); ?>

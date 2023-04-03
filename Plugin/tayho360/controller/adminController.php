@@ -1271,6 +1271,7 @@ function addEventAdmin($input){
             $data->takesplace = @$dataSend['takesplace'];
             $data->year = @$dataSend['year'];
             $data->status = @$dataSend['status'];
+            $data->month = @$dataSend['month'];
             $data->content = @$dataSend['content'];
             $data->headcommittee = @$dataSend['headcommittee'];
             $data->phone = @$dataSend['phone'];

@@ -81,6 +81,11 @@
                         <label for="">Nơi phát hiện:</label>
                         <input type="text" name="excavation" class="form-control" value="<?php echo @$data['excavation']; ?>">
                     </div>
+
+                    <div class="mb-3 form-group col-md-6">
+                        <label for="">Chứng nhận:</label>
+                        <input type="text" name="certification" class="form-control" value="<?php echo @$data['certification']; ?>">
+                    </div>
                     
                     <div class="mb-3 form-group col-md-6">
                         <label for="">Niên đại:</label>
@@ -103,8 +108,12 @@
                         <input type="date" name="registrationdate" class="form-control" value="<?php echo @$data['registrationdate']; ?>">                       
                     </div>
                     <div class="mb-3 form-group col-md-6">
-                        <label for="">Hiện trạng:</label>
+                        <label for="">Hình dạng:</label>
                         <input type="text" name="shape" class="form-control" value="<?php echo @$data['shape']; ?>">
+                    </div>
+                    <div class="mb-3 form-group col-md-6">
+                        <label for="">Hiện trạng:</label>
+                        <input type="text" name="current" class="form-control" value="<?php echo @$data['current']; ?>">
                     </div>
                     <div class="mb-3 form-group col-md-6">
                         <label for="">Kỹ thuật chế tác:</label>

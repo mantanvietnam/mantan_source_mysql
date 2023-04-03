@@ -1,0 +1,1 @@
+<?php getFileTheme('restauran/detailRestaurant.php'); ?>

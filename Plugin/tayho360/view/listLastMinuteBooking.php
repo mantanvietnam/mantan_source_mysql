@@ -1,0 +1,1 @@
+<?php getFileTheme('hotel/listLastMinuteBooking.php'); ?>

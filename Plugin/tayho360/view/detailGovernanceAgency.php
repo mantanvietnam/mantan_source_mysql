@@ -1,0 +1,1 @@
+<?php getFileTheme('governanceAgency/detailGovernanceAgency.php'); ?>

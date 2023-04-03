@@ -475,9 +475,9 @@ function addArtifactAdmin($input)
             $data->sign = @$dataSend['sign'];
             $data->weight = @$dataSend['weight'];
             $data->size = @$dataSend['size'];
-            $data->introductory = @$dataSend['introductory'];
-            
-           
+            $data->current = @$dataSend['current'];
+            $data->certification = @$dataSend['certification'];
+
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
    

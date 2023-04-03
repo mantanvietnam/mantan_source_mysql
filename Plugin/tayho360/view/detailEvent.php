@@ -1,0 +1,1 @@
+<?php getFileTheme('event/detailEvent.php'); ?>

@@ -1,0 +1,1 @@
+<?php getFileTheme('oldQuarter/detailOldQuarter.php'); ?>

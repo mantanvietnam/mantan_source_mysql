@@ -1,0 +1,1 @@
+<?php getFileTheme('hotel/listHotel.php'); ?>

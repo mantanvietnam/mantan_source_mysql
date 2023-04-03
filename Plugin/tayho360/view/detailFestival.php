@@ -1,0 +1,1 @@
+<?php getFileTheme('festival/detailFestival.php'); ?>
