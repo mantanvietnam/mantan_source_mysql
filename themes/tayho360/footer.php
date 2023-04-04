@@ -12,17 +12,17 @@ global $urlThemeActive;
                 </div>
                 <div class="col-12 col-md-8 col-lg-8">
                     <div class="list-info">
-                        <h5>TRANG THÔNG TIN ĐIỆN TỬ TÂY HỒ 360</h5>
+                        <h5><?php echo @$setting['title_footer'];?></h5>
                         <div class="list-info">
                             <ul class="p-0 list-unstyled">
-                                <li>Cơ quan chủ quản: Ủy ban nhân dân quận Tây Hồ – TP. Hà Nội</li>
-                                <li>Địa chỉ: 657 Đ. Lạc Long Quân, Tây Hồ, Hà Nội</li>
-                                <li>Điện thoại: 024 7533396</li>
-                                <li>Email: tayho360@gmail.com</li>
-                                <li class="mt-3">Chịu trách nhiệm chính: Phòng Văn hóa và Thông tin quận Tây Hồ</li>
-                                <li>Điện thoại: 0247533396</li>
-                                <li>Hòm thư công vụ: vanthu_tayho@hanoi.gov.vn</li>
-                                <li class="mt-3">Theo dõi chúng tôi qua:</li>
+                                <li>Cơ quan chủ quản: <?php echo @$setting['agency'];?></li>
+                                <li>Địa chỉ: <?php echo @$setting['address'];?></li>
+                                <li>Điện thoại: <?php echo @$setting['phone'];?></li>
+                                <li>Email: <?php echo @$setting['email'];?></li>
+                                <li class="mt-3">Chịu trách nhiệm chính: <?php echo @$setting['responsibility'];?></li>
+                                <li>Điện thoại: <?php echo @$setting['responsibilityphone'];?></li>
+                                <li>Hòm thư công vụ: <?php echo @$setting['responsibilityemail'];?>n</li>
+                                <li class="mt-3">Theo dõi chúng tôi qua:<?php echo @$setting['follow'];?></li>
                                 <ul class="list-unstyled p-0">
                                 </ul>
                             </ul>
@@ -35,16 +35,12 @@ global $urlThemeActive;
                         <h5>Thông tin chung</h5>
                         <div class="list-info">
                             <ul class="p-0 list-unstyled">
-                                <li><a href="">Điểm đến</a></li>
-                                <li><a href="">Sự kiện</a></li>
-                                <li><a href="">Cẩm nang du lịch</a></li>
-                                <li><a href="">Tin tức</a></li>
-                                <li><a href="">Tour du lịch</a></li>
-                                <li><a href="">Bản đồ du lịch</a></li>
-                                <li><a href="">Việt Nam 360</a></li>
-                                <li class="mt-3"><a href="">Tải phiên bản dành cho di động</a></li>
-                                <ul class="list-unstyled p-0">
-                                </ul>
+                                <?php
+                                if(!empty(getListLinkWeb(@$setting['idlink']) )){
+
+                                 foreach(getListLinkWeb(@$setting['idlink']) as $key => $ListLink){ ?>
+                                <li><a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a></li>
+                                <?php } }?>
                             </ul>
                         </div>
 
@@ -61,11 +57,7 @@ global $urlThemeActive;
             </div>
         </div>
     </div>
-</footer>
-
-
-
-<!--<script src="--><?php //= $urlThemeActive ?><!--js/particle.js"></script>-->
+</footer>   
 
 </body>
 </html>

@@ -148,7 +148,7 @@ function addHistoricalSitesAdmin($input)
             }
             
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+	    	$mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
 	    }
     }
 
@@ -307,7 +307,7 @@ function addWardAdmin($input)
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
         }
     }
 
@@ -494,7 +494,7 @@ function addArtifactAdmin($input)
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
         }
     }
 

@@ -1,1 +1,1 @@
-<?php getFileTheme('2top_crm/register.php'); ?>
+<?php getFileTheme('customers/register.php'); ?>

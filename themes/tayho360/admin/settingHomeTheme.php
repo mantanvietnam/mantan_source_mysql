@@ -22,10 +22,7 @@
                   <input type="text" class="form-control" name="link_image360" value="<?php echo @$setting['link_image360'];?>" />
                 </div>
 
-               <!--  <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Link button</label>
-                  <input type="text" class="form-control" name="link_button" value="<?php echo @$setting['link_button'];?>" />
-                </div> -->
+                 
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
@@ -51,6 +48,9 @@
             </div>
           </div>
         </div>
+
+      
+
 
         <div class="col-12 col-xs-12">
           <div class="card mb-4">
@@ -123,6 +123,7 @@
                 </div>
             </div>
 
+
              <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
             </div>
                
@@ -130,78 +131,65 @@
           </div>
         </div>
 
- <!--       <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="col-12 col-xs-12 ">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối chân trang</h5>
+              <h5 class="mb-0">chân trang</h5>
             </div>
-            <div class="card-body">
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Tên thương hiệu</label>
-                  <input type="text" class="form-control" name="brand_name" value="<?php echo @$setting['brand_name'];?>" />
+            <div class="card-body row">
+              <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="mb-3 ">
+                  <label class="form-label" for="basic-default-fullname">Tiên đề</label>
+                  <input type="text" class="form-control" name="title_footer" value="<?php echo @$setting['title_footer'];?>" />
+                </div>
+                <div class="mb-3 ">
+                  <label class="form-label" for="basic-default-fullname">Cơ quan chủ quản:</label>
+                  <input type="text" class="form-control" name="agency" value="<?php echo @$setting['agency'];?>" />
+                </div>
+                <div class="mb-3 ">
+                  <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                  <input type="text" class="form-control" name="address" value="<?php echo @$setting['address'];?>" />
+                </div>
+                <div class="mb-3 ">
+                  <label class="form-label" for="basic-default-fullname">Điện thoại</label>
+                  <input type="text" class="form-control" name="phone" value="<?php echo @$setting['phone'];?>" />
+                </div>
+                <div class="mb-3 ">
+                  <label class="form-label" for="basic-default-fullname">Email</label>
+                  <input type="text" class="form-control" name="email" value="<?php echo @$setting['email'];?>" />
+                </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                  <div class="mb-3 ">
+                  
+                    <label class="form-label" for="basic-default-fullname">Chịu trách nhiệm chính</label>
+                    <input type="text" class="form-control" name="responsibility" value="<?php echo @$setting['responsibility'];?>" />
+                  </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Điện thoại:</label>
+                    <input type="text" class="form-control" name="responsibilityphone" value="<?php echo @$setting['responsibilityphone'];?>" />
+                  </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Email</label>
+                    <input type="text" class="form-control" name="responsibilityemail" value="<?php echo @$setting['responsibilityemail'];?>" />
+                  </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Theo dõi chúng tôi qua</label>
+                    <input type="text" class="form-control" name="follow" value="<?php echo @$setting['follow'];?>" />
+                  </div>
+                   <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Id nhóm link liên kết chân trang</label>
+                    <input type="text" class="form-control" name="idlink" value="<?php echo @$setting['idlink'];?>" />
+                  </div>
                 </div>
 
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Tiêu đề khối đăng ký nhận thông báo</label>
-                  <input type="text" class="form-control" name="title_subscribe" value="<?php echo @$setting['title_subscribe'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Mô tả khối đăng ký nhận thông báo</label>
-                  <input type="text" class="form-control" name="description_subscribe" value="<?php echo @$setting['description_subscribe'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">ID menu chân trang</label>
-                  <input type="text" class="form-control" name="id_menu_footer" value="<?php echo @$setting['id_menu_footer'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Logo website</label>
-                  <?php showUploadFile('logo','logo', @$setting['logo'],0);?>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
             </div>
+
           </div>
         </div>
 
-        <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-          <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Tài khoản mạng xã hội</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Facebook</label>
-                  <input type="text" class="form-control" name="facebook" value="<?php echo @$setting['facebook'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Youtube</label>
-                  <input type="text" class="form-control" name="youtube" value="<?php echo @$setting['youtube'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">TikTok</label>
-                  <input type="text" class="form-control" name="tiktok" value="<?php echo @$setting['tiktok'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Instagram</label>
-                  <input type="text" class="form-control" name="instagram" value="<?php echo @$setting['instagram'];?>" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">LinkedIn</label>
-                  <input type="text" class="form-control" name="linkedIn" value="<?php echo @$setting['linkedIn'];?>" />
-                </div>
-
-                <button type="submit" class="btn btn-primary">Lưu</button>
-            </div>
-          </div>
-        </div> -->
-
+       
       </div>
     <?= $this->Form->end() ?>
   </div>

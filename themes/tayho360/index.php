@@ -547,8 +547,8 @@ global $urlThemeActive;
             <div class="container">
                 <div class="row">
                     <div class="flex slide-vn360">
-                        <?php if(!empty($tmpVariable['listDataImages'])) {
-                            foreach ($tmpVariable['listDataImages'] as $keyImage => $valueImage) {
+                        <?php if(!empty($tmpVariable['listDataImage'])) {
+                            foreach ($tmpVariable['listDataImage'] as $keyImage => $valueImage) {
                           
 
                          ?>

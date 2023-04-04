@@ -141,7 +141,7 @@ function addGovernanceAgencysAdmin($input)
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -309,7 +309,7 @@ function addFestivalAdmin($input)
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -472,7 +472,7 @@ function addTourAdmin($input){
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -635,7 +635,7 @@ function addCraftvillageAdmin($input){
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -796,7 +796,7 @@ function addRestaurantAdmin($input){
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -960,7 +960,7 @@ function addHotelAdmin($input){
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -1115,7 +1115,7 @@ function addImage360Admin($input){
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
@@ -1290,7 +1290,7 @@ function addEventAdmin($input){
             }
             
         }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên mã QR</p>';
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }
     }
 
