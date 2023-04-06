@@ -1,0 +1,1 @@
+<?php getFileTheme('craftvillage/detailCraftvillage.php'); ?>

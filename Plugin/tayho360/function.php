@@ -81,15 +81,15 @@ function getmonth(){
         global $urlHomes;
 
 
-        return array(   '1'=>array('id'=>1,'name'=>'DI TÍCH VĂN HÓA LỊCH SỬ','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconditich.png','urlSlug'=>'di_tich_lich_su'),
+        return array(   '1'=>array('id'=>1,'name'=>'Di tích văn hóa lịch sử','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconditich.png','urlSlug'=>'di_tich_lich_su'),
             //'2'=>array('id'=>2,'name'=>'DANH LAM','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icondanhlam.png','urlSlug'=>'di_tich_lich_su'),   
-            '2'=>array('id'=>3,'name'=>'LỄ HỘI','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlehoi.png','urlSlug'=>'pho_co'),   
-            '3'=>array('id'=>4,'name'=>'LÀNG NGHỀ','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlangnghe.png','urlSlug'=>'tour'),  
-            '4'=>array('id'=>5,'name'=>'CƠ QUAN HÀNH CHÍNH','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconcoquan.png','urlSlug'=>'co_quan_hanh_chinh'),   
-            '5'=>array('id'=>6,'name'=>'TRUNG TÂM HỘI NGHỊ SỰ KIỆN','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'le_hoi'), 
-            '6'=>array('id'=>7,'name'=>'KHÁCH SẠN','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconkhachsan.png','urlSlug'=>'khach_san'),   
-            '7'=>array('id'=>8,'name'=>'NHÀ HÀNG QUÁN ĂN','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconnhahang.png','urlSlug'=>'nha_hang'),   
-            '8'=>array('id'=>9,'name'=>'DỊCH VỤ HỖ TRỢ DU LỊCH','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconhotro.png','urlSlug'=>'giai_tri'),  
+            '2'=>array('id'=>3,'name'=>'Lễ hội','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlehoi.png','urlSlug'=>'le_hoi'),   
+            '3'=>array('id'=>4,'name'=>'Làng nghề','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlangnghe.png','urlSlug'=>'lang_nghe'),  
+            '4'=>array('id'=>5,'name'=>'Cơ quan hành chính','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconcoquan.png','urlSlug'=>'co_quan_hanh_chinh'),   
+            '5'=>array('id'=>6,'name'=>'Trung tâm hội nghị sự kiện','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'le_hoi'), 
+            '6'=>array('id'=>7,'name'=>'Khách sạn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconkhachsan.png','urlSlug'=>'khach_san'),   
+            '7'=>array('id'=>8,'name'=>'Nhà hàng quán ăn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconnhahang.png','urlSlug'=>'nha_hang'),   
+            '8'=>array('id'=>9,'name'=>'Dịch vụ hỗ trợ du lịch','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconhotro.png','urlSlug'=>'giai_tri'),  
         );                                  
              
     }

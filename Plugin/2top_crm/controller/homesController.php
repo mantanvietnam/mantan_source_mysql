@@ -51,13 +51,17 @@ function register($input)
 
     $metaTitleMantan = 'Đăng ký tài khoản';
 
+
+
     $modelCustomer = $controller->loadModel('Customers');
 
     if(empty($session->read('infoUser'))){
     	$mess = '';
 
 	    if($isRequestPost){
+
 	    	$dataSend = $input['request']->getData();
+
 	    	if(	!empty($dataSend['full_name']) && 
 	    		!empty($dataSend['phone']) &&
 	    		!empty($dataSend['email']) &&

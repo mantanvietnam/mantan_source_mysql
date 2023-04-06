@@ -90,6 +90,9 @@ function indexTheme($input){
     $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     $listDataImage = $modelImage ->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
 
+
+    
+
      $data_value = array();
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);

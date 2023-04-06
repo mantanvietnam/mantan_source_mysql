@@ -72,15 +72,30 @@
                 <i>Kinh độ (long):</i>
                 <input type="text" name="longitude" class="form-control" id="longitude" value="<?php echo @$data['longitude'] ?>">
             </div>
-            
+              <div class="mb-3 form-group col-sm-3">
+                <i>Ngày bắt đầu:</i>
+                <input type="date" name="datestart" class="form-control hasDatepicker datepicker" id="datestart" value="<?php echo (!empty($data['datestart']))?  date("Y-m-d", @$data['datestart']) : " " ?>">
+            </div>
+            <div class="mb-3 form-group col-sm-3">
+                <i>Ngày kết thúc:</i>
+                <input type="date" name="dateend" class="form-control hasDatepicker datepicker" id="dateend" value="<?php echo (!empty($data['dateend']))?  date("Y-m-d", @$data['dateend']) : " " ?>">
+            </div>
+            <div class="mb-3 form-group col-sm-3">
+                <i>Giá:</i>
+                <input type="number" name="price" class="form-control hasDatepicker datepicker" id="price" value="<?php echo  @$data['price'] ?>">
+            </div>
+            <div class="mb-3 form-group col-sm-3">
+                <i>Thời gian tour:</i>
+               <input type="text" name="timetravel" class="form-control" id="timetravel" value="<?php echo  @$data['timetravel'] ?>">
+            </div>
             
             <div class="mb-3 form-group col-sm-6">
-                <i>Mô tả ngắn:</i>
+                <i>Gới thiệu:</i>
                <textarea name="introductory" id="introductory" onkeyup="" class="form-control" rows="5"><?php echo @$data['introductory'] ?></textarea>
             </div>
          
             <div class="mb-3 form-group col-sm-12">
-                <i>Nội dung bài viết</i>
+                <i>Lịch trình</i>
                <?php
                         showEditorInput('content','content',@$data['content'],1);
                     ?>                                          

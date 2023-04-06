@@ -1,1 +1,1 @@
-<?php getFileTheme('festival/listlistFestival.php'); ?>
+<?php getFileTheme('festival/listFestival.php'); ?>

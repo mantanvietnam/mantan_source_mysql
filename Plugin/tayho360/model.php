@@ -1,5 +1,4 @@
 <?php 
-//include('model/historicalsite.php');
 include('model/governanceAgency.php');
 include('model/festival.php');
 include('model/tour.php');
@@ -8,4 +7,5 @@ include('model/restaurant.php');
 include('model/hotel.php');
 include('model/image360.php');
 include('model/event.php');
+include('model/like.php');
 ?>

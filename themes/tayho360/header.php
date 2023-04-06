@@ -1,5 +1,9 @@
 <?php
 global $urlThemeActive;
+include_once("helper.php");
+$setting= setting();
+ global $session;
+    $infoUser = $session->read('infoUser');
 ?>
 
 <!doctype html>
@@ -45,11 +49,7 @@ global $urlThemeActive;
     <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
     <script src="<?= $urlThemeActive ?>assets/js/main.js"></script>
     <!-- FILE INCLUDE JS END -->
-
-    <title>Trang chủ</title>
-    <?php
-    mantan_header();
-    ?>
+ <?php mantan_header();?>
 
 
 </head>
@@ -64,10 +64,11 @@ global $urlThemeActive;
                     <input type="text" placeholder="Tìm kiếm">
                 </form>
                 <li class="nav-item dropdown user-login">
+                     <?php if(!empty($infoUser)){ ?>
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                        data-bs-toggle="dropdown">
-                        <img src="<?= $urlThemeActive ?>assets/lou_icon/user-icon.png" alt="">
-                        <span class="username">Xin chào, Nguyễn Văn A</span>
+                        <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;" alt="">
+                        <span class="username">Xin chào <?php echo $infoUser['full_name']; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Hành trình</a></li>
@@ -75,8 +76,11 @@ global $urlThemeActive;
                         <li><a class="dropdown-item" href="#">Yêu thích</a></li>
                         <li><a class="dropdown-item" href="#">Thông báo</a></li>
                         <li><a class="dropdown-item" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item logout" href="#">Đăng xuất</a></li>
+                        <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
                     </ul>
+                    <?php }else{ ?>
+                       <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; " href="/login">Đăng Nhập</a>
+                    <?php } ?>
                 </li>
                 <!-- <a href="" class="sign btn">Đăng ký / Đăng nhập</a> -->
                 <a href="" class="lang d-block">
@@ -92,7 +96,7 @@ global $urlThemeActive;
         <div class="container-xxl">
             <nav class="navbar navbar-expand-xxl">
                 <div class="container-fluid">
-                    <a class="navbar-brand d-block" href="#">
+                    <a class="navbar-brand d-block" href="/">
                         <img src="<?php echo @$setting['image_logo'];?>" style=" width: 55px; " alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -103,7 +107,7 @@ global $urlThemeActive;
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">TRANG CHỦ</a>
+                                <a class="nav-link active" aria-current="page" href="/">TRANG CHỦ</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

@@ -457,6 +457,19 @@ function addTourAdmin($input){
             $data->image360 = @$dataSend['image360'];
             $data->content = @$dataSend['content'];
             $data->status = @$dataSend['status'];
+            $data->price = @$dataSend['price'];
+            $data->timetravel = @$dataSend['timetravel'];
+            if(!empty($dataSend['datestart'])){
+                $data->datestart = strtotime(str_replace("T", " ", @$dataSend['datestart']));
+            }else{
+                $data->datestart = '';
+            }
+            if(!empty($dataSend['dateend'])){
+                $data->dateend = strtotime(str_replace("T", " ", @$dataSend['dateend']));
+            }else{
+                $data->dateend = '';
+            }
+            
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
        
@@ -1274,6 +1287,8 @@ function addEventAdmin($input){
             $data->month = @$dataSend['month'];
             $data->content = @$dataSend['content'];
             $data->headcommittee = @$dataSend['headcommittee'];
+            $data->latitude = @$dataSend['latitude'];
+            $data->longitude = @$dataSend['longitude'];
             $data->phone = @$dataSend['phone'];
             $data->organizationlevel = @$dataSend['organizationlevel'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));

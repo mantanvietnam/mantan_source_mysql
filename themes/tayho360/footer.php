@@ -1,5 +1,9 @@
 <?php
 global $urlThemeActive;
+
+$setting= setting();
+
+
 ?>
 <footer>
     <div class="main-footer px-0 py-5">
@@ -7,7 +11,7 @@ global $urlThemeActive;
             <div class="row">
                 <div class="col-12 col-md-4 col-lg-2">
                     <div class="logo-footer mb-4">
-                        <img class="w-100" src="<?=$urlThemeActive?>assets/lou_icon/logo-footer.svg" alt="">
+                        <img class="w-100" src="<?php echo @$setting['image_logo'];?>" alt="">
                     </div>
                 </div>
                 <div class="col-12 col-md-8 col-lg-8">
@@ -35,12 +39,12 @@ global $urlThemeActive;
                         <h5>Thông tin chung</h5>
                         <div class="list-info">
                             <ul class="p-0 list-unstyled">
-                                <?php
-                                if(!empty(getListLinkWeb(@$setting['idlink']) )){
+                                 <?php
+                                if(!empty(getListLinkWeb(@$setting['idlink']))){
 
                                  foreach(getListLinkWeb(@$setting['idlink']) as $key => $ListLink){ ?>
                                 <li><a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a></li>
-                                <?php } }?>
+                                <?php } }?> 
                             </ul>
                         </div>
 

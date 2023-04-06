@@ -25,5 +25,20 @@ if(!empty($settingTraining2TOPCRM->value)){
 
 setVariable('setting_value', $setting_value);
 
+function setting(){
+    global $controller;
+    global $modelOptions;
+     $conditions = array('key_word' => 'settingHomeTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+   
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    return $data_value;
+}
+
 
 ?>

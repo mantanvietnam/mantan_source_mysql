@@ -52,11 +52,11 @@
             </div>
             <div class="mb-3 form-group col-sm-3">
                 <i>Ngày bắt đầu:</i>
-                <input type="datetime-local" name="datestart" class="form-control hasDatepicker datepicker" id="datestart" value="<?php echo  date("Y-m-d H:i:s", @$data['datestart']) ?>">
+                <input type="datetime-local" name="datestart" class="form-control hasDatepicker datepicker" id="datestart" value="<?php echo (!empty($data['datestart']))?  date("Y-m-d H:i:s", @$data['datestart']) : " " ?>">
             </div>
             <div class="mb-3 form-group col-sm-3">
                 <i>Ngày kết thúc:</i>
-                <input type="datetime-local" name="dateend" class="form-control hasDatepicker datepicker" id="dateend" value="<?php echo date("Y-m-d H:i:s", @$data['dateend'])?>">
+                <input type="datetime-local" name="dateend" class="form-control hasDatepicker datepicker" id="dateend" value="<?php echo (!empty($data['dateend']))?  date("Y-m-d H:i:s", @$data['dateend']) : " " ?>">
             </div>
             <div class="mb-3 form-group col-sm-6">
                <i>Ảnh đại diện</i>
@@ -102,6 +102,14 @@
                     <input name="takesplace" type="radio" value="done" <?php if(!empty($data['takesplace']) && $data['takesplace']=='done') echo 'checked';?> > Đã diễn ra
                 </div>
                 
+            </div>
+             <div class="mb-3 form-group col-sm-3">
+                <i>Vĩ độ (lat):</i>
+                <input type="text" name="latitude" class="form-control" id="latitude" value="<?php echo @$data['latitude'] ?>">
+            </div>
+             <div class="mb-3 form-group col-sm-3">
+                <i>Kinh độ (long):</i>
+                <input type="text" name="longitude" class="form-control" id="longitude" value="<?php echo @$data['longitude'] ?>">
             </div>
              <div class="mb-3 form-group col-sm-6">
                 <i>Giới thiệu:</i>

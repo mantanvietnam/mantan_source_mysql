@@ -5,8 +5,6 @@ global $urlThemeActive;
 
 
     <main>
-
-
         <section id="banner-home-360" class="page-banner">
             <div class="box-iframe">
                 <iframe src="<?php echo @$setting['link_image360'];?>"
@@ -502,20 +500,20 @@ global $urlThemeActive;
                          ?>
                     <div class="col-lg-3 pd-tth">
                         <div class="box-tth">
-                            <a href="/tour/<?php echo @$valueTour['urlSlug'];?>.html">
+                            <a href="/chi_tiet_tour/<?php echo @$valueTour['urlSlug'];?>.html">
                                 <div class="box-image">
                                     <img src="<?php echo @$valueTour['image'];?>" alt="">
                                 </div>
                                 <div class="box-info">
-                                    <!-- <div class="type-tour">
-                                        <p>Tour 1 ngày</p>
-                                    </div> -->
+                                    <div class="type-tour">
+                                        <p><?php echo @$valueTour['timetravel'];?></p>
+                                    </div> 
                                     <div class="title-tour">
                                         <p><?php echo @$valueTour['name'];?></p>
                                     </div>
-                                    <!-- <div class="price-tour">
-                                        <span>500.000</span>
-                                    </div> -->
+                                     <div class="price-tour">
+                                        <span><?php echo number_format(@$valueTour['price']);?> VNĐ</span>
+                                    </div> 
                                 </div>
                             </a>
                         </div>
@@ -572,6 +570,8 @@ global $urlThemeActive;
         }
     </style>
 
+    <script src="<?php echo $urlThemeActive ?>js/particle.js"></script>
+
 
 <?php
-getFooter();
+getFooter();?>
