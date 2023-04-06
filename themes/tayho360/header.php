@@ -48,6 +48,10 @@ $setting= setting();
     <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
     <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
     <script src="<?= $urlThemeActive ?>assets/js/main.js"></script>
+    <script src="<?= @$urlThemeActive ?>assets/js/jquery.datetimepicker.full.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js'></script>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css'>
+    <link rel="stylesheet" href="<?= @$urlThemeActive ?>assets/css/datetimepicker.css">
     <!-- FILE INCLUDE JS END -->
  <?php mantan_header();?>
 

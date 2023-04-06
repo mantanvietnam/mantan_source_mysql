@@ -1,1 +1,1 @@
-<?php getFileTheme('restauran/listRestaurant.php'); ?>
+<?php getFileTheme('restaurant/listRestaurant.php'); ?>

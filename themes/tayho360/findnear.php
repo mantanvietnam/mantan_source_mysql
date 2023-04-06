@@ -10,34 +10,91 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+  .box-menu-map {
+    position: absolute;
+    left: 70px;
+    background-color: #4E9D90;
+    padding: 50px 60px;
+    width: 350px;
+    height:450px;
+    z-index: 99999;
+    border-radius: 0 20px 20px 0;
+    transition: 1s;
+  }
+  #bando .col-md-12 {
+    padding: 0;
+  }
+  .box-menu-map .title-menu-map p {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  .box-menu-map ul {
+    color: #ffffff;
+  }
+  .box-menu-map ul li {
+    margin: 15px 0;
+  }
+  #map_HS {
+    height: 600px !important;
+  }
 </style>
 <div class="container-fluid wr-map page-section" id="bando">
       <div class="row">
         <div class="col-md-12 set-pd-col clsFlex-wrap" style="overflow: hidden;">
           <div class="menu-map">
             <div class="box-menu-map">
-              <div><span class="cursor-pointer" onclick="btnMenu(this)"><i class="fa fa-bars" aria-hidden="true"></i></span>
-                <span data-toggle="collapse" data-target="#box-check" class="cursor-pointer hidden-pc" onclick="btnMenu2(this)"><i class="fa fa-bars" aria-hidden="true"></i></span>
-              </div>
-                <ul  class="collapse show">
-                  <li>
-                    <input id="check-all" name="all" onclick="checkboxAll(this,'box-check');" value="0" type="checkbox" checked>
-                    <label class="noselect" for="check-all">Chọn tất cả</label>
-                  </li>
+              <div class="check-box-menu-map">
+                <div class="title-menu-map">
+                  <p>Danh sách điểm đến</p>
+                </div>
+                <div>
+                  <!-- <span class="cursor-pointer" onclick="btnMenu(this)"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                  <span data-toggle="collapse" data-target="#box-check" class="cursor-pointer hidden-pc" onclick="btnMenu2(this)"><i class="fa fa-bars" aria-hidden="true"></i></span> -->
+                </div>
+                  <ul  class="collapse show">
+                    <li>
+                      <input id="check-all" name="all" onclick="checkboxAll(this,'box-check');" value="0" type="checkbox" checked>
+                      <label class="noselect" for="check-all">Chọn tất cả</label>
+                    </li>
+                  </ul>
+                <ul id="box-check" class="collapse show">
+                  <?php  $listdestination = destination(); 
+                    foreach($listdestination as $keydes => $des){?>
+                      <li>
+                        <input id="check-all<?php echo $keydes ?>"  onclick="initMap();" name="all" type="checkbox" value="<?php echo $des['urlSlug'] ?>" checked>
+                        <label class="noselect" for="check-all<?php echo $keydes ?>"><?php echo $des['name'] ?></label>
+                      </li>
+                  <?php }?>     
                 </ul>
-              <ul id="box-check" class="collapse show">
-              <?php  $listdestination = destination(); 
-                        foreach($listdestination as $keydes => $des){?>
-                          <li>
-                            <input id="check-all<?php echo $keydes ?>"  onclick="initMap();" name="all" type="checkbox" value="<?php echo $des['urlSlug'] ?>" checked>
-                            <label class="noselect" for="check-all<?php echo $keydes ?>"><?php echo $des['name'] ?></label>
-                          </li>
-                        <?php }?> 
-              </ul>
+                <div class="absolute btn-hide">
+                  <a href="javascript:void(0)" class="hide_pop-up"><i class="fa-solid fa-angle-left"></i></a>
+                </div>
+              </div>
+              <div class="btn-show absolute opacity-0">
+                <a href="javascript:void(0)" class="show_pop-up"><i class="fa-solid fa-angle-right"></i></a>
+              </div>
+              <div class="img-calendar">
+                <div class="box-img-calendar">
+                  <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+                </div>
+                <div class="box-img-calendar">
+                  <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+                </div>
+                <div class="box-img-calendar">
+                  <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+                </div>
+                <div class="box-img-calendar">
+                  <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+                </div>
+                <div class="box-img-calendar">
+                  <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+                </div>
+              </div>
             </div>
           </div>
           <div class="iframe-map">
-            <button onclick="btnMenu(this)"><i class="fa fa-bars" aria-hidden="true"></i></button>
+            <!-- <button onclick="btnMenu(this)"><i class="fa fa-bars" aria-hidden="true"></i></button> -->
             <div id="map_HS"></div>
           </div>
         </div>

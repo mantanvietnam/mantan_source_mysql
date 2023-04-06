@@ -86,7 +86,7 @@ function indexTheme($input){
     $conditionsTour =array('status' => '1');
     
     $listDataEvent= $modelEvent->find()->limit(30)->page(1)->where($conditionsmonth)->order($order)->all()->toList();
-    $listDataPost= $modelPosts->find()->limit(30)->page(1)->where()->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     $listDataImage = $modelImage ->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
 

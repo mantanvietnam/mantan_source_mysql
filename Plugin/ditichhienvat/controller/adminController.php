@@ -450,7 +450,7 @@ function addArtifactAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-
+   // debug($dataSend);
         if(!empty($dataSend['name'])){
             // tạo dữ liệu save
             $data->name = @$dataSend['name'];
@@ -462,7 +462,11 @@ function addArtifactAdmin($input)
             $data->century = @$dataSend['century'];
             $data->location = @$dataSend['location'];
             $data->color = @$dataSend['color'];
-            $data->registrationdate = @$dataSend['registrationdate'];
+             if(!empty($dataSend['registrationdate'])){
+                $data->registrationdate = strtotime(str_replace("T", " ", @$dataSend['registrationdate']));
+            }else{
+                $data->registrationdate = '';
+            }
             $data->shape = @$dataSend['shape'];
             $data->technique = @$dataSend['technique'];
             $data->classify = @$dataSend['classify'];
@@ -470,18 +474,49 @@ function addArtifactAdmin($input)
             $data->source = @$dataSend['source'];
             $data->file = @$dataSend['file'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
+            $data->image360 = @$dataSend['image360'];
             $data->number = @$dataSend['number'];
             $data->quantity = @$dataSend['quantity'];
             $data->sign = @$dataSend['sign'];
             $data->weight = @$dataSend['weight'];
             $data->size = @$dataSend['size'];
+            $data->introductory = @$dataSend['introductory'];
             $data->current = @$dataSend['current'];
             $data->certification = @$dataSend['certification'];
+            $data->exposure = @$dataSend['exposure'];
+            $data->intensity = @$dataSend['intensity'];
+            $data->softness = @$dataSend['softness'];
+            $data->counterclockwise = @$dataSend['counterclockwise'];
+            $data->clockwiselimit = @$dataSend['clockwiselimit'];
+            $data->topdownlimit = @$dataSend['topdownlimit'];
+            $data->bottomuplimit = @$dataSend['bottomuplimit'];
+            $data->doctitle = @$dataSend['doctitle'];
+            $data->docauthor = @$dataSend['docauthor'];
+            $data->doctype = @$dataSend['doctype'];
+            $data->doclink = @$dataSend['doclink'];
+              if(!empty($dataSend['docdate'])){
+                $data->docdate = strtotime(str_replace("T", " ", @$dataSend['docdate']));
+            }else{
+                $data->docdate = '';
+            }
+            $data->docifile = @$dataSend['docifile'];
+            $data->docdescribe = @$dataSend['docdescribe'];
+            $data->video = @$dataSend['video'];
+            $data->present = @$dataSend['present'];
 
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
-   
-
+            //  debug($data);
+              //die;
 
             $modelArtifact->save($data);
 
