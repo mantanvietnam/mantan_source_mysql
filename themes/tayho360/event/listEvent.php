@@ -6,15 +6,14 @@ global $urlThemeActive;
         <section id="su-kien-banner">
             <div class="backgound-slider-contain">
                 <div class="su-kien-slider">
+                    <?php 
+                        if(!empty($listData)){
+                        foreach($listData as $item){ ?>
                     <div class="">
-                        <img src="../assets/lou_img/su-kien-banner.png" class="w-100" alt="">
+                        <img src="<?php echo $item->image ?>" class="w-100" alt="">
                     </div>
-                    <div class="">
-                        <img src="../assets/lou_img/su-kien-banner.png" class="w-100" alt="">
-                    </div>
-                    <div class="">
-                        <img src="../assets/lou_img/su-kien-banner.png" class="w-100" alt="">
-                    </div>
+                     <?php }} ?>
+                    
                 </div>
                 <div class="banner-content-overlay p-5">
                     <div class="content p-4">

@@ -26,14 +26,18 @@ global $urlThemeActive;
                             <h1><?php echo $data->name ?></h1>
                         </div>
                         <div class="place-address">
-                            <p><i class="fa-solid fa-location-dot"></i><?php echo $data->address ?></p>
+                            <p><i class="fa-solid fa-location-dot"></i> <?php echo $data->address ?></p>
                         </div>
                          <div class="place-address">
                         	<p><i class="fa-solid fa-phone"></i> <?php echo $data->phone ?></p>
                     	</div>
-                    	 <div class="place-address">
-	                        <p><i class="fa-solid fa-clock"></i> 8:00 - 17:00</p>
+                        <div class="place-address">
+	                        <p><i class="fa-solid fa-envelope"></i> <?php echo $data->email ?></p>
 	                    </div>
+                        <!-- <div class="place-address">
+	                        <p><i class="fa-solid fa-clock"></i> 8:00 - 17:00</p>
+	                    </div> -->
+
                         <div class="button-content">
                             <div class="button-like">
                                 <button type="button"><i class="fa-regular fa-heart"></i>Yêu thích</button>
@@ -45,28 +49,74 @@ global $urlThemeActive;
                         </div>
                     </div>
 
+                    
                     <div class="col-lg-9 col-md-8 col-sm-8 col-12 place-img-slide">
-                        <div class="img-slide-item">
+                        <?php if(!empty($data->image)){ ?>
+                            <div class="img-slide-item">
                             <img src="<?php echo $data->image ?>" alt="">
                         </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image2)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image2 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image3)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image3 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image4)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image4 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image5)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image5 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image6)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image6 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image7)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image7 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image8)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image8 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image9)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image9 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image10)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image10 ?>" alt="">
+                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
 
         </section>
 
-        <section id="place-information" class="mgt-80">
+        <section id="place-information" class="mgt-30">
             <div class="container">
-               <!--  <div class="title-h1 title-information mgb-32">
-                    <p>Chùa bà già</p>
-                </div> -->
-                <div class="icon-information mgb-32">
-                   
-                   
-                    <!-- <div class="icon-information-price">
-                        <p><i class="fa-solid fa-tag"></i> 100.000 vnđ</p>
-                    </div> -->
+                <div class="title-h1 title-information mgb-32">
+                    <p>Giới thiệu</p>
                 </div>
+                <!-- <div class="icon-information mgb-32">   
+                    <div class="icon-information-price">
+                        <p><i class="fa-solid fa-tag"></i> 100.000 vnđ</p>
+                    </div>
+                </div> -->
                 <div class="content-information mgb-32">
                     <?php echo $data->content ?>
                 </div>

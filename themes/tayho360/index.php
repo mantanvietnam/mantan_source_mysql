@@ -139,6 +139,19 @@ global $urlThemeActive;
                                         <p><?php echo $destination[8]['name']?></p>
                                     </div>
                                 </div>
+                                <div class="box-sum">
+                                    <div class="lshowcase-thumb lshowcase-box-10">
+                                        <div class="lshowcase-wrap-responsive">
+                                            <div class="lshowcase-boxInner">
+                                                <img src="<?php echo $destination[9]['image']?>"
+                                                     class="lshowcase-thumb" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-tabs">
+                                        <p><?php echo $destination[9]['name']?></p>
+                                    </div>
+                                </div>
                                
                             </div>
                         </div>
@@ -251,6 +264,19 @@ global $urlThemeActive;
                                     </div>
                                     <div class="text-tabs">
                                         <p><?php echo $destination[8]['name']?></p>
+                                    </div>
+                                </div>
+                                <div class="box-sum">
+                                    <div class="lshowcase-thumb lshowcase-box-10">
+                                        <div class="lshowcase-wrap-responsive">
+                                            <div class="lshowcase-boxInner">
+                                                <img src="<?php echo $destination[9]['image']?>"
+                                                     class="lshowcase-thumb" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-tabs">
+                                        <p><?php echo $destination[9]['name']?></p>
                                     </div>
                                 </div>
                             </div>
@@ -569,7 +595,7 @@ global $urlThemeActive;
             height: 500px;
         }
     </style>
-
+    <script src="<?php echo $urlThemeActive ?>js/particles.min.js"></script>
     <script src="<?php echo $urlThemeActive ?>js/particle.js"></script>
 
 

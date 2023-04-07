@@ -4,7 +4,58 @@ global $urlThemeActive;
 ?>
  <main>
         <section class="banner-top-style-1">
-            <img class="w-100" src="<?php echo @$data->image ?>" alt="">
+           <div class="place-img-slide">
+                        <?php if(!empty($data->image)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image2)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image2 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image3)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image3 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image4)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image4 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image5)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image5 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image6)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image6 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image7)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image7 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image8)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image8 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image9)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image9 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($data->image10)){ ?>
+                            <div class="img-slide-item">
+                            <img src="<?php echo $data->image10 ?>" alt="">
+                        </div>
+                        <?php } ?>
+                    </div>
         </section>
         <section class="">
             <div>

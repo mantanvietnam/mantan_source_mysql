@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php"> Điểm đến hiện vật</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php">Hiện vật</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -26,7 +26,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin Hiện vật</h5>
+            <h5 class="mb-0">Thông tin hiện vật</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;
@@ -38,7 +38,7 @@
             <ul class="nav nav-tabs" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="navs-top-home" aria-selected="true">
-                          Thông tin hiên vật
+                          Thông tin hiện vật
                         </button>
                       </li>
                       <li class="nav-item">
@@ -62,36 +62,32 @@
                           Video
                         </button>
                       </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#tab6" aria-controls="navs-top-info" aria-selected="false">
+                          Thuyết minh
+                        </button>
+                      </li>
                       
-                    </ul>
+            </ul>
             <div id="tabs">
-               <!--  <ul>
-                    <li><a href="#tabs-1">Thông tin chung</a></li>
-                    <li><a href="#tabs-2">Hình ảnh</a></li>
-                    <li><a href="#tabs-3">Giới thiệu</a></li>
-                </ul> -->
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="tab1" role="tabpanel">
                         <div class="row">
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Tên</label>
+                                <label for="">Tên hiện vật:</label>
                                 <input type="text" name="name"  required="" class="form-control" value="<?php echo @$data['name'] ?>">
                             </div>
                              <div class="mb-3 form-group col-sm-6">
-                                <i>Trạng thái:</i>&ensp;
+                                <label for="">Trạng thái:</label>&ensp;
                                 <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Hiển thị&ensp;
                                 <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Ẩn
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Kí hiệu:</label>
+                                <label for=""> Ký hiệu, mã số ảnh:</label>
                                 <input type="text" name="sign"  class="form-control" value="<?php echo @$data['sign'] ?>">
                             </div>
-                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Chất liệu:</label>
-                                <input type="text" name="material"  class="form-control" value="<?php echo @$data['material'] ?>">
-                            </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Ở trong di tích:</label>
+                                <label for="">Tên di tích:</label>
                                 <select class="form-select" id="idHistoricalsite" name="idHistoricalsite" onchange="getDistrict();">
                                     <option value="">Chọn di tích</option>
                                     <?php
@@ -106,7 +102,30 @@
                                     ?>
                                 </select> 
                             </div>
-                           
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Danh mục:</label>
+                                <select class="form-select" id="idcategory" name="idcategory" onchange="getDistrict();">
+                                    <option value="">Chọn danh mục</option>
+                                    <?php
+                                    foreach ($listCategoryartifact as $category) {
+                                        if( @$data['idcategory']!=$item['id']){
+                                            echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                                        }else{
+                                            echo '<option selected value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                                        }
+                                        
+                                    }
+                                    ?>
+                                </select> 
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Địa chỉ :</label>
+                                <input type="text" name="address"  class="form-control" value="<?php echo @$data['address'] ?>">
+                            </div>
+                             <div class="mb-3 form-group col-md-6">
+                                <label for="">Chất liệu:</label>
+                                <input type="text" name="material"  class="form-control" value="<?php echo @$data['material'] ?>">
+                            </div>                           
                             <div class="mb-3 form-group col-md-6">
                                 <label for="">Nơi phát hiện:</label>
                                 <input type="text" name="excavation" class="form-control" value="<?php echo @$data['excavation']; ?>">
@@ -121,10 +140,10 @@
                                 <label for="">Niên đại:</label>
                                 <input type="text" name="period" class="form-control" value="<?php echo @$data['period']; ?>">
                             </div>
-                            <div class="mb-3 form-group col-md-6">
+                            <!-- <div class="mb-3 form-group col-md-6">
                                 <label for="">Thế kỷ:</label>
                                 <input type="text" name="century" class="form-control" value="<?php echo @$data['century']; ?>">                       
-                            </div>
+                            </div> -->
                             <div class="mb-3 form-group col-md-6">
                                 <label for="">Vị trí:</label>
                                 <input type="text" name="location" class="form-control" value="<?php echo @$data['location']; ?>">                       
@@ -147,7 +166,7 @@
                                 <input type="text" name="technique" class="form-control" value="<?php echo @$data['technique']; ?>">                       
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Phân loại giá trị của đồ vật:</label>
+                                <label for="">Phân loại giá trị hiện vật:</label>
                                 <input type="text" name="classify" class="form-control" value="<?php echo @$data['classify']; ?>">                       
                             </div>
                             <div class="mb-3 form-group col-md-6">
@@ -170,16 +189,16 @@
                                 <label for="">Số lượng:</label>
                                 <input type="number" name="quantity" class="form-control" value="<?php echo @$data['quantity']; ?>">                       
                             </div>
-                            <div class="mb-3 form-group col-md-2">
-                                <label for="">Trọng lượng:</label>
-                                <input type="number" name="weight" class="form-control" value="<?php echo @$data['weight']; ?>">                       
+                           <div class="mb-3 form-group col-md-2">
+                                <label for="">Màu sắc:</label>
+                                <input type="text" name="color" class="form-control" value="<?php echo @$data['color']; ?>">
                             </div>
                             <div class="mb-3 form-group col-sm-6">
-                                <i>Kích thước:</i>
+                                <label for="">Kích thước:</label>
                                <textarea name="size" id="size" onkeyup="" class="form-control" rows="5"><?php echo @$data['size'] ?></textarea>
                             </div>
                             <div class="mb-3 form-group col-sm-6">
-                                <i>Mô tả ngắn:</i>
+                                <label for="">Khảo tả đặc điểm:</label>
                                <textarea name="introductory" id="introductory" onkeyup="" class="form-control" rows="5"><?php echo @$data['introductory'] ?></textarea>
                             </div>
                            <!--  <div class="mb-3 form-group col-sm-12">
@@ -191,40 +210,57 @@
                     <div class="tab-pane fade" id="tab2" role="tabpanel">
                         <div class="row">
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Màu sắc:</label>
-                                <input type="text" name="color" class="form-control" value="<?php echo @$data['color']; ?>">
+                                    <label for="">File GLB:</label>
+                                    <?php 
+                                    showUploadFile('filegle','filegle',@$data['filegle'],13);
+                                    ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">link ảnh 360:</label>
+                                    <label for="">File USDZ:</label>
+                                    <?php 
+                                    showUploadFile('fileusdz','fileusdz',@$data['fileusdz'],14);
+                                    ?>
+                            </div>
+                            
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Link ảnh 360:</label>
                                 <input type="text" name="image360" class="form-control" value="<?php echo @$data['image360']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Độ phơi sáng:</label>
+                                <label for="">Environment Image (Ảnh môi trường):</label>
+                                <input type="text" name="environmentimage" class="form-control" value="<?php echo @$data['environmentimage']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Background Color (Màu nền):</label>
+                                <input type="text" name="backgroundcolor" class="form-control" value="<?php echo @$data['backgroundcolor']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Exposure (Độ phơi sáng):</label>
                                 <input type="text" name="exposure" class="form-control" value="<?php echo @$data['exposure']; ?>">
                             </div>
                              <div class="mb-3 form-group col-md-6">
-                                <label for="">Cường độ bóng:</label>
+                                <label for="">Shadow Intensity (Cường độ bóng):</label>
                                 <input type="text" name="intensity" class="form-control" value="<?php echo @$data['intensity']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Độ mềm bóng:</label>
+                                <label for="">Shadow Softness (Độ mềm bóng):</label>
                                 <input type="text" name="softness" class="form-control" value="<?php echo @$data['softness']; ?>">
                             </div>
                            
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Giới hạn xoay ngược chiều kim đồng hồ:</label>
+                                <label for="">Counter-Clockwise Limit (Giới hạn xoay ngược chiều kim đồng hồ):</label>
                                 <input type="text" name="counterclockwise" class="form-control" value="<?php echo @$data['counterclockwise']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Giới hạn xoay cùng chiều kim đồng hồ:</label>
+                                <label for="">Clockwise Limit (Giới hạn xoay cùng chiều kim đồng hồ):</label>
                                 <input type="text" name="clockwiselimit" class="form-control" value="<?php echo @$data['clockwiselimit']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Giới hạn xoay từ trên xuống:</label>
+                                <label for="">Top-down Limit (Giới hạn xoay từ trên xuống):</label>
                                 <input type="text" name="topdownlimit" class="form-control" value="<?php echo @$data['topdownlimit']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Giới hạn xoay từ dưới lên :</label>
+                                <label for="">Bottom-up Limit (Giới hạn xoay từ dưới lên) :</label>
                                 <input type="text" name="bottomuplimit" class="form-control" value="<?php echo @$data['bottomuplimit']; ?>">
                             </div>
                         </div>
@@ -236,7 +272,7 @@
                                 <input type="text" name="doctype" class="form-control" value="<?php echo @$data['doctype']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">tiêu đề tài liệu:</label>
+                                <label for="">Tiêu đề tài liệu:</label>
                                 <input type="text" name="doctitle" class="form-control" value="<?php echo @$data['doctitle']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
@@ -252,9 +288,9 @@
                                 <input type="date" name="docdate" class="form-control" value="<?php echo (!empty($data['docdate']))?  date("Y-m-d", @$data['docdate']) : " " ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                    <label for="">File thài liệu:</label>
+                                    <label for="">File tài liệu:</label>
                                     <?php 
-                                    showUploadFile('docifile','docifile',@$data['docifile'],12);
+                                    showUploadFile('docifile','docifile',@$data['docifile'],100112);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
@@ -264,77 +300,123 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab4" role="tabpanel">
-                         <div class="row">
+                        <div class="row">
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">Link video :</label>
-                                <input type="text" name="video" class="form-control" value="<?php echo @$data['video']; ?>">
+                                <label for="">Loại video:</label>
+                                <input type="text" name="videotype" class="form-control" value="<?php echo @$data['videotype']; ?>">
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">thuyết minh :</label>
-                                 <?php 
-                                    showUploadFile('present','present',@$data['present'],12);
+                                <label for="">Tiêu đề video:</label>
+                                <input type="text" name="videotitle" class="form-control" value="<?php echo @$data['videotitle']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Link:</label>
+                                <input type="text" name="videolink" class="form-control" value="<?php echo @$data['videolink']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Tác giả:</label>
+                                <input type="text" name="videoauthor" class="form-control" value="<?php echo @$data['videoauthor']; ?>">
+                            </div>
+                           
+                            <div class="mb-3 form-group col-md-6">
+                                    <label for="">File video:</label>
+                                    <?php 
+                                    showUploadFile('videofile','videofile',@$data['videofile'],15);
                                     ?>
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Mô tả video  :</label>
+                                <textarea name="videodescribe" id="videodescribe" onkeyup="" class="form-control" rows="5"><?php echo @$data['videodescribe'] ?></textarea>
+                            </div>
+                        </div>
+                    </div><div class="tab-pane fade" id="tab6" role="tabpanel">
+                        <div class="row">
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Loại thuyết minh :</label>
+                                <input type="text" name="presenttype" class="form-control" value="<?php echo @$data['presenttype']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Tiêu đề thuyết minh:</label>
+                                <input type="text" name="presenttitle" class="form-control" value="<?php echo @$data['presenttitle']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Link :</label>
+                                <input type="text" name="presentlink" class="form-control" value="<?php echo @$data['presentlink']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Tác giả :</label>
+                                <input type="text" name="presentauthor" class="form-control" value="<?php echo @$data['presentauthor']; ?>">
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                    <label for="">File thuyết minh:</label>
+                                    <?php 
+                                    showUploadFile('presentfile','presentfile',@$data['presentfile'],12);
+                                    ?>
+                            </div>
+                            <div class="mb-3 form-group col-md-6">
+                                <label for="">Mô tả thuyết minh:</label>
+                                <textarea name="presentdescribe" id="presentdescribe" onkeyup="" class="form-control" rows="5"><?php echo @$data['presentdescribe'] ?></textarea>
                             </div>
                         </div>
                     </div>
-                     <div class="tab-pane fade" id="tab5" role="tabpanel">
+                    <div class="tab-pane fade" id="tab5" role="tabpanel">
                         <div class="row">
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 1:</label>
+                                <label for="">Ảnh đại diện:</label>
                                  <?php 
                                     showUploadFile('image','image',@$data['image'],1001);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 2:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image2','image2',@$data['image2'],1002);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 3:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image3','image3',@$data['image3'],1003);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 4:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image4','image4',@$data['image8'],1004);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 5:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image5','image5',@$data['image5'],1005);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 6:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image6','image6',@$data['image6'],1006);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 7:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image7','image7',@$data['image7'],1007);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 8:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image8','image8',@$data['image8'],1008);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 9:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image9','image9',@$data['image9'],1009);
                                     ?>
                             </div>
                             <div class="mb-3 form-group col-md-6">
-                                <label for="">ảnh 10:</label>
+                                <label for="">Ảnh:</label>
                                  <?php 
                                     showUploadFile('image10','image10',@$data['image10'],10010);
                                     ?>
@@ -348,7 +430,8 @@
     </div>
   
 
-              <button style=" margin: 10px; " type="submit" class="btn btn-primary">Lưu</button>
+              <button style=" margin: 10px; width: 80px;" type="submit" class="btn btn-primary">Lưu</button>
+          </div>
             <?= $this->Form->end() ?>
           </div>
         </div>

@@ -121,6 +121,15 @@ function addGovernanceAgencysAdmin($input)
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];
@@ -285,6 +294,15 @@ function addFestivalAdmin($input)
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];
@@ -451,6 +469,15 @@ function addTourAdmin($input){
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];
@@ -627,6 +654,15 @@ function addCraftvillageAdmin($input){
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];
@@ -790,6 +826,15 @@ function addRestaurantAdmin($input){
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];
@@ -1244,7 +1289,7 @@ function addEventAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông Sự kiện';
 
 
     $modelEvent = $controller->loadModel('Events');
@@ -1269,6 +1314,15 @@ function addEventAdmin($input){
             // tạo dữ liệu save
             $data->name = @$dataSend['name'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->address = @$dataSend['address'];
             if(!empty($dataSend['datestart'])){
                 $data->datestart = strtotime(str_replace("T", " ", @$dataSend['datestart']));
@@ -1327,5 +1381,175 @@ function deleteEventAdmin($input){
     }
 
     return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=3');
+}
+
+// Danh Lam place
+function listPlaceAdmin($input){
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách Danh lam';
+
+    $modelPlace = $controller->loadModel('Places');
+    
+    $conditions = array();
+     if(!empty($_GET['name'])){
+        $key=createSlugMantan($_GET['name']);
+
+        $conditions['urlSlug LIKE']= '%'.$key.'%';
+    }
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelPlace->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $conditions_scan = array('id'=>$value->id);
+            $static = $modelPlace->find()->where($conditions_scan)->all()->toList();
+            $listData[$key]->number_scan = count($static);
+        }
+    }
+
+    // phân trang
+    $totalData = $modelPlace->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+    
+    if(@$_GET['status']==1){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==2){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==3){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
+    }
+
+    setVariable('mess', @$mess);
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
+}
+
+function addPlaceAdmin($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+
+
+    $modelPlace = $controller->loadModel('Places');
+    $mess= '';
+
+    // lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelPlace->get( (int) $_GET['id']);
+
+    }else{
+        $data = $modelPlace->newEmptyEntity();
+         $data->created = getdate()[0];
+    }
+
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            // tạo dữ liệu save
+            $data->name = @$dataSend['name'];
+            $data->address = @$dataSend['address'];
+            $data->phone = @$dataSend['phone'];
+            $data->email = @$dataSend['email'];
+            $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
+            $data->introductory = @$dataSend['introductory'];
+            $data->latitude = @$dataSend['latitude'];
+            $data->longitude = @$dataSend['longitude'];
+            $data->image360 = @$dataSend['image360'];
+            $data->content = @$dataSend['content'];
+            $data->status = @$dataSend['status'];
+            $data->urlSlug = createSlugMantan(trim($dataSend['name']));
+
+            $modelPlace->save($data);
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+             if(!empty($_GET['id'])){
+                return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin.php?status=2');
+            }else{
+                return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin.php?status=1');
+            }
+            
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
+        }
+    }
+
+
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+function deletePlaceAdmin($input){
+    global $controller;
+    $modelPlace = $controller->loadModel('Places');
+    if(!empty($_GET['id'])){
+        $data = $modelPlace->get($_GET['id']);
+        
+        if($data){
+            $modelPlace->delete($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin.php?status=3');
 }
  ?>
