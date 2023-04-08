@@ -480,6 +480,19 @@ class OptionsController extends AppController{
                         $menu->value = $dataSend['name'];
                         $modelOptions->save($menu);
 
+                        if(!empty($dataSend['menuDefault'])){
+                            $conditions = array('key_word' => 'menuDefault');
+                            $menuDefault = $modelOptions->find()->where($conditions)->first();
+
+                            if(empty($menuDefault)){
+                                $menuDefault = $modelOptions->newEmptyEntity();
+                            }
+
+                            $menuDefault->key_word = 'menuDefault';
+                            $menuDefault->value = $dataSend['menuDefault'];
+                            $modelOptions->save($menuDefault);
+                        }
+
                         $mess= '<p class="text-success">Lưu trình đơn thành công</p>';
                     }else{
                         $mess= '<p class="text-danger">Bạn chưa nhập tên trình đơn</p>';
@@ -520,14 +533,17 @@ class OptionsController extends AppController{
         $conditions = array('key_word' => 'menu');
         $menus = $modelOptions->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
         if(empty($menus)){
-            $menus = $modelOptions->newEmptyEntity();
+            $menus[0] = $modelOptions->newEmptyEntity();
         }
-
-        if(empty($_GET['id']) && !empty($menus)){
+       
+        if(empty($_GET['id']) && !empty($menus[0]->id)){
             return $this->redirect('/options/menus/?id='.$menus[0]->id);
         }
 
-        $menu = $modelOptions->get((int) @$_GET['id']);
+        if(!empty($_GET['id'])){
+            $menu = $modelOptions->get((int) @$_GET['id']);
+        }
+
         if(empty($menu)){
             $menu = $modelOptions->newEmptyEntity();
         }
@@ -585,7 +601,9 @@ class OptionsController extends AppController{
             }
         }
 
-        //debug($links);
+        $conditions = array('key_word' => 'menuDefault');
+        $menuDefault = $modelOptions->find()->where($conditions)->first();
+        $menuDefault = (int) @$menuDefault->value;
 
         $this->set('menus', $menus);
         $this->set('menu', $menu);
@@ -595,6 +613,7 @@ class OptionsController extends AppController{
         $this->set('category_video', $category_video);
         $this->set('pages', $pages);
         $this->set('links', $links);
+        $this->set('menuDefault', $menuDefault);
     }
 }
 ?>

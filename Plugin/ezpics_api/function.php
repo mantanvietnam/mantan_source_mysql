@@ -17,7 +17,7 @@ $key_transaction = 'ezpics';
 $price_remove_background = 10000;
 $key_remove_bg = 'geBYsERw9PNMJHnQLtu1CE4d';
 
-$keyFirebase = 'BH3viH2U-wjNvMEzEEuAa7iCfLV5LKGEqFxc4VKSs0cbGfHqTkQyV4ZRJPiG1W5HqpDBmWpPheBCVD7fVuLIeLI';
+$keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 
 function createToken($length=30)
 {
@@ -206,6 +206,86 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
     }
 }
 
+function sendEmailCodeForgotPassword($email='', $fullName='', $code= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = '[Ezpics] ' . 'Mã xác thực cấp lại mật khẩu mới';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin nạp tiền Ezpics</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>MÃ XÁC THỰC</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        Mã xác thực cấp lại mật khẩu mới của bạn là: <b>'.$code.'</b>
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
+                            <li>Mobile: 0828266622</li>
+                            <li>Website: <a href="https://ezpics.vn">https://ezpics.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
 function listBank()
 {
     return [
@@ -267,7 +347,12 @@ function sendNotification($data,$target){
     $url = 'https://fcm.googleapis.com/fcm/send';
 
     $fields = array();
+    
     $fields['data'] = $data;
+    $fields['priority'] = 'high';
+
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
+    
     if(is_array($target)){
         $fields['registration_ids'] = $target;
     }else{
@@ -293,4 +378,204 @@ function sendNotification($data,$target){
     }
     curl_close($ch);
 
+    return $result;
+}
+
+function getLinearposition()
+{
+    return [
+        'to top left' => 'Trên trái',
+        'to top' => 'Trên',
+        'to top right' => 'Trên phải',
+        'to right' => 'Phải',
+        'to bottom right' => 'Dưới phải',
+        'to bottom' => 'Dưới',
+        'to bottom left' => 'Dưới trái',
+        'to left' => 'Trái',
+    ];
+}
+
+function getGradientstatus()
+{
+    return [
+        0=>'Không',
+        1=>'Có',
+    ];
+}
+
+function getGachchan()
+{
+    return [
+        'none' => 'không',
+        'underline' => 'gạch dưới',
+        'line-through' => 'gạch ngang',
+        'overline' => 'gạch ngang trên',
+    ];
+}
+
+function getInnghieng()
+{
+    return [
+        'normal' => 'không',
+        'italic' => 'in nghiêng',
+        'oblique' => 'nghiêng nhẹ',
+    ];
+}
+
+function getGianchu()
+{
+    return [
+        'normal'=>'không',
+        '1px'=>'1px',
+        '2px'=>'2px',
+        '3px'=>'3px',
+        '4px'=>'4px',
+        '5px'=>'5px',
+    ];
+}
+
+function getLayerProductForEdit($idProduct=0)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+    global $modelCategories;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $user =  $session->read('infoUser');
+        $pro = $modelProduct->find()->where(array('id'=>$idProduct, 'user_id'=>$user->id))->first();
+
+        if (!empty($pro)) {
+            $pro->productDetail = $modelProductDetail->find()->where(array('products_id'=>$pro->id))->order(['sort' => 'ASC'])->all()->toList();
+
+            if(!empty($pro->productDetail) && count($pro->productDetail)) {
+                $list_layer = array();
+                $choose_tab = array();
+                $movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
+                $key = 1;
+                $list_layer_check = array();
+                foreach($pro->productDetail as $k => $item){
+                    $item->content = str_replace('\"', '"', $item->content);
+                    $layer = json_decode(trim($item->content,'"')); 
+                    $dnone = $layer->status == 0 ? 'd-none' : '';
+                    $wight = empty($item->wight) ? 50 : $item->wight;
+                    $height = empty($item->height) ? 50 : $item->height;
+                    $list_layer[$item->id] = $layer;
+                    if($layer->type == 'text'){
+                        $text = '';
+                        $img = 'd-none';
+                        $selectedtext = 'selected';
+                        $selectedimage = '';
+                    }else{
+                        $img = '';
+                        $text =   'd-none';
+                        $selectedimage = 'selected';
+                        $selectedtext = '';
+                    }
+
+                    $gradient_check = $layer->gradient == 1 ? 'gradient' : '';
+                    $more_gradient = '';
+                    if (!empty($layer->gradient_color3)) {
+                        $more_gradient .= ', '.$layer->gradient_color3.' '.$layer->postion_color3.'%';
+                    }
+                    if (!empty($layer->gradient_color4)) {
+                        $more_gradient .= ', '.$layer->gradient_color4.' '.$layer->postion_color4.'%';
+                    }
+                    if (!empty($layer->gradient_color5)) {
+                        $more_gradient .= ', '.$layer->gradient_color5.' '.$layer->postion_color5.'%';
+                    }
+                    if (!empty($layer->gradient_color5)) {
+                        $more_gradient .= ', '.$layer->gradient_color5.' '.$layer->postion_color5.'%';
+                    }
+                    $link_icon = $layer->type == 'image' ? $layer->banner : 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/9888807.png';
+
+                    $text_layer = $layer->type == 'image' ? '' : ': '.$layer->text;
+
+                    $list_layer_check[] = '<li class="setlayer list-group-item" data-layer="'.$item->id.'" data-id="'.$item->id.'"><img src="'.$link_icon.'" class="img-fluid img-layer" width="10">&nbsp; Layer '.$item->id.'<span class="oneline">'.$text_layer.'<span style="float: right;" onclick="deletedinlayer('.$pro->id.','.$item->id.')"><i class="fa-regular fa-trash-can"></i></span></span></li>';
+
+                    $style_gradient = $layer->gradient == 1 ? 'background: linear-gradient('.$layer->linear_position.', '.$layer->gradient_color1.' '.$layer->postion_color1.'% '.$more_gradient.', '.$layer->gradient_color2.' '.$layer->postion_color2.'%);' : '';
+                   
+                    $attr_gradient = ' data-gradient_color1="'.$layer->gradient_color1.'" data-gradient_color2="'.$layer->gradient_color2.'" data-gradient_color3="'.$layer->gradient_color3.'" data-gradient_color4="'.$layer->gradient_color4.'" data-gradient_color5="'.$layer->gradient_color5.'" data-gradient_color6="'.$layer->gradient_color6.'"'.' data-postion_color1="'.$layer->postion_color1.'" data-postion_color2="'.$layer->postion_color2.'" data-postion_color3="'.$layer->postion_color3.'" data-postion_color4="'.$layer->postion_color4.'" data-postion_color5="'.$layer->postion_color5.'" data-postion_color6="'.$layer->postion_color6.'"'.'" data-gradient="'.$layer->gradient.'"'.'" data-pos_gradient="'.$layer->linear_position.'" ';
+
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" style="transform: translate('.$layer->postion_x.'px, '.$layer->postion_y.'px);text-align:'.$layer->text_align.'" data-x="'.$layer->postion_x.'"' .$attr_gradient. '>
+                    <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
+                    <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.'px;line-height: '.$layer->giandong.'px;font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span></div>';
+                    $key++;
+                }
+                krsort($list_layer_check);
+
+                $category = $modelCategories->find()->where(array('id'=>$pro->category_id))->first();
+                
+                return ['type'=>$pro->type,'category'=> $category, 'data' => $pro, 'movelayer' => implode('',$movelayer), 'layer' => $list_layer, 'list_layer_check' => implode('',$list_layer_check)];
+            }else{
+                return ['error' => ['Sản phẩm chưa xây dựng các Layer']]; 
+            }
+        }else{
+            return ['error' => ['Có lỗi trong quá trình xẩy ra. Vui lòng thử lại sau']]; 
+        } 
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function getLayer($stt, $type = 'text', $link = '', $width = 0, $height = 0)
+{
+    return [
+        'type' => $type,
+        'text' => 'Layer '.$stt,
+        'color' => '#111',
+        'size' => '18px',
+        'font' => 'Domaine',
+        'status' => 1,
+        'text_align' => 'left',
+        'postion_x' => '20',
+        'postion_y' => '15',
+        'brightness' => 100,
+        'contrast' => 100,
+        'saturate' => 100,
+        'opacity' => 100,
+        'gachchan' => 'none',
+        'uppercase' => 'none',
+        'innghieng' => 'normal',
+        'indam' => 'normal',
+        'gradient_color1' => null,
+        'gradient_color2' => null,
+        'gradient_color3' => null,
+        'gradient_color4' => null,
+        'gradient_color5' => null,
+        'gradient_color6' => null,
+        'linear_position' => 'to top left',
+        'postion_color1' => 0,
+        'postion_color2' => 100,
+        'postion_color3' => null,
+        'postion_color4' => null,
+        'postion_color5' => null,
+        'postion_color6' => null,
+        'vien' => '0px',
+        'rotate' => null,
+        'banner' => $link,
+        'gianchu' => '1px',
+        'giandong' => '1px',
+        'opacity' => 1,
+        'blur' => 0,
+        'invert' => 0,
+        'width' => $width.'px',
+        'height' => $height.'px',
+        'sepia' => 0,
+        'grayscale' => 0,
+        'gradient' => 0,
+        'sort' => $stt,
+    ];
+}
+
+function zipImage($urlLocalFile)
+{
+    require_once("library/tinify/vendor/autoload.php");
+    $keyTinipng = "Lp2HGknN7vpNkng7F7c1Pzc30VgNP7BL";
+    Tinify\setKey($keyTinipng);
+
+    Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
 }

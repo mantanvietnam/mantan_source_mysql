@@ -152,11 +152,27 @@
 			<p class="text-center" style="color: <?php echo @$setting_value['textColor']; ?>;">
 				Tổng số tiền quyên góp: <b><?php echo number_format($data->money_donate);?>đ</b>
 			</p>
+			<!--
 			<p>
 				<button type="button" class="btn btn-warning" onclick="$('#slideImageDonate').modal('show');">Xem hình ảnh</button>
 			</p>
-
+			-->
 		</center>
+		<div class="row">
+			<div class="col-12">
+				<div class="owl-carousel owl-theme">
+		        	<?php
+	  				if(!empty($donates)){
+	  					foreach($donates as $item){
+	  						if(!empty($item->image)){
+		  						echo '<div class="item"><img src="'.$item->image.'" width="" /></div>';
+		  					}
+	  					}
+	  				}
+	  				?>
+				</div>
+			</div>
+		</div>
   		<div class="row justify-content-center">
   			<div class="col-12 col-xs-12 col-sm-8 col-md-6 col-lg-6 col-xl-6">
   				<div class="wr_list_user_hist" style="color: <?php echo @$setting_value['textColor']; ?>;">
@@ -218,13 +234,13 @@
 		    autoplay:true,
 		    responsive:{
 		        0:{
-		            items:1
+		            items:4
 		        },
 		        600:{
-		            items:1
+		            items:4
 		        },
 		        1000:{
-		            items:3
+		            items:6
 		        }
 		    }
 		})

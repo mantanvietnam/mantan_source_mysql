@@ -7,7 +7,7 @@ function getNewPostAPI($input){
 
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('type'=>'blog');
+	$conditions = array('type'=>'post');
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('id'=>'desc');

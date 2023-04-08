@@ -342,7 +342,7 @@ function createProductAPI($input)
 		            $newLayer = $modelProductDetail->newEmptyEntity();	
 
 	            	$newLayer->products_id = $newproduct->id;
-	            	$newLayer->name = 'layer_'.time();
+	            	$newLayer->name = 'layer_'.$infoUser->id.'_'.time();
 	            	$newLayer->content = '{"type":"text","text":"Layer text","color":"#111","size":"18px","font":"Domaine","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0px","rotate":null,"banner":null,"gianchu":"1px","giandong":"1px","blur":"0","invert":"0","width":"0px","height":"0px","sepia":"0","grayscale":"0","gradient":"0","sort":"1"}';
 	            	$newLayer->wight = 400;
 	            	$newLayer->height = 305;
@@ -481,7 +481,7 @@ function buyProductAPI($input)
 		                    	$newLayer = $modelProductDetail->newEmptyEntity();	
 
 		                    	$newLayer->products_id = $newproduct->id;
-		                    	$newLayer->name = $d->name;
+		                    	$newLayer->name = 'layer_'.$infoUser->id.'_'.time();
 		                    	$newLayer->content = $d->content;
 		                    	$newLayer->wight = $d->wight;
 		                    	$newLayer->height = $d->height;

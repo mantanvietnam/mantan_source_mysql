@@ -374,6 +374,11 @@ function slist (target) {
               <input type="text" id="name" name="name" class="form-control" placeholder="" value="" />
             </div>
           </div>
+          <div class="row">
+            <div class="col mb-3">
+              <input type="checkbox" value="" id="menuDefault" name="menuDefault"> Chọn làm mặc định
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Lưu</button>
@@ -465,8 +470,9 @@ function slist (target) {
 
 <script type="text/javascript">
   var idMenuEdit = '<?php echo @$menu->id;?>';
-  var nameMenyEdit = '<?php echo @$menu->value;?>';
+  var nameMenuEdit = '<?php echo @$menu->value;?>';
   var weightyMax = <?php echo (int) @$weightyMax+1;?>;
+  var menuDefault = <?php echo (int) @$menuDefault;?>;
   
   function addNewMenu()
   {
@@ -477,7 +483,14 @@ function slist (target) {
   function editMenu()
   {
     $('#idEdit').val(idMenuEdit);
-    $('#name').val(nameMenyEdit);
+    $('#name').val(nameMenuEdit);
+    $('#menuDefault').val(idMenuEdit);
+
+    if(menuDefault == idMenuEdit){
+      $('#menuDefault').attr( 'checked', true );
+    }else{
+      $('#menuDefault').attr( 'checked', false );
+    }
 
     $('#addNewMenuModal').modal('show');
   }
@@ -525,7 +538,7 @@ function slist (target) {
     }
   }
 
-  if(nameMenyEdit!=''){
-    $('#menuUserTitle').html('Trình đơn người dùng: <b>'+nameMenyEdit+'</b> <i class="bx bx-edit" onclick="editMenu();"></i>');
+  if(nameMenuEdit!=''){
+    $('#menuUserTitle').html('Trình đơn người dùng: <b>'+nameMenuEdit+'</b> <i class="bx bx-edit" onclick="editMenu();"></i>');
   }
 </script>
