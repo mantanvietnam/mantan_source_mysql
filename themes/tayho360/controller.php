@@ -65,7 +65,7 @@ function settingHomeTheme($input){
 }
 
 function indexTheme($input){
-    global $controller;
+    global $controller; 
     global $modelCategories;
     global $modelOptions;
 

@@ -219,8 +219,10 @@ global $urlThemeActive;
                             <p class="information-people-write-name"><?php echo $infoUser['full_name'] ?>
                         </p></div>
                         <div class="form-comment">
-                            <textarea class="content-post" name="content-post" placeholder="Viết suy nghĩ của bạn"></textarea>
-                            <button type="submit" class="send-comment">Đăng bài</button>
+                    
+                            <textarea class="content-post" name="content-post" id="comment" placeholder="Viết suy nghĩ của bạn"></textarea>
+                            <button type="submit" class="send-comment" onclick="addCustomer()">Đăng bài</button>
+            
                         </div>
 
                     </div>
@@ -435,9 +437,7 @@ getFooter();?>
 <script  type="text/javascript">
     
     function addlike(){
-         
-
-       $.ajax({
+        $.ajax({
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
@@ -472,5 +472,11 @@ getFooter();?>
                 }
             })
                
-        };  
+        };
+
+function addCustomer(){
+    var comment= $('#comment').val();
+
+    console.log(comment);
+    }  
 </script>
