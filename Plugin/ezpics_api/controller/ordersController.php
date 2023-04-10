@@ -88,6 +88,8 @@ function saveRequestBankingAPI($input)
                 
                 $modelOrder->save($order);
 
+                $link_qr_bank = 'https://img.vietqr.io/image/TPB-'.$number_bank.'-compact2.png?amount='.$dataSend['money'].'&addInfo='.$order->meta_payment.'&accountName='.$account_holders_bank;
+
                 $return = array('code'=>0,
                 				'number_bank'=>$number_bank,
                 				'name_bank'=>$name_bank,
@@ -205,6 +207,17 @@ function addMoneyTPBankAPI($input)
 
 			// xóa dấu chấm phẩy
 			$removeDot = explode(';', $description);
+			if(count($removeDot)>1){
+				for($i=0;$i<count($removeDot);$i++){
+					if(strlen(strstr($removeDot[$i], $keyApp)) > 0){
+						$description = $removeDot[$i];
+						break;
+					}
+				}
+			}
+
+			// xóa dấu gạch ngang
+			$removeDot = explode('-', $description);
 			if(count($removeDot)>1){
 				for($i=0;$i<count($removeDot);$i++){
 					if(strlen(strstr($removeDot[$i], $keyApp)) > 0){

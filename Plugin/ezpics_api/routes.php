@@ -4,6 +4,7 @@
 	// fix lỗi database
 	// $routesPlugin['fixCategoryProduct']= 'ezpics_api/view/fixCategoryProduct.php';
 	$routesPlugin['fixPass']= 'ezpics_api/view/fixPass.php';
+	$routesPlugin['fixUrlImage']= 'ezpics_api/view/fixUrlImage.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';
@@ -17,6 +18,11 @@
 	$routesPlugin['checkLoginFacebookAPI']= 'ezpics_api/view/checkLoginFacebookAPI.php';
 	$routesPlugin['checkLoginGoogleAPI']= 'ezpics_api/view/checkLoginGoogleAPI.php';
 	$routesPlugin['checkLoginAppleAPI']= 'ezpics_api/view/checkLoginAppleAPI.php';
+	$routesPlugin['checkCodeAffiliateAPI']= 'ezpics_api/view/checkCodeAffiliateAPI.php';
+
+	// quên mật khẩu
+	$routesPlugin['requestCodeForgotPasswordAPI']= 'ezpics_api/view/requestCodeForgotPasswordAPI.php';
+	$routesPlugin['saveNewPassAPI']= 'ezpics_api/view/saveNewPassAPI.php';
 
 	// product
 	$routesPlugin['getNewProductAPI']= 'ezpics_api/view/getNewProductAPI.php';
@@ -28,6 +34,21 @@
 	$routesPlugin['deleteProductAPI']= 'ezpics_api/view/deleteProductAPI.php';
 	$routesPlugin['getIdProductCloneAPI']= 'ezpics_api/view/getIdProductCloneAPI.php';
 	$routesPlugin['searchProductAPI']= 'ezpics_api/view/searchProductAPI.php';
+	
+	// sửa thiết kế
+	$routesPlugin['edit-design']= 'ezpics_api/view/home/editDesign.php';
+	$routesPlugin['dataEditThemeUser']= 'ezpics_api/view/home/dataEditThemeUser.php';
+	$routesPlugin['updateInfoProduct']= 'ezpics_api/view/home/updateInfoProduct.php';
+	$routesPlugin['savelayer']= 'ezpics_api/view/home/savelayer.php';
+	$routesPlugin['copyLayer']= 'ezpics_api/view/home/copyLayer.php';
+	$routesPlugin['deleteLayer']= 'ezpics_api/view/home/deleteLayer.php';
+	$routesPlugin['addLayer']= 'ezpics_api/view/home/addLayer.php';
+	$routesPlugin['sortLayer']= 'ezpics_api/view/home/sortLayer.php';
+	$routesPlugin['imagelist']= 'ezpics_api/view/home/imagelist.php';
+	$routesPlugin['upImage']= 'ezpics_api/view/home/upImage.php';
+	$routesPlugin['replace']= 'ezpics_api/view/home/replace.php';
+	$routesPlugin['capImg']= 'ezpics_api/view/home/capImg.php';
+	$routesPlugin['updateLayer']= 'ezpics_api/view/home/updateLayer.php';
 	
 
 	// yêu thích sản phẩm

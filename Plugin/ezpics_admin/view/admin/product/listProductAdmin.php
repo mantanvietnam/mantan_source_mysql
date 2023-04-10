@@ -115,7 +115,7 @@
                           '.$item->id.'
                         </td>
                         <td>
-                          <img src="https://mobile.ezpics.vn/'.$item->image.'" width="100" /><br/>
+                          <img src="'.$item->image.'" width="100" /><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
                         <td>'.$item->name.'<br/>'.$type.'</td>

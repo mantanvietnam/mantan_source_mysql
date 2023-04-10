@@ -50,6 +50,7 @@ class AppController extends Controller
         global $modelOptions;
         global $modelCategories;
         global $modelPosts;
+        global $modelMenus;
         global $urlCurrent;
         global $isRequestPost;
         global $controller;
@@ -69,6 +70,7 @@ class AppController extends Controller
         $modelOptions = $this->loadModel('Options');
         $modelCategories = $this->loadModel('Categories');
         $modelPosts = $this->loadModel('Posts');
+        $modelMenus = $this->loadModel('Menus');
 
         // load cấu hình web
         $contactSite = $modelOptions->newEmptyEntity();

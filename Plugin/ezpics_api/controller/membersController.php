@@ -1,20 +1,4 @@
 <?php 
-function fixPass($input)
-{	
-	
-	global $controller;
-
-	$modelMember = $controller->loadModel('Members');
-
-	$listData = $modelMember->find()->all()->toList();
-
-	foreach ($listData as $key => $value) {
-		$value->password = md5($value->phone);
-		$modelMember->save($value);
-	}
-	
-}
-
 function saveRegisterMemberAPI($input)
 {
 	global $isRequestPost;
@@ -115,6 +99,13 @@ function checkLoginMemberAPI($input)
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']), 'status'=>1 ))->first();
 
 			if(!empty($checkPhone)){
+				if(!empty($dataSend['token_device']) && $checkPhone->token_device != $dataSend['token_device']){
+					// gửi thông báo đăng xuất
+                    $dataSendNotification= array('title'=>'Đăng xuất','time'=>date('H:i d/m/Y'),'content'=>'Tài khoản của bạn đã được đăng nhập trên một thiết bị khác','action'=>'login');
+
+                    sendNotification($dataSendNotification, $checkPhone->token_device);
+				}
+
 				$checkPhone->token = createToken();
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->token_device = @$dataSend['token_device'];
@@ -665,9 +656,30 @@ function saveInfoUserAPI($input)
 				$checkPhone->name = $dataSend['name'];
 				$checkPhone->email = $dataSend['email'];
 
-				$modelMember->save($checkPhone);
+				if(!empty($dataSend['phone'])){
+					$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+					$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-				$return = array('code'=>0);
+					$checkMember = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+					if(empty($checkMember) || $checkMember->id == $checkPhone->id){
+						$checkPhone->phone = $dataSend['phone'];
+
+						$modelMember->save($checkPhone);
+
+						$return = array('code'=>0);
+					}else{
+						$return = array('code'=>4,
+									'messages'=>array(array('text'=>'Số điện thoại đã tồn tại'))
+								);
+					}
+				}else{
+					$modelMember->save($checkPhone);
+
+					$return = array('code'=>0);
+				}
+
+				
 			}else{
 				$return = array('code'=>3,
 									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
@@ -682,4 +694,140 @@ function saveInfoUserAPI($input)
 
 	return $return;
 }
+
+function requestCodeForgotPasswordAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1,
+					'messages'=>array(array('text'=>''))
+				);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(!empty($dataSend['phone'])){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+			if(!empty($checkPhone->email)){
+				$code = rand(1000,9999);
+
+				$checkPhone->token = $code;
+				$modelMember->save($checkPhone);
+
+				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+
+				$return = array('code'=>0,
+								'codeForgotPassword' => $code,
+								'messages'=>array(array('text'=>''))
+							);
+			}else{
+				$return = array('code'=>3,
+					'messages'=>array(array('text'=>'Tài khoản chưa cài email'))
+				);
+			}
+		}else{
+			$return = array('code'=>2,
+							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại'))
+						);
+		}
+	}
+
+	return $return;
+}
+
+function saveNewPassAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		if(!empty($dataSend['phone']) 
+			&& !empty($dataSend['code'])
+			&& !empty($dataSend['passNew'])
+			&& !empty($dataSend['passAgain'])
+
+		){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+			if(!empty($checkPhone)){
+				if($checkPhone->token == $dataSend['code'] ){
+					if($dataSend['passNew'] == $dataSend['passAgain']){
+						$checkPhone->password = md5($dataSend['passNew']);
+						$checkPhone->token = '';
+
+						$modelMember->save($checkPhone);
+
+						$return = array('code'=>0);
+					}else{
+						$return = array('code'=>5,
+									'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
+								);
+					}
+				}else{
+					$return = array('code'=>4,
+									'messages'=>array(array('text'=>'Mã xác thực nhập không đúng'))
+								);
+				}
+			}else{
+				$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai số điện thoại'))
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+				);
+		}
+	}
+
+	return $return;
+}
+
+function checkCodeAffiliateAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['aff'])){
+			$checkPhone = $modelMember->find()->where(array('aff'=>$dataSend['aff']))->first();
+
+			if(!empty($checkPhone)){
+				$return = array('code'=>0);
+			}else{
+				$return = array('code'=>3);
+			}
+		}else{
+			$return = array('code'=>2);
+		}
+	}
+
+	return $return;
+}
+
 ?>

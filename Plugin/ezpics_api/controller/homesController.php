@@ -1,0 +1,579 @@
+<?php 
+function editDesign($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelFont = $controller->loadModel('Font');
+
+	if(!empty($_GET['id']) && !empty(!empty($_GET['token']))){
+		$checkPhone = $modelMember->find()->where(array('token'=>$_GET['token']))->first();
+
+		if(!empty($checkPhone)){
+			$product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
+
+			if(!empty($product)){
+				if($product->user_id == $checkPhone->id){
+					$session->write('infoUser', $checkPhone);
+
+					$layers = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+					$fonts = $modelFont->find()->order(['name'=>'asc'])->all()->toList();
+
+					$categories = $modelCategories->find()->where(['type'=>'product_categories'])->order(['name'=>'asc'])->all()->toList();
+
+					setVariable('product', $product);
+					setVariable('layers', $layers);
+					setVariable('fonts', $fonts);
+					setVariable('categories', $categories);
+				}
+			}
+		}
+	}
+}
+
+function dataEditThemeUser($input)
+{
+	global $session;
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelFont = $controller->loadModel('Font');
+
+    /*
+    $token = '9X2F1pDURKduwSNA5oIiVBCme47qHy16800858251';
+    $checkPhone = $modelMember->find()->where(array('token'=>$token))->first();
+    $session->write('infoUser', $checkPhone);
+    */
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+    	$dataSend = $input['request']->getData();
+
+        return getLayerProductForEdit($dataSend['id']); 
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập']];
+    }
+}
+
+function updateInfoProduct($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+        $user =  $session->read('infoUser');
+
+        $pro = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
+
+        if (empty($pro)) {
+            return ['error' => ['Sản phẩm của bạn đã bị xóa khỏi hệ thống']]; 
+        }else{
+            if(!empty($dataSend['field']) && isset($dataSend['value'])){
+                switch ($dataSend['field']) {
+                    case 'category_id':
+                        $pro->category_id = (int) $dataSend['value'];
+                        break;
+                    
+                    case 'price':
+                        $pro->price = (int) str_replace(',','',$dataSend['value']);
+                        break;
+                    
+                    case 'sale_price':
+                        $pro->sale_price = (int) str_replace(',','',$dataSend['value']);
+                        break;
+                    
+                    case 'name':
+                        $pro->name = $dataSend['value'];
+
+                        // tạo slug
+                        $slug = createSlugMantan($dataSend['value']);
+                        $slugNew = $slug;
+                        $number = 0;
+
+                        if(empty($pro->slug) || $pro->slug!=$slugNew){
+                            do{
+                                $conditions = array('slug'=>$slugNew);
+                                $listData = $modelProduct->find()->where($conditions)->all()->toList();
+
+                                if(!empty($listData)){
+                                    $number++;
+                                    $slugNew = $slug.'-'.$number;
+                                }
+                            }while (!empty($listData));
+                        }
+
+                        $pro->slug = $slugNew;
+
+                        break;
+
+                    case 'status':
+                        $pro->status = (int) $dataSend['value'];
+                        break;
+                }
+
+                $modelProduct->save($pro);
+
+                return ['code' => 1];
+            }else{
+                return ['error' => ['Không được để trống dữ liệu']]; 
+            }
+        } 
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']];
+    } 
+}
+
+function savelayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        foreach($dataSend['layer'] as $idlayer => $layer) {
+            $item =  $modelProductDetail->find()->where(array('id'=>$idlayer, 'products_id'=>$dataSend['id']))->first();
+            
+            if(!empty($item)){
+                $item->content = json_encode($layer);
+                $modelProductDetail->save($item);
+            }else{
+                return ['error' => ['Layer '.$idlayer.' không tồn tại']]; 
+            }
+        }
+
+        return ['data' => ['Đã câp nhật']]; 
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function updateLayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+        
+        $item =  $modelProductDetail->find()->where(array('id'=>$dataSend['id'], 'products_id'=>$dataSend['idproduct']))->first();
+        
+        if(!empty($item)){
+            $content = json_decode($item->content, true);
+
+            $content[$dataSend['field']] = $dataSend['value'];
+
+            $item->content = json_encode($content);
+
+            $modelProductDetail->save($item);
+
+            return getLayerProductForEdit($dataSend['idproduct']); 
+        }else{
+            return ['error' => ['Layer '.$idlayer.' không tồn tại']]; 
+        }
+
+        return ['data' => ['Đã câp nhật']]; 
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function copyLayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $user =  $session->read('infoUser');
+        $dataSend = $input['request']->getData();
+        
+        // lấy thông tin layer hiện tại
+        $item =  $modelProductDetail->get($dataSend['id']);
+
+        // tạo layer mới
+        $productDetail = $modelProductDetail->find()->where(array('products_id'=>$item->products_id))->all()->toList();
+        $idlayer = count($productDetail)+1;
+
+        $content = json_decode($item->content);
+        $content->text = 'Copy '.$content->text;
+
+        $new = $modelProductDetail->newEmptyEntity();   
+        
+        $new->name = 'Copy layer '.$idlayer;
+        $new->products_id = $item->products_id;
+        $new->content = json_encode($content);
+        $new->sort = $idlayer;
+        $new->height = $item->height;
+        $new->wight = $item->width;
+        $new->created_at = date('Y-m-d H:i:s');
+        
+        $modelProductDetail->save($new);
+            
+        return getLayerProductForEdit($item->products_id);
+
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function deleteLayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $listLayer = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+
+        if (count($listLayer) > 1) {
+            $item = $modelProductDetail->get($dataSend['id']);
+            $modelProductDetail->delete($item);
+            
+            return getLayerProductForEdit($dataSend['idproduct']); 
+        }else{
+            return ['error' => ['Sản phẩm cần tối thiểu 1 Layer']]; 
+        }  
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function addLayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+        $user =  $session->read('infoUser');
+        
+        $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+        $idlayer = count($productDetail)+1;
+
+        $new = $modelProductDetail->newEmptyEntity();   
+       
+        $new->name = 'Layer '.$idlayer;
+        $new->products_id = $dataSend['idproduct'];
+        $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height']));
+        $new->sort = $idlayer;
+        $new->height = $dataSend['height'];
+        $new->wight = $dataSend['width'];
+        $new->created_at = date('Y-m-d H:i:s');
+        
+        $modelProductDetail->save($new);
+        
+        return getLayerProductForEdit($dataSend['idproduct']);
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function sortLayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+        $user =  $session->read('infoUser');
+
+        $pro = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
+
+        if (!empty($pro)) {
+            $pro->productDetail = $modelProductDetail->find()->where(array('products_id'=>$pro->id))->order(['sort' => 'ASC'])->all()->toList();
+
+            if(!empty($pro->productDetail)) {
+                // đánh lại thứ tự
+                foreach($pro->productDetail as $k => $item){
+                    $pro->productDetail[$k]->sort = $k+1;
+                }
+
+                $stt_dow = 1;
+                $stt_up = 2;
+                $check = "1";
+                $sort = "1";
+                    
+                foreach($pro->productDetail as $k => $item){
+                    // đẩy xuống cuối (lớp trên cùng)
+                    if ($dataSend['sort'] == 1) {
+                        if ($item->id == $dataSend['layerid']) {
+                            $item->sort = count($pro->productDetail);
+                        }else{
+                            $item->sort = $stt_dow;
+                            $stt_dow++;
+                        }
+                    }
+
+                    // đẩy lên đầu (lớp dưới cùng)
+                    if ($dataSend['sort'] == 2) {
+                        if ($item->id == $dataSend['layerid']) {
+                            $item->sort = 1;
+                        }else{
+                            $item->sort = $stt_up;
+                            $stt_up++;
+                        }
+                    }
+
+                    // lên 1 lớp
+                    if ($dataSend['sort'] == 3) {
+                        if ($item->id == $dataSend['layerid']) {
+                            $sort = $item->sort;
+                            $item->sort++;
+                            $check = $k;
+                        }
+
+                        // xử lý cho lớp ngay sau lớp được chọn
+                        if ($check !== "1") {
+                            if ($sort !== "1") {
+                                if ($item->id != $dataSend['layerid']) {
+                                    $item->sort = $sort;
+                                    $check = "1";
+                                    $sort = "1";
+                                }
+                            }
+                        }
+                    }
+
+                    // xuống 1 lớp
+                    if ($dataSend['sort'] == 4) {
+                        if ($item->id == $dataSend['layerid']) {
+                            if($item->sort>1){
+                                $sort = $item->sort;
+                                $check = $k - 1;
+                                $item->sort --; 
+                            }
+                        }
+                    }
+
+                    $modelProductDetail->save($item);
+                }
+
+                if ($dataSend['sort'] == 4) {
+                    if ($check !== "1") {
+                        if ($sort !== "1") {
+                            $dta = $pro->productDetail;
+                            if (isset($dta[$check])) {
+                                $dta[$check]->sort = $sort;
+                                $modelProductDetail->save($dta[$check]);
+                                $check = "1";
+                                $sort = "1";
+                            }
+                        }
+                    }
+                }
+
+                return getLayerProductForEdit($dataSend['id']);
+            }else{
+                return ['error' => ['Sản phẩm chưa xây dựng các Layer']]; 
+            }
+        }else{
+            return ['error' => ['Có lỗi trong quá trình xẩy ra. Vui lòng thử lại sau']]; 
+        }  
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
+function imagelist($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+
+    if(!empty($session->read('infoUser'))){
+        $user =  $session->read('infoUser');
+        $mana = $modelManagerFile->find()->where(['user_id'=>$user->id])->all()->toList();
+        $dataSend = $input['request']->getData();
+
+        if($dataSend['type']=='addNewImage'){
+            $function = 'addImage';
+        }elseif($dataSend['type']=='changeImage'){
+            $function = 'changeImage';
+        }
+
+        $list = '<div class="row">';
+        foreach($mana as $m){
+            $list .= '<div class="col-3 mb-2" onclick="'.$function.'(\''.$m->link.'\');"><img src="'.$m->link.'" width="50"></div>';
+        }
+        $list .= '</div>';
+        return ['success' => $list]; 
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']];
+    }
+}
+
+function upImage($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser'))){
+        $user =  $session->read('infoUser');
+        $return = uploadImage($user->id, 'file');
+         
+        if (!empty($return['linkOnline'])) {
+            $dataSend = $input['request']->getData();
+
+            $f = $modelManagerFile->newEmptyEntity();
+            
+            $f->link = $return['linkOnline'];
+            $f->user_id = $user->id;
+            $f->type = 0; // 0 là user up, 1 là cap, 2 là payment   
+            $f->created_at = date('Y-m-d H:i:s');
+            
+            $modelManagerFile->save($f);
+
+            $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+            $idlayer = count($productDetail)+1;
+
+            // layer mới
+            $new = $modelProductDetail->newEmptyEntity();
+            
+            $new->name = 'Layer '.$idlayer;
+            $new->products_id = $dataSend['idproduct'];
+            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$dataSend['width'] - 100, $dataSend['height'] - 100));
+            $new->sort = $idlayer;
+            $new->height = $dataSend['height'] - 100;
+            $new->wight = $dataSend['width'] - 100;
+            $new->created_at = date('Y-m-d H:i:s');
+            
+            $modelProductDetail->save($new);
+                
+            return getLayerProductForEdit($dataSend['idproduct']);
+        }else{
+            ['error' => [$return['mess']]];
+        }
+        
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập']]; 
+    } 
+}
+
+function replace($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser'))){
+        $user =  $session->read('infoUser');
+        $return = uploadImage($user->id, 'file');
+         
+        if (!empty($return['linkOnline'])) {
+            $dataSend = $input['request']->getData();
+
+            $f = $modelManagerFile->newEmptyEntity();
+
+            $f->link = $return['linkOnline'];
+            $f->user_id = $user->id;
+            $f->type = 0; // 0 là user up, 1 là cap, 2 là payment   
+            $f->created_at = date('Y-m-d H:i:s');
+            
+            $modelManagerFile->save($f);
+
+            $new =  $modelProductDetail->find()->where(array('id'=>$dataSend['id']))->first();
+
+            $replace = json_decode($new->content);
+            $replace->banner = $return['linkOnline'];
+            $new->content = json_encode($replace);
+            $modelProductDetail->save($new);
+                
+            return getLayerProductForEdit($dataSend['idproduct']); 
+            
+        }else{
+            return ['error' => [$return['mess']]];
+        }
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập']]; 
+    } 
+}
+
+function capImg($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+    $modelProduct = $controller->loadModel('Products');
+
+    if(!empty($session->read('infoUser'))){
+        $dataSend = $input['request']->getData();
+
+        $data = $dataSend['base64data'];
+        $image = explode('base64', $data);
+        $user =  $session->read('infoUser');
+
+        $product = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
+
+        $name = __DIR__.'/../../../upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png';
+
+        if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$user->id )) {
+            mkdir(__DIR__.'/../../../upload/admin/images/'.$user->id, 0755, true);
+        }
+        
+        // unlink($name);
+
+        file_put_contents($name, base64_decode($image[1]));
+
+        $image = 'https://apis.ezpics.vn/upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png?time='.time();
+
+        $product->image = $image;
+        
+        $modelProduct->save($product);
+
+        zipImage($name);
+
+        return ['success' => 'Thành công','link' => $image];
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập']]; 
+    } 
+}
+?>

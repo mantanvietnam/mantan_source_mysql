@@ -30,6 +30,7 @@ global $csrfToken;
 global $modelCategories;
 global $modelOptions;
 global $modelPosts;
+global $modelMenus;
 
 global $urlCurrent;
 global $urlThemeActive;
@@ -47,7 +48,7 @@ global $infoSite;
 global $contactSite;
 global $smtpSite;
 
-$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts');
+$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts','modelMenus');
 
 
 $metaTitleMantan = 'Mantan Source';
@@ -551,6 +552,71 @@ function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',
                     ->deliver($content);   
 		    
 	}
+}
+
+function getMenusDefault($id=0)
+{
+	global $modelCategories;
+	global $modelMenus;
+	global $modelOptions;
+
+	$conditions = array('key_word' => 'menuDefault');
+    $menuDefault = $modelOptions->find()->where($conditions)->first();
+    $links = [];
+    
+    if(!empty($menuDefault->value) && empty($id)){
+    	$id = $menuDefault->value;
+    }
+
+    if(!empty($id)){
+    	$conditions = array('key_word' => 'menu', 'id'=>$id);
+    	$menu = $modelOptions->find()->where($conditions)->first();
+
+    	if(!empty($menu)){
+    		$conditions = array('id_menu' => (int) $id);
+	        $listLinks = $modelMenus->find()->where($conditions)->order(['id_parent' => 'ASC', 'weighty'=>'ASC'])->all()->toList();
+
+	        if(!empty($listLinks)){
+	            foreach ($listLinks as $value) {
+	                $check_parent = false;
+
+	                if($value->id_parent == 0){
+	                    $links[$value->id] = $value;
+	                    $check_parent = true;
+	                }else{
+	                    if(!empty($links[$value->id_parent])){
+	                        if(empty($links[$value->id_parent]->sub)){
+	                            $links[$value->id_parent]->sub = [];
+	                        }
+
+	                        $links[$value->id_parent]->sub[$value->id] = $value;
+	                        $check_parent = true;
+	                    }else{
+	                        if(!empty($links)){
+	                            foreach ($links as $key2=>$value2) {
+	                                if(!empty($value2->sub[$value->id_parent])){
+	                                    if(empty($links[$key2]->sub[$value->id_parent]->sub)){
+	                                        $links[$key2]->sub[$value->id_parent]->sub = [];
+	                                    }
+
+	                                    $links[$key2]->sub[$value->id_parent]->sub[$value->id] = $value;
+	                                    $check_parent = true;
+	                                }
+	                            }
+	                        }
+	                    }
+	                }
+
+	                if(!$check_parent){
+	                    $links[$value->id] = $value;
+	                }
+	            }
+	        }
+
+    	}
+    }
+
+    return $links;
 }
 
 ?>

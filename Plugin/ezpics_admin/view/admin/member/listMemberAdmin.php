@@ -91,7 +91,7 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->avatar.'" width="100" /></td>
                         <td>
-                          '.$item->full_name.'<br/>
+                          '.$item->name.'<br/>
                           '.$item->phone.'<br/>
                           '.$item->email.'
                         </td>
