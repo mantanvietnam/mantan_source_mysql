@@ -13,12 +13,10 @@ global $urlThemeActive;
         <section id="section-sign">
             <div class="container-sign container">
                 <div class="row row-sign">
-                    <div class="col-7 box-sign">
-                        <ul class="nav nav-tabs nav-sign" id="myTab" role="tablist">
-                           	<li class="nav-item nav-item-sign" role="presentation">
-                                <button class="nav-link-sign nav-link" id="sign-up-tab" data-bs-toggle="tab"
-                                    data-bs-target="#sign-up" type="button" role="tab" aria-controls="sign-up"
-                                    aria-selected="false">Đăng ký</button>
+                    <div class="col-7 box-sign box-register">
+                        <ul class="nav nav-tabs nav-sign nav-sign-in" id="myTab">
+                           	<li class="nav-item nav-item-sign">
+                                <p class="nav-link-sign" id="sign-up-tab">Đăng ký</p>
                             </li>
                         </ul>
 
@@ -62,13 +60,16 @@ global $urlThemeActive;
                                             <img class="eye-icon" value="close" src="<?= $urlThemeActive ?>/img/eyeclose.png" alt="">
                                         </div>
                                     </div>
-                                    <button class="button-sign-in" type="submit">Đăng ký</button>
+                                    <button class="button-sign-in button-register" type="submit">Đăng ký</button>
                                </form>
-                                <div class="sign-in-other">
+                                <div class="sign-in-other register-other">
                                     <p>Hoặc Đăng ký với</p>
                                     <a class="sign-in-mobile" href=""><i class="fa-solid fa-mobile-screen"></i></a>
                                     <a class="sign-in-google" href=""><i class="fa-brands fa-google"></i></a>
                                     <a class="sign-in-facebook" href=""><i class="fa-brands fa-facebook"></i></a>
+                                </div>
+                                <div class="register-text">
+                                    <p>Chưa có tài khoản? <a href="">Đăng ký ngay</a></p>
                                 </div>
                             </div>
                         </div>

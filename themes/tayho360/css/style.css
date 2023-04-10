@@ -2165,6 +2165,10 @@ color: #188181;
 
 } 
 
+#section-sign .box-register{
+	padding-top: 35px !important;
+}
+
 
 
 #section-sign .box-sign .nav-item-sign{
@@ -2178,28 +2182,17 @@ color: #188181;
 }
 
 
-#section-sign .nav-link-sign.active{
-	color: #000000;
-	border: none;
-	border-bottom: 1px solid #188181;
-}
-
-
 
 #section-sign .nav-link-sign{
 	font-size: 28px;
 	color: #000000;
-	border-bottom: 1px solid #188181;
+	text-align: center;
 	width: 100%;
-	cursor: default;
+	text-align: center;
+	margin-bottom: 10px;
 
 }
 
-#section-sign .nav-link-sign:hover {
-	border-color: transparent;
-	border-bottom-color: #188181
-
-}
 
 
 
@@ -2386,6 +2379,23 @@ color: #188181;
 
 
 
+}
+
+#section-sign .register-other p{
+
+	margin-bottom: 15px
+
+}
+
+.register-text p{
+	text-align: center;
+	font-size: 18px;
+	color: #747476;
+	margin-top: 15px;
+}
+
+.register-text a{
+	color: #747476;
 }
 
 
@@ -3589,8 +3599,6 @@ color: #188181;
 
 
 	}
-
-
 
 	#section-sign .nav-link-sign {
 

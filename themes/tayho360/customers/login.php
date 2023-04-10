@@ -14,11 +14,9 @@ global $urlThemeActive;
             <div class="container-sign container">
                 <div class="row row-sign">
                     <div class="col-7 box-sign">
-                        <ul class="nav nav-tabs nav-sign" id="myTab" role="tablist">
-                            <li class="nav-item nav-item-sign" role="presentation">
-                                <button class="nav-link-sign nav-link active" id="sign-in-tab" data-bs-toggle="tab"
-                                    data-bs-target="#sign-in" type="button" role="tab" aria-controls="sign-in"
-                                    aria-selected="true">Đăng nhập</button>
+                        <ul class="nav nav-tabs nav-sign" id="myTab">
+                            <li class="nav-item nav-item-sign">
+                                <p class="nav-link-sign active" id="sign-in-tab" >Đăng nhập</p>
                             </li> 
 
                             
@@ -41,6 +39,9 @@ global $urlThemeActive;
                                                 class="fa-solid fa-lock"></i></label>
                                         <input type="password" class="form-control" id="pass" name="pass"
                                             placeholder="Mật khẩu" required>
+                                        <div class="icon-eye-button">
+                                            <img class="eye-icon" value="close" src="<?= $urlThemeActive ?>/img/eyeclose.png" alt="">
+                                        </div>
                                     </div>
                                     <button class="button-sign-in" type="submit">Đăng nhập</button>
                                     <div class="forgot-password">
