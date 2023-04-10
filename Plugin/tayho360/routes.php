@@ -13,8 +13,12 @@
    $routesPlugin['chi_tiet_co_quan_hanh_chinh'] = 'tayho360/view/detailGovernanceAgency.php';
    $routesPlugin['tour'] = 'tayho360/view/listTour.php';
    $routesPlugin['chi_tiet_tour'] = 'tayho360/view/detailTour.php';
+   $routesPlugin['dich_vu_ho_tro_du_lich'] = 'tayho360/view/listService.php';
+   $routesPlugin['chi_tiet_dich_vu_ho_tro_du_lich'] = 'tayho360/view/detailService.php';
    $routesPlugin['lang_nghe'] = 'tayho360/view/listCraftvillage.php';
    $routesPlugin['chi_tiet_lang_nghe'] = 'tayho360/view/detailCraftvillage.php';
+   $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
+   $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
    $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['khach_san'] = 'tayho360/view/listHotel.php';
@@ -66,4 +70,6 @@
    $routesPlugin['saveTokenDeviceUserAPI'] = 'tayho360/view/saveTokenDeviceUserAPI.php';
    $routesPlugin['listCraftvillageAPI'] = 'tayho360/view/listCraftvillageAPI.php';
    $routesPlugin['detailCraftvillageAPI'] = 'tayho360/view/detailCraftvillageAPI.php';
+   $routesPlugin['detailServiceAPI'] = 'tayho360/view/detailServiceAPI.php';
+   $routesPlugin['listServiceAPI'] = 'tayho360/view/listServiceAPI.php';
 ?>

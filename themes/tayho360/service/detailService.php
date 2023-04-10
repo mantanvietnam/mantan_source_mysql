@@ -3,8 +3,8 @@ getHeader();
 global $urlThemeActive;
 ?>
 <main>
-    <?php if (!empty($data->image360)){ ?>
-    
+	<?php if (!empty($data->image360)){ ?>
+	
          <section class="page-banner">
             <div class="iframe-banner">
                 <iframe src="<?php echo $data->image360 ?>"
@@ -23,21 +23,43 @@ global $urlThemeActive;
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-4 place-content">
                         <div class="place-title">
-                            <p><?php echo $data->name ?></p>
+                            <h1><?php echo $data->name ?></h1>
                         </div>
                         <div class="place-address">
                             <p><i class="fa-solid fa-location-dot"></i> <?php echo $data->address ?></p>
                         </div>
                          <div class="place-address">
-                            <p><i class="fa-solid fa-phone"></i> <?php echo $data->phone ?></p>
-                        </div>
-                         <div class="place-address">
-                            <p><i class="fa-solid fa-envelope"></i> <?php echo $data->email ?></p>
-                        </div>
+                        	<p><i class="fa-solid fa-phone"></i> <?php echo $data->phone ?></p>
+                    	</div>
+                        <div class="place-address">
+	                        <p><i class="fa-solid fa-envelope"></i> <?php echo $data->email ?></p>
+	                    </div>
+                        <!-- <div class="place-address">
+	                        <p><i class="fa-solid fa-clock"></i> 8:00 - 17:00</p>
+	                    </div> -->
+
                         <div class="button-content">
+                            <?php  
+                                     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                if(empty(getLike($infoUser['id'],$data->id,'dich_vu_ho_tro_du_lich'))){?>
                             <div class="button-like">
-                                <button type="button"><i class="fa-regular fa-heart"></i>Yêu thích</button>
+                                <button type="button" onclick="addlike()"><i class="fa-regular fa-heart"></i>Yêu thích</button>
                             </div>
+                                <?php }else{
+                                  
+                                 ?>
+                                    <div class="button-like">
+
+                                <button type="button" onclick="delelelike()" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class="fa-regular fa-heart" style="color: rgb(255, 255, 255);"></i>Yêu thích</button>
+                            </div>
+                           
+                                <?php }  }else{ ?>
+                                     <div class="button-like">
+                                        <a  class="like" href="/login" ><button type="button" ><i class="fa-regular fa-heart"></i>Yêu thích</button></a>
+                                        </div>
+                                <?php   } ?>
                             <div class="button-share">
                                 <a href=""><button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
                                         sẻ</button></a>
@@ -45,6 +67,7 @@ global $urlThemeActive;
                         </div>
                     </div>
 
+                    
                     <div class="col-lg-9 col-md-8 col-sm-8 col-12 place-img-slide">
                         <?php if(!empty($data->image)){ ?>
                             <div class="img-slide-item">
@@ -102,12 +125,16 @@ global $urlThemeActive;
 
         </section>
 
-        <section id="place-information" class="mgt-80">
+        <section id="place-information" class="mgt-30">
             <div class="container">
-               <div class="title-h1 title-information mgb-32">
+                <div class="title-h1 title-information mgb-32">
                     <p>Giới thiệu</p>
                 </div>
-                
+                <!-- <div class="icon-information mgb-32">   
+                    <div class="icon-information-price">
+                        <p><i class="fa-solid fa-tag"></i> 100.000 vnđ</p>
+                    </div>
+                </div> -->
                 <div class="content-information mgb-32">
                     <?php echo $data->content ?>
                 </div>
@@ -131,25 +158,23 @@ global $urlThemeActive;
             </div>
         </section>
         <!-- Địa điểm xung quanh -->
-          <?php  if(!empty($otherData)){ ?>
+         <?php  if(!empty($otherData)){ ?>
         <section id="skct-lien-quan">
             <div class="container mt-5">
-                <h2 class="mb-4">Điểm đến khác</h2>
+                <h2 class="mb-4">Điển đến khác</h2>
                 <div class="row g-3 g-lg-4">
                     <?php 
                     foreach(@$otherData as $key => $value){
                     if(@$data->id != @$value->id){ ?>
                     <div class="col-12 col-lg-4">
-                        <a href="/chi_tiet_le_hoi/<?php echo $value->urlSlug ?>.html" class="d-block text-decoration-none">
+                        <a href="/chi_tiet_dich_vu_ho_tro/<?php echo $value->urlSlug ?>.html" class="d-block text-decoration-none">
                             <div class="card card-event">
                                 <img class="card-img-top" src="<?php echo $value->image ?>" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">
                                        <?php echo $value->name ?>
                                     </h5>
-                                    <p class="card-time">
-                                        <?php echo date("d/m/Y", @$value->datestart).' - '. date("d/m/Y", @$value->dateend); ?>
-                                    </p>
+                                    
                                 </div>
                             </div>
                         </a>
@@ -161,114 +186,7 @@ global $urlThemeActive;
         </section>
         <?php } ?>
 
-        <!-- Đánh gíá -->
-        <!-- <section id="place-comment" class="mgt-80">
-            <div class="container">
-                <div class="title-section mgb-32">
-                    <p>Đánh giá</p>
-                </div>
-                <div class="row mgb-50">
-                    <div class="col-lg-7 col-md-7 col-sm-7 box-point-bar">
-                        <div class="box-progress">
-                            <div class="number-progess"><span>5</span></div>
-                            <div class="progress point-progress">
-                                <div class="point-progress-bar progress-bar" role="progressbar" style="width: 100%"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="box-progress">
-                            <div class="number-progess"><span>4</span></div>
-                            <div class="progress point-progress">
-                                <div class="point-progress-bar progress-bar" role="progressbar" style="width: 25%"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="box-progress">
-                            <div class="number-progess"><span>3</span></div>
-                            <div class="progress point-progress">
-                                <div class="progress-bar point-progress-bar" role="progressbar" style="width: 50%"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="box-progress">
-                            <div class="number-progess"><span>2</span></div>
-                            <div class="progress point-progress">
-                                <div class="progress-bar point-progress-bar" role="progressbar" style="width: 75%"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="box-progress">
-                            <div class="number-progess"><span>1</span></div>
-                            <div class="progress point-progress">
-                                <div class="progress-bar point-progress-bar" role="progressbar" aria-valuenow="0"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-lg-5 col-sm-5 box-point-right">
-                        <div class="point-right-number">
-                            <p>4.1</p>
-                        </div>
-                        <div class="point-right-star">
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-
-                        </div>
-
-                        <div class="point-right-post">
-                            <p>4.123 <span>bài viết</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row box-write-comment">
-                    <div class="write-comment">
-                        <button class="button-write-comment" type="button">
-                            <div class="button-icon-comment">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    class="bi bi-chat-right-dots" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z" />
-                                    <path
-                                        d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                </svg>
-                            </div>
-                            <p class="button-text-comment">Viết đánh giá</p>
-                        </button>
-                    </div>
-
-                      <div class="write-comment-content">
-                        <div class="information-people-write">
-                            <img class="information-people-write-img"
-                                src="../img/worried-man-avata-avatar-worried-man-vector-illustration-107469775.jpg"
-                                alt="">
-                            <p class="information-people-write-name">Nguyễn Quốc Việt</span>
-                        </div>
-
-                        <div class="rating-box">
-                            <div class="stars">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-comment">
-                            <textarea class="content-post" name="content-post"
-                                placeholder="Viết suy nghĩ của bạn"></textarea>
-                            <button type="submit" class="send-comment">Đăng bài</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section> -->
+       
 
         <!--Bài viết Đánh gíá -->
         <section id="place-post-comment">
@@ -538,3 +456,46 @@ global $urlThemeActive;
 </script>
 <?php
 getFooter();?>
+
+<script  type="text/javascript">
+    
+    function addlike(){
+         
+
+       $.ajax({
+            method: 'POST',
+            url: '/apis/addlike',
+            data: { idobject: <?php echo $data->id ?>,
+                tiype: 'dich_vu_ho_tro_du_lich',
+                idcustomer: <?php echo $infoUser['id'] ?>,
+            },
+            success:function(res){
+              console.log('res');
+                $('#like_save').load(location.href + ' #like_save>*');
+                $('#place-detail .button-like button').css('background-color', '#188181');
+                $('#place-detail .button-like button').css('color', '#fff')
+                $('.button-like i').css('color', '#fff');
+            }
+        })
+            
+    };
+ function delelelike(){
+
+          $.ajax({
+                method: 'POST',
+                url: '/apis/delelelike',
+                data: { idobject: <?php echo $data->id ?>,
+                    tiype: 'dich_vu_ho_tro_du_lich',
+                    idcustomer: <?php echo $infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log('res');
+                    $('#like_save').load(location.href + ' #like_save>*');
+                    $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
+                    $('#place-detail .button-like button').css('color', '#3F4042')
+                    $('.button-like i').css('color', '#126B66');
+                }
+            })
+               
+        };  
+</script>

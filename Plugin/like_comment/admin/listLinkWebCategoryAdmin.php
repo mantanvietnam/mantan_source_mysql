@@ -1,36 +1,18 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin Tour</h4>
-  <p><a href="/plugins/admin/tayho360-admin-tour-addTourAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin nhóm liên kết</h4>
+  <p><a href="/plugins/admin/linkWeb-admin-addLinkWebCategoryAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <form action="" method="GET">
-           <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
-            <tbody><tr>
-                <td>
-                    <label>Tên Tour</label>
-                    <input type="" name="name" class="form-control" placeholder="Tên Tour" value="">
-                </td>
-                 <td >
-                    <br>
-                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
-                </td>
-               <!--  <td >
-                    <input type="submit" name="excel" value="Xuất excel">
-                </td> -->
-            </tr>
-        
-        </tbody></table>
-    </form>
   <div class="card">
-    <h5 class="card-header">Danh sách Thông tin Tour</h5>
-      <p><?php echo @$mess;?></p>
+    <h5 class="card-header">Danh sách Thông tin nhóm liên kết</h5>
+      <p><?php echo $mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th>Hình ảnh</th>
-            <th>Tên Tour</th>
-            <th>Số điện thoại</th>
-            <th>địa chỉ </th>
+             <th>ID</th>
+            <th>Tên nhóm liên kết</th>
+            <!-- <th>Số điện thoại</th>
+            <th>địa chỉ </th> -->
             <th>Sửa</th>
             <th>Xóa</th> 
           </tr>
@@ -40,18 +22,16 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
                 echo '<tr>
-                        <td><img src="'.$item->image.'" width="100"></td>
+                        <td>'.$item->id.'</td>
                         <td>'.$item->name.'</td>
-                        <td> '.$item->phone.'</td>
-                        <td> '.$item->address.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-tour-addTourAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/linkWeb-admin-addLinkWebCategoryAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteTourAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/linkWeb-admin-deleteLinkWebCategoryAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -72,7 +52,7 @@
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <?php
-            if(@$totalPage>0){
+            if($totalPage>0){
                 if ($page > 5) {
                     $startPage = $page - 5;
                 } else {

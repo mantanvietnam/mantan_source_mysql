@@ -110,52 +110,28 @@ $setting= setting();
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <?php 
+                            $menu = getMenusDefault();
+                            if(!empty($menu)){
+                            foreach($menu as $key => $value){
+                              if(empty($value['sub'])){
+                         ?>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">TRANG CHỦ</a>
+                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
                             </li>
+                        <?php   }else{ ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
-                                    ĐIỂM ĐẾN
+                                    <?php echo $value['name']  ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Di tích văn hóa</a></li>
-                                    <li><a class="dropdown-item" href="#">Danh lam</a></li>
-                                    <li><a class="dropdown-item" href="#">Làng nghề</a></li>
-                                    <li><a class="dropdown-item" href="#">Lễ hội</a></li>
-                                    <li><a class="dropdown-item" href="#">Trụ sở cơ quan chính</a></li>
-                                    <li><a class="dropdown-item" href="#">Trung tâm hội nghị, sự kiện</a></li>
-                                    <li><a class="dropdown-item" href="#">Khách sạn</a></li>
-                                    <li><a class="dropdown-item" href="#">Nhà hàng quán ăn</a></li>
-                                    <li><a class="dropdown-item" href="#">Dịch vụ hỗ trợ du lịch</a></li>
+                                    <?php  foreach($value['sub'] as $keys => $values)  ?>
+                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
+                                    
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">SỰ KIỆN</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    CẨM NANG DU LỊCH
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Cẩm nang 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Cẩm nang 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Cẩm nang khác</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">TIN TỨC</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">TOUR DU LỊCH</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">BẢN ĐỒ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">VIỆT NAM 360</a>
-                            </li>
+                            <?php }}} ?>
                         </ul>
                     </div>
                 </div>

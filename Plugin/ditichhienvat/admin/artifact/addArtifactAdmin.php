@@ -108,7 +108,7 @@
                                     <option value="">Chọn danh mục</option>
                                     <?php
                                     foreach ($listCategoryartifact as $category) {
-                                        if( @$data['idcategory']!=$item['id']){
+                                        if( @$data['idcategory']!=$category['id']){
                                             echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
                                         }else{
                                             echo '<option selected value="' . $category['id'] . '">' . $category['name'] . '</option>';

@@ -128,11 +128,12 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
+        <?php  if(!empty($otherData)){ ?>
         <section id="skct-lien-quan">
             <div class="container mt-5">
                 <h2 class="mb-4">Sự kiện liên quan</h2>
                 <div class="row g-3 g-lg-4">
-                    <?php if(!empty($otherData)){
+                    <?php 
                     foreach(@$otherData as $key => $value){
                     if(@$data->id != @$value->id){ ?>
                     <div class="col-12 col-lg-4">
@@ -150,11 +151,12 @@ global $urlThemeActive;
                             </div>
                         </a>
                     </div>
-                <?php }}} ?>
+                <?php }} ?>
                     
                 </div>
             </div>
         </section>
+        <?php } ?>
     </main>
 
 <script type="text/javascript">

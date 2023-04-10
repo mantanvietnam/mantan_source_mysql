@@ -1,11 +1,7 @@
 <?php 
 $menus= array();
 $menus[0]['title']= 'Tây Hồ 360';
-/*$menus[0]['sub'][0]= array(	'title'=>'Điểm đến di tích và danh lam',
-							'url'=>'/plugins/admin/tayho360-admin-historicalSites-listHistoricalSitesAdmin.php',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listHistoricalSitesAdmin'
-						);*/
+
 
 
 $menus[0]['sub'][0]= array('title'=>'Cơ quan hành chính',
@@ -14,43 +10,49 @@ $menus[0]['sub'][0]= array('title'=>'Cơ quan hành chính',
 							'permission'=>'listGovernanceAgencysAdmin',
 							
 						);
-$menus[0]['sub'][1]= array('title'=>'Lễ hội',
+$menus[0]['sub'][1]= array('title'=>'Dịch vụ hỗ trợ du lịch',
+                            'url'=>'/plugins/admin/tayho360-admin-service-listServiceAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listTourAdmin',
+                            
+                        );
+$menus[0]['sub'][2]= array('title'=>'Lễ hội',
 							'url'=>'/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listFestivalAdmin',
 							
 						);
-$menus[0]['sub'][2]= array('title'=>'Dịch vụ hỗ trợ du lịch',
+$menus[0]['sub'][3]= array('title'=>'Tour',
 							'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listTourAdmin',
 							
 						);
-$menus[0]['sub'][3]= array('title'=>'Điểm đến làng nghề',
+$menus[0]['sub'][4]= array('title'=>'Điểm đến làng nghề',
 							'url'=>'/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listCraftvillageAdmin',
 							
 						);
-$menus[0]['sub'][4]= array('title'=>'Nhà hàng',
+$menus[0]['sub'][5]= array('title'=>'Nhà hàng',
 							'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listRestaurantAdmin',
 							
 						);
-$menus[0]['sub'][5]= array('title'=>'Danh lam',
+$menus[0]['sub'][6]= array('title'=>'Danh lam',
 							'url'=>'/plugins/admin/tayho360-admin-place-listPlaceAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listPlaceAdmin',
 							
 						);
-$menus[0]['sub'][6]= array('title'=>'Ảnh 360',
+$menus[0]['sub'][7]= array('title'=>'Ảnh 360',
 							'url'=>'/plugins/admin/tayho360-admin-image360-listImage360Admin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listImage360Admin',
 							
 						);
-$menus[0]['sub'][7]= array('title'=>'Sự kiện',
+$menus[0]['sub'][8]= array('title'=>'Sự kiện',
 							'url'=>'/plugins/admin/tayho360-admin-event-listEventAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listEventAdmin',
@@ -76,6 +78,12 @@ function getmonth(){
     );
 }
 
+function categoryService(){
+    return array('1'=>array('id'=>'1','name'=>'Ngân hàng, phòng giao dịch'),
+        '2'=>array('id'=>'2','name'=>'Đơn vị lữ hành, vận chuyển'),
+        '3'=>array('id'=>'3','name'=>'Bệnh viện, phòng khám, trạm y tế'),
+    );
+}
 
     function destination(){
         global $urlHomes;
@@ -89,7 +97,7 @@ function getmonth(){
             '6'=>array('id'=>6,'name'=>'Trung tâm hội nghị sự kiện','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'le_hoi'), 
             '7'=>array('id'=>7,'name'=>'Khách sạn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconkhachsan.png','urlSlug'=>'khach_san'),   
             '8'=>array('id'=>8,'name'=>'Nhà hàng quán ăn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconnhahang.png','urlSlug'=>'nha_hang'),   
-            '9'=>array('id'=>9,'name'=>'Dịch vụ hỗ trợ du lịch','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconhotro.png','urlSlug'=>'giai_tri'),  
+            '9'=>array('id'=>9,'name'=>'Dịch vụ hỗ trợ du lịch','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconhotro.png','urlSlug'=>'dich_vu_ho_tro_du_lich'),  
         );                                  
              
     }
@@ -151,6 +159,9 @@ function getmonth(){
         $modelPlace = $controller->loadModel('Places');
         $Place= $modelPlace->find()->where($conditions)->all();
 
+        $modelService = $controller->loadModel('Services');
+        $Service= $modelService->find()->where($conditions)->all();
+
 
 
 
@@ -168,6 +179,22 @@ function getmonth(){
                                     'urlSlug'=> 'chi_tiet_co_quan_hanh_chinh/'.$listGovernanceAgency->urlSlug.'.html',
                                     'type'=> 'co_quan_hanh_chinh',
                                      'icon'=> '/themes/tayho360/assets/icon/hanhchinh.png',
+
+                );
+            }
+        } 
+
+        if(!empty($service)){
+            foreach($service as $keyService => $listService){
+                $listData[] =  array('name'=> $listService->name,
+                                    'address'=> $listService->address,
+                                    'phone'=> $listService->phone,
+                                    'image'=> $listService->image,
+                                    'lat'=> $listService->latitude,
+                                    'long'=> $listService->longitude,
+                                    'urlSlug'=> 'chi_tiet_dich_vu_ho_tro_du_lich/'.$listService->urlSlug.'.html',
+                                    'type'=> 'dich_vu_ho_tro_du_lich',
+                                     'icon'=> '/themes/tayho360/assets/icon/hotro.png',
 
                 );
             }

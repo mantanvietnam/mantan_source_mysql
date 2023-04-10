@@ -81,6 +81,47 @@ function detailGovernanceAgencyAPI($input){
     return $return;
 }
 
+/*Dịch vụ hỗ trợ*/
+function listServiceAPI($input){
+    
+     header('Access-Control-Allow-Methods: *');
+     global $controller;
+    $modelService = $controller->loadModel('Services');
+    $dataSend = $input['request']->getData();
+        
+        $conditions = array();
+          if(!empty($dataSend['name'])){
+             $key=createSlugMantan($dataSend['name']);
+            $conditions['urlSlug']= array('$regex' => $key);
+        }
+
+        $order= array('created'=>'desc');
+
+        $totalData= $modelService->find()->where($conditions)->all()->toList();
+
+        $return= array('code'=>1,'listData'=>$totalData);
+
+    //echo json_encode($return);
+        return $return;
+}
+
+function detailServiceAPI($input){
+    
+    header('Access-Control-Allow-Methods: *');
+    $return= array('code'=>0);
+    global $controller;
+    $modelService = $controller->loadModel('Services');
+    $dataSend =$input['request']->getData();       
+    if (!empty($dataSend['id'])) {
+            $data=$modelService->get( (int) $dataSend['id']);
+             $return= array('code'=>1,'data'=>$data);
+        }
+
+
+   // echo json_encode($return);
+    return $return;
+}
+
 /*Làng nghề */
 function listCraftvillageAPI($input){
     
@@ -202,6 +243,47 @@ function detailEventImage360API($input){
 
    // echo json_encode($return);
         return $return;
+}
+
+/*cơ quan hang chinh*/
+function listPlaceAPI($input){
+    
+     header('Access-Control-Allow-Methods: *');
+     global $controller;
+    $modelPlace = $controller->loadModel('Places');
+    $dataSend = $input['request']->getData();
+        
+        $conditions = array();
+          if(!empty($dataSend['name'])){
+             $key=createSlugMantan($dataSend['name']);
+            $conditions['urlSlug']= array('$regex' => $key);
+        }
+
+        $order= array('created'=>'desc');
+
+        $totalData= $modelPlace->find()->where($conditions)->all()->toList();
+
+        $return= array('code'=>1,'listData'=>$totalData);
+
+    //echo json_encode($return);
+        return $return;
+}
+
+function detailPlaceAPI($input){
+    
+    header('Access-Control-Allow-Methods: *');
+    $return= array('code'=>0);
+    global $controller;
+    $modelPlace = $controller->loadModel('Places');
+    $dataSend =$input['request']->getData();       
+    if (!empty($dataSend['id'])) {
+            $data=$modelPlace->get( (int) $dataSend['id']);
+             $return= array('code'=>1,'data'=>$data);
+        }
+
+
+   // echo json_encode($return);
+    return $return;
 }
 
  ?>

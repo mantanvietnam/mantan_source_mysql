@@ -9,4 +9,5 @@ include('model/image360.php');
 include('model/event.php');
 include('model/like.php');
 include('model/place.php');
+include('model/service.php');
 ?>

@@ -32,9 +32,27 @@
                         <p><i class="fa-solid fa-phone"></i><?php echo @$data['HotelManmo']['data']['Hotel']['phone'];?></p>
                     </div>
                         <div class="button-content">
+                             <?php  
+                                     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                if(empty(getLike($infoUser['id'],$data['HotelManmo']['data']['Hotel']['id'],'khach_san'))){?>
                             <div class="button-like">
-                                <button type="button"><i class="fa-regular fa-heart"></i>Yêu thích</button>
+                                <button type="button" onclick="addlike()"><i class="fa-regular fa-heart"></i>Yêu thích</button>
                             </div>
+                                <?php }else{
+                                  
+                                 ?>
+                                    <div class="button-like">
+
+                                <button type="button" onclick="delelelike()" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class="fa-regular fa-heart" style="color: rgb(255, 255, 255);"></i>Yêu thích</button>
+                            </div>
+                           
+                                <?php }  }else{ ?>
+                                     <div class="button-like">
+                                        <a  class="like" href="/login" ><button type="button" ><i class="fa-regular fa-heart"></i>Yêu thích</button></a>
+                                        </div>
+                                <?php   } ?>
                             <div class="button-share">
                                 <a href=""><button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
                                         sẻ</button></a>
@@ -907,4 +925,47 @@ $('#price').val(price);
     // document.write(x);
     $('#map, #map_HS').css({'height':x});
   });
+</script>
+
+<script  type="text/javascript">
+    
+    function addlike(){
+         
+
+       $.ajax({
+            method: 'POST',
+            url: '/apis/addlike',
+            data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
+                tiype: 'khach_san',
+                idcustomer: <?php echo $infoUser['id'] ?>,
+            },
+            success:function(res){
+              console.log('res');
+                $('#like_save').load(location.href + ' #like_save>*');
+                $('#place-detail .button-like button').css('background-color', '#188181');
+                $('#place-detail .button-like button').css('color', '#fff')
+                $('.button-like i').css('color', '#fff');
+            }
+        })
+            
+    };
+ function delelelike(){
+
+          $.ajax({
+                method: 'POST',
+                url: '/apis/delelelike',
+                data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
+                    tiype: 'khach_san',
+                    idcustomer: <?php echo $infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log('res');
+                    $('#like_save').load(location.href + ' #like_save>*');
+                    $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
+                    $('#place-detail .button-like button').css('color', '#3F4042')
+                    $('.button-like i').css('color', '#126B66');
+                }
+            })
+               
+        };  
 </script>

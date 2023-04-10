@@ -30,7 +30,7 @@ global $urlThemeActive;
                         
                         </select>
                     </div> -->
-                      <?php include __DIR__.'/../select.php' ;?>
+                     <?php include __DIR__.'/../select.php' ;?>
                 </div>
 
                 <div class="box-search">
@@ -46,8 +46,8 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>LÀNG NGHỀ</h1>
-                <p>Hãy khám phá những điểm đến làng nghề ở Tây Hồ</p>
+                <h1>DỊCH VỤ HỖ TRỢ DU LỊCH</h1>
+                <p>Hãy khám phá những điểm đến dịch vụ hỗ trợ du lịch ở Tây Hồ</p>
             </div>
 
             <div class="container">
@@ -58,9 +58,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_lang_nghe/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
+                            <a href="/chi_tiet_dich_vu_ho_tro/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_lang_nghe/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
+                                <a href="/chi_tiet_dich_vu_ho_tro/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>
