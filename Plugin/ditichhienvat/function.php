@@ -6,7 +6,7 @@ $menus[0]['sub'][0]= array(	'title'=>'Phường / Xã',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listWardAdmin'
 						);
-$menus[0]['sub'][1]= array(	'title'=>'Điểm đến di tích và danh lam',
+$menus[0]['sub'][1]= array(	'title'=>'Điểm đến di tích',
 							'url'=>'/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listHistoricalSitesAdmin'

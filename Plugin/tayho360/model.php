@@ -10,4 +10,6 @@ include('model/event.php');
 include('model/like.php');
 include('model/place.php');
 include('model/service.php');
+include('model/eventcenter.php');
+include('model/booktable.php');
 ?>

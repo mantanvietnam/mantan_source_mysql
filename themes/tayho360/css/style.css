@@ -722,8 +722,16 @@ table {
 .place-around-slide-item .place-around-title a{
 
 	font-size: 28px;
-
-	color:#3F4042
+    color: #3F4042;
+    /* color: #fff; */
+    /* font-size: 27px; */
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-height: 34px;
 
 }
 
@@ -2183,7 +2191,7 @@ color: #188181;
 
 	border-radius: 40px;
 
-	height: 741px;
+	height: 731px;
 
 	overflow: hidden;
 

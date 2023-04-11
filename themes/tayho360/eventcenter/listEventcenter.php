@@ -46,8 +46,8 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>DỊCH VỤ HỖ TRỢ DU LỊCH</h1>
-                <p>Hãy khám phá những điểm đến dịch vụ hỗ trợ du lịch ở Tây Hồ</p>
+                <h1>TRUNG TÂM HỘI NGHỊ SỰ KIỆN</h1>
+                <p>Hãy khám phá những điểm đến trung tâm hội nghị sự kiện ở Tây Hồ</p>
             </div>
 
             <div class="container">
@@ -58,9 +58,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_dich_vu_ho_tro_du_lich/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
+                            <a href="/chi_tiet_tung_tam_hoi_nghi_su_kien/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_dich_vu_ho_tro_du_lich/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
+                                <a href="/chi_tiet_tung_tam_hoi_nghi_su_kien/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>

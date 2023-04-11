@@ -44,7 +44,7 @@ global $urlThemeActive;
                                      global $session;
                                  $infoUser = $session->read('infoUser');
                                     if(!empty($infoUser)){
-                                if(empty(getLike($infoUser['id'],$data->id,'co_quan_hanh_chinh'))){?>
+                                if(empty(getLike($infoUser['id'],$data->id,'tung_tam_hoi_nghi_su_kien'))){?>
                             <div class="button-like">
                                 <button type="button" onclick="addlike()"><i class="fa-regular fa-heart"></i>Yêu thích</button>
                             </div>
@@ -159,8 +159,8 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-        <!--  -->
-                 <?php  if(!empty($otherData)){ ?>
+        <!-- Địa điểm xung quanh -->
+          <?php  if(!empty($otherData)){ ?>
         <section id="place-around-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
@@ -173,12 +173,12 @@ global $urlThemeActive;
                     if(@$data->id != @$value->id){ ?>
                     <div class="place-around-slide-item">
                         <div class="place-around-img">
-                            <a href="/chi_tiet_co_quan_hanh_chinh/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                            <a href="/chi_tiet_trung_tam_le_hoi_su_kien/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
                         </div>
 
 
                         <div class="place-around-title">
-                            <a href="/chi_tiet_co_quan_hanh_chinh/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
+                            <a href="/chi_tiet_trung_tam_le_hoi_su_kien/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
                         </div>
 
                         <div class="place-around-box-address">
@@ -202,9 +202,6 @@ global $urlThemeActive;
             </div>
         </section> 
         <?php } ?>
-
-
-
 
          <?php     global $session;
                                  $infoUser = $session->read('infoUser');
@@ -248,7 +245,7 @@ global $urlThemeActive;
             </div>
         </section>
 <?php } ?>
-<?php  $comment= getComment($data->id,'co_quan_hanh_chinh'); 
+<?php  $comment= getComment($data->id,'tung_tam_hoi_nghi_su_kien'); 
         if(!empty($comment)){ ?>
         <section id="place-post-comment">
             <div class="container">
@@ -452,7 +449,7 @@ getFooter();?>
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
-                tiype: 'co_quan_hanh_chinh',
+                tiype: 'tung_tam_hoi_nghi_su_kien',
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
@@ -471,7 +468,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'co_quan_hanh_chinh',
+                    tiype: 'tung_tam_hoi_nghi_su_kien',
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -492,7 +489,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'co_quan_hanh_chinh',
+                    tiype: 'tung_tam_hoi_nghi_su_kien',
                     comment: comment,
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
