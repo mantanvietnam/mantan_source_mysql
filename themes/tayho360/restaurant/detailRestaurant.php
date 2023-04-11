@@ -327,7 +327,7 @@ global $urlThemeActive;
 </main>
 <?php
 getFooter(); ?>
-
+<?php if (!empty(@$infoUser)){ ?>
 <script  type="text/javascript">
     
     function addlike(){
@@ -401,3 +401,4 @@ getFooter(); ?>
                
         }; 
 </script>
+<?php } ?>
