@@ -135,7 +135,7 @@ global $urlThemeActive;
                     <h5 class="text-center modal-name">Thông tin</h5>
                     <form action="/booktour"  method="post">
                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                                    <input type="hidden" value="<?php echo $data->id ;?>" name="idrestaurant">
+                                    <input type="hidden" value="<?php echo $data->id ;?>" name="idtour">
                                     <input type="hidden" value="<?php echo @$infoUser['id'];?>" name="idcustomer">
                                     <input type="hidden" value="<?php echo $data->urlSlug; ?>" name="urlSlug">
                         <div class="card-body p-lg-5">

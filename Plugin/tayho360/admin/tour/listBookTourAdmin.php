@@ -1,8 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin đặt bàn nhà hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin đặt tour</h4>
   <!-- <p><a href="/plugins/admin/tayho360-admin-restaurant-addRestaurantAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
- <!--  <form action="" method="GET">
+<!--   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
             <tbody><tr>
                 <td>
@@ -13,7 +13,7 @@
                     <br>
                     <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
                 </td>
-               <td >
+            <td >
                     <input type="submit" name="excel" value="Xuất excel">
                 </td> 
             </tr>
@@ -21,7 +21,7 @@
         </tbody></table>
     </form> -->
   <div class="card">
-    <h5 class="card-header">Danh sách Thông tin đặt bàn nhà hàng</h5>
+    <h5 class="card-header">Danh sách Thông tin đặt tour</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -31,7 +31,6 @@
             <th>Tên khách hàng</th>
             <th>Số điện thoại</th>
             <th>Số người</th>
-            <th>Thời gian đặt</th>
             <th>CHú ý</th>
             <!-- <th>Sửa</th> -->
             <th>Xóa</th> 
@@ -42,16 +41,14 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
 
-                 $title = getRestaurant($item->idrestaurant);
-                    $type= 'Nhà hàng';
-                    $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
+                 $title = getTour($item->idtour);
+                    $url= 'chi_tiet_tour/'.$title->urlSlug.'.html';
 ?>
               <tr>
-                        <td><a href="/../../<?php echo $url ?>"><?php echo @$title->name ?></a><br>SĐT: <?php echo @$title->phone ?></td>
+                        <td><a href="/../../<?php echo $url ?>"><?php echo @$title->name ?></a></td>
                          <td><?php echo @$item->name; ?></td>
                         <td><?php echo @$item->phone ?></td>
                         <td><?php echo @$item->numberpeople; ?></td>
-                        <td><?php echo date('d-m-Y h:i',@$item->timebook); ?></td>
                         <td><?php echo @$item->note; ?></td>
                         
                       <!--   <td align="center">
@@ -60,7 +57,7 @@
                           </a>
                         </td> -->
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-restaurant-deleteBookTableAdmin.php/?id=<?php echo @$item->id ?>">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteBookTourAdmin.php/?id=<?php echo @$item->id ?>">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

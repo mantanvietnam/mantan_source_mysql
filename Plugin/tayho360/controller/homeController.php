@@ -352,7 +352,7 @@ function booktour($input) {
         $data = $modelBookTour->newEmptyEntity();
              $data->created = getdate()[0];
 
-        $data->idrestaurant = (int) @$dataSend['idrestaurant'];
+        $data->idtour = (int) @$dataSend['idtour'];
         $data->idcustomer = (int) @$dataSend['idcustomer'];
         $data->name = @$dataSend['name'];
         $data->phone = @$dataSend['phone'];

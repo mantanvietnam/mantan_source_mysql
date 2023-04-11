@@ -22,12 +22,6 @@ $menus[0]['sub'][2]= array('title'=>'Lễ hội',
 							'permission'=>'listFestivalAdmin',
 							
 						);
-$menus[0]['sub'][3]= array('title'=>'Tour',
-							'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listTourAdmin',
-							
-						);
 $menus[0]['sub'][4]= array('title'=>'Điểm đến làng nghề',
 							'url'=>'/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php',
 							'classIcon'=>'bx bxs-data',
@@ -71,6 +65,18 @@ $menus[0]['sub'][10]= array('title'=>'Dặt bàn nhà hàng',
                             'url'=>'/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin.php',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTableAdmin',
+                            
+                        );
+$menus[0]['sub'][3]= array('title'=>'Tour',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listTourAdmin',
+                            
+                        );
+$menus[0]['sub'][11]= array('title'=>'Dặt tour',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listBookTourAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTourAdmin',
                             
                         );
 
