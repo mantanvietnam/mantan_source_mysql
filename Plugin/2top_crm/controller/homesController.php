@@ -147,4 +147,7 @@ function logout($input)
 
 	return $controller->redirect('/');
 }
+function infoUser(){
+	
+}
 ?>

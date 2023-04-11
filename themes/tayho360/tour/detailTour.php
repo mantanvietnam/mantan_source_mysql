@@ -108,7 +108,7 @@ global $urlThemeActive;
                                 </div>
                                 <div class="card-detail d-flex align-items-center">
                                     <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-promote-dat-tour.svg" alt="">
-                                    <span>100.000 VNĐ</span>
+                                    <span><?php echo number_format(@$data['price']);?> VNĐ</span>
                                 </div>
                                 <div class="button-group mt-3">
                                     <a href="" class="btn button-outline-primary-custom" data-bs-toggle="modal"
@@ -127,6 +127,51 @@ global $urlThemeActive;
             </div>
         </section>
     </main>
+      <!-- Modal -->
+    <div class="modal fade" id="modal-book-tour" tabindex="-1" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-lg-5">
+                    <h5 class="text-center modal-name">Thông tin</h5>
+                    <form action="" class="form-custom-1 py-3">
+                        <div class="card-body p-lg-5">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="">Họ và tên</label>
+                                    <input type="text" class="form-control" placeholder="Nhập tên đăng nhập"
+                                        required="">
+                                </div>
+                                <div class="col-12">
+                                    <label for="">Số điện thoại</label>
+                                    <input type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                        required="">
+                                </div>
+                                <div class="col-12">
+                                    <label for="">Email</label>
+                                    <input type="text" class="form-control" placeholder="Nhâp email"
+                                        required="">
+                                </div>
+                                <div class="col-12">
+                                    <label for="">Số người</label>
+                                    <input type="number" class="form-control" placeholder="Nhập số người" required="">
+                                </div>
+                                <div class="col-12">
+                                    <label for="">Ghi chú</label>
+                                    <textarea class="form-control" id="" rows="3" style="height: 170px;"
+                                        placeholder="Nội dung">Ghi chú của bạn</textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn button-submit-custom">Gửi</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script type="text/javascript">
   function initMap() {

@@ -987,6 +987,49 @@ function detailRestaurant($input){
         }         
 }
 
+function bookTable($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelBooktable = $controller->loadModel('Booktables');
+
+
+   
+
+    $dataSend = $input['request']->getData();
+    if(!empty($dataSend['timebook'])){
+        $data = $modelBooktable->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idrestaurant = (int) @$dataSend['idrestaurant'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['numberpeople'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+            $data->timebook = strtotime(str_replace("T", " ", @$dataSend['timebook']));
+        
+      
+        $modelBooktable->save($data);
+           return $controller->redirect('/chi_tiet_nha_hang/'.$dataSend['urlSlug'].'.html?status=booktableDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_nha_hang/'.$dataSend['urlSlug'].'.html?status=booktablefailure');
+    }
+    
+     
+}
+
+
 //Khách sạn Hotel 
 function listHotel($input){
 

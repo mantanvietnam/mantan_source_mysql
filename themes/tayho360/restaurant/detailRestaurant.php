@@ -1,6 +1,7 @@
 <?php
 getHeader();
 global $urlThemeActive;
+global $session;
 ?>
 <main>
     <?php if (!empty($data->image360)) { ?>
@@ -150,34 +151,46 @@ global $urlThemeActive;
                     <div class="title-order-table">
                         <p>Đặt bàn</p>
                     </div>
-                    <form action="">
+                    <form action="/bookTable"  method="post">
+
+                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                                    <input type="hidden" value="<?php echo $data->id ;?>" name="idrestaurant">
+                                    <input type="hidden" value="<?php echo @$infoUser['id'];?>" name="idcustomer">
+                                    <input type="hidden" value="<?php echo $data->urlSlug; ?>" name="urlSlug">
                         <div class="input-group group-order-table">
                             <label class="input-group-text">Tên</label>
-                            <input type="text" class="form-control" placeholder="Nhập họ và tên" required>
+                            <input type="text" class="form-control"  name="name" placeholder="Nhập họ và tên" required>
                         </div>
 
                         <div class="input-group group-order-table">
                             <label class="input-group-text">Điện thoại</label>
-                            <input type="tel" class="form-control" placeholder="Nhập số điện thoại"
-                                   pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                            <input type="tel" class="form-control"  name="phone" placeholder="Nhập số điện thoại"
+                                    required>
+                        </div>
+                        <div class="input-group group-order-table">
+                            <label class="input-group-text">Email</label>
+                            <input type="tel" class="form-control"  name="email" placeholder="Nhập email"
+                                    required>
                         </div>
 
                         <div class="input-group group-order-table">
                             <label class="input-group-text">Số người</label>
-                            <input type="number" class="form-control" required>
+                            <input type="number" class="form-control"  name="numberpeople" required>
                         </div>
 
                         <div class="input-group group-order-table">
-                            <label class="input-group-text">Nhận phòng</label>
-                            <input type="date" class="form-control" required>
+                            <label class="input-group-text">Thời gian đặn</label>
+                            <input type="datetime-local" class="form-control"  name="timebook" required>
                         </div>
-
                         <div class="input-group group-order-table">
-                            <label class="input-group-text">Nhận phòng</label>
-                            <input type="date" class="form-control" required>
+                            <label class="input-group-text">Ghi chú</label>
+                             <textarea name="not" id="not"  placeholder="Nội dung" onkeyup="" class="form-control" rows="3"></textarea>
                         </div>
+                       <?php if(!empty($infoUser)){ ?>
                         <button type="submit">Đặt bàn ngay</button>
-
+                    <?php }else{ ?>
+                        <a  class="like" href="/login" ><button type="submit">Đặt bàn ngay</button></a>
+                    <?php } ?>
                     </form>
                 </div>
 
