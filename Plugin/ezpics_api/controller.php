@@ -1,4 +1,5 @@
 <?php 
+include_once('controller/albumsController.php'); // album hình ảnh
 include_once('controller/membersController.php'); // thành viên
 include_once('controller/productsController.php'); // mẫu thiết kế
 include_once('controller/postsController.php'); // tin tức

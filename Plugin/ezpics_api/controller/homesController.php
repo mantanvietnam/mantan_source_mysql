@@ -181,7 +181,7 @@ function updateLayer($input)
         if(!empty($item)){
             $content = json_decode($item->content, true);
 
-            $content[$dataSend['field']] = $dataSend['value'];
+            $content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
 
             $item->content = json_encode($content);
 
@@ -280,6 +280,9 @@ function addLayer($input)
         $dataSend = $input['request']->getData();
         $user =  $session->read('infoUser');
         
+        $product = $modelProduct->get($dataSend['idproduct']);
+        $sizeBackground = getimagesize($product->thumn);
+
         $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
         $idlayer = count($productDetail)+1;
 
@@ -289,8 +292,8 @@ function addLayer($input)
         $new->products_id = $dataSend['idproduct'];
         $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height']));
         $new->sort = $idlayer;
-        $new->height = $dataSend['height'];
-        $new->wight = $dataSend['width'];
+        $new->height = $sizeBackground['height'];
+        $new->wight = $sizeBackground['width'];
         $new->created_at = date('Y-m-d H:i:s');
         
         $modelProductDetail->save($new);
@@ -424,6 +427,7 @@ function imagelist($input)
         $mana = $modelManagerFile->find()->where(['user_id'=>$user->id])->all()->toList();
         $dataSend = $input['request']->getData();
 
+        $function = 'chooseImage';
         if($dataSend['type']=='addNewImage'){
             $function = 'addImage';
         }elseif($dataSend['type']=='changeImage'){
@@ -449,6 +453,7 @@ function upImage($input)
 
     $modelManagerFile = $controller->loadModel('ManagerFile');
     $modelProductDetail = $controller->loadModel('ProductDetails');
+    $modelProduct = $controller->loadModel('Products');
 
     if(!empty($session->read('infoUser'))){
         $user =  $session->read('infoUser');
@@ -470,14 +475,17 @@ function upImage($input)
             $idlayer = count($productDetail)+1;
 
             // layer mới
+            $product = $modelProduct->get($dataSend['idproduct']);
+            $sizeBackground = getimagesize($product->thumn);
+
             $new = $modelProductDetail->newEmptyEntity();
             
             $new->name = 'Layer '.$idlayer;
             $new->products_id = $dataSend['idproduct'];
-            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$dataSend['width'] - 100, $dataSend['height'] - 100));
+            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$sizeBackground['width'], $sizeBackground['height']));
             $new->sort = $idlayer;
-            $new->height = $dataSend['height'] - 100;
-            $new->wight = $dataSend['width'] - 100;
+            $new->height = $sizeBackground['height'];
+            $new->wight = $sizeBackground['width'];
             $new->created_at = date('Y-m-d H:i:s');
             
             $modelProductDetail->save($new);

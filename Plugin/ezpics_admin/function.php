@@ -64,6 +64,7 @@ function sendNotification($data,$target){
     
     $fields['data'] = $data;
     $fields['priority'] = 'high';
+    $fields['content_available'] = true;
 
     $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     

@@ -67,7 +67,7 @@ function removeBackgroundImageAPI($input)
 
 					$data->link = $return['linkOnline'];
 					$data->user_id = $infoUser->id;
-					$data->type = 2;
+					$data->type = 2; // 0 là user up, 1 là cap, 2 là payment
 					$data->created_at = date('Y-m-d H:i:s');
 
 					$modelManagerFile->save($data);
