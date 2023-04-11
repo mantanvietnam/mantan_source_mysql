@@ -260,23 +260,18 @@
                             <div class="place-around-address">
                                 <p><?php echo $value['Hotel']['address'] ?></p>
                             </div>
-
-                           <!--  <div class="place-around-size">
-                                <p>12 km</p>
-                            </div> -->
+                            <?php if (!empty(@$data['HotelManmo']['data']['Hotel']['coordinates_x']) & !empty($data['HotelManmo']['data']['Hotel']['coordinates_y']) & !empty($value['Hotel']['coordinates_x']) & !empty($value['Hotel']['coordinates_y'])){
+                                $distance = distance($data['HotelManmo']['data']['Hotel']['coordinates_x'], $data['HotelManmo']['data']['Hotel']['coordinates_y'], $value['Hotel']['coordinates_x'], $value['Hotel']['coordinates_y']);
+                             ?>
+                                <div class="place-around-size">
+                                <p><?php echo round($distance, 2) ?>Km</p>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
-
                    <?php }} ?>
-
-
                 </div>
-
-
-
             </div>
-
-
         </section> 
 
     

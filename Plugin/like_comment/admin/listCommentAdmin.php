@@ -69,9 +69,13 @@
                     $type= 'Nhà hàng';
                     $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
                     $name = $title->name;
+                  }elseif($item->tiype=="tung_tam_hoi_nghi_su_kien"){
+                    $title = getEventcenter($item->idobject);
+                    $type= 'Nhà hàng';
+                    $url= 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$title->urlSlug.'.html';
+                    $name = $title->name;
                   }elseif($item->tiype=="khach_san"){
                     $title = getHotel($item->idobject);
-
                     $type= 'Khách sạn';
                     $url= 'chi_tiet_khach_san/'.$title['data']['Hotel']['slug'].'.html';
                     $name = $title['data']['Hotel']['name'];

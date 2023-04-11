@@ -200,7 +200,7 @@ function deleleCommentAdmin($input){
 
            $modelComments->delete($data);
              }
-        return $controller->redirect('/plugins/admin/like_comment-listCommentAdmin.php?status=3');
+        return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=3');
         
 }
 

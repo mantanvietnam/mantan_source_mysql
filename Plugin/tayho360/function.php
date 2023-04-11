@@ -58,6 +58,12 @@ $menus[0]['sub'][8]= array('title'=>'Sự kiện',
 							'permission'=>'listEventAdmin',
 							
 						);
+$menus[0]['sub'][9]= array('title'=>'Trung tâm hội nghị sự kiện',
+                            'url'=>'/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listEventcenterAdmin',
+                            
+                        );
 addMenuAdminMantan($menus);
 
 
@@ -94,10 +100,11 @@ function categoryService(){
             '3'=>array('id'=>3,'name'=>'Lễ hội','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlehoi.png','urlSlug'=>'le_hoi'),   
             '4'=>array('id'=>4,'name'=>'Làng nghề','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlangnghe.png','urlSlug'=>'lang_nghe'),  
             '5'=>array('id'=>5,'name'=>'Cơ quan hành chính','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconcoquan.png','urlSlug'=>'co_quan_hanh_chinh'),   
-            '6'=>array('id'=>6,'name'=>'Trung tâm hội nghị sự kiện','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'le_hoi'), 
+            '6'=>array('id'=>6,'name'=>'Trung tâm hội nghị sự kiện','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'tung_tam_hoi_nghi_su_kien'), 
             '7'=>array('id'=>7,'name'=>'Khách sạn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconkhachsan.png','urlSlug'=>'khach_san'),   
             '8'=>array('id'=>8,'name'=>'Nhà hàng quán ăn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconnhahang.png','urlSlug'=>'nha_hang'),   
             '9'=>array('id'=>9,'name'=>'Dịch vụ hỗ trợ du lịch','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconhotro.png','urlSlug'=>'dich_vu_ho_tro_du_lich'),  
+             
         );                                  
              
     }
@@ -160,7 +167,10 @@ function categoryService(){
         $Place= $modelPlace->find()->where($conditions)->all();
 
         $modelService = $controller->loadModel('Services');
-        $Service= $modelService->find()->where($conditions)->all();
+        $service= $modelService->find()->where($conditions)->all();
+
+        $modelEventcenter = $controller->loadModel('Eventcenters');
+        $eventcenter= $modelEventcenter->find()->where($conditions)->all();
 
 
 
@@ -195,6 +205,22 @@ function categoryService(){
                                     'urlSlug'=> 'chi_tiet_dich_vu_ho_tro_du_lich/'.$listService->urlSlug.'.html',
                                     'type'=> 'dich_vu_ho_tro_du_lich',
                                      'icon'=> '/themes/tayho360/assets/icon/hotro.png',
+
+                );
+            }
+        }
+
+         if(!empty($eventcenter)){
+            foreach($eventcenter as $keyEventcenter => $listEventcenter){
+                $listData[] =  array('name'=> $listEventcenter->name,
+                                    'address'=> $listEventcenter->address,
+                                    'phone'=> $listEventcenter->phone,
+                                    'image'=> $listEventcenter->image,
+                                    'lat'=> $listEventcenter->latitude,
+                                    'long'=> $listEventcenter->longitude,
+                                    'urlSlug'=> 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$listEventcenter->urlSlug.'.html',
+                                    'type'=> 'tung_tam_hoi_nghi_su_kien',
+                                     'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
 
                 );
             }
@@ -310,7 +336,7 @@ function getGovernanceAgency($id){
     global $modelOption;
     global $controller;
     $modelGovernanceAgency = $controller->loadModel('GovernanceAgencys');
-        $data = $modelGovernanceAgency->get( (int) $id);        
+        $data = $modelGovernanceAgency->find()->where(['id'=>intval($id)])->first();     
         return $data;
 }
 
@@ -318,7 +344,7 @@ function getFestival($id){
     global $modelOption;
     global $controller;
     $modelFestival = $controller->loadModel('Festivals');
-        $data = $modelFestival->get( (int) $id);        
+        $data = $modelFestival->find()->where(['id'=>intval($id)])->first();    
         return $data;
 }
 
@@ -326,21 +352,21 @@ function getTour($id){
     global $modelOption;
     global $controller;
     $modelTour = $controller->loadModel('Tours');
-        $data = $modelTour->get( (int) $id);        
+        $data = $modelTour->find()->where(['id'=>intval($id)])->first();        
         return $data;
 }
 function getCraftvillage($id){
     global $modelOption;
     global $controller;
     $modelCraftvillage = $controller->loadModel('Craftvillages');
-        $data = $modelCraftvillage->get( (int) $id);        
+        $data = $modelCraftvillage->find()->where(['id'=>intval($id)])->first();      
         return $data;
 }
 function getRestaurant($id){
     global $modelOption;
     global $controller;
     $modelRestaurant = $controller->loadModel('Restaurants');
-        $data = $modeRestaurantr->get( (int) $id);        
+        $data = $modeRestaurantr->find()->where(['id'=>intval($id)])->first();        
         return $data;
 }
 
@@ -348,14 +374,14 @@ function getEvent($id){
     global $modelOption;
     global $controller;
     $modelEvent = $controller->loadModel('Events');
-        $data = $modelEvent->get( (int) $id);        
+        $data = $modelEvent->find()->where(['id'=>intval($id)])->first();       
         return $data;
 }
 function getRlace($id){
     global $modelOption;
     global $controller;
     $modelRlace = $controller->loadModel('Rlaces');
-        $data = $modelRlace->get( (int) $id);        
+        $data = $modelRlace->find()->where(['id'=>intval($id)])->first();        
         return $data;
 }
 function getService($id){
@@ -365,6 +391,17 @@ function getService($id){
     $modelService = $controller->loadModel('Services');
 
         $data = $modelService->find()->where(['id'=>intval($id)])->first();
+
+        return $data;
+}
+
+function getEventcenter($id){
+    
+    global $modelOption;
+    global $controller;
+    $modelEventcenter = $controller->loadModel('Eventcenters');
+
+        $data = $modelEventcenter->find()->where(['id'=>intval($id)])->first();
 
         return $data;
 }
@@ -380,5 +417,9 @@ function getHotel($id){
             $listHotel= json_decode($listHotel, true);
         $data = $listHotel;     
         return $data;
+}
+function distance($x1, $y1, $x2, $y2) {
+    $distance = sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2)); // tính khoảng cách
+    return $distance;
 }
 ?>

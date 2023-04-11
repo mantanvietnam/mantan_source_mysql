@@ -149,32 +149,47 @@ global $urlThemeActive;
             </div>
         </section>
         <!-- Địa điểm xung quanh -->
-          <?php  if(!empty($otherData)){ ?>
-        <section id="skct-lien-quan">
-            <div class="container mt-5">
-                <h2 class="mb-4">Điểm đến khác</h2>
-                <div class="row g-3 g-lg-4">
-                    <?php 
+              <?php  if(!empty($otherData)){ ?>
+        <section id="place-around-section" class="mgt-80">
+            <div class="container">
+                <div class="title-section mgb-32">
+                    <p>Địa điểm xung quanh</p>
+                </div>
+
+                <div class="place-around-slide">
+                     <?php 
                     foreach(@$otherData as $key => $value){
                     if(@$data->id != @$value->id){ ?>
-                    <div class="col-12 col-lg-4">
-                        <a href="/chi_tiet_le_hoi/<?php echo $value->urlSlug ?>.html" class="d-block text-decoration-none">
-                            <div class="card card-event">
-                                <img class="card-img-top" src="<?php echo $value->image ?>" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3">
-                                       <?php echo $value->name ?>
-                                    </h5>
-                                   
-                                </div>
+                    <div class="place-around-slide-item">
+                        <div class="place-around-img">
+                            <a href="/chi_tiet_le_hoi/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                        </div>
+
+
+                        <div class="place-around-title">
+                            <a href="/chi_tiet_le_hoi/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
+                        </div>
+
+                        <div class="place-around-box-address">
+                            <div class="place-around-address">
+                                <p><?php echo $value->address ?></p>
                             </div>
-                        </a>
+                            <?php if (!empty($data->latitude) & !empty($data->longitude) & !empty($value->latitude) & !empty($value->longitude)){
+                                $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
+                             ?>
+                                <div class="place-around-size">
+                                <p><?php echo round($distance, 2)*100 ?>Km</p>
+                            </div>
+                            <?php } ?>
+                            
+
+                            
+                        </div>
                     </div>
-                <?php }} ?>
-                    
+                   <?php }} ?>
                 </div>
             </div>
-        </section>
+        </section> 
         <?php } ?>
 
                 <?php     global $session;

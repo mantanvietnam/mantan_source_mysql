@@ -193,41 +193,56 @@ global $urlThemeActive;
                 <p>Bản đồ</p>
             </div>
             <div class="map-iframe">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3722.5804123529997!2d<?= $data->latitude ?>!3d<?= $data->longitude ?>!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aabfcddf68d1%3A0xc5f6bb39271c2a7b!2zQ2jDuWEgQsOgIEdpw6A!5e0!3m2!1svi!2s!4v1678994756041!5m2!1svi!2s"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <?php if(!empty($data->latitude) & !empty($data->longitude)){ ?>
+                                    <div id="map_HS"></div>
+
+                            <?php }else{ ?>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59569.358618264!2d105.78571485795389!3d21.069270504194773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aae54053e2d5%3A0x2d72b1d7c422234b!2zVMOieSBI4buTLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1680656977802!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+                            <?php } ?>
             </div>
         </div>
     </section>
-    <!-- Địa điểm xung quanh -->
-            <!-- Địa điểm xung quanh -->
          <?php  if(!empty($otherData)){ ?>
-        <section id="skct-lien-quan">
-            <div class="container mt-5">
-                <h2 class="mb-4">Điển đến khác</h2>
-                <div class="row g-3 g-lg-4">
-                    <?php 
+        <section id="place-around-section" class="mgt-80">
+            <div class="container">
+                <div class="title-section mgb-32">
+                    <p>Địa điểm xung quanh</p>
+                </div>
+
+                <div class="place-around-slide">
+                     <?php 
                     foreach(@$otherData as $key => $value){
                     if(@$data->id != @$value->id){ ?>
-                    <div class="col-12 col-lg-4">
-                        <a href="/chi_tiet_co_quan_hanh_chinh/<?php echo $value->urlSlug ?>.html" class="d-block text-decoration-none">
-                            <div class="card card-event">
-                                <img class="card-img-top" src="<?php echo $value->image ?>" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3">
-                                       <?php echo $value->name ?>
-                                    </h5>
-                                    
-                                </div>
+                    <div class="place-around-slide-item">
+                        <div class="place-around-img">
+                            <a href="/chi_tiet_nha_hang/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                        </div>
+
+
+                        <div class="place-around-title">
+                            <a href="/chi_tiet_nha_hang/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
+                        </div>
+
+                        <div class="place-around-box-address">
+                            <div class="place-around-address">
+                                <p><?php echo $value->address ?></p>
                             </div>
-                        </a>
+                            <?php if (!empty($data->latitude) & !empty($data->longitude) & !empty($value->latitude) & !empty($value->longitude)){
+                                $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
+                             ?>
+                                <div class="place-around-size">
+                                <p><?php echo round($distance, 2) ?>Km</p>
+                            </div>
+                            <?php } ?>
+                            
+
+                            
+                        </div>
                     </div>
-                <?php }} ?>
-                    
+                   <?php }} ?>
                 </div>
             </div>
-        </section>
+        </section> 
         <?php } ?>
 
          <?php     global $session;
@@ -325,6 +340,141 @@ global $urlThemeActive;
     <?php }  ?>
 
 </main>
+<script type="text/javascript">
+  function initMap() {
+    var locations = [<?php 
+    if (!empty(@$data)) {
+        $listShowMap= array();
+          if(!empty($data->latitude) & !empty($data->longitude)){
+              //$content = '<a href='.$data['urlSlug'].'></a>';
+              $content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a href='.$data->urlSlug.'>' . $data->name. '</a>';
+              $content.='<br/>Điện thoạt: ' . $data->phone;
+              $content.='<br/>Địa chỉ: ' . $data->address;
+
+              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/tayho360/assets/icon/lehoi.png","su_kien"]';
+            }
+        
+        //  $listShowMap[]= '[]';
+        echo implode(',', $listShowMap);
+    }
+    ?>];
+
+    console.log(locations);
+
+
+      var lat = <?php echo $data->latitude ?>;
+      var log = <?php echo $data->longitude ?>;
+
+        var map = new google.maps.Map(document.getElementById('map_HS'), {
+            zoom: 14,
+            center: new google.maps.LatLng(lat, log),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: [
+                      {
+                        "featureType": "administrative",
+                        "elementType": "geometry",
+                        "stylers": [
+                          {
+                            "visibility": "off"
+                          }
+                        ]
+                      },
+                      {
+                        "featureType": "poi",
+                        "stylers": [
+                          {
+                            "visibility": "off"
+                          }
+                        ]
+                      },
+                      {
+                        "featureType": "road",
+                        "elementType": "labels.icon",
+                        "stylers": [
+                          {
+                            "visibility": "off"
+                          }
+                        ]
+                      },
+                      {
+                        "featureType": "transit",
+                        "stylers": [
+                          {
+                            "visibility": "off"
+                          }
+                        ]
+                      }
+                    ]
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var marker, i;
+        i= -1;
+        marker = new google.maps.Marker({map: map});
+
+        for (y = 1; y < 10; y++) {
+          if($('#check-all'+y).is(":checked")){
+            for (i = 0; i < locations.length; i++) {
+              if($('#check-all'+y).val() == locations[i][4]){
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    icon: locations[i][3]
+                });
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                  return function () {
+                      infowindow.setContent(locations[i][0]);
+                      infowindow.open(map, marker);
+                  }
+                })(marker, i));
+              }
+            }
+          }
+        }
+
+
+        var newPoint = {lat: lat, lng: log};
+        marker.setIcon('');
+        marker.setPosition(newPoint);
+        map.setCenter(newPoint);
+        i = locations.length;
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent('');
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+  }
+</script> 
+<script>
+  function checkboxAll(source,idLoad) {
+    var checkboxes = document.querySelectorAll('#'+idLoad+' input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+
+    initMap();
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalp-JTnHUVHeh_u0d3mWnySFK204NkU0&callback=initMap"></script>
+
+<script>
+  $(document).ready(function() {
+    var w = $(window).innerHeight();
+    var h = $('.map_search').innerHeight();
+    // var s = $('#search').innerHeight();
+    var f = $('footer').innerHeight();
+
+    var x = w-h-f-10;
+    x= 300;
+    // document.write(x);
+    $('#map, #map_HS').css({'height':x});
+  });
+</script>
 <?php
 getFooter(); ?>
 <?php if (!empty(@$infoUser)){ ?>
