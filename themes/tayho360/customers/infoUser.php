@@ -2,3 +2,4 @@
     $infoUser = $session->read('infoUser');
     debug($infoUser);
  ?>
+ àdfffffffffffff
