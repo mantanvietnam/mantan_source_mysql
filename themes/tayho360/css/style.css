@@ -150,6 +150,17 @@ table {
 	height: 600px !important;
 }
 
+.danh-sach-phong-item .card .card-body .col-12.col-lg-3 img{
+	width: 100%;
+	height: 247px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.danh-sach-phong-item .card .card-body .col-12.col-lg-3:first-child{
+	border-radius: 5px;
+	overflow: hidden;
+}
 
 
 /* các title */
@@ -293,7 +304,7 @@ table {
 
     right: 940px;
 
-    top: 143px;
+    top: 160px;
 
     transition: .8s;
 
@@ -309,7 +320,7 @@ table {
 
     transition: .8s;
 
-    top: 143px;
+    top: 160px;
 
     background-color: rgba(85, 143, 124, 0.9);
 
@@ -455,7 +466,7 @@ table {
 
 	width: 100%;
 
-	height: 483px;
+	height: 100%;
 
 	object-fit: cover;	
 
@@ -470,6 +481,7 @@ table {
 .place-img-slide .img-slide-item{
 
 	padding: 0 12px;
+	height: 483px;
 
 }
 
@@ -573,6 +585,11 @@ table {
 
 }
 
+.title-h1.title-information{
+	font-size: 30px;
+	text-transform: uppercase;
+}
+
 
 
 #place-information .icon-information{
@@ -637,7 +654,8 @@ table {
 
 .place-around-box-address .place-around-address p{
 
-	font-size: 22px
+	font-size: 22px;
+	line-height: 28px;
 
 }
 
@@ -650,14 +668,28 @@ table {
 }
 
 
+.place-around-slide-item .place-around-img{
+	height: 341px;
+	overflow: hidden;
+	border-radius: 20px;
+}
+
+.place-around-slide-item .place-around-img:hover img{
+	transform: scale(1.2);
+	transition: 0.5s;
+}
 
 .place-around-slide-item .place-around-img img{
 
 	width: 100%;
 
 	border-radius: 20px;
-	height: 224px;
 	
+	height: 100%;
+
+	object-fit: cover;
+	
+	transition: 0.5s;
 
 }
 
@@ -1544,8 +1576,14 @@ color: #188181;
 #place-category .place-category-item .place-category-item-title a{
 
 	color: #fff;
-
-	font-size: 30px;
+    font-size: 27px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-height: 34px;
 
 } 
 
@@ -1554,10 +1592,12 @@ color: #188181;
 #place-category .place-category-item .place-category-item-title{
 
 	position: absolute;
-
-	bottom: 9px;
-
-	right: 20px;
+    bottom: 20px;
+    /* left: auto; */
+    /* right: auto; */
+    height: 60px;
+    left: 6%;
+	padding-right: 24px;
 
 }
 
@@ -1567,7 +1607,7 @@ color: #188181;
 
 	background-color: #000;
 
-	opacity: 35%;
+	opacity: 30%;
 
 	position: absolute;
 
@@ -3026,7 +3066,7 @@ color: #188181;
 
 .danh-sach-phong .danh-sach-phong-item .room-detail {
 
-	max-width: 450px;
+	max-width: 518px;
 
 	margin: 0 auto;
 
@@ -3443,6 +3483,13 @@ color: #188181;
 		height: 277px !important;
 	}
 	
+	.place-img-slide .img-slide-item{
+		height: 315px;
+	}
+
+	.place-around-slide-item .place-around-img {
+		height: 212px;
+	}
 
 	/* trang chi tiết tin tức */
 
@@ -3618,6 +3665,12 @@ color: #188181;
 	.box-search-category {
 		width: 100%;
 	}
+
+	.pop_select{
+		top: 65px;
+		right: 15px;
+	}
+
 	/* chung */
 
 

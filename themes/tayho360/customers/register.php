@@ -69,7 +69,7 @@ global $urlThemeActive;
                                     <a class="sign-in-facebook" href=""><i class="fa-brands fa-facebook"></i></a>
                                 </div>
                                 <div class="register-text">
-                                    <p>Chưa có tài khoản? <a href="">Đăng ký ngay</a></p>
+                                    <p>Đã có tài khoản? <a href="/login">Đăng nhập ngay</a></p>
                                 </div>
                             </div>
                         </div>
