@@ -280,135 +280,100 @@
         </section> 
 
     
-        <!--Bài viết Đánh gíá -->
-        <section id="place-post-comment">
+                <?php     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                        ?>
+
+       <section id="place-comment" class="mgt-80">
             <div class="container">
-                <div class="row">
-                    <div class="title-post-comment">
-                        <p>Tất cả các bài đánh giá</p>
+                <div class="title-section mgb-32">
+                    <p>Đánh giá</p>
+                </div>
+               
+                <div class="row box-write-comment">
+                    <div class="write-comment">
+                        <button class="button-write-comment" type="button">
+                            <div class="button-icon-comment">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-right-dots" viewBox="0 0 16 16">
+                                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"></path>
+                                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                </svg>
+                            </div>
+                            <p class="button-text-comment">Viết đánh giá</p>
+                        </button>
                     </div>
 
-                    <div class="post-comment">
-                        <div class="post-comment-content">
-                            <div class="information-people">
-                                <div class="information-people-img">
-                                    <img src="../img/worried-man-avata-avatar-worried-man-vector-illustration-107469775.jpg"
-                                        alt="">
-                                </div>
-                                <div class="information-people-box">
-                                    <div class="information-people-name">
-                                        <span>Nguyễn Quốc Việt</span>
-                                    </div>
-                                    <div class="information-people-hour">
-                                        <span>3 giờ trước</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="information-people-star">
-                                <div class="point-right-star">
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
+                    <!-- viet content  -->
+                    <div class="write-comment-content" style="">
+                        <div class="information-people-write">
+                            <img class="information-people-write-img" src="<?php echo $infoUser['avatar'] ?>" alt="">
+                            <p class="information-people-write-name"><?php echo $infoUser['full_name'] ?>
+                        </p></div>
+                        <div class="form-comment">
+                    
+                            <textarea class="content-post" name="content-post" id="comment" placeholder="Viết suy nghĩ của bạn"></textarea>
+                            <button type="submit" class="send-comment" onclick="addComment()">Đăng bài</button>
+            
                         </div>
 
-                        <div class="post-comment-content-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat
-                        </div>
-                    </div>
-
-                    <div class="post-comment">
-                        <div class="post-comment-content">
-                            <div class="information-people">
-                                <div class="information-people-img">
-                                    <img src="../img/worried-man-avata-avatar-worried-man-vector-illustration-107469775.jpg"
-                                        alt="">
-                                </div>
-                                <div class="information-people-box">
-                                    <div class="information-people-name">
-                                        <span>Nguyễn Quốc Việt</span>
-                                    </div>
-                                    <div class="information-people-hour">
-                                        <span>3 giờ trước</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="information-people-star">
-                                <div class="point-right-star">
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="post-comment-content-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat
-                        </div>
-                    </div>
-
-                    <div class="post-comment">
-                        <div class="post-comment-content">
-                            <div class="information-people">
-                                <div class="information-people-img">
-                                    <img src="../img/worried-man-avata-avatar-worried-man-vector-illustration-107469775.jpg"
-                                        alt="">
-                                </div>
-                                <div class="information-people-box">
-                                    <div class="information-people-name">
-                                        <span>Nguyễn Quốc Việt</span>
-                                    </div>
-                                    <div class="information-people-hour">
-                                        <span>3 giờ trước</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="information-people-star">
-                                <div class="point-right-star">
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="post-comment-content-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
+<?php } ?>
+<?php  $comment= getComment($data['HotelManmo']['data']['Hotel']['id'],'khach_san'); 
+        if(!empty($comment)){ ?>
+        <section id="place-post-comment">
+            <div class="container">
+                <div class="row">
+                    <div class="title-post-comment">
+                        <p>Tất cả các bài đánh giá </p>
+                    </div>
+                <?php
+                    foreach($comment as $key => $value){
+                   //     debug($value);
+                    $custom =  getCustomer($value->idcustomer);
+                
+                     if(!empty($custom)){
+                ?>
+                    <div class="post-comment">
+                        <div class="post-comment-content">
+                            <div class="information-people">
+                                <div class="information-people-img">
+                                    <img src="<?php echo $custom->avatar ?>"
+                                        alt="">
+                                </div>
+                                <div class="information-people-box">
+                                    <div class="information-people-name">
+                                        <span><?php echo $custom->full_name ?></span>
+                                    </div>
+                                    <div class="information-people-hour">
+                                        <span><?php echo date("d/m/Y H:i:s",$value->created); ?></span>
+                                    </div>
+                                </div>
+                            </div>
 
-        <!-- <section id="pagination-page">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-chevron-left"></i></a>
-                    </li>
-                    <li class="page-item "><a class="page-link active" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
-                    </li>
-                </ul>
-            </nav>
-        </section> -->
+        
+                        </div>
+
+                        <div class="post-comment-content-text">
+                            <?php echo $value->comment ?>
+                        </div>
+                        <?php  if(@$infoUser['id']==@$value->idcustomer){ ?>
+                         <div class="post-comment-content-text">
+                            <a href="javascript:void(0);" onclick="deteleComment(<?php echo $value->id ?>)">xóa</a>
+                        </div>
+                    <?php } ?>
+                    </div>  
+                   
+
+                     <?php }} ?>             
+                    
+                </div>
+            </div>
+        </section>
+    <?php }  ?>
     </main>
         <div class="modal fade" id="modal-book-room" tabindex="-1" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog">
@@ -926,6 +891,7 @@ $('#price').val(price);
     $('#map, #map_HS').css({'height':x});
   });
 </script>
+<?php if (!empty($infoUser)){ ?>
 
 <script  type="text/javascript">
     
@@ -937,7 +903,7 @@ $('#price').val(price);
             url: '/apis/addlike',
             data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
                 tiype: 'khach_san',
-                idcustomer: <?php echo $infoUser['id'] ?>,
+                idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
               console.log('res');
@@ -956,7 +922,7 @@ $('#price').val(price);
                 url: '/apis/delelelike',
                 data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
                     tiype: 'khach_san',
-                    idcustomer: <?php echo $infoUser['id'] ?>,
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
                   console.log('res');
@@ -968,4 +934,38 @@ $('#price').val(price);
             })
                
         };  
+
+        function addComment(){
+    var comment= $('#comment').val();
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/addComment',
+                data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
+                    tiype: 'khach_san',
+                    comment: comment,
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log(res);
+                   location.reload();
+                }
+            })
+               
+        }; 
+
+   function deteleComment($id){
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/deleleComment',
+                data: { id: $id },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+        }; 
 </script>
+        <?php } ?>

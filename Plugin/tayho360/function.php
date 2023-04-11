@@ -305,4 +305,80 @@ function categoryService(){
 return $listData;
 
 }
+
+function getGovernanceAgency($id){
+    global $modelOption;
+    global $controller;
+    $modelGovernanceAgency = $controller->loadModel('GovernanceAgencys');
+        $data = $modelGovernanceAgency->get( (int) $id);        
+        return $data;
+}
+
+function getFestival($id){
+    global $modelOption;
+    global $controller;
+    $modelFestival = $controller->loadModel('Festivals');
+        $data = $modelFestival->get( (int) $id);        
+        return $data;
+}
+
+function getTour($id){
+    global $modelOption;
+    global $controller;
+    $modelTour = $controller->loadModel('Tours');
+        $data = $modelTour->get( (int) $id);        
+        return $data;
+}
+function getCraftvillage($id){
+    global $modelOption;
+    global $controller;
+    $modelCraftvillage = $controller->loadModel('Craftvillages');
+        $data = $modelCraftvillage->get( (int) $id);        
+        return $data;
+}
+function getRestaurant($id){
+    global $modelOption;
+    global $controller;
+    $modelRestaurant = $controller->loadModel('Restaurants');
+        $data = $modeRestaurantr->get( (int) $id);        
+        return $data;
+}
+
+function getEvent($id){
+    global $modelOption;
+    global $controller;
+    $modelEvent = $controller->loadModel('Events');
+        $data = $modelEvent->get( (int) $id);        
+        return $data;
+}
+function getRlace($id){
+    global $modelOption;
+    global $controller;
+    $modelRlace = $controller->loadModel('Rlaces');
+        $data = $modelRlace->get( (int) $id);        
+        return $data;
+}
+function getService($id){
+    
+    global $modelOption;
+    global $controller;
+    $modelService = $controller->loadModel('Services');
+
+        $data = $modelService->find()->where(['id'=>intval($id)])->first();
+
+        return $data;
+}
+
+function getHotel($id){
+    global $modelOption;
+    global $controller;
+
+       $keyManMo = '5dc8f2652ac5db08348b4567';
+     $dataPost= array('key'=>$keyManMo, 'idHotel'=>$id, 'lat'=>'','idUser'=> '', 'long'=>'');
+            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/getInfoHotelAPI', $dataPost);
+            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
+            $listHotel= json_decode($listHotel, true);
+        $data = $listHotel;     
+        return $data;
+}
 ?>

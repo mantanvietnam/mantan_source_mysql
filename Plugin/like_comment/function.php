@@ -1,7 +1,7 @@
 <?php
 	$menus= array();
 	$menus[0]['title']= 'Like comment';
-    // $menus[0]['sub'][0]= array('title'=>'Liên kết web','classIcon'=>'fa-link','url'=>'/plugins/admin/linkWeb-admin-listLinkWebAdmin.php','permission'=>'listLinkWeb',);
+   $menus[0]['sub'][0]= array('title'=>'Danh sách bình luận','classIcon'=>'fa-link','url'=>'/plugins/admin/like_comment-listCommentAdmin.php','permission'=>'listLinkWeb',);
     // $menus[0]['sub'][1]= array('title'=>'Nhóm liên kết','classIcon'=>'fa-users','url'=>'/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php','permission'=>'groupLinkWeb',);
     
     addMenuAdminMantan($menus); 
@@ -36,7 +36,7 @@
     	return $data;
     }
 
-     function getLikeCustomer($idcustomer,){
+     function getLikeCustomer($idcustomer){
         global $modelOption;
         global $controller;
         $modelLike = $controller->loadModel('Likes');
@@ -48,20 +48,16 @@
         return $data;
     }
 
-    function getComment($idcustomer,$idobject, $tiype){
+    function getComment($idobject, $tiype){
     	global $modelOption;
     	global $controller;
-    	$modelLike = $controller->loadModel('Likes');
+    	$modelComment = $controller->loadModel('Comments');
     	$conditions= array();
-    	$conditions['idcustomer']= $idcustomer;
     	$conditions['idobject']= $idobject;
     	$conditions['tiype']= $tiype;
 
-    	$data =	$modelLike->find()->where($conditions)->first();
+    	$data =	$modelComment->find()->where($conditions)->all();
 
-    	if($data){
-            $modelLike->delete($data);
-        }
     	
     	return $data;
     }

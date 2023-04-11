@@ -221,7 +221,7 @@ global $urlThemeActive;
                         <div class="form-comment">
                     
                             <textarea class="content-post" name="content-post" id="comment" placeholder="Viết suy nghĩ của bạn"></textarea>
-                            <button type="submit" class="send-comment" onclick="addCustomer()">Đăng bài</button>
+                            <button type="submit" class="send-comment" onclick="addComment()">Đăng bài</button>
             
                         </div>
 
@@ -229,71 +229,61 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-                      <?php } ?>
-
-        <!--Bài viết Đánh gíá -->
+<?php } ?>
+<?php  $comment= getComment($data->id,'co_quan_hanh_chinh'); 
+        if(!empty($comment)){ ?>
         <section id="place-post-comment">
             <div class="container">
                 <div class="row">
                     <div class="title-post-comment">
                         <p>Tất cả các bài đánh giá </p>
                     </div>
-
+                <?php
+                    foreach($comment as $key => $value){
+                   //     debug($value);
+                    $custom =  getCustomer($value->idcustomer);
+                
+                     if(!empty($custom)){
+                ?>
                     <div class="post-comment">
                         <div class="post-comment-content">
                             <div class="information-people">
                                 <div class="information-people-img">
-                                    <img src="../img/worried-man-avata-avatar-worried-man-vector-illustration-107469775.jpg"
+                                    <img src="<?php echo $custom->avatar ?>"
                                         alt="">
                                 </div>
                                 <div class="information-people-box">
                                     <div class="information-people-name">
-                                        <span>Nguyễn Quốc Việt</span>
+                                        <span><?php echo $custom->full_name ?></span>
                                     </div>
                                     <div class="information-people-hour">
-                                        <span>3 giờ trước</span>
+                                        <span><?php echo date("d/m/Y H:i:s",$value->created); ?></span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="information-people-star">
-                                <div class="point-right-star">
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
+        
                         </div>
 
                         <div class="post-comment-content-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat
+                            <?php echo $value->comment ?>
                         </div>
+                        <?php  if(@$infoUser['id']==@$value->idcustomer){ ?>
+                         <div class="post-comment-content-text">
+                            <a href="javascript:void(0);" onclick="deteleComment(<?php echo $value->id ?>)">xóa</a>
+                        </div>
+                    <?php } ?>
                     </div>
                    
 
-                                  
+                     <?php }} ?>             
                     
                 </div>
             </div>
         </section>
+    <?php }  ?>
 
-        <!-- <section id="pagination-page">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-chevron-left"></i></a>
-                    </li>
-                    <li class="page-item "><a class="page-link active" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
-                    </li>
-                </ul>
-            </nav>
-        </section>  -->
+       
 
     </main>
 <script type="text/javascript">
@@ -434,6 +424,9 @@ global $urlThemeActive;
 <?php
 getFooter();?>
 
+<?php if (!empty($infoUser)){ ?>
+    
+
 <script  type="text/javascript">
     
     function addlike(){
@@ -442,7 +435,7 @@ getFooter();?>
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
                 tiype: 'co_quan_hanh_chinh',
-                idcustomer: <?php echo $infoUser['id'] ?>,
+                idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
               console.log('res');
@@ -454,14 +447,14 @@ getFooter();?>
         })
             
     };
- function delelelike(){
+    function delelelike(){
 
           $.ajax({
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
                     tiype: 'co_quan_hanh_chinh',
-                    idcustomer: <?php echo $infoUser['id'] ?>,
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
                   console.log('res');
@@ -474,9 +467,38 @@ getFooter();?>
                
         };
 
-function addCustomer(){
+    function addComment(){
     var comment= $('#comment').val();
 
-    console.log(comment);
-    }  
+    $.ajax({
+                method: 'POST',
+                url: '/apis/addComment',
+                data: { idobject: <?php echo $data->id ?>,
+                    tiype: 'co_quan_hanh_chinh',
+                    comment: comment,
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+        }; 
+
+    function deteleComment($id){
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/deleleComment',
+                data: { id: $id },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+        };
+
 </script>
+<?php } ?>

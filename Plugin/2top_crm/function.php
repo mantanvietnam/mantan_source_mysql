@@ -176,3 +176,12 @@ function getListCity()
 
     );
 }
+
+function getCustomer($id){
+    global $modelOption;
+    global $controller;
+    $modelCustomer = $controller->loadModel('Customers');
+        $data = $modelCustomer->get( (int) $id);        
+        return $data;
+}
+?>
