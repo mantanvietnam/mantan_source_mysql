@@ -1,6 +1,10 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin cơ quan hành chính</h4>
-  <p><a href="/plugins/admin/tayho360-admin-governanceAgencys-addGovernanceAgencysAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p>
+    <a href="/plugins/admin/tayho360-admin-governanceAgencys-addGovernanceAgencysAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="/plugins/admin/tayho360-admin-governanceAgencys-addExcelGovernanceAgencysAdmin.php" class="btn btn-danger"><i class='bx bxs-file-doc'></i> Thêm excel</a>
+  </p>
   <!-- Responsive Table -->
   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  

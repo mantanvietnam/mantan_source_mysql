@@ -31,6 +31,9 @@ global $modelCategories;
 global $modelOptions;
 global $modelPosts;
 global $modelMenus;
+global $modelAlbums;
+global $modelAlbuminfos;
+global $modelVideos;
 
 global $urlCurrent;
 global $urlThemeActive;

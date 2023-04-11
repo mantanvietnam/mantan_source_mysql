@@ -82,3 +82,46 @@ function fixUrlImage($input)
 	}
 	*/
 }
+
+function fixResponsiveProduct($input)
+{
+	global $controller;
+
+	$modelProductDetails = $controller->loadModel('ProductDetails');
+
+	$allLayer = $modelProductDetails->find()->all()->toList();
+
+	foreach($allLayer as $k => $item){
+        $item->content = str_replace('\\\\\"', '', $item->content);
+        $item->content = str_replace('\"', '"', $item->content);
+        $layer = json_decode(trim($item->content,'"')); 
+        $wight = empty($item->wight) ? 50 : $item->wight;
+        $height = empty($item->height) ? 50 : $item->height;
+
+        $fixtopleft = false;
+        if(!isset($layer->postion_left)){
+        	if(isset($layer->postion_x)){
+	            $layer->postion_left = $layer->postion_x*100/$wight;
+	            $fixtopleft = true;
+	        }else{
+	        	debug('x: '.$item->id);
+	        	debug(trim($item->content,'"'));
+	        }
+        }
+
+        if(!isset($layer->postion_top)){
+        	if(isset($layer->postion_y)){
+	            $layer->postion_top = $layer->postion_y*100/$height;
+	            $fixtopleft = true;
+	        }else{
+	        	debug('y: '.$item->id);
+	        	debug($layer);
+	        }
+        }
+
+        if($fixtopleft){
+            $item->content = json_encode($layer);
+            $modelProductDetails->save($item);
+        }
+    }
+}

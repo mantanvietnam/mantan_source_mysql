@@ -22,24 +22,13 @@ $menus[0]['sub'][2]= array('title'=>'Lễ hội',
 							'permission'=>'listFestivalAdmin',
 							
 						);
-$menus[0]['sub'][3]= array('title'=>'Tour',
-							'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listTourAdmin',
-							
-						);
 $menus[0]['sub'][4]= array('title'=>'Điểm đến làng nghề',
 							'url'=>'/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listCraftvillageAdmin',
 							
 						);
-$menus[0]['sub'][5]= array('title'=>'Nhà hàng',
-							'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listRestaurantAdmin',
-							
-						);
+
 $menus[0]['sub'][6]= array('title'=>'Danh lam',
 							'url'=>'/plugins/admin/tayho360-admin-place-listPlaceAdmin.php',
 							'classIcon'=>'bx bxs-data',
@@ -64,6 +53,33 @@ $menus[0]['sub'][9]= array('title'=>'Trung tâm hội nghị sự kiện',
                             'permission'=>'listEventcenterAdmin',
                             
                         );
+
+$menus[0]['sub'][5]= array('title'=>'Nhà hàng',
+                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listRestaurantAdmin',
+                            
+                        );
+
+$menus[0]['sub'][10]= array('title'=>'Dặt bàn nhà hàng',
+                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTableAdmin',
+                            
+                        );
+$menus[0]['sub'][3]= array('title'=>'Tour',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listTourAdmin',
+                            
+                        );
+$menus[0]['sub'][11]= array('title'=>'Dặt tour',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listBookTourAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTourAdmin',
+                            
+                        );
+
 addMenuAdminMantan($menus);
 
 
@@ -365,8 +381,8 @@ function getCraftvillage($id){
 function getRestaurant($id){
     global $modelOption;
     global $controller;
-    $modelRestaurant = $controller->loadModel('Restaurants');
-        $data = $modeRestaurantr->find()->where(['id'=>intval($id)])->first();        
+    $modelRestaurantr = $controller->loadModel('Restaurants');
+        $data = $modelRestaurantr->find()->where(['id'=>intval($id)])->first();        
         return $data;
 }
 

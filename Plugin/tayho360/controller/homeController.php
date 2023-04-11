@@ -333,6 +333,43 @@ function detailTour($input){
         }         
 }
 
+function booktour($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelBookTour = $controller->loadModel('Booktours');
+
+    $dataSend = $input['request']->getData();
+
+    if(!empty($dataSend['name'])){
+        $data = $modelBookTour->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idtour = (int) @$dataSend['idtour'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['numberpeople'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+
+      
+        $modelBookTour->save($data);
+           return $controller->redirect('/chi_tiet_tour/'.$dataSend['urlSlug'].'.html?status=bookTourDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_tour/'.$dataSend['urlSlug'].'.html?status=bookTourfailure');
+    } 
+}
+
 // cơ quan hanh chinh GovernanceAgency
 function listGovernanceAgency($input){
     global $urlNow;
@@ -987,6 +1024,44 @@ function detailRestaurant($input){
         }         
 }
 
+function bookTable($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelBooktable = $controller->loadModel('Booktables');
+
+    $dataSend = $input['request']->getData();
+    if(!empty($dataSend['timebook'])){
+        $data = $modelBooktable->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idrestaurant = (int) @$dataSend['idrestaurant'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['numberpeople'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+            $data->timebook = strtotime(str_replace("T", " ", @$dataSend['timebook']));
+        
+      
+        $modelBooktable->save($data);
+           return $controller->redirect('/chi_tiet_nha_hang/'.$dataSend['urlSlug'].'.html?status=booktableDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_nha_hang/'.$dataSend['urlSlug'].'.html?status=booktablefailure');
+    } 
+}
+
+
 //Khách sạn Hotel 
 function listHotel($input){
 
@@ -1635,16 +1710,94 @@ function detailFestival($input){
         }         
 }
 
-function ajax_like($input){
-
+function vietnam360(){
+    global $urlNow;
     global $controller;
     global $urlCurrent;
-    global $modelCategories;
-    global $metaTitleMantan;
+    $modelImage360 = $controller->loadModel('Images');
+    
+    $_SESSION['urlCallBack']= $urlNow;
+      
+        $page= (isset($_GET['page']))? (int) $_GET['page']:1;
+        if($page<=0) $page=1;
+        $limit= 15;
+         $getmonth   = getmonth();
+        
+        $order = array('created'=>'desc');
+        $conditions = array();
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+        if(!empty($_GET['name'])){
+             $key=createSlugMantan($_GET['name']);
+            $conditions['urlSlug LIKE']= '%'.$key.'%';
+        }
 
-    $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
+        $conditions['status']= 1;
+
+       
+        $listData = $modelImage360->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $conditions_scan = array('id'=>$value->id);
+                    $static = $modelImage360->find()->where($conditions_scan)->all()->toList();
+                    $listData[$key]->number_scan = count($static);
+                }
+            }
+
+            // phân trang
+            $totalData = $modelImage360->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+
+            $balance = $totalData % $limit;
+            $totalPage = ($totalData - $balance) / $limit;
+            if ($balance > 0)
+                $totalPage+=1;
+
+            $back = $page - 1;
+            $next = $page + 1;
+            if ($back <= 0)
+                $back = 1;
+            if ($next >= $totalPage)
+                $next = $totalPage;
+
+            if (isset($_GET['page'])) {
+                $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+                $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+            } else {
+                $urlPage = $urlCurrent;
+            }
+            if (strpos($urlPage, '?') !== false) {
+                if (count($_GET) >= 1) {
+                    $urlPage = $urlPage . '&page=';
+                } else {
+                    $urlPage = $urlPage . 'page=';
+                }
+            } else {
+                $urlPage = $urlPage . '?page=';
+            }
+       global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $metaTitleMantanDefault= $metaTitleMantan;
+        $metaKeywordsMantanDefault= $metaKeywordsMantan;
+        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Việt Nam 360');
+        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                    
+        $metaTitleMantan= str_replace('%categoryName%', 'Danh lam thắng cảnh', $metaTitleMantan);
+
+        setVariable('listData',$listData);
+        setVariable('getmonth',$getmonth);
+
+        setVariable('page',$page);
+        setVariable('totalPage',$totalPage);
+        setVariable('back',$back);
+        setVariable('next',$next);
+        setVariable('urlPage',$urlPage);
 }
 
 function findnear(){

@@ -59,11 +59,6 @@
                     $type= 'Lễ hội';
                     $url= 'chi_tiet_le_hoi/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="nha_han"){
-                    $title = getRestaurant($item->idobject);
-                    $type= 'Nhà hàng';
-                    $url= 'chi_tiet_nha_han/'.$title->urlSlug.'.html';
-                    $name = $title->name;
                   }elseif($item->tiype=="nha_hang"){
                     $title = getRestaurant($item->idobject);
                     $type= 'Nhà hàng';
