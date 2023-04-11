@@ -160,6 +160,74 @@ function addGovernanceAgencysAdmin($input)
     setVariable('mess', $mess);
 }
 
+
+
+function addExcelGovernanceAgencysAdmin($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+
+    $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
+    $mess= '';
+
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['content'])){
+            $dataSend['content']= nl2br($dataSend['content']);
+            $dataSend['content']= explode('<br />', $dataSend['content']);
+
+            if(!empty($dataSend['content'])){
+
+                foreach($dataSend['content'] as $listData){
+                    $item= preg_split('/[\t]/', trim($listData));
+                
+                    // tạo dữ liệu save
+                    $data = $modelGovernanceAgencys->newEmptyEntity();
+
+                    $data->name = @$item[0];
+                    $data->address = @$item[1];
+                    $data->phone = @$item[2];
+                    $data->email = @$item[3];
+                    $data->image = @$item[4];
+                    $data->image2 = @$item[5];
+                    $data->image3 = @$item[6];
+                    $data->image4 = @$item[7];
+                    $data->image5 = @$item[8];
+                    $data->image6 = @$item[9];
+                    $data->image7 = @$item[10];
+                    $data->image8 = @$item[11];
+                    $data->image9 = @$item[12];
+                    $data->image10 = @$item[13];
+                    $data->introductory = @$item[14];
+                    $data->latitude = @$item[15];
+                    $data->longitude = @$item[16];
+                    $data->image360 = @$item[17];
+                    $data->content = @$item[18];
+                    $data->status = (int) @$item[19];
+                    $data->urlSlug = createSlugMantan(trim($item[0]));
+                    $data->created = getdate()[0];
+
+                    $modelGovernanceAgencys->save($data);
+                }
+            }
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập dữ liệu</p>';
+        }
+    }
+
+    setVariable('mess', $mess);
+}
+
 function deleteGovernanceAgencysAdmin($input){
     global $controller;
     $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
