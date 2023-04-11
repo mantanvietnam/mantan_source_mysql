@@ -49,8 +49,13 @@ class AppController extends Controller
         global $session;
         global $modelOptions;
         global $modelCategories;
+        
         global $modelPosts;
         global $modelMenus;
+        global $modelAlbums;
+        global $modelAlbuminfos;
+        global $modelVideos;
+
         global $urlCurrent;
         global $isRequestPost;
         global $controller;
@@ -71,6 +76,9 @@ class AppController extends Controller
         $modelCategories = $this->loadModel('Categories');
         $modelPosts = $this->loadModel('Posts');
         $modelMenus = $this->loadModel('Menus');
+        $modelAlbums = $this->loadModel('Albums');
+        $modelAlbuminfos = $this->loadModel('Albuminfos');
+        $modelVideos = $this->loadModel('Videos');
 
         // load cấu hình web
         $contactSite = $modelOptions->newEmptyEntity();

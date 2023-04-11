@@ -13,6 +13,7 @@
             <th>Mã QR</th>
             <th>Lượt quét</th>
             <th>Trạng thái</th>
+            <th>Quản trị</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -30,6 +31,7 @@
                         </td>
                         <td><a href="/plugins/admin/smartqr-view-admin-smartqr-staticQR.php/?id='.$item->id.'">'.number_format($item->number_scan).'</a></td>
                         <td>'.$item->status.'</td>
+                        <td>'.$item->id_member.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/smartqr-view-admin-smartqr-addQR.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

@@ -46,6 +46,11 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">ID quản trị viên (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="id_member" id="id_member" value="<?php echo @$data->id_member;?>" />
+                  </div>
                 </div>
 
                 <div class="col-md-6">
@@ -64,7 +69,10 @@
                     <input required type="text" class="form-control phone-mask" name="link_android" id="link_android" value="<?php echo @$data->link_android;?>" />
                   </div> 
 
-                  
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Logo</label>
+                    <?php showUploadFile('logo','logo',@$data->logo,0);?>
+                  </div>
                 </div>
                 
               </div>
