@@ -151,7 +151,7 @@ global $session;
                     <div class="title-order-table">
                         <p>Đặt bàn</p>
                     </div>
-                    <form action="/bookTable"  method="post">
+                    <form action="/booktour"  method="post">
 
                                     <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                     <input type="hidden" value="<?php echo $data->id ;?>" name="idrestaurant">
