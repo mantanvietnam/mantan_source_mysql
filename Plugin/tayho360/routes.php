@@ -22,7 +22,7 @@
    $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
    $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
-   $routesPlugin['Viet_nam_360'] = 'tayho360/view/vietnam360.php';
+   $routesPlugin['viet_nam_360'] = 'tayho360/view/vietnam360.php';
    $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['khach_san'] = 'tayho360/view/listHotel.php';
    $routesPlugin['chi_tiet_khach_san'] = 'tayho360/view/detailHotel.php';
