@@ -73,7 +73,7 @@ $setting = setting();
                     </div>
                 </div>
             </div>
-        </div>
+        </div>s
     </div>
     <div class="bottom-footer">
         <div class="container">
@@ -83,6 +83,7 @@ $setting = setting();
             </div>
         </div>
     </div>
+
 
     <div class="scripts">
         <!-- ✅ load jQuery ✅ -->
@@ -97,6 +98,14 @@ $setting = setting();
         <script src="<?= $urlThemeActive ?>js/bootstrap.bundle.js"></script>
         <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
         <script src="<?= $urlThemeActive ?>js/main.js"></script>
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     </div>
 </footer>
 </body>

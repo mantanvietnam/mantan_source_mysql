@@ -28,9 +28,10 @@
    $routesPlugin['chi_tiet_khach_san'] = 'tayho360/view/detailHotel.php';
    $routesPlugin['le_hoi'] = 'tayho360/view/listFestival.php';
    $routesPlugin['chi_tiet_le_hoi'] = 'tayho360/view/detailFestival.php';
-   $routesPlugin['tung_tam_hoi_nghi_su_kien'] = 'tayho360/view/listEventcenter.php';
-   $routesPlugin['chi_tiet_tung_tam_hoi_nghi_su_kien'] = 'tayho360/view/detailEventcenter.php';
+   $routesPlugin['trung_tam_hoi_nghi_su_kien'] = 'tayho360/view/listEventcenter.php';
+   $routesPlugin['chi_tiet_trung_tam_hoi_nghi_su_kien'] = 'tayho360/view/detailEventcenter.php';
    $routesPlugin['ho_hoan_kiem'] = 'tayho360/view/listHklake.php';
+   $routesPlugin['diem_den_yeu_thich'] = 'tayho360/view/listlike.php';
    $routesPlugin['chi_tiet_ho_hoan_kiem'] = 'tayho360/view/detailHklake.php';
    $routesPlugin['giai_tri'] = 'tayho360/view/listEntertainment.php';
    $routesPlugin['chi_tiet_giai_tri'] = 'tayho360/view/detailEntertainment.php';
@@ -77,4 +78,6 @@
    $routesPlugin['detailCraftvillageAPI'] = 'tayho360/view/detailCraftvillageAPI.php';
    $routesPlugin['detailServiceAPI'] = 'tayho360/view/detailServiceAPI.php';
    $routesPlugin['listServiceAPI'] = 'tayho360/view/listServiceAPI.php';
+   $routesPlugin['listEventcenterAPI'] = 'tayho360/view/listEventcenterAPI.php';
+   $routesPlugin['detailEventcenterAPI'] = 'tayho360/view/detailEventcenterAPI.php';
 ?>

@@ -2,6 +2,7 @@
 getHeader();
 global $urlThemeActive;
 ?>
+    <script src="<?php echo $urlThemeActive ?>css/style2.css"></script>
 
 
     <main>
@@ -292,19 +293,10 @@ global $urlThemeActive;
             </div>
             <div class="box-event-home">
                 <div class="relative">
-                    <div class="slide-time-event absolute">
-                            <?php 
-                $getmonth = getmonth();
-               
-               foreach($getmonth as $keymonth => $month){
-                
-            ?>
-                        <div class="month-start-event ">
-                            <p><?php echo $month['name']; ?></p>
-                        </div>
-                       <?php } ?>
+                    <?php include('mon.php') ?>
+
                     </div>
-                    <div class="in-box-event-home">
+                    <div class="in-box-event-home box-month-event">
                         <?php if(!empty($tmpVariable['listDataEvent'])) {
                             foreach ($tmpVariable['listDataEvent'] as $keyEvent => $valueEvent) {
 
@@ -362,7 +354,9 @@ global $urlThemeActive;
 
                 </div>
             </div>
-        </section>
+        </section> 
+
+
 
         <section id="travel-guide">
             <div class="event-home-title">
@@ -595,9 +589,82 @@ global $urlThemeActive;
             height: 500px;
         }
     </style>
+    <script src="<?php echo $urlThemeActive ?>js/js.js"></script>
     <script src="<?php echo $urlThemeActive ?>js/particles.min.js"></script>
     <script src="<?php echo $urlThemeActive ?>js/particle.js"></script>
+ <script type="text/javascript">
+    // load event
+function loadEvent(e) {
+  var month = $(e).attr('data-month');
+  console.log(month);
+  //var url = 'su_kien?month='+month;
+  $.ajax({
+      type: "GET",
+      url: '/apis/ajax_event',
+      data:{ month:month }
+    }).done(function( msg ) {
+        console.log(msg);
+      /*var msg = JSON.parse(msg);
+      console.log(msg);*/
+      $('.in-box-event-home').html(msg.text);
+    });
+     eventhome();
+    
+}
 
+function eventhome(){
+  $('.in-box-event-home').slick({
+
+    dots: false,
+
+    infinite: true,
+
+    arrows: true,
+
+    speed: 500,
+
+    fade: true,
+
+    cssEase: 'linear',
+
+    prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
+
+    nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`
+
+  });
+}
+
+function loadEventNextPrev(e) {
+  var month = $('.slick-active').attr('data-month');
+
+  if(e = 1){
+    month = Number(month) + 1;
+  }else{
+     month = Number(month) - 1;
+  }
+  console.log(month);   
+  $.ajax({
+      type: "GET",
+      url: '/apis/ajax_event',
+      data:{ month:month }
+    }).done(function( msg ) {
+     //document.getElementById("event-month-s").remove();
+      $('.in-box-event-home').html(msg.text);
+    });
+     eventhome();
+
+}
+
+// menu scroll 
+$(document).ready(function() {
+    const button = document.querySelector(".mon-pull-right");
+    button.setAttribute("onclick", "loadEventNextPrev(1)");
+
+   const butt = document.querySelector(".mon-pull-left");
+   butt.setAttribute("onclick", "loadEventNextPrev(2)");
+});
+
+</script> 
 
 <?php
 getFooter();?>

@@ -63,7 +63,7 @@ global $urlThemeActive;
                                 <?php   } ?>
                             
                             <div class="button-share">
-                                <a href=""><button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
+                                <a href=""><button type="button" class="fb-share-button" data-href="/chi_tiet_co_quan_hanh_chinh/<?php echo $data->urlSlug ?>.html" data-layout="button_count"><i class="fa-solid fa-share-nodes"></i>Chia
                                         sẻ</button></a>
                             </div>
                         </div>
