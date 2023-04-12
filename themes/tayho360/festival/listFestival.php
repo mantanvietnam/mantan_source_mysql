@@ -47,7 +47,7 @@ global $urlThemeActive;
         <section id="place-category">
             <div class="category-title">
                 <h1>LỄ HỘI</h1>
-                <p>Hãy khám phá những lê hội ở Tây Hồ</p>
+                <p>Hãy khám phá những lễ hội ở Tây Hồ</p>
             </div>
 
             <div class="container">

@@ -936,7 +936,7 @@ function listRestaurant($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Làng nghề');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Nhà hành');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
@@ -1145,7 +1145,7 @@ function listHotel($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Trung tâm sự kiện và khách sạn');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'khách sạn');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
@@ -1622,7 +1622,7 @@ function listFestival($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Danh lam thắng cảnh');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Lễ Hội');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
