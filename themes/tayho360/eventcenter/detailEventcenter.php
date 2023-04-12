@@ -138,7 +138,7 @@ global $urlThemeActive;
                     </div>
                 </div> -->
                 <div class="content-information mgb-32">
-                    <?php echo $data->content ?>
+                    <?php echo str_replace(array("&nbsp;", "&nbsp;", "\t"), "", $data->content) ?>
                 </div>
             </div>
         </section>
