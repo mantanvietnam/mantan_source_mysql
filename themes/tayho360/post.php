@@ -35,7 +35,7 @@ if (!isset($otherPosts)) $otherPosts = [];
                             <div class="body">
                                 <div class="content">
                                     <p>
-                                        <?= $post->content ?>
+                                        <?= str_replace(array("&nbsp;", "&nbsp;", "\t"), "",$post->content); ?>
                                     </p>
                                 </div>
                             </div>
@@ -73,14 +73,14 @@ if (!isset($otherPosts)) $otherPosts = [];
                 </div>
             </div>
         </section>
-        <section class="" id="skct-lien-quan">
+        <section class="" id="skct-lien-quan-bottom">
             <div class="container mt-5">
-                <h2 class="mb-4">Tin tức liên quan</h2>
+                <h2 class="mb-5">Tin tức liên quan</h2>
                 <div class="row g-3 g-lg-4">
                     <?php
                     foreach ($otherPosts as $oPost) {
                         ?>
-                        <div class="col-12 col-lg-4">
+                        <div class="col-12 col-lg-4  ">
                             <a href="/<?= $oPost->slug ?>.html" class="d-block text-decoration-none">
                                 <div class="card card-event">
                                     <img class="card-img-top" src="<?= $oPost->image ?>" alt="Card image cap">
