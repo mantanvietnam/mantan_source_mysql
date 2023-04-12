@@ -2,8 +2,8 @@
 	$destination = destination();
 ?>
 
-<div class="mask-select" id="select_colse"></div>
- <div class="col-md-6 col-12" style="margin-bottom: 10px">
+<!-- <div class="mask-select" id="select_colse"></div> -->
+ <div class="filter-option" style="">
 	<div class="seclect">
 		<div class="div_select" style="position: relative;">
 			<input type="" name="" class="form-select-filter" id="select" placeholder="Danh mục điểm đến" >

@@ -64,7 +64,7 @@ $infoUser = $session->read('infoUser');
                            data-bs-toggle="dropdown">
                             <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
                                  alt="">
-                            <span class="username">Xin chào <?php echo $infoUser['full_name']; ?></span>
+                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Hành trình</a></li>

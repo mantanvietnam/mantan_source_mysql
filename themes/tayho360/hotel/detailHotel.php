@@ -26,10 +26,10 @@
                             <h1><?php echo @$data['HotelManmo']['data']['Hotel']['name'];?></h1>
                         </div>
                         <div class="place-address">
-                            <p><i class="fa-solid fa-location-dot"></i><?php echo @$data['HotelManmo']['data']['Hotel']['address'];?></p>
+                            <p><i class="fa-solid fa-location-dot"></i> <?php echo @$data['HotelManmo']['data']['Hotel']['address'];?></p>
                         </div>
                         <div class="place-address">
-                        <p><i class="fa-solid fa-phone"></i><?php echo @$data['HotelManmo']['data']['Hotel']['phone'];?></p>
+                        <p><i class="fa-solid fa-phone"></i> <?php echo @$data['HotelManmo']['data']['Hotel']['phone'];?></p>
                     </div>
                         <div class="button-content">
                              <?php  
