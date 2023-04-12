@@ -14,8 +14,8 @@ $topPost = $listPosts[0];
                     <img src="<?= $topPost->image ?>" class="w-100" alt="">
                 </div>
             </div>
-            <div class="banner-content-overlay p-5">
-                <div class="content p-4">
+            <div class="banner-content-overlay p-4">
+                <div class="content p-3">
                     <h1 class="mb-2"><?= limit_words($topPost->title); ?></h1>
                     <p class="">
                         <?= limit_words($topPost->content, 15); ?>
