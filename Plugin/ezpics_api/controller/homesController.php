@@ -292,8 +292,8 @@ function addLayer($input)
         $new->products_id = $dataSend['idproduct'];
         $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height']));
         $new->sort = $idlayer;
-        $new->height = $sizeBackground['height'];
-        $new->wight = $sizeBackground['width'];
+        $new->height = '30';
+        $new->wight = '30';
         $new->created_at = date('Y-m-d H:i:s');
         
         $modelProductDetail->save($new);
@@ -478,14 +478,19 @@ function upImage($input)
             $product = $modelProduct->get($dataSend['idproduct']);
             $sizeBackground = getimagesize($product->thumn);
 
+            $tyle = $sizeBackground[0]*100/(int)$dataSend['width'];
+            if($tyle>30) $tyle = 30;
+            $tyleW = $tyle.'vw';
+            $tyleH = $tyle.'vh';
+
             $new = $modelProductDetail->newEmptyEntity();
             
             $new->name = 'Layer '.$idlayer;
             $new->products_id = $dataSend['idproduct'];
-            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$sizeBackground['width'], $sizeBackground['height']));
+            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$tyleW, $tyleH));
             $new->sort = $idlayer;
-            $new->height = $sizeBackground['height'];
-            $new->wight = $sizeBackground['width'];
+            $new->height = $tyle;
+            $new->wight = $tyle;
             $new->created_at = date('Y-m-d H:i:s');
             
             $modelProductDetail->save($new);

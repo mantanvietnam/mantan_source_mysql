@@ -256,6 +256,12 @@ function getInfoProductAPI($input)
 				$data->image = $data->thumbnail;
 			}
 
+			if($data->type == 'user_create'){
+				$data->link_share = 'https://designer.ezpics.vn/detail/'.$data->slug.'-'.$data->id.'.html';
+			}else{
+				$data->link_share = $data->image;
+			}
+
 			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id];
 			$limit= 12;
 			$page= 1;
@@ -439,7 +445,7 @@ function buyProductAPI($input)
 	                    $newproduct->sold = 0;
 	                    $newproduct->image = $product->image;
 	                    $newproduct->thumn = $product->thumn;
-	                    $newproduct->thumbnail = $product->thumbnail;
+	                    $newproduct->thumbnail = '';
 	                    $newproduct->user_id = $infoUser->id;
 	                    $newproduct->product_id = $product->id;
 	                    $newproduct->note_admin = '';
@@ -458,7 +464,7 @@ function buyProductAPI($input)
 		                    	$newLayer = $modelProductDetail->newEmptyEntity();	
 
 		                    	$newLayer->products_id = $newproduct->id;
-		                    	$newLayer->name = 'layer_'.$infoUser->id.'_'.time();
+		                    	$newLayer->name = $d->name;
 		                    	$newLayer->content = $d->content;
 		                    	$newLayer->wight = $d->wight;
 		                    	$newLayer->height = $d->height;

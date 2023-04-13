@@ -53,7 +53,6 @@ function editThemeUser(id)
             height: $('.thumb-checklayer').height(),
         }, 
         success:function(data){
-            console.log(data);
 
             if($.isEmptyObject(data.error)){
                 //xóa data cũ
@@ -109,7 +108,7 @@ function editThemeUser(id)
                         $('.image-select').addClass('d-none');
                         $('.text-select').removeClass('d-none');
 
-                        $('.thaotacchu, #thaotacchu').addClass('active');
+                        //$('.thaotacchu, #thaotacchu').addClass('active');
                         $('.thaotacanh, #thaotacanh').removeClass('active');
                     }
                     if (type == 'image') {
@@ -117,7 +116,7 @@ function editThemeUser(id)
                         $('.image-select').removeClass('d-none');
 
                         $('.thaotacchu, #thaotacchu').removeClass('active');
-                        $('.thaotacanh, #thaotacanh').addClass('active');
+                        //$('.thaotacanh, #thaotacanh').addClass('active');
                     }
 
                     getInfoLayer();
@@ -225,7 +224,7 @@ function update_input_info(id) {
                 type: "POST",
                 success:function(data){
                     if($.isEmptyObject(data.error)){
-                        console.log(data);
+
                     }else{
                         printErrorMsg(data.error);
                     }
@@ -264,7 +263,7 @@ function hover() {
             $('.image-select').addClass('d-none');
             $('.text-select').removeClass('d-none');
 
-            $('.thaotacchu, #thaotacchu').addClass('active');
+            //$('.thaotacchu, #thaotacchu').addClass('active');
             $('.thaotacanh, #thaotacanh').removeClass('active');
         }
         if (type == 'image') {
@@ -272,7 +271,7 @@ function hover() {
             $('.image-select').removeClass('d-none');
 
             $('.thaotacchu, #thaotacchu').removeClass('active');
-            $('.thaotacanh, #thaotacanh').addClass('active');
+            //$('.thaotacanh, #thaotacanh').addClass('active');
         }
       
         // $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
@@ -323,7 +322,7 @@ function update_select_info() {
             type: "POST",
             success:function(data){
                 if($.isEmptyObject(data.error)){
-                    console.log(data);
+                   
                 }else{
                     printErrorMsg(data.error);
                 }
@@ -346,7 +345,7 @@ function update_select_info() {
             type: "POST",
             success:function(data){
                 if($.isEmptyObject(data.error)){
-                    console.log(data);
+                   
                 }else{
                     printErrorMsg(data.error);
                 }
@@ -369,7 +368,7 @@ function update_select_info() {
             type: "POST",
             success:function(data){
                 if($.isEmptyObject(data.error)){
-                    console.log(data);
+                 
                 }else{
                     printErrorMsg(data.error);
                 }
@@ -389,7 +388,7 @@ function capEdit(id) {
 
     html2canvas(element, {
       allowTaint: true,  // Cho phép chuyển đổi các phần tử "tainted" (như ảnh tải từ một domain khác)
-      backgroundColor: null,  // Màu nền của hình ảnh chuyển đổi
+      backgroundColor: '#ffffff',  // Màu nền của hình ảnh chuyển đổi
       scale: 2,  // Tỷ lệ zoom của hình ảnh chuyển đổi
       width: $('#widgetCapEdit').width(),  // Chiều rộng của hình ảnh chuyển đổi
       height: $('#widgetCapEdit').height(),  // Chiều cao của hình ảnh chuyển đổi
@@ -412,8 +411,6 @@ function capEdit(id) {
                 id: id
             },
             success:function(data){
-                console.log(data);
-
                 if($.isEmptyObject(data.error)){
 
                 }else{
@@ -431,14 +428,13 @@ function capEdit(id) {
 // xóa thông tin input
 function removeInfoLayer() {
     $('#textProduct').val(''); // chữ
-    // console.log('remove')
 }
 
 // lấy thông tin xuống input
 function getInfoLayer() {
     $('#textProduct').val($('.active-hover span').html().replace(/<br *\/?>/gi, '\n')); // chữ
     
-    var font = $('.active-hover span').css('font-size');
+    var font = $('.active-hover').data('size');
     font = font.replace('px','');
     font = font.replace('vw','');
 
@@ -716,15 +712,29 @@ function ajaxInfoLayer() {
     });
 
     $('.font').on("change mousemove", function() {
-        $('.active-hover span').css('font-size', $(this).val()+'vw');
-        lstorage('size', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), $(this).val()+'vw');
+        var sizeEdit = $(this).val();
+        if(sizeEdit>100) sizeEdit=100;
+        if(sizeEdit<0) sizeEdit=0;
+        $(this).val(sizeEdit);
+
+        $('.active-hover span').css('font-size', sizeEdit+'vw');
+        $('.active-hover').data('size',sizeEdit+'vw');
+
+        lstorage('size', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
     });
 
     $('.fontz').on("keyup", function() {
-        $('.fontz').text($(this).val());
-        $('.font').val($(this).val());
-        $('.active-hover span').css('font-size', $(this).val()+'vw');
-        lstorage('size', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), $(this).val()+'vw');
+        var sizeEdit = $(this).val();
+        if(sizeEdit>100) sizeEdit=100;
+        if(sizeEdit<0) sizeEdit=0;
+        $(this).val(sizeEdit);
+
+        $('.fontz').text(sizeEdit);
+        $('.font').val(sizeEdit);
+        $('.active-hover span').css('font-size', sizeEdit+'vw');
+        $('.active-hover').data('size',sizeEdit+'vw');
+
+        lstorage('size', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
     });
 
     $('.opacity').on("change mousemove", function() {
@@ -739,29 +749,49 @@ function ajaxInfoLayer() {
     });
 
     $('.gianchu').on("change mousemove", function() {
-        $('.active-hover span').css('letter-spacing', $(this).val()+'vw');
-        lstorage('gianchu', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), $(this).val());
+        var sizeEdit = $(this).val();
+        if(sizeEdit>100) sizeEdit=100;
+        if(sizeEdit<0) sizeEdit=0;
+        $(this).val(sizeEdit);
+
+        $('.active-hover span').css('letter-spacing', sizeEdit+'vw');
+        lstorage('gianchu', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit);
     });
 
     $('.giandong').on("change mousemove", function() {
-        $('.active-hover span').css('line-height', $(this).val()+'vw');
-        lstorage('giandong', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), $(this).val());
+        var sizeEdit = $(this).val();
+        if(sizeEdit>100) sizeEdit=100;
+        if(sizeEdit<0) sizeEdit=0;
+        $(this).val(sizeEdit);
+
+        $('.active-hover span').css('line-height', sizeEdit+'vw');
+        lstorage('giandong', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit);
     });
 
     $('.sizeimg').on("change mousemove", function() {
-        $('.active-hover img').css('max-width', $(this).val()+'vw');
-        $('.active-hover img').css('width', $(this).val()+'vw');
-        $('.active-hover').data('width', $(this).val()+'vw');
-        lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), $(this).val()+'vw');
+        var sizeEdit = $(this).val();
+        if(sizeEdit>100) sizeEdit=100;
+        if(sizeEdit<0) sizeEdit=0;
+        $(this).val(sizeEdit);
+
+        $('.active-hover img').css('max-width', '100vw');
+        $('.active-hover img').css('width', sizeEdit+'vw');
+        $('.active-hover').data('width', sizeEdit+'vw');
+        lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
     });
 
     $('.sizeimgz').on("keyup", function() {
-        $('.active-hover img').css('max-width', $(this).val()+'vw');
-        $('.active-hover img').css('width', $(this).val()+'vw');
-        $('.active-hover').data('width', $(this).val()+'vw');
-        $('.sizeimg').val($(this).val());
-        $('.sizeimgz').text($(this).val());
-        lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), $(this).val()+'vw');
+        var sizeEdit = $(this).val();
+        if(sizeEdit>100) sizeEdit=100;
+        if(sizeEdit<0) sizeEdit=0;
+        $(this).val(sizeEdit);
+
+        $('.active-hover img').css('max-width', '100vw');
+        $('.active-hover img').css('width', sizeEdit+'vw');
+        $('.active-hover').data('width', sizeEdit+'vw');
+        $('.sizeimg').val(sizeEdit);
+        $('.sizeimgz').text(sizeEdit);
+        lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
     });
 }
 
@@ -1101,8 +1131,6 @@ function duplicate() {
                                 id: id, // id layer
                             }, 
                             success:function(data){
-                                console.log(data);
-
                                 if($.isEmptyObject(data.error)){
                                     //xóa data cũ
                                     $('.nameProduct').val('');
@@ -1155,7 +1183,7 @@ function duplicate() {
                                             $('.image-select').addClass('d-none');
                                             $('.text-select').removeClass('d-none');
 
-                                            $('.thaotacchu, #thaotacchu').addClass('active');
+                                            //$('.thaotacchu, #thaotacchu').addClass('active');
                                             $('.thaotacanh, #thaotacanh').removeClass('active');
                                         }
                                         if (type == 'image') {
@@ -1163,7 +1191,7 @@ function duplicate() {
                                             $('.image-select').removeClass('d-none');
 
                                             $('.thaotacchu, #thaotacchu').removeClass('active');
-                                            $('.thaotacanh, #thaotacanh').addClass('active');
+                                            //$('.thaotacanh, #thaotacanh').addClass('active');
                                         }
                                         getInfoLayer();
                                     })
@@ -1317,7 +1345,7 @@ function deleted() {
                                         $('.image-select').addClass('d-none');
                                         $('.text-select').removeClass('d-none');
 
-                                        $('.thaotacchu, #thaotacchu').addClass('active');
+                                        //$('.thaotacchu, #thaotacchu').addClass('active');
                                         $('.thaotacanh, #thaotacanh').removeClass('active');
                                     }
                                     if (type == 'image') {
@@ -1325,7 +1353,7 @@ function deleted() {
                                         $('.image-select').removeClass('d-none');
 
                                         $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        $('.thaotacanh, #thaotacanh').addClass('active');
+                                        //$('.thaotacanh, #thaotacanh').addClass('active');
                                     }
                                     getInfoLayer();
                                 })
@@ -1463,7 +1491,7 @@ function deletedinlayer(idproduct,id) {
                                     $('.image-select').addClass('d-none');
                                     $('.text-select').removeClass('d-none');
 
-                                    $('.thaotacchu, #thaotacchu').addClass('active');
+                                    //$('.thaotacchu, #thaotacchu').addClass('active');
                                     $('.thaotacanh, #thaotacanh').removeClass('active');
                                 }
                                 if (type == 'image') {
@@ -1471,7 +1499,7 @@ function deletedinlayer(idproduct,id) {
                                     $('.image-select').removeClass('d-none');
 
                                     $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    $('.thaotacanh, #thaotacanh').addClass('active');
+                                    //$('.thaotacanh, #thaotacanh').addClass('active');
                                 }
                                 getInfoLayer();
                             })
@@ -1556,8 +1584,6 @@ function add() {
                         type: 'text'
                     }, 
                     success:function(data){
-                        console.log(data);
-
                         if($.isEmptyObject(data.error)){
                             //xóa data cũ
                             $('.nameProduct').val('');
@@ -1610,7 +1636,7 @@ function add() {
                                     $('.image-select').addClass('d-none');
                                     $('.text-select').removeClass('d-none');
 
-                                    $('.thaotacchu, #thaotacchu').addClass('active');
+                                    //$('.thaotacchu, #thaotacchu').addClass('active');
                                     $('.thaotacanh, #thaotacanh').removeClass('active');
                                 }
                                 if (type == 'image') {
@@ -1618,7 +1644,7 @@ function add() {
                                     $('.image-select').removeClass('d-none');
 
                                     $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    $('.thaotacanh, #thaotacanh').addClass('active');
+                                    //$('.thaotacanh, #thaotacanh').addClass('active');
                                 }
                                 getInfoLayer();
                             })
@@ -1696,13 +1722,12 @@ function addImage(linkImage) {
                     type: "POST",
                     data: {
                         idproduct: idproduct,
-                        width: $(window).width()/3,
-                        height: $('.thumb-checklayer').height()/3,
+                        width: '30vw',
+                        height: '30vh',
                         type: 'image',
                         banner: linkImage
                     }, 
                     success:function(data){
-                        console.log(data);
 
                         if($.isEmptyObject(data.error)){
                             //xóa data cũ
@@ -1756,7 +1781,7 @@ function addImage(linkImage) {
                                     $('.image-select').addClass('d-none');
                                     $('.text-select').removeClass('d-none');
 
-                                    $('.thaotacchu, #thaotacchu').addClass('active');
+                                    //$('.thaotacchu, #thaotacchu').addClass('active');
                                     $('.thaotacanh, #thaotacanh').removeClass('active');
                                 }
                                 if (type == 'image') {
@@ -1764,7 +1789,7 @@ function addImage(linkImage) {
                                     $('.image-select').removeClass('d-none');
 
                                     $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    $('.thaotacanh, #thaotacanh').addClass('active');
+                                    //$('.thaotacanh, #thaotacanh').addClass('active');
                                 }
                                 getInfoLayer();
                             })
@@ -1848,7 +1873,6 @@ function changeImage(linkImage) {
                         value: linkImage
                     }, 
                     success:function(data){
-                        console.log(data);
 
                         if($.isEmptyObject(data.error)){
                             //xóa data cũ
@@ -1902,7 +1926,7 @@ function changeImage(linkImage) {
                                     $('.image-select').addClass('d-none');
                                     $('.text-select').removeClass('d-none');
 
-                                    $('.thaotacchu, #thaotacchu').addClass('active');
+                                    //$('.thaotacchu, #thaotacchu').addClass('active');
                                     $('.thaotacanh, #thaotacanh').removeClass('active');
                                 }
                                 if (type == 'image') {
@@ -1910,7 +1934,7 @@ function changeImage(linkImage) {
                                     $('.image-select').removeClass('d-none');
 
                                     $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    $('.thaotacanh, #thaotacanh').addClass('active');
+                                    //$('.thaotacanh, #thaotacanh').addClass('active');
                                 }
                                 getInfoLayer();
                             })
@@ -1992,7 +2016,6 @@ function sort(type) {
                         sort: type,
                     }, 
                     success:function(data){
-                        console.log(data);
 
                         if($.isEmptyObject(data.error)){
                             //xóa data cũ
@@ -2045,7 +2068,7 @@ function sort(type) {
                                     $('.image-select').addClass('d-none');
                                     $('.text-select').removeClass('d-none');
 
-                                    $('.thaotacchu, #thaotacchu').addClass('active');
+                                    //$('.thaotacchu, #thaotacchu').addClass('active');
                                     $('.thaotacanh, #thaotacanh').removeClass('active');
                                 }
                                 if (type == 'image') {
@@ -2053,7 +2076,7 @@ function sort(type) {
                                     $('.image-select').removeClass('d-none');
 
                                     $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    $('.thaotacanh, #thaotacanh').addClass('active');
+                                    //$('.thaotacanh, #thaotacanh').addClass('active');
                                 }
                                 getInfoLayer();
                             })
@@ -2312,8 +2335,6 @@ $(document).ready(function () {
         $(this).addClass("active");
         $("#" + tab_id).addClass("active");
 
-        console.log(tab_id);
-
         if (tab_id == "listanh") {
             typeUploadImage = 'addNewImage';
         }else if (tab_id == "thayanh") {
@@ -2330,7 +2351,6 @@ $(document).ready(function () {
                 type: typeUploadImage
             }, 
             success:function(data){
-                console.log(data);
 
                 if($.isEmptyObject(data.error)){
                     $('.list-img div').remove();
@@ -2380,7 +2400,7 @@ interact(".drag-drop")
                 $('.image-select').addClass('d-none');
                 $('.text-select').removeClass('d-none');
 
-                $('.thaotacchu, #thaotacchu').addClass('active');
+                //$('.thaotacchu, #thaotacchu').addClass('active');
                 $('.thaotacanh, #thaotacanh').removeClass('active');
             }
             if (type == 'image') {
@@ -2388,7 +2408,7 @@ interact(".drag-drop")
                 $('.image-select').removeClass('d-none');
 
                 $('.thaotacchu, #thaotacchu').removeClass('active');
-                $('.thaotacanh, #thaotacanh').addClass('active');
+                //$('.thaotacanh, #thaotacanh').addClass('active');
             }
         },
         move: dragMoveListener,
@@ -2397,8 +2417,27 @@ interact(".drag-drop")
             x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
             y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
+            if(x>$('#widgetCapEdit').width()){
+                x = $('#widgetCapEdit').width()-$('#active-hover').width();
+            }
+
+            if(x<0){
+                x= 0;
+            }
+
+            if(y>$('#widgetCapEdit').height()){
+                y = $('#widgetCapEdit').height()-$('#active-hover').height();
+            }
+
+            if(y<0){
+                y= 0;
+            }
+
             var idproduct = target.getAttribute("data-idproduct");
             var layer = target.getAttribute("data-layer");
+
+            $('.active-hover').data('x',x);
+            $('.active-hover').data('y',y);
 
             updatelayerClient(layer,'postion',idproduct,x+','+y);
             productstep(layer,'postion',idproduct,x+','+y);
@@ -2435,6 +2474,22 @@ function dragMoveListener(event) {
         y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
     // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)  rotate(45deg)";
+    if(x>$('#widgetCapEdit').width()){
+        x = $('#widgetCapEdit').width()-$('#active-hover').width();
+    }
+
+    if(x<0){
+        x= 0;
+    }
+
+    if(y>$('#widgetCapEdit').height()){
+        y = $('#widgetCapEdit').height()-$('#active-hover').height();
+    }
+
+    if(y<0){
+        y= 0;
+    }
+
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
     
@@ -2547,7 +2602,7 @@ $(".upimg[type='file']").on('change', function() {
                                         $('.image-select').addClass('d-none');
                                         $('.text-select').removeClass('d-none');
 
-                                        $('.thaotacchu, #thaotacchu').addClass('active');
+                                        //$('.thaotacchu, #thaotacchu').addClass('active');
                                         $('.thaotacanh, #thaotacanh').removeClass('active');
                                     }
                                     if (type == 'image') {
@@ -2555,7 +2610,7 @@ $(".upimg[type='file']").on('change', function() {
                                         $('.image-select').removeClass('d-none');
 
                                         $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        $('.thaotacanh, #thaotacanh').addClass('active');
+                                        //$('.thaotacanh, #thaotacanh').addClass('active');
                                     }
                                     getInfoLayer();
                                 })
@@ -2699,7 +2754,7 @@ $(".replace[type='file']").on('change', function() {
                                         $('.image-select').addClass('d-none');
                                         $('.text-select').removeClass('d-none');
 
-                                        $('.thaotacchu, #thaotacchu').addClass('active');
+                                        //$('.thaotacchu, #thaotacchu').addClass('active');
                                         $('.thaotacanh, #thaotacanh').removeClass('active');
                                     }
                                     if (type == 'image') {
@@ -2707,7 +2762,7 @@ $(".replace[type='file']").on('change', function() {
                                         $('.image-select').removeClass('d-none');
 
                                         $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        $('.thaotacanh, #thaotacanh').addClass('active');
+                                        //$('.thaotacanh, #thaotacanh').addClass('active');
                                     }
                                     getInfoLayer();
                                 })
@@ -2774,5 +2829,30 @@ function printErrorMsg (msg)
     });
     $('#validate-error').modal('show');
 }
+
+// bắt sự kiện bấm phím mũi tên
+document.addEventListener('keydown', function(event) {
+  if (event.code === 'ArrowDown') {
+    // Xử lý khi người dùng bấm phím xuống
+    bottommove();
+  } else if (event.code === 'ArrowLeft') {
+    // Xử lý khi người dùng bấm phím trái
+    leftmove();
+  } else if (event.code === 'ArrowRight') {
+    // Xử lý khi người dùng bấm phím phải
+    rightmove();
+  } else if (event.code === 'ArrowUp') {
+    // Xử lý khi người dùng bấm phím lên
+    topmove();
+  }
+});
+
+// tắt chức năng bắt sự kiện bấm phím lên xuống
+window.addEventListener("keydown", function(e) {
+    // Ngăn chặn sự kiện scroll khi bấm phím mũi tên lên/xuống
+    if([38, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 setTimeout(saveproduct, 60000);

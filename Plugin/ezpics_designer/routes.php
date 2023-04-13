@@ -10,4 +10,7 @@
 	$routesPlugin['listProduct']= 'ezpics_designer/view/home/product/listProduct.php';
 	$routesPlugin['deleteProduct']= 'ezpics_designer/view/home/product/deleteProduct.php';
 	$routesPlugin['addProduct']= 'ezpics_designer/view/home/product/addProduct.php';
+
+	// public
+	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';
 ?>
