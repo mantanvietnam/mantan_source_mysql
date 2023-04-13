@@ -59,8 +59,9 @@
                                         </div>
                                 <?php   } ?>
                             <div class="button-share">
-                                <a href=""><button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
-                                        sẻ</button></a>
+                                <!-- <a href=""><button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
+                                        sẻ</button></a> -->
+                                <div class="fb-share-button" data-href="" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +115,7 @@
                             $data['HotelManmo']['data']['Hotel']['info']= $data['Hotel']['name'].' là một '.$data['HotelManmo']['typeHotel'].' đẹp có địa chỉ ngay tại '.$data['HotelManmo']['data']['Hotel']['address'].', đường đi rất thuận tiện và dễ tìm. '.$data['HotelManmo']['data']['Hotel']['name'].' có đội ngũ nhân viên chuyên nghiệp, luôn cố gắng phục vụ mọi nhu cầu của khách hàng, vui lòng khách đến, vừa lòng khách đi, '.$numberRoomText.'phòng ốc của '.$data['HotelManmo']['data']['Hotel']['name'].' sạch đẹp, đầy đủ tiện ích trong phòng, có đầy đủ nóng lạnh, internet. Các cặp đôi đặc biệt thích địa điểm '.$data['HotelManmo']['data']['Hotel']['name'].$pointText.'. Chỗ nghỉ này cũng được đánh giá là đáng giá tiền nhất ở quanh khu vực, bạn sẽ tiết kiệm được nhiều hơn so với các chỗ nghỉ khác. ';
                         }
 
-                        echo $data['HotelManmo']['data']['Hotel']['info'];
+                        echo  str_replace(array("&nbsp;", "&nbsp;", "\t"), "", $data['HotelManmo']['data']['Hotel']['info']);
                     ?>
                 </div>
             </div>

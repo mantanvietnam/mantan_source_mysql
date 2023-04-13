@@ -59,11 +59,12 @@ global $session;
                                         </div>
                                 <?php   } ?>
                         <div class="button-share">
-                            <a href="">
+                            <!-- <a href="">
                                 <button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
                                     sẻ
                                 </button>
-                            </a>
+                            </a> -->
+                            <div class="fb-share-button" data-href="" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                         </div>
                     </div>
                 </div>
@@ -151,7 +152,12 @@ global $session;
                     <div class="title-order-table">
                         <p>Đặt bàn</p>
                     </div>
-                    <form action="/booktour"  method="post">
+                     <?php if(!empty($infoUser)){ ?>
+                        <form action="/bookTable"  method="post">
+                    <?php }else{ ?>
+                        <form action="/login"  method="post">
+                    <?php } ?>
+                    
 
                                     <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                     <input type="hidden" value="<?php echo $data->id ;?>" name="idrestaurant">

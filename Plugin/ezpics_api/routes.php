@@ -6,6 +6,8 @@
 	$routesPlugin['fixPass']= 'ezpics_api/view/fixPass.php';
 	$routesPlugin['fixUrlImage']= 'ezpics_api/view/fixUrlImage.php';
 	$routesPlugin['fixResponsiveProduct']= 'ezpics_api/view/fixResponsiveProduct.php';
+	$routesPlugin['fixJsonProductDetail']= 'ezpics_api/view/fixJsonProductDetail.php';
+	$routesPlugin['fixDeepLink']= 'ezpics_api/view/fixDeepLink.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';

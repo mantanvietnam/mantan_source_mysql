@@ -1619,9 +1619,9 @@ main {
 }
 
 .active-hover {
-  outline: dashed 2px white;
+  outline: dashed 1px white;
   padding: 2px 10px;
-  border-top: dashed 2px white;
+  border-top: dashed 1px white;
 }
 
 .loading {
@@ -1913,15 +1913,15 @@ main {
     outline: solid 2px seagreen;
 }*/
 .active-hover {
-  border-right: dashed 2px white;
-  border-left: dashed 2px white;
-  border-bottom: dashed 2px white;
+  border-right: dashed 1px white;
+  border-left: dashed 1px white;
+  border-bottom: dashed 1px white;
   outline: none;
   padding: 0;
   z-index: 9999;
 }
 .thumb-checklayer {
-    outline: solid 2px lawngreen;
+    outline: solid 1px lawngreen;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -1957,4 +1957,9 @@ main {
 #font-family {
     max-height: 280px;
     overflow-y: auto;
+}
+.loadimg{
+  position: fixed;
+  left: 50%;
+  top: 50%;
 }

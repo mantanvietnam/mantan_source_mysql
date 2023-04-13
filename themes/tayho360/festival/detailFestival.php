@@ -178,7 +178,7 @@ global $urlThemeActive;
                                 $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
                              ?>
                                 <div class="place-around-size">
-                                <p><?php echo round($distance, 2)*100 ?>Km</p>
+                                <p><?php echo round($distance, 2) ?>Km</p>
                             </div>
                             <?php } ?>
                             

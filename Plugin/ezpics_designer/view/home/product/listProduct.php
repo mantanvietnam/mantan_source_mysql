@@ -2,7 +2,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Mẫu thiết kế</h4>
-  <p><a href="/addProduct.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addProduct" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -78,7 +78,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách mẫu thiết kế</h5>
+    <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -97,6 +97,8 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $link_share = 'https://designer.ezpics.vn/detail/'.$item->slug.'-'.$item->id.'.html';
+
                 $type = '<span class="text-danger">Mẫu sao chép</span>';
                 if($item->type=='user_create'){
                   $type = '<span class="text-success">Mẫu gốc</span>';
@@ -104,7 +106,7 @@
 
                 $status = '<span class="text-danger">Chưa đăng bán</span>';
                 if($item->status==1){
-                  $status = '<span class="text-success">Đang đăng bán</span>';
+                  $status = '<span class="text-success">Đang đăng bán</span><p><a href="javascript:void(0);" onclick="copyToClipboard(\''.$link_share.'\')">Chia sẻ</a></p>';
                 }
 
                 $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
@@ -131,7 +133,7 @@
                         <td>'.$status.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
+                          <a target="_blank" class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
                             <i class="bx bx-edit"></i>
                           </a>
                         </td>
@@ -199,5 +201,27 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+
+<script type="text/javascript">
+  function copyToClipboard(text) {
+    // Tạo một thẻ textarea ẩn
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+
+    // Thêm thẻ textarea vào trang web
+    document.body.appendChild(textarea);
+
+    // Chọn toàn bộ nội dung trong thẻ textarea
+    textarea.select();
+
+    // Sao chép nội dung vào bộ nhớ đệm
+    document.execCommand("copy");
+
+    // Xóa thẻ textarea
+    document.body.removeChild(textarea);
+
+    alert('Sao chép link chia sẻ vào bộ nhớ đệm thành công');
+  }
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

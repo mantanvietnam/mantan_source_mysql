@@ -160,7 +160,8 @@ global $urlThemeActive;
             </div>
         </section>
         <!--  -->
-                 <?php  if(!empty($otherData)){ ?>
+                 <?php  if(!empty($otherData)){ 
+                    ?>
         <section id="place-around-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
@@ -169,6 +170,7 @@ global $urlThemeActive;
 
                 <div class="place-around-slide">
                      <?php 
+
                     foreach(@$otherData as $key => $value){
                     if(@$data->id != @$value->id){ ?>
                     <div class="place-around-slide-item">
@@ -185,11 +187,11 @@ global $urlThemeActive;
                             <div class="place-around-address">
                                 <p><?php echo $value->address ?></p>
                             </div>
-                            <?php if (!empty($data->latitude) & !empty($data->longitude) & !empty($value->latitude) & !empty($value->longitude)){
-                                $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
+                            <?php if (!empty($data->latitude) && !empty($data->longitude) && !empty($value->latitude) && !empty($value->longitude)){
+                                $distance = distance(@$data->latitude, @$data->longitude, @$value->latitude, @$value->longitude);
                              ?>
                                 <div class="place-around-size">
-                                <p><?php echo round($distance, 2) ?>Km</p>
+                                <p><?php echo round(@$distance, 2) ?>Km</p>
                             </div>
                             <?php } ?>
                             

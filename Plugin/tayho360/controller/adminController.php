@@ -1883,6 +1883,7 @@ function addPlaceAdmin($input){
             $data->image360 = @$dataSend['image360'];
             $data->content = @$dataSend['content'];
             $data->status = @$dataSend['status'];
+            $data->rating = @$dataSend['rating'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
             $modelPlace->save($data);

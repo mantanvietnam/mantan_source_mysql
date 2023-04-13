@@ -56,7 +56,7 @@ global $urlThemeActive;
                 <div class="tour-du-lich-list">
                     <div class="row g-3">
                     	<?php if(!empty(@$listData)){
-                    	foreach($listData as $key => $value) ?>
+                    	foreach($listData as $key => $value){ ?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <a href="/chi_tiet_tour/<?php echo $value->urlSlug ?>.html" class="text-decoration-none">
                                 <div class="tour-du-lich-card">
@@ -82,7 +82,7 @@ global $urlThemeActive;
                                 </div>
                             </a>
                         </div>
-                    <?php } ?>
+                    <?php }} ?>
                         
                         <div class="col-12">
                             <section id="pagination-page">
