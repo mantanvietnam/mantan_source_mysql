@@ -24,15 +24,22 @@ function login($input)
 	    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
 	    		if($info_customer){
-	    			if(empty($info_customer->token)){
-	    				$info_customer->token = createToken(25);
+	    			if($info_customer->type == 1){
+		    			if(empty($info_customer->token)){
+		    				$info_customer->token = createToken(25);
 
-	    				$modelMembers->save($info_customer);
-	    			}
+		    				$modelMembers->save($info_customer);
+		    			}
 
-	    			$session->write('infoUser', $info_customer);
-	    			
-					return $controller->redirect('/dashboard');
+		    			$session->write('CheckAuthentication', true);
+	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
+
+		    			$session->write('infoUser', $info_customer);
+		    			
+						return $controller->redirect('/dashboard');
+					}else{
+						$mess= '<p class="text-danger">Bạn chưa đăng ký để trở thành Designer</p>';
+					}
 	    		}else{
 	    			$mess= '<p class="text-danger">Sai số điện thoại hoặc mật khẩu</p>';
 	    		}

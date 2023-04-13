@@ -16,7 +16,8 @@
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
-            <?= $this->Form->create(); ?>
+            <form enctype="multipart/form-data" method="post" action="">
+              <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -42,8 +43,8 @@
                     <label class="form-label">Trạng thái (*)</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="status" id="status" required>
-                        <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected'; ?> >Kích hoạt</option>
                         <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
+                        <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected'; ?> >Kích hoạt</option>
                       </select>
                     </div>
                   </div>
@@ -54,29 +55,29 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Hình minh họa</label>
-                    <?php showUploadFile('thumbnail','thumbnail','',0);?>
+                    <input type="file" name="thumbnail" class="form-control">
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Hình nền (*)</label>
-                    <?php showUploadFile('background','background','',1);?>
+                    <input type="file" name="background" required class="form-control">
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Giá bán (*)</label>
-                    <input type="text" class="form-control phone-mask" name="sale_price" id="sale_price" value="0" required />
+                    <input type="number" min="0" max="99000" class="form-control phone-mask" name="sale_price" id="sale_price" value="0" required />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Giá thị trường</label>
-                    <input type="text" class="form-control phone-mask" name="price" id="price" value="0" />
+                    <input type="number" min="0" class="form-control phone-mask" name="price" id="price" value="0" />
                   </div>
                 </div>
                 
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button>
-            <?= $this->Form->end() ?>
+            </form>
           </div>
         </div>
       </div>
