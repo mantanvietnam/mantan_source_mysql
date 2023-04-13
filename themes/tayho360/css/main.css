@@ -661,6 +661,7 @@ footer .bottom-footer span {
   }
 }
 #skct-article article .head h1 {
+line-height:40px;
   font-style: normal;
   font-weight: 400;
   font-size: 36px;
