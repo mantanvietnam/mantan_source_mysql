@@ -197,6 +197,7 @@ function listTour($input){
        
         $listData = $modelTour->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     $conditions_scan = array('id'=>$value->id);
@@ -347,8 +348,9 @@ function booktour($input) {
         $modelBookTour = $controller->loadModel('Booktours');
 
     $dataSend = $input['request']->getData();
-
+    
     if(!empty($dataSend['name'])){
+
         $data = $modelBookTour->newEmptyEntity();
              $data->created = getdate()[0];
 

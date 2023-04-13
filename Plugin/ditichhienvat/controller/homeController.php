@@ -190,11 +190,11 @@ function detailArtifact($input){
 
 
         $data = $modelArtifact->find()->where($conditions)->first();
-        /*$month=array();
+        $month=array();
        
         $month['status']=1;
-        $conditions['idHistoricalsite']= $data->id;
-        $otherData = $modelArtifact->find()->where($month)->all();*/
+        $conditions['idHistoricalsite']= $data->idHistoricalsite;
+        $otherData = $modelArtifact->find()->where($month)->all();
         
         
         
@@ -232,6 +232,7 @@ function detailArtifact($input){
             
           
 
+            setVariable('otherData', $otherData);
             setVariable('data', $data);
         }else{
             return $controller->redirect('/');

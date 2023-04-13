@@ -61,7 +61,7 @@ $menus[0]['sub'][5]= array('title'=>'Nhà hàng',
                             
                         );
 
-$menus[0]['sub'][10]= array('title'=>'Dặt bàn nhà hàng',
+$menus[0]['sub'][10]= array('title'=>'Đặt bàn nhà hàng',
                             'url'=>'/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin.php',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTableAdmin',
@@ -73,7 +73,7 @@ $menus[0]['sub'][3]= array('title'=>'Tour',
                             'permission'=>'listTourAdmin',
                             
                         );
-$menus[0]['sub'][11]= array('title'=>'Dặt tour',
+$menus[0]['sub'][11]= array('title'=>'Đặt tour',
                             'url'=>'/plugins/admin/tayho360-admin-tour-listBookTourAdmin.php',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTourAdmin',
@@ -110,6 +110,14 @@ function categoryService(){
     return array('1'=>array('id'=>'1','name'=>'Ngân hàng, phòng giao dịch'),
         '2'=>array('id'=>'2','name'=>'Đơn vị lữ hành, vận chuyển'),
         '3'=>array('id'=>'3','name'=>'Bệnh viện, phòng khám, trạm y tế'),
+        '4'=>array('id'=>'3','name'=>'Khác'),
+    );
+}
+
+function rating(){
+    return array('1'=>array('id'=>'1','name'=>'Cấp quốc gia'),
+        '2'=>array('id'=>'2','name'=>'Cấp thành phố'),
+        '3'=>array('id'=>'3','name'=>'Chưa xếp hạng'),
     );
 }
 
@@ -457,8 +465,45 @@ function getHotel($id){
         $data = $listHotel;     
         return $data;
 }
-function distance($x1, $y1, $x2, $y2) {
-    $distance = sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2)); // tính khoảng cách
-    return $distance;
-}
+/*function distance($x1, $y1, $x2, $y2) {
+    $x1 = (int) $x1; 
+    $y1 = (int) $y1; 
+    $x2 = (int) $x2; 
+    $y2 = (int) $y2;
+
+
+    if(@$x2 > @$x1){
+       $x=  @$x2 - @$x1;
+    }else{
+        $x= @$x1 - @$x2;
+    }
+
+    if(@$y2 > @$y1){
+       $y=  @$y2 - @$y1;
+    }else{
+        $y= @$y1 - @$y2;
+    }
+    $val = pow(sin($x/2),2)+cos($x1)*cos($y)*pow(sin($y/2),2); 
+    //$distance = sqrt(pow($x, 2) + pow($y, 2)); 
+    $distance = 6378.8 * (2 * asin(sqrt($val)));; 
+    echo $distance;
+}*/
+
+
+function distance($lat1, $lon1, $lat2, $lon2) {
+    if((float)$lon1 > (float)$lon2){
+       $theta = (float)$lon1 - (float)$lon2;
+    }else{
+        $theta =(float)$lon2 - (float)$lon1;
+    }
+
+  
+  $dist = sin(deg2rad((float)$lat1)) * sin(deg2rad((float)$lat2)) + cos(deg2rad((float)$lat1)) * cos(deg2rad((float)$lat2)) * cos(deg2rad($theta));
+  $dist = acos($dist);
+  $dist = rad2deg($dist);
+  $miles = $dist * 60 * 1.1515;
+  
+  
+    return ($miles * 1.609344);
+ }
 ?>

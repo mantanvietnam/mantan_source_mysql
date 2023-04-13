@@ -14,7 +14,7 @@ global $urlThemeActive;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Trang chủ </a></li>
-                        <li class="breadcrumb-item"><a href="#">Tin tức </a></li>
+                        <li class="breadcrumb-item"><a href="#">Di tích văn hóa lịch sử </a></li>
                         <li class="breadcrumb-item active" aria-current="page">Hiện vật
                         </li>
                     </ol>
@@ -139,10 +139,10 @@ global $urlThemeActive;
                             <h1><?php echo $data->name ?></h1>
                         </div>
                         <div class="detail-artifacts">
-                            <p><span>Người lập phiếu: </span><?php echo $data->voter ?></p>
-                            <p><span>Tên di tích: </span><?php echo getHistoricalSite($data->idHistoricalsite)->name; ?></p>
-                            <p><span>Địa chỉ: </span><?php echo $data->address ?></p>
-                            <p><span>Kí hiệu, mã số ảnh: </span><?php echo $data->sign ?></p>
+                            <p><span>Người lập phiếu: </span><?php echo @$data->voter ?></p>
+                            <p><span>Tên di tích: </span><?php echo getHistoricalSite(@$data->idHistoricalsite)->name; ?></p>
+                            <p><span>Địa chỉ: </span><?php echo @$data->address ?></p>
+                            <p><span>Kí hiệu, mã số ảnh: </span><?php echo @$data->sign ?></p>
                             <p><span>Vị trí: </span><?php echo $data->sign ?></p>
                             <p><span>Số lượng: </span><?php echo $data->location ?></p>
                             <p><span>Tờ số: </span><?php echo $data->number ?></p>
@@ -152,8 +152,8 @@ global $urlThemeActive;
                             <p><span>Niên đại: </span><?php echo $data->period ?></p>
                             <p><span>Kỹ thuật chế tác: </span><?php echo $data->technique ?></p>
                             <div class="size-artifacts">
-                                <div class="title-artifact-size">Kích thước:&nbsp; </div>
-                                <p><?php echo $data->size ?></p>
+                                <div class="title-artifact-size">Kích thước: </div>
+                                <p><?php echo  nl2br($data->size); ?></p>
                             </div>
                             
                             <p><span>Hiện trạng: </span><?php echo $data->current ?></p>
@@ -178,6 +178,35 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
+              <?php
+                   if(!empty($otherData)){ ?>
+        <section id="place-around-section" class="mgt-80">
+            <div class="container">
+                <div class="title-section mgb-32">
+                    <p>Hiện vật khác</p>
+                </div>
+
+                <div class="place-around-slide">
+                     <?php 
+                    foreach(@$otherData as $key => $value){
+                        if(@$data->id != @$value->id){ ?>
+                    <div class="place-around-slide-item">
+                        <div class="place-around-img">
+                            <a href="/chi_tiet_di_tich_lich_su/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                        </div>
+
+
+                        <div class="place-around-title">
+                            <a href="/chi_tiet_di_tich_lich_su/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
+                        </div>
+
+                        
+                    </div>
+                   <?php }} ?>
+                </div>
+            </div>
+        </section> 
+        <?php } ?>
     </main>
 <?php
 getFooter();?>

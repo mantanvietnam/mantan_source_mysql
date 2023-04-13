@@ -141,6 +141,7 @@ function addHistoricalSitesAdmin($input)
             $data->content = @$dataSend['content'];
             $data->status = @$dataSend['status'];
             $data->idward = @$dataSend['idward'];
+            $data->rating = @$dataSend['rating'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
 

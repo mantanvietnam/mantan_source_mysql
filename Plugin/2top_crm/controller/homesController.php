@@ -150,4 +150,48 @@ function logout($input)
 function infoUser(){
 	
 }
+
+function pourpassword(){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+    $metaTitleMantan = 'Đăng nhập tài khoản';
+
+    $modelCustomer = $controller->loadModel('Customers');
+
+    if(empty($session->read('infoUser'))){
+    	$mess = '';
+
+	    if($isRequestPost){
+	    	$dataSend = $input['request']->getData();
+	    	if(!empty($dataSend['email']) && !empty($dataSend['pass'])){
+	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
+	    		$info_customer = $modelCustomer->find()->where($conditions)->first();
+
+	    		if(empty($info_customer )){
+	    			$conditions = array('phone'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
+	    			$info_customer = $modelCustomer->find()->where($conditions)->first();
+	    		}
+
+	    		if($info_customer){
+	    			$session->write('infoUser', $info_customer);
+	    			
+					return $controller->redirect('/');
+	    		}else{
+	    			$mess= '<p class="text-danger">Sai tài khoản hoặc mật khẩu</p>';
+	    		}
+	    	}else{
+	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+	    	}
+	    }
+
+	    setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/');
+	}
+
+}
 ?>

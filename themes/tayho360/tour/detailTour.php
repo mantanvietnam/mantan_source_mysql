@@ -111,15 +111,21 @@ global $session;
                                     <span><?php echo number_format(@$data['price']);?> VNĐ</span>
                                 </div>
                                 <div class="button-group mt-3">
-                                    <a href="" class="btn button-outline-primary-custom" data-bs-toggle="modal"
+                                   
+
+                                        <?php if(!empty($infoUser)){  ?>
+                                                                 <a href="" class="btn button-outline-primary-custom" data-bs-toggle="modal"
                                         data-bs-target="#modal-book-tour">Đặt tour</a>
+                                                            <?php }else{ ?> 
+                                                                <a href="/login" class="btn button-outline-primary-custom" >Đặt tour</a>
+                                                            <?php } ?>
                                     <!-- <a href="" class="btn button-outline-primary-custom">
                                         <div class="d-flex align-items-center">
                                             <i class="fa-solid fa-share-nodes me-2"></i>
                                             <span>Chia sẻ</span>
                                         </div>
                                     </a> -->
-                                    <div class="fb-share-button" data-href="" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                                    <div class="fb-share-button" data-href="<?php echo @$data->u ?>" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                                 </div>
                             </div>
                         </section>
@@ -163,7 +169,7 @@ global $session;
                                 <div class="col-12">
                                     <label for="">Ghi chú</label>
                                     <textarea class="form-control" id="" name="not" rows="3" style="height: 170px;"
-                                        placeholder="Nội dung">Ghi chú của bạn</textarea>
+                                        placeholder="Nội dung"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex justify-content-center">

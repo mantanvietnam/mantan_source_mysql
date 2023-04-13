@@ -58,12 +58,12 @@ global $urlThemeActive;
                                  ?>
                                 <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
                                     <td><?php echo $value->id ?></td>
-                                    <td><?php echo $tour->name ?></td>
-                                    <td><?php echo date('d/m/Y', $value->created) ?></td>
-                                    <td><?php echo date('d/m/Y', $tour->datestart) ?></td>
-                                    <td><?php echo date('d/m/Y', $tour->dateend) ?></td>
-                                    <td><?php echo $value->numberpeople ?></td>
-                                    <td><?php echo number_format($tour->price*$value->numberpeople) ?></td>
+                                    <td><?php echo @$tour->name ?></td>
+                                    <td><?php echo date('d/m/Y', @$value->created) ?></td>
+                                    <td><?php echo date('d/m/Y', @$tour->datestart) ?></td>
+                                    <td><?php echo date('d/m/Y', @$tour->dateend) ?></td>
+                                    <td><?php echo @$value->numberpeople ?></td>
+                                    <td><?php echo number_format(@$tour->price*@$value->numberpeople) ?></td>
                                 </tr>
                                <?php }} ?>
                             </table>

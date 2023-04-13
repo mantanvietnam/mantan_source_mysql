@@ -148,7 +148,7 @@ global $urlThemeActive;
         <section id="artifacts-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
-                    <p>Hiện vận</p>
+                    <p>Hiện vật</p>
                 </div>
 
                 <div class="place-artifacts-slide">
@@ -190,7 +190,7 @@ global $urlThemeActive;
         <section id="place-around-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
-                    <p>Địa điểm xung quan</p>
+                    <p>Địa điểm xung quanh</p>
                 </div>
 
                 <div class="place-around-slide">
@@ -212,10 +212,10 @@ global $urlThemeActive;
                                 <p><?php echo $value->address ?></p>
                             </div>
                             <?php if (!empty($data->latitude) & !empty($data->longitude) & !empty($value->latitude) & !empty($value->longitude)){
-                                $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
+                                $distance = distance(@$data->latitude, @$data->longitude, @$value->latitude, @$value->longitude);
                              ?>
                                 <div class="place-around-size">
-                                <p><?php echo round($distance, 2) ?>Km</p>
+                                <p><?php echo round(@$distance, 2) ?>Km</p>
                             </div>
                             <?php } ?>
                             
