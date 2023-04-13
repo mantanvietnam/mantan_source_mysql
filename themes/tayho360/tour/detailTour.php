@@ -1,6 +1,8 @@
  <?php
 getHeader();
 global $urlThemeActive;
+global $session;
+    $infoUser = $session->read('infoUser');
 ?>
  <main>
         <section class="banner-top-style-1">
@@ -58,14 +60,12 @@ global $urlThemeActive;
                     </div>
         </section>
         <section class="">
-            <div>
-                <h1><?php echo @$data->name ?></h1>
-            </div>
             <div class="container py-3 py-md-5">
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <section id="tour-chi-tiet-intro" class="mb-4">
-                            <h3 class="header-name">GIỚI THIỆU</h3>
+                            <h1  class="header-name"><?php echo @$data->name ?></h1>
+                            <h3>GIỚI THIỆU</h3>
                             <p class="intro-content">
                                 <?php echo @$data->introductory ?>
                             </p>
@@ -113,12 +113,13 @@ global $urlThemeActive;
                                 <div class="button-group mt-3">
                                     <a href="" class="btn button-outline-primary-custom" data-bs-toggle="modal"
                                         data-bs-target="#modal-book-tour">Đặt tour</a>
-                                    <a href="" class="btn button-outline-primary-custom">
+                                    <!-- <a href="" class="btn button-outline-primary-custom">
                                         <div class="d-flex align-items-center">
                                             <i class="fa-solid fa-share-nodes me-2"></i>
                                             <span>Chia sẻ</span>
                                         </div>
-                                    </a>
+                                    </a> -->
+                                    <div class="fb-share-button" data-href="" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                                 </div>
                             </div>
                         </section>

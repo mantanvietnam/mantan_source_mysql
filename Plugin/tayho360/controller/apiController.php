@@ -12,6 +12,7 @@ function listFestivalAPI($input){
              $key=createSlugMantan($dataSend['name']);
             $conditions['urlSlug']= array('$regex' => $key);
         }
+        $conditions['status']= 1;
 
         $order= array('created'=>'desc');
 
@@ -53,6 +54,7 @@ function listGovernanceAgencyAPI($input){
              $key=createSlugMantan($dataSend['name']);
             $conditions['urlSlug']= array('$regex' => $key);
         }
+        $conditions['status']= 1;
 
         $order= array('created'=>'desc');
 
@@ -70,7 +72,8 @@ function detailGovernanceAgencyAPI($input){
     $return= array('code'=>0);
     global $controller;
     $modelGovernanceAgency = $controller->loadModel('GovernanceAgencys');
-    $dataSend =$input['request']->getData();       
+    $dataSend =$input['request']->getData(); 
+
     if (!empty($dataSend['id'])) {
             $data=$modelGovernanceAgency->get( (int) $dataSend['id']);
              $return= array('code'=>1,'data'=>$data);
@@ -94,7 +97,7 @@ function listServiceAPI($input){
              $key=createSlugMantan($dataSend['name']);
             $conditions['urlSlug']= array('$regex' => $key);
         }
-
+        $conditions['status']= 1;
         $order= array('created'=>'desc');
 
         $totalData= $modelService->find()->where($conditions)->all()->toList();
@@ -137,6 +140,7 @@ function listCraftvillageAPI($input){
         }
 
         $order= array('created'=>'desc');
+        $conditions['status']= 1;
 
         $totalData= $modelCraftvillage->find()->where($conditions)->all()->toList();
 
@@ -176,6 +180,18 @@ function listEventAPI($input){
              $key=createSlugMantan($dataSend['name']);
             $conditions['urlSlug']= array('$regex' => $key);
         }
+         if(!empty($dataSend['month'])){
+             
+            $conditions['month']= $dataSend['month'];
+        }
+
+        if(!empty($dataSend['year'])){
+             
+            $conditions['year']= $dataSend['year'];
+        }
+
+        
+        $conditions['status']= 1;
 
         $order= array('created'=>'desc');
 
@@ -204,48 +220,7 @@ function detailEventAPI($input){
         return $return;
 }
 
-/*Sự kện */
-function listImage360API($input){
-    
-     header('Access-Control-Allow-Methods: *');
-     global $controller;
-    $modelEventImage = $controller->loadModel('EventImages');
-    $dataSend = $input['request']->getData();
-        
-        $conditions = array();
-          if(!empty($dataSend['name'])){
-             $key=createSlugMantan($dataSend['name']);
-            $conditions['urlSlug']= array('$regex' => $key);
-        }
-
-        $order= array('created'=>'desc');
-
-        $totalData= $modelEvent->find()->where($conditions)->all()->toList();
-
-        $return= array('code'=>1,'listData'=>$totalData);
-
-   // echo json_encode($return);
-        return $return;
-}
-
-function detailEventImage360API($input){
-    
-    header('Access-Control-Allow-Methods: *');
-    $return= array('code'=>0);
-    global $controller;
-    $modelEventImage = $controller->loadModel('EventImages');
-    $dataSend =$input['request']->getData();       
-    if (!empty($dataSend['id'])) {
-            $data=$modelEventImage->get( (int) $dataSend['id']);
-             $return= array('code'=>1,'data'=>$data);
-        }
-
-
-   // echo json_encode($return);
-        return $return;
-}
-
-/*cơ quan hang chinh*/
+/*Danh lam */
 function listPlaceAPI($input){
     
      header('Access-Control-Allow-Methods: *');
@@ -258,7 +233,7 @@ function listPlaceAPI($input){
              $key=createSlugMantan($dataSend['name']);
             $conditions['urlSlug']= array('$regex' => $key);
         }
-
+        $conditions['status']= 1;
         $order= array('created'=>'desc');
 
         $totalData= $modelPlace->find()->where($conditions)->all()->toList();
@@ -284,6 +259,89 @@ function detailPlaceAPI($input){
 
    // echo json_encode($return);
     return $return;
+}
+
+/*Trung tâm hội nghị sư khện */
+function listEventcenterAPI($input){
+    
+     header('Access-Control-Allow-Methods: *');
+     global $controller;
+    $modelEventcenter = $controller->loadModel('Eventcenters');
+    $dataSend = $input['request']->getData();
+        
+        $conditions = array();
+          if(!empty($dataSend['name'])){
+             $key=createSlugMantan($dataSend['name']);
+            $conditions['urlSlug']= array('$regex' => $key);
+        }
+        $conditions['status']= 1;
+        $order= array('created'=>'desc');
+
+        $totalData= $modelEventcenter->find()->where($conditions)->all()->toList();
+
+        $return= array('code'=>1,'listData'=>$totalData);
+
+    //echo json_encode($return);
+        return $return;
+}
+
+function detailEventcenterAPI($input){
+    
+    header('Access-Control-Allow-Methods: *');
+    $return= array('code'=>0);
+    global $controller;
+    $modelEventcenter = $controller->loadModel('Eventcenters');
+    $dataSend =$input['request']->getData();       
+    if (!empty($dataSend['id'])) {
+            $data=$modelEventcenter->get( (int) $dataSend['id']);
+             $return= array('code'=>1,'data'=>$data);
+        }
+
+
+   // echo json_encode($return);
+    return $return;
+}
+
+
+/*ảnh 360 */
+function listImage360API($input){
+    
+     header('Access-Control-Allow-Methods: *');
+     global $controller;
+    $modelImage = $controller->loadModel('Images');
+    $dataSend = $input['request']->getData();
+        
+        $conditions = array();
+          if(!empty($dataSend['name'])){
+             $key=createSlugMantan($dataSend['name']);
+            $conditions['urlSlug']= array('$regex' => $key);
+        }
+
+        $order= array('created'=>'desc');
+
+        $totalData= $modelEvent->find()->where($conditions)->all()->toList();
+
+        $return= array('code'=>1,'listData'=>$totalData);
+
+   // echo json_encode($return);
+        return $return;
+}
+
+function detailEventImage360API($input){
+    
+    header('Access-Control-Allow-Methods: *');
+    $return= array('code'=>0);
+    global $controller;
+    $modelEventImage = $controller->loadModel('Images');
+    $dataSend =$input['request']->getData();       
+    if (!empty($dataSend['id'])) {
+            $data=$modelEventImage->get( (int) $dataSend['id']);
+             $return= array('code'=>1,'data'=>$data);
+        }
+
+
+   // echo json_encode($return);
+        return $return;
 }
 
  ?>

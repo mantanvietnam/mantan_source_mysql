@@ -22,8 +22,22 @@ $menus[0]['sub'][3]= array(	'title'=>'Danh mục hiện vật',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listCategoryartifactAdmin'
 						);
-
-
-
 addMenuAdminMantan($menus);
 
+
+function getHistoricalSite($id){
+    global $modelOption;
+    global $controller;
+    $modelHistoricalSite = $controller->loadModel('HistoricalSites');
+        $data = $modelHistoricalSite->find()->where(['id'=>intval($id)])->first();     
+        return $data;
+}
+
+function getArtifact($id){
+    global $modelOption;
+    global $controller;
+    $modelArtifact = $controller->loadModel('Artifacts');
+        $data = $modelArtifact->find()->where(['id'=>intval($id)])->first();     
+        return $data;
+}
+?>

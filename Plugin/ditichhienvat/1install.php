@@ -82,8 +82,8 @@ $sqlInstallDatabase .= "CREATE TABLE `artifacts` (
 	`backgroundcolor` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`filegle` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`fileusdz` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
+	`urlSlug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , 
 	`status` TINYINT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-
 
 $sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
 $sqlDeleteDatabase .= "DROP TABLE wards; ";
