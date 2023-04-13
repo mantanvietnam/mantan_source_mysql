@@ -158,7 +158,7 @@ global $urlThemeActive;
                         <div class="place-around-img">
                             <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><img src="<?php echo $values->image ?>" alt=""></a>
                         </div>
-
+                        
 
                         <div class="place-around-title">
                             <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><?php echo $values->name ?></a>

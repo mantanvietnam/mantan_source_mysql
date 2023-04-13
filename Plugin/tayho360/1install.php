@@ -36,8 +36,9 @@ $sqlInstallDatabase .="CREATE TABLE `eventcenters` ( `id` INT NOT NULL AUTO_INCR
 
 $sqlInstallDatabase .="CREATE TABLE `booktables` ( `id` INT NOT NULL AUTO_INCREMENT , `idcustomer` INT NULL DEFAULT NULL , `idrestaurant` INT NULL DEFAULT NULL , `timebook` INT NULL DEFAULT NULL , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL , `not` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `numberpeople` INT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `booktours` ( `id` INT NOT NULL AUTO_INCREMENT , `idcustomer` INT NULL DEFAULT NULL , `idrestaurant` INT NULL DEFAULT NULL , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL , `not` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `numberpeople` INT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sqlInstallDatabase .="CREATE TABLE `booktours` ( `id` INT NOT NULL AUTO_INCREMENT , `idcustomer` INT NULL DEFAULT NULL , `idtour` INT NULL DEFAULT NULL , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL , `not` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `numberpeople` INT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `bookhotels` ( `id` INT NOT NULL AUTO_INCREMENT , `idcustomer` INT NULL DEFAULT NULL , `idhotel` INT NULL DEFAULT NULL , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `created` INT NULL DEFAULT NULL , `not` TEXT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `numberpeople` INT NULL DEFAULT NULL , `date_end` INT NULL DEFAULT NULL , `date_start` INT NULL DEFAULT NULL , `number_room` INT NULL DEFAULT NULL ,`type_register` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NULL DEFAULT NULL , `pricePay` INT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
 
 $sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
@@ -55,5 +56,6 @@ $sqlDeleteDatabase .= "DROP TABLE services; ";
 $sqlDeleteDatabase .= "DROP TABLE eventcenters; ";
 $sqlDeleteDatabase .= "DROP TABLE booktables; ";
 $sqlDeleteDatabase .= "DROP TABLE booktours; ";
+$sqlDeleteDatabase .= "DROP TABLE bookhotels; ";
 
 

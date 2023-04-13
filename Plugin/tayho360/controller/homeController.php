@@ -1221,6 +1221,79 @@ function detailHotel($input){
         }    
 }
 
+function bookHotel($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $bookHotel = $controller->loadModel('BookHotels');
+
+    $dataSend = $input['request']->getData();
+
+ 
+
+    if(!empty($dataSend['name'])){
+         $date_start = explode(' ', @$dataSend['date_start']);
+            $date_end = explode(' ', @$dataSend['date_end']);
+            $dataPost= array('idHotel'=>  @$dataSend['idhotel'],
+                'date_start'=> @$date_start[0],
+                'date_end'=> @$date_end[0],
+                'typeRoom'=> @$dataSend['typeRoom'],
+                'email'=> @$dataSend['email'],
+                'phone'=> @$dataSend['phone'],
+                'name'=> @$dataSend['name'],
+                'typeBooking'=>  6,
+                'number_room'=>  @$dataSend['number_room'],
+                'number_people'=> @$dataSend['number_people'],
+                'deposits'=> @$dataSend['pricePay'],
+                'type_register'=> @$dataSend['type_register'],
+                'key'=> '60d410dc2ac5db3f758b4567', 
+                'timeStart'=>  @$date_start[1],
+                'timeEnd'=>  @$date_end[1],
+                'textNumberDate'=> @$dataSend['timePay'],
+                'codeDiscount'=> '',
+                'wed'=> '0',
+
+            );
+
+            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/saveBookingAPI', $dataPost);
+            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
+            $listHotel= json_decode($listHotel, true);
+
+
+        $data = $bookHotel->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idhotel = @$dataSend['idhotel'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['number_people'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+        $data->type_register = @$dataSend['type_register'];
+        $data->date_end = @$dataSend['date_end'];
+        $data->date_start = @$dataSend['date_start'];
+        $data->number_room = (int) @$dataSend['number_room'];
+        $data->pricePay =(int) @$dataSend['pricePay'];
+
+
+      
+        $bookHotel->save($data);
+           return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookTourDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookTourfailure');
+    } 
+}
+
 // Trung tâm hội nghị sự kiện Eventcenter
 function listEventcenter($input){
     global $urlNow;
@@ -1968,6 +2041,50 @@ function ajax_event($input){
                      
                         }
         return (array('text'=>$text,'code'=>$code, 'data'=> @$listData));
+}
+
+function bookingonline(){
+     global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    global $urlThemeActive;
+    global $session;
+    $infoUser = $session->read('infoUser');
+    $bookHotel = $controller->loadModel('BookHotels');
+    $modelBookTable = $controller->loadModel('Booktables');
+    $modelBookTour = $controller->loadModel('Booktours');
+    $conditions =array();
+     $conditions['idcustomer']= $infoUser['id'];
+
+
+    $databookHotel = $bookHotel->find()->where($conditions)->all();
+    $databookTable = $modelBookTable->find()->where($conditions)->all();
+    $databookTour = $modelBookTour->find()->where($conditions)->all();
+
+
+     global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $metaTitleMantanDefault= $metaTitleMantan;
+        $metaKeywordsMantanDefault= $metaKeywordsMantan;
+        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Bookinh');
+        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                    
+        $metaTitleMantan= str_replace('%categoryName%', 'Bookinh', $metaTitleMantan);
+
+
+
+    setVariable('databookHotel',$databookHotel);
+    setVariable('databookTable',$databookTable);
+    setVariable('databookTour',$databookTour);
+
+
+
 }
 
 function findnear(){

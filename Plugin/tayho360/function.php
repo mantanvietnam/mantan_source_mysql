@@ -79,6 +79,12 @@ $menus[0]['sub'][11]= array('title'=>'Dặt tour',
                             'permission'=>'listBookTourAdmin',
                             
                         );
+$menus[0]['sub'][12]= array('title'=>'Đặt khách sạn',
+                            'url'=>'/plugins/admin/tayho360-admin-hotel-listBookhotelAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTourAdmin',
+                            
+                        );
 
 addMenuAdminMantan($menus);
 

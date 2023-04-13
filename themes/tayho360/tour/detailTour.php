@@ -1,6 +1,8 @@
  <?php
 getHeader();
 global $urlThemeActive;
+global $session;
+    $infoUser = $session->read('infoUser');
 ?>
  <main>
         <section class="banner-top-style-1">
