@@ -54,9 +54,9 @@ global $urlThemeActive;
                                 <?php
                                  foreach($databookTour as $key => $value){
                                     if(!empty($value)){
-                                        $tour = getTour($value->id);
+                                        $tour = getTour($value->idtour);
                                  ?>
-                                <tr>
+                                <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
                                     <td><?php echo $value->id ?></td>
                                     <td><?php echo $tour->name ?></td>
                                     <td><?php echo date('d/m/Y', $value->created) ?></td>
@@ -78,70 +78,21 @@ global $urlThemeActive;
                                     <th>Ngày trả</th>
                                     <th>Số tiền</th>
                                 </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
+                               <?php
+                                 foreach($databookHotel as $key => $value){
+                                    if(!empty($value)){
+                                        $Hotel = getHotel($value->idhotel);
+
+                                 ?>
+                                <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
+                                    <td><?php echo @$value->id ?></td>
+                                    <td><?php echo @$Hotel['data']['Hotel']['name']; ?></td>
+                                    <td><?php echo date('d/m/Y', @$value->created) ?></td>
+                                    <td><?php echo @$value->date_start ?></td>
+                                    <td><?php echo @$value->date_end ?></td>
+                                    <td><?php echo number_format(@$value->pricePay) ?></td>
                                 </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
+                               <?php }} ?>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -150,74 +101,24 @@ global $urlThemeActive;
                                     <th>Mã</th>
                                     <th>Địa chỉ</th>
                                     <th>Ngày đặt</th>
-                                    <th>Ngày nhận</th>
-                                    <th>Ngày trả</th>
-                                    <th>Số tiền</th>
+                                    <th>Thời gian đặt</th>
+                                    <th>Số người</th>
                                 </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
+                                <?php
+                                 foreach($databookTable as $key => $value){
+                                    if(!empty($value)){
+
+                                        $Restaurant = getRestaurant($value->idrestaurant);
+
+                                 ?>
+                                <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
+                                    <td><?php echo @$value->id ?></td>
+                                    <td><?php echo @$Restaurant->name; ?></td>
+                                    <td><?php echo date('d/m/Y', @$value->created) ?></td>
+                                    <td><?php echo date('d/m/Y h:i', @$value->timebook) ?></td>
+                                    <td><?php echo @$value->numberpeople ?></td>
                                 </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr>
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
-                                <tr style="background: #97C4BD;">
-                                    <td>11211</td>
-                                    <td>Khách sạn Westlake Tây Hồ, Hà Nội </td>
-                                    <td>2023-01-01 07:30</td>
-                                    <td>2023-01-01 07:35</td>
-                                    <td>2023-01-02 07:35</td>
-                                    <td>500.000</td>
-                                </tr>
+                               <?php }} ?>
                             </table>
                         </div>
                     </div>

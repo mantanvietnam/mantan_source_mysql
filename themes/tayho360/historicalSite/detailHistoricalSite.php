@@ -151,31 +151,17 @@ global $urlThemeActive;
                     <p>Hiện vận</p>
                 </div>
 
-                <div class="place-around-slide">
+                <div class="place-artifacts-slide">
                      <?php 
                     foreach(@$artifact as $key => $values){?>
-                    <div class="place-around-slide-item">
-                        <div class="place-around-img">
+
+                    <div class="place-artifacts-slide-item">
+                        <div class="place-artifacts-img">
                             <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><img src="<?php echo $values->image ?>" alt=""></a>
                         </div>
-                        
-
-                        <div class="place-around-title">
-                            <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><?php echo $values->name ?></a>
+                        <div class="place-artifacts-title">
+                            <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><?php echo $values->name ?></a>          
                         </div>
-
-                        <!-- <div class="place-around-box-address">
-                             <div class="place-around-address">
-                                <p><?php echo $value->address ?></p>
-                            </div>
-                            <?php if (!empty($data->latitude) & !empty($data->longitude) & !empty($value->latitude) & !empty($value->longitude)){
-                                $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
-                             ?>
-                                <div class="place-around-size">
-                                <p><?php echo round($distance, 2) ?>Km</p>
-                            </div>
-                            <?php } ?>
-                        </div> -->
                     </div>
                    <?php } ?>
                 </div>
@@ -204,7 +190,7 @@ global $urlThemeActive;
         <section id="place-around-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
-                    <p>Hiện vận</p>
+                    <p>Địa điểm xung quan</p>
                 </div>
 
                 <div class="place-around-slide">
