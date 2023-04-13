@@ -145,7 +145,7 @@ global $urlThemeActive;
 
          <?php
                    if(!empty($artifact)){ ?>
-        <section id="place-around-section" class="mgt-80">
+        <section id="artifacts-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
                     <p>Hiện vận</p>
@@ -157,10 +157,10 @@ global $urlThemeActive;
 
                     <div class="place-artifacts-slide-item">
                         <div class="place-artifacts-img">
-                            <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><img src="<?php echo $values->image ?>" alt=""></a>
+                            <a href="/chi_tiet_hien_vat/<?php echo $values->urlSlug ?>.html"><img src="<?php echo $values->image ?>" alt=""></a>
                         </div>
                         <div class="place-artifacts-title">
-                            <a href="/chi_tiet_hiet_vat/<?php echo $values->urlSlug ?>.html"><?php echo $values->name ?></a>          
+                            <a href="/chi_tiet_hien_vat/<?php echo $values->urlSlug ?>.html"><?php echo $values->name ?></a>          
                         </div>
                     </div>
                    <?php } ?>
@@ -199,12 +199,12 @@ global $urlThemeActive;
                         if(@$data->id != @$value->id){ ?>
                     <div class="place-around-slide-item">
                         <div class="place-around-img">
-                            <a href="/chi_tiet_hiet_vat/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                            <a href="/chi_tiet_di_tich_lich_su/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
                         </div>
 
 
                         <div class="place-around-title">
-                            <a href="/chi_tiet_hiet_vat/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
+                            <a href="/chi_tiet_di_tich_lich_su/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
                         </div>
 
                         <div class="place-around-box-address">

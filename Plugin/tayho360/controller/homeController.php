@@ -2071,7 +2071,7 @@ function bookingonline(){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Bookinh');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Booking');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
