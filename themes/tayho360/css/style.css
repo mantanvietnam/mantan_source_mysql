@@ -653,7 +653,7 @@ input:-internal-autofill-selected {
 
 	width: 100%;
 
-	height: 830px;
+	height: 600px;
 
 }
 
@@ -756,6 +756,12 @@ input:-internal-autofill-selected {
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     line-height: 34px;
+	overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 
 }
 
@@ -1590,7 +1596,7 @@ color: #188181;
 
 	position: relative;
 
-	height: 455px;
+	height: 284px;
 
 }
 
@@ -4011,6 +4017,10 @@ color: #188181;
 	padding: 5px
 }
 
+#section-artifacts .artifacts-slide-bot-img{
+	height: 223px;
+}
+
 #section-artifacts .title-artifacts{
 	color: #3F4042;
     font-size: 30px;
@@ -4075,6 +4085,12 @@ color: #188181;
 
 
 /* bo sung code slide hien vat*/
+
+#section-artifacts .artifacts-slide-top-img{
+	width: 610px;
+	height: 625px;
+}
+
 #section-artifacts .artifacts-slide-top-img img{
 	width: 100%;
 	height: 100%;
@@ -4132,7 +4148,7 @@ color: #188181;
 /* artifact địa điểm chi tiết*/
 #artifacts-section .place-artifacts-img img{
 	width: 100%;
-	
+	height: 100%;
 	border-radius: 20px;
 	transition: 0.5s;
 }
@@ -4141,6 +4157,7 @@ color: #188181;
 	border-radius: 20px;
 	overflow: hidden;
 	margin: 0 5px;
+	height: 308px;
 }
 
 #artifacts-section .place-artifacts-title{
@@ -4170,6 +4187,49 @@ color: #188181;
     width: 59px;
     height: 59px;
 	top: 43%
+}
+
+.place-artifacts-slide .slick-arrow{
+	position: absolute;
+    /* bottom: -800px; */
+    z-index: 10;
+    font-size: 30px;
+    background: #558F7C;
+    border: none;
+    border-radius: 50%;
+    width: 59px;
+    height: 59px;
+	top: 43%
+}
+
+.place-artifacts-slide .slick-arrow{
+	position: absolute;
+    /* bottom: -800px; */
+    z-index: 10;
+    font-size: 30px;
+    background: #558F7C;
+    border: none;
+    border-radius: 50%;
+    width: 59px;
+    height: 59px;
+	top: 43%
+}
+
+.artifacts-slide-top .slick-arrow{
+	position: absolute;
+    /* bottom: -800px; */
+    z-index: 10;
+    font-size: 30px;
+    background: #558F7C;
+    border: none;
+    border-radius: 50%;
+    width: 59px;
+    height: 59px;
+	top: 43%
+}
+
+.artifacts-slide-top i{
+	color: #fff;
 }
 
 .place-artifacts-slide .slick-arrow:hover{
