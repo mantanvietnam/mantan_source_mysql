@@ -1,5 +1,4 @@
 $ = jQuery;
-
 // Select all elements with the "i" tag and store them in a NodeList called "stars"
 const stars = document.querySelectorAll(".stars i");
 
@@ -19,9 +18,9 @@ stars.forEach((star, index1) => {
 
 $(document).ready(function () {
     $(".write-comment-content").hide();
-    $(".button-write-comment").click(function () {
-        $(".write-comment-content").slideToggle();
-    });
+    // $(".button-write-comment").click(function () {
+    //     $(".write-comment-content").slideToggle();
+    // });
     $(".eye-icon").click(function (e) {
         let value = $(this).attr("value")
 
