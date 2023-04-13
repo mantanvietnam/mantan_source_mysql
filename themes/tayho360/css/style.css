@@ -899,8 +899,8 @@ input:-internal-autofill-selected {
 
 	border: 1px solid #188181;
 
-	height: 65px;
-    width: 517px;
+	height: 58px;
+    width: 461px;
 
 	display: flex;
 
@@ -1200,6 +1200,10 @@ color: #188181;
 
 	margin-left: 13px;;
 
+}
+
+#place-post-comment .post-comment-content-text a{
+	color: #025545;
 }
 
 #place-post-comment .information-people-star .point-right-star i{
@@ -4060,4 +4064,118 @@ color: #188181;
 .place-img-slide.col-lg-9{
 	width: 73% !important;
 }
+}
+
+
+
+
+#section-change-password, #section-sign, #section-verify-account{
+	padding: 70px 0;
+}
+
+
+/* bo sung code slide hien vat*/
+#section-artifacts .artifacts-slide-top-img img{
+	width: 100%;
+	height: 100%;
+}
+
+#section-artifacts .artifacts-slide-bot-img img{
+	width: 100%;
+	height: 100%;
+	padding: 5px
+}
+
+#section-artifacts .title-artifacts{
+	color: #3F4042;
+    font-size: 30px;
+    text-transform: uppercase;
+	margin-bottom: 15px;
+}
+
+#section-artifacts .detail-artifacts p{
+	color: #3F4042;
+    font-size: 18px;
+	margin-bottom: 10px;
+}
+
+#section-artifacts .detail-artifacts span{
+	font-weight: bold;
+}
+
+#section-artifacts .artifacts-slide-top{
+
+}
+
+.size-artifacts{
+	display: flex;
+}
+
+.size-artifacts .title-artifact-size{
+	font-weight: bold;
+}
+
+#section-introduct .title-information{
+	color: #3F4042;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+#section-introduct{
+	margin-bottom: 80px;
+}
+
+.introduc-col{
+	padding-left: 74px;
+}
+
+/* artifact địa điểm chi tiết*/
+#artifacts-section .place-artifacts-img img{
+	width: 100%;
+	
+	border-radius: 20px;
+	transition: 0.5s;
+}
+
+#artifacts-section .place-artifacts-img{
+	border-radius: 20px;
+	overflow: hidden;
+	margin: 0 5px;
+}
+
+#artifacts-section .place-artifacts-title{
+	margin-top: 12px;
+}
+
+#artifacts-section .place-artifacts-title a{
+	font-size: 24px;
+	color: #3F4042;
+}
+
+
+#artifacts-section .place-artifacts-img:hover img{
+	scale: 1.2;
+	transition: 0.5s;
+}
+
+
+.place-artifacts-slide .slick-arrow{
+	position: absolute;
+    /* bottom: -800px; */
+    z-index: 10;
+    font-size: 30px;
+    background: #558F7C;
+    border: none;
+    border-radius: 50%;
+    width: 59px;
+    height: 59px;
+	top: 43%
+}
+
+.place-artifacts-slide .slick-arrow:hover{
+	background: #558F7C;
+}
+
+.place-artifacts-slide .slick-arrow i {
+	color: #fff;
 }

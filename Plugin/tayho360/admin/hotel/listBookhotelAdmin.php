@@ -1,41 +1,39 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin dịch vụ hỗ trợ du lịch</h4>
-  <p>
-    <a href="/plugins/admin/tayho360-admin-service-addServiceAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
-     &nbsp;&nbsp;&nbsp;
-    <a href="/plugins/admin/tayho360-admin-service-addExceServiceAdmin.php" class="btn btn-danger"><i class='bx bxs-file-doc'></i> Thêm excel</a>
-  </p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin đặt khách sạn</h4>
+  <!-- <p><a href="/plugins/admin/tayho360-admin-restaurant-addRestaurantAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
-  <form action="" method="GET">
+<!--   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
             <tbody><tr>
                 <td>
-                    <label>Tên dịch vụ hỗ trợ</label>
-                    <input type="" name="name" class="form-control" placeholder="Dịch vụ hỗ trợ du lịch" value="">
+                    <label>Tên nhà hàng</label>
+                    <input type="" name="name" class="form-control" placeholder="Tên nhà hàng" value="">
                 </td>
                  <td >
                     <br>
                     <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
                 </td>
-               <!--  <td >
+            <td >
                     <input type="submit" name="excel" value="Xuất excel">
-                </td> -->
+                </td> 
             </tr>
         
         </tbody></table>
-    </form>
+    </form> -->
   <div class="card">
-    <h5 class="card-header">Danh sách Thông tin dịch vụ hỗ trợ du lịch</h5>
+    <h5 class="card-header">Danh sách Thông tin đặt khách sạn</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th>Hình ảnh</th>
-            <th>Tên dịch vụ hỗ trợ du lịch</th>
+            <th>Tên Khách sạn</th>
+            <th>Tên khách hàng</th>
             <th>Số điện thoại</th>
-            <th>địa chỉ </th>
-            <th>Sửa</th>
+            <th>Số người</th>
+            <th>Thời gian</th>
+            <th>CHú ý</th>
+            <!-- <th>Sửa</th> -->
             <th>Xóa</th> 
           </tr>
         </thead>
@@ -43,29 +41,35 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                echo '<tr>
-                        <td><img src="'.$item->image.'" width="100"></td>
-                        <td>'.$item->name.'</td>
-                        <td> '.$item->phone.'</td>
-                        <td> '.$item->address.'</td>
+
+                 $title = getHotel($item->idhotel);
+                    $url= 'chi_tiet_khach_san/'.$title['data']['Hotel']['slug'].'.html';
+?>
+              <tr>
+                        <td><a href="/../../<?php echo $url ?>"><?php echo @$title['data']['Hotel']['name'] ?></a><br> Sđt: <?php echo @$title['data']['Hotel']['phone'] ?></td>
+                         <td><?php echo @$item->name; ?></td>
+                        <td><?php echo @$item->phone ?></td>
+                        <td><?php echo @$item->numberpeople; ?></td>
+                        <td>từ: <?php echo @$item->date_start; ?><br> đến: <?php echo @$item->date_end; ?></td>
+                        <td><?php echo @$item->note; ?></td>
                         
-                        <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-service-addServiceAdmin.php/?id='.$item->id.'">
+                      <!--   <td align="center">
+                          <a class="dropdown-item" href="tayho360-admin-restaurant-addRestaurantAdmin.php/?id=<?php echo @$item->id ?>">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
-                        </td>
+                        </td> -->
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-service-deleteServiceAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteBookTourAdmin.php/?id=<?php echo @$item->id ?>">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
-                      </tr>';
-              }
-            }else{
-              echo '<tr>
+                      </tr>
+            <?php  }
+            }else{?>
+           <tr>
                       <td colspan="10" align="center">Chưa có dữ liệu</td>
-                    </tr>';
-            }
+                    </tr>
+           <?php    }
           ?>
         </tbody>
       </table>

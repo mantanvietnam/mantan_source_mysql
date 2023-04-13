@@ -80,4 +80,6 @@
    $routesPlugin['listServiceAPI'] = 'tayho360/view/listServiceAPI.php';
    $routesPlugin['listEventcenterAPI'] = 'tayho360/view/listEventcenterAPI.php';
    $routesPlugin['detailEventcenterAPI'] = 'tayho360/view/detailEventcenterAPI.php';
+   $routesPlugin['bookHotel'] = 'tayho360/view/bookHotel.php';
+   $routesPlugin['bookingonline'] = 'tayho360/view/bookingonline.php';
 ?>

@@ -3,6 +3,11 @@
     $infoUser = $session->read('infoUser');
 ?>
 
+    <script src="<?php echo @$urlThemeActive ?>assets/js/jquery.datetimepicker.full.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js'></script>
+    <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css'> -->
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css'>
+    <link rel="stylesheet" href="<?php echo @$urlThemeActive ?>assets/css/datetimepicker.css">
   <main>
   			<?php if(!empty($data['HotelManmo']['data']['Hotel']['link360'])){ ?>
         <section class="page-banner">
@@ -375,8 +380,11 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h5 class="text-center modal-name">Đặt phòng</h5>
-                    <form action="" method="post"  >
-				
+                    <form action="/bookHotel" method="post"  >
+                        <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+				        <input type="hidden" value="<?php echo $data['HotelManmo']['data']['Hotel']['id'] ;?>" name="idhotel">
+                        <input type="hidden" value="<?php echo @$infoUser['id'];?>" name="idcustomer">
+                        <input type="hidden" value="<?php echo $data['HotelManmo']['data']['Hotel']['slug']; ?>" name="urlSlug">
 		
 				<div class="row">
 					<div class="col-md-6">
@@ -439,7 +447,7 @@
 						<input type="text" name="pricePay" class="input_date form-control" id="pricePay" value="" required=""  disabled="" placeholder="Chi phí dự kiến">
 					</div>
 					<div class="col-md-12" style=" margin-top: 55px;">
-						<button type="button" class="btn button-submit-custom" onclick="resetTinh();">Đặt Phòng</button>
+						<button type="submit" class="btn button-submit-custom">Đặt Phòng</button>
 					</div>
 				</div>
 			</form>
@@ -568,9 +576,11 @@ $('.click_forms').click(function() {
                 $('#qrOrder').attr('src',QRimg);
                 $('#modalQR').modal('show');
                 alert('Bạn dặt phòng thành công .');
+                 window.location="/bookHotel";
 
             }).fail(function(e) {
             	alert('Bạn dặt phòng thành công .');
+                 window.location="/bookHotel";
               });
            }else {
             alert('Bạn cần nhập đủ các thông tin.');

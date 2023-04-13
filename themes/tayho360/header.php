@@ -43,6 +43,7 @@ $infoUser = $session->read('infoUser');
     <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
     <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
     <script src="<?= $urlThemeActive ?>assets/js/main.js"></script>
+    <script src="/themes/tayho360/js/slick.js"></script>
     <!-- FILE INCLUDE JS END -->
     <?php mantan_header(); ?>
 
