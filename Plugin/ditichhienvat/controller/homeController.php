@@ -111,14 +111,92 @@ function detailHistoricalSite($input){
                 $conditions = array('urlSlug'=>$slug);
             }
         }
-
-
-
         $data = $modelHistoricalSite->find()->where($conditions)->first();
 
-        $month=array();
+        $modelArtifact = $controller->loadModel('Artifacts');
+
+        $conditions=array();
+       
+        $conditions['status']=1;
+        $conditions['idHistoricalsite']= $data->id;
+        $artifact = $modelArtifact->find()->where($conditions)->all();
+        $other = array();
+        $other['status']=1;
+        $otherData = $modelHistoricalSite->find()->where($other)->all();
+
+        if(!empty($data)){
+           
+
+            $conditions = array('id !='=>$data->id);
+            $limit = 4;
+            $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+            if($page<1) $page = 1;
+            $order = array('id'=>'desc');
+
+            $metaTitleMantanDefault= $metaTitleMantan;
+            $metaKeywordsMantanDefault= $metaKeywordsMantan;
+            $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+            $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
+            $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+            $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                
+            $metaTitleMantan= str_replace('%productName%', $data->name, $metaTitleMantan);
+            $metaTitleMantan= str_replace('%productKeyword%', $data->name, $metaTitleMantan);
+            $metaTitleMantan= str_replace('%productDescription%', $data->introductory, $metaTitleMantan);
+
+
+            $metaDescriptionMantan= str_replace('%title%', $metaTitleMantanDefault, $data->introductory);
+            $metaDescriptionMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaDescriptionMantan);
+            
+            $metaDescriptionMantan= str_replace('%productName%', @$data->name, $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
+
+
+
+            setVariable('data', $data);
+            setVariable('otherData', $otherData);
+            setVariable('artifact', $artifact);
+        }else{
+            return $controller->redirect('/');
+        }         
+}
+
+function detailArtifact($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelArtifact = $controller->loadModel('Artifacts');
+
+
+        if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+            if(!empty($_GET['id'])){
+                $conditions = array('id'=>$_GET['id']);
+            }else{
+                $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+                $conditions = array('urlSlug'=>$slug);
+            }
+        }
+
+
+
+        $data = $modelArtifact->find()->where($conditions)->first();
+        /*$month=array();
        
         $month['status']=1;
+        $conditions['idHistoricalsite']= $data->id;
+        $otherData = $modelArtifact->find()->where($month)->all();*/
+        
+        
         
 
         if(!empty($data)){
@@ -152,11 +230,9 @@ function detailHistoricalSite($input){
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
             
-            $otherData = $modelHistoricalSite->find()->where($month)->all();
-
+          
 
             setVariable('data', $data);
-            setVariable('otherData', $otherData);
         }else{
             return $controller->redirect('/');
         }         
