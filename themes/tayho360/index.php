@@ -332,6 +332,9 @@ global $urlThemeActive;
                                     </ul>
                                 </div>
                             </div>
+                            <button class="view_moreEvent">
+                                Xem thêm <i class="fa-solid fa-angles-right"></i>
+                            </button>
                         </div>
                         <?php } }else { ?>
                            <div class="slide-event-home">
