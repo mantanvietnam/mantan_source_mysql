@@ -131,6 +131,14 @@ $info = $session->read('infoUser');
     .m_bg_img img {
         max-width: 100% !important;
     }
+
+    .button-submit-custom {
+        width: 220px !important;
+    }
+
+    #user-page .content {
+        padding-bottom: 80px !important;
+    }
 </style>
 
 <?php
