@@ -64,17 +64,17 @@ global $session;
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <section id="tour-chi-tiet-intro" class="mb-4">
-                            <h1  class="header-name"><?php echo @$data->name ?></h1>
-                            <h3>GIỚI THIỆU</h3>
+                            <h3  class="header-name"><?php echo @$data->name ?></h3>
                             <p class="intro-content">
-                                <?php echo @$data->introductory ?>
+                                <?php echo @$data->content ?>
+                                <!-- <?php echo @$data->introductory ?> -->
                             </p>
                         </section>
                         <section class="time-line">
                             <div class="">
                                 <h3 class="header-name">Lịch trình</h3>
                                 <p class="intro-content">
-                                <?php echo @$data->content ?>
+                                <!-- <?php echo @$data->content ?> -->
                             </p>
                             </div>
 
@@ -125,7 +125,9 @@ global $session;
                                             <span>Chia sẻ</span>
                                         </div>
                                     </a> -->
-                                    <div class="fb-share-button" data-href="<?php echo @$data->u ?>" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                                    <div class="button-share-tour">
+                                        <div class="fb-share-button" data-href="<?php echo @$data->u ?>" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
