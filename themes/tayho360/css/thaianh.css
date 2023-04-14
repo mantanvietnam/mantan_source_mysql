@@ -3473,6 +3473,10 @@ table {
 
 @media (max-width:400px) {
 
+    #booking-tabs .box-search label input {
+        padding: 21px 54px 22px 100px;
+    }
+
     #travel-guide .container {
 
         padding: 0 30px;
