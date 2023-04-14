@@ -2956,6 +2956,16 @@ table {
 
 @media (max-width:768px) {
 
+    #booking-tabs .nav-tabs .nav-item button {
+        padding: 19px 0 23px 0;
+        font-size: 22px;
+    }
+    
+    #booking-tabs .box-search label .box-icon {
+        font-size: 27px;
+        top: 21px;
+    }
+
     .tab-notifi-content .box-img-bdn {
 
         width: 48px;
