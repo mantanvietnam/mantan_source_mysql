@@ -66,6 +66,97 @@ p {
 
 /* home.html */
 
+.view_moreEvent:hover {
+    border-color: transparent;
+}
+
+.view_moreEvent {
+    border: none;
+    width: 162px;
+    height: 51px;
+    border: 2px solid #126b66;
+    margin: auto;
+    margin-top: 60px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    color: #fff;
+    background-color: #126B66;
+    text-transform: uppercase;
+    /* font-family: "Montserrat-SemiBold"; */
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    left: 18%;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.view_moreEvent {
+    color: #fff;
+    font-size: 15px;
+}
+
+.view_moreEvent:hover:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.view_moreEvent:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.view_moreEvent:hover {
+    border-color: transparent;
+    color: #126B66;
+}
+
+.view_moreEvent:hover:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.view_moreEvent:hover i {
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
+}
+
+.view_moreEvent i {
+    margin-left: 10px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
 /* #particle-js */
 #particle-js {
 	height: 824px;
@@ -1730,6 +1821,10 @@ p {
 }
 
 @media (max-width:1366px) {
+    .view_moreEvent {
+        bottom: 8%;
+        left: 13%;
+    }
     .box-event-home .slide-time-event {
         right: 13%;
     }
@@ -2057,6 +2152,15 @@ p {
     }
 }
 
+@media (max-width:991px) {
+
+    #booking-tabs .container {
+
+        padding: 0 50px !important;
+
+    }
+}
+
 @media (max-width:900px) {
     .info-event-home {
         width: 570px;
@@ -2094,6 +2198,23 @@ p {
 }
 
 @media (max-width:768px) {
+
+    .view_moreEvent {
+        bottom: -21%;
+        left: 39%;
+    }
+    #particles-js {
+        height: 750px !important;
+    }
+    #booking-tabs .nav-tabs .nav-item button {
+        padding: 19px 0 23px 0;
+        font-size: 22px;
+    }
+    
+    #booking-tabs .box-search label .box-icon {
+        font-size: 27px;
+        top: 21px;
+    }
     #travel-guide .box-service .box-image img {
         height: 25vh;
     }
@@ -2289,6 +2410,20 @@ p {
 }
 
 @media (max-width:600px) {
+
+    #travel-guide {
+        margin-top: 325px;
+    }
+
+    .view_moreEvent {
+        bottom: -25%;
+    }
+
+    #booking-tabs .box-search label .box-icon {
+        font-size: 20px;
+        top: 23px;
+        left: 48px;
+    }
     .lshowcase-box-10 {
         margin: 0 50px;
     }
@@ -2306,6 +2441,28 @@ p {
 }
 
 @media (max-width:500px) {
+
+    .list-tabs .text-tabs p {
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .view_moreEvent {
+        color: #fff;
+        font-size: 13px;
+        width: 140px;
+        height: 40px;
+    }
+
+    .view_moreEvent {
+        bottom: -29%;
+        left: 36%;
+    }
+
+    #booking-tabs .container {
+        padding: 0 25px !important;
+    }
     #particles-js {
         height: 750px !important;
     }
@@ -2380,7 +2537,7 @@ p {
         padding: 0 25px;
     }  
     .info-event-home {
-        padding: 30px 50px;
+        padding: 30px 50px 75px 50px;
     }
     .box-event-home .slide-time-event {
         right: 1%;
@@ -2417,6 +2574,12 @@ p {
 }
 
 @media (max-width:450px) {
+
+    .notification .container {
+
+        padding: 0 25px !important;
+
+    }
     .notification .container {
         padding: 0 25px !important;
     }
@@ -2463,6 +2626,13 @@ p {
 }
 
 @media (max-width:400px) {
+
+    #particles-js {
+        height: 780px !important;
+    }    
+    #booking-tabs .box-search label input {
+        padding: 21px 54px 22px 100px;
+    }
     #event-home .box-event-home .in-box-event-home .slick-prev {
         left: 39.5%;
     }
@@ -2495,6 +2665,16 @@ p {
     #map-home #mapid .book-icon-map {
         left: 15px;
     }
+    #event-home .event-home-title p {
+        padding-top: 180px;
+    }
+    .view_moreEvent {
+        bottom: -32%;
+        left: 33%;
+    }
+    #travel-guide {
+        margin-top: 350px;
+    }
 }
 
 @media (max-width:380px) {
@@ -2511,6 +2691,16 @@ p {
     #viet-nam-360 .container {
         padding: 0 25px;
     }
+    #particles-js {
+        height: 810px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    .view_moreEvent {
+        bottom: -37%;
+        left: 31%;
+    }
 }
 
 @media (min-width:576px) {
@@ -2518,3 +2708,5 @@ p {
         margin: 10.00rem auto;
     }
 }
+
+

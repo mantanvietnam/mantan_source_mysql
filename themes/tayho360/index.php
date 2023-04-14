@@ -32,22 +32,19 @@ global $urlThemeActive;
                         <div class="lshowcase-logos">
                             <div class="lshowcase-flex">
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[1]['urlSlug']?>">
-                                        <div class="lshowcase-thumb lshowcase-box-10">
-                                            <div class="lshowcase-wrap-responsive">
-                                                <div class="lshowcase-boxInner">
-                                                    <img src="<?php echo $destination[1]['image']?>"
-                                                         class="lshowcase-thumb" alt="">
-                                                </div>
+                                    <div class="lshowcase-thumb lshowcase-box-10">
+                                        <div class="lshowcase-wrap-responsive">
+                                            <div class="lshowcase-boxInner">
+                                                <img src="<?php echo $destination[1]['image']?>"
+                                                     class="lshowcase-thumb" alt="">
                                             </div>
                                         </div>
-                                        <div class="text-tabs">
-                                            <p><?php echo $destination[1]['name']?></p>
-                                        </div>
-                                    </a>
+                                    </div>
+                                    <div class="text-tabs">
+                                        <p><?php echo $destination[1]['name']?></p>
+                                    </div>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[2]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -59,10 +56,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[2]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[3]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -74,10 +69,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[3]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[4]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -90,10 +83,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[4]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[5]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -105,12 +96,10 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[5]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                             </div>
                             <div class="lshowcase-flex">
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[6]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -123,10 +112,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[6]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[7]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -138,11 +125,9 @@ global $urlThemeActive;
                                     </div>
                                     <div class="text-tabs">
                                         <p><?php echo $destination[7]['name']?></p>
-                                    </div>
-                                    </a>
+                                    </div>=
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[8]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -154,10 +139,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[8]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[9]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -169,7 +152,6 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[9]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                
                             </div>
@@ -179,7 +161,6 @@ global $urlThemeActive;
                         <div class="lshowcase-logos">
                             <div class="lshowcase-flex">
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[1]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -191,10 +172,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[1]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[2]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -206,10 +185,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[2]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[3]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -221,10 +198,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[3]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[4]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -235,14 +210,10 @@ global $urlThemeActive;
                                         </div>
                                     </div>
                                     <div class="text-tabs">
-                                        <p>
-                                          <?php echo $destination[4]['name']?>
-                                        </p>
+                                        <p><?php echo $destination[4]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[5]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -254,10 +225,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[5]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[6]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -268,12 +237,10 @@ global $urlThemeActive;
                                         </div>
                                     </div>
                                     <div class="text-tabs">
-                                        <p> <?php echo $destination[6]['name']?></p>
+                                        <p><?php echo $destination[6]['name']?></p>
                                     </div>
-                                </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[7]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -286,10 +253,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[7]['name']?></p>
                                     </div>
-                                </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[8]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -301,10 +266,8 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[8]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="<?php echo $destination[9]['urlSlug']?>">
                                     <div class="lshowcase-thumb lshowcase-box-10">
                                         <div class="lshowcase-wrap-responsive">
                                             <div class="lshowcase-boxInner">
@@ -316,7 +279,6 @@ global $urlThemeActive;
                                     <div class="text-tabs">
                                         <p><?php echo $destination[9]['name']?></p>
                                     </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +286,7 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-        <section id="event-home">
+        <section id="event-home" style="position: relative;">
             <div class="event-home-title">
                 <p>Sự kiện</p>
                 <div class="article-space"></div>
@@ -347,7 +309,7 @@ global $urlThemeActive;
                             </div>
                             <div class="info-event-home">
                                 <div class="name-event-home">
-                                    <a href="chi_tiet_su_kien/<?php echo $valueEvent['urlSlug']; ?>.html"><p><?php echo $valueEvent['name']; ?> </p></a>
+                                    <p><?php echo $valueEvent['name']; ?> </p>
                                 </div>
                                 <div class="description-event-home">
                                     <p class="title-des">Giới thiệu</p>
@@ -371,7 +333,6 @@ global $urlThemeActive;
                                 </div>
                             </div>
                         </div>
-                        
                         <?php } }else { ?>
                            <div class="slide-event-home">
                             <div class="item-event-home absolute">
@@ -382,7 +343,7 @@ global $urlThemeActive;
                             <div class="info-event-home">
                                 <div class="name-event-home">
                                     <p>Chưa có sự kiện nào đang diễn ra.</p>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                         <?php
@@ -655,8 +616,7 @@ function loadEvent(e) {
 }
 
 function eventhome(){
-    $(document).ready(function(){
-  $('.box-month-event').slick({
+  $('.in-box-event-home').slick({
 
     dots: false,
 
@@ -664,7 +624,7 @@ function eventhome(){
 
     arrows: true,
 
-    speed: 600,
+    speed: 500,
 
     fade: true,
 
@@ -675,7 +635,6 @@ function eventhome(){
     nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`
 
   });
-});
 }
 
 function loadEventNextPrev(e) {
