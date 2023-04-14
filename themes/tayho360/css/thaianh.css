@@ -3211,6 +3211,10 @@ table {
         font-size: 18px;
     }
 
+    #booking-tabs .tab-content .tab-pane tr th {
+        font-size: 15px;
+    }
+
     .list-tabs-none {
 
         display: none !important;
