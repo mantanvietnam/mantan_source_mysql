@@ -44,8 +44,8 @@
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Đang đăng bán</option>
-              <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
-              <option value="">Tất cả</option>
+              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
+              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
             </select>
           </div>
 
@@ -54,7 +54,7 @@
             <select name="type" class="form-select color-dropdown">
               <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
               <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
-              <option value="">Tất cả</option>
+              <option value="" <?php if(isset($_GET['type']) && $_GET['type']=='') echo 'selected';?>>Tất cả</option>
             </select>
           </div>
 
@@ -80,7 +80,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách mẫu thiết kế</h5>
+    <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

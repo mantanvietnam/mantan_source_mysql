@@ -5,6 +5,9 @@
 	// $routesPlugin['fixCategoryProduct']= 'ezpics_api/view/fixCategoryProduct.php';
 	$routesPlugin['fixPass']= 'ezpics_api/view/fixPass.php';
 	$routesPlugin['fixUrlImage']= 'ezpics_api/view/fixUrlImage.php';
+	$routesPlugin['fixResponsiveProduct']= 'ezpics_api/view/fixResponsiveProduct.php';
+	$routesPlugin['fixJsonProductDetail']= 'ezpics_api/view/fixJsonProductDetail.php';
+	$routesPlugin['fixDeepLink']= 'ezpics_api/view/fixDeepLink.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';
@@ -73,11 +76,18 @@
 	// liên hệ
 	$routesPlugin['saveContactAPI']= 'ezpics_api/view/saveContactAPI.php';
 	$routesPlugin['saveRequestDesignerAPI']= 'ezpics_api/view/saveRequestDesignerAPI.php';
+	$routesPlugin['saveReportAPI']= 'ezpics_api/view/saveReportAPI.php';
 
 	// giao dịch
 	$routesPlugin['getHistoryTransactionAPI']= 'ezpics_api/view/getHistoryTransactionAPI.php';
 	$routesPlugin['saveRequestBankingAPI']= 'ezpics_api/view/saveRequestBankingAPI.php';
 	$routesPlugin['saveRequestWithdrawAPI']= 'ezpics_api/view/saveRequestWithdrawAPI.php';
 	$routesPlugin['getNameBankAPI']= 'ezpics_api/view/getNameBankAPI.php';
+
+	// thiết kế ảnh hàng loạt
+	$routesPlugin['getMyProductSeriesAPI']= 'ezpics_api/view/getMyProductSeriesAPI.php';
+
+	// slide
+	$routesPlugin['getSlideHomeAPI']= 'ezpics_api/view/getSlideHomeAPI.php';
 
 ?>

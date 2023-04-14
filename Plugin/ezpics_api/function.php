@@ -350,6 +350,7 @@ function sendNotification($data,$target){
     
     $fields['data'] = $data;
     $fields['priority'] = 'high';
+    $fields['content_available'] = true;
 
     $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     
@@ -463,7 +464,7 @@ function getLayerProductForEdit($idProduct=0)
                     $dnone = $layer->status == 0 ? 'd-none' : '';
                     $wight = empty($item->wight) ? 50 : $item->wight;
                     $height = empty($item->height) ? 50 : $item->height;
-                    $list_layer[$item->id] = $layer;
+                    
                     if($layer->type == 'text'){
                         $text = '';
                         $img = 'd-none';
@@ -498,16 +499,59 @@ function getLayerProductForEdit($idProduct=0)
 
                     $style_gradient = $layer->gradient == 1 ? 'background: linear-gradient('.$layer->linear_position.', '.$layer->gradient_color1.' '.$layer->postion_color1.'% '.$more_gradient.', '.$layer->gradient_color2.' '.$layer->postion_color2.'%);' : '';
                    
-                    $attr_gradient = ' data-gradient_color1="'.$layer->gradient_color1.'" data-gradient_color2="'.$layer->gradient_color2.'" data-gradient_color3="'.$layer->gradient_color3.'" data-gradient_color4="'.$layer->gradient_color4.'" data-gradient_color5="'.$layer->gradient_color5.'" data-gradient_color6="'.$layer->gradient_color6.'"'.' data-postion_color1="'.$layer->postion_color1.'" data-postion_color2="'.$layer->postion_color2.'" data-postion_color3="'.$layer->postion_color3.'" data-postion_color4="'.$layer->postion_color4.'" data-postion_color5="'.$layer->postion_color5.'" data-postion_color6="'.$layer->postion_color6.'"'.'" data-gradient="'.$layer->gradient.'"'.'" data-pos_gradient="'.$layer->linear_position.'" ';
+                    $attr_gradient = ' data-gradient_color1="'.$layer->gradient_color1.'" data-gradient_color2="'.$layer->gradient_color2.'" data-gradient_color3="'.$layer->gradient_color3.'" data-gradient_color4="'.$layer->gradient_color4.'" data-gradient_color5="'.$layer->gradient_color5.'" data-gradient_color6="'.$layer->gradient_color6.'"'.' data-postion_color1="'.$layer->postion_color1.'" data-postion_color2="'.$layer->postion_color2.'" data-postion_color3="'.$layer->postion_color3.'" data-postion_color4="'.$layer->postion_color4.'" data-postion_color5="'.$layer->postion_color5.'" data-postion_color6="'.$layer->postion_color6.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" ';
+                    /*
+                    $fixtopleft = false;
+                    if(!isset($layer->postion_left)){
+                        $layer->postion_left = $layer->postion_x*100/$wight;
+                        $fixtopleft = true;
+                    }
 
-                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" style="transform: translate('.$layer->postion_x.'px, '.$layer->postion_y.'px);text-align:'.$layer->text_align.'" data-x="'.$layer->postion_x.'"' .$attr_gradient. '>
+                    if(!isset($layer->postion_top)){
+                        $layer->postion_top = $layer->postion_y*100/$height;
+                        $fixtopleft = true;
+                    }
+
+                    if($fixtopleft){
+                        $item->content = json_encode($layer);
+                        $modelProductDetail->save($item);
+                    }
+                    */
+
+                    if(isset($layer->postion_left) && $layer->postion_left>100){
+                        $layer->postion_left = 80;
+                    }
+
+                    if(isset($layer->postion_top) && $layer->postion_top>100){
+                        $layer->postion_top = 80;
+                    }
+
+                    $style = 'text-align:'.$layer->text_align.';left: '.(int)@$layer->postion_left.'%;top: '.(int)@$layer->postion_top.'%;';
+
+                    $layer->size = str_replace('px','',$layer->size);
+                    $layer->size = str_replace('vw','',$layer->size);
+                    if($layer->size>100) $layer->size= 70;
+                    $layer->size = $layer->size.'vw';
+
+                    $layer->width = str_replace('px','',$layer->width);
+                    $layer->width = str_replace('vw','',$layer->width);
+                    if($layer->width>100) $layer->width= 70;
+                    $layer->width = $layer->width.'vw';
+
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
                     <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
                     <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.'px;line-height: '.$layer->giandong.'px;font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span></div>';
                     $key++;
+
+                    $list_layer[$item->id] = $layer;
                 }
                 krsort($list_layer_check);
 
                 $category = $modelCategories->find()->where(array('id'=>$pro->category_id))->first();
+
+                if(empty($category)){
+                    $category = $modelCategories->newEmptyEntity();
+                }
                 
                 return ['type'=>$pro->type,'category'=> $category, 'data' => $pro, 'movelayer' => implode('',$movelayer), 'layer' => $list_layer, 'list_layer_check' => implode('',$list_layer_check)];
             }else{
@@ -521,18 +565,20 @@ function getLayerProductForEdit($idProduct=0)
     } 
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = 0, $height = 0)
+function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30')
 {
     return [
         'type' => $type,
         'text' => 'Layer '.$stt,
         'color' => '#111',
-        'size' => '18px',
+        'size' => '10vw',
         'font' => 'Domaine',
         'status' => 1,
         'text_align' => 'left',
         'postion_x' => '20',
         'postion_y' => '15',
+        'postion_left' => '50',
+        'postion_top' => '50',
         'brightness' => 100,
         'contrast' => 100,
         'saturate' => 100,
@@ -557,13 +603,13 @@ function getLayer($stt, $type = 'text', $link = '', $width = 0, $height = 0)
         'vien' => '0px',
         'rotate' => null,
         'banner' => $link,
-        'gianchu' => '1px',
-        'giandong' => '1px',
+        'gianchu' => '1vw',
+        'giandong' => '1vh',
         'opacity' => 1,
         'blur' => 0,
         'invert' => 0,
-        'width' => $width.'px',
-        'height' => $height.'px',
+        'width' => $width.'vw',
+        'height' => $height.'vh',
         'sepia' => 0,
         'grayscale' => 0,
         'gradient' => 0,
@@ -578,4 +624,145 @@ function zipImage($urlLocalFile)
     Tinify\setKey($keyTinipng);
 
     Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
+}
+
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1)
+{
+    global $controller;
+
+    $return = array('code'=>1,
+                    'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))
+                    );
+
+    if(!empty($infoUser)){
+        $modelProduct = $controller->loadModel('Products');
+        $modelManagerFile = $controller->loadModel('ManagerFile');
+        $modelProductDetail = $controller->loadModel('ProductDetails');
+
+        $newproduct = $modelProduct->newEmptyEntity();
+
+        $thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+        $thumbnailUser = '';
+
+        if(isset($_FILES['background']) && empty($_FILES['background']["error"])){
+            $background = uploadImage($infoUser->id, 'background');
+
+            if(!empty($background['linkOnline'])){
+                $thumb = $background['linkOnline'];
+
+                // lưu vào database file
+                $dataFile = $modelManagerFile->newEmptyEntity();
+
+                $dataFile->link = $background['linkOnline'];
+                $dataFile->user_id = $infoUser->id;
+                $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+                $dataFile->created_at = date('Y-m-d H:i:s');
+
+                $modelManagerFile->save($dataFile);
+            }
+        }
+
+        if(isset($_FILES['thumbnail']) && empty($_FILES['thumbnail']["error"])){
+            $thumbnail = uploadImage($infoUser->id, 'thumbnail');
+
+            if(!empty($thumbnail['linkOnline'])){
+                $thumbnailUser = $thumbnail['linkOnline'];
+
+                // lưu vào database file
+                $dataFile = $modelManagerFile->newEmptyEntity();
+
+                $dataFile->link = $thumbnail['linkOnline'];
+                $dataFile->user_id = $infoUser->id;
+                $dataFile->type = 1; // 0 là user up, 1 là cap, 2 là payment
+                $dataFile->created_at = date('Y-m-d H:i:s');
+
+                $modelManagerFile->save($dataFile);
+            }
+        }
+
+        $newproduct->name = $name;
+        $newproduct->price = (int) $price;
+        $newproduct->sale_price = (int) $sale_price;
+        $newproduct->content = '';
+        $newproduct->sale = null;
+        $newproduct->related_packages = '';
+        $newproduct->status = 0; // 0: khóa, 1: mở bán
+        $newproduct->type = $type;
+        $newproduct->sold = 0;
+        $newproduct->image = (!empty($thumbnailUser))?$thumbnailUser:$thumb; // ảnh minh họa
+        $newproduct->thumn = $thumb; // ảnh background
+        $newproduct->thumbnail = $thumbnailUser;
+        $newproduct->user_id = $infoUser->id;
+        $newproduct->product_id = 0;
+        $newproduct->note_admin = '';
+        $newproduct->created_at = date('Y-m-d H:i:s');
+        $newproduct->views = 0;
+        $newproduct->favorites = 0;
+        $newproduct->category_id = (int) $category_id;
+
+        // tạo slug
+        $slug = createSlugMantan($name);
+        $slugNew = $slug;
+        $number = 0;
+
+        if(empty($newproduct->slug) || $newproduct->slug!=$slugNew){
+            do{
+                $conditions = array('slug'=>$slugNew);
+                $listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+        }
+
+        $newproduct->slug = $slugNew;
+
+        $modelProduct->save($newproduct);
+
+        // tạo deep link
+        if($type=='user_create'){
+            $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+                                                'link'=>'https://ezpics.page.link/detailProduct?id='.$newproduct->id,
+                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+                                        ]
+                        ];
+            $header_deep = ['Content-Type: application/json'];
+            $typeData='raw';
+            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+            $deep_link = json_decode($deep_link);
+
+            $newproduct->link_open_app = @$deep_link->shortLink;
+            $modelProduct->save($newproduct);
+        }
+
+        // tạo layer mặc định đầu tiên
+        $sizeBackground = getimagesize($thumb);
+        $newLayer = $modelProductDetail->newEmptyEntity();  
+
+        $newLayer->products_id = $newproduct->id;
+        $newLayer->name = 'Layer 1';
+        $newLayer->content = '{"type":"text","text":"Layer 1","color":"#111","size":"10vw","font":"Domaine","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0vw","rotate":null,"banner":null,"gianchu":"1vw","giandong":"1vw","blur":"0","invert":"0","width":"0vw","height":"0vw","sepia":"0","grayscale":"0","gradient":"0","sort":"1","postion_left":"50","postion_top":"50"}';
+
+        $newLayer->wight = (int) @$sizeBackground[0];
+        $newLayer->height = (int) @$sizeBackground[1];
+        $newLayer->sort = 1;
+        $newLayer->status = 1;
+        $newLayer->created_at = date('Y-m-d H:i:s');
+        $newLayer->opacity = 100;
+        $newLayer->gradient = 0;
+        $newLayer->rotate = 0;
+        
+        $modelProductDetail->save($newLayer);
+
+        $return = array('code'=>0,
+                        'product_id'=>$newproduct->id,
+                        'messages'=>array(array('text'=>'Tạo mẫu thiết kế thành công'))
+                        );
+    }
+
+    return $return;
 }

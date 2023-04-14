@@ -31,6 +31,9 @@ global $modelCategories;
 global $modelOptions;
 global $modelPosts;
 global $modelMenus;
+global $modelAlbums;
+global $modelAlbuminfos;
+global $modelVideos;
 
 global $urlCurrent;
 global $urlThemeActive;
@@ -38,6 +41,7 @@ global $urlThemeActive;
 global $metaTitleMantan;
 global $metaKeywordsMantan;
 global $metaDescriptionMantan;
+global $metaImageMantan;
 
 global $routesPlugin;
 global $routesTheme;
@@ -288,7 +292,8 @@ function showEditorInput($idEditor='',$nameEditor='',$content='')
 
 function showUploadFile($idInput='',$nameInput='',$value='',$number='')
 { 
-	echo '	<script type="text/javascript">
+	echo '	<script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
+			<script type="text/javascript">
 				function BrowseServerImage'.$number.'()
 				{
 					var finder = new CKFinder();
@@ -322,9 +327,14 @@ function mantan_header()
 	global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
 	$checkMantanHeader= true;
 	$infoMantanSource['verName']= 'v2.0';
+
+	if(empty($metaImageMantan)){
+		$metaImageMantan = @$infoSite['image_share'];
+	}
 	
 	echo '  <meta name="generator" content="Mantan Source'.$infoMantanSource['verName'].'" />
 			<meta name="application-name" content="Mantan Source '.$infoMantanSource['verName'].'">
@@ -341,7 +351,7 @@ function mantan_header()
 			<!-- Google / Search Engine Tags -->
 		  	<meta itemprop="name" content="'.$metaTitleMantan.'">
 		  	<meta itemprop="description" content="'.$metaDescriptionMantan.'">
-		  	<meta itemprop="image" content="'.@$infoSite['image_share'].'">
+		  	<meta itemprop="image" content="'.$metaImageMantan.'">
 		    
 		    <!-- Facebook Meta Tags -->
 			<meta property="og:title" content="'.$metaTitleMantan.'"/>
@@ -349,7 +359,7 @@ function mantan_header()
 			<meta property="og:description" content="'.$metaDescriptionMantan.'"/>
 			<meta property="og:url" content="https://manmo.vn/"/>
 			<meta property="og:site_name" content="'.$metaTitleMantan.'"/>
-			<meta property="og:image" content="'.@$infoSite['image_share'].'" />
+			<meta property="og:image" content="'.$metaImageMantan.'" />
 			<meta property="og:image:alt" content="Hình ảnh '.$metaTitleMantan.'" />
 			<meta property="fb:admins" content="" />
 			<meta property="fb:app_id" content="1695746487308818" /> 
@@ -360,7 +370,7 @@ function mantan_header()
 		    <meta name="twitter:card" content="summary_large_image">
 		    <meta name="twitter:title" content="'.$metaTitleMantan.'">
 		    <meta name="twitter:description" content="'.$metaDescriptionMantan.'">
-		    <meta name="twitter:image" content="'.@$infoSite['image_share'].'">
+		    <meta name="twitter:image" content="'.$metaImageMantan.'">
 				
 		    <!-- Favicon -->
     		<link rel="icon" type="image/x-icon" href="'.@$infoSite['favicon'].'" />
@@ -509,7 +519,7 @@ function uploadImage($user_id='', $name_input='', $filenameImage='')
 
             // Verify MYME type of the file
             if(in_array($filetype, $allowed)){
-            	if(empty($$filenameImage)){
+            	if(empty($filenameImage)){
 	            	$filenameImage = $user_id.'_'.date('Y_m_d_H_i_s').'_'.rand(0,10000).'.'.$ext;
 	            }else{
 	            	$filenameImage = createSlugMantan($filenameImage).'.'.$ext;
@@ -526,6 +536,76 @@ function uploadImage($user_id='', $name_input='', $filenameImage='')
 	}
 
 	return $return;
+}
+
+function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username='', $ftp_password='')
+{ 
+    if(!empty($userID) && !empty($name_input) && !empty($ftp_server) && !empty($ftp_username) && !empty($ftp_password) ){
+	    $ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
+
+	    $login = ftp_login($ftp_conn, $ftp_username, $ftp_password);
+	    ftp_pasv($ftp_conn, true);
+
+	    if (!$login) {
+	        // die("Could not login");
+	        return ['code'=>1, 'mess'=>'Không kết nối được với máy chủ lưu trữ ảnh'];
+	    }
+
+	    if(isset($_FILES[$name_input]) && empty($_FILES[$name_input]["error"])){
+	        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+	        $filename = $_FILES[$name_input]["name"];
+	        $filetype = $_FILES[$name_input]["type"];
+	        $filesize = $_FILES[$name_input]["size"];
+	        
+	        // Verify file extension
+	        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+	        if(!array_key_exists($ext, $allowed)){
+	            return ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
+	        }
+
+	        // Verify file size - 5MB maximum
+	        $maxsize = 1024 * 1024 * 5;
+	        if($filesize > $maxsize){
+	            return ['code'=>3, 'mess'=>'File ảnh vượt quá giới hạn cho phép 5Mb'];
+	        }
+
+	        // Verify MYME type of the file
+	        if(in_array($filetype, $allowed)){
+	            if(empty($filenameImage)){
+	                $filenameImage = $userID.'_'.date('Y_m_d_H_i_s').'_'.rand(0,10000).'.'.$ext;
+	            }else{
+	                $filenameImage = createSlugMantan($filenameImage).'.'.$ext;
+	            }
+
+	            // Check whether file exists before uploading it
+	            $file = realpath($_FILES[$name_input]["tmp_name"]);
+
+	            $remote_file = "/public_html/upload/admin/images/".$userID."/".$filenameImage;
+
+	            $ch = curl_init();
+				$fp = fopen($file, 'r');
+				curl_setopt($ch, CURLOPT_URL, 'ftp://'.$ftp_username.':'.$ftp_password.'@'.$ftp_server.'/'.$remote_file);
+				curl_setopt($ch, CURLOPT_UPLOAD, 1);
+				curl_setopt($ch, CURLOPT_INFILE, $fp);
+				curl_setopt($ch, CURLOPT_INFILESIZE, filesize($file));
+				curl_exec ($ch);
+				$error_no = curl_errno($ch);
+				curl_close ($ch);
+				if ($error_no == 0) {
+				    return ['code'=>0, 'linkOnline'=>'https://apis.ezpics.vn/upload/admin/images/'.$userID.'/'.$filenameImage];
+				} else {
+				    return ['code'=>4, 'mess'=>'Upload lỗi'];
+				}
+
+	            
+	            
+	        } else{
+	            return ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
+	        }
+	    }
+	}
+
+    return ['code'=>5, 'mess'=>'Không có dữ liệu upload'];
 }
 
 function removeFile($url='')

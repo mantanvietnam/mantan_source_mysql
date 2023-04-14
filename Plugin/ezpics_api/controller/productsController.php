@@ -34,6 +34,14 @@ function getNewProductAPI($input)
 
 	$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+	if(!empty($listData)){
+		foreach ($listData as $key => $value) {
+			if(!empty($value->thumbnail)){
+				$listData[$key]->image = $value->thumbnail;
+			}
+		}
+	}
+
 	return 	array('listData'=>$listData);
 }
 
@@ -79,6 +87,14 @@ function searchProductAPI($input)
 
 	$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+	if(!empty($listProduct)){
+		foreach ($listProduct as $key => $value) {
+			if(!empty($value->thumbnail)){
+				$listProduct[$key]->image = $value->thumbnail;
+			}
+		}
+	}
+
 	return 	array('listData'=>$listProduct);
 }
 
@@ -112,6 +128,14 @@ function getProductByCategoryAPI($input)
 		}
 		
 		$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+		if(!empty($listProduct)){
+			foreach ($listProduct as $key => $value) {
+				if(!empty($value->thumbnail)){
+					$listProduct[$key]->image = $value->thumbnail;
+				}
+			}
+		}
 	}
 
 	return 	array('listData'=>$listProduct);
@@ -157,6 +181,14 @@ function getProductAllCategoryAPI($input)
 
 			$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+			if(!empty($listProduct)){
+				foreach ($listProduct as $key => $value) {
+					if(!empty($value->thumbnail)){
+						$listProduct[$key]->image = $value->thumbnail;
+					}
+				}
+			}
+
 			$listProductCategory[] = ['category' => $category, 'listData' => $listProduct];
 		}
 	}
@@ -187,6 +219,10 @@ function getTrendProductAPI($input)
 			$infoUser = $modelMember->find()->where(['id'=>(int) $value->user_id])->first();
 
 			$listData[$key]->author = @$infoUser->name;
+
+			if(!empty($value->thumbnail)){
+				$listData[$key]->image = $value->thumbnail;
+			}
 		}
 	}
 
@@ -216,11 +252,29 @@ function getInfoProductAPI($input)
 			$infoUser = $modelMember->find()->where(['id'=>(int) $data->user_id])->first();
 			$data->author = @$infoUser->name;
 
+			if(!empty($data->thumbnail)){
+				$data->image = $data->thumbnail;
+			}
+
+			if($data->type == 'user_create'){
+				$data->link_share = 'https://designer.ezpics.vn/detail/'.$data->slug.'-'.$data->id.'.html';
+			}else{
+				$data->link_share = $data->image;
+			}
+
 			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id];
 			$limit= 12;
 			$page= 1;
 			$order = array();
 			$otherData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+			if(!empty($otherData)){
+				foreach ($otherData as $key => $value) {
+					if(!empty($value->thumbnail)){
+						$otherData[$key]->image = $value->thumbnail;
+					}
+				}
+			}
 		}
 	}
 
@@ -285,85 +339,13 @@ function createProductAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				if($infoUser->type==1){
-					$newproduct = $modelProduct->newEmptyEntity();
+				$type = !empty($dataSend['type'])?$dataSend['type']:'user_create';
+				$name = $dataSend['name'];
+				$price = (int) @$dataSend['price'];
+				$sale_price = (int) @$dataSend['sale_price'];
+				$category_id = (int) @$dataSend['category_id'];
 
-					$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
-
-					if(isset($_FILES['background']) && empty($_FILES['background']["error"])){
-						$background = uploadImage($infoUser->id, 'background');
-
-						if(!empty($background['linkOnline'])){
-							$thumb = $background['linkOnline'];
-						}
-					}
-
-					$newproduct->name = $dataSend['name'];
-		            $newproduct->price = (int) @$dataSend['price'];
-		            $newproduct->sale_price = (int) @$dataSend['sale_price'];
-		            $newproduct->content = '';
-		            $newproduct->sale = (int) @$dataSend['sale'];
-		            $newproduct->related_packages = '';
-		            $newproduct->status = 0;
-		            $newproduct->type = 'user_create';
-		            $newproduct->sold = 0;
-		            $newproduct->image = $thumb;
-		            $newproduct->thumn = $thumb;
-		            $newproduct->user_id = $infoUser->id;
-		            $newproduct->product_id = 0;
-		            $newproduct->note_admin = '';
-		            $newproduct->created_at = date('Y-m-d H:i:s');
-		            $newproduct->views = 0;
-		            $newproduct->favorites = 0;
-		            $newproduct->category_id = (int) @$dataSend['category_id'];
-
-		            // tạo slug
-		            $slug = createSlugMantan($dataSend['name']);
-		            $slugNew = $slug;
-		            $number = 0;
-
-		            if(empty($newproduct->slug) || $newproduct->slug!=$slugNew){
-		                do{
-		                	$conditions = array('slug'=>$slugNew);
-		        			$listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-		        			if(!empty($listData)){
-		        				$number++;
-		        				$slugNew = $slug.'-'.$number;
-		        			}
-		                }while (!empty($listData));
-		            }
-
-		            $newproduct->slug = $slugNew;
-
-		            $modelProduct->save($newproduct);
-
-		            // tạo layer mặc định đầu tiên
-		            $newLayer = $modelProductDetail->newEmptyEntity();	
-
-	            	$newLayer->products_id = $newproduct->id;
-	            	$newLayer->name = 'layer_'.$infoUser->id.'_'.time();
-	            	$newLayer->content = '{"type":"text","text":"Layer text","color":"#111","size":"18px","font":"Domaine","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0px","rotate":null,"banner":null,"gianchu":"1px","giandong":"1px","blur":"0","invert":"0","width":"0px","height":"0px","sepia":"0","grayscale":"0","gradient":"0","sort":"1"}';
-	            	$newLayer->wight = 400;
-	            	$newLayer->height = 305;
-	            	$newLayer->sort = 1;
-	            	$newLayer->status = 1;
-	            	$newLayer->created_at = date('Y-m-d H:i:s');
-	            	$newLayer->opacity = 100;
-	            	$newLayer->gradient = 0;
-	            	$newLayer->rotate = 0;
-	                
-	                $modelProductDetail->save($newLayer);
-
-	                $return = array('code'=>0,
-	                				'product_id'=>$newproduct->id,
-									'messages'=>array(array('text'=>'Tạo mẫu thiết kế thành công'))
-									);
-	            }else{
-	            	$return = array('code'=>4,
-									'messages'=>array(array('text'=>'Bạn chưa được cấp quyền Designer'))
-									);
-	            }
+	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id);
 	        }else{
 	        	$return = array('code'=>3,
 							'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))
@@ -463,6 +445,7 @@ function buyProductAPI($input)
 	                    $newproduct->sold = 0;
 	                    $newproduct->image = $product->image;
 	                    $newproduct->thumn = $product->thumn;
+	                    $newproduct->thumbnail = '';
 	                    $newproduct->user_id = $infoUser->id;
 	                    $newproduct->product_id = $product->id;
 	                    $newproduct->note_admin = '';
@@ -481,7 +464,7 @@ function buyProductAPI($input)
 		                    	$newLayer = $modelProductDetail->newEmptyEntity();	
 
 		                    	$newLayer->products_id = $newproduct->id;
-		                    	$newLayer->name = 'layer_'.$infoUser->id.'_'.time();
+		                    	$newLayer->name = $d->name;
 		                    	$newLayer->content = $d->content;
 		                    	$newLayer->wight = $d->wight;
 		                    	$newLayer->height = $d->height;
@@ -574,6 +557,14 @@ function getMyProductAPI($input)
 
 				$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+				if(!empty($listData)){
+					foreach ($listData as $key => $value) {
+						if(!empty($value->thumbnail)){
+							$listData[$key]->image = $value->thumbnail;
+						}
+					}
+				}
+
 				$return = array('listData'=>$listData);
 			}
 		}
@@ -614,6 +605,10 @@ function getMyProductFavoriteAPI($input)
 						$product = $modelProduct->find()->where(['id'=>(int) $value->product_id])->first();
 
 						if(!empty($product)){
+							if(!empty($product->thumbnail)){
+								$product->image = $product->thumbnail;
+							}
+
 							$listProduct[] = $product;
 						}else{
 							$modelProductFavorite->delete($value);
@@ -804,6 +799,47 @@ function getIdProductCloneAPI($input)
 				}else{
 					$return = array('product_clone_id'=>$product->id, 'user_id'=>$product->user_id);
 				}
+			}
+		}
+	}
+
+	return 	$return;
+}
+
+function getMyProductSeriesAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+	$return = array('listData'=>[]);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($infoUser)){
+				$conditions = array('user_id'=>$infoUser->id, 'type'=>'user_series');
+				$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+				if($page<1) $page = 1;
+				$order = array('id'=>'desc');
+
+				$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+				if(!empty($listData)){
+					foreach ($listData as $key => $value) {
+						if(!empty($value->thumbnail)){
+							$listData[$key]->image = $value->thumbnail;
+						}
+					}
+				}
+
+				$return = array('listData'=>$listData);
 			}
 		}
 	}

@@ -127,7 +127,7 @@ global $urlThemeActive;
                 </div>
                 
                 <div class="content-information mgb-32">
-                    <?php echo $data->content ?>
+                    <?php echo str_replace(array("&nbsp;", "&nbsp;", "\t"), "", $data->content) ?>
                 </div>
             </div>
         </section>
@@ -178,7 +178,7 @@ global $urlThemeActive;
                                 $distance = distance($data->latitude, $data->longitude, $value->latitude, $value->longitude);
                              ?>
                                 <div class="place-around-size">
-                                <p><?php echo round($distance, 2)*100 ?>Km</p>
+                                <p><?php echo round($distance, 2) ?>Km</p>
                             </div>
                             <?php } ?>
                             

@@ -197,6 +197,7 @@ function listTour($input){
        
         $listData = $modelTour->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
                     $conditions_scan = array('id'=>$value->id);
@@ -331,6 +332,44 @@ function detailTour($input){
         }else{
             return $controller->redirect('/');
         }         
+}
+
+function booktour($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelBookTour = $controller->loadModel('Booktours');
+
+    $dataSend = $input['request']->getData();
+    
+    if(!empty($dataSend['name'])){
+
+        $data = $modelBookTour->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idtour = (int) @$dataSend['idtour'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['numberpeople'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+
+      
+        $modelBookTour->save($data);
+           return $controller->redirect('/chi_tiet_tour/'.$dataSend['urlSlug'].'.html?status=bookTourDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_tour/'.$dataSend['urlSlug'].'.html?status=bookTourfailure');
+    } 
 }
 
 // cơ quan hanh chinh GovernanceAgency
@@ -571,7 +610,7 @@ function listService($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Dịch vụ hỗ trợ');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Dịch vụ hỗ trợ du lịch');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
@@ -899,7 +938,7 @@ function listRestaurant($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Làng nghề');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Nhà hàng');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
@@ -987,6 +1026,44 @@ function detailRestaurant($input){
         }         
 }
 
+function bookTable($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelBooktable = $controller->loadModel('Booktables');
+
+    $dataSend = $input['request']->getData();
+    if(!empty($dataSend['timebook'])){
+        $data = $modelBooktable->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idrestaurant = (int) @$dataSend['idrestaurant'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['numberpeople'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+            $data->timebook = strtotime(str_replace("T", " ", @$dataSend['timebook']));
+        
+      
+        $modelBooktable->save($data);
+           return $controller->redirect('/chi_tiet_nha_hang/'.$dataSend['urlSlug'].'.html?status=booktableDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_nha_hang/'.$dataSend['urlSlug'].'.html?status=booktablefailure');
+    } 
+}
+
+
 //Khách sạn Hotel 
 function listHotel($input){
 
@@ -1070,7 +1147,7 @@ function listHotel($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Trung tâm sự kiện và khách sạn');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Khách sạn');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
@@ -1144,6 +1221,79 @@ function detailHotel($input){
         }else{
             $controller->redirect('/');
         }    
+}
+
+function bookHotel($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $bookHotel = $controller->loadModel('BookHotels');
+
+    $dataSend = $input['request']->getData();
+
+ 
+
+    if(!empty($dataSend['name'])){
+         $date_start = explode(' ', @$dataSend['date_start']);
+            $date_end = explode(' ', @$dataSend['date_end']);
+            $dataPost= array('idHotel'=>  @$dataSend['idhotel'],
+                'date_start'=> @$date_start[0],
+                'date_end'=> @$date_end[0],
+                'typeRoom'=> @$dataSend['typeRoom'],
+                'email'=> @$dataSend['email'],
+                'phone'=> @$dataSend['phone'],
+                'name'=> @$dataSend['name'],
+                'typeBooking'=>  6,
+                'number_room'=>  @$dataSend['number_room'],
+                'number_people'=> @$dataSend['number_people'],
+                'deposits'=> @$dataSend['pricePay'],
+                'type_register'=> @$dataSend['type_register'],
+                'key'=> '60d410dc2ac5db3f758b4567', 
+                'timeStart'=>  @$date_start[1],
+                'timeEnd'=>  @$date_end[1],
+                'textNumberDate'=> @$dataSend['timePay'],
+                'codeDiscount'=> '',
+                'wed'=> '0',
+
+            );
+
+            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/saveBookingAPI', $dataPost);
+            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
+            $listHotel= json_decode($listHotel, true);
+
+
+        $data = $bookHotel->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idhotel = @$dataSend['idhotel'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['number_people'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+        $data->type_register = @$dataSend['type_register'];
+        $data->date_end = @$dataSend['date_end'];
+        $data->date_start = @$dataSend['date_start'];
+        $data->number_room = (int) @$dataSend['number_room'];
+        $data->pricePay =(int) @$dataSend['pricePay'];
+
+
+      
+        $bookHotel->save($data);
+           return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookTourDone');
+       
+    }else{
+         return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookTourfailure');
+    } 
 }
 
 // Trung tâm hội nghị sự kiện Eventcenter
@@ -1547,7 +1697,7 @@ function listFestival($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Danh lam thắng cảnh');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Lễ Hội');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
@@ -1635,16 +1785,308 @@ function detailFestival($input){
         }         
 }
 
-function ajax_like($input){
-
+function vietnam360(){
+    global $urlNow;
     global $controller;
     global $urlCurrent;
-    global $modelCategories;
-    global $metaTitleMantan;
+    $modelImage360 = $controller->loadModel('Images');
+    
+    $_SESSION['urlCallBack']= $urlNow;
+      
+        $page= (isset($_GET['page']))? (int) $_GET['page']:1;
+        if($page<=0) $page=1;
+        $limit= 15;
+         $getmonth   = getmonth();
+        
+        $order = array('created'=>'desc');
+        $conditions = array();
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+        if(!empty($_GET['name'])){
+             $key=createSlugMantan($_GET['name']);
+            $conditions['urlSlug LIKE']= '%'.$key.'%';
+        }
 
-    $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
+        $conditions['status']= 1;
+
+       
+        $listData = $modelImage360->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $conditions_scan = array('id'=>$value->id);
+                    $static = $modelImage360->find()->where($conditions_scan)->all()->toList();
+                    $listData[$key]->number_scan = count($static);
+                }
+            }
+
+            // phân trang
+            $totalData = $modelImage360->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+
+            $balance = $totalData % $limit;
+            $totalPage = ($totalData - $balance) / $limit;
+            if ($balance > 0)
+                $totalPage+=1;
+
+            $back = $page - 1;
+            $next = $page + 1;
+            if ($back <= 0)
+                $back = 1;
+            if ($next >= $totalPage)
+                $next = $totalPage;
+
+            if (isset($_GET['page'])) {
+                $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+                $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+            } else {
+                $urlPage = $urlCurrent;
+            }
+            if (strpos($urlPage, '?') !== false) {
+                if (count($_GET) >= 1) {
+                    $urlPage = $urlPage . '&page=';
+                } else {
+                    $urlPage = $urlPage . 'page=';
+                }
+            } else {
+                $urlPage = $urlPage . '?page=';
+            }
+       global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $metaTitleMantanDefault= $metaTitleMantan;
+        $metaKeywordsMantanDefault= $metaKeywordsMantan;
+        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Việt Nam 360');
+        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                    
+        $metaTitleMantan= str_replace('%categoryName%', 'Danh lam thắng cảnh', $metaTitleMantan);
+
+        setVariable('listData',$listData);
+        setVariable('getmonth',$getmonth);
+
+        setVariable('page',$page);
+        setVariable('totalPage',$totalPage);
+        setVariable('back',$back);
+        setVariable('next',$next);
+        setVariable('urlPage',$urlPage);
+}
+
+function listlike(){
+     global $urlNow;
+    global $controller;
+    global $controller;
+    global $urlCurrent;
+    global $session;
+    $infoUser = $session->read('infoUser');
+    $modelLike = $controller->loadModel('Likes');
+    if(!empty($infoUser)){
+    $_SESSION['urlCallBack']= $urlNow;
+      
+        $page= (isset($_GET['page']))? (int) $_GET['page']:1;
+        if($page<=0) $page=1;
+        $limit= 15;
+         $getmonth   = getmonth();
+        
+        $order = array('created'=>'desc');
+        $conditions = array();
+
+        
+
+        $conditions['idcustomer']= $infoUser['id'];
+
+       
+        $listData = $modelLike->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $conditions_scan = array('id'=>$value->id);
+                    $static = $modelLike->find()->where($conditions_scan)->all()->toList();
+                    $listData[$key]->number_scan = count($static);
+                }
+            }
+
+            // phân trang
+            $totalData = $modelLike->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+
+            $balance = $totalData % $limit;
+            $totalPage = ($totalData - $balance) / $limit;
+            if ($balance > 0)
+                $totalPage+=1;
+
+            $back = $page - 1;
+            $next = $page + 1;
+            if ($back <= 0)
+                $back = 1;
+            if ($next >= $totalPage)
+                $next = $totalPage;
+
+            if (isset($_GET['page'])) {
+                $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+                $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+            } else {
+                $urlPage = $urlCurrent;
+            }
+            if (strpos($urlPage, '?') !== false) {
+                if (count($_GET) >= 1) {
+                    $urlPage = $urlPage . '&page=';
+                } else {
+                    $urlPage = $urlPage . 'page=';
+                }
+            } else {
+                $urlPage = $urlPage . '?page=';
+            }
+       global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $metaTitleMantanDefault= $metaTitleMantan;
+        $metaKeywordsMantanDefault= $metaKeywordsMantan;
+        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Điểm đến yêu thích');
+        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                    
+        $metaTitleMantan= str_replace('%categoryName%', 'Sự kiện', $metaTitleMantan);
+
+        setVariable('listData',$listData);
+        setVariable('getmonth',$getmonth);
+
+        setVariable('page',$page);
+        setVariable('totalPage',$totalPage);
+        setVariable('back',$back);
+        setVariable('next',$next);
+        setVariable('urlPage',$urlPage);
+    }else{
+        return $controller->redirect('/');
+    }
+}
+
+function ajax_event($input){
+   global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    global $urlThemeActive;
+    $modelEvent = $controller->loadModel('Events');
+
+        $conditions = array();
+
+        if(!empty($_GET['name'])){
+             $key=createSlugMantan($_GET['name']);
+            $conditions['urlSlug']= array('$regex' => $key);
+        }
+
+        if(!empty($_GET['month'])){
+                $conditions['month']= $_GET['month'];
+        }
+        $order = array('id'=>'desc');
+        $listData= $modelEvent->find()->limit(10)->page(1)->where($conditions)->order($order)->all()->toList();
+
+        
+        $text = '';
+          if(!empty($listData)) {
+            foreach ($listData as $keyEvent => $valueEvent) {
+        $text .= '<div class="slide-event-home">
+                            <div class="item-event-home absolute">
+                                <div class="box-img-item-eh">
+                                    <img src="'.$valueEvent->image .'" alt="">
+                                </div>
+                            </div>
+                            <div class="info-event-home">
+                                <div class="name-event-home">
+                                    <p>'.$valueEvent->name .'</p>
+                                </div>
+                                <div class="description-event-home">
+                                    <p class="title-des">Giới thiệu</p>
+                                    <p class="text-des">'.$valueEvent->introductory .'</p>
+                                </div>
+                                <div class="local-event-home">
+                                    <ul>
+                                        <li>
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <p>'.$valueEvent->address .'</p>
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            <p>'. date("d/m/Y",$valueEvent->datestart) .'</p>
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-phone"></i>
+                                            <p>'.$valueEvent->phone .'</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>';
+                        $code = 1;
+
+                       } } else { 
+                $text .= '           <div class="slide-event-home">
+                            <div class="item-event-home absolute">
+                                <div class="box-img-item-eh">
+                                    <img src="'.$urlThemeActive .'/img/thaianhimg/eventhome.png" alt="">
+                                </div>
+                            </div>
+                            <div class="info-event-home">
+                                <div class="name-event-home">
+                                    <p>Chưa có sự kiện nào đang diễn ra.</p>
+                                </div>
+                            </div>
+                        </div>';
+                          $code = 2;
+                     
+                        }
+        return (array('text'=>$text,'code'=>$code, 'data'=> @$listData));
+}
+
+function bookingonline(){
+     global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    global $urlThemeActive;
+    global $session;
+    $infoUser = $session->read('infoUser');
+    $bookHotel = $controller->loadModel('BookHotels');
+    $modelBookTable = $controller->loadModel('Booktables');
+    $modelBookTour = $controller->loadModel('Booktours');
+    $conditions =array();
+     $conditions['idcustomer']= $infoUser['id'];
+
+
+    $databookHotel = $bookHotel->find()->where($conditions)->all();
+    $databookTable = $modelBookTable->find()->where($conditions)->all();
+    $databookTour = $modelBookTour->find()->where($conditions)->all();
+
+
+     global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $metaTitleMantanDefault= $metaTitleMantan;
+        $metaKeywordsMantanDefault= $metaKeywordsMantan;
+        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Booking');
+        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                    
+        $metaTitleMantan= str_replace('%categoryName%', 'Bookinh', $metaTitleMantan);
+
+
+
+    setVariable('databookHotel',$databookHotel);
+    setVariable('databookTable',$databookTable);
+    setVariable('databookTour',$databookTour);
+
+
+
 }
 
 function findnear(){

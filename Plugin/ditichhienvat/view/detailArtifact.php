@@ -1,0 +1,1 @@
+<?php getFileTheme('historicalSite/detailArtifact.php'); ?>

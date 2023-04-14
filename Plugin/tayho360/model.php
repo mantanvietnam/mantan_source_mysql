@@ -12,4 +12,6 @@ include('model/place.php');
 include('model/service.php');
 include('model/eventcenter.php');
 include('model/booktable.php');
-?>
+include('model/booktour.php');
+include('model/bookhotel.php');
+?> 

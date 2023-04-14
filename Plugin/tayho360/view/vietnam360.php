@@ -1,0 +1,1 @@
+<?php getFileTheme('vietnam360.php'); ?>

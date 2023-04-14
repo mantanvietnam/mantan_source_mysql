@@ -8,6 +8,7 @@
    $routesPlugin['nha_hang'] = 'tayho360/view/listRestaurant.php';
    $routesPlugin['chi_tiet_nha_hang'] = 'tayho360/view/detailRestaurant.php';
    $routesPlugin['bookTable'] = 'tayho360/view/bookTable.php';
+   $routesPlugin['booktour'] = 'tayho360/view/booktour.php';
    $routesPlugin['pho_co'] = 'tayho360/view/listOldQuarter.php';
    $routesPlugin['chi_tiet_pho_co'] = 'tayho360/view/detailOldQuarter.php';
    $routesPlugin['co_quan_hanh_chinh'] = 'tayho360/view/listGovernanceAgency.php';
@@ -21,14 +22,16 @@
    $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
    $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
+   $routesPlugin['viet_nam_360'] = 'tayho360/view/vietnam360.php';
    $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['khach_san'] = 'tayho360/view/listHotel.php';
    $routesPlugin['chi_tiet_khach_san'] = 'tayho360/view/detailHotel.php';
    $routesPlugin['le_hoi'] = 'tayho360/view/listFestival.php';
    $routesPlugin['chi_tiet_le_hoi'] = 'tayho360/view/detailFestival.php';
-   $routesPlugin['tung_tam_hoi_nghi_su_kien'] = 'tayho360/view/listEventcenter.php';
-   $routesPlugin['chi_tiet_tung_tam_hoi_nghi_su_kien'] = 'tayho360/view/detailEventcenter.php';
+   $routesPlugin['trung_tam_hoi_nghi_su_kien'] = 'tayho360/view/listEventcenter.php';
+   $routesPlugin['chi_tiet_trung_tam_hoi_nghi_su_kien'] = 'tayho360/view/detailEventcenter.php';
    $routesPlugin['ho_hoan_kiem'] = 'tayho360/view/listHklake.php';
+   $routesPlugin['diem_den_yeu_thich'] = 'tayho360/view/listlike.php';
    $routesPlugin['chi_tiet_ho_hoan_kiem'] = 'tayho360/view/detailHklake.php';
    $routesPlugin['giai_tri'] = 'tayho360/view/listEntertainment.php';
    $routesPlugin['chi_tiet_giai_tri'] = 'tayho360/view/detailEntertainment.php';
@@ -75,4 +78,8 @@
    $routesPlugin['detailCraftvillageAPI'] = 'tayho360/view/detailCraftvillageAPI.php';
    $routesPlugin['detailServiceAPI'] = 'tayho360/view/detailServiceAPI.php';
    $routesPlugin['listServiceAPI'] = 'tayho360/view/listServiceAPI.php';
+   $routesPlugin['listEventcenterAPI'] = 'tayho360/view/listEventcenterAPI.php';
+   $routesPlugin['detailEventcenterAPI'] = 'tayho360/view/detailEventcenterAPI.php';
+   $routesPlugin['bookHotel'] = 'tayho360/view/bookHotel.php';
+   $routesPlugin['bookingonline'] = 'tayho360/view/bookingonline.php';
 ?>

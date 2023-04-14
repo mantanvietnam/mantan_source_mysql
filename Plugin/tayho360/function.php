@@ -22,24 +22,13 @@ $menus[0]['sub'][2]= array('title'=>'Lễ hội',
 							'permission'=>'listFestivalAdmin',
 							
 						);
-$menus[0]['sub'][3]= array('title'=>'Tour',
-							'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listTourAdmin',
-							
-						);
 $menus[0]['sub'][4]= array('title'=>'Điểm đến làng nghề',
 							'url'=>'/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listCraftvillageAdmin',
 							
 						);
-$menus[0]['sub'][5]= array('title'=>'Nhà hàng',
-							'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
-							'classIcon'=>'bx bxs-data',
-							'permission'=>'listRestaurantAdmin',
-							
-						);
+
 $menus[0]['sub'][6]= array('title'=>'Danh lam',
 							'url'=>'/plugins/admin/tayho360-admin-place-listPlaceAdmin.php',
 							'classIcon'=>'bx bxs-data',
@@ -64,6 +53,39 @@ $menus[0]['sub'][9]= array('title'=>'Trung tâm hội nghị sự kiện',
                             'permission'=>'listEventcenterAdmin',
                             
                         );
+
+$menus[0]['sub'][5]= array('title'=>'Nhà hàng',
+                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listRestaurantAdmin',
+                            
+                        );
+
+$menus[0]['sub'][10]= array('title'=>'Đặt bàn nhà hàng',
+                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTableAdmin',
+                            
+                        );
+$menus[0]['sub'][3]= array('title'=>'Tour',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listTourAdmin',
+                            
+                        );
+$menus[0]['sub'][11]= array('title'=>'Đặt tour',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listBookTourAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTourAdmin',
+                            
+                        );
+$menus[0]['sub'][12]= array('title'=>'Đặt khách sạn',
+                            'url'=>'/plugins/admin/tayho360-admin-hotel-listBookhotelAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTourAdmin',
+                            
+                        );
+
 addMenuAdminMantan($menus);
 
 
@@ -88,6 +110,14 @@ function categoryService(){
     return array('1'=>array('id'=>'1','name'=>'Ngân hàng, phòng giao dịch'),
         '2'=>array('id'=>'2','name'=>'Đơn vị lữ hành, vận chuyển'),
         '3'=>array('id'=>'3','name'=>'Bệnh viện, phòng khám, trạm y tế'),
+        '4'=>array('id'=>'3','name'=>'Khác'),
+    );
+}
+
+function rating(){
+    return array('1'=>array('id'=>'1','name'=>'Cấp quốc gia'),
+        '2'=>array('id'=>'2','name'=>'Cấp thành phố'),
+        '3'=>array('id'=>'3','name'=>'Chưa xếp hạng'),
     );
 }
 
@@ -100,7 +130,7 @@ function categoryService(){
             '3'=>array('id'=>3,'name'=>'Lễ hội','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlehoi.png','urlSlug'=>'le_hoi'),   
             '4'=>array('id'=>4,'name'=>'Làng nghề','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconlangnghe.png','urlSlug'=>'lang_nghe'),  
             '5'=>array('id'=>5,'name'=>'Cơ quan hành chính','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconcoquan.png','urlSlug'=>'co_quan_hanh_chinh'),   
-            '6'=>array('id'=>6,'name'=>'Trung tâm hội nghị sự kiện','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'tung_tam_hoi_nghi_su_kien'), 
+            '6'=>array('id'=>6,'name'=>'Trung tâm hội nghị sự kiện','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/icontrungtam.png','urlSlug'=>'trung_tam_hoi_nghi_su_kien'), 
             '7'=>array('id'=>7,'name'=>'Khách sạn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconkhachsan.png','urlSlug'=>'khach_san'),   
             '8'=>array('id'=>8,'name'=>'Nhà hàng quán ăn','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconnhahang.png','urlSlug'=>'nha_hang'),   
             '9'=>array('id'=>9,'name'=>'Dịch vụ hỗ trợ du lịch','class'=>'fa-print','image'=>'/themes/tayho360//img/thaianhimg/iconhotro.png','urlSlug'=>'dich_vu_ho_tro_du_lich'),  
@@ -172,11 +202,28 @@ function categoryService(){
         $modelEventcenter = $controller->loadModel('Eventcenters');
         $eventcenter= $modelEventcenter->find()->where($conditions)->all();
 
-
+        $modelCraftvillage = $controller->loadModel('Craftvillages');
+        $Craftvillage= $modelCraftvillage->find()->where($conditions)->all();
 
 
 
         $listData = array();
+
+        if(!empty($Craftvillage)){
+            foreach($eventcenter as $keyCraftvillage => $listCraftvillage){
+                $listData[] =  array('name'=> $listCraftvillage->name,
+                                    'address'=> $listCraftvillage->address,
+                                    'phone'=> $listCraftvillage->phone,
+                                    'image'=> $listCraftvillage->image,
+                                    'lat'=> $listCraftvillage->latitude,
+                                    'long'=> $listCraftvillage->longitude,
+                                    'urlSlug'=> 'chi_tiet_lang_nghe/'.$listCraftvillage->urlSlug.'.html',
+                                    'type'=> 'lang_nghe',
+                                     'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        }
 
         if(!empty($governanceAgency)){
             foreach($governanceAgency as $keyGovernanceAgency => $listGovernanceAgency){
@@ -218,8 +265,8 @@ function categoryService(){
                                     'image'=> $listEventcenter->image,
                                     'lat'=> $listEventcenter->latitude,
                                     'long'=> $listEventcenter->longitude,
-                                    'urlSlug'=> 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$listEventcenter->urlSlug.'.html',
-                                    'type'=> 'tung_tam_hoi_nghi_su_kien',
+                                    'urlSlug'=> 'chi_tiet_trung_tam_hoi_nghi_su_kien/'.$listEventcenter->urlSlug.'.html',
+                                    'type'=> 'trung_tam_hoi_nghi_su_kien',
                                      'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
 
                 );
@@ -365,8 +412,8 @@ function getCraftvillage($id){
 function getRestaurant($id){
     global $modelOption;
     global $controller;
-    $modelRestaurant = $controller->loadModel('Restaurants');
-        $data = $modeRestaurantr->find()->where(['id'=>intval($id)])->first();        
+    $modelRestaurantr = $controller->loadModel('Restaurants');
+        $data = $modelRestaurantr->find()->where(['id'=>intval($id)])->first();        
         return $data;
 }
 
@@ -418,8 +465,45 @@ function getHotel($id){
         $data = $listHotel;     
         return $data;
 }
-function distance($x1, $y1, $x2, $y2) {
-    $distance = sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2)); // tính khoảng cách
-    return $distance;
-}
+/*function distance($x1, $y1, $x2, $y2) {
+    $x1 = (int) $x1; 
+    $y1 = (int) $y1; 
+    $x2 = (int) $x2; 
+    $y2 = (int) $y2;
+
+
+    if(@$x2 > @$x1){
+       $x=  @$x2 - @$x1;
+    }else{
+        $x= @$x1 - @$x2;
+    }
+
+    if(@$y2 > @$y1){
+       $y=  @$y2 - @$y1;
+    }else{
+        $y= @$y1 - @$y2;
+    }
+    $val = pow(sin($x/2),2)+cos($x1)*cos($y)*pow(sin($y/2),2); 
+    //$distance = sqrt(pow($x, 2) + pow($y, 2)); 
+    $distance = 6378.8 * (2 * asin(sqrt($val)));; 
+    echo $distance;
+}*/
+
+
+function distance($lat1, $lon1, $lat2, $lon2) {
+    if((float)$lon1 > (float)$lon2){
+       $theta = (float)$lon1 - (float)$lon2;
+    }else{
+        $theta =(float)$lon2 - (float)$lon1;
+    }
+
+  
+  $dist = sin(deg2rad((float)$lat1)) * sin(deg2rad((float)$lat2)) + cos(deg2rad((float)$lat1)) * cos(deg2rad((float)$lat2)) * cos(deg2rad($theta));
+  $dist = acos($dist);
+  $dist = rad2deg($dist);
+  $miles = $dist * 60 * 1.1515;
+  
+  
+    return ($miles * 1.609344);
+ }
 ?>

@@ -112,6 +112,7 @@ function listProductAdmin($input)
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
     
     setVariable('listData', $listData);
     setVariable('listCategory', $listCategory);

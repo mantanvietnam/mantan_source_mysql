@@ -1,5 +1,4 @@
 $ = jQuery;
-
 // Select all elements with the "i" tag and store them in a NodeList called "stars"
 const stars = document.querySelectorAll(".stars i");
 
@@ -167,3 +166,33 @@ $(function () {
         });
     }
 });
+
+
+// chi tiet dia diem
+// $(function () {
+//     var limitW = 400;
+//     var char = 5;
+//     var txtEle = $('.content-information')
+//     if (txtEle.length > 0) {
+//         var txt = $('.content-information').html();
+//         console.log(txt);
+//         var txtStart = txt.slice(0, limitW).replace(/\w+$/, '');
+//         var txtEnd = txt.slice(txtStart.length);
+//         if (txtEnd.replace(/\s+$/, '').split(' ').length > char) {
+//             $('.content-information').html([
+//                     txtStart,
+//                     '<a href="#" class="more">... xem thêm</a>',
+//                     '<span class="detail">',
+//                     txtEnd,
+//                     '</span>'
+//                 ].join('')
+//             );
+//         }
+
+//         $('span.detail').hide();
+//         $('a.more').click(function () {
+//             $(this).hide().next('span.detail').fadeIn();
+//             return false;
+//         });
+//     }
+// });

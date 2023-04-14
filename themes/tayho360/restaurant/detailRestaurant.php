@@ -1,6 +1,7 @@
 <?php
 getHeader();
 global $urlThemeActive;
+global $session;
 ?>
 <main>
     <?php if (!empty($data->image360)) { ?>
@@ -58,11 +59,12 @@ global $urlThemeActive;
                                         </div>
                                 <?php   } ?>
                         <div class="button-share">
-                            <a href="">
+                            <!-- <a href="">
                                 <button type="button"><i class="fa-solid fa-share-nodes"></i>Chia
                                     sẻ
                                 </button>
-                            </a>
+                            </a> -->
+                            <div class="fb-share-button" data-href="" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                         </div>
                     </div>
                 </div>
@@ -134,7 +136,7 @@ global $urlThemeActive;
                     </div>
                 </div> -->
                 <div class="content-information mgb-32">
-                    <?php echo $data->content ?>
+                    <?php echo str_replace(array("&nbsp;", "&nbsp;", "\t"), "", $data->content) ?>
                 </div>
             </div>
         </section>
@@ -150,34 +152,51 @@ global $urlThemeActive;
                     <div class="title-order-table">
                         <p>Đặt bàn</p>
                     </div>
-                    <form action="">
+                     <?php if(!empty($infoUser)){ ?>
+                        <form action="/bookTable"  method="post">
+                    <?php }else{ ?>
+                        <form action="/login"  method="post">
+                    <?php } ?>
+                    
+
+                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                                    <input type="hidden" value="<?php echo $data->id ;?>" name="idrestaurant">
+                                    <input type="hidden" value="<?php echo @$infoUser['id'];?>" name="idcustomer">
+                                    <input type="hidden" value="<?php echo $data->urlSlug; ?>" name="urlSlug">
                         <div class="input-group group-order-table">
                             <label class="input-group-text">Tên</label>
-                            <input type="text" class="form-control" placeholder="Nhập họ và tên" required>
+                            <input type="text" class="form-control"  name="name" placeholder="Nhập họ và tên" required>
                         </div>
 
                         <div class="input-group group-order-table">
                             <label class="input-group-text">Điện thoại</label>
-                            <input type="tel" class="form-control" placeholder="Nhập số điện thoại"
-                                   pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                            <input type="tel" class="form-control"  name="phone" placeholder="Nhập số điện thoại"
+                                    required>
+                        </div>
+                        <div class="input-group group-order-table">
+                            <label class="input-group-text">Email</label>
+                            <input type="tel" class="form-control"  name="email" placeholder="Nhập email"
+                                    required>
                         </div>
 
                         <div class="input-group group-order-table">
                             <label class="input-group-text">Số người</label>
-                            <input type="number" class="form-control" required>
+                            <input type="number" class="form-control"  name="numberpeople" required>
                         </div>
 
                         <div class="input-group group-order-table">
-                            <label class="input-group-text">Nhận phòng</label>
-                            <input type="date" class="form-control" required>
+                            <label class="input-group-text">Thời gian đặn</label>
+                            <input type="datetime-local" class="form-control"  name="timebook" required>
                         </div>
-
                         <div class="input-group group-order-table">
-                            <label class="input-group-text">Nhận phòng</label>
-                            <input type="date" class="form-control" required>
+                            <label class="input-group-text">Ghi chú</label>
+                             <textarea name="not" id="not"  placeholder="Nội dung" onkeyup="" class="form-control" rows="3"></textarea>
                         </div>
+                       <?php if(!empty($infoUser)){ ?>
                         <button type="submit">Đặt bàn ngay</button>
-
+                    <?php }else{ ?>
+                        <a  class="like" href="/login" ><button type="submit">Đặt bàn ngay</button></a>
+                    <?php } ?>
                     </form>
                 </div>
 

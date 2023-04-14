@@ -32,10 +32,10 @@
 	<!-- thêm thư viện animate -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<!-- thêm thư viện interact -->
+	<!-- thêm thư viện interact để di chuyển các layer -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.17/interact.min.js" integrity="sha512-XcVj3UAxYb1bcxemjAU6ncOu6lhnuRz98icTuL+jrJE+2SCWFMZFc+5FaFsNikLKujDfL71c4LK5OBz1lsAKag==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<!-- thêm thư viện html2canvas -->
+	<!-- thêm thư viện html2canvas để chụp ảnh màn hình -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<!-- thêm thư viện toast jquery -->
@@ -48,9 +48,6 @@
 
 	<!-- thêm thư viện wow -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<!-- thêm thư viện draggableTouch -->
-	<script src="/plugins/ezpics_api/view/js/jquery.draggableTouch.js"></script>
 
 	<!-- thêm font chữ cài từ admin -->
 	<style type="text/css">
@@ -74,7 +71,7 @@
 	if(!empty($product) && !empty($layers)){ ?>
 		<section class="box-detail-edit box-detail-edit-user-create active">
 		    <div class="teop">
-		        <div class="container">
+		        <div class="">
 		            <div class="thumb-checklayer list-layout-move-create" id="widgetCapEdit"></div>
 		        </div>
 		        <div class="text-center">
@@ -267,7 +264,7 @@
 	                                    <div class="txt">Giãn cách chữ</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range gianchu" value="1" type="range" min="0" max="100">
+	                                    <input class="range-slider__range gianchu" value="1" type="range" min="1" max="100">
 	                                    <span class="range-slider__value gianchuz">1</span>
 	                                </div>
 	                            </div>
@@ -276,7 +273,7 @@
 	                                    <div class="txt">Giãn cách dòng</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range giandong" value="1" type="range" min="0" max="100">
+	                                    <input class="range-slider__range giandong" value="1" type="range" min="1" max="100">
 	                                    <span class="range-slider__value giandongz">1</span>
 	                                </div>
 	                            </div>
@@ -291,7 +288,7 @@
 	                                    <div class="txt">Độ trong</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range opacity" value="100" type="range" min="0" max="100">
+	                                    <input class="range-slider__range opacity" value="100" type="range" min="1" max="100">
 	                                    <span class="range-slider__value opacityz">100</span>
 	                                </div>
 	                            </div>
@@ -306,7 +303,7 @@
 	                                    <div class="txt">Kéo chỉnh thước ảnh</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range sizeimg" value="16" type="range" min="0" max="1000" data-class="sizeimgz">
+	                                    <input class="range-slider__range sizeimg" value="16" type="range" min="1" max="100" data-class="sizeimgz">
 	                                    <span class="range-slider__value sizeimgz">16</span>
 	                                </div>
 	                                <span>hoặc</span>
@@ -326,7 +323,7 @@
 	                                    <div class="txt">Cỡ chữ</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range font" value="16" type="range" min="0" max="200" data-class="fontz">
+	                                    <input class="range-slider__range font" value="16" type="range" min="1" max="100" data-class="fontz">
 	                                    <span class="range-slider__value fontz">16</span>
 	                                </div>
 	                                <span>hoặc</span>
@@ -343,17 +340,19 @@
 	                            </div>
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
-	                                    <label>Tên:</label>
+	                                    <label>Tên mẫu thiết kế:</label>
 	                                    <input type="text" name="nameProduct" class="thongtininput form-control nameProduct" data-field="name"/>
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
-	                                    <label>Giá bán:</label>
+	                                    <label>Giá thị trường:</label>
 	                                    <input type="text" name="priceProduct" class="thongtininput form-control priceProduct currency" data-field="price"/>
 	                                </div>
+	                            </div>
+	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
-	                                    <label>Giá giảm:</label>
+	                                    <label>Giá bán:</label>
 	                                    <input type="text" class="thongtininput form-control sale_priceProduct currency" name="sale_priceProduct" data-field="sale_price"/>
 	                                </div>
 	                            </div>
@@ -378,6 +377,17 @@
 	                                        <option value="1">Đăng bán</option>
 	                                        <option value="0">Ẩn</option>
 	                                    </select>
+	                                </div>
+	                            </div>
+	                            <div class="list-chang-replace">
+	                            	<div class="item w-100 mb-2">
+	                            		<label>Ảnh minh họa:</label>
+	                                    <div class="i-flx">
+	                                        <div class="flex-upload">
+	                                            <input type="file" class="upimgThumbnail" id="thumbnail"/>
+	                                            <label for="thumbnail"></label> 
+	                                        </div>
+	                                    </div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -531,7 +541,7 @@
 	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
 	                            </div>
 	                            <div>
-	                                 <div class="item w-100 mb-2">
+	                                <div class="item w-100 mb-2">
 	                                    <div class="i-flx">
 	                                        <div class="flex-upload">
 	                                            <input type="file" class="upimg" id="22"/>
@@ -589,7 +599,7 @@
 	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
 	                            </div>
 	                            <div class="list-chang-replace">
-	                                <div class="item-replace text-center" onclick="left()">
+	                                <div class="item-replace text-center" onclick="leftmove()">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/left.png" class="img-fluid" alt=""></div>
 	                                </div>
 	                                <div class="item-replace text-center" onclick="topmove()">
@@ -598,7 +608,7 @@
 	                                <div class="item-replace text-center" onclick="bottommove()">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/down.png" class="img-fluid" alt=""></div>
 	                                </div>
-	                                <div class="item-replace text-center" onclick="right()">
+	                                <div class="item-replace text-center" onclick="rightmove()">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/right.png" class="img-fluid" alt=""></div>
 	                                </div>
 	                            </div>

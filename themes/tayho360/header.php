@@ -44,6 +44,7 @@ $infoUser = $session->read('infoUser');
     
     <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
     <script src="<?= $urlThemeActive ?>assets/js/main.js"></script>
+    <script src="/themes/tayho360/js/slick.js"></script>
     <!-- FILE INCLUDE JS END -->
     <?php mantan_header(); ?>
 
@@ -65,12 +66,12 @@ $infoUser = $session->read('infoUser');
                            data-bs-toggle="dropdown">
                             <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
                                  alt="">
-                            <span class="username">Xin chào <?php echo $infoUser['full_name']; ?></span>
+                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Hành trình</a></li>
                             <li><a class="dropdown-item" href="#">Đặt phòng</a></li>
-                            <li><a class="dropdown-item" href="#">Yêu thích</a></li>
+                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
                             <li><a class="dropdown-item" href="#">Thông báo</a></li>
                             <li><a class="dropdown-item" href="#">Tài khoản</a></li>
                             <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
@@ -152,6 +153,7 @@ $infoUser = $session->read('infoUser');
                             </li> -->
                              <?php 
                             $menu = getMenusDefault();
+                          
                             if(!empty($menu)){
                             foreach($menu as $key => $value){
                               if(empty($value['sub'])){
@@ -159,16 +161,16 @@ $infoUser = $session->read('infoUser');
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
                             </li>
-                        <?php   }else{ ?>
+                        <?php   }else{  ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <?php echo $value['name']  ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values)  ?>
+                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
                                     <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
-                                    
+                                    <?php } ?>
                                 </ul>
                             </li>
                             <?php }}} ?>

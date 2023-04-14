@@ -82,3 +82,95 @@ function fixUrlImage($input)
 	}
 	*/
 }
+
+function fixResponsiveProduct($input)
+{
+	/*
+	global $controller;
+
+	$modelProductDetails = $controller->loadModel('ProductDetails');
+
+	$allLayer = $modelProductDetails->find()->all()->toList();
+
+	foreach($allLayer as $k => $item){
+        $item->content = str_replace('\\\\\"', '', $item->content);
+        $item->content = str_replace('\"', '"', $item->content);
+        $layer = json_decode(trim($item->content,'"')); 
+        $wight = empty($item->wight) ? 50 : $item->wight;
+        $height = empty($item->height) ? 50 : $item->height;
+
+        $fixtopleft = false;
+        if(!isset($layer->postion_left)){
+        	if(isset($layer->postion_x)){
+	            $layer->postion_left = $layer->postion_x*100/$wight;
+	            $fixtopleft = true;
+	        }else{
+	        	debug('x: '.$item->id);
+	        	debug(trim($item->content,'"'));
+	        }
+        }
+
+        if(!isset($layer->postion_top)){
+        	if(isset($layer->postion_y)){
+	            $layer->postion_top = $layer->postion_y*100/$height;
+	            $fixtopleft = true;
+	        }else{
+	        	debug('y: '.$item->id);
+	        	debug($layer);
+	        }
+        }
+
+        if($fixtopleft){
+            $item->content = json_encode($layer);
+            $modelProductDetails->save($item);
+        }
+    }
+    */
+}
+
+function fixJsonProductDetail($input)
+{
+	/*
+	global $controller;
+
+	$modelProductDetails = $controller->loadModel('ProductDetails');
+
+	$allLayer = $modelProductDetails->find()->all()->toList();
+
+	foreach($allLayer as $k => $item){
+        $item->content = str_replace('\\\\\\/', '/', $item->content);
+        $modelProductDetails->save($item);
+    }
+	*/
+
+    
+}
+
+function fixDeepLink($input)
+{
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+
+	$allLayer = $modelProducts->find()->all(['type'=>'user_create'])->toList();
+
+	foreach($allLayer as $k => $item){
+		if(empty($item->link_open_app)){
+	        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		    $data_deep = ['dynamicLinkInfo'=>[	'domainUriPrefix'=>'https://ezpics.page.link',
+		    									'link'=>'https://ezpics.page.link/detailProduct?id='.$item->id,
+		    									'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		    									'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+										]
+						];
+			$header_deep = ['Content-Type: application/json'];
+			$typeData='raw';
+			$deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+			$deep_link = json_decode($deep_link);
+
+	        $item->link_open_app = @$deep_link->shortLink;
+
+	        $modelProducts->save($item);
+	    }
+    }
+}

@@ -84,6 +84,20 @@
                              <input type="text" name="image360" class="form-control" id="image360" value="<?php echo @$data['image360'] ?>">
                            
                         </div>
+                        <div class="mb-3 form-group col-md-6">
+                            <label for="">Xếp hạng:</label>
+                            <select class="form-select" id="rating" name="rating" onchange="getDistrict();">
+                                <option value="">Chọn xếp hạng</option>
+                            <?php
+                                foreach (rating() as $category) {
+                                    if( @$data['rating']!=$category['id']){
+                                        echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                                    }else{
+                                        echo '<option selected value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                                    }   
+                                }?>
+                            </select> 
+                        </div>
                         <div class="mb-3 form-group col-sm-3">
                             <i>Vĩ độ (lat):</i>
                             <input type="text" name="latitude" class="form-control" id="latitude" value="<?php echo @$data['latitude'] ?>">

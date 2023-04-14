@@ -59,11 +59,6 @@
                     $type= 'Lễ hội';
                     $url= 'chi_tiet_le_hoi/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="nha_han"){
-                    $title = getRestaurant($item->idobject);
-                    $type= 'Nhà hàng';
-                    $url= 'chi_tiet_nha_han/'.$title->urlSlug.'.html';
-                    $name = $title->name;
                   }elseif($item->tiype=="nha_hang"){
                     $title = getRestaurant($item->idobject);
                     $type= 'Nhà hàng';
@@ -73,6 +68,11 @@
                     $title = getEventcenter($item->idobject);
                     $type= 'Nhà hàng';
                     $url= 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$title->urlSlug.'.html';
+                    $name = $title->name;
+                  }elseif($item->tiype=="di_tich_lich_su"){
+                    $title = getHistoricalSite($item->idobject);
+                    $type= 'Di tích lịch sử';
+                    $url= 'di_tich_lich_su/'.$title->urlSlug.'.html';
                     $name = $title->name;
                   }elseif($item->tiype=="khach_san"){
                     $title = getHotel($item->idobject);

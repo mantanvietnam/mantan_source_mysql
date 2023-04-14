@@ -1,0 +1,108 @@
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-ExtraBold.woff2') format('woff2'),
+        url('ShantellSans-ExtraBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-BoldItalic.woff2') format('woff2'),
+        url('ShantellSans-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-Bold.woff2') format('woff2'),
+        url('ShantellSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-ExtraBoldItalic.woff2') format('woff2'),
+        url('ShantellSans-ExtraBoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-Italic.woff2') format('woff2'),
+        url('ShantellSans-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-Light.woff2') format('woff2'),
+        url('ShantellSans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-LightItalic.woff2') format('woff2'),
+        url('ShantellSans-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-Medium.woff2') format('woff2'),
+        url('ShantellSans-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-MediumItalic.woff2') format('woff2'),
+        url('ShantellSans-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-Regular.woff2') format('woff2'),
+        url('ShantellSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-SemiBold.woff2') format('woff2'),
+        url('ShantellSans-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shantell Sans';
+    src: url('ShantellSans-SemiBoldItalic.woff2') format('woff2'),
+        url('ShantellSans-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+

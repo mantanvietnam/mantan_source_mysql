@@ -40,9 +40,8 @@
           <?php 
             if(!empty($listData)){
               global $controller;
-              $modelHistoricalsite = $controller->loadModel('Historicalsites');
               foreach ($listData as $item) {
-                 $dataHistoricalsite = $modelHistoricalsite->get($item->idHistoricalsite);
+                 $dataHistoricalsite = getHistoricalSite($item->idHistoricalsite);
                 echo '<tr>
                         <td><img src="'.$item->image.'" width="100"></td>
                         <td>'.$item->name.'</td>

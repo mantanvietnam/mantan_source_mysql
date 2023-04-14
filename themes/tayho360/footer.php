@@ -73,7 +73,7 @@ $setting = setting();
                     </div>
                 </div>
             </div>
-        </div>
+        </div>s
     </div>
     <div class="bottom-footer">
         <div class="container">
@@ -83,6 +83,7 @@ $setting = setting();
             </div>
         </div>
     </div>
+
 
     <div class="scripts">
         <!-- ✅ load jQuery ✅ -->
@@ -97,6 +98,7 @@ $setting = setting();
         <script src="<?= $urlThemeActive ?>js/bootstrap.bundle.js"></script>
         <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
         <script src="<?= $urlThemeActive ?>js/main.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0&appId=148758212437688&autoLogAppEvents=1" nonce="WKsjsJLh"></script>
     </div>
 </footer>
 </body>

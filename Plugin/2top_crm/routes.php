@@ -8,4 +8,5 @@
 	// for home
 	$routesPlugin['login']= '2top_crm/view/home/login.php';
 	$routesPlugin['register']= '2top_crm/view/home/register.php';
+	$routesPlugin['infoUser']= '2top_crm/view/home/infoUser.php';
 ?>
