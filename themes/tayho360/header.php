@@ -41,6 +41,7 @@ $infoUser = $session->read('infoUser');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<?= $urlThemeActive ?>assets/js/slick.min.js"></script>
     <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
+    
     <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
     <script src="<?= $urlThemeActive ?>assets/js/main.js"></script>
     <script src="/themes/tayho360/js/slick.js"></script>
