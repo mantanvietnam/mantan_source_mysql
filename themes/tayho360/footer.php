@@ -28,17 +28,12 @@ $setting = setting();
                                 <li>Hòm thư công vụ: <?php echo @$setting['responsibilityemail']; ?>n</li>
                                 <li class="mt-3">Theo dõi chúng tôi qua:<?php echo @$setting['follow']; ?></li>
                                 <ul class="list-unstyled d-flex p-0 pt-2">
-                                    <li class="me-2"><a href=""><img
-                                                src="<?= $urlThemeActive ?>assets/lou_icon/facebook-foot.svg"
-                                                alt=""></a></li>
-                                    <li class="me-2"><a href=""><img
-                                                src="<?= $urlThemeActive ?>assets/lou_icon/tiktok-foot.svg" alt=""></a>
+                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/facebook-foot.svg" alt=""></a></li>
+                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/tiktok-foot.svg" alt=""></a>
                                     </li>
-                                    <li class="me-2"><a href=""><img
-                                                src="<?= $urlThemeActive ?>assets/lou_icon/zalo-foot.svg" alt=""></a>
+                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/zalo-foot.svg" alt=""></a>
                                     </li>
-                                    <li class="me-2"><a href=""><img
-                                                src="<?= $urlThemeActive ?>assets/lou_icon/youtube-foot.svg" alt=""></a>
+                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/youtube-foot.svg" alt=""></a>
                                     </li>
                                 </ul>
                             </ul>
@@ -57,7 +52,7 @@ $setting = setting();
                                         <li>
                                             <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
                                         </li>
-                                    <?php }
+                                <?php }
                                 } ?>
                             </ul>
                         </div>
@@ -77,9 +72,9 @@ $setting = setting();
     </div>
     <div class="bottom-footer">
         <div class="container">
-            <div class="d-flex justify-content-between flex-column flex-md-row">
-                <span>Copyright Tay Ho 360 © 2020. Developed & Managed by VinGG</span>
-                <span>Lượt truy cập: 1.000.000</span>
+            <div class="row g-3">
+                <div class="col-12 col-lg-9"><span>Copyright Tay Ho 360 © 2020. Developed & Managed by VinGG</span></div>
+                <div class="col-12 col-lg-3"><span>Lượt truy cập: 1.000.000</span></div>
             </div>
         </div>
     </div>
@@ -87,19 +82,13 @@ $setting = setting();
 
     <div class="scripts">
         <!-- ✅ load jQuery ✅ -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <!-- ✅ load Slick ✅ -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-            integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="<?= $urlThemeActive ?>js/slick.js"></script>
-        <script src="<?= $urlThemeActive ?>js/jquery.js"></script>
-        <script src="<?= $urlThemeActive ?>js/bootstrap.bundle.js"></script>
-        <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
-        <script src="<?= $urlThemeActive ?>js/main.js"></script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0&appId=148758212437688&autoLogAppEvents=1" nonce="WKsjsJLh"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0&appId=148758212437688&autoLogAppEvents=1" nonce="WKsjsJLh"></script>
     </div>
 </footer>
 </body>
+
 </html>
+
