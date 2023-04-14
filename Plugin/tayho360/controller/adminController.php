@@ -1690,6 +1690,7 @@ function addEventAdmin($input){
             $data->image8 = @$dataSend['image8'];
             $data->image9 = @$dataSend['image9'];
             $data->image10 = @$dataSend['image10'];
+            $data->outstanding = @$dataSend['outstanding'];
             $data->address = @$dataSend['address'];
             if(!empty($dataSend['datestart'])){
                 $data->datestart = strtotime(str_replace("T", " ", @$dataSend['datestart']));

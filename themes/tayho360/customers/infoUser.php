@@ -30,7 +30,11 @@ getHeader();
                             <div class="col-12 col-md-8">
                                 <div class="user-info">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
+<<<<<<< HEAD
+                                        <h1 class="user-name mb-0"><?=$info->full_name?></h1>
+=======
                                         <h1 class="user-name mb-0"><?= $info->full_name ?></h1>
+>>>>>>> cfb47febb8c46e6c6dc436236753de9aab7764ee
                                     </div>
                                     <div class="info-detail">
                                         <div class="cate-contain mb-4">
@@ -46,6 +50,10 @@ getHeader();
                                             <div class="d-flex item">
                                                 <span>Địa chỉ</span>
                                                 <span><?= $info->address ?></span>
+                                            </div>
+                                             <div class="d-flex item">
+                                                <span>Địa chỉ</span>
+                                                <span><?=$info->address ?></span>
                                             </div>
                                             <!-- <div class="d-flex item">
                                                 <span>Liên hệ</span>

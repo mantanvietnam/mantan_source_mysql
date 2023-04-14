@@ -180,23 +180,23 @@ global $urlThemeActive;
         </section>
               <?php
                    if(!empty($otherData)){ ?>
-        <section id="place-around-section" class="mgt-80">
+        <section id="artifacts-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
                     <p>Hiện vật khác</p>
                 </div>
 
-                <div class="place-around-slide">
+                <div class="place-artifacts-slide">
                      <?php 
                     foreach(@$otherData as $key => $value){
                         if(@$data->id != @$value->id){ ?>
-                    <div class="place-around-slide-item">
-                        <div class="place-around-img">
+                    <div class="place-artifacts-slide-item">
+                        <div class="place-artifacts-img">
                             <a href="/chi_tiet_hien_vat/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
                         </div>
 
 
-                        <div class="place-around-title">
+                        <div class="place-artifacts-title">
                             <a href="/chi_tiet_hien_vat/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
                         </div>
 
