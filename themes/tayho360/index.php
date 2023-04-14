@@ -368,7 +368,7 @@ global $urlThemeActive;
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="">
+                                <a href="/su_kien">
                                     <button class="view_moreEvent">
                                         Xem thêm <i class="fa-solid fa-angles-right"></i>
                                     </button>
@@ -387,7 +387,7 @@ global $urlThemeActive;
                                 <div class="name-event-home">
                                     <p>Chưa có sự kiện nào đang diễn ra.</p>
                                 </div> 
-                                <a href="">
+                                <a href="/su_kien">
                                     <button class="view_moreEvent">
                                         Xem thêm <i class="fa-solid fa-angles-right"></i>
                                     </button>
