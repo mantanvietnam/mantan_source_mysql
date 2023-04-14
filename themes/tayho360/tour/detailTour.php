@@ -4,7 +4,6 @@ global $urlThemeActive;
 global $session;
 $infoUser = $session->read('infoUser');
 ?>
-
 <main>
     <section class="banner-top-style-1">
         <div class="place-img-slide">
@@ -76,6 +75,7 @@ $infoUser = $session->read('infoUser');
                             <h3 class="header-name">Lịch trình</h3>
                             <p class="intro-content">
                                 <?php echo @$data->content ?>
+>>>>>>> 46a8c7cff866123dcefc124b29f88c0107820b4b
                             </p>
                         </div>
 
@@ -125,10 +125,8 @@ $infoUser = $session->read('infoUser');
                                             <span>Chia sẻ</span>
                                         </div>
                                     </a> -->
-
-                                    <div class="button-share-tour">
-                                        <div class="fb-share-button" data-href="<?php echo @$data->u ?>" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
-                                    </div>
+<<<<<<< HEAD
+ 
                                 </div>
                             </div>
                         </section>
@@ -180,6 +178,7 @@ $infoUser = $session->read('infoUser');
                                     </div>
                                 </div>
                                 <div class="fb-share-button" data-href="<?php echo @$data->u ?>" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+
                             </div>
                         </div>
                     </section>

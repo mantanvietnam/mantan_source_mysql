@@ -42,7 +42,7 @@ $info = $session->read('infoUser');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="body mt-3">
+                                    <div class="body mt-3" style="display: none">
                                         <div class="row g-3">
                                                 <div class="col-12">
                                                     <div class="form-group-user">
@@ -65,7 +65,6 @@ $info = $session->read('infoUser');
                                                     </div>
                                                 </div>
                                                 <!-- <div class="col-12 col-md-6">
-=======
 <main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
     <div class="container py-5">
         <section id="user-page">
@@ -124,7 +123,6 @@ $info = $session->read('infoUser');
                                             </div>
                                         </div>
                                         <!-- <div class="col-12 col-md-6">
->>>>>>> 46a8c7cff866123dcefc124b29f88c0107820b4b
                                                     <div class="form-group-user">
                                                         <label for="">Email</label>
                                                         <input type="text" placeholder="abc@gmail.com" value="<?php echo @$info->phone ?>" class="form-control"
@@ -198,80 +196,4 @@ $info = $session->read('infoUser');
 
     <?php
 getFooter();?>
-
-                                        <button class="mt-3 btn button-submit-custom">Lưu</button>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </section>
-    </div>
-</main>
-
-<script>
-    function readURL1(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('#img1')
-                    .attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
-<style>
-    .thaydoi {
-        padding: 0 20px;
-    }
-
-    .m_bg_img {
-        width: 140px;
-        height: 140px;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid #ddd;
-        max-width: 100%;
-        border-radius: 50%;
-        overflow: hidden;
-        background: white;
-    }
-
-    input[type=file] {
-        display: block;
-        filter: alpha(opacity=0);
-        height: 100%;
-        width: 100%;
-        opacity: 0;
-        position: absolute;
-        right: 0;
-        text-align: right;
-        top: 0;
-        cursor: pointer;
-        z-index: 5;
-    }
-
-    .m_bg_img img {
-        max-width: 100% !important;
-    }
-
-    .button-submit-custom {
-        width: 220px !important;
-    }
-
-    #user-page .content {
-        padding-bottom: 80px !important;
-    }
-</style>
-
-<?php
-getFooter(); ?>
 
