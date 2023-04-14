@@ -235,8 +235,9 @@ global $urlThemeActive;
                                         </div>
                                     </div>
                                     <div class="text-tabs">
-                                        <p
-                                          <?php echo $destination[4]['name']?></p>
+                                        <p>
+                                          <?php echo $destination[4]['name']?>
+                                        </p>
                                     </div>
                                     </a>
                                 </div>
@@ -368,11 +369,6 @@ global $urlThemeActive;
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="/su_kien">
-                                    <button class="view_moreEvent">
-                                        Xem thêm <i class="fa-solid fa-angles-right"></i>
-                                    </button>
-                                </a>
                             </div>
                         </div>
                         
@@ -387,11 +383,6 @@ global $urlThemeActive;
                                 <div class="name-event-home">
                                     <p>Chưa có sự kiện nào đang diễn ra.</p>
                                 </div> 
-                                <a href="/su_kien">
-                                    <button class="view_moreEvent">
-                                        Xem thêm <i class="fa-solid fa-angles-right"></i>
-                                    </button>
-                                </a>
                             </div>
                         </div>
                         <?php
@@ -400,6 +391,11 @@ global $urlThemeActive;
 
                 </div>
             </div>
+            <a href="/su_kien">
+                <button class="view_moreEvent">
+                    Xem thêm <i class="fa-solid fa-angles-right"></i>
+                </button>
+            </a>
         </section> 
 
 
