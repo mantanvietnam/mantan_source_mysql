@@ -64,8 +64,8 @@ $infoUser = $session->read('infoUser');
             <div class="row">
                 <div class="col-12 col-md-8">
                     <section id="tour-chi-tiet-intro" class="mb-4">
-                        <h1 class="header-name"><?php echo @$data->name ?></h1>
-                        <h3>GIỚI THIỆU</h3>
+                        <!-- <h1 class="header-name"></h1> -->
+                        <h3><?php echo @$data->name ?></h3>
                         <p class="intro-content">
                             <?php echo @$data->introductory ?>
                         </p>

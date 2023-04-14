@@ -2,7 +2,6 @@
 getHeader();
 global $urlThemeActive;
 ?>
-<<<<<<< HEAD
   <main>
         <section class="banner-top-style-1">
             <img class="w-100" src="<?= $urlThemeActive ?>assets/lou_img/banner.png" alt="">
@@ -30,56 +29,17 @@ global $urlThemeActive;
                                                 <label for="">Ngày</label>
                                                 <input type="date" class="form-control" value="<?php echo @$_GET['datestart'] ?>" name="datestart" >
                                             </div>
-=======
-<main>
-    <section class="banner-top-style-1">
-        <img class="w-100" src="<?= $urlThemeActive ?>assets/lou_img/banner.png" alt="">
-    </section>
-    <section id="tour-list" class="bg-pt">
-        <div class="container form-main-position">
-            <div class="form-search-tour">
-                <form action="">
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="input-form-contain w-100">
-                            <div class="row g-3">
-                                <div class="col-12 col-md-4">
-                                    <div class="d-flex form-input">
-                                        <div class="round-icon d-none d-md-block"></div>
-                                        <div class="form-group w-100">
-                                            <label for="">Địa điểm</label>
-                                            <input type="text" class="form-control" placeholder="Địa điểm" required>
-                                        </div>
+
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="d-flex form-input">
-                                        <div class="round-icon d-none d-md-block"></div>
-                                        <div class="form-group w-100">
-                                            <label for="">Ngày</label>
-                                            <input type="date" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="d-flex form-input">
-                                        <div class="round-icon d-none d-md-block"></div>
-                                        <div class="form-group w-100 no-border">
-                                            <label for="">Thời gian</label>
-                                            <input type="time" class="form-control" required>
->>>>>>> cfb47febb8c46e6c6dc436236753de9aab7764ee
-                                        </div>
-                                    </div>
-                                    
-                                </div>
+                                
                             </div>
-<<<<<<< HEAD
-                            <div class="button-form-contain">
-                                <button type="submit" class="btn button-submit-custom">
-                                    <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-search-white.svg" alt="">
-                                </button>
-                            </div>
-=======
->>>>>>> cfb47febb8c46e6c6dc436236753de9aab7764ee
+
+                                <!-- <div class="button-form-contain">
+                                    <button type="submit" class="btn button-submit-custom">
+                                        <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-search-white.svg" alt="">
+                                    </button>
+                                </div> -->
                         </div>
                         <div class="button-form-contain">
                             <button class="btn button-submit-custom">

@@ -4,38 +4,33 @@ global $urlThemeActive;
 ?>
 <main class="">
     <section id="su-kien-banner">
+         <?php
+                if (!empty($listDataEvent)) {
+                    foreach ($listDataEvent as $items) { ?>
         <div class="backgound-slider-contain">
             <div class="su-kien-slider">
-                <?php
-                if (!empty($listData)) {
-                    foreach ($listData as $item) { ?>
+               
                         <div class="">
-                            <img src="<?php echo $item->image ?>" class="w-100" alt="">
+                            <img src="<?php echo $items->image ?>" class="w-100" alt="">
                         </div>
-                <?php }
-                } ?>
+               
 
             </div>
             <div class="banner-content-overlay p-4">
                 <div class="content p-3">
-                    <h1>samsung xây trung tâm r&d
-                        220 triệu usd tại khu tây hồ tây</h1>
+                    <h1> <?php echo @$items->name ?></h1>
                     <p>
-                        Samsung Việt Nam vừa chính thức công bố về việc bắt đầu xây dựng trung tâm nghiên cứu và
-                        phát triển mới (R&D) với quy mô lớn nhất khu vực Đông Nam Á tại khu đô thị Tây Hồ Tây, Hà
-                        Nội.
-                        <br>
-                        Samsung cho biết việc xây dựng trung tâm R&D đã được triển khai nhanh chóng sau 2 cuộc họp
-                        quan trọng giữa Thủ tướng Nguyễn Xuân Phúc và Phó chủ tịch Tập đoàn Samsung Lee Jae-yong vào
-                        năm 2018 tại Hà Nội và năm 2019 tại Seoul...
+                       <?php echo @$items->introductory ?>
                     </p>
-                    <a href="" class="btn button-outline-primary-custom">Xem thêm</a>
+                    <a href="/chi_tiet_su_kien/<?php echo @$items->urlSlug ?>.html" class="btn button-outline-primary-custom">Xem thêm</a>
                 </div>
             </div>
         </div>
+         <?php }
+                } ?>
     </section>
     <section id="su-kien-list-event">
-        <div class="background" style="background-image: url('../assets/lou_img/su-kien-list-event.png')">
+        <div class="background" style="background-image: url('<?= $urlThemeActive ?>/assets/lou_img/su-kien-list-event.png')">
             <section class="section-heading mt-4">
                 <h3 class="text-uppercase text-center">sự kiện</h3>
                 <p class="text-center">Những sự kiện diễn ra ở Tây Hồ</p>

@@ -31,6 +31,13 @@ function listEvent($input){
             $conditions['year']= $_GET['year'];
         }
         $listData = $modelEvent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $month = getdate()['mon'];
+        $year = getdate()['year'];
+
+
+    $conditionsmonth = array('month' => $month, 'year' => $year, 'outstanding' =>'1' , 'status' => '1' );
+
+        $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order($order)->all()->toList();
 
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
@@ -88,6 +95,7 @@ function listEvent($input){
 
         setVariable('listData',$listData);
         setVariable('getmonth',$getmonth);
+        setVariable('listDataEvent',$listDataEvent  );
 
         setVariable('page',$page);
         setVariable('totalPage',$totalPage);
@@ -2205,4 +2213,8 @@ function findnear(){
          setVariable('listData', $listData); 
 
 }
+function map(){
+
+}
  ?>
+
