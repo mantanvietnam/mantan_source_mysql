@@ -5,16 +5,16 @@ getHeader();
 ?>
 
 
-<main>
+<main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
     <div class="container py-5">
-        <section id="user-page">
+        <section id="user-page" class="bg-white">
             <div class="row g-0">
                 <div class="col-12 col-lg-3">
                     <section class="side-bar h-100">
                         <div class="background h-100">
-                            <a href="" class="active">Cá nhân</a>
-                            <a href="">Đổi mật khẩu</a>
-                            <a href="">Cài đặt</a>
+                            <a href="/infoUser" class="active">Cá nhân</a>
+                            <a href="/pourpassword">Đổi mật khẩu</a>
+                            <a href="/editInfoUser">Sửa thông tin </a>
                         </div>
                     </section>
                 </div>
@@ -29,14 +29,11 @@ getHeader();
                             <div class="col-12 col-md-8">
                                 <div class="user-info">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h1 class="user-name mb-0"><?=$info->full_name?></h1>s
+                                        <h1 class="user-name mb-0"><?=$info->full_name?></h1>
                                     </div>
-                                    <address><?=$info->address?></address>
                                     <div class="info-detail">
-                                        <h5>Cá nhân</h5>
-                                        <hr>
                                         <div class="cate-contain mb-4">
-                                            <p class="label">Liên hệ</p>
+                                            <p class="label">Thông tin</p>
                                             <div class="d-flex item">
                                                 <span>Số điện thoại</span>
                                                 <span><?=$info->phone?></span>
@@ -44,6 +41,10 @@ getHeader();
                                             <div class="d-flex item">
                                                 <span>Email</span>
                                                 <span><?=$info->email?></span>
+                                            </div>
+                                             <div class="d-flex item">
+                                                <span>Địa chỉ</span>
+                                                <span><?=$info->address ?></span>
                                             </div>
                                             <!-- <div class="d-flex item">
                                                 <span>Liên hệ</span>
