@@ -96,11 +96,11 @@ $(document).ready(function () {
 
         if (src == "../assets/lou_icon/icon-heart.svg") {
 
-            $(this).attr("src", "../assets/lou_icon/icon-heart-white.svg")
+            $(this).attr("src", "/themes/tayho360/assets/lou_icon/icon-heart-white.svg")
 
         } else {
 
-            $(this).attr("src", "../assets/lou_icon/icon-heart.svg")
+            $(this).attr("src", "/themes/tayho360/assets/lou_icon/icon-heart.svg")
 
         }
 
