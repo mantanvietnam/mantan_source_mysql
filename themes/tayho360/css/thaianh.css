@@ -3199,11 +3199,11 @@ table {
     }
 
     #booking-tabs .box-search label input {
-        padding: 24px 114px 22px 100px;
+        padding: 21px 114px 22px 100px;
     }
 
     #booking-tabs .box-search label input::placeholder {
-        font-size: 15px;
+        font-size: 18px;
     }
 
     #booking-tabs .nav-tabs .nav-item button {
