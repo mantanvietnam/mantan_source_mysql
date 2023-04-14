@@ -4,16 +4,16 @@ global $urlThemeActive;
 global $session;
 $info = $session->read('infoUser');
 ?>
-<main>
+<main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
         <div class="container py-5">
             <section id="user-page">
                 <div class="row g-0">
                     <div class="col-12 col-lg-3 bg-white">
                         <section class="side-bar h-100">
                             <div class="background h-100">
-                                <a href="" class="active">Cá nhân</a>
-                                <a href="">Đổi mật khẩu</a>
-                                <a href="">Cài đặt</a>
+                                <a href="/infoUser" >Cá nhân</a>
+                                <a href="/pourpassword">Đổi mật khẩu</a>
+                                <a href="/editInfoUser" class="active">Sửa thông tin </a>
                             </div>
                         </section>
                     </div>
@@ -25,11 +25,7 @@ $info = $session->read('infoUser');
                                     <div class="top">
                                         <div class="d-flex">
                                             <div class="edit-user-photo me-3">
-                                                <!-- <img class="user-img w-100" src="../assets/lou_img/user-image.png" alt="">
-                                                <div class="edit-photo">
-                                                    <img class="" src="../assets/lou_icon/icon-camera.svg" alt="">
-                                                </div>
-                                                <input type="file" class="d-none file-edit-img"> -->
+                                                <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đạt diện</label>
 
                                                 <div class="m_bg_img" style="">
                                                     <input type="file" onchange="readURL1(this);" name="avatar">
@@ -50,21 +46,20 @@ $info = $session->read('infoUser');
                                                 <div class="col-12">
                                                     <div class="form-group-user">
                                                         <label for="">Họ và tên</label>
-                                                        <input type="text" placeholder="Esther Howard" name="full_name" value="<?php echo @$info->full_name ?>" class="form-control"
+                                                        <input type="text" placeholder="" name="full_name" value="<?php echo @$info->full_name ?>" class="form-control"
                                                             required>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-group-user">
                                                         <label for="">Địa chỉ</label>
-                                                        <input type="text" value="<?php echo @$info->address ?>" name="address" placeholder="8502 Preston Rd. Inglewood, Maine 98380"
-                                                            class="form-control" required>
+                                                        <input type="text" value="<?php echo @$info->address ?>" name="address" class="form-control" required>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-md-6">
+                                                <div class="col-12 col-md-12">
                                                     <div class="form-group-user">
                                                         <label for="">Số điện thoại</label>
-                                                        <input type="text" placeholder="0123 456 789" name="phone" value="<?php echo @$info->phone ?>" class="form-control"
+                                                        <input type="text"  name="phone" value="<?php echo @$info->phone ?>" class="form-control"
                                                             required>
                                                     </div>
                                                 </div>
@@ -76,7 +71,7 @@ $info = $session->read('infoUser');
                                                     </div>
                                                 </div> -->
                                                 <button class="mt-3 btn button-submit-custom">Lưu</button>
-                                            
+
                                         </div>
                                     </div>
                                 </form>
@@ -137,7 +132,7 @@ $info = $session->read('infoUser');
 .m_bg_img img {
     max-width: 100%!important;
 }
-</style>        
+</style>
 
     <?php
 getFooter();?>
