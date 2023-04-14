@@ -69,11 +69,9 @@ $infoUser = $session->read('infoUser');
                             <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Hành trình</a></li>
-                            <li><a class="dropdown-item" href="#">Đặt phòng</a></li>
+                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
                             <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
-                            <li><a class="dropdown-item" href="#">Thông báo</a></li>
-                            <li><a class="dropdown-item" href="#">Tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
                             <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
                         </ul>
                     <?php } else { ?>

@@ -9,41 +9,33 @@ global $urlThemeActive;
         <section id="tour-list" class="bg-pt">
             <div class="container form-main-position">
                 <div class="form-search-tour">
-                    <form action="">
+                    <form action="" method="GET">
                         <div class="d-flex flex-column flex-md-row justify-content-between">
                             <div class="input-form-contain w-100">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-6">
                                         <div class="d-flex form-input">
                                             <div class="round-icon d-none d-md-block"></div>
                                             <div class="form-group w-100">
                                                 <label for="">Địa điểm</label>
-                                                <input type="text" class="form-control" placeholder="Địa điểm" required>
+                                                <input type="text" class="form-control" value="<?php echo @$_GET['name'] ?>" name="name" placeholder="Địa điểm" >
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-6">
                                         <div class="d-flex form-input">
                                             <div class="round-icon d-none d-md-block"></div>
                                             <div class="form-group w-100">
                                                 <label for="">Ngày</label>
-                                                <input type="date" class="form-control" required>
+                                                <input type="date" class="form-control" value="<?php echo @$_GET['datestart'] ?>" name="datestart" >
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-4">
-                                        <div class="d-flex form-input">
-                                            <div class="round-icon d-none d-md-block"></div>
-                                            <div class="form-group w-100 no-border">
-                                                <label for="">Thời gian</label>
-                                                <input type="time" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="button-form-contain">
-                                <button class="btn button-submit-custom">
+                                <button type="submit" class="btn button-submit-custom">
                                     <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-search-white.svg" alt="">
                                 </button>
                             </div>

@@ -12,37 +12,37 @@ global $urlThemeActive;
 
         <section id="section-background-index">
             <form action="" method="GET">
-                <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-            <div class="container-fluid background-index">
-                <img src="<?= $urlThemeActive ?>img/background-index.jpg" alt="">
-            </div>
-
-            <!-- Bộ lọc -->
-            <div class="container container-box-filter-search">
-                <div class="filter-option-box">
-                    <div class="filter-option-title">
-                        <p>Danh mục</p>
-                    </div>
-
-                   <!--  <div class="filter-option">
-                        <select class="form-select-filter">
-                            <option selected>Di tích văn hoá, lịch sử</option>
-                        
-                        </select>
-                    </div> -->
-                     <?php include __DIR__.'/../select.php' ;?>
+                <div class="container-fluid background-index">
+                    <img src="<?= $urlThemeActive ?>img/background-index.jpg" alt="">
                 </div>
 
-                <div class="box-search">
-                    <div class="input-search">
-                        <label for="search-place" class="col-form-label"><i
-                                class="fa-solid fa-magnifying-glass"></i></label>
-                        <input type="text" name="name" id="search-place" placeholder="Tìm kiếm">
+                <!-- Bộ lọc -->
+                <div class="container container-box-filter-search">
+                    <div class="filter-option-box">
+                        <div class="filter-option-title">
+                            <p>Danh mục</p>
+                        </div>
+
+                        <!-- <div class="filter-option">
+                            <select class="form-select-filter">
+                                <option selected>Di tích văn hoá, lịch sử</option>
+                            
+                            </select>
+                        </div> -->
+                         <?php include __DIR__.'/../select.php' ;?>
+                    </div>
+
+                    <div class="box-search">
+                        <div class="input-search">
+                            <label for="search-place" class="col-form-label"><i
+                                    class="fa-solid fa-magnifying-glass"></i></label>
+                                <input type="text" name="name" id="search-place" value="<?php echo @$_GET['name']; ?>" placeholder="Tìm kiếm">
+                                <button class="mt-3 btn button-submit-custom" style="display: none;" >Lưu</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
-        </section>
+            </form>
+        </section>  
 
         <section id="place-category">
             <div class="category-title">

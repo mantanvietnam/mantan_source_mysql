@@ -63,8 +63,9 @@ global $urlThemeActive;
                                 <?php   } ?>
                             
                             <div class="button-share">
-                                <a href=""><button type="button" class="fb-share-button" data-href="/chi_tiet_dich_tich_lich_su/<?php echo $data->urlSlug ?>.html" data-layout="button_count"><i class="fa-solid fa-share-nodes"></i>Chia
-                                        sẻ</button></a>
+                                <!-- <a href=""><button type="button" class="fb-share-button" data-href="/chi_tiet_dich_tich_lich_su/<?php echo $data->urlSlug ?>.html" data-layout="button_count"><i class="fa-solid fa-share-nodes"></i>Chia
+                                        sẻ</button></a> -->
+                                <div class="fb-share-button" data-href="" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                             </div>
                         </div>
                     </div>

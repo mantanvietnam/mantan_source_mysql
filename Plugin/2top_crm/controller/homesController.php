@@ -187,7 +187,7 @@ function pourpassword($input){
 			    		$info_customer = $modelCustomer->find()->where($conditions)->first();
 			    		$session->write('infoUser', $info_customer);
 			    			
-							return $controller->redirect('/');
+						return $controller->redirect('/infoUser');		
 
 	    			}else{
 	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
@@ -261,7 +261,7 @@ function editInfoUser($input){
             $infoUser->phone = $dataSend['phone'];
             $modelCustomer->save($infoUser);
             $session->write('infoUser', $infoUser);
-			return $controller->redirect('/');
+			return $controller->redirect('/infoUser');
            
 	    }
 

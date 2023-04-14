@@ -48,10 +48,15 @@
                             <i>Tên sự kiện<span class="required">*</span>:</i>
                             <input type="text" maxlength="100" name="name" id="name" value="<?php echo @$data['name'] ?>" class="form-control" required="">
                         </div>
-                         <div class="mb-3 form-group col-sm-6">
+                         <div class="mb-3 form-group col-sm-3">
                             <i>Trạng thái:</i>&ensp;
                             <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Hiển thị&ensp;
                             <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Ẩn
+                        </div>
+                        <div class="mb-3 form-group col-sm-3">
+                            <i>Nội bật:</i>&ensp;
+                            <input type="radio" name="outstanding" class="" id="outstanding" value="1" <?php if(@ $data['outstanding']==1) echo 'checked="checked"';   ?> > có&ensp;
+                            <input type="radio" name="outstanding" class="" id="outstanding" value="0" <?php if(@ $data['outstanding']==0) echo 'checked="checked"';   ?> > không
                         </div>
                         <div class="mb-3 form-group col-sm-6">
                             <i>Cán bộ đầu mối:</i>
@@ -109,6 +114,7 @@
                                 ?>
                             </select>                                          
                         </div>
+
                          <div class="mb-3 form-group col-sm-3">
                             <i>Năm diễn ra:</i>
                            <input type="text" name="year" class="form-control" id="year" value="<?php echo @$data['year'] ?>">
