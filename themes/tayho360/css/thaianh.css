@@ -3202,7 +3202,7 @@ table {
         padding: 24px 114px 22px 100px;
     }
 
-    #booking-tabs .box-search label input[type='search'] {
+    #booking-tabs .box-search label input::placeholder {
         font-size: 20px;
     }
 
