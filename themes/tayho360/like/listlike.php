@@ -31,84 +31,222 @@ global $urlThemeActive;
 				              foreach ($listData as $item) {
 				                 $custom =  getCustomer($item->idcustomer);
 				                  if($item->tiype=="co_quan_hanh_chinh"){
-				                    $title = getGovernanceAgency($item->idobject);
+				                    $GovernanceAgency = getGovernanceAgency($item->idobject);
 				                    $type= 'Cơ quan hành chính';
-				                    $url= 'chi_tiet_co_quan_hanh_chinh/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                    if(!empty(@$GovernanceAgency)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$GovernanceAgency->image; ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_co_quan_hanh_chinh/'.$GovernanceAgency->urlSlug.'.html' ?>"><?php echo @$GovernanceAgency->name; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo @$GovernanceAgency->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
 
+				                 <?php }
 				                  }elseif($item->tiype=="dich_vu_ho_tro_du_lich"){
-				                    $title = getService($item->idobject);
+				                    $Service = getService($item->idobject);
 				                    $type= 'Dịch vụ hỗ trợ du lịch';
-				                    $url= 'chi_tiet_dich_vu_ho_tro_du_lich/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                
+				                     if(!empty(@$Service)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Service->image ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_dich_vu_ho_tro_du_lich/'.$Service->urlSlug.'.html'; ?>"><?php echo @$Service->name ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo @$Service->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="danh_lam"){
-				                    $title = getPlace($item->idobject);
+				                    $Place = getPlace($item->idobject);
 				                    $type= 'Danh lam thắng cảnh';
-				                    $url= 'chi_tiet_danh_lam/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                    $address=@$Place->address;
+				                     if(!empty(@$Place)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Place->image; ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_danh_lam/'.$Place->urlSlug.'.html'; ?>"><?php echo $Place->name; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo $Place->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="le_hoi"){
-				                    $title = getFestival($item->idobject);
-				                    $type= 'Lễ hội';
-				                    $url= 'chi_tiet_le_hoi/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                    $Festival = getFestival($item->idobject);
+				                
+				                     if(!empty(@$Festival)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Festival->image; ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_le_hoi/'.$Festival->urlSlug.'.html'; ?>"><?php echo @$Festival->name;; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo @$Festival->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="nha_hang"){
-				                    $title = getRestaurant($item->idobject);
+				                    $Restaurant = getRestaurant($item->idobject);
 				                    $type= 'Nhà hàng';
-				                    $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                    if(!empty(@$Restaurant)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Restaurant->image ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_nha_hang/'.@$Restaurant->urlSlug.'.html' ?>"><?php echo @$Restaurant->name; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo $Restaurant->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="tung_tam_hoi_nghi_su_kien"){
-				                    $title = getEventcenter($item->idobject);
-				                    $type= 'Nhà hàng';
-				                    $url= 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                    $Eventcenter = getEventcenter($item->idobject);
+				                     if(!empty(@$Eventcenter)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Eventcenter->image ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$Eventcenter->urlSlug.'.html'; ?>"><?php echo @$Eventcenter->name; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo $Eventcenter->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="lang_nghe"){
-				                    $title = getCraftvillage($item->idobject);
-				                    $type= 'Làng nghề';
-				                    $url= 'chi_tiet_lang_nghe/'.$title->urlSlug.'.html';
-				                    $name = $title->name;
-				                    $address=@$title->address;
-				                    $image=@$title->image;
+				                    $Craftvillage = getCraftvillage($item->idobject);
+				                     if(!empty(@$Craftvillage)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Craftvillage->image ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_lang_nghe/'.$Craftvillage->urlSlug.'.html'; ?>"><?php echo @$Craftvillage->name; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo $Craftvillage->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="khach_san"){
-				                    $title = getHotel($item->idobject);
-				                    $type= 'Khách sạn';
-				                    $url= 'chi_tiet_khach_san/'.$title['data']['Hotel']['slug'].'.html';
-				                    $name = $title['data']['Hotel']['name'];
-				                    $address=@$title['data']['Hotel']['address'];
-				                   $image=@$title['data']['Hotel']['image'][0];
+				                    $Hotel = getHotel($item->idobject);
+				                    
+				                    if(!empty(@$Hotel)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$Hotel['data']['Hotel']['image'][0]; ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="<?php echo 'chi_tiet_khach_san/'.$Hotel['data']['Hotel']['slug'].'.html'; ?>"><?php echo $Hotel['data']['Hotel']['name']; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo $Hotel['data']['Hotel']['address']; ?>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  } ?>
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                                <div class="card-diem-den-yeu-thich-contain">
-                                    <div class="card-diem-den-yeu-thich">
-                                        <div class="card">
-                                            <img src="<?php echo @$image ?>"
-                                                class="card-img-top w-100" alt="">
-                                            <div class="img-overlay">
-                                            </div>
-                                            <img class="heart" src="<?= $urlThemeActive ?>assets/lou_icon/icon-heart-white.svg" alt="">
-                                            <div class="card-body">
-                                                <h5 class="card-title "><a href="<?php echo @$url; ?>"><?php echo @$name; ?></a></h5>
-                                                <div class="d-flex align-items-center card-num-location">
-                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
-                                                        alt="">
-                                                    <span><?php echo @$address; ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                            <?php }} ?>
                            
                             <div class="col-12" id="pagination-page">

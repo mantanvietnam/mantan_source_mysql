@@ -29,8 +29,7 @@ getHeader();
                             <div class="col-12 col-md-8">
                                 <div class="user-info">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h1 class="user-name mb-0"><?=$info->full_name?></h1>
-                                        <a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/icon-pencil.svg" alt=""></a>
+                                        <h1 class="user-name mb-0"><?=$info->full_name?></h1>s
                                     </div>
                                     <address><?=$info->address?></address>
                                     <div class="info-detail">
@@ -46,18 +45,18 @@ getHeader();
                                                 <span>Email</span>
                                                 <span><?=$info->email?></span>
                                             </div>
-                                            <div class="d-flex item">
+                                            <!-- <div class="d-flex item">
                                                 <span>Liên hệ</span>
                                                 <span>https://www.facebook.com/abc</span>
-                                            </div>
+                                            </div> -->
                                         </div>
-                                        <div class="cate-contain">
+                                        <!-- <div class="cate-contain">
                                             <p class="label">Chung</p>
                                             <div class="d-flex item">
                                                 <span>Ngày sinh</span>
                                                 <span>01/01/1999</span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                 </div>

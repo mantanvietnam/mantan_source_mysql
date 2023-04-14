@@ -148,10 +148,17 @@ function logout($input)
 	return $controller->redirect('/');
 }
 function infoUser(){
-	
+	global $session;
+	global $controller;
+	 $modelCustomer = $controller->loadModel('Customers');
+    $infoUser  = $session->read('infoUser');
+
+    if(empty($infoUser)){
+    	return $controller->redirect('/');
+    }
 }
 
-function pourpassword(){
+function pourpassword($input){
 
 	global $metaTitleMantan;
 	global $isRequestPost;
@@ -161,31 +168,101 @@ function pourpassword(){
     $metaTitleMantan = 'Đăng nhập tài khoản';
 
     $modelCustomer = $controller->loadModel('Customers');
+    $infoUser  = $session->read('infoUser');
 
-    if(empty($session->read('infoUser'))){
+    if(!empty($infoUser)){
     	$mess = '';
 
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
-	    	if(!empty($dataSend['email']) && !empty($dataSend['pass'])){
-	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
-	    		$info_customer = $modelCustomer->find()->where($conditions)->first();
+	    		$conditions = array('email'=>$infoUser['email'], 'pass'=>md5($dataSend['oldpass']));
+	    		$data = $modelCustomer->find()->where($conditions)->first();
+	    		if(!empty($data)){
+	    			if($dataSend['pass'] == $dataSend['passAgain']){
+	    				$data->pass = md5($dataSend['pass']);
 
-	    		if(empty($info_customer )){
-	    			$conditions = array('phone'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
-	    			$info_customer = $modelCustomer->find()->where($conditions)->first();
-	    		}
+	    				$modelCustomer->save($data);
 
-	    		if($info_customer){
-	    			$session->write('infoUser', $info_customer);
-	    			
-					return $controller->redirect('/');
+			    		$conditions = array('email'=>$infoUser['email'], 'pass'=>md5($dataSend['passAgain']));
+			    		$info_customer = $modelCustomer->find()->where($conditions)->first();
+			    		$session->write('infoUser', $info_customer);
+			    			
+							return $controller->redirect('/');
+
+	    			}else{
+	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
+	    			}
 	    		}else{
-	    			$mess= '<p class="text-danger">Sai tài khoản hoặc mật khẩu</p>';
+	    			$mess= '<p class="text-danger">Xác nhận lại mật khẩu bạn không đúng</p>';
 	    		}
-	    	}else{
-	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
-	    	}
+	    }
+
+	    setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/');
+	}
+
+}
+
+function editInfoUser($input){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+    $metaTitleMantan = 'Đăng nhập tài khoản';
+
+    $modelCustomer = $controller->loadModel('Customers');
+    $infoUser  = $session->read('infoUser');
+
+    if(!empty($infoUser)){
+    	$mess = '';
+
+	    if($isRequestPost){
+	    	$dataSend = $input['request']->getData();
+
+	    	
+	    	
+	    	if(!empty($_FILES["avatar"]["name"])){
+                $avatar = '';
+                $today= getdate();
+
+                
+
+                  if(isset($_FILES["avatar"]) && empty($_FILES["avatar"]["error"])){
+                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+                $filename = $_FILES["avatar"]["name"];
+                $filetype = $_FILES["avatar"]["type"];
+                $filesize = $_FILES["avatar"]["size"];
+                
+                // Verify file extension
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
+                
+                // Verify file size - 1MB maximum
+                $maxsize = 1024 * 1024;
+                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
+                
+                // Verify MYME type of the file
+                if(in_array($filetype, $allowed)){
+                    // Check whether file exists before uploading it
+                    move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__.'/../../../webroot/upload/regcustomer/' . $today[0].'_avatar.jpg');
+                    $avatar= 'webroot/upload/regcustomer/'.$today[0].'_avatar.jpg';
+                    
+                } else{
+                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
+                }
+            }
+                $infoUser->avatar = $avatar;
+            }
+            $infoUser->full_name = $dataSend['full_name'];
+            $infoUser->address = $dataSend['address'];
+            $infoUser->phone = $dataSend['phone'];
+            $modelCustomer->save($infoUser);
+            $session->write('infoUser', $infoUser);
+			return $controller->redirect('/');
+           
 	    }
 
 	    setVariable('mess', $mess);
