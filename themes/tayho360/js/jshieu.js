@@ -1,4 +1,6 @@
 $ = jQuery;
+
+
 // Select all elements with the "i" tag and store them in a NodeList called "stars"
 const stars = document.querySelectorAll(".stars i");
 
@@ -27,11 +29,11 @@ $(document).ready(function () {
         var $inputField = $(this).parent().siblings('input');
 
         if (value == "open") {
-            $(this).attr("src", "../img/eyeclose.png")
+            $(this).attr("src", "/themes/tayho360/img/eyeclose.png")
             $(this).attr("value", "close")
             $inputField.attr("type", "password")
         } else {
-            $(this).attr("src", "../img/eyeopen.png")
+            $(this).attr("src", "/themes/tayho360/img/eyeopen.png")
             $(this).attr("value", "open")
             $inputField.attr("type", "text")
         }
@@ -135,6 +137,10 @@ $(document).ready(function () {
             $('.button-like i').css('color', '#188181');
         }
     });
+
+   
+
+    
 });
 
 // xem thêm

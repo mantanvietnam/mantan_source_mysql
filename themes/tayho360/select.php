@@ -25,8 +25,9 @@
 
 <script type="text/javascript">
 	$('#select').click(function(){
-	$('.pop_select').css('display','block');
-	$('.mask-select').css({'visibility':'visible','opacity':'1'})
+	// $('.pop_select').css('display','block');
+	// $('.mask-select').css({'visibility':'visible','opacity':'1'});
+	$('.pop_select').toggle();
 });
 
 $('#select_colse').click(function(){

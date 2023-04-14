@@ -1,1757 +1,3646 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-.mb-20 {
-	margin-bottom: 20px;
-}
-
-.container {
-	max-width: 1600px;
-}
-
-.relative {
-	position: relative;
-}
-
-.absolute {
-	position: absolute;
-}
-
-
-#banner-home-360 .box-iframe iframe {
-	width: 100%;
-	height: 840px;
-}
-/* home.html */
-
-/* #particle-js */
-#particle-js {
-	height: 824px;
-}
-
-#particles-js {
-	height: 824px !important;
-}
-
-.welcome-tayho-360 {
-	z-index: 10;
-	width: 100%;
-}
-
-.text-welcome {
-	margin-top: 80px;
-	margin-bottom: 100px;
-}
-
-.welcome-tayho-360 p {
-	color: #ffffff;
-	font-size: 28px;
-	line-height: normal;
-	text-align: center;
-	margin: 8px 0;
-	text-transform: uppercase;
-}
-
-#particle-js .article-space {
-	border-bottom: 3px solid #ffffff;
-	width: 15%;
-	margin: auto;
-}
-
-.lshowcase-logos {
-    margin: 0 auto;
-    text-align: center;
-}
-
-.lshowcase-flex {
-    display: flex;
-    flex-flow: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: stretch;
-}
-
-.lshowcase-thumb {
-    position: relative;
-}
-
-.lshowcase-box-10 {
-    /* align-self: stretch; */
-    display: flex;
-    align-items: center;
-    /* flex-basis: 10%; */
-    /* width: 10%; */
-	justify-content: center;
-	margin: 0 65px;
-}
-
-.lshowcase-boxInner {
-	margin: auto;
-	width: 129px;
-	height: 129px;
-	padding: 13%;
-    border-radius: 50%;
-    background: rgba(111, 171, 161, 0.8);
-}
-
-.lshowcase-boxInner img {
-	margin-top: 12px;
-}
-
-.lshowcase-wrap-responsive {
-    width: 100%;
-}
-
-.list-tabs .text-tabs p {
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 400 !important;
-	font-size: 22px;
-	margin-top: 20px;
-	margin-bottom: 40px;
-}
-
-.list-tabs-mobile {
-    display: none;
-}
-
-/* event-home */
-/* 
-#event-home .box-event-home .in-box-event-home .slick-list {
-    overflow: inherit !important;
-}
-
-#event-home .box-event-home .slide-time-event .slick-list {
-    overflow: inherit !important;
-} */
-
-#event-home .box-event-home .in-box-event-home  .slick-arrow {
-    position: absolute;
-    bottom: 60px;
-    z-index: 10;
-    background: #558F7C;
-    /* bottom: -800px; */
-    z-index: 10;
-    font-size: 24px;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-
-#event-home .box-event-home .in-box-event-home .slick-prev {
-    right: 50%;
-    transition: .8s;
-}
-
-#event-home .box-event-home .in-box-event-home .slick-next {
-    right: 42%;
-    transition: .8s;
-}
-
-#event-home .box-event-home .in-box-event-home .slick-prev:hover {
-    transition: .8s;
-    background: #357862;
-}
-
-#event-home .box-event-home .in-box-event-home .slick-next:hover {
-    transition: .8s;
-    background: #357862;
-}
-
-
-#event-home .box-event-home .slide-time-event  .slick-arrow {
-    position: absolute;
-    /* bottom: -800px; */
-    z-index: 10;
-    font-size: 30px;
-    background: none;
-    color: #000;
-    border: none;
-    border-radius: 50%;
-}
-
-#event-home .box-event-home .slide-time-event .slick-list {
-    margin: 0 60px !important;
-    padding: 20px 0 !important;
-    height: 100px;
-}
-
-#event-home .box-event-home .slide-time-event .slick-center {
-    border-bottom: 2px solid #000000;
-    font-size: 28px !important;
-    margin-top: -20px;
-    transition: .3s;
-}
-
-#event-home .box-event-home .slide-time-event .slick-prev {
-    right: 472px;
-    top: 16px;
-    transition: .8s;
-}
-
-#event-home .box-event-home .slide-time-event .slick-next {
-    right: 41px;
-    transition: .8s;
-    top: 16px;
-}
-
-#event-home .box-event-home .slide-time-event .slick-prev:hover {
-    transition: .8s;
-    color: #357862;
-}
-
-#event-home .box-event-home .slide-time-event .slick-next:hover {
-    transition: .8s;
-    color: #357862;
-}
-
-#event-home {
-	height: 950px;
-}
-
-#event-home .article-space {
-	border-bottom: 3px solid #3f4042;
-	width: 7.5%;
-	margin: 2px auto 55px auto;
-}
-
-.event-home-title p {
-	color: #3f4042;
-	font-size: 36px;
-	line-height: normal;
-	text-align: center;
-	text-transform: uppercase;
-	padding-top: 100px;
-}
-
-.slide-event-home p {
-	color: #ffffff;
-}
-
-.info-event-home {
-	background-color: #6FABA1;
-}
-
-.info-event-home .name-event-home p {
-	font-weight: 400;
-	font-size: 30px;
-	line-height: normal;
-}
-
-.info-event-home .description-event-home .title-des {
-	font-size: 24px;
-	font-weight: 400;
-	line-height: normal;
-	margin-top: 36px;
-}
-
-.info-event-home .description-event-home .text-des {
-	font-size: 20px;
-	line-height: normal;
-	font-weight: 400;
-	margin-top: 19px;
-}
-
-.info-event-home .local-event-home {
-	margin-top: 42px;
-}
-
-.info-event-home {
-    padding: 70px 120px 173px 160px;
-    width: 765px;
-    margin-top: 153px;
-    float: right;
-    text-align: justify;
-}
-
-.item-event-home {
-	left: 20px;
-	width: 48.5%;
-	z-index: 2;
-}
-
-.box-event-home .item-event-home .box-img-item-eh {
-	width: 100%;
-}
-
-.box-event-home .item-event-home .box-img-item-eh img {
-	width: 100%;
-	height: auto;
-}
-
-.local-event-home ul li {
-	display: flex;
-	color: #ffffff;
-	margin-bottom: 24px;
-}
-
-.local-event-home ul li i {
-	font-size: 25px;
-	margin-top: -10px;
-	margin-right: 24px;
-	width: 25px;
-}
-
-.box-event-home .slide-time-event {
-	display: flex;
-    width: 540px;
-    right: 118px;
-    z-index: 10;
-}
-
-.box-event-home .slide-time-event .month-start-event {
-	font-size: 20px;
-    line-height: normal;
-    text-align: center;
-    font-weight: 400;
-    padding-bottom: 4px;
-    margin: 0px 5px;
-}
-
-/* #travel-guide */
-
-#travel-guide {
-	margin-top: 200px;
-	background-color: rgba(131, 198, 187, 0.56);
-	padding-bottom: 84px;
-}
-
-#travel-guide .container {
-	padding: 0 293px;
-}
-
-#travel-guide .article-space {
-	border-bottom: 3px solid #3f4042;
-	width: 18%;
-	margin: 2px auto 55px auto;
-}
-
-#travel-guide .box-service .box-image img {
-    width: 100%;
-    height: 219px;
-    border-radius: 20px;
-    object-fit: cover;
-}
-
-.box-service {
-    transition: .5s linear all;
-    position: relative;
-	margin-bottom: 20px;
-	border-radius: 20px;
-}
-
-/* .content-service .box-service .box-image img {
-    width: 100%;
-    height: 388px;
-    object-fit: cover;
-	border-radius: 20px;
-} */
-
-.box-service .over_black, .box-service .title-service-details {
-    opacity: 1;
-    transition: .3s;
-}
-
-.over_black {
-    position: absolute;
-    height: 70px;
-    background-image: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 100%);
-    width: 100%;
-    bottom: 0px;
-    transition: 0.2s;
-    border-radius: 5px;
-    z-index: 0;
-    border-radius: 20px;
-}
-
-.box-service .over_black, .box-service .title-service-details {
-    opacity: 1;
-    transition: .3s;
-}
-.title-service-details {
-    position: absolute;
-    bottom: 0px;
-    left: 50px;
-    color: white;
-    z-index: 2;
-}
-
-.title-service-details h4 {
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 700;
-    font-style: normal;
-    line-height: 46px;
-    text-align: left;
-    text-transform: uppercase;
-    letter-spacing: 0.1px;
-}
-
-.flower_line:before {
-    content: " ";
-    position: relative;
-    transform: rotate(-180deg);
-    bottom: -2px;
-    width: 4px;
-    height: 16px;
-    background-color: rgba(131, 198, 187, 0.2);
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.overplay_content {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 0%;
-    transition: 1s;
-    border-radius: 11px;
-    background-image: linear-gradient(to bottom, rgba(131, 198, 187, 1) 0%, rgba(131, 198, 187, 1) 23%, rgba(131, 198, 187, 1) 99%, rgba(131, 198, 187, 1) 100%);
-    opacity: 0;
-    z-index: 0;
-    color: #fff;
-    text-align: center;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
-.overplay_text {
-    width: 60%;
-    padding: 50px 0;
-}
-
-.overplay_text h4 {
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 700;
-    font-style: normal;
-    line-height: 1.5;
-    text-align: center;
-    text-transform: uppercase;
-    position: relative;
-    margin-bottom: 50px;
-    margin-top: 10px;
-}
-
-/* .overplay_text .btn_trang {
-    transform: translateX(50%);
-} */
-
-.btn_trang {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 155px;
-    height: 40px;
-    border-radius: 12px 12px;
-    border: 1px solid #ffffff;
-    margin-top: 15px;
-    transition: all 0.2s ease-in-out;
-    z-index: 10;
-    text-align: center;
-    left: 31%;
-    width: 40%;
-    margin: auto;
-    top: 50%;
-}
-
-.btn_trang a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.box-service:hover .overplay_content {
-    bottom: 2px;
-    opacity: 0.9;
-    height: 219px;
-}
-
-.box-service:hover .over_black, .box-service:hover .title-service-details {
-    opacity: 0;
-}
-
-/* #news-home */
-
-#news-home .nav-tabs .nav-link.active {
-    border: none;
-}
-
-#news-home .nav-tabs .nav-link {
-    border-radius: 0 !important;
-    border: none !important;
-}
-
-#news-home .nav-tabs .nav-link:hover {
-    border: none !important;
-}
-
-#news-home .article-space {
-	border-bottom: 3px solid #3f4042;
-	width: 15.5%;
-	margin: 2px auto 55px auto;
-}
-
-#news-home .container {
-    padding: 0 196px;
-}   
-
-#news-home .all-news-home .box-image-news img {
-    width: 100%;
-    height: auto;
-}
-
-#news-home .all-news-home .box-news ul li button {
-    font-size: 16px;
-    font-weight: 400;
-    padding-left: 0;
-    text-transform: uppercase;
-    text-align: left;
-    color: #495057;
-}
-
-#news-home .all-news-home .box-news ul li {
-    border-bottom: 2px solid rgba(18, 107, 102, 0.7);
-    /* padding-top: 20px; */
-    padding-bottom: 3px;
-}
-
-#news-home .all-news-home .box-news ul li a {
-    text-decoration: none;
-    color: #3f4042;
-    line-height: normal;
-}
-
-#news-home .all-news-home .box-news ul li:last-child {
-    border: none !important;
-}
-
-
-#news-home .all-news-home ul li::marker {
-    color: rgba(18, 107, 102, 0.7);
-    font-size: 22px;
-}
-
-#news-home .all-news-home .box-news ul li ul {
-    margin-left: 23px;
-}
-
-#news-home .all-news-home .box-news ul li .list-styled {
-    list-style-type: disc;
-}
-
-/* #tour-travel-home */
-
-#tour-travel-home .box-slide-tth  .slick-arrow {
-    position: absolute;
-    /* bottom: -800px; */
-    z-index: 10;
-    font-size: 24px;
-    background: none;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-
-#tour-travel-home .box-slide-tth .slick-prev {
-    right: 940px;
-    top: 143px;
-    transition: .8s;
-    display: none !important;
-    background-color: rgba(85, 143, 124, 0.9);
-}
-
-#tour-travel-home .box-slide-tth .slick-next {
-    right: -18px;
-    transition: .8s;
-    top: 190px;
-    background-color: rgba(85, 143, 124, 0.9);
-}
-
-#tour-travel-home .box-slide-tth .slick-prev:hover {
-    transition: .8s;
-    background-color: #558F7C;
-    width: 50px;
-    height: 50px;
-    translate: 0px -5px;
-    transform: translateX(5px);
-}
-
-#tour-travel-home .box-slide-tth .slick-next:hover {
-    transition: .8s;
-    background-color: #558F7C;
-    width: 50px;
-    height: 50px;
-    translate: 0px -5px;
-    transform: translateX(5px);
-}
-
-#tour-travel-home .box-slide-tth .slick-current .box-tth {
-    box-shadow: 12px 12px 26px rgba(0, 0, 0, 0.31);
-    border: none;
-    transition: .3s;
-}
-
-#tour-travel-home .pd-tth {
-    padding: 0 10px;
-}
-
-.box-slide-tth .slick-list {
-    height: 440px;
-    padding-top: 20px;
-}
-
-.box-slide-tth .slick-slide {
-    transition: 0.3s;
-}
-
-#tour-travel-home .article-space {
-	border-bottom: 3px solid #3f4042;
-	width: 15.5%;
-	margin: 2px auto 55px auto;
-}
-
-#tour-travel-home .container {
-    padding: 0 196px;
-}   
-
-#tour-travel-home .box-slide-tth .box-tth {
-    border-radius: 20px;
-    background-color: #4E9D90;
-    border: 1px solid rgba(0, 0, 0, 0.44);
-    transition: .3s;
-}
-
-#tour-travel-home .box-slide-tth .box-tth .box-imag {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-#tour-travel-home .box-slide-tth .box-tth .box-image img {
-    width: 100%;
-    height: auto;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-#tour-travel-home .box-slide-tth .box-tth .box-info {
-    padding: 12px 20px 23px 20px;
-    color: #ffffff;
-}
-
-#tour-travel-home .box-slide-tth .box-tth .box-info .type-tour {
-    font-size: 16px;
-    line-height: normal;
-    font-weight: 400;
-    margin-bottom: 12px;
-}
-
-#tour-travel-home .box-slide-tth .box-tth .box-info .title-tour {
-    font-size: 22px;
-    line-height: normal;
-    font-weight: 400;
-    margin-bottom: 12px;
-}
-
-#tour-travel-home .box-slide-tth .box-tth .box-info .price-tour {
-    font-size: 18px;
-}
-
-/* #map-home */
-
-#map-home .article-space {
-	border-bottom: 3px solid #3f4042;
-	width: 15.5%;
-	margin: 2px auto 55px auto;
-}
-
-#map-home .box-iframe-gg iframe {
-    width: 100%;
-    height: 1086px;
-}
-
-/* #viet-nam-360 */
-#viet-nam-360 {
-    height: 700px;
-}
-
-#viet-nam-360 .article-space {
-	border-bottom: 3px solid #3f4042;
-	width: 15.5%;
-	margin: 2px auto 20px auto;
-}
-
-.vn360-description {
-    color: #3f4042;
-    font-size: 30px;
-    line-height: normal;
-    text-align: center;
-}
-
-.box-image-vn360 img {
-    width: 323px;
-    height: auto;
-    border-radius: 20px;
-    transition: all 700ms;
-}
-
-.flex {
-    display: flex;
-}
-
-#viet-nam-360 .slide-vn360 .slick-center {
-    transform: scale(1);
-    translate: -135px -70px;
-}
-
-#viet-nam-360 .slide-vn360 .slick-list {
-   /* margin: 0 60px !important; */
-   padding: 100px 0 0 0 !important;
-}
-
-#viet-nam-360 .slide-vn360 .slick-center img {
-    width: 580px;
-    height: auto;
-    border-radius: 20px;
-}
-
-#viet-nam-360 .container {
-    max-width: 1000px !important;
-}
-
-#viet-nam-360 .slide-vn360  .slick-arrow {
-    position: absolute;
-    /* bottom: -800px; */
-    z-index: 10;
-    font-size: 23px;
-    background: none;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-
-#viet-nam-360 .slide-vn360 .slick-prev {
-    right: 972px;
-    top: 175px;
-    transition: .8s;
-    background-color: rgba(85, 143, 124, 0.9);
-}
-
-#viet-nam-360 .slide-vn360 .slick-next {
-    right: -5px;
-    transition: .8s;
-    top: 175px;
-    background-color: rgba(85, 143, 124, 0.9);
-}
-
-#viet-nam-360 .slide-vn360 .slick-prev:hover {
-    transition: .8s;
-    background-color: #558F7C;
-    width: 50px;
-    height: 50px;
-    translate: 0px -5px;
-    transform: translateX(5px);
-}
-
-#viet-nam-360 .slide-vn360 .slick-next:hover {
-    transition: .8s;
-    background-color: #558F7C;
-    width: 50px;
-    height: 50px;
-    translate: 0px -5px;
-    transform: translateX(5px);
-}
-
-/* bookingonline.html */
-
-/* #booking-tabs {
-    margin-top: -37px;
-} */
-
-#bg-booking-online .box-image-booking {
-    width: 100%;
-    height: 600px;
-}
-
-#booking-tabs .container {
-    max-width: 1520px;
-    padding: 0 200px;
-}
-
-#booking-tabs .nav-tabs {
-    border: none;
-}
-
-#booking-tabs .nav-tabs .nav-item.show .nav-link,#booking-tabs .nav-tabs .nav-link.active {
-    border: none;
-}
-
-#booking-tabs .nav-tabs .nav-item .active {
-    background: rgba(24, 129, 129, 0.5) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-#booking-tabs .nav-tabs {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 24px;
-    background: #ffffff;
-}
-
-#booking-tabs .nav-item {
-    width: 33.333333%;
-    border-radius: 24px;
-}
-
-#booking-tabs .nav-tabs .nav-item button {
-    width: 100%;
-    border-radius: 24px;
-    padding: 21px 0 23px 0;
-    font-size: 24px;
-    color: #326845;
-}
-
-#booking-tabs .nav-tabs .nav-item .active {
-    color: #ffffff;
-}
-
-#booking-tabs .box-search {
-    margin: 52px 0;
-}
-
-#booking-tabs .box-search label {
-    width: 100%;
-}
-
-#booking-tabs .box-search label input {
-    width: 100%;
-    background: #DEECEA;
-    border-radius: 24px;
-    border: none;
-    outline: none;
-    padding: 26px 114px 22px 114px;
-}
-
-#booking-tabs .box-search label input::placeholder {
-    font-size: 24px;
-    color: rgba(24, 129, 129, 0.54);
-}
-
-#booking-tabs .box-search label .box-icon {
-    font-size: 32px;
-    top: 20px;
-    left: 48px;
-}
-
-#booking-tabs .box-search label .box-icon i {
-    color: #188181;
-}
-
-#booking-tabs .tab-content .tab-pane tr:first-child {
-    background-color: #188181;
-}
-
-#booking-tabs .tab-content .tab-pane tr th {
-    text-align: center;
-    font-size: 20px;
-    padding: 20px 10px;
-    color: #ffffff;
-    line-height: normal;
-}
-
-#booking-tabs .tab-content .tab-pane tr td {
-    text-align: center;
-    font-size: 16px;
-    padding: 24px;
-    color: #3F4042;
-    line-height: normal;
-}
-
-
-/* thongbao.html */
-
-.box-search-notification {
-    margin-top: -36px !important;
-}
-
-.title-notification .box-text-notifi {
-    width: 98%;
-}
-
-.title-notification .box-icon-notifi .btn i {
-    color: #3F4042;
-    transition: .8s;
-}
-
-.title-notification .box-icon-notifi:hover .btn i {
-    transition: .8s;
-    color: #126B66;
-    cursor: pointer;
-}
-
-.btn-setting-notifi {
-    background: none !important;
-    outline: none;
-    border: none;
-    box-shadow: none !important;
-}
-
-.title-notification .box-text-notifi p {
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 30px;
-    color: #3F4042;
-}
-
-#booking-tabs .btn-setting-notifi {
-    padding: 0 !important;
-}
-
-#booking-tabs button:focus:not(:focus-visible) {
-    box-shadow: none;
-}
-
-.modal-setting-notifi .modal-title {
-    text-align: center;
-    width: 100%;
-    font-size: 22px;
-}
-
-.modal-setting-notifi .modal-header {
-    border: none;
-}
-
-.modal-setting-notifi .modal-footer {
-    border: none;
-}
-
-.modal-setting-notifi .box-icon-sn i {
-    font-size: 16px;
-    margin-right: 15px;
-    color: #126B66;
-    font-weight: 700;
-    margin-top: -3px;
-}
-
-.modal-setting-notifi .box-text-sn p {
-    font-size: 16px;
-}
-
-.modal-setting-notifi .modal-body {
-    justify-content: space-between;
-    height: 250px;
-}
-
- .modal-setting-notifi .btn-on-off .form-switch .form-check-input {
-    width: 40px;
-    height: 20px;
-}
-
-.modal-setting-notifi .btn-on-off .form-check-input:focus {
-    box-shadow: none !important;
-}
-
-.modal-setting-notifi .btn-on-off .form-switch .form-check-input:checked {
-    background-color: #ffffff;
-    background-position: right center;
-    background-image: url(../img/thaianhimg/icon-toggle.png) !important;
-}
-
-.modal-setting-notifi .btn-on-off .form-switch .form-check-input:checked[type=checkbox] {
-    background-image: url(../img/thaianhimg/icon-toggle.png) !important;
-}
-
-.modal-setting-notifi .btn-on-off .form-switch .form-check-input {
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.7);
-    background-image: url(../img/thaianhimg/icon-toggle.png) !important;
-    border-radius: 8px !important;
-}
-
-.modal-setting-notifi .btn-on-off {
-    margin-top: -5px;
-}
-
-.box-details-notification {
-    padding: 15px 20px 11px 20px;
-    border: 1px solid rgba(63, 64, 66, 0.5);
-}
-
-.box-details-notification .box-img-bdn {
-    width: 10%;
-}
-
-.box-details-notification .box-img-bdn img {
-    width: 100%;
-    height: auto;
-}
-
-.box-details-notification .box-text-bdn {
-    margin-left: 10px;
-    width: 90%;
-}
-
-.box-details-notification .box-text-bdn .title-bt-bdn p {
-    font-size: 22px;
-    margin-top: 4px;
-    line-height: normal;
-    text-align: left;
-    color: #000;
-}
-
-.box-details-notification .box-text-bdn .content-bt-bdn p {
-    font-size: 16px;
-    line-height: normal;
-    color: #000;
-}
-
-.box-details-notification .box-text-bdn .content-bt-bdn {
-    justify-content: space-between;
-}
-
-.bg-fill-first {
-    background: rgba(90, 174, 158, 0.62);
-}
-
-.notification .nav-tabs .nav-item button {
-    border-radius: 0 !important;
-    padding: 0;
-}
-
-.notification .nav {
-    display: block;
-}
-
-.notification .nav-item {
-    width: 100% !important;
-}
-
-.notification .nav-tabs {
-    background: none !important;
-    border: none !important;
-}
-
-.notification .nav-item button {
-    padding: 0 !important;
-}
-
-.notification .nav-tabs .nav-item .active {
-    border: none !important;
-}
-
-.notification .title-notification {
-    margin-bottom: 60px;
-}
-
-.notification .tab-notifi-content {
-    background: #ffffff;
-    padding: 15px;
-}
-
-.notification .tab-notifi-content .flex {
-    justify-content: space-between;
-}
-
-.tab-notifi-content .box-text-bdn {
-    line-height: normal;
-}
-
-.tab-notifi-content .box-img-bdn {
-    width: 20%;
-}
-
-.tab-notifi-content .box-img-bdn img {
-    width: 100%;
-    height: auto;
-}
-
-.tab-notifi-content .box-text-bdn {
-    margin-top: 5px;
-}
-
-.tab-notifi-content .box-content-bdn {
-    margin-top: 30px;
-}
-
-.tab-notifi-content .box-content-bdn .text-details {
-    margin-top: 20px;
-}
-
-.bg-new-notifi {
-    background: rgba(90, 174, 158, 0.62) !important;
-}
-
-.bg-havent-seen {
-    background: rgba(90, 174, 158, 0.32) !important;
-}
-
-/* #pagination */ 
-
-/* #pagination-page {
-    margin-top: 40px;
-    margin-bottom: 35px;
-} */
-
-#pagination-page ul {
-    display: flex; 
-    justify-content: center;
-}
-
-#pagination-page ul li a i {
-    color: #3F4042;
-    font-size: 20px;
-}
-
-#pagination-page ul li {
-    padding: 10px 0px;
-    border-radius: 10px;
-}
-
-#pagination-page ul li a {
-    padding: 10px 16px;
-    font-size: 20px;
-    color: #3F4042;
-    font-weight: 400;
-    text-decoration: none;
-    font-family: 'Korinna' !important;
-}
-
-/* #pagination-page ul li:hover {
-    border: 2px solid #188181;
-    border-radius: 10px;
-} */
-
-/* #map-home */
-
-#mapid {
-    font-family: 'Korinna' !important;
-    font-weight: 400 !important;
-    color: #ffffff;
-}
-
-#map-home .check-box-map {
-    transition: .5s;
-    background-color: #6FABA1;
-    top: 0;
-    z-index: 999;
-    padding: 40px 45px 40px 55px;
-    width: 350px;
-    height: 480px;
-    left: 80px;
-    border-radius: 20px;
-    /* overflow: hidden; */
-    float: left;
-}
-.width-no{
-    width: 0%!important;
-}
-
-#map-home .check-box-map form{
-    transition: 2s;
-    width: 400px;
-    opacity: 1;
-}
-.hide{
-    transition: 0.1s !important;
-    opacity: 0!important;
-}
-
-#map-home .check-box-map label {
-    font-size: 16px;
-    line-height: normal;
-}
-
-#map-home .check-box-map label input {
-    margin-right: 15px;
-    margin-bottom: 20px;
-}
-
-#map-home .check-box-map label input:checked[type=checkbox] {
-    border: none;
-    color: #3F4042;
-    background-color: #ffffff;
-}
-
-#map-home .check-box-map label p {
-    font-size: 22px !important;
-    margin-bottom: 25px;
-}
-
-#map-home #mapid {
-    height: 800px !important;
-}
-
-#map-home #mapid .book-icon-map .box-img-icon img {
-    width: 70%;
-    height: auto;
-}
-
-#map-home #mapid .book-icon-map .box-img-icon {
-    margin-bottom: 30px;
-}
-
-#map-home #mapid .book-icon-map {
-    z-index: 1000;
-    left: 62px;
-    top: 35px;
-}
-
-#map-home #mapid .check-box-map .hide_pop-up {
-    background-color: #558F7C;
-    color: #ffffff !important;
-    padding: 15px 23px;
-    border-radius: 50%;
-    font-size: 18px;
-    /* display: none; */
-}
-
-.btn-hide {
-    right: -25px;
-    top: 225px;
-    opacity: 1;
-    transition: .5s;
-}
-
-.btn-hide.to-left{
-    right: 280px;
-    /* opacity: 0; */
-}
-
-.btn-show {
-    transition: .5s;
-    z-index: 999;
-    left: 150px;
-    width: 5%;
-    top: 225px;
-}
-
-
-.btn-show a {
-    background-color: #558F7C;
-    color: #ffffff !important;
-    padding: 15px 23px;
-    border-radius: 50%;
-    font-size: 18px;
-    transition: .5s;
-    opacity: 1;
-}
-.opacity-0{
-    opacity: 0!important;
-}
-
-@media (min-width:1800px) {
-    .info-event-home {
-        width: 1025px !important;
-    }
-}
-
-@media (min-width:2100px) {
-    .info-event-home {
-        width: 1175px !important;
-    }
-}
-
-@media (min-width:1700px) {
-    .box-event-home .slide-time-event {
-        right: 290px;
-    }
-}
-
-@media (min-width:1500px) {
-    .info-event-home {
-        width: 875px;
-    }
-}
-
-@media (min-width:1400px) {
-    #event-home .box-event-home .in-box-event-home .slick-prev {
-        right: 35%;
-    }
-    #event-home .box-event-home .in-box-event-home .slick-next {
-        right: 31%;
-    }
-}
-
-@media (max-width:1300px) {
-    .lshowcase-boxInner {
-        width: 80px;
-        height: 80px;
-        padding: 10%;
-    }
-    .lshowcase-boxInner img {
-        width: 55%;
-    }
-    #event-home .box-event-home .in-box-event-home .slick-arrow {
-        font-size: 18px;
-    }
-}
-
-@media (max-width:1200px) {
-    #booking-tabs .container {
-        padding: 0 100px;
-    }
-    #event-home .box-event-home .slide-time-event .slick-prev {
-        right: 410px;
-    }
-    .box-event-home .slide-time-event {
-        width: 480px;
-    }
-    .info-event-home {
-        padding: 50px 120px 173px 160px;
-        width: 725px;
-    }
-    #event-home .box-event-home .slide-time-event .slick-center {
-        font-size: 24px !important;
-        margin-top: -18px;
-        transition: .3s;
-    }
-    .box-event-home .slide-time-event .month-start-event {
-        font-size: 18px;
-    }
-    #travel-guide .container {
-        padding: 0 180px;
-    }
-    #news-home .container {
-        padding: 0 150px;
-    }
-    #tour-travel-home .container {
-        padding: 0 150px;
-    }
-}
-
-@media (max-width:1100px) {
-    .box-event-home .slide-time-event {
-        right: 90px;
-    }
-    .info-event-home {
-        padding: 50px 120px 173px 160px;
-        width: 670px;
-    }
-    #news-home .container {
-        padding: 0 100px;
-    }
-    #tour-travel-home .container {
-        padding: 0 100px;
-    }
-}
-
-@media (max-width:1050px) {
-    .lshowcase-boxInner {
-        width: 70px;
-        height: 70px;
-        padding: 12%;
-    }
-}
-
-@media (max-width:991px) {
-    #booking-tabs .container {
-        padding: 0 50px !important;
-    }
-    .list-tabs .text-tabs p {
-        font-size: 16px;
-        margin-top: 15px;
-        margin-bottom: 30px;
-    }
-    .box-event-home .slide-time-event {
-        right: 40px;
-    }
-    .box-event-home .slide-time-event .month-start-event {
-        font-size: 16px;
-    }
-    #event-home .box-event-home .slide-time-event .slick-center {
-        font-size: 22px !important;
-    }
-    .info-event-home {
-        padding: 50px 120px 173px 160px;
-        width: 620px;
-        margin-top: 100px;
-    }
-    .info-event-home .name-event-home p {
-        font-size: 26px;
-    }
-    .info-event-home .description-event-home .title-des {
-        font-size: 20px;
-    }
-    .info-event-home .description-event-home .text-des {
-        font-size: 16px;
-    }
-    .local-event-home ul li i {
-        font-size: 14px;
-        margin-top: 0px;
-        margin-right: 10px;
-    }
-    .slide-event-home .local-event-home p {
-        font-size: 12px;
-    }
-    #travel-guide .container {
-        padding: 0 120px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-next {
-        right: 45px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-prev {
-        right: 910px;
-    } 
-    #map-home .check-box-map {
-        padding: 25px 30px 25px 35px;
-        width: 320px;
-    }
-}
-
-@media (max-width:900px) {
-    .info-event-home {
-        width: 570px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center img {
-        width: 570px;
-        height: 400px;
-    }    
-    #viet-nam-360 .slide-vn360 .slick-center {
-        translate: -135px -50px;
-    }
-    .box-image-vn360 img {
-        width: 285px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-next {
-        right: 5px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-prev {
-        right: 855px !important;
-        top: 160px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-next {
-        right: 3px;
-        top: 160px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center img {
-        height: 255px;
-        object-fit: cover;
-    }
-}
-
-@media (max-width:768px) {
-    .tab-notifi-content .box-img-bdn {
-        width: 48px;
-        height: 48px;
-    }
-    .title-notification .box-text-notifi p {
-        font-size: 24px;
-    }
-    .notification .box-search label input::placeholder {
-        font-size: 20px;
-    }
-    .notification .box-search label .box-icon {
-        font-size: 22px;
-    }
-    .notification .box-search label input {
-        padding: 20px 114px 20px 114px;
-    }
-    #booking-tabs .tab-content-booking .tab-pane {
-        overflow: auto visible;
-    }
-    #booking-tabs .tab-content-booking .tab-pane table {
-        width: 1000px !important;
-    }
-    .text-welcome {
-        margin-top: 40px;
-        margin-bottom: 50px;
-    }
-    .welcome-tayho-360 p {
-        font-size: 22px;
-    }
-    .event-home-title p {
-        font-size: 22px;
-        padding-top: 40px;
-    }
-    .info-event-home {
-        padding: 30px 100px 30px 100px;
-        width: 460px;
-    }
-    .item-event-home {
-        position: initial;
-        width: 100%;
-        margin-top: 100px;
-    }
-    .info-event-home {
-        margin-top: 0;
-        position: initial;
-        width: 100%;
-    }
-    .box-event-home .slide-time-event {
-        right: 18%;
-    }
-    #travel-guide {
-        margin-top: 100px;
-    }
-    .info-event-home .description-event-home .title-des {
-        margin-top: 15px;
-    }
-    .info-event-home .description-event-home .text-des {
-        margin-top: 10px;
-    }
-    .info-event-home .local-event-home {
-        margin-top: 30px;
-    }
-    .box-event-home .item-event-home .box-img-item-eh img {
-        height: 300px;
-        object-fit: cover;
-    }
-    .vn360-description {
-        font-size: 14px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center img {
-        height: 220px;
-        object-fit: cover;
-        width: 500px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center {
-        translate: -135px -42px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-next {
-        display: none !important;
-    }
-    #viet-nam-360 .slide-vn360 .slick-prev {
-        display: none !important;
-    }
-    #event-home .box-event-home .in-box-event-home .slick-arrow {
-        bottom: 10px;
-    }
-    .box-image-vn360 img {
-        width: 235px;
-    }
-    #map-home #mapid .book-icon-map .box-img-icon img {
-        width: 60%;
-        height: auto;
-    }
-    #map-home .check-box-map {
-        height: 424px;
-        width: 280px;
-    }
-    #map-home .check-box-map label p {
-        font-size: 20px !important;
-    }
-    #map-home .check-box-map label {
-        font-size: 14px;
-    }
-    #map-home #mapid .book-icon-map {
-        left: 66px;
-    }
-    #viet-nam-360 {
-        height: 500px;
-    }
-}
-
-@media (max-width:700px) {
-    .box-event-home .slide-time-event {
-        right: 15%;
-    }
-}
-
-@media (max-width:600px) {
-    .list-tabs-none {
-        display: none !important;
-    }
-    .list-tabs-mobile {
-        display: block !important;
-    }
-    .lshowcase-box-10 {
-        margin: 0 50px;
-    }
-    .box-event-home .slide-time-event {
-        right: 8%;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center img {
-        height: 180px;
-        width: 400px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center {
-        translate: -100px -39px;
-    }
-    .box-image-vn360 img {
-        width: 190px;
-    }
-}
-
-@media (max-width:500px) {
-    #tour-travel-home .box-slide-tth .slick-next {
-        right: 10px;
-    }
-    #tour-travel-home .pd-tth {
-        padding: 0 35px;
-    }
-    #tour-travel-home .container {
-        padding: 0 25px;
-    }
-    .box-details-notification .box-img-bdn {
-        width: 40px;
-    }
-    .box-details-notification .box-text-bdn .title-bt-bdn p {
-        margin-top: 0;
-        font-size: 18px;
-    }
-    .box-details-notification .box-text-bdn .content-bt-bdn p {
-        font-size: 13px;
-    }
-    .tab-notifi-content .box-text-bdn {
-        margin-top: 0;
-        font-size: 13px;
-    }
-    .tab-notifi-content .box-content-bdn {
-        font-size: 13px;
-    }
-    .notification .box-search label input::placeholder {
-        font-size: 16px;
-    }
-    .notification .box-search label input {
-        padding: 20px 70px 20px 70px;
-    }
-    .notification .box-search label .box-icon {
-        top: 19px;
-        left: 30px;
-    }
-    #pagination-page ul li a {
-        font-size: 18px;
-        padding: 8px 14px;
-    }
-    #pagination-page ul li a i {
-        font-size: 16px;
-    }
-    #travel-guide .container {
-        padding: 0 50px;
-    }
-    #news-home .container {
-        padding: 0 50px;
-    }
-    #particles-js {
-        height: 950px !important;
-    }
-    #particle-js {
-        height: 950px;
-    }
-    .info-event-home {
-        padding: 30px 50px;
-    }
-    .box-event-home .slide-time-event {
-        right: 1%;
-    }
-    #tour-travel-home .article-space {
-        margin: 2px auto 25px auto;
-    }
-    .event-home-title p {
-        padding-top: 100px;
-    }
-    #event-home .box-event-home .in-box-event-home .slick-next {
-        right: 40%;
-        transition: .8s;
-    }
-    .box-image-vn360 img {
-        width: 155px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center img {
-        height: 150px;
-        width: 355px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center {
-        translate: -100px -35px;
-    }
-}
-
-@media (max-width:450px) {
-    .notification .container {
-        padding: 0 25px !important;
-    }
-    .box-details-notification {
-        padding: 15px 10px 11px 10px;
-    }
-}
-
-@media (max-width:425px) {
-    .box-details-notification .box-text-bdn .title-bt-bdn p {
-        font-size: 15px;
-    }
-    .box-details-notification .box-text-bdn .content-bt-bdn p {
-        font-size: 11px;
-    }
-}
-
-@media (max-width:400px) {
-    #travel-guide .container {
-        padding: 0 30px;
-    }
-    #event-home .box-event-home .in-box-event-home .slick-next {
-        right: 38%;
-        transition: .8s;
-    }
-    #news-home .container {
-        padding: 0 30px;
-    }
-    #tour-travel-home .container {
-        padding: 0 30px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center img {
-        height: 150px;
-        width: 361px;
-    }
-    #viet-nam-360 .slide-vn360 .slick-center {
-        translate: -121px -35px;
-    }
-    #map-home .check-box-map {
-        left: 30px;
-    }
-    #map-home #mapid .book-icon-map {
-        left: 15px;
-    }
-}
-
-@media (min-width:576px) {
-    .modal-setting-notifi .modal-dialog {
-        margin: 10.00rem auto;
-    }
+html, body, div, span, applet, object, iframe,
+
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+
+a, abbr, acronym, address, big, cite, code,
+
+del, dfn, em, img, ins, kbd, q, s, samp,
+
+small, strike, strong, sub, sup, tt, var,
+
+b, u, i, center,
+
+dl, dt, dd, ol, ul, li,
+
+fieldset, form, label, legend,
+
+table, caption, tbody, tfoot, thead, tr, th, td,
+
+article, aside, canvas, details, embed, 
+
+figure, figcaption, footer, header, hgroup, 
+
+menu, nav, output, ruby, section, summary,
+
+time, mark, audio, video {
+
+	margin: 0;
+
+	padding: 0;
+
+	border: 0;
+
+	font-size: 100%;
+
+	font: inherit;
+
+	vertical-align: baseline;
+
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, 
+
+footer, header, hgroup, menu, nav, section {
+
+	display: block;
+
+}
+
+body {
+
+	line-height: 1;
+
+}
+
+ol, ul {
+
+	list-style: none;
+
+}
+
+blockquote, q {
+
+	quotes: none;
+
+}
+
+blockquote:before, blockquote:after,
+
+q:before, q:after {
+
+	content: '';
+
+	content: none;
+
+}
+
+table {
+
+	border-collapse: collapse;
+
+	border-spacing: 0;
+
+}
+
+
+
+.mb-20 {
+
+	margin-bottom: 20px;
+
+}
+
+
+
+.container {
+
+	max-width: 1600px;
+
+}
+
+
+
+.relative {
+
+	position: relative;
+
+}
+
+
+
+.absolute {
+
+	position: absolute;
+
+}
+
+
+
+
+
+#banner-home-360 .box-iframe iframe {
+
+	width: 100%;
+
+	height: 840px;
+
+}
+
+/* home.html */
+
+
+
+/* #particle-js */
+
+#particle-js {
+
+	height: 824px;
+
+}
+
+
+
+#particles-js {
+
+	height: 824px !important;
+
+}
+
+
+
+.welcome-tayho-360 {
+
+	z-index: 10;
+
+	width: 100%;
+
+}
+
+
+
+.text-welcome {
+
+	margin-top: 80px;
+
+	margin-bottom: 100px;
+
+}
+
+
+
+.welcome-tayho-360 p {
+
+	color: #ffffff;
+
+	font-size: 28px;
+
+	line-height: normal;
+
+	text-align: center;
+
+	margin: 8px 0;
+
+	text-transform: uppercase;
+
+}
+
+
+
+#particle-js .article-space {
+
+	border-bottom: 3px solid #ffffff;
+
+	width: 15%;
+
+	margin: auto;
+
+}
+
+
+
+.lshowcase-logos {
+
+    margin: 0 auto;
+
+    text-align: center;
+
+}
+
+
+
+.lshowcase-flex {
+
+    display: flex;
+
+    flex-flow: row;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    align-content: stretch;
+
+}
+
+
+
+.lshowcase-thumb {
+
+    position: relative;
+
+}
+
+
+
+.lshowcase-box-10 {
+
+    /* align-self: stretch; */
+
+    display: flex;
+
+    align-items: center;
+
+    /* flex-basis: 10%; */
+
+    /* width: 10%; */
+
+	justify-content: center;
+
+	margin: 0 65px;
+
+}
+
+
+
+.lshowcase-boxInner {
+
+	margin: auto;
+
+	width: 129px;
+
+	height: 129px;
+
+	padding: 13%;
+
+    border-radius: 50%;
+
+    background: rgba(111, 171, 161, 0.8);
+
+}
+
+
+
+.lshowcase-boxInner img {
+
+	margin-top: 12px;
+
+}
+
+
+
+.lshowcase-wrap-responsive {
+
+    width: 100%;
+
+}
+
+
+
+.list-tabs .text-tabs p {
+
+	text-align: center;
+
+	text-transform: uppercase;
+
+	font-weight: 400 !important;
+
+	font-size: 22px;
+
+	margin-top: 20px;
+
+	margin-bottom: 40px;
+
+}
+
+
+
+.list-tabs-mobile {
+
+    display: none;
+
+}
+
+
+
+/* event-home */
+
+/* 
+
+#event-home .box-event-home .in-box-event-home .slick-list {
+
+    overflow: inherit !important;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-list {
+
+    overflow: inherit !important;
+
+} */
+
+
+
+#event-home .box-event-home .in-box-event-home  .slick-arrow {
+
+    position: absolute;
+
+    bottom: 60px;
+
+    z-index: 10;
+
+    background: #558F7C;
+
+    /* bottom: -800px; */
+
+    z-index: 10;
+
+    font-size: 24px;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 50%;
+
+    width: 40px;
+
+    height: 40px;
+
+}
+
+
+
+#event-home .box-event-home .in-box-event-home .slick-prev {
+
+    right: 50%;
+
+    transition: .8s;
+
+}
+
+
+
+#event-home .box-event-home .in-box-event-home .slick-next {
+
+    right: 42%;
+
+    transition: .8s;
+
+}
+
+
+
+#event-home .box-event-home .in-box-event-home .slick-prev:hover {
+
+    transition: .8s;
+
+    background: #357862;
+
+}
+
+
+
+#event-home .box-event-home .in-box-event-home .slick-next:hover {
+
+    transition: .8s;
+
+    background: #357862;
+
+}
+
+
+
+
+
+#event-home .box-event-home .slide-time-event  .slick-arrow {
+
+    position: absolute;
+
+    /* bottom: -800px; */
+
+    z-index: 10;
+
+    font-size: 30px;
+
+    background: none;
+
+    color: #000;
+
+    border: none;
+
+    border-radius: 50%;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-list {
+
+    margin: 0 60px !important;
+
+    padding: 20px 0 !important;
+
+    height: 100px;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-center {
+
+    border-bottom: 2px solid #000000;
+
+    font-size: 28px !important;
+
+    margin-top: -20px;
+
+    transition: .3s;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-prev {
+
+    right: 472px;
+
+    top: 16px;
+
+    transition: .8s;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-next {
+
+    right: 41px;
+
+    transition: .8s;
+
+    top: 16px;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-prev:hover {
+
+    transition: .8s;
+
+    color: #357862;
+
+}
+
+
+
+#event-home .box-event-home .slide-time-event .slick-next:hover {
+
+    transition: .8s;
+
+    color: #357862;
+
+}
+
+
+
+#event-home {
+
+	height: 950px;
+
+}
+
+
+
+#event-home .article-space {
+
+	border-bottom: 3px solid #3f4042;
+
+	width: 7.5%;
+
+	margin: 2px auto 55px auto;
+
+}
+
+
+
+.event-home-title p {
+
+	color: #3f4042;
+
+	font-size: 36px;
+
+	line-height: normal;
+
+	text-align: center;
+
+	text-transform: uppercase;
+
+	padding-top: 100px;
+
+}
+
+
+
+.slide-event-home p {
+
+	color: #ffffff;
+
+}
+
+
+
+.info-event-home {
+
+	background-color: #6FABA1;
+
+}
+
+
+
+.info-event-home .name-event-home p {
+
+	font-weight: 400;
+
+	font-size: 30px;
+
+	line-height: normal;
+
+}
+
+
+
+.info-event-home .description-event-home .title-des {
+
+	font-size: 24px;
+
+	font-weight: 400;
+
+	line-height: normal;
+
+	margin-top: 36px;
+
+}
+
+
+
+.info-event-home .description-event-home .text-des {
+
+	font-size: 20px;
+
+	line-height: normal;
+
+	font-weight: 400;
+
+	margin-top: 19px;
+
+}
+
+
+
+.info-event-home .local-event-home {
+
+	margin-top: 42px;
+
+}
+
+
+
+.info-event-home {
+
+    padding: 70px 120px 173px 160px;
+
+    width: 765px;
+
+    margin-top: 153px;
+
+    float: right;
+
+    text-align: justify;
+
+}
+
+
+
+.item-event-home {
+
+	left: 20px;
+
+	width: 48.5%;
+
+	z-index: 2;
+
+}
+
+
+
+.box-event-home .item-event-home .box-img-item-eh {
+
+	width: 100%;
+
+}
+
+
+
+.box-event-home .item-event-home .box-img-item-eh img {
+
+	width: 100%;
+
+	height: auto;
+
+}
+
+
+
+.local-event-home ul li {
+
+	display: flex;
+
+	color: #ffffff;
+
+	margin-bottom: 24px;
+
+}
+
+
+
+.local-event-home ul li i {
+
+	font-size: 25px;
+
+	margin-top: -10px;
+
+	margin-right: 24px;
+
+	width: 25px;
+
+}
+
+
+
+.box-event-home .slide-time-event {
+
+	display: flex;
+
+    width: 540px;
+
+    right: 118px;
+
+    z-index: 10;
+
+}
+
+
+
+.box-event-home .slide-time-event .month-start-event {
+
+	font-size: 20px;
+
+    line-height: normal;
+
+    text-align: center;
+
+    font-weight: 400;
+
+    padding-bottom: 4px;
+
+    margin: 0px 5px;
+
+}
+
+
+
+/* #travel-guide */
+
+
+
+#travel-guide {
+
+	margin-top: 200px;
+
+	background-color: rgba(131, 198, 187, 0.56);
+
+	padding-bottom: 84px;
+
+}
+
+
+
+#travel-guide .container {
+
+	padding: 0 293px;
+
+}
+
+
+
+#travel-guide .article-space {
+
+	border-bottom: 3px solid #3f4042;
+
+	width: 18%;
+
+	margin: 2px auto 55px auto;
+
+}
+
+
+
+#travel-guide .box-service .box-image img {
+
+    width: 100%;
+
+    height: 219px;
+
+    border-radius: 20px;
+
+    object-fit: cover;
+
+}
+
+
+
+.box-service {
+
+    transition: .5s linear all;
+
+    position: relative;
+
+	margin-bottom: 20px;
+
+	border-radius: 20px;
+
+}
+
+
+
+/* .content-service .box-service .box-image img {
+
+    width: 100%;
+
+    height: 388px;
+
+    object-fit: cover;
+
+	border-radius: 20px;
+
+} */
+
+
+
+.box-service .over_black, .box-service .title-service-details {
+
+    opacity: 1;
+
+    transition: .3s;
+
+}
+
+
+
+.over_black {
+
+    position: absolute;
+
+    height: 70px;
+
+    background-image: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 100%);
+
+    width: 100%;
+
+    bottom: 0px;
+
+    transition: 0.2s;
+
+    border-radius: 5px;
+
+    z-index: 0;
+
+    border-radius: 20px;
+
+}
+
+
+
+.box-service .over_black, .box-service .title-service-details {
+
+    opacity: 1;
+
+    transition: .3s;
+
+}
+
+.title-service-details {
+
+    position: absolute;
+
+    bottom: 0px;
+
+    left: 50px;
+
+    color: white;
+
+    z-index: 2;
+
+}
+
+
+
+.title-service-details h4 {
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    font-style: normal;
+
+    line-height: 46px;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.1px;
+
+}
+
+
+
+.flower_line:before {
+
+    content: " ";
+
+    position: relative;
+
+    transform: rotate(-180deg);
+
+    bottom: -2px;
+
+    width: 4px;
+
+    height: 16px;
+
+    background-color: rgba(131, 198, 187, 0.2);
+
+    display: inline-block;
+
+    margin-right: 10px;
+
+}
+
+
+
+.overplay_content {
+
+    width: 100%;
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 0;
+
+    height: 0%;
+
+    transition: 1s;
+
+    border-radius: 11px;
+
+    background-image: linear-gradient(to bottom, rgba(131, 198, 187, 1) 0%, rgba(131, 198, 187, 1) 23%, rgba(131, 198, 187, 1) 99%, rgba(131, 198, 187, 1) 100%);
+
+    opacity: 0;
+
+    z-index: 0;
+
+    color: #fff;
+
+    text-align: center;
+
+    display: flex;
+
+    align-content: center;
+
+    justify-content: center;
+
+}
+
+
+
+.overplay_text {
+
+    width: 60%;
+
+    padding: 50px 0;
+
+}
+
+
+
+.overplay_text h4 {
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    font-style: normal;
+
+    line-height: 1.5;
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    position: relative;
+
+    margin-bottom: 50px;
+
+    margin-top: 10px;
+
+}
+
+
+
+/* .overplay_text .btn_trang {
+
+    transform: translateX(50%);
+
+} */
+
+
+
+.btn_trang {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    width: 155px;
+
+    height: 40px;
+
+    border-radius: 12px 12px;
+
+    border: 1px solid #ffffff;
+
+    margin-top: 15px;
+
+    transition: all 0.2s ease-in-out;
+
+    z-index: 10;
+
+    text-align: center;
+
+    left: 31%;
+
+    width: 40%;
+
+    margin: auto;
+
+    top: 50%;
+
+}
+
+
+
+.btn_trang a {
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+}
+
+
+
+.box-service:hover .overplay_content {
+
+    bottom: 2px;
+
+    opacity: 0.9;
+
+    height: 219px;
+
+}
+
+
+
+.box-service:hover .over_black, .box-service:hover .title-service-details {
+
+    opacity: 0;
+
+}
+
+
+
+/* #news-home */
+
+
+
+#news-home .nav-tabs .nav-link.active {
+
+    border: none;
+
+}
+
+
+
+#news-home .nav-tabs .nav-link {
+
+    border-radius: 0 !important;
+
+    border: none !important;
+
+}
+
+
+
+#news-home .nav-tabs .nav-link:hover {
+
+    border: none !important;
+
+}
+
+
+
+#news-home .article-space {
+
+	border-bottom: 3px solid #3f4042;
+
+	width: 15.5%;
+
+	margin: 2px auto 55px auto;
+
+}
+
+
+
+#news-home .container {
+
+    padding: 0 196px;
+
+}   
+
+
+
+#news-home .all-news-home .box-image-news img {
+
+    width: 100%;
+
+    height: auto;
+
+}
+
+
+
+#news-home .all-news-home .box-news ul li button {
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    padding-left: 0;
+
+    text-transform: uppercase;
+
+    text-align: left;
+
+    color: #495057;
+
+}
+
+
+
+#news-home .all-news-home .box-news ul li {
+
+    border-bottom: 2px solid rgba(18, 107, 102, 0.7);
+
+    /* padding-top: 20px; */
+
+    padding-bottom: 3px;
+
+}
+
+
+
+#news-home .all-news-home .box-news ul li a {
+
+    text-decoration: none;
+
+    color: #3f4042;
+
+    line-height: normal;
+
+}
+
+
+
+#news-home .all-news-home .box-news ul li:last-child {
+
+    border: none !important;
+
+}
+
+
+
+
+
+#news-home .all-news-home ul li::marker {
+
+    color: rgba(18, 107, 102, 0.7);
+
+    font-size: 22px;
+
+}
+
+
+
+#news-home .all-news-home .box-news ul li ul {
+
+    margin-left: 23px;
+
+}
+
+
+
+#news-home .all-news-home .box-news ul li .list-styled {
+
+    list-style-type: disc;
+
+}
+
+
+
+/* #tour-travel-home */
+
+
+
+#tour-travel-home .box-slide-tth  .slick-arrow {
+
+    position: absolute;
+
+    /* bottom: -800px; */
+
+    z-index: 10;
+
+    font-size: 24px;
+
+    background: none;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 50%;
+
+    width: 40px;
+
+    height: 40px;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .slick-prev {
+
+    right: 940px;
+
+    top: 143px;
+
+    transition: .8s;
+
+    display: none !important;
+
+    background-color: rgba(85, 143, 124, 0.9);
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .slick-next {
+
+    right: -18px;
+
+    transition: .8s;
+
+    top: 190px;
+
+    background-color: rgba(85, 143, 124, 0.9);
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .slick-prev:hover {
+
+    transition: .8s;
+
+    background-color: #558F7C;
+
+    width: 50px;
+
+    height: 50px;
+
+    translate: 0px -5px;
+
+    transform: translateX(5px);
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .slick-next:hover {
+
+    transition: .8s;
+
+    background-color: #558F7C;
+
+    width: 50px;
+
+    height: 50px;
+
+    translate: 0px -5px;
+
+    transform: translateX(5px);
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .slick-current .box-tth {
+
+    box-shadow: 12px 12px 26px rgba(0, 0, 0, 0.31);
+
+    border: none;
+
+    transition: .3s;
+
+}
+
+
+
+#tour-travel-home .pd-tth {
+
+    padding: 0 10px;
+
+}
+
+
+
+.box-slide-tth .slick-list {
+
+    height: 440px;
+
+    padding-top: 20px;
+
+}
+
+
+
+.box-slide-tth .slick-slide {
+
+    transition: 0.3s;
+
+}
+
+
+
+#tour-travel-home .article-space {
+
+	border-bottom: 3px solid #3f4042;
+
+	width: 15.5%;
+
+	margin: 2px auto 55px auto;
+
+}
+
+
+
+#tour-travel-home .container {
+
+    padding: 0 196px;
+
+}   
+
+
+
+#tour-travel-home .box-slide-tth .box-tth {
+
+    border-radius: 20px;
+
+    background-color: #4E9D90;
+
+    border: 1px solid rgba(0, 0, 0, 0.44);
+
+    transition: .3s;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-imag {
+
+    border-top-left-radius: 20px;
+
+    border-top-right-radius: 20px;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-image img {
+
+    width: 100%;
+
+    height: auto;
+
+    border-top-left-radius: 20px;
+
+    border-top-right-radius: 20px;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-info {
+
+    padding: 12px 20px 23px 20px;
+
+    color: #ffffff;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-info .type-tour {
+
+    font-size: 16px;
+
+    line-height: normal;
+
+    font-weight: 400;
+
+    margin-bottom: 12px;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-info .title-tour {
+
+    font-size: 22px;
+
+    line-height: normal;
+
+    font-weight: 400;
+
+    margin-bottom: 12px;
+
+}
+
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-info .price-tour {
+
+    font-size: 18px;
+
+}
+
+
+
+/* #map-home */
+
+
+
+#map-home .article-space {
+
+	border-bottom: 3px solid #3f4042;
+
+	width: 15.5%;
+
+	margin: 2px auto 55px auto;
+
+}
+
+
+
+#map-home .box-iframe-gg iframe {
+
+    width: 100%;
+
+    height: 1086px;
+
+}
+
+
+
+/* #viet-nam-360 */
+
+#viet-nam-360 {
+
+    height: 700px;
+
+}
+
+
+
+#viet-nam-360 .article-space {
+
+	border-bottom: 3px solid #3f4042;
+
+	width: 15.5%;
+
+	margin: 2px auto 20px auto;
+
+}
+
+
+
+.vn360-description {
+
+    color: #3f4042;
+
+    font-size: 30px;
+
+    line-height: normal;
+
+    text-align: center;
+
+}
+
+
+
+.box-image-vn360 img {
+
+    width: 323px;
+
+    height: auto;
+
+    border-radius: 20px;
+
+    transition: all 700ms;
+
+}
+
+
+
+.flex {
+
+    display: flex;
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-center {
+
+    transform: scale(1);
+
+    translate: -135px -70px;
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-list {
+
+   /* margin: 0 60px !important; */
+
+   padding: 100px 0 0 0 !important;
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-center img {
+
+    width: 580px;
+
+    height: auto;
+
+    border-radius: 20px;
+
+}
+
+
+
+#viet-nam-360 .container {
+
+    max-width: 1000px !important;
+
+}
+
+
+
+#viet-nam-360 .slide-vn360  .slick-arrow {
+
+    position: absolute;
+
+    /* bottom: -800px; */
+
+    z-index: 10;
+
+    font-size: 23px;
+
+    background: none;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 50%;
+
+    width: 40px;
+
+    height: 40px;
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-prev {
+
+    right: 972px;
+
+    top: 175px;
+
+    transition: .8s;
+
+    background-color: rgba(85, 143, 124, 0.9);
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-next {
+
+    right: -5px;
+
+    transition: .8s;
+
+    top: 175px;
+
+    background-color: rgba(85, 143, 124, 0.9);
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-prev:hover {
+
+    transition: .8s;
+
+    background-color: #558F7C;
+
+    width: 50px;
+
+    height: 50px;
+
+    translate: 0px -5px;
+
+    transform: translateX(5px);
+
+}
+
+
+
+#viet-nam-360 .slide-vn360 .slick-next:hover {
+
+    transition: .8s;
+
+    background-color: #558F7C;
+
+    width: 50px;
+
+    height: 50px;
+
+    translate: 0px -5px;
+
+    transform: translateX(5px);
+
+}
+
+
+
+/* bookingonline.html */
+
+
+
+/* #booking-tabs {
+
+    margin-top: -37px;
+
+} */
+
+
+
+#bg-booking-online .box-image-booking {
+
+    width: 100%;
+
+    height: 600px;
+
+}
+
+
+
+#booking-tabs .container {
+
+    max-width: 1520px;
+
+    padding: 0 200px;
+
+}
+
+
+
+#booking-tabs .nav-tabs {
+
+    border: none;
+
+}
+
+
+
+#booking-tabs .nav-tabs .nav-item.show .nav-link,#booking-tabs .nav-tabs .nav-link.active {
+
+    border: none;
+
+}
+
+
+
+#booking-tabs .nav-tabs .nav-item .active {
+
+    background: rgba(24, 129, 129, 0.5) !important;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+#booking-tabs .nav-tabs {
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+}
+
+
+
+#booking-tabs .nav-item {
+
+    width: 33.333333%;
+
+    border-radius: 24px;
+
+}
+
+
+
+#booking-tabs .nav-tabs .nav-item button {
+
+    width: 100%;
+
+    border-radius: 24px;
+
+    padding: 21px 0 23px 0;
+
+    font-size: 24px;
+
+    color: #326845;
+
+}
+
+
+
+#booking-tabs .nav-tabs .nav-item .active {
+
+    color: #ffffff;
+
+}
+
+
+
+#booking-tabs .box-search {
+
+    margin: 52px 0;
+
+}
+
+
+
+#booking-tabs .box-search label {
+
+    width: 100%;
+
+}
+
+
+
+#booking-tabs .box-search label input {
+
+    width: 100%;
+
+    background: #DEECEA;
+
+    border-radius: 24px;
+
+    border: none;
+
+    outline: none;
+
+    padding: 26px 114px 22px 114px;
+
+}
+
+
+
+#booking-tabs .box-search label input::placeholder {
+
+    font-size: 24px;
+
+    color: rgba(24, 129, 129, 0.54);
+
+}
+
+
+
+#booking-tabs .box-search label .box-icon {
+
+    font-size: 32px;
+
+    top: 20px;
+
+    left: 48px;
+
+}
+
+
+
+#booking-tabs .box-search label .box-icon i {
+
+    color: #188181;
+
+}
+
+
+
+#booking-tabs .tab-content .tab-pane tr:first-child {
+
+    background-color: #188181;
+
+}
+
+
+
+#booking-tabs .tab-content .tab-pane tr th {
+
+    text-align: center;
+
+    font-size: 20px;
+
+    padding: 20px 10px;
+
+    color: #ffffff;
+
+    line-height: normal;
+
+}
+
+
+
+#booking-tabs .tab-content .tab-pane tr td {
+
+    text-align: center;
+
+    font-size: 16px;
+
+    padding: 24px;
+
+    color: #3F4042;
+
+    line-height: normal;
+
+}
+
+
+
+
+
+/* thongbao.html */
+
+
+
+.box-search-notification {
+
+    margin-top: -36px !important;
+
+}
+
+
+
+.title-notification .box-text-notifi {
+
+    width: 98%;
+
+}
+
+
+
+.title-notification .box-icon-notifi .btn i {
+
+    color: #3F4042;
+
+    transition: .8s;
+
+}
+
+
+
+.title-notification .box-icon-notifi:hover .btn i {
+
+    transition: .8s;
+
+    color: #126B66;
+
+    cursor: pointer;
+
+}
+
+
+
+.btn-setting-notifi {
+
+    background: none !important;
+
+    outline: none;
+
+    border: none;
+
+    box-shadow: none !important;
+
+}
+
+
+
+.title-notification .box-text-notifi p {
+
+    text-transform: uppercase;
+
+    text-align: center;
+
+    font-size: 30px;
+
+    color: #3F4042;
+
+}
+
+
+
+#booking-tabs .btn-setting-notifi {
+
+    padding: 0 !important;
+
+}
+
+
+
+#booking-tabs button:focus:not(:focus-visible) {
+
+    box-shadow: none;
+
+}
+
+
+
+.modal-setting-notifi .modal-title {
+
+    text-align: center;
+
+    width: 100%;
+
+    font-size: 22px;
+
+}
+
+
+
+.modal-setting-notifi .modal-header {
+
+    border: none;
+
+}
+
+
+
+.modal-setting-notifi .modal-footer {
+
+    border: none;
+
+}
+
+
+
+.modal-setting-notifi .box-icon-sn i {
+
+    font-size: 16px;
+
+    margin-right: 15px;
+
+    color: #126B66;
+
+    font-weight: 700;
+
+    margin-top: -3px;
+
+}
+
+
+
+.modal-setting-notifi .box-text-sn p {
+
+    font-size: 16px;
+
+}
+
+
+
+.modal-setting-notifi .modal-body {
+
+    justify-content: space-between;
+
+    height: 250px;
+
+}
+
+
+
+ .modal-setting-notifi .btn-on-off .form-switch .form-check-input {
+
+    width: 40px;
+
+    height: 20px;
+
+}
+
+
+
+.modal-setting-notifi .btn-on-off .form-check-input:focus {
+
+    box-shadow: none !important;
+
+}
+
+
+
+.modal-setting-notifi .btn-on-off .form-switch .form-check-input:checked {
+
+    background-color: #ffffff;
+
+    background-position: right center;
+
+    background-image: url(../img/thaianhimg/icon-toggle.png) !important;
+
+}
+
+
+
+.modal-setting-notifi .btn-on-off .form-switch .form-check-input:checked[type=checkbox] {
+
+    background-image: url(../img/thaianhimg/icon-toggle.png) !important;
+
+}
+
+
+
+.modal-setting-notifi .btn-on-off .form-switch .form-check-input {
+
+    cursor: pointer;
+
+    border: 1px solid rgba(0, 0, 0, 0.7);
+
+    background-image: url(../img/thaianhimg/icon-toggle.png) !important;
+
+    border-radius: 8px !important;
+
+}
+
+
+
+.modal-setting-notifi .btn-on-off {
+
+    margin-top: -5px;
+
+}
+
+
+
+.box-details-notification {
+
+    padding: 15px 20px 11px 20px;
+
+    border: 1px solid rgba(63, 64, 66, 0.5);
+
+}
+
+
+
+.box-details-notification .box-img-bdn {
+
+    width: 10%;
+
+}
+
+
+
+.box-details-notification .box-img-bdn img {
+
+    width: 100%;
+
+    height: auto;
+
+}
+
+
+
+.box-details-notification .box-text-bdn {
+
+    margin-left: 10px;
+
+    width: 90%;
+
+}
+
+
+
+.box-details-notification .box-text-bdn .title-bt-bdn p {
+
+    font-size: 22px;
+
+    margin-top: 4px;
+
+    line-height: normal;
+
+    text-align: left;
+
+    color: #000;
+
+}
+
+
+
+.box-details-notification .box-text-bdn .content-bt-bdn p {
+
+    font-size: 16px;
+
+    line-height: normal;
+
+    color: #000;
+
+}
+
+
+
+.box-details-notification .box-text-bdn .content-bt-bdn {
+
+    justify-content: space-between;
+
+}
+
+
+
+.bg-fill-first {
+
+    background: rgba(90, 174, 158, 0.62);
+
+}
+
+
+
+.notification .nav-tabs .nav-item button {
+
+    border-radius: 0 !important;
+
+    padding: 0;
+
+}
+
+
+
+.notification .nav {
+
+    display: block;
+
+}
+
+
+
+.notification .nav-item {
+
+    width: 100% !important;
+
+}
+
+
+
+.notification .nav-tabs {
+
+    background: none !important;
+
+    border: none !important;
+
+}
+
+
+
+.notification .nav-item button {
+
+    padding: 0 !important;
+
+}
+
+
+
+.notification .nav-tabs .nav-item .active {
+
+    border: none !important;
+
+}
+
+
+
+.notification .title-notification {
+
+    margin-bottom: 60px;
+
+}
+
+
+
+.notification .tab-notifi-content {
+
+    background: #ffffff;
+
+    padding: 15px;
+
+}
+
+
+
+.notification .tab-notifi-content .flex {
+
+    justify-content: space-between;
+
+}
+
+
+
+.tab-notifi-content .box-text-bdn {
+
+    line-height: normal;
+
+}
+
+
+
+.tab-notifi-content .box-img-bdn {
+
+    width: 20%;
+
+}
+
+
+
+.tab-notifi-content .box-img-bdn img {
+
+    width: 100%;
+
+    height: auto;
+
+}
+
+
+
+.tab-notifi-content .box-text-bdn {
+
+    margin-top: 5px;
+
+}
+
+
+
+.tab-notifi-content .box-content-bdn {
+
+    margin-top: 30px;
+
+}
+
+
+
+.tab-notifi-content .box-content-bdn .text-details {
+
+    margin-top: 20px;
+
+}
+
+
+
+.bg-new-notifi {
+
+    background: rgba(90, 174, 158, 0.62) !important;
+
+}
+
+
+
+.bg-havent-seen {
+
+    background: rgba(90, 174, 158, 0.32) !important;
+
+}
+
+
+
+/* #pagination */ 
+
+
+
+/* #pagination-page {
+
+    margin-top: 40px;
+
+    margin-bottom: 35px;
+
+} */
+
+
+
+#pagination-page ul {
+
+    display: flex; 
+
+    justify-content: center;
+
+}
+
+
+
+#pagination-page ul li a i {
+
+    color: #3F4042;
+
+    font-size: 20px;
+
+}
+
+
+
+#pagination-page ul li {
+
+    padding: 10px 0px;
+
+    border-radius: 10px;
+
+}
+
+
+
+#pagination-page ul li a {
+
+    padding: 10px 16px;
+
+    font-size: 20px;
+
+    color: #3F4042;
+
+    font-weight: 400;
+
+    text-decoration: none;
+
+    font-family: 'Korinna' !important;
+
+}
+
+
+
+/* #pagination-page ul li:hover {
+
+    border: 2px solid #188181;
+
+    border-radius: 10px;
+
+} */
+
+
+
+/* #map-home */
+
+
+
+#mapid {
+
+    font-family: 'Korinna' !important;
+
+    font-weight: 400 !important;
+
+    color: #ffffff;
+
+}
+
+
+
+#map-home .check-box-map {
+
+    transition: .5s;
+
+    background-color: #6FABA1;
+
+    top: 0;
+
+    z-index: 999;
+
+    padding: 40px 45px 40px 55px;
+
+    width: 350px;
+
+    height: 480px;
+
+    left: 80px;
+
+    border-radius: 20px;
+
+    /* overflow: hidden; */
+
+    float: left;
+
+}
+
+.width-no{
+
+    width: 0%!important;
+
+}
+
+
+
+#map-home .check-box-map form{
+
+    transition: 2s;
+
+    width: 400px;
+
+    opacity: 1;
+
+}
+
+.hide{
+
+    transition: 0.1s !important;
+
+    opacity: 0!important;
+
+}
+
+
+
+#map-home .check-box-map label {
+
+    font-size: 16px;
+
+    line-height: normal;
+
+}
+
+
+
+#map-home .check-box-map label input {
+
+    margin-right: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+#map-home .check-box-map label input:checked[type=checkbox] {
+
+    border: none;
+
+    color: #3F4042;
+
+    background-color: #ffffff;
+
+}
+
+
+
+#map-home .check-box-map label p {
+
+    font-size: 22px !important;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+#map-home #mapid {
+
+    height: 800px !important;
+
+}
+
+
+
+#map-home #mapid .book-icon-map .box-img-icon img {
+
+    width: 70%;
+
+    height: auto;
+
+}
+
+
+
+#map-home #mapid .book-icon-map .box-img-icon {
+
+    margin-bottom: 30px;
+
+}
+
+
+
+#map-home #mapid .book-icon-map {
+
+    z-index: 1000;
+
+    left: 62px;
+
+    top: 35px;
+
+}
+
+
+
+#map-home #mapid .check-box-map .hide_pop-up {
+
+    background-color: #558F7C;
+
+    color: #ffffff !important;
+
+    padding: 15px 23px;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+
+    /* display: none; */
+
+}
+
+
+
+.btn-hide {
+
+    right: -25px;
+
+    top: 225px;
+
+    opacity: 1;
+
+    transition: .5s;
+
+}
+
+
+
+.btn-hide.to-left{
+
+    right: 280px;
+
+    /* opacity: 0; */
+
+}
+
+
+
+.btn-show {
+
+    transition: .5s;
+
+    z-index: 999;
+
+    left: 150px;
+
+    width: 5%;
+
+    top: 225px;
+
+}
+
+
+
+
+
+.btn-show a {
+
+    background-color: #558F7C;
+
+    color: #ffffff !important;
+
+    padding: 15px 23px;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+
+    transition: .5s;
+
+    opacity: 1;
+
+}
+
+.opacity-0{
+
+    opacity: 0!important;
+
+}
+
+
+
+@media (min-width:1800px) {
+
+    .info-event-home {
+
+        width: 1025px !important;
+
+    }
+
+}
+
+
+
+@media (min-width:2100px) {
+
+    .info-event-home {
+
+        width: 1175px !important;
+
+    }
+
+}
+
+
+
+@media (min-width:1700px) {
+
+    .box-event-home .slide-time-event {
+
+        right: 290px;
+
+    }
+
+}
+
+
+
+@media (min-width:1500px) {
+
+    .info-event-home {
+
+        width: 875px;
+
+    }
+
+}
+
+
+
+@media (min-width:1400px) {
+
+    #event-home .box-event-home .in-box-event-home .slick-prev {
+
+        right: 35%;
+
+    }
+
+    #event-home .box-event-home .in-box-event-home .slick-next {
+
+        right: 31%;
+
+    }
+
+}
+
+
+
+@media (max-width:1300px) {
+
+    .lshowcase-boxInner {
+
+        width: 80px;
+
+        height: 80px;
+
+        padding: 10%;
+
+    }
+
+    .lshowcase-boxInner img {
+
+        width: 55%;
+
+    }
+
+    #event-home .box-event-home .in-box-event-home .slick-arrow {
+
+        font-size: 18px;
+
+    }
+
+}
+
+
+
+@media (max-width:1200px) {
+
+    #booking-tabs .container {
+
+        padding: 0 100px;
+
+    }
+
+    #event-home .box-event-home .slide-time-event .slick-prev {
+
+        right: 410px;
+
+    }
+
+    .box-event-home .slide-time-event {
+
+        width: 480px;
+
+    }
+
+    .info-event-home {
+
+        padding: 50px 120px 173px 160px;
+
+        width: 725px;
+
+    }
+
+    #event-home .box-event-home .slide-time-event .slick-center {
+
+        font-size: 24px !important;
+
+        margin-top: -18px;
+
+        transition: .3s;
+
+    }
+
+    .box-event-home .slide-time-event .month-start-event {
+
+        font-size: 18px;
+
+    }
+
+    #travel-guide .container {
+
+        padding: 0 180px;
+
+    }
+
+    #news-home .container {
+
+        padding: 0 150px;
+
+    }
+
+    #tour-travel-home .container {
+
+        padding: 0 150px;
+
+    }
+
+}
+
+
+
+@media (max-width:1100px) {
+
+    .box-event-home .slide-time-event {
+
+        right: 90px;
+
+    }
+
+    .info-event-home {
+
+        padding: 50px 120px 173px 160px;
+
+        width: 670px;
+
+    }
+
+    #news-home .container {
+
+        padding: 0 100px;
+
+    }
+
+    #tour-travel-home .container {
+
+        padding: 0 100px;
+
+    }
+
+}
+
+
+
+@media (max-width:1050px) {
+
+    .lshowcase-boxInner {
+
+        width: 70px;
+
+        height: 70px;
+
+        padding: 12%;
+
+    }
+
+}
+
+
+
+@media (max-width:991px) {
+
+    #booking-tabs .container {
+
+        padding: 0 50px !important;
+
+    }
+
+    .list-tabs .text-tabs p {
+
+        font-size: 16px;
+
+        margin-top: 15px;
+
+        margin-bottom: 30px;
+
+    }
+
+    .box-event-home .slide-time-event {
+
+        right: 40px;
+
+    }
+
+    .box-event-home .slide-time-event .month-start-event {
+
+        font-size: 16px;
+
+    }
+
+    #event-home .box-event-home .slide-time-event .slick-center {
+
+        font-size: 22px !important;
+
+    }
+
+    .info-event-home {
+
+        padding: 50px 120px 173px 160px;
+
+        width: 620px;
+
+        margin-top: 100px;
+
+    }
+
+    .info-event-home .name-event-home p {
+
+        font-size: 26px;
+
+    }
+
+    .info-event-home .description-event-home .title-des {
+
+        font-size: 20px;
+
+    }
+
+    .info-event-home .description-event-home .text-des {
+
+        font-size: 16px;
+
+    }
+
+    .local-event-home ul li i {
+
+        font-size: 14px;
+
+        margin-top: 0px;
+
+        margin-right: 10px;
+
+    }
+
+    .slide-event-home .local-event-home p {
+
+        font-size: 12px;
+
+    }
+
+    #travel-guide .container {
+
+        padding: 0 120px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-next {
+
+        right: 45px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-prev {
+
+        right: 910px;
+
+    } 
+
+    #map-home .check-box-map {
+
+        padding: 25px 30px 25px 35px;
+
+        width: 320px;
+
+    }
+
+}
+
+
+
+@media (max-width:900px) {
+
+    .info-event-home {
+
+        width: 570px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center img {
+
+        width: 570px;
+
+        height: 400px;
+
+    }    
+
+    #viet-nam-360 .slide-vn360 .slick-center {
+
+        translate: -135px -50px;
+
+    }
+
+    .box-image-vn360 img {
+
+        width: 285px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-next {
+
+        right: 5px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-prev {
+
+        right: 855px !important;
+
+        top: 160px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-next {
+
+        right: 3px;
+
+        top: 160px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center img {
+
+        height: 255px;
+
+        object-fit: cover;
+
+    }
+
+}
+
+
+
+@media (max-width:768px) {
+
+    #booking-tabs .nav-tabs .nav-item button {
+        padding: 19px 0 23px 0;
+        font-size: 22px;
+    }
+    
+    #booking-tabs .box-search label .box-icon {
+        font-size: 27px;
+        top: 21px;
+    }
+
+    .tab-notifi-content .box-img-bdn {
+
+        width: 48px;
+
+        height: 48px;
+
+    }
+
+    .title-notification .box-text-notifi p {
+
+        font-size: 24px;
+
+    }
+
+    .notification .box-search label input::placeholder {
+
+        font-size: 20px;
+
+    }
+
+    .notification .box-search label .box-icon {
+
+        font-size: 22px;
+
+    }
+
+    .notification .box-search label input {
+
+        padding: 20px 114px 20px 114px;
+
+    }
+
+    #booking-tabs .tab-content-booking .tab-pane {
+
+        overflow: auto visible;
+
+    }
+
+    #booking-tabs .tab-content-booking .tab-pane table {
+
+        width: 1000px !important;
+
+    }
+
+    .text-welcome {
+
+        margin-top: 40px;
+
+        margin-bottom: 50px;
+
+    }
+
+    .welcome-tayho-360 p {
+
+        font-size: 22px;
+
+    }
+
+    .event-home-title p {
+
+        font-size: 22px;
+
+        padding-top: 40px;
+
+    }
+
+    .info-event-home {
+
+        padding: 30px 100px 30px 100px;
+
+        width: 460px;
+
+    }
+
+    .item-event-home {
+
+        position: initial;
+
+        width: 100%;
+
+        margin-top: 100px;
+
+    }
+
+    .info-event-home {
+
+        margin-top: 0;
+
+        position: initial;
+
+        width: 100%;
+
+    }
+
+    .box-event-home .slide-time-event {
+
+        right: 18%;
+
+    }
+
+    #travel-guide {
+
+        margin-top: 100px;
+
+    }
+
+    .info-event-home .description-event-home .title-des {
+
+        margin-top: 15px;
+
+    }
+
+    .info-event-home .description-event-home .text-des {
+
+        margin-top: 10px;
+
+    }
+
+    .info-event-home .local-event-home {
+
+        margin-top: 30px;
+
+    }
+
+    .box-event-home .item-event-home .box-img-item-eh img {
+
+        height: 300px;
+
+        object-fit: cover;
+
+    }
+
+    .vn360-description {
+
+        font-size: 14px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center img {
+
+        height: 220px;
+
+        object-fit: cover;
+
+        width: 500px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center {
+
+        translate: -135px -42px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-next {
+
+        display: none !important;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-prev {
+
+        display: none !important;
+
+    }
+
+    #event-home .box-event-home .in-box-event-home .slick-arrow {
+
+        bottom: 10px;
+
+    }
+
+    .box-image-vn360 img {
+
+        width: 235px;
+
+    }
+
+    #map-home #mapid .book-icon-map .box-img-icon img {
+
+        width: 60%;
+
+        height: auto;
+
+    }
+
+    #map-home .check-box-map {
+
+        height: 424px;
+
+        width: 280px;
+
+    }
+
+    #map-home .check-box-map label p {
+
+        font-size: 20px !important;
+
+    }
+
+    #map-home .check-box-map label {
+
+        font-size: 14px;
+
+    }
+
+    #map-home #mapid .book-icon-map {
+
+        left: 66px;
+
+    }
+
+    #viet-nam-360 {
+
+        height: 500px;
+
+    }
+
+}
+
+
+
+@media (max-width:700px) {
+
+    .box-event-home .slide-time-event {
+
+        right: 15%;
+
+    }
+
+}
+
+
+
+@media (max-width:600px) {
+
+    #booking-tabs .box-search label .box-icon {
+        font-size: 20px;
+        top: 23px;
+        left: 48px;
+    }
+
+    #booking-tabs .box-search label input {
+        padding: 21px 114px 22px 100px;
+    }
+
+    #booking-tabs .box-search label input::placeholder {
+        font-size: 18px;
+    }
+
+    #booking-tabs .nav-tabs .nav-item button {
+        padding: 17px 0 20px 0;
+        font-size: 18px;
+    }
+
+    #booking-tabs .tab-content .tab-pane tr th {
+        font-size: 15px;
+    }
+
+    .list-tabs-none {
+
+        display: none !important;
+
+    }
+
+    .list-tabs-mobile {
+
+        display: block !important;
+
+    }
+
+    .lshowcase-box-10 {
+
+        margin: 0 50px;
+
+    }
+
+    .box-event-home .slide-time-event {
+
+        right: 8%;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center img {
+
+        height: 180px;
+
+        width: 400px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center {
+
+        translate: -100px -39px;
+
+    }
+
+    .box-image-vn360 img {
+
+        width: 190px;
+
+    }
+
+}
+
+
+
+@media (max-width:500px) {
+
+    #booking-tabs .container {
+        padding: 0 25px !important;
+    }
+
+    #tour-travel-home .box-slide-tth .slick-next {
+
+        right: 10px;
+
+    }
+
+    #tour-travel-home .pd-tth {
+
+        padding: 0 35px;
+
+    }
+
+    #tour-travel-home .container {
+
+        padding: 0 25px;
+
+    }
+
+    .box-details-notification .box-img-bdn {
+
+        width: 40px;
+
+    }
+
+    .box-details-notification .box-text-bdn .title-bt-bdn p {
+
+        margin-top: 0;
+
+        font-size: 18px;
+
+    }
+
+    .box-details-notification .box-text-bdn .content-bt-bdn p {
+
+        font-size: 13px;
+
+    }
+
+    .tab-notifi-content .box-text-bdn {
+
+        margin-top: 0;
+
+        font-size: 13px;
+
+    }
+
+    .tab-notifi-content .box-content-bdn {
+
+        font-size: 13px;
+
+    }
+
+    .notification .box-search label input::placeholder {
+
+        font-size: 16px;
+
+    }
+
+    .notification .box-search label input {
+
+        padding: 20px 70px 20px 70px;
+
+    }
+
+    .notification .box-search label .box-icon {
+
+        top: 19px;
+
+        left: 30px;
+
+    }
+
+    #pagination-page ul li a {
+
+        font-size: 18px;
+
+        padding: 8px 14px;
+
+    }
+
+    #pagination-page ul li a i {
+
+        font-size: 16px;
+
+    }
+
+    #travel-guide .container {
+
+        padding: 0 50px;
+
+    }
+
+    #news-home .container {
+
+        padding: 0 50px;
+
+    }
+
+    #particles-js {
+
+        height: 950px !important;
+
+    }
+
+    #particle-js {
+
+        height: 950px;
+
+    }
+
+    .info-event-home {
+
+        padding: 30px 50px;
+
+    }
+
+    .box-event-home .slide-time-event {
+
+        right: 1%;
+
+    }
+
+    #tour-travel-home .article-space {
+
+        margin: 2px auto 25px auto;
+
+    }
+
+    .event-home-title p {
+
+        padding-top: 100px;
+
+    }
+
+    #event-home .box-event-home .in-box-event-home .slick-next {
+
+        right: 40%;
+
+        transition: .8s;
+
+    }
+
+    .box-image-vn360 img {
+
+        width: 155px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center img {
+
+        height: 150px;
+
+        width: 355px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center {
+
+        translate: -100px -35px;
+
+    }
+
+}
+
+
+
+@media (max-width:450px) {
+
+    .notification .container {
+
+        padding: 0 25px !important;
+
+    }
+
+    .box-details-notification {
+
+        padding: 15px 10px 11px 10px;
+
+    }
+
+}
+
+
+
+@media (max-width:425px) {
+
+    .box-details-notification .box-text-bdn .title-bt-bdn p {
+
+        font-size: 15px;
+
+    }
+
+    .box-details-notification .box-text-bdn .content-bt-bdn p {
+
+        font-size: 11px;
+
+    }
+
+}
+
+
+
+@media (max-width:400px) {
+
+    #booking-tabs .box-search label input {
+        padding: 21px 54px 22px 100px;
+    }
+
+    #travel-guide .container {
+
+        padding: 0 30px;
+
+    }
+
+    #event-home .box-event-home .in-box-event-home .slick-next {
+
+        right: 38%;
+
+        transition: .8s;
+
+    }
+
+    #news-home .container {
+
+        padding: 0 30px;
+
+    }
+
+    #tour-travel-home .container {
+
+        padding: 0 30px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center img {
+
+        height: 150px;
+
+        width: 361px;
+
+    }
+
+    #viet-nam-360 .slide-vn360 .slick-center {
+
+        translate: -121px -35px;
+
+    }
+
+    #map-home .check-box-map {
+
+        left: 30px;
+
+    }
+
+    #map-home #mapid .book-icon-map {
+
+        left: 15px;
+
+    }
+
+}
+
+@media (max-width:360px) {
+    #booking-tabs .nav-tabs .nav-item button {
+        font-size: 16px;
+    }
+}
+
+
+
+@media (min-width:576px) {
+
+    .modal-setting-notifi .modal-dialog {
+
+        margin: 10.00rem auto;
+
+    }
+
+}
+
+.view_moreEvent:hover {
+    border-color: transparent;
+}
+
+.view_moreEvent {
+    border: none;
+    width: 162px;
+    height: 51px;
+    border: 2px solid #fff;
+    margin: auto;
+    margin-top: 60px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    color: #fff;
+    text-transform: uppercase;
+    /* font-family: "Montserrat-SemiBold"; */
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.view_moreEvent {
+    color: #fff;
+    font-size: 15px;
+}
+
+.view_moreEvent:hover:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.view_moreEvent:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #126b66;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.view_moreEvent:hover {
+    border-color: transparent;
+}
+
+.view_moreEvent:hover:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.view_moreEvent:hover i {
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
+}
+
+.view_moreEvent i {
+    margin-left: 10px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
 }

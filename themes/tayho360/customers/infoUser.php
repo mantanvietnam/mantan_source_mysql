@@ -5,9 +5,9 @@ getHeader();
 ?>
 
 
-<main>
+<main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
     <div class="container py-5">
-        <section id="user-page">
+        <section id="user-page" class="bg-white">
             <div class="row g-0">
                 <div class="col-12 col-lg-3">
                     <section class="side-bar h-100">
@@ -23,24 +23,33 @@ getHeader();
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <div class="user-image px-4">
-                                    <img class="" src="<?= $info->avatar ?>" alt="">
+                                    <img id="img1" src="<?= $info->avatar ?>" style="width: 110px"
+                                         class="img-responsive">
                                 </div>
                             </div>
                             <div class="col-12 col-md-8">
                                 <div class="user-info">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
+<<<<<<< HEAD
                                         <h1 class="user-name mb-0"><?=$info->full_name?></h1>
+=======
+                                        <h1 class="user-name mb-0"><?= $info->full_name ?></h1>
+>>>>>>> cfb47febb8c46e6c6dc436236753de9aab7764ee
                                     </div>
                                     <div class="info-detail">
                                         <div class="cate-contain mb-4">
                                             <p class="label">Thông tin</p>
                                             <div class="d-flex item">
                                                 <span>Số điện thoại</span>
-                                                <span><?=$info->phone?></span>
+                                                <span><?= $info->phone ?></span>
                                             </div>
                                             <div class="d-flex item">
                                                 <span>Email</span>
-                                                <span><?=$info->email?></span>
+                                                <span><?= $info->email ?></span>
+                                            </div>
+                                            <div class="d-flex item">
+                                                <span>Địa chỉ</span>
+                                                <span><?= $info->address ?></span>
                                             </div>
                                              <div class="d-flex item">
                                                 <span>Địa chỉ</span>
@@ -69,7 +78,13 @@ getHeader();
         </section>
     </div>
 </main>
-
+<style>
+    #img1{
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+</style>
 <?php
 getFooter();
 ?>

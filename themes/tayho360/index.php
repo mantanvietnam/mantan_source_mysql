@@ -368,6 +368,11 @@ global $urlThemeActive;
                                         </li>
                                     </ul>
                                 </div>
+                                <a href="">
+                                    <button class="view_moreEvent">
+                                        Xem thêm <i class="fa-solid fa-angles-right"></i>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <?php } }else { ?>
@@ -380,9 +385,12 @@ global $urlThemeActive;
                             <div class="info-event-home">
                                 <div class="name-event-home">
                                     <p>Chưa có sự kiện nào đang diễn ra.</p>
-                                </div>
-                                
-                                
+                                </div> 
+                                <a href="">
+                                    <button class="view_moreEvent">
+                                        Xem thêm <i class="fa-solid fa-angles-right"></i>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <?php

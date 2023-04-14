@@ -94,13 +94,13 @@ $(document).ready(function () {
 
         let src = $(this).attr("src")
 
-        if (src == "../assets/lou_icon/icon-heart.svg") {
+        if (src == "/themes/tayho360/assets/lou_icon/icon-heart.svg") {
 
-            $(this).attr("src", "../assets/lou_icon/icon-heart-white.svg")
+            $(this).attr("src", "/themes/tayho360/assets/lou_icon/icon-heart-white.svg")
 
         } else {
 
-            $(this).attr("src", "../assets/lou_icon/icon-heart.svg")
+            $(this).attr("src", "/themes/tayho360/assets/lou_icon/icon-heart.svg")
 
         }
 
@@ -120,7 +120,7 @@ $(document).ready(function () {
 
             $(this).attr("value", "show");
 
-            $(this).attr("src","../assets/lou_icon/icon-eye-open.svg")
+            $(this).attr("src","/themes/tayho360/assets/lou_icon/icon-eye-open.svg")
 
         } else {
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
             $(this).attr("value", "hiden");
 
-            $(this).attr("src","../assets/lou_icon/icon-eye.svg")
+            $(this).attr("src","/themes/tayho360/assets/lou_icon/icon-eye.svg")
 
         }
 
