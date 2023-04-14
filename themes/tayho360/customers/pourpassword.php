@@ -2,16 +2,16 @@
 getHeader();
 global $urlThemeActive;
 ?>
-<main class="bg-pt">
+<main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
         <div class="container py-5">
             <section id="user-page">
                 <div class="row g-0">
                     <div class="col-12 col-lg-3 bg-white">
                         <section class="side-bar h-100">
                             <div class="background h-100">
-                                <a href="">Cá nhân</a>
-                                <a href="" class="active">Đổi mật khẩu</a>
-                                <a href="">Cài đặt</a>
+                                <a href="/infoUser" >Cá nhân</a>
+                                <a href="/pourpassword" class="active">Đổi mật khẩu</a>
+                                <a href="/editInfoUser">Sửa thông tin </a>
                             </div>
                         </section>
                     </div>
@@ -27,7 +27,7 @@ global $urlThemeActive;
                                             <div class="col-12">
                                                 <div class="form-group-user mb-4">
                                                     <div class="d-flex align-items-center input-password">
-                                                        
+
                                                         <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-password-pre.svg" alt="">
                                                         <input type="password" placeholder="Nhập lại mật khẩu hiện tại" name="oldpass" class="form-control" required>
                                                         <img class="eye-password" value="hiden" src="../assets/lou_icon/icon-eye.svg" alt="">
@@ -48,7 +48,7 @@ global $urlThemeActive;
                                                         <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-password.svg" alt="">
                                                         <input type="password" placeholder="Xác nhận lại mật khẩu" name="passAgain" class="form-control" required>
                                                         <img class="eye-password" value="hiden" src="<?= $urlThemeActive ?>assets/lou_icon/icon-eye.svg" alt="">
-                                                    </div>                                            
+                                                    </div>
                                                 </div>
                                             </div>
 
