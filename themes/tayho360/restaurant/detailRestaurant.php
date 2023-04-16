@@ -185,7 +185,7 @@ global $session;
                         </div>
 
                         <div class="input-group group-order-table">
-                            <label class="input-group-text">Thời gian đặn</label>
+                            <label class="input-group-text">Thời gian đặt</label>
                             <input type="datetime-local" class="form-control"  name="timebook" required>
                         </div>
                         <div class="input-group group-order-table">

@@ -9,4 +9,6 @@
 	$routesPlugin['login']= '2top_crm/view/home/login.php';
 	$routesPlugin['register']= '2top_crm/view/home/register.php';
 	$routesPlugin['infoUser']= '2top_crm/view/home/infoUser.php';
+	$routesPlugin['pourpassword']= '2top_crm/view/home/pourpassword.php';
+	$routesPlugin['editInfoUser']= '2top_crm/view/home/editInfoUser.php';
 ?>

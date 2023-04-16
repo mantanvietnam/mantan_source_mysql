@@ -1362,6 +1362,18 @@ color: #188181;
 
 }
 
+#pagination-page .pagination li.active a{
+
+	border: 1px solid #188181;
+
+	border-radius: 10px;
+
+	background-color: transparent;
+
+}
+
+
+
 
 
 #pagination-page .page-item a{
@@ -1422,7 +1434,8 @@ color: #188181;
 
 #order-table{
 
-	height: 638px;
+	height: 774px;
+	background-size: cover;
 
 }
 
@@ -1465,6 +1478,12 @@ color: #188181;
 
 
 #order-table .group-order-table input{
+
+	font-size: 22px;
+
+}
+
+#order-table .group-order-table textarea{
 
 	font-size: 22px;
 
@@ -3839,6 +3858,7 @@ color: #188181;
 	#place-comment .box-write-comment .write-comment .button-write-comment {
 
 		height: 57px;
+		margin-bottom: 20px;
 
 	}
 
@@ -3940,6 +3960,15 @@ color: #188181;
 
     	margin-right: 37px;
 
+	}
+
+	.introduc-col{
+		margin-top: 40px;
+		padding-left: 10px !important;
+	}
+
+	#section-artifacts .artifacts-slide-top-img{
+		height: 443px !important;
 	}
 
 
@@ -4240,6 +4269,7 @@ color: #188181;
 	color: #fff;
 }
 
+
 /*  */
 
 #modal-book-tour .modal-body .card-body label{
@@ -4269,4 +4299,66 @@ color: #188181;
 
 .background{
 	background-repeat: no-repeat;
+}
+#artifacts-section{
+	margin-bottom: 100px;
+}
+
+/* bo sung code  modal*/
+#modal-book-room .modal-body h5{
+	margin-bottom: 23px;
+}
+
+#modal-book-room .modal-body p{
+	font-size: 22px;
+	margin-bottom: 5px;
+}
+
+#modal-book-room .modal-body input{
+	margin-bottom: 15px;
+	font-size: 18px;
+}
+
+
+/* share facebook */
+.fb_iframe_widget{
+	scale: 1.4
+}
+
+.button-content .button-share{
+	width: 162px;
+    height: 45px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	background-color: #1A77F2;
+	border-radius: 10px ;
+	overflow: hidden;
+}
+
+/* bổ sung code chi tieetse tour */
+#tour-chi-tiet-intro h3{
+	font-size: 29px !important;
+	text-transform: uppercase;
+}
+
+#tour-chi-tiet-intro .header-name{
+	margin-bottom: 10px;
+}
+
+.button-share-tour{
+	margin-left: 10px;
+    width: 118px;
+    height: 47px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	background-color: #1A77F2;
+	border-radius: 10px ;
+	overflow: hidden;
+}
+
+.tour-chi-tiet-map .button-group{
+	display: flex;
+
 }

@@ -10,7 +10,7 @@ function listEvent($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -31,6 +31,13 @@ function listEvent($input){
             $conditions['year']= $_GET['year'];
         }
         $listData = $modelEvent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $month = getdate()['mon'];
+        $year = getdate()['year'];
+
+
+    $conditionsmonth = array('month' => $month, 'year' => $year, 'outstanding' =>'1' , 'status' => '1' );
+
+        $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order($order)->all()->toList();
 
             if(!empty($listData)){
                 foreach ($listData as $key => $value) {
@@ -88,6 +95,7 @@ function listEvent($input){
 
         setVariable('listData',$listData);
         setVariable('getmonth',$getmonth);
+        setVariable('listDataEvent',$listDataEvent  );
 
         setVariable('page',$page);
         setVariable('totalPage',$totalPage);
@@ -181,7 +189,7 @@ function listTour($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -191,6 +199,11 @@ function listTour($input){
              $key=createSlugMantan($_GET['name']);
             $conditions['urlSlug LIKE']= '%'.$key.'%';
         }
+
+        if(!empty($_GET['datestart'])){
+            $conditions['datestart'] = strtotime( @$_GET['datestart']);
+        }
+
 
         $conditions['status']= 1;
 
@@ -383,7 +396,7 @@ function listGovernanceAgency($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -546,7 +559,7 @@ function listService($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -711,7 +724,7 @@ function listCraftvillage($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -874,7 +887,7 @@ function listRestaurant($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -1071,7 +1084,7 @@ function listHotel($input){
     $_SESSION['urlCallBack']= $urlNow;
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
         
         $order = array('created'=>'desc');
         $conditions = array();
@@ -1307,7 +1320,7 @@ function listEventcenter($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -1470,7 +1483,7 @@ function listPlace($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -1633,7 +1646,7 @@ function listFestival($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -1795,7 +1808,7 @@ function vietnam360(){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -1888,7 +1901,7 @@ function listlike(){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
@@ -1986,7 +1999,7 @@ function ajax_event($input){
                 $conditions['month']= $_GET['month'];
         }
         $order = array('id'=>'desc');
-        $listData= $modelEvent->find()->limit(10)->page(1)->where($conditions)->order($order)->all()->toList();
+        $listData= $modelEvent->find()->limit(1)->page(1)->where($conditions)->order($order)->all()->toList();
 
         
         $text = '';
@@ -2000,7 +2013,7 @@ function ajax_event($input){
                             </div>
                             <div class="info-event-home">
                                 <div class="name-event-home">
-                                    <p>'.$valueEvent->name .'</p>
+                                <a href="chi_tiet_su_kien/'.$valueEvent->urlSlug.'.html"><p>'.$valueEvent->name .'</p></a>
                                 </div>
                                 <div class="description-event-home">
                                     <p class="title-des">Giới thiệu</p>
@@ -2200,4 +2213,8 @@ function findnear(){
          setVariable('listData', $listData); 
 
 }
+function map(){
+
+}
  ?>
+

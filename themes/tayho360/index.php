@@ -286,7 +286,7 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-        <section id="event-home">
+        <section id="event-home" style="position: relative;">
             <div class="event-home-title">
                 <p>Sự kiện</p>
                 <div class="article-space"></div>
@@ -344,8 +344,6 @@ global $urlThemeActive;
                                 <div class="name-event-home">
                                     <p>Chưa có sự kiện nào đang diễn ra.</p>
                                 </div>
-                                
-                                
                             </div>
                         </div>
                         <?php
@@ -354,6 +352,11 @@ global $urlThemeActive;
 
                 </div>
             </div>
+            <a href="/su_kien">
+                <button class="view_moreEvent">
+                    Xem thêm <i class="fa-solid fa-angles-right"></i>
+                </button>
+            </a>
         </section> 
 
 

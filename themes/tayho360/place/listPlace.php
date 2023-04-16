@@ -10,9 +10,8 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-background-index">
+         <section id="section-background-index">
             <form action="" method="GET">
-                <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
             <div class="container-fluid background-index">
                 <img src="<?= $urlThemeActive ?>img/background-index.jpg" alt="">
             </div>
@@ -37,7 +36,8 @@ global $urlThemeActive;
                     <div class="input-search">
                         <label for="search-place" class="col-form-label"><i
                                 class="fa-solid fa-magnifying-glass"></i></label>
-                        <input type="text" name="name" id="search-place" placeholder="Tìm kiếm">
+                            <input type="text" name="name" id="search-place" value="<?php echo @$_GET['name']; ?>" placeholder="Tìm kiếm">
+                            <button class="mt-3 btn button-submit-custom" style="display: none;" >Lưu</button>
                     </div>
                 </div>
             </div>
