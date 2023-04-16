@@ -4239,3 +4239,34 @@ color: #188181;
 .place-artifacts-slide .slick-arrow i {
 	color: #fff;
 }
+
+/*  */
+
+#modal-book-tour .modal-body .card-body label{
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+/* chi tiết tin tưc */
+.card-event h5{
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-height: 34px;
+	font-weight: bold;
+}
+
+#su-kien-list-event .section-heading{
+	margin-bottom: 42px;
+}
+
+#su-kien-list-event .container .col-12{
+	margin-bottom: 50px;
+}
+
+.background{
+	background-repeat: no-repeat;
+}
