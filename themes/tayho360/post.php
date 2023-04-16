@@ -75,7 +75,7 @@ if (!isset($otherPosts)) $otherPosts = [];
         </section>
         <section class="" id="skct-lien-quan-bottom">
             <div class="container mt-5">
-                <h2 class="mb-5">Tin tức liên quan</h2>
+                <h2 class="mb-4">Tin tức liên quan</h2>
                 <div class="row g-3 g-lg-4">
                     <?php
                     foreach ($otherPosts as $oPost) {

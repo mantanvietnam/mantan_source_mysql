@@ -6,7 +6,7 @@ global $urlThemeActive;
         <section class="banner-top-style-1">
             <img class="w-100" src="<?= $urlThemeActive ?>assets/lou_img/banner.png" alt="">
         </section>
-        <section id="tour-list" class="bg-pt">
+        <section id="tour-list" class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
             <div class="container form-main-position">
                 <div class="form-search-tour">
                     <form action="" method="GET">

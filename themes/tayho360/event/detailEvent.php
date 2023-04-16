@@ -17,7 +17,7 @@ global $urlThemeActive;
         <div class="container">
             <div class="row g-4">
                 <div class="col-12 col-lg-8">
-                    <article>
+                    <article class="pe-0 pe-lg-5">
                         <div class="head">
                             <h1 class="mb-4"><?php echo @$data->name ?></h1>
                         </div>
@@ -76,7 +76,6 @@ global $urlThemeActive;
                                             </div>
                                         <?php } ?>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="content">
@@ -285,7 +284,7 @@ global $urlThemeActive;
         var f = $('footer').innerHeight();
 
         var x = w - h - f - 10;
-        x = 800;
+        x = 600;
         // document.write(x);
         $('#map, #map_HS').css({
             'height': x
