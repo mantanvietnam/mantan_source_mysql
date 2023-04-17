@@ -25,7 +25,7 @@ global $urlThemeActive;
                                     <div class="col-12 col-md-6">
                                         <div class="d-flex form-input">
                                             <div class="round-icon d-none d-md-block"></div>
-                                            <div class="form-group w-100">
+                                            <div class="form-group w-100 border-end-0">
                                                 <label for="">Ngày</label>
                                                 <input type="date" class="form-control" value="<?php echo @$_GET['datestart'] ?>" name="datestart" >
                                             </div>
