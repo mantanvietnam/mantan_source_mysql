@@ -219,6 +219,34 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
+				                  }elseif($item->tiype=="dich_tich_lich_su"){
+				                    $HistoricalSite = getHistoricalSite($item->idobject);
+				                    $type= 'Danh lam thắng cảnh';
+				                    $address=@$HistoricalSite->address;
+				                     if(!empty(@$HistoricalSite)){
+				                    ?>
+						                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+		                                <div class="card-diem-den-yeu-thich-contain">
+		                                    <div class="card-diem-den-yeu-thich">
+		                                        <div class="card">
+		                                            <img src="<?php echo @$HistoricalSite->image; ?>"
+		                                                class="card-img-top w-100" alt="">
+		                                            <div class="img-overlay">
+		                                            </div>
+		                                            <div class="card-body">
+		                                                <h5 class="card-title "><a href="/<?php echo 'chi_tiet_dich_tich_lich_su/'.$HistoricalSite->urlSlug.'.html'; ?>"><?php echo $HistoricalSite->name; ?></a></h5>
+		                                                <div class="d-flex align-items-center card-num-location">
+		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
+		                                                        alt=""><?php echo $HistoricalSite->address; ?>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
+				                 <?php }
 				                  }elseif($item->tiype=="khach_san"){
 				                    $Hotel = getHotel($item->idobject);
 				                    

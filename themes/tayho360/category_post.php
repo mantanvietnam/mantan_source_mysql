@@ -6,8 +6,10 @@ global $urlThemeActive;
 <main class="">
     <section id="su-kien-banner">
          <?php
-                if (!empty($listPosts)) {
-                    foreach ($listPosts as $key => $items) {
+         $order = array('id'=>'desc');
+          $listDataPost= $modelPosts->find()->limit(1)->page(1)->where()->order($order)->all()->toList();
+                if (!empty($listDataPost)) {
+                    foreach ($listDataPost as $key => $items) {
                     if($key ==0){ ?>
         <div class="backgound-slider-contain">
             <div class="su-kien-slider">
