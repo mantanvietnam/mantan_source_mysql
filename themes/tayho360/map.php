@@ -4,7 +4,7 @@ global $urlThemeActive;
 
 ?>
 
- <div id="map-home">
+ <div id="map-home" class="map-home-page">
             <div class="event-home-title">
                 <p>Bản đồ 360</p>
                 <div class="article-space"></div>

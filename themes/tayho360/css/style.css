@@ -3555,6 +3555,7 @@ color: #188181;
 	}
 
 	/* trang chi tiết tin tức */
+	
 
 	#section-news-content .news-sidebar-item{
 
@@ -4277,7 +4278,7 @@ color: #188181;
 	margin-bottom: 10px;
 }
 
-/* chi tiết tin tưc */
+/* chi tiết tin tức */
 .card-event h5{
     overflow: hidden;
     /* white-space: nowrap; */
@@ -4285,7 +4286,7 @@ color: #188181;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-    line-height: 34px;
+    line-height: 34px !important;
 	font-weight: bold;
 }
 
@@ -4362,3 +4363,5 @@ color: #188181;
 	display: flex;
 
 }
+
+
