@@ -174,13 +174,13 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/account">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Tài khoản</span>
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/changePass">
                         <i class="bx bx-cog me-2"></i>
                         <span class="align-middle">Đổi mật khẩu</span>
                       </a>

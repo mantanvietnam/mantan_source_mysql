@@ -77,6 +77,7 @@
 		        <div class="text-center">
 		            <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/ajax-loader-green.gif" class="img-fluid text-center loadimg d-none" width="50">
 		        </div>
+		        <div id="success-notification">Lưu dữ liệu thành công</div>
 		    </div>
 
 		    <div class="container" style="padding-bottom: 100px;">
@@ -157,7 +158,7 @@
 	                                <div class="item-replace" style="flex: auto;">
 	                                    <div class="form-group">
 	                                        <label>Vị trí:</label>
-	                                        <select name="gradient_postion" class="form-control" id="gradient_postion">
+	                                        <select name="gradient_postion" class="form-select color-dropdown" id="gradient_postion">
 	                                            <?php
 	                                            $position = getLinearposition();
 	                                            foreach($position as $k => $value){
@@ -359,7 +360,7 @@
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
 	                                    <label>Chuyên mục:</label>
-	                                    <select name="categor_pro " class="form-control" id="categor_pro">
+	                                    <select name="categor_pro " class="form-select color-dropdown" id="categor_pro">
 	                                    	<?php 
 	                                    	if(!empty($categories)){
 	                                    		foreach ($categories as $cat) {
@@ -373,7 +374,7 @@
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
 	                                    <label>Trạng thái:</label>
-	                                    <select name="status_pro" class="form-control" id="status_pro">
+	                                    <select name="status_pro" class="form-select color-dropdown" id="status_pro">
 	                                        <option value="1">Đăng bán</option>
 	                                        <option value="0">Ẩn</option>
 	                                    </select>
@@ -398,7 +399,17 @@
 	                            </div>
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
-	                                    <select name="font-family " class="form-control" id="font-family" >
+	                                    <select name="font-family " class="form-select color-dropdown" id="font-family" >
+	                                    	<option value="">Chọn font chữ</option>
+	                                    	<option value="Arial">Arial</option>
+	                                    	<option value="Times New Roman">Times New Roman</option>
+	                                    	<option value="Verdana">Verdana</option>
+	                                    	<option value="Tahoma">Tahoma</option>
+	                                    	<option value="Helvetica">Helvetica</option>
+	                                    	<option value="Calibri">Calibri</option>
+	                                    	<option value="Cambria">Cambria</option>
+	                                    	<option value="Georgia">Georgia</option>
+	                                    	<option value="Trebuchet MS">Trebuchet MS</option>
 	                                    	<?php 
 	                                    	if(!empty($fonts)){
 	                                    		foreach ($fonts as $f) {
@@ -480,6 +491,10 @@
 	                                <div class="item-replace text-center clc-action-edit image" data-tab="opacity">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/opacity.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Độ trong</div>
+	                                </div>
+	                                <div class="item-replace text-center clc-action-edit image" onclick="confirmModal('Sử dụng chức năng này bạn sẽ phải mất phí là 10.000đ. Bạn có đồng ý không?', 'removeBackground')">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/remove-background.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Xóa nền</div>
 	                                </div>
 	                            </div>
 	                        </div>
