@@ -204,7 +204,6 @@ $(function () {
 // });
 
 jQuery= $;
-console.log('a');
 $(document).ready(function(){
   $("#booking-tabs .box-search label input").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -214,3 +213,64 @@ $(document).ready(function(){
     });
   });
 });
+
+
+
+// $(document).ready(function() {
+//     var content = $(".content-information");
+//     var maxHeight = 100; // Chiều cao tối đa của nội dung (đơn vị là pixel)
+//     var contentHeight = content[0].scrollHeight; // Chiều cao thực tế của nội dung
+
+//     if (contentHeight > maxHeight) {
+//       content.css("max-height", maxHeight + "px");
+//       $("<div>", {
+//         "class": "more",
+//         text: "Xem thêm"
+//       }).appendTo(content).show();
+//     }
+
+//     content.on("click", ".more", function() {
+//       if (content.hasClass("expanded")) {
+//         content.animate({
+//           "max-height": maxHeight + "px"
+//         });
+//         content.removeClass("expanded");
+//         $(this).text("Xem thêm");
+//       } else {
+//         content.animate({
+//           "max-height": contentHeight + "px"
+//         });
+//         content.addClass("expanded");
+//         $(this).text("Ẩn bớt");
+//       }
+//     });
+//   });
+
+$(function () {
+    var limitW = 200;
+    var char = 4;
+
+    var txtEle = $('.content-information')
+    if (txtEle.length > 0) {
+        var txt = $('.content-information').html();
+        var txtStart = txt.slice(0, limitW).replace(/\w+$/, '');
+        var txtEnd = txt.slice(txtStart.length);
+        if (txtEnd.replace(/\s+$/, '').split(' ').length > char) {
+            $('.content-information').html([
+                    txtStart,
+                    '<a href="#" class="more">... xem thêm</a>',
+                    '<span class="detail">',
+                    txtEnd,
+                    '</span>'
+                ].join('')
+            );
+        }
+
+        $('span.detail').hide();
+        $('a.more').click(function () {
+            $(this).hide().next('span.detail').fadeIn();
+            return false;
+        });
+    }
+});
+
