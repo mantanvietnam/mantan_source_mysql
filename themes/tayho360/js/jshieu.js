@@ -246,31 +246,31 @@ $(document).ready(function(){
 //     });
 //   });
 
-$(function () {
-    var limitW = 200;
-    var char = 4;
+// $(function () {
+//     var limitW = 200;
+//     var char = 4;
 
-    var txtEle = $('.content-information')
-    if (txtEle.length > 0) {
-        var txt = $('.content-information').html();
-        var txtStart = txt.slice(0, limitW).replace(/\w+$/, '');
-        var txtEnd = txt.slice(txtStart.length);
-        if (txtEnd.replace(/\s+$/, '').split(' ').length > char) {
-            $('.content-information').html([
-                    txtStart,
-                    '<a href="#" class="more">... xem thêm</a>',
-                    '<span class="detail">',
-                    txtEnd,
-                    '</span>'
-                ].join('')
-            );
-        }
+//     var txtEle = $('.content-information')
+//     if (txtEle.length > 0) {
+//         var txt = $('.content-information').html();
+//         var txtStart = txt.slice(0, limitW).replace(/\w+$/, '');
+//         var txtEnd = txt.slice(txtStart.length);
+//         if (txtEnd.replace(/\s+$/, '').split(' ').length > char) {
+//             $('.content-information').html([
+//                     txtStart,
+//                     '<a href="#" class="more">... xem thêm</a>',
+//                     '<span class="detail">',
+//                     txtEnd,
+//                     '</span>'
+//                 ].join('')
+//             );
+//         }
 
-        $('span.detail').hide();
-        $('a.more').click(function () {
-            $(this).hide().next('span.detail').fadeIn();
-            return false;
-        });
-    }
-});
+//         $('span.detail').hide();
+//         $('a.more').click(function () {
+//             $(this).hide().next('span.detail').fadeIn();
+//             return false;
+//         });
+//     }
+// });
 

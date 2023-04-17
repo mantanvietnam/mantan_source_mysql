@@ -4106,6 +4106,10 @@ color: #188181;
 .place-img-slide.col-lg-9{
 	width: 73% !important;
 }
+
+.info-tour{
+	padding-right: 50px;
+}
 }
 
 
@@ -4348,6 +4352,14 @@ color: #188181;
 
 #tour-chi-tiet-intro .header-name{
 	margin-bottom: 10px;
+}
+
+#tour-chi-tiet-intro{
+	margin-bottom: 72px !important;
+}
+
+.info-tour #tour-chi-tiet-intro p{
+	font-size: 18px;
 }
 
 .button-share-tour{

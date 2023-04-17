@@ -59,10 +59,10 @@ $infoUser = $session->read('infoUser');
             <?php } ?>
         </div>
     </section>
-    <section class="" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
+    <section class="background" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
         <div class="container py-3 py-md-5">
             <div class="row">
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-8 info-tour">
                     <section id="tour-chi-tiet-intro" class="mb-4">
                         <!-- <h1 class="header-name"></h1> -->
                         <h3><?php echo @$data->name ?></h3>
