@@ -358,9 +358,6 @@ function newpassword($input){
 		$conditions = array();
 		$conditions = array('email'=>@$infoUser['email'], 'pass'=>$infoUser['pass']);
 	    		$data = $modelCustomer->find()->where($conditions)->first();
-
-	    		debug($data);
-	    		die();
 	    		if(!empty($data)){
 	    			if($dataSend['pass'] == $dataSend['passAgain']){
 	    				$data->pass = md5($dataSend['pass']);

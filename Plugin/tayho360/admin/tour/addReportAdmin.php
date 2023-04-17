@@ -50,7 +50,7 @@
                             </div>
                           
                             <div class="mb-3 form-group col-sm-3">
-                                <i>ngày :</i>
+                                <i>Ngày :</i>
                                 <select class="form-select" id="date" name="date" onchange="getDistrict();">
                                     <option value="">Chọn ngày</option>
                                     <?php
@@ -71,7 +71,7 @@
                             </div>
                             
                             <div class="mb-3 form-group col-sm-6">
-                                <i>Gới thiệu:</i>
+                                <i>Giới thiệu:</i>
                                <textarea name="introductory" id="introductory" onkeyup="" class="form-control" rows="5"><?php echo @$data['introductory'] ?></textarea>
                             </div>
                            
