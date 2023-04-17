@@ -4375,4 +4375,16 @@ color: #188181;
 	height: auto !important;
 }
 
+/* địa điểm yêu thich */
+.card-diem-den-yeu-thich-contain h5 a{
+	font-size: 27px !important;
+	overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    line-height: 34px;
+}
+
 
