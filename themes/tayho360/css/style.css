@@ -489,7 +489,7 @@ input:-internal-autofill-selected {
 
 	border: 1px solid #fff;
 
-	border-radius: 10px;
+	/* border-radius: 10px; */
 
 }
 
@@ -497,7 +497,7 @@ input:-internal-autofill-selected {
 
 .place-img-slide .img-slide-item{
 
-	padding: 0 12px;
+	/* padding: 0 12px; */
 	height: 483px;
 
 }
@@ -3555,6 +3555,7 @@ color: #188181;
 	}
 
 	/* trang chi tiết tin tức */
+	
 
 	#section-news-content .news-sidebar-item{
 
@@ -4277,7 +4278,7 @@ color: #188181;
 	margin-bottom: 10px;
 }
 
-/* chi tiết tin tưc */
+/* chi tiết tin tức */
 .card-event h5{
     overflow: hidden;
     /* white-space: nowrap; */
@@ -4285,7 +4286,7 @@ color: #188181;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-    line-height: 34px;
+    line-height: 34px !important;
 	font-weight: bold;
 }
 
@@ -4362,3 +4363,16 @@ color: #188181;
 	display: flex;
 
 }
+
+/* cai dat ca nhan */
+.edit-user-photo .m_bg_img img{
+	height: 100%;
+	width: 100% !important;
+}
+
+#img1{
+	width: 134px !important;
+	height: auto !important;
+}
+
+
