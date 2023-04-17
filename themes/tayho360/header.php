@@ -76,7 +76,7 @@ $infoUser = $session->read('infoUser');
                         </ul>
                     <?php } else { ?>
                         <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
-                           href="/login">Đăng Nhập</a>
+                           href="/login">Đăng nhập</a>
                     <?php } ?>
                 </li>
                 <!-- <a href="" class="sign btn">Đăng ký / Đăng nhập</a> -->

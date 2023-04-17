@@ -4364,4 +4364,15 @@ color: #188181;
 
 }
 
+/* cai dat ca nhan */
+.edit-user-photo .m_bg_img img{
+	height: 100%;
+	width: 100% !important;
+}
+
+#img1{
+	width: 134px !important;
+	height: auto !important;
+}
+
 
