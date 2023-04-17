@@ -91,7 +91,7 @@ $infoUser = $session->read('infoUser');
     </div>
     <div class="main-nav">
         <div class="container-xxl">
-            <nav class="navbar navbar-expand-xxl">
+            <nav class="navbar navbar-expand-xl">
                 <div class="container-fluid">
                     <a class="navbar-brand d-block" href="/">
                         <img src="<?php echo @$setting['image_logo']; ?>" style=" width: 55px; " alt="">

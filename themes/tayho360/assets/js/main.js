@@ -38,9 +38,9 @@ $(document).ready(function () {
 
         autoplaySpeed: 1000,
 
-        prevArrow: "<button type='button' class='slick-prev'><img src='../assets/lou_icon/prev-btn.svg'/></button>",
+        prevArrow: "<button type='button' class='slick-prev'><img src='/themes/tayho360/assets/lou_icon/prev-btn.svg'/></button>",
 
-        nextArrow: "<button type='button' class='slick-next'><img src='../assets/lou_icon/next-btn.svg'/></button>",
+        nextArrow: "<button type='button' class='slick-next'><img src='/themes/tayho360/assets/lou_icon/next-btn.svg'/></button>",
 
     });
 

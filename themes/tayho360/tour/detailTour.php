@@ -73,9 +73,134 @@ $infoUser = $session->read('infoUser');
                     <section class="time-line">
                         <div class="">
                             <h3 class="header-name">Lịch trình</h3>
-                            <p class="intro-content">
+                            <!-- <p class="intro-content">
                                 <?php echo @$data->content ?>
-                            </p>
+                            </p> -->
+                            <div class="main-menu">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Ngày 1</button>
+                                    </li>
+                                    <li class="nav-item date2tou" role="presentation">
+                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Ngày 2</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content mt-5" id="myTabContent">
+                                    <div class="tab-timeline tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                        <div class="row g-3 g-lg-0">
+                                            <?php foreach ($listRepor as $keyRepor => $repor1) {
+                                                if ($repor1->date == 1) {
+                                                    if ($keyRepor % 2 == 0) {
+                                            ?>
+                                                        <div class="col-12 img-left">
+                                                            <div class="d-flex align-items-lg-start">
+                                                                <img class="img-detail mb-3" src="<?php echo @$repor1->image ?>" alt="">
+                                                                <div class="line-break d-none d-xxl-block px-3">
+                                                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                                                        <div class="circle-top">
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content px-3">
+                                                                        <span class="time"><?php echo @$repor1->time ?></span>
+                                                                        <h5><?php echo @$repor1->name ?></h5>
+                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="col-12 img-right">
+                                                            <div class="d-flex align-items-lg-start">
+                                                                <img class="img-detail mb-3" src="<?php echo @$repor1->image ?>" alt="">
+                                                                <div class="line-break d-none d-xxl-block px-3">
+                                                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                                                        <div class="circle-top">
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content px-3">
+                                                                        <span class="time"><?php echo @$repor1->time ?></span>
+                                                                        <h5><?php echo @$repor1->name ?></h5>
+                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                            <?php }
+                                                }
+                                            } ?>
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-timeline tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                        <div class="row g-3 g-lg-0">
+                                            <?php foreach ($listRepor as $keyRepor => $repor1) {
+                                                if ($repor1->date == 2) {
+                                                    if ($keyRepor % 2 != 0) {
+                                            ?>
+                                                        <div class="col-12 img-left">
+                                                            <div class="d-flex align-items-lg-start">
+                                                                <img class="img-detail mb-3" src="<?php echo @$repor1->image ?>" alt="">
+                                                                <div class="line-break d-none d-xxl-block px-3">
+                                                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                                                        <div class="circle-top">
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content px-3">
+                                                                        <span class="time"><?php echo @$repor1->time ?></span>
+                                                                        <h5><?php echo @$repor1->name ?></h5>
+                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="col-12 img-right">
+                                                            <div class="d-flex align-items-lg-start">
+                                                                <img class="img-detail mb-3" src="<?php echo @$repor1->image ?>" alt="">
+                                                                <div class="line-break d-none d-xxl-block px-3">
+                                                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                                                        <div class="circle-top">
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content px-3">
+                                                                    
+                                                                        <span class="time"><?php echo @$repor1->time ?></span>
+                                                                        <h5><?php echo @$repor1->name ?></h5>
+                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    <?php } ?>
+                                                    <style type="text/css">
+                                                        .date2tou {
+                                                            display: block;
+                                                        }
+                                                    </style>
+                                                <?php } else { ?>
+                                                    <style type="text/css">
+                                                        .date2tou {
+                                                            display: none;
+                                                        }
+                                                    </style>
+
+                                            <?php }
+                                            } ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </section>
@@ -133,6 +258,46 @@ $infoUser = $session->read('infoUser');
             </div>
         </div>
     </section>
+    <section id="place-around-section" class="mgt-80 tourkhac-section">
+            <div class="container">
+                <div class="title-section mgb-32">
+                    <p>Các tour khác </p>
+                </div>
+
+                <div class="place-around-slide">
+                     <?php 
+
+                    foreach(@$otherData as $key => $value){
+                    if(@$data->id != @$value->id){ ?>
+                    <div class="place-around-slide-item">
+                         <div >
+                                <a href="/chi_tiet_tour/<?php echo $value->urlSlug ?>.html" class="text-decoration-none">
+                                    <div class="tour-du-lich-card">
+                                        <div class="card border-0 w-100">
+                                            <div class="card-top">
+                                                <img src="<?php echo $value->image ?>" class="card-img-top" alt="...">
+                                                <div class="card-overlay"></div>
+                                                <div class="card-num-day">
+                                                    <?php echo $value->timetravel ?>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-lg-4">
+                                                <h5 class="card-title"><?php echo $value->name ?></h5>
+                                                <p class="card-time"><?php echo date("d/m/Y", @$value->datestart) . ' - ' . date("d/m/Y", @$value->dateend); ?></p>
+                                                <div class="d-flex align-items-center card-num-location">
+                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-location-white-card.svg" alt="">
+                                                    <span><?php echo $value->address ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                    </div>
+                   <?php }} ?>
+                </div>
+            </div>
+        </section> 
 </main>
 <!-- Modal -->
 <div class="modal fade" id="modal-book-tour" tabindex="-1" aria-labelledby="exampleModalLabel">
@@ -317,7 +482,7 @@ $infoUser = $session->read('infoUser');
 <style>
     .fb_iframe_widget {
         scale: 1;
-        padding: 10px;
+        padding: 10px 20px;
         background: #1877f2;
         border-radius: 10px;
         margin-left: 10px;

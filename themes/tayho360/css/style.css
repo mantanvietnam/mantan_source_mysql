@@ -489,7 +489,7 @@ input:-internal-autofill-selected {
 
 	border: 1px solid #fff;
 
-	border-radius: 10px;
+	/* border-radius: 10px; */
 
 }
 
@@ -497,7 +497,7 @@ input:-internal-autofill-selected {
 
 .place-img-slide .img-slide-item{
 
-	padding: 0 12px;
+	/* padding: 0 12px; */
 	height: 483px;
 
 }

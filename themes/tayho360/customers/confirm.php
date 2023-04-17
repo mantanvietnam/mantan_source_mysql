@@ -16,7 +16,7 @@ global $urlThemeActive;
                     <div class="col-7 box-sign">
                         <ul class="nav nav-tabs nav-sign" id="myTab">
                             <li class="nav-item nav-item-sign">
-                                <p class="nav-link-sign active" id="sign-in-tab" >Xác nhận Email</p>
+                                <p class="nav-link-sign active" id="sign-in-tab" >Mã xác nhận</p>
                             </li> 
 
                             
@@ -32,8 +32,8 @@ global $urlThemeActive;
                                     <div class="input-group input-sign-in-user">
                                         <label for="sign-in-name" class="user-label"><i
                                                 class="fa-solid fa-user"></i></label>
-                                        <input type="text" class="form-control" id="email" name="email"
-                                            placeholder="Email" required>
+                                        <input type="text" class="form-control" id="code" name="code"
+                                            placeholder="mã xách nhận" required>
                                     </div>
                                     
                                     <button class="button-sign-in" type="submit">Gửi</button>

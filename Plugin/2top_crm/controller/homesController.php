@@ -293,7 +293,7 @@ function forgotpassword($input){
 			$modelCustomer->save($checkCustomer);
 			sendEmailnewpassword($checkCustomer->email, $checkCustomer->full_name, $pass);
 			$session->write('email', $checkCustomer->email);
-			return $controller->redirect('/newpassword');
+			return $controller->redirect('/confirm');
 
 
 		}else{
@@ -304,7 +304,7 @@ function forgotpassword($input){
 
 }
 
-function newpassword($input){
+function confirm($input){
 
 	global $metaTitleMantan;
 	global $isRequestPost;
@@ -320,9 +320,44 @@ function newpassword($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions = array('email'=>@$email, 'pass'=>md5($dataSend['oldpass']));
+		$conditions = array('email'=>@$email, 'pass'=>md5($dataSend['code']));
 	    		$data = $modelCustomer->find()->where($conditions)->first();
-	    	
+	    		if(!empty($data)){
+	    				$session->destroy();
+
+	    				$session->write('infoUser', $data);
+
+
+	    				return $controller->redirect('/newpassword');
+			    			
+						
+	    		}else{
+	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
+	    		}
+	    setVariable('mess', $mess);
+	}
+
+
+}
+
+function newpassword($input){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	$infoUser = $session->read('infoUser');
+
+	
+
+
+	$modelCustomer = $controller->loadModel('Customers');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions = array('email'=>@$infoUser['email'], 'pass'=>$infoUser['pass']);
+	    		$data = $modelCustomer->find()->where($conditions)->first();
 	    		if(!empty($data)){
 	    			if($dataSend['pass'] == $dataSend['passAgain']){
 	    				$data->pass = md5($dataSend['pass']);
@@ -336,7 +371,7 @@ function newpassword($input){
 	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
 	    			}
 	    		}else{
-	    			$mess= '<p class="text-danger">Xác nhận lại mật khẩu bạn không đúng</p>';
+	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
 	    		}
 	    setVariable('mess', $mess);
 	}

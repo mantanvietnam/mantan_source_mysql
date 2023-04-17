@@ -114,6 +114,13 @@ function categoryService(){
     );
 }
 
+function datetour(){
+    return array('1'=>array('id'=>'1','name'=>'Ngày 1'),
+        '2'=>array('id'=>'2','name'=>'Ngày 2'),
+        '3'=>array('id'=>'3','name'=>'Ngày 3'),
+    );
+}
+
 function rating(){
     return array('1'=>array('id'=>'1','name'=>'Cấp quốc gia'),
         '2'=>array('id'=>'2','name'=>'Cấp thành phố'),
@@ -424,11 +431,11 @@ function getEvent($id){
         $data = $modelEvent->find()->where(['id'=>intval($id)])->first();       
         return $data;
 }
-function getRlace($id){
+function getPlace($id){
     global $modelOption;
     global $controller;
-    $modelRlace = $controller->loadModel('Rlaces');
-        $data = $modelRlace->find()->where(['id'=>intval($id)])->first();        
+    $modelPlace = $controller->loadModel('Places');
+        $data = $modelPlace->find()->where(['id'=>intval($id)])->first();        
         return $data;
 }
 function getService($id){

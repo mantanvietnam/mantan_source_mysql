@@ -3,7 +3,7 @@ getHeader();
 global $urlThemeActive;
 ?>
 
-<main class="bg-pt">
+<main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
         <div class="container py-5">
             <section id="user-page">
                 <div class="row g-0">

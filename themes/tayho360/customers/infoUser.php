@@ -23,8 +23,7 @@ getHeader();
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <div class="user-image px-4">
-                                    <img id="img1" src="<?= $info->avatar ?>" style="width: 110px"
-                                         class="img-responsive">
+                                    <img id="img1" src="<?= $info->avatar ?>" style="width: 110px" class="img-responsive">
                                 </div>
                             </div>
                             <div class="col-12 col-md-8">
@@ -47,22 +46,9 @@ getHeader();
                                                 <span>Địa chỉ</span>
                                                 <span><?= $info->address ?></span>
                                             </div>
-                                             <div class="d-flex item">
-                                                <span>Địa chỉ</span>
-                                                <span><?=$info->address ?></span>
-                                            </div>
-                                            <!-- <div class="d-flex item">
-                                                <span>Liên hệ</span>
-                                                <span>https://www.facebook.com/abc</span>
-                                            </div> -->
+                                          
                                         </div>
-                                        <!-- <div class="cate-contain">
-                                            <p class="label">Chung</p>
-                                            <div class="d-flex item">
-                                                <span>Ngày sinh</span>
-                                                <span>01/01/1999</span>
-                                            </div>
-                                        </div> -->
+                                        
                                     </div>
 
                                 </div>
@@ -75,11 +61,13 @@ getHeader();
     </div>
 </main>
 <style>
-    #img1{
+    #img1 {
         height: 110px;
         border-radius: 50%;
         object-fit: cover;
     }
+
+    
 </style>
 <?php
 getFooter();

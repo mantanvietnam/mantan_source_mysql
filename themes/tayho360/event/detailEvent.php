@@ -13,7 +13,7 @@ global $urlThemeActive;
             </nav>
         </div>
     </section>
-    <section id="skct-article">
+    <section id="skct-article" class="background" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
         <div class="container">
             <div class="row g-4">
                 <div class="col-12 col-lg-8">
@@ -24,58 +24,56 @@ global $urlThemeActive;
                         <div class="body">
                             <div class="list-image">
                                 <div class="su-kien-slider-chi-tiet">
-                                    <div class="col-lg-9 col-md-8 col-sm-8 col-12 place-img-slide">
-                                        <?php if (!empty($data->image)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image2)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image2 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image3)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image3 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image4)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image4 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image5)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image5 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image6)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image6 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image7)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image7 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image8)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image8 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image9)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image9 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                        <?php if (!empty($data->image10)) { ?>
-                                            <div class="img-slide-item">
-                                                <img src="<?php echo $data->image10 ?>" alt="">
-                                            </div>
-                                        <?php } ?>
-                                    </div>
+                                    <?php if (!empty($data->image)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image2)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image2 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image3)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image3 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image4)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image4 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image5)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image5 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image6)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image6 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image7)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image7 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image8)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image8 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image9)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image9 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
+                                    <?php if (!empty($data->image10)) { ?>
+                                        <div class="img-slide-item">
+                                            <img src="<?php echo $data->image10 ?>" alt="">
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="content">
@@ -300,8 +298,15 @@ global $urlThemeActive;
         line-height: 34px;
         color: #3F4042;
     }
-    #skct-lien-quan-other{
+
+    #skct-lien-quan-other {
         margin-bottom: 60px;
+    }
+
+    .slick-slide img {
+        width: 100% !important;
+        object-fit: cover;
+        height: 500px !important
     }
 </style>
 <?php
