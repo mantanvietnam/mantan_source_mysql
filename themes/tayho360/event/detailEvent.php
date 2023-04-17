@@ -13,7 +13,7 @@ global $urlThemeActive;
             </nav>
         </div>
     </section>
-    <section id="skct-article">
+    <section id="skct-article" class="background" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
         <div class="container">
             <div class="row g-4">
                 <div class="col-12 col-lg-8">
