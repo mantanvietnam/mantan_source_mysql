@@ -202,3 +202,15 @@ $(function () {
 //         });
 //     }
 // });
+
+jQuery= $;
+console.log('a');
+$(document).ready(function(){
+  $("#booking-tabs .box-search label input").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".tab-content-booking tr").filter(function() {
+        $(".tab-content-booking tr:first-child()").show();
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
