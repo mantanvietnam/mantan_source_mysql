@@ -11,4 +11,6 @@
 	$routesPlugin['infoUser']= '2top_crm/view/home/infoUser.php';
 	$routesPlugin['pourpassword']= '2top_crm/view/home/pourpassword.php';
 	$routesPlugin['editInfoUser']= '2top_crm/view/home/editInfoUser.php';
+	$routesPlugin['forgotpassword']= '2top_crm/view/home/forgotpassword.php';
+	$routesPlugin['newpassword']= '2top_crm/view/home/newpassword.php';
 ?>

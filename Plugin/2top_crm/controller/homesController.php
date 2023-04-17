@@ -75,13 +75,14 @@ function register($input)
 		        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		        	$conditions = array();
-			        $conditions['phone'] = $dataSend['phone'];
+			        $conditions['email'] = $dataSend['email'];
 			        $checkCustomer = $modelCustomer->find()->where($conditions)->first();
 
 			        if(empty($checkCustomer)){
 				        // tạo dữ liệu save
 				        $data->full_name = $dataSend['full_name'];
 				        $data->phone = $dataSend['phone'];
+
 				        $data->email = $dataSend['email'];
 				        $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
 				        $data->sex = (int) @$dataSend['sex'];
@@ -122,7 +123,7 @@ function register($input)
 			    			$mess= '<p class="text-danger">Đăng ký thất bại do lỗi hệ thống</p>';
 			    		}
 			    	}else{
-			    		$mess= '<p class="text-danger">Số điện thoại đã được đăng ký</p>';
+			    		$mess= '<p class="text-danger">Email đã được đăng ký</p>';
 			    	}
 		    	}else{
 		    		$mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
@@ -268,6 +269,76 @@ function editInfoUser($input){
 	    setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/');
+	}
+
+}
+
+function forgotpassword($input){
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelCustomer = $controller->loadModel('Customers');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions['email'] = $dataSend['email'];
+		$checkCustomer = $modelCustomer->find()->where($conditions)->first();
+		if(!empty($checkCustomer)){
+			@$pass = getdate()[0];
+			$checkCustomer->pass = md5($pass);
+			
+			$modelCustomer->save($checkCustomer);
+			sendEmailnewpassword($checkCustomer->email, $checkCustomer->full_name, $pass);
+			$session->write('email', $checkCustomer->email);
+			return $controller->redirect('/newpassword');
+
+
+		}else{
+			$mess= '<p class="text-danger">Email không đúng!</p>';
+		}
+		setVariable('mess', $mess);
+	}
+
+}
+
+function newpassword($input){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	$email = $session->read('email');
+
+	
+
+
+	$modelCustomer = $controller->loadModel('Customers');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions = array('email'=>@$email, 'pass'=>md5($dataSend['oldpass']));
+	    		$data = $modelCustomer->find()->where($conditions)->first();
+	    	
+	    		if(!empty($data)){
+	    			if($dataSend['pass'] == $dataSend['passAgain']){
+	    				$data->pass = md5($dataSend['pass']);
+
+	    				$modelCustomer->save($data);
+	    				$session->destroy();
+			    			
+						return $controller->redirect('/login');		
+
+	    			}else{
+	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
+	    			}
+	    		}else{
+	    			$mess= '<p class="text-danger">Xác nhận lại mật khẩu bạn không đúng</p>';
+	    		}
+	    setVariable('mess', $mess);
 	}
 
 }

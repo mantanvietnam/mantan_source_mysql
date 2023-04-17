@@ -16,7 +16,7 @@ global $urlThemeActive;
                     <div class="col-7 box-sign">
                         <ul class="nav nav-tabs nav-sign" id="myTab">
                             <li class="nav-item nav-item-sign">
-                                <p class="nav-link-sign active" id="sign-in-tab" >Đăng nhập</p>
+                                <p class="nav-link-sign active" id="sign-in-tab" >Xách nhận Email</p>
                             </li> 
 
                             
@@ -35,27 +35,11 @@ global $urlThemeActive;
                                         <input type="text" class="form-control" id="email" name="email"
                                             placeholder="Email" required>
                                     </div>
-                                    <div class="input-group input-sign-in-password">
-                                        <label for="sign-in-password" class="password-label"><i
-                                                class="fa-solid fa-lock"></i></label>
-                                        <input type="password" class="form-control" id="pass" name="pass"
-                                            placeholder="Mật khẩu" required>
-                                        <div class="icon-eye-button">
-                                            <img class="eye-icon" value="close" src="<?= $urlThemeActive ?>/img/eyeclose.png" alt="">
-                                        </div>
-                                    </div>
-                                    <button class="button-sign-in" type="submit">Đăng nhập</button>
-                                    <div class="forgot-password">
-                                        <a href="/forgotpassword">Quên mật khẩu</a> | 
-                                        <a href="/register">Đăng ký</a>
-                                    </div>
+                                    
+                                    <button class="button-sign-in" type="submit">Gửi</button>
+                                    
                                 </form>
-                                <div class="sign-in-other">
-                                    <p>Hoặc Đăng nhập với</p>
-                                    <a class="sign-in-mobile" href=""><i class="fa-solid fa-mobile-screen"></i></a>
-                                    <a class="sign-in-google" href=""><i class="fa-brands fa-google"></i></a>
-                                    <a class="sign-in-facebook" href=""><i class="fa-brands fa-facebook"></i></a>
-                                </div>
+                                
 
 
                             </div>

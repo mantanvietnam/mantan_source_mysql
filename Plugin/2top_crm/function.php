@@ -185,7 +185,7 @@ function getCustomer($id){
         return $data;
 }
 
-function sendEmailAddMoney($email='', $fullName='', $coin= '')
+function sendEmailnewpassword($email='', $fullName='', $pass= '')
 {
     $to = array();
 
@@ -194,14 +194,14 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
     
         $cc = array();
         $bcc = array();
-        $subject = '[Ezpics] ' . 'Nạp thành công '.number_format($coin).'đ vào tài khoản';
+        $subject = '[Tây Hồ 360] Xác nhận mật khẩu mới ';
 
         $content='<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Thông tin nạp tiền Ezpics</title>
+            <title>Thông tin xác nhận mật khẩu</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
@@ -231,30 +231,18 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
         <body>
             <div class="bao">
                 <div class="nd">
-                    <div class="head">
-                        <span>NẠP TIỀN '.number_format($coin).'Đ</span>
-                    </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
-                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống <a href="https://ezpics.vn">https://ezpics.vn</a>
+                        Mật khẩu mới của bạn là : '.@$pass.' <br>
+                        <br/>
+                        <a href="https://tayho360.vn">https://tayho360.vn</a>
                         
                         <br><br>
                         
                         Trân trọng ./
                     </div>
-                    <div class="thong_tin">
-                        <div class="line"><div class="line1"></div></div>
-                        <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
-                            <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
-                        </div>
-                        <ul class="list-unstyled" style="    font-size: 15px;">
-                            <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
-                            <li>Mobile: 0828266622</li>
-                            <li>Website: <a href="https://ezpics.vn">https://ezpics.vn</a></li>
-                        </ul>
-                    </div>
+                   
 
                 </div>
             </div>

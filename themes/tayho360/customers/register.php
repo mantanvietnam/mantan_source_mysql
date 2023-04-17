@@ -21,7 +21,7 @@ global $urlThemeActive;
                         </ul>
 
                         <div class="tab-content tab-content-sign" id="myTabContent">
-                           
+                           <?php echo @$mess; ?>
                             <!-- Đăng ký tab -->
                             <div class="tab-pane-sign tab-pane fade active show" id="sign-up" role="tabpanel" aria-labelledby="sign-up-tab">
                                 <form action="" method="post">
