@@ -26,7 +26,7 @@ $info = $session->read('infoUser');
                                 <div class="top">
                                     <div class="d-flex">
                                         <div class="edit-user-photo me-3">
-                                            <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đạt diện</label>
+                                            <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại diện</label>
 
                                             <div class="m_bg_img" style="">
                                                 <input type="file" onchange="readURL1(this);" name="avatar">
