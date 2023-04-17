@@ -532,7 +532,11 @@ function uploadImage($user_id='', $name_input='', $filenameImage='')
             } else{
                 $return = ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
             }
+        }else{
+        	$return = ['code'=>1, 'mess'=>'Ảnh gửi lên bị lỗi'];
         }
+	}else{
+		$return = ['code'=>1, 'mess'=>'Gửi thiếu dữ liệu'];
 	}
 
 	return $return;

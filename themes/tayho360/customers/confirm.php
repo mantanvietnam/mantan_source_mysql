@@ -33,7 +33,7 @@ global $urlThemeActive;
                                         <label for="sign-in-name" class="user-label"><i
                                                 class="fa-solid fa-user"></i></label>
                                         <input type="text" class="form-control" id="code" name="code"
-                                            placeholder="mã xách nhận" required>
+                                            placeholder="Mã xác nhận" required>
                                     </div>
                                     
                                     <button class="button-sign-in" type="submit">Gửi</button>

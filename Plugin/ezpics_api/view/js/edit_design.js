@@ -53,7 +53,8 @@ function editThemeUser(id)
             height: $('.thumb-checklayer').height(),
         }, 
         success:function(data){
-
+            console.log(data);
+            
             if($.isEmptyObject(data.error)){
                 //xóa data cũ
                 $('.list-layer').val('');
@@ -465,7 +466,13 @@ function getInfoLayer() {
     $('.fontz').text(font); 
     $('.fontz').val(font); 
     $('.font').val(font); 
-    $('#font-family').val(font_family); 
+
+    if($("#font-family option[value='"+font_family+"']").length > 0){
+        $('#font-family').val(font_family); 
+    }else{
+        $('#font-family').val(''); 
+    }
+    
     
     $('.opacityz').text($('.active-hover span').css('opacity') * 100); 
     $('.opacityz').val($('.active-hover span').css('opacity') * 100); 
@@ -773,7 +780,7 @@ function ajaxInfoLayer() {
         if(sizeEdit>100) sizeEdit=100;
         if(sizeEdit<0) sizeEdit=0;
         $(this).val(sizeEdit);
-
+        
         $('.active-hover img').css('max-width', '100vw');
         $('.active-hover img').css('width', sizeEdit+'vw');
         $('.active-hover').data('width', sizeEdit+'vw');
@@ -1095,6 +1102,14 @@ function saveproduct() {
                 }
 
                 $('.loadimg').addClass('d-none');
+
+                // Hiển thị thông báo
+                $("#success-notification").show();
+
+                // Tự động ẩn thông báo sau 3 giây
+                setTimeout(function() {
+                    $("#success-notification").hide();
+                }, 3000);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
@@ -1426,8 +1441,8 @@ function deletedinlayer(idproduct,id) {
         dataType: 'json',
         type: "POST",
         data: {
-            layer : json_update,
-            id: idproduct   
+            id: idproduct,
+            layer : json_update
         }, 
         success:function(d){
             if($.isEmptyObject(d.error)){
@@ -2669,6 +2684,161 @@ $(".upimg[type='file']").on('change', function() {
     }
 });
 
+$(".upimgThumbnail[type='file']").on('change', function() { 
+    let idproduct = $('.drag-drop').data('idproduct');
+    if($(this).prop('files').length > 0)
+    {
+        let id = $('.drag-drop').data('idproduct');
+        var getupdate = localStorage.getItem("product_update_"+id);
+        var json_update = JSON.parse(getupdate);
+        $.ajax({
+            url: 'https://apis.ezpics.vn/apis/savelayer',
+            dataType: 'json',
+            type: "POST",
+            data: {
+                layer : json_update,
+                id: id   
+            }, 
+            success:function(d){
+                if($.isEmptyObject(d.error)){
+                    formdata = new FormData();
+                    file = $(".upimgThumbnail[type='file']").prop('files')[0];
+                    formdata.append("file", file);
+                    formdata.append("idproduct", idproduct);
+                    $.ajax({
+                        url: 'https://apis.ezpics.vn/apis/upImageThumbnail',
+                        dataType: 'json',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        type: "POST",
+                        data: formdata, 
+                        success:function(data){
+                            if($.isEmptyObject(data.error)){
+                                $('.nameProduct').val('');
+                                $('.priceProduct').val('');
+                                $('.sale_priceProduct').val('');
+                                localStorage.removeItem("product_"+data.data.id);
+                                localStorage.removeItem("product_update_"+data.data.id);
+                                localStorage.removeItem("product_step_"+data.data.id);
+                                localStorage.removeItem("activiti_"+data.data.id);
+                                $('.undo').addClass('active-history');
+                                $('.redo').addClass('active-history');
+                                $(".content-action").removeClass("active");
+                                $(".clc-action-edit").removeClass("active");
+
+
+                                // lấy data mới
+                                $('.nameProduct').val(data.data.name);
+                                $('.priceProduct').val(parseFloat(data.data.price, 10).toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                $('.sale_priceProduct').val(parseFloat(data.data.sale_price, 10).toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                                // hiện thanh công cụ
+                                $('.active-layer-edit').removeClass('d-none');
+                                if (data.type == 'user_create') {
+                                    // lấy chuyên mục đã chọn 
+                                    $('.box-detail-edit-user-create #categor_pro option[value='+data.category.id+']').attr("selected",true);
+
+                                    // lấy trạng thái đã chọn
+                                    $('.box-detail-edit-user-create #status_pro option[value='+data.data.status+']').attr("selected",true);
+                                }
+                                // update thông tin cơ bản khi nhập
+                                if (data.type == 'user_create') {
+                                    update_input_info(data.data.id);
+                                    update_select_info();
+                                    $('.thongtin').removeClass('d-none');
+                                }else{
+                                    $('.thongtin').addClass('d-none');
+                                }
+                                // lấy danh sách user
+                                $('.list-layer').html(data.list_layer_check);
+
+                                // select layer
+                                $('.setlayer').click(function () {
+                                    var layer = $(this).data('layer');
+                                    $('.drag-drop').removeClass('active-hover');
+                                    $(".content-action").removeClass("active");
+                                    $(".clc-action-edit").removeClass("active");
+                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
+                                    var type = $('.drag-drop.active-hover').data('type');
+                                    if (type == 'text') {
+                                        $('.image-select').addClass('d-none');
+                                        $('.text-select').removeClass('d-none');
+
+                                        //$('.thaotacchu, #thaotacchu').addClass('active');
+                                        $('.thaotacanh, #thaotacanh').removeClass('active');
+                                    }
+                                    if (type == 'image') {
+                                        $('.text-select').addClass('d-none');
+                                        $('.image-select').removeClass('d-none');
+
+                                        $('.thaotacchu, #thaotacchu').removeClass('active');
+                                        //$('.thaotacanh, #thaotacanh').addClass('active');
+                                    }
+                                    getInfoLayer();
+                                })
+
+                                $('.list-layout-move-create').html(data.movelayer);
+                                hover();
+                                check_pick_layer();
+                                
+                                // localStorage.setItem('layer_data', JSON.stringify(data.layer));
+                                if (localStorage.getItem("product_"+data.data.id) === null) {
+                                    localStorage.setItem("product_"+data.data.id, JSON.stringify(data.layer));
+                                }
+                                if (localStorage.getItem("product_update_"+data.data.id) === null) {
+                                    localStorage.setItem("product_update_"+data.data.id, JSON.stringify(data.layer));
+                                }
+                                
+                                if (localStorage.getItem("product_step_"+data.data.id) === null) {
+                                }else{
+                                    var get_step_local = localStorage.getItem("product_step_"+id);
+                                    var json_step = JSON.parse(get_step_local);
+                                    if(localStorage.getItem("activiti_"+data.data.id) === null) { 
+                                       
+                                    }else{
+                                        let total_history = json_step.length;
+                                        var get_step_now = localStorage.getItem("activiti_"+id);
+                                        if (get_step_now > 0 && get_step_now < total_history) {
+                                            $('.undo').removeClass('active-history');
+                                            $('.redo').removeClass('active-history');
+                                        }
+                                        if (get_step_now == 0) {
+                                            $('.undo').removeClass('active-history');
+                                            $('.redo').addClass('active-history');
+                                        }
+                                        if (get_step_now == total_history) {
+                                            $('.redo').removeClass('active-history');
+                                            $('.undo').addClass('active-history');
+                                        }
+                                    }
+
+                                }
+
+                                // Hiển thị thông báo
+                                $("#success-notification").show();
+
+                                // Tự động ẩn thông báo sau 3 giây
+                                setTimeout(function() {
+                                    $("#success-notification").hide();
+                                }, 3000);
+                            }else{
+                                printErrorMsg(data.error);
+                            }
+                        }
+                    });
+                }else{
+                    printErrorMsg(d.error);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+});
+
 
 $(".replace[type='file']").on('change', function() { 
     if($(this).prop('files').length > 0)
@@ -2855,4 +3025,156 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
+// xóa ảnh nền
+function removeBackground()
+{
+    let idproduct = $('.active-hover').data('idproduct');
+    let id = $('.active-hover').data('id');
+    if ($('.drag-drop').hasClass('active-hover')) {
+        var getupdate = localStorage.getItem("product_update_"+idproduct);
+        var json_update = JSON.parse(getupdate);
+        $.ajax({
+            url: 'https://apis.ezpics.vn/apis/savelayer',
+            dataType: 'json',
+            type: "POST",
+            data: {
+                layer : json_update,
+                id: idproduct   
+            }, 
+            success:function(d){
+                if($.isEmptyObject(d.error)){
+                    $.ajax({
+                        url: 'https://apis.ezpics.vn/apis/removeBackgroundLayer',
+                        type: "POST",
+                        data: {
+                            id: id, // id layer cần xóa
+                            idproduct: idproduct,
+                        }, 
+                        success:function(data){
+                            console.log(data);
+                            
+                            if($.isEmptyObject(data.error)){
+                                //xóa data cũ
+                                $('.nameProduct').val('');
+                                $('.priceProduct').val('');
+                                $('.sale_priceProduct').val('');
+                                localStorage.removeItem("product_"+data.data.id);
+                                localStorage.removeItem("product_update_"+data.data.id);
+                                localStorage.removeItem("product_step_"+data.data.id);
+                                localStorage.removeItem("activiti_"+data.data.id);
+                                $('.undo').addClass('active-history');
+                                $('.redo').addClass('active-history');
+                                $(".content-action").removeClass("active");
+                                $(".clc-action-edit").removeClass("active");
+
+
+                                // lấy data mới
+                                $('.nameProduct').val(data.data.name);
+                                $('.priceProduct').val(parseFloat(data.data.price, 10).toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                $('.sale_priceProduct').val(parseFloat(data.data.sale_price, 10).toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                                // hiện thanh công cụ
+                                $('.active-layer-edit').removeClass('d-none');
+                                if (data.type == 'user_create') {
+                                    // lấy chuyên mục đã chọn 
+                                    $('.box-detail-edit-user-create #categor_pro option[value='+data.category.id+']').attr("selected",true);
+
+                                    // lấy trạng thái đã chọn
+                                    $('.box-detail-edit-user-create #status_pro option[value='+data.data.status+']').attr("selected",true);
+                                }
+                                // update thông tin cơ bản khi nhập
+                                if (data.type == 'user_create') {
+                                    update_input_info(data.data.id);
+                                    update_select_info();
+                                    $('.thongtin').removeClass('d-none');
+                                }else{
+                                    $('.thongtin').addClass('d-none');
+                                }
+                                // lấy danh sách user
+                                $('.list-layer').html(data.list_layer_check);
+
+                                // select layer
+                                $('.setlayer').click(function () {
+                                    var layer = $(this).data('layer');
+                                    $('.drag-drop').removeClass('active-hover');
+                                    $(".content-action").removeClass("active");
+                                    $(".clc-action-edit").removeClass("active");
+                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
+                                    var type = $('.drag-drop.active-hover').data('type');
+                                    if (type == 'text') {
+                                        $('.image-select').addClass('d-none');
+                                        $('.text-select').removeClass('d-none');
+
+                                        //$('.thaotacchu, #thaotacchu').addClass('active');
+                                        $('.thaotacanh, #thaotacanh').removeClass('active');
+                                    }
+                                    if (type == 'image') {
+                                        $('.text-select').addClass('d-none');
+                                        $('.image-select').removeClass('d-none');
+
+                                        $('.thaotacchu, #thaotacchu').removeClass('active');
+                                        //$('.thaotacanh, #thaotacanh').addClass('active');
+                                    }
+                                    getInfoLayer();
+                                })
+
+
+                                $('.list-layout-move-create').html(data.movelayer);
+                                hover();
+                                check_pick_layer();
+                                
+                                // localStorage.setItem('layer_data', JSON.stringify(data.layer));
+                                if (localStorage.getItem("product_"+data.data.id) === null) {
+                                    localStorage.setItem("product_"+data.data.id, JSON.stringify(data.layer));
+                                }
+                                if (localStorage.getItem("product_update_"+data.data.id) === null) {
+                                    localStorage.setItem("product_update_"+data.data.id, JSON.stringify(data.layer));
+                                }
+                                
+                                if (localStorage.getItem("product_step_"+data.data.id) === null) {
+                                }else{
+                                    var get_step_local = localStorage.getItem("product_step_"+id);
+                                    var json_step = JSON.parse(get_step_local);
+                                    if(localStorage.getItem("activiti_"+data.data.id) === null) { 
+                                       
+                                    }else{
+                                        let total_history = json_step.length;
+                                        var get_step_now = localStorage.getItem("activiti_"+id);
+                                        if (get_step_now > 0 && get_step_now < total_history) {
+                                            $('.undo').removeClass('active-history');
+                                            $('.redo').removeClass('active-history');
+                                        }
+                                        if (get_step_now == 0) {
+                                            $('.undo').removeClass('active-history');
+                                            $('.redo').addClass('active-history');
+                                        }
+                                        if (get_step_now == total_history) {
+                                            $('.redo').removeClass('active-history');
+                                            $('.undo').addClass('active-history');
+                                        }
+                                    }
+
+                                }
+
+                               
+                            }else{
+                                printErrorMsg(data.error);
+                            }
+                        }
+                    });
+                }else{
+                    printErrorMsg(d.error);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+
+        
+    }else{
+        printErrorMsg(['Chọn layer để thao tác']);
+    }
+}
 setTimeout(saveproduct, 60000);

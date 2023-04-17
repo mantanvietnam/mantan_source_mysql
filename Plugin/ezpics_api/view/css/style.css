@@ -1963,3 +1963,24 @@ main {
   left: 50%;
   top: 50%;
 }
+#success-notification {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 50px;
+  background-color: green;
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: 50px;
+  animation: slide-in 0.5s forwards;
+  display: none;
+  z-index: 9999;
+}
+
+@keyframes slide-in {
+  100% {
+    right: 0;
+  }
+}

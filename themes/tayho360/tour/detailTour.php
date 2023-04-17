@@ -59,7 +59,7 @@ $infoUser = $session->read('infoUser');
             <?php } ?>
         </div>
     </section>
-    <section class="">
+    <section class="" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
         <div class="container py-3 py-md-5">
             <div class="row">
                 <div class="col-12 col-md-8">
@@ -67,7 +67,7 @@ $infoUser = $session->read('infoUser');
                         <!-- <h1 class="header-name"></h1> -->
                         <h3><?php echo @$data->name ?></h3>
                         <p class="intro-content">
-                            <?php echo @$data->introductory ?>
+                            <?php echo @$data->content ?>
                         </p>
                     </section>
                     <section class="time-line">
@@ -102,10 +102,10 @@ $infoUser = $session->read('infoUser');
                                                                         <div class="line"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="content px-3">
-                                                                        <span class="time"><?php echo @$repor1->time ?></span>
-                                                                        <h5><?php echo @$repor1->name ?></h5>
-                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
+                                                                <div class="content">
+                                                                    <span class="time"><?php echo @$repor1->time ?></span>
+                                                                    <h5><?php echo @$repor1->name ?></h5>
+                                                                    <p class="title"><?php echo @$repor1->introductory ?></p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -120,10 +120,10 @@ $infoUser = $session->read('infoUser');
                                                                         <div class="line"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="content px-3">
-                                                                        <span class="time"><?php echo @$repor1->time ?></span>
-                                                                        <h5><?php echo @$repor1->name ?></h5>
-                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
+                                                                <div class="content">
+                                                                    <span class="time"><?php echo @$repor1->time ?></span>
+                                                                    <h5><?php echo @$repor1->name ?></h5>
+                                                                    <p class="title"><?php echo @$repor1->introductory ?></p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -150,11 +150,11 @@ $infoUser = $session->read('infoUser');
                                                                         <div class="line"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="content px-3">
-                                                                        <span class="time"><?php echo @$repor1->time ?></span>
-                                                                        <h5><?php echo @$repor1->name ?></h5>
-                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
-                                                                    
+                                                                <div class="content">
+                                                                    <span class="time"><?php echo @$repor1->time ?></span>
+                                                                    <h5><?php echo @$repor1->name ?></h5>
+                                                                    <p class="title"><?php echo @$repor1->introductory ?></p>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -169,12 +169,12 @@ $infoUser = $session->read('infoUser');
                                                                         <div class="line"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="content px-3">
-                                                                    
-                                                                        <span class="time"><?php echo @$repor1->time ?></span>
-                                                                        <h5><?php echo @$repor1->name ?></h5>
-                                                                        <p class="title"><?php echo @$repor1->introductory ?></p>
-                                                                    
+                                                                <div class="content">
+
+                                                                    <span class="time"><?php echo @$repor1->time ?></span>
+                                                                    <h5><?php echo @$repor1->name ?></h5>
+                                                                    <p class="title"><?php echo @$repor1->introductory ?></p>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -259,18 +259,18 @@ $infoUser = $session->read('infoUser');
         </div>
     </section>
     <section id="place-around-section" class="mgt-80 tourkhac-section">
-            <div class="container">
-                <div class="title-section mgb-32">
-                    <p>Các tour khác </p>
-                </div>
+        <div class="container">
+            <div class="title-section mgb-32">
+                <p>Các tour khác </p>
+            </div>
 
-                <div class="place-around-slide">
-                     <?php 
+            <div class="place-around-slide">
+                <?php
 
-                    foreach(@$otherData as $key => $value){
-                    if(@$data->id != @$value->id){ ?>
-                    <div class="place-around-slide-item">
-                         <div >
+                foreach (@$otherData as $key => $value) {
+                    if (@$data->id != @$value->id) { ?>
+                        <div class="place-around-slide-item">
+                            <div>
                                 <a href="/chi_tiet_tour/<?php echo $value->urlSlug ?>.html" class="text-decoration-none">
                                     <div class="tour-du-lich-card">
                                         <div class="card border-0 w-100">
@@ -293,11 +293,12 @@ $infoUser = $session->read('infoUser');
                                     </div>
                                 </a>
                             </div>
-                    </div>
-                   <?php }} ?>
-                </div>
+                        </div>
+                <?php }
+                } ?>
             </div>
-        </section> 
+        </div>
+    </section>
 </main>
 <!-- Modal -->
 <div class="modal fade" id="modal-book-tour" tabindex="-1" aria-labelledby="exampleModalLabel">
@@ -487,6 +488,8 @@ $infoUser = $session->read('infoUser');
         border-radius: 10px;
         margin-left: 10px;
     }
+
+    
 </style>
 
 <?php

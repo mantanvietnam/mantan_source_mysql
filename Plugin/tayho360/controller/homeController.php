@@ -2223,6 +2223,21 @@ function findnear(){
 }
 function map(){
 
+    global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+
+        $metaTitleMantanDefault= $metaTitleMantan;
+        $metaKeywordsMantanDefault= $metaKeywordsMantan;
+        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+
+
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Bản đồ 360');
+        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                    
+        $metaTitleMantan= str_replace('%categoryName%', 'Danh lam thắng cảnh', $metaTitleMantan);
+
 }
  ?>
 

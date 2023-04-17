@@ -95,13 +95,13 @@
                                <input type="text" name="timetravel" class="form-control" id="timetravel" value="<?php echo  @$data['timetravel'] ?>">
                             </div>
                             
-                            <div class="mb-3 form-group col-sm-6">
-                                <i>Gới thiệu:</i>
+                            <!-- <div class="mb-3 form-group col-sm-6">
+                                <i>Giới thiệu:</i>
                                <textarea name="introductory" id="introductory" onkeyup="" class="form-control" rows="5"><?php echo @$data['introductory'] ?></textarea>
-                            </div>
+                            </div> -->
                          
                             <div class="mb-3 form-group col-sm-12">
-                                <i>Lịch trình</i>
+                                <i>Giới thiệu</i>
                                <?php
                                         showEditorInput('content','content',@$data['content'],1);
                                     ?>                                          

@@ -73,7 +73,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="/dashboard" class="app-brand-link">
+            <a href="/mySmartQR" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <img src="/plugins/smartqr/view/home/assets/img/logo.png" width="80%">
               </span>
@@ -166,13 +166,13 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/account">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Tài khoản</span>
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/changePass">
                         <i class="bx bx-cog me-2"></i>
                         <span class="align-middle">Đổi mật khẩu</span>
                       </a>
