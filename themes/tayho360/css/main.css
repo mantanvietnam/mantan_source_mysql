@@ -279,7 +279,7 @@
 
 .su-kien-slider-chi-tiet .slick-next {
     right: 0px;
-    transform: translateX(50%);
+    transform: translate(50%,-100%);
 }
 
 @media screen and (max-width: 1199.98px) {
