@@ -194,7 +194,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
     
         $cc = array();
         $bcc = array();
-        $subject = '[Tây Hồ 360] Mã xác nhận ';
+        $subject = '[Tây Hồ 360] Mã xác thực ';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -234,7 +234,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
-                         Mã xác nhận bạn là : '.@$pass.' <br>
+                         Mã xác thực bạn là : '.@$pass.' <br>
                         <br/>
                         <a href="https://tayho360.vn">https://tayho360.vn</a>
                         

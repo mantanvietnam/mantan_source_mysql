@@ -287,6 +287,7 @@ function detailTour($input){
     global $metaDescriptionMantan;
 
         $modelTour = $controller->loadModel('Tours');
+        $modelReport = $controller->loadModel('Reports');
 
         if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
             if(!empty($_GET['id'])){
@@ -304,6 +305,12 @@ function detailTour($input){
         $month=array();
        
         $month['status']=1;
+
+        $repor = array();
+
+        $repor['idtour'] = $data->id;
+
+        $listRepor = $modelReport->find()->where($repor)->all();
         
 
         if(!empty($data)){
@@ -342,6 +349,7 @@ function detailTour($input){
 
             setVariable('data', $data);
             setVariable('otherData', $otherData);
+            setVariable('listRepor', $listRepor);
         }else{
             return $controller->redirect('/');
         }         

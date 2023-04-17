@@ -16,7 +16,7 @@ global $urlThemeActive;
                     <div class="col-7 box-sign">
                         <ul class="nav nav-tabs nav-sign" id="myTab">
                             <li class="nav-item nav-item-sign">
-                                <p class="nav-link-sign active" id="sign-in-tab" >Thay đổi mật khẩu mới</p>
+                                <p class="nav-link-sign active" id="sign-in-tab" >Mật khẩu mới</p>
                             </li> 
 
                             
@@ -32,18 +32,8 @@ global $urlThemeActive;
                                             <div class="col-12">
                                                 <div class="form-group-user mb-4">
                                                     <div class="d-flex align-items-center input-password">
-                                                        
-                                                        <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-password-pre.svg" alt="">
-                                                        <input type="password" placeholder="check email lấy mật khẩu " name="oldpass" class="form-control" required>
-                                                        <img class="eye-password" value="hiden" src="../assets/lou_icon/icon-eye.svg" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group-user mb-4">
-                                                    <div class="d-flex align-items-center input-password">
                                                         <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-password.svg" alt="">
-                                                        <input type="password" placeholder="Đổi mật khẩu mới" name="pass" class="form-control" required>
+                                                        <input type="password" placeholder="Mật khẩu mới" name="pass" class="form-control" required>
                                                         <img class="eye-password" value="hiden" src="<?= $urlThemeActive ?>assets/lou_icon/icon-eye.svg" alt="">
                                                     </div>                                            </div>
                                             </div>
