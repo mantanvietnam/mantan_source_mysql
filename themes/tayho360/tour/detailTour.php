@@ -103,11 +103,9 @@ $infoUser = $session->read('infoUser');
                                                                     </div>
                                                                 </div>
                                                                 <div class="content px-3">
-                                                                    <a href="" class="d-block">
                                                                         <span class="time"><?php echo @$repor1->time ?></span>
                                                                         <h5><?php echo @$repor1->name ?></h5>
                                                                         <p class="title"><?php echo @$repor1->introductory ?></p>
-                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -123,11 +121,9 @@ $infoUser = $session->read('infoUser');
                                                                     </div>
                                                                 </div>
                                                                 <div class="content px-3">
-                                                                    <a href="" class="d-block">
                                                                         <span class="time"><?php echo @$repor1->time ?></span>
                                                                         <h5><?php echo @$repor1->name ?></h5>
                                                                         <p class="title"><?php echo @$repor1->introductory ?></p>
-                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -155,11 +151,10 @@ $infoUser = $session->read('infoUser');
                                                                     </div>
                                                                 </div>
                                                                 <div class="content px-3">
-                                                                    <a href="" class="d-block">
                                                                         <span class="time"><?php echo @$repor1->time ?></span>
                                                                         <h5><?php echo @$repor1->name ?></h5>
                                                                         <p class="title"><?php echo @$repor1->introductory ?></p>
-                                                                    </a>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -175,11 +170,11 @@ $infoUser = $session->read('infoUser');
                                                                     </div>
                                                                 </div>
                                                                 <div class="content px-3">
-                                                                    <a href="" class="d-block">
+                                                                    
                                                                         <span class="time"><?php echo @$repor1->time ?></span>
                                                                         <h5><?php echo @$repor1->name ?></h5>
                                                                         <p class="title"><?php echo @$repor1->introductory ?></p>
-                                                                    </a>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -263,6 +258,46 @@ $infoUser = $session->read('infoUser');
             </div>
         </div>
     </section>
+    <section id="place-around-section" class="mgt-80 tourkhac-section">
+            <div class="container">
+                <div class="title-section mgb-32">
+                    <p>Các tour khác </p>
+                </div>
+
+                <div class="place-around-slide">
+                     <?php 
+
+                    foreach(@$otherData as $key => $value){
+                    if(@$data->id != @$value->id){ ?>
+                    <div class="place-around-slide-item">
+                         <div >
+                                <a href="/chi_tiet_tour/<?php echo $value->urlSlug ?>.html" class="text-decoration-none">
+                                    <div class="tour-du-lich-card">
+                                        <div class="card border-0 w-100">
+                                            <div class="card-top">
+                                                <img src="<?php echo $value->image ?>" class="card-img-top" alt="...">
+                                                <div class="card-overlay"></div>
+                                                <div class="card-num-day">
+                                                    <?php echo $value->timetravel ?>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-lg-4">
+                                                <h5 class="card-title"><?php echo $value->name ?></h5>
+                                                <p class="card-time"><?php echo date("d/m/Y", @$value->datestart) . ' - ' . date("d/m/Y", @$value->dateend); ?></p>
+                                                <div class="d-flex align-items-center card-num-location">
+                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-location-white-card.svg" alt="">
+                                                    <span><?php echo $value->address ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                    </div>
+                   <?php }} ?>
+                </div>
+            </div>
+        </section> 
 </main>
 <!-- Modal -->
 <div class="modal fade" id="modal-book-tour" tabindex="-1" aria-labelledby="exampleModalLabel">
