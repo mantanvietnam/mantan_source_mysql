@@ -24,7 +24,6 @@ global $urlThemeActive;
                         <div class="body">
                             <div class="list-image">
                                 <div class="su-kien-slider-chi-tiet">
-                                    <div class="col-lg-9 col-md-8 col-sm-8 col-12 place-img-slide">
                                         <?php if (!empty($data->image)) { ?>
                                             <div class="img-slide-item">
                                                 <img src="<?php echo $data->image ?>" alt="">
@@ -76,7 +75,6 @@ global $urlThemeActive;
                                             </div>
                                         <?php } ?>
                                     </div>
-                                </div>
                             </div>
                             <div class="content">
                                 <?php echo str_replace(array("&nbsp;", "&nbsp;", "\t"), "", $data->content) ?>

@@ -1,37 +1,21 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin Tour</h4>
-  <p><a href="/plugins/admin/tayho360-admin-tour-addTourAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+   <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-tour-listTourAdmin.php">Tour</a> /</span>
+    Lịch trình
+  </h4>
+  <p><a href="/plugins/admin/tayho360-admin-tour-addReportAdmin.php?idtour=<?php echo($_GET['idtour']) ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <form action="" method="GET">
-           <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
-            <tbody><tr>
-                <td>
-                    <label>Tên Tour</label>
-                    <input type="" name="name" class="form-control" placeholder="Tên Tour" value="">
-                </td>
-                 <td >
-                    <br>
-                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
-                </td>
-               <!--  <td >
-                    <input type="submit" name="excel" value="Xuất excel">
-                </td> -->
-            </tr>
-        
-        </tbody></table>
-    </form>
+  
   <div class="card">
-    <h5 class="card-header">Danh sách Thông tin Tour</h5>
+    <h5 class="card-header">Danh sách thông tin  Lịch trình tour</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Hình ảnh</th>
-            <th>Tên Tour</th>
-            <th>Số điện thoại</th>
-            <th>địa chỉ </th>
-            <th>Lịch trình</th>
+            <th>Tên lịch trình</th>
+            <th>Nội dung</th>
             <th>Sửa</th>
             <th>Xóa</th> 
           </tr>
@@ -43,21 +27,14 @@
                 echo '<tr>
                         <td><img src="'.$item->image.'" width="100"></td>
                         <td>'.$item->name.'</td>
-                        <td> '.$item->phone.'</td>
-                        <td> '.$item->address.'</td>
-                        
+                        <td> '.$item->introductory.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-tour-listReportAdmin.php/?idtour='.$item->id.'">
-                            <i class="bx bx-show me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-tour-addTourAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/tayho360-admin-tour-addReportAdmin.php/?id='.$item->id.'&idtour='.$_GET['idtour'].'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteTourAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteReportAdmin.php/?id='.$item->id.'&idtour='.$_GET['idtour'].'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

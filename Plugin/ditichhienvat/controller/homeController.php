@@ -74,7 +74,7 @@ function listHistoricalSite($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Di tích lịch sử');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Di tích văn hóa lịch sử');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     

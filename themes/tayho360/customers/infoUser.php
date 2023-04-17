@@ -46,22 +46,9 @@ getHeader();
                                                 <span>Địa chỉ</span>
                                                 <span><?= $info->address ?></span>
                                             </div>
-                                            <div class="d-flex item">
-                                                <span>Địa chỉ</span>
-                                                <span><?= $info->address ?></span>
-                                            </div>
-                                            <!-- <div class="d-flex item">
-                                                <span>Liên hệ</span>
-                                                <span>https://www.facebook.com/abc</span>
-                                            </div> -->
+                                          
                                         </div>
-                                        <!-- <div class="cate-contain">
-                                            <p class="label">Chung</p>
-                                            <div class="d-flex item">
-                                                <span>Ngày sinh</span>
-                                                <span>01/01/1999</span>
-                                            </div>
-                                        </div> -->
+                                        
                                     </div>
 
                                 </div>
