@@ -86,4 +86,6 @@
    $routesPlugin['listTourAPI'] = 'tayho360/view/listTourAPI.php';
    $routesPlugin['detailTourAPI'] = 'tayho360/view/detailTourAPI.php';
    $routesPlugin['booktourAPI'] = 'tayho360/view/booktourAPI.php';
+   $routesPlugin['listPostAPI'] = 'tayho360/view/listPostAPI.php';
+   $routesPlugin['detailPostAPI'] = 'tayho360/view/detailPostAPI.php';
 ?>
