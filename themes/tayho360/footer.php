@@ -28,12 +28,12 @@ $setting = setting();
                                 <li>Hòm thư công vụ: <?php echo @$setting['responsibilityemail']; ?>n</li>
                                 <li class="mt-3">Theo dõi chúng tôi qua:<?php echo @$setting['follow']; ?></li>
                                 <ul class="list-unstyled d-flex p-0 pt-2">
-                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/facebook-foot.svg" alt=""></a></li>
-                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/tiktok-foot.svg" alt=""></a>
+                                    <li class="me-2"><a href="<?php echo @$setting['facebook']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/facebook-foot.svg" alt=""></a></li>
+                                    <li class="me-2"><a href="<?php echo @$setting['tiktok']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/tiktok-foot.svg" alt=""></a>
                                     </li>
-                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/zalo-foot.svg" alt=""></a>
+                                    <li class="me-2"><a href="<?php echo @$setting['zalo']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/zalo-foot.svg" alt=""></a>
                                     </li>
-                                    <li class="me-2"><a href=""><img src="<?= $urlThemeActive ?>assets/lou_icon/youtube-foot.svg" alt=""></a>
+                                    <li class="me-2"><a href="<?php echo @$setting['youtube']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/youtube-foot.svg" alt=""></a>
                                     </li>
                                 </ul>
                             </ul>

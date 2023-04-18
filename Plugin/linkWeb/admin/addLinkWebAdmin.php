@@ -39,7 +39,7 @@
                 </select>
             </div>
             <div class="mb-3 form-group col-sm-6">
-                <i>Link liên kết<span class="required">*</span>:</i>
+                <i>Tiêu đề liên kết<span class="required">*</span>:</i>
                 <input type="text" maxlength="100" name="name" id="name" value="<?php echo @$data['name'] ?>" class="form-control" required="">
             </div>
             <div class="mb-3 form-group col-sm-6">

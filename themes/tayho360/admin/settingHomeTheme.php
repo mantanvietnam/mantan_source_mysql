@@ -158,6 +158,14 @@
                   <label class="form-label" for="basic-default-fullname">Email</label>
                   <input type="text" class="form-control" name="email" value="<?php echo @$setting['email'];?>" />
                 </div>
+                <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Zalo</label>
+                    <input type="text" class="form-control" name="zalo" value="<?php echo @$setting['zalo'];?>" />
+                  </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Facebook</label>
+                    <input type="text" class="form-control" name="facebook" value="<?php echo @$setting['facebook'];?>" />
+                  </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   <div class="mb-3 ">
@@ -181,6 +189,15 @@
                     <label class="form-label" for="basic-default-fullname">Id nhóm link liên kết chân trang</label>
                     <input type="text" class="form-control" name="idlink" value="<?php echo @$setting['idlink'];?>" />
                   </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Youtube</label>
+                    <input type="text" class="form-control" name="youtube" value="<?php echo @$setting['youtube'];?>" />
+                  </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Tiktok</label>
+                    <input type="text" class="form-control" name="tiktok" value="<?php echo @$setting['tiktok'];?>" />
+                  </div>
+                  
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>

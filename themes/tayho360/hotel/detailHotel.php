@@ -488,7 +488,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
 					</div>
 					<div class="col-md-6">
 						<p>Chi phí dự kiến</p>
-						<input type="text" name="pricePay" class="input_date form-control" id="pricePay" value="" required=""  disabled="" placeholder="Chi phí dự kiến">
+						<input type="text" name="pricepay" class="input_date form-control" id="pricePay" value="" required=""  disabled="" placeholder="Chi phí dự kiến">
 					</div>
 					<div class="col-md-12" style=" margin-top: 55px;">
 						<button type="submit" class="btn button-submit-custom">Đặt Phòng</button>
@@ -538,98 +538,7 @@ $('.click_forms').click(function() {
 <script type="text/javascript">
     date = 0;
     time = 0;
-    function resetTinh()
-    {
-    $('.btn_dp').text('Xin chờ...');
-    $('.btn_dp').attr('disable','disable');
-       var date_starts= $('#date_start').val();
-       var date_ends= $('#date_end').val();
-
-       var resStarts = date_starts.split(" ");
-       var resEnds = date_ends.split(" ");
-
-       var date_startse= resStarts[0];
-       var  date_endse= resEnds[0];
-
-
-       var time_s = resStarts[1];
-       var time_e = resEnds[1];
-
-
-
-
-
-       var number_people= $('#number_people').val();
-       var number_room= $('#number_room').val();
-       var email= $('#email').val();
-       var phone= $('#phone').val();
-       var typeRoom= $('#typeRoom').val();
-       var name= $('#name').val();
-       var type_register= $('#type_register').val();
-       var textNumberDate = $('#timePay').val();
-       var pricePay = $('#pricePay').val();
-
-       // console.log('----------------');
-       // console.log(date_startse);
-       // console.log(date_endse);
-       // console.log(typeRoom);
-       // console.log(email);
-       // console.log(name);
-       // console.log(number_room);
-       // console.log(pricePay);
-       // console.log(number_people);
-       // console.log(type_register);
-       // console.log(time_s);
-       // console.log(time_e);
-       if(number_people!='' && number_room!='' && email!='' && phone!='' && typeRoom!='' && name!='' && type_register!='' && textNumberDate!='' && pricePay != '') {
-       	 console.log('123abc');
-        $.ajax({
-            method: "POST",
-            url: "https://api.quanlyluutru.com/saveBookingAPI",
-            data: {
-               idHotel:'<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
-                date_start:date_startse,
-                date_end:date_endse,
-                typeRoom:typeRoom,
-                email:email,
-                phone:phone,
-                name:name,
-                typeBooking: 6,
-                number_room: number_room,
-                number_people: number_people,
-                deposits:pricePay,
-                type_register:type_register,
-                key:'60d410dc2ac5db3f758b4567', 
-                timeStart: time_s,
-                timeEnd: time_e,
-                textNumberDate:textNumberDate,
-                codeDiscount:'',
-                wed: '0',
-            }
-            }).done(function( msg ) {
-                console.log('123abc');
-                 console.log(msg);
-                $('.w3_main_grid_right > button[type="button"]').text('ĐẶT NGAY');
-                $('.w3_main_grid_right > button[type="button"]').removeAttr('disable');
-              
-              //  var infoUser= JSON.parse(msg);
-                //console.log(infoUser);
-                //infoUser= msg;
-                var QRimg = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://quanlydichvu.net/managerProcessOrderCheckin?id='+msg.idOrder;
-                $('#textCodeOrder').text(msg.codeOrder);
-                $('#qrOrder').attr('src',QRimg);
-                $('#modalQR').modal('show');
-                alert('Bạn dặt phòng thành công .');
-                 window.location="/bookHotel";
-
-            }).fail(function(e) {
-            	alert('Bạn dặt phòng thành công .');
-                 window.location="/bookHotel";
-              });
-           }else {
-            alert('Bạn cần nhập đủ các thông tin.');
-           }
-       }
+    
 
    function tinhthoigian()
    {

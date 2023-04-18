@@ -42,6 +42,10 @@ function settingHomeTheme($input){
                         'responsibilityemail' => @$dataSend['responsibilityemail'],
                         'follow' => @$dataSend['follow'],
                         'idlink' => @$dataSend['idlink'],
+                        'youtube' => @$dataSend['youtube'],
+                        'tiktok' => @$dataSend['tiktok'],
+                        'zalo' => @$dataSend['zalo'],
+                        'facebook' => @$dataSend['facebook'],
                         
                     );
 

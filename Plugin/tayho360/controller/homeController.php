@@ -158,6 +158,8 @@ function detailEvent($input){
             $metaTitleMantan= str_replace('%productKeyword%', $data->name, $metaTitleMantan);
             $metaTitleMantan= str_replace('%productDescription%', $data->introductory, $metaTitleMantan);
 
+            $metaImageMantan= $data->image;
+
 
             $metaDescriptionMantan= str_replace('%title%', $metaTitleMantanDefault, $data->introductory);
             $metaDescriptionMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaDescriptionMantan);
@@ -166,6 +168,8 @@ function detailEvent($input){
             $metaDescriptionMantan= str_replace('%productName%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
+
+
 
             
             $otherData = $modelEvent->find()->where($month)->all();
@@ -325,6 +329,7 @@ function detailTour($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -527,6 +532,7 @@ function detailGovernanceAgency($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -692,6 +698,7 @@ function detailService($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -855,6 +862,7 @@ function detailCraftvillage($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -1018,6 +1026,7 @@ function detailRestaurant($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -1168,6 +1177,7 @@ function listHotel($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
+
         $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Khách sạn');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
@@ -1262,6 +1272,8 @@ function bookHotel($input) {
  
 
     if(!empty($dataSend['name'])){
+        debug($dataSend);
+        die();
          $date_start = explode(' ', @$dataSend['date_start']);
             $date_end = explode(' ', @$dataSend['date_end']);
             $dataPost= array('idHotel'=>  @$dataSend['idhotel'],
@@ -1451,6 +1463,7 @@ function detailEventcenter($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -1614,6 +1627,7 @@ function detailPlace($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
@@ -1777,6 +1791,7 @@ function detailFestival($input){
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
