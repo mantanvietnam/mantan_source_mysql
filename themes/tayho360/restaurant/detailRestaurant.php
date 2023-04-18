@@ -359,27 +359,47 @@ global $session;
     <?php }  ?>
 
     <?php 
-
-    if(@$_GET['status']=='booktableDone'){ ?>
-        
-<div id="shows">
-    <div class="modal-dialog" style="width: 100%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Thông báo</h4>
-            </div>
-            <div class="modal-body">
-                <div class="showMess"><center style="color: red;">Cơ sở chưa được ManMo xác nhận hoặc đã ngừng hoạt động</center></div>
-            </div>
-        </div>
+if(@$_GET['status']=='booktableDone'){ ?>   
+<div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <a href="/chi_tiet_nha_hang/<?php echo $data->urlSlug ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đặt bàn thành công.</p>
+      </div>
+      <div class="modal-footer">
+       
+        <a href="/chi_tiet_nha_hang/<?php echo $data->urlSlug ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+      </div>
     </div>
+  </div>
 </div>
-
-<script type="text/javascript">
-    $('#shows').modal('show');
-</script>
-
-
+<?php }elseif (@$_GET['status']=='booktablefailure') {?>
+  
+<div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <a href="/chi_tiet_nha_hang/<?php echo $data->urlSlug ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đặt bàn không thành công.</p>
+      </div>
+      <div class="modal-footer">
+       
+        <a href="/chi_tiet_nha_hang/<?php echo $data->urlSlug ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>
 <?php }?>
 
 </main>

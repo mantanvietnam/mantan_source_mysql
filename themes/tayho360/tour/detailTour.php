@@ -299,6 +299,49 @@ $infoUser = $session->read('infoUser');
             </div>
         </div>
     </section>
+     <?php 
+if(@$_GET['status']=='bookTourDone'){ ?>   
+<div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <a href="/chi_tiet_tour/<?php echo $data->urlSlug ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đặt tour thành công.</p>
+      </div>
+      <div class="modal-footer">
+       
+        <a href="/chi_tiet_tour/<?php echo  $data->urlSlug ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php }elseif (@$_GET['status']=='bookTourfailure') {?>
+  
+<div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <a href="/chi_tiet_khach_san/<?php echo $data->urlSlug; ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đặt tour không thành công.</p>
+      </div>
+      <div class="modal-footer">
+       
+        <a href="/chi_tiet_khach_san/<?php echo $data->urlSlug; ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php }?>
 </main>
 <!-- Modal -->
 <div class="modal fade" id="modal-book-tour" tabindex="-1" aria-labelledby="exampleModalLabel">

@@ -1219,7 +1219,7 @@ function detailHotel($input){
 
             $data['HotelManmo'] = $infoHotelMM;
 
-            $metaImageMantan= $data['HotelManmo']['data']['Hotel']['image'][0];
+            $metaImageMantan= $data['HotelManmo']['data']['Hotel']['image'][0]; 
 
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
@@ -1310,10 +1310,10 @@ function bookHotel($input) {
 
       
         $bookHotel->save($data);
-           return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookTourDone');
+           return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookHotelDone');
        
     }else{
-         return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookTourfailure');
+         return $controller->redirect('/chi_tiet_khach_san/'.$dataSend['urlSlug'].'.html?status=bookHotelfailure');
     } 
 }
 

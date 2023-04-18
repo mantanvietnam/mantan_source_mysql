@@ -33,6 +33,19 @@ function detailFestivalAPI($input){
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
             $data=$modelFestival->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
+
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -76,6 +89,18 @@ function detailGovernanceAgencyAPI($input){
 
     if (!empty($dataSend['id'])) {
             $data=$modelGovernanceAgency->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -117,6 +142,18 @@ function detailServiceAPI($input){
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
             $data=$modelService->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -159,6 +196,18 @@ function detailCraftvillageAPI($input){
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
             $data=$modelCraftvillage->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -212,6 +261,18 @@ function detailEventAPI($input){
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
             $data=$modelEvent->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -253,6 +314,18 @@ function detailPlaceAPI($input){
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
             $data=$modelPlace->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -294,6 +367,18 @@ function detailEventcenterAPI($input){
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
             $data=$modelEventcenter->get( (int) $dataSend['id']);
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
              $return= array('code'=>1,'data'=>$data);
         }
 
@@ -377,7 +462,18 @@ function detailTourAPI($input){
     $dataSend =$input['request']->getData();     
     if (!empty($dataSend['id'])) {
             $data=$modelTour->get( (int) $dataSend['id']);
-            
+            $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
 
              $return= array('code'=>1,'data'=>$data);
         }

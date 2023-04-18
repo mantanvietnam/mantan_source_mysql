@@ -375,6 +375,49 @@
             </div>
         </section>
     <?php }  ?>
+    <?php 
+if(@$_GET['status']=='bookHotelDone'){ ?>   
+<div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <a href="/chi_tiet_nha_hang/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đặt phòng thành công.</p>
+      </div>
+      <div class="modal-footer">
+       
+        <a href="/chi_tiet_nha_hang/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php }elseif (@$_GET['status']=='bookHotelfailure') {?>
+  
+<div class="modal notification" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <a href="/chi_tiet_khach_san/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đặt phòng không thành công.</p>
+      </div>
+      <div class="modal-footer">
+       
+        <a href="/chi_tiet_khach_san/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php }?>
     </main>
         <div class="modal fade" id="modal-book-room" tabindex="-1" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog">
