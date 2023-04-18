@@ -142,6 +142,7 @@
         </section>
 
         <!-- Danh sách phòng -->
+        <?php if(!empty($tmpVariable['data']['HotelManmo']['listTypeRoom'])){  ?>
         <section class="danh-sach-phong mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
@@ -150,7 +151,7 @@
                 <div class="body">
                     <div class="row g-3">
                     	<?php
-				if(!empty($tmpVariable['data']['HotelManmo']['listTypeRoom'])){ 
+				
 					     foreach ($tmpVariable['data']['HotelManmo']['listTypeRoom'] as $value) { ?>
                         <div class="col-12 room-item">
                             <div class="danh-sach-phong-item">
@@ -232,15 +233,13 @@
                             </div>
                         </div>
 
-                        <?php   }
-	                        }
-	                    ?>
+                        <?php   } ?>
 
                     </div>
                 </div>
             </div>
         </section>
-
+        <?php   } ?>
         <!-- Địa điểm xung quanh -->
         <section id="place-around-section" class="mgt-80">
             <div class="container">
@@ -335,13 +334,7 @@
                     </div>
                 <?php
                     foreach($comment as $key => $value){
-                        if(empty($value)){?>
-                            <style type="text/css">
-                                #place-post-comment{
-                                    display: none;
-                                }
-                            </style>
-                        <?php }
+
                     $custom =  getCustomer($value->idcustomer);
                 
                      if(!empty($custom)){
@@ -390,7 +383,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Thông báo</h5>
-        <a href="/chi_tiet_nha_hang/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+        <a href="/chi_tiet_khach_san/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </a>
       </div>
@@ -399,7 +392,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
       </div>
       <div class="modal-footer">
        
-        <a href="/chi_tiet_nha_hang/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+        <a href="/chi_tiet_khach_san/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
       </div>
     </div>
   </div>

@@ -113,7 +113,8 @@ function detailEvent($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
-    global $metaDescriptionMantan;
+    global $metaDescriptionMantan;    
+    global $metaImageMantan;
 
         $modelEvent = $controller->loadModel('Events');
 
@@ -288,7 +289,8 @@ function detailTour($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
-    global $metaDescriptionMantan;
+    global $metaDescriptionMantan;    
+    global $metaImageMantan;
 
         $modelTour = $controller->loadModel('Tours');
         $modelReport = $controller->loadModel('Reports');
@@ -498,6 +500,7 @@ function detailGovernanceAgency($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
+    global $metaImageMantan;
     global $metaDescriptionMantan;
 
         $modelGovernanceAgency = $controller->loadModel('GovernanceAgencys');
@@ -665,6 +668,7 @@ function detailService($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelService = $controller->loadModel('Services');
 
@@ -829,6 +833,7 @@ function detailCraftvillage($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelCraftvillage = $controller->loadModel('Craftvillages');
 
@@ -993,6 +998,7 @@ function detailRestaurant($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelRestaurant = $controller->loadModel('Restaurants');
 
@@ -1427,7 +1433,8 @@ function detailEventcenter($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
-    global $metaDescriptionMantan;
+    global $metaDescriptionMantan;    
+    global $metaImageMantan;
 
         $modelEventcenter = $controller->loadModel('Eventcenters');
 
@@ -1592,6 +1599,7 @@ function detailPlace($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelPlace = $controller->loadModel('Places');
 
@@ -1756,6 +1764,7 @@ function detailFestival($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelFestival = $controller->loadModel('Festivals');
 
