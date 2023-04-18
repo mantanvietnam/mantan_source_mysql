@@ -59,47 +59,46 @@ global $urlThemeActive;
                 </div>
 
                 <section id="pagination-page">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                      <?php
+            if(@$totalPage>0){
+                if ($page > 5) {
+                    $startPage = $page - 5;
+                } else {
+                    $startPage = 1;
+                }
 
-                            <?php
-                            if (@$totalPage > 0) {
-                                if ($page > 5) {
-                                    $startPage = $page - 5;
-                                } else {
-                                    $startPage = 1;
-                                }
-
-                                if ($totalPage > $page + 5) {
-                                    $endPage = $page + 5;
-                                } else {
-                                    $endPage = $totalPage;
-                                }
-
-                                echo '<li class="page-item first">
-                        <a class="page-link" href="' . $urlPage . '1"
-                          ><i class="tf-icon bx bx-chevrons-left"></i
+                if ($totalPage > $page + 5) {
+                    $endPage = $page + 5;
+                } else {
+                    $endPage = $totalPage;
+                }
+                
+                echo '<li class="page-item first">
+                        <a class="page-link" href="'.$urlPage.'1"
+                          ><i class="fa-solid fa-chevron-left"></i
                         ></a>
                       </li>';
+                
+                for ($i = $startPage; $i <= $endPage; $i++) {
+                    $active= ($page==$i)?'active':'';
 
-                                for ($i = $startPage; $i <= $endPage; $i++) {
-                                    $active = ($page == $i) ? 'active' : '';
-
-                                    echo '<li class="page-item ' . $active . '">
-                            <a class="page-link" href="' . $urlPage . $i . '">' . $i . '</a>
+                    echo '<li class="page-item '.$active.'">
+                            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
                           </li>';
-                                }
+                }
 
-                                echo '<li class="page-item last">
-                        <a class="page-link" href="' . $urlPage . $totalPage . '"
-                          ><i class="tf-icon bx bx-chevrons-right"></i
+                echo '<li class="page-item last">
+                        <a class="page-link" href="'.$urlPage.$totalPage.'"
+                          ><i class="fa-solid fa-chevron-right"></i
                         ></a>
                       </li>';
-                            }
-                            ?>
-                        </ul>
-                    </nav>
-                </section>
+            }
+          ?>
+                </ul>
+            </nav>
+        </section>
             </div>
         </div>
     </section>
