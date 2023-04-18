@@ -4506,5 +4506,6 @@ color: #188181;
 
 /* footer */
 .list-unstyled i{
-	font-size: 33px
+	font-size: 35px;
+	color: #fff;
 }
