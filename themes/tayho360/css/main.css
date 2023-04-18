@@ -599,7 +599,7 @@ header .main-nav .nav-link {
     font-size: 19px;
     line-height: 33px;
     text-transform: uppercase;
-    color: #074946;
+    color: #074946!important;
 }
 
 header .user-login {
