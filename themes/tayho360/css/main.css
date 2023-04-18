@@ -599,7 +599,11 @@ header .main-nav .nav-link {
     font-size: 19px;
     line-height: 33px;
     text-transform: uppercase;
-    color: #074946;
+    color: #074946!important;
+}
+
+header .main-nav .nav-link:hover {
+    color: #07968f!important;
 }
 
 header .user-login {
@@ -625,6 +629,8 @@ header .user-login .username {
 header .dropdown-menu {
     box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.3);
     padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 header .dropdown-menu .dropdown-item {
