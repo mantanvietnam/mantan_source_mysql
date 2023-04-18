@@ -4502,3 +4502,9 @@ color: #188181;
 .show-content{
 	display: block !important;
 }
+
+
+/* footer */
+.list-unstyled i{
+	font-size: 33px
+}

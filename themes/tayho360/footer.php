@@ -31,7 +31,7 @@ $setting = setting();
                                     <li class="me-2"><a href="<?php echo @$setting['facebook']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/facebook-foot.svg" alt=""></a></li>
                                     <li class="me-2"><a href="<?php echo @$setting['tiktok']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/tiktok-foot.svg" alt=""></a>
                                     </li>
-                                    <li class="me-2"><a href="<?php echo @$setting['zalo']; ?>"><i class="fa-brands fa-instagram"></i></a>
+                                    <li class="me-2"><a href="<?php echo @$setting['zalo']; ?>"><i class="fa-brands fa-square-instagram"></i></a>
                                     </li>
                                     <li class="me-2"><a href="<?php echo @$setting['youtube']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/youtube-foot.svg" alt=""></a>
                                     </li>
