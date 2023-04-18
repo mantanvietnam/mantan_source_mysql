@@ -249,7 +249,7 @@ function editInfoUser($input){
                 if(in_array($filetype, $allowed)){
                     // Check whether file exists before uploading it
                     move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__.'/../../../webroot/upload/regcustomer/' . $today[0].'_avatar.jpg');
-                    $avatar= 'webroot/upload/regcustomer/'.$today[0].'_avatar.jpg';
+                    $avatar= '/webroot/upload/regcustomer/'.$today[0].'_avatar.jpg';
                     
                 } else{
                     $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';

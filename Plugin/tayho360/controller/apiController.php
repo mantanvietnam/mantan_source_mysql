@@ -344,4 +344,92 @@ function detailEventImage360API($input){
         return $return;
 }
 
+/*tour*/
+function listTourAPI($input){
+    
+     header('Access-Control-Allow-Methods: *');
+     global $controller;
+    $modelTour = $controller->loadModel('Tours');
+    $dataSend = $input['request']->getData();
+        
+        $conditions = array();
+          if(!empty($dataSend['name'])){
+             $key=createSlugMantan($dataSend['name']);
+            $conditions['urlSlug']= array('$regex' => $key);
+        }
+        $conditions['status']= 1;
+        $order= array('created'=>'desc');
+
+        $totalData= $modelTour->find()->where($conditions)->all()->toList();
+
+        $return= array('code'=>1,'listData'=>$totalData);
+
+    //echo json_encode($return);
+        return $return;
+}
+
+function detailTourAPI($input){
+    
+    header('Access-Control-Allow-Methods: *');
+    $return= array('code'=>0);
+    global $controller;
+    $modelTour = $controller->loadModel('Tours');
+    $dataSend =$input['request']->getData();     
+    if (!empty($dataSend['id'])) {
+            $data=$modelTour->get( (int) $dataSend['id']);
+            
+
+             $return= array('code'=>1,'data'=>$data);
+        }
+
+
+   // echo json_encode($return);
+    return $return;
+}
+
+function booktourAPI($input) {
+     global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+        $modelBookTour = $controller->loadModel('Booktours');
+
+    $dataSend = $input['request']->getData();
+     $return= array('code'=>0,'data'=>'');
+
+    
+    if(!empty($dataSend['name'])){
+
+        $data = $modelBookTour->newEmptyEntity();
+             $data->created = getdate()[0];
+
+        $data->idtour = (int) @$dataSend['idtour'];
+        $data->idcustomer = (int) @$dataSend['idcustomer'];
+        $data->name = @$dataSend['name'];
+        $data->phone = @$dataSend['phone'];
+        $data->email = @$dataSend['email'];
+        $data->numberpeople = (int) @$dataSend['numberpeople'];
+        $data->note = @$dataSend['not'];
+        $data->status = 'processing';
+
+
+      
+        if($modelBookTour->save($data)){
+          $return = array('code'=>1,'data'=>'bạn đăt tuor thành công ');
+        }else{
+        $return = array('code'=>0,'data'=>'bạn đăt tuor không thành công');
+        }
+
+    }else{
+        $return= array('code'=>0,'data'=>'bạn đăt tuor không thành công');
+    } 
+      return $return;
+}
+
  ?>

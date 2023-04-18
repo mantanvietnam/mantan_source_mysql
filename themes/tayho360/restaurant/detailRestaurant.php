@@ -358,6 +358,30 @@ global $session;
         </section>
     <?php }  ?>
 
+    <?php 
+
+    if(@$_GET['status']=='booktableDone'){ ?>
+        
+<div id="shows">
+    <div class="modal-dialog" style="width: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="showMess"><center style="color: red;">Cơ sở chưa được ManMo xác nhận hoặc đã ngừng hoạt động</center></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#shows').modal('show');
+</script>
+
+
+<?php }?>
+
 </main>
 <script type="text/javascript">
   function initMap() {

@@ -83,4 +83,7 @@
    $routesPlugin['bookHotel'] = 'tayho360/view/bookHotel.php';
    $routesPlugin['bookingonline'] = 'tayho360/view/bookingonline.php';
    $routesPlugin['ban_do'] = 'tayho360/view/map.php';
+   $routesPlugin['listTourAPI'] = 'tayho360/view/listTourAPI.php';
+   $routesPlugin['detailTourAPI'] = 'tayho360/view/detailTourAPI.php';
+   $routesPlugin['booktourAPI'] = 'tayho360/view/booktourAPI.php';
 ?>

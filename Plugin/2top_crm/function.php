@@ -231,7 +231,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
         <body>
             <div class="bao">
                 <div class="nd">
-                    <div class="main">
+                    <div class="main" style=" font-size: 16px;">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
                          Mã xác thực bạn là : '.@$pass.' <br>
