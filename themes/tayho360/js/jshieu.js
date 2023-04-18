@@ -212,6 +212,13 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+
+  $(".form-select-filter").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".pop_select li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
 });
 
 
