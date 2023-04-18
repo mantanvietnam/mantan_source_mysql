@@ -56,9 +56,9 @@ $infoUser = $session->read('infoUser');
     <div class="top bg-primary-cus py-2">
         <div class="container">
             <div class="d-flex justify-content-end align-items-center">
-                <form class="search-input d-none d-md-block">
+                <form class="search-input d-none d-md-block" action="/search" method="get">
                     <img src="<?= $urlThemeActive ?>/assets/lou_icon/icon-search.svg" class="me-2" alt="">
-                    <input type="text" placeholder="Tìm kiếm">
+                    <input type="text" name="key" placeholder="Tìm kiếm">
                 </form>
                 <li class="nav-item dropdown user-login">
                     <?php if (!empty($infoUser)) { ?>

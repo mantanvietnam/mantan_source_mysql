@@ -34,6 +34,18 @@ function detailHistoricalsiteAPI($input){
     $dataSend =$input['request']->getData();       
 
     if ( $data=$modelHistoricalsite->get( (int) $dataSend['id'])) {
+         $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
        
 
        	$modelArtifact = $controller->loadModel('Artifacts');
@@ -66,6 +78,18 @@ function detailArtifactAPI($input){
     $modelArtifact = $controller->loadModel('Artifacts');
 
     if($data=$modelArtifact->get( (int) $dataSend['id'])) {
+         $data['listImage']=array( 
+                $data['image'],
+                $data['image2'],
+                $data['image3'],
+                $data['image4'],
+                $data['image5'],
+                $data['image6'],
+                $data['image7'],
+                $data['image8'],
+                $data['image9'],
+                $data['image10'],
+        );
 
              $return= array('code'=>1,'data'=>$data);
         }else{
