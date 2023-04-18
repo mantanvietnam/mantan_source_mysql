@@ -6,7 +6,18 @@ $(document).ready(function () {
       slidesToScroll: 1,
       prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
       nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`,
+      autoplay: true,
+      autoplaySpeed: 3000,
   });
+
+  $('.banner-top-style-1 .place-img-slide-tour').slick({
+    // infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    });
 
   $('.place-around-slide').slick({
       infinite: true,

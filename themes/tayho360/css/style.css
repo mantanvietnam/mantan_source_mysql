@@ -3418,12 +3418,29 @@ color: #188181;
 }
 
 /* Bo sung code */
+/* tour */
+.banner-top-style-1 .place-img-slide .img-slide-item{
+	height: 600px;
+}
+
 .box-search-category{
 	width: 77%;
 }
 
-.banner-top-style-1 img{
+.banner-top-style-1 .w-100{
 	height: calc(100vh - 300px);
+	object-fit: cover;
+}
+
+.banner-top-style-1 .img-slide-item{
+	height: calc(100vh - 300px);
+	object-fit: cover;
+}
+
+.banner-top-style-1 .img-slide-item img{
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
 }
 
 
@@ -3561,7 +3578,11 @@ color: #188181;
 	}
 	
 	.place-img-slide .img-slide-item{
-		height: 315px;
+		height: 315px ;
+	}
+
+	.banner-top-style-1 .img-slide-item{
+		height: 315px ;
 	}
 
 	.place-around-slide-item .place-around-img {
@@ -4528,3 +4549,15 @@ color: #188181;
 	font-size: 35px;
 	color: #fff;
 }
+
+
+#tour-travel-home .box-slide-tth .box-tth .box-info .title-tour{
+	overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+
+}
+
