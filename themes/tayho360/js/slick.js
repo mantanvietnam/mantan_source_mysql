@@ -11,10 +11,9 @@ $(document).ready(function () {
   });
 
   $('.banner-top-style-1 .place-img-slide-tour').slick({
-    infinite: true,
+    // infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    dots: true,
     arrows: false,
     autoplay: true,
     autoplaySpeed: 3000,
