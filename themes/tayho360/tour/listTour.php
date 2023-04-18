@@ -69,7 +69,10 @@ global $urlThemeActive;
                                             </div>
                                             <div class="card-body p-lg-4">
                                                 <h5 class="card-title"><?php echo $value->name ?></h5>
-                                                <p class="card-time"><?php echo date("d/m/Y", @$value->datestart) . ' - ' . date("d/m/Y", @$value->dateend); ?></p>
+                                                <div class="d-flex align-items-center card-num-location">
+                                                    <i class="fa-solid fa-clock"></i>
+                                                    <span class="card-time"><?php echo date("d/m/Y", @$value->datestart) . ' - ' . date("d/m/Y", @$value->dateend); ?></span>
+                                                </div>
                                                 <div class="d-flex align-items-center card-num-location">
                                                     <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-location-white-card.svg" alt="">
                                                     <span><?php echo $value->address ?></span>

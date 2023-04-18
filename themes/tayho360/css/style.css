@@ -659,7 +659,9 @@ input:-internal-autofill-selected {
 
 }
 
-
+#place-around-section{
+	margin-bottom: 80px;
+}
 
 #place-around-section .place-around-box-address{
 
@@ -1122,6 +1124,10 @@ color: #188181;
 
 }
 
+#place-comment{
+	margin-bottom:80px ;
+}
+
 
 
 #place-comment .form-comment{
@@ -1170,7 +1176,7 @@ color: #188181;
 
 	margin-bottom:45px ;
 
-	margin-top: 100px;
+	/* margin-top: 100px; */
 
 	text-transform: uppercase;;
 
@@ -4448,6 +4454,19 @@ color: #188181;
 
 .tour-du-lich-card .card{
 	overflow: hidden;
+}
+
+.tour-du-lich-card .card-body .fa-clock{
+	font-size: 27px;
+	margin-right:8px;
+}
+
+.tour-du-lich-card .card-body .card-num-location{
+	margin-bottom: 5px;
+}
+
+.tour-du-lich-card .card-body .card-num-location span{
+	margin-bottom: 0;
 }
 
 
