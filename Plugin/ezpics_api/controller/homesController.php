@@ -267,6 +267,90 @@ function deleteLayer($input)
     } 
 }
 
+function removeBackgroundLayer($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+    global $price_remove_background;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    $modelMember = $controller->loadModel('Members');
+    $modelOrder = $controller->loadModel('Orders');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $infoLayer = $modelProductDetail->find()->where(array('id'=>$dataSend['id'],'products_id'=>$dataSend['idproduct']))->first();
+
+        if(!empty($infoLayer->content)){
+            $content = json_decode($infoLayer->content);
+
+            if(!empty($content->type) && $content->type=='image' && !empty($content->banner)){
+                $infoUser = $modelMember->find()->where(array('id'=>$session->read('infoUser')->id))->first();
+
+                if(!empty($infoUser)){
+                    if($infoUser->account_balance >= $price_remove_background){
+                        $link_local = explode('apis.ezpics.vn', $content->banner);
+                        $link_local = trim($link_local[1],'/');
+                       
+                        $banner = 'https://apis.ezpics.vn/'.removeBackground($link_local, true);
+
+                        $content->banner = $banner;
+
+                        $infoLayer->content = json_encode($content);
+
+                        $modelProductDetail->save($infoLayer);
+
+                        // lưu vào database
+                        $data = $modelManagerFile->newEmptyEntity();
+
+                        $data->link = $banner;
+                        $data->user_id = $infoUser->id;
+                        $data->type = 2; // 0 là user up, 1 là cap, 2 là payment
+                        $data->created_at = date('Y-m-d H:i:s');
+
+                        $modelManagerFile->save($data);
+
+                        // trừ tiền tài khoản
+                        $infoUser->account_balance -= $price_remove_background;
+                        $modelMember->save($infoUser);
+
+                        // lưu lịch sử giao dịch
+                        $order = $modelOrder->newEmptyEntity();
+                        
+                        $order->code = 'RB'.time().$infoUser->id.rand(0,10000);
+                        $order->member_id = $infoUser->id;
+                        $order->file_id = $data->id;
+                        $order->total = $price_remove_background;
+                        $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+                        $order->type = 4; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+                        $order->meta_payment = 'Xóa ảnh nền';
+                        $order->created_at = date('Y-m-d H:i:s');
+                        
+                        $modelOrder->save($order);
+
+                        return getLayerProductForEdit($dataSend['idproduct']); 
+                    }else{
+                        return ['error' => ['Tài khoản không đủ tiền']]; 
+                    }
+                }else{
+                    return ['error' => ['Tài khoản không tồn tại hoặc sai mã token']]; 
+                }
+            }else{
+                return ['error' => ['Layer không tồn tại hoặc không phải layer ảnh']]; 
+            }
+        }else{
+            return ['error' => ['Layer không tồn tại']]; 
+        }
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
 function addLayer($input)
 {
     global $session;
@@ -497,9 +581,60 @@ function upImage($input)
                 
             return getLayerProductForEdit($dataSend['idproduct']);
         }else{
-            ['error' => [$return['mess']]];
+            return ['error' => [$return['mess']]];
         }
         
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập']]; 
+    } 
+}
+
+function upImageThumbnail($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+    $modelProduct = $controller->loadModel('Products');
+
+    if(!empty($session->read('infoUser'))){
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['idproduct'])){
+            $user =  $session->read('infoUser');
+            $return = uploadImage($user->id, 'file');
+             
+            if (!empty($return['linkOnline'])) {
+                
+
+                // lưu quản lý file
+                $f = $modelManagerFile->newEmptyEntity();
+                
+                $f->link = $return['linkOnline'];
+                $f->user_id = $user->id;
+                $f->type = 1; // 0 là user up, 1 là cap, 2 là payment   
+                $f->created_at = date('Y-m-d H:i:s');
+                
+                $modelManagerFile->save($f);
+
+                // sản phẩm
+                $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$session->read('infoUser')->id))->first();
+
+                if(!empty($product)){
+                    $product->thumbnail = $return['linkOnline'];
+
+                    $modelProduct->save($product);
+                }
+                    
+                return getLayerProductForEdit($dataSend['idproduct']);
+            }else{
+                return ['error' => [ $return['mess'] ]];
+            }
+        }else{
+            return ['error' => ['Gửi thiếu dữ liệu']]; 
+        }
     }else{
         return ['error' => ['Bạn chưa đăng nhập']]; 
     } 

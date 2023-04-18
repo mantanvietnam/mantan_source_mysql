@@ -13,6 +13,8 @@
 	// member
 	$routesPlugin['login']= 'smartqr/view/home/member/login.php';
 	$routesPlugin['logout']= 'smartqr/view/home/member/logout.php';
+	$routesPlugin['changePass']= 'smartqr/view/home/member/changePass.php';
+	$routesPlugin['account']= 'smartqr/view/home/member/account.php';
 
 	$routesPlugin['mySmartQR']= 'smartqr/view/home/smartqr/mySmartQR.php';
 	$routesPlugin['staticMyQR']= 'smartqr/view/home/smartqr/staticMyQR.php';

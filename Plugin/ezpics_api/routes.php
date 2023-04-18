@@ -52,6 +52,8 @@
 	$routesPlugin['replace']= 'ezpics_api/view/home/replace.php';
 	$routesPlugin['capImg']= 'ezpics_api/view/home/capImg.php';
 	$routesPlugin['updateLayer']= 'ezpics_api/view/home/updateLayer.php';
+	$routesPlugin['removeBackgroundLayer']= 'ezpics_api/view/home/removeBackgroundLayer.php';
+	$routesPlugin['upImageThumbnail']= 'ezpics_api/view/home/upImageThumbnail.php';
 	
 
 	// yêu thích sản phẩm
