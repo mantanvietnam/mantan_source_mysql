@@ -6,7 +6,7 @@ $infoUser = $session->read('infoUser');
 ?>
 <main>
     <section class="banner-top-style-1">
-        <div class="place-img-slide">
+        <div class="place-img-slide-tour">
             <?php if (!empty($data->image)) { ?>
                 <div class="img-slide-item">
                     <img src="<?php echo $data->image ?>" alt="">
