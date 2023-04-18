@@ -645,6 +645,8 @@ input:-internal-autofill-selected {
 
 	line-height: 32px;
 
+	text-align: justify;
+
 }
 
 
@@ -4207,6 +4209,7 @@ color: #188181;
 #artifacts-section .place-artifacts-title a{
 	font-size: 24px;
 	color: #3F4042;
+	line-height: 26px;
 }
 
 
@@ -4462,5 +4465,40 @@ color: #188181;
 
  /*  */
  .tab-content-booking{
-	margin-bottom: 80px;
+	margin-bottom: 80px !important;
  }
+
+
+ /* Thông báo */
+.notification .modal-content {
+
+}
+
+.notification .modal-content .modal-footer a{
+	background-color: #188181;
+}
+
+.notification .modal-content .modal-header span{
+	color: #188181;
+	font-size: 18px
+}
+
+.notification .modal-content .modal-body p{
+	color: #188181;	
+	font-size: 18px
+}
+
+.notification .modal-content .modal-title{
+	color: #188181;
+	font-size: 18px
+}
+
+/* chức năng ẩn hiện */
+.content-information{
+ 
+}
+
+
+.show-content{
+	display: block !important;
+}

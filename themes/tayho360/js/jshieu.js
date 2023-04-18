@@ -272,5 +272,17 @@ $(document).ready(function(){
 //             return false;
 //         });
 //     }
-// });
+// 
 
+
+// $(document).ready(function(){
+//     $('#place-information .container').append("<div class='read-more'><a>Xem thêm</a></div>");
+//     $(".read-more").click(function() {
+//         console.log('aaaa');
+//         $(".read-more").css('display','none');
+//         $(".content-information").addClass('show-content');
+//     });
+
+   
+
+// });
