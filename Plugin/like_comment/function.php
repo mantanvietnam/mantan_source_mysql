@@ -55,8 +55,9 @@
     	$conditions= array();
     	$conditions['idobject']= $idobject;
     	$conditions['tiype']= $tiype;
+      $order = array('id'=>'desc');
 
-    	$data =	$modelComment->find()->where($conditions)->all();
+    	$data =	$modelComment->find()->limit(10)->page(1)->where($conditions)->order($order)->all()->toList();
 
     	
     	return $data;

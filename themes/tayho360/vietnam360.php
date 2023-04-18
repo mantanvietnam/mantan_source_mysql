@@ -23,49 +23,59 @@ getHeader();
     <section id="section-img-360">
         <div class="container-img-360 container">
             <div class="row">
-                <?php foreach ($listData as $data) : ?>
+                <?php foreach ($listData as $data) { ?>
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 item-img-360">
                         <div class="img-360">
                             <a href="<?= $data->image360 ?>"><img src="<?= $data->image ?>" alt=""></a>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
         </div>
     </section>
 
     <section id="pagination-page">
-        <?php if ($totalPage == 1) : ?>
-            <div id="pagination-page">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link disabled" href="?page=<?= $back ?>"><i class="fa-solid fa-chevron-left"></i></a>
-                        </li>
-                        <li class="page-item"><a class="page-link active" href="?page=<?= $page ?>"><?= $page ?></a></li>
-                        <li class="page-item"><a class="page-link disabled" href="?page=<?= $next ?>"><i class="fa-solid fa-chevron-right"></i></a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        <?php else : ?>
-            <div id="pagination-page">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="?page=<?= $back ?>"><i class="fa-solid fa-chevron-left"></i></a>
-                        </li>
-                        <?php if ($page != 1) : ?>
-                            <li class="page-item "><a class="page-link" href="?page=<?= $back ?>"><?= $back ?></a></li>
-                        <?php else : ?>
-                            <li class="page-item"><a class="page-link active" href="?page=<?= $page ?>"><?= $page ?></a></li>
-                            <li class="page-item"><a class="page-link" href="?page=<?= $next ?>"><?= $next ?></a></li>
-                            <li class="page-item"><a class="page-link" href="?page=<?= $next ?>"><i class="fa-solid fa-chevron-right"></i></a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
-            </div>
-        <?php endif; ?>
-    </section>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+
+                            <?php
+                            if (@$totalPage > 0) {
+                                if ($page > 5) {
+                                    $startPage = $page - 5;
+                                } else {
+                                    $startPage = 1;
+                                }
+
+                                if ($totalPage > $page + 5) {
+                                    $endPage = $page + 5;
+                                } else {
+                                    $endPage = $totalPage;
+                                }
+
+                                echo '<li class="page-item first">
+                        <a class="page-link" href="' . $urlPage . '1"
+                          ><i class="tf-icon bx bx-chevrons-left"></i
+                        ></a>
+                      </li>';
+
+                                for ($i = $startPage; $i <= $endPage; $i++) {
+                                    $active = ($page == $i) ? 'active' : '';
+
+                                    echo '<li class="page-item ' . $active . '">
+                            <a class="page-link" href="' . $urlPage . $i . '">' . $i . '</a>
+                          </li>';
+                                }
+
+                                echo '<li class="page-item last">
+                        <a class="page-link" href="' . $urlPage . $totalPage . '"
+                          ><i class="tf-icon bx bx-chevrons-right"></i
+                        ></a>
+                      </li>';
+                            }
+                            ?>
+                        </ul>
+                    </nav>
+                </section>
 </main>
 
 <?php

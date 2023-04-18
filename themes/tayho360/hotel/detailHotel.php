@@ -142,6 +142,7 @@
         </section>
 
         <!-- Danh sách phòng -->
+        <?php if(!empty($tmpVariable['data']['HotelManmo']['listTypeRoom'])){  ?>
         <section class="danh-sach-phong mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
@@ -150,7 +151,7 @@
                 <div class="body">
                     <div class="row g-3">
                     	<?php
-				if(!empty($tmpVariable['data']['HotelManmo']['listTypeRoom'])){ 
+				
 					     foreach ($tmpVariable['data']['HotelManmo']['listTypeRoom'] as $value) { ?>
                         <div class="col-12 room-item">
                             <div class="danh-sach-phong-item">
@@ -232,15 +233,13 @@
                             </div>
                         </div>
 
-                        <?php   }
-	                        }
-	                    ?>
+                        <?php   } ?>
 
                     </div>
                 </div>
             </div>
         </section>
-
+        <?php   } ?>
         <!-- Địa điểm xung quanh -->
         <section id="place-around-section" class="mgt-80">
             <div class="container">
@@ -323,7 +322,9 @@
             </div>
         </section>
 <?php } ?>
-<?php  $comment= getComment($data['HotelManmo']['data']['Hotel']['id'],'khach_san'); 
+<?php 
+
+ $comment= getComment($data['HotelManmo']['data']['Hotel']['id'],'khach_san'); 
         if(!empty($comment)){ ?>
         <section id="place-post-comment">
             <div class="container">
@@ -333,7 +334,7 @@
                     </div>
                 <?php
                     foreach($comment as $key => $value){
-                   //     debug($value);
+
                     $custom =  getCustomer($value->idcustomer);
                 
                      if(!empty($custom)){
@@ -382,7 +383,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Thông báo</h5>
-        <a href="/chi_tiet_nha_hang/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" class="close" data-dismiss="modal" aria-label="Close">
+        <a href="/chi_tiet_khach_san/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </a>
       </div>
@@ -391,7 +392,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
       </div>
       <div class="modal-footer">
        
-        <a href="/chi_tiet_nha_hang/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+        <a href="/chi_tiet_khach_san/<?php echo $data['HotelManmo']['data']['Hotel']['slug'] ?>.html" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</a>
       </div>
     </div>
   </div>
@@ -489,6 +490,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
 					<div class="col-md-6">
 						<p>Chi phí dự kiến</p>
 						<input type="text" name="pricepay" class="input_date form-control" id="pricePay" value="" required=""  disabled="" placeholder="Chi phí dự kiến">
+                        <input type="hidden" name="pricepay1" class="input_date form-control" id="pricePay1" value=""  placeholder="Chi phí dự kiến">
 					</div>
 					<div class="col-md-12" style=" margin-top: 55px;">
 						<button type="submit" class="btn button-submit-custom">Đặt Phòng</button>
@@ -692,6 +694,7 @@ function tinhphi()
 }
 
 $('#pricePay').val(showPriceDate);
+$('#pricePay1').val(showPriceDate);
 $('#textDeposits').val(showPriceDate);
 $('#deposits').val(priceDate);
 $('#price').val(price);

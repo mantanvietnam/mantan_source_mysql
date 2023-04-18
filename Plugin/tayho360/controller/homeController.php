@@ -113,7 +113,8 @@ function detailEvent($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
-    global $metaDescriptionMantan;
+    global $metaDescriptionMantan;    
+    global $metaImageMantan;
 
         $modelEvent = $controller->loadModel('Events');
 
@@ -288,7 +289,8 @@ function detailTour($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
-    global $metaDescriptionMantan;
+    global $metaDescriptionMantan;    
+    global $metaImageMantan;
 
         $modelTour = $controller->loadModel('Tours');
         $modelReport = $controller->loadModel('Reports');
@@ -498,6 +500,7 @@ function detailGovernanceAgency($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
+    global $metaImageMantan;
     global $metaDescriptionMantan;
 
         $modelGovernanceAgency = $controller->loadModel('GovernanceAgencys');
@@ -665,6 +668,7 @@ function detailService($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelService = $controller->loadModel('Services');
 
@@ -829,6 +833,7 @@ function detailCraftvillage($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelCraftvillage = $controller->loadModel('Craftvillages');
 
@@ -993,6 +998,7 @@ function detailRestaurant($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelRestaurant = $controller->loadModel('Restaurants');
 
@@ -1272,8 +1278,6 @@ function bookHotel($input) {
  
 
     if(!empty($dataSend['name'])){
-        debug($dataSend);
-        die();
          $date_start = explode(' ', @$dataSend['date_start']);
             $date_end = explode(' ', @$dataSend['date_end']);
             $dataPost= array('idHotel'=>  @$dataSend['idhotel'],
@@ -1317,7 +1321,7 @@ function bookHotel($input) {
         $data->date_end = @$dataSend['date_end'];
         $data->date_start = @$dataSend['date_start'];
         $data->number_room = (int) @$dataSend['number_room'];
-        $data->pricePay =(int) @$dataSend['pricePay'];
+        $data->pricePay =(int) @$dataSend['pricepay1'];
 
 
       
@@ -1429,7 +1433,8 @@ function detailEventcenter($input){
     global $session;
     global $metaTitleMantan;
     global $metaKeywordsMantan;
-    global $metaDescriptionMantan;
+    global $metaDescriptionMantan;    
+    global $metaImageMantan;
 
         $modelEventcenter = $controller->loadModel('Eventcenters');
 
@@ -1594,6 +1599,7 @@ function detailPlace($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelPlace = $controller->loadModel('Places');
 
@@ -1758,6 +1764,7 @@ function detailFestival($input){
     global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
+    global $metaImageMantan;
 
         $modelFestival = $controller->loadModel('Festivals');
 
