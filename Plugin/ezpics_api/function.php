@@ -687,7 +687,8 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
 function zipImage($urlLocalFile)
 {
     require_once("library/tinify/vendor/autoload.php");
-    $keyTinipng = "Lp2HGknN7vpNkng7F7c1Pzc30VgNP7BL";
+    //$keyTinipng = "Lp2HGknN7vpNkng7F7c1Pzc30VgNP7BL";
+    $keyTinipng = "b0YRhPS9W37hykD6qMr5kvkZbPfn0yKB";
     Tinify\setKey($keyTinipng);
 
     Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);

@@ -64,6 +64,11 @@ class AppController extends Controller
         global $contactSite;
         global $smtpSite;
 
+        global $metaTitleMantan;
+        global $metaKeywordsMantan;
+        global $metaDescriptionMantan;
+        global $metaImageMantan;
+
         $session = $this->request->getSession();
         $urlCurrent = $_SERVER['REQUEST_URI'];
         $isRequestPost = $this->request->is('post');
@@ -96,6 +101,11 @@ class AppController extends Controller
             $info_site_value = json_decode($infoSite->value, true);
         }
         $infoSite = $info_site_value;
+
+        $metaTitleMantan = @$infoSite['title'];
+        $metaKeywordsMantan = @$infoSite['keyword'];
+        $metaDescriptionMantan = @$infoSite['description'];
+        $metaImageMantan = @$infoSite['image_share'];
 
         $smtpSite = $modelOptions->newEmptyEntity();
         $smtpSite = $modelOptions->find()->where(array('key_word' => 'smtp_site'))->first();
