@@ -63,7 +63,7 @@ global $urlThemeActive;
                                     <td><?php echo date('d/m/Y', @$tour->datestart) ?></td>
                                     <td><?php echo date('d/m/Y', @$tour->dateend) ?></td>
                                     <td><?php echo @$value->numberpeople ?></td>
-                                    <td><?php echo number_format(@$tour->price*@$value->numberpeople) ?></td>
+                                    <td><?php echo number_format(@$tour->price*@$value->numberpeople) ?> VNĐ</td>
                                 </tr>
                                <?php }} ?>
                             </table>
@@ -90,7 +90,7 @@ global $urlThemeActive;
                                     <td><?php echo date('d/m/Y', @$value->created) ?></td>
                                     <td><?php echo @$value->date_start ?></td>
                                     <td><?php echo @$value->date_end ?></td>
-                                    <td><?php echo number_format(@$value->pricePay) ?></td>
+                                    <td><?php echo number_format(@$value->pricePay) ?> VNĐ</td>
                                 </tr>
                                <?php }} ?>
                             </table>

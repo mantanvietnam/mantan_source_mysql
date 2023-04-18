@@ -323,7 +323,9 @@
             </div>
         </section>
 <?php } ?>
-<?php  $comment= getComment($data['HotelManmo']['data']['Hotel']['id'],'khach_san'); 
+<?php 
+
+ $comment= getComment($data['HotelManmo']['data']['Hotel']['id'],'khach_san'); 
         if(!empty($comment)){ ?>
         <section id="place-post-comment">
             <div class="container">
@@ -333,7 +335,13 @@
                     </div>
                 <?php
                     foreach($comment as $key => $value){
-                   //     debug($value);
+                        if(empty($value)){?>
+                            <style type="text/css">
+                                #place-post-comment{
+                                    display: none;
+                                }
+                            </style>
+                        <?php }
                     $custom =  getCustomer($value->idcustomer);
                 
                      if(!empty($custom)){
@@ -489,6 +497,7 @@ if(@$_GET['status']=='bookHotelDone'){ ?>
 					<div class="col-md-6">
 						<p>Chi phí dự kiến</p>
 						<input type="text" name="pricepay" class="input_date form-control" id="pricePay" value="" required=""  disabled="" placeholder="Chi phí dự kiến">
+                        <input type="hidden" name="pricepay1" class="input_date form-control" id="pricePay1" value=""  placeholder="Chi phí dự kiến">
 					</div>
 					<div class="col-md-12" style=" margin-top: 55px;">
 						<button type="submit" class="btn button-submit-custom">Đặt Phòng</button>
@@ -692,6 +701,7 @@ function tinhphi()
 }
 
 $('#pricePay').val(showPriceDate);
+$('#pricePay1').val(showPriceDate);
 $('#textDeposits').val(showPriceDate);
 $('#deposits').val(priceDate);
 $('#price').val(price);

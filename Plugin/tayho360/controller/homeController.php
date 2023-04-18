@@ -1272,8 +1272,6 @@ function bookHotel($input) {
  
 
     if(!empty($dataSend['name'])){
-        debug($dataSend);
-        die();
          $date_start = explode(' ', @$dataSend['date_start']);
             $date_end = explode(' ', @$dataSend['date_end']);
             $dataPost= array('idHotel'=>  @$dataSend['idhotel'],
@@ -1317,7 +1315,7 @@ function bookHotel($input) {
         $data->date_end = @$dataSend['date_end'];
         $data->date_start = @$dataSend['date_start'];
         $data->number_room = (int) @$dataSend['number_room'];
-        $data->pricePay =(int) @$dataSend['pricePay'];
+        $data->pricePay =(int) @$dataSend['pricepay1'];
 
 
       
