@@ -172,8 +172,8 @@ function detailEvent($input){
 
 
 
-            
-            $otherData = $modelEvent->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelEvent->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -350,8 +350,8 @@ function detailTour($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelTour->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelTour->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -554,8 +554,8 @@ function detailGovernanceAgency($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelGovernanceAgency->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelGovernanceAgency->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -721,8 +721,8 @@ function detailService($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelService->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelService->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -886,8 +886,8 @@ function detailCraftvillage($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelCraftvillage->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelCraftvillage->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -1051,8 +1051,8 @@ function detailRestaurant($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelRestaurant->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelRestaurant->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -1487,8 +1487,8 @@ function detailEventcenter($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelEventcenter->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelEventcenter->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -1652,8 +1652,8 @@ function detailPlace($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelPlace->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelPlace->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
@@ -1817,8 +1817,8 @@ function detailFestival($input){
             $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
             $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-            
-            $otherData = $modelFestival->find()->where($month)->all();
+            $order = array('created'=>'desc');
+            $otherData = $modelFestival->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
 
             setVariable('data', $data);
