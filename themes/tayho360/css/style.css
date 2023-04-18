@@ -516,7 +516,7 @@ input:-internal-autofill-selected {
 
 	text-transform: uppercase;
 
-	font-size: 30px;
+	font-size: 29px;
 
 	color: #3F4042;
 
@@ -2132,6 +2132,10 @@ color: #188181;
 
 	margin-bottom: 46px;
 
+}
+
+#skct-article .col-lg-8 .body{
+	text-align: justify;
 }
 
 
@@ -4419,6 +4423,28 @@ color: #188181;
 /* tour chi tiet */
 #skct-lien-quan-bottom h2{
 	font-size: 30px;
+}
+
+.tour-du-lich-card .card-top img{
+	height: 250px !important;
+	transition: 0.5s;
+}
+
+.tour-du-lich-card:hover{
+	box-shadow: none !important;
+}
+
+.text-decoration-none .card-top{
+	overflow: hidden;
+}
+
+.tour-du-lich-card:hover .card-top img{
+	scale: 1.2;
+	transition: 0.5s;
+}
+
+.tour-du-lich-card .card{
+	overflow: hidden;
 }
 
 
