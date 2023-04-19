@@ -1,12 +1,10 @@
 <?php 
-function listCategoryEzpics($input){
+function listCategoryKey($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
-    global $controller;
 
-    $metaTitleMantan = 'Danh mục mẫu thiết kế';
-    $modelProducts = $controller->loadModel('Products');
+    $metaTitleMantan = 'Danh sách ứng dụng';
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -22,18 +20,16 @@ function listCategoryEzpics($input){
         $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
         $infoCategory->parent = 0;
         $infoCategory->image = $dataSend['image'];
-        $infoCategory->meta_title = $infoCategory->name;
-        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['meta_keyword']);
-        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['meta_description']);
-        $infoCategory->type = 'product_categories';
-        $infoCategory->created_at = date('Y-m-d H:i:s');
+        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+        $infoCategory->type = 'application_key';
 
         // tạo slug
         $slug = createSlugMantan($infoCategory->name);
         $slugNew = $slug;
         $number = 0;
         do{
-            $conditions = array('slug'=>$slugNew,'type'=>'product_categories');
+            $conditions = array('slug'=>$slugNew,'type'=>'application_key');
             $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
             if(!empty($listData)){
@@ -48,19 +44,9 @@ function listCategoryEzpics($input){
 
     }
 
-    $conditions = array('type' => 'product_categories');
+    $conditions = array('type' => 'application_key');
     $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
-    $totalProductSell = 0;
-    if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            $products = $modelProducts->find()->where(['category_id'=>$value->id, 'type'=>'user_create', 'status'=>1])->all()->toList();
-            $listData[$key]->number_product = count($products);
-            $totalProductSell += count($products);
-        }
-    }
-
     setVariable('listData', $listData);
-    setVariable('totalProductSell', $totalProductSell);
 }
 ?>

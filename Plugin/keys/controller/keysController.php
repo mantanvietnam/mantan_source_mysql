@@ -1,0 +1,160 @@
+<?php 
+function listKey($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách khóa';
+
+	$modelKeys = $controller->loadModel('Appkeys');
+
+	$conditions = array();
+	$limit = 20;
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+	if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelKeys->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+    	foreach ($listData as $key => $value) {
+    		if(empty($category[$value->id_category])){
+    			$category[$value->id_category] = $modelCategories->get( (int) $value->id_category);
+    		}
+    		
+    		$listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+            $listData[$key]->max_request = (!empty($category[$value->id_category]->description))?$category[$value->id_category]->description:10000000;
+    	}
+    }
+
+    // phân trang
+    $totalData = $modelKeys->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('listData', $listData);
+}
+
+function addKey($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin khóa';
+
+	$modelKeys = $controller->loadModel('Appkeys');
+	$mess= '';
+
+	// lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelKeys->get( (int) $_GET['id']);
+    }else{
+        $data = $modelKeys->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['value'])){
+	        // tạo dữ liệu save
+	        $data->value = $dataSend['value'];
+            $data->id_category = (int) $dataSend['id_category'];
+            $data->status = $dataSend['status'];
+            $data->user = $dataSend['user'];
+            $data->pass = $dataSend['pass'];
+
+            if(empty($data->used)) $data->used = 0;
+            if(empty($data->month)) $data->month = (int) date('m');
+
+	        $modelKeys->save($data);
+
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập key</p>';
+	    }
+    }
+
+    $conditions = array('type' => 'application_key');
+    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
+    if(empty($listCategory)){
+        return $controller->redirect('/plugins/admin/keys-view-admin-category-listCategoryKey.php');
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+    setVariable('listCategory', $listCategory);
+}
+
+function deleteKey($input){
+	global $controller;
+
+	$modelKeys = $controller->loadModel('Appkeys');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelKeys->get($_GET['id']);
+		
+		if($data){
+         	$modelKeys->delete($data);
+        }
+	}
+
+	return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey.php');
+}
+
+function refreshKey($input){
+    global $controller;
+
+    $modelKeys = $controller->loadModel('Appkeys');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelKeys->get($_GET['id']);
+        
+        if($data){
+            $data->used= 0;
+            $data->month= (int) date('m');
+
+            $modelKeys->save($data);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey.php');
+}
+?>

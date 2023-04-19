@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" />
+
 	<title>
 		<?php echo (!empty($product->name))?$product->name:'Chỉnh sửa mẫu thiết kế'; ?>
 	</title>
@@ -48,6 +50,14 @@
 
 	<!-- thêm thư viện wow -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- thêm thư viện gradientPicker -->
+	<link rel="stylesheet" href="/plugins/ezpics_api/view/css/jquery.gradientPicker.css" type="text/css" />
+	<link rel="stylesheet" href="/plugins/ezpics_api/view/css/colorpicker.css" type="text/css" />
+
+	<script src="/plugins/ezpics_api/view/js/jqueryUI-custom.js"></script>
+	<script src="/plugins/ezpics_api/view/js/colorpicker/colorpicker.js"></script>
+	<script src="/plugins/ezpics_api/view/js/jquery.gradientPicker.js"></script>
 
 	<!-- thêm font chữ cài từ admin -->
 	<style type="text/css">
@@ -145,6 +155,8 @@
 	                            </div>
 	                            
 	                            <div class="list-chang-replace">
+	                            	<div class="grad_ex w-100" id="toolbar_gradient"></div>
+
 	                                <div class="item-replace float-left" onclick="addGradient()" style="padding: 18px;">
 	                                    <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/addcolor.png" alt="" width="25">
 	                                </div>
@@ -171,7 +183,7 @@
 	                            </div>
 	                            <div class="list-chang-replace count-gradient gra1">
 	                                <div class="item-replace text-center" style="flex: auto;">
-	                                    <input type="text" id="coler1" name="coler1" class="w-100 gradientcolor coloris" >
+	                                    <input type="text" data-coloris id="coler1" name="coler1" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
 	                                    <input type="number" name="postion_color1"  value="0" class="w-100 fieldcolor">
@@ -179,7 +191,7 @@
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra3">
 	                                <div class="item-replace text-center" style="flex: auto;">
-	                                    <input type="text" id="coler2"  name="coler2"  class="w-100 gradientcolor coloris" >
+	                                    <input type="text" data-coloris id="coler2"  name="coler2"  class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
 	                                    <input type="number" name="postion_color3"  value="<?=  rand(5, 24); ?>" class="w-100 fieldcolor">
@@ -187,7 +199,7 @@
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra4">
 	                                <div class="item-replace text-center" style="flex: auto;">
-	                                    <input type="text" id="coler3" name="coler3" value="#c27d06" class="w-100 gradientcolor coloris" >
+	                                    <input type="text" data-coloris id="coler3" name="coler3" value="#c27d06" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
 	                                    <input type="number" name="postion_color4"  value="<?=  rand(25, 45); ?>" class="w-100 fieldcolor">
@@ -195,7 +207,7 @@
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra5">
 	                                <div class="item-replace text-center" style="flex: auto;">
-	                                    <input type="text" id="coler4" name="coler4" value="#a206c2" class="w-100 gradientcolor coloris" >
+	                                    <input type="text" data-coloris id="coler4" name="coler4" value="#a206c2" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
 	                                    <input type="number" name="postion_color5"  value="<?=  rand(55, 74); ?>" class="w-100 fieldcolor">
@@ -203,7 +215,7 @@
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra6">
 	                                <div class="item-replace text-center" style="flex: auto;">
-	                                    <input type="text" id="coler5" name="coler5" value="#d56062" class="w-100 gradientcolor coloris" >
+	                                    <input type="text" data-coloris id="coler5" name="coler5" value="#d56062" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
 	                                    <input type="number" name="postion_color6"  value="<?=  rand(76, 95); ?>" class="w-100 fieldcolor">
@@ -211,7 +223,7 @@
 	                            </div>
 	                            <div class="list-chang-replace count-gradient gra2">
 	                                <div class="item-replace text-center" style="flex: auto;">
-	                                    <input type="text" id="coler6" name="coler6" value="#80e377" class="w-100 gradientcolor coloris" >
+	                                    <input type="text" data-coloris id="coler6" name="coler6" value="#80e377" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
 	                                    <input type="number" name="postion_color2"  value="100" class="w-100 fieldcolor">
@@ -265,8 +277,8 @@
 	                                    <div class="txt">Giãn cách chữ</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range gianchu" value="1" type="range" min="1" max="100">
-	                                    <span class="range-slider__value gianchuz">1</span>
+	                                    <input class="range-slider__range gianchu" value="0" type="range" min="0" max="100">
+	                                    <span class="range-slider__value gianchuz">0</span>
 	                                </div>
 	                            </div>
 	                             <div class="action-ranger">
@@ -274,8 +286,8 @@
 	                                    <div class="txt">Giãn cách dòng</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range giandong" value="1" type="range" min="1" max="100">
-	                                    <span class="range-slider__value giandongz">1</span>
+	                                    <input class="range-slider__range giandong" value="0" type="range" min="0" max="100">
+	                                    <span class="range-slider__value giandongz">0</span>
 	                                </div>
 	                            </div>
 	                        </div>
