@@ -1646,9 +1646,9 @@ color: #188181;
 
 
 #place-category .place-category-item .place-category-item-title a{
-
+	text-transform: uppercase;
 	color: #fff;
-    font-size: 27px;
+    font-size: 26px;
     overflow: hidden;
     /* white-space: nowrap; */
     display: -webkit-box;
@@ -4028,6 +4028,7 @@ color: #188181;
 }
 
 .pop_select {
+	border: 1px solid #fff;
 	background-color: #C2DED8;
     position: absolute;
     z-index: 1000;
