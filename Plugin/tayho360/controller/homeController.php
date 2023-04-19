@@ -1119,7 +1119,7 @@ function listHotel($input){
         $keyManMo = '5dc8f2652ac5db08348b4567';
       
 
-     $dataPost= array('key'=>$keyManMo, 'city'=>1, 'lat'=>'','nameHotel'=>@$_GET['name'], 'long'=>'', 'district'=>11, 'limit'=>15,'page'=>$page);
+     $dataPost= array('key'=>$keyManMo, 'city'=>1, 'lat'=>'','nameHotel'=>@$_GET['name'], 'long'=>'', 'district'=>11, 'limit'=>9,'page'=>$page);
             $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/getHotelAroundAPI', $dataPost);
 
 

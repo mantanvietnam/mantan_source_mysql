@@ -10,7 +10,7 @@ function listHistoricalSite($input){
       
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
-        $limit= 15;
+        $limit= 9;
          $getmonth   = getmonth();
         
         $order = array('created'=>'desc');

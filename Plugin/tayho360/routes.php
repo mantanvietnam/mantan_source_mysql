@@ -88,4 +88,8 @@
    $routesPlugin['booktourAPI'] = 'tayho360/view/booktourAPI.php';
    $routesPlugin['listPostAPI'] = 'tayho360/view/listPostAPI.php';
    $routesPlugin['detailPostAPI'] = 'tayho360/view/detailPostAPI.php';
+   $routesPlugin['listRestaurantAPI'] = 'tayho360/view/listRestaurantAPI.php';
+   $routesPlugin['detailRestaurantAPI'] = 'tayho360/view/detailRestaurantAPI.php';
+   $routesPlugin['bookRestaurantAPI'] = 'tayho360/view/bookRestaurantAPI.php';
+   $routesPlugin['bookHotelAPI'] = 'tayho360/view/bookHotelAPI.php';
 ?>

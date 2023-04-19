@@ -45,7 +45,7 @@
                 echo '<tr>
                         <td><img src="'.$item->image.'" width="100"></td>
                         <td>'.$item->name.'</td>
-                        <td>'.$dataHistoricalsite->name.'</td>
+                        <td>'.@$dataHistoricalsite->name.'</td>
                         <td>'.$item->material.'</td>
                         <td>'.$item->period.'</td>
                         

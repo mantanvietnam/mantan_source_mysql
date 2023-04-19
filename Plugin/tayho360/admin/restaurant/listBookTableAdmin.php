@@ -44,7 +44,9 @@
 
                  $title = getRestaurant($item->idrestaurant);
                     $type= 'Nhà hàng';
+                    if(!empty($title)){
                     $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
+                  }
 ?>
               <tr>
                         <td><a href="/../../<?php echo $url ?>"><?php echo @$title->name ?></a><br>SĐT: <?php echo @$title->phone ?></td>
