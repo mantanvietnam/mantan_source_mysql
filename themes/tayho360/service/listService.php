@@ -90,10 +90,9 @@ global $urlThemeActive;
                 
                 echo '<li class="page-item first">
                         <a class="page-link" href="'.$urlPage.'1"
-                          ><i class="tf-icon bx bx-chevrons-left"></i
+                          ><i class="fa-solid fa-chevron-left"></i
                         ></a>
-                      </li>';
-                
+                      </li>';                
                 for ($i = $startPage; $i <= $endPage; $i++) {
                     $active= ($page==$i)?'active':'';
 
@@ -104,7 +103,7 @@ global $urlThemeActive;
 
                 echo '<li class="page-item last">
                         <a class="page-link" href="'.$urlPage.$totalPage.'"
-                          ><i class="tf-icon bx bx-chevrons-right"></i
+                          ><i class="fa-solid fa-chevron-right"></i
                         ></a>
                       </li>';
             }

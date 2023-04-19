@@ -82,19 +82,7 @@
                             <i>Ngày kết thúc:</i>
                             <input type="datetime-local" name="dateend" class="form-control hasDatepicker datepicker" id="dateend" value="<?php echo (!empty($data['dateend']))?  date("Y-m-d H:i:s", @$data['dateend']) : " " ?>">
                         </div>
-                        <div class="mb-3 form-group col-sm-6">
-                           <i>Ảnh đại diện</i>
-                            <br>
-                            <?php
-                            if (!empty($data['image'])) {
-                                $image = $data['image'];
-                            } else {
-                                $image = '';
-                            }
-
-                            showUploadFile('image', 'image', $image);
-                            ?>
-                        </div>
+                        
                          <div class="mb-3 form-group col-sm-3">
 
                             <i>Tháng diễn ra<span class="required">*</span>:</i>
