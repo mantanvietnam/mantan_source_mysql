@@ -7,7 +7,7 @@ function listGovernanceAgencysAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách cơ quan hành chính';
 
     $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
     
@@ -96,7 +96,7 @@ function addGovernanceAgencysAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin cơ quan hành chính';
 
     $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
     $mess= '';
@@ -170,7 +170,7 @@ function addExcelGovernanceAgencysAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin cơ quan hành chính';
 
     $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
     $mess= '';
@@ -253,7 +253,7 @@ function listFestivalAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách lễ hội';
 
     $modelFestival = $controller->loadModel('Festivals');
     
@@ -339,7 +339,7 @@ function addFestivalAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin lễ hội';
 
 
     $modelFestival = $controller->loadModel('Festivals');
@@ -429,7 +429,7 @@ function listTourAdmin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách tour';
 
     $modelTour = $controller->loadModel('Tours');
     
@@ -514,7 +514,7 @@ function addTourAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin tour';
 
 
     $modelTour = $controller->loadModel('Tours');
@@ -613,7 +613,7 @@ function listBookTourAdmin(){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách đặt tour';
 
     $modelBookTour = $controller->loadModel('Booktours');
     
@@ -712,7 +712,7 @@ function listReportAdmin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách lịch trình';
 
     $modelReport = $controller->loadModel('Reports');
     
@@ -793,7 +793,7 @@ function addReportAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin lịch trình';
 
 
     $modelReport = $controller->loadModel('Reports');
@@ -866,7 +866,7 @@ function listCraftvillageAdmin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Điểm đến làng nghề';
+    $metaTitleMantan = 'Danh sách điểm đến làng nghề';
 
     $modelCraftvillage = $controller->loadModel('Craftvillages');
     
@@ -951,7 +951,7 @@ function addCraftvillageAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin điểm đến làng nghề';
 
 
     $modelCraftvillage = $controller->loadModel('Craftvillages');
@@ -1038,7 +1038,7 @@ function listRestaurantAdmin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách nhà hàng';
 
     $modelRestaurant = $controller->loadModel('Restaurants');
     
@@ -1123,7 +1123,7 @@ function addRestaurantAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin nhà hàng';
 
 
     $modelRestaurant = $controller->loadModel('Restaurants');
@@ -1207,7 +1207,7 @@ function listBookTableAdmin(){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách đặt hàng';
 
     $modelBooktable = $controller->loadModel('Booktables');
     
@@ -1469,7 +1469,7 @@ function listBookhotelAdmin(){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách đặt phòng khách sạn';
 
     $modelBookhotel = $controller->loadModel('Bookhotels');
     
@@ -1570,7 +1570,7 @@ function listImage360Admin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách khách sạn';
+    $metaTitleMantan = 'Danh sách ảnh 360';
 
     $modelImage360 = $controller->loadModel('Images');
     
@@ -1655,7 +1655,7 @@ function addImage360Admin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin ảnh 360';
 
 
     $modelImage360 = $controller->loadModel('Images');
@@ -1725,7 +1725,7 @@ function listEventAdmin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách khách sạn';
+    $metaTitleMantan = 'Danh sách sự kiện';
 
     $modelEvent = $controller->loadModel('Events');
     
@@ -1810,7 +1810,7 @@ function addEventAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông Sự kiện';
+    $metaTitleMantan = 'Thông tin Sự kiện';
 
 
     $modelEvent = $controller->loadModel('Events');
@@ -1912,7 +1912,7 @@ function listPlaceAdmin($input){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Danh lam';
+    $metaTitleMantan = 'Danh sách danh lam thắng cảnh';
 
     $modelPlace = $controller->loadModel('Places');
     
@@ -1997,7 +1997,7 @@ function addPlaceAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin danh lam thắng cảnh';
 
 
     $modelPlace = $controller->loadModel('Places');
@@ -2085,7 +2085,7 @@ function listServiceAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = "Dịch vụ hỗ trợ";
+    $metaTitleMantan = "Danh sách dịch vụ hỗ trợ du lịch";
 
     $modelService = $controller->loadModel('Services');
     
@@ -2174,7 +2174,7 @@ function addServiceAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin dịch vụ hỗ trợ du lịch';
 
     $modelService = $controller->loadModel('Services');
     $mess= '';
@@ -2247,7 +2247,7 @@ function addExceServiceAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin dịch vụ hỗ trợ du lịch';
 
     $modelService = $controller->loadModel('Services');
     $mess= '';
@@ -2330,7 +2330,7 @@ function listEventcenterAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách trung tâm hội nghị sự kện';
 
     $modelEventcenter = $controller->loadModel('Eventcenters');
     
@@ -2419,7 +2419,7 @@ function addEventcenterAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin trung tâm hội nghị sự kện';
 
     $modelEventcenter = $controller->loadModel('Eventcenters');
     $mess= '';

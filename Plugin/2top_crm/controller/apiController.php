@@ -111,6 +111,7 @@ function searchCustomerAPI($input)
 	return $return;
 }
 
+// API đăng ký
 function saveRegisterMemberAPI($input)
 {
 	global $isRequestPost;
@@ -217,6 +218,7 @@ function saveRegisterMemberAPI($input)
 	return $return;
 }
 
+// API đăng nhập
 function checkLoginMemberAPI($input)
 {
 	global $isRequestPost;
@@ -691,6 +693,7 @@ function lockAccountAPI($input)
 	return $return;
 }
 
+// API sửa mật khẩu
 function saveChangePassAPI($input)
 {
 	global $isRequestPost;
@@ -749,76 +752,53 @@ function saveChangePassAPI($input)
 	return $return;
 }
 
+// sưa thông tin gười dùng
 function saveInfoUserAPI($input)
 {
 	global $isRequestPost;
 	global $controller;
 	global $session;
 
-	$modelMember = $controller->loadModel('Members');
+	$modelCustomer = $controller->loadModel('Customers');
 
 	$return = array('code'=>1);
+	$dataSend = $input['request']->getData();
+	$conditions = array('email'=>$dataSend['email']);
+	$infoUser = $modelCustomer->find()->where($conditions)->first();
 	
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
+    if(!empty($infoUser)){
+			$infoUser->full_name = @$dataSend['full_name'];
+            $infoUser->address = @$dataSend['address'];
+            $infoUser->phone = @$dataSend['phone'];
 
-		if(!empty($dataSend['token']) 
-			&& !empty($dataSend['name'])
-			&& !empty($dataSend['email'])
 
-		){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
-			if(!empty($checkPhone)){
-				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+           
+           if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
 					$avatar = uploadImage($checkPhone->id, 'avatar', 'avatar_'.$checkPhone->id);
 				}
 
 				if(!empty($avatar['linkOnline'])){
-					$checkPhone->avatar = $avatar['linkOnline'];
+					$infoUser->avatar = $avatar['linkOnline'];
 				}
 
-				$checkPhone->name = $dataSend['name'];
-				$checkPhone->email = $dataSend['email'];
-
-				if(!empty($dataSend['phone'])){
-					$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-					$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-					$checkMember = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
-
-					if(empty($checkMember) || $checkMember->id == $checkPhone->id){
-						$checkPhone->phone = $dataSend['phone'];
-
-						$modelMember->save($checkPhone);
-
-						$return = array('code'=>0);
-					}else{
-						$return = array('code'=>4,
-									'messages'=>array(array('text'=>'Số điện thoại đã tồn tại'))
+        	$modelCustomer->save($infoUser);
+        	$return = array('code'=>1,
+        						'info_member'=>$infoUser,
+								'messages'=>'Bạn sửa thành công',
 								);
-					}
-				}else{
-					$modelMember->save($checkPhone);
 
-					$return = array('code'=>0);
-				}
-
-				
-			}else{
-				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
-								);
-			}
 		}else{
-			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
-		}
-	}
+			$return = array('code'=>3,
+									'messages'=>'Tài khoản không tồn tại',
+								);
+    }
 
 	return $return;
 }
+
+
+
+
 
 function requestCodeForgotPasswordAPI($input)
 {
@@ -826,44 +806,30 @@ function requestCodeForgotPasswordAPI($input)
 	global $controller;
 	global $session;
 
-	$modelMember = $controller->loadModel('Members');
+	$modelCustomer = $controller->loadModel('Customers');
 
 	$return = array('code'=>1,
 					'messages'=>array(array('text'=>''))
 				);
 	
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
+	$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions['email'] = $dataSend['email'];
+		$checkCustomer = $modelCustomer->find()->where($conditions)->first();
+		if(!empty($checkCustomer)){
+			@$pass = getdate()[0];
+			$checkCustomer->pass = md5($pass);
+			
+			$modelCustomer->save($checkCustomer);
+			sendEmailnewpassword($checkCustomer->email, $checkCustomer->full_name, $pass);
+			$return = array('code'=>1,
+        						'info_member'=>$checkCustomer,
+								'messages'=>'Bạn check email lấy mã xác nhận',
+								);
 
-		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-		if(!empty($dataSend['phone'])){
-			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
-
-			if(!empty($checkPhone->email)){
-				$code = rand(1000,9999);
-
-				$checkPhone->token = $code;
-				$modelMember->save($checkPhone);
-
-				sendEmailnewpassword($checkPhone->email, $checkPhone->name, $code);
-
-				$return = array('code'=>0,
-								'codeForgotPassword' => $code,
-								'messages'=>array(array('text'=>''))
-							);
-			}else{
-				$return = array('code'=>3,
-					'messages'=>array(array('text'=>'Tài khoản chưa cài email'))
-				);
-			}
 		}else{
-			$return = array('code'=>2,
-							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu hoặc sai định dạng số điện thoại'))
-						);
+			$mess= '<p class="text-danger">Email không đúng!</p>';
 		}
-	}
 
 	return $return;
 }
@@ -874,54 +840,38 @@ function saveNewPassAPI($input)
 	global $controller;
 	global $session;
 
-	$modelMember = $controller->loadModel('Members');
+	$modelCustomer = $controller->loadModel('Customers');
 
 	$return = array('code'=>1);
 	
-	if($isRequestPost){
+	
 		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions = array('email'=>@$dataSend['email'], 'pass'=>md5($dataSend['code']));
+	    		$data = $modelCustomer->find()->where($conditions)->first();
+	    		if(!empty($data)){
+	    			if($dataSend['pass'] == $dataSend['passAgain']){
+	    				$data->pass = md5($dataSend['pass']);
 
-		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-		if(!empty($dataSend['phone']) 
-			&& !empty($dataSend['code'])
-			&& !empty($dataSend['passNew'])
-			&& !empty($dataSend['passAgain'])
-
-		){
-			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
-
-			if(!empty($checkPhone)){
-				if($checkPhone->token == $dataSend['code'] ){
-					if($dataSend['passNew'] == $dataSend['passAgain']){
-						$checkPhone->password = md5($dataSend['passNew']);
-						$checkPhone->token = '';
-
-						$modelMember->save($checkPhone);
-
-						$return = array('code'=>0);
-					}else{
-						$return = array('code'=>5,
-									'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
+	    				$modelCustomer->save($data);
+	    					$return = array('code'=>1,
+        						'info_member'=>$data,
+								'messages'=>'Bạn Lưu mật khẩu mới thành công',
 								);
-					}
-				}else{
-					$return = array('code'=>4,
-									'messages'=>array(array('text'=>'Mã xác thực nhập không đúng'))
+
+
+	    			}else{
+	    				$return = array('code'=>2,
+								'messages'=>'Mật khẩu xác nhập mới bạn không đúng',
 								);
-				}
-			}else{
-				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai số điện thoại'))
+	    				$mess= '<p class="text-danger"></p>';
+	    			}
+	    		}else{
+	    			$return = array('code'=>3,
+								'messages'=>'Mã xác thực bạn không đúng',
 								);
-			}
-		}else{
-			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
-		}
-	}
+	    		}
+	
 
 	return $return;
 }

@@ -20,7 +20,10 @@ function addlike ($input){
             $data->idcustomer=$_POST['idcustomer'];
 
             $modelLike->save($data);
-            $return = array('code'=>1);
+             $return = array('code'=>1,
+                            'data' =>$data,
+                            'messages'=>'ok'
+            );
              }
         return $return;
 }
@@ -44,9 +47,17 @@ function delelelike ($input){
 
             $data = $modelLike->find()->where($conditions)->first();
 
-           $modelLike->delete($data);
-            $return = array('code'=>1);
-             }
+          if(!empty($data)){
+            $modelLike->delete($data);
+            $return = array('code'=>1,
+                            'messages'=>'ok'
+            );
+             }else{
+                 $return = array('code'=>2,
+                            'messages'=>'không ok'
+            );
+            }
+         }
         return $return;
         
 }
@@ -90,7 +101,6 @@ function deleleComment($input){
         $modelComments = $controller->loadModel('Comments');
         if(!empty($_POST)){
             $data = $modelComments->get($_POST['id']);
-
            $modelComments->delete($data);
              $return = array('code'=>1);
              }
