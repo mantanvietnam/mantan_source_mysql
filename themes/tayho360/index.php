@@ -142,7 +142,7 @@ global $urlThemeActive;
                                     </a>
                                 </div>
                                 <div class="box-sum">
-                                    <a href="/nha_hang_quan_an">
+                                    <a href="/nha_hang">
                                         <div class="lshowcase-thumb lshowcase-box-10">
                                             <div class="lshowcase-wrap-responsive">
                                                 <div class="lshowcase-boxInner">
@@ -179,123 +179,134 @@ global $urlThemeActive;
                         <div class="lshowcase-logos">
                             <div class="lshowcase-flex">
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[1]['image']?>"
+                                    <a href="<?php echo @$destination[1]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[1]['image']?>"
                                                      class="lshowcase-thumb" alt="">
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="text-tabs">
+                                            <p><?php echo $destination[1]['name']?></p>
                                     </div>
-                                    <div class="text-tabs">
-                                        <p><?php echo $destination[1]['name']?></p>
+                                </a>
+                                </div>
+                                <div class="box-sum">
+                                    <a href="<?php echo @$destination[2]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[2]['image']?>"
+                                                     class="lshowcase-thumb" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-tabs">
+                                            <p><?php echo $destination[2]['name']?></p>
+                                    </div>
+                                </a>
+                                </div>
+                                <div class="box-sum">
+                                    <a href="<?php echo @$destination[3]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[3]['image']?>"
+                                                     class="lshowcase-thumb" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-tabs">
+                                            <p><?php echo $destination[3]['name']?></p>
                                     </div>
                                 </div>
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[2]['image']?>"
-                                                     class="lshowcase-thumb" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-tabs">
-                                        <p><?php echo $destination[2]['name']?></p>
-                                    </div>
-                                </div>
-                                <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[3]['image']?>"
-                                                     class="lshowcase-thumb" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-tabs">
-                                        <p><?php echo $destination[3]['name']?></p>
-                                    </div>
-                                </div>
-                                <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[4]['image']?>"
+                                    <a href="<?php echo @$destination[4]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[4]['image']?>"
                                                      class="lshowcase-thumb"
-                                                     alt="">
+                                                       alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-tabs">
+                                    <div     class="text-tabs">
                                         <p><?php echo $destination[4]['name']?></p>
                                     </div>
                                 </div>
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[5]['image']?>"
+                                    <a href="<?php echo @$destination[5]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[5]['image']?>"
                                                      class="lshowcase-thumb" alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-tabs">
-                                        <p><?php echo $destination[5]['name']?></p>
+                                        <div class="text-tabs">
+                                            <p><?php echo $destination[5]['name']?></p>
                                     </div>
                                 </div>
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[6]['image']?>"
+                                    <a href="<?php echo @$destination[6]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[6]['image']?>"
                                                      class="lshowcase-thumb"
-                                                     alt="">
+                                                       alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-tabs">
+                                    <div     class="text-tabs">
                                         <p><?php echo $destination[6]['name']?></p>
                                     </div>
                                 </div>
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[7]['image']?>"
+                                    <a href="<?php echo @$destination[7]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[7]['image']?>"
                                                      class="lshowcase-thumb"
-                                                     alt="">
+                                                       alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-tabs">
+                                    <div     class="text-tabs">
                                         <p><?php echo $destination[7]['name']?></p>
                                     </div>
                                 </div>
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[8]['image']?>"
+                                    <a href="<?php echo @$destination[8]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[8]['image']?>"
                                                      class="lshowcase-thumb" alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-tabs">
-                                        <p><?php echo $destination[8]['name']?></p>
+                                        <div class="text-tabs">
+                                            <p><?php echo $destination[8]['name']?></p>
                                     </div>
                                 </div>
                                 <div class="box-sum">
-                                    <div class="lshowcase-thumb lshowcase-box-10">
-                                        <div class="lshowcase-wrap-responsive">
-                                            <div class="lshowcase-boxInner">
-                                                <img src="<?php echo $destination[9]['image']?>"
+                                    <a href="<?php echo @$destination[9]['urlSlug'] ?>">
+                                        <div class="lshowcase-thumb lshowcase-box-10">
+                                            <div class="lshowcase-wrap-responsive">
+                                                <div class="lshowcase-boxInner">
+                                                    <img src="<?php echo $destination[9]['image']?>"
                                                      class="lshowcase-thumb" alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-tabs">
-                                        <p><?php echo $destination[9]['name']?></p>
+                                        <div class="text-tabs">
+                                            <p><?php echo $destination[9]['name']?></p>
                                     </div>
                                 </div>
                             </div>
