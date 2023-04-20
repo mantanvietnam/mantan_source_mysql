@@ -338,7 +338,7 @@ global $urlThemeActive;
                             </div>
                             <div class="info-event-home">
                                 <div class="name-event-home">
-                                    <p><?php echo $valueEvent['name']; ?> </p>
+                                    <a href="/chi_tiet_su_kien/<?php echo $valueEvent['urlSlug']; ?>.html"><p><?php echo $valueEvent['name']; ?> </p></a>
                                 </div>
                                 <div class="description-event-home">
                                     <p class="title-des">Giới thiệu</p>
