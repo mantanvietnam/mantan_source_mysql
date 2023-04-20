@@ -80,10 +80,10 @@ $infoUser = $session->read('infoUser');
                     <?php } ?>
                 </li>
                 <!-- <a href="" class="sign btn">Đăng ký / Đăng nhập</a> -->
-                <a href="" class="lang d-block">
+                <a href="/" class="lang d-block">
                     <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
                 </a>
-                <a href="" class="lang d-block">
+                <a href="https://en.tayho360.vn/" class="lang d-block">
                     <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-en.svg" alt="">
                 </a>
             </div>
