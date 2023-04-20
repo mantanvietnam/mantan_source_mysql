@@ -1244,10 +1244,12 @@ function detailHotel($input){
             $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data['HotelManmo']['data']['Hotel']['name']);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
             $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
-                
-            $metaTitleMantan= str_replace('%productName%', $data['HotelManmo']['data']['Hotel']['name'], $metaTitleMantan);
-            $metaTitleMantan= str_replace('%productKeyword%', $data['HotelManmo']['data']['Hotel']['name'], $metaTitleMantan);
-            $metaTitleMantan= str_replace('%productDescription%', $data['HotelManmo']['data']['Hotel']['name'], $metaTitleMantan);
+
+
+            
+            $metaDescriptionMantan= str_replace('%productName%', @$data['HotelManmo']['data']['Hotel']['name'], $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productKeyword%', @$data['HotelManmo']['data']['Hotel']['name'], $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productDescription%', @$data['HotelManmo']['data']['Hotel']['info'], $metaDescriptionMantan);
 
            setVariable('listFurniture', $listFurniture); 
 
