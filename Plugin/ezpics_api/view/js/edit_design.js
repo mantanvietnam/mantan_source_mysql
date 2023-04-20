@@ -4,6 +4,7 @@ $('.clc-back').click(function() {
     $('.active-layer-edit').addClass('d-none');
 });
 
+/*
 Coloris({
     el: '.coloris',
     selectInput: false,
@@ -22,6 +23,7 @@ Coloris({
         '#48cae4'
     ]
 });
+*/
 
 // Coloris.setInstance('#coler1', { theme: 'polaroid' });
 
@@ -53,7 +55,6 @@ function editThemeUser(id)
             height: $('.thumb-checklayer').height(),
         }, 
         success:function(data){
-            console.log(data);
             
             if($.isEmptyObject(data.error)){
                 //xóa data cũ
@@ -444,10 +445,12 @@ function getInfoLayer() {
     var gianchu = $('.active-hover span').css('letter-spacing');
     gianchu = gianchu.replace('px','');
     gianchu = gianchu.replace('vw','');
+    if(gianchu=='normal') gianchu= '0';
     
     var giandong = $('.active-hover span').css('line-height');
     giandong = giandong.replace('px','');
     giandong = giandong.replace('vw','');
+    if(giandong=='normal') giandong= '0';
 
     var fontweight = $('.active-hover span').css('font-weight');
     var decoration = $('.active-hover span').css('text-decoration');
@@ -761,7 +764,13 @@ function ajaxInfoLayer() {
         if(sizeEdit<0) sizeEdit=0;
         $(this).val(sizeEdit);
 
-        $('.active-hover span').css('letter-spacing', sizeEdit+'vw');
+        if(sizeEdit==0){
+            sizeEdit = 'normal';
+        }else{
+            sizeEdit = sizeEdit+'vw';
+        }
+
+        $('.active-hover span').css('letter-spacing', sizeEdit);
         lstorage('gianchu', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit);
     });
 
@@ -771,7 +780,13 @@ function ajaxInfoLayer() {
         if(sizeEdit<0) sizeEdit=0;
         $(this).val(sizeEdit);
 
-        $('.active-hover span').css('line-height', sizeEdit+'vw');
+        if(sizeEdit==0){
+            sizeEdit = 'normal';
+        }else{
+            sizeEdit = sizeEdit+'vh';
+        }
+
+        $('.active-hover span').css('line-height', sizeEdit);
         lstorage('giandong', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit);
     });
 
@@ -1040,43 +1055,52 @@ function ajax_history(step,id,typed) {
 
 // cập nhật layer client
 function updatelayerClient(layer,field,id,value) {
-    var get_update_local = localStorage.getItem("product_update_"+id);
-    var json_update = JSON.parse(get_update_local);
-    var topmove, leftmove;
+    if(id!=undefined){
+        var get_update_local = localStorage.getItem("product_update_"+id);
 
-    full_width = $('#widgetCapEdit').width();
-    full_height = $('#widgetCapEdit').height();
+        if(get_update_local!=undefined){
+            var json_update = JSON.parse(get_update_local);
+            var topmove, leftmove;
 
-    if(field == 'postion') {
-        var postion = value.split(',');
-        json_update[layer]['postion_x'] = postion[0];
-        json_update[layer]['postion_y'] = postion[1];
+            full_width = $('#widgetCapEdit').width();
+            full_height = $('#widgetCapEdit').height();
 
-        leftmove = postion[0]*100/full_width;
-        topmove = postion[1]*100/full_height;
+            if(field == 'postion') {
+                var postion = value.split(',');
+                json_update[layer]['postion_x'] = postion[0];
+                json_update[layer]['postion_y'] = postion[1];
 
-        json_update[layer]['postion_left'] = leftmove;
-        json_update[layer]['postion_top'] = topmove;
-    }else{
-        json_update[layer][field] = value;
+                leftmove = postion[0]*100/full_width;
+                topmove = postion[1]*100/full_height;
 
-        if(field == 'postion_x'){
-            leftmove = value*100/full_width;
-            json_update[layer]['postion_left'] = leftmove;
-        }else if(field == 'postion_y'){
-            topmove = value*100/full_height;
-            json_update[layer]['postion_top'] = topmove;
+                json_update[layer]['postion_left'] = leftmove;
+                json_update[layer]['postion_top'] = topmove;
+            }else{
+                json_update[layer][field] = value;
+
+                if(field == 'postion_x'){
+                    leftmove = value*100/full_width;
+                    json_update[layer]['postion_left'] = leftmove;
+                }else if(field == 'postion_y'){
+                    topmove = value*100/full_height;
+                    json_update[layer]['postion_top'] = topmove;
+                }
+            }
+
+            var get_update_local = localStorage.setItem("product_update_"+id, JSON.stringify(json_update));
+        }else{
+            printErrorMsg(['Chọn layer để thao tác']);
         }
+    }else{
+        printErrorMsg(['Chọn layer để thao tác']);
     }
-
-    var get_update_local = localStorage.setItem("product_update_"+id, JSON.stringify(json_update));
 }
 // end cập nhật layer
 
 // lưu
 function saveproduct() {
     let id = $('.drag-drop').data('idproduct'); // id sản phẩm
-    $('.drag-drop').removeClass('active-hover');
+    //$('.drag-drop').removeClass('active-hover');
     $('.loadimg').removeClass('d-none');
     
     capEdit(id);
@@ -3177,4 +3201,15 @@ function removeBackground()
         printErrorMsg(['Chọn layer để thao tác']);
     }
 }
+
+$("#toolbar_gradient").gradientPicker({
+    change: function(points, styles) {
+        var textEdit = $(".active-hover");
+
+        for (i = 0; i < styles.length; ++i) {
+            textEdit.css("background-image", styles[i]);
+        }
+    },
+    controlPoints: ["green 0%", "orange 100%"]
+});
 setTimeout(saveproduct, 60000);

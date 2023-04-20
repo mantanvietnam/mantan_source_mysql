@@ -7,6 +7,25 @@ function getAboutAPI($input)
 
 function getKeyChatGPTAPI($input)
 {
-	return ['key'=>'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'];
+	$key = '';
+	
+	if(function_exists('getKey')){
+		$key = getKey(2);
+	}
+
+	return ['key'=>$key];
+}
+
+function lockKeyChatGPTAPI($input)
+{
+	$dataSend = $input['request']->getData();
+
+	if(!empty($dataSend['key'])){
+		if(function_exists('lockKey')){
+			lockKey($dataSend['key']);
+		}
+	}
+
+	return ['code'=>1];
 }
 ?>

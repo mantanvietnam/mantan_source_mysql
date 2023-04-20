@@ -73,7 +73,7 @@
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="status" id="status">
                         <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected'; ?> >Kích hoạt</option>
-                        <option value="0" <?php if(!empty($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
+                        <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
                   </div>

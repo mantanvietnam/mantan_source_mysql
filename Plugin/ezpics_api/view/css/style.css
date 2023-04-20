@@ -1984,3 +1984,6 @@ main {
     right: 0;
   }
 }
+.clr-picker{
+  position: fixed !important;
+}

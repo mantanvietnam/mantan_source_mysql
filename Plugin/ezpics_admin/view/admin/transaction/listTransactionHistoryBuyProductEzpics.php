@@ -73,7 +73,7 @@
 
                 $product = '';
                 if(!empty($item->product)){
-                  $product = '<img src="https://mobile.ezpics.vn/'.$item->product->image.'" width="100" /><br/>ID: '.$item->product->id;
+                  $product = '<img src="'.$item->product->image.'" width="100" /><br/>ID: '.$item->product->id;
                 }
 
                 echo '<tr>

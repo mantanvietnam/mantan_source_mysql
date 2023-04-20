@@ -179,6 +179,8 @@ function checkLoginFacebookAPI($input)
 				// tạo mới tài khoản
 				$data = $modelMember->newEmptyEntity();
 
+				if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
+
 				$data->name = $dataSend['name'];
 				$data->avatar = $dataSend['avatar'];
 				$data->phone = @$dataSend['phone'];
@@ -261,6 +263,8 @@ function checkLoginGoogleAPI($input)
 				// tạo mới tài khoản
 				$data = $modelMember->newEmptyEntity();
 
+				if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
+
 				$data->name = $dataSend['name'];
 				$data->avatar = $dataSend['avatar'];
 				$data->phone = @$dataSend['phone'];
@@ -342,6 +346,8 @@ function checkLoginAppleAPI($input)
 			}else{
 				// tạo mới tài khoản
 				$data = $modelMember->newEmptyEntity();
+
+				if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
 
 				$data->name = $dataSend['name'];
 				$data->avatar = $dataSend['avatar'];

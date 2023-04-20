@@ -1,6 +1,5 @@
 <?php 
 global $price_remove_background;
-global $key_remove_bg;
 global $name_bank;
 global $number_bank;
 global $account_holders_bank;
@@ -15,7 +14,6 @@ $link_qr_bank = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/link_qr_ba
 $key_transaction = 'ezpics';
 
 $price_remove_background = 10000;
-$key_remove_bg = 'PbYG1j9vH67erBavLeYzxfTh';
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 
@@ -28,44 +26,50 @@ function createToken($length=30)
 function removeBackground($link_image_local='',$create_new= false)
 {
     if(!empty($link_image_local)){
-        global $key_remove_bg;
-
-        include('library/guzzle/vendor/autoload.php');
-
-        // Requires "guzzle" to be installed (see guzzlephp.org)
-        // If you have problems with our SSL certificate getting the error 'Uncaught GuzzleHttp\Exception\RequestException: cURL error 60: SSL certificate problem: unable to get local issuer certificate (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://api.remove.bg/v1.0/removebg'
-        // follow these steps to use the latest cacert certificate for cURL: https://github.com/guzzle/guzzle/issues/1935#issuecomment-371756738
-
-        $client = new GuzzleHttp\Client();
-        $res = $client->post('https://api.remove.bg/v1.0/removebg', [
-            'multipart' => [
-                [
-                    'name'     => 'image_file',
-                    'contents' => fopen(__DIR__.'/../../'.$link_image_local, 'r')
-                ],
-                [
-                    'name'     => 'size',
-                    'contents' => 'auto'
-                ]
-            ],
-            'headers' => [
-                'X-Api-Key' => $key_remove_bg
-            ]
-        ]);
-
-        if($create_new){
-            $link = explode('.', $link_image_local);
-            $n = count($link)-1;
-            $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.'.$link[$n];
+        if(function_exists('getKey')){
+            $key_remove_bg = getKey(23);
+        }else{
+            $key_remove_bg = '';
         }
-
-        $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");
         
-        fwrite($fp, $res->getBody());
-        fclose($fp);
+        if(!empty($key_remove_bg)){
+            include('library/guzzle/vendor/autoload.php');
 
-        return $link_image_local;
+            // Requires "guzzle" to be installed (see guzzlephp.org)
+            // If you have problems with our SSL certificate getting the error 'Uncaught GuzzleHttp\Exception\RequestException: cURL error 60: SSL certificate problem: unable to get local issuer certificate (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://api.remove.bg/v1.0/removebg'
+            // follow these steps to use the latest cacert certificate for cURL: https://github.com/guzzle/guzzle/issues/1935#issuecomment-371756738
+
+            $client = new GuzzleHttp\Client();
+            $res = $client->post('https://api.remove.bg/v1.0/removebg', [
+                'multipart' => [
+                    [
+                        'name'     => 'image_file',
+                        'contents' => fopen(__DIR__.'/../../'.$link_image_local, 'r')
+                    ],
+                    [
+                        'name'     => 'size',
+                        'contents' => 'auto'
+                    ]
+                ],
+                'headers' => [
+                    'X-Api-Key' => $key_remove_bg
+                ]
+            ]);
+
+            if($create_new){
+                $link = explode('.', $link_image_local);
+                $n = count($link)-1;
+                $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.'.$link[$n];
+            }
+
+            $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");
+            
+            fwrite($fp, $res->getBody());
+            fclose($fp);
+        }
     }
+
+    return $link_image_local;
 }
 
 function process_add_money($number=0, $desc='')
@@ -505,8 +509,8 @@ function getLayerProductForEdit($idProduct=0)
                         if(!isset($layer->vien)) $layer->vien = '0px';
                         if(!isset($layer->rotate)) $layer->rotate = null;
                         if(!isset($layer->banner)) $layer->banner = null;
-                        if(!isset($layer->gianchu)) $layer->gianchu = '1vw';
-                        if(!isset($layer->giandong)) $layer->giandong = '1vh';
+                        if(!isset($layer->gianchu)) $layer->gianchu = 'normal';
+                        if(!isset($layer->giandong)) $layer->giandong = 'normal';
                         if(!isset($layer->blur)) $layer->blur = 0;
                         if(!isset($layer->invert)) $layer->invert = 0;
                         if(!isset($layer->width)) $layer->width = '10vw';
@@ -604,8 +608,13 @@ function getLayerProductForEdit($idProduct=0)
                         if($layer->width>100) $layer->width= 70;
                         $layer->width = $layer->width.'vw';
 
+                        if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
+                        if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
+
                         $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
+                        
                         <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
+                        
                         <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span></div>';
                         $key++;
 
@@ -670,8 +679,8 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'vien' => '0px',
         'rotate' => null,
         'banner' => $link,
-        'gianchu' => '1vw',
-        'giandong' => '1vh',
+        'gianchu' => 'normal',
+        'giandong' => 'normal',
         'opacity' => 1,
         'blur' => 0,
         'invert' => 0,
@@ -686,12 +695,18 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
 
 function zipImage($urlLocalFile)
 {
-    require_once("library/tinify/vendor/autoload.php");
-    //$keyTinipng = "Lp2HGknN7vpNkng7F7c1Pzc30VgNP7BL";
-    $keyTinipng = "b0YRhPS9W37hykD6qMr5kvkZbPfn0yKB";
-    Tinify\setKey($keyTinipng);
+    if(function_exists('getKey')){
+        $keyTinipng = getKey(22);
+    }else{
+        $keyTinipng = '';
+    }
+    
+    if(!empty($keyTinipng)){
+        require_once("library/tinify/vendor/autoload.php");
+        Tinify\setKey($keyTinipng);
 
-    Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
+        Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
+    }
 }
 
 function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1)
@@ -813,7 +828,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
         $newLayer->products_id = $newproduct->id;
         $newLayer->name = 'Layer 1';
-        $newLayer->content = '{"type":"text","text":"Layer 1","color":"#111","size":"10vw","font":"Arial","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0vw","rotate":null,"banner":null,"gianchu":"1vw","giandong":"1vw","blur":"0","invert":"0","width":"0vw","height":"0vw","sepia":"0","grayscale":"0","gradient":"0","sort":"1","postion_left":"50","postion_top":"50"}';
+        $newLayer->content = '{"type":"text","text":"Layer 1","color":"#111","size":"10vw","font":"Arial","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0vw","rotate":null,"banner":null,"gianchu":"normal","giandong":"normal","blur":"0","invert":"0","width":"0vw","height":"0vw","sepia":"0","grayscale":"0","gradient":"0","sort":"1","postion_left":"50","postion_top":"50"}';
 
         $newLayer->wight = (int) @$sizeBackground[0];
         $newLayer->height = (int) @$sizeBackground[1];
