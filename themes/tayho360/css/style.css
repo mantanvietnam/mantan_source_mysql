@@ -4562,3 +4562,19 @@ color: #188181;
 
 }
 
+/*  */
+.tour-du-lich-card .card-body .card-num-location span{
+	line-height: 26px !important;
+}
+
+
+.tour-du-lich-card .card-body h5{
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+	line-height: 36px !important;
+
+}
