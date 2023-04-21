@@ -162,6 +162,8 @@ function saveRegisterMemberAPI($input)
 				        $data->id_parent = (int) @$dataSend['id_parent'];
 				        $data->id_level = (int) @$dataSend['id_level'];
 				        $data->pass = md5($dataSend['pass']);
+				        $data->token = createToken();
+				        $data->token_device = @$dataSend['token_device'];
 
 				        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
 						$birthday_date = 0;
@@ -235,7 +237,20 @@ function checkLoginMemberAPI($input)
 	    	if(!empty($dataSend['email']) && !empty($dataSend['pass'])){
 	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
 	    		$info_customer = $modelCustomer->find()->where($conditions)->first();
+
+
+
 	    		if(!empty($info_customer)){
+	    			$info_customer->token = createToken();
+	    			if(!empty($dataSend['token_device']) && $info_customer->token_device != $dataSend['token_device']){
+					// gửi thông báo đăng xuất
+                    $dataSendNotification= array('title'=>'Đăng xuất','time'=>date('H:i d/m/Y'),'content'=>'Tài khoản của bạn đã được đăng nhập trên một thiết bị khác','action'=>'login');
+
+                    sendNotification($dataSendNotification, $info_customer->token_device);
+					}
+					$info_customer->token_device = @$dataSend['token_device'];
+					$modelCustomer->save($info_customer);
+
 	    			$return = array('code'=>1,
 									'infoUser'=> $info_customer,
 									'messages'=>'Bạn đăng nhập thành công',
@@ -707,13 +722,16 @@ function saveChangePassAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['email']) 
-			&& !empty($dataSend['passOld'])
+		if(!empty($dataSend['passOld'])
 			&& !empty($dataSend['passNew'])
 			&& !empty($dataSend['passAgain'])
-
 		){
+			if(!empty($dataSend['email'])){
 			$conditions = array('email'=>$dataSend['email']);
+			
+			}elseif(!empty($dataSend['token'])){
+				$conditions = array('token'=>$dataSend['token']);
+			}
 			$data = $modelCustomer->find()->where($conditions)->first();
 
 			if(!empty($data)){
@@ -763,7 +781,12 @@ function saveInfoUserAPI($input)
 
 	$return = array('code'=>1);
 	$dataSend = $input['request']->getData();
-	$conditions = array('email'=>$dataSend['email']);
+	if(!empty($dataSend['email'])){
+			$conditions = array('email'=>$dataSend['email']);
+			
+			}elseif(!empty($dataSend['token'])){
+				$conditions = array('token'=>$dataSend['token']);
+			}
 	$infoUser = $modelCustomer->find()->where($conditions)->first();
 	
     if(!empty($infoUser)){

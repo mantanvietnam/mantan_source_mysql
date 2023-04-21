@@ -106,6 +106,12 @@ function addCustomer($data)
     }
 }
 
+function createToken($length=30)
+{
+    $chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return substr(str_shuffle($chars), 0, $length).time();
+}
+
 function getListCity()
 {
     return array(   
@@ -252,4 +258,46 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+
+function sendNotification($data,$target){
+    global $keyFirebase;
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array();
+    
+    $fields['data'] = $data;
+    $fields['priority'] = 'high';
+    $fields['content_available'] = true;
+
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
+    
+    if(is_array($target)){
+        $fields['registration_ids'] = $target;
+    }else{
+        $fields['to'] = $target;
+    }
+
+    $headers = array(
+        'Content-Type:application/json',
+        'Authorization:key='.$keyFirebase
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+
+    }
+    curl_close($ch);
+
+    return $result;
+}
+
+
 ?>

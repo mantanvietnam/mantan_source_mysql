@@ -92,6 +92,7 @@ function register($input)
 				        $data->status = 'active';
 				        $data->id_parent = (int) @$dataSend['id_parent'];
 				        $data->id_level = (int) @$dataSend['id_level'];
+				        $data->token = createToken();
 				        $data->pass = md5($dataSend['pass']);
 
 				        if(empty($dataSend['birthday'])) $dataSend['birthday']='0/0/0';
