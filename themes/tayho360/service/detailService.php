@@ -453,7 +453,7 @@ getFooter();?>
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
-                tiype: 'dich_vu_ho_tro_du_lich',
+                type: 'dich_vu_ho_tro_du_lich',
                 idcustomer: <?php echo $infoUser['id'] ?>,
             },
             success:function(res){
@@ -472,7 +472,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'dich_vu_ho_tro_du_lich',
+                    type: 'dich_vu_ho_tro_du_lich',
                     idcustomer: <?php echo $infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -493,7 +493,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'dich_vu_ho_tro_du_lich',
+                    type: 'dich_vu_ho_tro_du_lich',
                     comment: comment,
                     idcustomer: <?php echo $infoUser['id'] ?>,
                 },

@@ -449,7 +449,7 @@ getFooter();?>
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
-                tiype: 'tung_tam_hoi_nghi_su_kien',
+                type: 'tung_tam_hoi_nghi_su_kien',
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
@@ -468,7 +468,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'tung_tam_hoi_nghi_su_kien',
+                    type: 'tung_tam_hoi_nghi_su_kien',
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -489,7 +489,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'tung_tam_hoi_nghi_su_kien',
+                    type: 'tung_tam_hoi_nghi_su_kien',
                     comment: comment,
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },

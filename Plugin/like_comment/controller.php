@@ -16,7 +16,7 @@ function addlike ($input){
         if(!empty($_POST)){
             $data->created = getdate()[0];
             $data->idobject=$_POST['idobject'];
-            $data->tiype=$_POST['tiype'];
+            $data->type=$_POST['type'];
             $data->idcustomer=$_POST['idcustomer'];
 
             $modelLike->save($data);
@@ -41,7 +41,7 @@ function delelelike ($input){
         $modelLike = $controller->loadModel('Likes');
         if(!empty($_POST)){
             $conditions['idobject']=$_POST['idobject'];
-            $conditions['tiype']=$_POST['tiype'];
+            $conditions['type']=$_POST['type'];
             $conditions['idcustomer']=$_POST['idcustomer'];
 
 
@@ -78,7 +78,7 @@ function delelelike ($input){
         if(!empty($_POST)){
             $data->created = getdate()[0];
             $data->idobject=$_POST['idobject'];
-            $data->tiype=$_POST['tiype'];
+            $data->type=$_POST['type'];
             $data->idcustomer=$_POST['idcustomer'];
             $data->comment=$_POST['comment'];
 

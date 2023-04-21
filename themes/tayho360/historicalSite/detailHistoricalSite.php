@@ -485,7 +485,7 @@ getFooter();?>
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
-                tiype: 'dich_tich_lich_su',
+                type: 'dich_tich_lich_su',
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
@@ -504,7 +504,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'dich_tich_lich_su',
+                    type: 'dich_tich_lich_su',
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -525,7 +525,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'dich_tich_lich_su',
+                    type: 'dich_tich_lich_su',
                     comment: comment,
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },

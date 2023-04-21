@@ -897,7 +897,7 @@ $('#price').val(price);
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
-                tiype: 'khach_san',
+                type: 'khach_san',
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
@@ -916,7 +916,7 @@ $('#price').val(price);
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
-                    tiype: 'khach_san',
+                    type: 'khach_san',
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -937,7 +937,7 @@ $('#price').val(price);
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: '<?php echo @$data['HotelManmo']['data']['Hotel']['id']; ?>',
-                    tiype: 'khach_san',
+                    type: 'khach_san',
                     comment: comment,
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },

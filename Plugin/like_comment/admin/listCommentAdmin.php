@@ -38,43 +38,43 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
                  $custom =  getCustomer($item->idcustomer);
-                  if($item->tiype=="co_quan_hanh_chinh"){
+                  if($item->type=="co_quan_hanh_chinh"){
                     $title = getGovernanceAgency($item->idobject);
                     $type= 'Cơ quan hành chính';
                     $url= 'chi_tiet_co_quan_hanh_chinh/'.$title->urlSlug.'.html';
                     $name = $title->name;
 
-                  }elseif($item->tiype=="dich_vu_ho_tro_du_lich"){
+                  }elseif($item->type=="dich_vu_ho_tro_du_lich"){
                     $title = getService($item->idobject);
                     $type= 'Dịch vụ hỗ trợ du lịch';
                     $url= 'chi_tiet_dich_vu_ho_tro_du_lich/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="danh_lam"){
+                  }elseif($item->type=="danh_lam"){
                     $title = getPlace($item->idobject);
                     $type= 'Danh lam thắng cảnh';
                     $url= 'chi_tiet_danh_lam/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="le_hoi"){
+                  }elseif($item->type=="le_hoi"){
                     $title = getFestival($item->idobject);
                     $type= 'Lễ hội';
                     $url= 'chi_tiet_le_hoi/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="nha_hang"){
+                  }elseif($item->type=="nha_hang"){
                     $title = getRestaurant($item->idobject);
                     $type= 'Nhà hàng';
                     $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="tung_tam_hoi_nghi_su_kien"){
+                  }elseif($item->type=="tung_tam_hoi_nghi_su_kien"){
                     $title = getEventcenter($item->idobject);
                     $type= 'trung tâm hội nghị sự kiện';
                     $url= 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="di_tich_lich_su"){
+                  }elseif($item->type=="di_tich_lich_su"){
                     $title = getHistoricalSite($item->idobject);
                     $type= 'Di tích lịch sử';
                     $url= 'di_tich_lich_su/'.$title->urlSlug.'.html';
                     $name = $title->name;
-                  }elseif($item->tiype=="khach_san"){
+                  }elseif($item->type=="khach_san"){
                     $title = getHotel($item->idobject);
                     $type= 'Khách sạn';
                     $url= 'chi_tiet_khach_san/'.$title['data']['Hotel']['slug'].'.html';

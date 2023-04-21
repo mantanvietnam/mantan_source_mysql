@@ -30,7 +30,7 @@ global $urlThemeActive;
 				            if(!empty($listData)){
 				              foreach ($listData as $item) {
 				                 $custom =  getCustomer($item->idcustomer);
-				                  if($item->tiype=="co_quan_hanh_chinh"){
+				                  if($item->type=="co_quan_hanh_chinh"){
 				                    $GovernanceAgency = getGovernanceAgency($item->idobject);
 				                    $type= 'Cơ quan hành chính';
 				                    if(!empty(@$GovernanceAgency)){
@@ -57,7 +57,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="dich_vu_ho_tro_du_lich"){
+				                  }elseif($item->type=="dich_vu_ho_tro_du_lich"){
 				                    $Service = getService($item->idobject);
 				                    $type= 'Dịch vụ hỗ trợ du lịch';
 				                
@@ -85,7 +85,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="danh_lam"){
+				                  }elseif($item->type=="danh_lam"){
 				                    $Place = getPlace($item->idobject);
 				                    $type= 'Danh lam thắng cảnh';
 				                    $address=@$Place->address;
@@ -113,7 +113,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="le_hoi"){
+				                  }elseif($item->type=="le_hoi"){
 				                    $Festival = getFestival($item->idobject);
 				                
 				                     if(!empty(@$Festival)){
@@ -140,7 +140,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="nha_hang"){
+				                  }elseif($item->type=="nha_hang"){
 				                    $Restaurant = getRestaurant($item->idobject);
 				                    $type= 'Nhà hàng';
 				                    if(!empty(@$Restaurant)){
@@ -167,7 +167,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="tung_tam_hoi_nghi_su_kien"){
+				                  }elseif($item->type=="tung_tam_hoi_nghi_su_kien"){
 				                    $Eventcenter = getEventcenter($item->idobject);
 				                     if(!empty(@$Eventcenter)){
 				                    ?>
@@ -193,7 +193,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="lang_nghe"){
+				                  }elseif($item->type=="lang_nghe"){
 				                    $Craftvillage = getCraftvillage($item->idobject);
 				                     if(!empty(@$Craftvillage)){
 				                    ?>
@@ -219,7 +219,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="dich_tich_lich_su"){
+				                  }elseif($item->type=="dich_tich_lich_su"){
 				                    $HistoricalSite = getHistoricalSite($item->idobject);
 				                    $type= 'Danh lam thắng cảnh';
 				                    $address=@$HistoricalSite->address;
@@ -247,7 +247,7 @@ global $urlThemeActive;
 		                            </div>
 
 				                 <?php }
-				                  }elseif($item->tiype=="khach_san"){
+				                  }elseif($item->type=="khach_san"){
 				                    $Hotel = getHotel($item->idobject);
 				                    
 				                    if(!empty(@$Hotel)){

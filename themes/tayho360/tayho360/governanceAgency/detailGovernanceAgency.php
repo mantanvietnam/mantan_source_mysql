@@ -452,7 +452,7 @@ getFooter();?>
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
-                tiype: 'co_quan_hanh_chinh',
+                type: 'co_quan_hanh_chinh',
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
@@ -471,7 +471,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'co_quan_hanh_chinh',
+                    type: 'co_quan_hanh_chinh',
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -492,7 +492,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'co_quan_hanh_chinh',
+                    type: 'co_quan_hanh_chinh',
                     comment: comment,
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },

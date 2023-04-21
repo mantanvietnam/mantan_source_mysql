@@ -8,28 +8,28 @@
 
 
 
-    function saveLike($idcustomer,$idobject, $tiype){
+    function saveLike($idcustomer,$idobject, $type){
     	global $modelOption;
     	global $controller;
     	$modelLike = $controller->loadModel('Likes');
 
     	 $data->idcustomer = @$idcustomer;
     	 $data->idobject = @$idobject;
-    	 $data->tiype = @$tiype;
+    	 $data->type = @$type;
     	 $data->created = getdate()[0];
             $modelLike->save($data);
     	return $data;
     }
     
 
-    function getLike($idcustomer,$idobject, $tiype){
+    function getLike($idcustomer,$idobject, $type){
     	global $modelOption;
     	global $controller;
     	$modelLike = $controller->loadModel('Likes');
     	$conditions= array();
     	$conditions['idcustomer']= $idcustomer;
     	$conditions['idobject']= $idobject;
-    	$conditions['tiype']= $tiype;
+    	$conditions['type']= $type;
 
     	$data =	$modelLike->find()->where($conditions)->first();
     	
@@ -48,13 +48,13 @@
         return $data;
     }
 
-    function getComment($idobject, $tiype){
+    function getComment($idobject, $type){
     	global $modelOption;
     	global $controller;
     	$modelComment = $controller->loadModel('Comments');
     	$conditions= array();
     	$conditions['idobject']= $idobject;
-    	$conditions['tiype']= $tiype;
+    	$conditions['type']= $type;
       $order = array('id'=>'desc');
 
     	$data =	$modelComment->find()->limit(10)->page(1)->where($conditions)->order($order)->all()->toList();

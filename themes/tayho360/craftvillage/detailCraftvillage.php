@@ -433,7 +433,7 @@ getFooter();?>
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: <?php echo $data->id ?>,
-                tiype: 'lang_nghe',
+                type: 'lang_nghe',
                 idcustomer: <?php echo $infoUser['id'] ?>,
             },
             success:function(res){
@@ -452,7 +452,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/delelelike',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'lang_nghe',
+                    type: 'lang_nghe',
                     idcustomer: <?php echo $infoUser['id'] ?>,
                 },
                 success:function(res){
@@ -473,7 +473,7 @@ getFooter();?>
                 method: 'POST',
                 url: '/apis/addComment',
                 data: { idobject: <?php echo $data->id ?>,
-                    tiype: 'lang_nghe',
+                    type: 'lang_nghe',
                     comment: comment,
                     idcustomer: <?php echo $infoUser['id'] ?>,
                 },
