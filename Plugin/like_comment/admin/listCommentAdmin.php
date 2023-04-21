@@ -66,7 +66,7 @@
                     $name = $title->name;
                   }elseif($item->tiype=="tung_tam_hoi_nghi_su_kien"){
                     $title = getEventcenter($item->idobject);
-                    $type= 'Nhà hàng';
+                    $type= 'trung tâm hội nghị sự kiện';
                     $url= 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$title->urlSlug.'.html';
                     $name = $title->name;
                   }elseif($item->tiype=="di_tich_lich_su"){
