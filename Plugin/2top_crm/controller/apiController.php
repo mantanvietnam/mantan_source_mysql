@@ -157,7 +157,7 @@ function saveRegisterMemberAPI($input)
 				        $data->sex = (int) @$dataSend['sex'];
 				        $data->id_city = (int) @$dataSend['id_city'];
 				        $data->id_messenger = (!empty($dataSend['id_messenger']))?$dataSend['id_messenger']:'';
-				        $data->avatar = '/plugins/2top_crm/view/admin/img/user-placeholder.png';
+				        $data->avatar = 'https://tayho360.vn/plugins/2top_crm/view/admin/img/user-placeholder.png';
 				        $data->status = 'active';
 				        $data->id_parent = (int) @$dataSend['id_parent'];
 				        $data->id_level = (int) @$dataSend['id_level'];
@@ -794,10 +794,9 @@ function saveInfoUserAPI($input)
             $infoUser->address = @$dataSend['address'];
             $infoUser->phone = @$dataSend['phone'];
 
-
            
            if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-					$avatar = uploadImage($checkPhone->id, 'avatar', 'avatar_'.$checkPhone->id);
+					$avatar = uploadImage($infoUser->id, 'avatar', 'avatar_'.$infoUser->id);
 				}
 
 				if(!empty($avatar['linkOnline'])){
@@ -819,8 +818,24 @@ function saveInfoUserAPI($input)
 	return $return;
 }
 
+// lấy data người dung theo token
+function gettokenInfoUserAPI($input)
+{
+	$return = array('code'=>1);
+	$dataSend = $input['request']->getData();
+	$conditions = array('token'=>$dataSend['token']);
+	$infoUser = $modelCustomer->find()->where($conditions)->first();
+	if(!empty($infoUser)){
+		$return = array('code'=>1,
+	        						'info_member'=>$infoUser,
+									'messages'=>'Bạn sửa thành công',
+									);
+	}
+	return $return;
 
 
+
+}
 
 
 function requestCodeForgotPasswordAPI($input)

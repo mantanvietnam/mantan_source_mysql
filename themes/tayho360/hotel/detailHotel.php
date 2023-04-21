@@ -30,12 +30,22 @@
                         <div class="place-title">
                             <h1><?php echo @$data['HotelManmo']['data']['Hotel']['name'];?></h1>
                         </div>
-                        <div class="place-address">
-                            <p><i class="fa-solid fa-location-dot"></i> <?php echo @$data['HotelManmo']['data']['Hotel']['address'];?></p>
+                        <?php if(!empty($data['HotelManmo']['data']['Hotel']['address'])){ ?>
+                         <div class="place-address">
+                            <p><i class="fa-solid fa-location-dot"></i> <?php echo $data['HotelManmo']['data']['Hotel']['address'] ?></p>
                         </div>
+
+                        <?php } if(!empty($data['HotelManmo']['data']['Hotel']['phone'])){ ?>
+                         <div class="place-address">
+                            <p><i class="fa-solid fa-phone"></i> <?php echo $data['HotelManmo']['data']['Hotel']['phone'] ?></p>
+                        </div>
+
+                        <?php } if(!empty($data['HotelManmo']['data']['Hotel']['email'])){ ?>
                         <div class="place-address">
-                        <p><i class="fa-solid fa-phone"></i> <?php echo @$data['HotelManmo']['data']['Hotel']['phone'];?></p>
-                    </div>
+                            <p><i class="fa-solid fa-envelope"></i> <?php echo $data['HotelManmo']['data']['Hotel']['email'] ?></p>
+                        </div>
+                        <?php } ?>
+                        
                         <div class="button-content">
                              <?php  
                                      global $session;

@@ -25,15 +25,21 @@ global $urlThemeActive;
                         <div class="place-title">
                             <h1><?php echo $data->name ?></h1>
                         </div>
-                        <div class="place-address">
+                        <?php if(!empty($data->address)){ ?>
+                         <div class="place-address">
                             <p><i class="fa-solid fa-location-dot"></i> <?php echo $data->address ?></p>
                         </div>
+
+                        <?php } if(!empty($data->phone)){ ?>
                          <div class="place-address">
-                        	<p><i class="fa-solid fa-phone"></i> <?php echo $data->phone ?></p>
-                    	</div>
+                            <p><i class="fa-solid fa-phone"></i> <?php echo $data->phone ?></p>
+                        </div>
+
+                        <?php } if(!empty($data->email)){ ?>
                         <div class="place-address">
-	                        <p><i class="fa-solid fa-envelope"></i> <?php echo $data->email ?></p>
-	                    </div>
+                            <p><i class="fa-solid fa-envelope"></i> <?php echo $data->email ?></p>
+                        </div>
+                        <?php } ?>
                         <!-- <div class="place-address">
 	                        <p><i class="fa-solid fa-clock"></i> 8:00 - 17:00</p>
 	                    </div> -->

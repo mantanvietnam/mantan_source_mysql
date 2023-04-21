@@ -88,7 +88,7 @@ function register($input)
 				        $data->sex = (int) @$dataSend['sex'];
 				        $data->id_city = (int) @$dataSend['id_city'];
 				        $data->id_messenger = (!empty($dataSend['id_messenger']))?$dataSend['id_messenger']:'';
-				        $data->avatar = '/plugins/2top_crm/view/admin/img/user-placeholder.png';
+				        $data->avatar = 'https://tayho360.vn/plugins/2top_crm/view/admin/img/user-placeholder.png';
 				        $data->status = 'active';
 				        $data->id_parent = (int) @$dataSend['id_parent'];
 				        $data->id_level = (int) @$dataSend['id_level'];
