@@ -13,6 +13,10 @@
 	$routesPlugin['deleteProduct']= 'ezpics_designer/view/home/product/deleteProduct.php';
 	$routesPlugin['addProduct']= 'ezpics_designer/view/home/product/addProduct.php';
 
+	// order
+	$routesPlugin['orderProduct']= 'ezpics_designer/view/home/order/orderProduct.php';
+	$routesPlugin['detailOrder']= 'ezpics_designer/view/home/order/detailOrder.php';
+
 	// public
 	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';
 ?>
