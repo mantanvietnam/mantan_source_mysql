@@ -521,7 +521,7 @@ function logoutMemberAPI($input)
 	global $controller;
 	global $session;
 
-	$modelMember = $controller->loadModel('Members');
+		$modelCustomer = $controller->loadModel('Customers');
 
 	$return = array('code'=>1);
 	
@@ -529,12 +529,12 @@ function logoutMemberAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = $modelCustomer->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
 				$checkPhone->token = '';
 				$checkPhone->token_device = null;
-				$modelMember->save($checkPhone);
+				$modelCustomer->save($checkPhone);
 
 				$return = array('code'=>0);
 			}else{
@@ -821,14 +821,34 @@ function saveInfoUserAPI($input)
 // lấy data người dung theo token
 function gettokenInfoUserAPI($input)
 {
+	global $controller;
 	$return = array('code'=>1);
+	$modelCustomer = $controller->loadModel('Customers');
 	$dataSend = $input['request']->getData();
 	$conditions = array('token'=>$dataSend['token']);
 	$infoUser = $modelCustomer->find()->where($conditions)->first();
 	if(!empty($infoUser)){
 		$return = array('code'=>1,
 	        						'info_member'=>$infoUser,
-									'messages'=>'Bạn sửa thành công',
+									'messages'=>'Bạn lấy data thành công',
+									);
+	}
+	return $return;
+}
+
+// lấy data người dung theo token thiết bị 
+function gettokeneviceInfoUserAPI($input)
+{
+	global $controller;
+	$return = array('code'=>1);
+	$modelCustomer = $controller->loadModel('Customers');
+	$dataSend = $input['request']->getData();
+	$conditions = array('token_device'=>$dataSend['token_device']);
+	$infoUser = $modelCustomer->find()->where($conditions)->first();
+	if(!empty($infoUser)){
+		$return = array('code'=>1,
+	        						'info_member'=>$infoUser,
+									'messages'=>'Bạn lấy data thành công',
 									);
 	}
 	return $return;

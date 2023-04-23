@@ -28,6 +28,8 @@
 	$routesPlugin['checkLoginGoogleAPI']= 'ezpics_api/view/checkLoginGoogleAPI.php';
 	$routesPlugin['checkLoginAppleAPI']= 'ezpics_api/view/checkLoginAppleAPI.php';
 	$routesPlugin['checkCodeAffiliateAPI']= 'ezpics_api/view/checkCodeAffiliateAPI.php';
+	$routesPlugin['gettokenInfoUserAPI']= 'ezpics_api/view/gettokenInfoUserAPI.php';
+	$routesPlugin['gettokeneviceInfoUserAPI']= 'ezpics_api/view/gettokeneviceInfoUserAPI.php';
 
 	// quên mật khẩu
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'ezpics_api/view/requestCodeForgotPasswordAPI.php';
