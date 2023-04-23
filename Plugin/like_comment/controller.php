@@ -83,7 +83,9 @@ function delelelike ($input){
             $data->comment=$_POST['comment'];
 
             $modelComment->save($data);
-             $return = array('code'=>1);
+             $return = array('code'=>1, 
+                'data'=>$data,
+                'messages'=>'ok');
              }
         return $return;
 }
@@ -114,7 +116,7 @@ function listCommentAdmin(){
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách Cơ quan hành chính';
+    $metaTitleMantan = 'Danh sách Danh sách bình luận';
 
     $modelComment = $controller->loadModel('Comments');
     
@@ -216,6 +218,152 @@ function deleleCommentAdmin($input){
              }
         return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=3');
         
+}
+
+function listlikegetcustom($input){
+
+     global $isRequestPost;
+    global $modelUser;
+    global $urlHomes;
+    global $controller;
+    $modelLike = $controller->loadModel('Likes');
+
+     $conditions= array();
+     $dataSend = $input['request']->getData();
+    $conditions['idcustomer']= $dataSend['idcustomer'];
+
+    $data = $modelLike->find()->where($conditions)->all();
+
+    $listData = array();
+
+    if(!empty($data)){
+        foreach ($data as $item) {
+        $custom =  getCustomer($item->idcustomer);
+            if($item->type=="co_quan_hanh_chinh"){
+                $Governance = getGovernanceAgency($item->idobject);
+            $listData[]= array(
+                'id'=> @$Governance->id,
+                'name'=> @$Governance->name,
+                'address'=> @$Governance->address,
+                'type'=> "co_quan_hanh_chinh",
+            );
+
+            }elseif($item->type=="dich_vu_ho_tro_du_lich"){
+                $Service = getService($item->idobject);
+               $listData[]= array(
+                'id'=> @$Service->id,
+                'name'=> @$Service->name,
+                'address'=> @$Service->address,
+                'type'=> "dich_vu_ho_tro_du_lich",
+            );
+            }elseif($item->type=="danh_lam"){
+                $Place = getPlace($item->idobject);
+               $listData[]= array(
+                'id'=> @$Place->id,
+                'name'=> @$Place->name,
+                'address'=> @$Place->address,
+                'type'=> "danh_lam",
+            );
+            }elseif($item->type=="le_hoi"){
+                $Festival = getFestival($item->idobject);
+               $listData[]= array(
+                'id'=> @$Festival->id,
+                'name'=> @$Festival->name,
+                'address'=> @$Festival->address,
+                'type'=> "le_hoi",
+            );
+            }elseif($item->type=="nha_hang"){
+                $Restaurant = getRestaurant($item->idobject);
+               $listData[]= array(
+                'id'=> @$Restaurant->id,
+                'name'=> @$Restaurant->name,
+                'address'=> @$Restaurant->address,
+                'type'=> "nha_hang",
+            );
+            }elseif($item->type=="tung_tam_hoi_nghi_su_kien"){
+                $Eventcenter = getEventcenter($item->idobject);
+                $listData[]= array(
+                'id'=> @$Eventcenter->id,
+                'name'=> @$Eventcenter->name,
+                'address'=> @$Eventcenter->address,
+                'type'=> "tung_tam_hoi_nghi_su_kien",
+            );
+            }elseif($item->type=="di_tich_lich_su"){
+                $Historical = getHistoricalSite($item->idobject);
+                $listData[]= array(
+                    'id'=> @$Historical->id,
+                    'name'=> @$Historical->name,
+                    'address'=> @$Historical->address,
+                    'type'=> "di_tich_lich_su",
+                );
+            }elseif($item->type=="khach_san"){
+                $Hotel = getHotel($item->idobject);
+                $listData[]= array(
+                    'id'=> @$Hotel['data']['Hotel']['id'],
+                    'name'=> @$Hotel['data']['Hotel']['name'],
+                    'address'=> @$Hotel['data']['Hotel']['address'],
+                    'type'=> "khach_san",
+                );
+            }
+        }
+         $return = array('code'=>1,
+                            'data' =>$listData,
+                            'messages'=>'bạn lấy data thàng công'
+            );
+
+    }else{
+       $return = array('code'=>2,
+             'messages'=>'bạn lấy data không thàng công',
+            );
+    }
+
+    return $return;
+}
+
+function Listcommentgetobject($input){
+
+
+    global $controller;
+
+    $modelComment = $controller->loadModel('Comments');
+    $dataSend = $input['request']->getData();
+
+    $conditions = array();
+
+    $conditions['idobject']=$dataSend['idobject'];
+    $conditions['type']=$dataSend['type'];
+
+    $data = $modelComment->find()->where($conditions)->all();
+    $listData = array();
+
+    if(!empty($data)){
+        foreach ($data as $item) {
+        $custom =  getCustomer($item->idcustomer);
+            $listData[] = array(
+                    'id'=> $item->id,
+                    'idcustomer'=> $item->idcustomer,
+                    'idobject'=> $item->idobject,
+                    'name'=> @$custom->full_name,
+                    'comment'=> @$item->comment,
+                    'type'=> @$item->type
+            );
+
+
+        }
+    $return = array('code'=>1,
+                            'data' =>$listData,
+                            'messages'=>'bạn lấy data thàng công'
+            );
+
+    }else{
+       $return = array('code'=>2,
+             'messages'=>'bạn lấy data không thàng công',
+            );
+   }
+   return $return;
+
+
+
 }
 
 ?>
