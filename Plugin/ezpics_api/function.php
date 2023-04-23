@@ -530,8 +530,6 @@ function getLayerProductForEdit($idProduct=0)
 
 
                         $dnone = empty($layer->status) ? 'd-none' : '';
-                        $wight = empty($item->wight) ? 50 : $item->wight;
-                        $height = empty($item->height) ? 50 : $item->height;
                         
                         if($layer->type == 'text'){
                             $text = '';
@@ -598,11 +596,13 @@ function getLayerProductForEdit($idProduct=0)
 
                         $style = 'text-align:'.$layer->text_align.';left: '.(int)@$layer->postion_left.'%;top: '.(int)@$layer->postion_top.'%;';
 
+                        // độ lớn của chữ
                         $layer->size = str_replace('px','',$layer->size);
                         $layer->size = str_replace('vw','',$layer->size);
                         if($layer->size>100) $layer->size= 70;
                         $layer->size = $layer->size.'vw';
 
+                        // chiều dài của ảnh
                         $layer->width = str_replace('px','',$layer->width);
                         $layer->width = str_replace('vw','',$layer->width);
                         if($layer->width>100) $layer->width= 70;
@@ -610,6 +610,17 @@ function getLayerProductForEdit($idProduct=0)
 
                         if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
                         if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
+
+                        // tính vị trí hiển thị
+                        $sizeBackground = @getimagesize($pro->thumn);
+                        $widthWindow = $session->read('widthWindow');
+                        $heightWindow = $widthWindow;
+                        if(!empty($sizeBackground[1]) && !empty($sizeBackground[0])){
+                            $heightWindow = $sizeBackground[1]*$widthWindow/$sizeBackground[0];
+                        }
+
+                        $layer->postion_x = $layer->postion_left*$widthWindow/100;
+                        $layer->postion_y = $layer->postion_top*$heightWindow/100;
 
                         $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
                         

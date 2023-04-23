@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /bin/*
+Disallow: /config/*
+Disallow: /database/*
+Disallow: /logs/*
+Disallow: /plugins/*
+Disallow: /resources/*
+Disallow: /src/*
+Disallow: /templates/*
+Disallow: /tests/*
+Disallow: /themes/*
+Disallow: /tmp/*
+Disallow: /vendor/*
+

@@ -59,6 +59,9 @@
 	<script src="/plugins/ezpics_api/view/js/colorpicker/colorpicker.js"></script>
 	<script src="/plugins/ezpics_api/view/js/jquery.gradientPicker.js"></script>
 
+	<!-- thêm thư viện zoom -->
+	<script src="/plugins/ezpics_api/view/js/content-zoom-slider.js"></script>
+
 	<!-- thêm font chữ cài từ admin -->
 	<style type="text/css">
 		<?php 
@@ -82,7 +85,10 @@
 		<section class="box-detail-edit box-detail-edit-user-create active">
 		    <div class="teop">
 		        <div class="">
-		            <div class="thumb-checklayer list-layout-move-create" id="widgetCapEdit"></div>
+		        	<div class="showView">
+			            <div class="thumb-checklayer list-layout-move-create" id="widgetCapEdit"></div>
+			        </div>
+		            <div class="zoom-tool-bar"></div>
 		        </div>
 		        <div class="text-center">
 		            <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/ajax-loader-green.gif" class="img-fluid text-center loadimg d-none" width="50">
@@ -153,10 +159,10 @@
 	                                <span>Màu sắc</span>
 	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
 	                            </div>
-	                            
 	                            <div class="list-chang-replace">
-	                            	<div class="grad_ex w-100" id="toolbar_gradient"></div>
-
+	                            	<div class="grad_ex" id="toolbar_gradient"></div>
+	                            </div>
+	                            <div class="list-chang-replace">
 	                                <div class="item-replace float-left" onclick="addGradient()" style="padding: 18px;">
 	                                    <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/addcolor.png" alt="" width="25">
 	                                </div>
