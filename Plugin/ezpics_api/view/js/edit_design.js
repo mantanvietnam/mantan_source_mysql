@@ -52,7 +52,7 @@ function editThemeUser(id)
             id: id,
             action: 'edit',
             width: $(window).width(),
-            height: $('.thumb-checklayer').height(),
+            height: $(window).height()/2,
         }, 
         success:function(data){
             
@@ -3026,19 +3026,27 @@ function printErrorMsg (msg)
 
 // bắt sự kiện bấm phím mũi tên
 document.addEventListener('keydown', function(event) {
-  if (event.code === 'ArrowDown') {
-    // Xử lý khi người dùng bấm phím xuống
-    bottommove();
-  } else if (event.code === 'ArrowLeft') {
-    // Xử lý khi người dùng bấm phím trái
-    leftmove();
-  } else if (event.code === 'ArrowRight') {
-    // Xử lý khi người dùng bấm phím phải
-    rightmove();
-  } else if (event.code === 'ArrowUp') {
-    // Xử lý khi người dùng bấm phím lên
-    topmove();
-  }
+    if (event.code === 'ArrowDown') {
+        // Xử lý khi người dùng bấm phím xuống
+        bottommove();
+    } else if (event.code === 'ArrowLeft') {
+        // Xử lý khi người dùng bấm phím trái
+        leftmove();
+    } else if (event.code === 'ArrowRight') {
+        // Xử lý khi người dùng bấm phím phải
+        rightmove();
+    } else if (event.code === 'ArrowUp') {
+        // Xử lý khi người dùng bấm phím lên
+        topmove();
+    } else if (event.key === '+' || event.key === '=') {
+      // Xử lý khi người dùng bấm phím +
+      console.log('Bạn vừa bấm phím +');
+      $('.zoom-in').click();
+    } else if (event.key === '-') {
+      // Xử lý khi người dùng bấm phím -
+      console.log('Bạn vừa bấm phím -');
+      $('.zoom-out').click();
+    }
 });
 
 // tắt chức năng bắt sự kiện bấm phím lên xuống
@@ -3201,6 +3209,14 @@ function removeBackground()
         printErrorMsg(['Chọn layer để thao tác']);
     }
 }
+
+$("#widgetCapEdit").contentZoomSlider({
+  toolContainer: ".zoom-tool-bar",
+  step: 5,
+  max: 500,
+  min: 5,
+  zoom: 100
+});
 
 $("#toolbar_gradient").gradientPicker({
     change: function(points, styles) {

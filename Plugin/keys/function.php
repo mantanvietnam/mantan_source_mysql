@@ -36,7 +36,7 @@ function getKey($id_application)
 		}
 
 		$key = $modelKeys->find()->where($conditions)->first();
-
+		
 		// tìm thêm tháng khác
 		if(empty($key)){
 			$conditions = ['id_category'=>$id_application, 'month !='=>$month, 'status'=>'active'];

@@ -57,6 +57,8 @@ function dataEditThemeUser($input)
     if(!empty($session->read('infoUser')) && $isRequestPost){
     	$dataSend = $input['request']->getData();
 
+        $session->write('widthWindow', $dataSend['width']);
+
         return getLayerProductForEdit($dataSend['id']); 
     }else{
         return ['error' => ['Bạn chưa đăng nhập']];
@@ -564,14 +566,12 @@ function upImage($input)
 
             $tyle = $sizeBackground[0]*100/(int)$dataSend['width'];
             if($tyle>30) $tyle = 30;
-            $tyleW = $tyle.'vw';
-            $tyleH = $tyle.'vh';
 
             $new = $modelProductDetail->newEmptyEntity();
             
             $new->name = 'Layer '.$idlayer;
             $new->products_id = $dataSend['idproduct'];
-            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$tyleW, $tyleH));
+            $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$tyle, $tyle));
             $new->sort = $idlayer;
             $new->height = $tyle;
             $new->wight = $tyle;
