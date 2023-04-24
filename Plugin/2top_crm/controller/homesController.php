@@ -378,4 +378,76 @@ function newpassword($input){
 	}
 
 }
+
+function confirmAPI($input){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelCustomer = $controller->loadModel('Customers');
+	$dataSend = $input['request']->getData();
+	$conditions = array();
+	$conditions = array('email'=>@$dataSend['email'], 'pass'=>md5($dataSend['code']));
+	$data = $modelCustomer->find()->where($conditions)->first();
+	if(!empty($data)){
+	    $return = array('code'=>1,
+				'infoUser'=> $data,
+				'messages'=>'Đăng ký thành công',
+			);
+						
+	}else{
+	    $return = array('code'=>2,
+				'messages'=>'Your verification code is incorrect!',
+			);
+
+	}
+	return $return;
+}
+
+function newpasswordAPI($input){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	$infoUser = $session->read('infoUser');
+
+	
+
+
+	$modelCustomer = $controller->loadModel('Customers');
+
+	
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions = array('email'=>@$dataSend['email'], 'pass'=>$dataSend['code']);
+	    		$data = $modelCustomer->find()->where($conditions)->first();
+	    		if(!empty($data)){
+	    			if($dataSend['pass'] == $dataSend['passAgain']){
+	    				$data->pass = md5($dataSend['pass']);
+
+	    				$modelCustomer->save($data);
+	    				$session->destroy();
+	
+						 $return = array('code'=>1,
+							'infoUser'=> $data,
+							'messages'=>'Đăng ký thành công',
+						);
+
+	    			}else{
+	    				 $return = array('code'=>2,
+				'messages'=>'Your new login password is incorrect',
+						);
+	    			}
+	    		}else{
+	    			 $return = array('code'=>2,
+				'messages'=>'Your verification code is incorrect!',
+						);
+	    		}
+	  	return $return;
+	
+
+}
 ?>

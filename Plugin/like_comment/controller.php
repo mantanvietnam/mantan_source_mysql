@@ -241,69 +241,85 @@ function listlikegetcustom($input){
         $custom =  getCustomer($item->idcustomer);
             if($item->type=="co_quan_hanh_chinh"){
                 $Governance = getGovernanceAgency($item->idobject);
-            $listData[]= array(
-                'id'=> @$Governance->id,
-                'name'=> @$Governance->name,
-                'address'=> @$Governance->address,
-                'type'=> "co_quan_hanh_chinh",
-            );
+                if(!empty($Governance)){
+                    $listData[]= array(
+                        'id'=> @$Governance->id,
+                        'name'=> @$Governance->name,
+                        'address'=> @$Governance->address,
+                        'type'=> "co_quan_hanh_chinh",
+                    );
+                }
 
             }elseif($item->type=="dich_vu_ho_tro_du_lich"){
                 $Service = getService($item->idobject);
-               $listData[]= array(
-                'id'=> @$Service->id,
-                'name'=> @$Service->name,
-                'address'=> @$Service->address,
-                'type'=> "dich_vu_ho_tro_du_lich",
-            );
+                if(!empty($Service)){
+                   $listData[]= array(
+                    'id'=> @$Service->id,
+                    'name'=> @$Service->name,
+                    'address'=> @$Service->address,
+                    'type'=> "dich_vu_ho_tro_du_lich",
+                );
+               }
             }elseif($item->type=="danh_lam"){
                 $Place = getPlace($item->idobject);
-               $listData[]= array(
-                'id'=> @$Place->id,
-                'name'=> @$Place->name,
-                'address'=> @$Place->address,
-                'type'=> "danh_lam",
-            );
+                if(!empty($Governance)){
+                    $listData[]= array(
+                        'id'=> @$Place->id,
+                        'name'=> @$Place->name,
+                        'address'=> @$Place->address,
+                        'type'=> "danh_lam",
+                    );
+                }
             }elseif($item->type=="le_hoi"){
                 $Festival = getFestival($item->idobject);
-               $listData[]= array(
-                'id'=> @$Festival->id,
-                'name'=> @$Festival->name,
-                'address'=> @$Festival->address,
-                'type'=> "le_hoi",
-            );
+                if(!empty($Governance)){
+                   $listData[]= array(
+                    'id'=> @$Festival->id,
+                    'name'=> @$Festival->name,
+                    'address'=> @$Festival->address,
+                    'type'=> "le_hoi",
+                    );
+               }
             }elseif($item->type=="nha_hang"){
                 $Restaurant = getRestaurant($item->idobject);
-               $listData[]= array(
-                'id'=> @$Restaurant->id,
-                'name'=> @$Restaurant->name,
-                'address'=> @$Restaurant->address,
-                'type'=> "nha_hang",
-            );
+                if(!empty($Governance)){
+                    $listData[]= array(
+                        'id'=> @$Restaurant->id,
+                        'name'=> @$Restaurant->name,
+                        'address'=> @$Restaurant->address,
+                        'type'=> "nha_hang",
+                    );
+                }
             }elseif($item->type=="tung_tam_hoi_nghi_su_kien"){
                 $Eventcenter = getEventcenter($item->idobject);
-                $listData[]= array(
-                'id'=> @$Eventcenter->id,
-                'name'=> @$Eventcenter->name,
-                'address'=> @$Eventcenter->address,
-                'type'=> "tung_tam_hoi_nghi_su_kien",
-            );
+                if(!empty($Eventcenter)){
+                    $listData[]= array(
+                        'id'=> @$Eventcenter->id,
+                        'name'=> @$Eventcenter->name,
+                        'address'=> @$Eventcenter->address,
+                        'type'=> "tung_tam_hoi_nghi_su_kien",
+                    );
+                    }
             }elseif($item->type=="di_tich_lich_su"){
                 $Historical = getHistoricalSite($item->idobject);
-                $listData[]= array(
-                    'id'=> @$Historical->id,
-                    'name'=> @$Historical->name,
-                    'address'=> @$Historical->address,
-                    'type'=> "di_tich_lich_su",
-                );
+                if(!empty($Historical)){
+                    $listData[]= array(
+                        'id'=> @$Historical->id,
+                        'name'=> @$Historical->name,
+                        'address'=> @$Historical->address,
+                        'type'=> "di_tich_lich_su",
+                    );
+                }
             }elseif($item->type=="khach_san"){
                 $Hotel = getHotel($item->idobject);
-                $listData[]= array(
+                if(!empty($Governance)){
+                    $listData[]= array(
                     'id'=> @$Hotel['data']['Hotel']['id'],
                     'name'=> @$Hotel['data']['Hotel']['name'],
                     'address'=> @$Hotel['data']['Hotel']['address'],
                     'type'=> "khach_san",
-                );
+                    );
+                }
             }
         }
          $return = array('code'=>1,
@@ -365,5 +381,26 @@ function Listcommentgetobject($input){
 
 
 }
+
+  function getLikeobjectAPI($input){
+        global $modelOption;
+        global $controller;
+        $modelLike = $controller->loadModel('Likes');
+        $conditions= array();
+        $dataSend = $input['request']->getData();
+        $conditions['idcustomer']= $dataSend['idcustomer'];
+        $conditions['idobject']= $dataSend['idobject'];
+        $conditions['type']= $dataSend['type'];
+
+        $data = $modelLike->find()->where($conditions)->first();
+        if(!empty($data)){
+
+            $return = array('code'=>1 );
+        }else{
+            $return = array('code'=>0 );
+        }
+        
+        return $return;
+    }
 
 ?>

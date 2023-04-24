@@ -7,7 +7,7 @@ function listHistoricalSitesAdmin($input)
 	global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Danh sách điểm đến di tích lịch sử';
 
 	$modelHistoricalsite = $controller->loadModel('Historicalsites');
     
@@ -95,7 +95,7 @@ function addHistoricalSitesAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Thông tin điểm đến di tích lịch sử';
 
 	$modelHistoricalsite = $controller->loadModel('Historicalsites');
 
@@ -192,7 +192,7 @@ function listWardAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Danh sách phường';
 
     $modelWard = $controller->loadModel('Wards');
     
@@ -280,7 +280,7 @@ function addWardAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Thông tin phường';
 
     $modelWard = $controller->loadModel('Wards');
     $mess= '';
@@ -350,7 +350,7 @@ function listArtifactAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Danh sách hiện vật';
 
     $modelArtifact = $controller->loadModel('Artifacts');
     
@@ -438,7 +438,7 @@ function addArtifactAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Thông tin hiện vật';
 
     $modelArtifact = $controller->loadModel('Artifacts');
     $mess= '';
@@ -595,7 +595,7 @@ function listCategoryartifactAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Danh sách danh mục hiện vật';
 
     $modelCategoryartifact = $controller->loadModel('Categoryartifacts');
     
@@ -683,7 +683,7 @@ function addCategoryartifactAdmin($input)
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin điểm đến di tích và danh lam';
+    $metaTitleMantan = 'Thông tin danh mục hiện vật';
 
     $modelCategoryartifact = $controller->loadModel('Categoryartifacts');
     $mess= '';

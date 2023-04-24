@@ -6,6 +6,7 @@
 	$routesPlugin['addComment']= 'like_comment/addComment.php';
 	$routesPlugin['deleleComment']= 'like_comment/deleleComment.php';
 	$routesPlugin['Listcommentgetobject']= 'like_comment/Listcommentgetobject.php';
+	$routesPlugin['getLikeobjectAPI']= 'like_comment/getLikeobjectAPI.php';
 
 
 ?>

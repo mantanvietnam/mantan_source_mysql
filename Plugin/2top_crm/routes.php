@@ -13,6 +13,8 @@
 	$routesPlugin['editInfoUser']= '2top_crm/view/home/editInfoUser.php';
 	$routesPlugin['forgotpassword']= '2top_crm/view/home/forgotpassword.php';
 	$routesPlugin['newpassword']= '2top_crm/view/home/newpassword.php';
+	$routesPlugin['confirmAPI']= '2top_crm/view/home/confirmAPI.php';
+	$routesPlugin['newpasswordAPI']= '2top_crm/view/home/newpasswordAPI.php';
 	$routesPlugin['confirm']= '2top_crm/view/home/confirm.php';
 
 	// member

@@ -42,7 +42,9 @@
               foreach ($listData as $item) {
 
                  $title = getTour($item->idtour);
-                    $url= 'chi_tiet_tour/'.$title->urlSlug.'.html';
+                    
+                    if(!empty($title)){
+                      $url= 'chi_tiet_tour/'.@$title->urlSlug.'.html';
 ?>
               <tr>
                         <td><a href="/../../<?php echo $url ?>"><?php echo @$title->name ?></a></td>
@@ -62,7 +64,7 @@
                           </a>
                         </td>
                       </tr>
-            <?php  }
+            <?php  } }
             }else{?>
            <tr>
                       <td colspan="10" align="center">Chưa có dữ liệu</td>

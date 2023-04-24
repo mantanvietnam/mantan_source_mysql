@@ -46,7 +46,7 @@
                     $type= 'Nhà hàng';
                     if(!empty($title)){
                     $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
-                  }
+                  
 ?>
               <tr>
                         <td><a href="/../../<?php echo $url ?>"><?php echo @$title->name ?></a><br>SĐT: <?php echo @$title->phone ?></td>
@@ -67,7 +67,7 @@
                           </a>
                         </td>
                       </tr>
-            <?php  }
+            <?php  }}
             }else{?>
            <tr>
                       <td colspan="10" align="center">Chưa có dữ liệu</td>
