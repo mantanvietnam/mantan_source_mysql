@@ -515,8 +515,7 @@ function checkLoginAppleAPI($input)
 	return $return;
 }
 
-function logoutMemberAPI($input)
-{
+function lockAccountAPI($input){
 	global $isRequestPost;
 	global $controller;
 	global $session;
@@ -671,42 +670,7 @@ function getInfoMemberAPI($input)
 	return $return;
 }
 
-function lockAccountAPI($input)
-{
-	global $isRequestPost;
-	global $controller;
-	global $session;
 
-	$modelMember = $controller->loadModel('Members');
-
-	$return = array('code'=>1);
-	
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
-
-		if(!empty($dataSend['token'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
-			if(!empty($checkPhone)){
-				$checkPhone->status = 0;
-				$checkPhone->token = '';
-				$modelMember->save($checkPhone);
-				
-				$return = array('code'=>0);
-			}else{
-				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
-								);
-			}
-		}else{
-			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
-		}
-	}
-
-	return $return;
-}
 
 // API sửa mật khẩu
 function saveChangePassAPI($input)
