@@ -1292,7 +1292,7 @@ function bookHotel($input) {
                 'typeBooking'=>  6,
                 'number_room'=>  @$dataSend['number_room'],
                 'number_people'=> @$dataSend['number_people'],
-                'deposits'=> @$dataSend['pricePay'],
+                'deposits'=> @$dataSend['pricePay1'],
                 'type_register'=> @$dataSend['type_register'],
                 'key'=> '60d410dc2ac5db3f758b4567', 
                 'timeStart'=>  @$date_start[1],

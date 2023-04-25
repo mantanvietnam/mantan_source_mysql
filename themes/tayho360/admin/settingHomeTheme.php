@@ -159,7 +159,7 @@
                   <input type="text" class="form-control" name="email" value="<?php echo @$setting['email'];?>" />
                 </div>
                 <div class="mb-3 ">
-                    <label class="form-label" for="basic-default-fullname">Zalo</label>
+                    <label class="form-label" for="basic-default-fullname">Instagram</label>
                     <input type="text" class="form-control" name="zalo" value="<?php echo @$setting['zalo'];?>" />
                   </div>
                   <div class="mb-3 ">
