@@ -3229,3 +3229,4 @@ $("#toolbar_gradient").gradientPicker({
     controlPoints: ["green 0%", "orange 100%"]
 });
 setTimeout(saveproduct, 60000);
+
