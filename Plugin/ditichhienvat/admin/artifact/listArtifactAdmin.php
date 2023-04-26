@@ -31,6 +31,7 @@
       <table class="table table-bordered">
         <thead>
           <tr class="">
+            <th>MÃ</th>
             <th>Hình ảnh</th>
             <th>Tên hiện vật</th>
             <th>Thuộc di tích</th>
@@ -47,6 +48,7 @@
               foreach ($listData as $item) {
                  $dataHistoricalsite = getHistoricalSite($item->idHistoricalsite);
                 echo '<tr>
+                        <td>'.$item->sign.'</td>
                         <td><img src="'.$item->image.'" width="100"></td>
                         <td>'.$item->name.'</td>
                         <td>'.@$dataHistoricalsite->name.'</td>
