@@ -10,6 +10,7 @@
 	</title>
 
 	<link rel="stylesheet" href="https://apis.ezpics.vn/plugins/ezpics_api/view/css/style.css?time=<?php echo time();?>" />
+	<link rel="stylesheet" href="https://apis.ezpics.vn/plugins/ezpics_api/view/css/style-long.css?time=<?php echo time();?>" />
 
 	<!-- chặn Google tìm kiếm -->
 	<meta name="robots" content="noindex">
