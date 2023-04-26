@@ -160,14 +160,14 @@ function infoUser(){
     }
 }
 
-function pourpassword($input){
+function changepassword($input){
 
 	global $metaTitleMantan;
 	global $isRequestPost;
 	global $controller;
 	global $session;
 
-    $metaTitleMantan = 'Đăng nhập tài khoản';
+    $metaTitleMantan = 'Sửa mật khẩu';
 
     $modelCustomer = $controller->loadModel('Customers');
     $infoUser  = $session->read('infoUser');
@@ -213,7 +213,7 @@ function editInfoUser($input){
 	global $controller;
 	global $session;
 
-    $metaTitleMantan = 'Đăng nhập tài khoản';
+    $metaTitleMantan = 'sửa tài khoản';
 
     $modelCustomer = $controller->loadModel('Customers');
     $infoUser  = $session->read('infoUser');

@@ -13,7 +13,7 @@ $info = $session->read('infoUser');
                     <section class="side-bar h-100">
                         <div class="background h-100">
                             <a href="/infoUser">Cá nhân</a>
-                            <a href="/pourpassword">Đổi mật khẩu</a>
+                            <a href="/changepassword">Đổi mật khẩu</a>
                             <a href="/editInfoUser" class="active">Sửa thông tin </a>
                         </div>
                     </section>
