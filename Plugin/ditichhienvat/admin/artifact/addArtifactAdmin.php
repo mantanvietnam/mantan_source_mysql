@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php">Hiện vật</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php">Hiện vật</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -183,7 +183,7 @@
                             </div>
                             <div class="mb-3 form-group col-md-2">
                                 <label for="">Tờ số:</label>
-                                <input type="number" name=" number" class="form-control" value="<?php echo @$data['number']; ?>">                       
+                                <input type="number" name="number" class="form-control" value="<?php echo @$data['number']; ?>">                       
                             </div>
                             <div class="mb-3 form-group col-md-2">
                                 <label for="">Số lượng:</label>

@@ -128,7 +128,6 @@ function saveRegisterMemberAPI($input)
 		    	$dataSend = $input['request']->getData();
 
 	    	if(	!empty($dataSend['full_name']) && 
-	    		!empty($dataSend['phone']) &&
 	    		!empty($dataSend['email']) &&
 	    		!empty($dataSend['pass']) &&
 	    		!empty($dataSend['passAgain']) 
@@ -136,8 +135,8 @@ function saveRegisterMemberAPI($input)
 	    		if($dataSend['pass'] == $dataSend['passAgain']){
 		    		$data = $modelCustomer->newEmptyEntity();
 
-		    		$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-		        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+		    		$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', @$dataSend['phone']));
+		        	$dataSend['phone'] = str_replace('+84','0',@$dataSend['phone']);
 
 		        	$conditions = array();
 			        $conditions['email'] = $dataSend['email'];
@@ -150,7 +149,7 @@ function saveRegisterMemberAPI($input)
 			        
 				        // tạo dữ liệu save
 				        $data->full_name = $dataSend['full_name'];
-				        $data->phone = $dataSend['phone'];
+				        $data->phone = (!empty($dataSend['phone']))?@$dataSend['phone']:'';;
 
 				        $data->email = $dataSend['email'];
 				        $data->address = (!empty($dataSend['address']))?$dataSend['address']:'';
@@ -161,6 +160,7 @@ function saveRegisterMemberAPI($input)
 				        $data->status = 'active';
 				        $data->id_parent = (int) @$dataSend['id_parent'];
 				        $data->id_level = (int) @$dataSend['id_level'];
+				        $data->status = 'active';
 				        $data->pass = md5($dataSend['pass']);
 				        $data->token = createToken();
 				        $data->token_device = @$dataSend['token_device'];
@@ -235,7 +235,7 @@ function checkLoginMemberAPI($input)
 		$dataSend = $input['request']->getData();
 
 	    	if(!empty($dataSend['email']) && !empty($dataSend['pass'])){
-	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
+	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']),'status'=>'active');
 	    		$info_customer = $modelCustomer->find()->where($conditions)->first();
 
 
@@ -532,6 +532,8 @@ function lockAccountAPI($input){
 
 			if(!empty($checkPhone)){
 				$checkPhone->token = '';
+				$checkPhone->status = 'lock';
+
 				$checkPhone->token_device = null;
 				$modelCustomer->save($checkPhone);
 

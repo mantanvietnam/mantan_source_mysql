@@ -811,4 +811,228 @@ function bookHotelAPI($input) {
     return $return;
 }
 
+function getmapAPI(){
+
+    global $urlHomes;
+    global $controller;
+       $conditions['status']= 1;
+
+        $modelGovernanceAgency = $controller->loadModel('Governanceagencys');
+        $governanceAgency= $modelGovernanceAgency->find()->where($conditions)->all();
+
+        $modelFestival = $controller->loadModel('Festivals');
+        $festival= $modelFestival->find()->where($conditions)->all();
+
+        $modelRestaurant = $controller->loadModel('Restaurants');
+        $restaurant= $modelRestaurant->find()->where($conditions)->all();
+
+        $modelTour = $controller->loadModel('Tours');
+        $tour= $modelTour->find()->where($conditions)->all();
+
+        $modelHotel = $controller->loadModel('Hotels');
+        $hotel= $modelHotel->find()->where($conditions)->all();
+
+        $modelHistoricalsite = $controller->loadModel('Historicalsites');
+        $historicalsite= $modelHistoricalsite->find()->where($conditions)->all();
+
+        $modelPlace = $controller->loadModel('Places');
+        $Place= $modelPlace->find()->where($conditions)->all();
+
+        $modelService = $controller->loadModel('Services');
+        $service= $modelService->find()->where($conditions)->all();
+
+        $modelEventcenter = $controller->loadModel('Eventcenters');
+        $eventcenter= $modelEventcenter->find()->where($conditions)->all();
+
+        $modelCraftvillage = $controller->loadModel('Craftvillages');
+        $Craftvillage= $modelCraftvillage->find()->where($conditions)->all();
+
+
+
+        $listData = array();
+
+        if(!empty($Craftvillage)){
+            foreach($eventcenter as $keyCraftvillage => $listCraftvillage){
+                $listData[] =  array('name'=> $listCraftvillage->name,
+                                    'id'=> $listCraftvillage->id,
+                                    'address'=> $listCraftvillage->address,
+                                    'phone'=> $listCraftvillage->phone,
+                                    'image'=> $listCraftvillage->image,
+                                    'lat'=> $listCraftvillage->latitude,
+                                    'long'=> $listCraftvillage->longitude,
+                                    'urlSlug'=> 'chi_tiet_lang_nghe/'.$listCraftvillage->urlSlug.'.html',
+                                    'type'=> 'lang_nghe',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        }
+
+        if(!empty($governanceAgency)){
+            foreach($governanceAgency as $keyGovernanceAgency => $listGovernanceAgency){
+                $listData[] =  array('name'=> $listGovernanceAgency->name,
+                                    'id'=> $listGovernanceAgency->id,
+                                    'address'=> $listGovernanceAgency->address,
+                                    'phone'=> $listGovernanceAgency->phone,
+                                    'image'=> $listGovernanceAgency->image,
+                                    'lat'=> $listGovernanceAgency->latitude,
+                                    'long'=> $listGovernanceAgency->longitude,
+                                    'urlSlug'=> 'chi_tiet_co_quan_hanh_chinh/'.$listGovernanceAgency->urlSlug.'.html',
+                                    'type'=> 'co_quan_hanh_chinh',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/hanhchinh.png',
+
+                );
+            }
+        } 
+
+        if(!empty($service)){
+            foreach($service as $keyService => $listService){
+                $listData[] =  array('name'=> $listService->name,
+                                    'id'=> $listService->id,
+                                    'address'=> $listService->address,
+                                    'phone'=> $listService->phone,
+                                    'image'=> $listService->image,
+                                    'lat'=> $listService->latitude,
+                                    'long'=> $listService->longitude,
+                                    'urlSlug'=> 'chi_tiet_dich_vu_ho_tro_du_lich/'.$listService->urlSlug.'.html',
+                                    'type'=> 'dich_vu_ho_tro_du_lich',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/hotro.png',
+
+                );
+            }
+        }
+
+         if(!empty($eventcenter)){
+            foreach($eventcenter as $keyEventcenter => $listEventcenter){
+                $listData[] =  array('name'=> $listEventcenter->name,
+                                    'id'=> $listEventcenter->id,
+                                    'address'=> $listEventcenter->address,
+                                    'phone'=> $listEventcenter->phone,
+                                    'image'=> $listEventcenter->image,
+                                    'lat'=> $listEventcenter->latitude,
+                                    'long'=> $listEventcenter->longitude,
+                                    'urlSlug'=> 'chi_tiet_trung_tam_hoi_nghi_su_kien/'.$listEventcenter->urlSlug.'.html',
+                                    'type'=> 'trung_tam_hoi_nghi_su_kien',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        } 
+
+        if(!empty($historicalsite)){
+            foreach($historicalsite as $keyGovernanceAgency => $listhistoricalsite){
+                $listData[] =  array('name'=> $listhistoricalsite->name,
+                                    'id'=> $listhistoricalsite->id,
+                                    'address'=> $listhistoricalsite->address,
+                                    'phone'=> $listhistoricalsite->phone,
+                                    'image'=> $listhistoricalsite->image,
+                                    'lat'=> $listhistoricalsite->latitude,
+                                    'long'=> $listhistoricalsite->longitude,
+                                    'urlSlug'=> 'chi_tiet_di_tich_lich_su/'.$listhistoricalsite->urlSlug.'.html',
+                                    'type'=> 'di_tich_lich_su',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/ditich.png',
+
+                );
+            }
+        } 
+
+        if(!empty($Place)){
+            foreach($Place as $keyPlace => $listPlace){
+                $listData[] =  array('name'=> $listPlace->name,
+                                    'id'=> $listPlace->id,
+                                    'address'=> $listPlace->address,
+                                    'phone'=> $listPlace->phone,
+                                    'image'=> $listPlace->image,
+                                    'lat'=> $listPlace->latitude,
+                                    'long'=> $listPlace->longitude,
+                                    'urlSlug'=> 'chi_tiet_danh_lam/'.$listPlace->urlSlug.'.html',
+                                    'type'=> 'danh_lam',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/ditich.png',
+
+                );
+            }
+        } 
+
+        if(!empty($festival)){
+            foreach($festival as $keyfestival => $listFestival){
+                $listData[] =  array('name'=> $listFestival->name,
+                                    'id'=> $listFestival->id,
+                                    'address'=> $listFestival->address,
+                                    'phone'=> $listFestival->phone,
+                                    'image'=> $listFestival->image,
+                                    'lat'=> $listFestival->latitude,
+                                    'long'=> $listFestival->longitude,
+                                    'urlSlug'=> 'chi_tiet_le_hoi/'.$listFestival->urlSlug.'.html',
+                                    'type'=> 'le_hoi',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/lehoi.png',
+
+                );
+            }
+        }
+      if(!empty($restaurant)){
+            foreach($restaurant as $keyrestaurant => $listRestaurant){
+                $listData[] =  array('name'=> $listRestaurant->name,
+                                    'id'=> $listRestaurant->id,
+                                    'address'=> $listRestaurant->address,
+                                    'phone'=> $listRestaurant->phone,
+                                    'image'=> $listRestaurant->image,
+                                    'lat'=> $listRestaurant->latitude,
+                                    'long'=> $listRestaurant->longitude,
+                                    'urlSlug'=> 'chi_tiet_nha_hang/'.$listRestaurant->urlSlug.'.html',
+                                    'type'=> 'nha_hang',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/nhahanh.png',
+
+                );
+            }
+        }
+     if(!empty($tour)){
+            foreach($tour as $keyTour => $listTour){
+                $listData[] =  array('name'=> $listTour->name,
+                                    'id'=> $listTour->id,
+                                    'address'=> $listTour->address,
+                                    'phone'=> $listTour->phone,
+                                    'image'=> $listTour->image,
+                                    'lat'=> $listTour->latitude,
+                                    'long'=> $listTour->longitude,
+                                    'urlSlug'=> 'chi_tiet_tour/'.$listTour->urlSlug.'.html',
+                                    'type'=> 'tour',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/hotro.png',
+
+                );
+            }
+        }
+
+        $keyManMo = '5dc8f2652ac5db08348b4567';
+        $city = 1;
+        $district = 11;
+
+        $dataPost= array('key'=>$keyManMo, 'city'=>1, 'lat'=>'','nameHotel'=> '', 'long'=>'', 'district'=>11, 'limit'=>'','page'=>1);
+            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/getHotelAroundAPI', $dataPost);
+            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
+            $listHotel= json_decode($listHotel, true);
+
+        if(!empty($listHotel['data'])){
+            foreach($listHotel['data'] as $keyHotel => $Hotel){
+                $listData[] =  array('name'=> @$Hotel['Hotel']['name'],
+                                    'id'=> $Hotel['Hotel']['id'],
+                                    'address'=> @$Hotel['Hotel']['address'],
+                                    'phone'=> @$Hotel['Hotel']['phone'],
+                                    'image'=> @$Hotel['Hotel']['imageDefault'],
+                                    'lat'=> sprintf("%.12f", $Hotel['Hotel']['coordinates_x']) ,
+                                    'long'=> sprintf("%.12f", $Hotel['Hotel']['coordinates_y']) ,
+                                    'urlSlug'=> 'chi_tiet_khach_san/'.$Hotel['Hotel']['slug'].'.html',
+                                    'type'=> 'khach_san',
+                                    'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        }
+
+         $return= array('code'=>1,'listData'=>$listData);
+
+    //echo json_encode($return);
+        return $return;
+
+}
+
  ?>

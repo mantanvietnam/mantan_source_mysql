@@ -16,7 +16,7 @@ function login($input)
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
 	    	if(!empty($dataSend['email']) && !empty($dataSend['pass'])){
-	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']));
+	    		$conditions = array('email'=>$dataSend['email'], 'pass'=>md5($dataSend['pass']),'status'=>'active');
 	    		$info_customer = $modelCustomer->find()->where($conditions)->first();
 
 	    		if(empty($info_customer )){
@@ -250,7 +250,7 @@ function editInfoUser($input){
                 if(in_array($filetype, $allowed)){
                     // Check whether file exists before uploading it
                     move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__.'/../../../webroot/upload/regcustomer/' . $today[0].'_avatar.jpg');
-                    $avatar= '/webroot/upload/regcustomer/'.$today[0].'_avatar.jpg';
+                    $avatar= 'https://tayho360.vn/webroot/upload/regcustomer/'.$today[0].'_avatar.jpg';
                     
                 } else{
                     $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';

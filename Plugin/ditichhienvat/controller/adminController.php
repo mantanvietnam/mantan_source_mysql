@@ -586,6 +586,154 @@ function deleteArtifactAdmin($input){
     return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=3');
 }
 
+function addWordArtfactAdmin($input){
+    global $controller;
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    
+    $metaTitleMantan = 'Thông tin hiện vật';
+     $mess= '';
+    $modelArtifact = $controller->loadModel('Artifacts');
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        
+            $dataSend['content']= nl2br($dataSend['content']);
+            $dataSend['content']= explode('HỒ SƠ KHOA HỌC HIỆN VẬT', $dataSend['content']);
+
+        
+        
+        if(!empty($dataSend['content'])){
+            foreach($dataSend['content'] as $listData){
+                if(!empty($listData)){
+                    $listData = str_replace('"','',$listData);
+                    $item= preg_split('/[\t]/', trim($listData));
+
+                    $name = explode(':', $item[2]);        
+                    $address = explode(':', $item[1]);        
+                    $sign = explode('<br />', $item[2]);    
+                    $sign = trim($sign[1]);
+                    $location = explode(':', $item[3]);
+                    $quantity = explode(':', $item[4]);
+                    $introductory = explode(':<br />', $item[5]);
+                    $introductory = trim($introductory[1]);
+                    $number =  explode(':', $item[6]);
+                    $color =  explode(':', $item[8]);
+                    $material = explode(':', $item[10]);
+                    $file = explode(':', $item[12]);
+                    $technique = explode(':', $item[12]);
+                    $current =  explode(':', $item[25]);
+                    $source =explode(':', $item[27]);
+
+                    if($item[28]=='A:  X'){
+                        $classify = 'A';
+                    }elseif($item[29]=='B:  X'){
+                        $classify = 'B';
+                    }else{
+                        $classify = 'C';
+                    }
+                    $registrationdate = explode(':', $item[32]);
+                    $registrationdate = trim(chop($registrationdate[2],'<br />'));
+                 
+                     $data = $modelArtifact->newEmptyEntity();                  
+                    // tạo dữ liệu save
+                    $data->name = @$name[2];
+                    $data->status = @$dataSend['status'];
+                    $data->material = @$material[1];
+                    $data->idHistoricalsite = 27;
+                    $data->idcategory = @$dataSend['idcategory'];
+                    $data->excavation = @$dataSend['excavation'];
+                    $data->period = @$item[15].', '.$item[18];
+                    $data->century = @$dataSend['century'];
+                    $data->location = @$location[1];
+                    $data->color = @$color[1];
+                     if(!empty($registrationdate)){
+                        $data->registrationdate = strtotime(str_replace("T", " ", @$registrationdate));
+                    }else{
+                        $data->registrationdate = '';
+                    }
+                    $data->shape = @$dataSend['shape'];
+                    $data->technique = @$technique[1];
+                    $data->classify = @$classify;
+                    $data->voter = @$item[31];
+                    $data->source = @$source[1];
+                    $data->file = @$file[1];
+                    $data->image = @$dataSend['image'];
+                    $data->image2 = @$dataSend['image2'];
+                    $data->image3 = @$dataSend['image3'];
+                    $data->image4 = @$dataSend['image4'];
+                    $data->image5 = @$dataSend['image5'];
+                    $data->image6 = @$dataSend['image6'];
+                    $data->image7 = @$dataSend['image7'];
+                    $data->image8 = @$dataSend['image8'];
+                    $data->image9 = @$dataSend['image9'];
+                    $data->image10 = @$dataSend['image10'];
+                    $data->image360 = @$dataSend['image360'];
+                    $data->number = @$number[1];
+                    $data->quantity = @$quantity[1];
+                    $data->sign = @$sign;
+                    $data->weight = @$dataSend['weight'];
+                    $data->size = str_replace(array("<br />", "<br />", "\t"), "",@$item[23]);
+                    $data->introductory = @$introductory;
+                    $data->current = @$current[1];
+                    $data->certification = @$dataSend['certification'];
+                    $data->exposure = @$dataSend['exposure'];
+                    $data->intensity = @$dataSend['intensity'];
+                    $data->softness = @$dataSend['softness'];
+                    $data->counterclockwise = @$dataSend['counterclockwise'];
+                    $data->clockwiselimit = @$dataSend['clockwiselimit'];
+                    $data->topdownlimit = @$dataSend['topdownlimit'];
+                    $data->bottomuplimit = @$dataSend['bottomuplimit'];
+                    $data->doctitle = @$dataSend['doctitle'];
+                    $data->docauthor = @$dataSend['docauthor'];
+                    $data->doctype = @$dataSend['doctype'];
+                    $data->doclink = @$dataSend['doclink'];
+                      if(!empty($dataSend['docdate'])){
+                        $data->docdate = strtotime(str_replace("T", " ", @$dataSend['docdate']));
+                    }else{
+                        $data->docdate = '';
+                    }
+                    $data->docifile = @$dataSend['docifile'];
+                    $data->docdescribe = @$dataSend['docdescribe'];
+                    $data->address = @$address[1];
+                    
+                    $data->videotitle = @$dataSend['videotitle'];
+                    $data->videoauthor = @$dataSend['videoauthor'];
+                    $data->videotype = @$dataSend['videotype'];
+                    $data->videolink = @$dataSend['videolink'];
+                    $data->videofile = @$dataSend['videofile'];
+                    $data->videodescribe = @$dataSend['videodescribe'];
+
+                    $data->presenttitle = @$dataSend['presenttitle'];
+                    $data->presentauthor = @$dataSend['presentauthor'];
+                    $data->presenttype = @$dataSend['presenttype'];
+                    $data->presentlink = @$dataSend['presentlink'];
+                    $data->presentfile = @$dataSend['presentfile'];
+                    $data->presentdescribe = @$dataSend['presentdescribe'];
+                    $data->environmentimage = @$dataSend['environmentimage'];
+                    $data->backgroundcolor = @$dataSend['backgroundcolor'];
+                    $data->fileusdz = @$dataSend['fileusdz'];
+                    $data->filegle = @$dataSend['filegle'];
+
+                    $data->urlSlug = createSlugMantan(trim(@$name[2].' '.@$sign));
+
+                    //debug($data);
+                      //die;
+
+                   $modelArtifact->save($data);
+
+                }
+            }
+        }
+        // die;
+        return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=1');
+
+    }
+
+     setVariable('mess', $mess);
+
+}
 
 /*Danh muc categoryartifact */
 function listCategoryartifactAdmin($input)
