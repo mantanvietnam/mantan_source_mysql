@@ -37,6 +37,7 @@ global $modelVideos;
 
 global $urlCurrent;
 global $urlThemeActive;
+global $urlHomes;
 
 global $metaTitleMantan;
 global $metaKeywordsMantan;
@@ -51,6 +52,14 @@ global $session;
 global $infoSite;
 global $contactSite;
 global $smtpSite;
+
+if(isset($_SERVER['HTTPS'])){
+    $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+}
+else{
+    $protocol = 'http';
+}
+$urlHomes = $protocol . "://" . $_SERVER['HTTP_HOST'].'/';
 
 $variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts','modelMenus');
 
@@ -492,6 +501,8 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
 
 function uploadImage($user_id='', $name_input='', $filenameImage='')
 {
+	global $urlHomes;
+
 	$return = ['code'=>1, 'mess'=>''];
 
 	if(!empty($user_id) && !empty($name_input)){
@@ -527,7 +538,7 @@ function uploadImage($user_id='', $name_input='', $filenameImage='')
                 // Check whether file exists before uploading it
                 move_uploaded_file($_FILES[$name_input]["tmp_name"], __DIR__.'/../upload/admin/images/'.$user_id.'/'.$filenameImage);
 
-                $return = ['code'=>0, 'mess'=>'Upload thành công', 'linkOnline'=>'https://apis.ezpics.vn/upload/admin/images/'.$user_id.'/'.$filenameImage, 'linkLocal'=>'upload/admin/images/'.$user_id.'/'.$filenameImage];
+                $return = ['code'=>0, 'mess'=>'Upload thành công', 'linkOnline'=>$urlHomes.'upload/admin/images/'.$user_id.'/'.$filenameImage, 'linkLocal'=>'upload/admin/images/'.$user_id.'/'.$filenameImage];
                 
             } else{
                 $return = ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];

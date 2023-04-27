@@ -756,30 +756,29 @@ function saveInfoUserAPI($input)
 	$infoUser = $modelCustomer->find()->where($conditions)->first();
 	
     if(!empty($infoUser)){
-			$infoUser->full_name = @$dataSend['full_name'];
-            $infoUser->address = @$dataSend['address'];
-            $infoUser->phone = @$dataSend['phone'];
+		$infoUser->full_name = @$dataSend['full_name'];
+        $infoUser->address = @$dataSend['address'];
+        $infoUser->phone = @$dataSend['phone'];
+       
+       	if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+			$avatar = uploadImage($infoUser->id, 'avatar', 'avatar_'.$infoUser->id);
+		}
 
-           
-           if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-					$avatar = uploadImage($infoUser->id, 'avatar', 'avatar_'.$infoUser->id);
-				}
+		if(!empty($avatar['linkOnline'])){
+			$infoUser->avatar = $avatar['linkOnline'];
+		}
 
-				if(!empty($avatar['linkOnline'])){
-					$infoUser->avatar = $avatar['linkOnline'];
-				}
+    	$modelCustomer->save($infoUser);
+    	$return = array('code'=>1,
+    						'info_member'=>$infoUser,
+							'messages'=>'Bạn sửa thành công',
+							);
 
-        	$modelCustomer->save($infoUser);
-        	$return = array('code'=>1,
-        						'info_member'=>$infoUser,
-								'messages'=>'Bạn sửa thành công',
-								);
-
-		}else{
-			$return = array('code'=>3,
-									'messages'=>'Tài khoản không tồn tại',
-								);
-    }
+	}else{
+		$return = array('code'=>3,
+								'messages'=>'Tài khoản không tồn tại',
+							);
+	}
 
 	return $return;
 }
