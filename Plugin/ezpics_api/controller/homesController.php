@@ -717,7 +717,7 @@ function capImg($input)
         
         $modelProduct->save($product);
 
-        zipImage($name);
+        //zipImage($name);
 
         return ['success' => 'Thành công','link' => $image];
     }else{
