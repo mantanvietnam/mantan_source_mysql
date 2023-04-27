@@ -13,6 +13,10 @@
                     <label>Tên hiện vật</label>
                     <input type="" name="name" class="form-control" placeholder="Tên hiện vật" value="">
                 </td>
+                <td>
+                    <label>MÃ</label>
+                    <input type="" name="sign" class="form-control" placeholder="Mã" value="<?php echo @$_GET['sign'] ?>">
+                </td>
                  <td >
                     <br>
                     <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">

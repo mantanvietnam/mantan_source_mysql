@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/ditichhienvat-admin-artifact-listArtifactAdmin.php">Hiện vật</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php">Hiện vật</a> /</span>
     <?php 
         if(!empty($_GET['id'])){
             echo "Sửa thông tin";
@@ -26,6 +26,7 @@
                 <div class="col-md-12">
                     <textarea class="form-control" name="content" rows="15"></textarea>
                 </div>
+                <input type="date" name="registrationdate" class="form-control" value="<?php echo (!empty($data['registrationdate']))?  date("Y-m-d", @$data['registrationdate']) : " " ?>">     
                 <button style=" margin: 10px; width: 80px;" type="submit" class="btn btn-primary">Lưu</button>
             </div>
             <?= $this->Form->end() ?>
