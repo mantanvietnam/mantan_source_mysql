@@ -236,6 +236,8 @@ function listlikegetcustom($input){
 
     $listData = array();
 
+
+
     if(!empty($data)){
         foreach ($data as $item) {
         $custom =  getCustomer($item->idcustomer);
@@ -262,7 +264,7 @@ function listlikegetcustom($input){
                }
             }elseif($item->type=="danh_lam"){
                 $Place = getPlace($item->idobject);
-                if(!empty($Governance)){
+                if(!empty($Place)){
                     $listData[]= array(
                         'id'=> @$Place->id,
                         'name'=> @$Place->name,
@@ -272,7 +274,7 @@ function listlikegetcustom($input){
                 }
             }elseif($item->type=="le_hoi"){
                 $Festival = getFestival($item->idobject);
-                if(!empty($Governance)){
+                if(!empty($Festival)){
                    $listData[]= array(
                     'id'=> @$Festival->id,
                     'name'=> @$Festival->name,
@@ -282,7 +284,7 @@ function listlikegetcustom($input){
                }
             }elseif($item->type=="nha_hang"){
                 $Restaurant = getRestaurant($item->idobject);
-                if(!empty($Governance)){
+                if(!empty($Restaurant)){
                     $listData[]= array(
                         'id'=> @$Restaurant->id,
                         'name'=> @$Restaurant->name,
@@ -312,7 +314,7 @@ function listlikegetcustom($input){
                 }
             }elseif($item->type=="khach_san"){
                 $Hotel = getHotel($item->idobject);
-                if(!empty($Governance)){
+                if(!empty($Hotel)){
                     $listData[]= array(
                     'id'=> @$Hotel['data']['Hotel']['id'],
                     'name'=> @$Hotel['data']['Hotel']['name'],
