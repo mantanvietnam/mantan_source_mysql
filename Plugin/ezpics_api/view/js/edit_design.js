@@ -1,9 +1,3 @@
-
-$('.clc-back').click(function() {
-    $('.box-detail-edit-user-create, .menu-bottom, .clc-back, .box-detail-create, .box-detail-product, html, body, .avarta-user').removeClass('active');
-    $('.active-layer-edit').addClass('d-none');
-});
-
 /*
 Coloris({
     el: '.coloris',
@@ -99,29 +93,7 @@ function editThemeUser(id)
                 // select layer
                 $('.setlayer').click(function () {
                     var layer = $(this).data('layer'); // id layer
-                 
-                    $('.drag-drop').removeClass('active-hover');
-                    $(".content-action").removeClass("active");
-                    $(".clc-action-edit").removeClass("active");
-                    $('.drag-drop[data-id="'+layer+'"]').addClass('active-hover');
-                    
-                    var type = $('.drag-drop.active-hover').data('type');
-                    if (type == 'text') {
-                        $('.image-select').addClass('d-none');
-                        $('.text-select').removeClass('d-none');
-
-                        //$('.thaotacchu, #thaotacchu').addClass('active');
-                        $('.thaotacanh, #thaotacanh').removeClass('active');
-                    }
-                    if (type == 'image') {
-                        $('.text-select').addClass('d-none');
-                        $('.image-select').removeClass('d-none');
-
-                        $('.thaotacchu, #thaotacchu').removeClass('active');
-                        //$('.thaotacanh, #thaotacanh').addClass('active');
-                    }
-
-                    getInfoLayer();
+                    activeLayerSelect(layer);
                 })
 
                 // update thông tin cơ bản khi nhập
@@ -132,33 +104,7 @@ function editThemeUser(id)
                 }else{
                     $('.thongtin').addClass('d-none');
                 }
-                // // lấy danh sách user
-                // $('.list-layer').html(data.list_layer_check);
-
-                // // select layer
-                // $('.setlayer').click(function () {
-                //     var layer = $(this).data('layer');
-                //     $('.drag-drop').removeClass('active-hover');
-                //     $(".content-action").removeClass("active");
-                //     $(".clc-action-edit").removeClass("active");
-                //     $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                //     var type = $('.drag-drop.active-hover').data('type');
-                //     if (type == 'text') {
-                //         $('.image-select').addClass('d-none');
-                //         $('.text-select').removeClass('d-none');
-
-                //         $('.thaotacchu, #thaotacchu').addClass('active');
-                //         $('.thaotacanh, #thaotacanh').removeClass('active');
-                //     }
-                //     if (type == 'image') {
-                //         $('.text-select').addClass('d-none');
-                //         $('.image-select').removeClass('d-none');
-
-                //         $('.thaotacchu, #thaotacchu').removeClass('active');
-                //         $('.thaotacanh, #thaotacanh').addClass('active');
-                //     }
-                // })
-
+                
 
                 $('.list-layout-move-create').html(data.movelayer);
                 hover();
@@ -278,37 +224,15 @@ function hover() {
       
         // $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
         $(this).addClass('active-hover');
+        $('.list-selection-choose').addClass('d-none');
+        $('.drag-drop.active-hover').find('.list-selection-choose').removeClass('d-none');
+
         removeInfoLayer(); // xóa data trước khi lấy data mới
         getInfoLayer(); // gọi data
         ajaxInfoLayer(); // cập nhật ngược data lên
     });
 
-    $("body").on("click",function(e) {
-        if($('.content-action').hasClass('active')){
-            
-        }else{
-            if( $(e.target).is('.action-edit-theme') || $(e.target).closest('.action-edit-theme').length ||  $(e.target).is('.drag-drop') || $(e.target).closest('.drag-drop').length) {
-            }else {
-                $('.image, .text').removeClass('d-none');
-                // var type = $('.drag-drop.active-hover').data('type');
-                // if (type == 'text') {
-                //     $('.image-select').addClass('d-none');
-                //     $('.text-select').removeClass('d-none');
-
-                //     $('.thaotacchu, #thaotacchu').addClass('active');
-                //     $('.thaotacanh, #thaotacanh').removeClass('active');
-                // }
-                // if (type == 'image') {
-                //     $('.text-select').addClass('d-none');
-                //     $('.image-select').removeClass('d-none');
-
-                //     $('.thaotacchu, #thaotacchu').removeClass('active');
-                //     $('.thaotacanh, #thaotacanh').addClass('active');
-                // }
-                $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
-            }
-        }
-    });
+    onclickBody();
 }
 
 // update thông tin sản phẩm select
@@ -1101,12 +1025,12 @@ function updatelayerClient(layer,field,id,value) {
 function saveproduct() {
     let id = $('.drag-drop').data('idproduct'); // id sản phẩm
     //$('.drag-drop').removeClass('active-hover');
-    $('.loadimg').removeClass('d-none');
+    $('.loadingProcess').removeClass('d-none');
     
     capEdit(id);
     
     if (localStorage.getItem("product_update_"+id) === null) {
-        $('.loadimg').addClass('d-none');
+        $('.loadingProcess').addClass('d-none');
     }else{
         var getupdate = localStorage.getItem("product_update_"+id);
         var json_update = JSON.parse(getupdate);
@@ -1125,7 +1049,7 @@ function saveproduct() {
                     printErrorMsg(data.error);
                 }
 
-                $('.loadimg').addClass('d-none');
+                $('.loadingProcess').addClass('d-none');
 
                 // Hiển thị thông báo
                 $("#success-notification").show();
@@ -1213,26 +1137,7 @@ function duplicate() {
                                     // select layer
                                     $('.setlayer').click(function () {
                                         var layer = $(this).data('layer');
-                                        $('.drag-drop').removeClass('active-hover');
-                                        $(".content-action").removeClass("active");
-                                        $(".clc-action-edit").removeClass("active");
-                                        $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                        var type = $('.drag-drop.active-hover').data('type');
-                                        if (type == 'text') {
-                                            $('.image-select').addClass('d-none');
-                                            $('.text-select').removeClass('d-none');
-
-                                            //$('.thaotacchu, #thaotacchu').addClass('active');
-                                            $('.thaotacanh, #thaotacanh').removeClass('active');
-                                        }
-                                        if (type == 'image') {
-                                            $('.text-select').addClass('d-none');
-                                            $('.image-select').removeClass('d-none');
-
-                                            $('.thaotacchu, #thaotacchu').removeClass('active');
-                                            //$('.thaotacanh, #thaotacanh').addClass('active');
-                                        }
-                                        getInfoLayer();
+                                        activeLayerSelect(layer);
                                     })
 
 
@@ -1375,26 +1280,7 @@ function deleted() {
                                 // select layer
                                 $('.setlayer').click(function () {
                                     var layer = $(this).data('layer');
-                                    $('.drag-drop').removeClass('active-hover');
-                                    $(".content-action").removeClass("active");
-                                    $(".clc-action-edit").removeClass("active");
-                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                    var type = $('.drag-drop.active-hover').data('type');
-                                    if (type == 'text') {
-                                        $('.image-select').addClass('d-none');
-                                        $('.text-select').removeClass('d-none');
-
-                                        //$('.thaotacchu, #thaotacchu').addClass('active');
-                                        $('.thaotacanh, #thaotacanh').removeClass('active');
-                                    }
-                                    if (type == 'image') {
-                                        $('.text-select').addClass('d-none');
-                                        $('.image-select').removeClass('d-none');
-
-                                        $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        //$('.thaotacanh, #thaotacanh').addClass('active');
-                                    }
-                                    getInfoLayer();
+                                    activeLayerSelect(layer);
                                 })
 
 
@@ -1460,6 +1346,8 @@ function deleted() {
 function deletedinlayer(idproduct,id) {
     var getupdate = localStorage.getItem("product_update_"+idproduct);
     var json_update = JSON.parse(getupdate);
+    $('.loadingProcess').removeClass('d-none');
+
     $.ajax({
         url: 'https://apis.ezpics.vn/apis/savelayer',
         dataType: 'json',
@@ -1479,6 +1367,8 @@ function deletedinlayer(idproduct,id) {
                     }, 
                     success:function(data){
                         if($.isEmptyObject(data.error)){
+                            $('.loadingProcess').addClass('d-none');
+
                             //xóa data cũ
                             $('.nameProduct').val('');
                             $('.priceProduct').val('');
@@ -1521,26 +1411,7 @@ function deletedinlayer(idproduct,id) {
                             // select layer
                             $('.setlayer').click(function () {
                                 var layer = $(this).data('layer');
-                                $('.drag-drop').removeClass('active-hover');
-                                $(".content-action").removeClass("active");
-                                $(".clc-action-edit").removeClass("active");
-                                $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                var type = $('.drag-drop.active-hover').data('type');
-                                if (type == 'text') {
-                                    $('.image-select').addClass('d-none');
-                                    $('.text-select').removeClass('d-none');
-
-                                    //$('.thaotacchu, #thaotacchu').addClass('active');
-                                    $('.thaotacanh, #thaotacanh').removeClass('active');
-                                }
-                                if (type == 'image') {
-                                    $('.text-select').addClass('d-none');
-                                    $('.image-select').removeClass('d-none');
-
-                                    $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    //$('.thaotacanh, #thaotacanh').addClass('active');
-                                }
-                                getInfoLayer();
+                                activeLayerSelect(layer);
                             })
 
 
@@ -1666,26 +1537,7 @@ function add() {
                             // select layer
                             $('.setlayer').click(function () {
                                 var layer = $(this).data('layer');
-                                $('.drag-drop').removeClass('active-hover');
-                                $(".content-action").removeClass("active");
-                                $(".clc-action-edit").removeClass("active");
-                                $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                var type = $('.drag-drop.active-hover').data('type');
-                                if (type == 'text') {
-                                    $('.image-select').addClass('d-none');
-                                    $('.text-select').removeClass('d-none');
-
-                                    //$('.thaotacchu, #thaotacchu').addClass('active');
-                                    $('.thaotacanh, #thaotacanh').removeClass('active');
-                                }
-                                if (type == 'image') {
-                                    $('.text-select').addClass('d-none');
-                                    $('.image-select').removeClass('d-none');
-
-                                    $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    //$('.thaotacanh, #thaotacanh').addClass('active');
-                                }
-                                getInfoLayer();
+                                activeLayerSelect(layer);
                             })
 
                             $('.list-layout-move-create').html(data.movelayer);
@@ -1811,26 +1663,7 @@ function addImage(linkImage) {
                             // select layer
                             $('.setlayer').click(function () {
                                 var layer = $(this).data('layer');
-                                $('.drag-drop').removeClass('active-hover');
-                                $(".content-action").removeClass("active");
-                                $(".clc-action-edit").removeClass("active");
-                                $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                var type = $('.drag-drop.active-hover').data('type');
-                                if (type == 'text') {
-                                    $('.image-select').addClass('d-none');
-                                    $('.text-select').removeClass('d-none');
-
-                                    //$('.thaotacchu, #thaotacchu').addClass('active');
-                                    $('.thaotacanh, #thaotacanh').removeClass('active');
-                                }
-                                if (type == 'image') {
-                                    $('.text-select').addClass('d-none');
-                                    $('.image-select').removeClass('d-none');
-
-                                    $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    //$('.thaotacanh, #thaotacanh').addClass('active');
-                                }
-                                getInfoLayer();
+                                activeLayerSelect(layer);
                             })
 
                             $('.list-layout-move-create').html(data.movelayer);
@@ -1956,26 +1789,7 @@ function changeImage(linkImage) {
                             // select layer
                             $('.setlayer').click(function () {
                                 var layer = $(this).data('layer');
-                                $('.drag-drop').removeClass('active-hover');
-                                $(".content-action").removeClass("active");
-                                $(".clc-action-edit").removeClass("active");
-                                $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                var type = $('.drag-drop.active-hover').data('type');
-                                if (type == 'text') {
-                                    $('.image-select').addClass('d-none');
-                                    $('.text-select').removeClass('d-none');
-
-                                    //$('.thaotacchu, #thaotacchu').addClass('active');
-                                    $('.thaotacanh, #thaotacanh').removeClass('active');
-                                }
-                                if (type == 'image') {
-                                    $('.text-select').addClass('d-none');
-                                    $('.image-select').removeClass('d-none');
-
-                                    $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    //$('.thaotacanh, #thaotacanh').addClass('active');
-                                }
-                                getInfoLayer();
+                                activeLayerSelect(layer);
                             })
 
                             $('.list-layout-move-create').html(data.movelayer);
@@ -2098,26 +1912,7 @@ function sort(type) {
                             // select layer
                             $('.setlayer').click(function () {
                                 var layer = $(this).data('layer');
-                                $('.drag-drop').removeClass('active-hover');
-                                $(".content-action").removeClass("active");
-                                $(".clc-action-edit").removeClass("active");
-                                $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                var type = $('.drag-drop.active-hover').data('type');
-                                if (type == 'text') {
-                                    $('.image-select').addClass('d-none');
-                                    $('.text-select').removeClass('d-none');
-
-                                    //$('.thaotacchu, #thaotacchu').addClass('active');
-                                    $('.thaotacanh, #thaotacanh').removeClass('active');
-                                }
-                                if (type == 'image') {
-                                    $('.text-select').addClass('d-none');
-                                    $('.image-select').removeClass('d-none');
-
-                                    $('.thaotacchu, #thaotacchu').removeClass('active');
-                                    //$('.thaotacanh, #thaotacanh').addClass('active');
-                                }
-                                getInfoLayer();
+                                activeLayerSelect(layer);
                             })
 
 
@@ -2420,19 +2215,8 @@ interact(".drag-drop")
             removeInfoLayer(); // xóa data trước khi lấy data mới
             getInfoLayer(); // gọi data
             ajaxInfoLayer(); // cập nhật ngược data lên
-            $("body").on("click",function(e) {
-                if($('.content-action').hasClass('active')){
-                    
-                }else{
-                    if( $(e.target).is('.action-edit-theme') || $(e.target).closest('.action-edit-theme').length ||  $(e.target).is('.drag-drop') || $(e.target).closest('.drag-drop').length) {
-                    }else {
-                        var target = event.target;
-                        var selector = target.getAttribute('class');
-                        var getClass = selector.replaceAll("active-hover", "");
-                        target.setAttribute("class", $.trim(getClass));
-                    }
-                }
-            });
+            onclickBody();
+            
 
             var type = $('.drag-drop.active-hover').data('type');
             if (type == 'text') {
@@ -2480,28 +2264,6 @@ interact(".drag-drop")
 
             updatelayerClient(layer,'postion',idproduct,x+','+y);
             productstep(layer,'postion',idproduct,x+','+y);
-
-
-            // $("body").on("click",function(e) {
-            //     if($('.content-action').hasClass('active')){
-                    
-            //     }else{
-            //         if( $(e.target).is('.action-edit-theme') || $(e.target).closest('.action-edit-theme').length ||  $(e.target).is('.drag-drop') || $(e.target).closest('.drag-drop').length) {
-            //         }else {
-            //             var target = event.target;
-            //             var selector = target.getAttribute('class');
-            //             var getClass = selector.replaceAll("active-hover", "");
-            //             $('.image, .text').removeClass('d-none');
-            //             var type = $('.drag-drop.active-hover').data('type');
-            //             if (type == 'text') {
-            //                 $('.image').addClass('d-none');
-            //             }else{
-            //                 $('.text').addClass('d-none');
-            //             }
-            //             target.setAttribute("class", $.trim(getClass));
-            //         }
-            //     }
-            // });
         } 
     },
 });
@@ -2632,26 +2394,7 @@ $(".upimg[type='file']").on('change', function() {
                                 // select layer
                                 $('.setlayer').click(function () {
                                     var layer = $(this).data('layer');
-                                    $('.drag-drop').removeClass('active-hover');
-                                    $(".content-action").removeClass("active");
-                                    $(".clc-action-edit").removeClass("active");
-                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                    var type = $('.drag-drop.active-hover').data('type');
-                                    if (type == 'text') {
-                                        $('.image-select').addClass('d-none');
-                                        $('.text-select').removeClass('d-none');
-
-                                        //$('.thaotacchu, #thaotacchu').addClass('active');
-                                        $('.thaotacanh, #thaotacanh').removeClass('active');
-                                    }
-                                    if (type == 'image') {
-                                        $('.text-select').addClass('d-none');
-                                        $('.image-select').removeClass('d-none');
-
-                                        $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        //$('.thaotacanh, #thaotacanh').addClass('active');
-                                    }
-                                    getInfoLayer();
+                                    activeLayerSelect(layer);
                                 })
 
                                 $('.list-layout-move-create').html(data.movelayer);
@@ -2780,26 +2523,7 @@ $(".upimgThumbnail[type='file']").on('change', function() {
                                 // select layer
                                 $('.setlayer').click(function () {
                                     var layer = $(this).data('layer');
-                                    $('.drag-drop').removeClass('active-hover');
-                                    $(".content-action").removeClass("active");
-                                    $(".clc-action-edit").removeClass("active");
-                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                    var type = $('.drag-drop.active-hover').data('type');
-                                    if (type == 'text') {
-                                        $('.image-select').addClass('d-none');
-                                        $('.text-select').removeClass('d-none');
-
-                                        //$('.thaotacchu, #thaotacchu').addClass('active');
-                                        $('.thaotacanh, #thaotacanh').removeClass('active');
-                                    }
-                                    if (type == 'image') {
-                                        $('.text-select').addClass('d-none');
-                                        $('.image-select').removeClass('d-none');
-
-                                        $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        //$('.thaotacanh, #thaotacanh').addClass('active');
-                                    }
-                                    getInfoLayer();
+                                    activeLayerSelect(layer);
                                 })
 
                                 $('.list-layout-move-create').html(data.movelayer);
@@ -2939,26 +2663,7 @@ $(".replace[type='file']").on('change', function() {
                                 // select layer
                                 $('.setlayer').click(function () {
                                     var layer = $(this).data('layer');
-                                    $('.drag-drop').removeClass('active-hover');
-                                    $(".content-action").removeClass("active");
-                                    $(".clc-action-edit").removeClass("active");
-                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                    var type = $('.drag-drop.active-hover').data('type');
-                                    if (type == 'text') {
-                                        $('.image-select').addClass('d-none');
-                                        $('.text-select').removeClass('d-none');
-
-                                        //$('.thaotacchu, #thaotacchu').addClass('active');
-                                        $('.thaotacanh, #thaotacanh').removeClass('active');
-                                    }
-                                    if (type == 'image') {
-                                        $('.text-select').addClass('d-none');
-                                        $('.image-select').removeClass('d-none');
-
-                                        $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        //$('.thaotacanh, #thaotacanh').addClass('active');
-                                    }
-                                    getInfoLayer();
+                                    activeLayerSelect(layer);
                                 })
 
                                 $('.list-layout-move-create').html(data.movelayer);
@@ -3128,26 +2833,7 @@ function removeBackground()
                                 // select layer
                                 $('.setlayer').click(function () {
                                     var layer = $(this).data('layer');
-                                    $('.drag-drop').removeClass('active-hover');
-                                    $(".content-action").removeClass("active");
-                                    $(".clc-action-edit").removeClass("active");
-                                    $('.drag-drop[data-layer="'+layer+'"]').addClass('active-hover');
-                                    var type = $('.drag-drop.active-hover').data('type');
-                                    if (type == 'text') {
-                                        $('.image-select').addClass('d-none');
-                                        $('.text-select').removeClass('d-none');
-
-                                        //$('.thaotacchu, #thaotacchu').addClass('active');
-                                        $('.thaotacanh, #thaotacanh').removeClass('active');
-                                    }
-                                    if (type == 'image') {
-                                        $('.text-select').addClass('d-none');
-                                        $('.image-select').removeClass('d-none');
-
-                                        $('.thaotacchu, #thaotacchu').removeClass('active');
-                                        //$('.thaotacanh, #thaotacanh').addClass('active');
-                                    }
-                                    getInfoLayer();
+                                    activeLayerSelect(layer);
                                 })
 
 
@@ -3210,6 +2896,7 @@ function removeBackground()
     }
 }
 
+/*
 $("#widgetCapEdit").contentZoomSlider({
   toolContainer: ".zoom-tool-bar",
   step: 5,
@@ -3217,6 +2904,58 @@ $("#widgetCapEdit").contentZoomSlider({
   min: 5,
   zoom: 100
 });
+*/
+
+function showFormEditText(idLayer)
+{   
+    $(".content-action").removeClass("active");
+    $('#edittext').addClass('active');
+}
+
+function activeLayerSelect(idLayer)
+{         
+    $('.drag-drop').removeClass('active-hover');
+    $(".content-action").removeClass("active");
+    $(".clc-action-edit").removeClass("active");
+    $('.drag-drop[data-id="'+idLayer+'"]').addClass('active-hover');
+    
+    var type = $('.drag-drop.active-hover').data('type');
+
+    if (type == 'text') {
+        $('.image-select').addClass('d-none');
+        $('.text-select').removeClass('d-none');
+
+        //$('.thaotacchu, #thaotacchu').addClass('active');
+        $('.thaotacanh, #thaotacanh').removeClass('active');
+    }
+    if (type == 'image') {
+        $('.text-select').addClass('d-none');
+        $('.image-select').removeClass('d-none');
+
+        $('.thaotacchu, #thaotacchu').removeClass('active');
+        //$('.thaotacanh, #thaotacanh').addClass('active');
+    }
+
+    $('.list-selection-choose').addClass('d-none');
+    $('.drag-drop.active-hover').find('.list-selection-choose').removeClass('d-none');
+
+    getInfoLayer();
+}
+
+function onclickBody()
+{
+    $("body").on("click",function(e) {
+        // nếu bấm chuột ngoài khung hiển thị xem trước
+        var widgetCapEdit = document.getElementById("widgetCapEdit");
+        var actionEditTheme = document.getElementById("actionEditTheme");
+
+        if(!widgetCapEdit.contains(e.target) && !actionEditTheme.contains(e.target)){
+            $('.image, .text').removeClass('d-none');
+            $('.list-selection-choose').addClass('d-none');
+            $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
+        }
+    });
+}
 
 $("#toolbar_gradient").gradientPicker({
     change: function(points, styles) {

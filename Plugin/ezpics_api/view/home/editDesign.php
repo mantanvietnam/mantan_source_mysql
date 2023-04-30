@@ -60,9 +60,9 @@
 	<script src="/plugins/ezpics_api/view/js/colorpicker/colorpicker.js"></script>
 	<script src="/plugins/ezpics_api/view/js/jquery.gradientPicker.js"></script>
 
-	<!-- thêm thư viện zoom -->
+	<!-- thêm thư viện zoom 
 	<script src="/plugins/ezpics_api/view/js/content-zoom-slider.js"></script>
-
+	-->
 	<!-- thêm font chữ cài từ admin -->
 	<style type="text/css">
 		<?php 
@@ -89,17 +89,19 @@
 		        	<div class="showView">
 			            <div class="thumb-checklayer list-layout-move-create" id="widgetCapEdit"></div>
 			        </div>
+			        <!--
 		            <div class="zoom-tool-bar"></div>
+		        	-->
 		        </div>
-		        <div class="text-center">
-		            <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/ajax-loader-green.gif" class="img-fluid text-center loadimg d-none" width="50">
+		        <div class="text-center loadingProcess d-none">
+		            <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/ajax-loader-green.gif" class="img-fluid text-center loadimg" width="50">
 		        </div>
 		        <div id="success-notification">Lưu dữ liệu thành công</div>
 		    </div>
 
 		    <div class="container" style="padding-bottom: 100px;">
 	            <div class="active-layer-edit">
-	                <div class="action-edit-theme">
+	                <div class="action-edit-theme" id="actionEditTheme">
 	                    <div class="list-action">
 	                        <div class="item-action clc-action-edit saveproduct" onclick="saveproduct()">
 	                            <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/save.png" class="img-fluid" alt=""></div>

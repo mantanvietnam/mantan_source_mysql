@@ -623,10 +623,26 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->postion_y = $layer->postion_top*$heightWindow/100;
 
                         $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
+                            
+                            <div class="list-selection-choose d-none">
+                                <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                                <button class="btn-style-design-copy" onclick="duplicate();">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                                <button class="btn-style-design-edit" onclick="showFormEditText(\''.$item->id.'\');">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </div>
+
+                            <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
                         
-                        <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
+                            <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span>
                         
-                        <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span></div>';
+
+                        </div>
+                        ';
                         $key++;
 
                         $list_layer[$item->id] = $layer;

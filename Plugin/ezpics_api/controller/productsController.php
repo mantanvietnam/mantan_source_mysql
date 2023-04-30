@@ -36,8 +36,8 @@ function getNewProductAPI($input)
 
 	if(!empty($listData)){
 		foreach ($listData as $key => $value) {
-			if(!empty($value->thumbnail)){
-				$listData[$key]->image = $value->thumbnail;
+			if(empty($value->thumbnail)){
+				$listData[$key]->thumbnail = $value->image;
 			}
 		}
 	}
@@ -89,8 +89,8 @@ function searchProductAPI($input)
 
 	if(!empty($listProduct)){
 		foreach ($listProduct as $key => $value) {
-			if(!empty($value->thumbnail)){
-				$listProduct[$key]->image = $value->thumbnail;
+			if(empty($value->thumbnail)){
+				$listProduct[$key]->thumbnail = $value->image;
 			}
 		}
 	}
@@ -131,8 +131,8 @@ function getProductByCategoryAPI($input)
 
 		if(!empty($listProduct)){
 			foreach ($listProduct as $key => $value) {
-				if(!empty($value->thumbnail)){
-					$listProduct[$key]->image = $value->thumbnail;
+				if(empty($value->thumbnail)){
+					$listProduct[$key]->thumbnail = $value->image;
 				}
 			}
 		}
@@ -183,8 +183,8 @@ function getProductAllCategoryAPI($input)
 
 			if(!empty($listProduct)){
 				foreach ($listProduct as $key => $value) {
-					if(!empty($value->thumbnail)){
-						$listProduct[$key]->image = $value->thumbnail;
+					if(empty($value->thumbnail)){
+						$listProduct[$key]->thumbnail = $value->image;
 					}
 				}
 			}
@@ -220,8 +220,8 @@ function getTrendProductAPI($input)
 
 			$listData[$key]->author = @$infoUser->name;
 
-			if(!empty($value->thumbnail)){
-				$listData[$key]->image = $value->thumbnail;
+			if(empty($value->thumbnail)){
+				$listData[$key]->thumbnail = $value->image;
 			}
 		}
 	}
@@ -252,8 +252,8 @@ function getInfoProductAPI($input)
 			$infoUser = $modelMember->find()->where(['id'=>(int) $data->user_id])->first();
 			$data->author = @$infoUser->name;
 
-			if(!empty($data->thumbnail)){
-				$data->image = $data->thumbnail;
+			if(empty($data->thumbnail)){
+				$data->thumbnail = $data->image;
 			}
 
 			if($data->type == 'user_create'){
@@ -270,8 +270,8 @@ function getInfoProductAPI($input)
 
 			if(!empty($otherData)){
 				foreach ($otherData as $key => $value) {
-					if(!empty($value->thumbnail)){
-						$otherData[$key]->image = $value->thumbnail;
+					if(empty($value->thumbnail)){
+						$otherData[$key]->thumbnail = $value->image;
 					}
 				}
 			}
@@ -553,8 +553,8 @@ function getMyProductAPI($input)
 
 				if(!empty($listData)){
 					foreach ($listData as $key => $value) {
-						if(!empty($value->thumbnail)){
-							$listData[$key]->image = $value->thumbnail;
+						if(empty($value->thumbnail)){
+							$listData[$key]->thumbnail = $value->image;
 						}
 					}
 				}
@@ -827,8 +827,8 @@ function getMyProductSeriesAPI($input)
 
 				if(!empty($listData)){
 					foreach ($listData as $key => $value) {
-						if(!empty($value->thumbnail)){
-							$listData[$key]->image = $value->thumbnail;
+						if(empty($value->thumbnail)){
+							$listData[$key]->thumbnail = $value->image;
 						}
 					}
 				}
