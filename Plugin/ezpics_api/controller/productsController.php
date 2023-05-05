@@ -262,7 +262,7 @@ function getInfoProductAPI($input)
 				$data->link_share = $data->image;
 			}
 
-			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id];
+			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>1];
 			$limit= 12;
 			$page= 1;
 			$order = array();
