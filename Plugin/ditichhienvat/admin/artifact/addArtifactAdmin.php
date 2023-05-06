@@ -361,12 +361,13 @@
                     </div>
                     <div class="tab-pane fade" id="tab5" role="tabpanel">
                         <div class="row">
-                            <div class="mb-3 form-group col-md-6">
+                             <div class="mb-3 form-group col-md-6">
                                 <label for="">Ảnh đại diện:</label>
                                  <?php 
                                     showUploadFile('image','image',@$data['image'],1001);
                                     ?>
                             </div>
+                            
                             <div class="mb-3 form-group col-md-6">
                                 <label for="">Ảnh:</label>
                                  <?php 
