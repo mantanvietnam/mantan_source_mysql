@@ -148,6 +148,7 @@ function fixJsonProductDetail($input)
 
 function fixDeepLink($input)
 {
+	/*
 	global $controller;
 
 	$modelProducts = $controller->loadModel('Products');
@@ -173,4 +174,33 @@ function fixDeepLink($input)
 	        $modelProducts->save($item);
 	    }
     }
+    */
+}
+
+function fixPrice($input)
+{
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+
+	$all = $modelProducts->find()->where(['type'=>'user_create'])->all()->toList();
+
+	foreach($all as $k => $item){
+		$item->sale_price = 9000;
+		$item->price = 99000;
+
+		$modelProducts->save($item);
+	}
+	
+	
+	$all = $modelProducts->find()->where(['type'=>'user_edit'])->all()->toList();
+
+	foreach($all as $k => $item){
+		$item->sale_price = 0;
+		$item->price = 0;
+
+		$modelProducts->save($item);
+	}
+	
+	echo 'done';
 }
