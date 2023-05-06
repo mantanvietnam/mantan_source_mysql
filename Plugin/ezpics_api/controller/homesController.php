@@ -65,47 +65,6 @@ function dataEditThemeUser($input)
     }
 }
 
-function getListLayer($input)
-{
-    global $session;
-    global $isRequestPost;
-    global $controller;
-    global $modelCategories;
-
-    $modelMember = $controller->loadModel('Members');
-    $modelProduct = $controller->loadModel('Products');
-    $modelProductDetail = $controller->loadModel('ProductDetails');
-    $modelFont = $controller->loadModel('Font');
-
-    /*
-    $token = '9X2F1pDURKduwSNA5oIiVBCme47qHy16800858251';
-    $checkPhone = $modelMember->find()->where(array('token'=>$token))->first();
-    $session->write('infoUser', $checkPhone);
-    */
-
-    if(empty($session->read('infoUser')) && !empty($_POST['token'])){
-        $checkPhone = $modelMember->find()->where(array('token'=>$_POST['token']))->first();
-
-        if(!empty($checkPhone)){
-            $session->write('infoUser', $checkPhone);
-        }
-    }
-
-    if(!empty($session->read('infoUser')) && $isRequestPost){
-        $dataSend = $input['request']->getData();
-
-        $session->write('widthWindow', $dataSend['width']);
-
-        $layers = getLayerProductForEdit($dataSend['id']); 
-
-        unset($layers['movelayer']);
-
-        return $layers;
-    }else{
-        return ['error' => ['Bạn chưa đăng nhập']];
-    }
-}
-
 function updateInfoProduct($input)
 {
     global $session;
@@ -190,22 +149,18 @@ function savelayer($input)
     if(!empty($session->read('infoUser')) && $isRequestPost){
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['id']) && !empty($dataSend['layer'])){
-            foreach($dataSend['layer'] as $idlayer => $layer) {
-                $item =  $modelProductDetail->find()->where(array('id'=>$idlayer, 'products_id'=>$dataSend['id']))->first();
-                
-                if(!empty($item)){
-                    $item->content = json_encode($layer);
-                    $modelProductDetail->save($item);
-                }else{
-                    return ['error' => ['Layer '.$idlayer.' không tồn tại']]; 
-                }
+        foreach($dataSend['layer'] as $idlayer => $layer) {
+            $item =  $modelProductDetail->find()->where(array('id'=>$idlayer, 'products_id'=>$dataSend['id']))->first();
+            
+            if(!empty($item)){
+                $item->content = json_encode($layer);
+                $modelProductDetail->save($item);
+            }else{
+                return ['error' => ['Layer '.$idlayer.' không tồn tại']]; 
             }
-
-            return ['data' => ['Đã câp nhật']]; 
-        }else{
-            return ['error' => ['Gửi thiếu dữ liệu']]; 
         }
+
+        return ['data' => ['Đã câp nhật']]; 
     }else{
         return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
     } 
@@ -740,35 +695,31 @@ function capImg($input)
     if(!empty($session->read('infoUser'))){
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['id']) && !empty($dataSend['base64data'])){
-            $data = $dataSend['base64data'];
-            $image = explode('base64', $data);
-            $user =  $session->read('infoUser');
+        $data = $dataSend['base64data'];
+        $image = explode('base64', $data);
+        $user =  $session->read('infoUser');
 
-            $product = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
+        $product = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
 
-            $name = __DIR__.'/../../../upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png';
+        $name = __DIR__.'/../../../upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png';
 
-            if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$user->id )) {
-                mkdir(__DIR__.'/../../../upload/admin/images/'.$user->id, 0755, true);
-            }
-            
-            // unlink($name);
-
-            file_put_contents($name, base64_decode($image[1]));
-
-            $image = 'https://apis.ezpics.vn/upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png?time='.time();
-
-            $product->image = $image;
-            
-            $modelProduct->save($product);
-
-            //zipImage($name);
-
-            return ['success' => 'Thành công','link' => $image];
-        }else{
-            return ['error' => ['Gửi thiếu dữ liệu']]; 
+        if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$user->id )) {
+            mkdir(__DIR__.'/../../../upload/admin/images/'.$user->id, 0755, true);
         }
+        
+        // unlink($name);
+
+        file_put_contents($name, base64_decode($image[1]));
+
+        $image = 'https://apis.ezpics.vn/upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png?time='.time();
+
+        $product->image = $image;
+        
+        $modelProduct->save($product);
+
+        //zipImage($name);
+
+        return ['success' => 'Thành công','link' => $image];
     }else{
         return ['error' => ['Bạn chưa đăng nhập']]; 
     } 

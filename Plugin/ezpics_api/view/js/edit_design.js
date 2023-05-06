@@ -1034,19 +1034,17 @@ function saveproduct() {
     }else{
         var getupdate = localStorage.getItem("product_update_"+id);
         var json_update = JSON.parse(getupdate);
-        console.log(json_update);
-        
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
             type: "POST",
             data: {
-                id: id ,  // id sản phẩm
                 layer : json_update, // list các layer của 1 sản phẩm
+                id: id   // id sản phẩm
             }, 
             success:function(data){
                 if($.isEmptyObject(data.error)){
-                    console.log('Lưu mẫu thiết kế thành công');
+                    
                 }else{
                     printErrorMsg(data.error);
                 }
@@ -1062,12 +1060,10 @@ function saveproduct() {
                 }, 3000);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr);
+                console.log(xhr.status);
                 console.log(thrownError);
-                console.log(ajaxOptions);
             }
         });
-        
     }
 
     

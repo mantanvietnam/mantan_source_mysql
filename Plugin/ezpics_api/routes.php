@@ -8,7 +8,6 @@
 	$routesPlugin['fixResponsiveProduct']= 'ezpics_api/view/fixResponsiveProduct.php';
 	$routesPlugin['fixJsonProductDetail']= 'ezpics_api/view/fixJsonProductDetail.php';
 	$routesPlugin['fixDeepLink']= 'ezpics_api/view/fixDeepLink.php';
-	$routesPlugin['fixPrice']= 'ezpics_api/view/fixPrice.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';
@@ -55,7 +54,6 @@
 	$routesPlugin['updateLayer']= 'ezpics_api/view/home/updateLayer.php';
 	$routesPlugin['removeBackgroundLayer']= 'ezpics_api/view/home/removeBackgroundLayer.php';
 	$routesPlugin['upImageThumbnail']= 'ezpics_api/view/home/upImageThumbnail.php';
-	$routesPlugin['getListLayer']= 'ezpics_api/view/home/getListLayer.php';
 	
 
 	// yêu thích sản phẩm
