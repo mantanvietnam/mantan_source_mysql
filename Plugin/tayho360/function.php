@@ -1,4 +1,9 @@
 <?php 
+
+global $keyFirebase;
+
+$keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
+
 $menus= array();
 $menus[0]['title']= 'Tây Hồ 360';
 
@@ -84,6 +89,12 @@ $menus[0]['sub'][12]= array('title'=>'Đặt khách sạn',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTourAdmin',
                             
+                        );
+
+$menus[0]['sub'][13]= array( 'title'=>'Thông báo',
+                            'url'=>'/plugins/admin/tayho360-admin-notification-addNotificationAdmin.php',
+                            'classIcon'=>'bx bx-bell',
+                            'permission'=>'addNotificationAdmin'
                         );
 
 addMenuAdminMantan($menus);
@@ -513,4 +524,44 @@ function distance($lat1, $lon1, $lat2, $lon2) {
   
     return ($miles * 1.609344);
  }
+
+ function sendNotification($data,$target){
+    global $keyFirebase;
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array();
+    
+    $fields['data'] = $data;
+    $fields['priority'] = 'high';
+    $fields['content_available'] = true;
+
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
+    
+    if(is_array($target)){
+        $fields['registration_ids'] = $target;
+    }else{
+        $fields['to'] = $target;
+    }
+
+    $headers = array(
+        'Content-Type:application/json',
+        'Authorization:key='.$keyFirebase
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+
+    }
+    curl_close($ch);
+
+    return $result;
+}
 ?>

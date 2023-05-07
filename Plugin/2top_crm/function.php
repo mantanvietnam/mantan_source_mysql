@@ -259,7 +259,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
     }
 }
 
-function sendNotification($data,$target){
+function sendNotificationa($data,$target){
     global $keyFirebase;
     $url = 'https://fcm.googleapis.com/fcm/send';
 
