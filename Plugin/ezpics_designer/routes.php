@@ -15,6 +15,7 @@
 
 	// order
 	$routesPlugin['orderProduct']= 'ezpics_designer/view/home/order/orderProduct.php';
+	$routesPlugin['recharge']= 'ezpics_designer/view/home/order/recharge.php';
 	$routesPlugin['detailOrder']= 'ezpics_designer/view/home/order/detailOrder.php';
 
 	// public

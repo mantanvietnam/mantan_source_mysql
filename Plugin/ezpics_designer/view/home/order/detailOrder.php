@@ -44,7 +44,7 @@
                           '.$orderProduct['code'].'
                         </td>
                         <td>
-                          '.$orderProduct['total'].'
+                          '.number_format($orderProduct['total']).' VNĐ
                         </td>
                         
                         <td>'.$status.'</td>

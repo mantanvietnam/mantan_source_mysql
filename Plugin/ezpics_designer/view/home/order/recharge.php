@@ -3,7 +3,7 @@
 
  <!-- Responsive Table -->
  <div class="card m-4">
-    <h5 class="card-header">Lịch sử giao dịch mua hàng - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
+    <h5 class="card-header">Lịch sử giao dịch nạp tiền - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -47,10 +47,11 @@
                           '.$item->code.'
                         </td>
                         <td>
-                          '.number_format($item->total).' đ
+                           '.number_format($item->total).' đ
                         </td> 
                         
                         <td>'.$status.'</td>
+                       
                         
                         <td align="center">
                           '.$item->meta_payment.'

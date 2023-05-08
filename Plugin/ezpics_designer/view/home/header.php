@@ -112,10 +112,17 @@
                 <div data-i18n="Add">Tạo mẫu mới</div>
               </a>
             </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Lịch sử giao dịch</span></li>
             <li class="menu-item">
               <a href="/orderProduct" class="menu-link">
+                <i class='bx bx-cart-add' ></i>
+                <div data-i18n="Add">Mua hàng</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/recharge" class="menu-link">
                 <i class='bx bx-history' ></i>
-                <div data-i18n="Add">Lịch sử giao dịch</div>
+                <div data-i18n="Add">Nạp tiền</div>
               </a>
             </li>
           </ul>
