@@ -17,6 +17,9 @@
 	$routesPlugin['orderProduct']= 'ezpics_designer/view/home/order/orderProduct.php';
 	$routesPlugin['recharge']= 'ezpics_designer/view/home/order/recharge.php';
 	$routesPlugin['detailOrder']= 'ezpics_designer/view/home/order/detailOrder.php';
+	$routesPlugin['sellproduct']= 'ezpics_designer/view/home/order/sellproduct.php';
+	$routesPlugin['withdrawmoney']= 'ezpics_designer/view/home/order/withdrawmoney.php';
+	$routesPlugin['removeimage']= 'ezpics_designer/view/home/order/removeimage.php';
 
 	// public
 	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';

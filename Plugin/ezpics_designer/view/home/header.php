@@ -115,14 +115,32 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Lịch sử giao dịch</span></li>
             <li class="menu-item">
               <a href="/orderProduct" class="menu-link">
-                <i class='bx bx-cart-add' ></i>
+                <i class='bx bx-cart' ></i>
                 <div data-i18n="Add">Mua hàng</div>
               </a>
             </li>
             <li class="menu-item">
+              <a href="/sellproduct" class="menu-link">
+                <i class='bx bx-cart' ></i>
+                <div data-i18n="Add">Bán hàng</div>
+              </a>
+            </li>
+            <li class="menu-item">
               <a href="/recharge" class="menu-link">
-                <i class='bx bx-history' ></i>
+                <i class='bx bx-money' ></i>
                 <div data-i18n="Add">Nạp tiền</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/withdrawmoney" class="menu-link">
+                <i class='bx bx-money' ></i>
+                <div data-i18n="Add">Rút tiền</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/removeimage" class="menu-link">
+                <i class='bx bx-trash' ></i>
+                <div data-i18n="Add">Xóa hình nền</div>
               </a>
             </li>
           </ul>
