@@ -41,7 +41,29 @@ $menus[0]['sub'][3]= array( 'title'=>'Thông báo',
                             'permission'=>'addNotificationAdmin'
                         );
 
-$menus[0]['sub'][4]= array('title'=>'Cài đặt',
+$menus[0]['sub'][4]= array('title'=>'Liên hệ',
+                            'url'=>'/',
+                            'classIcon'=>'bx bxs-contact',
+                            'permission'=>'settingsEzpics',
+                            'sub'=> array(array('title'=>'Thông tin đăng kí design',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listDesignRegistrationAdmin',
+                                            ),
+                                        array('title'=>'Order mẫu thiết kế',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-contact-listOrderProductAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listOrderProductAdmin',
+                                            ),
+                                        array('title'=>'Báo xấu mẫu thiết kế',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-contact-listCategoryEzpics.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listCategoryEzpics',
+                                            ),
+                                    )
+                        );
+
+$menus[0]['sub'][5]= array('title'=>'Cài đặt',
                             'url'=>'/',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
@@ -95,3 +117,13 @@ function sendNotification($data,$target){
 
     return $result;
 }
+
+function getMember($id){
+    global $modelOption;
+    global $controller;
+    $modelMembers = $controller->loadModel('Members');
+        $data = $modelMembers->find()->where(['id'=>intval($id)])->first();       
+        return $data;
+}
+
+?>
