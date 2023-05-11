@@ -27,8 +27,16 @@ function listMemberAdmin($input)
 		$conditions['email'] = $_GET['email'];
 	}
 
-	if(!empty($_GET['status'])){
-		$conditions['status'] = $_GET['status'];
+	if(isset($_GET['status'])){
+		if($_GET['status']!=''){
+			$conditions['status'] = (int) $_GET['status'];
+		}
+	}
+
+	if(isset($_GET['type'])){
+		if($_GET['type']!=''){
+			$conditions['type'] = (int) $_GET['type'];
+		}
 	}
 
 	if(!empty($_GET['name'])){
