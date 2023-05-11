@@ -1,5 +1,5 @@
 <?php 
-function editDesign($input)
+function createImageFromTemplate($input)
 {
 	global $isRequestPost;
 	global $controller;
@@ -11,29 +11,61 @@ function editDesign($input)
 	$modelProductDetail = $controller->loadModel('ProductDetails');
 	$modelFont = $controller->loadModel('Font');
 
-	if(!empty($_GET['id']) && !empty(!empty($_GET['token']))){
-		$checkPhone = $modelMember->find()->where(array('token'=>$_GET['token']))->first();
+	if(!empty($_GET['id'])){
+		$product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
 
-		if(!empty($checkPhone)){
-			$product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
+		if(!empty($product)){
+			$layers = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+			$fonts = $modelFont->find()->order(['name'=>'asc'])->all()->toList();
 
-			if(!empty($product)){
-				if($product->user_id == $checkPhone->id){
-					$session->write('infoUser', $checkPhone);
+			$categories = $modelCategories->find()->where(['type'=>'product_categories'])->order(['name'=>'asc'])->all()->toList();
 
-					$layers = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
-					$fonts = $modelFont->find()->order(['name'=>'asc'])->all()->toList();
+            $infoLayer = getLayerProductForEdit($_GET['id']); 
 
-					$categories = $modelCategories->find()->where(['type'=>'product_categories'])->order(['name'=>'asc'])->all()->toList();
-
-					setVariable('product', $product);
-					setVariable('layers', $layers);
-					setVariable('fonts', $fonts);
-					setVariable('categories', $categories);
-				}
-			}
+			setVariable('product', $product);
+			setVariable('layers', $layers);
+			setVariable('fonts', $fonts);
+			setVariable('categories', $categories);
+            setVariable('infoLayer', $infoLayer);
 		}
 	}
+}
+
+function editDesign($input)
+{
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $modelCategories;
+
+    $modelMember = $controller->loadModel('Members');
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+    $modelFont = $controller->loadModel('Font');
+
+    if(!empty($_GET['id']) && !empty($_GET['token'])){
+        $checkPhone = $modelMember->find()->where(array('token'=>$_GET['token']))->first();
+
+        if(!empty($checkPhone)){
+            $product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
+
+            if(!empty($product)){
+                if($product->user_id == $checkPhone->id){
+                    $session->write('infoUser', $checkPhone);
+
+                    $layers = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+                    $fonts = $modelFont->find()->order(['name'=>'asc'])->all()->toList();
+
+                    $categories = $modelCategories->find()->where(['type'=>'product_categories'])->order(['name'=>'asc'])->all()->toList();
+
+                    setVariable('product', $product);
+                    setVariable('layers', $layers);
+                    setVariable('fonts', $fonts);
+                    setVariable('categories', $categories);
+                }
+            }
+        }
+    }
 }
 
 function dataEditThemeUser($input)
@@ -54,7 +86,7 @@ function dataEditThemeUser($input)
     $session->write('infoUser', $checkPhone);
     */
 
-    if(!empty($session->read('infoUser')) && $isRequestPost){
+    if(!empty($_POST['id'])){
     	$dataSend = $input['request']->getData();
 
         $session->write('widthWindow', $dataSend['width']);
@@ -191,6 +223,8 @@ function savelayer($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['id']) && !empty($dataSend['layer'])){
+            $dataSend['layer'] = json_decode($dataSend['layer'], true);
+            
             foreach($dataSend['layer'] as $idlayer => $layer) {
                 $item =  $modelProductDetail->find()->where(array('id'=>$idlayer, 'products_id'=>$dataSend['id']))->first();
                 

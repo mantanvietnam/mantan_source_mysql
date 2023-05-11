@@ -186,13 +186,13 @@ function fixPrice($input)
 	$all = $modelProducts->find()->where(['type'=>'user_create'])->all()->toList();
 
 	foreach($all as $k => $item){
-		$item->sale_price = 9000;
+		$item->sale_price = 0;
 		$item->price = 99000;
 
 		$modelProducts->save($item);
 	}
 	
-	
+	/*
 	$all = $modelProducts->find()->where(['type'=>'user_edit'])->all()->toList();
 
 	foreach($all as $k => $item){
@@ -201,6 +201,7 @@ function fixPrice($input)
 
 		$modelProducts->save($item);
 	}
+	*/
 	
 	echo 'done';
 }

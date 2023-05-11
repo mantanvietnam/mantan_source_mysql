@@ -195,7 +195,7 @@
 	                                    <input type="text" data-coloris id="coler1" name="coler1" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
-	                                    <input type="number" name="postion_color1"  value="0" class="w-100 fieldcolor">
+	                                    <input type="text" name="postion_color1"  value="0" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra3">
@@ -203,7 +203,7 @@
 	                                    <input type="text" data-coloris id="coler2"  name="coler2"  class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
-	                                    <input type="number" name="postion_color3"  value="<?=  rand(5, 24); ?>" class="w-100 fieldcolor">
+	                                    <input type="text" name="postion_color3"  value="<?=  rand(5, 24); ?>" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra4">
@@ -211,7 +211,7 @@
 	                                    <input type="text" data-coloris id="coler3" name="coler3" value="#c27d06" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
-	                                    <input type="number" name="postion_color4"  value="<?=  rand(25, 45); ?>" class="w-100 fieldcolor">
+	                                    <input type="text" name="postion_color4"  value="<?=  rand(25, 45); ?>" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra5">
@@ -219,7 +219,7 @@
 	                                    <input type="text" data-coloris id="coler4" name="coler4" value="#a206c2" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
-	                                    <input type="number" name="postion_color5"  value="<?=  rand(55, 74); ?>" class="w-100 fieldcolor">
+	                                    <input type="text" name="postion_color5"  value="<?=  rand(55, 74); ?>" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace count-gradient d-none gra6">
@@ -227,7 +227,7 @@
 	                                    <input type="text" data-coloris id="coler5" name="coler5" value="#d56062" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
-	                                    <input type="number" name="postion_color6"  value="<?=  rand(76, 95); ?>" class="w-100 fieldcolor">
+	                                    <input type="text" name="postion_color6"  value="<?=  rand(76, 95); ?>" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace count-gradient gra2">
@@ -235,7 +235,7 @@
 	                                    <input type="text" data-coloris id="coler6" name="coler6" value="#80e377" class="w-100 gradientcolor" >
 	                                </div>
 	                                <div class="item-replace text-center" style="flex: inherit;">
-	                                    <input type="number" name="postion_color2"  value="100" class="w-100 fieldcolor">
+	                                    <input type="text" name="postion_color2"  value="100" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
 	                        </div>
@@ -331,7 +331,7 @@
 	                                <span>hoặc</span>
 	                                <div class="form-group w-100">
 	                                    <label class="txt">Nhập thước ảnh:</label>
-	                                    <input type="number" class="sizeimgz form-control"/>
+	                                    <input type="text" class="sizeimgz form-control"/>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -351,7 +351,7 @@
 	                                <span>hoặc</span>
 	                                <div class="form-group w-100">
 	                                    <label class="txt">Nhập kích thước chữ:</label>
-	                                    <input type="number" class="fontz form-control"/>
+	                                    <input type="text" class="fontz form-control"/>
 	                                </div>
 	                            </div>
 	                        </div>

@@ -458,214 +458,210 @@ function getLayerProductForEdit($idProduct=0)
     $modelProduct = $controller->loadModel('Products');
     $modelProductDetail = $controller->loadModel('ProductDetails');
 
-    if(!empty($session->read('infoUser')) && $isRequestPost){
-        $user =  $session->read('infoUser');
-        $pro = $modelProduct->find()->where(array('id'=>$idProduct, 'user_id'=>$user->id))->first();
+    $user =  $session->read('infoUser');
+    $pro = $modelProduct->find()->where(array('id'=>$idProduct))->first();
 
-        if (!empty($pro)) {
-            $pro->productDetail = $modelProductDetail->find()->where(array('products_id'=>$pro->id))->order(['sort' => 'ASC'])->all()->toList();
+    if (!empty($pro)) {
+        $pro->productDetail = $modelProductDetail->find()->where(array('products_id'=>$pro->id))->order(['sort' => 'ASC'])->all()->toList();
 
-            if(!empty($pro->productDetail) && count($pro->productDetail)) {
-                $list_layer = array();
-                $choose_tab = array();
-                $movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
-                $key = 1;
-                $list_layer_check = array();
-                foreach($pro->productDetail as $k => $item){
-                    //$item->content = str_replace('\"', '"', $item->content);
-                    $layer = json_decode(trim($item->content,'"')); 
+        if(!empty($pro->productDetail) && count($pro->productDetail)) {
+            $list_layer = array();
+            $choose_tab = array();
+            $movelayer = array('<div class="thumb-checklayer"><img src="'.$pro->thumn.'" class="img-fluid w-100 img-thumn" alt=""></div>');
+            $key = 1;
+            $list_layer_check = array();
+            foreach($pro->productDetail as $k => $item){
+                //$item->content = str_replace('\"', '"', $item->content);
+                $layer = json_decode(trim($item->content,'"')); 
 
-                    if(!empty($layer)){
-                        if(!isset($layer->type)) $layer->type = 'text';
-                        if(!isset($layer->text)) $layer->text = 'Layer '.$item->id;
-                        if(!isset($layer->color)) $layer->color = '#000';
-                        if(!isset($layer->size)) $layer->size = '10vw';
-                        if(!isset($layer->font)) $layer->font = 'Arial';
-                        if(!isset($layer->status)) $layer->status = 1;
-                        if(!isset($layer->text_align)) $layer->text_align = 'left';
-                        if(!isset($layer->postion_x)) $layer->postion_x = 50;
-                        if(!isset($layer->postion_y)) $layer->postion_y = 50;
-                        if(!isset($layer->brightness)) $layer->brightness = 100;
-                        if(!isset($layer->contrast)) $layer->contrast = 100;
-                        if(!isset($layer->saturate)) $layer->saturate = 100;
-                        if(!isset($layer->opacity)) $layer->opacity = 1;
-                        if(!isset($layer->gachchan)) $layer->gachchan = 'none';
-                        if(!isset($layer->uppercase)) $layer->uppercase = 'none';
-                        if(!isset($layer->innghieng)) $layer->innghieng = 'normal';
-                        if(!isset($layer->indam)) $layer->indam = 'normal';
-                        if(!isset($layer->gradient_color1)) $layer->gradient_color1 = null;
-                        if(!isset($layer->gradient_color2)) $layer->gradient_color2 = null;
-                        if(!isset($layer->gradient_color3)) $layer->gradient_color3 = null;
-                        if(!isset($layer->gradient_color4)) $layer->gradient_color4 = null;
-                        if(!isset($layer->gradient_color5)) $layer->gradient_color5 = null;
-                        if(!isset($layer->gradient_color6)) $layer->gradient_color6 = null;
-                        if(!isset($layer->linear_position)) $layer->linear_position = 'to top left';
-                        if(!isset($layer->postion_color1)) $layer->postion_color1 = 0;
-                        if(!isset($layer->postion_color2)) $layer->postion_color2 = 100;
-                        if(!isset($layer->postion_color3)) $layer->postion_color3 = null;
-                        if(!isset($layer->postion_color4)) $layer->postion_color4 = null;
-                        if(!isset($layer->postion_color5)) $layer->postion_color5 = null;
-                        if(!isset($layer->postion_color6)) $layer->postion_color6 = null;
-                        if(!isset($layer->vien)) $layer->vien = '0px';
-                        if(!isset($layer->rotate)) $layer->rotate = null;
-                        if(!isset($layer->banner)) $layer->banner = null;
-                        if(!isset($layer->gianchu)) $layer->gianchu = 'normal';
-                        if(!isset($layer->giandong)) $layer->giandong = 'normal';
-                        if(!isset($layer->blur)) $layer->blur = 0;
-                        if(!isset($layer->invert)) $layer->invert = 0;
-                        if(!isset($layer->width)) $layer->width = '10vw';
-                        if(!isset($layer->height)) $layer->height = '10vh';
-                        if(!isset($layer->sepia)) $layer->sepia = 0;
-                        if(!isset($layer->grayscale)) $layer->grayscale = 0;
-                        if(!isset($layer->gradient)) $layer->gradient = 0;
-                        if(!isset($layer->sort)) $layer->sort = 1;
-                        if(!isset($layer->postion_left)) $layer->postion_left = '50';
-                        if(!isset($layer->postion_top)) $layer->postion_top = '50';
-                        
-                        if($layer->type == 'image' && empty($layer->banner)) $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png';
+                if(!empty($layer)){
+                    if(!isset($layer->type)) $layer->type = 'text';
+                    if(!isset($layer->text)) $layer->text = 'Layer '.$item->id;
+                    if(!isset($layer->color)) $layer->color = '#000';
+                    if(!isset($layer->size)) $layer->size = '10vw';
+                    if(!isset($layer->font)) $layer->font = 'Arial';
+                    if(!isset($layer->status)) $layer->status = 1;
+                    if(!isset($layer->text_align)) $layer->text_align = 'left';
+                    if(!isset($layer->postion_x)) $layer->postion_x = 50;
+                    if(!isset($layer->postion_y)) $layer->postion_y = 50;
+                    if(!isset($layer->brightness)) $layer->brightness = 100;
+                    if(!isset($layer->contrast)) $layer->contrast = 100;
+                    if(!isset($layer->saturate)) $layer->saturate = 100;
+                    if(!isset($layer->opacity)) $layer->opacity = 1;
+                    if(!isset($layer->gachchan)) $layer->gachchan = 'none';
+                    if(!isset($layer->uppercase)) $layer->uppercase = 'none';
+                    if(!isset($layer->innghieng)) $layer->innghieng = 'normal';
+                    if(!isset($layer->indam)) $layer->indam = 'normal';
+                    if(!isset($layer->gradient_color1)) $layer->gradient_color1 = null;
+                    if(!isset($layer->gradient_color2)) $layer->gradient_color2 = null;
+                    if(!isset($layer->gradient_color3)) $layer->gradient_color3 = null;
+                    if(!isset($layer->gradient_color4)) $layer->gradient_color4 = null;
+                    if(!isset($layer->gradient_color5)) $layer->gradient_color5 = null;
+                    if(!isset($layer->gradient_color6)) $layer->gradient_color6 = null;
+                    if(!isset($layer->linear_position)) $layer->linear_position = 'to top left';
+                    if(!isset($layer->postion_color1)) $layer->postion_color1 = 0;
+                    if(!isset($layer->postion_color2)) $layer->postion_color2 = 100;
+                    if(!isset($layer->postion_color3)) $layer->postion_color3 = null;
+                    if(!isset($layer->postion_color4)) $layer->postion_color4 = null;
+                    if(!isset($layer->postion_color5)) $layer->postion_color5 = null;
+                    if(!isset($layer->postion_color6)) $layer->postion_color6 = null;
+                    if(!isset($layer->vien)) $layer->vien = '0px';
+                    if(!isset($layer->rotate)) $layer->rotate = null;
+                    if(!isset($layer->banner)) $layer->banner = null;
+                    if(!isset($layer->gianchu)) $layer->gianchu = 'normal';
+                    if(!isset($layer->giandong)) $layer->giandong = 'normal';
+                    if(!isset($layer->blur)) $layer->blur = 0;
+                    if(!isset($layer->invert)) $layer->invert = 0;
+                    if(!isset($layer->width)) $layer->width = '10vw';
+                    if(!isset($layer->height)) $layer->height = '10vh';
+                    if(!isset($layer->sepia)) $layer->sepia = 0;
+                    if(!isset($layer->grayscale)) $layer->grayscale = 0;
+                    if(!isset($layer->gradient)) $layer->gradient = 0;
+                    if(!isset($layer->sort)) $layer->sort = 1;
+                    if(!isset($layer->postion_left)) $layer->postion_left = '50';
+                    if(!isset($layer->postion_top)) $layer->postion_top = '50';
+                    
+                    if($layer->type == 'image' && empty($layer->banner)) $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png';
 
-                        if($layer->width == '0px' || $layer->width == '0vw'){
-                            $layer->width = '10vw';
-                        }
-
-
-                        $dnone = empty($layer->status) ? 'd-none' : '';
-                        
-                        if($layer->type == 'text'){
-                            $text = '';
-                            $img = 'd-none';
-                            $selectedtext = 'selected';
-                            $selectedimage = '';
-                        }else{
-                            $img = '';
-                            $text =   'd-none';
-                            $selectedimage = 'selected';
-                            $selectedtext = '';
-                        }
-
-                        $gradient_check = !empty($layer->gradient) ? 'gradient' : '';
-                        
-                        $more_gradient = '';
-                        if (!empty($layer->gradient_color3)) {
-                            $more_gradient .= ', '.$layer->gradient_color3.' '.$layer->postion_color3.'%';
-                        }
-                        if (!empty($layer->gradient_color4)) {
-                            $more_gradient .= ', '.$layer->gradient_color4.' '.$layer->postion_color4.'%';
-                        }
-                        if (!empty($layer->gradient_color5)) {
-                            $more_gradient .= ', '.$layer->gradient_color5.' '.$layer->postion_color5.'%';
-                        }
-                        if (!empty($layer->gradient_color5)) {
-                            $more_gradient .= ', '.$layer->gradient_color5.' '.$layer->postion_color5.'%';
-                        }
-
-                        $link_icon = ($layer->type == 'image') ? $layer->banner : 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/9888807.png';
-
-                        $text_layer = $layer->type == 'image' ? '' : ': '.$layer->text;
-
-                        $list_layer_check[] = '<li class="setlayer list-group-item" data-layer="'.$item->id.'" data-id="'.$item->id.'"><img src="'.$link_icon.'" class="img-fluid img-layer" width="10">&nbsp; Layer '.$item->id.'<span class="oneline">'.$text_layer.'<span style="float: right;" onclick="deletedinlayer('.$pro->id.','.$item->id.')"><i class="fa-regular fa-trash-can"></i></span></span></li>';
-
-                        $style_gradient = !empty($layer->gradient) ? 'background: linear-gradient('.$layer->linear_position.', '.$layer->gradient_color1.' '.$layer->postion_color1.'% '.$more_gradient.', '.$layer->gradient_color2.' '.$layer->postion_color2.'%);' : '';
-                       
-                        $attr_gradient = ' data-gradient_color1="'.$layer->gradient_color1.'" data-gradient_color2="'.$layer->gradient_color2.'" data-gradient_color3="'.$layer->gradient_color3.'" data-gradient_color4="'.$layer->gradient_color4.'" data-gradient_color5="'.$layer->gradient_color5.'" data-gradient_color6="'.$layer->gradient_color6.'"'.' data-postion_color1="'.$layer->postion_color1.'" data-postion_color2="'.$layer->postion_color2.'" data-postion_color3="'.$layer->postion_color3.'" data-postion_color4="'.$layer->postion_color4.'" data-postion_color5="'.$layer->postion_color5.'" data-postion_color6="'.$layer->postion_color6.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" ';
-                        /*
-                        $fixtopleft = false;
-                        if(!isset($layer->postion_left)){
-                            $layer->postion_left = $layer->postion_x*100/$wight;
-                            $fixtopleft = true;
-                        }
-
-                        if(!isset($layer->postion_top)){
-                            $layer->postion_top = $layer->postion_y*100/$height;
-                            $fixtopleft = true;
-                        }
-
-                        if($fixtopleft){
-                            $item->content = json_encode($layer);
-                            $modelProductDetail->save($item);
-                        }
-                        */
-
-                        if(isset($layer->postion_left) && $layer->postion_left>100){
-                            $layer->postion_left = 80;
-                        }
-
-                        if(isset($layer->postion_top) && $layer->postion_top>100){
-                            $layer->postion_top = 80;
-                        }
-
-                        $style = 'text-align:'.$layer->text_align.';left: '.(int)@$layer->postion_left.'%;top: '.(int)@$layer->postion_top.'%;';
-
-                        // độ lớn của chữ
-                        $layer->size = str_replace('px','',$layer->size);
-                        $layer->size = str_replace('vw','',$layer->size);
-                        if($layer->size>100) $layer->size= 70;
-                        $layer->size = $layer->size.'vw';
-
-                        // chiều dài của ảnh
-                        $layer->width = str_replace('px','',$layer->width);
-                        $layer->width = str_replace('vw','',$layer->width);
-                        if($layer->width>100) $layer->width= 70;
-                        $layer->width = $layer->width.'vw';
-
-                        if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
-                        if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
-
-                        // tính vị trí hiển thị
-                        $sizeBackground = @getimagesize($pro->thumn);
-                        $widthWindow = $session->read('widthWindow');
-                        $heightWindow = $widthWindow;
-                        if(!empty($sizeBackground[1]) && !empty($sizeBackground[0])){
-                            $heightWindow = $sizeBackground[1]*$widthWindow/$sizeBackground[0];
-                        }
-
-                        $layer->postion_x = $layer->postion_left*$widthWindow/100;
-                        $layer->postion_y = $layer->postion_top*$heightWindow/100;
-
-                        $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
-                            
-                            <div class="list-selection-choose d-none">
-                                <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                                <button class="btn-style-design-copy" onclick="duplicate();">
-                                    <i class="fa-solid fa-copy"></i>
-                                </button>
-                                <button class="btn-style-design-edit" onclick="showFormEditText(\''.$item->id.'\');">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                            </div>
-
-                            <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
-                        
-                            <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span>
-                        
-
-                        </div>
-                        ';
-                        $key++;
-
-                        $list_layer[$item->id] = $layer;
+                    if($layer->width == '0px' || $layer->width == '0vw'){
+                        $layer->width = '10vw';
                     }
-                }
-                krsort($list_layer_check);
 
-                $category = $modelCategories->find()->where(array('id'=>$pro->category_id))->first();
 
-                if(empty($category)){
-                    $category = $modelCategories->newEmptyEntity();
+                    $dnone = empty($layer->status) ? 'd-none' : '';
+                    
+                    if($layer->type == 'text'){
+                        $text = '';
+                        $img = 'd-none';
+                        $selectedtext = 'selected';
+                        $selectedimage = '';
+                    }else{
+                        $img = '';
+                        $text =   'd-none';
+                        $selectedimage = 'selected';
+                        $selectedtext = '';
+                    }
+
+                    $gradient_check = !empty($layer->gradient) ? 'gradient' : '';
+                    
+                    $more_gradient = '';
+                    if (!empty($layer->gradient_color3)) {
+                        $more_gradient .= ', '.$layer->gradient_color3.' '.$layer->postion_color3.'%';
+                    }
+                    if (!empty($layer->gradient_color4)) {
+                        $more_gradient .= ', '.$layer->gradient_color4.' '.$layer->postion_color4.'%';
+                    }
+                    if (!empty($layer->gradient_color5)) {
+                        $more_gradient .= ', '.$layer->gradient_color5.' '.$layer->postion_color5.'%';
+                    }
+                    if (!empty($layer->gradient_color5)) {
+                        $more_gradient .= ', '.$layer->gradient_color5.' '.$layer->postion_color5.'%';
+                    }
+
+                    $link_icon = ($layer->type == 'image') ? $layer->banner : 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/9888807.png';
+
+                    $text_layer = $layer->type == 'image' ? '' : ': '.$layer->text;
+
+                    $list_layer_check[] = '<li class="setlayer list-group-item" data-layer="'.$item->id.'" data-id="'.$item->id.'"><img src="'.$link_icon.'" class="img-fluid img-layer" width="10">&nbsp; Layer '.$item->id.'<span class="oneline">'.$text_layer.'<span style="float: right;" onclick="deletedinlayer('.$pro->id.','.$item->id.')"><i class="fa-regular fa-trash-can"></i></span></span></li>';
+
+                    $style_gradient = !empty($layer->gradient) ? 'background: linear-gradient('.$layer->linear_position.', '.$layer->gradient_color1.' '.$layer->postion_color1.'% '.$more_gradient.', '.$layer->gradient_color2.' '.$layer->postion_color2.'%);' : '';
+                   
+                    $attr_gradient = ' data-gradient_color1="'.$layer->gradient_color1.'" data-gradient_color2="'.$layer->gradient_color2.'" data-gradient_color3="'.$layer->gradient_color3.'" data-gradient_color4="'.$layer->gradient_color4.'" data-gradient_color5="'.$layer->gradient_color5.'" data-gradient_color6="'.$layer->gradient_color6.'"'.' data-postion_color1="'.$layer->postion_color1.'" data-postion_color2="'.$layer->postion_color2.'" data-postion_color3="'.$layer->postion_color3.'" data-postion_color4="'.$layer->postion_color4.'" data-postion_color5="'.$layer->postion_color5.'" data-postion_color6="'.$layer->postion_color6.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" ';
+                    /*
+                    $fixtopleft = false;
+                    if(!isset($layer->postion_left)){
+                        $layer->postion_left = $layer->postion_x*100/$wight;
+                        $fixtopleft = true;
+                    }
+
+                    if(!isset($layer->postion_top)){
+                        $layer->postion_top = $layer->postion_y*100/$height;
+                        $fixtopleft = true;
+                    }
+
+                    if($fixtopleft){
+                        $item->content = json_encode($layer);
+                        $modelProductDetail->save($item);
+                    }
+                    */
+
+                    if(isset($layer->postion_left) && $layer->postion_left>100){
+                        $layer->postion_left = 80;
+                    }
+
+                    if(isset($layer->postion_top) && $layer->postion_top>100){
+                        $layer->postion_top = 80;
+                    }
+
+                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;';
+
+                    // độ lớn của chữ
+                    $layer->size = str_replace('px','',$layer->size);
+                    $layer->size = str_replace('vw','',$layer->size);
+                    if($layer->size>100) $layer->size= 70;
+                    $layer->size = $layer->size.'vw';
+
+                    // chiều dài của ảnh
+                    $layer->width = str_replace('px','',$layer->width);
+                    $layer->width = str_replace('vw','',$layer->width);
+                    if($layer->width>100) $layer->width= 70;
+                    $layer->width = $layer->width.'vw';
+
+                    if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
+                    if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
+
+                    // tính vị trí hiển thị
+                    $sizeBackground = @getimagesize($pro->thumn);
+                    $widthWindow = $session->read('widthWindow');
+                    $heightWindow = $widthWindow;
+                    if(!empty($sizeBackground[1]) && !empty($sizeBackground[0])){
+                        $heightWindow = $sizeBackground[1]*$widthWindow/$sizeBackground[0];
+                    }
+
+                    $layer->postion_x = $layer->postion_left*$widthWindow/100;
+                    $layer->postion_y = $layer->postion_top*$heightWindow/100;
+
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
+                        
+                        <div class="list-selection-choose d-none">
+                            <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                            <button class="btn-style-design-copy" onclick="duplicate();">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <button class="btn-style-design-edit" onclick="showFormEditText(\''.$item->id.'\');">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </div>
+
+                        <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
+                    
+                        <span class="'.$text.' '.$gradient_check.' text'.$key.'" style="color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span>
+                    
+
+                    </div>
+                    ';
+                    $key++;
+
+                    $list_layer[$item->id] = $layer;
                 }
-                
-                return ['type'=>$pro->type,'category'=> $category, 'data' => $pro, 'movelayer' => implode('',$movelayer), 'layer' => $list_layer, 'list_layer_check' => implode('',$list_layer_check)];
-            }else{
-                return ['error' => ['Sản phẩm chưa xây dựng các Layer']]; 
             }
+            krsort($list_layer_check);
+
+            $category = $modelCategories->find()->where(array('id'=>$pro->category_id))->first();
+
+            if(empty($category)){
+                $category = $modelCategories->newEmptyEntity();
+            }
+            
+            return ['type'=>$pro->type,'category'=> $category, 'data' => $pro, 'movelayer' => implode('',$movelayer), 'layer' => $list_layer, 'list_layer_check' => implode('',$list_layer_check)];
         }else{
-            return ['error' => ['Có lỗi trong quá trình xẩy ra. Vui lòng thử lại sau']]; 
-        } 
+            return ['error' => ['Sản phẩm chưa xây dựng các Layer']]; 
+        }
     }else{
-        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
-    } 
+        return ['error' => ['Có lỗi trong quá trình xử lý. Vui lòng thử lại sau']]; 
+    }
 }
 
 function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30')
@@ -857,8 +853,8 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $newLayer->name = 'Layer 1';
         $newLayer->content = '{"type":"text","text":"Layer 1","color":"#111","size":"10vw","font":"Arial","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0vw","rotate":null,"banner":null,"gianchu":"normal","giandong":"normal","blur":"0","invert":"0","width":"0vw","height":"0vw","sepia":"0","grayscale":"0","gradient":"0","sort":"1","postion_left":"50","postion_top":"50"}';
 
-        $newLayer->wight = (int) @$sizeBackground[0];
-        $newLayer->height = (int) @$sizeBackground[1];
+        $newLayer->wight = (double) @$sizeBackground[0];
+        $newLayer->height = (double) @$sizeBackground[1];
         $newLayer->sort = 1;
         $newLayer->status = 1;
         $newLayer->created_at = date('Y-m-d H:i:s');

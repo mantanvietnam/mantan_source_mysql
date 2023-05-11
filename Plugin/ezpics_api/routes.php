@@ -56,6 +56,7 @@
 	$routesPlugin['removeBackgroundLayer']= 'ezpics_api/view/home/removeBackgroundLayer.php';
 	$routesPlugin['upImageThumbnail']= 'ezpics_api/view/home/upImageThumbnail.php';
 	$routesPlugin['getListLayer']= 'ezpics_api/view/home/getListLayer.php';
+	$routesPlugin['createImageFromTemplate']= 'ezpics_api/view/home/createImageFromTemplate.php';
 	
 
 	// yêu thích sản phẩm
