@@ -90,7 +90,7 @@ function addNotificationProductNewAdmin($input){
 	global $isRequestPost;
 	global $metaTitleMantan;
 
-    $metaTitleMantan = 'Gửi thông báo tin tức mới cho người dùng';
+    $metaTitleMantan = 'Gửi thông báo sản phẩm mới cho người dùng';
 
 	$modelMembers = $controller->loadModel('Members');
 	$mess= '';

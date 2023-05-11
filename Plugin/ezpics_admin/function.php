@@ -32,7 +32,7 @@ $menus[0]['sub'][2]= array('title'=>'Giao dịch',
                                                 'classIcon'=>'bx bx-history',
                                                 'permission'=>'listTransactionHistoryWithdrawMoneyEzpics',
                                             ),
-                                            array('title'=>'bán mẫu thiết kế',
+                                            array('title'=>'Bán mẫu thiết kế',
                                                 'url'=>'/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistorySellingDesignsEzpics.php',
                                                 'classIcon'=>'bx bx-history',
                                                 'permission'=>'listTransactionHistorySellingDesignsEzpics',
@@ -95,7 +95,29 @@ $menus[0]['sub'][4]= array('title'=>'Liên hệ',
                                     )
                         );
 
-$menus[0]['sub'][5]= array('title'=>'Cài đặt',
+$menus[0]['sub'][5]= array('title'=>'Top designer',
+                            'url'=>'/',
+                            'classIcon'=>'bx bx-filter-alt',
+                            'permission'=>'topDesigner',
+                            'sub'=> array(array('title'=>'Bán được nhiều mẫu nhất',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-topDesigner-listSellTopDesignerAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listSellTopDesignerAdmin',
+                                            ),
+                                        array('title'=>'Thu nhập cao nhất',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-topDesigner-listIncomeTopDesignerAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listIncomeTopDesignerAdmin',
+                                            ),
+                                        array('title'=>'Tạo được nhiều mẫu nhất',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-topDesigner-listCreateTopDesignerAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listCreateTopDesignerAdmin',
+                                            ),
+                                    )
+                        );
+
+$menus[0]['sub'][6]= array('title'=>'Cài đặt',
                             'url'=>'/',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
@@ -106,6 +128,8 @@ $menus[0]['sub'][5]= array('title'=>'Cài đặt',
                                             ),
                                     )
                         );
+
+
 
 
 addMenuAdminMantan($menus);
