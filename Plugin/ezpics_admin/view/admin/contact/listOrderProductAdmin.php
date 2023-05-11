@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin đăng ký design</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin Order mẫu thiết kế</h4>
   <!-- <p><a href="/plugins/admin/tayho360-admin-event-addEventAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
@@ -33,7 +33,7 @@
         </tbody></table> -->
     </form>
   <div class="card">
-    <h5 class="card-header">Thông tin đăng ký design</h5>
+    <h5 class="card-header">Thông tin Order mẫu thiết kế</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -42,10 +42,9 @@
             <th>ID</th>
             <th>ảnh</th>
             <th>Thông tin</th>
+            <th>Ngày Order</th> 
             <th>Nội dung</th> 
-            <th>Portfolio </th> 
-            <th>Trạng thái</th> 
-            <th>Xem</th> 
+            <!-- <th>Sửa</th>  -->
             <th>Xóa</th> 
           </tr>
         </thead>
@@ -55,10 +54,9 @@
                //debug($listData);
               foreach ($listData as $item) {
                 $Member = getMember($item->customer_id);
+                 //  debug($customer);
               if($item->status==1){
                   $status = 'đã xử lý';
-              }elseif($item->status==2){
-                  $status = 'từ chối';
               }else{
                   $status = 'chưa xử lý';
               }
@@ -67,17 +65,13 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.@$Member->avatar.'" width="100" height="100" ></td>
                         <td>'.@$Member->name.'<br>'.@$Member->email.'<br>'.@$Member->phone.'</td>
+                        <td>'.$item->created_at.'</td>
                         <td>'.$item->content.'</td>
-                        <td><img src="'.@$item->meta.'" width="100" height="100" ></td>
-                        <td>'.$status.'</td>
+                        
+                       
                        
                         <td align="center">
-                          <a class="dropdown-item"  href="/plugins/admin/ezpics_admin-view-admin-contact-addDesignRegistrationAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-show"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-contact-deleteDesignRegistrationAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-contact-deleteOrderProductAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -90,6 +84,14 @@
                     </tr>';
             }
           ?>
+
+           <!--
+            <td>'.$status.'</td>
+            <td align="center">
+                          <a class="dropdown-item"  href="/plugins/admin/ezpics_designer-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
+                        </td> -->
         </tbody>
       </table>
     </div>

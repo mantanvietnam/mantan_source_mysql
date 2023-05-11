@@ -99,6 +99,7 @@ function addGovernanceAgencysAdmin($input)
     $metaTitleMantan = 'Thông tin cơ quan hành chính';
 
     $modelGovernanceAgencys = $controller->loadModel('Governanceagencys');
+    $modelCustomer = $controller->loadModel('Customers');
     $mess= '';
 
     // lấy data edit
@@ -146,6 +147,25 @@ function addGovernanceAgencysAdmin($input)
              if(!empty($_GET['id'])){
                 return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin.php?status=2');
             }else{
+
+                $modelCustomer = $controller->loadModel('Customers');
+                $conditions = ['token_device IS NOT'=>null];
+                $listMembers = $modelCustomer->find()->where($conditions)->all()->toList();
+                 
+
+                if(!empty($listMembers)){
+                    $dataSendNotification= array('title'=>'Bạn có cơ quan hành chính Mới','time'=>date('H:i d/m/Y'),'content'=>$dataSend['name'],'action'=>'co_quan_hanh_chinh');
+
+                  
+
+                    foreach ($listMembers as $key => $value) {
+                        
+                        if(!empty($value->token_device)){
+                         $thongban =   sendNotification($dataSendNotification, $value->token_device);
+                             
+                        }
+                    }
+                }
                 return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin.php?status=1');
             }
             
@@ -394,6 +414,23 @@ function addFestivalAdmin($input)
              if(!empty($_GET['id'])){
                 return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php?status=2');
             }else{
+                $modelCustomer = $controller->loadModel('Customers');
+                $conditions = ['token_device IS NOT'=>null];
+                $listMembers = $modelCustomer->find()->where($conditions)->all()->toList();
+                 
+
+                if(!empty($listMembers)){
+                    $dataSendNotification= array('title'=>'Bạn có tin lễ hội mới','time'=>date('H:i d/m/Y'),'content'=>$dataSend['name'],'action'=>'le_hoi');
+                  
+
+                    foreach ($listMembers as $key => $value) {
+                        
+                        if(!empty($value->token_device)){
+                            sendNotification($dataSendNotification, $value->token_device);
+                            
+                        }
+                    }
+                }
                 return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php?status=1');
             }
             
@@ -579,6 +616,23 @@ function addTourAdmin($input){
              if(!empty($_GET['id'])){
                 return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin.php?status=2');
             }else{
+                $modelCustomer = $controller->loadModel('Customers');
+                $conditions = ['token_device IS NOT'=>null];
+                $listMembers = $modelCustomer->find()->where($conditions)->all()->toList();
+                 
+
+                if(!empty($listMembers)){
+                    $dataSendNotification= array('title'=>'Bạn có tuor mới','time'=>date('H:i d/m/Y'),'content'=>$dataSend['name'],'action'=>'tour');
+                  
+
+                    foreach ($listMembers as $key => $value) {
+                        
+                        if(!empty($value->token_device)){
+                            sendNotification($dataSendNotification, $value->token_device);
+                            
+                        }
+                    }
+                }
                 return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin.php?status=1');
             }
             
@@ -1003,6 +1057,23 @@ function addCraftvillageAdmin($input){
              if(!empty($_GET['id'])){
                 return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php?status=2');
             }else{
+                 $modelCustomer = $controller->loadModel('Customers');
+                $conditions = ['token_device IS NOT'=>null];
+                $listMembers = $modelCustomer->find()->where($conditions)->all()->toList();
+                 
+
+                if(!empty($listMembers)){
+                    $dataSendNotification= array('title'=>'Bạn có tin làng nghề mới','time'=>date('H:i d/m/Y'),'content'=>$dataSend['name'],'action'=>'lang_nghe');
+                  
+
+                    foreach ($listMembers as $key => $value) {
+                        
+                        if(!empty($value->token_device)){
+                            sendNotification($dataSendNotification, $value->token_device);
+                            
+                        }
+                    }
+                }
                 return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php?status=1');
             }
             
@@ -2514,7 +2585,7 @@ function addNotificationAdmin($input)
         if(!empty($dataSend['title']) && !empty($dataSend['mess'])){
             $conditions = ['token_device IS NOT'=>null];
             $listMembers = $modelCustomer->find()->where($conditions)->all()->toList();
-             debug($listMembers);
+             
 
             if(!empty($listMembers)){
                 $dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['mess'],'action'=>'adminSendNotification');

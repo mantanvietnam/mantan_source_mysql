@@ -93,4 +93,5 @@
    $routesPlugin['bookRestaurantAPI'] = 'tayho360/view/bookRestaurantAPI.php';
    $routesPlugin['bookHotelAPI'] = 'tayho360/view/bookHotelAPI.php';
    $routesPlugin['getmapAPI'] = 'tayho360/view/getmapAPI.php';
+   $routesPlugin['bookingonlineAPI'] = 'tayho360/view/bookingonlineAPI.php';
 ?>

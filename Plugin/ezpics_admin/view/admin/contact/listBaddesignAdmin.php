@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin đăng ký design</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin Báo xấu mẫu thiết kế</h4>
   <!-- <p><a href="/plugins/admin/tayho360-admin-event-addEventAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
@@ -33,7 +33,7 @@
         </tbody></table> -->
     </form>
   <div class="card">
-    <h5 class="card-header">Thông tin đăng ký design</h5>
+    <h5 class="card-header">Thông tin Báo xấu mẫu thiết kế</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -43,9 +43,6 @@
             <th>ảnh</th>
             <th>Thông tin</th>
             <th>Nội dung</th> 
-            <th>Portfolio </th> 
-            <th>Trạng thái</th> 
-            <th>Xem</th> 
             <th>Xóa</th> 
           </tr>
         </thead>
@@ -68,16 +65,8 @@
                         <td><img src="'.@$Member->avatar.'" width="100" height="100" ></td>
                         <td>'.@$Member->name.'<br>'.@$Member->email.'<br>'.@$Member->phone.'</td>
                         <td>'.$item->content.'</td>
-                        <td><img src="'.@$item->meta.'" width="100" height="100" ></td>
-                        <td>'.$status.'</td>
-                       
                         <td align="center">
-                          <a class="dropdown-item"  href="/plugins/admin/ezpics_admin-view-admin-contact-addDesignRegistrationAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-show"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-contact-deleteDesignRegistrationAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-contact-deleteBaddesignAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

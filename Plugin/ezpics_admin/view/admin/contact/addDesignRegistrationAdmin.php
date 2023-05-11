@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin.php">Đăng ký design</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php">Đăng ký design</a> /</span>
     Thông tin đăng ký design
   </h4>
 
@@ -37,9 +37,10 @@
                       <?php echo $data->content; ?></p> 
                   </div>
                   <div class="mb-3">
-                    <label for="">Trạng thái:</label>&ensp;
+                    <p> <label  class="form-label" for="basic-default-phone">Trạng thái:</label>&ensp;
                                 <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Duyệt&ensp;
-                                <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Không Duyệt 
+                                <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Chưa Duyệt &ensp;
+                                <input type="radio" name="status" class="" id="status" value="2" <?php if(@ $data['status']==2) echo 'checked="checked"';   ?> > Từ chối</p>
                   </div>
 
                  

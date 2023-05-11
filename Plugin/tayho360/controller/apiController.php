@@ -696,6 +696,8 @@ function booktourAPI($input) {
     global $metaDescriptionMantan;
 
         $modelBookTour = $controller->loadModel('Booktours');
+         $modelTour = $controller->loadModel('Tours');
+          $modelCustomer = $controller->loadModel('Customers');
 
     $dataSend = $input['request']->getData();
      $return= array('code'=>0,'data'=>'');
@@ -705,6 +707,9 @@ function booktourAPI($input) {
 
         $data = $modelBookTour->newEmptyEntity();
              $data->created = getdate()[0];
+
+              $Tour = $modelTour->get( (int) $dataSend['idtour']);
+        $Customer = $modelCustomer->get( (int) $dataSend['idcustomer']);
 
         $data->idtour = (int) @$dataSend['idtour'];
         $data->idcustomer = (int) @$dataSend['idcustomer'];
@@ -718,6 +723,12 @@ function booktourAPI($input) {
 
       
         if($modelBookTour->save($data)){
+
+            $dataSendNotification= array('title'=>'Đặt bàn tuor thành công','time'=>date('H:i d/m/Y'),'content'=>'Quý khách đặt tour '.$Tour->name.'Thàng công','action'=>'booktour');
+
+                    if(!empty($Customer->token_device)){
+                        sendNotification($dataSendNotification, $Customer->token_device);
+                    }
           $return = array('code'=>1,'data'=>'bạn đăt tuor thành công ');
         }else{
         $return = array('code'=>0,'data'=>'bạn đăt tuor không thành công');
@@ -729,7 +740,7 @@ function booktourAPI($input) {
       return $return;
 }
 
-/*Tin tíc*/
+/*Tin tuc*/
 function listPostAPI($input){
     
      header('Access-Control-Allow-Methods: *');
@@ -747,7 +758,9 @@ function listPostAPI($input){
         $conditions = array();
           if(!empty($dataSend['name'])){
              $key=createSlugMantan($dataSend['name']);
-            $conditions['slug']= array('$regex' => $key);
+
+             
+            $conditions['slug LIKE']= '%'.$key.'%';
         }
        
         $order= array('created'=>'desc');
@@ -880,18 +893,21 @@ function bookRestaurantAPI($input) {
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
 
-        $modelBookTour = $controller->loadModel('Booktours');
-
     $dataSend = $input['request']->getData();
      $return= array('code'=>0,'data'=>'');
 
     
      $modelBooktable = $controller->loadModel('Booktables');
+     $modelRestaurant = $controller->loadModel('Restaurants');
+     $modelCustomer = $controller->loadModel('Customers');
 
     $dataSend = $input['request']->getData();
     if(!empty($dataSend['timebook'])){
         $data = $modelBooktable->newEmptyEntity();
              $data->created = getdate()[0];
+
+        $Restaurant = $modelRestaurant->get( (int) $dataSend['idrestaurant']);
+        $Customer = $modelCustomer->get( (int) $dataSend['idcustomer']);
 
         $data->idrestaurant = (int) @$dataSend['idrestaurant'];
         $data->idcustomer = (int) @$dataSend['idcustomer'];
@@ -903,6 +919,14 @@ function bookRestaurantAPI($input) {
         $data->status = 'processing';
             $data->timebook = strtotime(str_replace("T", " ",@$dataSend['timebook']));
          if($modelBooktable->save($data)){
+
+              $dataSendNotification= array('title'=>'Đặt bàn thành công','time'=>date('H:i d/m/Y'),'content'=>'Quý khách đặt bàn của nhà hàng '.$Restaurant->name.'Thàng công','action'=>'bookRestaurant');
+
+                    if(!empty($Customer->token_device)){
+                        sendNotification($dataSendNotification, $Customer->token_device);
+                    }
+
+
           $return = array('code'=>1,'data'=>'bạn đăt bàn thành công ');
         }else{
         $return = array('code'=>0,'data'=>'bạn đăt bàn không thành công');
@@ -981,6 +1005,7 @@ function bookHotelAPI($input) {
 
       
         if($bookHotel->save($data)){
+
           $return = array('code'=>1,'data'=>'bạn đăt phòng thành công ');
         }else{
         $return = array('code'=>0,'data'=>'bạn đăt phòng không thành công');
@@ -1217,4 +1242,79 @@ function getmapAPI(){
 
 }
 
+function bookingonlineAPI($input){
+
+      global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    global $urlThemeActive;
+    global $session;
+    $infoUser = $session->read('infoUser');
+    $bookHotel = $controller->loadModel('BookHotels');
+    $modelBookTable = $controller->loadModel('Booktables');
+    $modelBookTour = $controller->loadModel('Booktours');
+    $conditions =array();
+    $dataSend = $input['request']->getData();
+    $conditions['idcustomer']= $dataSend['idcustomer'];
+
+
+    $databookHotel = $bookHotel->find()->where($conditions)->all();
+    $databookTable = $modelBookTable->find()->where($conditions)->all();
+    $databookTour = $modelBookTour->find()->where($conditions)->all();
+
+
+    $dataHotel = array();
+    foreach($databookHotel as $key => $value){
+        if(!empty($value)){
+        $Hotel = getHotel($value->idhotel);
+                $dataHotel[] =  array("id"=> @$value->id,
+                            "name"=> @$Hotel['data']['Hotel']['name'],
+                            "created"=> @$value->created,
+                            "date_start"=> @$value->date_start,
+                            "date_end"=> @$value->date_end,
+                            "pricePay"=> @$value->pricePay
+                        );
+             }} 
+
+
+     $datatour = array();
+    foreach($databookTour as $key => $value){
+        if(!empty($value)){
+            $tour = getTour($value->idtour);
+                $datatour[] =  array("id"=> @$value->id,
+                        "name"=> @$tour->name,
+                        "created"=> @$value->created,
+                        "date_start"=> @$tour->datestart,
+                        "date_end"=> @$tour->dateend,
+                        "numberpeople"=> @$value->numberpeople,
+                        "pricePay"=> @$tour->price*@$value->numberpeople
+                        );
+             }}
+
+
+      $dataTable = array();
+    foreach($databookTable as $key => $value){
+        if(!empty($value)){
+        $Restaurant = getRestaurant($value->idrestaurant);
+                $dataTable[] =  array("id"=> @$value->id,
+                            "name"=> @$Restaurant->name,
+                            "created"=> @$value->created,
+                            "timebook"=> @$value->timebook,
+                            "numberpeople"=> @$value->numberpeople
+                        );
+             }}
+
+
+     $return= array('code'=>1,
+            'databookHotel'=>$dataHotel,
+            'databookTable'=>$dataTable,
+            'databookTour'=>$datatour
+        );
+
+
+   
+     return $return;
+}
+
  ?>
+
