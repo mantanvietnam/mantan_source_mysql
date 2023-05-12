@@ -460,6 +460,7 @@ function addArtifactAdmin($input)
 
     }else{
         $data = $modelArtifact->newEmptyEntity();
+        
     }
 
 
@@ -469,6 +470,9 @@ function addArtifactAdmin($input)
    // debug($dataSend);
         if(!empty($dataSend['name'])){
             // tạo dữ liệu save
+         if(empty($_GET['id'])){
+            $data->urlSlug = createSlugMantan(trim(@$dataSend['name'].' '.@$dataSend['sign']));
+        }
             $data->name = @$dataSend['name'];
             $data->status = @$dataSend['status'];
             $data->material = @$dataSend['material'];
@@ -547,7 +551,7 @@ function addArtifactAdmin($input)
             $data->fileusdz = @$dataSend['fileusdz'];
             $data->filegle = @$dataSend['filegle'];
 
-            $data->urlSlug = createSlugMantan(trim($dataSend['name']));
+            
 
             //  debug($data);
               //die;
@@ -619,6 +623,7 @@ function addWordArtfactAdmin($input){
                     $address = explode(':', $item[1]);        
                     $sign = explode('<br />', $item[2]);    
                     $sign = trim($sign[1]);
+                    $code = explode('.', $sign);
                     $location = explode(':', $item[3]);
                     $quantity = explode(':', $item[4]);
                     $introductory = explode(':<br />', $item[5]);
@@ -627,15 +632,15 @@ function addWordArtfactAdmin($input){
                     $color =  explode(':', $item[8]);
                     $material = explode(':', $item[10]);
                     $file = explode(':', $item[12]);
-                    $technique = explode(':', $item[12]);
+                    $technique = explode(':', $item[20]);
                     $current =  explode(':', $item[25]);
                     $source =explode(':', $item[27]);
-                   //debug($item);
+               //   debug($item);
                   // debug($introductory);
 
-                    if($item[28]=='A:  X'){
+                    if($item[28]=='A: X  '){
                         $classify = 'A';
-                    }elseif($item[29]=='B:  X'){
+                    }elseif($item[29]=='B: X  '){
                         $classify = 'B';
                     }else{
                         $classify = 'C';
@@ -646,7 +651,7 @@ function addWordArtfactAdmin($input){
                     $data->name = @$name[2];
                     $data->status =  1;
                     $data->material = @$material[1];
-                    $data->idHistoricalsite = 19;
+                    $data->idHistoricalsite = 44;
                     $data->idcategory = @$dataSend['idcategory'];
                     $data->excavation = @$dataSend['excavation'];
                     $data->period = @$item[15].', '.$item[18];
@@ -658,13 +663,15 @@ function addWordArtfactAdmin($input){
                     }else{
                         $data->registrationdate = '';
                     }
+
+
                     $data->shape = @$dataSend['shape'];
                     $data->technique = @$technique[1];
                     $data->classify = @$classify;
                     $data->voter = @$item[31];
                     $data->source = @$source[2];
                     $data->file = @$file[1];
-                    $data->image = 'https://tayho360.vn/upload/admin/files/default-image.jpg';
+                    $data->image = 'https://tayho360.vn/upload/admin/files/PTH_'.$code[1].'.jpg';
                     $data->image2 = @$dataSend['image2'];
                     $data->image3 = @$dataSend['image3'];
                     $data->image4 = @$dataSend['image4'];
@@ -677,7 +684,7 @@ function addWordArtfactAdmin($input){
                     $data->image360 = @$dataSend['image360'];
                     $data->number = (int) @$number[1];
                     $data->quantity = (int) @$quantity[1];
-                    $data->sign = @$sign;
+                    $data->sign = $sign;
                     $data->weight = @$dataSend['weight'];
                     $data->size = str_replace(array("<br />", "<br />", "\t"), "",@$item[23]);
                     $data->introductory = @$introductory;
@@ -723,15 +730,15 @@ function addWordArtfactAdmin($input){
 
                     $data->urlSlug = createSlugMantan(trim(@$name[2].' '.@$sign));
 
-                    // debug($data);
+                   // debug($data);
                       //die;
 
-                  $modelArtifact->save($data);
+                 $modelArtifact->save($data);
 
                 }
             }
         }
-         // die;
+       // die;
         return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=1');
 
     }
@@ -897,4 +904,37 @@ function deleteCategoryartifactAdmin($input){
 
     return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin.php?status=3');
 }
+
+
+function updatetechnique($input){
+    global $controller;
+
+    $conditions['status']= 1;
+   // $conditions['sign LIKE']= '%CVN.%';
+
+    $modelArtifact = $controller->loadModel('Artifacts');
+        $data = $modelArtifact->find()->where($conditions)->all();
+       
+          debug($data);
+          die;
+        
+        foreach($data as $listData){
+                if(!empty($listData)){
+                    $code = explode('.', $listData->sign);
+                    $listData->sign = 'CVG.'.$code[1];
+                    $listData->image = 'https://tayho360.vn/upload/admin/files/CVG_'.$code[1].'.jpg';
+
+                   $listData->urlSlug = createSlugMantan(trim(@$listData->name.' '.$listData->sign));
+               //
+                debug($listData);     
+              //    $modelArtifact->save($listData);
+        
+
+                }
+            }
+         die;
+
+        return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=1');
+}
+
  ?>
