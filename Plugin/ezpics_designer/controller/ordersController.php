@@ -30,6 +30,8 @@ function orderProduct($input)
 
 		// Mua Hàng 
 		$conditions['type'] = 0;
+
+		$conditions['member_id']= $user->id;
 		
 
 		if(isset($_GET['status'])){
@@ -155,6 +157,7 @@ function recharge($input){
 
 		// Nap tiền
 		$conditions['type'] = 1;
+		$conditions['member_id']= $user->id;
 		
 
 		if(isset($_GET['status'])){
@@ -239,12 +242,14 @@ function sellproduct($input){
 		//if(!isset($_GET['type'])) $_GET['type'] = 'user_create';
 		//if(!isset($_GET['status'])) $_GET['status'] = 1;
 
+
 		if(!empty($_GET['id'])){
 			$conditions['id'] = (int) $_GET['id'];
 		}
 
 		// bán nhàng
 		$conditions['type'] = 3;
+		$conditions['member_id']= $user->id;
 		
 
 		if(isset($_GET['status'])){
@@ -335,6 +340,7 @@ function withdrawmoney($input){
 
 		// Nap tiền
 		$conditions['type'] = 2;
+		$conditions['member_id']= $user->id;
 		
 
 		if(isset($_GET['status'])){
@@ -425,6 +431,7 @@ function removeimage($input){
 
 		// Xóa ảnh
 		$conditions['type'] = 4;
+		$conditions['member_id']= $user->id;
 		
 
 		if(isset($_GET['status'])){

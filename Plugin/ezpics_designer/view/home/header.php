@@ -143,6 +143,13 @@
                 <div data-i18n="Add">Xóa hình nền</div>
               </a>
             </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Khách hàng</span></li>
+            <li class="menu-item">
+              <a href="/listCustomer" class="menu-link">
+                <i class='bx bxs-user-detail' ></i>
+                <div data-i18n="Add">Danh sách khách hàng</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->

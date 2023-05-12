@@ -23,4 +23,7 @@
 
 	// public
 	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';
+
+	// khách hàng
+	$routesPlugin['listCustomer']= 'ezpics_designer/view/home/customer/listCustomer.php';
 ?>
