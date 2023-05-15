@@ -86,6 +86,7 @@
         <thead>
           <tr class="">
             <th>ID</th>
+            <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
             <th>Chủ mẫu</th>
@@ -110,14 +111,21 @@
                   $status = '<span class="text-success">Đang đăng bán</span>';
                 }
 
+                $thumbnail = '';
+                if(!empty($item->thumbnail)){
+                  $thumbnail = '<img src="'.$item->thumbnail.'" width="100" />';
+                }
+
                 echo '<tr>
                         <td>
-                          '.$item->id.'
-                        </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" /><br/>
+                          <a target="_blank" href="https://apis.ezpics.vn/createImageFromTemplate/?id='.$item->id.'">'.$item->id.'</a><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
+                        <td>
+                          <img src="'.$item->image.'" width="100" />
+                          
+                        </td>
+                        <td>'.$thumbnail.'</td>
                         <td>'.$item->name.'<br/>'.$type.'</td>
                         <td>
                           '.$item->designer->name.'<br/>

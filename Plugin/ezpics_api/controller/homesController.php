@@ -794,6 +794,7 @@ function capImg($input)
             $image = 'https://apis.ezpics.vn/upload/admin/images/'.$user->id.'/thumb_product_'.$product->id.'.png?time='.time();
 
             $product->image = $image;
+            $product->zipThumb = 0;
         
             $modelProduct->save($product);
 
@@ -806,5 +807,44 @@ function capImg($input)
     }else{
         return ['error' => ['Bạn chưa đăng nhập']]; 
     } 
+}
+
+function zipThumb($input)
+{
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+
+    $conditions = array('zipThumb'=>0);
+    $limit = 5;
+    $page = 1;
+
+    $listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+
+    if(!empty($listProduct)){
+        foreach ($listProduct as $key => $value) {
+            $name = __DIR__.'/../../../upload/admin/images/'.$value->user_id.'/thumb_product_'.$value->id.'.png';
+            
+            if(file_exists($name)){
+                zipImage($name);
+                echo 'Fix image '.$value->id.'<br/>';
+            }
+
+            /*
+            $thumbnail = explode('upload/admin/images/data/', $value->thumbnail);
+            if(!empty($thumbnail[1])){
+                $name = __DIR__.'/../../../upload/admin/images/'.$value->user_id.'/'.$thumbnail[1];
+            
+                if(file_exists($name)){
+                    zipImage($name);
+                    echo 'Fix thumbnail '.$value->id.'<br/>';
+                }
+            }
+            */
+
+            $value->zipThumb = 1;
+            $modelProduct->save($value);
+        }
+    }
 }
 ?>

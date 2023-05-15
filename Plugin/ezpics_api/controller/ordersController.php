@@ -81,6 +81,7 @@ function saveRequestBankingAPI($input)
                 $order->member_id = $infoUser->id;
                 $order->product_id = '';
                 $order->meta_payment = $infoUser->phone.' ezpics '.$order->code;
+                $order->payment_type = 1;
                 $order->total = (int) $dataSend['money'];
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
@@ -167,6 +168,74 @@ function saveRequestWithdrawAPI($input)
 								'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
 							);
 		}
+	}
+
+	return 	$return;
+}
+
+function addMoneyApplePayAPI($input)
+{
+	global $controller;
+
+	$modelOrder = $controller->loadModel('Orders');
+	$modelMember = $controller->loadModel('Members');
+
+	$return['messages']= array(array('text'=>''));
+
+	if(!empty($_POST['token']) && !empty($_POST['money']) && !empty($_POST['purchaseID']) && !empty($_POST['transactionDate'])){
+		$dataSend = $input['request']->getData();
+
+		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+		if(!empty($infoUser)){
+			$transactionDate = $dataSend['transactionDate']/1000;
+
+			// cộng tiền vào tài khoản
+			$dataSend['money'] = (int) $dataSend['money'] * 0.7;
+			$infoUser->account_balance += $dataSend['money'];
+			$modelMember->save($infoUser);
+
+			// lưu lịch sử nạp tiền
+			$order = $modelOrder->newEmptyEntity();
+				
+			$order->code = 'AM'.time().$infoUser->id.rand(0,10000);
+            $order->member_id = $infoUser->id;
+            $order->product_id = ''; 
+            $order->meta_payment = 'Nạp tiền qua Apple Pay. Mã giao dịch '.$dataSend['purchaseID']; // id giao dịch của Apple
+            $order->payment_type = 2;
+            $order->note = 'Thời gian giao dịch với Apple: '.date('H:i d/m/Y',$transactionDate).' ('.$transactionDate.')';
+            $order->total = $dataSend['money'];
+            $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+            $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+            $order->created_at = date('Y-m-d H:i:s');
+            
+            $modelOrder->save($order);
+
+			// bắn thông báo về điện thoại
+			$dataSendNotification= array('title'=>'Nạp tiền thành công Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Nạp thành công '.number_format($dataSend['money']).'đ vào tài khoản '.$infoUser->phone,'action'=>'addMoneySuccess');
+
+            if(!empty($infoUser->token_device)){
+                sendNotification($dataSendNotification, $infoUser->token_device);
+            }
+
+			// gửi email xác nhận
+			if(!empty($infoUser->email) && !empty($infoUser->name)){
+                sendEmailAddMoney($infoUser->email, $infoUser->name, $dataSend['money']);
+            }
+
+            $return = array('code'=>0,
+								'messages'=>array(array('text'=>'Cộng tiền thành công'))
+							);
+
+		}else{
+			$return = array('code'=>3,
+								'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai mã token'))
+							);
+		}
+	}else{
+		$return = array('code'=>2,
+							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+						);
 	}
 
 	return 	$return;

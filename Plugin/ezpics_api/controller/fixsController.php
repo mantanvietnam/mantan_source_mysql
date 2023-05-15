@@ -178,7 +178,8 @@ function fixDeepLink($input)
 }
 
 function fixPrice($input)
-{
+{	
+	/*
 	global $controller;
 
 	$modelProducts = $controller->loadModel('Products');
@@ -191,6 +192,7 @@ function fixPrice($input)
 
 		$modelProducts->save($item);
 	}
+	*/
 	
 	/*
 	$all = $modelProducts->find()->where(['type'=>'user_edit'])->all()->toList();

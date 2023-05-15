@@ -10,6 +10,9 @@
 	$routesPlugin['fixDeepLink']= 'ezpics_api/view/fixDeepLink.php';
 	$routesPlugin['fixPrice']= 'ezpics_api/view/fixPrice.php';
 
+	// nén ảnh
+	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';
+
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';
 	$routesPlugin['checkLoginMemberAPI']= 'ezpics_api/view/checkLoginMemberAPI.php';

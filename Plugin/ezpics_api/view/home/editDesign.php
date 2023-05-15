@@ -396,8 +396,8 @@
 	                                <div class="form-group w-100">
 	                                    <label>Trạng thái:</label>
 	                                    <select name="status_pro" class="form-select color-dropdown" id="status_pro">
-	                                        <option value="1">Đăng bán</option>
-	                                        <option value="0">Ẩn</option>
+	                                        <option value="1">Đề nghị bán</option>
+	                                        <option value="0">Ẩn chưa bán</option>
 	                                    </select>
 	                                </div>
 	                            </div>
