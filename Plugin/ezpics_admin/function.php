@@ -271,7 +271,7 @@ function sendEmailunsuccessfuldesigner($email='', $fullName='', $content='')
     
         $cc = array();
         $bcc = array();
-        $subject = '[Ezpics] ' . 'Tài khoản của bạn chưa đạt yêu cầu lên Designer ';
+        $subject = '[Ezpics] ' . 'Đơn đăng ký designer không được phê duyệt ';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -309,12 +309,14 @@ function sendEmailunsuccessfuldesigner($email='', $fullName='', $content='')
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Tài khoản của bạn chưa đạt yêu cầu lên Designer </span>
+                        <span>Đơn đăng ký designer không được phê duyệt </span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
-                        Lý do từ chối bạn là: '.$content.'</b>
+                        Chúng tôi rất tiếc phải thông báo rằng đơn đăng ký designer của bạn đã bị từ chối.
+                        <br/>
+                        Lý do từ chối:: '.$content.'</b>
                         
                         <br><br>
                         

@@ -120,7 +120,7 @@ function addDesignRegistrationAdmin($input){
                 $data->status = 2;
                 $modelmember->save($member);
                 $modelContact->save($data);
-                $dataSendNotification= array('title'=>'Tài khoản chưa đạt yêu cầu lên Designer ','time'=>date('H:i d/m/Y'),'content'=>'Lý do từ chối bạn là: '.$dataSend['content'],'action'=>'adminSendNotification');
+                $dataSendNotification= array('title'=>'Đơn đăng ký designer không được phê duyệt ','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi rất tiếc phải thông báo rằng đơn đăng ký designer của bạn đã bị từ chối. Lý do từ chối: '.$dataSend['content'],'action'=>'adminSendNotification');
                  sendNotification($dataSendNotification, $member->token_device);
                  sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
             }
