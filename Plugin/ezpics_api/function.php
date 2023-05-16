@@ -464,6 +464,10 @@ function getLayerProductForEdit($idProduct=0)
     if (!empty($pro)) {
         $pro->productDetail = $modelProductDetail->find()->where(array('products_id'=>$pro->id))->order(['sort' => 'ASC'])->all()->toList();
 
+        if($pro->status == 2){
+            $pro->status == 1;
+        }
+
         if(!empty($pro->productDetail) && count($pro->productDetail)) {
             $list_layer = array();
             $choose_tab = array();
