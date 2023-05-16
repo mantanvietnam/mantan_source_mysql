@@ -101,22 +101,28 @@ function addDesignRegistrationAdmin($input){
         $data = $modelContact->get( (int) $_GET['id']);
         $member = $modelmember->get($data->customer_id);
 
-    
-    
-
     	if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            if(@$dataSend['status']==1){
+            /*debug($dataSend);
+            debug($member);
+            die;*/
+            if(@$dataSend['status']=='Duyệt'){
                 
                 $member->type = 1;
                 $data->status = 1;
                 $modelmember->save($member);
                 $modelContact->save($data);
+                $dataSendNotification= array('title'=>'Tài khoản của bạn đã trở thành Designer','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn trở thành Designer của Ezpics ','action'=>'DesignRegistration');
+                 sendNotification($dataSendNotification, $member->token_device);
+                 sendEmailsuccessfulDesigner($member->email, $member->name);
             }else{
                 $member->type = 0;
-                $data->status = @$dataSend['status'];
+                $data->status = 2;
                 $modelmember->save($member);
                 $modelContact->save($data);
+                $dataSendNotification= array('title'=>'Tài khoản chưa đạt yêu cầu lên Designer ','time'=>date('H:i d/m/Y'),'content'=>'Lý do từ chối bạn là: '.$dataSend['content'],'action'=>'adminSendNotification');
+                 sendNotification($dataSendNotification, $member->token_device);
+                 sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
             }
     		
     		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php?status=2');

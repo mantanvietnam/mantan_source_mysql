@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php">Đăng ký design</a> /</span>
-    Thông tin đăng ký design
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php">Đăng ký designer</a> /</span>
+    Thông tin đăng ký designer
   </h4>
 
   <!-- Basic Layout -->
@@ -10,7 +10,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin đăng ký design</h5>
+            <h5 class="mb-0">Thông tin đăng ký designer</h5>
           </div>
         <!--   <?php   debug($data);
       debug($member);
@@ -25,7 +25,7 @@
                       <?php echo $member->name; ?></p> 
                   </div>
                   <div class="mb-3">
-                   <p><label class="form-label" for="basic-default-phone">Số điện thoạt:</label>
+                   <p><label class="form-label" for="basic-default-phone">Số điện thoại:</label>
                       <?php echo $member->phone; ?></p> 
                   </div>
                   <div class="mb-3">
@@ -36,14 +36,37 @@
                    <p><label class="form-label" for="basic-default-phone">Nội dung:</label>
                       <?php echo $data->content; ?></p> 
                   </div>
-                  <div class="mb-3">
-                    <p> <label  class="form-label" for="basic-default-phone">Trạng thái:</label>&ensp;
-                                <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Duyệt&ensp;
-                                <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Chưa Duyệt &ensp;
-                                <input type="radio" name="status" class="" id="status" value="2" <?php if(@ $data['status']==2) echo 'checked="checked"';   ?> > Từ chối</p>
+                  <?php 
+                         if($data->status==1){
+                        $status = 'Đã xử lý';
+                    }elseif($data->status==2){
+                        $status = 'Từ chối';
+                    }else{
+                        $status = 'Chưa xử lý';
+                    } 
+                   ?>
+                   <div class="mb-3">
+                   <p><label class="form-label" for="basic-default-phone">Trạng thái:</label>
+                      <?php echo $status; ?></p> 
                   </div>
+                  <?php if($data->status==0){ ?>
+                  <div class="mb-3">
+                     <p> <label  class="form-label" for="basic-default-phone">Lý do từ chối:</label>&ensp;
+                         <textarea name="content" id="content" onkeyup="" class="form-control" rows="5"></textarea>
+                       </p>
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-md-6">
+                      <input type="submit" name="status" class="btn btn-primary d-block" value="Duyệt">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" name="status" class="btn btn-danger d-block" value="Tứ chối">
+                    </div>
+                  </div>
+                 <?php }else{ ?>
+                  <a href="/plugins/admin/ezpics_admin-view-admin-contact-listDesignRegistrationAdmin.php" style="width: 101px;" class="btn btn-primary d-block">Quay lại</a>
 
-                 
+                 <?php } ?>
                 </div>
 
                 <div class="col-md-6">
@@ -56,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">Lưu</button>
+               
             <?= $this->Form->end() ?>
           </div>
         </div>

@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin đăng ký design</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin đăng ký designer</h4>
   <!-- <p><a href="/plugins/admin/tayho360-admin-event-addEventAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
@@ -33,7 +33,7 @@
         </tbody></table> -->
     </form>
   <div class="card">
-    <h5 class="card-header">Thông tin đăng ký design</h5>
+    <h5 class="card-header">Thông tin đăng ký designer</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -56,11 +56,11 @@
               foreach ($listData as $item) {
                 $Member = getMember($item->customer_id);
               if($item->status==1){
-                  $status = 'đã xử lý';
+                  $status = 'Đã xử lý';
               }elseif($item->status==2){
-                  $status = 'từ chối';
+                  $status = 'Từ chối';
               }else{
-                  $status = 'chưa xử lý';
+                  $status = 'Chưa xử lý';
               }
 
                 echo '<tr>
