@@ -84,6 +84,7 @@
         <thead>
           <tr class="">
             <th>ID</th>
+            <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
             <th>Thống kê</th>
@@ -114,6 +115,10 @@
                 echo '<tr>
                         <td>
                           '.$item->id.'
+                        </td>
+                        <td>
+                          <img src="'.$item->image.'" width="100" />
+                          
                         </td>
                         <td>
                           <img src="'.$image.'" width="100" /><br/>
