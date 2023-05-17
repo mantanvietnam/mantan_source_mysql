@@ -413,12 +413,26 @@ function buyProductAPI($input)
 					$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
                     $order->member_id = $infoUserSell->id;
                     $order->product_id = $product->id;
-                    $order->total = $product->sale_price;
+                    $order->total = (90 / 100) * $product->sale_price;
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                     $order->type = 3; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
                     $order->meta_payment = 'Bán mẫu thiết kế ID '.$product->id;
                     $order->created_at = date('Y-m-d H:i:s');
                     $modelOrder->save($order);
+
+                    // tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
+                    if($product->sale_price > 0){
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
+	                    $order->member_id = 0;
+	                    $order->product_id = $product->id;
+	                    $order->total = (10 / 100) * $product->sale_price;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu
+	                    $order->meta_payment = 'Chiết khấu mẫu thiết kế ID '.$product->id;
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    $modelOrder->save($order);
+                	}
 
                     // gửi thông báo về app cho người bán
                     $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là '.number_format($product->sale_price).'đ','action'=>'addMoneySuccess');

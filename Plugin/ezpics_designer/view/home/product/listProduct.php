@@ -41,8 +41,9 @@
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Đang đăng bán</option>
+              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
+              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >chưa duyệt</option>
+              <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Đang đăng bán</option>
               <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
             </select>
           </div>
@@ -105,9 +106,13 @@
                   $type = '<span class="text-success">Mẫu gốc</span>';
                 }
 
-                $status = '<span class="text-danger">Chưa đăng bán</span>';
-                if($item->status==1){
-                  $status = '<span class="text-success">Đang đăng bán</span><p><a href="javascript:void(0);" onclick="copyToClipboard(\''.$link_share.'\')">Chia sẻ</a></p>';
+                if($item->status==0){
+                 $status = '<span class="text-danger">Chưa đăng bán</span>';
+                
+                }elseif($item->status==1){
+                  $status = '<span class="text-primary">Chờ duyệt</span>';
+                }elseif($item->status==2){
+                   $status = '<span class="text-success">Đang đăng bán</span>';
                 }
 
                 $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
