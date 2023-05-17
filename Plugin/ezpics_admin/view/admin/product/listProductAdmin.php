@@ -93,7 +93,7 @@
             <th>Thống kê</th>
             <th>Giá bán</th>
             <th>Trạng thái</th>
-            <th>Khóa</th>
+            <!-- <th>Khóa</th> -->
             <th>Xóa</th>
           </tr>
         </thead>
@@ -106,9 +106,17 @@
                   $type = '<span class="text-success">Mẫu gốc</span>';
                 }
 
-                $status = '<span class="text-danger">Chưa đăng bán</span>';
-                if($item->status==1){
-                  $status = '<span class="text-success">Đang đăng bán</span>';
+                if($item->status==0){
+                 $status = '<span class="text-danger">Chưa đăng bán</span>';
+                
+                }elseif($item->status==1){
+                  $status = '<span class="text-primary">Chờ duyệt</span>
+                  <br>
+                   <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+
+                     <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối khóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
+                }elseif($item->status==2){
+                   $status = '<span class="text-success">Đang đăng bán</span>';
                 }
 
                 $thumbnail = '';
@@ -142,13 +150,6 @@
                           <del>'.number_format($item->price).'</del>
                         </td>
                         <td>'.$status.'</td>
-                        
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-lock-alt me-1"></i>
-                          </a>
-                        </td>
-
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>

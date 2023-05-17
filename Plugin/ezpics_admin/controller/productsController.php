@@ -18,7 +18,7 @@ function listProductAdmin($input)
 	$order = array('id'=>'desc');
 
 	if(!isset($_GET['type'])) $_GET['type'] = 'user_create';
-	if(!isset($_GET['status'])) $_GET['status'] = 1;
+	//if(!isset($_GET['status'])) $_GET['status'] = 1;
 
 	if(!empty($_GET['id'])){
 		$conditions['id'] = (int) $_GET['id'];
@@ -122,13 +122,25 @@ function lockProductAdmin($input){
 	global $controller;
 
 	$modelProducts = $controller->loadModel('Products');
+	$modelContact = $controller->loadModel('contact');
 	
 	if(!empty($_GET['id'])){
 		$data = $modelProducts->get($_GET['id']);
-		
 		if($data){
-			$data->status = 0;
+			$member = $modelmember->get($data->customer_id);
+
+			$data->status = (int) $_GET['status'];
          	$modelProducts->save($data);
+
+         	 if($_GET['status']==2){
+                $dataSendNotification= array('ìd'=$data->id, 'title'=>'Sản phẩm mới đã được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi vui mừng thông báo rằng mẫu thiết kế '.$data->name.' của bạn đã được duyệt và có thể đăng bán. Cảm ơn bạn vì đã gửi mẫu thiết kế cho chúng tôi !','action'=>'productNew');
+                 sendNotification($dataSendNotification, $member->token_device);
+                 //sendEmailsuccessfulDesigner($member->email, $member->name);
+            }else{
+                $dataSendNotification= array('title'=>'Mẫu thiết kế không được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Rất tiếc vì mẫu thiết kế của bạn chưa được duyệt. Bạn vui lòng kiểm tra lại mẫu thiết kế ("tên mẫu thiết kế") '.$data->name,'action'=>'adminSendNotification');
+                 sendNotification($dataSendNotification, $member->token_device);
+                // sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
+            }
         }
 	}
 

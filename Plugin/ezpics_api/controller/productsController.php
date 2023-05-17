@@ -27,7 +27,7 @@ function getNewProductAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('status'=>1, 'type'=>'user_create');
+	$conditions = array('status'=>2, 'type'=>'user_create');
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:8;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('id'=>'desc');
@@ -55,7 +55,7 @@ function searchProductAPI($input)
 
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('status'=>1, 'type'=>'user_create');
+	$conditions = array('status'=>2, 'type'=>'user_create');
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('id'=>'desc');
@@ -111,7 +111,7 @@ function getProductByCategoryAPI($input)
 	$listProduct = [];
 
 	if(!empty($dataSend['category_id'])){
-		$conditions = array('status'=>1, 'type'=>'user_create','category_id'=>(int) $dataSend['category_id']);
+		$conditions = array('status'=>2, 'type'=>'user_create','category_id'=>(int) $dataSend['category_id']);
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array('id'=>'desc');
@@ -163,7 +163,7 @@ function getProductAllCategoryAPI($input)
 			// lấy tất cả sản phẩm trong danh mục
 			$dataSend = $input['request']->getData();
 
-			$conditions = array('status'=>1, 'category_id'=>$category->id, 'type'=>'user_create');
+			$conditions = array('status'=>2, 'category_id'=>$category->id, 'type'=>'user_create');
 			$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 			$page = 1;
 			$order = array('id'=>'desc');
@@ -207,7 +207,7 @@ function getTrendProductAPI($input)
 
 	$dataSend = $input['request']->getData();
 
-	$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'type'=>'user_create', 'status'=>1);
+	$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'type'=>'user_create', 'status'=>2);
 	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 	$order = array('views'=>'desc', 'favorites'=>'desc', 'id'=>'desc');
@@ -262,7 +262,7 @@ function getInfoProductAPI($input)
 				$data->link_share = $data->image;
 			}
 
-			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>1];
+			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>2];
 			$limit= 12;
 			$page= 1;
 			$order = array();
