@@ -132,15 +132,68 @@ function lockProductAdmin($input){
 			$data->status = (int) $_GET['status'];
          	$modelProducts->save($data);
 
+         	@$conditions = array();
+
+         	$conditions['user_id'] = (int) $data->user_id;
+         	 	$conditions['status'] = 2;
+
+         	 	$totalData = $modelProducts->find()->where($conditions)->all()->toList();
+    			$totalData = count($totalData);
          	 if($_GET['status']==2){
+    			if($totalData == 10){
+    				$member->level = 1;
+    			}elseif($totalData == 30){
+    				$member->level = 2;
+    			}elseif($totalData == 50){
+    				$member->level = 3;
+    			}elseif($totalData == 100){
+    				$member->level = 4;
+    			}elseif($totalData == 300){
+    				$member->level = 5;
+    			}elseif($totalData == 500){
+    				$member->level = 6;
+    			}elseif($totalData == 1000){
+    				$member->level = 7;
+    			}elseif($totalData == 3000){
+    				$member->level = 8;
+    			}elseif($totalData == 5000){
+    				$member->level = 9;
+    			}elseif($totalData == 10000){
+    				$member->level = 10;
+    			}
                 $dataSendNotification= array('ìd'=>$data->id, 'title'=>'Sản phẩm mới đã được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi vui mừng thông báo rằng mẫu thiết kế '.$data->name.' của bạn đã được duyệt và có thể đăng bán. Cảm ơn bạn vì đã gửi mẫu thiết kế cho chúng tôi !','action'=>'productNew');
                  sendNotification($dataSendNotification, $member->token_device);
                  //sendEmailsuccessfulDesigner($member->email, $member->name);
             }else{
+            	if($totalData = 9){
+    				$member->level = 0;
+    			}elseif($totalData == 29){
+    				$member->level = 1;
+    			}elseif($totalData == 49){
+    				$member->level = 2;
+    			}elseif($totalData == 99){
+    				$member->level = 3;
+    			}elseif($totalData == 299){
+    				$member->level = 4;
+    			}elseif($totalData == 499){
+    				$member->level = 5;
+    			}elseif($totalData == 999){
+    				$member->level = 6;
+    			}elseif($totalData == 2999){
+    				$member->level = 7;
+    			}elseif($totalData == 4999){
+    				$member->level = 8;
+    			}elseif($totalData == 9999){
+    				$member->level = 9;
+    			}
+
+
                 $dataSendNotification= array('title'=>'Mẫu thiết kế không được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Rất tiếc vì mẫu thiết kế của bạn chưa được duyệt. Bạn vui lòng kiểm tra lại mẫu thiết kế '.$data->name,'action'=>'adminSendNotification');
                  sendNotification($dataSendNotification, $member->token_device);
                 // sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
             }
+             $modelmember->save($member);
+            
         }
 	}
 

@@ -350,16 +350,16 @@ function sendEmailunsuccessfuldesigner($email='', $fullName='', $content='')
 }
 
 function levelmembers(){
-    return array('1'=>array('id'=>'1','name'=>'Stone Age', 'note'=>'đạt mốc 10 mẫu thiết kế'),
-        '2'=>array('id'=>'2','name'=>'Bronze Age', 'note'=>'đạt mốc 30 mẫu thiết kế'),
-        '3'=>array('id'=>'3','name'=>'Iron Age', 'note'=>'đạt mốc 50 mẫu thiết kế'),
-        '4'=>array('id'=>'4','name'=>'Ancient Era', 'note'=>'đạt mốc 100 mẫu thiết kế'),
-        '5'=>array('id'=>'5','name'=>'Medieval Era', 'note'=>'đạt mốc 300 mẫu thiết kế'),
-        '6'=>array('id'=>'6','name'=>'Enlightenment Era', 'note'=>'đạt mốc 500 mẫu thiết kế'),
-        '7'=>array('id'=>'7','name'=>'Industrial Era', 'note'=>'đạt mốc 1.000 mẫu thiết kế'),
-        '8'=>array('id'=>'8','name'=>'Modern Era', 'note'=>'đạt mốc 3.000 mẫu thiết kế'),
-        '9'=>array('id'=>'9','name'=>'Digital Era', 'note'=>'đạt mốc 5.000 mẫu thiết kế'),
-        '10'=>array('id'=>'10','name'=>'Innovation Era', 'note'=>'đạt mốc 10.000 mẫu thiết kế'),
+    return array('1'=>array('id'=>'1','name'=>'Stone Age', 'note'=>'đạt mốc 10 mẫu thiết kế', 'numberProductMin'=>10,'commission'=>''),
+        '2'=>array('id'=>'2','name'=>'Bronze Age', 'note'=>'đạt mốc 30 mẫu thiết kế', 'numberProductMin'=>30,'commission'=>''),
+        '3'=>array('id'=>'3','name'=>'Iron Age', 'note'=>'đạt mốc 50 mẫu thiết kế', 'numberProductMin'=>50,'commission'=>''),
+        '4'=>array('id'=>'4','name'=>'Ancient Era', 'note'=>'đạt mốc 100 mẫu thiết kế', 'numberProductMin'=>100,'commission'=>''),
+        '5'=>array('id'=>'5','name'=>'Medieval Era', 'note'=>'đạt mốc 300 mẫu thiết kế', 'numberProductMin'=>300,'commission'=>''),
+        '6'=>array('id'=>'6','name'=>'Enlightenment Era', 'note'=>'đạt mốc 500 mẫu thiết kế', 'numberProductMin'=>500,'commission'=>''),
+        '7'=>array('id'=>'7','name'=>'Industrial Era', 'note'=>'đạt mốc 1.000 mẫu thiết kế', 'numberProductMin'=>1000,'commission'=>''),
+        '8'=>array('id'=>'8','name'=>'Modern Era', 'note'=>'đạt mốc 3.000 mẫu thiết kế', 'numberProductMin'=>3000,'commission'=>''),
+        '9'=>array('id'=>'9','name'=>'Digital Era', 'note'=>'đạt mốc 5.000 mẫu thiết kế', 'numberProductMin'=>5000,'commission'=>''),
+        '10'=>array('id'=>'10','name'=>'Innovation Era', 'note'=>'đạt mốc 10.000 mẫu thiết kế', 'numberProductMin'=>10000,'commission'=>''),
     );
 }
 
