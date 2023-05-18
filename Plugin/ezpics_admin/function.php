@@ -198,7 +198,7 @@ function sendEmailsuccessfulDesigner($email='', $fullName='')
         $bcc = array();
         $subject = '[Ezpics] ' . 'Tài khoản của bạn đã trở thành Designer';
 
-        $content='<!DOCTYPE html>
+        $content ='<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -263,7 +263,13 @@ function sendEmailsuccessfulDesigner($email='', $fullName='')
         </body>
         </html>';
 
-        sendEmail($to, $cc, $bcc, $subject, $content);
+        debug($to);
+        debug(@$cc);
+        debug(@$bcc);
+        debug(@$subject);
+        debug(@$content);
+        die;
+       // sendEmail(@$to, @$cc, @$bcc, @$subject, @$content);
     }
 }
 

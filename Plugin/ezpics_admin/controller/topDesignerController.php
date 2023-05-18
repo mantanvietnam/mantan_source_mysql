@@ -13,7 +13,12 @@ function listSellTopDesignerAdmin($input){
 
 	
 		// bán được nhiều mẫu hoặc doanh thu cao trong tuần
-		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
+		if(empty($_GET['time'])){
+			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
+		}else{
+			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-".$_GET['time']." day")));
+		}
+		
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
@@ -69,7 +74,11 @@ function listIncomeTopDesignerAdmin($input){
 
 	
 		// bán được nhiều mẫu hoặc doanh thu cao trong tuần
-		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
+		if(empty($_GET['time'])){
+			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
+		}else{
+			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-".$_GET['time']." day")));
+		}
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
@@ -125,7 +134,11 @@ function listCreateTopDesignerAdmin($input){
 
 	
 		// tạo nhiều mẫu bán trong tuần
-		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'status'=>1);
+		if(empty($_GET['time'])){
+			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
+		}else{
+			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-".$_GET['time']." day")));
+		}
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();

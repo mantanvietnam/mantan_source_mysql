@@ -130,7 +130,7 @@
 
                 echo '<tr>
                         <td>
-                          <a target="_blank" href="https://apis.ezpics.vn/createImageFromTemplate/?id='.$item->id.'">'.$item->id.'</a><br/>
+                          <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'">'.$item->id.'</a><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
                         <td>
