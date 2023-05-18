@@ -77,6 +77,24 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Chính sách huy hiệu</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="level" id="level">
+                        <option value="">Chọn huy hiệu</option>
+                        <?php
+                                    foreach (levelmembers() as $level) {
+                                        if( @$data['level']!=$level['id']){
+                                            echo '<option value="' . $level['id'] . '">' . $level['name'] . '</option>';
+                                        }else{
+                                            echo '<option selected value="' . $level['id'] . '">' . $level['name'] . '</option>';
+                                        }
+                                        
+                                    } ?>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>

@@ -121,6 +121,7 @@ function addMemberAdmin($input)
 		        $data->aff = $dataSend['phone'];
 				$data->affsource = $dataSend['affsource'];
 				$data->email = $dataSend['email'];
+				$data->level = $dataSend['level'];
 				
 				
 				$data->status = (int) $dataSend['status'];

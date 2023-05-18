@@ -44,7 +44,7 @@
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >chưa duyệt</option>
+              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Chờ duyệt</option>
               <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Đang đăng bán</option>
               <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
               
@@ -116,9 +116,11 @@
                   <br>
                    <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
 
-                     <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối khóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
+                     <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
                 }elseif($item->status==2){
-                   $status = '<span class="text-success">Đang đăng bán</span>';
+                   $status = '<span class="text-success">Đang đăng bán</span><br>
+                   <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn hủy mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
+                   ';
                 }
 
                 $thumbnail = '';
@@ -151,7 +153,7 @@
                           '.number_format($item->sale_price).'<br/>
                           <del>'.number_format($item->price).'</del>
                         </td>
-                        <td>'.$status.'</td>
+                        <td style="text-align: center;">'.$status.'</td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
