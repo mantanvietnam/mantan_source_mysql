@@ -263,13 +263,7 @@ function sendEmailsuccessfulDesigner($email='', $fullName='')
         </body>
         </html>';
 
-        debug($to);
-        debug(@$cc);
-        debug(@$bcc);
-        debug(@$subject);
-        debug(@$content);
-        die;
-       // sendEmail(@$to, @$cc, @$bcc, @$subject, @$content);
+        sendEmail(@$to, @$cc, @$bcc, @$subject, @$content);
     }
 }
 
