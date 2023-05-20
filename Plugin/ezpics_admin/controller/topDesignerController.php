@@ -13,10 +13,18 @@ function listSellTopDesignerAdmin($input){
 
 	
 		// bán được nhiều mẫu hoặc doanh thu cao trong tuần
-		if(empty($_GET['time'])){
+		if(empty($_GET['date_start']) && empty($_GET['date_end']) ){
 			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
 		}else{
-			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-".$_GET['time']." day")));
+			if(!empty($_GET['date_start'])){
+					$date_start = explode('/', $_GET['date_start']);
+					$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+					$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+			}if(!empty($_GET['date_end'])){
+					$date_end = explode('/', $_GET['date_end']);
+					$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+					$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+			}
 		}
 		
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
@@ -74,10 +82,18 @@ function listIncomeTopDesignerAdmin($input){
 
 	
 		// bán được nhiều mẫu hoặc doanh thu cao trong tuần
-		if(empty($_GET['time'])){
+		if(empty($_GET['date_start']) && empty($_GET['date_end']) ){
 			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
 		}else{
-			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-".$_GET['time']." day")));
+			if(!empty($_GET['date_start'])){
+					$date_start = explode('/', $_GET['date_start']);
+					$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+					$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+			}if(!empty($_GET['date_end'])){
+					$date_end = explode('/', $_GET['date_end']);
+					$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+					$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+			}
 		}
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -134,10 +150,18 @@ function listCreateTopDesignerAdmin($input){
 
 	
 		// tạo nhiều mẫu bán trong tuần
-		if(empty($_GET['time'])){
+		if(empty($_GET['date_start']) && empty($_GET['date_end']) ){
 			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
 		}else{
-			$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-".$_GET['time']." day")));
+			if(!empty($_GET['date_start'])){
+					$date_start = explode('/', $_GET['date_start']);
+					$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+					$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+			}if(!empty($_GET['date_end'])){
+					$date_end = explode('/', $_GET['date_end']);
+					$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+					$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+			}
 		}
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;

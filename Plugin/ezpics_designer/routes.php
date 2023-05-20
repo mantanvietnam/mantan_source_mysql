@@ -7,6 +7,10 @@
 	$routesPlugin['dashboard']= 'ezpics_designer/view/home/dashboard.php';
 	$routesPlugin['changePass']= 'ezpics_designer/view/home/member/changePass.php';
 	$routesPlugin['account']= 'ezpics_designer/view/home/member/account.php';
+	$routesPlugin['forgotPass']= 'ezpics_designer/view/home/member/forgotPass.php';
+	$routesPlugin['confirm']= 'ezpics_designer/view/home/member/confirm.php';
+	$routesPlugin['register']= 'ezpics_designer/view/home/member/register.php';
+
 
 	// product
 	$routesPlugin['listProduct']= 'ezpics_designer/view/home/product/listProduct.php';

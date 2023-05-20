@@ -2,25 +2,29 @@
   <h4 class="fw-bold py-3 mb-4">Thông tin bán được nhiều mẫu nhất</h4>
   <!-- <p><a href="/plugins/admin/tayho360-admin-event-addEventAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
-  <form action="" method="GET">
-          <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
-            <tbody><tr>
-                <td>
-                  <label>Số ngày</label>
-                  <input type="number" name="time" class="form-control" placeholder="Số ngày" value="<?php echo @$_GET['time'] ?>">
-                </td>
-                
-                 <td >
-                    <br>
-                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
-                </td>
-              <!--  <td >
-                    <input type="submit" name="excel" value="Xuất excel">
-                </td>  -->
-            </tr>
-        
-        </tbody></table>
-    </form>
+  <form method="get" action="">
+    <div class="card mb-4">
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-2">
+            <label class="form-label">Từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
+          </div>
+          
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Lọc</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
   <div class="card">
     <h5 class="card-header">Thông tin bán được nhiều mẫu nhất</h5>
       <p><?php echo @$mess;?></p>

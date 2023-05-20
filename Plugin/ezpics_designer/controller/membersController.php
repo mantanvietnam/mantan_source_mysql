@@ -240,4 +240,225 @@ function account($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function forgotPass($input){
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$metaTitleMantan = 'Email xác thực';
+
+	$modelMembers = $controller->loadModel('Members');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions['email'] = $dataSend['email'];
+		$checkMember = $modelMembers->find()->where($conditions)->first();
+
+		if(!empty($checkMember)){
+			@$pass = getdate()[0];
+			$checkMember->password = md5($pass);
+			
+			$modelMembers->save($checkMember);
+			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
+			$session->write('email', $checkMember->email);
+			
+			return $controller->redirect('/confirm');
+
+
+		}else{
+			$mess= '<p class="text-danger">Email không đúng!</p>';
+		}
+		setVariable('mess', $mess);
+	}
+}
+
+function confirm($input){
+
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	$email = $session->read('email');
+
+	$modelCustomer = $controller->loadModel('Customers');
+	$modelMembers = $controller->loadModel('Members');
+	debug($email);
+	die;
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		$conditions = array('email'=>@$email, 'password'=>md5($dataSend['code']));
+	    		$data = $modelMembers->find()->where($conditions)->first();
+	    		if(!empty($data)){
+	    				$session->destroy();
+
+	    				$session->write('infoUser', $data);
+
+
+	    				return $controller->redirect('/newpassword');
+			    			
+						
+	    		}else{
+	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
+	    		}
+	    setVariable('mess', $mess);
+	}
+
+
+}
+
+
+function register($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelContact = $controller->loadModel('Contact');
+	 $mess = '';
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+	
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		
+		/*if(empty($dataSend['status'])) $dataSend['status']=1;
+		if(empty($dataSend['password'])) $dataSend['password']= $dataSend['phone'];
+		if(empty($dataSend['aff'])) $dataSend['aff']= $dataSend['phone'];
+		if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
+		if(empty($dataSend['type'])) $dataSend['type']= 0;*/
+
+		$avatar = '';
+		if(!empty($_FILES["avatar"]["name"])){
+               
+                $today= getdate();
+                if(isset($_FILES["avatar"]) && empty($_FILES["avatar"]["error"])){
+	                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+	                $filename = $_FILES["avatar"]["name"];
+	                $filetype = $_FILES["avatar"]["type"];
+	                $filesize = $_FILES["avatar"]["size"];
+	                
+	                // Verify file extension
+	                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+	                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
+	                
+	                // Verify file size - 1MB maximum
+	                $maxsize = 1024 * 1024;
+	                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
+	                
+	                // Verify MYME type of the file
+	                if(in_array($filetype, $allowed)){
+	                    // Check whether file exists before uploading it
+	                    move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__.'/../../../webroot/upload/register/' . $today[0].'_avatar.jpg');
+	                    $avatar= 'https://designer.ezpics.vn/webroot/upload/register/'.$today[0].'_avatar.jpg';
+	                    
+	                } else{
+	                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
+	                }
+	            }
+        }else{
+           $avatar= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
+        }
+
+        $portfolio = '';
+		if(!empty($_FILES["portfolio"]["name"])){
+              $today= getdate();
+                if(isset($_FILES["portfolio"]) && empty($_FILES["portfolio"]["error"])){
+	                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+	                $filename = $_FILES["portfolio"]["name"];
+	                $filetype = $_FILES["portfolio"]["type"];
+	                $filesize = $_FILES["portfolio"]["size"];
+	                
+	                // Verify file extension
+	                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+	                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
+	                
+	                // Verify file size - 1MB maximum
+	                $maxsize = 1024 * 1024;
+	                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
+	                
+	                // Verify MYME type of the file
+	                if(in_array($filetype, $allowed)){
+	                    // Check whether file exists before uploading it
+	                    move_uploaded_file($_FILES["portfolio"]["tmp_name"], __DIR__.'/../../../webroot/upload/portfolio/' . $today[0].'_portfolio.jpg');
+	                    $portfolio= 'https://designer.ezpics.vn/webroot/upload/portfolio/'.$today[0].'_portfolio.jpg';
+	                    
+	                } else{
+	                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
+	                }
+	       	}
+        }
+
+		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['avatar']["name"])  && !empty($_FILES['portfolio']["name"])  && !empty($dataSend['content'])){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+			if(empty($checkPhone)){
+				if($dataSend['password'] == $dataSend['password_again']){
+					$data = $modelMember->newEmptyEntity();
+
+					$data->name = $dataSend['name'];
+					$data->avatar = $avatar;
+					$data->phone = $dataSend['phone'];
+					$data->aff = @$dataSend['aff'];
+					$data->affsource = @$dataSend['affsource'];
+					$data->email = @$dataSend['email'];
+					$data->password = md5($dataSend['password']);
+					$data->account_balance = 100000; // tặng 100k cho tài khoản mới
+					$data->status = 1; //1: kích hoạt, 0: khóa
+					$data->type = 0; // 0: người dùng, 1: designer
+					$data->token = createToken();
+					$data->created_at = date('Y-m-d H:i:s');
+					$data->last_login = date('Y-m-d H:i:s');
+					$data->token_device = @$dataSend['token_device'];
+
+
+					$modelMember->save($data);
+
+					$Member =  $modelMember->find()->where(array('token'=>$data->token))->first();
+					$dataContact = $modelContact->newEmptyEntity();
+
+					$dataContact->customer_id = $Member->id;
+					$dataContact->content = $dataSend['content'];
+					$dataContact->title = 'Đăng ký làm Designer';
+					$dataContact->meta = $portfolio;
+					$dataContact->type = 1; // 0: order mẫu thiết kế, 1: đăng ký designer, 2: báo xấu mẫu thiết kế
+					$dataContact->status = 0; // 0: chưa xử lý, 1: đã xử lý
+					$dataContact->created_at = date('Y-m-d H:i:s');
+
+					$modelContact->save($dataContact);
+
+					$session->write('CheckAuthentication', true);
+		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$dataContact->id.'/');
+
+			    			$session->write('infoUser', $data);
+			    			
+							return $controller->redirect('/dashboard');
+
+
+
+					
+				}else{
+					$mess = 'Mật khẩu nhập lại không đúng';
+								
+				}
+			}else{
+				$mess = 'Số điện thoại đã tồn tại';
+
+			}
+		}else{
+			$mess = 'Gửi thiếu dữ liệu';
+		}
+	}
+	 setVariable('mess', $mess);
+
+}
 ?>

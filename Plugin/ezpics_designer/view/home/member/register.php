@@ -84,45 +84,65 @@
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Ezpics - Dùng là thích! 👋</h4>
-              <p class="mb-4">Mời bạn đăng nhập công cụ thiết kế hình ảnh dành cho Designer</p>
+              <p class="mb-4">Mời bạn đăng ký công cụ thiết kế hình ảnh dành cho Designer</p>
               <?php echo @$mess;?>
-              <form id="formAuthentication" class="mb-3" action="" method="POST">
+              <form id="formAuthentication" class="mb-3" action="" method="POST" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Số điện thoại</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="phone"
-                    name="phone"
-                    placeholder=""
-                    autofocus
-                  />
+                  <label for="phone" class="form-label">Họ và tên</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="" autofocus />
                 </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Số điện thoại</label>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="" autofocus />
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" name="email" placeholder="" autofocus />
+                </div>
+              
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Mật khẩu</label>
-                    <a href="/forgotPass">
-                      <small>Quên mật khẩu?</small>
-                    </a>
                   </div>
                   <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder=""
-                      aria-describedby="password"
-                    />
+                    <input type="password" id="password" class="form-control" name="password" placeholder="" aria-describedby="password" />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Nhập lại mật khẩu</label>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input type="password" id="password_again" class="form-control" name="password_again" placeholder="" aria-describedby="password_again" />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Ghi nhớ phiên đăng nhập </label>
-                  </div>
+                  <label for="phone" class="form-label">Ảnh đạt diện</label>
+                   <div class="m_bg_img" style="">
+                      <input type="file" onchange="readURL1(this);" name="avatar">
+                      <img id="img1" src="<?php echo @$info['avatar'] ?>" style="width: 110px" class="img-responsive">
+                   </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Mã giới thiệu</label>
+                  <input type="text" class="form-control" id="affsource" name="affsource" placeholder="" autofocus />
+                </div>
+
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Mô tả bản thân</label>
+                  <textarea  class="form-control" id="content"  name="content"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="phone" class="form-label">PORTFOLIO</label>
+                   <div class="m_bg_img" style="">
+                      <input type="file" onchange="readURL2(this);" name="portfolio">
+                      <img id="img1" src="<?php echo @$info['portfolio'] ?>" style="width: 110px" class="img-responsive">
+                   </div>
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
@@ -131,7 +151,7 @@
 
               <p class="text-center">
                 <span>Bạn chưa có tài khoản?</span>
-                <a href="/register">
+                <a href="https://smartqr.vn/r/gjib5dhkl79y">
                   <span>Đăng ký tài khoản mới</span>
                 </a>
               </p>
@@ -161,6 +181,7 @@
 
     <!-- Page JS -->
 
+  
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>

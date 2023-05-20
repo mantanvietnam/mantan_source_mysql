@@ -103,6 +103,7 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                 $linkopenapp = '';
                 $type = '<span class="text-danger">Mẫu sao chép</span>';
                 if($item->type=='user_create'){
                   $type = '<span class="text-success">Mẫu gốc</span>';
@@ -121,6 +122,8 @@
                    $status = '<span class="text-success">Đang đăng bán</span><br>
                    <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn hủy mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
                    ';
+
+                   $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn btn-primary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')">Link chia sẻ</button>';
                 }
 
                 $thumbnail = '';
@@ -130,7 +133,7 @@
 
                 echo '<tr>
                         <td>
-                          <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'">'.$item->id.'</a><br/>
+                          <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$item->designer->token.'">'.$item->id.'</a><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
                         <td>
@@ -138,7 +141,7 @@
                           
                         </td>
                         <td>'.$thumbnail.'</td>
-                        <td>'.$item->name.'<br/>'.$type.'</td>
+                        <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'</td>
                         <td>
                           '.$item->designer->name.'<br/>
                           '.$item->designer->phone.'<br/>
@@ -217,3 +220,30 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+<script type="text/javascript">
+  function copyToClipboard(textCopy,messId) {
+    // Create a "hidden" input
+    var aux = document.createElement("input");
+
+    // Assign it the value of the specified element
+    aux.setAttribute("value", textCopy);
+
+    // Append it to the body
+    document.body.appendChild(aux);
+
+    // Highlight its content
+    aux.select();
+
+    // Copy the highlighted text
+    document.execCommand("copy");
+
+    // Remove it from the body
+    document.body.removeChild(aux);
+
+    // show mess
+    $('#'+messId).html('Đã sao chép');
+
+    setInterval(emptyMess, 3000,messId);
+
+}
+</script>
