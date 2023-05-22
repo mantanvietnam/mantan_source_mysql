@@ -2727,6 +2727,7 @@ $(".replace[type='file']").on('change', function() {
 
 function printErrorMsg (msg) 
 {
+    $('.loadingProcess').addClass('d-none');
     $('.list-error li').remove();
     $.each( msg, function( key, value ) {
         $(".list-error").append('<li>'+value+'</li>');
