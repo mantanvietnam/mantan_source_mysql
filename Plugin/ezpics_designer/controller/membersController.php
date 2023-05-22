@@ -436,12 +436,7 @@ function register($input)
 
 					$modelContact->save($dataContact);
 
-					$session->write('CheckAuthentication', true);
-		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$dataContact->id.'/');
-
-			    			$session->write('infoUser', $data);
-			    			
-							return $controller->redirect('/dashboard');
+			    	return $controller->redirect('/login');
 
 
 

@@ -85,7 +85,7 @@
               <!-- /Logo -->
               <h4 class="mb-2">Ezpics - Dùng là thích! 👋</h4>
               <p class="mb-4">Mời bạn đăng ký công cụ thiết kế hình ảnh dành cho Designer</p>
-              <?php echo @$mess;?>
+             <p class="mb-4" style="color: red"> <?php echo @$mess;?></p>
               <form id="formAuthentication" class="mb-3" action="" method="POST" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
@@ -120,7 +120,7 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Ảnh đạt diện</label>
+                  <label for="phone" class="form-label">Ảnh đại diện</label>
                    <div class="m_bg_img" style="">
                       <input type="file" onchange="readURL1(this);" name="avatar">
                       <img id="img1" src="<?php echo @$info['avatar'] ?>" style="width: 110px" class="img-responsive">
@@ -145,14 +145,13 @@
                    </div>
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Đăng ký</button>
                 </div>
               </form>
 
               <p class="text-center">
-                <span>Bạn chưa có tài khoản?</span>
-                <a href="https://smartqr.vn/r/gjib5dhkl79y">
-                  <span>Đăng ký tài khoản mới</span>
+                <a href="/login">
+                  <span>Đăng nhập</span>
                 </a>
               </p>
             </div>

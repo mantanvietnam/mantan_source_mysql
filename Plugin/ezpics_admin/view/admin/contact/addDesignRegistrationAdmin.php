@@ -60,7 +60,7 @@
                       <input type="submit" name="status" class="btn btn-primary d-block" value="Duyệt">
                     </div>
                     <div class="col-md-6">
-                        <input type="submit" name="status" class="btn btn-danger d-block" value="Tứ chối">
+                        <input type="submit" name="status" class="btn btn-danger d-block" value="Từ chối">
                     </div>
                   </div>
                  <?php }else{ ?>
@@ -74,7 +74,7 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Portfolio</label>
                     <div class="input-group input-group-merge">
-                      <img src="<?php echo @$data->meta; ?>">
+                      <img style="width: 100%; height: auto;" src="<?php echo @$data->meta; ?>">
                     </div>
                   </div>
                 </div>
