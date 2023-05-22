@@ -18,6 +18,14 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Loại tài khoản</label>
+                    <select name="type" class="form-select color-dropdown">
+                      <option value="">Tất cả</option>
+                      <option value="0" <?php if(!empty($_GET['type']) && $_GET['type']=='0') echo 'selected';?> >Người dùng</option>
+                      <option value="1" <?php if(!empty($_GET['type']) && $_GET['type']=='1') echo 'selected';?> >Designer</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Tiêu đề (*)</label>
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="" />
                   </div>

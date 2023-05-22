@@ -285,8 +285,6 @@ function confirm($input){
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
-	debug($email);
-	die;
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -294,14 +292,17 @@ function confirm($input){
 		$conditions = array('email'=>@$email, 'password'=>md5($dataSend['code']));
 	    		$data = $modelMembers->find()->where($conditions)->first();
 	    		if(!empty($data)){
+	    				if($dataSend['pass'] == $dataSend['passAgain']){
+	    				$data->password = md5($dataSend['pass']);
+
+	    				$modelMembers->save($data);
 	    				$session->destroy();
-
-	    				$session->write('infoUser', $data);
-
-
-	    				return $controller->redirect('/newpassword');
 			    			
-						
+						return $controller->redirect('/login');		
+
+	    			}else{
+	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
+	    			}
 	    		}else{
 	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
 	    		}

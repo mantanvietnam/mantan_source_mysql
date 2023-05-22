@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập công cụ thiết kế cho Designer - Ezpics</title>
+    <title>Lây Mật khẩu mới  - Ezpics</title>
 
     <meta name="description" content="" />
 
@@ -84,13 +84,21 @@
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Ezpics - Dùng là thích! 👋</h4>
-              <p class="mb-4">Mời bạn đăng nhập công cụ thiết kế hình ảnh dành cho Designer</p>
+              <p class="mb-4">Lây Mật khẩu mới cho công cụ thiết kế hình ảnh dành cho Designer</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
                   <label for="phone" class="form-label">Mã xác nhận</label>
                   <input type="text" class="form-control" id="code" name="code" placeholder="" required>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Mật khẩu mới</label>
+                  <input type="text" class="form-control" id="pass" name="pass" placeholder="" required>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Mã xác nhận</label>
+                  <input type="text" class="form-control" id="passAgain" name="passAgain" placeholder="" required>
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Gửi</button>
