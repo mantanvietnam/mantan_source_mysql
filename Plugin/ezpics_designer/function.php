@@ -112,7 +112,6 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
         </body>
         </html>';
 
-
        sendEmail($to, $cc, $bcc, $subject, $content);      
     }
 }
