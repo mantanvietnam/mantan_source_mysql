@@ -413,7 +413,7 @@ function register($input)
 					$data->affsource = @$dataSend['affsource'];
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
-					$data->account_balance = 100000; // tặng 100k cho tài khoản mới
+					$data->account_balance = 10000; // tặng 10k cho tài khoản mới
 					$data->status = 1; //1: kích hoạt, 0: khóa
 					$data->type = 0; // 0: người dùng, 1: designer
 					$data->token = createToken();
