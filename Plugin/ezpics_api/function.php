@@ -625,7 +625,7 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_x = $layer->postion_left*$widthWindow/100;
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
 
-                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
                         
                         <div class="list-selection-choose d-none">
                             <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
@@ -633,9 +633,6 @@ function getLayerProductForEdit($idProduct=0)
                             </button>
                             <button class="btn-style-design-copy" onclick="duplicate();">
                                 <i class="fa-solid fa-copy"></i>
-                            </button>
-                            <button class="btn-style-design-edit" onclick="showFormEditText(\''.$item->id.'\');">
-                                <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </div>
 
