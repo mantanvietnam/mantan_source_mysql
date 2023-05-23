@@ -247,14 +247,14 @@ function forgotPass($input){
 	global $controller;
 	global $session;
 
-	$metaTitleMantan = 'Email xác thực';
+	$metaTitleMantan = 'Số điện thoại xác thực';
 
 	$modelMembers = $controller->loadModel('Members');
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions['email'] = $dataSend['email'];
+		$conditions['phone'] = $dataSend['phone'];
 		$checkMember = $modelMembers->find()->where($conditions)->first();
 
 		if(!empty($checkMember)){
@@ -263,13 +263,13 @@ function forgotPass($input){
 			
 			$modelMembers->save($checkMember);
 			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
-			$session->write('email', $checkMember->email);
+			$session->write('phone', $checkMember->phone);
 			
 			return $controller->redirect('/confirm');
 
 
 		}else{
-			$mess= '<p class="text-danger">Email không đúng!</p>';
+			$mess= '<p class="text-danger">Số điện thoại không đúng!</p>';
 		}
 		setVariable('mess', $mess);
 	}
@@ -281,7 +281,7 @@ function confirm($input){
 	global $isRequestPost;
 	global $controller;
 	global $session;
-	$email = $session->read('email');
+	$phone = $session->read('phone');
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
@@ -289,7 +289,7 @@ function confirm($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions = array('email'=>@$email, 'password'=>md5($dataSend['code']));
+		$conditions = array('phone'=>@$phone, 'password'=>md5($dataSend['code']));
 	    		$data = $modelMembers->find()->where($conditions)->first();
 	    		if(!empty($data)){
 	    				if($dataSend['pass'] == $dataSend['passAgain']){

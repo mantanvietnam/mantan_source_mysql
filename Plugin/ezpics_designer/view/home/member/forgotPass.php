@@ -89,8 +89,8 @@
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Email xác thực</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="" autofocus />
+                  <label for="phone" class="form-label">Số điện thoạt xác thực</label>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="" autofocus />
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Gửi</button>

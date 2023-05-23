@@ -84,7 +84,7 @@
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Ezpics - Dùng là thích! 👋</h4>
-              <p class="mb-4">Lây Mật khẩu mới cho công cụ thiết kế hình ảnh dành cho Designer</p>
+              <p class="mb-4">Bạn vui lòng khiểm tra trong Email mà bạn đã đăng ký với tài khoản, Nếu không thấy mã bạn có thể kiếm tra trong thư mục spam<p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
@@ -94,11 +94,11 @@
                 </div>
                 <div class="mb-3">
                   <label for="phone" class="form-label">Mật khẩu mới</label>
-                  <input type="text" class="form-control" id="pass" name="pass" placeholder="" required>
+                  <input type="password" class="form-control" id="pass" name="pass" placeholder="" required>
                 </div>
                 <div class="mb-3">
                   <label for="phone" class="form-label">Mã xác nhận</label>
-                  <input type="text" class="form-control" id="passAgain" name="passAgain" placeholder="" required>
+                  <input type="password" class="form-control" id="passAgain" name="passAgain" placeholder="" required>
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Gửi</button>
