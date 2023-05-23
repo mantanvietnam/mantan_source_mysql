@@ -688,7 +688,6 @@
 		</div>
 
 		<script type="text/javascript" src="https://apis.ezpics.vn/plugins/ezpics_api/view/js/edit_design.js?time=<?php echo time();?>"></script>
-		<script type="text/javascript" src="https://apis.ezpics.vn/plugins/ezpics_api/view/js/edit_design_long.js?time=<?php echo time();?>"></script>
 
 		<script type="text/javascript">
 			editThemeUser(<?php echo $product->id;?>);

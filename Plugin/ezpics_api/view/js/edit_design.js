@@ -481,6 +481,8 @@ function getInfoLayer() {
     }
 
     $("#gradient_postion").val($('.active-hover').data('pos_gradient'));
+
+    setGradientColorLayer();
 }
 
 //gradient
@@ -1035,7 +1037,6 @@ function saveproduct() {
         var getupdate = localStorage.getItem("product_update_"+id);
 
         // var json_update = JSON.parse(getupdate);
-        console.log(getupdate);
         
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
@@ -2919,13 +2920,16 @@ function showFormEditText(idLayer)
 }
 
 function activeLayerSelect(idLayer)
-{         
+{       
+    console.log('chọn layer');
+
     $('.drag-drop').removeClass('active-hover');
     $(".content-action").removeClass("active");
     $(".clc-action-edit").removeClass("active");
     $('.drag-drop[data-id="'+idLayer+'"]').addClass('active-hover');
     
     var type = $('.drag-drop.active-hover').data('type');
+    
 
     if (type == 'text') {
         $('.image-select').addClass('d-none');
@@ -2963,15 +2967,23 @@ function onclickBody()
     });
 }
 
-$("#toolbar_gradient").gradientPicker({
-    change: function(points, styles) {
-        var textEdit = $(".active-hover");
+function setGradientColorLayer()
+{
+    /*
+    var color = $('.drag-drop.active-hover').data('color');
 
-        for (i = 0; i < styles.length; ++i) {
-            textEdit.css("background-image", styles[i]);
-        }
-    },
-    controlPoints: ["green 0%", "orange 100%"]
-});
+    $("#toolbar_gradient").gradientPicker({
+        change: function(points, styles) {
+            var textEdit = $(".active-hover span");
+
+            for (i = 0; i < styles.length; ++i) {
+                textEdit.css("background-image", styles[i]);
+            }
+        },
+        controlPoints: [color+" 0%", color+" 100%"]
+    });
+    */
+}
+
 setTimeout(saveproduct, 60000);
 

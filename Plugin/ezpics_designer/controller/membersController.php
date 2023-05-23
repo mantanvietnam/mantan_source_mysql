@@ -24,8 +24,13 @@ function login($input)
 	    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
 	    		if($info_customer){
+	    			// nếu là desiger
 	    			if($info_customer->type == 1){
+
+	    				// nếu tài khoản không bị khóa
 	    				if($info_customer->status == 1){
+
+	    					// nếu chưa có token
 			    			if(empty($info_customer->token)){
 			    				$info_customer->token = createToken(25);
 
