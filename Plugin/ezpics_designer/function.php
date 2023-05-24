@@ -1,4 +1,9 @@
 <?php 
+
+require_once __DIR__ . '/lib/google/vendor/autoload.php';
+require_once __DIR__ . '/lib/google/google-login-api.php';
+
+
 $menus= array();
 $menus[0]['title']= 'Ezpics';
 
@@ -21,6 +26,19 @@ $menus[0]['sub'][2]= array('title'=>'Order mẫu thiết kế',
                             
                         );
 addMenuAdminMantan($menus);
+
+global $urlHomes;
+global $google_clientId;
+global $google_clientSecret;
+global $google_redirectURL;
+global $google_key_api;
+
+$google_clientId= '637094275991-k51plafaifed1t08s9h9aukvl8g540md.apps.googleusercontent.com';
+$google_clientSecret= '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';
+$google_redirectURL= $urlHomes . 'ggCallback';
+        
+$arrayGoogleKey= array('AIzaSyAWann-dBbdPrTToRLfA99LUIbhX8jUibk');
+$google_key_api= $arrayGoogleKey[array_rand($arrayGoogleKey)];
 
 function createToken($length=30)
 {

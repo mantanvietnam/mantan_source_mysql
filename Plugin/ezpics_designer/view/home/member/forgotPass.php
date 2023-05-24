@@ -89,7 +89,7 @@
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Số điện thoạt xác thực</label>
+                  <label for="phone" class="form-label">Số điện thoại xác thực</label>
                   <input type="text" class="form-control" id="phone" name="phone" placeholder="" autofocus />
                 </div>
                 <div class="mb-3">

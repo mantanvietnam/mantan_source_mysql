@@ -462,4 +462,126 @@ function register($input)
 	 setVariable('mess', $mess);
 
 }
+
+function ggCallback($input)
+{
+    global $google_clientId;
+    global $google_clientSecret;
+    global $google_redirectURL;
+    global $controller;
+
+    //$modelUserhotel= new Userhotel();
+
+	$modelMember = $controller->loadModel('Members');
+    // lấy tokens
+    if(isset($_GET['code'])) {
+       try {
+            $gapi = new GoogleLoginApi();
+            debug('sssss');
+
+            // Get the access token 
+            $data = $gapi->GetAccessToken($google_clientId, $google_redirectURL, $google_clientSecret, $_GET['code']);
+              debug($data);
+              debug($data['access_token']);
+            // Get user information
+            $user = $gapi->GetUserProfileInfo($data['access_token']);
+
+            debug($user);
+
+            if(!empty($user)){
+                $checkUser= $modelUserhotel->getByGoogle($user['id']);
+
+                if(!empty($checkUser)){
+                    // nếu đã tồn tại tài khoản
+                    $checkUser['User']['accessTokenGoogle']= $data['access_token'];
+                    $_SESSION['userInfo']= $checkUser;
+
+                    $update['$set']['accessToken']= getGUID().rand(0,1000000000);
+                    $update['$set']['accessTokenGoogle']= $data['access_token'];
+                    $modelUserhotel->create();
+                    $modelUserhotel->updateAll($update,array('_id'=>new MongoId($_SESSION['userInfo']['User']['id'])));
+                    $_SESSION['accessTokenUser']= $update['$set']['accessToken'];
+
+                    if(!empty($_SESSION['urlCallBack'])){
+                        $modelUserhotel->redirect($_SESSION['urlCallBack']);
+                    }else{
+                        $modelUserhotel->redirect('/account');
+                    }
+                }else{
+                    // nếu chưa có tài khoản
+                    if(!empty($user['emails'][0]['value'])){
+                        $checkUserEmail= $modelUserhotel->getByEmail($user['emails'][0]['value']);
+                    }
+                    
+                    if(!empty($checkUserEmail)){
+                        // ghép 1 tài khoản đã có với facebook
+                        $checkUserEmail['User']['accessTokenGoogle']= $data['access_token'];
+                        $checkUserEmail['User']['idGoogle']= $user['id'];
+                        $modelUserhotel->create();
+                        $modelUserhotel->save($checkUserEmail);
+
+                        $_SESSION['userInfo']= $checkUserEmail;
+
+                        $saveUser['$set']['accessToken']= getGUID().rand(0,1000000000);
+                        $dkUser= array('_id'=> new MongoId($checkUserEmail['User']['id']));
+                        $modelUserhotel->updateAll($saveUser,$dkUser);
+                        $_SESSION['accessTokenUser']= $saveUser['$set']['accessToken'];
+
+                    }else{
+                        // khởi tạo dữ liệu mới hoàn toàn
+                        $avatar= explode('?', $user['image']['url']);
+                        $data['User']['password']= '';
+                        $data['User']['fullname']= $user['displayName'];
+                        $data['User']['user']= 'GG'.$user['id'];
+                        $data['User']['email']= $user['emails'][0]['value'];
+                        $data['User']['phone']= '';
+                        $data['User']['address']= '';
+                        $data['User']['actived']= 1;
+                        $data['User']['avatar']= $avatar[0];
+                        $data['User']['accessTokenGoogle']= $data['access_token'];
+                        $data['User']['idGoogle']= $user['id'];
+                        $data['User']['linkGoogle']= @$user['url'];
+
+                        if(!empty($user['gender']) && $user['gender']=='male'){
+                            $data['User']['sex']= 'man';
+                        }elseif(!empty($user['gender']) && $user['gender']=='female'){
+                            $data['User']['sex']= 'woman';
+                        }else{
+                            $data['User']['sex']= 'lgbt';
+                        }
+
+                        $modelUserhotel->create();
+                        $modelUserhotel->save($data);
+                        $data['User']['id']= $modelUserhotel->getLastInsertId();
+
+                        $_SESSION['userInfo']= $data;
+
+                        $saveUser['$set']['accessToken']= getGUID().rand(0,1000000000);
+                        $dkUser= array('_id'=> new MongoId($data['User']['id']));
+                        $modelUserhotel->updateAll($saveUser,$dkUser);
+                        $_SESSION['accessTokenUser']= $saveUser['$set']['accessToken'];
+
+                        // tạo tài khoản ManMo Chat
+                        $data['User']['idUserManMo']= $data['User']['id'];
+                        $return= sendDataConnectMantan('https://chat.manmo.vn/createUserAPI',$data['User']);
+                        
+                    }
+
+                    if(!empty($_SESSION['urlCallBack'])){
+                        $modelUserhotel->redirect($_SESSION['urlCallBack']);
+                    }else{
+                        $modelUserhotel->redirect('/account');
+                    }
+                }
+            }
+        }
+        catch(Exception $e) {
+        	 debug('qqqqqqqqqq');
+            echo $e->getMessage();
+            exit();
+        }
+    }else{
+        $modelUserhotel->redirect('/');
+    }
+}
 ?>

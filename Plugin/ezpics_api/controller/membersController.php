@@ -39,7 +39,7 @@ function saveRegisterMemberAPI($input)
 					$data->affsource = @$dataSend['affsource'];
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
-					$data->account_balance = 100000; // tặng 100k cho tài khoản mới
+					$data->account_balance = 10000; // tặng 10k cho tài khoản mới
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->token = createToken();
