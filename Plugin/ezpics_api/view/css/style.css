@@ -2007,9 +2007,10 @@ main {
   */
 }
 .grad_ex {
-  width: 95%;
+  width: 80%;
   height: 20px;
   margin-bottom: 32px;
+  margin: 0 auto;
 }
 .colorpicker{
   position: fixed !important;

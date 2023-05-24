@@ -486,7 +486,9 @@ function getInfoLayer() {
 }
 
 //gradient
+
 function gradient() {
+    /*
     var layer_selected = $('.active-hover').data('layer');
     var id = $('.active-hover').data('idproduct');
     var postion = $('#gradient_postion').find(":selected").val();
@@ -580,31 +582,24 @@ function gradient() {
         lstorage('postion_color6', id, layer_selected, "80");
         lstorage('gradient', id, layer_selected, 0);    
     }
+    */
 }
 
 //add thêm gradient
 function addClassGradient() {
     if ($('#addClassGradient').is(":checked")) {
-        $('.active-hover span').addClass('gradient');
-        gradient();
+        $('.drag-drop.active-hover').data('gradient','1');
     }else{
-        $('.active-hover span').removeClass('gradient').css('background', 'transparent');
+        $('.drag-drop.active-hover').data('gradient','0');
+
+        $('.active-hover span').css('background-image', '');
+        $('.active-hover span').css('-webkit-background-clip', '');
+        $('.active-hover span').css('-webkit-text-fill-color', '');
     }
+
+    setGradientColorLayer();
 }
 
-function plusGradient() {
-    var count_now = $('.count-gradient:not(.d-none)').length;
-    $('.gra'+count_now).addClass('d-none');
-    gradient();
-}
-
-//add thêm gradient
-function addGradient() {
-    var count_now = $('.count-gradient:not(.d-none)').length;
-    count_now += 1;
-    $('.gra'+count_now).removeClass('d-none');
-    gradient();
-}
 
 // hiển thị layer trên giao diện khi có thay đổi
 function ajaxInfoLayer() {
@@ -1035,6 +1030,8 @@ function saveproduct() {
         $('.loadingProcess').addClass('d-none');
     }else{
         var getupdate = localStorage.getItem("product_update_"+id);
+
+        //console.log(getupdate);
 
         // var json_update = JSON.parse(getupdate);
         
@@ -2920,9 +2917,7 @@ function showFormEditText(idLayer)
 }
 
 function activeLayerSelect(idLayer)
-{       
-    console.log('chọn layer');
-
+{     
     $('.drag-drop').removeClass('active-hover');
     $(".content-action").removeClass("active");
     $(".clc-action-edit").removeClass("active");
@@ -2958,8 +2953,14 @@ function onclickBody()
         // nếu bấm chuột ngoài khung hiển thị xem trước
         var widgetCapEdit = document.getElementById("widgetCapEdit");
         var actionEditTheme = document.getElementById("actionEditTheme");
+        var colorpicker = document.getElementsByClassName("colorpicker");
 
-        if(!widgetCapEdit.contains(e.target) && !actionEditTheme.contains(e.target)){
+        if(colorpicker.length>0){
+            var number_colorpicker = colorpicker.length - 1;
+            colorpicker = colorpicker[number_colorpicker];
+        }
+
+        if(!widgetCapEdit.contains(e.target) && !actionEditTheme.contains(e.target) && !colorpicker.contains(e.target)){
             $('.image, .text').removeClass('d-none');
             $('.list-selection-choose').addClass('d-none');
             $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
@@ -2969,20 +2970,67 @@ function onclickBody()
 
 function setGradientColorLayer()
 {
-    /*
+    
     var color = $('.drag-drop.active-hover').data('color');
+    var gradient = $('.drag-drop.active-hover').data('gradient');
+    $("#toolbar_gradient").html('');
+    let idproduct = $('.drag-drop').data('idproduct'); // id sản phẩm
+    let layer = $('.active-hover').data('layer');
 
-    $("#toolbar_gradient").gradientPicker({
-        change: function(points, styles) {
-            var textEdit = $(".active-hover span");
+    updatelayerClient(layer,'gradient',idproduct,gradient);
 
-            for (i = 0; i < styles.length; ++i) {
-                textEdit.css("background-image", styles[i]);
+    if(gradient=='1'){
+        $('#addClassGradient').attr( 'checked', true );
+
+        // lấy dữ liệu mã màu
+        var controlPointsGradient = [];
+
+        
+
+        var getupdate = localStorage.getItem("product_update_"+idproduct);
+        var json_update = JSON.parse(getupdate);
+        var gradient_color = json_update[layer]['gradient_color'];
+        let position;
+      
+        if(gradient_color!=undefined && gradient_color.length>0){
+            
+            for (let i = 0; i < gradient_color.length; i++) {
+                position = gradient_color[i].position * 100;
+                controlPointsGradient.push(gradient_color[i].color+" "+position+"%");
             }
-        },
-        controlPoints: [color+" 0%", color+" 100%"]
-    });
-    */
+            
+        }
+
+        if(controlPointsGradient.length == 0){
+            controlPointsGradient = [color+" 0%",color+" 100%"];
+        }
+
+        $("#toolbar_gradient").gradientPicker({
+            change: function(points, styles) {
+                var textEdit = $(".active-hover span");
+                let layer = $('.active-hover').data('layer');
+                let idproduct = $('.active-hover').data('idproduct');
+                let field = 'gradient_color';
+
+                textEdit.css("-webkit-background-clip", 'text');
+                textEdit.css("-webkit-text-fill-color", 'transparent');
+
+                updatelayerClient(layer,field,idproduct,points);
+                updatelayerClient(layer,'linear_position',idproduct,'to right');
+
+                for (i = 0; i < styles.length; ++i) {
+                    textEdit.css("background-image", styles[i]);
+                }
+            },
+
+            controlPoints: controlPointsGradient
+        });
+
+
+    }else{
+        $('#addClassGradient').attr( 'checked', false );
+    }
+    
 }
 
 setTimeout(saveproduct, 60000);

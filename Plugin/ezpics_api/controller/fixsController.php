@@ -138,12 +138,30 @@ function fixJsonProductDetail($input)
 	$allLayer = $modelProductDetails->find()->all()->toList();
 
 	foreach($allLayer as $k => $item){
-        $item->content = str_replace('\\\\\\/', '/', $item->content);
+        $content = json_decode($item->content, true);
+
+        $content['gradient'] = 0;
+        unset($content['gradient_color1']);
+        unset($content['gradient_color2']);
+        unset($content['gradient_color3']);
+        unset($content['gradient_color4']);
+        unset($content['gradient_color5']);
+        unset($content['gradient_color6']);
+
+        unset($content['postion_color1']);
+        unset($content['postion_color2']);
+        unset($content['postion_color3']);
+        unset($content['postion_color4']);
+        unset($content['postion_color5']);
+        unset($content['postion_color6']);
+
+        $item->content = json_encode($content);
+
         $modelProductDetails->save($item);
     }
-	*/
-
-    
+	
+    echo 'done';
+    */
 }
 
 function fixDeepLink($input)

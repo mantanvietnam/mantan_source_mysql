@@ -159,12 +159,18 @@
 	                        </div>
 	                        <div class="content-action" id="gradient"> 
 	                            <div class="t-action-popup text-center">
-	                                <span>Màu sắc</span>
+	                                <span>Hiệu ứng màu Gradient</span>
 	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
 	                            </div>
-	                            <div class="list-chang-replace">
-	                            	<div class="grad_ex" id="toolbar_gradient"></div>
-	                            </div>
+	                            
+	                            <p class="text-center mb-2">
+	                            	<input type="checkbox" id="addClassGradient" value="1" onclick="addClassGradient()"> Áp dụng hiệu ứng Gradient
+	                            </p>
+
+	                            <div class="grad_ex" id="toolbar_gradient"></div>
+
+	                            
+	                            <!--
 	                            <div class="list-chang-replace">
 	                                <div class="item-replace float-left" onclick="addGradient()" style="padding: 18px;">
 	                                    <img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/addcolor.png" alt="" width="25">
@@ -238,6 +244,7 @@
 	                                    <input type="text" name="postion_color2"  value="100" class="w-100 fieldcolor">
 	                                </div>
 	                            </div>
+	                        	-->
 	                        </div>
 	                        <div class="content-action" id="dinhdang"> 
 	                            <div class="t-action-popup text-center">
