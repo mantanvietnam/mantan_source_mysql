@@ -473,9 +473,41 @@ function ggCallback($input)
     //$modelUserhotel= new Userhotel();
 
 	$modelMember = $controller->loadModel('Members');
-    // lấy tokens
+
+  	$client = new Google_Client();
+  	$client->setClientId($google_clientId);
+  	$client->setClientSecret($google_clientSecret);
+  	$client->setRedirectUri($google_redirectURL);
+  	$client->addScope('email');
+  	$client->setApplicationName('Đăng nhập Ezpics');
+  	$client->setApprovalPrompt('force');
+    
     if(isset($_GET['code'])) {
-       try {
+       	try {
+       		$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    		
+    		if (!isset($token['access_token'])) {
+				die('Failed to retrieve access token');
+			}
+
+			$client->setAccessToken($token['access_token']);
+			$google_oauth = new Google_Service_Oauth2($client);
+			$google_account_info = $google_oauth->userinfo->get();
+
+			$email = $google_account_info->email;
+			$name = $google_account_info->name;
+
+			debug($email);
+			debug($name);
+			die;
+
+
+
+
+
+
+
+
             $gapi = new GoogleLoginApi();
             debug('sssss');
 
@@ -576,12 +608,11 @@ function ggCallback($input)
             }
         }
         catch(Exception $e) {
-        	 debug('qqqqqqqqqq');
-            echo $e->getMessage();
+        	echo $e->getMessage();
             exit();
         }
     }else{
-        $modelUserhotel->redirect('/');
+        return $controller->redirect('/login');
     }
 }
 ?>

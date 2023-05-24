@@ -1,7 +1,6 @@
 <?php 
 
 require_once __DIR__ . '/lib/google/vendor/autoload.php';
-require_once __DIR__ . '/lib/google/google-login-api.php';
 
 
 $menus= array();
@@ -31,14 +30,16 @@ global $urlHomes;
 global $google_clientId;
 global $google_clientSecret;
 global $google_redirectURL;
-global $google_key_api;
 
+/*
 $google_clientId= '637094275991-k51plafaifed1t08s9h9aukvl8g540md.apps.googleusercontent.com';
 $google_clientSecret= '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';
+*/
+$google_clientId= '637094275991-2f53f5g9ls2d34r05ugshhugb57ng4rm.apps.googleusercontent.com';
+$google_clientSecret= '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';
+
 $google_redirectURL= $urlHomes . 'ggCallback';
         
-$arrayGoogleKey= array('AIzaSyAWann-dBbdPrTToRLfA99LUIbhX8jUibk');
-$google_key_api= $arrayGoogleKey[array_rand($arrayGoogleKey)];
 
 function createToken($length=30)
 {

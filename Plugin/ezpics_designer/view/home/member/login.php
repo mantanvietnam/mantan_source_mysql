@@ -137,29 +137,34 @@
               </p>
             </div>
             <div class="col-sm-12">
-                                        <div class="login_f gg">
-                                            <?php
-                                            global $google_clientId;
-                                            global $google_clientSecret;
-                                            global $google_redirectURL;
+              <div class="login_f gg">
+                  <?php
+                  global $google_clientId;
+                  global $google_clientSecret;
+                  global $google_redirectURL;
 
-                                            $gClient = new Google_Client();
-                                            $gClient->setApplicationName('Login to EZPICS');
-                                            $gClient->setClientId($google_clientId);
-                                            $gClient->setClientSecret($google_clientSecret);
-                                            $gClient->setRedirectUri($google_redirectURL);
-                                            //$gClient->addScope('https://mail.google.com/');
-                                            $gClient->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
+                  $client = new Google_Client();
+                  $client->setClientId($google_clientId);
+                  $client->setClientSecret($google_clientSecret);
+                  $client->setRedirectUri($google_redirectURL);
+                  $client->addScope('email');
+                  $client->setApplicationName('Đăng nhập Ezpics');
+                  //$client->setApprovalPrompt('force');
+
+                  //$client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
                                             //$gClient->addScope('https://www.googleapis.com/auth/plus.me');
-                                            $gClient->setApprovalPrompt('force');
-                                            //$gClient->setAccessType('offline');
+                                            
 
-                                            $authUrl = $gClient->createAuthUrl();
-                                         
-                                            echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="fa fa-google-plus"></i> Đăng nhập Google</a>';
-                                            ?>
-                                        </div>
-                                    </div>
+
+
+
+
+                  $authUrl = $client->createAuthUrl();
+               
+                  echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="fa fa-google-plus"></i> Đăng nhập Google</a>';
+                  ?>
+              </div>
+          </div>
           </div>
           <!-- /Register -->
         </div>
