@@ -1990,7 +1990,7 @@ function leftmove() {
         full_height = $('#widgetCapEdit').height();
         leftmove = value*100/full_width;
         topmove = y*100/full_height;
-        $('.active-hover').css('transform', 'translate(0)');
+        $('.active-hover').css('transform', 'translate(0px, 0px)');
         $('.active-hover').css('left', leftmove+'%');
         $('.active-hover').css('top', topmove+'%');
 
@@ -2022,7 +2022,7 @@ function rightmove() {
         full_height = $('#widgetCapEdit').height();
         leftmove = value*100/full_width;
         topmove = y*100/full_height;
-        $('.active-hover').css('transform', 'translate(0)');
+        $('.active-hover').css('transform', 'translate(0px, 0px)');
         $('.active-hover').css('left', leftmove+'%');
         $('.active-hover').css('top', topmove+'%');
 
@@ -2054,7 +2054,7 @@ function topmove() {
         full_height = $('#widgetCapEdit').height();
         leftmove = x*100/full_width;
         topmove = value*100/full_height;
-        $('.active-hover').css('transform', 'translate(0)');
+        $('.active-hover').css('transform', 'translate(0px, 0px)');
         $('.active-hover').css('left', leftmove+'%');
         $('.active-hover').css('top', topmove+'%');
 
@@ -2086,7 +2086,7 @@ function bottommove() {
         full_height = $('#widgetCapEdit').height();
         leftmove = x*100/full_width;
         topmove = value*100/full_height;
-        $('.active-hover').css('transform', 'translate(0)');
+        $('.active-hover').css('transform', 'translate(0px, 0px)');
         $('.active-hover').css('left', leftmove+'%');
         $('.active-hover').css('top', topmove+'%');
 
@@ -2243,6 +2243,7 @@ interact(".drag-drop")
             x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
             y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
+            /*
             if(x>$('#widgetCapEdit').width()){
                 x = $('#widgetCapEdit').width()-$('#active-hover').width();
             }
@@ -2258,6 +2259,7 @@ interact(".drag-drop")
             if(y<0){
                 y= 0;
             }
+            */
 
             var idproduct = target.getAttribute("data-idproduct");
             var layer = target.getAttribute("data-layer");
@@ -2274,10 +2276,13 @@ interact(".drag-drop")
 function dragMoveListener(event) {
     var leftmove, topmove;
     var target = event.target,
-        x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
-        y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+    
+    x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
+    y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
     // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)  rotate(45deg)";
+    
+    /*
     if(x>$('#widgetCapEdit').width()){
         x = $('#widgetCapEdit').width()-$('#active-hover').width();
     }
@@ -2293,6 +2298,7 @@ function dragMoveListener(event) {
     if(y<0){
         y= 0;
     }
+    */
 
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
@@ -2305,6 +2311,7 @@ function dragMoveListener(event) {
     
     full_width = $('#widgetCapEdit').width();
     full_height = $('#widgetCapEdit').height();
+    
     leftmove = x*100/full_width;
     topmove = y*100/full_height;
 
@@ -2314,7 +2321,7 @@ function dragMoveListener(event) {
     target.style.top = top+'%';
     */
 
-    $('.active-hover').css('transform', 'translate(0)');
+    $('.active-hover').css('transform', 'translate(0px, 0px)');
     $('.active-hover').css('left', leftmove+'%');
     $('.active-hover').css('top', topmove+'%');
 
@@ -2963,8 +2970,6 @@ function onclickBody()
         }else{
             checkColorpicker = false;
         }
-
-        console.log(colorpicker);
 
         if(!widgetCapEdit.contains(e.target) && !actionEditTheme.contains(e.target) && (!checkColorpicker || !colorpicker.contains(e.target))){
             $('.image, .text').removeClass('d-none');

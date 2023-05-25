@@ -584,13 +584,24 @@ function getLayerProductForEdit($idProduct=0)
                     }
                     */
 
-                    if(isset($layer->postion_left) && $layer->postion_left>100){
-                        $layer->postion_left = 80;
+                    /*
+                    if(isset($layer->postion_left)){
+                        if($layer->postion_left>=100){
+                            $layer->postion_left = 100;
+                        }elseif($layer->postion_left<=0){
+                            $layer->postion_left = 0;
+                        }
                     }
 
-                    if(isset($layer->postion_top) && $layer->postion_top>100){
-                        $layer->postion_top = 80;
+                    if(isset($layer->postion_top)){
+                        if($layer->postion_top>=100){
+                            $layer->postion_top = 100;
+                        }elseif($layer->postion_top<=0){
+                            $layer->postion_top = 0;
+                        }
                     }
+                    */
+                    
 
                     $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;';
 
@@ -665,7 +676,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
     return [
         'type' => $type,
         'text' => 'Layer '.$stt,
-        'color' => '#111',
+        'color' => '#000',
         'size' => '10vw',
         'font' => 'Arial',
         'status' => 1,
@@ -682,19 +693,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'uppercase' => 'none',
         'innghieng' => 'normal',
         'indam' => 'normal',
-        'gradient_color1' => null,
-        'gradient_color2' => null,
-        'gradient_color3' => null,
-        'gradient_color4' => null,
-        'gradient_color5' => null,
-        'gradient_color6' => null,
-        'linear_position' => 'to top left',
-        'postion_color1' => 0,
-        'postion_color2' => 100,
-        'postion_color3' => null,
-        'postion_color4' => null,
-        'postion_color5' => null,
-        'postion_color6' => null,
+        'linear_position' => 'to right',
         'vien' => '0px',
         'rotate' => null,
         'banner' => $link,
@@ -709,6 +708,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'grayscale' => 0,
         'gradient' => 0,
         'sort' => $stt,
+        'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']]
     ];
 }
 
@@ -801,6 +801,11 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $newproduct->views = 0;
         $newproduct->favorites = 0;
         $newproduct->category_id = (int) $category_id;
+
+        $sizeThumb = getimagesize($thumb);
+
+        $newproduct->width = $sizeThumb[0];
+        $newproduct->height = $sizeThumb[1];
 
         // tạo slug
         $slug = createSlugMantan($name);

@@ -231,6 +231,11 @@ function addProduct($input)
 		        $data->category_id = $dataSend['category_id'];
 		        $data->thumbnail = $thumbnailUser;
 
+		        $sizeThumb = getimagesize($thumb);
+
+		        $data->width = $sizeThumb[0];
+		        $data->height = $sizeThumb[1];
+
 		        // tạo slug
 	            $slug = createSlugMantan($dataSend['name']);
 	            $slugNew = $slug;

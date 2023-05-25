@@ -9,6 +9,7 @@
 	$routesPlugin['fixJsonProductDetail']= 'ezpics_api/view/fixJsonProductDetail.php';
 	$routesPlugin['fixDeepLink']= 'ezpics_api/view/fixDeepLink.php';
 	$routesPlugin['fixPrice']= 'ezpics_api/view/fixPrice.php';
+	$routesPlugin['fixSize']= 'ezpics_api/view/fixSize.php';
 
 	// nén ảnh
 	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';

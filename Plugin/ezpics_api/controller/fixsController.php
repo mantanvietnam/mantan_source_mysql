@@ -225,3 +225,25 @@ function fixPrice($input)
 	
 	echo 'done';
 }
+
+function fixSize($input)
+{	
+	/*
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+
+	$all = $modelProducts->find()->where(['width is'=>null])->all()->toList();
+
+	foreach($all as $k => $item){
+		$sizeThumb = getimagesize($item->thumn);
+
+        $item->width = $sizeThumb[0];
+        $item->height = $sizeThumb[1];
+
+		$modelProducts->save($item);
+	}
+	*/
+	
+	echo 'done';
+}

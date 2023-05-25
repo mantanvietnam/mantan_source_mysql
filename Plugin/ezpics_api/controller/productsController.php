@@ -465,6 +465,8 @@ function buyProductAPI($input)
                     $newproduct->views = 0;
                     $newproduct->favorites = 0;
                     $newproduct->category_id = $product->category_id;
+                    $newproduct->width = $product->width;
+                    $newproduct->height = $product->height;
 
                     $modelProduct->save($newproduct);
 
