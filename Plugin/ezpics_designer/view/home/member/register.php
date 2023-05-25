@@ -89,67 +89,61 @@
               <form id="formAuthentication" class="mb-3" action="" method="POST" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Họ và tên</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="" autofocus />
+                  <label for="" class="form-label">Họ và tên (*)</label>
+                  <input type="text" required class="form-control" id="name" name="name" placeholder="" autofocus />
                 </div>
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Số điện thoại</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="" autofocus />
+                  <label for="" class="form-label">Số điện thoại (*)</label>
+                  <input type="text" required class="form-control" id="phone" name="phone" placeholder="" autofocus />
                 </div>
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="" autofocus />
+                  <label for="" class="form-label">Email (*)</label>
+                  <input type="text" required class="form-control" id="email" name="email" placeholder="" autofocus />
                 </div>
               
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Mật khẩu</label>
+                    <label class="form-label" for="password">Mật khẩu (*)</label>
                   </div>
                   <div class="input-group input-group-merge">
-                    <input type="password" id="password" class="form-control" name="password" placeholder="" aria-describedby="password" />
+                    <input type="password" required id="password" class="form-control" name="password" placeholder="" aria-describedby="password" />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Nhập lại mật khẩu</label>
+                    <label class="form-label" for="password">Nhập lại mật khẩu (*)</label>
                   </div>
                   <div class="input-group input-group-merge">
-                    <input type="password" id="password_again" class="form-control" name="password_again" placeholder="" aria-describedby="password_again" />
+                    <input type="password" required id="password_again" class="form-control" name="password_again" placeholder="" aria-describedby="password_again" />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
+
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Ảnh đại diện</label>
-                   <div class="m_bg_img" style="">
-                      <input type="file" onchange="readURL1(this);" name="avatar">
-                      <img id="img1" src="<?php echo @$info['avatar'] ?>" style="width: 110px" class="img-responsive">
-                   </div>
+                  <label for="" class="form-label">Mô tả bản thân (*)</label>
+                  <textarea  class="form-control" required id="content"  name="content"></textarea>
                 </div>
 
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Mã giới thiệu</label>
+                  <label for="" class="form-label">PORTFOLIO (ảnh CV *)</label>
+                   <div class="m_bg_img" style="">
+                      <input type="file" name="portfolio" required>
+                   </div>
+                </div>
+
+                <div class="mb-5">
+                  <label for="" class="form-label">Mã người giới thiệu</label>
                   <input type="text" class="form-control" id="affsource" name="affsource" placeholder="" autofocus />
                 </div>
 
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Mô tả bản thân</label>
-                  <textarea  class="form-control" id="content"  name="content"></textarea>
-                </div>
-
-                <div class="mb-3">
-                  <label for="phone" class="form-label">PORTFOLIO</label>
-                   <div class="m_bg_img" style="">
-                      <input type="file" onchange="readURL2(this);" name="portfolio">
-                      <img id="img1" src="<?php echo @$info['portfolio'] ?>" style="width: 110px" class="img-responsive">
-                   </div>
-                </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Đăng ký</button>
                 </div>
               </form>
 
               <p class="text-center">
+                <span>Bạn đã có tài khoản?</span>
                 <a href="/login">
                   <span>Đăng nhập</span>
                 </a>

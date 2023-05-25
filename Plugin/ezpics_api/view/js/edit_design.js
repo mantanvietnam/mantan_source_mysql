@@ -2950,6 +2950,8 @@ function activeLayerSelect(idLayer)
 function onclickBody()
 {
     $("body").on("click",function(e) {
+        var checkColorpicker = true;
+
         // nếu bấm chuột ngoài khung hiển thị xem trước
         var widgetCapEdit = document.getElementById("widgetCapEdit");
         var actionEditTheme = document.getElementById("actionEditTheme");
@@ -2958,9 +2960,13 @@ function onclickBody()
         if(colorpicker.length>0){
             var number_colorpicker = colorpicker.length - 1;
             colorpicker = colorpicker[number_colorpicker];
+        }else{
+            checkColorpicker = false;
         }
 
-        if(!widgetCapEdit.contains(e.target) && !actionEditTheme.contains(e.target) && !colorpicker.contains(e.target)){
+        console.log(colorpicker);
+
+        if(!widgetCapEdit.contains(e.target) && !actionEditTheme.contains(e.target) && (!checkColorpicker || !colorpicker.contains(e.target))){
             $('.image, .text').removeClass('d-none');
             $('.list-selection-choose').addClass('d-none');
             $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');

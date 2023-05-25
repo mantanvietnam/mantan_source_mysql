@@ -13,6 +13,18 @@ function login($input)
     if(empty($session->read('infoUser'))){
     	$mess = '';
 
+    	if(!empty($_GET['error'])){
+    		switch ($_GET['error']) {
+    			case 'account_lock':
+    				$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+    				break;
+    			
+    			case 'account_not_designer':
+    				$mess= '<p class="text-danger">Bạn chưa đăng ký để trở thành Designer</p>';
+    				break;
+    		}
+    	}
+
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
 	    	
@@ -33,9 +45,11 @@ function login($input)
 	    					// nếu chưa có token
 			    			if(empty($info_customer->token)){
 			    				$info_customer->token = createToken(25);
-
-			    				$modelMembers->save($info_customer);
 			    			}
+
+			    			$info_customer->last_login = date('Y-m-d H:i:s');
+
+			    			$modelMembers->save($info_customer);
 
 			    			$session->write('CheckAuthentication', true);
 		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
@@ -326,12 +340,10 @@ function register($input)
 
 	$modelMember = $controller->loadModel('Members');
 	$modelContact = $controller->loadModel('Contact');
-	 $mess = '';
+	$mess = '';
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-
-	
 
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
@@ -343,37 +355,7 @@ function register($input)
 		if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
 		if(empty($dataSend['type'])) $dataSend['type']= 0;*/
 
-		$avatar = '';
-		if(!empty($_FILES["avatar"]["name"])){
-               
-                $today= getdate();
-                if(isset($_FILES["avatar"]) && empty($_FILES["avatar"]["error"])){
-	                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-	                $filename = $_FILES["avatar"]["name"];
-	                $filetype = $_FILES["avatar"]["type"];
-	                $filesize = $_FILES["avatar"]["size"];
-	                
-	                // Verify file extension
-	                $ext = pathinfo($filename, PATHINFO_EXTENSION);
-	                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
-	                
-	                // Verify file size - 1MB maximum
-	                $maxsize = 1024 * 1024;
-	                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
-	                
-	                // Verify MYME type of the file
-	                if(in_array($filetype, $allowed)){
-	                    // Check whether file exists before uploading it
-	                    move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__.'/../../../webroot/upload/register/' . $today[0].'_avatar.jpg');
-	                    $avatar= 'https://designer.ezpics.vn/webroot/upload/register/'.$today[0].'_avatar.jpg';
-	                    
-	                } else{
-	                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
-	                }
-	            }
-        }else{
-           $avatar= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
-        }
+		$avatar= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
 
         $portfolio = '';
 		if(!empty($_FILES["portfolio"]["name"])){
@@ -386,11 +368,11 @@ function register($input)
 	                
 	                // Verify file extension
 	                $ext = pathinfo($filename, PATHINFO_EXTENSION);
-	                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
+	                if(!array_key_exists($ext, $allowed)) $mess= '<p class="text-danger">File upload không đúng định dạng ảnh</p>';
 	                
 	                // Verify file size - 1MB maximum
 	                $maxsize = 1024 * 1024;
-	                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
+	                if($filesize > $maxsize) $mess= '<p class="text-danger">File ảnh vượt quá giới hạn cho phép 1Mb</p>';
 	                
 	                // Verify MYME type of the file
 	                if(in_array($filetype, $allowed)){
@@ -399,23 +381,24 @@ function register($input)
 	                    $portfolio= 'https://designer.ezpics.vn/webroot/upload/portfolio/'.$today[0].'_portfolio.jpg';
 	                    
 	                } else{
-	                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
+	                    $mess= '<p class="text-danger">Upload dữ liệu bị lỗi</p>';
 	                }
 	       	}
         }
 
-		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['avatar']["name"])  && !empty($_FILES['portfolio']["name"])  && !empty($dataSend['content'])){
+		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['portfolio']["name"])  && !empty($dataSend['content'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
 				if($dataSend['password'] == $dataSend['password_again']){
+					// tạo người dùng mới
 					$data = $modelMember->newEmptyEntity();
 
 					$data->name = $dataSend['name'];
 					$data->avatar = $avatar;
 					$data->phone = $dataSend['phone'];
-					$data->aff = @$dataSend['aff'];
-					$data->affsource = @$dataSend['affsource'];
+					$data->aff = $dataSend['phone'];
+					$data->affsource = $dataSend['affsource'];
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 10000; // tặng 10k cho tài khoản mới
@@ -424,15 +407,14 @@ function register($input)
 					$data->token = createToken();
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
-					$data->token_device = @$dataSend['token_device'];
-
+					$data->token_device = '';
 
 					$modelMember->save($data);
 
-					$Member =  $modelMember->find()->where(array('token'=>$data->token))->first();
+					// tạo yêu cầu xét duyệt designer
 					$dataContact = $modelContact->newEmptyEntity();
 
-					$dataContact->customer_id = $Member->id;
+					$dataContact->customer_id = $data->id;
 					$dataContact->content = $dataSend['content'];
 					$dataContact->title = 'Đăng ký làm Designer';
 					$dataContact->meta = $portfolio;
@@ -442,24 +424,20 @@ function register($input)
 
 					$modelContact->save($dataContact);
 
-			    	return $controller->redirect('/login');
-
-
-
+			    	$mess = '<p class="text-success">Yêu cầu đăng ký Designer của bạn đã được tạo thành công. Bạn sẽ sử dụng tài khoản của mình sau khi được Ezpics kiểm tra và phê duyệt</p>';
 					
 				}else{
-					$mess = 'Mật khẩu nhập lại không đúng';
-								
+					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
 				}
 			}else{
-				$mess = 'Số điện thoại đã tồn tại';
-
+				$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
 			}
 		}else{
-			$mess = 'Gửi thiếu dữ liệu';
+			$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
 		}
 	}
-	 setVariable('mess', $mess);
+	
+	setVariable('mess', $mess);
 
 }
 
@@ -469,10 +447,9 @@ function ggCallback($input)
     global $google_clientSecret;
     global $google_redirectURL;
     global $controller;
+    global $session;
 
-    //$modelUserhotel= new Userhotel();
-
-	$modelMember = $controller->loadModel('Members');
+	$modelMembers = $controller->loadModel('Members');
 
   	$client = new Google_Client();
   	$client->setClientId($google_clientId);
@@ -495,116 +472,73 @@ function ggCallback($input)
 			$google_account_info = $google_oauth->userinfo->get();
 
 			$email = $google_account_info->email;
-			$name = $google_account_info->name;
 
-			debug($email);
-			debug($name);
-			die;
+            if(!empty($email)){
+            	$conditions = array('id_google'=>$google_account_info->id);
+	    		$checkUser = $modelMembers->find()->where($conditions)->first();
 
+	    		// nếu chưa có tài khoản liên kết với GG thì tìm lại theo email
+	    		if(empty($checkUser)){
+	    			$conditions = array('email'=>$google_account_info->email);
+	    			$checkUser = $modelMembers->find()->where($conditions)->first();
 
+	    			if(!empty($checkUser)){
+	    				$checkUser->id_google = $google_account_info->id;
 
+	    				$modelMembers->save($checkUser);
+	    			}
+	    		}
 
+	    		// nếu tìm theo email vẫn chưa có thì tạo mới
+	    		if(empty($checkUser)){
+	    			$checkUser = $modelMembers->newEmptyEntity();
 
+					$checkUser->name = $google_account_info->name;
+					$checkUser->avatar = $google_account_info->picture;
+					$checkUser->phone = 'GG'.$google_account_info->id;
+					$checkUser->aff = $checkUser->phone;
+					$checkUser->affsource = '';
+					$checkUser->email = $google_account_info->email;
+					$checkUser->password = '';
+					$checkUser->account_balance = 10000; // tặng 10k cho tài khoản mới
+					$checkUser->status = 1; //1: kích hoạt, 0: khóa
+					$checkUser->type = 0; // 0: người dùng, 1: designer
+					$checkUser->token = createToken(25);
+					$checkUser->created_at = date('Y-m-d H:i:s');
+					$checkUser->last_login = date('Y-m-d H:i:s');
+					$checkUser->token_device = '';
+					$checkUser->id_google = $google_account_info->id;
 
+					$modelMembers->save($checkUser);
+	    		}
 
+	    		// nếu là desiger
+    			if($checkUser->type == 1){
 
-            $gapi = new GoogleLoginApi();
-            debug('sssss');
+    				// nếu tài khoản không bị khóa
+    				if($checkUser->status == 1){
 
-            // Get the access token 
-            $data = $gapi->GetAccessToken($google_clientId, $google_redirectURL, $google_clientSecret, $_GET['code']);
-              debug($data);
-              debug($data['access_token']);
-            // Get user information
-            $user = $gapi->GetUserProfileInfo($data['access_token']);
+    					// nếu chưa có token
+		    			if(empty($checkUser->token)){
+		    				$checkUser->token = createToken(25);
+		    			}
 
-            debug($user);
+		    			$checkUser->last_login = date('Y-m-d H:i:s');
 
-            if(!empty($user)){
-                $checkUser= $modelUserhotel->getByGoogle($user['id']);
+		    			$modelMembers->save($checkUser);
 
-                if(!empty($checkUser)){
-                    // nếu đã tồn tại tài khoản
-                    $checkUser['User']['accessTokenGoogle']= $data['access_token'];
-                    $_SESSION['userInfo']= $checkUser;
+		    			$session->write('CheckAuthentication', true);
+	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$checkUser->id.'/');
 
-                    $update['$set']['accessToken']= getGUID().rand(0,1000000000);
-                    $update['$set']['accessTokenGoogle']= $data['access_token'];
-                    $modelUserhotel->create();
-                    $modelUserhotel->updateAll($update,array('_id'=>new MongoId($_SESSION['userInfo']['User']['id'])));
-                    $_SESSION['accessTokenUser']= $update['$set']['accessToken'];
-
-                    if(!empty($_SESSION['urlCallBack'])){
-                        $modelUserhotel->redirect($_SESSION['urlCallBack']);
-                    }else{
-                        $modelUserhotel->redirect('/account');
-                    }
-                }else{
-                    // nếu chưa có tài khoản
-                    if(!empty($user['emails'][0]['value'])){
-                        $checkUserEmail= $modelUserhotel->getByEmail($user['emails'][0]['value']);
-                    }
-                    
-                    if(!empty($checkUserEmail)){
-                        // ghép 1 tài khoản đã có với facebook
-                        $checkUserEmail['User']['accessTokenGoogle']= $data['access_token'];
-                        $checkUserEmail['User']['idGoogle']= $user['id'];
-                        $modelUserhotel->create();
-                        $modelUserhotel->save($checkUserEmail);
-
-                        $_SESSION['userInfo']= $checkUserEmail;
-
-                        $saveUser['$set']['accessToken']= getGUID().rand(0,1000000000);
-                        $dkUser= array('_id'=> new MongoId($checkUserEmail['User']['id']));
-                        $modelUserhotel->updateAll($saveUser,$dkUser);
-                        $_SESSION['accessTokenUser']= $saveUser['$set']['accessToken'];
-
-                    }else{
-                        // khởi tạo dữ liệu mới hoàn toàn
-                        $avatar= explode('?', $user['image']['url']);
-                        $data['User']['password']= '';
-                        $data['User']['fullname']= $user['displayName'];
-                        $data['User']['user']= 'GG'.$user['id'];
-                        $data['User']['email']= $user['emails'][0]['value'];
-                        $data['User']['phone']= '';
-                        $data['User']['address']= '';
-                        $data['User']['actived']= 1;
-                        $data['User']['avatar']= $avatar[0];
-                        $data['User']['accessTokenGoogle']= $data['access_token'];
-                        $data['User']['idGoogle']= $user['id'];
-                        $data['User']['linkGoogle']= @$user['url'];
-
-                        if(!empty($user['gender']) && $user['gender']=='male'){
-                            $data['User']['sex']= 'man';
-                        }elseif(!empty($user['gender']) && $user['gender']=='female'){
-                            $data['User']['sex']= 'woman';
-                        }else{
-                            $data['User']['sex']= 'lgbt';
-                        }
-
-                        $modelUserhotel->create();
-                        $modelUserhotel->save($data);
-                        $data['User']['id']= $modelUserhotel->getLastInsertId();
-
-                        $_SESSION['userInfo']= $data;
-
-                        $saveUser['$set']['accessToken']= getGUID().rand(0,1000000000);
-                        $dkUser= array('_id'=> new MongoId($data['User']['id']));
-                        $modelUserhotel->updateAll($saveUser,$dkUser);
-                        $_SESSION['accessTokenUser']= $saveUser['$set']['accessToken'];
-
-                        // tạo tài khoản ManMo Chat
-                        $data['User']['idUserManMo']= $data['User']['id'];
-                        $return= sendDataConnectMantan('https://chat.manmo.vn/createUserAPI',$data['User']);
-                        
-                    }
-
-                    if(!empty($_SESSION['urlCallBack'])){
-                        $modelUserhotel->redirect($_SESSION['urlCallBack']);
-                    }else{
-                        $modelUserhotel->redirect('/account');
-                    }
-                }
+		    			$session->write('infoUser', $checkUser);
+		    			
+						return $controller->redirect('/dashboard');
+					}else{
+						return $controller->redirect('/login/?error=account_lock');
+					}
+				}else{
+					return $controller->redirect('/login/?error=account_not_designer');
+				}
             }
         }
         catch(Exception $e) {
