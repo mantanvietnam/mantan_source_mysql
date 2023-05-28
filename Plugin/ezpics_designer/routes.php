@@ -11,9 +11,9 @@
 	$routesPlugin['confirm']= 'ezpics_designer/view/home/member/confirm.php';
 	$routesPlugin['register']= 'ezpics_designer/view/home/member/register.php';
 
-
 	// product
 	$routesPlugin['listProduct']= 'ezpics_designer/view/home/product/listProduct.php';
+	$routesPlugin['listProductbuy']= 'ezpics_designer/view/home/product/listProductbuy.php';
 	$routesPlugin['deleteProduct']= 'ezpics_designer/view/home/product/deleteProduct.php';
 	$routesPlugin['addProduct']= 'ezpics_designer/view/home/product/addProduct.php';
 

@@ -1,8 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Mẫu thiết kế bán</h4>
-  <p><a href="/addProduct" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Mẫu thiết kế mua</h4>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -38,7 +37,7 @@
             </select>
           </div>
 
-          <div class="col-md-2">
+         <!--  <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
@@ -46,7 +45,7 @@
               <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Đang đăng bán</option>
               <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
             </select>
-          </div>
+          </div> -->
 
           <!-- <div class="col-md-2">
             <label class="form-label">Loại sản phẩm</label>
@@ -79,7 +78,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách mẫu thiết kế bán - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
+    <h5 class="card-header">Danh sách mẫu thiết kế mua - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -88,9 +87,9 @@
             <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
-            <th>Thống kê</th>
+            <<!-- th>Thống kê</th>
             <th>Giá bán</th>
-            <th>Trạng thái</th>
+            <th>Trạng thái</th> -->
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -131,16 +130,7 @@
                         </td>
                         <td>'.$item->name.'<br/>'.$type.'</td>
                         
-                        <td>
-                          Sell: '.number_format($item->sold).'<br/>
-                          View: '.number_format($item->views).'<br/>
-                          Like: '.number_format($item->favorites).'<br/>
-                        </td>
-                        <td>
-                          '.number_format($item->sale_price).'<br/>
-                          <del>'.number_format($item->price).'</del>
-                        </td>
-                        <td>'.$status.'</td>
+                        
                         
                         <td align="center">
                           <a target="_blank" class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">

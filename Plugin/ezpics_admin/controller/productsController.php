@@ -196,8 +196,12 @@ function lockProductAdmin($input){
             
         }
 	}
+	if(!empty($_GET['page'])){
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php?page='.$_GET['page']);
+	}else
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+	
 }
 
 function deleteProductAdmin($input){

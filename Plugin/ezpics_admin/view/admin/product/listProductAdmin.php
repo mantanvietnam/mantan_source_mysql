@@ -115,12 +115,12 @@
                 }elseif($item->status==1){
                   $status = '<span class="text-primary">Chờ duyệt</span>
                   <br>
-                   <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+                   <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
 
-                     <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
+                     <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0&page='.@$_GET['page'].'" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
                 }elseif($item->status==2){
                    $status = '<span class="text-success">Đang đăng bán</span><br>
-                   <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn hủy mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
+                   <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn hủy mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0&page='.@$_GET['page'].'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
                    ';
 
                    $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn btn-primary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')">Link chia sẻ</button>';
