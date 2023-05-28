@@ -1019,11 +1019,18 @@ function updatelayerClient(layer,field,id,value) {
 // end cập nhật layer
 
 // lưu
-function saveproduct() {
+function saveproduct(removeActiveClass) {
+    if(removeActiveClass==1){
+        $('.image, .text').removeClass('d-none');
+        $('.list-selection-choose').addClass('d-none');
+        $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
+    }
+
     let id = $('.drag-drop').data('idproduct'); // id sản phẩm
     //$('.drag-drop').removeClass('active-hover');
     $('.loadingProcess').removeClass('d-none');
     
+    //exportThumb();
     capEdit(id);
     
     if (localStorage.getItem("product_update_"+id) === null) {
@@ -3044,5 +3051,23 @@ function setGradientColorLayer()
     
 }
 
-setTimeout(saveproduct, 60000);
+function exportThumb()
+{
+    var idproduct = $('.drag-drop').data('idproduct');
+
+    $.ajax({
+            url: '/createThumb/?id='+idproduct,
+            type: "GET",
+            data: {}, 
+            success:function(d){
+                console.log(d);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+}
+
+setTimeout(saveproduct, 60000, 0);
 

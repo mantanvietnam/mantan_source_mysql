@@ -847,4 +847,42 @@ function zipThumb($input)
         }
     }
 }
+
+function createThumb(){
+    global $session;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+
+    if(!empty($_GET['id'])){
+        $product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
+
+        if(!empty($product)){
+            $data = file_get_contents('http://14.225.238.137:3000/convert?url=https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id'].'&width='.$product->width.'&height='.$product->height);
+
+            if(!empty($data)){
+                $name = __DIR__.'/../../../upload/admin/images/'.$product->user_id.'/thumb_product_'.$product->id.'.png';
+
+                if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$product->user_id )) {
+                    mkdir(__DIR__.'/../../../upload/admin/images/'.$product->user_id, 0755, true);
+                }
+                
+                // unlink($name);
+
+                file_put_contents($name, base64_decode($data));
+
+                $image = 'https://apis.ezpics.vn/upload/admin/images/'.$product->user_id.'/thumb_product_'.$product->id.'.png?time='.time();
+
+                $product->image = $image;
+                $product->zipThumb = 0;
+            
+                $modelProduct->save($product);
+
+                return ['success' => 'Thành công','link' => $image];
+            }
+        }else{
+            return ['error' => 'Sản phẩm không tồn tại'];
+        }
+    }
+}
 ?>

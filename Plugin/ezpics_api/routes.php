@@ -61,6 +61,7 @@
 	$routesPlugin['upImageThumbnail']= 'ezpics_api/view/home/upImageThumbnail.php';
 	$routesPlugin['getListLayer']= 'ezpics_api/view/home/getListLayer.php';
 	$routesPlugin['createImageFromTemplate']= 'ezpics_api/view/home/createImageFromTemplate.php';
+	$routesPlugin['createThumb']= 'ezpics_api/view/home/createThumb.php';
 	
 
 	// yêu thích sản phẩm
