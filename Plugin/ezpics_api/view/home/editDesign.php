@@ -103,7 +103,7 @@
 	            <div class="active-layer-edit">
 	                <div class="action-edit-theme" id="actionEditTheme">
 	                    <div class="list-action">
-	                        <div class="item-action clc-action-edit saveproduct" onclick="saveproduct()">
+	                        <div class="item-action clc-action-edit saveproduct" onclick="saveproduct(1)">
 	                            <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/save.png" class="img-fluid" alt=""></div>
 	                            <div class="info">Lưu</div>
 	                        </div>
@@ -482,6 +482,7 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/image-upload.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Thêm ảnh</div>
 	                                </div>
+	                                <!--
 	                                <div class="item-replace text-center undo active-history" onclick="undo()">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/back.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Undo</div>
@@ -490,6 +491,8 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/next.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Redo</div>
 	                                </div>
+
+	                            	-->
 	                                
 	                                <!-- <div class="item-replace text-center  clc-action-edit thaotac" data-tab="movelayer">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/sort.png" class="img-fluid" alt=""></div>
