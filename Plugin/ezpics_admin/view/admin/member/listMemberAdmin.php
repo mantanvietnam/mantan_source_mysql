@@ -69,6 +69,8 @@
             <th>Số dư</th>
             <th>Loại tài khoản</th>
             <th>Trạng thái</th>
+            <th>Cộng tiền</th>
+            <th>Trừ tiền</th>
             <th>Sửa</th>
             <th>Khóa</th>
           </tr>
@@ -99,13 +101,23 @@
                         <td>'.$type.'</td>
                         <td>'.$status.'</td>
                         <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
+                            <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
+                          </a>
+                        </td>
+                         <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
+                            <i class="bx bx-shield-minus me-1" style="font-size: 22px;"></i>
+                          </a>
+                        </td>
+                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
+                            <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                           </a>
                         </td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-lock-alt me-1"></i>
+                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                           </a>
                         </td>
                       </tr>';

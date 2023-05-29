@@ -59,8 +59,17 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Số dư tài khoản</label>
-                    <input disabled type="text" class="form-control" placeholder="" name="account_balance" id="account_balance" value="<?php echo number_format((int) @$data->account_balance);?>" />
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label class="form-label" for="basic-default-fullname">Số dư tài khoản</label>
+                        <input disabled type="text" class="form-control" placeholder="" name="account_balance" id="account_balance" value="<?php echo number_format((int) @$data->account_balance);?>" />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="basic-default-fullname">Hoa hồng designer </label>
+                        <input type="number" class="form-control" placeholder="" name="commission" id="commission" value="<?php echo (int) @$data->commission;?>" />
+                      </div>
+                    </div>
+                    
                   </div>
 
                   <div class="mb-3">
