@@ -1030,8 +1030,9 @@ function saveproduct(removeActiveClass) {
     //$('.drag-drop').removeClass('active-hover');
     $('.loadingProcess').removeClass('d-none');
     
-    //exportThumb();
-    capEdit(id);
+    // tạo ảnh thumbnail
+    exportThumb();
+    //capEdit(id);
     
     if (localStorage.getItem("product_update_"+id) === null) {
         $('.loadingProcess').addClass('d-none');
@@ -3056,7 +3057,7 @@ function exportThumb()
     var idproduct = $('.drag-drop').data('idproduct');
 
     $.ajax({
-            url: '/createThumb/?id='+idproduct,
+            url: 'https://apis.ezpics.vn/apis/createThumb/?id='+idproduct,
             type: "GET",
             data: {}, 
             success:function(d){

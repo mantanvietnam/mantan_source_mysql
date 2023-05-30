@@ -879,10 +879,14 @@ function createThumb(){
                 $modelProduct->save($product);
 
                 return ['success' => 'Thành công','link' => $image];
+            }else{
+                return ['error' => 'Chưa tạo được ảnh thumbnail'];
             }
         }else{
             return ['error' => 'Sản phẩm không tồn tại'];
         }
+    }else{
+        return ['error' => 'Gửi thiếu ID sản phẩm'];
     }
 }
 ?>
