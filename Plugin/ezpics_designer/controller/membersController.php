@@ -405,6 +405,7 @@ function register($input)
 					$data->status = 1; //1: kích hoạt, 0: khóa
 					$data->type = 0; // 0: người dùng, 1: designer
 					$data->token = createToken();
+					$data->commission = 70;
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = '';

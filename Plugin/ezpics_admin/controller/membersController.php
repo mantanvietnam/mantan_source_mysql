@@ -125,6 +125,7 @@ function addMemberAdmin($input)
 				
 				
 				$data->status = (int) $dataSend['status'];
+				$data->commission = (int) $dataSend['commission'];
 				$data->type = (int) $dataSend['type'];
 				$data->created_at = date('Y-m-d H:i:s');
 
@@ -173,4 +174,71 @@ function lockMemberAdmin($input){
 
 	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');
 }
+
+function addMoneyManager($input){
+	global $controller;
+
+	global $isRequestPost;
+
+	$modelOrder = $controller->loadModel('Orders');
+	$modelMembers = $controller->loadModel('Members');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelMembers->get($_GET['id']);
+		if ($isRequestPost) {
+			$dataSend = $input['request']->getData();
+			if($_GET['type']=='plus'){
+				$data->account_balance = $data->account_balance + $dataSend['coin'];
+
+				$order = $modelOrder->newEmptyEntity();
+				
+				$order->code = 'AM'.time().$data->id.rand(0,10000);
+                $order->member_id = $data->id;
+                $order->product_id = '';
+                $order->meta_payment = $data->phone.' ezpics '.$order->code;
+                $order->payment_type = 1;
+                $order->total = (int)  $dataSend['coin'];
+                $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
+                $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
+                $order->created_at = date('Y-m-d H:i:s');
+                
+                $modelOrder->save($order);
+
+			}elseif($_GET['type']=='minus'){
+				$data->account_balance = $data->account_balance - $dataSend['coin'];
+
+				$order = $modelOrder->newEmptyEntity();
+				
+				$order->code = 'MI'.time().$data->id.rand(0,10000);
+                $order->member_id = $data->id;
+                $order->product_id = '';
+                $order->meta_payment = $data->phone.' ezpics '.$order->code;
+                $order->payment_type = 1;
+                $order->total = (int)  $dataSend['coin'];
+                $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
+                $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
+                $order->created_at = date('Y-m-d H:i:s');
+                
+                $modelOrder->save($order);
+
+			}
+
+
+			debug($data);
+			die;
+
+		}
+
+
+
+
+		setVariable('data', $data);
+	}else{
+
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');																									
+	}
+
+
+}
+
 ?>
