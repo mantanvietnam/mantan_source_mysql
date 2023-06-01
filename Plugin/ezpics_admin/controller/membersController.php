@@ -6,6 +6,7 @@ function listMemberAdmin($input)
 	global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách người dùng';
+    $mess = '';
 
 	$modelMembers = $controller->loadModel('Members');
 
@@ -75,12 +76,29 @@ function listMemberAdmin($input)
     } else {
         $urlPage = $urlPage . '?page=';
     }
+     if(@$_GET['statuss']==1){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
+
+    }elseif(@$_GET['status']==2){
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
+
+    }elseif(@$_GET['statuss']==3){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
+    }elseif(@$_GET['statuss']==4){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Cộng tiền thành công</p>';
+    }elseif(@$_GET['statuss']==5){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Trừ tiền thành công</p>';
+    }
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
+    setVariable('mess', $mess);
     
     setVariable('listData', $listData);
 }
@@ -187,6 +205,7 @@ function addMoneyManager($input){
 		$data = $modelMembers->get($_GET['id']);
 		if ($isRequestPost) {
 			$dataSend = $input['request']->getData();
+
 			if($_GET['type']=='plus'){
 				$data->account_balance = $data->account_balance + $dataSend['coin'];
 
@@ -197,10 +216,11 @@ function addMoneyManager($input){
                 $order->product_id = '';
                 $order->meta_payment = $data->phone.' ezpics '.$order->code;
                 $order->payment_type = 1;
-                $order->total = (int)  $dataSend['coin'];
-                $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
+                $order->total = (int) $dataSend['coin'];
+                $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
                 $order->created_at = date('Y-m-d H:i:s');
+                $order->note = @$dataSend['note'];
                 
                 $modelOrder->save($order);
 
@@ -215,17 +235,44 @@ function addMoneyManager($input){
                 $order->meta_payment = $data->phone.' ezpics '.$order->code;
                 $order->payment_type = 1;
                 $order->total = (int)  $dataSend['coin'];
-                $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
-                $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
+                $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+                $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
                 $order->created_at = date('Y-m-d H:i:s');
+                $order->note = @$dataSend['note'];
                 
                 $modelOrder->save($order);
 
 			}
 
+				$modelMembers->save($data);
+				if($_GET['type']=='plus'){
 
-			debug($data);
-			die;
+					 $dataSendNotification= array('title'=>'Bạn được công tiền thành công ','content'=>'lý do bạn được cộng tiền là '.@$dataSend['note'].'đ vào trong tài khoản ạ','action'=>'addMoneySuccess');
+
+					if(!empty($data->token_device)){
+                        sendNotification($dataSendNotification, $data->token_device);
+                    }
+
+                    if(!empty($data->email)){
+                    	sendEmailAddMoney($data->email, $data->name, $dataSend['coin']);
+                    }
+
+
+
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=4');	
+				}elseif($_GET['type']=='minus'){
+					 $dataSendNotification= array('title'=>'Bạn bị trừ tiền ','time'=>date('H:i d/m/Y'),'content'=>'lý do bạn bị trừ là:  '.$dataSend['note'].'đ vào trong tài khoản ạ','action'=>'addMoneySuccess',);
+					  if(!empty($data->token_device)){
+                            sendNotification($dataSendNotification, $data->token_device);
+                            
+                        }
+
+                        if(!empty($data->email)){
+                    		sendEmailMinusMoney($data->email, $data->name, $dataSend['coin'], @$dataSend['note']);
+                    	}
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=5');
+				}				
+
 
 		}
 

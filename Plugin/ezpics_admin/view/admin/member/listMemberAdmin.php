@@ -59,6 +59,7 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách người dùng</h5>
+     <p><?php echo @$mess;?></p>  
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
