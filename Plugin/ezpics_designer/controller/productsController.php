@@ -263,9 +263,16 @@ function addProduct($input)
     global $metaTitleMantan;
     global $session;
 
+    /*
     $ftp_server = "13.215.88.179";
     $ftp_username = "admin_apis";
     $ftp_password = "sIu6v%OHwfmKxcx-";
+    */
+
+    $ftp_server = "171.244.16.76";
+    $ftp_username = "ezpics";
+    $ftp_password = "uImzVeNYgF";
+
 
     if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Thông tin mẫu thiết kế';

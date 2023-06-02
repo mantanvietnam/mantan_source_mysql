@@ -597,9 +597,11 @@ function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username
 
 	            $remote_file = "/public_html/upload/admin/images/".$userID."/".$filenameImage;
 
+	            $urlCall = 'ftp://'.$ftp_username.':'.$ftp_password.'@'.$ftp_server.'/'.$remote_file;
+
 	            $ch = curl_init();
 				$fp = fopen($file, 'r');
-				curl_setopt($ch, CURLOPT_URL, 'ftp://'.$ftp_username.':'.$ftp_password.'@'.$ftp_server.'/'.$remote_file);
+				curl_setopt($ch, CURLOPT_URL, $urlCall);
 				curl_setopt($ch, CURLOPT_UPLOAD, 1);
 				curl_setopt($ch, CURLOPT_INFILE, $fp);
 				curl_setopt($ch, CURLOPT_INFILESIZE, filesize($file));
@@ -609,7 +611,7 @@ function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username
 				if ($error_no == 0) {
 				    return ['code'=>0, 'linkOnline'=>'https://apis.ezpics.vn/upload/admin/images/'.$userID.'/'.$filenameImage];
 				} else {
-				    return ['code'=>4, 'mess'=>'Upload lỗi'];
+				    return ['code'=>4, 'mess'=>'Upload lỗi', 'error_no'=>$error_no, 'urlCall'=>$urlCall];
 				}
 
 	            

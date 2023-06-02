@@ -15,6 +15,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Tên chủ đề</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
@@ -25,6 +26,7 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
+                                    <td align="center">'.$item->id.'</td>
                                     <td>
                                       <span class="text-danger">'.$item->name.'</span><br/>
                                       '.number_format($item->number_product).' sản phẩm đang bán
