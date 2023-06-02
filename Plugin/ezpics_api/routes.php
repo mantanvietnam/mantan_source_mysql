@@ -100,4 +100,9 @@
 	// slide
 	$routesPlugin['getSlideHomeAPI']= 'ezpics_api/view/getSlideHomeAPI.php';
 
+
+	//Layer
+	$routesPlugin['deleteLayerAPI']= 'ezpics_api/view/deleteLayerAPI.php';
+	$routesPlugin['addNotificationProductAPI']= 'ezpics_api/view/addNotificationProductAPI.php';
+	
 ?>

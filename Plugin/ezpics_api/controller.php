@@ -9,4 +9,6 @@ include_once('controller/contactController.php'); // liên hệ
 include_once('controller/ordersController.php'); // lịch sử giao dịch
 include_once('controller/fixsController.php'); // Sửa lỗi
 include_once('controller/homesController.php'); // Frontend
+include_once('controller/layerController.php'); // layer
+include_once('controller/notificationsController.php'); // layer
 ?>

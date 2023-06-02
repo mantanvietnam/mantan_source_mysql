@@ -254,13 +254,14 @@ function addMoneyManager($input){
                     }
 
                     if(!empty($data->email)){
-                    	sendEmailAddMoney($data->email, $data->name, $dataSend['coin']);
+                    	sendEmailAddMoney($data->email, $data->name, $dataSend['coin'], @$dataSend['note']);
                     }
 
 
 
 					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=4');	
 				}elseif($_GET['type']=='minus'){
+
 					 $dataSendNotification= array('title'=>'Bạn bị trừ tiền ','time'=>date('H:i d/m/Y'),'content'=>'lý do bạn bị trừ là:  '.$dataSend['note'].'đ vào trong tài khoản ạ','action'=>'addMoneySuccess',);
 					  if(!empty($data->token_device)){
                             sendNotification($dataSendNotification, $data->token_device);

@@ -272,7 +272,7 @@ function sendEmailsuccessfulDesigner($email='', $fullName='')
     }
 }
 
-function sendEmailunsuccessfuldesigner($email='', $fullName='', $content='')
+function sendEmailunsuccessfuldesigner($email='', $fullName='', $note='')
 {
     $to = array();
 
@@ -326,7 +326,7 @@ function sendEmailunsuccessfuldesigner($email='', $fullName='', $content='')
                         <br/>
                         Chúng tôi rất tiếc phải thông báo rằng đơn đăng ký designer của bạn đã bị từ chối.
                         <br/>
-                        Lý do từ chối:: '.$content.'</b>
+                        Lý do từ chối: '.$note.'</b>
                         
                         <br><br>
                         
@@ -369,7 +369,7 @@ function levelmembers(){
 }
 
 
-function sendEmailAddMoney($email='', $fullName='', $coin= '')
+function sendEmailAddMoney($email='', $fullName='', $coin= '', $note= '')
 {
     $to = array();
 
@@ -421,7 +421,11 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
-                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống <a href="https://ezpics.vn">https://ezpics.vn</a>
+                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống 
+                        <br/>
+                        Lý do bạn bị từ tiền là:  '.$note.'
+                         <br/>
+                        <a href="https://ezpics.vn">https://ezpics.vn</a>
                         
                         <br><br>
                         
