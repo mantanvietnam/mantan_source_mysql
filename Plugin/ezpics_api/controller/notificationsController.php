@@ -11,7 +11,7 @@ function addNotificationProductAPI($input){
 	$modelProduct = $controller->loadModel('Products');
 	$mess= '';
 
-	$condition = array();
+	$condition = array('status'=>2,'type'=>'user_create');
 	if(!empty($_GET['idCategory'])){
 		$condition['category_id'] = $_GET['idCategory'];
 	}

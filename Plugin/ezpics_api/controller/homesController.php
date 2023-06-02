@@ -195,6 +195,9 @@ function updateInfoProduct($input)
 
                     case 'status':
                         $pro->status = (int) $dataSend['value'];
+                        if($pro->status == 1){
+                            sendNotificationAdmin('6479b6f4b4a51d8bb38fc547');
+                        }
                         break;
                 }
 
