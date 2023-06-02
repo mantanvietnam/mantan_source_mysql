@@ -861,7 +861,19 @@ function createThumb(){
         $product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
 
         if(!empty($product)){
-            $data = file_get_contents('http://14.225.238.137:3000/convert?url=https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id'].'&width='.$product->width.'&height='.$product->height);
+            //$url = 'http://14.225.238.137:3000/convert?url=https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id'].'&width='.$product->width.'&height='.$product->height;
+
+            $url = 'http://14.225.238.137:3000/convert';
+
+            $att = [
+                    'url' => 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id'],
+                    'width' => $product->width,
+                    'height' => $product->height
+                    ];
+            
+            $data = sendDataConnectMantan($url,$att);
+
+            echo $data;die;
 
             if(!empty($data)){
                 $name = __DIR__.'/../../../upload/admin/images/'.$product->user_id.'/thumb_product_'.$product->id.'.png';

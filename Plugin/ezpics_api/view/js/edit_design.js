@@ -1036,8 +1036,8 @@ function saveproduct(removeActiveClass) {
         $('.loadingProcess').removeClass('d-none');
         
         // tạo ảnh thumbnail
-        exportThumb();
-        //capEdit(id);
+        //exportThumb();
+        capEdit(id);
 
         checkEditLayer = false;
         
