@@ -386,7 +386,7 @@ function buyProductAPI($input)
 				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 				$infoUserSell = $modelMember->find()->where(array('id'=>$product->user_id))->first();
 
-				if(!empty($infoUser->account_balance) && $infoUser->account_balance>=$product->sale_price){
+				if($infoUser->account_balance>=$product->sale_price){
 				
 					// trừ tiền tài khoản
 					$infoUser->account_balance -= $product->sale_price;

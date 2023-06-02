@@ -36,6 +36,7 @@ $('.clc-action-edit.thaotac').click(function() {
 var full_width = $('#widgetCapEdit').width();
 var full_height = $('#widgetCapEdit').height();
 var left, top;
+var checkEditLayer = false;
 
 function editThemeUser(id) 
 {
@@ -45,7 +46,7 @@ function editThemeUser(id)
         data: {
             id: id,
             action: 'edit',
-            width: $(window).width(),
+            width: $('#widgetCapEdit').width(),
             height: $(window).height()/2,
         }, 
         success:function(data){
@@ -1009,6 +1010,8 @@ function updatelayerClient(layer,field,id,value) {
             }
 
             var get_update_local = localStorage.setItem("product_update_"+id, JSON.stringify(json_update));
+
+            checkEditLayer = true;
         }else{
             printErrorMsg(['Chọn layer để thao tác']);
         }
@@ -1026,57 +1029,61 @@ function saveproduct(removeActiveClass) {
         $('.box-detail-edit-user-create .drag-drop').removeClass('active-hover');
     }
 
-    let id = $('.drag-drop').data('idproduct'); // id sản phẩm
-    //$('.drag-drop').removeClass('active-hover');
-    $('.loadingProcess').removeClass('d-none');
-    
-    // tạo ảnh thumbnail
-    exportThumb();
-    //capEdit(id);
-    
-    if (localStorage.getItem("product_update_"+id) === null) {
-        $('.loadingProcess').addClass('d-none');
-    }else{
-        var getupdate = localStorage.getItem("product_update_"+id);
+    if(removeActiveClass==1 || checkEditLayer){
 
-        //console.log(getupdate);
-
-        // var json_update = JSON.parse(getupdate);
+        let id = $('.drag-drop').data('idproduct'); // id sản phẩm
+        //$('.drag-drop').removeClass('active-hover');
+        $('.loadingProcess').removeClass('d-none');
         
-        $.ajax({
-            url: 'https://apis.ezpics.vn/apis/savelayer',
-            dataType: 'json',
-            type: "POST",
-            data: {
-                id: id ,  // id sản phẩm
-                layer : getupdate, // list các layer của 1 sản phẩm
-            }, 
-            success:function(data){
-                if($.isEmptyObject(data.error)){
-                    console.log('Lưu mẫu thiết kế thành công');
-                }else{
-                    printErrorMsg(data.error);
+        // tạo ảnh thumbnail
+        exportThumb();
+        //capEdit(id);
+
+        checkEditLayer = false;
+        
+        if (localStorage.getItem("product_update_"+id) === null) {
+            $('.loadingProcess').addClass('d-none');
+        }else{
+            var getupdate = localStorage.getItem("product_update_"+id);
+
+            //console.log(getupdate);
+
+            // var json_update = JSON.parse(getupdate);
+            
+            $.ajax({
+                url: 'https://apis.ezpics.vn/apis/savelayer',
+                dataType: 'json',
+                type: "POST",
+                data: {
+                    id: id ,  // id sản phẩm
+                    layer : getupdate, // list các layer của 1 sản phẩm
+                }, 
+                success:function(data){
+                    if($.isEmptyObject(data.error)){
+                        console.log('Lưu mẫu thiết kế thành công');
+                    }else{
+                        printErrorMsg(data.error);
+                    }
+
+                    $('.loadingProcess').addClass('d-none');
+
+                    // Hiển thị thông báo
+                    $("#success-notification").show();
+
+                    // Tự động ẩn thông báo sau 3 giây
+                    setTimeout(function() {
+                        $("#success-notification").hide();
+                    }, 3000);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr);
+                    console.log(thrownError);
+                    console.log(ajaxOptions);
                 }
-
-                $('.loadingProcess').addClass('d-none');
-
-                // Hiển thị thông báo
-                $("#success-notification").show();
-
-                // Tự động ẩn thông báo sau 3 giây
-                setTimeout(function() {
-                    $("#success-notification").hide();
-                }, 3000);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr);
-                console.log(thrownError);
-                console.log(ajaxOptions);
-            }
-        });
-    
+            });
+        
+        }
     }
-
     
 }
 
@@ -2283,9 +2290,11 @@ interact(".drag-drop")
 
 function dragMoveListener(event) {
     var leftmove, topmove;
-    var target = event.target,
+    var target = event.target;
+    var xSelect = $('.active-hover').width();
+    var ySelect = $('.active-hover').height();
     
-    x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
+    x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
     y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
     // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)  rotate(45deg)";
@@ -2307,6 +2316,7 @@ function dragMoveListener(event) {
         y= 0;
     }
     */
+   
 
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
@@ -2359,8 +2369,8 @@ $(".upimg[type='file']").on('change', function() {
                     file = $(".upimg[type='file']").prop('files')[0];
                     formdata.append("file", file);
                     formdata.append("idproduct", idproduct);
-                    formdata.append("width", $(window).width());
-                    formdata.append("height", $(window).height());
+                    formdata.append("width", $('#widgetCapEdit').width());
+                    formdata.append("height", $('#widgetCapEdit').height());
                     $.ajax({
                         url: 'https://apis.ezpics.vn/apis/upImage',
                         dataType: 'json',
@@ -2628,8 +2638,8 @@ $(".replace[type='file']").on('change', function() {
                     formdata.append("file", file);
                     formdata.append("id", id);
                     formdata.append("idproduct", idproduct);
-                    formdata.append("width", $(window).width());
-                    formdata.append("height", $(window).height());
+                    formdata.append("width", $('#widgetCapEdit').width());
+                    formdata.append("height", $('#widgetCapEdit').height());
                     $.ajax({
                         url: 'https://apis.ezpics.vn/apis/replace',
                         dataType: 'json',

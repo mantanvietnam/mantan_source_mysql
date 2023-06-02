@@ -7,7 +7,7 @@ global $link_qr_bank;
 global $key_transaction;
 global $keyFirebase;
 
-$number_bank = '0693.122.8668';
+$number_bank = '06931228668';
 $name_bank = 'Tiên Phong Bank (TPB)';
 $account_holders_bank = 'Trần Ngọc Mạnh';
 $link_qr_bank = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/link_qr_bank.jpg';
