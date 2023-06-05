@@ -82,6 +82,7 @@ function saveRequestDesignerAPI($input)
 				$modelContact->save($data);
 				
 				$return = array('code'=>0,'messages'=>array(array('text'=>'Lưu đăng ký thành công')));
+				 sendNotificationAdmin('6479b759179eba65139297da');
 			}else{
 				$return = array('code'=>3,
 									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
@@ -134,6 +135,9 @@ function saveReportAPI($input)
 					$modelContact->save($data);
 					
 					$return = array('code'=>0,'messages'=>array(array('text'=>'Lưu báo cáo thành công')));
+
+					sendNotificationAdmin('6479b759179eba65139297da');
+
 				}else{
 					$return = array('code'=>4,
 									'messages'=>array(array('text'=>'Mẫu thiết kế không còn tồn tại'))
