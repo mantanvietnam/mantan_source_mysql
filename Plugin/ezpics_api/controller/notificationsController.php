@@ -33,33 +33,36 @@ function addNotificationProductAPI($input){
 	}
 
 
-	$product = $modelProduct->find()->where(@$condition)->first();
+	$product = $modelProduct->find()->where(@$condition)->order('RAND()')->first();
 
-    $conditions = array();
-    $conditions['token_device IS NOT'] = null;
+	if(!empty($product)){
+	    $conditions = array();
+	    $conditions['token_device IS NOT'] = null;
 
-    if(isset($_GET['type']) && $_GET['type']!=''){
-		$conditions['type'] = (int) $_GET['type'];
+	    if(isset($_GET['type']) && $_GET['type']!=''){
+			$conditions['type'] = (int) $_GET['type'];
+		}
+	    
+	    $listMembers = $modelMembers->find()->where($conditions)->all()->toList();
+
+		if(!empty($listMembers)){
+			$dataSendNotification= array('id'=>$product->id,'title'=>$title,'time'=>date('H:i d/m/Y'),'content'=>$content,'action'=>'productNew');
+			$number = 0;
+
+	        foreach ($listMembers as $key => $value) {
+	            if(!empty($value->token_device)){
+	                $return = sendNotification($dataSendNotification, $value->token_device);
+	                $number++;
+	            }
+	        }
+
+	        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Không có thiết bị nào nhận được tin nhắn</p>';
+	    }
+
+	   	echo $mess;
+	}else{
+		echo '<p class="text-danger">Không tìm được sản phẩm</p>';
 	}
-    
-    $listMembers = $modelMembers->find()->where($conditions)->all()->toList();
-
-	if(!empty($listMembers)){
-		$dataSendNotification= array('id'=>$product->id,'title'=>$title,'time'=>date('H:i d/m/Y'),'content'=>$content,'action'=>'productNew');
-		$number = 0;
-
-        foreach ($listMembers as $key => $value) {
-            if(!empty($value->token_device)){
-                $return = sendNotification($dataSendNotification, $value->token_device);
-                $number++;
-            }
-        }
-
-        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
-    }else{
-    	$mess= '<p class="text-danger">Không có thiết bị nào nhận được tin nhắn</p>';
-    }
-
-   	echo $mess;
-
 } ?>

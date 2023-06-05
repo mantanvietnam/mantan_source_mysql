@@ -40,6 +40,8 @@ var checkEditLayer = false;
 
 function editThemeUser(id) 
 {
+    $('.loadingProcess').removeClass('d-none');
+
     $.ajax({
         url: 'https://apis.ezpics.vn/apis/dataEditThemeUser',
         type: "POST",
@@ -50,6 +52,7 @@ function editThemeUser(id)
             height: $(window).height()/2,
         }, 
         success:function(data){
+            $('.loadingProcess').addClass('d-none');
             
             if($.isEmptyObject(data.error)){
                 //xóa data cũ
