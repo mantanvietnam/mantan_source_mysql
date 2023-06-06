@@ -136,7 +136,7 @@ function saveReportAPI($input)
 					
 					$return = array('code'=>0,'messages'=>array(array('text'=>'Lưu báo cáo thành công')));
 
-					sendNotificationAdmin('6479b759179eba65139297da');
+					sendNotificationAdmin('647d4f98fceb9dd5a37244e0');
 
 				}else{
 					$return = array('code'=>4,
