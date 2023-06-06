@@ -21,7 +21,7 @@ function addNotificationAdmin($input)
         		$conditions['type'] = 0;
         	}
         	if(!empty($dataSend['idUser'])){
-        		$conditions['type'] = $dataSend['idUser'];
+        		$conditions['id'] = $dataSend['idUser'];
         	}
         	$conditions['token_device IS NOT'] = null;
         	$listMembers = $modelMembers->find()->where($conditions)->all()->toList();
@@ -72,7 +72,7 @@ function addNotificationPostNewAdmin($input){
         		$conditions['type'] = 0;
         	}
         	if(!empty($dataSend['idUser'])){
-        		$conditions['type'] = $dataSend['idUser'];
+        		$conditions['id'] = $dataSend['idUser'];
         	}
         	$conditions['token_device IS NOT'] = null;
         	$listMembers = $modelMembers->find()->where($conditions)->all()->toList();
@@ -124,7 +124,7 @@ function addNotificationProductNewAdmin($input){
         		$conditions['type'] = 0;
         	}
         	if(!empty($dataSend['idUser'])){
-        		$conditions['type'] = $dataSend['idUser'];
+        		$conditions['id'] = $dataSend['idUser'];
         	}
         	$conditions['token_device IS NOT'] = null;
         	$listMembers = $modelMembers->find()->where($conditions)->all()->toList();

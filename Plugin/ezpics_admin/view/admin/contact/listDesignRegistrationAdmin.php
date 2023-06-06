@@ -42,6 +42,7 @@
             <th>ID</th>
             <th>ảnh</th>
             <th>Thông tin</th>
+            <th>Ngày đăng ký</th> 
             <th>Nội dung</th> 
             <th>Portfolio </th> 
             <th>Trạng thái</th> 
@@ -67,6 +68,7 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.@$Member->avatar.'" width="100" height="100" ></td>
                         <td>'.@$Member->name.'<br>'.@$Member->email.'<br>'.@$Member->phone.'</td>
+                        <td>'.$item->created_at.'</td>
                         <td>'.$item->content.'</td>
                         <td><img src="'.@$item->meta.'" width="100" height="100" ></td>
                         <td>'.$status.'</td>
