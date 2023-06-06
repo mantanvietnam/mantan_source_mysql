@@ -28,7 +28,7 @@
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-1">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -37,12 +37,19 @@
             </select>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-1">
             <label class="form-label">Loại tài khoản</label>
             <select name="type" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <option value="0" <?php if(!empty($_GET['type']) && $_GET['type']=='0') echo 'selected';?> >Người dùng</option>
               <option value="1" <?php if(!empty($_GET['type']) && $_GET['type']=='1') echo 'selected';?> >Designer</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Sắp xếp </label>
+            <select name="order" class="form-select color-dropdown">
+              <option value="">Mới nhất</option>
+              <option value="1" <?php if(!empty($_GET['order']) && $_GET['order']=='1') echo 'selected';?> >Hoạt động gần đây</option>
             </select>
           </div>
           
@@ -67,6 +74,7 @@
             <th>ID</th>
             <th>Ảnh đại diện</th>
             <th>Khách hàng</th>
+            <th>Đăng nhập</th>
             <th>Số dư</th>
             <th>Loại tài khoản</th>
             <th>Trạng thái</th>
@@ -98,6 +106,7 @@
                           '.$item->phone.'<br/>
                           '.$item->email.'
                         </td>
+                        <td>'.$item->last_login.'</td>
                         <td>'.number_format($item->account_balance).'đ</td>
                         <td>'.$type.'</td>
                         <td>'.$status.'</td>

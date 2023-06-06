@@ -12,10 +12,15 @@ function listMemberAdmin($input)
 
 	$conditions = array();
 	$limit = 20;
+
+
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
-	$order = array('id'=>'desc');
-
+	if(empty(@$_GET['order'])){
+		$order = array('id'=>'desc');
+	}elseif(@$_GET['order']==1){
+		$order = array('last_login'=>'desc');
+	}
 	if(!empty($_GET['id'])){
 		$conditions['id'] = (int) $_GET['id'];
 	}
