@@ -25,6 +25,10 @@
                       <option value="1" <?php if(!empty($_GET['type']) && $_GET['type']=='1') echo 'selected';?> >Designer</option>
                     </select>
                   </div>
+                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Id người dùng</label>
+                    <input  type="text" class="form-control phone-mask" name="idUser" id="idUser" value="" />
+                  </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Tiêu đề (*)</label>
                     <input required type="text" class="form-control phone-mask" name="title" id="title" value="" />
