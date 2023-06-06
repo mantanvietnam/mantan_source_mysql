@@ -31,7 +31,7 @@ function sendNotificationAdmin($idBlock='', $attributesSmax=['new_notification'=
     if(!empty($data_value['idBot']) && !empty($data_value['tokenBot']) && !empty($idBlock) && !empty($data_value['idMessAdmin']) ){
 
         $urlSmax = 'https://api.smax.bot/bots/' . $data_value['idBot'] . '/users/' . $data_value['idMessAdmin'] . '/send?bot_token=' . $data_value['tokenBot'] . '&block_id=' . $idBlock . '&messaging_tag="CONFIRMED_EVENT_UPDATE"';
-
+        
         $sendSmax = sendDataConnectMantan($urlSmax, $attributesSmax);
     }
 }

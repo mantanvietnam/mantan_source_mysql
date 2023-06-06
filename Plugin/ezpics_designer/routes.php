@@ -14,6 +14,7 @@
 	// product
 	$routesPlugin['listProduct']= 'ezpics_designer/view/home/product/listProduct.php';
 	$routesPlugin['listProductbuy']= 'ezpics_designer/view/home/product/listProductbuy.php';
+	$routesPlugin['listProductSeries']= 'ezpics_designer/view/home/product/listProductSeries.php';
 	$routesPlugin['deleteProduct']= 'ezpics_designer/view/home/product/deleteProduct.php';
 	$routesPlugin['addProduct']= 'ezpics_designer/view/home/product/addProduct.php';
 

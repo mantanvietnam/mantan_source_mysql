@@ -444,7 +444,7 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
         'Content-Type: application/json');
 	*/
         
-    if($data){
+    if(!empty($data)){
    		$stringSend= '';
    		if($typeData=='form'){
    			$stringSend= array();
@@ -499,9 +499,11 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
     }
 }
 
-function uploadImage($user_id='', $name_input='', $filenameImage='')
+function uploadImage($user_id='', $name_input='', $filenameImage='', $domain='')
 {
 	global $urlHomes;
+
+	if(empty($domain)) $domain = $urlHomes;
 
 	$return = ['code'=>1, 'mess'=>''];
 
@@ -538,7 +540,7 @@ function uploadImage($user_id='', $name_input='', $filenameImage='')
                 // Check whether file exists before uploading it
                 move_uploaded_file($_FILES[$name_input]["tmp_name"], __DIR__.'/../upload/admin/images/'.$user_id.'/'.$filenameImage);
 
-                $return = ['code'=>0, 'mess'=>'Upload thành công', 'linkOnline'=>$urlHomes.'upload/admin/images/'.$user_id.'/'.$filenameImage, 'linkLocal'=>'upload/admin/images/'.$user_id.'/'.$filenameImage];
+                $return = ['code'=>0, 'mess'=>'Upload thành công', 'linkOnline'=>$domain.'/upload/admin/images/'.$user_id.'/'.$filenameImage, 'linkLocal'=>'upload/admin/images/'.$user_id.'/'.$filenameImage];
                 
             } else{
                 $return = ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];

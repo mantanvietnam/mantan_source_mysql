@@ -686,7 +686,7 @@ function upImageThumbnail($input)
 
         if(!empty($dataSend['idproduct'])){
             $user =  $session->read('infoUser');
-            $return = uploadImage($user->id, 'file');
+            $return = uploadImage($user->id, 'file','thumbnail_product_'.$dataSend['idproduct'],'https://apis.ezpics.vn');
              
             if (!empty($return['linkOnline'])) {
                 
