@@ -100,6 +100,7 @@ function listMemberAdmin($input)
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
+    setVariable('totalData', $totalData);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);

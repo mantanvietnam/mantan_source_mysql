@@ -65,7 +65,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách người dùng</h5>
+    <h5 class="card-header">Danh sách người dùng - <b class="text-danger"><?php echo number_format($totalData);?></b> người dùng</h5>
      <p><?php echo @$mess;?></p>  
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -74,7 +74,6 @@
             <th>ID</th>
             <th>Ảnh đại diện</th>
             <th>Khách hàng</th>
-            <th>Đăng nhập</th>
             <th>Số dư</th>
             <th>Loại tài khoản</th>
             <th>Trạng thái</th>
@@ -90,7 +89,7 @@
               foreach ($listData as $item) {
                 $type = 'Người dùng';
                 if($item->type==1){
-                  $type = 'Designer';
+                  $type = 'Designer <br/>CK: '.$item->commission;
                 }
 
                 $status = 'Kích hoạt';
@@ -104,9 +103,9 @@
                         <td>
                           '.$item->name.'<br/>
                           '.$item->phone.'<br/>
-                          '.$item->email.'
+                          '.$item->email.'<br/>
+                          thời gian đăng nhập: '.$item->last_login.'
                         </td>
-                        <td>'.$item->last_login.'</td>
                         <td>'.number_format($item->account_balance).'đ</td>
                         <td>'.$type.'</td>
                         <td>'.$status.'</td>

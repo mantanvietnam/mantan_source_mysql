@@ -36,7 +36,48 @@
     margin: 15px 0;
   }
   #map_HS {
-    height: 600px !important;
+    height: 80vh !important;
+  }
+  @media (max-width: 600px) {
+    .img-calendar img {
+      width: 30px;
+      height: 30px;
+    }
+    .box-menu-map {
+      position: absolute;
+      left: 25px;
+      background-color: #4E9D90;
+      padding: 25px 30px;
+      width: 250px;
+      height: 380px;
+      z-index: 99999;
+      border-radius: 0 20px 20px 0;
+      transition: 1s;
+    }
+    .img-calendar {
+      left: -13px;
+    }
+    .box-menu-map .title-menu-map p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .box-menu-map ul li {
+      font-size: 14px;
+    }
+    .btn-hide a, .btn-show a {
+      /* padding: 19px; */
+      padding: 5px 15px;
+    }
+    .check-box-menu-map {
+      width: 200px;
+    }
+    .btn-show {
+      left: 40px;
+      top: 180px;
+    }
+    .btn-hide {
+      top: 180px;
+    }
   }
 </style>
 <div class="container-fluid wr-map page-section" id="bando">
@@ -109,7 +150,7 @@
           if(!empty($data['lat']) & !empty($data['long'])){
               //$content = '<a href='.$data['urlSlug'].'></a>';
               $content   = '<img src='.$data['image'].' style=width:200px;height:156px;  ><br/><a href='.$data['urlSlug'].'>' . $data['name']. '</a>';
-              $content.='<br/>Điện thoạt: ' . $data['phone'];
+              $content.='<br/>Điện thoại: ' . $data['phone'];
               $content.='<br/>Địa chỉ: ' . $data['address'];
 
               $listShowMap[]= '["' . $content . '", ' . $data['lat'] . ', ' . $data['long'] . ', "' . $data['icon'] . '","'.$data['type'].'"]';

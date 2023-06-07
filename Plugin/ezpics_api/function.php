@@ -712,6 +712,46 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
     ];
 }
 
+function getLayertext($stt, $type = 'text', $content= '' , $color = '',$size = '', $font='', $width ='', $height = '')
+{
+    return [
+       'type' => $type,
+       'text' => $content,
+       'color' => $color,
+       'size' => $size,
+       'font' => "Bebas",
+       'status' => "1",
+       'text_align' => "left",
+       'postion_x'=>0,
+       'postion_y'=>0,
+       'brightness' => "100",
+       'contrast' => "100",
+       'saturate' => "100",
+       'opacity' => "1",
+       'gachchan' => "none",
+       'uppercase' => "none",
+       'innghieng' => "normal",
+       'indam' => "normal",
+       'linear_position' => "to right",
+       'vien' => "0px",
+       'rotate' => "",
+       'banner' => "",
+       'gianchu' => "normal",
+       'giandong' => "normal",
+       'blur' => "0",
+       'invert' => "0",
+       'width' => $width,
+       'height' => $height,
+       'sepia' => "0",
+       'grayscale' => "0",
+       'gradient'=>0,
+       'sort' => $stt,
+       'postion_left'=>,
+       'postion_top'=>,
+       'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']]
+    ];
+}
+
 function zipImage($urlLocalFile)
 {
     if(function_exists('getKey')){
