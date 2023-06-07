@@ -112,8 +112,8 @@
 	                            <div class="info">Thông tin</div>
 	                        </div>
 	                        <div class="item-action clc-action-edit thaotac" data-tab="thaotac">
-	                            <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/more.png" class="img-fluid" alt=""></div>
-	                            <div class="info">Thao tác</div>
+	                            <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/add.png" class="img-fluid" alt=""></div>
+	                            <div class="info">Thêm layer</div>
 	                        </div>
 	                        <div class="item-action clc-action-edit layerclass" data-tab="layer">
 	                            <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/list.png" class="img-fluid" alt=""></div>
@@ -482,6 +482,16 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/image-upload.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Thêm ảnh</div>
 	                                </div>
+
+	                                <div class="item-replace text-center d-none imgupload" id="addVariableTextButton" data-tab="addVariableText">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/add.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Thêm biến chữ</div>
+	                                </div>
+
+	                                <div class="item-replace text-center d-none imgupload" id="addVariableImageButton" data-tab="addVariableImage">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/image-upload.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Thêm biến ảnh</div>
+	                                </div>
 	                                <!--
 	                                <div class="item-replace text-center undo active-history" onclick="undo()">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/back.png" class="img-fluid" alt=""></div>
@@ -581,6 +591,48 @@
 	                                </div>
 	                            </div>
 	                        </div>
+
+	                        <div class="content-action" id="addVariableText"> 
+	                            <div class="t-action-popup text-center">
+	                                <span>Biến chữ</span>
+	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
+	                            </div>
+	                            <div class="list-chang-replace">
+									<div class="form-group w-100">
+										<p>Tên trường dữ liệu (*):</p>
+										<input type="text" value="" name="showVariableText" id="showVariableText" class="thongtininput form-control" >
+
+										<p>Tên biến (*):</p>
+										<input type="text" value="" name="nameVariableText" id="nameVariableText" class="thongtininput form-control" onchange="changeNameVariableText();" >
+
+										<p>Nội dung chữ:</p>
+										<input type="text" value="" name="variableText" id="variableText" class="thongtininput form-control mb-3" >
+
+
+										<button type="button" class="btn btn-warning" onclick="createLayerVariableText();">Tạo biến chữ</button>
+									</div>
+								</div>
+	                        </div>
+
+	                        <div class="content-action" id="addVariableImage"> 
+	                            <div class="t-action-popup text-center">
+	                                <span>Biến ảnh</span>
+	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
+	                            </div>
+	                            <div class="list-chang-replace">
+									<div class="form-group w-100">
+										<p>Tên trường dữ liệu (*):</p>
+										<input type="text" value="" name="showVariableImage" id="showVariableImage" class="thongtininput form-control" >
+
+										<p>Tên biến (*):</p>
+										<input type="text" value="" name="nameVariableImage" id="nameVariableImage" onchange="changeNameVariableImage();" class="thongtininput form-control mb-3" >
+
+
+										<button type="button" class="btn btn-warning" onclick="createLayerVariableImage();">Tạo biến ảnh</button>
+									</div>
+								</div>
+	                        </div>
+
 	                        <div class="content-action" id="listanh"> 
 	                            <div class="t-action-popup text-center">
 	                                <span>Chọn ảnh</span>

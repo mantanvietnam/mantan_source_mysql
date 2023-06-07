@@ -40,13 +40,25 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label">Trạng thái (*)</label>
+                    <label class="form-label">Kích cỡ mẫu thiết kế (*)</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-select" name="status" id="status" required>
-                        <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
-                        <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected'; ?> >Kích hoạt</option>
+                      <select class="form-select" name="size" id="size" required>
+                        <option value="">Theo ảnh nền</option>
+                        <?php 
+                          $sizes = getSizeProduct();
+                          if(!empty($sizes)){
+                            foreach($sizes as $size){
+                              echo '<option value="'.$size['width'].'-'.$size['height'].'">'.$size['name'].'</option>';
+                            }
+                          }
+                        ?>
                       </select>
                     </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Từ khóa</label>
+                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="" />
                   </div>
 
                   

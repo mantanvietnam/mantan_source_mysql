@@ -102,15 +102,22 @@
             <li class="menu-item">
               <a href="/listProduct" class="menu-link">
                 <i class='bx bx-list-ul' ></i>
-                <div data-i18n="Tempaltes">Danh sách mẫu bán</div>
+                <div data-i18n="Tempaltes">Mẫu bán</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/listProductSeries" class="menu-link">
+                <i class='bx bx-list-ul' ></i>
+                <div data-i18n="Tempaltes">Mẫu in hàng loạt</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/listProductbuy" class="menu-link">
                 <i class='bx bx-list-ul' ></i>
-                <div data-i18n="Tempaltes">Danh sách mẫu mua</div>
+                <div data-i18n="Tempaltes">Mẫu mua</div>
               </a>
             </li>
+            
             <li class="menu-item">
               <a href="/addProduct" class="menu-link">
                 <i class='bx bx-image-add' ></i>

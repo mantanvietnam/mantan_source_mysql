@@ -523,6 +523,14 @@ function getLayerProductForEdit($idProduct=0)
                     if(!isset($layer->sort)) $layer->sort = 1;
                     if(!isset($layer->postion_left)) $layer->postion_left = '50';
                     if(!isset($layer->postion_top)) $layer->postion_top = '50';
+
+                    if(!empty($layer->variable) && !empty($_GET[$layer->variable])){
+                        $layer->text = str_replace('%'.$layer->variable.'%', $_GET[$layer->variable], $layer->text);
+                    }
+
+                    if(!empty($layer->variable) && !empty($_GET[$layer->variable])){
+                        $layer->banner = $_GET[$layer->variable];
+                    }
                     
                     if($layer->type == 'image' && empty($layer->banner)) $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png';
 
@@ -671,11 +679,13 @@ function getLayerProductForEdit($idProduct=0)
     }
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30')
+function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30', $text = '', $variable='', $variableLabel = '')
 {
+    if(empty($text)) $text = 'Layer '.$stt;
+
     return [
         'type' => $type,
-        'text' => 'Layer '.$stt,
+        'text' => $text,
         'color' => '#000',
         'size' => '10vw',
         'font' => 'Arial',
@@ -708,7 +718,9 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'grayscale' => 0,
         'gradient' => 0,
         'sort' => $stt,
-        'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']]
+        'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
+        'variable' => $variable,
+        'variableLabel' => $variableLabel,
     ];
 }
 

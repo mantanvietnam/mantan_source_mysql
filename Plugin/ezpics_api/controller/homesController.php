@@ -472,6 +472,50 @@ function addLayer($input)
     } 
 }
 
+function createLayerVariable($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+    if(!empty($session->read('infoUser')) && $isRequestPost){
+        $dataSend = $input['request']->getData();
+        $user =  $session->read('infoUser');
+        
+        $product = $modelProduct->get($dataSend['idproduct']);
+
+        if(!empty($product) && $product->type=='user_series' && !empty($dataSend['nameVariable'])){
+            if(empty($dataSend['text'])) $dataSend['text'] = '%'.$dataSend['nameVariable'].'%';
+            if(empty($dataSend['variableLabel'])) $dataSend['variableLabel'] = $dataSend['nameVariable'];
+
+            $dataSend['banner'] = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+
+
+            $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+            $idlayer = count($productDetail)+1;
+
+            $new = $modelProductDetail->newEmptyEntity();   
+           
+            $new->name = 'Layer '.$idlayer;
+            $new->products_id = $dataSend['idproduct'];
+            $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height'], $dataSend['text'], $dataSend['nameVariable'], $dataSend['variableLabel']));
+            $new->sort = $idlayer;
+            $new->height = '30';
+            $new->wight = '30';
+            $new->created_at = date('Y-m-d H:i:s');
+            
+            $modelProductDetail->save($new);
+        }
+        
+        return getLayerProductForEdit($dataSend['idproduct']);
+    }else{
+        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
+    } 
+}
+
 function sortLayer($input)
 {
     global $session;
