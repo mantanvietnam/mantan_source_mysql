@@ -1169,6 +1169,8 @@ function add() {
     let idproduct = $('.drag-drop').data('idproduct');
     var getupdate = localStorage.getItem("product_update_"+idproduct);
     // var json_update = JSON.parse(getupdate);
+    $('.loadingProcess').removeClass('d-none');
+
     $.ajax({
         url: 'https://apis.ezpics.vn/apis/savelayer',
         dataType: 'json',
@@ -1178,6 +1180,8 @@ function add() {
             id: idproduct   
         }, 
         success:function(d){
+            $('.loadingProcess').addClass('d-none');
+
             if($.isEmptyObject(d.error)){
                 $.ajax({
                     url: 'https://apis.ezpics.vn/apis/addLayer',
@@ -1212,6 +1216,8 @@ function addImage(linkImage) {
     let idproduct = $('.drag-drop').data('idproduct');
     var getupdate = localStorage.getItem("product_update_"+idproduct);
     // var json_update = JSON.parse(getupdate);
+    $('.loadingProcess').removeClass('d-none');
+
     $.ajax({
         url: 'https://apis.ezpics.vn/apis/savelayer',
         dataType: 'json',
@@ -1221,6 +1227,8 @@ function addImage(linkImage) {
             id: idproduct   
         }, 
         success:function(d){
+            $('.loadingProcess').addClass('d-none');
+
             if($.isEmptyObject(d.error)){
                 $.ajax({
                     url: 'https://apis.ezpics.vn/apis/addLayer',
@@ -1258,6 +1266,9 @@ function changeImage(linkImage) {
     let id = $('.active-hover').data('id');
     var getupdate = localStorage.getItem("product_update_"+idproduct);
     // var json_update = JSON.parse(getupdate);
+
+    $('.loadingProcess').removeClass('d-none');
+
     $.ajax({
         url: 'https://apis.ezpics.vn/apis/savelayer',
         dataType: 'json',
@@ -1267,6 +1278,8 @@ function changeImage(linkImage) {
             id: idproduct   
         }, 
         success:function(d){
+            $('.loadingProcess').addClass('d-none');
+
             if($.isEmptyObject(d.error)){
                 $.ajax({
                     url: 'https://apis.ezpics.vn/apis/updateLayer',
@@ -1302,6 +1315,8 @@ function sort(type) {
     let idproduct = $('.active-hover').data('idproduct');
     var getupdate = localStorage.getItem("product_update_"+idproduct);
     // var json_update = JSON.parse(getupdate);
+    $('.loadingProcess').removeClass('d-none');
+
     $.ajax({
         url: 'https://apis.ezpics.vn/apis/savelayer',
         dataType: 'json',
@@ -1311,6 +1326,8 @@ function sort(type) {
             id: idproduct   
         }, 
         success:function(d){
+            $('.loadingProcess').addClass('d-none');
+
             if($.isEmptyObject(d.error)){
                 $.ajax({
                     url: 'https://apis.ezpics.vn/apis/sortLayer',
@@ -1708,6 +1725,9 @@ $(".upimg[type='file']").on('change', function() {
         let id = $('.drag-drop').data('idproduct');
         var getupdate = localStorage.getItem("product_update_"+id);
         // var json_update = JSON.parse(getupdate);
+
+        $('.loadingProcess').removeClass('d-none');
+
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
@@ -1717,6 +1737,8 @@ $(".upimg[type='file']").on('change', function() {
                 id: id   
             }, 
             success:function(d){
+                $('.loadingProcess').addClass('d-none');
+
                 if($.isEmptyObject(d.error)){
                     formdata = new FormData();
                     file = $(".upimg[type='file']").prop('files')[0];
@@ -1839,6 +1861,9 @@ $(".upimgThumbnail[type='file']").on('change', function() {
         let id = $('.drag-drop').data('idproduct');
         var getupdate = localStorage.getItem("product_update_"+id);
         // var json_update = JSON.parse(getupdate);
+
+        $('.loadingProcess').removeClass('d-none');
+
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
@@ -1848,6 +1873,8 @@ $(".upimgThumbnail[type='file']").on('change', function() {
                 id: id   
             }, 
             success:function(d){
+                $('.loadingProcess').addClass('d-none');
+
                 if($.isEmptyObject(d.error)){
                     formdata = new FormData();
                     file = $(".upimgThumbnail[type='file']").prop('files')[0];
@@ -1976,6 +2003,9 @@ $(".replace[type='file']").on('change', function() {
         var getupdate = localStorage.getItem("product_update_"+idproduct);
         // var json_update = JSON.parse(getupdate);
         let id = $('.active-hover').data('id');
+
+        $('.loadingProcess').removeClass('d-none');
+
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
@@ -1985,6 +2015,8 @@ $(".replace[type='file']").on('change', function() {
                 id: idproduct   
             }, 
             success:function(d){
+                $('.loadingProcess').addClass('d-none');
+
                 if($.isEmptyObject(d.error)){
                     formdata = new FormData();
                     file = $(".replace[type='file']").prop('files')[0];
@@ -2152,6 +2184,8 @@ function removeBackground()
     if ($('.drag-drop').hasClass('active-hover')) {
         var getupdate = localStorage.getItem("product_update_"+idproduct);
         // var json_update = JSON.parse(getupdate);
+        $('.loadingProcess').removeClass('d-none');
+
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
@@ -2161,6 +2195,8 @@ function removeBackground()
                 id: idproduct   
             }, 
             success:function(d){
+                $('.loadingProcess').addClass('d-none');
+                
                 if($.isEmptyObject(d.error)){
                     $.ajax({
                         url: 'https://apis.ezpics.vn/apis/removeBackgroundLayer',
@@ -2361,6 +2397,8 @@ function createLayerVariableText()
         let idproduct = $('.drag-drop').data('idproduct');
         var getupdate = localStorage.getItem("product_update_"+idproduct);
         // var json_update = JSON.parse(getupdate);
+        $('.loadingProcess').removeClass('d-none');
+
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
@@ -2370,6 +2408,8 @@ function createLayerVariableText()
                 id: idproduct   
             }, 
             success:function(d){
+                $('.loadingProcess').addClass('d-none');
+                
                 if($.isEmptyObject(d.error)){
                     $.ajax({
                         url: 'https://apis.ezpics.vn/apis/createLayerVariable',
@@ -2415,6 +2455,8 @@ function createLayerVariableImage()
         let idproduct = $('.drag-drop').data('idproduct');
         var getupdate = localStorage.getItem("product_update_"+idproduct);
         // var json_update = JSON.parse(getupdate);
+        $('.loadingProcess').removeClass('d-none');
+
         $.ajax({
             url: 'https://apis.ezpics.vn/apis/savelayer',
             dataType: 'json',
@@ -2424,6 +2466,8 @@ function createLayerVariableImage()
                 id: idproduct   
             }, 
             success:function(d){
+                $('.loadingProcess').addClass('d-none');
+
                 if($.isEmptyObject(d.error)){
                     $.ajax({
                         url: 'https://apis.ezpics.vn/apis/createLayerVariable',

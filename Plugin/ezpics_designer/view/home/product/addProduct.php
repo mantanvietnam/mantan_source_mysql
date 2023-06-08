@@ -40,9 +40,9 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label">Kích cỡ mẫu thiết kế (*)</label>
+                    <label class="form-label">Kích cỡ mẫu thiết kế</label>
                     <div class="input-group input-group-merge">
-                      <select class="form-select" name="size" id="size" required>
+                      <select class="form-select" name="size" id="size">
                         <option value="">Theo ảnh nền</option>
                         <?php 
                           $sizes = getSizeProduct();

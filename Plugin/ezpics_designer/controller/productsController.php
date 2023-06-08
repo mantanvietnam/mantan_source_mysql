@@ -589,4 +589,46 @@ function detailProduct($input)
 
 	setVariable('link_open_app', $link_open_app);
 }
+
+function createImageSeries($input)
+{
+	global $controller;
+	global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMembers = $controller->loadModel('Members');
+
+	$link_open_app = '';
+	
+	if(!empty($input['request']->getAttribute('params')['pass'][1])){
+		$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = explode('-', $slug);
+		$count = count($slug)-1;
+		$id = (int) $slug[$count];
+
+		$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+			$user = $modelMembers->get($product->user_id);
+
+			if(!empty($product->thumbnail)){
+				$product->image = $product->thumbnail;
+			}
+
+			$metaTitleMantan = 'Mẫu thiết kế: '.$product->name;
+			$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
+			$metaImageMantan = $product->image;
+
+			setVariable('product', $product);
+			setVariable('user', $user);
+		}else{
+			return $controller->redirect('https://ezpics.vn');
+		}
+	}else{
+		return $controller->redirect('https://ezpics.vn');
+	}
+}
 ?>

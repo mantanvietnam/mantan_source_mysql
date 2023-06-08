@@ -898,6 +898,7 @@ function zipThumb($input)
 function createThumb(){
     global $session;
     global $controller;
+    global $urlCreateImage;
 
     $modelProduct = $controller->loadModel('Products');
 
@@ -905,7 +906,7 @@ function createThumb(){
         $product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
 
         if(!empty($product)){
-            $url = 'http://14.225.238.137:3000/convert?url=https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id'].'&width='.$product->width.'&height='.$product->height;
+            $url = $urlCreateImage.'?url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id']).'&width='.$product->width.'&height='.$product->height;
 
             $data = file_get_contents($url);
 

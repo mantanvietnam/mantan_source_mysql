@@ -244,6 +244,6 @@ function fixSize($input)
 		$modelProducts->save($item);
 	}
 	*/
-	
-	echo 'done';
+	//echo getKey(23);
+	//echo 'done';
 }

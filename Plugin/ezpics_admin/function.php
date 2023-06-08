@@ -1,5 +1,8 @@
 <?php 
 global $keyFirebase;
+global $urlCreateImage;
+
+$urlCreateImage = 'http://14.225.238.137:3000/convert';
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 

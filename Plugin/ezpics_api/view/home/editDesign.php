@@ -462,7 +462,7 @@
 	                        </div>
 	                        <div class="content-action" id="thaotac"> 
 	                            <div class="t-action-popup text-center">
-	                                <span>Thao tác</span>
+	                                <span>Thêm mới layer</span>
 	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
 	                            </div>
 	                            <div class="list-chang-replace">

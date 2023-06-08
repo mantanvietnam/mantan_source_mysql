@@ -83,12 +83,12 @@ function listDesignRegistrationAdmin($input){
     setVariable('listData', $listData);
 }
 
-function addDesignRegistrationAdmin($input){
-
-
+function addDesignRegistrationAdmin($input)
+{
 	global $controller;
 	global $isRequestPost;
 	global $metaTitleMantan;
+    global $urlCreateImage;
 
     $metaTitleMantan = 'Thông tin đăng kí design';
 
@@ -107,7 +107,26 @@ function addDesignRegistrationAdmin($input){
             debug($member);
             die;*/
             if(@$dataSend['status']=='Duyệt'){
-                
+                $url = $urlCreateImage.'?width=5242&height=3704&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
+
+                $dataImage = file_get_contents($url);
+
+                if(!empty($dataImage)){
+                    $name = __DIR__.'/../../../upload/admin/images/'.$member->id.'/certificate_'.$member->id.'.png';
+
+                    if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$member->id )) {
+                        mkdir(__DIR__.'/../../../upload/admin/images/'.$member->id, 0755, true);
+                    }
+                    
+                    // unlink($name);
+
+                    file_put_contents($name, base64_decode($dataImage));
+
+                    $image = 'https://admin.ezpics.vn/upload/admin/images/'.$member->id.'/certificate_'.$member->id.'.png?time='.time();
+
+                    $member->certificate = $image;
+                }
+
                 $member->type = 1;
                 $data->status = 1;
                 $modelmember->save($member);

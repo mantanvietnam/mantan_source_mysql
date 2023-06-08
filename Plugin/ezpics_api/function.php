@@ -6,6 +6,9 @@ global $account_holders_bank;
 global $link_qr_bank;
 global $key_transaction;
 global $keyFirebase;
+global $urlCreateImage;
+
+$urlCreateImage = 'http://14.225.238.137:3000/convert';
 
 $number_bank = '06931228668';
 $name_bank = 'Tiên Phong Bank (TPB)';
@@ -758,8 +761,8 @@ function getLayertext($stt, $type = 'text', $content= '' , $color = '',$size = '
        'grayscale' => "0",
        'gradient'=>0,
        'sort' => $stt,
-       'postion_left'=>,
-       'postion_top'=>,
+       'postion_left'=>30,
+       'postion_top'=>30,
        'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']]
     ];
 }
