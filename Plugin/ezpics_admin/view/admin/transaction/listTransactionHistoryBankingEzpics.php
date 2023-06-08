@@ -48,7 +48,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Giao dịch nạp tiền</h5>
+    <h5 class="card-header">Giao dịch nạp tiền - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -58,6 +58,7 @@
             <th>Mã giao dịch</th>
             <th>Số tiền</th>
             <th>Người dùng</th>
+            <th>Nội dung</th>
             <th>Trạng thái</th>
           </tr>
         </thead>
@@ -81,7 +82,7 @@
                           '.$item->member->phone.'<br/>
                           '.$item->member->email.'
                         </td>
-                        
+                        <td>'.$item->note.'</td>
                         <td>'.$status.'</td>
                         
                         

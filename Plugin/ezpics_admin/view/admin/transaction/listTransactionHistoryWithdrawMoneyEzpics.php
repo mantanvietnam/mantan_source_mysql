@@ -48,7 +48,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Giao dịch rút tiền</h5>
+    <h5 class="card-header">Giao dịch rút tiền - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

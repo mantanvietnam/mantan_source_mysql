@@ -90,6 +90,7 @@ function listTransactionHistoryBankingEzpics($input)
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
+    setVariable('totalData', $totalData);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
@@ -190,6 +191,7 @@ function listTransactionHistoryBuyProductEzpics($input)
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
+    setVariable('totalData', $totalData);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
@@ -288,6 +290,7 @@ function listTransactionHistoryWithdrawMoneyEzpics($input)
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
+    setVariable('totalData', $totalData);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
@@ -388,6 +391,7 @@ function listTransactionHistorySellingDesignsEzpics($input)
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
+    setVariable('totalData', $totalData);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
@@ -487,6 +491,7 @@ function listTransactionHistoryRemoveImageEzpics($input)
     }
 
     setVariable('page', $page);
+    setVariable('totalData', $totalData);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
     setVariable('next', $next);
@@ -581,6 +586,7 @@ function listTransactionHistoryDiscountProductEzpics($input)
     }
 
     setVariable('page', $page);
+    setVariable('totalData', $totalData);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
     setVariable('next', $next);

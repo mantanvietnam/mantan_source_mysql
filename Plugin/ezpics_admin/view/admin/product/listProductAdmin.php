@@ -123,7 +123,7 @@
                    <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn hủy hiển thị mẫu thiết kế không ?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0&page='.@$_GET['page'].'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
                    ';
 
-                   $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn btn-primary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')">Link chia sẻ</button>';
+                   $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
                 }
 
                 $thumbnail = '';

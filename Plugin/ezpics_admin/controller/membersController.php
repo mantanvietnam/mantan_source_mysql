@@ -49,6 +49,15 @@ function listMemberAdmin($input)
 		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 	}
 
+	$conditiontoday['created_at >='] = date('Y-m-d').' 00:00:00';
+	$conditiontoday['created_at <='] = date('Y-m-d H:i:s');
+
+	
+
+	 $totalDatatoday = $modelMembers->find()->where($conditiontoday)->all()->toList();
+    $totalDatatoday = count($totalDatatoday);
+
+
     $listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
     $totalData = $modelMembers->find()->where($conditions)->all()->toList();
@@ -99,6 +108,7 @@ function listMemberAdmin($input)
     }
 
     setVariable('page', $page);
+    setVariable('totalDatatoday', $totalDatatoday);
     setVariable('totalPage', $totalPage);
     setVariable('totalData', $totalData);
     setVariable('back', $back);
@@ -226,7 +236,7 @@ function addMoneyManager($input){
                 $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
                 $order->created_at = date('Y-m-d H:i:s');
-                $order->note = @$dataSend['note'];
+                $order->note = 'bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
                 
                 $modelOrder->save($order);
 
@@ -241,10 +251,11 @@ function addMoneyManager($input){
                 $order->meta_payment = $data->phone.' ezpics '.$order->code;
                 $order->payment_type = 1;
                 $order->total = (int)  $dataSend['coin'];
+                $order->note = 'bạn bị trừ tiền trong admin';
                 $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
                 $order->created_at = date('Y-m-d H:i:s');
-                $order->note = @$dataSend['note'];
+                $order->note = 'bạn bị trừ tiền trong admin lý do trừ là:  '.@$dataSend['note'];
                 
                 $modelOrder->save($order);
 

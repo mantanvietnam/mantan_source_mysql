@@ -309,6 +309,9 @@ function listBaddesignAdmin($input){
 
     $metaTitleMantan = 'Thông tin đăng kí design';
 
+    $modelMembers = $controller->loadModel('Members');
+    $modelProducts = $controller->loadModel('Products');
+
     $modelContact = $controller->loadModel('contact');
     
     $conditions = array();
@@ -328,6 +331,8 @@ function listBaddesignAdmin($input){
             $conditions_scan = array('id'=>$value->id);
             $static = $modelContact->find()->where($conditions_scan)->all()->toList();
             $listData[$key]->number_scan = count($static);
+            $listData[$key]->product = $modelProducts->get($value->meta);
+            $listData[$key]->user = $modelMembers->get($listData[$key]->product->user_id);
         }
     }
 
@@ -373,6 +378,7 @@ function listBaddesignAdmin($input){
 
         $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
     }
+
 
     setVariable('mess', @$mess);
     setVariable('page', $page);
@@ -447,3 +453,4 @@ function deleteBaddesignAdmin($input){
     return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listBaddesignAdmin.php?status=3');
 }
  ?>
+

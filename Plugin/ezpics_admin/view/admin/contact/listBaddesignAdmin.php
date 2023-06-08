@@ -43,13 +43,13 @@
             <th>ảnh</th>
             <th>Thông tin</th>
             <th>Nội dung</th> 
+            <th>Mẫu thiết kế</th> 
             <th>Xóa</th> 
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
-               //debug($listData);
               foreach ($listData as $item) {
                 $Member = getMember($item->customer_id);
               if($item->status==1){
@@ -60,11 +60,17 @@
                   $status = 'chưa xử lý';
               }
 
+               $product = '';
+                if(!empty($item->product)){
+                  $product = '<img src="'.$item->product->image.'" width="100" /><br/><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->product->id.'&token='.$item->user->token.'">ID: '.$item->product->id.'</a>';
+                }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.@$Member->avatar.'" width="100" height="100" ></td>
                         <td>'.@$Member->name.'<br>'.@$Member->email.'<br>'.@$Member->phone.'</td>
-                        <td>'.$item->content.'</td>
+                        <td>'.@$item->content.'</td>
+                        <td>'.@$product.'</td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-contact-deleteBaddesignAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>

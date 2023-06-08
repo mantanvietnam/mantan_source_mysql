@@ -65,7 +65,14 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách người dùng - <b class="text-danger"><?php echo number_format($totalData);?></b> người dùng</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="card-header">Danh sách người dùng - <b class="text-danger"><?php echo number_format($totalData);?></b> người dùng</h5>
+      </div>
+      <div class="col-md-6">
+        <h5 class="card-header" style="float: right;">Người dùng đăng ký ngày hôm nay - <b class="text-danger"><?php echo number_format($totalDatatoday);?></b> người dùng</h5>
+      </div>
+    </div>
      <p><?php echo @$mess;?></p>  
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -104,7 +111,8 @@
                           '.$item->name.'<br/>
                           '.$item->phone.'<br/>
                           '.$item->email.'<br/>
-                          thời gian đăng nhập: '.$item->last_login.'
+                          Đăng ký: '.$item->created_at.'<br/>
+                          Đăng nhập lần cuối lúc: '.$item->last_login.'
                         </td>
                         <td>'.number_format($item->account_balance).'đ</td>
                         <td>'.$type.'</td>
