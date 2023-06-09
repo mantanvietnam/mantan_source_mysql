@@ -15,17 +15,6 @@
 			</div>
 			<?php
 				if(!empty($product)){
-					if($product->sale_price==0){
-						$sale_price = 'Miễn phí';
-					}else{
-						$sale_price = number_format($product->sale_price).'đ';
-					}
-
-					if($product->price>0){
-						$sale_price .= ' <del>'.number_format($product->price).'đ</del>';
-					}
-
-					$description = (!empty($product->description))?nl2br($product->description):'';
 
 					echo '	<div class="col-12 col-xs-12 col-sm-12 col-md-2 col-lg-2">
 							</div>
@@ -37,9 +26,8 @@
 								<p>Tác giả: '.$user->name.'</p>
 								<p>Lượt xem: '.number_format($product->views).'</p>
 								<p>Đã bán: '.number_format($product->sold).'</p>
-								<p>Giá bán: '.$sale_price.'</p>
-								'.$description.'
-								<p><a class="btn btn-danger" href="'.$link_open_app.'">Mua mẫu ngay</a></p>
+								
+								<a class="btn btn-danger" href="">Nhập thông tin</a>
 							</div>';
 				}else{
 

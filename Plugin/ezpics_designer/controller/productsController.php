@@ -454,6 +454,7 @@ function addProduct($input)
 		        $data->category_id = $dataSend['category_id'];
 		        $data->thumbnail = $thumbnailUser;
 		        $data->keyword = $dataSend['keyword'];
+		        $data->description = $dataSend['description'];
 
 		        if(empty($dataSend['size'])){
 		        	$sizeThumb = getimagesize($thumb);
@@ -572,7 +573,7 @@ function detailProduct($input)
 			$metaDescriptionMantan = 'Mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' đang được bán trên Ezpics với giá '.number_format($product->sale_price).'đ';
 			$metaImageMantan = $product->image;
 
-			if($product->type == 'user_create' && $product->status == 1){
+			if($product->type == 'user_create' && $product->status == 2){
 				$link_open_app =  (!empty($product->link_open_app))?$product->link_open_app:'https://ezpics.page.link/vn1s';
 			}else{
 				$link_open_app =  'https://ezpics.page.link/vn1s';

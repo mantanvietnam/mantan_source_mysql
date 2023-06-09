@@ -590,7 +590,10 @@ global $urlThemeActive;
                 <div class="article-space"></div>
             </div>
            
-            <?php include("findnear.php"); ?>
+            <?php 
+                //include("findnear_google_map.php"); 
+                include("findnear_openstreet_map.php"); 
+            ?>
         </div>
 
         <div id="viet-nam-360">
