@@ -549,8 +549,10 @@ function listTransactionHistoryDiscountProductEzpics($input)
     	foreach ($listData as $key => $value) {
     		
     		$product = $modelProducts->find()->where(['id'=>$value->product_id])->first();
-    		$listData[$key]->member = $modelMembers->get($product->user_id);
-    		$listData[$key]->product = $product;
+    		if(!empty($product)){
+    			$listData[$key]->member = $modelMembers->get($product->user_id);
+    			$listData[$key]->product = $product;
+    		}
     	}
     }
 
