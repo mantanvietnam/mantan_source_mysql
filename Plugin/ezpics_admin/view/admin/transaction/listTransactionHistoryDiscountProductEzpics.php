@@ -83,9 +83,9 @@
                         <td>'.number_format($item->total).'</td>
                         
                         <td>
-                          '.$item->member->name.'<br/>
-                          '.$item->member->phone.'<br/>
-                          '.$item->member->email.'
+                          '.@$item->member->name.'<br/>
+                          '.@$item->member->phone.'<br/>
+                          '.@$item->member->email.'
                         </td>
                         
                         <td>'.$product.'</td>
