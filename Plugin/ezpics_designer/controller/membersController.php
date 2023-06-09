@@ -424,6 +424,7 @@ function register($input)
 					$dataContact->created_at = date('Y-m-d H:i:s');
 
 					$modelContact->save($dataContact);
+					sendNotificationAdmin('6479b759179eba65139297da');
 
 			    	$mess = '<p class="text-success">Yêu cầu đăng ký Designer của bạn đã được tạo thành công. Bạn sẽ sử dụng tài khoản của mình sau khi được Ezpics kiểm tra và phê duyệt</p>';
 					

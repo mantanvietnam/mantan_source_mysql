@@ -248,6 +248,7 @@ function listlikegetcustom($input){
                         'id'=> @$Governance->id,
                         'name'=> @$Governance->name,
                         'address'=> @$Governance->address,
+                        'image' =>@$Governance->image,
                         'type'=> "co_quan_hanh_chinh",
                     );
                 }
@@ -259,6 +260,7 @@ function listlikegetcustom($input){
                     'id'=> @$Service->id,
                     'name'=> @$Service->name,
                     'address'=> @$Service->address,
+                    'image' =>@$Service->image,
                     'type'=> "dich_vu_ho_tro_du_lich",
                 );
                }
@@ -269,6 +271,7 @@ function listlikegetcustom($input){
                         'id'=> @$Place->id,
                         'name'=> @$Place->name,
                         'address'=> @$Place->address,
+                        'image' =>@$Place->image,
                         'type'=> "danh_lam",
                     );
                 }
@@ -279,6 +282,7 @@ function listlikegetcustom($input){
                     'id'=> @$Festival->id,
                     'name'=> @$Festival->name,
                     'address'=> @$Festival->address,
+                    'image' =>@$Festival->image,
                     'type'=> "le_hoi",
                     );
                }
@@ -289,6 +293,7 @@ function listlikegetcustom($input){
                         'id'=> @$Restaurant->id,
                         'name'=> @$Restaurant->name,
                         'address'=> @$Restaurant->address,
+                        'image' =>@$Restaurant->image,
                         'type'=> "nha_hang",
                     );
                 }
@@ -299,6 +304,7 @@ function listlikegetcustom($input){
                         'id'=> @$Eventcenter->id,
                         'name'=> @$Eventcenter->name,
                         'address'=> @$Eventcenter->address,
+                        'image' => @$Eventcenter->image,
                         'type'=> "tung_tam_hoi_nghi_su_kien",
                     );
                     }
@@ -309,6 +315,7 @@ function listlikegetcustom($input){
                         'id'=> @$Historical->id,
                         'name'=> @$Historical->name,
                         'address'=> @$Historical->address,
+                        'image' => @$Historical->image,
                         'type'=> "di_tich_lich_su",
                     );
                 }
@@ -319,6 +326,7 @@ function listlikegetcustom($input){
                     'id'=> @$Hotel['data']['Hotel']['id'],
                     'name'=> @$Hotel['data']['Hotel']['name'],
                     'address'=> @$Hotel['data']['Hotel']['address'],
+                    'image' => @$Hotel['data']['Hotel']['image'][0],
                     'type'=> "khach_san",
                     );
                 }

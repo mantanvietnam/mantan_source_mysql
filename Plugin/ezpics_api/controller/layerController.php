@@ -13,22 +13,32 @@ function deleteLayerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$datalayer = $modelProductDetail->get($dataSend['idlayer']);
-		if ($datalaye->products_id == $dataSend['idproduct']) {
-			// lấy sản phẩn 
-			$dataProduct = $modelProduct->get($dataSend['idproduct']);
-			// lấy tk người dùng 
-			$dataMembr = $modelMember->get($dataProduct->user_id);
-			if ($dataMembr->token == $dataSend['token']) {
-				$modelProductDetail->delete($datalayer);
-				$return = array('code'=>1, 'mess'=>'bạn xóa layer thành công');
-				getLayerProductForEdit($dataSend['idproduct']);
-				
+		$datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer']))->first();
+
+		if(!empty(@$datalayer)){
+			if (@$datalayer->products_id == @$dataSend['idproduct']) {
+				// lấy sản phẩn 
+				$dataProduct = $modelProduct->get($dataSend['idproduct']);
+				// lấy tk người dùng 
+				$dataMembr = $modelMember->get($dataProduct->user_id);
+				if ($dataMembr->token == $dataSend['token']) {
+					$modelProductDetail->delete($datalayer);
+					
+					getLayerProductForEdit($dataSend['idproduct']);
+					$return = array('code'=>1, 'mess'=>'bạn xóa layer thành công');
+					
+				}else{
+				$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
+				}
 			}else{
-			$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
-			}
+				$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+			}	
+		}else{
+			$return = array('code'=>0, 'mess'=>'Id layer không tồn tại');
 		}
-	}
+	}else{
+			$return = array('code'=>0, 'mess'=>'bạn chưa có giữ liệu truyền vào');
+		}
 	return $return;
 }
 
@@ -41,35 +51,49 @@ function saveLayerAPI($input){
 
 	$modelMember = $controller->loadModel('Members');
 	$modelProduct = $controller->loadModel('Products');
-	$modelProductDetail = $controller->loadModel('ProductDetails');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
 	$modelFont = $controller->loadModel('Font');
 	$return = array('code'=>0);
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$dataProduct = $modelProduct->get($dataSend['idproduct']);
+		$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
+		if(!empty($dataProduct)){
+
 			// lấy tk người dùng 
 			$dataMembr = $modelMember->get($dataProduct->user_id);
+
+
 			if ($dataMembr->token == $dataSend['token']) {
+				$productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+		            $idlayer = count($productDetail)+1;
 				
 				$datalayer = $modelProductDetail->newEmptyEntity();
+				$datalayer->name =  'layer '.$idlayer;
 				$datalayer->content = $dataSend['layer'];
 				$datalayer->wight =  @$dataSend['wight'];
 				$datalayer->height =  @$dataSend['height'];
 				$datalayer->sort =  @$dataSend['sort'];
-				$datalayer->products_id =  @$dataSend['idproduct'];
+				$datalayer->products_id = (int) @$dataSend['idproduct'];
 				$datalayer->status = 1;
+				$datalayer->created_at = date('Y-m-d H:i:s');
 
 				$modelProductDetail->save($datalayer);
+
 				getLayerProductForEdit($dataSend['idproduct']);
 				$return = array('code'=>1, 'mess'=>'bạn thêm layer thành công');
 				
 			}else{
-			$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
+			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 			}
+		}else{
+			$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+		}
 
-	}
+	}else{
+			$return = array('code'=>0, 'mess'=>'bạn chưa có giữ liệu truyền vào');
+		}
 	return $return;
 }
  
@@ -89,30 +113,35 @@ function updatelyerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$dataProduct = $modelProduct->get($dataSend['idproduct']);
+		$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
+		if(!empty($dataProduct)){
 			// lấy tk người dùng 
 			$dataMembr = $modelMember->get($dataProduct->user_id);
 			if ($dataMembr->token == $dataSend['token']) {
-				$datalayer = $modelProductDetail->get($dataSend['idlayer']);
-				 $content = json_decode($datalayer->content, true);
+				$datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id'=>$dataSend['idproduct']))->first();
 
-            	$content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
+				if(!empty($datalayer)){
+					$content = json_decode($datalayer->content, true);
 
-            	$datalayer->content = json_encode($content);
-				$datalayer->wight =  @$dataSend['wight'];
-				$datalayer->height =  @$dataSend['height'];
-				$datalayer->sort =  @$dataSend['sort'];
-				$datalayer->products_id =  @$dataSend['idproduct'];
-				$datalayer->status = 1;
+	            	$content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
 
-				// lưu data 
-				$modelProductDetail->save($datalayer);
-				getLayerProductForEdit($dataSend['idproduct']);
-				$return = array('code'=>1, 'mess'=>'bạn sửa layer thành công');
+	            	$datalayer->content = json_encode($content);
+					$datalayer->status = 1;
+
+					// lưu data 
+					$modelProductDetail->save($datalayer);
+					getLayerProductForEdit($dataSend['idproduct']);
+					$return = array('code'=>1, 'mess'=>'bạn sửa layer thành công');
+				}else{
+					$return = array('code'=>0, 'mess'=>'Layer bạn không dúng');
+				}
 				
 			}else{
-			$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
+				$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 			}
+		}else{
+			$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+		}
 
 	}
 	return $return;
@@ -135,17 +164,25 @@ function listLayerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$dataProduct = $modelProduct->get($dataSend['idproduct']);
-			// lấy tk người dùng 
-			$dataMembr = $modelMember->get($dataProduct->user_id);
-			if ($dataMembr->token == $dataSend['token']) {
-				$datalayer = $modelProductDetail->find()->where(array('products_id' => $dataSend['idproduct']))->all()->toList();
 
-				$return = array('code'=>1,
-								'data'=> $datalayer,
-				 				'mess'=>'bạn lấy data thành công',
-				 			);
 
+		$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
+			if(!empty($dataProduct)){
+				// lấy tk người dùng 
+				$dataMembr = $modelMember->get($dataProduct->user_id);
+				if ($dataMembr->token == $dataSend['token']) {
+					$datalayer = $modelProductDetail->find()->where(array('products_id' => $dataSend['idproduct']))->all()->toList();
+
+					$return = array('code'=>1,
+									'data'=> $datalayer,
+					 				'mess'=>'bạn lấy data thành công',
+					 			);
+
+				}else{
+					$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+				}
+			}else{
+				$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
 			}
 
 	}
@@ -218,7 +255,7 @@ function addLayerImageAPI($input){
 		    } 
 
 		}
-	}
+	
 	return $return;
 
 }
@@ -248,7 +285,7 @@ function changeLayerImageAPI(){
 			     $tyle = $sizeBackground[0]*100/(int)$dataSend['width'];
 				            if($tyle>30) $tyle = 30;
 
-			    $datalayer = $modelProductDetail->get($dataSend['idlayer']);
+			    $datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id'=>$dataSend['idproduct']))->first();
 			    if(!empty($datalayer)){
 				    $datalayer->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
 
@@ -384,40 +421,5 @@ function addLayerText(){
 	return $return;
 
 }
-
-function updateLayerAPI($input)
-{
-    global $session;
-    global $isRequestPost;
-    global $controller;
-
-    $modelProduct = $controller->loadModel('Products');
-    $modelProductDetail = $controller->loadModel('ProductDetails');
-
-    if(!empty($session->read('infoUser')) && $isRequestPost){
-        $dataSend = $input['request']->getData();
-        
-        $item =  $modelProductDetail->find()->where(array('id'=>$dataSend['id'], 'products_id'=>$dataSend['idproduct']))->first();
-        
-        if(!empty($item)){
-            $content = json_decode($item->content, true);
-
-            $content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
-
-            $item->content = json_encode($content);
-
-            $modelProductDetail->save($item);
-
-            return getLayerProductForEdit($dataSend['idproduct']); 
-        }else{
-            return ['error' => ['Layer '.$idlayer.' không tồn tại']]; 
-        }
-
-        return ['data' => ['Đã câp nhật']]; 
-    }else{
-        return ['error' => ['Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn']]; 
-    } 
-}
-
 
 ?>
