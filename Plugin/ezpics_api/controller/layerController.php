@@ -12,8 +12,10 @@ function deleteLayerAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
+		$conditions =array();
+		$conditions['id'] =  $dataSend['idlayer'];
 
-		$datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer']))->first();
+		$datalayer = $modelProductDetail->find()->where($conditions)->first();
 
 		if(!empty(@$datalayer)){
 			if (@$datalayer->products_id == @$dataSend['idproduct']) {
@@ -28,7 +30,7 @@ function deleteLayerAPI($input){
 					$return = array('code'=>1, 'mess'=>'bạn xóa layer thành công');
 					
 				}else{
-				$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
+				$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 				}
 			}else{
 				$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
@@ -98,7 +100,7 @@ function saveLayerAPI($input){
 }
  
 // update layer 
-function updatelyerAPI($input){
+function updateLayerAPI($input){
 
 	global $isRequestPost;
 	global $controller;
@@ -164,9 +166,8 @@ function listLayerAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-
-
 		$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
+
 			if(!empty($dataProduct)){
 				// lấy tk người dùng 
 				$dataMembr = $modelMember->get($dataProduct->user_id);
@@ -243,7 +244,7 @@ function addLayerImageAPI($input){
 		            $modelProductDetail->save($new);
 		                
 		             getLayerProductForEdit($dataSend['idproduct']);
-		             $return = array('code'=>1, 'mess'=>'bạn sửa layer thành công');
+		             $return = array('code'=>1, 'mess'=>'bạn thêm ảnh thành công');
 				
 		        }else{
 		           $return = array('code'=>0, 'mess'=>'bạn không có ảnh');
@@ -327,7 +328,6 @@ function changeLayerImageNew($input){
             $thumbnail = uploadImage($user->id, 'file');
 
 	            if(!empty($thumbnail['linkOnline'])){
-		            $dataSend = $input['request']->getData();
 
 		            $f = $modelManagerFile->newEmptyEntity();
 		            
@@ -377,7 +377,7 @@ function changeLayerImageNew($input){
 }
 
 // addLayerText
-function addLayerText(){
+function addLayerText($input){
 
 
 	global $isRequestPost;
@@ -393,29 +393,103 @@ function addLayerText(){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$dataProduct = $modelProduct->get($dataSend['idproduct']);
-		$productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
-		$idlayer = count($productDetail)+1;
-			// lấy tk người dùng 
-			$dataMembr = $modelMember->get($dataProduct->user_id);
-			if ($dataMembr->token == $dataSend['token']) {
-				
-				$datalayer = $modelProductDetail->newEmptyEntity();
-				$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], $dataSend['wight'], $dataSend['height']));
-				$datalayer->wight =  @$dataSend['wight'];
-				$datalayer->name =  'layer '.$idlayer;
-				$datalayer->height =  @$dataSend['height'];
-				$datalayer->sort =  @$dataSend['sort'];
-				$datalayer->products_id =  @$dataSend['idproduct'];
-				$datalayer->status = 1;
+		$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
 
-				$modelProductDetail->save($datalayer);
-				getLayerProductForEdit($dataSend['idproduct']);
-				$return = array('code'=>1, 'mess'=>'bạn thêm layer thành công');
-				
-			}else{
-			$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
-			}
+		if(!empty($dataProduct)){
+			$productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+			$idlayer = count($productDetail)+1;
+				// lấy tk người dùng 
+				$dataMembr = $modelMember->get($dataProduct->user_id);
+				if ($dataMembr->token == $dataSend['token']) {
+					
+					$datalayer = $modelProductDetail->newEmptyEntity();
+					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], $dataSend['wight'], $dataSend['height']));
+					$datalayer->wight =  @$dataSend['wight'];
+					$datalayer->name =  'layer '.$idlayer;
+					$datalayer->height =  @$dataSend['height'];
+					$datalayer->sort =  @$dataSend['sort'];
+					$datalayer->products_id =  @$dataSend['idproduct'];
+					$datalayer->status = 1;
+
+					$modelProductDetail->save($datalayer);
+					getLayerProductForEdit($dataSend['idproduct']);
+					$return = array('code'=>1, 'mess'=>'bạn thêm layer thành công');
+					
+				}else{
+				$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
+				}
+		}else{
+			$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+		}
+	}
+	return $return;
+
+}
+
+// líst ảnh 
+function listImage($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+	$modelMember = $controller->loadModel('Members');
+	
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+		if(!empty($user)){
+			$dataImage = $modelManagerFile->find()->where(array('user_id' => $user->id))->all()->toList();
+
+					$return = array('code'=>1,
+									'data'=> $dataImage,
+					 				'mess'=>'bạn lấy data thành công',
+					 			);
+
+
+		}else{
+					$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+				}
+
+	}
+	return $return;
+
+}
+
+// líst font chữa 
+function listFont($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+
+	$modeFont = $controller->loadModel('Font');
+	$modelMember = $controller->loadModel('Members');
+	
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+		if(!empty($user)){
+			$dataImage = $modeFont->find()->where(array())->all()->toList();
+
+					$return = array('code'=>1,
+									'data'=> $dataImage,
+					 				'mess'=>'bạn lấy data thành công',
+					 			);
+
+
+		}else{
+					$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+				}
 
 	}
 	return $return;

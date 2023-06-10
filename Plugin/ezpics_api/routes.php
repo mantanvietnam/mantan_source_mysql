@@ -104,8 +104,11 @@
 
 	//Layer
 	$routesPlugin['deleteLayerAPI']= 'ezpics_api/view/deleteLayerAPI.php';
+	$routesPlugin['listImage']= 'ezpics_api/view/listImage.php';
+	$routesPlugin['listFont']= 'ezpics_api/view/listFont.php';
 	$routesPlugin['listLayerAPI']= 'ezpics_api/view/listLayerAPI.php';
-	$routesPlugin['updatelyerAPI']= 'ezpics_api/view/updatelyerAPI.php';
+	$routesPlugin['saveLayerAPI']= 'ezpics_api/view/saveLayerAPI.php';
+	$routesPlugin['updateLayerAPI']= 'ezpics_api/view/updateLayerAPI.php';
 	$routesPlugin['addLayerImageAPI']= 'ezpics_api/view/addLayerImageAPI.php';
 	$routesPlugin['changeLayerImageAPI']= 'ezpics_api/view/changeLayerImageAPI.php';
 	$routesPlugin['changeLayerImageNew']= 'ezpics_api/view/changeLayerImageNew.php';
