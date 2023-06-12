@@ -350,8 +350,12 @@ function listBaddesignAdmin($input){
             $conditions_scan = array('id'=>$value->id);
             $static = $modelContact->find()->where($conditions_scan)->all()->toList();
             $listData[$key]->number_scan = count($static);
-            $listData[$key]->product = @$modelProducts->find()->where(array('id'=>$value->meta))->first();
-            $listData[$key]->user = $modelMembers->get($listData[$key]->product->user_id);
+            $product = $modelProducts->find()->where(array('id'=>$value->meta))->first();
+            if(!empty($product)){
+                $listData[$key]->product = $product;
+                $listData[$key]->user = $modelMembers->get($listData[$key]->product->user_id);
+            }
+            
         }
     }
 
