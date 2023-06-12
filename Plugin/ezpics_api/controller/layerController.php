@@ -529,33 +529,41 @@ function copyLayerAPI($input)
 
         $user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 	        if(!empty($user)){
-	        
+	        	$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'],'user_id'=>$user->id))->first();
+
+	        if(!empty($dataProduct)){
 	        // lấy thông tin layer hiện tại
-	        $item =  $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'],'products_id'=>$dataSend['idproduct']))->first();
+		        $item =  $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'],'products_id'=>$dataProduct->id))->first();
+		        if(!empty($item)){
+		        	  // tạo layer mới
+			        $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+			        $idlayer = count($productDetail)+1;
 
-	        // tạo layer mới
-	        $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
-	        $idlayer = count($productDetail)+1;
+			        $content = json_decode($item->content);
+			        $content->text = 'Copy '.$content->text;
 
-	        $content = json_decode($item->content);
-	        $content->text = 'Copy '.$content->text;
+			        $new = $modelProductDetail->newEmptyEntity();   
+			        
+			        $new->name = 'Copy layer '.$idlayer;
+			        $new->products_id = $item->products_id;
+			        $new->content = json_encode($content);
+			        $new->sort = $idlayer;
+			        $new->height = $item->height;
+			        $new->wight = $item->width;
+			        $new->created_at = date('Y-m-d H:i:s');
+			        
+			        $modelProductDetail->save($new);
+			            
+			         getLayerProductForEdit($item->products_id);
 
-	        $new = $modelProductDetail->newEmptyEntity();   
-	        
-	        $new->name = 'Copy layer '.$idlayer;
-	        $new->products_id = $item->products_id;
-	        $new->content = json_encode($content);
-	        $new->sort = $idlayer;
-	        $new->height = $item->height;
-	        $new->wight = $item->width;
-	        $new->created_at = date('Y-m-d H:i:s');
-	        
-	        $modelProductDetail->save($new);
-	            
-	         getLayerProductForEdit($item->products_id);
-
-	         $return = array('code'=>1, 'mess'=>'Bạn copy layer thàng công');
-
+			         $return = array('code'=>1, 'mess'=>'Bạn copy layer thành công');
+			        
+			    }else{
+		        	$return = array('code'=>0, 'mess'=>'Layer này không tồn tại');
+		    	} 
+		    }else{
+		        $return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+		    }
 	    }else{
 	        $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 	    } 
