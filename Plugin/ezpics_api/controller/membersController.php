@@ -510,6 +510,9 @@ function getInfoMemberAPI($input)
 
 	$modelMember = $controller->loadModel('Members');
 
+	$modelProduct = $controller->loadModel('Products');
+	$modelOrder = $controller->loadModel('Orders');
+
 	$return = array('code'=>1);
 	
 	if($isRequestPost){
@@ -518,11 +521,26 @@ function getInfoMemberAPI($input)
 		if(!empty($dataSend['token'])){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
+			
+
+
 			if(!empty($checkPhone)){
 				unset($checkPhone->password);
 				unset($checkPhone->token);
+				if(@$checkPhone->type==1){
+
+					$product = $modelProduct->find()->where(array('user_id' => $checkPhone->id, 'type'=>'user_create','status'=>2))->all()->toList();
+					$checkPhone->listProduct = @$product;
+					$checkPhone->quantityProduct = count(@$product);
+
+					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();
+					$checkPhone->quantitysell  = count(@$Order);
+				}
 				
-				$return = array('code'=>0, 'data'=>$checkPhone);
+				$return = array('code'=>0,
+								 'data'=>$checkPhone,
+								 'messages'=>array(array('text'=>'bạn lấy dữ liệu thành công'))
+								);
 			}else{
 				$return = array('code'=>3,
 									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))

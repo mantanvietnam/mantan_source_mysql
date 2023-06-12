@@ -113,5 +113,7 @@
 	$routesPlugin['changeLayerImageAPI']= 'ezpics_api/view/changeLayerImageAPI.php';
 	$routesPlugin['changeLayerImageNew']= 'ezpics_api/view/changeLayerImageNew.php';
 	$routesPlugin['addNotificationProductAPI']= 'ezpics_api/view/addNotificationProductAPI.php';
+	$routesPlugin['copyLayerAPI']= 'ezpics_api/view/copyLayerAPI.php';
+	$routesPlugin['infoMemberAPI']= 'ezpics_api/view/infoMemberAPI.php';
 	
 ?>

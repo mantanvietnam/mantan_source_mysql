@@ -1,4 +1,5 @@
 <?php 
+// xóa layer
 function deleteLayerAPI($input){
 	global $isRequestPost;
 	global $controller;
@@ -27,7 +28,7 @@ function deleteLayerAPI($input){
 					$modelProductDetail->delete($datalayer);
 					
 					getLayerProductForEdit($dataSend['idproduct']);
-					$return = array('code'=>1, 'mess'=>'bạn xóa layer thành công');
+					$return = array('code'=>1, 'mess'=>'Bạn xóa layer thành công');
 					
 				}else{
 				$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
@@ -36,10 +37,10 @@ function deleteLayerAPI($input){
 				$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
 			}	
 		}else{
-			$return = array('code'=>0, 'mess'=>'Id layer không tồn tại');
+			$return = array('code'=>0, 'mess'=>'layer không tồn tại');
 		}
 	}else{
-			$return = array('code'=>0, 'mess'=>'bạn chưa có giữ liệu truyền vào');
+			$return = array('code'=>0, 'mess'=>'Bạn chưa có giữ liệu truyền vào');
 		}
 	return $return;
 }
@@ -74,9 +75,8 @@ function saveLayerAPI($input){
 				$datalayer = $modelProductDetail->newEmptyEntity();
 				$datalayer->name =  'layer '.$idlayer;
 				$datalayer->content = $dataSend['layer'];
-				$datalayer->wight =  @$dataSend['wight'];
+				$datalayer->wight =  @$dataSend['widht'];
 				$datalayer->height =  @$dataSend['height'];
-				$datalayer->sort =  @$dataSend['sort'];
 				$datalayer->products_id = (int) @$dataSend['idproduct'];
 				$datalayer->status = 1;
 				$datalayer->created_at = date('Y-m-d H:i:s');
@@ -84,17 +84,17 @@ function saveLayerAPI($input){
 				$modelProductDetail->save($datalayer);
 
 				getLayerProductForEdit($dataSend['idproduct']);
-				$return = array('code'=>1, 'mess'=>'bạn thêm layer thành công');
+				$return = array('code'=>1, 'mess'=>'Bạn thêm layer thành công');
 				
 			}else{
 			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 			}
 		}else{
-			$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+			$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 		}
 
 	}else{
-			$return = array('code'=>0, 'mess'=>'bạn chưa có giữ liệu truyền vào');
+			$return = array('code'=>0, 'mess'=>'Bạn chưa có giữ liệu truyền vào');
 		}
 	return $return;
 }
@@ -133,7 +133,7 @@ function updateLayerAPI($input){
 					// lưu data 
 					$modelProductDetail->save($datalayer);
 					getLayerProductForEdit($dataSend['idproduct']);
-					$return = array('code'=>1, 'mess'=>'bạn sửa layer thành công');
+					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				}else{
 					$return = array('code'=>0, 'mess'=>'Layer bạn không dúng');
 				}
@@ -142,7 +142,7 @@ function updateLayerAPI($input){
 				$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 			}
 		}else{
-			$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+			$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 		}
 
 	}
@@ -176,14 +176,14 @@ function listLayerAPI($input){
 
 					$return = array('code'=>1,
 									'data'=> $datalayer,
-					 				'mess'=>'bạn lấy data thành công',
+					 				'mess'=>'Bạn lấy data thành công',
 					 			);
 
 				}else{
 					$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+				$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 			}
 
 	}
@@ -225,33 +225,37 @@ function addLayerImageAPI($input){
 		            $idlayer = count($productDetail)+1;
 
 		            // layer mới
-		            $product = $modelProduct->get($dataSend['idproduct']);
-		            $sizeBackground = getimagesize($product->thumn);
+		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
+		            if(!empty($product)){
+			            $sizeBackground = getimagesize($product->thumn);
 
-		            $tyle = $sizeBackground[0]*100/(int)$dataSend['width'];
-		            if($tyle>30) $tyle = 30;
+			            $tyle = $sizeBackground[0]*100/(int)(isset($dataSend['width']))? $dataSend['width']:100;
+			            if($tyle>30) $tyle = 30;
 
-		            $new = $modelProductDetail->newEmptyEntity();
-		            
-		            $new->name = 'Layer '.$idlayer;
-		            $new->products_id = $dataSend['idproduct'];
-		            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
-		            $new->sort = $idlayer;
-		            $new->height = $tyle;
-		            $new->wight = $tyle;
-		            $new->created_at = date('Y-m-d H:i:s');
-		            
-		            $modelProductDetail->save($new);
-		                
-		             getLayerProductForEdit($dataSend['idproduct']);
-		             $return = array('code'=>1, 'mess'=>'bạn thêm ảnh thành công');
+			            $new = $modelProductDetail->newEmptyEntity();
+			            
+			            $new->name = 'Layer '.$idlayer;
+			            $new->products_id = $dataSend['idproduct'];
+			            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
+			            $new->sort = $idlayer;
+			            $new->height = $tyle;
+			            $new->wight = $tyle;
+			            $new->created_at = date('Y-m-d H:i:s');
+			            
+			            $modelProductDetail->save($new);
+			                
+			             getLayerProductForEdit($dataSend['idproduct']);
+			             $return = array('code'=>1, 'mess'=>'Bạn thêm ảnh thành công');
+			         }else{
+			        	 $return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+			        }
 				
 		        }else{
-		           $return = array('code'=>0, 'mess'=>'bạn không có ảnh');
+		           $return = array('code'=>0, 'mess'=>'Bạn không có ảnh');
 				
 		        }}
 		    }else{
-		       $return = array('code'=>0, 'mess'=>'bạn chưa đăng nhập');
+		       $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 				
 		    } 
 
@@ -263,7 +267,7 @@ function addLayerImageAPI($input){
 
 
 //thay ảnh có sắn trên server
-function changeLayerImageAPI(){
+function changeLayerImageAPI($input){
 	global $isRequestPost;
     global $controller;
 
@@ -278,30 +282,35 @@ function changeLayerImageAPI(){
 
 	    $thumbnail = $modelManagerFile->find()->where(array('id'=>$dataSend['idfile'],'user_id'=>$user->id))->first();
 
+	    
+
 	    if(!empty($thumbnail)){
-	    	$product = $modelProduct->get($dataSend['idproduct']);
+	    	$product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'],  'user_id'=>$user->id))->first();
 	    	if(!empty($product)){
 	            $sizeBackground = getimagesize($product->thumn);
 
-			     $tyle = $sizeBackground[0]*100/(int)$dataSend['width'];
+	            $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+		        $idlayer = count($productDetail)+1;
+
+			     $tyle = $sizeBackground[0]*100/(int)(isset($dataSend['width']))? $dataSend['width']:100;
 				            if($tyle>30) $tyle = 30;
 
 			    $datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id'=>$dataSend['idproduct']))->first();
 			    if(!empty($datalayer)){
-				    $datalayer->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
+				    $datalayer->content = json_encode(getLayer($idlayer,'image',$thumbnail['link'],$tyle, $tyle));
 
 				    $modelProductDetail->save($datalayer);
 					                
-					return getLayerProductForEdit($dataSend['idproduct']);
-					$return = array('code'=>1, 'mess'=>'bạn sửa layer thành công');
+					 getLayerProductForEdit($dataSend['idproduct']);
+					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				}else{
-					$return = array('code'=>0, 'mess'=>'bạn chọn layer chưa đúng');
+					$return = array('code'=>0, 'mess'=>'Bạn chọn layer chưa đúng');
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'bạn chọn mẫu thiêt kế chưa đúng');
+				$return = array('code'=>0, 'mess'=>'Bạn chọn mẫu thiêt kế chưa đúng');
 			}
 	    }else{
-			$return = array('code'=>0, 'mess'=>'bạn không có ảnh');
+			$return = array('code'=>0, 'mess'=>'Bạn không có ảnh');
 		}
 	}
 	return $return;
@@ -342,33 +351,40 @@ function changeLayerImageNew($input){
 		            $idlayer = count($productDetail)+1;
 
 		            // layer mới
-		            $product = $modelProduct->get($dataSend['idproduct']);
-		            $sizeBackground = getimagesize($product->thumn);
+		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
+		            if(!empty($product)){
+			            $sizeBackground = getimagesize($product->thumn);
 
-		            $tyle = $sizeBackground[0]*100/(int)$dataSend['width'];
-		            if($tyle>30) $tyle = 30;
+			            $tyle = $sizeBackground[0]*100/(int)(isset($dataSend['width']))? $dataSend['width']:100;
+			            if($tyle>30) $tyle = 30;
 
-		            $new = $modelProductDetail->get($dataSend['idlayer']);
-		            
-		            $new->name = 'Layer '.$idlayer;
-		            $new->products_id = $dataSend['idproduct'];
-		            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
-		            $new->sort = $idlayer;
-		            $new->height = $tyle;
-		            $new->wight = $tyle;
-		            $new->created_at = date('Y-m-d H:i:s');
-		            
-		            $modelProductDetail->save($new);
-		                
-		             getLayerProductForEdit($dataSend['idproduct']);
-		             $return = array('code'=>1, 'mess'=>'bạn sửa layer thành công');
+			            $new = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id '=>$dataSend['idproduct']))->first();
+			            if(!empty($new)){
+				            $new->name = 'Layer '.$idlayer;
+				            $new->products_id = $dataSend['idproduct'];
+				            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
+				            $new->sort = $idlayer;
+				            $new->height = $tyle;
+				            $new->wight = $tyle;
+				            $new->created_at = date('Y-m-d H:i:s');
+				            
+				            $modelProductDetail->save($new);
+				                
+				             getLayerProductForEdit($dataSend['idproduct']);
+				             $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
+				        }else{
+			        	   $return = array('code'=>0, 'mess'=>'Layer này không đúng');
+			        	}     
+			        }else{
+			        	$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+			        }
 				
 		        }else{
-		           $return = array('code'=>0, 'mess'=>'bạn không có ảnh');
+		           $return = array('code'=>0, 'mess'=>'Bạn không có ảnh');
 				
 		        }}
 		    }else{
-		       $return = array('code'=>0, 'mess'=>'bạn chưa đăng nhập');
+		       $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 				
 		    } 
 	}
@@ -403,23 +419,22 @@ function addLayerText($input){
 				if ($dataMembr->token == $dataSend['token']) {
 					
 					$datalayer = $modelProductDetail->newEmptyEntity();
-					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], $dataSend['wight'], $dataSend['height']));
-					$datalayer->wight =  @$dataSend['wight'];
+					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], @$dataSend['widht'], $dataSend['height']));
+					$datalayer->widht =  @$dataSend['widht'];
 					$datalayer->name =  'layer '.$idlayer;
 					$datalayer->height =  @$dataSend['height'];
-					$datalayer->sort =  @$dataSend['sort'];
 					$datalayer->products_id =  @$dataSend['idproduct'];
 					$datalayer->status = 1;
 
 					$modelProductDetail->save($datalayer);
 					getLayerProductForEdit($dataSend['idproduct']);
-					$return = array('code'=>1, 'mess'=>'bạn thêm layer thành công');
+					$return = array('code'=>1, 'mess'=>'Bạn thêm layer thành công');
 					
 				}else{
-				$return = array('code'=>0, 'mess'=>'Token bạn bị sai');
+				$return = array('code'=>0, 'mess'=>'Bạn chữa đăng nhập');
 				}
 		}else{
-			$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+			$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 		}
 	}
 	return $return;
@@ -448,7 +463,7 @@ function listImage($input){
 
 					$return = array('code'=>1,
 									'data'=> $dataImage,
-					 				'mess'=>'bạn lấy data thành công',
+					 				'mess'=>'Bạn lấy data thành công',
 					 			);
 
 
@@ -483,7 +498,7 @@ function listFont($input){
 
 					$return = array('code'=>1,
 									'data'=> $dataImage,
-					 				'mess'=>'bạn lấy data thành công',
+					 				'mess'=>'Bạn lấy data thành công',
 					 			);
 
 
@@ -494,6 +509,58 @@ function listFont($input){
 	}
 	return $return;
 
+}
+
+function copyLayerAPI($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+	$modelMember = $controller->loadModel('Members');
+	$return = array('code'=>0);
+
+    if($isRequestPost){
+        
+        $dataSend = $input['request']->getData();
+
+        $user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+	        if(!empty($user)){
+	        
+	        // lấy thông tin layer hiện tại
+	        $item =  $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'],'products_id'=>$dataSend['idproduct']))->first();
+
+	        // tạo layer mới
+	        $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+	        $idlayer = count($productDetail)+1;
+
+	        $content = json_decode($item->content);
+	        $content->text = 'Copy '.$content->text;
+
+	        $new = $modelProductDetail->newEmptyEntity();   
+	        
+	        $new->name = 'Copy layer '.$idlayer;
+	        $new->products_id = $item->products_id;
+	        $new->content = json_encode($content);
+	        $new->sort = $idlayer;
+	        $new->height = $item->height;
+	        $new->wight = $item->width;
+	        $new->created_at = date('Y-m-d H:i:s');
+	        
+	        $modelProductDetail->save($new);
+	            
+	         getLayerProductForEdit($item->products_id);
+
+	         $return = array('code'=>1, 'mess'=>'Bạn copy layer thàng công');
+
+	    }else{
+	        $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+	    } 
+	}
+	return $return;
 }
 
 ?>
