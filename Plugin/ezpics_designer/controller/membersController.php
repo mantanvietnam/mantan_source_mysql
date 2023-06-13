@@ -359,32 +359,10 @@ function register($input)
 
         $portfolio = '';
 		if(!empty($_FILES["portfolio"]["name"])){
-              $today= getdate();
-                if(isset($_FILES["portfolio"]) && empty($_FILES["portfolio"]["error"])){
-	                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-	                $filename = $_FILES["portfolio"]["name"];
-	                $filetype = $_FILES["portfolio"]["type"];
-	                $filesize = $_FILES["portfolio"]["size"];
-	                
-	                // Verify file extension
-	                $ext = pathinfo($filename, PATHINFO_EXTENSION);
-	                if(!array_key_exists($ext, $allowed)) $mess= '<p class="text-danger">File upload không đúng định dạng ảnh</p>';
-	                
-	                // Verify file size - 1MB maximum
-	                $maxsize = 1024 * 1024;
-	                if($filesize > $maxsize) $mess= '<p class="text-danger">File ảnh vượt quá giới hạn cho phép 1Mb</p>';
-	                
-	                // Verify MYME type of the file
-	                if(in_array($filetype, $allowed)){
-	                    // Check whether file exists before uploading it
-	                    move_uploaded_file($_FILES["portfolio"]["tmp_name"], __DIR__.'/../../../webroot/upload/portfolio/' . $today[0].'_portfolio.jpg');
-	                    $portfolio= 'https://designer.ezpics.vn/webroot/upload/portfolio/'.$today[0].'_portfolio.jpg';
-	                    
-	                } else{
-	                    $mess= '<p class="text-danger">Upload dữ liệu bị lỗi</p>';
-	                }
-	       	}
-        }
+      $today= getdate();
+	    $thumbnail = uploadImage($today[0], 'portfolio');
+	    $portfolio = $thumbnail['linkOnline'];
+    }
 
 		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['portfolio']["name"])  && !empty($dataSend['content'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
