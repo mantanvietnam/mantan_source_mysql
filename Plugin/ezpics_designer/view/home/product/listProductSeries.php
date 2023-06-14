@@ -95,7 +95,11 @@
                  $status = '<span class="text-danger">Đang thiết kế</span>';
                 
                 }elseif($item->status==1){
-                  $status = '<span class="text-primary">Đã hoàn thành</span><p class="text-center"><a target="_blank" href="https://designer.ezpics.vn/detail-series/'.$item->slug.'-'.$item->id.'.html"><i class="bx bx-share-alt dropdown-item"></i></a></p>';
+                  $status = '<span class="text-primary">Đã hoàn thành</span>
+                            <p class="text-center">
+                              <a target="_blank" href="https://designer.ezpics.vn/detail-series/'.$item->slug.'-'.$item->id.'.html"><i class="bx bx-share-alt dropdown-item"></i></a> 
+                              <a href="/addDataSeries/?id='.$item->id.'"><i class="bx bx-export dropdown-item"></i></a>
+                            </p>';
                 }
 
                 $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
@@ -119,7 +123,7 @@
                           Xem: '.number_format($item->views).'<br/>
                         </td>
                         
-                        <td>'.$status.'</td>
+                        <td align="center">'.$status.'</td>
                         
                         <td align="center">
                           <a target="_blank" class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">

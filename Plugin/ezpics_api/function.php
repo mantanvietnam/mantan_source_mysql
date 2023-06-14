@@ -928,3 +928,23 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
     return $return;
 }
+
+function getSizeProduct()
+{
+    return [
+            ['name'=>'Bài thuyết trình (16:9)','width'=>1920,'height'=>1080],
+            ['name'=>'Bài thuyết trình (9:16)','width'=>1080,'height'=>1920],
+            ['name'=>'Logo','width'=>500,'height'=>500],
+            ['name'=>'Poster (dọc)','width'=>4960,'height'=>7015],
+            ['name'=>'Bài đăng Instagram (vuông)','width'=>1080,'height'=>1080],
+            ['name'=>'Bài đăng Facebook (ngang)','width'=>940,'height'=>788],
+            ['name'=>'Ảnh bìa Facebook','width'=>1640,'height'=>924],
+            ['name'=>'Hình nền máy tính','width'=>1920,'height'=>1080],
+            ['name'=>'A0 (dọc)','width'=>3179,'height'=>4494],
+            ['name'=>'A1 (dọc)','width'=>2245,'height'=>3179],
+            ['name'=>'A2 (dọc)','width'=>1587,'height'=>2245],
+            ['name'=>'A3 (dọc)','width'=>1123,'height'=>1587],
+            ['name'=>'A4 (dọc)','width'=>794,'height'=>1123],
+            ['name'=>'A5 (dọc)','width'=>559,'height'=>794],
+        ];
+}

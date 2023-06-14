@@ -700,4 +700,37 @@ function createImageSeries($input)
 
 	setVariable('dataImage', $dataImage);
 }
+
+function addDataSeries($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Nhập dữ liệu cho mẫu in hàng loạt';
+
+		$modelProduct = $controller->loadModel('Products');
+		$modelProductDetail = $controller->loadModel('ProductDetails');
+		$mess= '';
+
+		if(!empty($_GET['id'])){
+			$id = (int) $_GET['id'];
+
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+			}else{
+				return $controller->redirect('/listProductSeries');
+			}
+		}else{
+			return $controller->redirect('/listProductSeries');
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
+}
 ?>

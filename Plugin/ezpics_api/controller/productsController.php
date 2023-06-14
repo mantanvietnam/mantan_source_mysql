@@ -864,3 +864,8 @@ function getMyProductSeriesAPI($input)
 
 	return 	$return;
 }
+
+function getSizeProductAPI($input)
+{
+	return getSizeProduct();
+}

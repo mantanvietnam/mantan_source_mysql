@@ -44,6 +44,7 @@
 	$routesPlugin['deleteProductAPI']= 'ezpics_api/view/deleteProductAPI.php';
 	$routesPlugin['getIdProductCloneAPI']= 'ezpics_api/view/getIdProductCloneAPI.php';
 	$routesPlugin['searchProductAPI']= 'ezpics_api/view/searchProductAPI.php';
+	$routesPlugin['getSizeProductAPI']= 'ezpics_api/view/getSizeProductAPI.php';
 	
 	// sửa thiết kế
 	$routesPlugin['edit-design']= 'ezpics_api/view/home/editDesign.php';
