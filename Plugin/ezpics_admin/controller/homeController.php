@@ -172,11 +172,6 @@ function homeAdmin() {
             }
         }
 
-         sendNotificationAdmin('6479b6f4b4a51d8bb38fc547');
-         debug('acb');
-         die();
-      
-
 
         setVariable('today', $today);
         setVariable('monthTotal', $monthTotal);
