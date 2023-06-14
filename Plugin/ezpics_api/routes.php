@@ -10,6 +10,8 @@
 	$routesPlugin['fixDeepLink']= 'ezpics_api/view/fixDeepLink.php';
 	$routesPlugin['fixPrice']= 'ezpics_api/view/fixPrice.php';
 	$routesPlugin['fixSize']= 'ezpics_api/view/fixSize.php';
+	$routesPlugin['fixCertificate']= 'ezpics_api/view/fixCertificate.php';
+	$routesPlugin['fixWidthText']= 'ezpics_api/view/fixWidthText.php';
 
 	// nén ảnh
 	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';
@@ -63,6 +65,7 @@
 	$routesPlugin['createImageFromTemplate']= 'ezpics_api/view/home/createImageFromTemplate.php';
 	$routesPlugin['createThumb']= 'ezpics_api/view/home/createThumb.php';
 	$routesPlugin['createLayerVariable']= 'ezpics_api/view/home/createLayerVariable.php';
+	$routesPlugin['checkToolExportImage']= 'ezpics_api/view/home/checkToolExportImage.php';
 	
 
 	// yêu thích sản phẩm

@@ -903,10 +903,12 @@ function createThumb(){
     $modelProduct = $controller->loadModel('Products');
 
     if(!empty($_GET['id'])){
-        $product = $modelProduct->find()->where(array('id'=>$_GET['id']))->first();
+        $id = (int) $_GET['id'];
+        
+        $product = $modelProduct->find()->where(array('id'=>$id))->first();
 
         if(!empty($product)){
-            $url = $urlCreateImage.'?url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id']).'&width='.$product->width.'&height='.$product->height;
+            $url = $urlCreateImage.'?url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id='.$id).'&width='.$product->width.'&height='.$product->height;
 
             $data = file_get_contents($url);
 
@@ -950,6 +952,26 @@ function createThumb(){
         }
     }else{
         return ['error' => 'Gửi thiếu ID sản phẩm'];
+    }
+}
+
+function checkToolExportImage()
+{
+    global $urlCreateImage;
+    
+    $timeout = 5; // Thời gian chờ kết nối, tính bằng giây
+    $ip = '14.225.238.137';
+    $port = 3000;
+
+    $socket = @fsockopen($ip, $port, $errorCode, $errorMessage, $timeout);
+    
+    if ($socket) {
+        fclose($socket);
+        //echo 'IP và port hoạt động.';
+        return ['code'=>1];
+    } else {
+        //echo 'IP và port không hoạt động.';
+        return ['code'=>0];
     }
 }
 ?>

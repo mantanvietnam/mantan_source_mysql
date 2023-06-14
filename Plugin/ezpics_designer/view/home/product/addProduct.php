@@ -57,7 +57,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label">Từ khóa</label>
+                    <label class="form-label">Từ khóa (*)</label>
                     <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="" />
                   </div>
 

@@ -28,6 +28,7 @@
 
 	// public
 	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';
+	$routesPlugin['detail-series']= 'ezpics_designer/view/home/product/detailSeries.php';
 	$routesPlugin['create-image-series']= 'ezpics_designer/view/home/product/createImageSeries.php';
 
 	// khách hàng

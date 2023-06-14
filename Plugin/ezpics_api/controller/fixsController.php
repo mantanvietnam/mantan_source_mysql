@@ -16,6 +16,38 @@ function fixPass($input)
 	*/
 }
 
+function fixWidthText($input)
+{
+	/*
+	global $controller;
+	$modelProducts = $controller->loadModel('Products');
+	$modelProductDetails = $controller->loadModel('ProductDetails');
+
+	$listData = $modelProductDetails->find()->all()->toList();
+	$number = 0;
+	foreach ($listData as $key => $value) {
+		$content = json_decode($value->content, true);
+
+		if(!empty($content['type'])){
+			if($content['type'] == 'text' && $content['width']!='100vw'){
+				$content['width'] = '100vw';
+				$number++;
+
+				$value->content = json_encode($content);
+
+				$modelProductDetails->save($value);
+			}
+		}else{
+			debug($value);
+		}
+
+		
+	}
+
+	echo $number;
+	*/
+}
+
 function fixUrlImage($input)
 {	
 	
@@ -246,4 +278,41 @@ function fixSize($input)
 	*/
 	//echo getKey(23);
 	//echo 'done';
+}
+
+function fixCertificate()
+{
+	/*
+	global $controller;
+	global $urlCreateImage;
+	$modelMembers = $controller->loadModel('Members');
+
+	$listMember = $modelMembers->find()->limit(10)->page(1)->where(['type'=>1, 'certificate is'=>null])->all()->toList();
+
+	foreach($listMember as $member){
+		$url = $urlCreateImage.'?width=5242&height=3704&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
+
+	    $dataImage = file_get_contents($url);
+
+	    if(!empty($dataImage)){
+	        $name = __DIR__.'/../../../upload/admin/images/'.$member->id.'/certificate_'.$member->id.'.png';
+
+	        if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$member->id )) {
+	            mkdir(__DIR__.'/../../../upload/admin/images/'.$member->id, 0755, true);
+	        }
+	        
+	        // unlink($name);
+
+	        file_put_contents($name, base64_decode($dataImage));
+
+	        $image = 'https://apis.ezpics.vn/upload/admin/images/'.$member->id.'/certificate_'.$member->id.'.png?time='.time();
+
+	        $member->certificate = $image;
+            
+            zipImage($name);
+	    }
+
+	    $modelMembers->save($member);
+	}
+	*/
 }

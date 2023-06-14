@@ -83,8 +83,8 @@ function update_input_info(id) {
         var idnew = $('.drag-drop').data('idproduct');
         var goc = $('.priceProduct').val();
         var sale = $('.sale_priceProduct').val();
-        if (parseInt(goc.replaceAll(',','')) <= parseInt(sale.replaceAll(',',''))) {
-            printErrorMsg(['Giá giảm không được lớn hơn hoặc bằng giá gốc']);
+        if (parseInt(goc.replaceAll(',','')) < parseInt(sale.replaceAll(',',''))) {
+            printErrorMsg(['Giá giảm không được lớn hơn giá gốc']);
         }else{
             $.ajax({
                 url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
@@ -643,7 +643,15 @@ function ajaxInfoLayer() {
         
         $('.active-hover img').css('max-width', '100vw');
         $('.active-hover img').css('width', sizeEdit+'vw');
+
+        $('.active-hover span').css('max-width', '100vw');
+        $('.active-hover span').css('width', sizeEdit+'vw');
+
         $('.active-hover').data('width', sizeEdit+'vw');
+
+        $('.sizeimg').val(sizeEdit);
+        $('.sizeimgz').text(sizeEdit);
+
         lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
     });
 
@@ -651,13 +659,20 @@ function ajaxInfoLayer() {
         var sizeEdit = $(this).val();
         if(sizeEdit>100) sizeEdit=100;
         if(sizeEdit<0) sizeEdit=0;
+        
         $(this).val(sizeEdit);
 
         $('.active-hover img').css('max-width', '100vw');
         $('.active-hover img').css('width', sizeEdit+'vw');
+
+        $('.active-hover span').css('max-width', '100vw');
+        $('.active-hover span').css('width', sizeEdit+'vw');
+        
         $('.active-hover').data('width', sizeEdit+'vw');
+
         $('.sizeimg').val(sizeEdit);
         $('.sizeimgz').text(sizeEdit);
+
         lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
     });
 }
@@ -959,8 +974,7 @@ function saveproduct(removeActiveClass) {
         $('.loadingProcess').removeClass('d-none');
         
         // tạo ảnh thumbnail
-        exportThumb();
-        //capEdit(id);
+        createThumbnail(id);
 
         checkEditLayer = false;
         
@@ -1188,8 +1202,8 @@ function add() {
                     type: "POST",
                     data: {
                         idproduct: idproduct,
-                        width: 0,
-                        height: 0,
+                        width: 80,
+                        height: 30,
                         type: 'text'
                     }, 
                     success:function(data){
@@ -1235,8 +1249,8 @@ function addImage(linkImage) {
                     type: "POST",
                     data: {
                         idproduct: idproduct,
-                        width: '30vw',
-                        height: '30vh',
+                        width: 30,
+                        height: 30,
                         type: 'image',
                         banner: linkImage
                     }, 
@@ -1369,8 +1383,6 @@ function leftmove() {
         var value = x - 1;
         var leftmove, topmove;
 
-        //$('.active-hover').css('transform', 'translate('+value+'px, '+y+'px)');
-
         full_width = $('#widgetCapEdit').width();
         full_height = $('#widgetCapEdit').height();
         leftmove = value*100/full_width;
@@ -1400,8 +1412,6 @@ function rightmove() {
         var field = 'postion_x';
         var value = x + 1;
         var leftmove, topmove;
-        
-        // $('.active-hover').css('transform', 'translate('+value+'px, '+y+'px)');
 
         full_width = $('#widgetCapEdit').width();
         full_height = $('#widgetCapEdit').height();
@@ -1433,8 +1443,6 @@ function topmove() {
         var value = y - 1;
         var leftmove, topmove;
         
-        //$('.active-hover').css('transform', 'translate('+x+'px, '+value+'px)');
-        
         full_width = $('#widgetCapEdit').width();
         full_height = $('#widgetCapEdit').height();
         leftmove = x*100/full_width;
@@ -1464,8 +1472,6 @@ function bottommove() {
         var field = 'postion_y';
         var value = y + 1;
         var leftmove, topmove;
-        
-        //$('.active-hover').css('transform', 'translate('+x+'px, '+value+'px)');
         
         full_width = $('#widgetCapEdit').width();
         full_height = $('#widgetCapEdit').height();
@@ -1594,6 +1600,8 @@ interact(".drag-drop")
 .draggable({
     listeners: { 
         start (event) {
+            checkPositionLayer();
+
             var target = event.target;
             var selector = target.getAttribute('class');
             $('.drag-drop').removeClass('active-hover');
@@ -1659,33 +1667,13 @@ interact(".drag-drop")
 });
 
 function dragMoveListener(event) {
-    var leftmove, topmove;
+    var leftmove, topmove, maxtop, maxleft;
     var target = event.target;
     var xSelect = $('.active-hover').width();
     var ySelect = $('.active-hover').height();
     
     x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
     y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-
-    // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)  rotate(45deg)";
-    
-    /*
-    if(x>$('#widgetCapEdit').width()){
-        x = $('#widgetCapEdit').width()-$('#active-hover').width();
-    }
-
-    if(x<0){
-        x= 0;
-    }
-
-    if(y>$('#widgetCapEdit').height()){
-        y = $('#widgetCapEdit').height()-$('#active-hover').height();
-    }
-
-    if(y<0){
-        y= 0;
-    }
-    */
    
 
     target.setAttribute("data-x", x);
@@ -1695,19 +1683,31 @@ function dragMoveListener(event) {
     var getClass = selector.replace("drag-drop ", "");
     var rotate = 0;
 
-    // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)  rotate("+rotate+"deg)";
-    
+
     full_width = $('#widgetCapEdit').width();
     full_height = $('#widgetCapEdit').height();
     
     leftmove = x*100/full_width;
     topmove = y*100/full_height;
+    maxtop = 0-ySelect*100/full_height
+    maxleft = 0-xSelect*100/full_width
 
-    /*
-    target.style.webkitTransform = target.style.transform = "translate(0)";
-    target.style.left = left+'%';
-    target.style.top = top+'%';
-    */
+    if(leftmove>=100){
+        leftmove = 99;
+    }
+
+    if(topmove>=100){
+        topmove = 99;
+    }
+
+    if(topmove<=maxtop){
+        topmove = maxtop+1;
+    }
+
+    if(leftmove<=maxleft){
+        leftmove = maxleft+1;
+    }
+
 
     $('.active-hover').css('transform', 'translate(0px, 0px)');
     $('.active-hover').css('left', leftmove+'%');
@@ -2254,6 +2254,8 @@ function activeLayerSelect(idLayer)
     $(".content-action").removeClass("active");
     $(".clc-action-edit").removeClass("active");
     $('.drag-drop[data-id="'+idLayer+'"]').addClass('active-hover');
+
+    checkPositionLayer();
     
     var type = $('.drag-drop.active-hover').data('type');
     
@@ -2582,7 +2584,7 @@ function clearDataOld(data)
 
     // hiện thanh công cụ
     $('.active-layer-edit').removeClass('d-none');
-    if (data.type == 'user_create') {
+    if (data.type == 'user_create' || data.type == 'user_series') {
         // lấy chuyên mục đã chọn 
         $('.box-detail-edit-user-create #categor_pro option[value='+data.category.id+']').attr("selected",true);
 
@@ -2591,17 +2593,17 @@ function clearDataOld(data)
     }
 
     // update thông tin cơ bản khi nhập
-    if (data.type == 'user_create') {
+    if (data.type == 'user_create' || data.type == 'user_series') {
         update_input_info(data.data.id);
         update_select_info();
         $('.thongtin').removeClass('d-none');
-    }else{
-        $('.thongtin').addClass('d-none');
 
         if (data.type == 'user_series') {
             $('#addVariableImageButton').removeClass('d-none');
             $('#addVariableTextButton').removeClass('d-none');
         }
+    }else{
+        $('.thongtin').addClass('d-none');
     }
 
     // lấy danh sách layer
@@ -2651,6 +2653,71 @@ function clearDataOld(data)
 
     }
 }
+
+
+function createThumbnail(id) {
+    $.ajax({
+        url: 'https://apis.ezpics.vn/apis/checkToolExportImage',
+        dataType: 'json',
+        type: "POST", 
+        success:function(d){
+            if(d.code == 1){
+                console.log('Xuất ảnh bằng tool');
+                exportThumb();
+            }else{
+                console.log('Xuất ảnh bằng chụp');
+                capEdit(id);
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log('Xuất ảnh bằng chụp');
+            capEdit(id);
+        }
+    });
+}
+
+function checkPositionLayer()
+{
+    var maxtop, maxleft;
+    var target = $('.active-hover');
+
+    if(target.length!=0){
+        var xSelect = target.width();
+        var ySelect = target.height();
+        var leftSelect = target.data('left');
+        var topSelect = target.data('top');
+
+        full_width = $('#widgetCapEdit').width();
+        full_height = $('#widgetCapEdit').height();
+        
+        maxtop = 0-ySelect*100/full_height
+        maxleft = 0-xSelect*100/full_width
+
+        if(leftSelect>=100){
+            leftSelect = 99;
+        }
+
+        if(topSelect>=100){
+            topSelect = 99;
+        }
+
+        if(topSelect<=maxtop){
+            topSelect = maxtop+1;
+        }
+
+        if(leftSelect<=maxleft){
+            leftSelect = maxleft+1;
+        }
+
+        target.css('transform', 'translate(0px, 0px)');
+        target.css('left', leftSelect+'%');
+        target.css('top', topSelect+'%');
+
+        target.data("left", leftSelect);
+        target.data("top", topSelect);
+    }
+}
+
 
 setTimeout(saveproduct, 60000, 0);
 

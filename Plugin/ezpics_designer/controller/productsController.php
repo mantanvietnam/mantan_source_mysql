@@ -511,7 +511,9 @@ function addProduct($input)
 
 		        $newLayer->products_id = $data->id;
 		        $newLayer->name = 'Layer 1';
-		        $newLayer->content = '{"type":"text","text":"Layer 1","color":"#111","size":"18px","font":"Arial","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0px","rotate":null,"banner":null,"gianchu":"1px","giandong":"1px","blur":"0","invert":"0","width":"0px","height":"0px","sepia":"0","grayscale":"0","gradient":"0","sort":"1","postion_left":"50","postion_top":"50"}';
+		        
+		        $content = getLayer(1,'text','',80,0,'Layer 1');
+		        $newLayer->content = json_encode($content);
 
 		        $newLayer->wight = (int) @$sizeBackground[0];
 		        $newLayer->height = (int) @$sizeBackground[1];
@@ -591,7 +593,7 @@ function detailProduct($input)
 	setVariable('link_open_app', $link_open_app);
 }
 
-function createImageSeries($input)
+function detailSeries($input)
 {
 	global $controller;
 	global $metaTitleMantan;
@@ -601,6 +603,7 @@ function createImageSeries($input)
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelMembers = $controller->loadModel('Members');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
 
 	$link_open_app = '';
 	
@@ -623,13 +626,48 @@ function createImageSeries($input)
 			$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
 			$metaImageMantan = $product->image;
 
+			$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
 			setVariable('product', $product);
 			setVariable('user', $user);
+			setVariable('listLayer', $listLayer);
 		}else{
 			return $controller->redirect('https://ezpics.vn');
 		}
 	}else{
 		return $controller->redirect('https://ezpics.vn');
 	}
+}
+
+function createImageSeries($input)
+{
+	global $controller;
+	global $urlCreateImage;
+
+	$modelProduct = $controller->loadModel('Products');
+
+	$dataImage = '';
+	
+	if(!empty($_GET['id'])){
+		$id = (int) $_GET['id'];
+
+		$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+			$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
+
+			foreach ($_GET as $key => $value) {
+				if($key != 'id'){
+					$urlThumb .= '&'.$key.'='.$value;
+				}
+			}
+
+			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
+
+	        $dataImage = file_get_contents($url);
+		}
+	}
+
+	setVariable('dataImage', $dataImage);
 }
 ?>

@@ -95,7 +95,7 @@
                  $status = '<span class="text-danger">Đang thiết kế</span>';
                 
                 }elseif($item->status==1){
-                  $status = '<span class="text-primary">Đã hoàn thành</span><p class="text-center"><a target="_blank" href="https://designer.ezpics.vn/create-image-series/'.$item->slug.'-'.$item->id.'.html"><i class="bx bx-share-alt dropdown-item"></i></a></p>';
+                  $status = '<span class="text-primary">Đã hoàn thành</span><p class="text-center"><a target="_blank" href="https://designer.ezpics.vn/detail-series/'.$item->slug.'-'.$item->id.'.html"><i class="bx bx-share-alt dropdown-item"></i></a></p>';
                 }
 
                 $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;

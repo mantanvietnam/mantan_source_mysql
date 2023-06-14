@@ -164,7 +164,7 @@ function addMemberAdmin($input)
 				$data->created_at = date('Y-m-d H:i:s');
 
 				if(empty($_GET['id'])){
-					$data->account_balance = 100000; // tặng 100k cho tài khoản mới
+					$data->account_balance = 10000; // tặng 10k cho tài khoản mới
 
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
 					$data->password = md5($dataSend['password']);

@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '/lib/google/vendor/autoload.php';
 
+global $urlCreateImage;
+
+$urlCreateImage = 'http://14.225.238.137:3000/convert';
 
 $menus= array();
 $menus[0]['title']= 'Ezpics';
@@ -156,7 +159,50 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
     }
 }
 
+function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30', $text = '', $variable='', $variableLabel = '')
+{
+    if(empty($text)) $text = 'Layer '.$stt;
 
+    return [
+        'type' => $type,
+        'text' => $text,
+        'color' => '#000',
+        'size' => '10vw',
+        'font' => 'Arial',
+        'status' => 1,
+        'text_align' => 'left',
+        'postion_x' => '20',
+        'postion_y' => '15',
+        'postion_left' => '50',
+        'postion_top' => '50',
+        'brightness' => 100,
+        'contrast' => 100,
+        'saturate' => 100,
+        'opacity' => 100,
+        'gachchan' => 'none',
+        'uppercase' => 'none',
+        'innghieng' => 'normal',
+        'indam' => 'normal',
+        'linear_position' => 'to right',
+        'vien' => '0px',
+        'rotate' => null,
+        'banner' => $link,
+        'gianchu' => 'normal',
+        'giandong' => 'normal',
+        'opacity' => 1,
+        'blur' => 0,
+        'invert' => 0,
+        'width' => $width.'vw',
+        'height' => $height.'vh',
+        'sepia' => 0,
+        'grayscale' => 0,
+        'gradient' => 0,
+        'sort' => $stt,
+        'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
+        'variable' => $variable,
+        'variableLabel' => $variableLabel,
+    ];
+}
 
 
 ?>

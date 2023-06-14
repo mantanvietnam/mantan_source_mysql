@@ -565,6 +565,10 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/size.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Cỡ chữ</div>
 	                                </div>
+	                                <div class="item-replace text-center clc-action-edit text" data-tab="editimage">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/sizeimage.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Kích thước</div>
+	                                </div>
 	                                <div class="item-replace text-center clc-action-edit text" data-tab="color">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/color.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Màu</div>
@@ -600,13 +604,13 @@
 	                            <div class="list-chang-replace">
 									<div class="form-group w-100">
 										<p>Tên trường dữ liệu (*):</p>
-										<input type="text" value="" name="showVariableText" id="showVariableText" class="thongtininput form-control" >
+										<input type="text" value="" name="showVariableText" id="showVariableText" class="form-control" >
 
 										<p>Tên biến (*):</p>
-										<input type="text" value="" name="nameVariableText" id="nameVariableText" class="thongtininput form-control" onchange="changeNameVariableText();" >
+										<input type="text" value="" name="nameVariableText" id="nameVariableText" class="form-control" onchange="changeNameVariableText();" >
 
 										<p>Nội dung chữ:</p>
-										<input type="text" value="" name="variableText" id="variableText" class="thongtininput form-control mb-3" >
+										<input type="text" value="" name="variableText" id="variableText" class="form-control mb-3" >
 
 
 										<button type="button" class="btn btn-warning" onclick="createLayerVariableText();">Tạo biến chữ</button>
@@ -622,10 +626,10 @@
 	                            <div class="list-chang-replace">
 									<div class="form-group w-100">
 										<p>Tên trường dữ liệu (*):</p>
-										<input type="text" value="" name="showVariableImage" id="showVariableImage" class="thongtininput form-control" >
+										<input type="text" value="" name="showVariableImage" id="showVariableImage" class="form-control" >
 
 										<p>Tên biến (*):</p>
-										<input type="text" value="" name="nameVariableImage" id="nameVariableImage" onchange="changeNameVariableImage();" class="thongtininput form-control mb-3" >
+										<input type="text" value="" name="nameVariableImage" id="nameVariableImage" onchange="changeNameVariableImage();" class="form-control mb-3" >
 
 
 										<button type="button" class="btn btn-warning" onclick="createLayerVariableImage();">Tạo biến ảnh</button>
