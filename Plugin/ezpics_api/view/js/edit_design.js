@@ -961,6 +961,7 @@ function updatelayerClient(layer,field,id,value) {
 
 // lưu
 function saveproduct(removeActiveClass) {
+    // người dùng bấm nút Lưu
     if(removeActiveClass==1){
         $('.image, .text').removeClass('d-none');
         $('.list-selection-choose').addClass('d-none');
@@ -1002,15 +1003,31 @@ function saveproduct(removeActiveClass) {
                         printErrorMsg(data.error);
                     }
 
-                    $('.loadingProcess').addClass('d-none');
+                    
+                    if(removeActiveClass==1){
+                        // Load thêm 15s để chờ xuất xong ảnh
+                        setTimeout(function() {
+                            $('.loadingProcess').addClass('d-none');
 
-                    // Hiển thị thông báo
-                    $("#success-notification").show();
+                            // Hiển thị thông báo
+                            $("#success-notification").show();
 
-                    // Tự động ẩn thông báo sau 3 giây
-                    setTimeout(function() {
-                        $("#success-notification").hide();
-                    }, 3000);
+                            // Tự động ẩn thông báo sau 3 giây
+                            setTimeout(function() {
+                                $("#success-notification").hide();
+                            }, 3000);
+                        }, 15000);
+                    }else{
+                        $('.loadingProcess').addClass('d-none');
+
+                        // Hiển thị thông báo
+                        $("#success-notification").show();
+
+                        // Tự động ẩn thông báo sau 3 giây
+                        setTimeout(function() {
+                            $("#success-notification").hide();
+                        }, 3000);
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr);
@@ -2717,7 +2734,6 @@ function checkPositionLayer()
         target.data("top", topSelect);
     }
 }
-
 
 setTimeout(saveproduct, 60000, 0);
 

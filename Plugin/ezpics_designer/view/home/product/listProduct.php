@@ -132,9 +132,9 @@
                         <td>'.$item->name.'<br/>'.$type.'</td>
                         
                         <td>
-                          Sell: '.number_format($item->sold).'<br/>
-                          View: '.number_format($item->views).'<br/>
-                          Like: '.number_format($item->favorites).'<br/>
+                          Bán: '.number_format($item->sold).'<br/>
+                          Xem: '.number_format($item->views).'<br/>
+                          Thích: '.number_format($item->favorites).'<br/>
                         </td>
                         <td>
                           '.number_format($item->sale_price).'<br/>

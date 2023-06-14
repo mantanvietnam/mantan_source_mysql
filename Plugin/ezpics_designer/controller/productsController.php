@@ -365,17 +365,9 @@ function addProduct($input)
 	global $modelCategories;
     global $metaTitleMantan;
     global $session;
-
-    /*
-    $ftp_server = "13.215.88.179";
-    $ftp_username = "admin_apis";
-    $ftp_password = "sIu6v%OHwfmKxcx-";
-    */
-
-    $ftp_server = "171.244.16.76";
-    $ftp_username = "ezpics";
-    $ftp_password = "uImzVeNYgF";
-
+    global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
 
     if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Thông tin mẫu thiết kế';
@@ -398,7 +390,7 @@ function addProduct($input)
         		$thumbnailUser = '';
 
 	        	if(isset($_FILES['background']) && empty($_FILES['background']["error"])){
-		            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server, $ftp_username, $ftp_password);
+		            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
 
 		            if(!empty($background['linkOnline'])){
 		                $thumb = $background['linkOnline'];
@@ -416,7 +408,7 @@ function addProduct($input)
 		        }
 
 		        if(isset($_FILES['thumbnail']) && empty($_FILES['thumbnail']["error"])){
-		            $thumbnail = uploadImageFTP($infoUser->id, 'thumbnail', $ftp_server, $ftp_username, $ftp_password);
+		            $thumbnail = uploadImageFTP($infoUser->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
 
 		            if(!empty($thumbnail['linkOnline'])){
 		                $thumbnailUser = $thumbnail['linkOnline'];
@@ -616,6 +608,9 @@ function detailSeries($input)
 		$product = $modelProduct->find()->where(['id'=>$id])->first();
 
 		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+			$product->views ++;
+			$modelProduct->save($product);
+
 			$user = $modelMembers->get($product->user_id);
 
 			if(!empty($product->thumbnail)){
@@ -643,28 +638,63 @@ function createImageSeries($input)
 {
 	global $controller;
 	global $urlCreateImage;
+	global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
 
 	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
 
 	$dataImage = '';
 	
-	if(!empty($_GET['id'])){
-		$id = (int) $_GET['id'];
+	if(!empty($_REQUEST['id'])){
+		$id = (int) $_REQUEST['id'];
 
 		$product = $modelProduct->find()->where(['id'=>$id])->first();
 
 		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+			$product->export_image ++;
+			$modelProduct->save($product);
+
 			$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
 
-			foreach ($_GET as $key => $value) {
-				if($key != 'id'){
-					$urlThumb .= '&'.$key.'='.$value;
-				}
-			}
+			$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
 
+			$listRemoveImage = [];
+			if(!empty($listLayer)){
+        		foreach ($listLayer as $layer) {
+        			$content = json_decode($layer->content, true);
+
+        			if(!empty($content['variable'])){
+        				if(!empty($_REQUEST[$content['variable']])){
+    						$urlThumb .= '&'.$content['variable'].'='.$_REQUEST[$content['variable']];
+    					}
+
+        				if($content['type'] == 'image'){
+        					if(isset($_FILES[$content['variable']]) && empty($_FILES[$content['variable']]["error"])){
+					            $image = uploadImageFTP($product->user_id, $content['variable'], $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
+					            if(!empty($image['linkOnline'])){
+					            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
+
+					            	$listRemoveImage[] = '/public_html/'.$image['linkLocal'];
+					            }
+					        }
+        				}
+        			}
+        		}
+        	}
+        	
 			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
-
+		
 	        $dataImage = file_get_contents($url);
+
+	        // xóa ảnh người dùng up lên sau khi chụp xong
+	        if(!empty($listRemoveImage)){
+	        	foreach ($listRemoveImage as $item) {
+	        		removeFileFTP($item, $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
+	        	}
+	        }
 		}
 	}
 

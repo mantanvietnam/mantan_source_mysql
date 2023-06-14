@@ -555,8 +555,12 @@ function uploadImage($user_id='', $name_input='', $filenameImage='', $domain='')
 	return $return;
 }
 
-function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username='', $ftp_password='')
+function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username='', $ftp_password='', $domain='')
 { 
+	global $urlHomes;
+
+	if(empty($domain)) $domain = $urlHomes;
+
     if(!empty($userID) && !empty($name_input) && !empty($ftp_server) && !empty($ftp_username) && !empty($ftp_password) ){
 	    $ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
 
@@ -611,7 +615,7 @@ function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username
 				$error_no = curl_errno($ch);
 				curl_close ($ch);
 				if ($error_no == 0) {
-				    return ['code'=>0, 'linkOnline'=>'https://apis.ezpics.vn/upload/admin/images/'.$userID.'/'.$filenameImage];
+				    return ['code'=>0, 'linkOnline'=>$domain.'/upload/admin/images/'.$userID.'/'.$filenameImage, 'linkLocal'=>'upload/admin/images/'.$userID.'/'.$filenameImage];
 				} else {
 				    return ['code'=>4, 'mess'=>'Upload lỗi', 'error_no'=>$error_no, 'urlCall'=>$urlCall];
 				}
@@ -625,6 +629,30 @@ function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username
 	}
 
     return ['code'=>5, 'mess'=>'Không có dữ liệu upload'];
+}
+
+function removeFileFTP($fileToDelete='', $server='', $username='', $password='')
+{
+	if(!empty($fileToDelete) && !empty($server) && !empty($username) && !empty($password)){
+		// Kết nối đến máy chủ FTP
+		$ftpConnection = ftp_connect($server);
+		if (!$ftpConnection) {
+		    //die("Không thể kết nối đến máy chủ FTP");
+		}else{
+			// Đăng nhập vào FTP
+			$login = ftp_login($ftpConnection, $username, $password);
+			if (!$login) {
+			    //die("Không thể đăng nhập vào FTP");
+			}else{
+				// Xóa tệp tin
+				if (ftp_delete($ftpConnection, $fileToDelete)) {
+				    // echo "Đã xóa tệp tin thành công";
+				} else {
+				    // echo "Không thể xóa tệp tin";
+				}
+			}
+		}
+	}
 }
 
 function removeFile($url='')

@@ -30,7 +30,7 @@
 								<h1>'.$product->name.'</h1>
 								<p>Tác giả: '.$user->name.'</p>
 								<p>Lượt xem: '.number_format($product->views).'</p>
-								<p>Đã bán: '.number_format($product->sold).'</p>
+								<p>Đã tạo: '.number_format($product->export_image).' ảnh</p>
 								'.$description.'
 								<br/>
 								<button type="button" class="btn btn-warning" onclick="showPopup();">
@@ -48,7 +48,8 @@
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
-	  	<form action="/create-image-series" method="get">
+	  	<form action="/create-image-series" method="post" enctype="multipart/form-data">
+	  		<input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
 	  		<input type="hidden" name="id" value="<?php echo $product->id;?>">
 		    <div class="modal-content">
 		      <div class="modal-header">

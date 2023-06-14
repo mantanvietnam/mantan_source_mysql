@@ -115,9 +115,8 @@
                         <td>'.$item->name.'</td>
                         
                         <td>
-                          Sell: '.number_format($item->sold).'<br/>
-                          View: '.number_format($item->views).'<br/>
-                          Like: '.number_format($item->favorites).'<br/>
+                          Tạo: '.number_format($item->export_image).'<br/>
+                          Xem: '.number_format($item->views).'<br/>
                         </td>
                         
                         <td>'.$status.'</td>
