@@ -141,6 +141,11 @@ $menus[0]['sub'][6]= array('title'=>'Cài đặt',
                                             ),
                                     )
                         );
+$menus[0]['sub'][7]= array( 'title'=>'Thống kê',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-homeAdmin.php',
+                            'classIcon'=>'bx bx-line-chart',
+                            'permission'=>'homeAdmin'
+                        );
 
 
 

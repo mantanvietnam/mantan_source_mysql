@@ -130,6 +130,12 @@ function lockProductAdmin($input){
 			$member = $modelmember->get($data->user_id);	
 
 			$data->status = (int) $_GET['status'];
+			if($_GET['status']==2){
+				$data->approvaldate = date('Y-m-d H:i:s');
+			}else{
+				$data->approvaldate = "";
+			}
+
          	$modelProducts->save($data);
 
          	@$conditions = array();

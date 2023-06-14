@@ -24,14 +24,15 @@ function sendNotificationAdmin($idBlock='', $attributesSmax=['new_notification'=
     if(!empty($data->content)){
         $data_value = json_decode($data->content, true);
     }
-    
+
 	// gửi thông báo cho smax.bot
 	if(empty($idBlock)) $idBlock = $data_value['idBlock'];
 
     if(!empty($data_value['idBot']) && !empty($data_value['tokenBot']) && !empty($idBlock) && !empty($data_value['idMessAdmin']) ){
-
-        $urlSmax = 'https://api.smax.bot/bots/' . $data_value['idBot'] . '/users/' . $data_value['idMessAdmin'] . '/send?bot_token=' . $data_value['tokenBot'] . '&block_id=' . $idBlock . '&messaging_tag="CONFIRMED_EVENT_UPDATE"';
-        
-        $sendSmax = sendDataConnectMantan($urlSmax, $attributesSmax);
+        $idMessAdmin= explode(',', $data_value['idMessAdmin']);
+        foreach(@$idMessAdmin as $key => $item){
+            $urlSmax = 'https://api.smax.bot/bots/' . $data_value['idBot'] . '/users/' . $item . '/send?bot_token=' . $data_value['tokenBot'] . '&block_id=' . $idBlock . '&messaging_tag="CONFIRMED_EVENT_UPDATE"';
+            $sendSmax = sendDataConnectMantan($urlSmax, $attributesSmax);   
+        }
     }
 }
