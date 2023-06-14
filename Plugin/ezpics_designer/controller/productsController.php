@@ -390,7 +390,7 @@ function addProduct($input)
         		$thumbnailUser = '';
 
 	        	if(isset($_FILES['background']) && empty($_FILES['background']["error"])){
-		            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
+		            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
 
 		            if(!empty($background['linkOnline'])){
 		                $thumb = $background['linkOnline'];
@@ -408,7 +408,7 @@ function addProduct($input)
 		        }
 
 		        if(isset($_FILES['thumbnail']) && empty($_FILES['thumbnail']["error"])){
-		            $thumbnail = uploadImageFTP($infoUser->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
+		            $thumbnail = uploadImageFTP($infoUser->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
 
 		            if(!empty($thumbnail['linkOnline'])){
 		                $thumbnailUser = $thumbnail['linkOnline'];
