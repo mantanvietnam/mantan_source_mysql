@@ -86,6 +86,7 @@ function saveRequestBankingAPI($input)
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
                 $order->created_at = date('Y-m-d H:i:s');
+                $order->payment_kind = 1; //0: tiền thưởng, 1 tiền thật 
                 
                 $modelOrder->save($order);
 

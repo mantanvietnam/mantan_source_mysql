@@ -9,7 +9,7 @@ include('model/product_favorite.php'); // sản phẩm yêu thích
 include('model/orders.php'); // đơn hàng
 
 include('model/manager_file.php'); // file của bạn
-include('model/follow_designers.php'); // file của bạn
+include('model/follow_designers.php'); // follow designers
 
 include('model/contact.php'); // liên hệ
 include('model/font.php'); // font chữ

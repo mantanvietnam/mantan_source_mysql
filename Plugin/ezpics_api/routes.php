@@ -119,5 +119,11 @@
 	$routesPlugin['addNotificationProductAPI']= 'ezpics_api/view/addNotificationProductAPI.php';
 	$routesPlugin['copyLayerAPI']= 'ezpics_api/view/copyLayerAPI.php';
 	$routesPlugin['getInfoUserAPI']= 'ezpics_api/view/getInfoUserAPI.php';
+
+	//FollowDesigner
+	$routesPlugin['addFollowDesignerAPI']= 'ezpics_api/view/addFollowDesignerAPI.php';
+	$routesPlugin['deleteFollowDesignerAPI']= 'ezpics_api/view/deleteFollowDesignerAPI.php';
+	$routesPlugin['checkFollowDesignerAPI']= 'ezpics_api/view/checkFollowDesignerAPI.php';
+	$routesPlugin['listFollowDesignerAPI']= 'ezpics_api/view/listFollowDesignerAPI.php';
 	
 ?>

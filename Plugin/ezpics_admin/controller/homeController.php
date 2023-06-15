@@ -20,11 +20,11 @@ function homeAdmin() {
 
     if (!empty($_GET['timeView'])) {
         $conditions['created_at LIKE'] = '%'.$_GET['timeView'].'%';
-        $conditProduct['approvaldate LIKE'] = '%'.$_GET['timeView'].'%';
+        $conditProduct['approval_date LIKE'] = '%'.$_GET['timeView'].'%';
         $conditOrder['created_at LIKE'] = '%'.$_GET['timeView'].'%';
     }else{
         $conditions['created_at LIKE'] = '%'.date('Y-m').'%';
-        $conditProduct['approvaldate LIKE'] = '%'.date('Y-m').'%';
+        $conditProduct['approval_date LIKE'] = '%'.date('Y-m').'%';
         $conditOrder['created_at LIKE'] = '%'.date('Y-m').'%';
     }
 
@@ -134,7 +134,7 @@ function homeAdmin() {
 
         if(!empty($listDataProduct)){
             foreach ($listDataProduct as $item) {
-                 $time= $item->approvaldate->toDateTimeString();
+                 $time= $item->approval_date->toDateTimeString();
                 $time = strtotime($time);
                 $todayTime= getdate($time);
 

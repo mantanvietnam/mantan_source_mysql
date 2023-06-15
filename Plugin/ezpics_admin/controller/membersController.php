@@ -236,7 +236,10 @@ function addMoneyManager($input){
                 $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5 trừ tiền 
                 $order->created_at = date('Y-m-d H:i:s');
+                $order->payment_kind = $dataSend['payment_kind'];
                 $order->note = 'bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
+
+             
                 
                 $modelOrder->save($order);
 

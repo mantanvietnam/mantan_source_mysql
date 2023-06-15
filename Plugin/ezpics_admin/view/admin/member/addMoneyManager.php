@@ -38,6 +38,15 @@
                   } ?>  (*)</label>
                     <input type="text" required class="form-control" placeholder="" name="note" id="note" value="" />
                   </div>
+
+                  <?php if($_GET['type']=='plus') {?>
+                    <div class="mb-3 form-group col-sm-6">
+                                <label class="form-label" for="basic-default-phone">Trạng thái:</label>&ensp;
+                                <input type="radio" name="payment_kind" class="" id="payment_kind" value="0" > Tiền thưởng&ensp;&ensp;&ensp;
+                                <input type="radio" name="payment_kind" class="" id="payment_kind" value="1"> Tiền thật
+                            </div>
+                    
+                  <?php }?>
                   
                 </div>
 

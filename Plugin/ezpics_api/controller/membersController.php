@@ -509,7 +509,7 @@ function getInfoMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
-
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
 	$modelProduct = $controller->loadModel('Products');
 	$modelOrder = $controller->loadModel('Orders');
 
@@ -535,6 +535,9 @@ function getInfoMemberAPI($input)
 
 					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();
 					$checkPhone->quantitysell  = count(@$Order);
+
+					$Follow = $modelFollowDesigner->find()->where(array('designer_id' => $checkPhone->id))->all()->toList();
+					$checkPhone->quantityFollow  = count(@$Follow);
 				}
 				
 				$return = array('code'=>0,
@@ -564,7 +567,7 @@ function getInfoUserAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
-
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
 	$modelProduct = $controller->loadModel('Products');
 	$modelOrder = $controller->loadModel('Orders');
 
@@ -575,7 +578,7 @@ function getInfoUserAPI($input)
 
 
 		if(!empty($dataSend['idUser'])){
-			$checkPhone = $modelMember->find()->where(array('id'=>$dataSend['idUser']))->first();
+			$checkPhone = $modelMember->find()->where(array('id'=>$dataSend['idUser'] , 'type'=> 1))->first();
 		
 
 			if(!empty($checkPhone)){
@@ -592,7 +595,10 @@ function getInfoUserAPI($input)
 					$checkPhone->quantityProduct = count(@$product);
 
 					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();
-					$checkPhone->quantitysell  = count(@$Order);
+					$checkPhone->quantitySell  = count(@$Order);
+
+					$Follow = $modelFollowDesigner->find()->where(array('designer_id' => $checkPhone->id))->all()->toList();
+					$checkPhone->quantityFollow  = count(@$Follow);
 				}
 				
 				$return = array('code'=>0,
