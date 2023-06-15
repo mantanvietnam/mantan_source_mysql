@@ -238,8 +238,6 @@ function addMoneyManager($input){
                 $order->created_at = date('Y-m-d H:i:s');
                 $order->payment_kind = $dataSend['payment_kind'];
                 $order->note = 'bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
-
-             
                 
                 $modelOrder->save($order);
 
