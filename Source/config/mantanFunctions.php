@@ -483,19 +483,25 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
 
 		return $server_output;
     }else{
-    	$opts = array(
-			'http'=>array(
-			    'method'=>"GET",
-			    'header'=>""
-			)
-		);
+    	// Khởi tạo một phiên cURL
+		$curl = curl_init();
 
-		if(!empty($header)){
-			$opts['http']['header'].= implode('&', $header);
+		// Cấu hình cURL để thiết lập URL và các tùy chọn khác
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+		// Thực hiện yêu cầu cURL
+		$response = curl_exec($curl);
+
+		// Đóng phiên cURL
+		curl_close($curl);
+
+		// Kiểm tra xem có lỗi không
+		if ($response === false) {
+		    return '';
+		} else {
+		    return $response;
 		}
-
-		$context = stream_context_create($opts);
-	   	return file_get_contents($url, false, $context);
     }
 }
 

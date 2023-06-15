@@ -910,8 +910,8 @@ function createThumb(){
         if(!empty($product)){
             $url = $urlCreateImage.'?url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id='.$id).'&width='.$product->width.'&height='.$product->height;
 
-            $data = file_get_contents($url);
-
+            $data = sendDataConnectMantan($url);
+            
             /*
             $url = 'http://14.225.238.137:3000/convert';
 

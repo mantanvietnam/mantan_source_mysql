@@ -687,7 +687,7 @@ function createImageSeries($input)
         	
 			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
 		
-	        $dataImage = file_get_contents($url);
+	        $dataImage = sendDataConnectMantan($url);
 
 	        // xóa ảnh người dùng up lên sau khi chụp xong
 	        if(!empty($listRemoveImage)){
