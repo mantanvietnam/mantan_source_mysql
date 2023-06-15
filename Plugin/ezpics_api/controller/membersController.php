@@ -518,11 +518,11 @@ function getInfoMemberAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
+
 		if(!empty($dataSend['token'])){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
-			
-
+		
 
 			if(!empty($checkPhone)){
 				unset($checkPhone->password);
@@ -543,14 +543,73 @@ function getInfoMemberAPI($input)
 								);
 			}else{
 				$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản không tồn tại hoặc sai token'))
+									'messages'=>array(array('text'=>'Tài khoản không tồn tại'))
 								);
 			}
 		}else{
-			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
+			$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Bạn thiếu dữ liệu'))
+								);
 		}
+	
+	}
+
+	return $return;
+}
+
+function getInfoUserAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelOrder = $controller->loadModel('Orders');
+
+	$return = array('code'=>1);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+
+		if(!empty($dataSend['idUser'])){
+			$checkPhone = $modelMember->find()->where(array('id'=>$dataSend['idUser']))->first();
+		
+
+			if(!empty($checkPhone)){
+				unset($checkPhone->password);
+				unset($checkPhone->token);
+				unset($checkPhone->token_device);
+				unset($checkPhone->id_facebook);
+				unset($checkPhone->last_login);
+				unset($checkPhone->account_balance);
+				if(@$checkPhone->type==1){
+
+					$product = $modelProduct->find()->where(array('user_id' => $checkPhone->id, 'type'=>'user_create','status'=>2))->all()->toList();
+					$checkPhone->listProduct = @$product;
+					$checkPhone->quantityProduct = count(@$product);
+
+					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();
+					$checkPhone->quantitysell  = count(@$Order);
+				}
+				
+				$return = array('code'=>0,
+								 'data'=>$checkPhone,
+								 'messages'=>array(array('text'=>'Bạn lấy dữ liệu thành công'))
+								);
+			}else{
+				$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Tài khoản không tồn tại'))
+								);
+			}
+		}else{
+			$return = array('code'=>3,
+									'messages'=>array(array('text'=>'Bạn thiếu dữ liệu'))
+								);
+		}
+	
 	}
 
 	return $return;

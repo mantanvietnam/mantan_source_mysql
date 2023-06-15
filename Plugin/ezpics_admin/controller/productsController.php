@@ -133,7 +133,7 @@ function lockProductAdmin($input){
 			if($_GET['status']==2){
 				$data->approvaldate = date('Y-m-d H:i:s');
 			}else{
-				$data->approvaldate = "";
+				$data->approvaldate = null;
 			}
 
          	$modelProducts->save($data);

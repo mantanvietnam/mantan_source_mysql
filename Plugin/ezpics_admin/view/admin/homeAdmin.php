@@ -15,10 +15,10 @@
                                     $_GET['timeView']= $today['mon'].'/'.$today['year'];
                                 }
 
-                                $timeView= explode('-', $_GET['timeView']);
+                                $timeView= explode('-', @$_GET['timeView']);
                                 
                                 for($i=$today['mon'];$i>=1;$i--){
-                                    if($i==$timeView[1] && $today['year']==$timeView[0]){
+                                    if($i==@$timeView[1] && $today['year']==@$timeView[0]){
                                         if($i<10){
                                              echo '<option selected value="'.$today['year'].'-0'.$i.'">Tháng '.$i.'/'.$today['year'].'</option>';
                                         }else{
@@ -35,7 +35,7 @@
                                 }
 
                                 for($i=12;$i>=1;$i--){
-                                    if($i==$timeView[1] && $yearBack==$timeView[0]){
+                                    if($i==@$timeView[1] && $yearBack==@$timeView[0]){
                                        if($i<10){
                                            echo '<option selected value="'.$yearBack.'-0'.$i.'">Tháng '.$i.'/'.$yearBack.'</option>';
                                         }else{
