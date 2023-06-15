@@ -124,6 +124,22 @@
                 <div data-i18n="Add">Tạo mẫu mới</div>
               </a>
             </li>
+
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Kho thiết kế</span></li>
+            <li class="menu-item">
+              <a href="/listWarehouse" class="menu-link">
+                <i class='bx bx-list-ul' ></i>
+                <div data-i18n="Add">Danh sách kho</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/addWarehouse" class="menu-link">
+                <i class='bx bx-image-add' ></i>
+                <div data-i18n="Add">Tạo kho mới</div>
+              </a>
+            </li>
+
+
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Lịch sử giao dịch</span></li>
             <li class="menu-item">
               <a href="/orderProduct" class="menu-link">

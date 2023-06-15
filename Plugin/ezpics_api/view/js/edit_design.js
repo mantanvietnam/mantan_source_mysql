@@ -1005,7 +1005,7 @@ function saveproduct(removeActiveClass) {
 
                     
                     if(removeActiveClass==1){
-                        // Load thêm 15s để chờ xuất xong ảnh
+                        // Load thêm 20s để chờ xuất xong ảnh
                         setTimeout(function() {
                             $('.loadingProcess').addClass('d-none');
 
@@ -1016,7 +1016,7 @@ function saveproduct(removeActiveClass) {
                             setTimeout(function() {
                                 $("#success-notification").hide();
                             }, 3000);
-                        }, 15000);
+                        }, 20000);
                     }else{
                         $('.loadingProcess').addClass('d-none');
 

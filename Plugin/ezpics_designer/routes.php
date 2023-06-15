@@ -34,4 +34,8 @@
 
 	// khách hàng
 	$routesPlugin['listCustomer']= 'ezpics_designer/view/home/customer/listCustomer.php';
+
+	// kho mẫu thiết kế
+	$routesPlugin['listWarehouse']= 'ezpics_designer/view/home/warehouse/listWarehouse.php';
+	$routesPlugin['addProduct']= 'ezpics_designer/view/home/warehouse/addProduct.php';
 ?>
