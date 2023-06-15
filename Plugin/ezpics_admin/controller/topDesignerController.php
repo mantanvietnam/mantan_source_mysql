@@ -34,6 +34,8 @@ function listSellTopDesignerAdmin($input){
 		$listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 		$listDesignStatic = [];
 
+
+
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
 				if(empty($listDesignStatic[$value->member_id])){
@@ -47,13 +49,19 @@ function listSellTopDesignerAdmin($input){
 
 			arsort($listDesignStatic);
 
-			foreach ($listDesignStatic as $key => $value) {
-				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				$member->sold = $value;
-				unset($member->password);
-				unset($member->token);
 
-				$listDesign[] = $member;
+
+			foreach ($listDesignStatic as $key => $value) {
+				
+					$member = $modelMember->find()->where(['id'=>(int) $key])->first();
+					if(!empty($member)){
+					$member->sold = @$value;
+					unset($member->password);
+					unset($member->token);
+
+
+					$listDesign[] = $member;
+				}
 			}
 		}
 
@@ -117,11 +125,13 @@ function listIncomeTopDesignerAdmin($input){
 
 			foreach ($listDesignStatic as $key => $value) {
 				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				$member->sold = $value;
-				unset($member->password);
-				unset($member->token);
+				if(!empty($member)){
+					$member->sold = $value;
+					unset($member->password);
+					unset($member->token);
 
-				$listDesign[] = $member;
+					$listDesign[] = $member;
+				}
 			}
 		}
 
