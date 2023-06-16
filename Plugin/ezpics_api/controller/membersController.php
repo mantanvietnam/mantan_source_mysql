@@ -749,6 +749,18 @@ function saveInfoUserAPI($input)
 				$checkPhone->name = $dataSend['name'];
 				$checkPhone->email = $dataSend['email'];
 
+				if(isset($dataSend['description'])){
+					$checkPhone->description = $dataSend['description'];
+				}
+
+				if(isset($_FILES['file_cv']) && empty($_FILES['file_cv']["error"])){
+					$file_cv = uploadImage($checkPhone->id, 'file_cv', 'file_cv_'.$checkPhone->id);
+
+					if(!empty($file_cv['linkOnline'])){
+						$checkPhone->file_cv = $file_cv['linkOnline'];
+					}
+				}
+
 				if(!empty($dataSend['phone'])){
 					$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 					$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
