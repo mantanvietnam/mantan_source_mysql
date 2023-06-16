@@ -200,7 +200,8 @@
               };
 
 
-            var chart = new google.visualization.LineChart(document.getElementById('order_chart'));
+            // var chart = new google.visualization.LineChart(document.getElementById('order_chart'));
+             var chart = new google.charts.Line(document.getElementById('order_chart'));
 
             chart.draw(data, options);
         }
