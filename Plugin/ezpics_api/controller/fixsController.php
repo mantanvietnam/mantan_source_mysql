@@ -201,27 +201,27 @@ function fixDeepLink($input)
 	/*
 	global $controller;
 
-	$modelProducts = $controller->loadModel('Products');
+	$modelMembers = $controller->loadModel('Members');
 
-	$allLayer = $modelProducts->find()->all(['type'=>'user_create'])->toList();
+	$allData = $modelMembers->find()->where(['type'=>1])->all()->toList();
 
-	foreach($allLayer as $k => $item){
+	foreach($allData as $k => $item){
 		if(empty($item->link_open_app)){
 	        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
-		    $data_deep = ['dynamicLinkInfo'=>[	'domainUriPrefix'=>'https://ezpics.page.link',
-		    									'link'=>'https://ezpics.page.link/detailProduct?id='.$item->id,
-		    									'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
-		    									'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
-										]
-						];
-			$header_deep = ['Content-Type: application/json'];
-			$typeData='raw';
-			$deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
-			$deep_link = json_decode($deep_link);
+            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+                                                'link'=>'https://ezpics.page.link/detailProfile?id='.$item->id,
+                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+                                        ]
+                        ];
+            $header_deep = ['Content-Type: application/json'];
+            $typeData='raw';
+            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+            $deep_link = json_decode($deep_link);
 
-	        $item->link_open_app = @$deep_link->shortLink;
+            $item->link_open_app = @$deep_link->shortLink;
 
-	        $modelProducts->save($item);
+	        $modelMembers->save($item);
 	    }
     }
     */

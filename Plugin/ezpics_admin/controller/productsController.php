@@ -118,7 +118,8 @@ function listProductAdmin($input)
     setVariable('listCategory', $listCategory);
 }
 
-function lockProductAdmin($input){
+function lockProductAdmin($input)
+{
 	global $controller;
 
 	$modelProducts = $controller->loadModel('Products');
@@ -141,11 +142,12 @@ function lockProductAdmin($input){
          	@$conditions = array();
 
          	$conditions['user_id'] = (int) $data->user_id;
-         	 	$conditions['status'] = 2;
+         	$conditions['status'] = 2;
 
-         	 	$totalData = $modelProducts->find()->where($conditions)->all()->toList();
-    			$totalData = count($totalData);
-         	 if($_GET['status']==2){
+         	$totalData = $modelProducts->find()->where($conditions)->all()->toList();
+    		$totalData = count($totalData);
+
+         	if($_GET['status']==2){
     			if($totalData == 10){
     				$member->level = 1;
     			}elseif($totalData == 30){
@@ -167,9 +169,10 @@ function lockProductAdmin($input){
     			}elseif($totalData == 10000){
     				$member->level = 10;
     			}
+
                 $dataSendNotification= array('ìd'=>$data->id, 'title'=>'Sản phẩm mới đã được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi vui mừng thông báo rằng mẫu thiết kế '.$data->name.' của bạn đã được duyệt và có thể đăng bán. Cảm ơn bạn vì đã gửi mẫu thiết kế cho chúng tôi !','action'=>'productNew');
-                 sendNotification($dataSendNotification, $member->token_device);
-                 //sendEmailsuccessfulDesigner($member->email, $member->name);
+                sendNotification($dataSendNotification, $member->token_device);
+                //sendEmailsuccessfulDesigner($member->email, $member->name);
             }else{
             	if($totalData = 9){
     				$member->level = 0;
@@ -198,14 +201,17 @@ function lockProductAdmin($input){
                  sendNotification($dataSendNotification, $member->token_device);
                 // sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
             }
-             $modelmember->save($member);
+            
+            $modelmember->save($member);
             
         }
 	}
+
 	if(!empty($_GET['page'])){
 		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php?page='.$_GET['page']);
-	}else
+	}else{
 		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+	}
 
 	
 }

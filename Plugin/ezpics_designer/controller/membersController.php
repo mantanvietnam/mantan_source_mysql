@@ -529,4 +529,62 @@ function ggCallback($input)
         return $controller->redirect('/login');
     }
 }
+
+function detailDesigner($input)
+{
+	global $controller;
+	global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMembers = $controller->loadModel('Members');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
+	$modelOrder = $controller->loadModel('Orders');
+
+	$link_open_app = '';
+	
+	if(!empty($input['request']->getAttribute('params')['pass'][1])){
+		$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = explode('-', $slug);
+		$count = count($slug)-1;
+		$id = (int) $slug[$count];
+
+		$designer = $modelMembers->find()->where(['id'=>$id])->first();
+
+		if(!empty($designer)){
+
+			$metaTitleMantan = 'Designer '.$designer->name;
+			$metaDescriptionMantan = 'Trang cá nhân của designer '.$designer->name.' trên Ezpics';
+			$metaImageMantan = $designer->avatar;
+
+			if($designer->type == 1){
+				$link_open_app =  (!empty($designer->link_open_app))?$designer->link_open_app:'https://ezpics.page.link/vn1s';
+
+				$product = $modelProduct->find()->where(array('user_id' => $designer->id, 'type'=>'user_create','status'=>2))->all()->toList();
+				
+				$quantityProduct = count(@$product);
+
+				$order = $modelOrder->find()->where(array('member_id' => $designer->id, 'type'=>3))->all()->toList();
+				$quantitySell  = count(@$order);
+
+				$follow = $modelFollowDesigner->find()->where(array('designer_id' => $designer->id))->all()->toList();
+				$quantityFollow  = count(@$follow);
+
+				setVariable('designer', $designer);
+				setVariable('link_open_app', $link_open_app);
+				setVariable('quantityProduct', $quantityProduct);
+				setVariable('quantitySell', $quantitySell);
+				setVariable('quantityFollow', $quantityFollow);
+			}else{
+				return $controller->redirect('https://ezpics.page.link/vn1s');
+			}
+		}else{
+			return $controller->redirect('https://ezpics.page.link/vn1s');
+		}
+	}else{
+		return $controller->redirect('https://ezpics.page.link/vn1s');
+	}
+}
 ?>

@@ -513,36 +513,18 @@ function getInfoMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
-	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
-	$modelProduct = $controller->loadModel('Products');
-	$modelOrder = $controller->loadModel('Orders');
 
 	$return = array('code'=>1);
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-
 		if(!empty($dataSend['token'])){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
-		
-
 			if(!empty($checkPhone)){
-				unset($checkPhone->password);
-				unset($checkPhone->token);
-				if(@$checkPhone->type==1){
-
-					$product = $modelProduct->find()->where(array('user_id' => $checkPhone->id, 'type'=>'user_create','status'=>2))->all()->toList();
-					$checkPhone->listProduct = @$product;
-					$checkPhone->quantityProduct = count(@$product);
-
-					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();
-					$checkPhone->quantitysell  = count(@$Order);
-
-					$Follow = $modelFollowDesigner->find()->where(array('designer_id' => $checkPhone->id))->all()->toList();
-					$checkPhone->quantityFollow  = count(@$Follow);
-				}
+				$name_slug = createSlugMantan($checkPhone->name);
+				$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
 				
 				$return = array('code'=>0,
 								 'data'=>$checkPhone,
@@ -554,7 +536,7 @@ function getInfoMemberAPI($input)
 								);
 			}
 		}else{
-			$return = array('code'=>3,
+			$return = array('code'=>2,
 									'messages'=>array(array('text'=>'Bạn thiếu dữ liệu'))
 								);
 		}
@@ -592,7 +574,8 @@ function getInfoUserAPI($input)
 				unset($checkPhone->id_facebook);
 				unset($checkPhone->last_login);
 				unset($checkPhone->account_balance);
-				if(@$checkPhone->type==1){
+				
+				if($checkPhone->type==1){
 
 					$product = $modelProduct->find()->where(array('user_id' => $checkPhone->id, 'type'=>'user_create','status'=>2))->all()->toList();
 					$checkPhone->listProduct = @$product;
@@ -603,19 +586,26 @@ function getInfoUserAPI($input)
 
 					$Follow = $modelFollowDesigner->find()->where(array('designer_id' => $checkPhone->id))->all()->toList();
 					$checkPhone->quantityFollow  = count(@$Follow);
-				}
-				
-				$return = array('code'=>0,
+
+					$name_slug = createSlugMantan($checkPhone->name);
+					$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
+
+					$return = array('code'=>0,
 								 'data'=>$checkPhone,
 								 'messages'=>array(array('text'=>'Bạn lấy dữ liệu thành công'))
 								);
+				}else{
+					$return = array('code'=>4,
+									'messages'=>array(array('text'=>'Tài khoản chưa phải là designer'))
+								);
+				}
 			}else{
 				$return = array('code'=>3,
 									'messages'=>array(array('text'=>'Tài khoản không tồn tại'))
 								);
 			}
 		}else{
-			$return = array('code'=>3,
+			$return = array('code'=>2,
 									'messages'=>array(array('text'=>'Bạn thiếu dữ liệu'))
 								);
 		}
@@ -757,7 +747,7 @@ function saveInfoUserAPI($input)
 					$file_cv = uploadImage($checkPhone->id, 'file_cv', 'file_cv_'.$checkPhone->id);
 
 					if(!empty($file_cv['linkOnline'])){
-						$checkPhone->file_cv = $file_cv['linkOnline'];
+						$checkPhone->file_cv = $file_cv['linkOnline'].'?time='.time();
 					}
 				}
 

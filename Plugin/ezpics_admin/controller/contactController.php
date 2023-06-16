@@ -126,9 +126,28 @@ function addDesignRegistrationAdmin($input)
                 $member->description =  @$data->content;
                 $member->file_cv =  @$data->meta;
                 $member->type = 1;
-                $data->status = 1;
+
+                // tạo deep link
+                $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+                $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+                                                    'link'=>'https://ezpics.page.link/detailProfile?id='.$member->id,
+                                                    'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+                                                    'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+                                            ]
+                            ];
+                $header_deep = ['Content-Type: application/json'];
+                $typeData='raw';
+                $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+                $deep_link = json_decode($deep_link);
+
+                $member->link_open_app = @$deep_link->shortLink;
+
+                
                 $modelmember->save($member);
+
+                $data->status = 1;
                 $modelContact->save($data);
+                
                 $dataSendNotification= array('title'=>'Tài khoản của bạn đã trở thành Designer','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn trở thành Designer của Ezpics ','action'=>'DesignRegistration');
                  sendNotification($dataSendNotification, $member->token_device);
                  sendEmailsuccessfulDesigner($member->email, $member->name);

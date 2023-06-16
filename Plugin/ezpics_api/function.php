@@ -917,7 +917,9 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
         $newLayer->products_id = $newproduct->id;
         $newLayer->name = 'Layer 1';
-        $newLayer->content = '{"type":"text","text":"Layer 1","color":"#111","size":"10vw","font":"Arial","status":"1","text_align":"left","postion_x":"991","postion_y":"303","brightness":"100","contrast":"100","saturate":"100","opacity":"1","gachchan":"none","uppercase":"none","innghieng":"normal","indam":"normal","gradient_color1":null,"gradient_color2":null,"gradient_color3":null,"gradient_color4":null,"gradient_color5":null,"gradient_color6":null,"linear_position":"to top left","postion_color1":"0","postion_color2":"100","postion_color3":null,"postion_color4":null,"postion_color5":null,"postion_color6":null,"vien":"0vw","rotate":null,"banner":null,"gianchu":"normal","giandong":"normal","blur":"0","invert":"0","width":"0vw","height":"0vw","sepia":"0","grayscale":"0","gradient":"0","sort":"1","postion_left":"50","postion_top":"50"}';
+
+        $content = getLayer(1, 'text', '', 80, 0, 'Layer 1');
+        $newLayer->content = json_encode($content);
 
         $newLayer->wight = (double) @$sizeBackground[0];
         $newLayer->height = (double) @$sizeBackground[1];
