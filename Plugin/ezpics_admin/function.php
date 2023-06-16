@@ -134,11 +134,11 @@ $menus[0]['sub'][6]= array('title'=>'Cài đặt',
                                                 'classIcon'=>'bx bx-category',
                                                 'permission'=>'listCategoryEzpics',
                                             ),
-                                        array('title'=>'Font chữ',
+                                       /* array('title'=>'Font chữ',
                                                 'url'=>'/plugins/admin/ezpics_admin-view-admin-font-listFontAdmin.php',
                                                 'classIcon'=>'bx bx-category',
                                                 'permission'=>'listfontAdmin',
-                                            ),
+                                            ),*/
                                     )
                         );
 $menus[0]['sub'][7]= array( 'title'=>'Thống kê',
