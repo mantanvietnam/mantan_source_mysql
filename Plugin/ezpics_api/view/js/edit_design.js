@@ -262,14 +262,25 @@ function capEdit(id) {
             },
             success:function(data){
                 if($.isEmptyObject(data.error)){
+                    $('.loadingProcess').addClass('d-none');
 
+                    // Hiển thị thông báo
+                    $("#success-notification").show();
+
+                    // Tự động ẩn thông báo sau 3 giây
+                    setTimeout(function() {
+                        $("#success-notification").hide();
+                    }, 3000);
+                    return 1;
                 }else{
                     printErrorMsg(data.error);
+                    return 0;
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
+                return 0;
             }
         });
     });
@@ -1003,21 +1014,7 @@ function saveproduct(removeActiveClass) {
                         printErrorMsg(data.error);
                     }
 
-                    
-                    if(removeActiveClass==1){
-                        // Load thêm 20s để chờ xuất xong ảnh
-                        setTimeout(function() {
-                            $('.loadingProcess').addClass('d-none');
-
-                            // Hiển thị thông báo
-                            $("#success-notification").show();
-
-                            // Tự động ẩn thông báo sau 3 giây
-                            setTimeout(function() {
-                                $("#success-notification").hide();
-                            }, 3000);
-                        }, 20000);
-                    }else{
+                    if(removeActiveClass==0){
                         $('.loadingProcess').addClass('d-none');
 
                         // Hiển thị thông báo
@@ -2398,10 +2395,21 @@ function exportThumb()
             data: {}, 
             success:function(d){
                 console.log(d);
+                $('.loadingProcess').addClass('d-none');
+
+                // Hiển thị thông báo
+                $("#success-notification").show();
+
+                // Tự động ẩn thông báo sau 3 giây
+                setTimeout(function() {
+                    $("#success-notification").hide();
+                }, 3000);
+                return 1;
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
                 console.log(thrownError);
+                return 0;
             }
         });
 }
@@ -2435,7 +2443,7 @@ function createLayerVariableText()
                         type: "POST",
                         data: {
                             idproduct: idproduct,
-                            width: 0,
+                            width: 80,
                             height: 0,
                             nameVariable: nameVariable,
                             type: 'text',
@@ -2493,8 +2501,8 @@ function createLayerVariableImage()
                         type: "POST",
                         data: {
                             idproduct: idproduct,
-                            width: 0,
-                            height: 0,
+                            width: 50,
+                            height: 50,
                             nameVariable: nameVariable,
                             type: 'image',
                             variableLabel: variableLabel
@@ -2680,15 +2688,15 @@ function createThumbnail(id) {
         success:function(d){
             if(d.code == 1){
                 console.log('Xuất ảnh bằng tool');
-                exportThumb();
+                return exportThumb();
             }else{
                 console.log('Xuất ảnh bằng chụp');
-                capEdit(id);
+                return capEdit(id);
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log('Xuất ảnh bằng chụp');
-            capEdit(id);
+            return capEdit(id);
         }
     });
 }

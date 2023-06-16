@@ -54,7 +54,7 @@ function listCategoryEzpics($input){
     $totalProductSell = 0;
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
-            $products = $modelProducts->find()->where(['category_id'=>$value->id, 'type'=>'user_create', 'status'=>1])->all()->toList();
+            $products = $modelProducts->find()->where(['category_id'=>$value->id, 'type'=>'user_create', 'status'=>2])->all()->toList();
             $listData[$key]->number_product = count($products);
             $totalProductSell += count($products);
         }

@@ -7,4 +7,5 @@ include('model/product_favorite.php'); // yêu thích
 include('model/orders.php'); // đơn hàng
 include('model/contact.php'); // đơn hàng
 include('model/customer.php'); // đơn hàng
+include('model/warehouses.php'); // kho mẫu thiết kế
 ?>

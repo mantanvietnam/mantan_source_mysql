@@ -23,11 +23,11 @@
 
 					echo '	<div class="col-12 col-xs-12 col-sm-12 col-md-2 col-lg-2">
 							</div>
-							<div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-3">
 								<img src="'.$product->image.'" class="img-fluid">
 							</div>
 							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<h1>'.$product->name.'</h1>
+								<h1 style="font-size: 20px;">'.$product->name.'</h1>
 								<p>Tác giả: '.$user->name.'</p>
 								<p>Lượt xem: '.number_format($product->views).'</p>
 								<p>Đã tạo: '.number_format($product->export_image).' ảnh</p>
