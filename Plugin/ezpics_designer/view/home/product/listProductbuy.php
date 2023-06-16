@@ -37,25 +37,6 @@
             </select>
           </div>
 
-         <!--  <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Chờ duyệt</option>
-              <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Đang đăng bán</option>
-              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa đăng bán</option>
-            </select>
-          </div> -->
-
-          <!-- <div class="col-md-2">
-            <label class="form-label">Loại sản phẩm</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
-              <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
-            </select>
-          </div> -->
-
           <div class="col-md-2">
             <label class="form-label">Tạo từ ngày</label>
             <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
@@ -87,9 +68,6 @@
             <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
-            <<!-- th>Thống kê</th>
-            <th>Giá bán</th>
-            <th>Trạng thái</th> -->
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>

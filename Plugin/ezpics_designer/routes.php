@@ -37,5 +37,6 @@
 
 	// kho mẫu thiết kế
 	$routesPlugin['listWarehouse']= 'ezpics_designer/view/home/warehouse/listWarehouse.php';
-	$routesPlugin['addProduct']= 'ezpics_designer/view/home/warehouse/addProduct.php';
+	$routesPlugin['addWarehouse']= 'ezpics_designer/view/home/warehouse/addWarehouse.php';
+	$routesPlugin['deleteWarehouse']= 'ezpics_designer/view/home/warehouse/deleteWarehouse.php';
 ?>
