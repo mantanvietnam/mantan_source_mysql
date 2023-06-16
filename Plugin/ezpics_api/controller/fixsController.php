@@ -282,15 +282,27 @@ function fixSize($input)
 
 function fixCertificate()
 {
-	/*
+
+	
 	global $controller;
 	global $urlCreateImage;
 	$modelMembers = $controller->loadModel('Members');
 
+	
+	/*
+	$listMember = $modelMembers->find()->limit(1000)->page(1)->where(['type'=>1])->all()->toList();
+
+	foreach($listMember as $member){
+		$member->certificate = null;
+		$modelMembers->save($member);
+	}
+
+	die;
+	
 	$listMember = $modelMembers->find()->limit(10)->page(1)->where(['type'=>1, 'certificate is'=>null])->all()->toList();
 
 	foreach($listMember as $member){
-		$url = $urlCreateImage.'?width=5242&height=3704&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
+		$url = $urlCreateImage.'?width=2000&height=1413&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
 
 	    $dataImage = file_get_contents($url);
 
