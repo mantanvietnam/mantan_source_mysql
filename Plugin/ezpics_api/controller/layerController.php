@@ -75,8 +75,6 @@ function saveLayerAPI($input){
 				$datalayer = $modelProductDetail->newEmptyEntity();
 				$datalayer->name =  'layer '.$idlayer;
 				$datalayer->content = $dataSend['layer'];
-				$datalayer->wight =  @$dataSend['widht'];
-				$datalayer->height =  @$dataSend['height'];
 				$datalayer->products_id = (int) @$dataSend['idproduct'];
 				$datalayer->status = 1;
 				$datalayer->created_at = date('Y-m-d H:i:s');
@@ -438,10 +436,8 @@ function addLayerText($input){
 				if ($dataMembr->token == $dataSend['token']) {
 					
 					$datalayer = $modelProductDetail->newEmptyEntity();
-					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], @$dataSend['widht'], $dataSend['height']));
-					$datalayer->widht =  @$dataSend['widht'];
+					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], ));
 					$datalayer->name =  'layer '.$idlayer;
-					$datalayer->height =  @$dataSend['height'];
 					$datalayer->products_id =  @$dataSend['idproduct'];
 					$datalayer->status = 1;
 
