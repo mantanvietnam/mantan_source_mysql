@@ -16,6 +16,16 @@ $account_holders_bank = 'Trần Ngọc Mạnh';
 $link_qr_bank = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/link_qr_bank.jpg';
 $key_transaction = 'ezpics';
 
+$menus= array();
+$menus[0]['title']= 'Ezpics';
+$menus[0]['sub'][6]= array('title'=>'Cài đặt Font chữ',
+                            'url'=>'/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingsEzpics',
+                        );
+addMenuAdminMantan($menus);
+
+
 $price_remove_background = 10000;
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
