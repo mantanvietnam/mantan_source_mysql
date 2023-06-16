@@ -103,9 +103,6 @@ function addDesignRegistrationAdmin($input)
 
     	if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            /*debug($dataSend);
-            debug($member);
-            die;*/
             if(@$dataSend['status']=='Duyệt'){
                 $url = $urlCreateImage.'?width=5242&height=3704&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
 
@@ -126,7 +123,8 @@ function addDesignRegistrationAdmin($input)
 
                     $member->certificate = $image;
                 }
-
+                $member->description =  @$data->content;
+                $member->file_cv =  @$data->meta;
                 $member->type = 1;
                 $data->status = 1;
                 $modelmember->save($member);

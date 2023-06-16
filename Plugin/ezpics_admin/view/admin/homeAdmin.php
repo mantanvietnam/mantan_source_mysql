@@ -61,7 +61,7 @@
             </div>
         </div>
     </form>
-
+<center>
 <div class="taovien" >
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -69,13 +69,13 @@
         var char2= google;
         var char3= google;
         
-        char1.charts.load('current', {'packages':['corechart']});
+        char1.charts.load('current', {'packages':['corechart', 'line']});
         char1.charts.setOnLoadCallback(drawChartUser);
         
-        char2.charts.load('current', {'packages':['corechart']});
+        char2.charts.load('current', {'packages':['corechart', 'line']});
         char2.charts.setOnLoadCallback(drawChartProd);
 
-        char3.charts.load('current', {'packages':['corechart']});
+        char3.charts.load('current', {'packages':['corechart', 'line']});
         char3.charts.setOnLoadCallback(drawChartOrder);
         function drawChartUser() {
             var data = google.visualization.arrayToDataTable([
@@ -99,13 +99,21 @@
               ?>
             ]);
 
-            var options = {
-              title: 'Tài khoản mới',
+            /*var options = {
+              title: '',
               curveType: 'function',
               legend: { position: 'bottom' }
-            };
+            };*/
+            var options = {
+                chart: {
+                  title: 'Tài khoản mới',
+                 // subtitle: 'in millions of dollars (USD)'
+                },
+                width: 900,
+                height: 500
+              };
 
-            var chart = new google.visualization.LineChart(document.getElementById('user_chart'));
+            var chart = new google.charts.Line(document.getElementById('user_chart'));
 
             chart.draw(data, options);
         }
@@ -132,13 +140,23 @@
               ?>
             ]);
 
-            var options = {
+           /* var options = {
               title: 'Mẫu được duyệt ',
               curveType: 'function',
               legend: { position: 'bottom' }
-            };
+            };*/
 
-            var chart = new google.visualization.LineChart(document.getElementById('prod_chart'));
+            var options = {
+                chart: {
+                  title: 'Mẫu được duyệt',
+                 // subtitle: 'in millions of dollars (USD)'
+                },
+                width: 900,
+                height: 500
+              };
+
+           // var chart = new google.visualization.LineChart(document.getElementById('prod_chart'));c
+            var chart = new google.charts.Line(document.getElementById('prod_chart'));
 
             chart.draw(data, options);
         }
@@ -165,11 +183,22 @@
               ?>
             ]);
 
-            var options = {
-              title: 'Tổng số tiền nạp',
-              curveType: 'function',
-              legend: { position: 'bottom' }
-            };
+            // var options = {
+            //   title: '',
+            //   curveType: 'function',
+            //   legend: { position: 'bottom' }
+            // };
+
+             var options = {
+                chart: {
+                  title: 'Tổng số tiền nạp',
+                 // subtitle: 'in millions of dollars (USD)'
+                },
+                width: 900,
+                height: 500,
+                
+              };
+
 
             var chart = new google.visualization.LineChart(document.getElementById('order_chart'));
 
@@ -184,5 +213,8 @@
 
     <div id="prod_chart" style="width: 100%; height: 500px"></div>
     <div id="order_chart" style="width: 100%; height: 500px"></div>
-</div>  
+</div>
+</center> 
+
+
 </div>

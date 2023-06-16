@@ -460,11 +460,13 @@ function getTopDesignerAPI($input){
 
 			foreach ($listDesignStatic as $key => $value) {
 				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				$member->sold = $value;
-				unset($member->password);
-				unset($member->token);
+				if(!empty($member)){
+					$member->sold = $value;
+					unset($member->password);
+					unset($member->token);
 
-				$listDesign[] = $member;
+					$listDesign[] = $member;
+				}
 			}
 		}
 	}elseif($dataSend['orderBy'] == 'bestCreate'){
@@ -490,11 +492,13 @@ function getTopDesignerAPI($input){
 
 			foreach ($listDesignStatic as $key => $value) {
 				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				$member->sold = $value;
-				unset($member->password);
-				unset($member->token);
+				if(!empty($member)){
+					$member->sold = $value;
+					unset($member->password);
+					unset($member->token);
 
-				$listDesign[] = $member;
+					$listDesign[] = $member;
+				}
 			}
 		}
 	}

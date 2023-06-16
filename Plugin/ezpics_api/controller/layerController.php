@@ -171,11 +171,30 @@ function listLayerAPI($input){
 			if(!empty($dataProduct)){
 				// lấy tk người dùng 
 				$dataMembr = $modelMember->get($dataProduct->user_id);
+
 				if ($dataMembr->token == $dataSend['token']) {
-					$datalayer = $modelProductDetail->find()->where(array('products_id' => $dataSend['idproduct']))->all()->toList();
+
+
+					//$datalayer = $modelProductDetail->find()->where(array('products_id' => ))->all()->toList();
+					  $layers = getLayerProductForEdit($dataSend['idproduct']);
+					  
+					  unset($layers['movelayer']);
+					  unset($layers['layer']);
+					  unset($layers['list_layer_check']);
+					  unset($layers['list_layer_check']);
+					 if(!empty($layers['data']['productDetail'])){
+					 	$productDetail = array();
+					 	foreach($layers['data']['productDetail'] as $key => $item){
+					 		$item->content  = json_decode($item->content, true);
+					 		$productDetail[] = $item;
+
+					 	}
+					 	$layers['data']['productDetail']= $productDetail;
+					 }
+
 
 					$return = array('code'=>1,
-									'data'=> $datalayer,
+									'data'=> $layers['data'],
 					 				'mess'=>'Bạn lấy data thành công',
 					 			);
 
