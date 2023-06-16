@@ -104,7 +104,7 @@ function addDesignRegistrationAdmin($input)
     	if ($isRequestPost) {
             $dataSend = $input['request']->getData();
             if(@$dataSend['status']=='Duyệt'){
-                $url = $urlCreateImage.'?width=5242&height=3704&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
+                $url = $urlCreateImage.'?width=2000&height=1413&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
 
                 $dataImage = file_get_contents($url);
 
