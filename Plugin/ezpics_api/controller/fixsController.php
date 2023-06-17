@@ -166,17 +166,15 @@ function fixJsonProductDetail($input)
 	global $controller;
 
 	$modelProductDetails = $controller->loadModel('ProductDetails');
-	$modelProductDetails1 = $controller->loadModel('ProductDetails1');
-
-	$allLayer = $modelProductDetails1->find()->all()->toList();
+	
+	$allLayer = $modelProductDetails->find()->all()->toList();
 
 	foreach($allLayer as $k => $item){
-        $layer = $modelProductDetails->find()->where(array('id'=>$item->id))->first();
+        $content = json_decode($item->content, true);
+        $content['rotate'] = '0deg';
 
-        if(!empty($layer)){
-        	$layer->sort = (!empty($item->sort))?(int) $item->sort:1;
-        	$modelProductDetails->save($layer);
-        }
+        $item->content = json_encode($content);
+        $modelProductDetails->save($item);
     }
 	
     echo 'done';
