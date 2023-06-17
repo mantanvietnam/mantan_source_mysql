@@ -311,8 +311,6 @@ function copyLayer($input)
         $new->products_id = $item->products_id;
         $new->content = json_encode($content);
         $new->sort = $idlayer;
-        $new->height = $item->height;
-        $new->wight = $item->width;
         $new->created_at = date('Y-m-d H:i:s');
         
         $modelProductDetail->save($new);
@@ -460,8 +458,6 @@ function addLayer($input)
         $new->products_id = $dataSend['idproduct'];
         $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height']));
         $new->sort = $idlayer;
-        $new->height = '30';
-        $new->wight = '30';
         $new->created_at = date('Y-m-d H:i:s');
         
         $modelProductDetail->save($new);
@@ -503,8 +499,6 @@ function createLayerVariable($input)
             $new->products_id = $dataSend['idproduct'];
             $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height'], $dataSend['text'], $dataSend['nameVariable'], $dataSend['variableLabel']));
             $new->sort = $idlayer;
-            $new->height = '30';
-            $new->wight = '30';
             $new->created_at = date('Y-m-d H:i:s');
             
             $modelProductDetail->save($new);
@@ -699,8 +693,6 @@ function upImage($input)
             $new->products_id = $dataSend['idproduct'];
             $new->content = json_encode(getLayer($idlayer,'image',$return['linkOnline'],$tyle, $tyle));
             $new->sort = $idlayer;
-            $new->height = $tyle;
-            $new->wight = $tyle;
             $new->created_at = date('Y-m-d H:i:s');
             
             $modelProductDetail->save($new);

@@ -322,6 +322,36 @@
 	                                </div>
 	                            </div>
 	                        </div>
+	                        <div class="content-action" id="border"> 
+	                            <div class="t-action-popup text-center">
+	                                <span>Kéo để chỉnh sửa</span>
+	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
+	                            </div>
+	                            <div class="action-ranger">
+	                                <div class="quant-range">
+	                                    <div class="txt">Bo góc</div>
+	                                </div>
+	                                <div class="range-slider">
+	                                    <input class="range-slider__range border" value="0" type="range" min="0" max="100">
+	                                    <span class="range-slider__value borderz">0</span>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="content-action" id="rotate"> 
+	                            <div class="t-action-popup text-center">
+	                                <span>Kéo để chỉnh sửa</span>
+	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
+	                            </div>
+	                            <div class="action-ranger">
+	                                <div class="quant-range">
+	                                    <div class="txt">Xoay góc</div>
+	                                </div>
+	                                <div class="range-slider">
+	                                    <input class="range-slider__range rotate" value="0" type="range" min="0" max="360">
+	                                    <span class="range-slider__value rotatez">0</span>
+	                                </div>
+	                            </div>
+	                        </div>
 	                        <div class="content-action" id="editimage"> 
 	                            <div class="t-action-popup text-center">
 	                                <span>Kéo để chỉnh sửa</span>
@@ -537,6 +567,14 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/remove-background.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Xóa nền</div>
 	                                </div>
+	                                <div class="item-replace text-center clc-action-edit image" data-tab="border">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/border.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Bo góc</div>
+	                                </div>
+	                                <div class="item-replace text-center clc-action-edit image" data-tab="rotate">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/rotate.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Xoay góc</div>
+	                                </div>
 	                            </div>
 	                        </div>
 	                        <div class="content-action" id="thaotacchu"> 
@@ -592,6 +630,10 @@
 	                                <div class="item-replace text-center clc-action-edit text" data-tab="opacity">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/opacity.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Độ trong</div>
+	                                </div>
+	                                <div class="item-replace text-center clc-action-edit text" data-tab="rotate">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/rotate.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Xoay góc</div>
 	                                </div>
 	                            </div>
 	                        </div>

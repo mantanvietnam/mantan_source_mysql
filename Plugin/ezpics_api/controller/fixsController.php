@@ -166,30 +166,17 @@ function fixJsonProductDetail($input)
 	global $controller;
 
 	$modelProductDetails = $controller->loadModel('ProductDetails');
+	$modelProductDetails1 = $controller->loadModel('ProductDetails1');
 
-	$allLayer = $modelProductDetails->find()->all()->toList();
+	$allLayer = $modelProductDetails1->find()->all()->toList();
 
 	foreach($allLayer as $k => $item){
-        $content = json_decode($item->content, true);
+        $layer = $modelProductDetails->find()->where(array('id'=>$item->id))->first();
 
-        $content['gradient'] = 0;
-        unset($content['gradient_color1']);
-        unset($content['gradient_color2']);
-        unset($content['gradient_color3']);
-        unset($content['gradient_color4']);
-        unset($content['gradient_color5']);
-        unset($content['gradient_color6']);
-
-        unset($content['postion_color1']);
-        unset($content['postion_color2']);
-        unset($content['postion_color3']);
-        unset($content['postion_color4']);
-        unset($content['postion_color5']);
-        unset($content['postion_color6']);
-
-        $item->content = json_encode($content);
-
-        $modelProductDetails->save($item);
+        if(!empty($layer)){
+        	$layer->sort = (!empty($item->sort))?(int) $item->sort:1;
+        	$modelProductDetails->save($layer);
+        }
     }
 	
     echo 'done';

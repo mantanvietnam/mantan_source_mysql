@@ -316,10 +316,16 @@ function getInfoLayer() {
     var texttransform = $('.active-hover span').css('text-transform');
     var fontstyle = $('.active-hover span').css('font-style');
     
+    var border = $('.active-hover').data('border');
+
     var imgsize = $('.active-hover').data('width');
+
+    var rotate = $('.active-hover').data('rotate');
 
     imgsize = imgsize.replace('px','');
     imgsize = imgsize.replace('vw','');
+
+    rotate = rotate.replace('deg','');
     
     var textalign = $('.active-hover').css('text-align');
 
@@ -339,10 +345,18 @@ function getInfoLayer() {
     $('.opacityz').text($('.active-hover span').css('opacity') * 100); 
     $('.opacityz').val($('.active-hover span').css('opacity') * 100); 
     $('.opacity').val($('.active-hover span').css('opacity') * 100); 
+
+    $('.borderz').text(border); 
+    $('.borderz').val(border); 
+    $('.border').val(border); 
     
     $('.sizeimgz').text(imgsize); 
     $('.sizeimgz').val(imgsize); 
     $('.sizeimg').val(imgsize); 
+
+    $('.rotatez').text(rotate); 
+    $('.rotatez').val(rotate); 
+    $('.rotate').val(rotate); 
 
     $('.gianchuz').text(gianchu); 
     $('.gianchu').val(gianchu); 
@@ -646,6 +660,7 @@ function ajaxInfoLayer() {
         lstorage('giandong', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit);
     });
 
+    // xử lý thay đổi kích cỡ ảnh hoặc chữ
     $('.sizeimg').on("change mousemove", function() {
         var sizeEdit = $(this).val();
         if(sizeEdit>100) sizeEdit=100;
@@ -685,6 +700,73 @@ function ajaxInfoLayer() {
         $('.sizeimgz').text(sizeEdit);
 
         lstorage('width', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), sizeEdit+'vw');
+    });
+
+    // xử lý thay đổi xoay góc
+    $('.rotate').on("change mousemove", function() {
+        var rotateEdit = $(this).val();
+        if(rotateEdit>360) rotateEdit=360;
+        if(rotateEdit<0) rotateEdit=0;
+        $(this).val(rotateEdit);
+        
+        $('.active-hover').css('transform', 'translate(0px) rotate('+rotateEdit+'deg)');
+
+        $('.active-hover').data('rotate', rotateEdit+'deg');
+
+        $('.rotate').val(rotateEdit);
+        $('.rotatez').text(rotateEdit);
+
+        lstorage('rotate', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), rotateEdit+'deg');
+    });
+
+    $('.rotatez').on("keyup", function() {
+        var rotateEdit = $(this).val();
+        if(rotateEdit>360) rotateEdit=360;
+        if(rotateEdit<0) rotateEdit=0;
+        $(this).val(rotateEdit);
+        
+        $('.active-hover').css('transform', 'translate(0px) rotate('+rotateEdit+'deg)');
+
+        $('.active-hover').data('rotate', rotateEdit+'deg');
+
+        $('.rotate').val(rotateEdit);
+        $('.rotatez').text(rotateEdit);
+
+        lstorage('rotate', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), rotateEdit+'deg');
+    });
+
+    // xử lý thay đổi boder ảnh hoặc chữ
+    $('.border').on("change mousemove", function() {
+        var borderEdit = $(this).val();
+        if(borderEdit>100) borderEdit=100;
+        if(borderEdit<0) borderEdit=0;
+        $(this).val(borderEdit);
+        
+        $('.active-hover img').css('border-radius', borderEdit+'px');
+
+        $('.active-hover').data('border', borderEdit);
+
+        $('.border').val(borderEdit);
+        $('.borderz').text(borderEdit);
+
+        lstorage('border', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), borderEdit);
+    });
+
+    $('.borderz').on("keyup", function() {
+        var borderEdit = $(this).val();
+        if(borderEdit>100) borderEdit=100;
+        if(borderEdit<0) borderEdit=0;
+        
+        $(this).val(borderEdit);
+
+        $('.active-hover img').css('border-radius', borderEdit+'px');
+
+        $('.active-hover').data('border', borderEdit);
+
+        $('.border').val(borderEdit);
+        $('.borderz').text(borderEdit);
+
+        lstorage('border', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), borderEdit);
     });
 }
 
@@ -807,6 +889,7 @@ function redo() {
 
 // xử lý các undo redo
 function ajax_history(step,id,typed) {
+    /*
     if (localStorage.getItem("product_step_"+id) === null) {
         printErrorMsg(['Sản phẩm chưa chỉnh sửa']);
     }else{
@@ -922,6 +1005,7 @@ function ajax_history(step,id,typed) {
         }
         getInfoLayer();
     }
+    */
 }
 
 // cập nhật layer client
@@ -938,9 +1022,7 @@ function updatelayerClient(layer,field,id,value) {
 
             if(field == 'postion') {
                 var postion = value.split(',');
-                json_update[layer]['postion_x'] = postion[0];
-                json_update[layer]['postion_y'] = postion[1];
-
+                
                 leftmove = postion[0]*100/full_width;
                 topmove = postion[1]*100/full_height;
 
@@ -948,14 +1030,6 @@ function updatelayerClient(layer,field,id,value) {
                 json_update[layer]['postion_top'] = topmove;
             }else{
                 json_update[layer][field] = value;
-
-                if(field == 'postion_x'){
-                    leftmove = value*100/full_width;
-                    json_update[layer]['postion_left'] = leftmove;
-                }else if(field == 'postion_y'){
-                    topmove = value*100/full_height;
-                    json_update[layer]['postion_top'] = topmove;
-                }
             }
 
             var get_update_local = localStorage.setItem("product_update_"+id, JSON.stringify(json_update));
@@ -1391,24 +1465,22 @@ function leftmove() {
         let idproduct = $('.active-hover').data('idproduct');
         let id = $('.active-hover').data('id');
         let layer = $('.active-hover').data('layer');
-        var x = $('.active-hover').data('x');
-        var y = $('.active-hover').data('y');
-        var field = 'postion_x';
+        var x = parseFloat($('.active-hover').css('left').replace('px',''));
+        var rotate = $('.active-hover').data('rotate');
+        
         var value = x - 1;
-        var leftmove, topmove;
+        var leftmove;
 
         full_width = $('#widgetCapEdit').width();
-        full_height = $('#widgetCapEdit').height();
-        leftmove = value*100/full_width;
-        topmove = y*100/full_height;
-        $('.active-hover').css('transform', 'translate(0px, 0px)');
-        $('.active-hover').css('left', leftmove+'%');
-        $('.active-hover').css('top', topmove+'%');
 
-        $('.active-hover').data('x', value);
+        leftmove = value*100/full_width;
+        
+        $('.active-hover').css('transform', 'translate(0px, 0px) rotate('+rotate+')');
+        $('.active-hover').css('left', leftmove+'%');
+        
         $('.active-hover').data('left', leftmove);
-        $('.active-hover').data('top', topmove);
-        updatelayerClient(layer,field,idproduct,value);
+        
+        updatelayerClient(layer,'postion_left',idproduct,leftmove);
     }else{
         $(".content-action").removeClass("active");
         $(".clc-action-edit").removeClass("active");
@@ -1421,24 +1493,22 @@ function rightmove() {
         let idproduct = $('.active-hover').data('idproduct');
         let id = $('.active-hover').data('id');
         let layer = $('.active-hover').data('layer');
-        var x = $('.active-hover').data('x');
-        var y = $('.active-hover').data('y');
-        var field = 'postion_x';
+        var x = parseFloat($('.active-hover').css('left').replace('px',''));
+        var rotate = $('.active-hover').data('rotate');
+        
         var value = x + 1;
-        var leftmove, topmove;
+        var leftmove;
 
         full_width = $('#widgetCapEdit').width();
-        full_height = $('#widgetCapEdit').height();
-        leftmove = value*100/full_width;
-        topmove = y*100/full_height;
-        $('.active-hover').css('transform', 'translate(0px, 0px)');
-        $('.active-hover').css('left', leftmove+'%');
-        $('.active-hover').css('top', topmove+'%');
 
-        $('.active-hover').data('x', value);
+        leftmove = value*100/full_width;
+        
+        $('.active-hover').css('transform', 'translate(0px, 0px) rotate('+rotate+')');
+        $('.active-hover').css('left', leftmove+'%');
+        
         $('.active-hover').data('left', leftmove);
-        $('.active-hover').data('top', topmove);
-        updatelayerClient(layer,field,idproduct,value);
+        
+        updatelayerClient(layer,'postion_left',idproduct,leftmove);
     }else{
         $(".content-action").removeClass("active");
         $(".clc-action-edit").removeClass("active");
@@ -1451,24 +1521,23 @@ function topmove() {
         let idproduct = $('.active-hover').data('idproduct');
         let id = $('.active-hover').data('id');
         let layer = $('.active-hover').data('layer');
-        var x = $('.active-hover').data('x');
-        var y = $('.active-hover').data('y');
-        var field = 'postion_y';
-        var value = y - 1;
-        var leftmove, topmove;
+        var y = parseFloat($('.active-hover').css('top').replace('px',''));
+        var rotate = $('.active-hover').data('rotate');
         
-        full_width = $('#widgetCapEdit').width();
+        var value = y - 1;
+        var topmove;
+        
         full_height = $('#widgetCapEdit').height();
-        leftmove = x*100/full_width;
+       
         topmove = value*100/full_height;
-        $('.active-hover').css('transform', 'translate(0px, 0px)');
-        $('.active-hover').css('left', leftmove+'%');
-        $('.active-hover').css('top', topmove+'%');
 
-        $('.active-hover').data('y', value);
-        $('.active-hover').data('left', leftmove);
+        $('.active-hover').css('transform', 'translate(0px, 0px) rotate('+rotate+')');
+       
+        $('.active-hover').css('top', topmove+'%');
+     
         $('.active-hover').data('top', topmove);
-        updatelayerClient(layer,field,idproduct,value);
+
+        updatelayerClient(layer,'postion_top',idproduct,topmove);
     }else{
         $(".content-action").removeClass("active");
         $(".clc-action-edit").removeClass("active");
@@ -1481,24 +1550,23 @@ function bottommove() {
         let idproduct = $('.active-hover').data('idproduct');
         let id = $('.active-hover').data('id');
         let layer = $('.active-hover').data('layer');
-        var x = $('.active-hover').data('x');
-        var y = $('.active-hover').data('y');
-        var field = 'postion_y';
-        var value = y + 1;
-        var leftmove, topmove;
+        var y = parseFloat($('.active-hover').css('top').replace('px',''));
+        var rotate = $('.active-hover').data('rotate');
         
-        full_width = $('#widgetCapEdit').width();
+        var value = y + 1;
+        var topmove;
+        
         full_height = $('#widgetCapEdit').height();
-        leftmove = x*100/full_width;
+       
         topmove = value*100/full_height;
-        $('.active-hover').css('transform', 'translate(0px, 0px)');
-        $('.active-hover').css('left', leftmove+'%');
-        $('.active-hover').css('top', topmove+'%');
 
-        $('.active-hover').data('y', value);
-        $('.active-hover').data('left', leftmove);
+        $('.active-hover').css('transform', 'translate(0px, 0px) rotate('+rotate+')');
+       
+        $('.active-hover').css('top', topmove+'%');
+     
         $('.active-hover').data('top', topmove);
-        updatelayerClient(layer,field,idproduct,value);
+
+        updatelayerClient(layer,'postion_top',idproduct,topmove);
     }else{
         $(".content-action").removeClass("active");
         $(".clc-action-edit").removeClass("active");
@@ -1647,8 +1715,8 @@ interact(".drag-drop")
         move: dragMoveListener,
         end (event) {
             var target = event.target,
-            x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+            x = (parseFloat($('.active-hover').css('left').replace('px','')) || 0) + event.dx,
+            y = (parseFloat($('.active-hover').css('top').replace('px','')) || 0) + event.dy;
 
             /*
             if(x>$('#widgetCapEdit').width()){
@@ -1671,10 +1739,8 @@ interact(".drag-drop")
             var idproduct = target.getAttribute("data-idproduct");
             var layer = target.getAttribute("data-layer");
 
-            $('.active-hover').data('x',x);
-            $('.active-hover').data('y',y);
-
             updatelayerClient(layer,'postion',idproduct,x+','+y);
+
             productstep(layer,'postion',idproduct,x+','+y);
         } 
     },
@@ -1686,16 +1752,12 @@ function dragMoveListener(event) {
     var xSelect = $('.active-hover').width();
     var ySelect = $('.active-hover').height();
     
-    x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
-    y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-   
-
-    target.setAttribute("data-x", x);
-    target.setAttribute("data-y", y);
+    x = (parseFloat($('.active-hover').css('left').replace('px','')) || 0) + event.dx;
+    y = (parseFloat($('.active-hover').css('top').replace('px','')) || 0) + event.dy;
     
     var selector = target.getAttribute('class');
     var getClass = selector.replace("drag-drop ", "");
-    var rotate = 0;
+    var rotate = $('.active-hover').data('rotate');
 
 
     full_width = $('#widgetCapEdit').width();
@@ -1723,7 +1785,7 @@ function dragMoveListener(event) {
     }
 
 
-    $('.active-hover').css('transform', 'translate(0px, 0px)');
+    $('.active-hover').css('transform', 'translate(0px, 0px) rotate('+rotate+')');
     $('.active-hover').css('left', leftmove+'%');
     $('.active-hover').css('top', topmove+'%');
 
@@ -2705,6 +2767,7 @@ function checkPositionLayer()
 {
     var maxtop, maxleft;
     var target = $('.active-hover');
+    var rotate = target.data('rotate');
 
     if(target.length!=0){
         var xSelect = target.width();
@@ -2734,7 +2797,7 @@ function checkPositionLayer()
             leftSelect = maxleft+1;
         }
 
-        target.css('transform', 'translate(0px, 0px)');
+        target.css('transform', 'translate(0px, 0px) rotate('+rotate+')');
         target.css('left', leftSelect+'%');
         target.css('top', topSelect+'%');
 

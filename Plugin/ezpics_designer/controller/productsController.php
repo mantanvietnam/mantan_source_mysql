@@ -503,18 +503,12 @@ function addProduct($input)
 
 		        $newLayer->products_id = $data->id;
 		        $newLayer->name = 'Layer 1';
+		        $newLayer->sort = 1;
 		        
 		        $content = getLayer(1,'text','',80,0,'Layer 1');
 		        $newLayer->content = json_encode($content);
 
-		        $newLayer->wight = (int) @$sizeBackground[0];
-		        $newLayer->height = (int) @$sizeBackground[1];
-		        $newLayer->sort = 1;
-		        $newLayer->status = 1;
 		        $newLayer->created_at = date('Y-m-d H:i:s');
-		        $newLayer->opacity = 100;
-		        $newLayer->gradient = 0;
-		        $newLayer->rotate = 0;
 		        
 		        $modelProductDetail->save($newLayer);
 

@@ -171,24 +171,23 @@ function listLayerAPI($input){
 				$dataMembr = $modelMember->get($dataProduct->user_id);
 
 				if ($dataMembr->token == $dataSend['token']) {
-
-
-					//$datalayer = $modelProductDetail->find()->where(array('products_id' => ))->all()->toList();
-					  $layers = getLayerProductForEdit($dataSend['idproduct']);
+					$layers = getLayerProductForEdit($dataSend['idproduct']);
 					  
-					  unset($layers['movelayer']);
-					  unset($layers['layer']);
-					  unset($layers['list_layer_check']);
-					  unset($layers['list_layer_check']);
-					 if(!empty($layers['data']['productDetail'])){
+					unset($layers['movelayer']);
+					unset($layers['layer']);
+					unset($layers['list_layer_check']);
+					unset($layers['list_layer_check']);
+
+					if(!empty($layers['data']['productDetail'])){
 					 	$productDetail = array();
 					 	foreach($layers['data']['productDetail'] as $key => $item){
 					 		$item->content  = json_decode($item->content, true);
 					 		$productDetail[] = $item;
 
 					 	}
+					 	
 					 	$layers['data']['productDetail']= $productDetail;
-					 }
+					}
 
 
 					$return = array('code'=>1,
@@ -255,8 +254,7 @@ function addLayerImageAPI($input){
 			            $new->products_id = $dataSend['idproduct'];
 			            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
 			            $new->sort = $idlayer;
-			            $new->height = $tyle;
-			            $new->wight = $tyle;
+			            
 			            $new->created_at = date('Y-m-d H:i:s');
 			            
 			            $modelProductDetail->save($new);
@@ -381,8 +379,7 @@ function changeLayerImageNew($input){
 				            $new->products_id = $dataSend['idproduct'];
 				            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
 				            $new->sort = $idlayer;
-				            $new->height = $tyle;
-				            $new->wight = $tyle;
+				            
 				            $new->created_at = date('Y-m-d H:i:s');
 				            
 				            $modelProductDetail->save($new);
@@ -563,8 +560,7 @@ function copyLayerAPI($input)
 			        $new->products_id = $item->products_id;
 			        $new->content = json_encode($content);
 			        $new->sort = $idlayer;
-			        $new->height = $item->height;
-			        $new->wight = $item->width;
+			        
 			        $new->created_at = date('Y-m-d H:i:s');
 			        
 			        $modelProductDetail->save($new);

@@ -488,38 +488,9 @@ function buyProductAPI($input)
 	                    	$newLayer->products_id = $newproduct->id;
 	                    	$newLayer->name = $d->name;
 	                    	$newLayer->content = $d->content;
-	                    	$newLayer->wight = $d->wight;
-	                    	$newLayer->height = $d->height;
 	                    	$newLayer->sort = $d->sort;
-	                    	$newLayer->postion_x = $d->postion_x;
-	                    	$newLayer->postion_y = $d->postion_y;
-	                    	$newLayer->type = $d->type;
-	                    	$newLayer->status = $d->status;
-	                    	$newLayer->banner = $d->banner;
-	                    	$newLayer->created_at = $d->created_at;
-	                    	$newLayer->updated_at = $d->updated_at;
-	                    	$newLayer->text = $d->text;
-	                    	$newLayer->size = $d->size;
-	                    	$newLayer->font = $d->font;
-	                    	$newLayer->color = $d->color;
-	                    	$newLayer->gachchan = $d->gachchan;
-	                    	$newLayer->innghieng = $d->innghieng;
-	                    	$newLayer->gianchu = $d->gianchu;
-	                    	$newLayer->brightness = $d->brightness;
-	                    	$newLayer->contrast = $d->contrast;
-	                    	$newLayer->saturate = $d->saturate;
-	                    	$newLayer->sepia = $d->sepia;
-	                    	$newLayer->invert = $d->sepinvertia;
-	                    	$newLayer->grayscale = $d->grayscale;
-	                    	$newLayer->blur = $d->blur;
-	                    	$newLayer->vien = $d->vien;
-	                    	$newLayer->opacity = $d->opacity;
-	                    	$newLayer->linear_position = $d->linear_position;
-	                    	$newLayer->gradient_color1 = $d->gradient_color1;
-	                    	$newLayer->gradient_color2 = $d->gradient_color2;
-	                    	$newLayer->gradient = $d->gradient;
-	                    	$newLayer->rotate = $d->rotate;
-	                    	$newLayer->deleted_at = $d->deleted_at;
+	                    	
+	                    	$newLayer->created_at = date('Y-m-d H:i:s');
 	                        
 	                        $modelProductDetail->save($newLayer);
 	                    }

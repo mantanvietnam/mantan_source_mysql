@@ -471,7 +471,6 @@ function getLayerProductForEdit($idProduct=0)
     $modelProduct = $controller->loadModel('Products');
     $modelProductDetail = $controller->loadModel('ProductDetails');
 
-    $user =  $session->read('infoUser');
     $pro = $modelProduct->find()->where(array('id'=>$idProduct))->first();
 
     if (!empty($pro)) {
@@ -492,66 +491,155 @@ function getLayerProductForEdit($idProduct=0)
                 $layer = json_decode(trim($item->content,'"')); 
 
                 if(!empty($layer)){
-                    if(!isset($layer->type)) $layer->type = 'text';
-                    if(!isset($layer->text)) $layer->text = 'Layer '.$item->id;
-                    if(!isset($layer->color)) $layer->color = '#000';
-                    if(!isset($layer->size)) $layer->size = '10vw';
-                    if(!isset($layer->font)) $layer->font = 'Arial';
-                    if(!isset($layer->status)) $layer->status = 1;
-                    if(!isset($layer->text_align)) $layer->text_align = 'left';
-                    if(!isset($layer->postion_x)) $layer->postion_x = 50;
-                    if(!isset($layer->postion_y)) $layer->postion_y = 50;
-                    if(!isset($layer->brightness)) $layer->brightness = 100;
-                    if(!isset($layer->contrast)) $layer->contrast = 100;
-                    if(!isset($layer->saturate)) $layer->saturate = 100;
-                    if(!isset($layer->opacity)) $layer->opacity = 1;
-                    if(!isset($layer->gachchan)) $layer->gachchan = 'none';
-                    if(!isset($layer->uppercase)) $layer->uppercase = 'none';
-                    if(!isset($layer->innghieng)) $layer->innghieng = 'normal';
-                    if(!isset($layer->indam)) $layer->indam = 'normal';
-                    
-                    if(!isset($layer->linear_position)) $layer->linear_position = 'to right';
-                    /*
-                    if(!isset($layer->gradient_color)){
-                        $layer->gradient_color->0->position = 0;
-                        $layer->gradient_color->0->color = $layer->color;
+                    //kiểu layer
+                    if(!isset($layer->type)) $layer->type = 'text'; 
 
-                        $layer->gradient_color->1->position = 1;
-                        $layer->gradient_color->1->color = $layer->color;
-                    } 
-                    */
-                    
-                    if(!isset($layer->vien)) $layer->vien = '0px';
-                    if(!isset($layer->rotate)) $layer->rotate = null;
-                    if(!isset($layer->banner)) $layer->banner = null;
-                    if(!isset($layer->gianchu)) $layer->gianchu = 'normal';
-                    if(!isset($layer->giandong)) $layer->giandong = 'normal';
-                    if(!isset($layer->blur)) $layer->blur = 0;
-                    if(!isset($layer->invert)) $layer->invert = 0;
-                    if(!isset($layer->width)) $layer->width = '10vw';
-                    if(!isset($layer->height)) $layer->height = '10vh';
-                    if(!isset($layer->sepia)) $layer->sepia = 0;
-                    if(!isset($layer->grayscale)) $layer->grayscale = 0;
-                    if(!isset($layer->gradient)) $layer->gradient = 0;
-                    if(!isset($layer->sort)) $layer->sort = 1;
-                    if(!isset($layer->postion_left)) $layer->postion_left = '50';
-                    if(!isset($layer->postion_top)) $layer->postion_top = '50';
+                    // tên layer
+                    if(!isset($layer->text)) $layer->text = 'Layer '.$item->id; 
 
-                    if(!empty($layer->variable) && !empty($_GET[$layer->variable])){
-                        $layer->text = str_replace('%'.$layer->variable.'%', $_GET[$layer->variable], $layer->text);
+                    // mã màu
+                    if(!isset($layer->color)) $layer->color = '#000'; 
+
+                    // kích cỡ chữ
+                    if(!isset($layer->size)) $layer->size = '10vw'; 
+                    $layer->size = str_replace('px','',$layer->size);
+                    $layer->size = str_replace('vw','',$layer->size);
+                    if($layer->size>100) $layer->size= 70;
+                    $layer->size = $layer->size.'vw';
+
+                    // font chữ
+                    if(!isset($layer->font)) $layer->font = 'Arial'; 
+
+                    // trạng thái của layer
+                    if(!isset($layer->status)){
+                        $layer->status = 1; 
+                    }else{
+                        $layer->status = (int) $layer->status; 
                     }
 
-                    if(!empty($layer->variable) && !empty($_GET[$layer->variable])){
-                        $layer->banner = $_GET[$layer->variable];
-                    }
-                    
-                    if($layer->type == 'image' && empty($layer->banner)) $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png';
+                    // căn lề chữ
+                    if(!isset($layer->text_align)) $layer->text_align = 'left'; 
 
-                    if($layer->width == '0px' || $layer->width == '0vw'){
-                        $layer->width = '10vw';
+                    // độ sáng
+                    if(!isset($layer->brightness)){
+                        $layer->brightness = 100; 
+                    }else{
+                        $layer->brightness = (double) $layer->brightness; 
                     }
 
+                    // độ tương phản
+                    if(!isset($layer->contrast)){
+                        $layer->contrast = 100; 
+                    }else{
+                        $layer->contrast = (double) $layer->contrast; 
+                    }
+
+                    // độ bão hòa màu sắc
+                    if(!isset($layer->saturate)){
+                        $layer->saturate = 100; 
+                    }else{
+                        $layer->saturate = (double) $layer->saturate; 
+                    }
+
+                    // độ trong
+                    if(!isset($layer->opacity)){
+                        $layer->opacity = 1; 
+                    }else{
+                        $layer->opacity = (double) $layer->opacity; 
+                    }
+
+                    // gạch chân chữ
+                    if(!isset($layer->gachchan)) $layer->gachchan = 'none'; 
+
+                    // viết hoa hết hoặc viết thường hết
+                    if(!isset($layer->uppercase)) $layer->uppercase = 'none'; 
+
+                    // hiệu ứng in nghiêng của chữ
+                    if(!isset($layer->innghieng)) $layer->innghieng = 'normal'; 
+
+                    // hiệu ứng in đậm của chữ
+                    if(!isset($layer->indam)) $layer->indam = 'normal'; 
+
+                    // hướng đổi màu trong hiệu ứng gradient của chữ
+                    if(!isset($layer->linear_position)) $layer->linear_position = 'to right'; 
                     $layer->linear_position = 'to right';
+
+                    // độ nghiêng của layer
+                    if(!isset($layer->rotate)) $layer->rotate = '0deg'; 
+
+                    // link ảnh của layer image
+                    if(empty($layer->banner)){
+                        $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png'; 
+                    }
+
+                    // độ dãn chữ
+                    if(!isset($layer->gianchu)) $layer->gianchu = 'normal'; 
+                    if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
+
+                    // độ dãn dòng
+                    if(!isset($layer->giandong)) $layer->giandong = 'normal'; 
+                    if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
+
+                    // chiều ngang của layer
+                    if(empty($layer->width) || $layer->width == '0px' || $layer->width == '0vw'){
+                        $layer->width = '80vw';
+                    }
+                    $layer->width = str_replace('px','',$layer->width);
+                    $layer->width = str_replace('vw','',$layer->width);
+                    if($layer->width>100) $layer->width= 70;
+                    $layer->width = $layer->width.'vw';
+
+                    // chiều cao của layer
+                    if(!isset($layer->height)) $layer->height = '10vh'; 
+
+                    // cờ đánh dấu việc có dùng hiệu ứng gradient hay không
+                    if(!isset($layer->gradient)){
+                        $layer->gradient = 0; 
+                    }else{
+                        $layer->gradient = (int) $layer->gradient; 
+                    }
+
+                    // căn tọa độ lề trái
+                    if(!isset($layer->postion_left)){
+                        $layer->postion_left = 50; 
+                    }else{
+                        $layer->postion_left = (double) $layer->postion_left; 
+                    }
+
+                    // căn tọa độ lề trên
+                    if(!isset($layer->postion_top)){
+                        $layer->postion_top = 50; 
+                    }else{
+                        $layer->postion_top = (double) $layer->postion_top; 
+                    }
+
+                    // góc bo của layer
+                    if(!isset($layer->border)){
+                        $layer->border = 0; 
+                    }else{
+                        $layer->border = (double) $layer->border; 
+                    }
+
+                    // mảng chứa danh sách màu gradient
+                    if(!isset($layer->gradient_color)) $layer->gradient_color = []; 
+
+                    // tên biến
+                    if(empty($layer->variable)){
+                        $layer->variable = '';
+                    }else{
+                        if(!empty($_GET[$layer->variable])){
+                            $layer->text = str_replace('%'.$layer->variable.'%', $_GET[$layer->variable], $layer->text);
+
+                            $layer->banner = $_GET[$layer->variable];
+                        }
+                    }
+
+                    // label hiển thị của biến
+                    if(empty($layer->variableLabel)){
+                        $layer->variableLabel = '';
+                    }
+                    
+                    
                     
                     $dnone = empty($layer->status) ? 'd-none' : '';
                     
@@ -583,67 +671,24 @@ function getLayerProductForEdit($idProduct=0)
 
                     $style_gradient = !empty($layer->gradient) ? '-webkit-background-clip:text !important; -webkit-text-fill-color:transparent; background: linear-gradient('.$layer->linear_position.', '.implode(', ', $gradient_color).' );' : '';
                     
+
+                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;transform: translate(0px) rotate('.$layer->rotate.')';
+
+
                     
-
-                    $attr_gradient = ' data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" ';
-
-                    /*
-                    $fixtopleft = false;
-                    if(!isset($layer->postion_left)){
-                        $layer->postion_left = $layer->postion_x*100/$wight;
-                        $fixtopleft = true;
-                    }
-
-                    if(!isset($layer->postion_top)){
-                        $layer->postion_top = $layer->postion_y*100/$height;
-                        $fixtopleft = true;
-                    }
-
-                    if($fixtopleft){
-                        $item->content = json_encode($layer);
-                        $modelProductDetail->save($item);
-                    }
-                    */
-
-                    /*
-                    if(isset($layer->postion_left)){
-                        if($layer->postion_left>=100){
-                            $layer->postion_left = 100;
-                        }elseif($layer->postion_left<=0){
-                            $layer->postion_left = 0;
-                        }
-                    }
-
-                    if(isset($layer->postion_top)){
-                        if($layer->postion_top>=100){
-                            $layer->postion_top = 100;
-                        }elseif($layer->postion_top<=0){
-                            $layer->postion_top = 0;
-                        }
-                    }
-                    */
                     
-
-                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;';
-
-                    // độ lớn của chữ
-                    $layer->size = str_replace('px','',$layer->size);
-                    $layer->size = str_replace('vw','',$layer->size);
-                    if($layer->size>100) $layer->size= 70;
-                    $layer->size = $layer->size.'vw';
-
-                    // chiều dài của ảnh
-                    $layer->width = str_replace('px','',$layer->width);
-                    $layer->width = str_replace('vw','',$layer->width);
-                    if($layer->width>100) $layer->width= 70;
-                    $layer->width = $layer->width.'vw';
-
-                    if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
-                    if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
-
+                    /*
                     // tính vị trí hiển thị
                     $sizeBackground = @getimagesize($pro->thumn);
-                    $widthWindow = $session->read('widthWindow');
+
+                    if(!empty($widthDevice)){
+                        $widthWindow = $widthDevice;
+                    }elseif(!empty($session->read('widthWindow'))){
+                        $widthWindow = $session->read('widthWindow');
+                    }else{
+                        $widthWindow = 1792;
+                    }
+                    
                     $heightWindow = $widthWindow;
                     if(!empty($sizeBackground[1]) && !empty($sizeBackground[0])){
                         $heightWindow = $sizeBackground[1]*$widthWindow/$sizeBackground[0];
@@ -651,8 +696,9 @@ function getLayerProductForEdit($idProduct=0)
 
                     $layer->postion_x = $layer->postion_left*$widthWindow/100;
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
+                    */
 
-                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-y="'.$layer->postion_y.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-x="'.$layer->postion_x.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'"' .$attr_gradient. ' data-width="'.$layer->width.'">
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" >
                         
                         <div class="list-selection-choose d-none">
                             <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
@@ -663,7 +709,7 @@ function getLayerProductForEdit($idProduct=0)
                             </button>
                         </div>
 
-                        <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';border-radius: '.$layer->vien.';opacity: '.$layer->opacity.';">
+                        <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';opacity: '.$layer->opacity.';border-radius: '.$layer->border.'px">
                     
                         <span class="'.$text.' text'.$key.'" style="display:inline-block;word-wrap:anywhere;width: '.$layer->width.';color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span>
                     
@@ -704,8 +750,6 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'font' => 'Arial',
         'status' => 1,
         'text_align' => 'left',
-        'postion_x' => '20',
-        'postion_y' => '15',
         'postion_left' => '50',
         'postion_top' => '50',
         'brightness' => 100,
@@ -717,20 +761,15 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'innghieng' => 'normal',
         'indam' => 'normal',
         'linear_position' => 'to right',
-        'vien' => '0px',
-        'rotate' => null,
+        'border' => 0,
+        'rotate' => '0deg',
         'banner' => $link,
         'gianchu' => 'normal',
         'giandong' => 'normal',
         'opacity' => 1,
-        'blur' => 0,
-        'invert' => 0,
         'width' => $width.'vw',
         'height' => $height.'vh',
-        'sepia' => 0,
-        'grayscale' => 0,
         'gradient' => 0,
-        'sort' => $stt,
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,
         'variableLabel' => $variableLabel,
@@ -739,38 +778,32 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
 
 function getLayertext($stt, $type = 'text', $content= '' , $color = '',$size = '', $font='', $width ='', $height = '')
 {
+
     return [
        'type' => $type,
        'text' => $content,
        'color' => $color,
        'size' => $size,
-       'font' => "Bebas",
-       'status' => "1",
+       'font' => "Arial",
+       'status' => 1,
        'text_align' => "left",
-       'postion_x'=>0,
-       'postion_y'=>0,
-       'brightness' => "100",
-       'contrast' => "100",
-       'saturate' => "100",
-       'opacity' => "1",
+       'brightness' => 100,
+       'contrast' => 100,
+       'saturate' => 100,
+       'opacity' => 1,
        'gachchan' => "none",
        'uppercase' => "none",
        'innghieng' => "normal",
        'indam' => "normal",
        'linear_position' => "to right",
-       'vien' => "0px",
-       'rotate' => "",
+       'border' => 0,
+       'rotate' => "0deg",
        'banner' => "",
        'gianchu' => "normal",
        'giandong' => "normal",
-       'blur' => "0",
-       'invert' => "0",
        'width' => $width,
        'height' => $height,
-       'sepia' => "0",
-       'grayscale' => "0",
        'gradient'=>0,
-       'sort' => $stt,
        'postion_left'=>30,
        'postion_top'=>30,
        'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']]
@@ -920,15 +953,9 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
         $content = getLayer(1, 'text', '', 80, 0, 'Layer 1');
         $newLayer->content = json_encode($content);
-
-        $newLayer->wight = (double) @$sizeBackground[0];
-        $newLayer->height = (double) @$sizeBackground[1];
-        $newLayer->sort = 1;
-        $newLayer->status = 1;
         $newLayer->created_at = date('Y-m-d H:i:s');
-        $newLayer->opacity = 100;
-        $newLayer->gradient = 0;
-        $newLayer->rotate = 0;
+        $newLayer->sort = 1;
+        
         
         $modelProductDetail->save($newLayer);
 
