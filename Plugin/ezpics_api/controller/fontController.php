@@ -117,13 +117,16 @@ function addFontAdmin($input)
             $data->name = @$dataSend['name'];
             $data->font = @$dataSend['font'];
             $data->font_woff2 = @$dataSend['font_woff2'];
-            $data->display = @$dataSend['display'];
+            $data->font_ttf = @$dataSend['font_ttf'];
+            $data->font_otf = @$dataSend['font_otf'];
+            
             $data->style = @$dataSend['style'];
             $data->weight = @$dataSend['weight'];
             $data->updated_at = date('Y-m-d H:i:s');
-           
 
-       
+            if(empty($_GET['id'])){
+                $data->created_at = date('Y-m-d H:i:s');
+            }
 
             $modelFont->save($data);
 

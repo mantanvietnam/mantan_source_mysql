@@ -68,12 +68,29 @@
 		<?php 
 		if(!empty($fonts)){
 			foreach ($fonts as $key => $value) {
+				$src = [];
+				if(!empty($value->font_woff2)){
+					$src[] = 'url("'.$value->font_woff2.'") format("woff2")';
+				}
+
+				if(!empty($value->font)){
+					$src[] = 'url("'.$value->font.'") format("woff")';
+				}
+
+				if(!empty($value->font_ttf)){
+					$src[] = 'url("'.$value->font_ttf.'") format("truetype")';
+				}
+
+				if(!empty($value->font_otf)){
+					$src[] = 'url("'.$value->font_otf.'") format("opentype")';
+				}
+
 				echo '	@font-face {
 							font-family: "'.$value->name.'";
-							src: url("'.$value->font_woff2.'") format("woff2"), url("'.$value->font.'") format("woff");
+							src: '.implode(',', $src).';
 				         	font-weight: '.$value->weight.';
 						    font-style: '.$value->style.';
-						    font-display: '.$value->display.';
+						    font-display: swap;
 						}';
 			}
 		}

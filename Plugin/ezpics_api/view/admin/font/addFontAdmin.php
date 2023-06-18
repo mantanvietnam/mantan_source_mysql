@@ -22,27 +22,39 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">display</label>
-                    <input type="text" required class="form-control" placeholder="" name="display" id="display" value="<?php echo @$data->display;?>" />
-                  </div> 
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">font</label>
+                    <label class="form-label" for="basic-default-fullname">Font WOFF</label>
                     <?php showUploadFile('font','font',@$data->font,0);?>
-                  </div>             
+                  </div>    
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Font WOFF2</label>
+                    <?php showUploadFile('font_woff2','font_woff2',@$data->font_woff2,1);?>
+                  </div>     
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Font TTF</label>
+                    <?php showUploadFile('font_ttf','font_ttf',@$data->font_ttf,2);?>
+                  </div>    
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">weight</label>
-                    <input type="text" autocomplete="off" class="form-control" placeholder="" name="weight" id="weight" value="<?php echo @$data->weight;?>" />
+                    <label class="form-label" for="basic-default-fullname">Chữ đậm</label>
+                    <select class="form-select color-dropdown" name="weight" required>
+                      <option value="">Chọn độ đậm</option>
+                      <option value="normal" <?php if(!empty($data->weight) && $data->weight=='normal') echo 'selected';?> >Bình thường</option>
+                      <option value="bold" <?php if(!empty($data->weight) && $data->weight=='bold') echo 'selected';?> >Chữ đậm</option>
+                    </select>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">style</label>
-                    <input type="text" class="form-control" placeholder="" name="style" id="style" value="<?php echo @$data->style;?>" />
+                    <label class="form-label" for="basic-default-fullname">Chữ nghiêng</label>
+                    <select class="form-select color-dropdown" name="style" required>
+                      <option value="">Chọn kiểu nghiêng</option>
+                      <option value="normal" <?php if(!empty($data->style) && $data->style=='normal') echo 'selected';?> >Bình thường</option>
+                      <option value="italic" <?php if(!empty($data->style) && $data->style=='italic') echo 'selected';?> >Chữ nghiêng</option>
+                    </select>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">font woff</label>
-                    <?php showUploadFile('font_woff2','font_woff2',@$data->font_woff2,1);?>
-                  </div>
+                    <label class="form-label" for="basic-default-fullname">Font OTF</label>
+                    <?php showUploadFile('font_otf','font_otf',@$data->font_otf,3);?>
+                  </div>   
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
