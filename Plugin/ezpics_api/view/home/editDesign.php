@@ -354,6 +354,21 @@
 	                                </div>
 	                            </div>
 	                        </div>
+	                        <div class="content-action" id="brightness"> 
+	                            <div class="t-action-popup text-center">
+	                                <span>Kéo để chỉnh sửa</span>
+	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
+	                            </div>
+	                            <div class="action-ranger">
+	                                <div class="quant-range">
+	                                    <div class="txt">Độ sáng</div>
+	                                </div>
+	                                <div class="range-slider">
+	                                    <input class="range-slider__range brightness" value="100" type="range" min="0" max="500">
+	                                    <span class="range-slider__value brightnessz">100</span>
+	                                </div>
+	                            </div>
+	                        </div>
 	                        <div class="content-action" id="rotate"> 
 	                            <div class="t-action-popup text-center">
 	                                <span>Kéo để chỉnh sửa</span>
@@ -591,6 +606,10 @@
 	                                <div class="item-replace text-center clc-action-edit image" data-tab="rotate">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/rotate.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Xoay góc</div>
+	                                </div>
+	                                <div class="item-replace text-center clc-action-edit image" data-tab="brightness">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/brightness.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Độ sáng</div>
 	                                </div>
 	                            </div>
 	                        </div>

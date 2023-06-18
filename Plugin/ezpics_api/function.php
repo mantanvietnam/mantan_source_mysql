@@ -671,8 +671,9 @@ function getLayerProductForEdit($idProduct=0)
 
                     $style_gradient = !empty($layer->gradient) ? '-webkit-background-clip:text !important; -webkit-text-fill-color:transparent; background: linear-gradient('.$layer->linear_position.', '.implode(', ', $gradient_color).' );' : '';
                     
-
-                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;transform: translate(0px) rotate('.$layer->rotate.')';
+                    $brightness = $layer->brightness/100;
+                    
+                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;transform: translate(0px) rotate('.$layer->rotate.');filter: brightness('.$brightness.');';
 
 
                     
@@ -698,8 +699,8 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
                     */
 
-                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" >
-                        
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" >
+                       
                         <div class="list-selection-choose d-none">
                             <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
                                 <i class="fa-solid fa-trash-can"></i>

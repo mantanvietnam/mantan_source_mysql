@@ -322,6 +322,8 @@ function getInfoLayer() {
 
     var rotate = $('.active-hover').data('rotate');
 
+    var brightness = $('.active-hover').data('brightness');
+
     imgsize = imgsize.replace('px','');
     imgsize = imgsize.replace('vw','');
 
@@ -357,6 +359,10 @@ function getInfoLayer() {
     $('.rotatez').text(rotate); 
     $('.rotatez').val(rotate); 
     $('.rotate').val(rotate); 
+
+    $('.brightnessz').text(brightness); 
+    $('.brightnessz').val(brightness); 
+    $('.brightness').val(brightness); 
 
     $('.gianchuz').text(gianchu); 
     $('.gianchu').val(gianchu); 
@@ -733,6 +739,43 @@ function ajaxInfoLayer() {
         $('.rotatez').text(rotateEdit);
 
         lstorage('rotate', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), rotateEdit+'deg');
+    });
+
+    // xử lý thay đổi độ sáng
+    $('.brightness').on("change mousemove", function() {
+        var brightnessEdit = $(this).val();
+        if(brightnessEdit>500) brightnessEdit=500;
+        if(brightnessEdit<0) brightnessEdit=0;
+        $(this).val(brightnessEdit);
+        var brightnessShow = parseFloat(brightnessEdit)/100;
+
+        console.log(brightnessShow);
+        
+        $('.active-hover').css('filter', 'brightness('+brightnessShow+')');
+
+        $('.active-hover').data('brightness', brightnessEdit);
+
+        $('.brightness').val(brightnessEdit);
+        $('.brightnessz').text(brightnessEdit);
+
+        lstorage('brightness', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), brightnessEdit);
+    });
+
+    $('.rotatez').on("keyup", function() {
+        var brightnessEdit = $(this).val();
+        if(brightnessEdit>500) brightnessEdit=500;
+        if(brightnessEdit<0) brightnessEdit=0;
+        $(this).val(brightnessEdit);
+        var brightnessShow = parseFloat(brightnessEdit)/100;
+        
+        $('.active-hover').css('brightness', brightnessShow);
+
+        $('.active-hover').data('brightness', brightnessEdit);
+
+        $('.brightness').val(brightnessEdit);
+        $('.brightnessz').text(brightnessEdit);
+
+        lstorage('brightness', $('.active-hover').data('idproduct'), $('.active-hover').data('layer'), brightnessEdit);    
     });
 
     // xử lý thay đổi boder ảnh hoặc chữ
