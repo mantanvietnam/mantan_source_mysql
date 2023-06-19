@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thống kê </h4>
+  <h4 class="fw-bold py-3 mb-4">Thống kê số tiền được nạp</h4>
     <form method="get" action="">
         <div class="card mb-4">
             <h5 class="card-header">Tìm kiếm dữ liệu</h5>
@@ -65,101 +65,10 @@
 <div class="taovien" >
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        var char1= google;
-        var char2= google;
         var char3= google;
-        
-        char1.charts.load('current', {'packages':['corechart', 'line']});
-        char1.charts.setOnLoadCallback(drawChartUser);
-        
-        char2.charts.load('current', {'packages':['corechart', 'line']});
-        char2.charts.setOnLoadCallback(drawChartProd);
 
         char3.charts.load('current', {'packages':['corechart', 'line']});
         char3.charts.setOnLoadCallback(drawChartOrder);
-        function drawChartUser() {
-            var data = google.visualization.arrayToDataTable([
-              ['Ngày', 'Số tài khoản mới'],
-              <?php 
-              // for($i=1;$i<32;$i++){
-                    if(!empty(@$dayDataMembers) ){
-                        foreach($dayDataMembers as $date=>$number){
-                          //  if ($i==date('d',$number["time"])) {
-                                echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
-                            // }else{
-                            //      echo '['.$i.',0],';
-                            // }
-                            
-                        }
-                    }else{
-
-                        echo '["0",0],';
-                    }
-                // }
-              ?>
-            ]);
-
-            /*var options = {
-              title: '',
-              curveType: 'function',
-              legend: { position: 'bottom' }
-            };*/
-            var options = {
-                chart: {
-                  title: 'Tài khoản mới',
-                 // subtitle: 'in millions of dollars (USD)'
-                },
-                width: 900,
-                height: 500
-              };
-
-            var chart = new google.charts.Line(document.getElementById('user_chart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartProd() {
-            var data = google.visualization.arrayToDataTable([
-              ['Ngày', 'Số mẫu được duyệt'],
-              <?php 
-              // for($i=1;$i<32;$i++){
-                    if(!empty(@$dayDataProduct) ){
-                        foreach($dayDataProduct as $date=>$number){
-                          //  if ($i==date('d',$number["time"])) {
-                                echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
-                            // }else{
-                            //      echo '['.$i.',0],';
-                            // }
-                            
-                        }
-                    }else{
-
-                        echo '["0",0],';
-                    }
-                // }
-              ?>
-            ]);
-
-           /* var options = {
-              title: 'Mẫu được duyệt ',
-              curveType: 'function',
-              legend: { position: 'bottom' }
-            };*/
-
-            var options = {
-                chart: {
-                  title: 'Mẫu được duyệt',
-                 // subtitle: 'in millions of dollars (USD)'
-                },
-                width: 900,
-                height: 500
-              };
-
-           // var chart = new google.visualization.LineChart(document.getElementById('prod_chart'));c
-            var chart = new google.charts.Line(document.getElementById('prod_chart'));
-
-            chart.draw(data, options);
-        }
 
         function drawChartOrder() {
             var data = google.visualization.arrayToDataTable([
@@ -209,10 +118,6 @@
         
     </script>
 
-    
-    <div id="user_chart" style="width: 100%; height: 500px"></div>
-
-    <div id="prod_chart" style="width: 100%; height: 500px"></div>
     <div id="order_chart" style="width: 100%; height: 500px"></div>
 </div>
 </center> 

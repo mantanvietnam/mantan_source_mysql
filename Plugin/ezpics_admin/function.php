@@ -142,9 +142,25 @@ $menus[0]['sub'][6]= array('title'=>'Cài đặt',
                                     )
                         );
 $menus[0]['sub'][7]= array( 'title'=>'Thống kê',
-                            'url'=>'/plugins/admin/ezpics_admin-view-admin-homeAdmin.php',
+                            'url'=>'',
                             'classIcon'=>'bx bx-line-chart',
-                            'permission'=>'homeAdmin'
+                            'permission'=>'homeAdmin',
+                             'sub'=> array(array('title'=>'Thông kế người dùng mới',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-chart-chartUserNewAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listCategoryEzpics',
+                                            ),
+                                        array('title'=>'Thông kế mẫu được duyệt',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-chart-chartSampleApprovedAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listfontAdmin',
+                                            ),
+                                        array('title'=>'Thông kế Nạp tiền',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-chart-chartLoadMoneyAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listfontAdmin',
+                                            ),
+                                    )
                         );
 
 

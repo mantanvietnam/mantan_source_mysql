@@ -1,5 +1,5 @@
 <?php 
-function homeAdmin() {
+function chartUserNewAdmin() {
 
     global $controller;
     global $isRequestPost;
@@ -182,5 +182,130 @@ function homeAdmin() {
         setVariable('dayDataProduct', $dayDataProduct);
         setVariable('dayDataOrder', $dayDataOrder);
         setVariable('hourDataMembers', $hourDataMembers);
+}
+function chartSampleApprovedAdmin() {
+
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê';
+
+    $modelProducts = $controller->loadModel('Products');
+    $mess= '';
+
+    $order = array('created_at'=>'asc');
+
+
+    $conditProduct = array();
+
+    if (!empty($_GET['timeView'])) {
+        $conditProduct['approval_date LIKE'] = '%'.$_GET['timeView'].'%';
+    }else{
+        $conditProduct['approval_date LIKE'] = '%'.date('Y-m').'%';
+    }
+
+    $conditProduct['status'] = 2;
+
+    $listDataProduct = $modelProducts->find()->where($conditProduct)->order($order)->all()->toList();
+
+        $allDataMembers= array();
+        $hourDataMembers= array();
+        $dayDataMembers= array();
+        $weekDataMembers= array();
+        $monthDataMembers= array();
+        $yearDataMembers= array();
+        $totalRevenueMonth= 0;
+        $totalRevenueDay= 0;
+    
+
+        $yearTotal= array();
+        $monthTotal= array();
+        $dayTotal= array();
+        $hourTotal= array();
+        $totalRevenueMonth = 0;
+        $allData = 0;
+        $totalRevenueDay = 0;
+        
+         $today = getdate();
+        $listTime= array();
+     
+        $dayDataProduct= array();
+
+        if(!empty($listDataProduct)){
+            foreach ($listDataProduct as $item) {
+                 $time= $item->approval_date->toDateTimeString();
+                $time = strtotime($time);
+                $todayTime= getdate($time);
+
+                      // tính doanh thu theo ngày
+               @$dayTotalProd[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += 1;
+    
+            }
+
+            if(!empty($dayTotalProd)){
+                foreach($dayTotalProd as $key=>$item){
+                    $time= strtotime($key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                    $dayDataProduct[]= array('time'=>$time , 'value'=>$item );
+                }
+            }
+        }
+
+       
+
+        setVariable('dayDataProduct', $dayDataProduct);
+}
+function chartLoadMoneyAdmin() {
+
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê';
+
+    $modelmember = $controller->loadModel('Members');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrders = $controller->loadModel('Orders');
+    $mess= '';
+
+    $order = array('created_at'=>'asc');
+
+    $conditOrder = array();
+
+    if (!empty($_GET['timeView'])) {
+        $conditOrder['created_at LIKE'] = '%'.$_GET['timeView'].'%';
+    }else{
+        $conditOrder['created_at LIKE'] = '%'.date('Y-m').'%';
+    }
+
+    $conditOrder['type'] = 1;
+   
+    $listDataOrder = $modelOrders->find()->where($conditOrder)->order($order)->all()->toList();
+
+      
+       
+        $dayDataOrder= array();
+
+        if(!empty($listDataOrder)){
+            foreach ($listDataOrder as $item) {
+                $time= $item->created_at->toDateTimeString();
+                $time = strtotime($time);
+                $todayTime= getdate($time);
+
+                      // tính doanh thu theo ngày
+               @$dayTotalOrder[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += $item->total;
+    
+            }
+
+            if(!empty($dayTotalOrder)){
+                foreach($dayTotalOrder as $key=>$item){
+                    $time= strtotime($key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                    $dayDataOrder[]= array('time'=>$time , 'value'=>$item );
+                }
+            }
+        }
+
+
+        setVariable('dayDataOrder', $dayDataOrder);
 }
  ?>
