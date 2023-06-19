@@ -30,40 +30,11 @@ if(!empty($_GET['id'])){
 			</head>
 			<body>
 				<p class="text-center">
-					<button type="button" class="btn btn-warning mb-2 mt-3" onclick="downloadImage();">
+					<a href="data:image/png;base64,'.$dataImage.'" class="btn btn-warning mb-2 mt-3" download="'.$slug.'-'.time().'.png">
 					  Tải ảnh
-					</button>
+					</a>
 				</p>
 				<img id="imageId" src="data:image/png;base64,'.$dataImage.'" width="100%" />
-
-				<script type="text/javascript">
-					var slug= "'.$slug.'";
-
-					function downloadImage()
-					{
-						// Truy cập đến phần tử hình ảnh
-						var imageElement = document.getElementById("imageId");
-
-						// Lấy đường dẫn (URL) của hình ảnh
-						var imageURL = imageElement.src;
-
-						// Tạo đối tượng anchor
-						var a = document.createElement("a");
-						a.href = imageURL;
-
-						// Thiết lập thuộc tính download cho anchor
-						a.download = slug+".jpg";
-
-						// Gắn anchor vào phần tử body
-						document.body.appendChild(a);
-
-						// Simulate click để tải xuống
-						a.click();
-
-						// Xóa anchor sau khi tải xuống
-						document.body.removeChild(a);
-					}
-				</script>
 			</body>
 			</html>';
 }
