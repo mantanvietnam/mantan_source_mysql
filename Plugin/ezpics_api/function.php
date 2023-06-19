@@ -739,15 +739,15 @@ function getLayerProductForEdit($idProduct=0)
     }
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial')
+function getLayer($stt, $type = 'text', $link = '', $width = '80', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw')
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
     return [
         'type' => $type,
         'text' => $text,
-        'color' => '#000',
-        'size' => '10vw',
+        'color' => $code,
+        'size' => $size,
         'font' => $font,
         'status' => 1,
         'text_align' => 'left',
@@ -774,40 +774,6 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,
         'variableLabel' => $variableLabel,
-    ];
-}
-
-function getLayertext($stt, $type = 'text', $content= '' , $color = '',$size = '', $font='', $width ='', $height = '')
-{
-
-    return [
-       'type' => $type,
-       'text' => $content,
-       'color' => $color,
-       'size' => $size,
-       'font' => "Arial",
-       'status' => 1,
-       'text_align' => "left",
-       'brightness' => 100,
-       'contrast' => 100,
-       'saturate' => 100,
-       'opacity' => 1,
-       'gachchan' => "none",
-       'uppercase' => "none",
-       'innghieng' => "normal",
-       'indam' => "normal",
-       'linear_position' => "to right",
-       'border' => 0,
-       'rotate' => "0deg",
-       'banner' => "",
-       'gianchu' => "normal",
-       'giandong' => "normal",
-       'width' => $width,
-       'height' => $height,
-       'gradient'=>0,
-       'postion_left'=>30,
-       'postion_top'=>30,
-       'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']]
     ];
 }
 

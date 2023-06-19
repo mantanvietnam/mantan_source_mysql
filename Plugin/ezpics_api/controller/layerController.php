@@ -45,57 +45,6 @@ function deleteLayerAPI($input){
 	return $return;
 }
 
-// thên layer 
-function saveLayerAPI($input){
-
-	global $isRequestPost;
-	global $controller;
-	global $modelCategories;
-
-	$modelMember = $controller->loadModel('Members');
-	$modelProduct = $controller->loadModel('Products');
-    $modelProductDetail = $controller->loadModel('ProductDetails');
-	$modelFont = $controller->loadModel('Font');
-	$return = array('code'=>0);
-
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
-
-		$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
-		if(!empty($dataProduct)){
-
-			// lấy tk người dùng 
-			$dataMembr = $modelMember->get($dataProduct->user_id);
-
-
-			if ($dataMembr->token == $dataSend['token']) {
-				$productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
-		            $idlayer = count($productDetail)+1;
-				
-				$datalayer = $modelProductDetail->newEmptyEntity();
-				$datalayer->name =  'layer '.$idlayer;
-				$datalayer->content = $dataSend['layer'];
-				$datalayer->products_id = (int) @$dataSend['idproduct'];
-				$datalayer->sort = 1;
-				$datalayer->created_at = date('Y-m-d H:i:s');
-
-				$modelProductDetail->save($datalayer);
-
-				getLayerProductForEdit($dataSend['idproduct']);
-				$return = array('code'=>1, 'mess'=>'Bạn thêm layer thành công');
-				
-			}else{
-			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
-			}
-		}else{
-			$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
-		}
-
-	}else{
-			$return = array('code'=>0, 'mess'=>'Bạn chưa có giữ liệu truyền vào');
-		}
-	return $return;
-}
  
 // update layer 
 function updateLayerAPI($input){
@@ -312,7 +261,10 @@ function changeLayerImageAPI($input){
 
 			    $datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id'=>$dataSend['idproduct']))->first();
 			    if(!empty($datalayer)){
-				    $datalayer->content = json_encode(getLayer($idlayer,'image',$thumbnail['link'],$tyle, $tyle));
+				    $replace = json_decode($datalayer->content);
+            		$replace->banner = $thumbnail['link'];
+            		$datalayer->content = json_encode($replace);
+            		$datalayer->updated_at = date('Y-m-d H:i:s');
 
 				    $modelProductDetail->save($datalayer);
 					                
@@ -375,16 +327,13 @@ function changeLayerImageNew($input){
 
 			            $new = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id '=>$dataSend['idproduct']))->first();
 			            if(!empty($new)){
-				            $new->name = 'Layer '.$idlayer;
-				            $new->products_id = $dataSend['idproduct'];
-				            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
-				            $new->sort = $idlayer;
-				            
-				            $new->created_at = date('Y-m-d H:i:s');
+				            $replace = json_decode($new->content);
+            				$replace->banner = $thumbnail['linkOnline'];
+            				$new->content = json_encode($replace);
+            				$datalayer->updated_at = date('Y-m-d H:i:s');
 				            
 				            $modelProductDetail->save($new);
 				                
-				            //getLayerProductForEdit($dataSend['idproduct']);
 				            $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				        }else{
 			        	   $return = array('code'=>0, 'mess'=>'Layer này không đúng');
@@ -433,13 +382,13 @@ function addLayerText($input){
 				if ($dataMembr->token == $dataSend['token']) {
 					
 					$datalayer = $modelProductDetail->newEmptyEntity();
-					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font']));
+					$datalayer->content = json_encode(getLayer($idlayer, 'text', '', '80', '30', @$dataSend['text'],'','', $dataSend['font'],$dataSend['color'] ,$dataSend['size']));
 					$datalayer->name =  'layer '.$idlayer;
+					$datalayer->created_at = date('Y-m-d H:i:s');
 					$datalayer->products_id =  @$dataSend['idproduct'];
 					$datalayer->sort = 1;
 
 					$modelProductDetail->save($datalayer);
-					//getLayerProductForEdit($dataSend['idproduct']);
 					$return = array('code'=>1, 'mess'=>'Bạn thêm layer thành công');
 					
 				}else{
