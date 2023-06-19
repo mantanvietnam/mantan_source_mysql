@@ -118,7 +118,7 @@
     </script>
 
     
-    <div id="user_chart" style="width: 100%; height: 500px"></div>
+    <div id="user_chart" style="width: 100%; height: 500px; background: white;"></div>
 
 </div>
 </center> 
