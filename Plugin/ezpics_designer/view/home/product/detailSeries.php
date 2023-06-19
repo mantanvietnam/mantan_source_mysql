@@ -10,12 +10,24 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" />
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCQ02R5K9G"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PCQ02R5K9G');
+	</script>
 </head>
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="col-12 text-center">
-				<img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png">
+				<a href="https://smartqr.vn/r/gjib5dhkl79y">
+					<img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png">
+				</a>
 			</div>
 			<?php
 				if(!empty($product)){
@@ -33,7 +45,7 @@
 								<p>Đã tạo: '.number_format($product->export_image).' ảnh</p>
 								'.$description.'
 								<br/>
-								<button type="button" class="btn btn-warning" onclick="showPopup();">
+								<button type="button" class="btn btn-warning mt-3" onclick="showPopup();">
 								  Nhập thông tin
 								</button>
 							</div>';

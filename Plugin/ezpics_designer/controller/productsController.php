@@ -705,6 +705,7 @@ function createImageSeries($input)
 	}
 
 	setVariable('dataImage', $dataImage);
+	setVariable('slug', $product->slug);
 }
 
 function addDataSeries($input)

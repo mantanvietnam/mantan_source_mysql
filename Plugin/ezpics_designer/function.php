@@ -209,7 +209,4 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'variableLabel' => $variableLabel,
     ];
 }
-
-
 ?>
-

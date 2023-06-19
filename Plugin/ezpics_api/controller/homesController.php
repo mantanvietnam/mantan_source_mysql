@@ -487,7 +487,7 @@ function createLayerVariable($input)
             if(empty($dataSend['text'])) $dataSend['text'] = '%'.$dataSend['nameVariable'].'%';
             if(empty($dataSend['variableLabel'])) $dataSend['variableLabel'] = $dataSend['nameVariable'];
 
-            $dataSend['banner'] = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+            $dataSend['banner'] = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail-vuong.jpg';
 
 
             $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();

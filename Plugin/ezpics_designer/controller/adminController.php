@@ -494,8 +494,4 @@ function deleteOrderProductAdmin($input){
 
 	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=3');
 }
-
-
- ?>
-
-
+?>

@@ -77,6 +77,4 @@ function listCustomer($input){
 		return $controller->redirect('/login');
 	}
 }
-
-
- ?>
+?>
