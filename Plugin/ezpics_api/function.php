@@ -739,7 +739,7 @@ function getLayerProductForEdit($idProduct=0)
     }
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30', $text = '', $variable='', $variableLabel = '')
+function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial')
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
@@ -748,7 +748,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'text' => $text,
         'color' => '#000',
         'size' => '10vw',
-        'font' => 'Arial',
+        'font' => $font,
         'status' => 1,
         'text_align' => 'left',
         'postion_left' => '50',

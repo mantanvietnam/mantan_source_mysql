@@ -76,7 +76,7 @@ function saveLayerAPI($input){
 				$datalayer->name =  'layer '.$idlayer;
 				$datalayer->content = $dataSend['layer'];
 				$datalayer->products_id = (int) @$dataSend['idproduct'];
-				$datalayer->status = 1;
+				$datalayer->sort = 1;
 				$datalayer->created_at = date('Y-m-d H:i:s');
 
 				$modelProductDetail->save($datalayer);
@@ -126,11 +126,11 @@ function updateLayerAPI($input){
 	            	$content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
 
 	            	$datalayer->content = json_encode($content);
-					$datalayer->status = 1;
+					$datalayer->updated_at = date('Y-m-d H:i:s');
 
 					// lưu data 
 					$modelProductDetail->save($datalayer);
-					getLayerProductForEdit($dataSend['idproduct']);
+					//getLayerProductForEdit($dataSend['idproduct']);
 					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				}else{
 					$return = array('code'=>0, 'mess'=>'Layer bạn không dúng');
@@ -259,8 +259,8 @@ function addLayerImageAPI($input){
 			            
 			            $modelProductDetail->save($new);
 			                
-			             getLayerProductForEdit($dataSend['idproduct']);
-			             $return = array('code'=>1, 'mess'=>'Bạn thêm ảnh thành công');
+			            //getLayerProductForEdit($dataSend['idproduct']);
+			            $return = array('code'=>1, 'mess'=>'Bạn thêm ảnh thành công');
 			         }else{
 			        	 $return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 			        }
@@ -316,7 +316,7 @@ function changeLayerImageAPI($input){
 
 				    $modelProductDetail->save($datalayer);
 					                
-					 getLayerProductForEdit($dataSend['idproduct']);
+					//getLayerProductForEdit($dataSend['idproduct']);
 					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				}else{
 					$return = array('code'=>0, 'mess'=>'Bạn chọn layer chưa đúng');
@@ -384,8 +384,8 @@ function changeLayerImageNew($input){
 				            
 				            $modelProductDetail->save($new);
 				                
-				             getLayerProductForEdit($dataSend['idproduct']);
-				             $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
+				            //getLayerProductForEdit($dataSend['idproduct']);
+				            $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				        }else{
 			        	   $return = array('code'=>0, 'mess'=>'Layer này không đúng');
 			        	}     
@@ -433,13 +433,13 @@ function addLayerText($input){
 				if ($dataMembr->token == $dataSend['token']) {
 					
 					$datalayer = $modelProductDetail->newEmptyEntity();
-					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font'], ));
+					$datalayer->content = json_encode(getLayertext($idlayer, 'text', @$dataSend['text'], $dataSend['color'],$dataSend['size'], $dataSend['font']));
 					$datalayer->name =  'layer '.$idlayer;
 					$datalayer->products_id =  @$dataSend['idproduct'];
-					$datalayer->status = 1;
+					$datalayer->sort = 1;
 
 					$modelProductDetail->save($datalayer);
-					getLayerProductForEdit($dataSend['idproduct']);
+					//getLayerProductForEdit($dataSend['idproduct']);
 					$return = array('code'=>1, 'mess'=>'Bạn thêm layer thành công');
 					
 				}else{
@@ -565,9 +565,9 @@ function copyLayerAPI($input)
 			        
 			        $modelProductDetail->save($new);
 			            
-			         getLayerProductForEdit($item->products_id);
+			        //getLayerProductForEdit($item->products_id);
 
-			         $return = array('code'=>1, 'mess'=>'Bạn copy layer thành công');
+			        $return = array('code'=>1, 'mess'=>'Bạn copy layer thành công');
 			        
 			    }else{
 		        	$return = array('code'=>0, 'mess'=>'Layer này không tồn tại');

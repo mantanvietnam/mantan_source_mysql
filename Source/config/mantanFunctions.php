@@ -1,6 +1,7 @@
 <?php 
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
+use Cake\Mailer\Message;
 use Cake\Mailer\TransportFactory;
 
 /**********************************************************
@@ -668,10 +669,19 @@ function removeFile($url='')
 	}
 }
 
-function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',$typeConfig='default')
+function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',$typeConfig='default', $attachments=[])
 {
 	global $contactSite;
 	global $smtpSite;
+
+	/*
+		$attachments = [
+							['type'=>'image/jpeg', 'link'=>'/path/to/image.jpg'],
+							['type'=>'image/png', 'link'=>'/path/to/image.png'],
+							['type'=>'application/zip', 'link'=>'/path/to/file.zip'],
+							['type'=>'application/pdf', 'link'=>'/path/to/file.pdf'],
+						];
+	*/
 
 	if(!empty($to) && !empty($subject)){
 		$from = [$contactSite['email'] => $smtpSite['display_name']];
@@ -681,6 +691,13 @@ function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',
                     ->setFrom($from)
                     ->setTo($to)
                     ->setEmailFormat('html')
+                    ->setAttachments([
+				        'image.jpg' => [
+				            'file' => '/path/to/image.jpg',
+				            'mimetype' => 'image/jpeg',
+				            'contentId' => 'image_cid' // ID định danh cho file ảnh
+				        ]
+				    ])
                     ->setSubject($subject)
                     ->deliver($content);   
 		    

@@ -216,7 +216,7 @@ function getMember($id){
         return $data;
 }
 
-function sendEmailsuccessfulDesigner($email='', $fullName='')
+function sendEmailsuccessfulDesigner($email='', $fullName='', $certificate='')
 {
     $to = array();
 

@@ -106,7 +106,9 @@ function addDesignRegistrationAdmin($input)
             if(@$dataSend['status']=='Duyệt'){
                 $url = $urlCreateImage.'?width=2000&height=1413&url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id=1938&full_name='.$member->name.'&date='.date('d/m/Y'));
 
-                $dataImage = file_get_contents($url);
+                $dataImage = sendDataConnectMantan($url);
+
+                $member->certificate = 'https://apis.ezpics.vn/upload/admin/images/50/50_2023_06_08_15_55_58_6713.jpg';
 
                 if(!empty($dataImage)){
                     $name = __DIR__.'/../../../upload/admin/images/'.$member->id.'/certificate_'.$member->id.'.png';
@@ -127,21 +129,22 @@ function addDesignRegistrationAdmin($input)
                 $member->file_cv =  @$data->meta;
                 $member->type = 1;
 
-                // tạo deep link
-                $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
-                $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
-                                                    'link'=>'https://ezpics.page.link/detailProfile?id='.$member->id,
-                                                    'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
-                                                    'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
-                                            ]
-                            ];
-                $header_deep = ['Content-Type: application/json'];
-                $typeData='raw';
-                $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
-                $deep_link = json_decode($deep_link);
+                if(empty($member->link_open_app)){
+                    // tạo deep link
+                    $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+                    $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+                                                        'link'=>'https://ezpics.page.link/detailProfile?id='.$member->id,
+                                                        'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+                                                        'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+                                                ]
+                                ];
+                    $header_deep = ['Content-Type: application/json'];
+                    $typeData='raw';
+                    $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+                    $deep_link = json_decode($deep_link);
 
-                $member->link_open_app = @$deep_link->shortLink;
-
+                    $member->link_open_app = @$deep_link->shortLink;
+                }
                 
                 $modelmember->save($member);
 
@@ -150,7 +153,7 @@ function addDesignRegistrationAdmin($input)
                 
                 $dataSendNotification= array('title'=>'Tài khoản của bạn đã trở thành Designer','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn trở thành Designer của Ezpics ','action'=>'DesignRegistration');
                  sendNotification($dataSendNotification, $member->token_device);
-                 sendEmailsuccessfulDesigner($member->email, $member->name);
+                 sendEmailsuccessfulDesigner($member->email, $member->name, $member->certificate);
             }else{
                 $member->type = 0;
                 $data->status = 2;
