@@ -292,7 +292,14 @@ function sendEmailsuccessfulDesigner($email='', $fullName='', $certificate='')
         </body>
         </html>';
 
-        sendEmail(@$to, @$cc, @$bcc, @$subject, @$content);
+        $attachments = [];
+        if(!empty($certificate)){
+            $attachments = [
+                                ['type'=>'image/png', 'link'=>$certificate]
+                            ];
+        }
+
+        sendEmail(@$to, @$cc, @$bcc, @$subject, @$content, 'default', $attachments);
     }
 }
 

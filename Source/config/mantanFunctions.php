@@ -674,6 +674,12 @@ function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',
 	global $contactSite;
 	global $smtpSite;
 
+	$type = [
+				'image/jpeg'=>'jpg',
+				'image/png'=>'png',
+				'application/zip'=>'zip',
+				'application/pdf'=>'pdf'
+		];
 	/*
 		$attachments = [
 							['type'=>'image/jpeg', 'link'=>'/path/to/image.jpg'],
@@ -685,22 +691,38 @@ function sendEmail($to=array(),$cc=array(),$bcc=array(),$subject='',$content='',
 
 	if(!empty($to) && !empty($subject)){
 		$from = [$contactSite['email'] => $smtpSite['display_name']];
+
+		$listAttachments = [];
+		if(!empty($attachments)){
+			foreach($attachments as $key=>$item){
+				$ext = $type[$item['type']];
+				$data_file = sendDataConnectMantan($item['link']);
+				$file = __DIR__.'/../upload/'.time().'.'.$ext;
+				file_put_contents($file, $data_file);
+
+				$listAttachments['file_'.$key.'.'.$ext] = 	[
+													            'file' => $file,
+													            'mimetype' => $item['type'],
+													            'contentId' => 'image'.$key.'_cid'
+													        ];
+			}
+			
+		}
 		
 		$mailer = new Mailer($typeConfig);
 		$mailer->setTransport($typeConfig)
                     ->setFrom($from)
                     ->setTo($to)
                     ->setEmailFormat('html')
-                    ->setAttachments([
-				        'image.jpg' => [
-				            'file' => '/path/to/image.jpg',
-				            'mimetype' => 'image/jpeg',
-				            'contentId' => 'image_cid' // ID định danh cho file ảnh
-				        ]
-				    ])
+                    ->setAttachments($listAttachments)
                     ->setSubject($subject)
                     ->deliver($content);   
-		    
+		
+        if(!empty($listAttachments)){
+        	foreach ($listAttachments as $value) {
+        		unlink($value['file']);
+        	}
+        }
 	}
 }
 

@@ -151,9 +151,11 @@ function addDesignRegistrationAdmin($input)
                 $data->status = 1;
                 $modelContact->save($data);
                 
-                $dataSendNotification= array('title'=>'Tài khoản của bạn đã trở thành Designer','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn trở thành Designer của Ezpics ','action'=>'DesignRegistration');
-                 sendNotification($dataSendNotification, $member->token_device);
-                 sendEmailsuccessfulDesigner($member->email, $member->name, $member->certificate);
+                $dataSendNotification= array('title'=>'Tài khoản của bạn đã trở thành Designer','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn trở thành Designer của Ezpics ','action'=>'DesignRegistration','link'=>$member->certificate);
+                
+                sendNotification($dataSendNotification, $member->token_device);
+
+                sendEmailsuccessfulDesigner($member->email, $member->name, $member->certificate);
             }else{
                 $member->type = 0;
                 $data->status = 2;
