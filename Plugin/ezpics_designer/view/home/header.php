@@ -63,6 +63,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/plugins/ezpics_designer/view/home/assets/js/config.js"></script>
+    
+    <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
+    <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
   </head>
 
   <body>

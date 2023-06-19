@@ -379,7 +379,13 @@ function addProduct($input)
 		$mess= '';
 
 		// lấy data edit
-	    $data = $modelProduct->newEmptyEntity();
+
+		if(!empty($_GET['id'])){
+			$data = $modelProduct->get($_GET['id']);
+		}else{
+			$data = $modelProduct->newEmptyEntity();
+		}
+	    
 	    $infoUser = $session->read('infoUser');
 
 		if ($isRequestPost) {
@@ -389,7 +395,9 @@ function addProduct($input)
 	        	$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
         		$thumbnailUser = '';
 
-	        	if(isset($_FILES['background']) && empty($_FILES['background']["error"])){
+
+
+	        	if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
 		            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
 
 		            if(!empty($background['linkOnline'])){
@@ -405,9 +413,11 @@ function addProduct($input)
 
 		                $modelManagerFile->save($dataFile);
 		            }
+		        }else{
+		        	$thumb = @$data->image;
 		        }
 
-		        if(isset($_FILES['thumbnail']) && empty($_FILES['thumbnail']["error"])){
+		        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
 		            $thumbnail = uploadImageFTP($infoUser->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
 
 		            if(!empty($thumbnail['linkOnline'])){
@@ -423,13 +433,15 @@ function addProduct($input)
 
 		                $modelManagerFile->save($dataFile);
 		            }
+		        }else{
+		        	$thumbnailUser = @$data->thumbnail;
 		        }
 
 		        // tạo dữ liệu save
 		        $data->name = $dataSend['name'];
 		        $data->price = (int) $dataSend['price'];
 		        $data->sale_price = (int) $dataSend['sale_price'];
-		        $data->content = null;
+		        $data->content = @$dataSend['content'];
 		        $data->sale = null;
 		        $data->related_packages = null;
 		        $data->status = 0;

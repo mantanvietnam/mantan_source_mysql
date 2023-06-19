@@ -51,7 +51,7 @@
 
                   <div class="mb-3">
                     <label class="form-label">Số dư tài khoản</label>
-                    <input disabled type="text" class="form-control phone-mask" name="account_balance" id="account_balance" value="<?php echo @$user->account_balance;?>"/>
+                    <input disabled type="text" class="form-control phone-mask" name="account_balance" id="account_balance" value="<?php echo number_format(@$user->account_balance);?>"/>
                   </div>
 
                   

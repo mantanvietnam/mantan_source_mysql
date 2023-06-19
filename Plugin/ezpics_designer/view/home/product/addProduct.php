@@ -6,7 +6,6 @@
     <span class="text-muted fw-light"><a href="/listProduct">Mẫu thiết kế</a> /</span>
     Thông tin mẫu thiết kế
   </h4>
-
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
@@ -22,7 +21,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Tên mẫu thiết kế (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name; ?>" />
                   </div>
 
                   <div class="mb-3">
@@ -32,7 +31,11 @@
                         <option value="">Chọn danh mục</option>
                         <?php 
                           foreach ($listCategory as $key => $item) {
-                            echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                            if($item->id == $data->category_id){
+                              echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                            }else{
+                              echo '<option  value="'.$item->id.'">'.$item->name.'</option>';
+                            }
                           }
                         ?>
                       </select>
@@ -48,7 +51,11 @@
                           $sizes = getSizeProduct();
                           if(!empty($sizes)){
                             foreach($sizes as $size){
-                              echo '<option value="'.$size['width'].'-'.$size['height'].'">'.$size['name'].'</option>';
+                               if($size['width'] == $data->width && $size['height'] == $data->height){
+                                echo '<option selected  value="'.$size['width'].'-'.$size['height'].'">'.$size['name'].'</option>';
+                              }else{
+                                echo '<option  value="'.$size['width'].'-'.$size['height'].'">'.$size['name'].'</option>';
+                              }
                             }
                           }
                         ?>
@@ -58,7 +65,7 @@
 
                   <div class="mb-3">
                     <label class="form-label">Từ khóa (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="" />
+                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword; ?>" />
                   </div>
 
                   
@@ -67,32 +74,39 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Hình minh họa</label>
-                    <input type="file" name="thumbnail" class="form-control">
+                    <input type="file" name="thumbnail" value="<?php echo @$data->thumbnail; ?>" class="form-control">
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Hình nền (*)</label>
-                    <input type="file" name="background" required class="form-control">
+                    <input type="file" name="background" value="<?php echo @$data->image; ?>" class="form-control" <?php if(empty($_GET)) echo 'required'; ?>>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Giá bán (*)</label>
-                    <input type="number" min="0" max="99000" class="form-control phone-mask" name="sale_price" id="sale_price" value="0" required />
+                    <input type="number" min="0" max="99000" class="form-control phone-mask" name="sale_price" id="sale_price" value="<?php echo @$data->sale_price; ?>" required />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label">Giá thị trường</label>
-                    <input type="number" min="0" class="form-control phone-mask" name="price" id="price" value="0" />
+                    <input type="number" min="0" class="form-control phone-mask" name="price" id="price"  value="<?php echo @$data->price; ?>" />
                   </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="mb-3">
                     <label class="form-label">Mô tả về mẫu thiết kế</label>
-                    <textarea class="form-control" name="description" rows="5"></textarea>
+                    <textarea class="form-control" name="description" rows="5"><?php echo @$data->description; ?></textarea>
                   </div>
                 </div>
-                
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <label class="form-label">content Mẫu </label><br>
+                    <?php
+                        showEditorInput('content','content',@$data['content'],0);
+                    ?>                      
+                  </div>
+                </div>
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button>
