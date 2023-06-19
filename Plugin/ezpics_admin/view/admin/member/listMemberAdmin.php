@@ -28,7 +28,7 @@
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
 
-          <div class="col-md-1">
+          <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -37,7 +37,7 @@
             </select>
           </div>
 
-          <div class="col-md-1">
+          <div class="col-md-2">
             <label class="form-label">Loại tài khoản</label>
             <select name="type" class="form-select color-dropdown">
               <option value="">Tất cả</option>

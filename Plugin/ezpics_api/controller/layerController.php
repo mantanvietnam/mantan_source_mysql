@@ -194,7 +194,7 @@ function addLayerImageAPI($input){
 		            if(!empty($product)){
 			            $sizeBackground = getimagesize($product->thumn);
 
-			            $tyle = $sizeBackground[0]*100/(int)(isset($dataSend['width']))? $dataSend['width']:100;
+			            $tyle = $sizeBackground[0]*100/(int)(isset(@$dataSend['width']))? @$dataSend['width']:100;
 			            if($tyle>30) $tyle = 30;
 
 			            $new = $modelProductDetail->newEmptyEntity();
