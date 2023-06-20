@@ -68,7 +68,10 @@
                     <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword; ?>" />
                   </div>
 
-                  
+                  <div class="mb-3">
+                    <label class="form-label">Mô tả về mẫu thiết kế</label>
+                    <textarea class="form-control" name="description" rows="5"><?php echo @$data->description; ?></textarea>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
@@ -91,17 +94,28 @@
                     <label class="form-label">Giá thị trường</label>
                     <input type="number" min="0" class="form-control phone-mask" name="price" id="price"  value="<?php echo @$data->price; ?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Bỏ vào kho</label>
+                    <div>
+                      <?php 
+                        if(!empty($listWarehouse)){
+                          echo '<ul class = "list-inline">';
+                          foreach ($listWarehouse as $warehouse) {
+                            echo '<li><input type="checkbox" name="warehouse[]" value="'.$warehouse->id.'"> '.$warehouse->name.'</li>';
+                          }
+                          echo '</ul>';
+                        }else{
+                          echo 'Bạn chưa có kho mẫu thiết kế riêng, tạo kho <a href="/addWarehouse">TẠI ĐÂY</a>';
+                        }
+                      ?>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="mb-3">
-                    <label class="form-label">Mô tả về mẫu thiết kế</label>
-                    <textarea class="form-control" name="description" rows="5"><?php echo @$data->description; ?></textarea>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="mb-3">
-                    <label class="form-label">content Mẫu </label><br>
+                    <label class="form-label">Bài đăng mẫu kèm hình ảnh </label><br>
                     <?php
                         showEditorInput('content','content',@$data['content'],0);
                     ?>                      

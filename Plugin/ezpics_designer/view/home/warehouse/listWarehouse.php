@@ -63,7 +63,8 @@
                         <td>'.$item->name.'</td>
                         
                         <td>
-                          Xem: '.number_format($item->views).'
+                          Xem: '.number_format($item->views).'<br/>
+                          Mua: '.number_format($item->number_user).'
                         </td>
                         <td>
                           '.number_format($item->price).'
@@ -138,27 +139,5 @@
   </div>
   <!--/ Responsive Table -->
 </div>
-
-<script type="text/javascript">
-  function copyToClipboard(text) {
-    // Tạo một thẻ textarea ẩn
-    var textarea = document.createElement("textarea");
-    textarea.value = text;
-
-    // Thêm thẻ textarea vào trang web
-    document.body.appendChild(textarea);
-
-    // Chọn toàn bộ nội dung trong thẻ textarea
-    textarea.select();
-
-    // Sao chép nội dung vào bộ nhớ đệm
-    document.execCommand("copy");
-
-    // Xóa thẻ textarea
-    document.body.removeChild(textarea);
-
-    alert('Sao chép link chia sẻ vào bộ nhớ đệm thành công');
-  }
-</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

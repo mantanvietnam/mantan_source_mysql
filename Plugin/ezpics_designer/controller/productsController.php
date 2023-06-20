@@ -376,6 +376,7 @@ function addProduct($input)
 		$modelMember = $controller->loadModel('Members');
 		$modelProductDetail = $controller->loadModel('ProductDetails');
 		$modelManagerFile = $controller->loadModel('ManagerFile');
+		$modelWarehouses = $controller->loadModel('Warehouses');
 		$mess= '';
 
 		// lấy data edit
@@ -392,10 +393,12 @@ function addProduct($input)
 	        $dataSend = $input['request']->getData();
 
 	        if(!empty($dataSend['name'])){
-	        	$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
-        		$thumbnailUser = '';
-
-
+	        	
+        		if(!empty($data->image)){
+        			$thumb = $data->image;
+        		}else{
+        			$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+        		}
 
 	        	if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
 		            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
@@ -413,9 +416,13 @@ function addProduct($input)
 
 		                $modelManagerFile->save($dataFile);
 		            }
-		        }else{
-		        	$thumb = @$data->image;
 		        }
+
+		        if(!empty($data->thumbnail)){
+        			$thumbnailUser = $data->thumbnail;
+        		}else{
+        			$thumbnailUser = '';
+        		}
 
 		        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
 		            $thumbnail = uploadImageFTP($infoUser->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
@@ -433,8 +440,6 @@ function addProduct($input)
 
 		                $modelManagerFile->save($dataFile);
 		            }
-		        }else{
-		        	$thumbnailUser = @$data->thumbnail;
 		        }
 
 		        // tạo dữ liệu save
@@ -538,9 +543,13 @@ function addProduct($input)
 	    $conditions = array('type' => 'product_categories');
 	    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
+	    $conditions = array('user_id'=>$infoUser->id);
+	    $listWarehouse = $modelWarehouses->find()->where($conditions)->all()->toList();
+
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
 	    setVariable('listCategory', $listCategory);
+	    setVariable('listWarehouse', $listWarehouse);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -695,8 +704,29 @@ function createImageSeries($input)
         			}
         		}
         	}
+
+        	if(!empty($_GET['id'])){
+        		$max = 2000;
+	        	if($product->width<=$max && $product->height<=$max){
+	        		$width = $product->width;
+	        		$height = $product->height;
+	        	}else{
+	        		if($product->width > $product->height){
+	        			$width = $max;
+	        			$tyle = $width/$product->width;
+	        			$height = round($tyle*$product->height);
+	        		}else{
+	        			$height = $max;
+	        			$tyle = $height/$product->height;
+	        			$width = round($tyle*$product->width);
+	        		}
+	        	}
+	        }else{
+	        	$width = $product->width;
+	        	$height = $product->height;
+	        }
         	
-			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
+			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
 		
 	        $dataImage = sendDataConnectMantan($url);
 
