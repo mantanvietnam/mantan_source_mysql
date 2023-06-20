@@ -12,19 +12,20 @@ function listProduct($input)
 
 		$modelMembers = $controller->loadModel('Members');
 		$modelProducts = $controller->loadModel('Products');
+		$modelWarehouses = $controller->loadModel('Warehouses');
 		$user = $session->read('infoUser');
 
-		$conditions = array('user_id'=>$user->id);
+		$conditions = array('Products.user_id'=>$user->id);
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
-		$order = array('id'=>'desc');
+		$order = array('Products.id'=>'desc');
 
 		//if(!isset($_GET['type'])) $_GET['type'] = 'user_create';
 		//if(!isset($_GET['status'])) $_GET['status'] = 1;
 
 		if(!empty($_GET['id'])){
-			$conditions['id'] = (int) $_GET['id'];
+			$conditions['Products.id'] = (int) $_GET['id'];
 		}
 
 		if(!empty($_GET['category_id'])){
@@ -60,9 +61,30 @@ function listProduct($input)
 			$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
 		}
 
-	    $listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		if(empty($_GET['warehouse_id'])){
+			$listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+			$totalData = $modelProducts->find()->where($conditions)->all()->toList();
+		}else{
+			$conditions['wp.warehouse_id'] = $_GET['warehouse_id'];
+			$listData = $modelProducts->find()
+						->join([
+					        'table' => 'warehouse_products',
+					        'alias' => 'wp',
+					        'type' => 'INNER',
+					        'conditions' => 'wp.product_id = Products.id',
+					    ])
+						->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+			$totalData = $modelProducts->find()
+						->join([
+					        'table' => 'warehouse_products',
+					        'alias' => 'wp',
+					        'type' => 'INNER',
+					        'conditions' => 'wp.product_id = Products.id',
+					    ])
+						->where($conditions)->all()->toList();
+		}
 
-	    $totalData = $modelProducts->find()->where($conditions)->all()->toList();
+	    
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -97,6 +119,10 @@ function listProduct($input)
 		$order = array('name'=>'asc');
 		$listCategory = $modelCategories->find()->where($conditions)->order($order)->all()->toList();
 
+		$conditions = array('user_id'=>$user->id);
+		$order = array('name'=>'asc');
+		$listWarehouse = $modelWarehouses->find()->where($conditions)->order($order)->all()->toList();
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
@@ -106,6 +132,7 @@ function listProduct($input)
 	    
 	    setVariable('listData', $listData);
 	    setVariable('listCategory', $listCategory);
+	    setVariable('listWarehouse', $listWarehouse);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -381,7 +408,6 @@ function addProduct($input)
 		$mess= '';
 
 		// lấy data edit
-
 		if(!empty($_GET['id'])){
 			$data = $modelProduct->get($_GET['id']);
 		}else{
@@ -543,7 +569,7 @@ function addProduct($input)
 		        	foreach ($dataSend['warehouse'] as $warehouse_id) {
 		        		$warehouse_products = $modelWarehouseProducts->newEmptyEntity();
 
-		        		$warehouse_products->warehouses_id = $warehouse_id;
+		        		$warehouse_products->warehouse_id = $warehouse_id;
 		        		$warehouse_products->product_id = $data->id;
 		        		$warehouse_products->user_id = $infoUser->id;
 
@@ -563,10 +589,22 @@ function addProduct($input)
 	    $conditions = array('user_id'=>$infoUser->id);
 	    $listWarehouse = $modelWarehouses->find()->where($conditions)->all()->toList();
 
+	    $listWarehouseCheck = [];
+	    if(!empty($data->id)){
+			$listCheck = $modelWarehouseProducts->find()->where(['product_id'=>$data->id])->all()->toList();
+
+			if(!empty($listCheck)){
+				foreach ($listCheck as $check) {
+					$listWarehouseCheck[] = $check->warehouse_id;
+				}
+			}
+		}
+
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
 	    setVariable('listCategory', $listCategory);
 	    setVariable('listWarehouse', $listWarehouse);
+	    setVariable('listWarehouseCheck', $listWarehouseCheck);
 	}else{
 		return $controller->redirect('/login');
 	}

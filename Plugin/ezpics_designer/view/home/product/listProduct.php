@@ -66,6 +66,24 @@
             <label class="form-label">Đến ngày</label>
             <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Kho mẫu</label>
+            <select name="warehouse_id" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php
+              if(!empty($listWarehouse)){
+                foreach ($listWarehouse as $key => $value) {
+                  if(empty($_GET['warehouse_id']) || $_GET['warehouse_id']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div>
           
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>

@@ -13,6 +13,7 @@ function listWarehouse($input)
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+		$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 
 		$user = $session->read('infoUser');
 
@@ -36,6 +37,9 @@ function listWarehouse($input)
 	    	foreach ($listData as $key => $value) {
 	    		$users = $modelWarehouseUsers->find()->where(['warehouses_id'=>$value->id])->all()->toList();
 	    		$listData[$key]->number_user = count($users);
+
+	    		$products = $modelWarehouseProducts->find()->where(['warehouse_id'=>$value->id])->all()->toList();
+	    		$listData[$key]->number_product = count($products);
 	    	}
 	    }
 

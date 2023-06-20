@@ -1,8 +1,8 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Kho mẫu thiết kế</h4>
-  <p><a href="/addWarehouse" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Khách mua kho mẫu thiết kế</h4>
+  <p><a href="/addWarehouseUser" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -10,14 +10,27 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
-            <label class="form-label">ID</label>
-            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          <div class="col-md-3">
+            <label class="form-label">Tài khoản khách hàng</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
 
-          <div class="col-md-2">
-            <label class="form-label">Tên kho</label>
-            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+          <div class="col-md-3">
+            <label class="form-label">Kho mẫu</label>
+            <select name="warehouse_id" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php
+              if(!empty($listWarehouse)){
+                foreach ($listWarehouse as $key => $value) {
+                  if(empty($_GET['warehouse_id']) || $_GET['warehouse_id']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
           </div>
           
           <div class="col-md-1">
@@ -32,61 +45,66 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách kho mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> kho</h5>
+    <h5 class="card-header">Danh sách khách hàng mua kho mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> khách</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-          <tr class="">
-            <th>ID</th>
+          <tr class="" style="text-align: center;">
             <th>Ảnh đại diện</th>
-            <th>Kho mẫu thiết kế</th>
-            <th>Thống kê</th>
-            <th>Giá bán</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
+            <th>Khách hàng</th>
+            <th>Kho mẫu</th>
+            <th>Giá mua</th>
+            <th>Ngày mua</th>
+            <th>Ngày hết</th>
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $link_share = 'https://designer.ezpics.vn/warehouse/'.$item->slug.'-'.$item->id.'.html';
-
+                /*
                 echo '<tr>
                         <td>
                           '.$item->id.'
                         </td>
                         <td>
-                          <img src="'.$item->thumbnail.'" width="100" /><br/>
+                          <img src="'.$item->image.'" width="100" />
+                          
+                        </td>
+                        <td>
+                          <img src="'.$image.'" width="100" /><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
-                        <td>'.$item->name.'</td>
-                        
+                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</td>
                         <td>
+                          Bán: '.number_format($item->sold).'<br/>
                           Xem: '.number_format($item->views).'<br/>
-                          Mua: <a href="/listWarehouseUser/?warehouse_id='.$item->id.'">'.number_format($item->number_user).'</a><br/>
-                          Mẫu: <a href="/listProduct/?warehouse_id='.$item->id.'">'.number_format($item->number_product).'</a>
+                          Thích: '.number_format($item->favorites).'<br/>
                         </td>
                         <td>
-                          '.number_format($item->price).'
+                          '.number_format($item->sale_price).'<br/>
+                          <del>'.number_format($item->price).'</del>
                         </td>
+                        <td>'.$status.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="/addWarehouse/?id='.$item->id.'">
-                            <i class="bx bx-edit"></i>
+                           <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                            <i class="bx bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho mẫu thiết kế không?\');" href="/deleteWarehouse/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
                       </tr>';
+                  */
               }
+
             }else{
               echo '<tr>
-                      <td colspan="10" align="center">Chưa có kho mẫu thiết kế</td>
+                      <td colspan="10" align="center">Chưa có khách hàng nào</td>
                     </tr>';
             }
           ?>

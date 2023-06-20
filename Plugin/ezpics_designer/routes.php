@@ -40,4 +40,7 @@
 	$routesPlugin['listWarehouse']= 'ezpics_designer/view/home/warehouse/listWarehouse.php';
 	$routesPlugin['addWarehouse']= 'ezpics_designer/view/home/warehouse/addWarehouse.php';
 	$routesPlugin['deleteWarehouse']= 'ezpics_designer/view/home/warehouse/deleteWarehouse.php';
+
+	$routesPlugin['listWarehouseUser']= 'ezpics_designer/view/home/warehouse_user/listWarehouseUser.php';
+	$routesPlugin['addWarehouseUser']= 'ezpics_designer/view/home/warehouse_user/addWarehouseUser.php';
 ?>

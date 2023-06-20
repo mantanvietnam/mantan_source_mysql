@@ -102,7 +102,12 @@
                         if(!empty($listWarehouse)){
                           echo '<ul class = "list-inline">';
                           foreach ($listWarehouse as $warehouse) {
-                            echo '<li><input type="checkbox" name="warehouse[]" value="'.$warehouse->id.'"> '.$warehouse->name.'</li>';
+                            $check = '';
+                            if(!empty($listWarehouseCheck)){
+                              $check = (in_array($warehouse->id, $listWarehouseCheck))? 'checked':'';
+                            }
+
+                            echo '<li><input type="checkbox" '.$check.' name="warehouse[]" value="'.$warehouse->id.'"> '.$warehouse->name.'</li>';
                           }
                           echo '</ul>';
                         }else{
