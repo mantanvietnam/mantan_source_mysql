@@ -444,8 +444,13 @@ function addProduct($input)
 		        $data->content = @$dataSend['content'];
 		        $data->sale = null;
 		        $data->related_packages = null;
-		        $data->status = 0;
-		        $data->type = (!empty($_GET['type']) && $_GET['type']=='user_series')?'user_series':'user_create';
+		        if(!empty($_GET['id'])){
+					$data->status = $data->status;
+					$data->type = $data->type;
+				}else{
+					$data->status = 0;
+					$data->type = (!empty($_GET['type']) && $_GET['type']=='user_series')?'user_series':'user_create';
+				}
 		        $data->sold = 0;
 		        $data->image = $thumb;
 		        $data->thumn = $thumb;

@@ -73,14 +73,14 @@
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-          <tr class="">
+          <tr class="" style="text-align: center;">
             <th>ID</th>
             <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
             <th>Thống kê</th>
             <th>Trạng thái</th>
-            <th>Sửa</th>
+            <th>Sửa thông tin</th>
             <th>Xóa</th>
           </tr>
         </thead>
@@ -116,7 +116,7 @@
                           <img src="'.$image.'" width="100" /><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
-                        <td>'.$item->name.'</td>
+                        <td> <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'"  title="sửa layer">'.$item->name.' </a></td>
                         
                         <td>
                           Tạo: '.number_format($item->export_image).'<br/>
@@ -126,9 +126,8 @@
                         <td align="center">'.$status.'</td>
                         
                         <td align="center">
-                          <a target="_blank" class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
-                            <i class="bx bx-edit"></i>
-                          </a>
+                         <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                            <i class="bx bx bx-edit-alt me-1"></i>                         
                         </td>
 
                         <td align="center">

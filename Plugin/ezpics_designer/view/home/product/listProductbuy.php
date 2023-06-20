@@ -68,7 +68,7 @@
             <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
-            <th>Sửa</th>
+            <th>Sửa thông tin</th>
             <th>Xóa</th>
           </tr>
         </thead>
@@ -106,14 +106,10 @@
                           <img src="'.$image.'" width="100" /><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
-                        <td>'.$item->name.'<br/>'.$type.'</td>
-                        
-                        
-                        
+                        <td> <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'"  title="sửa layer ">'.$item->name.' </a><br/>'.$type.'</td>
                         <td align="center">
-                          <a target="_blank" class="dropdown-item" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
-                            <i class="bx bx-edit"></i>
-                          </a>
+                         <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                            <i class="bx bx bx-edit-alt me-1"></i>
                         </td>
 
                         <td align="center">
