@@ -213,6 +213,7 @@ function deleteWarehouse($input)
 	if(!empty($session->read('infoUser'))){
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+		$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 		
 		if(!empty($_GET['id'])){
 			$data = $modelWarehouses->get($_GET['id']);
@@ -225,6 +226,10 @@ function deleteWarehouse($input)
 				// xóa danh sách user mua kho
 				$conditions = ['warehouses_id'=>$data->id];
 				$modelWarehouseUsers->deleteAll($conditions);
+
+				// xóa danh sách sản phẩm trong kho
+				$conditions = ['warehouse_id'=>$data->id];
+				$modelWarehouseProducts->deleteAll($conditions);
 	        }
 		}
 

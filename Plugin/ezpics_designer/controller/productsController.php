@@ -377,6 +377,7 @@ function addProduct($input)
 		$modelProductDetail = $controller->loadModel('ProductDetails');
 		$modelManagerFile = $controller->loadModel('ManagerFile');
 		$modelWarehouses = $controller->loadModel('Warehouses');
+		$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 		$mess= '';
 
 		// lấy data edit
@@ -533,6 +534,22 @@ function addProduct($input)
 		        $newLayer->created_at = date('Y-m-d H:i:s');
 		        
 		        $modelProductDetail->save($newLayer);
+
+		        // lưu mẫu vào kho
+		        if(!empty($dataSend['warehouse'])){
+		        	$conditions = ['product_id'=>$data->id];
+		        	$modelWarehouseProducts->deleteAll($conditions);
+
+		        	foreach ($dataSend['warehouse'] as $warehouse_id) {
+		        		$warehouse_products = $modelWarehouseProducts->newEmptyEntity();
+
+		        		$warehouse_products->warehouses_id = $warehouse_id;
+		        		$warehouse_products->product_id = $data->id;
+		        		$warehouse_products->user_id = $infoUser->id;
+
+		        		$modelWarehouseProducts->save($warehouse_products);
+		        	}
+		        }
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    }else{
