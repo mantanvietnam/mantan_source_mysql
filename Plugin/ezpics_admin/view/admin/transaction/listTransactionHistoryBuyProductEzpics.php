@@ -53,7 +53,7 @@
         <h5 class="card-header">Giao dịch mua mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
       </div>
       <div class="col-md-6">
-        <h5 class="card-header" style="float: right;">Tổng số tiền là  - <b class="text-danger"><?php echo number_format($totalMoney);?></b> đ</h5>
+        <h5 class="card-header" style="float: right;">Tổng số tiền là   <b class="text-danger"><?php echo number_format($totalMoney);?></b> đ</h5>
       </div>
     </div>
     <div class="table-responsive">
