@@ -1,20 +1,5 @@
 <?php 
-if(!empty($_GET['id'])){ 
-	// Giải mã dữ liệu base64
-	$imageData = base64_decode($dataImage);
-
-	// Kiểm tra nếu dữ liệu ảnh hợp lệ
-	if ($imageData !== false) {
-	    // Thiết lập header phù hợp với định dạng ảnh
-	    header("Content-type: image/png");
-
-	    // Hiển thị ảnh
-	    echo $imageData;
-	} else {
-	    // Hiển thị thông báo lỗi nếu dữ liệu ảnh không hợp lệ
-	    echo "Invalid image data";
-	}
-}else{
+if(empty($_GET['id'])){
 	echo '	<!DOCTYPE html>
 			<html>
 			<head>

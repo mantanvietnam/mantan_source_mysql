@@ -2,7 +2,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Khách mua kho mẫu thiết kế</h4>
-  <p><a href="/addWarehouseUser" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addWarehouseUser/?warehouses_id=<?php echo @$_GET['warehouse_id'];?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">

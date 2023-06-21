@@ -59,6 +59,7 @@ class AppController extends Controller
         global $urlCurrent;
         global $isRequestPost;
         global $controller;
+        global $response;
         global $csrfToken;
         global $infoSite;
         global $contactSite;
@@ -73,6 +74,7 @@ class AppController extends Controller
         $urlCurrent = $_SERVER['REQUEST_URI'];
         $isRequestPost = $this->request->is('post');
         $controller = $this;
+        $response = $this->response;
      
         $csrfToken = $this->request->getAttribute('csrfToken');
 

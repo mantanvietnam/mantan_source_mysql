@@ -716,6 +716,7 @@ function createImageSeries($input)
 	global $ftp_server_upload_image;
 	global $ftp_username_upload_image;
 	global $ftp_password_upload_image;
+	global $response;
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
@@ -761,7 +762,7 @@ function createImageSeries($input)
         	}
 
         	if(!empty($_GET['id'])){
-        		$max = 2000;
+        		$max = 1500;
 	        	if($product->width<=$max && $product->height<=$max){
 	        		$width = $product->width;
 	        		$height = $product->height;
@@ -791,11 +792,25 @@ function createImageSeries($input)
 	        		removeFileFTP($item, $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
 	        	}
 	        }
-		}
-	}
 
-	setVariable('dataImage', $dataImage);
-	setVariable('slug', $product->slug);
+	        if(!empty($_GET['id'])){ 
+	        	// Giải mã dữ liệu base64
+				$imageData = base64_decode($dataImage);
+
+				// Kiểm tra nếu dữ liệu ảnh hợp lệ
+				if ($imageData !== false) {
+					header('Content-Type: image/png');
+					echo $imageData;
+					$controller->autoRender = false;
+				}
+	        }
+		}
+		
+		setVariable('dataImage', $dataImage);
+		setVariable('slug', $product->slug);
+	}else{
+		return $controller->redirect('https://ezpics.vn');
+	}
 }
 
 function addDataSeries($input)
