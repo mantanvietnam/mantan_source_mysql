@@ -125,5 +125,6 @@
 	$routesPlugin['deleteFollowDesignerAPI']= 'ezpics_api/view/deleteFollowDesignerAPI.php';
 	$routesPlugin['checkFollowDesignerAPI']= 'ezpics_api/view/checkFollowDesignerAPI.php';
 	$routesPlugin['listFollowDesignerAPI']= 'ezpics_api/view/listFollowDesignerAPI.php';
+	$routesPlugin['orderCreateContentAPI']= 'ezpics_api/view/orderCreateContentAPI.php';
 	
 ?>
