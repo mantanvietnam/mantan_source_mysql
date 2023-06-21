@@ -58,6 +58,13 @@ function listTransactionHistoryBankingEzpics($input)
     }
 
     $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
+
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -96,6 +103,7 @@ function listTransactionHistoryBankingEzpics($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
 }
 
 function listTransactionHistoryBuyProductEzpics($input)
@@ -159,6 +167,12 @@ function listTransactionHistoryBuyProductEzpics($input)
     }
 
     $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -197,6 +211,7 @@ function listTransactionHistoryBuyProductEzpics($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
 }
 
 function listTransactionHistoryWithdrawMoneyEzpics($input)
@@ -258,6 +273,12 @@ function listTransactionHistoryWithdrawMoneyEzpics($input)
     }
 
     $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -296,6 +317,7 @@ function listTransactionHistoryWithdrawMoneyEzpics($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
 }
 
 function listTransactionHistorySellingDesignsEzpics($input)
@@ -359,6 +381,12 @@ function listTransactionHistorySellingDesignsEzpics($input)
     }
 
     $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -397,6 +425,7 @@ function listTransactionHistorySellingDesignsEzpics($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
 }
 
 function listTransactionHistoryRemoveImageEzpics($input)
@@ -460,6 +489,12 @@ function listTransactionHistoryRemoveImageEzpics($input)
     }
 
     $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -498,6 +533,7 @@ function listTransactionHistoryRemoveImageEzpics($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
 }
 
 function listTransactionHistoryDiscountProductEzpics($input)
@@ -557,6 +593,12 @@ function listTransactionHistoryDiscountProductEzpics($input)
     }
 
     $totalData = $modelOrders->find()->where($conditions)->all()->toList();
+    $totalMoney = 0;
+    if(!empty($totalData)){
+    	foreach($totalData as $key => $item){
+    		$totalMoney += $item->total;
+    	}
+    }
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -595,6 +637,7 @@ function listTransactionHistoryDiscountProductEzpics($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('totalMoney', $totalMoney);
 }
 
 ?>
