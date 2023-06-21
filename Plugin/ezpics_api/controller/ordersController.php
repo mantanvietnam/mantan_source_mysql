@@ -342,4 +342,56 @@ function getNameBankAPI()
 {
 	return listBank();
 }
+
+function orderCreateContentAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $name_bank;
+	global $number_bank;
+	global $link_qr_bank;
+	global $account_holders_bank;
+
+	$modelOrder = $controller->loadModel('Orders');
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		if(!empty($infoUser)){
+			if($infoUser->account_balance > 1000){
+				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'],'user_id'=>$infoUser->id))->first();
+				if(!empty($dataProduct)){
+
+
+					$order = $modelOrder->newEmptyEntity();
+					$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
+                    $order->member_id = $infoUser->id;
+                    $order->product_id = $dataProduct->id;
+                    $order->total = 1;
+                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+                    $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
+                    $order->meta_payment = 'Tạo nội dung cho mẫu ID '.$dataProduct->id;
+                    $order->created_at = date('Y-m-d H:i:s');
+                    $modelOrder->save($order);
+
+                    $infoUser->account_balance -= 1000;
+					$modelMember->save($infoUser);
+					$return = array('code'=>1, 'mess'=>'Bạn đã trừ tiền thành công');
+				}else{
+					$return = array('code'=>0, 'mess'=>'Mẫu này không phải của bạn');
+				}
+			}else{
+				$return = array('code'=>0, 'mess'=>'Bạn không đủ tiền');
+			}
+		}else{
+			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+		}
+	}
+
+
+	return $return;
+}
 ?>

@@ -36,6 +36,10 @@
 	// khách hàng
 	$routesPlugin['listCustomer']= 'ezpics_designer/view/home/customer/listCustomer.php';
 
+	//thống Kê
+	$routesPlugin['chartFollow']= 'ezpics_designer/view/home/chart/chartFollow.php';
+	$routesPlugin['chartSellProduct']= 'ezpics_designer/view/home/chart/chartSellProduct.php';
+
 	// kho mẫu thiết kế
 	$routesPlugin['listWarehouse']= 'ezpics_designer/view/home/warehouse/listWarehouse.php';
 	$routesPlugin['addWarehouse']= 'ezpics_designer/view/home/warehouse/addWarehouse.php';
