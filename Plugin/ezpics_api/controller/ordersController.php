@@ -373,13 +373,13 @@ function orderCreateContentAPI($input){
                     $order->total = 1;
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                     $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
-                    $order->meta_payment = 'Tạo nội dung cho mẫu ID '.$dataProduct->id;
+                    $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
                     $order->created_at = date('Y-m-d H:i:s');
                     $modelOrder->save($order);
 
                     $infoUser->account_balance -= 1000;
 					$modelMember->save($infoUser);
-					$return = array('code'=>1, 'mess'=>'Bạn đã trừ tiền thành công');
+					$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
 				}else{
 					$return = array('code'=>0, 'mess'=>'Mẫu này không đúng');
 				}
