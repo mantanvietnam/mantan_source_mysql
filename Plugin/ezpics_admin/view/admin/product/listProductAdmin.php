@@ -91,7 +91,7 @@
             <th>Ảnh thiết kế</th>
             <th>Ảnh đại diện</th>
             <th>Mẫu thiết kế</th>
-            <th>Chủ mẫu</th>
+            <!-- <th>Chủ mẫu</th> -->
             <th>Thống kê</th>
             <th>Giá bán</th>
             <th>Trạng thái</th>
@@ -116,7 +116,8 @@
                   $status = '<span class="text-primary">Chờ duyệt</span>
                   <br>
                    <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
-
+                    <br/>
+                    <br/>
                      <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0&page='.@$_GET['page'].'" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
                 }elseif($item->status==2){
                    $status = '<span class="text-success">Đang đăng bán</span><br>
@@ -137,16 +138,14 @@
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
                         <td>
-                          <img src="'.$item->image.'" width="100" />
+                          <img src="'.$item->image.'" width="100" /><br/>Tác giả<br/>
+                           '.$item->designer->name.'<br/>
+                          '.$item->designer->phone.'<br/>
+                          '.$item->designer->email.'
                           
                         </td>
                         <td>'.$thumbnail.'</td>
                         <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'</td>
-                        <td>
-                          '.$item->designer->name.'<br/>
-                          '.$item->designer->phone.'<br/>
-                          '.$item->designer->email.'
-                        </td>
                         <td>
                           Sell: '.number_format($item->sold).'<br/>
                           View: '.number_format($item->views).'<br/>
