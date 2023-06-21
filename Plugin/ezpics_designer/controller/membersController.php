@@ -533,6 +533,7 @@ function ggCallback($input)
 function detailDesigner($input)
 {
 	global $controller;
+	global $urlCurrent;
 	global $metaTitleMantan;
 	global $metaKeywordsMantan;
 	global $metaDescriptionMantan;
@@ -540,6 +541,7 @@ function detailDesigner($input)
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelMembers = $controller->loadModel('Members');
+	$modelWarehouse = $controller->loadModel('Warehouses');
 	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
 	$modelOrder = $controller->loadModel('Orders');
 
@@ -562,9 +564,55 @@ function detailDesigner($input)
 			if($designer->type == 1){
 				$link_open_app =  (!empty($designer->link_open_app))?$designer->link_open_app:'https://ezpics.page.link/vn1s';
 
-				$product = $modelProduct->find()->where(array('user_id' => $designer->id, 'type'=>'user_create','status'=>2))->all()->toList();
+				$pro = $modelProduct->find()->where(array('user_id' => $designer->id, 'type'=>'user_create','status'=>2))->all()->toList();
 				
-				$quantityProduct = count(@$product);
+				$quantityProduct = count(@$pro);
+
+				$conditionProduct =array('user_id' => $designer->id, 'type'=>'user_create','status'=>2);
+
+				if(!empty($_GET['name'])){
+					$conditionProduct['name LIKE'] = '%'.$_GET['name'].'%';
+				}
+
+				$limit = 20;
+				$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+				if($page<1) $page = 1;
+				$order = array('created_at'=>'desc');
+
+				$product = $modelProduct->find()->limit($limit)->page($page)->where($conditionProduct)->order($order)->all()->toList();
+				$totalData = $modelProduct->find()->where($conditionProduct)->all()->toList();
+
+				$totalData = count($totalData);
+
+			    $balance = $totalData % $limit;
+			    $totalPage = ($totalData - $balance) / $limit;
+			    if ($balance > 0)
+			        $totalPage+=1;
+
+			    $back = $page - 1;
+			    $next = $page + 1;
+			    if ($back <= 0)
+			        $back = 1;
+			    if ($next >= $totalPage)
+			        $next = $totalPage;
+
+			    if (isset($_GET['page'])) {
+			        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+			        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+			    } else {
+			        $urlPage = $urlCurrent;
+			    }
+			    if (strpos($urlPage, '?') !== false) {
+			        if (count($_GET) >= 1) {
+			            $urlPage = $urlPage . '&page=';
+			        } else {
+			            $urlPage = $urlPage . 'page=';
+			        }
+			    } else {
+			        $urlPage = $urlPage . '?page=';
+			    }
+
+				
 
 				$order = $modelOrder->find()->where(array('member_id' => $designer->id, 'type'=>3))->all()->toList();
 				$quantitySell  = count(@$order);
@@ -572,11 +620,24 @@ function detailDesigner($input)
 				$follow = $modelFollowDesigner->find()->where(array('designer_id' => $designer->id))->all()->toList();
 				$quantityFollow  = count(@$follow);
 
+				$Warehouse = $modelWarehouse->find()->where(array('user_id' => $designer->id))->all()->toList();
+
+				$quantityWarehouse  = count(@$Warehouse);
+
 				setVariable('designer', $designer);
+				setVariable('product', $product);
 				setVariable('link_open_app', $link_open_app);
 				setVariable('quantityProduct', $quantityProduct);
 				setVariable('quantitySell', $quantitySell);
 				setVariable('quantityFollow', $quantityFollow);
+				setVariable('quantityWarehouse', $quantityWarehouse);
+
+				setVariable('page', $page);
+	    		setVariable('totalPage', $totalPage);
+	    		setVariable('back', $back);
+	    		setVariable('next', $next);
+	    		setVariable('urlPage', $urlPage);
+	    		setVariable('totalData', $totalData);
 			}else{
 				return $controller->redirect('https://ezpics.page.link/vn1s');
 			}
