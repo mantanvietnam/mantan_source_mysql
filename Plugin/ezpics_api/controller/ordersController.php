@@ -362,7 +362,7 @@ function orderCreateContentAPI($input){
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		if(!empty($infoUser)){
 			if($infoUser->account_balance > 1000){
-				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'],'user_id'=>$infoUser->id))->first();
+				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
 				if(!empty($dataProduct)){
 
 
@@ -381,7 +381,7 @@ function orderCreateContentAPI($input){
 					$modelMember->save($infoUser);
 					$return = array('code'=>1, 'mess'=>'Bạn đã trừ tiền thành công');
 				}else{
-					$return = array('code'=>0, 'mess'=>'Mẫu này không phải của bạn');
+					$return = array('code'=>0, 'mess'=>'Mẫu này không đúng');
 				}
 			}else{
 				$return = array('code'=>0, 'mess'=>'Bạn không đủ tiền');
