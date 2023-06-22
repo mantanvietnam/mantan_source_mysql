@@ -5,7 +5,7 @@ function chartUserNewAdmin() {
     global $isRequestPost;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Thống kê';
+    $metaTitleMantan = 'Thống kê đăng ký';
 
     $modelmember = $controller->loadModel('Members');
     $modelProducts = $controller->loadModel('Products');
@@ -138,7 +138,7 @@ function chartSampleApprovedAdmin() {
     global $isRequestPost;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Thống kê';
+    $metaTitleMantan = 'Thống kê duyệt mẫu';
 
     $modelProducts = $controller->loadModel('Products');
     $mess= '';
@@ -210,7 +210,7 @@ function chartLoadMoneyAdmin() {
     global $isRequestPost;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Thống kê';
+    $metaTitleMantan = 'Thống kê mạp tiền';
 
     $modelmember = $controller->loadModel('Members');
     $modelProducts = $controller->loadModel('Products');
