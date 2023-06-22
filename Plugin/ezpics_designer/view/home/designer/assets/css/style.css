@@ -110,13 +110,14 @@ a{
 }
 
 #designer-content .designer-information .box-information .designer-name p{
-	color: #fff;
+	color: #f00;
 	font-size: 18px;
 	font-weight: bold;
+
 }
 
 #designer-content .designer-information .box-information .designer-name{
-	margin-bottom: 8px;
+	margin-bottom: 50px;
 }
 
 #designer-content .designer-information .box-information .designer-button-group button{
