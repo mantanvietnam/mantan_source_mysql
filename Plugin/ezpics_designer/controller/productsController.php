@@ -648,7 +648,10 @@ function detailProduct($input)
 				$link_open_app =  'https://ezpics.page.link/vn1s';
 			}
 
+			$dataOther = $modelProduct->find()->where(array('category_id'=>$product->category_id, 'status'=>2))->all()->toList();
+
 			setVariable('product', $product);
+			setVariable('dataOther', $dataOther);
 			setVariable('user', $user);
 		}else{
 			$link_open_app =  'https://ezpics.page.link/vn1s';

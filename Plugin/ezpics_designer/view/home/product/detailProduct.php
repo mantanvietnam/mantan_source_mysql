@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<?php mantan_header();?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <?php mantan_header();?>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" />
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-	<link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" />
-
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCQ02R5K9G"></script>
-	<script>
+    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/designer/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css"  href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+      <script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
@@ -22,13 +22,9 @@
 	</script>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-12 text-center">
-				<a href="https://smartqr.vn/r/gjib5dhkl79y">
-					<img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png">
-				</a>
-			</div>
+    <main>
+        <div id="product-line">
+        </div>
 			<?php
 				if(!empty($product)){
 					if($product->sale_price==0){
@@ -41,28 +37,95 @@
 						$sale_price .= ' <del>'.number_format($product->price).'đ</del>';
 					}
 
-					$description = (!empty($product->description))?nl2br($product->description):'';
+					$description = (!empty($product->description))?nl2br($product->description):''?>
+        <section id="product-details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-12 product-img">
+                        <div class="product-img-item">
+                            <img src="<?php echo $product->image ?>" alt="">
+                        </div>
+                    </div>
 
-					echo '	<div class="col-12 col-xs-12 col-sm-12 col-md-2 col-lg-2">
-							</div>
-							<div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-3">
-								<img src="'.$product->image.'" class="img-fluid">
-							</div>
-							<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<h1 style="font-size: 20px;">'.$product->name.'</h1>
-								<p>Tác giả: '.$user->name.'</p>
-								<p>Lượt xem: '.number_format($product->views).'</p>
-								<p>Đã bán: '.number_format($product->sold).'</p>
-								<p>Giá bán: '.$sale_price.'</p>
-								'.$description.'
-								<p class="mt-3"><a class="btn btn-warning" href="'.$link_open_app.'">Mua mẫu ngay</a></p>
-							</div>';
-				}else{
+                    <div class="col-lg-5 col-md-5 col-12 product-information">
+                        <h1 class="product-title"><?php echo $product->name ?></h1>
+                        <div>
+                            <p>Tác giả: <span><?php echo $user->name ?></span></p>
+                            <p>Lượt xem: <span><?php echo $product->views ?></span></p>
+                            <p>Đã bán: <span><?php echo $product->sold ?></span></p>
+                            <div class="price-product">
+                                <p>Giá bán: <span><?php echo $sale_price  ?></span></p>
+                            </div>
+                            <?php if(!empty($description)){ ?>
+                            <p>Mô tả: <span><?php echo $description ?></span></p>
+                            <?php } ?>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="product-button">
+                            <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+	<?php	} ?>
+        <section id="product-other">
+            <div class="product-other-title">
+                <div class="container">
+                    <h2>Sản phẩm khác</h2>
+                </div>
+            </div>
 
-				}
-			?>
-			
-		</div>
-	</div>
+            <div class="product-other-list">
+                <div class="container">
+                    <div class="product-other-slide">
+                    	<?php if (!empty($dataOther)){
+                    		foreach($dataOther as $key => $item){
+                    			if(@$item->id != $product->id){
+                    				if($item->sale_price==0){
+						$price = 'Miễn phí';
+					}else{
+						$price = number_format($item->sale_price).'đ';
+					}
+
+					if($item->price>0){
+						$price .= ' <del>'.number_format($item->price).'đ</del>';
+					}
+                    	?>
+	                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
+	                            <a href="/detail/<?php echo @$item->name.'-'.@$item->id ?>.html">
+	                                <div class="product-img">
+	                                    <img src="<?php echo @$item->thumbnail ?>" alt="">
+	                                </div>
+	                                <div class="product-title">
+	                                    <p><?php echo @$item->name ?></p>
+	                                </div>
+	                                <div class="product-sold">
+	                                    <p>Đã bán :<span><?php echo @$item->sold ?></span></p>
+	                                </div>
+	                                <div class="product-price">
+	                                    <p><?php echo $price ?>	</p>
+	                                </div>
+	                            </a>
+	                        </div>
+                        <?php }}} ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    
 </body>
+
+<footer>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/plugins/ezpics_designer/view/home/designer/assets/js/slick.js"></script>
+
+</footer>
+
 </html>
