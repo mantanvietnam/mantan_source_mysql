@@ -35,7 +35,7 @@ function listWarehouse($input)
 
 	    if(!empty($listData)){
 	    	foreach ($listData as $key => $value) {
-	    		$users = $modelWarehouseUsers->find()->where(['warehouses_id'=>$value->id])->all()->toList();
+	    		$users = $modelWarehouseUsers->find()->where(['warehouse_id'=>$value->id])->all()->toList();
 	    		$listData[$key]->number_user = count($users);
 
 	    		$products = $modelWarehouseProducts->find()->where(['warehouse_id'=>$value->id])->all()->toList();
@@ -103,6 +103,8 @@ function addWarehouse($input)
 
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		$modelManagerFile = $controller->loadModel('ManagerFile');
+		$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
 		$mess= '';
 
 		// lấy data edit
@@ -147,6 +149,7 @@ function addWarehouse($input)
 		        $data->name = $dataSend['name'];
 		        $data->user_id = $infoUser->id;
 		        $data->price = (int) $dataSend['price'];
+		        $data->date_use = (int) $dataSend['date_use'];
 		        $data->thumbnail = $thumbnail;
 		        $data->link_open_app = '';
 		        $data->keyword = $dataSend['keyword'];
@@ -177,6 +180,19 @@ function addWarehouse($input)
 	            $data->slug = $slugNew;
 		        
 		        $modelWarehouses->save($data);
+
+		        if(empty($_GET['id'])){
+		        	// tự thêm tác giả vào kho
+		        	$dataWarehouseUsers = $modelWarehouseUsers->newEmptyEntity();
+			        $dataWarehouseUsers->warehouse_id = (int) $data->id;
+			        $dataWarehouseUsers->user_id = $infoUser->id;
+			        $dataWarehouseUsers->price = 0;
+			        $dataWarehouseUsers->created_at = date('Y-m-d H:i:s');
+			        $dataWarehouseUsers->note = '';
+			        $dataWarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +3650 days'));
+			        
+			        $modelWarehouseUsers->save($dataWarehouseUsers);
+			    }
 
 		        /*
 		        // tạo link deep
@@ -228,7 +244,7 @@ function deleteWarehouse($input)
 				$modelWarehouses->delete($data);
 
 				// xóa danh sách user mua kho
-				$conditions = ['warehouses_id'=>$data->id];
+				$conditions = ['warehouse_id'=>$data->id];
 				$modelWarehouseUsers->deleteAll($conditions);
 
 				// xóa danh sách sản phẩm trong kho
