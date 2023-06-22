@@ -24,6 +24,11 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	
 }
+
+a{
+	text-decoration: none !important;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -308,4 +313,145 @@ a{
 		margin-top: 10px;
 	}
 }
+
+/* Trang chi tiết mẫu thiết kế */
+
+
+
+#product-details{
+	background-color: #393939;
+	padding-top: 50px;
+}
+
+#product-line{
+	width: 100%;
+	height: 40px;
+	background-color: #242424;
+}
+
+#product-details .product-img-item img{
+	width: 100%;
+	height: 400px;
+    object-fit: cover;
+    background-position: top;
+    object-position: center top;
+}
+
+#product-details .product-img-item{
+	margin-right: 15px;
+}
+
+
+#product-details .product-information p{
+	color: #fff
+}
+
+#product-details .product-information h1{
+	background: linear-gradient(to right, #edd67c, #fcd703e9);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#product-details .product-information span{
+	color: #fff;
+	font-size:19px;
+	font-weight: normal;
+}
+
+#product-details .product-information p{
+	font-size: 20px;
+	color: #FFCA00;
+	font-weight: bold;
+}
+
+#product-details .product-information button{
+	background: #FFCA00;
+	width: 303px;
+	height: 55px;
+	border-radius: 50px;
+	color: #1f1e1e;
+	font-size: 17px;	
+	border: none;
+	transition: all 0.5s ease;
+}
+
+#product-details .product-information button a{
+	color: #1f1e1e 
+}
+
+#product-details .product-information button:hover{
+	background: #efd158;
+	transition: all 0.5s ease;
+}
+
+#product-other .product-other-title h2{
+	color: #FFCA00;
+}
+
+
+#product-other .product-item .product-img{
+	height: 195px;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 15px;
+
+}
+
+#product-other .product-item .product-img img{
+	width: 100%;
+	height: 100%;
+	transition: all 0.5s ease;
+}
+
+#product-other .product-item .product-img img:hover{
+	scale: 1.2;
+	transition: all 0.5s ease;
+}
+
+#product-other .product-item .product-price{
+	color:#FED354
+}
+
+#product-other .product-item .product-price p{
+	font-size: 22px;
+}
+
+
+#product-other .product-item .product-sold{
+	color: #BFBFBF
+}
+
+#product-other .product-item{
+	margin-bottom: 30px;
+	margin: 15px
+}
+
+#product-other .product-item .product-sold{
+	margin-bottom: 10px;
+}
+
+#product-other .product-item .product-title{
+	/* margin-bottom: 10px; */
+}
+
+
+#product-other .product-item .product-title p{
+	color: #fff;
+	font-size: 27px;
+}
+
+#product-other .product-item a{
+	text-decoration: none;
+}
+
+#product-other{
+	background-color: #393939;
+	padding-top: 60px;
+}
+
+
+
+
+
+
 
