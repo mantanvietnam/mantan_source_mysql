@@ -66,6 +66,13 @@
     
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
     <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/bootstrap.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
   </head>
 
   <body>

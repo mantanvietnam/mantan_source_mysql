@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Kho mẫu thiết kế (*)</label>
-                    <select name="warehouse_id" class="form-select color-dropdown" required>
+                    <select name="warehouse_id" id="warehouse_id" class="form-select color-dropdown" required onchange="getDataOption();">
                       <option value="">Chọn kho mẫu</option>
                       <?php
                       if(!empty($listWarehouses)){
@@ -72,5 +72,19 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+  function getDataOption()
+  {
+    var selectedOption = $('#warehouse_id').find('option:selected');
+    var dataPrice = selectedOption.data('price');
+    var dataDate = selectedOption.data('date');
+
+    $('#date_use').val(dataDate);
+    $('#price').val(dataPrice);
+  }
+
+  getDataOption();
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
