@@ -164,6 +164,7 @@ a{
 
 #designer-content .box-product #nav-portfolio .img-certification{
 	max-height: 400px;
+	width: 100%;
 }
 
 #designer-content .box-product #nav-portfolio{
@@ -328,33 +329,6 @@ a{
 }
 
 
-@media (max-width:1177px){
-	#designer-content .designer-information{
-		position: relative;
-		margin:0;
-		top: 0;
-		transform: translateY(0);
-		height: 632px;
-	}
-}
-
-@media (max-width:768px) {
-	#designer-content .designer-information{
-		position: relative;
-		margin:0;
-		top: 0;
-		transform: translateY(0);
-		height: 632px;
-	}
-
-	.box-product .top-box-product{
-		display: block;
-	}
-
-	#designer-content .designer-product .top-box-product .designer-search{
-		margin-top: 10px;
-	}
-}
 
 /* Trang chi tiết mẫu thiết kế */
 
@@ -363,7 +337,9 @@ a{
 #product-details{
 	background-color: #393939;
 	padding-top: 50px;
+	padding-bottom: 60px;
 }
+
 
 #product-line{
 	width: 100%;
@@ -692,5 +668,80 @@ a{
 
 
 
+.header-menu-mobile{
+	display: none;
+}
 
 
+
+/* Sua header mobile*/
+
+.header-menu-mobile{
+	padding: 0 7px !important;
+}
+
+.menu-mobile{
+	position: absolute;
+    top: 46px;
+    z-index: 9;
+    background-color: #1B1A17 ;
+	padding: 8px 11px;
+    left: 0;
+    right: 0; 
+	color: #ef9300;
+	opacity: 0.9;
+	height: 400px;
+	width: 400px;
+}
+
+.header-menu-mobile .button-header{
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	font-size: 20px;
+}
+
+.menu-mobile .nav-item .nav-link{
+	color: #fff !important;
+}
+
+.menu-mobile .nav-item{
+	border-bottom: 1px solid transparent;
+}
+
+.header-menu-mobile{
+	display: none;
+}
+
+
+@media (max-width:1177px){
+	#designer-content .designer-information{
+		position: relative;
+		margin:0;
+		top: 0;
+		transform: translateY(0);
+		height: 632px;
+	}
+}
+
+@media (max-width:768px) {
+	#designer-content .designer-information{
+		position: relative;
+		margin:0;
+		top: 0;
+		transform: translateY(0);
+		height: 632px;
+	}
+
+	.box-product .top-box-product{
+		display: block;
+	}
+
+	#designer-content .designer-product .top-box-product .designer-search{
+		margin-top: 10px;
+	}
+
+	.header-menu-mobile{
+		display: block !important;
+	}
+}

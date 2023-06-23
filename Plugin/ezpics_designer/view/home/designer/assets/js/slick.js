@@ -43,3 +43,12 @@ $ = jQuery
        
     });
 
+
+    $( document ).ready(function() {
+      $(".menu-mobile-toggle").hide();
+      $(".button-header").click(function(){
+          console.log('a')
+          $(".menu-mobile-toggle").toggle();
+      });
+    });
+  
