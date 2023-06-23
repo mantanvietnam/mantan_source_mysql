@@ -346,7 +346,7 @@ function orderCreateContentAPI($input){
 		$dataSend = $input['request']->getData();
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		if(!empty($infoUser)){
-			if($infoUser->account_balance > 1000){
+			if($infoUser->account_balance >= 1000){
 				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
 				if(!empty($dataProduct)){
 
@@ -355,7 +355,7 @@ function orderCreateContentAPI($input){
 					$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
                     $order->member_id = $infoUser->id;
                     $order->product_id = $dataProduct->id;
-                    $order->total = 1;
+                    $order->total = 1000;
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                     $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
                     $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
