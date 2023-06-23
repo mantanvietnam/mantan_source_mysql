@@ -533,6 +533,12 @@ a{
 }
 
 
+/* footer */
+.downloadapp-footer-item img {
+	width: 200px;
+	height: auto;
+}
+
 
 
 
