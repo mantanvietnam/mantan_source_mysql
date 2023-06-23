@@ -49,7 +49,7 @@
 
                 <div class="col-2">
                     <div class="logo-header">
-                        <a href="#"><img src="../assets/img/avatar-ezpics.png" alt=""></a>
+                        <a href="#"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
                     </div>
                 </div>
                 
@@ -225,16 +225,13 @@
                 </div>
             </div>
         </section>
-    </footer>
-    
-</body>
-
-<footer>
+ 
    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="/plugins/ezpics_designer/view/home/designer/assets/js/slick.js?time=<?php echo  getdate()[0]; ?>"></script>
 
 </footer>
+</body>
 
 </html>
