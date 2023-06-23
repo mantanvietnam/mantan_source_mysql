@@ -15,50 +15,50 @@
 </head>
 <body>
     <header>
-    <section class="section-header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <div class="navbar-header collapse navbar-collapse" id="navbarTogglerDemo01">
-                <div class="col-5 header-menu">
-                    <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://ezpics.vn/tinh-nang/">TÍNH NĂNG</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://ezpics.vn/mau-thiet-ke-noi-bat/">MẪU THIẾT KẾ NỔI BẬT</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://huongdan.ezpics.vn/">HƯỚNG DẪN SỬ DỤNG</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://ezpics.vn/category/blog/">BLOG</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://ezpics.vn/lien-he/">LIÊN HỆ</a>
-                    </li>
-                    </ul>
-                </div>
+        <section class="section-header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="navbar-header collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <div class="col-5 header-menu">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://ezpics.vn/tinh-nang/">TÍNH NĂNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://ezpics.vn/mau-thiet-ke-noi-bat/">MẪU THIẾT KẾ NỔI BẬT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://huongdan.ezpics.vn/">HƯỚNG DẪN SỬ DỤNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://ezpics.vn/category/blog/">BLOG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://ezpics.vn/lien-he/">LIÊN HỆ</a>
+                        </li>
+                        </ul>
+                    </div>
 
-                <div class="col-2">
-                    <div class="logo-header">
-                        <a href="#"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
+                    <div class="col-2">
+                        <div class="logo-header">
+                            <a href="#"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-5 header-search">
+                        
+                        <form class="d-flex">
+                            <a class="download-button-header" href="https://huongdan.ezpics.vn/tai-app-ezpics">TẢI EZPICS MIỄN PHÍ</a>
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
                     </div>
                 </div>
-                
-
-                <div class="col-5 header-search">
-                    
-                    <form class="d-flex">
-                        <a class="download-button-header" href="https://huongdan.ezpics.vn/tai-app-ezpics">TẢI EZPICS MIỄN PHÍ</a>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                </div>
-                </div>
-            </div>
-            </nav>
-    </section>
-</header>
+                </nav>
+        </section>
+    </header>
     <main>
         <section id="designer-background">
             <img src="/plugins/ezpics_designer/view/home/designer/assets/img/banner.png" alt="">
@@ -308,7 +308,7 @@
     document.body.removeChild(aux);
 
     // show mess
-    alert('bạn dã sao chép link chia sẻ');
+    alert('bạn đã sao chép link chia sẻ');
 
 }
 </script>

@@ -349,7 +349,7 @@
     document.body.removeChild(aux);
 
     // show mess
-    alert('bạn dã sao chép link chia sẻ');
+    alert('bạn đã sao chép link chia sẻ');
 
 }
 </script>
