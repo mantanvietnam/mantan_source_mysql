@@ -85,64 +85,56 @@ function removeBackground($link_image_local='',$create_new= false)
     return $link_image_local;
 }
 
-function process_add_money($number=0, $desc='')
+function process_add_money($number=0, $order_id=0)
 {
     global $modelOption;
     global $key_transaction;
     global $controller;
-   
-    $keyApp= strtoupper($key_transaction);
 
-    if($number>0){
-        $desc= explode(' ', $desc);
+    $number = (int) $number;
+    $order_id = (int) $order_id;
 
-        if(!empty($desc[0]) && !empty($desc[1]) && !empty($desc[2])   ){
-            $phone= $desc[0];
-            $nameTool= $desc[1];
-            $orderCode= $desc[2];
+    if($number>=1000){
+        $modelOrder = $controller->loadModel('Orders');
+        $modelMember = $controller->loadModel('Members');
 
-            if($nameTool==$keyApp){
-                $modelOrder = $controller->loadModel('Orders');
-                $modelMember = $controller->loadModel('Members');
-                
-                $data = $modelMember->find()->where(array('phone'=>$phone))->first();
-               
-                if($data){
-                    $checkOrder = $modelOrder->find()->where(array('code'=> $orderCode))->first();
+        if(!empty($order_id)){
+            $checkOrder = $modelOrder->find()->where(array('id'=> $order_id))->first();
+            
+            if(!empty($checkOrder)){
+                $data = $modelMember->find()->where(array('id'=>$checkOrder->member_id))->first();
 
-                    if(!empty($checkOrder)){
-                        // cập nhập số dư tài khoản
-                        $data->account_balance += $number;
-                        $modelMember->save($data);
-                        
-                        // cập nhập lại trạng thái đơn hàng
-                        $checkOrder->total = $number;
-                        $checkOrder->status = 2; // 2: đã xử lý xong
-                        $checkOrder->updated_at = date('Y-m-d H:i:s');
-                        
-                        $modelOrder->save($checkOrder);
+                if(!empty($data)){
+                    // cập nhập số dư tài khoản
+                    $data->account_balance += $number;
+                    $modelMember->save($data);
+                    
+                    // cập nhập lại trạng thái đơn hàng
+                    $checkOrder->total = $number;
+                    $checkOrder->status = 2; // 2: đã xử lý xong
+                    $checkOrder->updated_at = date('Y-m-d H:i:s');
+                    
+                    $modelOrder->save($checkOrder);
 
-                        // gửi email
-                        if(!empty($data->email) && !empty($data->name)){
-                            sendEmailAddMoney($data->email, $data->name, $number);
-                        }
-
-                        // gửi thông báo về app
-                        $dataSendNotification= array('title'=>'Nạp tiền thành công Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Nạp thành công '.number_format($number).'đ vào tài khoản '.$phone,'action'=>'addMoneySuccess');
-
-                        if(!empty($data->token_device)){
-                            sendNotification($dataSendNotification, $data->token_device);
-                        }
-
-                        return 'Nạp tiền thành công cho tài khoản '.$phone;
-                    }else{
-                        return 'Không tìm thấy yêu cầu nạp tiền có mã là '.$orderCode;
+                    // gửi email
+                    if(!empty($data->email) && !empty($data->name)){
+                        sendEmailAddMoney($data->email, $data->name, $number);
                     }
+
+                    // gửi thông báo về app
+                    $dataSendNotification= array('title'=>'Nạp tiền thành công Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Nạp thành công '.number_format($number).'đ vào tài khoản '.$data->phone,'action'=>'addMoneySuccess');
+
+                    if(!empty($data->token_device)){
+                        sendNotification($dataSendNotification, $data->token_device);
+                    }
+
+                    return 'Nạp tiền thành công cho tài khoản '.$data->phone;
+                
                 }else{
-                    return 'Tài khoản '.$phone.' không tồn tại';
+                    return 'Tài khoản '.$data->phone.' không tồn tại';
                 }
             }else{
-                return 'Nội dung sai cú pháp';
+                return 'Không tìm thấy yêu cầu nạp tiền có ID là '.$order_id;
             }
         }else{
             return 'Nội dung sai cú pháp';
