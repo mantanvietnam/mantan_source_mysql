@@ -350,7 +350,7 @@
 	                                    <div class="txt">Bo góc</div>
 	                                </div>
 	                                <div class="range-slider">
-	                                    <input class="range-slider__range border" value="0" type="range" min="0" max="500">
+	                                    <input class="range-slider__range border" value="0" type="range" min="0" max="180">
 	                                    <span class="range-slider__value borderz">0</span>
 	                                </div>
 	                            </div>
