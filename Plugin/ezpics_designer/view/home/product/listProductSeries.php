@@ -126,8 +126,9 @@
                         <td align="center">'.$status.'</td>
                         
                         <td align="center">
-                         <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>                         
+                          <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                            <i class="bx bx bx-edit-alt me-1"></i>       
+                          </a>                 
                         </td>
 
                         <td align="center">
