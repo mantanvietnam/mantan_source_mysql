@@ -33,7 +33,8 @@
                             </div>
 
                             <div class="designer-button-group">
-                                <button class="button-share">Chia sẻ</button>
+                                <button class="button-share"><a href="">Theo dõi</a></button>
+                                <button class="button-share"><a href=""><i class="fa-solid fa-share-nodes"></i></a></button>
                             </div>
 
                             <div class="designer-bio">
@@ -60,7 +61,7 @@
                                         <p><?php echo @$quantityFollow ?></p>
                                     </div>
                                     <div class="name-statistical">
-                                        <p>Theo dõi</p>
+                                        <p>Chia sẻ</p>
                                     </div>
                                 </div>
 
