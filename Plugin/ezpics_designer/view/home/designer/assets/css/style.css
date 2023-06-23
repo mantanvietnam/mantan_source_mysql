@@ -59,7 +59,7 @@ table {
 }
 
 p{
-	line-height: 1.4;
+	line-height: 1.2;
 }
 
 a{
@@ -106,6 +106,8 @@ a{
 #designer-content .designer-information .box-information .designer-avatar img{
 	width: 100%;
 	border-radius: 50px;
+	height: 100%;
+	object-fit: cover;
 
 }
 
@@ -235,6 +237,11 @@ a{
 #designer-content .box-product .product-item .product-title p{
 	color: #fff;
 	font-size: 27px;
+	overflow: hidden;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
 }
 
 #designer-content .box-product .product-item a{
@@ -263,6 +270,7 @@ a{
 	color:#fff;
 	font-size: 20px;
 	
+	
 }
 
 #designer-content .box-information .designer-statistical{
@@ -284,6 +292,28 @@ a{
 	padding: 0 12px;
 	height: 35px;
 	
+}
+
+.pagination .page-item .page-link{
+	background-color: #242424;
+}
+
+.pagination .page-item:active .page-link{
+	background-color: #242424 !important;
+}
+
+.page-item.active .page-link{
+	background-color: #fcd703e9 !important;
+	color: #000 !important;
+	font-size: 19px !important;
+
+}
+
+.page-item .page-link{
+	background-color: #000 !important;
+	color: #fcd703e9 !important;
+	font-size: 19px !important;
+	border: none;
 }
 
 
@@ -351,6 +381,9 @@ a{
 	background: linear-gradient(to right, #edd67c, #fcd703e9);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	font-size: 30px;
+	margin-bottom: 15px;
+	font-weight: bold;
 }
 
 #product-details .product-information span{
@@ -387,6 +420,8 @@ a{
 
 #product-other .product-other-title h2{
 	color: #FFCA00;
+    font-weight: bold;
+    font-size: 34px;
 }
 
 
