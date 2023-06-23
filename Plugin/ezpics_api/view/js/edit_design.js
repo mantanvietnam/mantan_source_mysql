@@ -781,7 +781,7 @@ function ajaxInfoLayer() {
     // xử lý thay đổi boder ảnh hoặc chữ
     $('.border').on("change mousemove", function() {
         var borderEdit = $(this).val();
-        if(borderEdit>500) borderEdit=500;
+        if(borderEdit>180) borderEdit=180;
         if(borderEdit<0) borderEdit=0;
         $(this).val(borderEdit);
         
@@ -797,7 +797,7 @@ function ajaxInfoLayer() {
 
     $('.borderz').on("keyup", function() {
         var borderEdit = $(this).val();
-        if(borderEdit>100) borderEdit=100;
+        if(borderEdit>180) borderEdit=180;
         if(borderEdit<0) borderEdit=0;
         
         $(this).val(borderEdit);
