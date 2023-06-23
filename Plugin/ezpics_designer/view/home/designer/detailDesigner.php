@@ -193,6 +193,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -210,6 +211,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -227,6 +229,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -244,6 +247,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -261,6 +265,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -278,6 +283,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -295,6 +301,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -312,6 +319,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -329,6 +337,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -346,6 +355,7 @@
                                                 </div>
                                                 <div class="product-price">
                                                     <p>320.000đ</p>
+                                                    <p class="day-storage">30 ngày</p>
                                                 </div>
                                             </a>
                                         </div>

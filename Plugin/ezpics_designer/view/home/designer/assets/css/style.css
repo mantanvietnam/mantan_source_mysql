@@ -209,7 +209,9 @@ a{
 }
 
 #designer-content .box-product .product-item .product-price{
-	color:#FED354
+	color:#FED354;
+	display: flex;
+	justify-content: space-between;
 }
 
 #designer-content .box-product .product-item .product-price p{
@@ -474,6 +476,11 @@ a{
 #product-other .product-item .product-title p{
 	color: #fff;
 	font-size: 27px;
+	overflow: hidden;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 }
 
 #product-other .product-item a{
