@@ -637,7 +637,7 @@ a{
     background-color: #fcb900;
     margin-right: 15px;
     font-size: 13px;
-    padding: 8px 20px;
+    padding:15px 20px;
 	color: #fff;
 	box-shadow: inset 0 0 0 100px rgba(0,0,0,.2);
 	border-radius: 5px;
@@ -717,6 +717,10 @@ a{
 	display: none !important;
 }
 
+.logo-header img{
+	width: 60px;
+}
+
 
 @media (max-width:1177px){
 	#designer-content .designer-information{
@@ -746,6 +750,6 @@ a{
 	}
 
 	.header-menu-mobile{
-		display: block !important;
+		display: flex !important;
 	}
 }

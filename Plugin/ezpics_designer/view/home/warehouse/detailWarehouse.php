@@ -21,6 +21,10 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
+            <div class="logo-header">
+                <a href="#"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
+            </div>
+
             <div class="menu-mobile">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">

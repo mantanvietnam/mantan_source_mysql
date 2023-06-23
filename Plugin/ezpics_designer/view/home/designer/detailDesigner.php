@@ -23,6 +23,10 @@
                         <i class="fa-solid fa-bars"></i>
                     </button>
 
+                    <div class="logo-header">
+                        <a href="#"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
+                    </div>
+                    
                     <div class="menu-mobile">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item">
@@ -74,7 +78,6 @@
                     
 
                     <div class="col-5 header-search">
-                        
                         <form class="d-flex">
                             <a class="download-button-header" href="https://huongdan.ezpics.vn/tai-app-ezpics">TẢI EZPICS MIỄN PHÍ</a>
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
