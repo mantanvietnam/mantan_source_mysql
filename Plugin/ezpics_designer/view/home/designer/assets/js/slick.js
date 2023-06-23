@@ -3,10 +3,12 @@ $ = jQuery
     $('.product-other-slide').slick({
         slidesToShow: 4,
         slidesToScroll: 1,
-        arrows: false,
+        arrows: true,
         autoplay: true,
         autoplaySpeed: 2000,
-      
+        prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-chevron-left`,
+        nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
+
         responsive: [
             {
               breakpoint: 1024,
