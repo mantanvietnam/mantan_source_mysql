@@ -122,7 +122,8 @@ a{
 	margin-bottom: 8px;
 }
 
-#designer-content .designer-information .box-information .designer-button-group button{
+#designer-content .designer-information .box-information .designer-button-group a{
+	display: block;
 	color: #393939;
     background-color: #FED354;
     border: none;
@@ -132,6 +133,7 @@ a{
     transition: all 0.5s ease;
     font-weight: bold;
 	font-size: 20px;
+	cursor: pointer;
 
 }
 
@@ -139,7 +141,7 @@ a{
 	color: #242424;
 }
 
-#designer-content .designer-information .box-information .designer-button-group button:hover{
+#designer-content .designer-information .box-information .designer-button-group a:hover{
 	background-color: #FFCA00;
 	transition: all 0.5s ease;
 }
@@ -148,6 +150,8 @@ a{
 #designer-content .designer-information .box-information .designer-button-group{
 	font-weight: 700;
 	margin-bottom: 26px;
+	display: flex;
+	justify-content: space-between;
 
 }
 
@@ -495,6 +499,30 @@ a{
 #product-other{
 	background-color: #393939;
 	padding-top: 60px;
+}
+
+.product-other-slide{
+	position: relative;
+}
+
+.slick-prev{
+	left: 0
+}
+
+.slick-next{
+	right: 0
+}
+
+.arrow-slide{
+	position: absolute;
+    z-index: 10;
+    top: 26%;
+    font-size: 23px;
+    padding: 10px 16px;
+	border:none;
+	background-color: #ffe16f;
+	color: #393939;
+	border-radius: 50px;
 }
 
 /* Chi tiết kho */

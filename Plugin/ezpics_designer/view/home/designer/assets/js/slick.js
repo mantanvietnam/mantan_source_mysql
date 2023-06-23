@@ -6,8 +6,8 @@ $ = jQuery
         arrows: true,
         autoplay: true,
         autoplaySpeed: 2000,
-        prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-chevron-left`,
-        nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
+        prevArrow: `<button type='button' class='slick-prev pull-left arrow-slide'><i class="fa-solid fa-chevron-left"</button>`,
+        nextArrow: `<button type='button' class='slick-next pull-right arrow-slide'><i class="fa-solid fa-chevron-right"></i></button>`,
 
         responsive: [
             {

@@ -33,7 +33,8 @@
                             </div>
 
                             <div class="designer-button-group">
-                                <button class="button-share">Chia sẻ</button>
+                                <a class="button-share">Theo dõi</a>
+                                <a class="button-share"><i class="fa-solid fa-share-nodes"></i></a>
                             </div>
 
                             <div class="designer-bio">
