@@ -15,6 +15,34 @@
 </head>
 <body>
     <header>
+
+        <div class="container-fluid header-menu-mobile">
+            <button class="button-header">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="menu-mobile">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://ezpics.vn/tinh-nang/">TÍNH NĂNG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://ezpics.vn/mau-thiet-ke-noi-bat/">MẪU THIẾT KẾ NỔI BẬT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://huongdan.ezpics.vn/">HƯỚNG DẪN SỬ DỤNG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://ezpics.vn/category/blog/">BLOG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://ezpics.vn/lien-he/">LIÊN HỆ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
         <section class="section-header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">

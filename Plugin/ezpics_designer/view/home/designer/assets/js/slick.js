@@ -45,10 +45,10 @@ $ = jQuery
 
 
     $( document ).ready(function() {
-      $(".menu-mobile-toggle").hide();
+      $(".menu-mobile").hide();
       $(".button-header").click(function(){
           console.log('a')
-          $(".menu-mobile-toggle").toggle();
+          $(".menu-mobile").toggle();
       });
     });
   
