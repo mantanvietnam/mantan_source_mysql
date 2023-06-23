@@ -258,3 +258,102 @@ function deleteWarehouse($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function detailWarehouse($input){
+	global $urlCurrent;
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+    $modelProduct = $controller->loadModel('Products');
+
+	if(!empty($input['request']->getAttribute('params')['pass'][1])){
+		$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = explode('-', $slug);
+		$count = count($slug)-1;
+		$id = (int) $slug[$count];
+
+		$Warehouse = $modelWarehouses->find()->where(['id'=>$id])->first();
+		$dataSend = $input['request']->getData();
+
+		$designer = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
+
+		if(!empty($Warehouse)){
+			$limit = 20;
+			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+			if($page<1) $page = 1;
+			$order = array('created_at'=>'desc');
+			
+			$conditions = array('Products.user_id'=>$designer->id);
+
+			if(!empty($_GET['name'])){
+				$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+			}
+
+			$conditions['wp.warehouse_id'] = $Warehouse->id;
+			$listData = $modelProduct->find()->join([
+					        'table' => 'warehouse_products',
+					        'alias' => 'wp',
+					        'type' => 'INNER',
+					        'conditions' => 'wp.product_id = Products.id',
+					    ])->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+			$totalData = $modelProduct->find()->join([
+					        'table' => 'warehouse_products',
+					        'alias' => 'wp',
+					        'type' => 'INNER',
+					        'conditions' => 'wp.product_id = Products.id',
+					    ])->where($conditions)->all()->toList();
+
+			$totalData = count($totalData);
+
+		    $balance = $totalData % $limit;
+		    $totalPage = ($totalData - $balance) / $limit;
+		    if ($balance > 0)
+		        $totalPage+=1;
+
+		    $back = $page - 1;
+		    $next = $page + 1;
+		    if ($back <= 0)
+		        $back = 1;
+		    if ($next >= $totalPage)
+		        $next = $totalPage;
+
+		    if (isset($_GET['page'])) {
+		        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+		        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+		    } else {
+		        $urlPage = $urlCurrent;
+		    }
+		    if (strpos($urlPage, '?') !== false) {
+		        if (count($_GET) >= 1) {
+		            $urlPage = $urlPage . '&page=';
+		        } else {
+		            $urlPage = $urlPage . 'page=';
+		        }
+		    } else {
+		        $urlPage = $urlPage . '?page=';
+		    }
+
+		    setVariable('page', $page);
+	    	setVariable('totalPage', $totalPage);
+	    	setVariable('back', $back);
+	   	 	setVariable('next', $next);
+	    	setVariable('urlPage', $urlPage);
+	    	setVariable('totalData', $totalData);
+	    	setVariable('listData', $listData);
+	    	setVariable('Warehouse', $Warehouse);
+	    	setVariable('designer', $designer);
+
+			
+		}else{
+			return $controller->redirect('https://ezpics.page.link/vn1s');
+		}
+	}else{
+		return $controller->redirect('https://ezpics.page.link/vn1s');
+	}
+}
+
+?>

@@ -13,4 +13,5 @@ include_once('controller/layerController.php'); // layer
 include_once('controller/notificationsController.php'); // layer
 include_once('controller/followdesignerContreller.php'); // followdesigner
 include_once('controller/fontController.php'); // followdesigner
+include_once('controller/warehousesController.php'); // kho 
 ?>
