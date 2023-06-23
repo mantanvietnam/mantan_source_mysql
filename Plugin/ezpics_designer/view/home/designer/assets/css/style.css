@@ -494,7 +494,7 @@ a{
 
 /* Chi tiết kho */
 .name-storage{
-	background: linear-gradient(to right, #FFC500, #e3d0cc, #a4a718);
+	background: linear-gradient(to right, #ffe078, #e3d0cc, #f8fd0f);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
