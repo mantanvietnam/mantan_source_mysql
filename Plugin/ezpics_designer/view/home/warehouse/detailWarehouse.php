@@ -32,8 +32,8 @@
                             </div>
 
                             <div class="designer-button-group">
-                                <a class="button-share">Theo dõi</a>
-                                <a class="button-share"><i class="fa-solid fa-share-nodes"></i></a>
+                                <a class="button-share" href="https://ezpics.page.link/vn1s">Theo dõi</a>
+                                <a class="button-share" onclick="copyToClipboard('https://designer.ezpics.vn/designer/<?php echo $designer->name.'-'.$designer->id; ?>.html','share')"><i class="fa-solid fa-share-nodes"></i></a>
                             </div>
 
                             <div class="designer-bio">
@@ -173,5 +173,29 @@
         
     </main>
 </body>
+<script type="text/javascript">
+  function copyToClipboard(textCopy,messId) {
+    // Create a "hidden" input
+    var aux = document.createElement("input");
 
+    // Assign it the value of the specified element
+    aux.setAttribute("value", textCopy);
+
+    // Append it to the body
+    document.body.appendChild(aux);
+
+    // Highlight its content
+    aux.select();
+
+    // Copy the highlighted text
+    document.execCommand("copy");
+
+    // Remove it from the body
+    document.body.removeChild(aux);
+
+    // show mess
+    alert('bạn dã sao chép link chia sẻ');
+
+}
+</script>
 </html>
