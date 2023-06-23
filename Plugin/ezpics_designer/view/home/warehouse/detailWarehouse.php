@@ -223,7 +223,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-5 col-md-5 footer-left">
                         <div class="logo-footer">
-                            <img src="../assets/img/avatar-ezpics.png" alt="">
+                            <img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt="">
                         </div>
 
                         <div class="downloadapp-footer">
@@ -232,8 +232,8 @@
                             </div>
 
                             <div class="downloadapp-footer-item">
-                                <a href="https://apps.apple.com/vn/app/ezpics-kho-m%E1%BA%ABu-thi%E1%BA%BFt-k%E1%BA%BF-%E1%BA%A3nh/id1659195883?l=vi"><img src="../assets/img/logo-appstore-download-300x95.png" alt=""></a>
-                                <a href="https://play.google.com/store/apps/details?id=vn.ezpics&hl=vi&gl=US"><img src="../assets/img/Logo-google-play-store-e1578969817208-300x95.png" alt=""></a>
+                                <a href="https://apps.apple.com/vn/app/ezpics-kho-m%E1%BA%ABu-thi%E1%BA%BFt-k%E1%BA%BF-%E1%BA%A3nh/id1659195883?l=vi"><img src="/plugins/ezpics_designer/view/home/designer/assets/img/logo-appstore-download-300x95.png" alt=""></a>
+                                <a href="https://play.google.com/store/apps/details?id=vn.ezpics&hl=vi&gl=US"><img src="/plugins/ezpics_designer/view/home/designer/assets/img/Logo-google-play-store-e1578969817208-300x95.png" alt=""></a>
                             </div>
                         </div>
                     </div>
