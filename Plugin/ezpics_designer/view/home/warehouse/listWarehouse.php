@@ -42,6 +42,7 @@
             <th>Kho mẫu thiết kế</th>
             <th>Thống kê</th>
             <th>Giá bán</th>
+            <th>Ngày dùng</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -60,7 +61,7 @@
                           <img src="'.$item->thumbnail.'" width="100" /><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
-                        <td>'.$item->name.'</td>
+                        <td><a href="'.$link_share.'">'.$item->name.'</a></td>
                         
                         <td>
                           Xem: '.number_format($item->views).'<br/>
@@ -69,6 +70,9 @@
                         </td>
                         <td>
                           '.number_format($item->price).'
+                        </td>
+                        <td>
+                          '.number_format($item->date_use).'
                         </td>
                         
                         <td align="center">

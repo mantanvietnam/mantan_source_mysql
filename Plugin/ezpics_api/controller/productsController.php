@@ -388,9 +388,13 @@ function buyProductAPI($input)
 
 				if($infoUser->account_balance>=$product->sale_price){
 				
-					// trừ tiền tài khoản
+					// trừ tiền tài khoản mua
 					$infoUser->account_balance -= $product->sale_price;
 					$modelMember->save($infoUser);
+
+					// cộng tiền tài khoản bán
+			        $infoUserSell->account_balance += $product->sale_price;
+			        $modelMember->save($infoUserSell);
 
 					// cập nhập số lần bán sản phẩm
 					$product->sold ++;

@@ -2,7 +2,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Khách mua kho mẫu thiết kế</h4>
-  <p><a href="/addWarehouseUser/?warehouses_id=<?php echo @$_GET['warehouse_id'];?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addWarehouseUser/?warehouse_id=<?php echo @$_GET['warehouse_id'];?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -62,44 +62,26 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                /*
                 echo '<tr>
-                        <td>
-                          '.$item->id.'
+                        <td align="center">
+                          <img src="'.$item->infoUser->avatar.'" width="100" />
                         </td>
                         <td>
-                          <img src="'.$item->image.'" width="100" />
-                          
+                          '.$item->infoUser->name.'<br/>
+                          '.$item->infoUser->phone.'<br/>
+                          '.$item->infoUser->email.'
+                        </td>
+                        <td>'.$item->infoWarehouse->name.'</td>
+                        <td>
+                          '.number_format($item->price).'
                         </td>
                         <td>
-                          <img src="'.$image.'" width="100" /><br/>
                           '.date('d/m/Y', strtotime($item->created_at)).'
                         </td>
-                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</td>
                         <td>
-                          Bán: '.number_format($item->sold).'<br/>
-                          Xem: '.number_format($item->views).'<br/>
-                          Thích: '.number_format($item->favorites).'<br/>
-                        </td>
-                        <td>
-                          '.number_format($item->sale_price).'<br/>
-                          <del>'.number_format($item->price).'</del>
-                        </td>
-                        <td>'.$status.'</td>
-                        
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
+                          '.date('d/m/Y', strtotime($item->deadline_at)).'
                         </td>
                       </tr>';
-                  */
               }
 
             }else{

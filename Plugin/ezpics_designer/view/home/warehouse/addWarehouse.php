@@ -23,21 +23,23 @@
                     <label class="form-label">Tên kho mẫu thiết kế (*)</label>
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name; ?>" />
                   </div>
-
                   
-
                   <div class="mb-3">
-                    <label class="form-label">Từ khóa (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword; ?>" />
+                    <label class="form-label">Giá bán (*)</label>
+                    <input type="number" min="0" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price; ?>" required />
                   </div>
-
+                  
+                  <div class="mb-3">
+                    <label class="form-label">Số ngày sử dụng (*)</label>
+                    <input type="number" min="0" class="form-control phone-mask" name="date_use" id="date_use" value="<?php echo @$data->date_use; ?>" required />
+                  </div>
                   
                 </div>
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Giá bán (*)</label>
-                    <input type="number" min="0" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price; ?>" required />
+                    <label class="form-label">Từ khóa (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword; ?>" />
                   </div>
 
                   <div class="mb-3">

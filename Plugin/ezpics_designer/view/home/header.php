@@ -66,6 +66,13 @@
     
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
     <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/bootstrap.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
   </head>
 
   <body>
@@ -94,7 +101,7 @@
             <!-- Dashboard -->
             <li class="menu-item active">
               <a href="/dashboard" class="menu-link">
-                <i class='bx bx-bar-chart-alt'></i>
+                <i class='bx bx-bar-chart-alt'></i> 
                 <div data-i18n="Analytics">Thống kê</div>
               </a>
             </li>
@@ -104,26 +111,26 @@
             <!-- Cards -->
             <li class="menu-item">
               <a href="/listProduct" class="menu-link">
-                <i class='bx bx-list-ul' ></i>
+                <i class='bx bx-list-ul' ></i> 
                 <div data-i18n="Tempaltes">Mẫu bán</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/listProductSeries" class="menu-link">
-                <i class='bx bx-list-ul' ></i>
+                <i class='bx bx-list-ul' ></i> 
                 <div data-i18n="Tempaltes">Mẫu in hàng loạt</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/listProductbuy" class="menu-link">
-                <i class='bx bx-list-ul' ></i>
+                <i class='bx bx-list-ul' ></i> 
                 <div data-i18n="Tempaltes">Mẫu mua</div>
               </a>
             </li>
             
             <li class="menu-item">
               <a href="/addProduct" class="menu-link">
-                <i class='bx bx-image-add' ></i>
+                <i class='bx bx-image-add' ></i> 
                 <div data-i18n="Add">Tạo mẫu mới</div>
               </a>
             </li>
@@ -131,13 +138,13 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Kho thiết kế</span></li>
             <li class="menu-item">
               <a href="/listWarehouse" class="menu-link">
-                <i class='bx bx-list-ul' ></i>
+                <i class='bx bx-list-ul' ></i> 
                 <div data-i18n="Add">Danh sách kho</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/addWarehouse" class="menu-link">
-                <i class='bx bx-image-add' ></i>
+                <i class='bx bxl-play-store'></i> 
                 <div data-i18n="Add">Tạo kho mới</div>
               </a>
             </li>
@@ -146,69 +153,69 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Lịch sử giao dịch</span></li>
             <li class="menu-item">
               <a href="/orderProduct" class="menu-link">
-                <i class='bx bx-cart' ></i>
+                <i class='bx bx-cart' ></i> 
                 <div data-i18n="Add">Mua hàng</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/sellproduct" class="menu-link">
-                <i class='bx bx-cart' ></i>
+                <i class='bx bx-cart' ></i> 
                 <div data-i18n="Add">Bán hàng</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/recharge" class="menu-link">
-                <i class='bx bx-money' ></i>
+                <i class='bx bx-money' ></i> 
                 <div data-i18n="Add">Nạp tiền</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/withdrawmoney" class="menu-link">
-                <i class='bx bx-money' ></i>
+                <i class='bx bx-money' ></i> 
                 <div data-i18n="Add">Rút tiền</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/removeimage" class="menu-link">
-                <i class='bx bx-trash' ></i>
+                <i class='bx bx-trash' ></i> 
                 <div data-i18n="Add">Xóa hình nền</div>
               </a>
             </li>
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Khách hàng</span></li>
             <li class="menu-item">
               <a href="/listCustomer" class="menu-link">
-                <i class='bx bxs-user-detail' ></i>
+                <i class='bx bxs-user-detail' ></i> 
                 <div data-i18n="Add">Danh sách khách hàng</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/listFollow" class="menu-link">
-                <i class='bx bxs-user-detail' ></i>
+                <i class='bx bxs-user-detail' ></i> 
                 <div data-i18n="Add">Danh sách lượng người theo dõi</div>
               </a>
             </li>
              <li class="menu-header small text-uppercase"><span class="menu-header-text">Khách hàng</span></li>
             <li class="menu-item">
               <a href="/listCustomer" class="menu-link">
-                <i class='bx bxs-user-detail' ></i>
+                <i class='bx bxs-user-detail' ></i> 
                 <div data-i18n="Add">Danh sách khách hàng</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/listFollow" class="menu-link">
-                <i class='bx bxs-user-detail' ></i>
+                <i class='bx bxs-user-detail' ></i> 
                 <div data-i18n="Add">Danh sách lượng người theo dõi</div>
               </a>
             </li> <li class="menu-header small text-uppercase"><span class="menu-header-text">Thống kê</span></li>
             <li class="menu-item">
               <a href="/chartFollow" class="menu-link">
-                <i class='bx bx-line-chart' ></i>
+                <i class='bx bx-line-chart' ></i> 
                 <div data-i18n="Add">Thống kê người theo dõi</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/chartSellProduct" class="menu-link">
-                <i class='bx bx-line-chart' ></i>
+                <i class='bx bx-line-chart' ></i> 
                 <div data-i18n="Add">Thống kê lượng bán </div>
               </a>
             </li>
