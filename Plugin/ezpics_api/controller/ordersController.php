@@ -347,7 +347,7 @@ function orderCreateContentAPI($input){
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		if(!empty($infoUser)){
 			if($infoUser->account_balance > 1000){
-				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idproduct']))->first();
+				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
 				if(!empty($dataProduct)){
 
 

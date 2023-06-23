@@ -21,33 +21,34 @@
         <section id="designer-content">
             <div class="container-fluid">
                 <div class="row row-designer-content">
-                    <div class="col-lg-4 designer-information">
+                     <div class="col-lg-4 designer-information">
                         <div class="box-information">
                             <div class="designer-avatar">
-                                <img src="../assets/img/avata.jpg" alt="">
+                                <img src="<?php echo $designer->avatar ?>" alt="">
                             </div>
 
                             <div class="designer-name">
-                                <p>Nguyen Van A</p>
+                                <p><?php echo $designer->name ?></p>
                             </div>
 
                             <div class="designer-button-group">
-                                <button class="button-share">Chia sẻ</button>
+                                <a class="button-share">Theo dõi</a>
+                                <a class="button-share"><i class="fa-solid fa-share-nodes"></i></a>
                             </div>
 
                             <div class="designer-bio">
-                                <p>Designer có trên 5 năm kinh nghiệm xây dựng hình ảnh thương hiệu.</p>
+                                <p><?php echo $designer->description ?></p>
                             </div>
 
                             <div class="designer-contact">
-                                <p class="designer-social"><i class="fa-brands fa-facebook"></i> facebook.com/userman</p>
-                                <p class="designer-social"><i class="fa-solid fa-phone"></i> 0367977133</p>
+                                <p class="designer-social"><i class="fa-brands fa-facebook"></i> <?php echo $designer->email ?></p>
+                                <p class="designer-social"><i class="fa-solid fa-phone"></i> <?php echo substr($designer->phone,0,5);?>***** </p>
                             </div>
 
                             <div class="designer-statistical">
                                 <div class="designer-statistical-item">
                                     <div class="number-statistical">
-                                        <p>213</p>
+                                        <p><?php echo @$quantityProduct ?></p>
                                     </div>
                                     <div class="name-statistical">
                                         <p>Mẫu thiết kế</p>
@@ -56,7 +57,7 @@
 
                                 <div class="designer-statistical-item">
                                     <div class="number-statistical">
-                                        <p>213</p>
+                                        <p><?php echo @$quantityFollow ?></p>
                                     </div>
                                     <div class="name-statistical">
                                         <p>Theo dõi</p>
@@ -65,7 +66,7 @@
 
                                 <div class="designer-statistical-item">
                                     <div class="number-statistical">
-                                        <p>213</p>
+                                        <p><?php echo @$quantitySell ?></p>
                                     </div>
                                     <div class="name-statistical">
                                         <p>Số lượng bán</p>
@@ -74,7 +75,7 @@
 
                                 <div class="designer-statistical-item">
                                     <div class="number-statistical">
-                                        <p>213</p>
+                                        <p><?php echo @$quantityWarehouse ?></p>
                                     </div>
                                     <div class="name-statistical">
                                         <p>Số lượng kho</p>
@@ -87,235 +88,77 @@
                     <div class="col-lg-8 designer-product">
                         <div class="box-product">
                             <div class="top-box-product">
-                                <h1 class="name-storage">Kho mẫu đẹp</h1>
+                                <h1 class="name-storage"><?php echo $Warehouse->name ?></h1>
                                 <div class="designer-search">
-                                    <input placeholder="Tìm kiếm sản phẩm" type="text">
+                                    <form class="search-input d-none d-md-block" action="" method="get">
+                                        <input placeholder="Tìm kiếm sản phẩm" type="text" value="<?php echo @$_GET['name'] ?>" name="name">
+                                    </form>
                                 </div>
                             </div>
 
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
                                     <div class="row">
+                                        <?php if(!empty($listData)){ 
+                                            foreach($listData as $key => $item){
+                                         ?>
                                         <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
+                                            <a href="/detail/<?php echo @$item->slug.'-'.@$item->id ?>.html">
                                                 <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
+                                                    <img src="<?php echo @$item->thumbnail ?>" alt="">
                                                 </div>
                                                 <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
+                                                    <p><?php echo @$item->name ?></p>
                                                 </div>
                                                 <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
+                                                    <p>Đã bán :<span><?php echo @$item->sold ?></span></p>
                                                 </div>
                                                 <div class="product-price">
-                                                    <p>320.000đ</p>
+                                                    <p><?php echo number_format(@$item->price) ?>đ</p>
                                                 </div>
                                             </a>
                                         </div>
+                                         <?php }} ?>
+                                    </div>
+                                    <!-- Phân trang -->
+                                    <div class="demo-inline-spacing">
+                                      <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                          <?php
+                                            if($totalPage>0){
+                                                if ($page > 5) {
+                                                    $startPage = $page - 5;
+                                                } else {
+                                                    $startPage = 1;
+                                                }
 
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
+                                                if ($totalPage > $page + 5) {
+                                                    $endPage = $page + 5;
+                                                } else {
+                                                    $endPage = $totalPage;
+                                                }
+                                                
+                                                echo '<li class="page-item first">
+                                                        <a class="page-link" href="'.$urlPage.'1"
+                                                          ><i class="fa-solid fa-chevron-left"></i></a>
+                                                      </li>';
+                                                
+                                                for ($i = $startPage; $i <= $endPage; $i++) {
+                                                    $active= ($page==$i)?'active':'';
 
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
+                                                    echo '<li class="page-item '.$active.'">
+                                                            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                                                          </li>';
+                                                }
 
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
-                                            <a href="">
-                                                <div class="product-img">
-                                                    <img src="../assets/img/b294f38e3819084aaafae027c21cec90.jpg" alt="">
-                                                </div>
-                                                <div class="product-title">
-                                                    <p>Mẫu thiết kế đẹp</p>
-                                                </div>
-                                                <div class="product-sold">
-                                                    <p>Đã bán :<span>15</span></p>
-                                                </div>
-                                                <div class="product-price">
-                                                    <p>320.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
+                                                echo '<li class="page-item last">
+                                                        <a class="page-link" href="'.$urlPage.$totalPage.'"
+                                                          ><i class="fa-solid fa-chevron-right"></i></a>
+                                                      </li>';
+                                            }
+                                          ?>
+                                        </ul>
+                                      </nav>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="nav-portfolio" role="tabpanel" aria-labelledby="nav-portfolio-tab">

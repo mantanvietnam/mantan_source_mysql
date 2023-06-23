@@ -269,6 +269,8 @@ function detailWarehouse($input){
 	$modelWarehouses = $controller->loadModel('Warehouses');
 	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelProduct = $controller->loadModel('Products');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
+	$modelOrder = $controller->loadModel('Orders');
 
 	if(!empty($input['request']->getAttribute('params')['pass'][1])){
 		$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
@@ -287,7 +289,7 @@ function detailWarehouse($input){
 			if($page<1) $page = 1;
 			$order = array('created_at'=>'desc');
 			
-			$conditions = array('Products.user_id'=>$designer->id);
+			$conditions = array('Products.user_id'=>$designer->id,  'Products.type'=>'user_create','Products.status'=>2);
 
 			if(!empty($_GET['name'])){
 				$conditions['name LIKE'] = '%'.$_GET['name'].'%';
@@ -337,6 +339,19 @@ function detailWarehouse($input){
 		        $urlPage = $urlPage . '?page=';
 		    }
 
+		    $pro = $modelProduct->find()->where(array('user_id' => $designer->id, 'type'=>'user_create','status'=>2))->all()->toList();
+				
+			$quantityProduct = count(@$pro);
+
+			$order = $modelOrder->find()->where(array('member_id' => $designer->id, 'type'=>3))->all()->toList();
+			$quantitySell  = count(@$order);
+
+			$follow = $modelFollowDesigner->find()->where(array('designer_id' => $designer->id))->all()->toList();
+			$quantityFollow  = count(@$follow);
+
+			$Warehouses = $modelWarehouses->find()->where(array('user_id' => $designer->id))->all()->toList();
+			$quantityWarehouse  = count(@$Warehouses);
+
 		    setVariable('page', $page);
 	    	setVariable('totalPage', $totalPage);
 	    	setVariable('back', $back);
@@ -346,6 +361,11 @@ function detailWarehouse($input){
 	    	setVariable('listData', $listData);
 	    	setVariable('Warehouse', $Warehouse);
 	    	setVariable('designer', $designer);
+
+	    	setVariable('quantityProduct', $quantityProduct);
+	    	setVariable('quantitySell', $quantitySell);
+	    	setVariable('quantityFollow', $quantityFollow);
+	    	setVariable('quantityWarehouse', $quantityWarehouse);
 
 			
 		}else{
