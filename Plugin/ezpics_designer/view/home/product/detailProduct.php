@@ -160,14 +160,14 @@
                     		foreach($dataOther as $key => $item){
                     			if(@$item->id != $product->id){
                     				if($item->sale_price==0){
-						$price = 'Miễn phí';
-					}else{
-						$price = number_format($item->sale_price).'đ';
-					}
+						   $price = ' <p>Miễn phí</p>';
+                    }else{
+                        $price =  '<p>'.number_format($item->sale_price).'đ</p>';
+                    }
 
-					if($item->price>0){
-						$price .= ' <del>'.number_format($item->price).'đ</del>';
-					}
+                    if($item->price>0){
+                        $price .= '  <p><del>'.number_format($item->price).'đ</del</p>';
+                    }
                     	?>
 	                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
 	                            <a href="/detail/<?php echo @$item->name.'-'.@$item->id ?>.html">
@@ -181,7 +181,7 @@
 	                                    <p>Đã bán :<span><?php echo @$item->sold ?></span></p>
 	                                </div>
 	                                <div class="product-price">
-	                                    <p><?php echo $price ?>	</p>
+	                                    <?php echo $price ?>
 	                                </div>
 	                            </a>
 	                        </div>

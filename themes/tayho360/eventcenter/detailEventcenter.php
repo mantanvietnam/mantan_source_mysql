@@ -308,10 +308,13 @@ global $urlThemeActive;
        
 
     </main>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 <script type="text/javascript">
   function initMap() {
     var locations = [<?php 
-    if (!empty(@$data)) {
+        if (!empty(@$data)) {
         $listShowMap= array();
           if(!empty($data->latitude) & !empty($data->longitude)){
               //$content = '<a href='.$data['urlSlug'].'></a>';
