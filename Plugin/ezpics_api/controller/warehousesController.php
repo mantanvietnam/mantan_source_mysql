@@ -1,11 +1,9 @@
 <?php 	
-function getlistWarehousesAPI($input){
+function getListWarehousesAPI($input){
 
 	global $isRequestPost;
 	global $controller;
 	global $modelCategories;
-
-	$modelMember = $controller->loadModel('Members');
 
 	$modelWarehouses = $controller->loadModel('Warehouses');;
 
@@ -15,9 +13,6 @@ function getlistWarehousesAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$dataMember = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
-		if(!empty($dataMember)){
 			// lấy kho 
 			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner']))->all()->toList();
 			if(!empty($data)){
@@ -31,11 +26,9 @@ function getlistWarehousesAPI($input){
 					 			'mess'=>'Bạn lấy data thành công',
 					 		);
 			}else{
-				$return = array('code'=>0, 'mess'=>'không có kho ');
+				$return = array('code'=>0, 'mess'=>'Id không tồn tại ');
 			}
-		}else{
-			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
-		}
+		
 	}
 	return $return;
 }
@@ -46,7 +39,6 @@ function getProductsWarehousesAPI($input){
 	global $controller;
 	global $modelCategories;
 
-	$modelMember = $controller->loadModel('Members');
 	$modelWarehouses = $controller->loadModel('Warehouses');
 	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
     $modelProduct = $controller->loadModel('Products');
@@ -56,9 +48,6 @@ function getProductsWarehousesAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		$dataMember = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
-		if(!empty($dataMember)){
 				$data = $modelWarehouseProducts->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>$dataSend['idDesigner']))->all()->toList();
 			if(!empty($data)){
 				$dataProduct = array();
@@ -73,11 +62,9 @@ function getProductsWarehousesAPI($input){
 					 			'mess'=>'Bạn lấy data thành công',
 					 		);
 			}else{
-				$return = array('code'=>0, 'mess'=>'không có kho');
+				$return = array('code'=>0, 'mess'=>'Id không tồn tại');
 			}
-		}else{
-			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
-		}
+	
 	}
 	return $return;
 }
