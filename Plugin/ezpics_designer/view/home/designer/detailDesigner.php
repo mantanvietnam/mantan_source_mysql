@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../headerPublic.php') ; ?>
     <main>
         <section id="designer-background">
-            <img src="/plugins/ezpics_designer/view/home/designer/assets/img/banner.png" alt="">
+            <img src="/plugins/ezpics_designer/view/home/designer/assets/img/background-banner-header.png" alt="">
         </section>
         <section id="designer-content">
             <div class="container-fluid">

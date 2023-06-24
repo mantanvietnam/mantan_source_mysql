@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../headerPublic.php') ; ?>
     <main>
         <section id="designer-background">
-            <img src="/plugins/ezpics_designer/view/home/designer/assets/img/banner.png" alt="">
+            <img src="/plugins/ezpics_designer/view/home/designer/assets/img/background-banner-header.png" alt="">
         </section>
         <section id="designer-content">
             <div class="container-fluid">
@@ -17,8 +17,8 @@
                             </div>
 
                             <div class="designer-button-group">
-                                <a class="button-share" href="https://ezpics.page.link/vn1s">Theo dõi</a>
-                                <a class="button-share" onclick="copyToClipboard('https://designer.ezpics.vn/designer/<?php echo $designer->name.'-'.$designer->id; ?>.html','share')"><i class="fa-solid fa-share-nodes"></i></a>
+                                <a class="button-share" href="<?php echo $designer->link_open_app ; ?>"><i class="fa-solid fa-user-plus"></i> Theo dõi</a>
+                                <a class="button-share button-share-link" onclick="copyToClipboard('https://designer.ezpics.vn/designer/<?php echo $designer->name.'-'.$designer->id; ?>.html','share')"><i class="fa-solid fa-share-nodes"></i></a>
                             </div>
 
                             <div class="designer-bio">
@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="designer-contact">
-                                <p class="designer-social"><i class="fa-brands fa-facebook"></i> <?php echo $designer->email ?></p>
+                                <p class="designer-social"><i class="fa-solid fa-envelope"></i> <?php echo $designer->email ?></p>
                                 <p class="designer-social"><i class="fa-solid fa-phone"></i> <?php echo substr($designer->phone,0,5);?>***** </p>
                             </div>
 

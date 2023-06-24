@@ -27,7 +27,7 @@
                     <div class="col-lg-5 col-md-5 col-12 product-information">
                         <h1 class="product-title"><?php echo $product->name ?></h1>
                         <div>
-                            <p>Tác giả: <span><?php echo $user->name ?></span></p>
+                            <p>Tác giả: <a class="product-name-user" href="<?php echo $user->link_open_app ; ?>"><?php echo $user->name ?></a></p>
                             <p>Lượt xem: <span><?php echo $product->views ?></span></p>
                             <!-- <p>Đã bán: <span><?php echo $product->sold ?></span></p>
                             <div class="price-product">
@@ -43,8 +43,8 @@
                         <div class="product-button">
                             <!-- <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button> -->
                             <button type="button" class="btn btn-warning mt-3" onclick="showPopup();">
-                                  Nhập thông tin
-                                </button>
+                            <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
+                            </button>
                         </div>
                     </div>
                 </div>

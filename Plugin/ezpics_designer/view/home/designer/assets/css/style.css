@@ -298,9 +298,7 @@ a{
 
 #designer-content .box-information .designer-statistical .designer-statistical-item .name-statistical p{
 	color:#fff;
-	font-size: 20px;
-	
-	
+	font-size: 18px;
 }
 
 #designer-content .box-information .designer-statistical{
@@ -366,7 +364,7 @@ a{
 }
 
 #product-details .product-img-item img{
-	width: 100%;
+	max-width: 100%;
 	height: 400px;
     object-fit: cover;
     background-position: top;
@@ -375,6 +373,7 @@ a{
 
 #product-details .product-img-item{
 	margin-right: 15px;
+	text-align: center;
 }
 
 
@@ -386,7 +385,7 @@ a{
 	background: linear-gradient(to right, #edd67c, #fcd703e9);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	font-size: 30px;
+	font-size: 25px;
 	margin-bottom: 15px;
 	font-weight: bold;
 	line-height: 1.2;
@@ -394,20 +393,20 @@ a{
 
 #product-details .product-information span{
 	color: #fff;
-	font-size:19px;
+	font-size:16px;
 	font-weight: normal;
 }
 
 #product-details .product-information p{
-	font-size: 20px;
+	font-size: 16px;
 	color: #FFCA00;
 	font-weight: bold;
 }
 
 #product-details .product-information button{
 	background: #FFCA00;
-	width: 303px;
-	height: 55px;
+	width: 240px;
+	height: 43px;
 	border-radius: 50px;
 	color: #1f1e1e;
 	font-size: 17px;	
@@ -427,7 +426,7 @@ a{
 #product-other .product-other-title h2{
 	color: #FFCA00;
     font-weight: bold;
-    font-size: 34px;
+    font-size: 28px;
 }
 
 
@@ -457,7 +456,7 @@ a{
 }
 
 #product-other .product-item .product-price p{
-	font-size: 22px;
+	font-size: 18px;
 	margin-right: 10px;
 }
 
@@ -486,7 +485,7 @@ a{
 
 #product-other .product-item .product-title p{
 	color: #fff;
-	font-size: 27px;
+	font-size: 20px;
 	overflow: hidden;
 	display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -521,7 +520,7 @@ a{
     z-index: 10;
     top: 26%;
     font-size: 23px;
-    padding: 10px 16px;
+    padding: 6px 16px;
 	border:none;
 	background-color: #ffe16f;
 	color: #393939;
@@ -533,6 +532,7 @@ a{
 	background: linear-gradient(to right, #ffe078, #e3d0cc, #f8fd0f);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	font-size: 30px;
 }
 
 
@@ -800,6 +800,10 @@ a{
 	#designer-content .box-product #nav-portfolio .img-certification{
 		/* max-height: 400px; */
 		width: 100%;
+	}
+
+	#product-details .product-information{
+		margin-top: 10px;
 	}
 }
 
