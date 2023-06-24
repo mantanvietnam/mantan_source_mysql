@@ -21,7 +21,7 @@ function chartUserNewAdmin() {
     if (!empty($_GET['timeView'])) {
         $conditions['created_at LIKE'] = '%'.$_GET['timeView'].'%';
     }else{
-        $conditions['created_at LIKE'] = '%'.date('Y-m').'%';
+        $conditions['created_at LIKE'] = "%".date('Y-m')."%";
     }
 
     $listData = $modelmember->find()->where($conditions)->order($order)->all()->toList();
@@ -151,7 +151,7 @@ function chartSampleApprovedAdmin() {
     if (!empty($_GET['timeView'])) {
         $conditProduct['approval_date LIKE'] = '%'.$_GET['timeView'].'%';
     }else{
-        $conditProduct['approval_date LIKE'] = '%'.date('Y-m').'%';
+        $conditProduct['approval_date LIKE'] = "%".date('Y-m').'%';
     }
 
     $conditProduct['status'] = 2;
@@ -224,7 +224,7 @@ function chartLoadMoneyAdmin() {
     if (!empty($_GET['timeView'])) {
         $conditOrder['created_at LIKE'] = '%'.$_GET['timeView'].'%';
     }else{
-        $conditOrder['created_at LIKE'] = '%'.date('Y-m').'%';
+        $conditOrder['created_at LIKE'] = "%".date('Y-m')."%";
     }
 
     $conditOrder['type'] = 1;
@@ -259,4 +259,4 @@ function chartLoadMoneyAdmin() {
 
         setVariable('dayDataOrder', $dayDataOrder);
 }
- ?>
+?>

@@ -839,6 +839,8 @@ function addDataSeries($input)
 
 			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
 				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+				//export_excel();
 			}else{
 				return $controller->redirect('/listProductSeries');
 			}
