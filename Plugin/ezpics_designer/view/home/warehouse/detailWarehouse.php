@@ -76,7 +76,7 @@
                             <div class="top-box-product">
                                 <h1 class="name-storage"><?php echo $Warehouse->name ?></h1>
                                 <div class="designer-search">
-                                    <form class="search-input d-none d-md-block" action="" method="get">
+                                    <form class="search-input d-md-block" action="" method="get">
                                         <a href="<?php echo $Warehouse->link_open_app ?>" class="button-buy"><i class="fa-solid fa-cart-shopping"></i> Mua kho</a>
                                         <input placeholder="Tìm kiếm sản phẩm" type="text" value="<?php echo @$_GET['name'] ?>" name="name">
                                     </form>
