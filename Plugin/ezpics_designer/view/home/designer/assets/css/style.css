@@ -116,6 +116,7 @@ a{
 	color: #fff;
 	font-size: 18px;
 	font-weight: bold;
+	margin-right: 7px;
 
 }
 
@@ -806,10 +807,47 @@ a{
 	#product-details .product-information{
 		margin-top: 10px;
 	}
+	
+	.button-buy{
+		margin-right: 0 !important
+	}
 }
 
 /* bo sung */
 .product-information .product-name-user{
 	color: #ef9300;
 	font-weight: normal !important;
+}
+
+.designer-name{
+	display: flex;
+	justify-content: center;
+}
+
+.designer-name img{
+	width: 20px;
+	height: 20px;
+}
+
+.button-buy{
+	border-radius: 15px;
+	padding: 7px 45px;
+	background-color: #ef9300;
+	color: #242424;
+	font-weight: bold;
+	cursor: pointer;
+	line-height: 51px;
+	text-align: center;
+	transition: all 0.5s ease;
+	margin-right: 5px;
+}
+
+.button-buy:hover{
+	color: #242424;
+	background-color: #dcad1f !important;
+	transition: all 0.5s ease;
+}
+
+.search-input{
+	text-align: center;
 }

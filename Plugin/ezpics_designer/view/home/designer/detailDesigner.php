@@ -84,7 +84,7 @@
                                 </nav>
 
                                 <div class="designer-search">
-                                	<form class="search-input d-none d-md-block" action="" method="get">
+                                	<form class="search-input d-md-block" action="" method="get">
                                     	<input placeholder="Tìm kiếm sản phẩm" type="text" value="<?php echo @$_GET['name'] ?>" name="name">
                                     </form>
                                 </div>
