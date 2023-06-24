@@ -143,7 +143,7 @@ function chartSampleApprovedAdmin() {
     $modelProducts = $controller->loadModel('Products');
     $mess= '';
 
-    $order = array('created_at'=>'asc');
+    $order = array('approval_date'=>'asc');
 
 
     $conditProduct = array();

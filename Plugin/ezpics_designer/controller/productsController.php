@@ -700,6 +700,8 @@ function detailSeries($input)
 
 			$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
 
+			$dataOther = $modelProduct->find()->where(array('category_id'=>$product->category_id,  $product->type == 'user_series', 'status'=>1))->all()->toList();
+
 			setVariable('product', $product);
 			setVariable('user', $user);
 			setVariable('listLayer', $listLayer);
