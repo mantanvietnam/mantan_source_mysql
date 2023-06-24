@@ -40,7 +40,7 @@
                         <br>
                         <br>
                         <div class="product-button">
-                            <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button>
+                            <button><a href="<?php echo $link_open_app ?>"><i class="fa-solid fa-cart-shopping"></i> Mua mẫu ngay</a></button>
                         </div>
                     </div>
                 </div>

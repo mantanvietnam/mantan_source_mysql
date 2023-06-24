@@ -81,7 +81,7 @@
 
                     <div class="col-2">
                         <div class="logo-header">
-                            <a href="#"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
+                            <a href="https://ezpics.vn/"><img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt=""></a>
                         </div>
                     </div>
                     
