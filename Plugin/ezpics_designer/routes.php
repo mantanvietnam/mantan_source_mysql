@@ -18,6 +18,7 @@
 	$routesPlugin['deleteProduct']= 'ezpics_designer/view/home/product/deleteProduct.php';
 	$routesPlugin['addProduct']= 'ezpics_designer/view/home/product/addProduct.php';
 	$routesPlugin['addDataSeries']= 'ezpics_designer/view/home/product/addDataSeries.php';
+	$routesPlugin['exportFormDataSeries']= 'ezpics_designer/view/home/product/exportFormDataSeries.php';
 
 	// order
 	$routesPlugin['orderProduct']= 'ezpics_designer/view/home/order/orderProduct.php';

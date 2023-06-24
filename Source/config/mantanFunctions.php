@@ -168,7 +168,7 @@ function removeDirectory($dir)
 			{
 				if (is_dir("$dir/$item")) 
 				{
-					$this->removeDirectory("$dir/$item");
+					removeDirectory("$dir/$item");
 				} 
 				else 
 				{

@@ -838,9 +838,59 @@ function addDataSeries($input)
 			$product = $modelProduct->find()->where(['id'=>$id])->first();
 
 			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				
+
+				setVariable('mess', $mess);
+				//export_excel();
+			}else{
+				return $controller->redirect('/listProductSeries');
+			}
+		}else{
+			return $controller->redirect('/listProductSeries');
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function exportFormDataSeries($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Nhập dữ liệu cho mẫu in hàng loạt';
+
+		$modelProduct = $controller->loadModel('Products');
+		$modelProductDetail = $controller->loadModel('ProductDetails');
+		$mess= '';
+
+		if(!empty($_GET['id'])){
+			$id = (int) $_GET['id'];
+
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
 				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
 
-				//export_excel();
+				$titleExcel = [];
+
+				if(!empty($listLayer)){
+                    foreach ($listLayer as $layer) {
+                        $content = json_decode($layer->content, true);
+
+                        if(!empty($content['variable']) && !empty($content['variableLabel'])){
+                        	$titleExcel[] = ['name'=>$content['variableLabel'], 'type'=>'text', 'width'=>25];
+                        }
+                    }
+                }
+
+				$dataExcel = [];
+
+				export_excel($titleExcel, $dataExcel);
 			}else{
 				return $controller->redirect('/listProductSeries');
 			}

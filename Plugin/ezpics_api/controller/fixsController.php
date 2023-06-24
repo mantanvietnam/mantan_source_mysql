@@ -186,15 +186,15 @@ function fixDeepLink($input)
 	/*
 	global $controller;
 
-	$modelMembers = $controller->loadModel('Members');
+	$modelWarehouses = $controller->loadModel('Warehouses');
 
-	$allData = $modelMembers->find()->where(['type'=>1])->all()->toList();
+	$allData = $modelWarehouses->find()->where()->all()->toList();
 
 	foreach($allData as $k => $item){
 		if(empty($item->link_open_app)){
 	        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
             $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
-                                                'link'=>'https://ezpics.page.link/detailProfile?id='.$item->id,
+                                                'link'=>'https://ezpics.page.link/warehouse?id='.$item->id,
                                                 'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
                                                 'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
                                         ]
@@ -206,7 +206,7 @@ function fixDeepLink($input)
 
             $item->link_open_app = @$deep_link->shortLink;
 
-	        $modelMembers->save($item);
+	        $modelWarehouses->save($item);
 	    }
     }
     */

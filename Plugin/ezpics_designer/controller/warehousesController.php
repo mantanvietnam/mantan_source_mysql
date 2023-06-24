@@ -192,25 +192,23 @@ function addWarehouse($input)
 			        $dataWarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +3650 days'));
 			        
 			        $modelWarehouseUsers->save($dataWarehouseUsers);
-			    }
+			    
+			        // tạo link deep
+		            $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/warehouse?id='.$data->id,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		            $header_deep = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		            $deep_link = json_decode($deep_link);
 
-		        /*
-		        // tạo link deep
-	            $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
-	            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
-	                                                'link'=>'https://ezpics.page.link/detailProduct?id='.$data->id,
-	                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
-	                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
-	                                        ]
-	                        ];
-	            $header_deep = ['Content-Type: application/json'];
-	            $typeData='raw';
-	            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
-	            $deep_link = json_decode($deep_link);
-
-	            $data->link_open_app = @$deep_link->shortLink;
-	            $modelProduct->save($data);
-	        	*/
+		            $data->link_open_app = @$deep_link->shortLink;
+		            $modelWarehouses->save($data);
+		        }
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    }else{

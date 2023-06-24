@@ -14,4 +14,6 @@ include('model/follow_designers.php'); // follow designers
 include('model/contact.php'); // liên hệ
 include('model/font.php'); // font chữ
 
+include('model/warehouses.php'); // font chữ
+
 ?>
