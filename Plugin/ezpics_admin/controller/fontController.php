@@ -160,4 +160,4 @@ function deleteFontAdmin($input){
 
     return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-font-addFontAdmin.php?status=3');
 }
- ?>
+?>

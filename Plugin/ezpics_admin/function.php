@@ -568,5 +568,3 @@ function sendEmailMinusMoney($email='', $fullName='', $coin= '', $note= '')
     }
 }
 ?>
-
- 

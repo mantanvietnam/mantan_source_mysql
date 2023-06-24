@@ -497,5 +497,4 @@ function deleteBaddesignAdmin($input){
 
     return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-contact-listBaddesignAdmin.php?status=3');
 }
- ?>
-
+?>

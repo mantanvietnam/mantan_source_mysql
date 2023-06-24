@@ -54,11 +54,49 @@ function listMemberAdmin($input)
 
 	
 
-	 $totalDatatoday = $modelMembers->find()->where($conditiontoday)->all()->toList();
+	$totalDatatoday = $modelMembers->find()->where($conditiontoday)->all()->toList();
     $totalDatatoday = count($totalDatatoday);
 
+    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+    	$listData = $modelMembers->find()->where($conditions)->order($order)->all()->toList();
 
-    $listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    	$titleExcel = 	[
+							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
+							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
+							['name'=>'Email', 'type'=>'text', 'width'=>35],
+							['name'=>'Số dư', 'type'=>'number', 'width'=>15],
+							['name'=>'Loại tài khoản', 'type'=>'text', 'width'=>15],
+							['name'=>'Trạng thái', 'type'=>'text', 'width'=>15],
+							['name'=>'Chiết khấu', 'type'=>'number', 'width'=>10],
+						];
+
+		$dataExcel = [];
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$type = 'Người dùng';
+				if(!empty($value->type) && $value->type==1) $type = 'Designer';
+
+				$status = 'Kích hoạt';
+				if(empty($value->status)) $status = 'Khóa';
+				if(!empty($value->type) && $value->type==1) $type = 'Designer';
+
+				$dataExcel[] = [
+								$value->name, 
+								$value->phone, 
+								$value->email, 
+								$value->account_balance, 
+								$type,
+								$status,
+								$value->commission, 
+							];
+			}
+		}
+
+		export_excel($titleExcel, $dataExcel);
+    }else{
+    	$listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
+    
 
     $totalData = $modelMembers->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);

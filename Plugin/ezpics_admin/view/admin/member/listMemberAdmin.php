@@ -57,6 +57,10 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
+          </div>
         </div>
       </div>
     </div>
