@@ -26,7 +26,7 @@ function getListWarehousesAPI($input){
 					 			'mess'=>'Bạn lấy data thành công',
 					 		);
 			}else{
-				$return = array('code'=>0, 'mess'=>'Kho không tồn');
+				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
 			}
 		
 	}
@@ -48,7 +48,7 @@ function getProductsWarehousesAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-				$data = $modelWarehouseProducts->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>$dataSend['idDesigner']))->all()->toList();
+			$data = $modelWarehouseProducts->find()->where(array('warehouse_id'=>$dataSend['idWarehouse']))->all()->toList();
 			if(!empty($data)){
 				$dataProduct = array();
 				foreach($data as $key => $item){
@@ -175,7 +175,7 @@ function buyWarehousesAPI($input)
 										);
 					}
 				}else{
-					$return = array('code'=>3,
+					$return = array('code'=>2,
 									'mess'=>'Bạn chưa đăng nhập'
 								);
 					}
