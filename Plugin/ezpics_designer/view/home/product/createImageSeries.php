@@ -101,7 +101,7 @@ if(empty($_GET['id'])){?>
     
 </header>
 	 <main>
-    		<p class="text-center">
+    		<p class="text-center text-create-img">
 				<a href="data:image/png;base64,'.$dataImage.'" class="btn btn-warning mb-2 mt-3" download="'.$slug.'-'.time().'.png">
 					  Tải ảnh
 				</a>

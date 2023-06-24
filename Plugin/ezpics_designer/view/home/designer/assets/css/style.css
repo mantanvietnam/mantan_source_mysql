@@ -458,7 +458,7 @@ a{
 }
 
 #product-other .product-item .product-price p del{
-	font-size: 17px !important;
+	font-size: 18px !important;
 }
 
 
@@ -736,6 +736,14 @@ a{
 	display: none !important;
 }
 
+.text-create-img{
+	background-color: #393939;
+}
+
+.text-create-img a{
+	width: 138px;
+	font-weight: bold;
+}
 
 
 
