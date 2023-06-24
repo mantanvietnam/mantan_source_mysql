@@ -13,13 +13,15 @@
                     $sale_price .= ' <del>'.number_format($product->price).'đ</del>';
                 }
 
+                $thumbnail = (!empty($product->thumbnail))?$product->thumbnail:$product->image;
+
                 $description = (!empty($product->description))?nl2br($product->description):''?>
         <section id="product-details">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 col-md-7 col-12 product-img">
                         <div class="product-img-item">
-                            <img src="<?php echo $product->image ?>" alt="">
+                            <img src="<?php echo $thumbnail; ?>" alt="">
                         </div>
                     </div>
 
@@ -57,23 +59,26 @@
             <div class="product-other-list">
                 <div class="container">
                     <div class="product-other-slide">
-                    	<?php if (!empty($dataOther)){
+                    	<?php 
+                        if (!empty($dataOther)){
                     		foreach($dataOther as $key => $item){
                     			if(@$item->id != $product->id){
                     				if($item->sale_price==0){
-						   $price = ' <p>Miễn phí</p>';
-                    }else{
-                        $price =  '<p>'.number_format($item->sale_price).'đ</p>';
-                    }
+                						   $price = ' <p>Miễn phí</p>';
+                                    }else{
+                                        $price =  '<p>'.number_format($item->sale_price).'đ</p>';
+                                    }
 
-                    if($item->price>0){
-                        $price .= '  <p><del>'.number_format($item->price).'đ</del</p>';
-                    }
+                                    if($item->price>0){
+                                        $price .= '  <p><del>'.number_format($item->price).'đ</del</p>';
+                                    }
+
+                                    $thumbnail = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
                     	?>
 	                        <div class="product-item col-xl-3 col-lg-4 col-md-4">
 	                            <a href="/detail/<?php echo @$item->name.'-'.@$item->id ?>.html">
 	                                <div class="product-img">
-	                                    <img src="<?php echo @$item->thumbnail ?>" alt="">
+	                                    <img src="<?php echo $thumbnail; ?>" alt="">
 	                                </div>
 	                                <div class="product-title">
 	                                    <p><?php echo @$item->name ?></p>

@@ -18,7 +18,7 @@ function getListWarehousesAPI($input){
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
-					$item->link_share = 'https://designer.ezpics.vn/warehouse/'.$item->slug.'-'.$item->id.'.html';
+					$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
 					$listData[] =$item;
 				}
 				$return = array('code'=>1,
@@ -52,7 +52,12 @@ function getProductsWarehousesAPI($input){
 			if(!empty($data)){
 				$dataProduct = array();
 				foreach($data as $key => $item){
-					$Product = $modelProduct->find()->where(array('id'=>$item->product_id,'status'=>2))->first();
+					$Product = $modelProduct->find()->where([	'id'=>$item->product_id,
+																'OR' => [
+					    													['status'=>1],
+					    													['status'=>2]
+					    												]
+														])->first();
 					if(!empty($Product)){
 						$dataProduct[] = $Product;
 					}	

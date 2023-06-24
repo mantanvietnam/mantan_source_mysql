@@ -84,22 +84,25 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
                                     <div class="row">
-                                        <?php if(!empty($listData)){ 
+                                        <?php 
+                                        if(!empty($listData)){ 
                                             foreach($listData as $key => $item){
-                                                   if($item->sale_price==0){
-                                               $price = ' <p>Miễn phí</p>';
-                                        }else{
-                                            $price =  '<p>'.number_format($item->sale_price).'đ</p>';
-                                        }
+                                                if($item->sale_price==0){
+                                                    $price = ' <p>Miễn phí</p>';
+                                                }else{
+                                                    $price =  '<p>'.number_format($item->sale_price).'đ</p>';
+                                                }
 
-                                        if($item->price>0){
-                                            $price .= '  <p><del>'.number_format($item->price).'đ</del</p>';
-                                        }
-                                         ?>
+                                                if($item->price>0){
+                                                    $price .= '  <p><del>'.number_format($item->price).'đ</del</p>';
+                                                }
+
+                                                $thumbnail = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
+                                        ?>
                                         <div class="product-item col-xl-3 col-lg-4 col-md-4">
                                             <a href="/detail/<?php echo @$item->slug.'-'.@$item->id ?>.html">
                                                 <div class="product-img">
-                                                    <img src="<?php echo @$item->thumbnail ?>" alt="">
+                                                    <img src="<?php echo $thumbnail; ?>" alt="">
                                                 </div>
                                                 <div class="product-title">
                                                     <p><?php echo @$item->name ?></p>

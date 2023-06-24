@@ -287,7 +287,13 @@ function detailWarehouse($input){
 			if($page<1) $page = 1;
 			$order = array('created_at'=>'desc');
 			
-			$conditions = array('Products.user_id'=>$designer->id,  'Products.type'=>'user_create','Products.status'=>2);
+			$conditions = [	'Products.user_id'=>$designer->id,  
+							'Products.type'=>'user_create',
+							'OR' => [
+										['Products.status'=>1],
+										['Products.status'=>2]
+									]
+						];
 
 			if(!empty($_GET['name'])){
 				$conditions['name LIKE'] = '%'.$_GET['name'].'%';
@@ -337,7 +343,13 @@ function detailWarehouse($input){
 		        $urlPage = $urlPage . '?page=';
 		    }
 
-		    $pro = $modelProduct->find()->where(array('user_id' => $designer->id, 'type'=>'user_create','status'=>2))->all()->toList();
+		    $pro = $modelProduct->find()->where([	'user_id' => $designer->id, 
+		    										'type'=>'user_create', 
+		    										'OR' => [
+		    													['status'=>1],
+		    													['status'=>2]
+		    												]
+		    									])->all()->toList();
 				
 			$quantityProduct = count(@$pro);
 

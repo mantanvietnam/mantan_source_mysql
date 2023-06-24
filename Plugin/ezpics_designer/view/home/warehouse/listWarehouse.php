@@ -51,7 +51,7 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $link_share = 'https://designer.ezpics.vn/warehouse/'.$item->slug.'-'.$item->id.'.html';
+                $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
 
                 echo '<tr>
                         <td>
