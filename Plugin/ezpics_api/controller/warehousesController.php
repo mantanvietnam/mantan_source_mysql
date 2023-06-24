@@ -21,8 +21,13 @@ function getlistWarehousesAPI($input){
 			// lấy kho 
 			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner']))->all()->toList();
 			if(!empty($data)){
+				$listData = array();
+				foreach($data as $key => $item){
+					$item->link_share = 'https://designer.ezpics.vn/warehouse/'.$item->slug.'-'.$item->id.'.html';
+					$listData[] =$item;
+				}
 				$return = array('code'=>1,
-								'data'=> $data,
+								'data'=> $listData,
 					 			'mess'=>'Bạn lấy data thành công',
 					 		);
 			}else{
