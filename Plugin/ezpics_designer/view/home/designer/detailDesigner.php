@@ -185,6 +185,15 @@
 
                                     	<?php if(!empty($product)){	
                                     		foreach($product as $key => $item){
+                                                    if($item->sale_price==0){
+                                               $price = ' <p>Miễn phí</p>';
+                                        }else{
+                                            $price =  '<p>'.number_format($item->sale_price).'đ</p>';
+                                        }
+
+                                        if($item->price>0){
+                                            $price .= '  <p><del>'.number_format($item->price).'đ</del</p>';
+                                        }
                                     	 ?>
                                         <div class="product-item col-xl-3 col-lg-4 col-md-4">
                                             <a href="/detail/<?php echo @$item->slug.'-'.@$item->id ?>.html">
@@ -195,10 +204,10 @@
                                                     <p><?php echo @$item->name ?></p>
                                                 </div>
                                                 <div class="product-sold">
-                                                    <p>Đã bán :<span><?php echo @$item->sold ?></span></p>
+                                                    <p>Đã bán :<span> <?php echo @$item->sold ?></span></p>
                                                 </div>
                                                 <div class="product-price">
-                                                    <p><?php echo number_format(@$item->price) ?>đ</p>
+                                                    <?php echo $price ?>
                                                 </div>
                                             </a>
                                         </div>

@@ -222,11 +222,16 @@ a{
 #designer-content .box-product .product-item .product-price{
 	color:#FED354;
 	display: flex;
-	justify-content: space-between;
 }
 
 #designer-content .box-product .product-item .product-price p{
 	font-size: 22px;
+	margin-right: 10px;
+
+}
+
+#designer-content .box-product .product-item .product-price p del{
+	font-size: 18px
 }
 
 #designer-content .box-product .product-item .day-storage{
