@@ -631,6 +631,7 @@ function detailDesigner($input)
 				setVariable('quantitySell', $quantitySell);
 				setVariable('quantityFollow', $quantityFollow);
 				setVariable('quantityWarehouse', $quantityWarehouse);
+				setVariable('Warehouse', $Warehouse);
 
 				setVariable('page', $page);
 	    		setVariable('totalPage', $totalPage);

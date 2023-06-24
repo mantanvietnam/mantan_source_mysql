@@ -392,10 +392,6 @@ function buyProductAPI($input)
 					$infoUser->account_balance -= $product->sale_price;
 					$modelMember->save($infoUser);
 
-					// cộng tiền tài khoản bán
-			        $infoUserSell->account_balance += $product->sale_price;
-			        $modelMember->save($infoUserSell);
-
 					// cập nhập số lần bán sản phẩm
 					$product->sold ++;
 					$modelProduct->save($product);
@@ -427,6 +423,10 @@ function buyProductAPI($input)
                     $order->meta_payment = 'Bán mẫu thiết kế ID '.$product->id;
                     $order->created_at = date('Y-m-d H:i:s');
                     $modelOrder->save($order);
+
+                    // cộng tiền tài khoản bán
+			        $infoUserSell->account_balance += $order->total;
+			        $modelMember->save($infoUserSell);
 
                     // tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
                     if($product->sale_price > 0){

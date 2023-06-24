@@ -126,5 +126,11 @@
 	$routesPlugin['checkFollowDesignerAPI']= 'ezpics_api/view/checkFollowDesignerAPI.php';
 	$routesPlugin['listFollowDesignerAPI']= 'ezpics_api/view/listFollowDesignerAPI.php';
 	$routesPlugin['orderCreateContentAPI']= 'ezpics_api/view/orderCreateContentAPI.php';
+
+	// kho
+	$routesPlugin['getListWarehousesAPI']= 'ezpics_api/view/getlistWarehousesAPI.php';
+	$routesPlugin['getProductsWarehousesAPI']= 'ezpics_api/view/getProductsWarehousesAPI.php';
+	$routesPlugin['buyWarehousesAPI']= 'ezpics_api/view/buyWarehousesAPI.php';
+
 	
 ?>
