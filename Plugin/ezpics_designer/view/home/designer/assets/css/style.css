@@ -520,6 +520,7 @@ a{
 .downloadapp-footer-item img {
 	width: 200px;
 	height: auto;
+	margin-bottom: 10px;
 }
 
 /* Chi tiết kho */
@@ -555,6 +556,7 @@ a{
 	font-size: 22px;
 	text-align: center;
 	color: #fff;
+	margin-bottom: 15px;
 }
 
 .logo-footer img{
@@ -615,8 +617,8 @@ a{
 }
 
 .navbar-header img{
-	width: 70px;
-	height: 80px;
+	width: 83px;
+	height: auto;
 }
 
 .navbar-header{
@@ -658,6 +660,7 @@ a{
 .section-header .navbar .header-menu li a{
 	color: #b8b2b2;
 	font-weight: bold;
+	font-size: 85%
 
 }
 
@@ -717,9 +720,7 @@ a{
 	display: none !important;
 }
 
-.logo-header img{
-	width: 60px;
-}
+
 
 
 @media (max-width:1177px){
@@ -733,6 +734,11 @@ a{
 }
 
 @media (max-width:768px) {
+
+	.logo-header img{
+		width: 60px;
+	}
+
 	#designer-content .designer-information{
 		position: relative;
 		margin:0;
@@ -751,5 +757,15 @@ a{
 
 	.header-menu-mobile{
 		display: flex !important;
+	}
+
+	.product-button{
+		text-align: center;
+	}
+	.footer-bottom-container{
+		flex-direction: column;
+	}
+	#product-details .product-img-item{
+		margin-right: 0;
 	}
 }
