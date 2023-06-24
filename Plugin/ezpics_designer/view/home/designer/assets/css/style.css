@@ -98,15 +98,15 @@ a{
 }
 
 #designer-content .designer-information .box-information .designer-avatar{
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	margin: auto;
 	margin-bottom: 20px;
 }
 
 #designer-content .designer-information .box-information .designer-avatar img{
 	width: 100%;
-	border-radius: 50px;
+	border-radius: 90px;
 	height: 100%;
 	object-fit: cover;
 
@@ -129,13 +129,17 @@ a{
     background-color: #FED354;
     border: none;
     border-radius: 15px;
-    width: 127px;
+    width: 165px;
     height: 34px;
     transition: all 0.5s ease;
     font-weight: bold;
 	font-size: 20px;
 	cursor: pointer;
 
+}
+
+#designer-content .designer-information .box-information .designer-button-group .button-share-link{
+	width: 75px !important
 }
 
 #designer-content .designer-information .box-information .designer-button-group button a{
@@ -176,7 +180,7 @@ a{
 }
 
 #designer-content .box-product .nav-tabs .nav-link{
-	color: #fff;
+	color: #CA9408;
 	font-weight: bold;
 	border-radius: 15px;
 	margin-right: 10px;
@@ -184,12 +188,12 @@ a{
 }
 
 #designer-content .box-product .nav-tabs .nav-link:hover{
-	background-color: #9A9997;
+	background-color: #f3ecec;
 	border: 1px solid #9A9997;
 }
 
 #designer-content .box-product .nav-tabs .nav-link.active{
-	background-color: #9A9997;
+	background-color: #fff;
 	border: 1px solid #9A9997;
 }
 
@@ -262,7 +266,7 @@ a{
 
 #designer-content .box-product .product-item .product-title p{
 	color: #fff;
-	font-size: 27px;
+	font-size: 20px;
 	overflow: hidden;
 	display: -webkit-box;
     -webkit-box-orient: vertical;
