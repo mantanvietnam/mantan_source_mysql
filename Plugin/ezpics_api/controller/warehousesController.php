@@ -57,12 +57,17 @@ function getProductsWarehousesAPI($input){
 						$dataProduct[] = $Product;
 					}	
 				}
-				$return = array('code'=>1,
-								'data'=> $dataProduct,
-					 			'mess'=>'Bạn lấy data thành công',
-					 		);
+
+				if(!empty($dataProduct)){
+					$return = array('code'=>1,
+									'data'=> $dataProduct,
+						 			'mess'=>'Bạn lấy data thành công',
+						 		);
+				}else{
+					$return = array('code'=>0, 'mess'=>'Kho này chưa có sản phẩm');
+				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'Id không tồn tại');
+				$return = array('code'=>0, 'mess'=>'kho không tồn tại');
 			}
 	
 	}
