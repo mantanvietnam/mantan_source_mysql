@@ -4,6 +4,13 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\Message;
 use Cake\Mailer\TransportFactory;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 /**********************************************************
  *  Các file đã sửa
  *  1. /src/Controller/AppController.php sửa trong hàm initialize
@@ -789,6 +796,75 @@ function getMenusDefault($id=0)
     }
 
     return $links;
+}
+
+function export_excel($title=[], $data=[])
+{
+	/*
+		$title = [
+					['name'=>'Họ tên', 'type'=>'text', 'width'=>15],
+					['name'=>'Điện thoại', 'type'=>'number', 'width'=>15],
+				];
+
+		$data = [
+					['Trần Mạnh', '0816560000'],
+					['Trần Minh', '0816560002'],
+				];
+	*/
+
+	require_once __DIR__ . '/../library/PhpOffice/vendor/autoload.php';
+
+	global $controller;
+
+	if(!empty($title)){
+		$name_colum = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ'];
+	    
+	    // Tạo một đối tượng Spreadsheet
+	    $spreadsheet = new Spreadsheet();
+
+	    // Tạo một trang tính mới
+	    $sheet = $spreadsheet->getActiveSheet();
+
+	    foreach ($title as $key => $value) {
+	    	if(empty($value['name'])) $value['name'] = '';
+	    	if(empty($value['type'])) $value['type'] = 'text';
+	    	if(empty($value['width'])) $value['width'] = 15;
+
+
+	    	if($value['type'] == 'number'){
+	    		$sheet->getStyle($name_colum[$key])->getNumberFormat()->setFormatCode('#,##0.00');
+	    	}else{
+	    		$sheet->getStyle($name_colum[$key])->getNumberFormat()->setFormatCode('@');
+	    	}
+
+	    	// Đặt tiêu đề cho cột
+			$sheet->setCellValue($name_colum[$key].'1', $value['name']);
+
+			// Bôi đậm tiêu đề
+			$sheet->getStyle($name_colum[$key].'1')->getFont()->setBold(true);
+
+			// Điều chỉnh độ rộng của cột
+			$sheet->getColumnDimension($name_colum[$key])->setWidth($value['width']);
+	    }
+
+	    if(!empty($data)){
+	    	$sheet->fromArray($data, null, 'A2');
+		}
+
+	    // Tạo một đối tượng Writer để ghi dữ liệu vào file Excel
+	    $writer = new Xlsx($spreadsheet);
+
+	    // Đặt header cho file Excel
+	    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	    header('Content-Disposition: attachment;filename="example.xlsx"');
+	    header('Cache-Control: max-age=0');
+
+	    // Ghi dữ liệu vào file Excel
+	    $writer->save('php://output');
+
+	    // Ngăn CakePHP tiếp tục xử lý layout và view
+	    $controller->autoRender = false;
+	}
 }
 
 ?>
