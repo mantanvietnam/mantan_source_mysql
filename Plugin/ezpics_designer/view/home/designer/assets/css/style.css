@@ -235,7 +235,11 @@ a{
 }
 
 #designer-content .box-product .product-item .day-storage{
-	font-size: 17px !important;
+	/* font-size: 17px !important; */
+}
+
+#nav-storage .product-price{
+	justify-content: space-between;
 }
 
 

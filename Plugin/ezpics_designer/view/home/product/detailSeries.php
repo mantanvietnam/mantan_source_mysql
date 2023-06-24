@@ -135,7 +135,7 @@
                             </div> -->
                             <p>Đã tạo: <span><?php echo number_format($product->export_image) ?> ảnh</span></p>
                             <?php if(!empty($description)){ ?>
-                            <p>Mô tả: <span><?php echo $description ?></span></p>
+                            <p><span><?php echo $description ?></span></p>
                             <?php } ?>
                         </div>
                         <br>
