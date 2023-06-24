@@ -14,6 +14,7 @@
 
                             <div class="designer-name">
                                 <p><?php echo $designer->name ?></p>
+                                <img src="/plugins/ezpics_designer/view/home/designer/assets/img/tich-xanh.png" alt="">
                             </div>
 
                             <div class="designer-button-group">
