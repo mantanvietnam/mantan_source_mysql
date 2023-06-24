@@ -171,7 +171,7 @@ function buyWarehousesAPI($input)
 				     $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
 				        
 				     $modelWarehouseUsers->save($data);
-				     $return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
+				     $return = array('code'=>1, 'mess'=>'Bạn đã mua kho thành công');
 				}else{
 					$return = array('code'=>4,
 									'mess'=>'Tài khoản không đủ tiền'
