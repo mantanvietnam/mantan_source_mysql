@@ -802,3 +802,9 @@ a{
 		width: 100%;
 	}
 }
+
+/* bo sung */
+.product-information .product-name-user{
+	color: #ef9300;
+	font-weight: normal !important;
+}
