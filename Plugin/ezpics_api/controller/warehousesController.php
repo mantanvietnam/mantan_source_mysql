@@ -67,7 +67,7 @@ function getProductsWarehousesAPI($input){
 					$return = array('code'=>0, 'mess'=>'Kho này chưa có sản phẩm');
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'kho không tồn tại');
+				$return = array('code'=>0, 'mess'=>'Kho này chưa có sản phẩm');
 			}
 	
 	}
