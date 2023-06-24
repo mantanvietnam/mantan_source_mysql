@@ -128,7 +128,7 @@
 	$routesPlugin['orderCreateContentAPI']= 'ezpics_api/view/orderCreateContentAPI.php';
 
 	// kho
-	$routesPlugin['getlistWarehousesAPI']= 'ezpics_api/view/getlistWarehousesAPI.php';
+	$routesPlugin['getListWarehousesAPI']= 'ezpics_api/view/getlistWarehousesAPI.php';
 	$routesPlugin['getProductsWarehousesAPI']= 'ezpics_api/view/getProductsWarehousesAPI.php';
 	$routesPlugin['buyWarehousesAPI']= 'ezpics_api/view/buyWarehousesAPI.php';
 
