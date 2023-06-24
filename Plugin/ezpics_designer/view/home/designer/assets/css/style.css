@@ -164,7 +164,7 @@ a{
 
 #designer-content .box-product #nav-portfolio .img-certification{
 	max-height: 400px;
-	width: 100%;
+	/* width: 100%; */
 }
 
 #designer-content .box-product #nav-portfolio{
@@ -438,11 +438,18 @@ a{
 }
 
 #product-other .product-item .product-price{
-	color:#FED354
+	color:#FED354;
+	display: flex;
+
 }
 
 #product-other .product-item .product-price p{
 	font-size: 22px;
+	margin-right: 10px;
+}
+
+#product-other .product-item .product-price p del{
+	font-size: 17px !important;
 }
 
 
@@ -767,5 +774,10 @@ a{
 	}
 	#product-details .product-img-item{
 		margin-right: 0;
+	}
+
+	#designer-content .box-product #nav-portfolio .img-certification{
+		/* max-height: 400px; */
+		width: 100%;
 	}
 }
