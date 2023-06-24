@@ -2,7 +2,7 @@
         <section id="section-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-lg-5 col-md-5 footer-left">
+                    <div class="col-12 col-lg-6 col-md-6 footer-left">
                         <div class="logo-footer">
                             <a href="https://ezpics.vn/">
                                 <img src="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" alt="">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-lg-3 col-md-3 footer-right">
+                    <div class="col-12 col-lg-6 col-md-6 footer-right">
                         <div class="menu-footer menu-footer-one">
                             <ul>
                                 <p>Công cụ thiết kế ảnh</p>
@@ -29,19 +29,6 @@
                                 <li>Dành cho lập trình viên</li>
                                 <li>Dành cho Nhà Thiết Kế</li>
                                 <li>Giải pháp doanh nghiệp</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-3 col-md-3 footer-right">
-                        <div class="menu-footer menu-footer-two">
-                            <ul>
-                                <p>GIỚI THIỆU</p>
-                                <li>Giới thiệu</li>
-                                <li>Blog</li>
-                                <li>Công việc</li>
-                                <li>Nhãn hiệu</li>
-                                <li>Thông tin truyền thông</li>
                             </ul>
                         </div>
                     </div>

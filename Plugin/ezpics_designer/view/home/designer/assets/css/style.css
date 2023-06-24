@@ -620,10 +620,11 @@ a{
 
 .footer-right{
 	display: flex;
+	justify-content: center;
 }
 
 .menu-footer{
-	width: 100%;
+	/* width: 100%; */
 }
 
 /* header */
