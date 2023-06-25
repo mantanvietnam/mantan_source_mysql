@@ -118,7 +118,7 @@
                                                     <p><?php echo @$item->name ?></p>
                                                 </div>
                                                 <div class="product-sold">
-                                                    <p>Đã bán :<span> <?php echo @$item->sold ?></span></p>
+                                                    <p>Đã bán: <span> <?php echo @$item->sold ?></span></p>
                                                 </div>
                                                 <div class="product-price">
                                                     <?php echo $price ?>
@@ -190,11 +190,14 @@
                                                         <p><?php echo @$item->name ?></p>
                                                     </div>
                                                     <div class="product-sold">
-                                                        <p>Đã bán :<span><?php echo @$item->date_use ?></span></p>
+                                                        <p>Đã bán: <span><?php echo @$item->number_user ?></span></p>
+                                                    </div>
+                                                    <div class="product-sold">
+                                                        <p>Mẫu thiết kế: <span><?php echo @$item->number_product ?></span></p>
                                                     </div>
                                                     <div class="product-price">
                                                         <p><?php echo number_format($item->price) ?> đ</p>
-                                                        <p class="day-storage">30 ngày</p>
+                                                        <p class="day-storage"><?php echo @$item->date_use ?> ngày</p>
                                                     </div>
                                                 </a>
                                             </div>
