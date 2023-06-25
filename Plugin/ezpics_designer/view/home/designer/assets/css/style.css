@@ -230,13 +230,14 @@ a{
 }
 
 #designer-content .box-product .product-item .product-price p{
-	font-size: 18px;
+	font-size: 16px;
 	margin-right: 10px;
 
 }
 
 #designer-content .box-product .product-item .product-price p del{
-	font-size: 18px
+	font-size: 13px;
+	color: #BFBFB1
 }
 
 #designer-content .box-product .product-item .day-storage{
@@ -267,7 +268,7 @@ a{
 
 #designer-content .box-product .product-item .product-title p{
 	color: #fff;
-	font-size: 20px;
+	font-size: 18px;
 	overflow: hidden;
 	display: -webkit-box;
     -webkit-box-orient: vertical;
