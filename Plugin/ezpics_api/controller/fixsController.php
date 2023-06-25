@@ -219,6 +219,22 @@ function fixPrice($input)
 
 	$modelProducts = $controller->loadModel('Products');
 
+	$all = $modelProducts->find()->where(['user_id'=>343])->all()->toList();
+
+	foreach($all as $k => $item){
+		$item->sale_price = 19000;
+
+		$modelProducts->save($item);
+	}
+
+	echo count($all);
+	*/
+
+	/*
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+
 	$all = $modelProducts->find()->where(['type'=>'user_create'])->all()->toList();
 
 	foreach($all as $k => $item){
@@ -311,5 +327,48 @@ function fixCertificate()
 
 	    $modelMembers->save($member);
 	}
+	*/
+}
+
+function fixAuthor()
+{
+	/*
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+
+	$all = $modelProducts->find()->where(['user_id'=>59])->all()->toList();
+
+	foreach($all as $k => $item){
+		$item->user_id = 343;
+
+		$modelProducts->save($item);
+	}
+
+	echo count($all);
+	*/
+}
+
+function fixWarehouseProducts()
+{
+	/*
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+
+	$all = $modelProducts->find()->where(['category_id'=>2,'user_id'=>343])->all()->toList();
+
+	foreach($all as $k => $item){
+		$warehouse_products = $modelWarehouseProducts->newEmptyEntity();
+
+		$warehouse_products->warehouse_id = 15;
+		$warehouse_products->product_id = $item->id;
+		$warehouse_products->user_id = $item->user_id;
+
+		$modelWarehouseProducts->save($warehouse_products);
+	}
+
+	echo count($all);
 	*/
 }
