@@ -78,7 +78,7 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <button class="nav-link active" id="nav-product-tab" data-bs-toggle="tab" data-bs-target="#nav-product" type="button" role="tab" aria-controls="nav-product" aria-selected="true">Sản phẩm</button>
                                         <button class="nav-link" id="nav-portfolio-tab" data-bs-toggle="tab" data-bs-target="#nav-portfolio" type="button" role="tab" aria-controls="nav-portfolio" aria-selected="false">Portfolio</button>
-                                        <button class="nav-link" id="nav-storage-tab" data-bs-toggle="tab" data-bs-target="#nav-storage" type="button" role="tab" aria-controls="nav-storage" aria-selected="false">Kho</button>
+                                        <button class="nav-link" id="nav-storage-tab" data-bs-toggle="tab" data-bs-target="#nav-storage" type="button" role="tab" aria-controls="nav-storage" aria-selected="false">Kho mẫu</button>
 
                                     </div>
                                 </nav>
@@ -118,7 +118,7 @@
                                                     <p><?php echo @$item->name ?></p>
                                                 </div>
                                                 <div class="product-sold">
-                                                    <p>Đã bán :<span> <?php echo @$item->sold ?></span></p>
+                                                    <p>Đã bán: <span> <?php echo @$item->sold ?></span></p>
                                                 </div>
                                                 <div class="product-price">
                                                     <?php echo $price ?>
@@ -190,11 +190,14 @@
                                                         <p><?php echo @$item->name ?></p>
                                                     </div>
                                                     <div class="product-sold">
-                                                        <p>Đã bán :<span><?php echo @$item->date_use ?></span></p>
+                                                        <p>Đã bán: <span><?php echo @$item->number_user ?></span></p>
+                                                    </div>
+                                                    <div class="product-sold">
+                                                        <p>Mẫu thiết kế: <span><?php echo @$item->number_product ?></span></p>
                                                     </div>
                                                     <div class="product-price">
                                                         <p><?php echo number_format($item->price) ?> đ</p>
-                                                        <p class="day-storage">30 ngày</p>
+                                                        <p class="day-storage"><?php echo @$item->date_use ?> ngày</p>
                                                     </div>
                                                 </a>
                                             </div>

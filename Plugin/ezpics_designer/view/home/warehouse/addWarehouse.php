@@ -31,7 +31,7 @@
                   
                   <div class="mb-3">
                     <label class="form-label">Số ngày sử dụng (*)</label>
-                    <input type="number" min="0" class="form-control phone-mask" name="date_use" id="date_use" value="<?php echo @$data->date_use; ?>" required />
+                    <input type="number" min="1" class="form-control phone-mask" name="date_use" id="date_use" value="<?php echo @$data->date_use; ?>" required />
                   </div>
                   
                 </div>

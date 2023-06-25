@@ -110,7 +110,7 @@
                                                     <p><?php echo @$item->name ?></p>
                                                 </div>
                                                 <div class="product-sold">
-                                                    <p>Đã bán :<span><?php echo @$item->sold ?></span></p>
+                                                    <p>Đã bán: <span><?php echo @$item->sold ?></span></p>
                                                 </div>
                                                 <div class="product-price">
                                                       <?php echo $price ?>

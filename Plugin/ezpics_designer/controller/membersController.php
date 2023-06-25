@@ -542,6 +542,8 @@ function detailDesigner($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelMembers = $controller->loadModel('Members');
 	$modelWarehouse = $controller->loadModel('Warehouses');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
 	$modelOrder = $controller->loadModel('Orders');
 
@@ -623,6 +625,16 @@ function detailDesigner($input)
 				$Warehouse = $modelWarehouse->find()->where(array('user_id' => $designer->id))->all()->toList();
 
 				$quantityWarehouse  = count(@$Warehouse);
+
+				if(!empty($Warehouse)){
+			    	foreach ($Warehouse as $key => $value) {
+			    		$users = $modelWarehouseUsers->find()->where(['warehouse_id'=>$value->id])->all()->toList();
+			    		$Warehouse[$key]->number_user = count($users);
+
+			    		$products = $modelWarehouseProducts->find()->where(['warehouse_id'=>$value->id])->all()->toList();
+			    		$Warehouse[$key]->number_product = count($products);
+			    	}
+			    }
 
 				setVariable('designer', $designer);
 				setVariable('product', $product);

@@ -36,6 +36,11 @@
                     <label class="form-label">Email (*)</label>
                     <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$user->email;?>"/>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Trang cá nhân</label>
+                    <input type="text" disabled class="form-control" name="link_share" id="link_share" value="<?php echo 'https://designer.ezpics.vn/designer/'.createSlugMantan($user->name).'-'.$user->id.'.html';?>"/>
+                  </div>
                 </div>
                 
                 <div class="col-md-6">
@@ -58,7 +63,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Lưu</button>
+              <button type="submit" class="btn btn-primary">Lưu</button> 
             </form>
           </div>
         </div>
