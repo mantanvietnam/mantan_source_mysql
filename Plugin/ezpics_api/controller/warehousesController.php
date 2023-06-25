@@ -213,14 +213,14 @@ function getListBuyWarehousesAPI($input){
 		if(!empty($infoUser)){
 
 			// lấy kho 
-			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id))->all()->toList();
+			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id,'deadline_at >=' => date('Y-m-d H:i:s')))->all()->toList();
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
 					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id))->first();
 					if($dataWarehouse){
 						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
-
+						$dataWarehouse->deadline_at = $item->deadline_at;
 						$listData[] = $dataWarehouse;
 					}
 				}
@@ -259,14 +259,18 @@ function checkBuyWarehousesAPI($input){
 		if(!empty($infoUser)){
 
 			// lấy kho 
-			$data = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse']))->first();
+			$conditions = array('warehouse_id'=>$dataSend['idWarehouse']);
+			$conditions['user_id'] = $infoUser->id;
+			$conditions['deadline_at >='] =date('Y-m-d H:i:s');
+
+			$data = $modelWarehouseUsers->find()->where($conditions)->first();
 			if(!empty($data)){
 				$listData = array();
 					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id))->first();
 					if($dataWarehouse){
 						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
-
-						$listData[] = $dataWarehouse;
+						$dataWarehouse->deadline_at = $data->deadline_at;
+						$listData = $dataWarehouse;
 					}
 				
 				$return = array('code'=>1,
@@ -307,7 +311,7 @@ function buyProductWarehousesAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				$WarehouseUsers = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id))->first();
+				$WarehouseUsers = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id, 'deadline_at >=' => date('Y-m-d H:i:s')))->first();
 				$Warehouse = $modelWarehouses->find()->where(array('id'=>@$dataSend['idWarehouse']))->first();
 
 				if (!empty($WarehouseUsers) && !empty($Warehouse)) {
