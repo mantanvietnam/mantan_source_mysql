@@ -52,7 +52,10 @@
                 </div>
             </div>
         </section>
-    <?php   } ?>
+    <?php   }
+         if (!empty($dataOther)){
+     ?>
+
          <section id="product-other">
             <div class="product-other-title">
                 <div class="container">
@@ -64,7 +67,7 @@
                 <div class="container">
                     <div class="product-other-slide">
                         <?php 
-                        if (!empty($dataOther)){
+                       
                             foreach($dataOther as $key => $item){
                                 if(@$item->id != $product->id){
                                     if($item->sale_price==0){
@@ -95,11 +98,12 @@
                                     </div>
                                 </a>
                             </div>
-                        <?php }}} ?>
+                        <?php }} ?>
                     </div>
                 </div>
             </div>
         </section>
+    <?php } ?>
     </main>
     <script type="text/javascript">
         function showPopup()
