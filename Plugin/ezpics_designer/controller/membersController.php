@@ -99,7 +99,7 @@ function dashboard($input)
 	$modelOrder = $controller->loadModel('Orders');
 
 	if(!empty($session->read('infoUser'))){
-		$conditions = array('user_id'=>$session->read('infoUser')->id, 'type'=>'user_create', 'status'=>1);
+		$conditions = array('user_id'=>$session->read('infoUser')->id, 'type'=>'user_create', 'status'=>2);
 		$limit = 5;
 		$page = 1;
 
@@ -119,7 +119,7 @@ function dashboard($input)
 		$listTopSell = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 		// mẫu mới 7 ngày
-		$conditions = array('user_id'=>$session->read('infoUser')->id,'created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'type'=>'user_create', 'status'=>1);
+		$conditions = array('user_id'=>$session->read('infoUser')->id,'created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'type'=>'user_create', 'status'=>2);
 
 		$products = $modelProduct->find()->where($conditions)->all()->toList();
 		$countProductNew = count($products);
@@ -129,7 +129,7 @@ function dashboard($input)
 							'created_at <' => date('Y-m-d H:i:s', strtotime("-7 day")),
 							'created_at >=' => date('Y-m-d H:i:s', strtotime("-14 day")), 
 							'type'=>'user_create', 
-							'status'=>1);
+							'status'=>2);
 
 		$products = $modelProduct->find()->where($conditions)->all()->toList();
 		$countProductOld = count($products);
