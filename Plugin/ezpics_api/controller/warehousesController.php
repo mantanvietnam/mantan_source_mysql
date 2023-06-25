@@ -193,4 +193,214 @@ function buyWarehousesAPI($input)
 		}
 		return $return;
 }
+
+function getListBuyWarehousesAPI($input){
+
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+
+		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		if(!empty($infoUser)){
+
+			// lấy kho 
+			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id))->all()->toList();
+			if(!empty($data)){
+				$listData = array();
+				foreach($data as $key => $item){
+					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id))->first();
+					if($dataWarehouse){
+						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
+
+						$listData[] = $dataWarehouse;
+					}
+				}
+				$return = array('code'=>1,
+								'data'=> $listData,
+					 			'mess'=>'Bạn lấy data thành công',
+					 		);
+			}else{
+				$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho nào');
+			}
+		}else{
+			$return = array('code'=>2,
+							'mess'=>'Bạn chưa đăng nhập'
+					);
+					}
+		
+	}
+	return $return;
+}
+
+function checkBuyWarehousesAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+
+		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		if(!empty($infoUser)){
+
+			// lấy kho 
+			$data = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse']))->first();
+			if(!empty($data)){
+				$listData = array();
+					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id))->first();
+					if($dataWarehouse){
+						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
+
+						$listData[] = $dataWarehouse;
+					}
+				
+				$return = array('code'=>1,
+								'data'=> $listData,
+					 			'mess'=>'Bạn đã mua kho này',
+					 		);
+			}else{
+				$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho này');
+			}
+		}else{
+			$return = array('code'=>2,
+							'mess'=>'Bạn chưa đăng nhập'
+					);
+					}
+		
+	}
+	return $return;
+}
+
+function buyProductWarehousesAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+
+	$dataSend = $input['request']->getData();
+
+	$return = array('code'=>0);
+	if($isRequestPost){
+		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token']) && !empty($dataSend['idProduct'])){
+			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($infoUser)){
+				$WarehouseUsers = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id))->first();
+				$Warehouse = $modelWarehouses->find()->where(array('id'=>@$dataSend['idWarehouse']))->first();
+
+				if (!empty($WarehouseUsers) && !empty($Warehouse)) {
+				
+					$WarehouseProducts = $modelWarehouseProducts->find()->where(array('product_id'=>$dataSend['idProduct'], 'warehouse_id'=>@$Warehouse->id))->first();
+
+					$product = $modelProduct->find()->where(['id'=>(int) $dataSend['idProduct']])->first();
+
+					if(!empty($WarehouseProducts) && !empty($product)){
+					
+						$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
+	                    // gửi thông báo về app cho người bán
+	                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trong kho trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.' ở trong kho : '.$Warehouse->name.' của bạn với số tiền là 0 đ','action'=>'addMoneySuccess');
+
+	                    if(!empty($infoUserSell->token_device)){
+	                        sendNotification($dataSendNotification, $infoUserSell->token_device);
+	                    }
+
+	                    // tạo mẫu thiết kế mới
+	                    $newproduct = $modelProduct->newEmptyEntity();
+
+	                    $newproduct->name = $product->name;
+	                    $newproduct->slug = $product->slug.'-'.time();
+	                    $newproduct->price = 0;
+	                    $newproduct->sale_price = 0;
+	                    $newproduct->content = $product->content;
+	                    //$newproduct->desc = $product->desc;
+	                    $newproduct->sale = $product->sale;
+	                    $newproduct->related_packages = $product->related_packages;
+	                    $newproduct->status = 0;
+	                    $newproduct->type = 'user_edit';
+	                    $newproduct->sold = 0;
+	                    $newproduct->image = $product->image;
+	                    $newproduct->thumn = $product->thumn;
+	                    $newproduct->thumbnail = '';
+	                    $newproduct->user_id = $infoUser->id;
+	                    $newproduct->product_id = $product->id;
+	                    $newproduct->note_admin = '';
+	                    $newproduct->created_at = date('Y-m-d H:i:s');
+	                    $newproduct->views = 0;
+	                    $newproduct->favorites = 0;
+	                    $newproduct->category_id = $product->category_id;
+	                    $newproduct->width = $product->width;
+	                    $newproduct->height = $product->height;
+
+	                    $modelProduct->save($newproduct);
+
+	                    // sao chép layer
+	                    $detail = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+	                    if(!empty($detail)){
+		                    foreach($detail as $d){
+		                    	$newLayer = $modelProductDetail->newEmptyEntity();	
+
+		                    	$newLayer->products_id = $newproduct->id;
+		                    	$newLayer->name = $d->name;
+		                    	$newLayer->content = $d->content;
+		                    	$newLayer->sort = $d->sort;
+		                    	
+		                    	$newLayer->created_at = date('Y-m-d H:i:s');
+		                        
+		                        $modelProductDetail->save($newLayer);
+		                    }
+		                }
+
+	                    $return = array('code'=>1,
+	                    				'product_id'=>$newproduct->id,
+										'messages'=>array(array('text'=>'Mua thành công'))
+										);
+		                
+					}else{
+						$return = array('code'=>4,
+										'messages'=>array(array('text'=>'Mẫu thiết kế này không có trong kho bạn đã mua'))
+										);
+					}
+				}else{
+					$return = array('code'=>2,
+								'messages'=>array(array('text'=>'Bạn chưa mua kho này'))
+								);
+				}
+			}else{
+				$return = array('code'=>2,
+								'messages'=>array(array('text'=>'Bạn chưa đăng nhập'))
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+							);
+		}
+	}
+
+	return 	$return;
+}
+
 ?>

@@ -131,6 +131,9 @@
 	$routesPlugin['getListWarehousesAPI']= 'ezpics_api/view/getlistWarehousesAPI.php';
 	$routesPlugin['getProductsWarehousesAPI']= 'ezpics_api/view/getProductsWarehousesAPI.php';
 	$routesPlugin['buyWarehousesAPI']= 'ezpics_api/view/buyWarehousesAPI.php';
+	$routesPlugin['getListBuyWarehousesAPI']= 'ezpics_api/view/getListBuyWarehousesAPI.php';
+	$routesPlugin['checkBuyWarehousesAPI']= 'ezpics_api/view/checkBuyWarehousesAPI.php';
+	$routesPlugin['buyProductWarehousesAPI']= 'ezpics_api/view/buyProductWarehousesAPI.php';
 
 	
 ?>
