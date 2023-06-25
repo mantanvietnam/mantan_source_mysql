@@ -393,7 +393,7 @@ function buyProductWarehousesAPI($input)
 								);
 				}
 			}else{
-				$return = array('code'=>2,
+				$return = array('code'=>0,
 								'messages'=>array(array('text'=>'Bạn chưa đăng nhập'))
 								);
 			}
