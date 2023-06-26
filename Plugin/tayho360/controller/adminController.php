@@ -1481,6 +1481,8 @@ function addHotelAdmin($input){
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
+        
+
         if(!empty($dataSend['name'])){
             // tạo dữ liệu save
             $data->name = @$dataSend['name'];
@@ -1488,6 +1490,15 @@ function addHotelAdmin($input){
             $data->phone = @$dataSend['phone'];
             $data->email = @$dataSend['email'];
             $data->image = @$dataSend['image'];
+            $data->image2 = @$dataSend['image2'];
+            $data->image3 = @$dataSend['image3'];
+            $data->image4 = @$dataSend['image4'];
+            $data->image5 = @$dataSend['image5'];
+            $data->image6 = @$dataSend['image6'];
+            $data->image7 = @$dataSend['image7'];
+            $data->image8 = @$dataSend['image8'];
+            $data->image9 = @$dataSend['image9'];
+            $data->image10 = @$dataSend['image10'];
             $data->introductory = @$dataSend['introductory'];
             $data->latitude = @$dataSend['latitude'];
             $data->longitude = @$dataSend['longitude'];
@@ -1499,6 +1510,11 @@ function addHotelAdmin($input){
             $data->pricenight = @$dataSend['pricenight'];
             $data->urlSlug = createSlugMantan(trim($dataSend['name']));
 
+
+            if(!empty($dataSend['furniture'])){
+                 $furniture = implode(',', $dataSend['furniture']);
+                $data->furniture = $furniture;
+            }
             $modelHotel->save($data);
 
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

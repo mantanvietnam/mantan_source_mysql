@@ -946,7 +946,7 @@ function updateLastLoginAPI($input){
 				$modelMember->save($checkPhone);
 				$return = array('code'=>1,
 									'last_login'=> $checkPhone->last_login,
-						 			'mess'=>'Bạn cập nhận thời gian login thành công',
+						 			'mess'=>'Bạn cập nhật thời gian login thành công',
 						 		);
 				
 			}else{

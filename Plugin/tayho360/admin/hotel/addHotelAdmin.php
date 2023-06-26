@@ -155,11 +155,17 @@
                             </div> 
                             <div class="tab-pane fade" id="tab6" role="tabpanel"> 
                                 <div class="row">
-                                    <?php foreach(getListFurniture() as $key => $item){ ?>
+                                    <?php 
+                                    $arr = explode(',', @$data['furniture']);
+                                    foreach(getListFurniture() as $key => $item){
+                                     ?>
                                     <div class="mb-3 form-group col-md-4">
+                                        <input type="checkbox" class="staffcheck" <?php if(in_array($item['id'], $arr)) echo 'checked ';  ?> value="<?php echo @$item['id'] ?>" name="furniture[]">
                                       
-                                           <input type="checkbox" maxlength="100" name="furniture[]" id="name" value="<?php echo @$item['id'] ?>" class="form-control" ><?php echo @$item['name'] ?>
+                                         <label for="">  <?php echo @$item['name'] ?></label>
                                     </div>
+
+                                
                                 <?php } ?>
                             </div> 
                         </div>
