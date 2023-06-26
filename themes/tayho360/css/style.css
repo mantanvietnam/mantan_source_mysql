@@ -4134,11 +4134,11 @@ color: #188181;
 @media (min-width: 992px){
 .place-content.col-lg-3 {
     flex: 0 0 auto;
-    width: 27% !important;
+    width: 30% !important;
 }
 
 .place-img-slide.col-lg-9{
-	width: 73% !important;
+	width: 70% !important;
 }
 
 .info-tour{
@@ -4170,6 +4170,10 @@ color: #188181;
 	width: 100%;
 	height: 100%;
 	padding: 5px
+}
+
+.artifacts-slide-bot{
+	display: none;
 }
 
 #section-artifacts .title-artifacts{
@@ -4237,7 +4241,7 @@ color: #188181;
 #artifacts-section .place-artifacts-title a{
 	font-size: 24px;
 	color: #3F4042;
-	line-height: 26px;
+	line-height: 38px;
 }
 
 
@@ -4577,4 +4581,9 @@ color: #188181;
     -webkit-line-clamp: 1;
 	line-height: 36px !important;
 
+}
+
+
+.in-box-event-home .draggable{
+	height: 922px;
 }
