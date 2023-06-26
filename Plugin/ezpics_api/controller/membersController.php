@@ -925,4 +925,39 @@ function checkCodeAffiliateAPI($input)
 	return $return;
 }
 
+function updateLastLoginAPI($input){
+
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['token'])){
+			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($checkPhone)){
+				$checkPhone->last_login = date('Y-m-d H:i:s');
+
+				$modelMember->save($checkPhone);
+				$return = array('code'=>1,
+									'last_login'=> $checkPhone->last_login,
+						 			'mess'=>'Bạn cập nhận thời gian login thành công',
+						 		);
+				
+			}else{
+				 $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+			}
+		}else{
+			 $return = array('code'=>0, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}
+
+	return $return;
+}
+
 ?>
