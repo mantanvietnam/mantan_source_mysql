@@ -1,5 +1,6 @@
 <?php 
 global $price_remove_background;
+global $price_create_content;
 global $name_bank;
 global $number_bank;
 global $account_holders_bank;
@@ -26,7 +27,8 @@ $menus[0]['sub'][6]= array('title'=>'Cài đặt Font chữ',
 addMenuAdminMantan($menus);
 
 
-$price_remove_background = 10000;
+$price_remove_background = 0;
+$price_create_content = 10000;
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 

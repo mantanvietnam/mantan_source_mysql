@@ -72,23 +72,25 @@ function removeBackgroundImageAPI($input)
 
 					$modelManagerFile->save($data);
 
-					// trừ tiền tài khoản
-					$infoUser->account_balance -= $price_remove_background;
-					$modelMember->save($infoUser);
+					if($price_remove_background>0){
+						// trừ tiền tài khoản
+						$infoUser->account_balance -= $price_remove_background;
+						$modelMember->save($infoUser);
 
-					// lưu lịch sử giao dịch
-					$order = $modelOrder->newEmptyEntity();
-					
-					$order->code = 'RB'.time().$infoUser->id.rand(0,10000);
-                    $order->member_id = $infoUser->id;
-                    $order->file_id = $data->id;
-                    $order->total = $price_remove_background;
-                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-                    $order->type = 4; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
-                    $order->meta_payment = 'Xóa ảnh nền';
-                    $order->created_at = date('Y-m-d H:i:s');
-                    
-                    $modelOrder->save($order);
+						// lưu lịch sử giao dịch
+						$order = $modelOrder->newEmptyEntity();
+						
+						$order->code = 'RB'.time().$infoUser->id.rand(0,10000);
+	                    $order->member_id = $infoUser->id;
+	                    $order->file_id = $data->id;
+	                    $order->total = $price_remove_background;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 4; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+	                    $order->meta_payment = 'Xóa ảnh nền';
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    
+	                    $modelOrder->save($order);
+	                }
 				}else{
 					$return = array('code'=>6, 'mess'=>'Tài khoản không đủ tiền');
 				}

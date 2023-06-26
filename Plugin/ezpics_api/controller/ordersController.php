@@ -336,6 +336,7 @@ function orderCreateContentAPI($input){
 	global $number_bank;
 	global $link_qr_bank;
 	global $account_holders_bank;
+	global $price_create_content;
 
 	$modelOrder = $controller->loadModel('Orders');
 	$modelMember = $controller->loadModel('Members');
@@ -346,7 +347,7 @@ function orderCreateContentAPI($input){
 		$dataSend = $input['request']->getData();
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		if(!empty($infoUser)){
-			if($infoUser->account_balance >= 1000){
+			if($infoUser->account_balance >= $price_create_content){
 				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
 				if(!empty($dataProduct)){
 
@@ -355,14 +356,14 @@ function orderCreateContentAPI($input){
 					$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
                     $order->member_id = $infoUser->id;
                     $order->product_id = $dataProduct->id;
-                    $order->total = 1000;
+                    $order->total = $price_create_content;
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
                     $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
                     $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
                     $order->created_at = date('Y-m-d H:i:s');
                     $modelOrder->save($order);
 
-                    $infoUser->account_balance -= 1000;
+                    $infoUser->account_balance -= $price_create_content;
 					$modelMember->save($infoUser);
 					$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
 				}else{

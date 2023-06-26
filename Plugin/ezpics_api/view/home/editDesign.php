@@ -596,7 +596,7 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/opacity.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Độ trong</div>
 	                                </div>
-	                                <div class="item-replace text-center clc-action-edit image" onclick="confirmModal('Sử dụng chức năng này bạn sẽ phải mất phí là 10.000đ. Bạn có đồng ý không?', 'removeBackground')">
+	                                <div class="item-replace text-center clc-action-edit image" onclick="removeBackground();">
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/remove-background.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Xóa nền</div>
 	                                </div>
