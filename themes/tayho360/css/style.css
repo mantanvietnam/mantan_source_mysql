@@ -4587,3 +4587,21 @@ color: #188181;
 .in-box-event-home .draggable{
 	height: 922px;
 }
+
+.button-book{
+	max-width: 337px;
+	margin-top: 10px;
+	/* padding: 7px 70px; */
+}
+
+.button-book a{
+	font-size: 20px;
+	width: 100%;
+	padding: 5px 20px;
+}
+
+.button-book a:hover{
+	background-color: #0f5656;
+	color: #fff;
+}
+
