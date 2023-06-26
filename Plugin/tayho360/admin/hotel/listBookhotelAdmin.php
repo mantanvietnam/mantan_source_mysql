@@ -43,10 +43,12 @@
               foreach ($listData as $item) {
 
                  $title = getHotel($item->idhotel);
-                    $url= 'chi_tiet_khach_san/'.$title['data']['Hotel']['slug'].'.html';
+                 if(!empty($title)){
+                    $url= 'chi_tiet_khach_san/'.@$title->urlSlug.'.html';
+                 
 ?>
               <tr>
-                        <td><a href="/../../<?php echo $url ?>"><?php echo @$title['data']['Hotel']['name'] ?></a><br> Sđt: <?php echo @$title['data']['Hotel']['phone'] ?></td>
+                        <td><a href="/../../<?php echo $url ?>"><?php echo @$title->name ?></a><br> Sđt: <?php echo @$title->phone ?></td>
                          <td><?php echo @$item->name; ?></td>
                         <td><?php echo @$item->phone ?></td>
                         <td><?php echo @$item->numberpeople; ?></td>
@@ -64,7 +66,7 @@
                           </a>
                         </td>
                       </tr>
-            <?php  }
+            <?php  }}
             }else{?>
            <tr>
                       <td colspan="10" align="center">Chưa có dữ liệu</td>

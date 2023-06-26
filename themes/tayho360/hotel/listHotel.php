@@ -58,9 +58,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_khach_san/<?php echo $item['Hotel']['slug'] ?>.html"><img src="<?php echo $item['Hotel']['imageDefault'] ?>" alt=""></a>
+                            <a href="/chi_tiet_khach_san/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_khach_san/<?php echo $item['Hotel']['slug'] ?>.html"><?php echo $item['Hotel']['name'] ?></a>
+                                <a href="/chi_tiet_khach_san/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>

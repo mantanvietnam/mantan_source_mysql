@@ -1054,9 +1054,12 @@ function detailRestaurant($input){
             $order = array('created'=>'desc');
             $otherData = $modelRestaurant->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
+            $listFurniture = getListFurniture();
+
 
             setVariable('data', $data);
             setVariable('otherData', $otherData);
+            setVariable('listFurniture', $listFurniture);
         }else{
             return $controller->redirect('/');
         }         
@@ -1102,79 +1105,71 @@ function bookTable($input) {
 
 //Khách sạn Hotel 
 function listHotel($input){
-
     global $urlNow;
+    global $controller;
+    global $urlCurrent;
+    $modelHotel = $controller->loadModel('Hotels');
+    
     $_SESSION['urlCallBack']= $urlNow;
+      
         $page= (isset($_GET['page']))? (int) $_GET['page']:1;
         if($page<=0) $page=1;
         $limit= 9;
+         $getmonth   = getmonth();
         
         $order = array('created'=>'desc');
         $conditions = array();
-          if(!empty($_GET['name'])){
+
+        if(!empty($_GET['name'])){
              $key=createSlugMantan($_GET['name']);
-            $conditions['urlSlug']= array('$regex' => $key);
+            $conditions['urlSlug LIKE']= '%'.$key.'%';
         }
 
-        $keyManMo = '5dc8f2652ac5db08348b4567';
-      
+        $conditions['status']= 1;
 
-     $dataPost= array('key'=>$keyManMo, 'city'=>1, 'lat'=>'','nameHotel'=>@$_GET['name'], 'long'=>'', 'district'=>11, 'limit'=>9,'page'=>$page);
-            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/getHotelAroundAPI', $dataPost);
+       
+        $listData = $modelHotel->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-
-
-            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
-            $listHotel= json_decode($listHotel, true);
-            
-
-            if(!empty(@$listHotel['data'])){
-                $listData= @$listHotel['data'];
-                $totalData= $listHotel['total'];
-                $_SESSION['totalHotel'] = $listHotel['total'];
-            }else{
-                $listData= null;
-                $totalData= null;
-                $_SESSION['totalHotel'] = null;
+            if(!empty($listData)){
+                foreach ($listData as $key => $value) {
+                    $conditions_scan = array('id'=>$value->id);
+                    $static = $modelHotel->find()->where($conditions_scan)->all()->toList();
+                    $listData[$key]->number_scan = count($static);
+                }
             }
-        
 
-        //$modelHotel->getPage($page, $limit = 15, $conditions, $order =  $order, $fields=null);
+            // phân trang
+            $totalData = $modelHotel->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
 
+            $balance = $totalData % $limit;
+            $totalPage = ($totalData - $balance) / $limit;
+            if ($balance > 0)
+                $totalPage+=1;
 
+            $back = $page - 1;
+            $next = $page + 1;
+            if ($back <= 0)
+                $back = 1;
+            if ($next >= $totalPage)
+                $next = $totalPage;
 
-        
- 
-        $balance = $totalData % $limit;
-        $totalPage = ($totalData - $balance) / $limit;
-        if ($balance > 0)
-            $totalPage+=1;
-
-        $back = $page - 1;
-        $next = $page + 1;
-        if ($back <= 0)
-            $back = 1;
-        if ($next >= $totalPage)
-            $next = $totalPage;
-
-        if (isset($_GET['page'])) {
-            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlNow);
-            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-        } else {
-            $urlPage = $urlNow;
-        }
-        if (strpos($urlPage, '?') !== false) {
-            $checkUrl= explode('?', $urlPage);
-            if (count($checkUrl) > 1) {
-                $urlPage = $urlPage . '&page=';
+            if (isset($_GET['page'])) {
+                $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+                $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
             } else {
-                $urlPage = $urlPage . 'page=';
+                $urlPage = $urlCurrent;
             }
-        } else {
-            $urlPage = $urlPage . '?page=';
-        }
-
-        global $metaTitleMantan;
+            if (strpos($urlPage, '?') !== false) {
+                if (count($_GET) >= 1) {
+                    $urlPage = $urlPage . '&page=';
+                } else {
+                    $urlPage = $urlPage . 'page=';
+                }
+            } else {
+                $urlPage = $urlPage . '?page=';
+            }
+       global $metaTitleMantan;
         global $metaKeywordsMantan;
         global $metaDescriptionMantan;
 
@@ -1183,14 +1178,15 @@ function listHotel($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-
         $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Khách sạn');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
-        $metaTitleMantan= str_replace('%categoryName%', 'Trung tâm sự kiện và khách sạn', $metaTitleMantan);
+        $metaTitleMantan= str_replace('%categoryName%', 'khách sạn', $metaTitleMantan);
 
         setVariable('listData',$listData);
+        setVariable('getmonth',$getmonth);
+
         setVariable('page',$page);
         setVariable('totalPage',$totalPage);
         setVariable('back',$back);
@@ -1200,63 +1196,74 @@ function listHotel($input){
 }
 
 function detailHotel($input){
-    global $infoSite;
     global $controller;
-    global $urlHomes;
-     global $urlNow;
-     global $metaTitleMantan;
-    global $metaImageMantan;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $session;
+    global $metaTitleMantan;
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
-    $_SESSION['urlCallBack']= $urlNow; 
-    $keyManMo = '5dc8f2652ac5db08348b4567';
+    global $metaImageMantan;
+
+    $modelHotel = $controller->loadModel('Hotels');
     $listFurniture = getListFurniture();
 
- 
+    if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=>$_GET['id']);
+        }else{
+            $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+            $conditions = array('urlSlug'=>$slug);
+        }
+    }
 
-    if(!empty($input['request']->getAttribute('params')['pass'][1])){
+
+
+    $data = $modelHotel->find()->where($conditions)->first();
+
+    $month=array();
        
-        $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
-       // $data= $modelHotel->getHotelSlug($input['request']->params['pass'][1]);
+    $month['status']=1;
+    
+    if(!empty($data)){
+           
 
-       
-            
-            $dataPost= array('key'=>$keyManMo, 'slug'=>$slug, 'lat'=>'', 'long'=>'', 'idUser'=>'');
-
-            $infoHotelMM= sendDataConnectMantan('http://api.quanlyluutru.com/getHotelSluglAPI', $dataPost);
-            $infoHotelMM= str_replace('ï»¿', '', utf8_encode($infoHotelMM));
-            $infoHotelMM= json_decode($infoHotelMM, true);
-
-
-
-
-            //$conditions['id']=array('$nin'=>explode(',', strtoupper(str_replace(' ', '', $data['Hotel']['id']))));
-            //$otherData= $modelHotel->getPage($page = 1, $limit = 3, $conditions, $order = array(), $fields=null);
-
-            $data['HotelManmo'] = $infoHotelMM;
-
-            $metaImageMantan= $data['HotelManmo']['data']['Hotel']['image'][0]; 
+            $conditions = array('id !='=>$data->id);
+            $limit = 4;
+            $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+            if($page<1) $page = 1;
+            $order = array('id'=>'desc');
 
             $metaTitleMantanDefault= $metaTitleMantan;
             $metaKeywordsMantanDefault= $metaKeywordsMantan;
             $metaDescriptionMantanDefault= $metaDescriptionMantan;
+            $metaImageMantan= $data->image;
 
-            $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data['HotelManmo']['data']['Hotel']['name']);
+            $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, $data->name);
             $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
             $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                
+            $metaTitleMantan= str_replace('%productName%', $data->name, $metaTitleMantan);
+            $metaTitleMantan= str_replace('%productKeyword%', $data->name, $metaTitleMantan);
+            $metaTitleMantan= str_replace('%productDescription%', $data->introductory, $metaTitleMantan);
 
 
+            $metaDescriptionMantan= str_replace('%title%', $metaTitleMantanDefault, $data->introductory);
+            $metaDescriptionMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaDescriptionMantan);
             
-            $metaDescriptionMantan= str_replace('%productName%', @$data['HotelManmo']['data']['Hotel']['name'], $metaDescriptionMantan);
-            $metaDescriptionMantan= str_replace('%productKeyword%', @$data['HotelManmo']['data']['Hotel']['name'], $metaDescriptionMantan);
-            $metaDescriptionMantan= str_replace('%productDescription%', @$data['HotelManmo']['data']['Hotel']['info'], $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productName%', @$data->name, $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productKeyword%', @$data->name, $metaDescriptionMantan);
+            $metaDescriptionMantan= str_replace('%productDescription%', $data->introductory, $metaDescriptionMantan);
 
-           setVariable('listFurniture', $listFurniture); 
-
-
-
-            setVariable('data',$data);
-            //setVariable('otherData',$otherData);
+            $order = array('created'=>'desc');
+            $otherData = $modelHotel->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
+           
+            setVariable('data', $data);
+            setVariable('otherData', $otherData);
+            setVariable('listFurniture', $listFurniture); 
         }else{
             $controller->redirect('/');
         }    
@@ -1273,39 +1280,15 @@ function bookHotel($input) {
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
 
-        $bookHotel = $controller->loadModel('BookHotels');
+    $bookHotel = $controller->loadModel('BookHotels');
 
     $dataSend = $input['request']->getData();
-
  
 
     if(!empty($dataSend['name'])){
          $date_start = explode(' ', @$dataSend['date_start']);
             $date_end = explode(' ', @$dataSend['date_end']);
-            $dataPost= array('idHotel'=>  @$dataSend['idhotel'],
-                'date_start'=> @$date_start[0],
-                'date_end'=> @$date_end[0],
-                'typeRoom'=> @$dataSend['typeRoom'],
-                'email'=> @$dataSend['email'],
-                'phone'=> @$dataSend['phone'],
-                'name'=> @$dataSend['name'],
-                'typeBooking'=>  6,
-                'number_room'=>  @$dataSend['number_room'],
-                'number_people'=> @$dataSend['number_people'],
-                'deposits'=> @$dataSend['pricePay1'],
-                'type_register'=> @$dataSend['type_register'],
-                'key'=> '60d410dc2ac5db3f758b4567', 
-                'timeStart'=>  @$date_start[1],
-                'timeEnd'=>  @$date_end[1],
-                'textNumberDate'=> @$dataSend['timePay'],
-                'codeDiscount'=> '',
-                'wed'=> '0',
 
-            );
-
-            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/saveBookingAPI', $dataPost);
-            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
-            $listHotel= json_decode($listHotel, true);
 
 
         $data = $bookHotel->newEmptyEntity();
@@ -1316,10 +1299,8 @@ function bookHotel($input) {
         $data->name = @$dataSend['name'];
         $data->phone = @$dataSend['phone'];
         $data->email = @$dataSend['email'];
-        $data->numberpeople = (int) @$dataSend['number_people'];
         $data->note = @$dataSend['not'];
         $data->status = 'processing';
-        $data->type_register = @$dataSend['type_register'];
         $data->date_end = @$dataSend['date_end'];
         $data->date_start = @$dataSend['date_start'];
         $data->number_room = (int) @$dataSend['number_room'];

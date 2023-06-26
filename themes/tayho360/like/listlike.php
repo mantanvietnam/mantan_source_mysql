@@ -256,15 +256,15 @@ global $urlThemeActive;
 		                                <div class="card-diem-den-yeu-thich-contain">
 		                                    <div class="card-diem-den-yeu-thich">
 		                                        <div class="card">
-		                                            <img src="<?php echo @$Hotel['data']['Hotel']['image'][0]; ?>"
+		                                            <img src="<?php echo @$Hotel->image; ?>"
 		                                                class="card-img-top w-100" alt="">
 		                                            <div class="img-overlay">
 		                                            </div>
 		                                            <div class="card-body">
-		                                                <h5 class="card-title "><a href="<?php echo 'chi_tiet_khach_san/'.$Hotel['data']['Hotel']['slug'].'.html'; ?>"><?php echo $Hotel['data']['Hotel']['name']; ?></a></h5>
+		                                                <h5 class="card-title "><a href="<?php echo 'chi_tiet_khach_san/'.$Hotel->urlSlug.'.html'; ?>"><?php echo $Hotel->name; ?></a></h5>
 		                                                <div class="d-flex align-items-center card-num-location">
 		                                                    <img class="me-2" src="<?= $urlThemeActive ?>assets/lou_icon/icon-card-diem-den.svg"
-		                                                        alt=""><?php echo $Hotel['data']['Hotel']['address']; ?>
+		                                                        alt=""><?php echo $Hotel->address; ?>
 		                                                </div>
 		                                            </div>
 		                                        </div>

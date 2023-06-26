@@ -230,6 +230,10 @@ function rating(){
         $Craftvillage= $modelCraftvillage->find()->where($conditions)->all();
 
 
+        $modelHotel = $controller->loadModel('Hotels');
+        $Hotel= $modelHotel->find()->where($conditions)->all();
+
+
 
         $listData = array();
 
@@ -375,26 +379,19 @@ function rating(){
             }
         }
 
-        $keyManMo = '5dc8f2652ac5db08348b4567';
-        $city = 1;
-        $district = 11;
+       
 
-        $dataPost= array('key'=>$keyManMo, 'city'=>1, 'lat'=>'','nameHotel'=> '', 'long'=>'', 'district'=>11, 'limit'=>'','page'=>1);
-            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/getHotelAroundAPI', $dataPost);
-            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
-            $listHotel= json_decode($listHotel, true);
-
-        if(!empty($listHotel['data'])){
-            foreach($listHotel['data'] as $keyHotel => $Hotel){
-                $listData[] =  array('name'=> @$Hotel['Hotel']['name'],
-                                    'address'=> @$Hotel['Hotel']['address'],
-                                    'phone'=> @$Hotel['Hotel']['phone'],
-                                    'image'=> @$Hotel['Hotel']['imageDefault'],
-                                    'lat'=> sprintf("%.12f", $Hotel['Hotel']['coordinates_x']) ,
-                                    'long'=> sprintf("%.12f", $Hotel['Hotel']['coordinates_y']) ,
-                                    'urlSlug'=> 'chi_tiet_khach_san/'.$Hotel['Hotel']['slug'].'.html',
+        if(!empty(@$Hotel)){
+            foreach($Hotel as $keyHotel => $listHotel){
+                $listData[] =   array('name'=> $listHotel->name,
+                                    'address'=> $listHotel->address,
+                                    'phone'=> $listHotel->phone,
+                                    'image'=> $listHotel->image,
+                                    'lat'=> $listHotel->latitude,
+                                    'long'=> $listHotel->longitude,
+                                    'urlSlug'=> 'chi_tiet_khach_san/'.$listHotel->urlSlug.'.html',
                                     'type'=> 'khach_san',
-                                    'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
+                                     'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
 
                 );
             }
@@ -480,13 +477,10 @@ function getEventcenter($id){
 function getHotel($id){
     global $modelOption;
     global $controller;
+    $modelHotel = $controller->loadModel('Hotels');
 
-       $keyManMo = '5dc8f2652ac5db08348b4567';
-     $dataPost= array('key'=>$keyManMo, 'idHotel'=>$id, 'lat'=>'','idUser'=> '', 'long'=>'');
-            $listHotel= sendDataConnectMantan('https://api.quanlyluutru.com/getInfoHotelAPI', $dataPost);
-            $listHotel= str_replace('ï»¿', '', utf8_encode($listHotel));
-            $listHotel= json_decode($listHotel, true);
-        $data = $listHotel;     
+        $data = $modelHotel->find()->where(['id'=>intval($id)])->first();
+
         return $data;
 }
 /*function distance($x1, $y1, $x2, $y2) {

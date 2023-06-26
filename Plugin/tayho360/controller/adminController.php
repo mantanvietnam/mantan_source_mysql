@@ -1462,7 +1462,7 @@ function addHotelAdmin($input){
     global $metaTitleMantan;
     global $session;
     
-    $metaTitleMantan = 'Thông tin Cơ quan hành chính';
+    $metaTitleMantan = 'Thông tin khách sạn';
 
 
     $modelHotel = $controller->loadModel('Hotels');
@@ -1512,8 +1512,8 @@ function addHotelAdmin($input){
 
 
             if(!empty($dataSend['furniture'])){
-                 $furniture = implode(',', $dataSend['furniture']);
-                $data->furniture = $furniture;
+                 $data->furniture = implode(',', $dataSend['furniture']);
+           
             }
             $modelHotel->save($data);
 

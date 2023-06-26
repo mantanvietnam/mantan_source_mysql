@@ -55,6 +55,7 @@ global $urlThemeActive;
                                  foreach($databookTour as $key => $value){
                                     if(!empty($value)){
                                         $tour = getTour($value->idtour);
+                                        if(!empty($tour)){
                                  ?>
                                 <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
                                     <td><?php echo $value->id ?></td>
@@ -65,7 +66,7 @@ global $urlThemeActive;
                                     <td><?php echo @$value->numberpeople ?></td>
                                     <td><?php echo number_format(@$tour->price*@$value->numberpeople) ?> VNĐ</td>
                                 </tr>
-                               <?php }} ?>
+                               <?php }}} ?>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -82,17 +83,18 @@ global $urlThemeActive;
                                  foreach($databookHotel as $key => $value){
                                     if(!empty($value)){
                                         $Hotel = getHotel($value->idhotel);
+                                        if(!empty($Hotel)){
 
                                  ?>
                                 <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
                                     <td><?php echo @$value->id ?></td>
-                                    <td><?php echo @$Hotel['data']['Hotel']['name']; ?></td>
+                                    <td><?php echo @$Hotel->name; ?></td>
                                     <td><?php echo date('d/m/Y', @$value->created) ?></td>
                                     <td><?php echo @$value->date_start ?></td>
                                     <td><?php echo @$value->date_end ?></td>
                                     <td><?php echo number_format(@$value->pricePay) ?> VNĐ</td>
                                 </tr>
-                               <?php }} ?>
+                               <?php }} }?>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -109,7 +111,7 @@ global $urlThemeActive;
                                     if(!empty($value)){
 
                                         $Restaurant = getRestaurant($value->idrestaurant);
-
+                                        if(!empty($Restaurant)){
                                  ?>
                                 <tr <?php if($key%2 != 0){echo 'style="background: #97C4BD;"';} ?>>
                                     <td><?php echo @$value->id ?></td>
@@ -118,7 +120,7 @@ global $urlThemeActive;
                                     <td><?php echo date('d/m/Y h:i', @$value->timebook) ?></td>
                                     <td><?php echo @$value->numberpeople ?></td>
                                 </tr>
-                               <?php }} ?>
+                               <?php }}} ?>
                             </table>
                         </div>
                     </div>
