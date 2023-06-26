@@ -337,8 +337,12 @@ global $urlThemeActive;
        
 
     </main>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 <script type="text/javascript">
   function initMap() {
+    var keyMap = 'efe2301638f6af0bd594f5f607d6dc86ea53e3406d158d44';
     var locations = [<?php 
     if (!empty(@$data)) {
         $listShowMap= array();
@@ -356,108 +360,33 @@ global $urlThemeActive;
     }
     ?>];
 
-    console.log(locations);
+     const map = L.map('map_HS', {
+      center: [21.057646992531012, 105.83320869683257],
+      zoom: 14,
+    });
 
+    L.tileLayer('https://maps.vnpost.vn/api/tm/{z}/{x}/{y}@@2x.png?apikey='+keyMap, {
+      attribution: 'Map data &copy; <a href="https://vmap.vn">Vmap</a>, <a href="http://openstreetmap.org">OSM Contributors</a>',
+      maxZoom: 15,
+      id: 'Vmap.streets',
+      accessToken: keyMap
+    }).addTo(map);
 
-      var lat = <?php echo $data->latitude ?>;
-      var log = <?php echo $data->longitude ?>;
-
-        var map = new google.maps.Map(document.getElementById('map_HS'), {
-            zoom: 14,
-            center: new google.maps.LatLng(lat, log),
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            styles: [
-                      {
-                        "featureType": "administrative",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "visibility": "off"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi",
-                        "stylers": [
-                          {
-                            "visibility": "off"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "labels.icon",
-                        "stylers": [
-                          {
-                            "visibility": "off"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "transit",
-                        "stylers": [
-                          {
-                            "visibility": "off"
-                          }
-                        ]
-                      }
-                    ]
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-
-        var marker, i;
-        i= -1;
-        marker = new google.maps.Marker({map: map});
-
-        for (y = 1; y < 10; y++) {
-          if($('#check-all'+y).is(":checked")){
-            for (i = 0; i < locations.length; i++) {
-              if($('#check-all'+y).val() == locations[i][4]){
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map,
-                    icon: locations[i][3]
-                });
-
-                google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                  return function () {
-                      infowindow.setContent(locations[i][0]);
-                      infowindow.open(map, marker);
-                  }
-                })(marker, i));
-              }
-            }
-          }
+    var icon, y, i;
+     
+        for (i = 0; i < locations.length; i++) {
+            icon = L.icon({
+              iconUrl: locations[i][3],
+              iconSize: [40, 40],
+            });
+          
+             console.log(locations[i][1]);
+            L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(map);
+          
         }
-
-
-        var newPoint = {lat: lat, lng: log};
-        marker.setIcon('');
-        marker.setPosition(newPoint);
-        map.setCenter(newPoint);
-        i = locations.length;
-
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                infowindow.setContent('');
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-  }
+    }  
+  
 </script> 
-<script>
-  function checkboxAll(source,idLoad) {
-    var checkboxes = document.querySelectorAll('#'+idLoad+' input[type="checkbox"]');
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i] != source)
-            checkboxes[i].checked = source.checked;
-    }
-
-    initMap();
-}
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalp-JTnHUVHeh_u0d3mWnySFK204NkU0&callback=initMap"></script>
 
 <script>
   $(document).ready(function() {
@@ -467,9 +396,11 @@ global $urlThemeActive;
     var f = $('footer').innerHeight();
 
     var x = w-h-f-10;
-    x= 300;
+    x= 800;
     // document.write(x);
     $('#map, #map_HS').css({'height':x});
+
+    initMap();
   });
 </script>
 <?php

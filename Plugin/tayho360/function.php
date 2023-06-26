@@ -84,14 +84,20 @@ $menus[0]['sub'][11]= array('title'=>'Đặt tour',
                             'permission'=>'listBookTourAdmin',
                             
                         );
-$menus[0]['sub'][12]= array('title'=>'Đặt khách sạn',
+$menus[0]['sub'][12]= array('title'=>'Khách sạn',
+                            'url'=>'/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listBookTourAdmin',
+                            
+                        );
+$menus[0]['sub'][13]= array('title'=>'Đặt khách sạn',
                             'url'=>'/plugins/admin/tayho360-admin-hotel-listBookhotelAdmin.php',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTourAdmin',
                             
                         );
 
-$menus[0]['sub'][13]= array( 'title'=>'Thông báo',
+$menus[0]['sub'][14]= array( 'title'=>'Thông báo',
                             'url'=>'/plugins/admin/tayho360-admin-notification-addNotificationAdmin.php',
                             'classIcon'=>'bx bx-bell',
                             'permission'=>'addNotificationAdmin'

@@ -407,4 +407,34 @@ function buyProductWarehousesAPI($input)
 	return 	$return;
 }
 
+function  getWarehousesAPI($input){
+		global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');;
+
+	
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+			// lấy kho 
+			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehous']))->first();
+			if(!empty($data)){
+					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
+				
+				$return = array('code'=>1,
+								'data'=> $data,
+					 			'mess'=>'Bạn lấy data thành công',
+					 		);
+			}else{
+				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
+			}
+		
+	}
+	return $return;
+}
+
 ?>
