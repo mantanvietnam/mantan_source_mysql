@@ -407,7 +407,7 @@ function buyProductWarehousesAPI($input)
 	return 	$return;
 }
 
-function  getWarehousesAPI($input){
+function  getInfoWarehouseAPI($input){
 		global $isRequestPost;
 	global $controller;
 	global $modelCategories;
@@ -421,7 +421,7 @@ function  getWarehousesAPI($input){
 		$dataSend = $input['request']->getData();
 
 			// lấy kho 
-			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehous']))->first();
+			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse']))->first();
 			if(!empty($data)){
 					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
 				
