@@ -73,11 +73,10 @@ global $urlThemeActive;
                             <table width="100%">
                                 <tr>
                                     <th>Mã</th>
-                                    <th>Địa chỉ</th>
+                                    <th>Khách sạn</th>
                                     <th>Ngày đặt</th>
                                     <th>Ngày nhận</th>
                                     <th>Ngày trả</th>
-                                    <th>Số tiền</th>
                                 </tr>
                                <?php
                                  foreach($databookHotel as $key => $value){
@@ -92,7 +91,6 @@ global $urlThemeActive;
                                     <td><?php echo date('d/m/Y', @$value->created) ?></td>
                                     <td><?php echo @$value->date_start ?></td>
                                     <td><?php echo @$value->date_end ?></td>
-                                    <td><?php echo number_format(@$value->pricePay) ?> VNĐ</td>
                                 </tr>
                                <?php }} }?>
                             </table>

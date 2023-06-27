@@ -280,7 +280,7 @@
         <section id="place-around-section" class="mgt-80">
             <div class="container">
                 <div class="title-section mgb-32">
-                    <p>Khách sạn xung quan</p>
+                    <p>Khách sạn xung quanh</p>
                 </div>
 
                 <div class="place-around-slide">
