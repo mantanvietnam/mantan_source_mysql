@@ -200,7 +200,7 @@ input:-internal-autofill-selected {
 
 #place-detail .place-img-slide{
 
-	padding-left: 110px;
+	padding-left: 20px;
 
 }
 
@@ -4134,11 +4134,11 @@ color: #188181;
 @media (min-width: 992px){
 .place-content.col-lg-3 {
     flex: 0 0 auto;
-    width: 30% !important;
+    width: 34% !important;
 }
 
 .place-img-slide.col-lg-9{
-	width: 70% !important;
+	width: 66% !important;
 }
 
 .info-tour{

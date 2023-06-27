@@ -11,7 +11,7 @@
 .bg-primary-cus {
     background-color: #126b66;
 }
-
+header .top .search-input
 .button-outline-primary-custom {
     font-style: normal;
     font-weight: 400;
@@ -1582,5 +1582,12 @@ header .main-nav nav > .container-fluid {
     }
     .time-line .main-menu .tab-timeline .img-left > .d-flex, .time-line .main-menu .tab-timeline .img-right > .d-flex{
         margin-bottom: 30px;
+    }
+}
+
+
+@media (max-width: 426px) {
+    header .top .search-input{
+        width: 50%;
     }
 }
