@@ -358,7 +358,7 @@ function rating(){
                                     'long'=> $listRestaurant->longitude,
                                     'urlSlug'=> 'chi_tiet_nha_hang/'.$listRestaurant->urlSlug.'.html',
                                     'type'=> 'nha_hang',
-                                     'icon'=> '/themes/tayho360/assets/icon/nhahanh.png',
+                                     'icon'=> '/themes/tayho360/assets/icon/nhahang.png',
 
                 );
             }
