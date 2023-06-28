@@ -139,5 +139,7 @@
 	$routesPlugin['buyProductWarehousesAPI']= 'ezpics_api/view/buyProductWarehousesAPI.php';
 	$routesPlugin['getInfoWarehouseAPI']= 'ezpics_api/view/getInfoWarehouseAPI.php';
 
+	// thong ke 
 	
+	$routesPlugin['statisticalAPI']= 'ezpics_api/view/statisticalAPI.php';
 ?>

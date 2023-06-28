@@ -960,4 +960,65 @@ function updateLastLoginAPI($input){
 	return $return;
 }
 
+function statisticalAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelProduct = $controller->loadModel('Products');
+
+	$return = array('code'=>0);
+
+	$conditiontoday['created_at >='] = date('Y-m-d').' 00:00:00';
+	$conditiontoday['created_at <='] = date('Y-m-d H:i:s');
+
+	$conditionlastlogin['last_login >='] = date('Y-m-d').' 00:00:00';
+	$conditionlastlogin['last_login <='] = date('Y-m-d H:i:s');
+
+
+	$totalDatatoday = $modelMember->find()->where($conditiontoday)->all()->toList();
+    $totalDatatoday = count($totalDatatoday);
+
+    $totalDatalastlogin = $modelMember->find()->where($conditionlastlogin)->all()->toList();
+    $totalDatalastlogin = count($totalDatalastlogin);
+
+    $conditionOrder['created_at >='] = date('Y-m-d').' 00:00:00';
+	$conditionOrder['created_at <='] = date('Y-m-d H:i:s');
+	$conditionOrder['type'] = 1;
+	$conditionOrder['status'] = 2;
+	$conditionOrder['payment_kind'] = 1;
+
+    $totalDataOrder = $modelOrder->find()->where($conditionOrder)->all()->toList();
+   $Order = 0;
+
+     if(!empty($totalDataOrder)){
+            foreach ($totalDataOrder as $item) {
+             
+               @$Order += $item->total;
+    
+            }
+        }
+
+    $conditionProduct['approval_date >='] = date('Y-m-d').' 00:00:00';
+	$conditionProduct['approval_date <='] = date('Y-m-d H:i:s');
+	$conditionProduct['status'] = 2;
+	$conditionProduct['type'] = 'user_create';
+
+	$totalDataProduct = $modelProduct->find()->where($conditionProduct)->all()->toList();
+    $totalDataProduct = count($totalDataProduct);
+
+
+    $return = array('code'=>1,
+    				'luong_dang_ky' => @$totalDatatoday,
+    				'luong_dang_nhap' => @$totalDatalastlogin,
+    				'doanh_thu' => @$Order,
+    				'mau_duyet' => @$totalDataProduct
+				);
+
+
+    return $return;
+
+}
 ?>
