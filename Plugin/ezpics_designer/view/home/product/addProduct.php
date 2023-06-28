@@ -122,8 +122,9 @@
                   <div class="mb-3">
                     <label class="form-label">Bài đăng mẫu kèm hình ảnh </label><br>
                     <?php
-                        showEditorInput('content','content',@$data['content'],0);
+                        //showEditorInput('content','content',@$data['content'],0);
                     ?>                      
+                    <textarea class="form-control" name="content" rows="5"><?php echo @$data->content; ?></textarea>
                   </div>
                 </div>
               </div>
