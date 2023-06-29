@@ -81,7 +81,7 @@
 
                 $warehouses = '';
                 if(!empty($item->warehouses)){
-                  $warehouses = '<img src="'.$item->warehouses->thumbnail.'" width="100" /><br/>ID: '.$item->warehouses->id.'<br/>tên kho: '.$item->warehouses->name;
+                  $warehouses = '<img src="'.$item->warehouses->thumbnail.'" width="100" /><br/>ID: '.$item->warehouses->id.'<br/>Tên kho: '.$item->warehouses->name;
                 }
 
                 echo '<tr>
