@@ -48,7 +48,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>Người dùng mới  </td>
+            <td>Người dùng </td>
             <td><?php echo @$totaUser; ?> Người dùng</td>
           </tr>
           <tr>
