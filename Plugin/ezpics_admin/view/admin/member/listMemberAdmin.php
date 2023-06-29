@@ -85,9 +85,9 @@
             <th>ID</th>
             <th>Ảnh đại diện</th>
             <th>Khách hàng</th>
-            <th>Số dư</th>
+            <th>Thống kê</th>
             <th>Loại tài khoản</th>
-            <th>Trạng thái</th>
+            <!-- <th>Trạng thái</th> -->
             <th>Cộng tiền</th>
             <th>Trừ tiền</th>
             <th>Sửa</th>
@@ -103,9 +103,15 @@
                   $type = 'Designer <br/>CK: '.$item->commission;
                 }
 
-                $status = 'Kích hoạt';
+                $status = 'Kích hoạt <br/>
+                 <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                          </a>';
                 if($item->status==0){
-                  $status = 'Khóa';
+                  $status = 'Khóa <br/>
+                 <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
+                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                          </a>';
                 }
 
                 echo '<tr>
@@ -118,9 +124,13 @@
                           Đăng ký: '.$item->created_at.'<br/>
                           Đăng nhập lần cuối lúc: '.$item->last_login.'
                         </td>
-                        <td>'.number_format($item->account_balance).'đ</td>
+                        <td style="width: 16%;">Số dư: '.number_format($item->account_balance).'đ <br/>
+                            SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
+                            SL kho: '.number_format($item->totaWarehouse).'<br/>
+                            SL theo dõi : '.number_format($item->totaFollowDesigner).'
+                        </td>
                         <td>'.$type.'</td>
-                        <td>'.$status.'</td>
+                       
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
                             <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
@@ -136,11 +146,7 @@
                             <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                           </a>
                         </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                          </a>
-                        </td>
+                        <td align="center">'.$status.'</td>
                       </tr>';
               }
             }else{

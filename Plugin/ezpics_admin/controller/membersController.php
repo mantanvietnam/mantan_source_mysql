@@ -9,7 +9,9 @@ function listMemberAdmin($input)
     $mess = '';
 
 	$modelMembers = $controller->loadModel('Members');
-
+	$modelProduct = $controller->loadModel('Products');
+	$modelWarehouse = $controller->loadModel('Warehouses');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
 	$conditions = array();
 	$limit = 20;
 
@@ -95,6 +97,15 @@ function listMemberAdmin($input)
 		export_excel($titleExcel, $dataExcel);
     }else{
     	$listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
+
+    if(!empty($listData)){
+    	foreach($listData as $key => $item){
+    		$listData[$key]->totaProducts  = count($modelProduct->find()->where(array('type'=>'user_create', 'status'=> 2, 'user_id'=> $item->id))->all()->toList());
+
+    		$listData[$key]->totaWarehouse = count($modelWarehouse->find()->where(array('user_id'=> $item->id))->all()->toList());
+    		$listData[$key]->totaFollowDesigner = count($modelFollowDesigner->find()->where(array('designer_id'=> $item->id))->all()->toList());
+    	}
     }
     
 
@@ -238,7 +249,11 @@ function lockMemberAdmin($input){
 		$data = $modelMembers->get($_GET['id']);
 		
 		if($data){
-			$data->status = 0;
+			if(!empty($_GET['status']==1)){
+				$data->status = 0;
+			}else{
+				$data->status = 1;
+			}
 			$data->token = '';
          	$modelMembers->save($data);
         }

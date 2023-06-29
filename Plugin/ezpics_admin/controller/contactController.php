@@ -149,6 +149,7 @@ function addDesignRegistrationAdmin($input)
                 $modelmember->save($member);
 
                 $data->status = 1;
+                $data->updated_at = date('Y-m-d H:i:s');
                 $modelContact->save($data);
                 
                 $dataSendNotification= array('title'=>'Tài khoản của bạn đã trở thành Designer','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn trở thành Designer của Ezpics ','action'=>'DesignRegistration','link'=>$member->certificate);
@@ -159,6 +160,7 @@ function addDesignRegistrationAdmin($input)
             }else{
                 $member->type = 0;
                 $data->status = 2;
+                $data->updated_at = date('Y-m-d H:i:s');
                 $modelmember->save($member);
                 $modelContact->save($data);
                 $dataSendNotification= array('title'=>'Đơn đăng ký designer không được phê duyệt ','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi rất tiếc phải thông báo rằng đơn đăng ký designer của bạn đã bị từ chối. Lý do từ chối: '.$dataSend['content'],'action'=>'adminSendNotification');

@@ -444,4 +444,126 @@ function chartOrberProductAdmin() {
 
         setVariable('dayDataOrder', $dayDataOrder);
 }
+
+function statisticalAdmin($input){
+    global $isRequestPost;
+    global $controller;
+    global $session;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê nhanh';
+
+    $modelMember = $controller->loadModel('Members');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelContact = $controller->loadModel('Contact');
+    $modelProduct = $controller->loadModel('Products');
+    $modelWarehouse = $controller->loadModel('Warehouses');
+
+    $return = array('code'=>0);
+
+     $conditionUser = array('type'=> 0, 'status'=> 1);
+     $conditionMember = array('status'=> 1);
+     $conditionDesigner = array('type'=> 1, 'status'=> 1);
+     $conditionWarehouse = array();
+
+    $conditionOrderBanking = array('payment_type'=> 1,'type'=>1, 'payment_kind'=> 1, 'status'=>2);
+    $conditionOrderApple = array('payment_type'=> 2,'type'=>1, 'payment_kind'=> 1, 'status'=>2);
+     $conditionOrder = array('payment_kind'=> 1, 'status'=>2);
+
+     $conditionDesignerNew = array('type'=> 1, 'status'=> 0);
+     $conditionDesignerApproved = array('type'=> 1, 'status'=> 1);
+
+    if(!empty($_GET['date_start'])){
+        $date_start = explode('/', $_GET['date_start']);
+        $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+        $conditionMember['created_at >='] = date('Y-m-d H:i:s', $date_start);
+
+        $conditionUser['created_at >='] = date('Y-m-d H:i:s', $date_start);
+        $conditionDesigner['created_at >='] = date('Y-m-d H:i:s', $date_start);
+        $conditionDesignerNew['created_at >='] = date('Y-m-d H:i:s', $date_start);
+        $conditionDesignerApproved['updated_at >='] = date('Y-m-d H:i:s', $date_start);
+
+        $conditionOrderBanking['created_at >='] = date('Y-m-d H:i:s', $date_start);
+        $conditionOrderApple['created_at >='] = date('Y-m-d H:i:s', $date_start);
+        $conditionProduct['approval_date >='] = date('Y-m-d H:i:s', $date_start);
+
+
+        $conditionWarehouse['created_at >='] = date('Y-m-d H:i:s', $date_start);
+
+    }
+
+    if(!empty($_GET['date_end'])){
+        $date_end = explode('/', $_GET['date_end']);
+        $date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+        $conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+
+        $conditionUser['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionMember['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionDesigner['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionDesignerNew['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionDesignerApproved['updated_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionOrderBanking['updated_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionOrderApple['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionProduct['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        $conditionWarehouse['created_at <='] = date('Y-m-d H:i:s', $date_end);
+
+    }
+
+
+    $totaUser = $modelMember->find()->where($conditionUser)->all()->toList();
+    $totaUser = count($totaUser);
+
+    
+    $totaDesignerApproved = $modelContact->find()->where($conditionDesignerApproved)->all()->toList();
+    $totaDesignerApproved = count($totaDesignerApproved);
+
+    $totaDesignerNew = $modelContact->find()->where($conditionDesignerNew)->all()->toList();
+    $totaDesignerNew = count($totaDesignerNew);
+
+
+    $totalDataOrderBanking = $modelOrder->find()->where(@$conditionOrderBanking)->all()->toList();
+   $OrderBanking = 0;
+
+     if(!empty($totalDataOrderBanking)){
+        foreach ($totalDataOrderBanking as $item) {
+           @$OrderBanking += $item->total;
+        }
+    }
+
+    $totalDataOrderApple = $modelOrder->find()->where(@$conditionOrderApple)->all()->toList();
+   $OrderApple = 0;
+
+     if(!empty($totalDataOrderApple)){
+        foreach ($totalDataOrderApple as $item) {
+           @$OrderApple += $item->total;
+        }
+    }
+
+    
+    $conditionProduct['status'] = 2;
+    $conditionProduct['type'] = 'user_create';
+
+    $totalDataProduct = $modelProduct->find()->where($conditionProduct)->all()->toList();
+    $totalDataProduct = count($totalDataProduct);
+
+    $conditionProduct['status'] = 1;
+    $conditionProduct['type'] = 'user_create';
+
+    $totalDataProductPen = $modelProduct->find()->where($conditionProduct)->all()->toList();
+    $totalDataProductPen = count($totalDataProductPen);
+
+    $totalDataWarehouse = $modelWarehouse->find()->where($conditionWarehouse)->all()->toList();
+    $totalDataWarehouse = count($totalDataWarehouse);
+
+
+    setVariable('totaUser', $totaUser);
+    setVariable('totaDesignerApproved', $totaDesignerApproved);
+    setVariable('totaDesignerNew', $totaDesignerNew);
+    setVariable('OrderBanking', $OrderBanking);
+    setVariable('OrderApple', $OrderApple);
+    setVariable('totalDataProduct', $totalDataProduct);
+    setVariable('totalDataProductPen', $totalDataProductPen);
+    setVariable('totalDataWarehouse', $totalDataWarehouse);
+
+}
 ?>
