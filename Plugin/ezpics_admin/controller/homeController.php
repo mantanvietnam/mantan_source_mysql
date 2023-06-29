@@ -389,4 +389,59 @@ function chartUserLastloginAdmin() {
         setVariable('today', $today);
         setVariable('dayDataMembers', $dayDataMembers);
 }
+function chartOrberProductAdmin() {
+
+    global $controller;
+    global $isRequestPost;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thống kê mạp tiền';
+
+    $modelmember = $controller->loadModel('Members');
+    $modelProducts = $controller->loadModel('Products');
+    $modelOrders = $controller->loadModel('Orders');
+    $mess= '';
+
+    $order = array('created_at'=>'asc');
+
+    $conditOrder = array();
+
+    if (!empty($_GET['timeView'])) {
+        $conditOrder['created_at LIKE'] = '%'.$_GET['timeView'].'%';
+    }else{
+        $conditOrder['created_at LIKE'] = "%".date('Y-m')."%";
+    }
+
+    $conditOrder['type'] = 0;
+    $conditOrder['status'] = 2;
+    
+   
+    $listDataOrder = $modelOrders->find()->where($conditOrder)->order($order)->all()->toList();
+
+      
+       
+        $dayDataOrder= array();
+
+        if(!empty($listDataOrder)){
+            foreach ($listDataOrder as $item) {
+                $time= @$item->created_at->toDateTimeString();
+                $time = strtotime($time);
+                $todayTime= getdate($time);
+
+                      // tính doanh thu theo ngày
+               @$dayTotalOrder[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += 1;
+    
+            }
+
+            if(!empty($dayTotalOrder)){
+                foreach($dayTotalOrder as $key=>$item){
+                    $time= strtotime($key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+                    $dayDataOrder[]= array('time'=>$time , 'value'=>$item );
+                }
+            }
+        }
+
+
+        setVariable('dayDataOrder', $dayDataOrder);
+}
 ?>

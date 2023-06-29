@@ -7,4 +7,5 @@ include('model/orders.php'); // đơn hàng
 include('model/contact.php'); // liên hệ 
 include('model/customer.php'); // khách hàng
 include('model/font.php'); // phông chữ
+include('model/warehouses.php'); // kho mẫu thiết kế
 ?>
