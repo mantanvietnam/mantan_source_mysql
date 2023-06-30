@@ -170,9 +170,11 @@ function lockProductAdmin($input)
     				$member->level = 10;
     			}
 
-                $dataSendNotification= array('ìd'=>$data->id, 'title'=>'Sản phẩm mới đã được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi vui mừng thông báo rằng mẫu thiết kế '.$data->name.' của bạn đã được duyệt và có thể đăng bán. Cảm ơn bạn vì đã gửi mẫu thiết kế cho chúng tôi !','action'=>'productNew');
-                sendNotification($dataSendNotification, $member->token_device);
-                //sendEmailsuccessfulDesigner($member->email, $member->name);
+                $dataSendNotification= array('ìd'=>$data->id, 'title'=>'Sản phẩm mới đã được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Chúng tôi vui mừng thông báo rằng mẫu thiết kế "'.$data->name.'" của bạn đã được duyệt và có thể đăng bán. Cảm ơn bạn vì đã gửi mẫu thiết kế cho chúng tôi !','action'=>'productNew');
+                if(!empty($member->token_device)){
+                	sendNotification($dataSendNotification, $member->token_device);
+                }
+                sendEmailsuccessfulProduct($member->email, $member->name,$data->name );
             }else{
             	if($totalData = 9){
     				$member->level = 0;
@@ -196,10 +198,15 @@ function lockProductAdmin($input)
     				$member->level = 9;
     			}
 
-
-                $dataSendNotification= array('title'=>'Mẫu thiết kế không được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Rất tiếc vì mẫu thiết kế của bạn chưa được duyệt. Bạn vui lòng kiểm tra lại mẫu thiết kế '.$data->name,'action'=>'adminSendNotification');
-                 sendNotification($dataSendNotification, $member->token_device);
-                // sendEmailunsuccessfuldesigner($member->email, $member->name,$dataSend['content']);
+    			if(!empty($_GET['note'])){
+                	$dataSendNotification= array('title'=>'Mẫu thiết kế không được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Lí do từ chối của mẫu "'.$data->name.'" là: '.$_GET['note'] ,'action'=>'adminSendNotification');
+            	}else{
+            		$dataSendNotification= array('title'=>'Mẫu thiết kế không được duyệt','time'=>date('H:i d/m/Y'),'content'=>'Rất tiếc vì mẫu thiết kế của bạn chưa được duyệt. Bạn vui lòng kiểm tra lại mẫu thiết kế "'.$data->name.'"','action'=>'adminSendNotification');
+            	}
+            	if(!empty($member->token_device)){
+                	sendNotification($dataSendNotification, $member->token_device);
+            	}
+                sendEmailunsuccessfulProduct($member->email, $member->name, $data->name, $_GET['note']);
             }
             
             $modelmember->save($member);

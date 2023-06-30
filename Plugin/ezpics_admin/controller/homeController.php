@@ -473,6 +473,10 @@ function statisticalAdmin($input){
      $conditionDesignerNew = array('type'=> 1, 'status'=> 0);
      $conditionDesignerApproved = array('type'=> 1, 'status'=> 1);
 
+    $conditionlastlogin['last_login <='] = date('Y-m-d H:i:s');
+    $conditionlastlogin['last_login >='] = date('Y-m-d H:i:s', strtotime('-7 days', strtotime(date('Y-m-d 00:00:00'))));
+    
+
     if(!empty($_GET['date_start'])){
         $date_start = explode('/', $_GET['date_start']);
         $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
@@ -512,7 +516,10 @@ function statisticalAdmin($input){
 
     $totaUser = $modelMember->find()->where($conditionUser)->all()->toList();
     $totaUser = count($totaUser);
+    $totaUserlastlogin = $modelMember->find()->where($conditionlastlogin)->all()->toList();
 
+    
+    $totaUserlastlogin = count($totaUserlastlogin);
     
     $totaDesignerApproved = $modelContact->find()->where($conditionDesignerApproved)->all()->toList();
     $totaDesignerApproved = count($totaDesignerApproved);
@@ -564,6 +571,7 @@ function statisticalAdmin($input){
     setVariable('totalDataProduct', $totalDataProduct);
     setVariable('totalDataProductPen', $totalDataProductPen);
     setVariable('totalDataWarehouse', $totalDataWarehouse);
+    setVariable('totaUserlastlogin', $totaUserlastlogin);
 
 }
 ?>

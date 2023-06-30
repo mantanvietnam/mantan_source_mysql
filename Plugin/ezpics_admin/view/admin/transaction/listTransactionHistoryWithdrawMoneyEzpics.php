@@ -56,6 +56,7 @@
         <h5 class="card-header" style="float: right;">Tổng số tiền là   <b class="text-danger"><?php echo number_format($totalMoney);?></b> đ</h5>
       </div>
     </div>
+    <?php echo @$mess; ?>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -77,6 +78,13 @@
                   $status = '<span class="text-success">Đã xử lý</span>';
                 }
 
+                 if($item->total >= 500000 && $item->status==1){
+                   $total = ' <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Sử lý" data-bs-toggle="modal"
+                          data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
+                 }else{
+                     $total = '';
+                 }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.date('H:i d/m/Y', strtotime($item->created_at)).'</td>
@@ -89,7 +97,7 @@
                           '.$item->member->email.'
                         </td>
                         
-                        <td>'.$status.'</td>
+                        <td style="text-align: center;">'.$status.'</br>'.@$total.'</td>
                         
                         
                       </tr>';
@@ -146,6 +154,40 @@
         </ul>
       </nav>
     </div>
+     <div class="col-lg-4 col-md-6">
+                      <!-- <small class="text-light fw-semibold">Default</small> -->
+                      <div class="mt-3">
+                        <!-- Button trigger modal -->
+                        
+                        <!-- Modal -->
+                      <?php  if(!empty($listData)){
+              foreach ($listData as $items) { ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin rút tiền </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
+                              </div>
+
+                            <div style=" padding: 20px; ">
+                              <p><label>ID:</label> <?php echo $items->id ?></p>
+                              <p><label>MÃ giao dịch:</label> <?php echo $items->code ?></p>
+                              <p><label>Tên:</label> <?php echo $items->member->name ?></p>
+                              <p><label>Điện thoại:</label> <?php echo $items->member->phone ?></p>
+                              <p><label>Email:</label> <?php echo $items->member->email ?></p>
+                              <p><?php echo $items->note; ?></p>
+                              <a class="btn btn-primary" onclick="return confirm(\'Bạn có chắc chắn muốn sử lý giao dịch này không?\');" href="/plugins/admin/ezpics_admin-view-admin-transaction-transactioncMoneyEzpics.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận chuyển tiền</a>
+                            </div>
+                             
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
+                      </div>
+                    </div>
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->

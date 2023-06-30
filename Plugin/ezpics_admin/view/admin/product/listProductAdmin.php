@@ -118,10 +118,11 @@
                    <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
                     <br/>
                     <br/>
-                     <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn Tử chối mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0&page='.@$_GET['page'].'" title="Từ chối"><i class="bx  bxs-message-square-x"></i></a>';
+                     <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
+                          data-bs-target="#basicModal'.$item->id.'" ><i class="bx  bxs-message-square-x"></i></a>';
                 }elseif($item->status==2){
                    $status = '<span class="text-success">Đang đăng bán</span><br>
-                   <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn hủy hiển thị mẫu thiết kế không ?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=0&page='.@$_GET['page'].'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
+                   <a class="btn rounded-pill btn-icon btn-outline-secondary"   data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
                    ';
 
                    $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
@@ -217,6 +218,44 @@
     </div>
     <!--/ Basic Pagination -->
   </div>
+ <div class="col-lg-4 col-md-6">
+                      <!-- <small class="text-light fw-semibold">Default</small> -->
+                      <div class="mt-3">
+                        <!-- Button trigger modal -->
+                        
+                        <!-- Modal -->
+                      <?php  if(!empty($listData)){
+              foreach ($listData as $items) { ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Nội dung từ chối của mẫu ID: <?php echo $items->id; ?></h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                             <form action="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <input type="hidden" value="0"  name="status">
+                                <input type="hidden" value="<?php echo @$_GET['page']; ?>"  name="page">
+                                <input type="text" value="" class="form-control"  required="" name="note">
+                                
+                                <button type="submit" class="btn btn-primary">Từ chối</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
+                      </div>
+                    </div>
   <!--/ Responsive Table -->
 </div>
 <script type="text/javascript">

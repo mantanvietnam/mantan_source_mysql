@@ -52,6 +52,10 @@
             <td><?php echo @$totaUser; ?> Người dùng</td>
           </tr>
           <tr>
+            <td>Người dùng đăng nhập trong vòng 7 ngày gần đây </td>
+            <td><?php echo @$totaUserlastlogin; ?> Người dùng</td>
+          </tr>
+          <tr>
             <td>Designer được duyệt  </td>
             <td><?php echo @$totaDesignerApproved ?> Designer</td>
           </tr>

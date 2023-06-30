@@ -312,6 +312,11 @@ function listTransactionHistoryWithdrawMoneyEzpics($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $mess = '';
+    if(@$_GET['mess']==1){
+    	$mess = '<span class="text-success">Đã xử lý giao dịch thành công</span>';
+    }
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('totalData', $totalData);
@@ -321,6 +326,7 @@ function listTransactionHistoryWithdrawMoneyEzpics($input)
     
     setVariable('listData', $listData);
     setVariable('totalMoney', $totalMoney);
+    setVariable('mess', $mess);
 }
 
 //Danh sách giao dịch bán mẫu thiết kế
@@ -864,5 +870,50 @@ function listTransactionHistorySellingWarehouseEzpics($input)
     setVariable('totalMoney', $totalMoney);
 }
 
+function transactioncMoneyEzpics($input){
 
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelOrders = $controller->loadModel('Orders');
+
+	if(!empty($_GET['id'])){
+		$data = $modelOrders->find()->where(array('id'=>$_GET['id'], 'type'=> 2))->first();
+		if(!empty($data)){
+			$member = $modelMembers->find()->where(array('id'=>$data->member_id))->first();
+			if(!empty($member)){
+				if($member->account_balance >= $data->total){
+					$member->account_balance = $member->account_balance -  $data->total;
+					$data->status = 2;
+					$modelMembers->save($member);
+					$modelOrders->save($data);
+
+					 $dataSendNotification= array('title'=>'bạn đã rút tiền thành công','time'=>date('H:i d/m/Y'),'content'=>'Số tiền bạn rút là: '.number_format($data->total).'VNĐ','action'=>'productNew');
+					 if(!empty($member->token_device)){
+                		sendNotification($dataSendNotification, $member->token_device);
+            		}
+            		if(!empty($member->email)){
+            		 	sendEmailtransactioncMoney($member->email, $member->name, $data);
+            		}
+
+            		if(!empty($_GET['page'])){
+						return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=1&page='.$_GET['page']);
+					}else{
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=1');
+					}
+				}
+			}
+		}
+	}
+	if(!empty($_GET['page'])){
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?page='.$_GET['page']);
+	}else{
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php');
+	}
+
+
+}
 ?>
