@@ -19,9 +19,14 @@ $menus[0]['sub'][1]= array( 'title'=>'Mẫu thiết kế',
                             'classIcon'=>'bx bx-paint',
                             'permission'=>'listProductAdmin'
                         );
+$menus[0]['sub'][2]= array( 'title'=>'Kho nẫu thiết kế',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php',
+                            'classIcon'=>'bx bxs-cylinder',
+                            'permission'=>'listWarehouseAdmin'
+                        );
 
 
-$menus[0]['sub'][2]= array('title'=>'Giao dịch',
+$menus[0]['sub'][3]= array('title'=>'Giao dịch',
                             'url'=>'/',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'transactionHistoryEzpics',
@@ -69,7 +74,7 @@ $menus[0]['sub'][2]= array('title'=>'Giao dịch',
                                     )
                         );
 
-$menus[0]['sub'][3]= array( 'title'=>'Thông báo',
+$menus[0]['sub'][4]= array( 'title'=>'Thông báo',
                             'url'=>'/',
                             'classIcon'=>'bx bx-bell',
                             'permission'=>'addNotificationAdmin',
@@ -91,7 +96,7 @@ $menus[0]['sub'][3]= array( 'title'=>'Thông báo',
                                 )
                         );
 
-$menus[0]['sub'][4]= array('title'=>'Liên hệ',
+$menus[0]['sub'][5]= array('title'=>'Liên hệ',
                             'url'=>'/',
                             'classIcon'=>'bx bxs-contact',
                             'permission'=>'settingsEzpics',
@@ -113,7 +118,7 @@ $menus[0]['sub'][4]= array('title'=>'Liên hệ',
                                     )
                         );
 
-$menus[0]['sub'][5]= array('title'=>'Top designer',
+$menus[0]['sub'][6]= array('title'=>'Top designer',
                             'url'=>'/',
                             'classIcon'=>'bx bx-filter-alt',
                             'permission'=>'topDesigner',
@@ -135,7 +140,7 @@ $menus[0]['sub'][5]= array('title'=>'Top designer',
                                     )
                         );
 
-$menus[0]['sub'][6]= array('title'=>'Cài đặt',
+$menus[0]['sub'][7]= array('title'=>'Cài đặt',
                             'url'=>'/',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
@@ -151,7 +156,7 @@ $menus[0]['sub'][6]= array('title'=>'Cài đặt',
                                             ),*/
                                     )
                         );
-$menus[0]['sub'][7]= array( 'title'=>'Thống kê',
+$menus[0]['sub'][8]= array( 'title'=>'Thống kê',
                             'url'=>'',
                             'classIcon'=>'bx bx-line-chart',
                             'permission'=>'homeAdmin',

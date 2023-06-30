@@ -7,5 +7,6 @@ include_once('controller/contactController.php'); // giao dịch
 include_once('controller/notificationsController.php'); // gửi thông báo
 include_once('controller/topDesignerController.php'); // top Designer
 include_once('controller/fontController.php'); // font chữa
-include_once('controller/homeController.php'); // home
+include_once('controller/homeController.php'); // thống kê
+include_once('controller/warehousesController.php'); // kho
 ?>
