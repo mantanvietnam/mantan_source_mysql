@@ -12,9 +12,7 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Thông tin đăng ký designer</h5>
           </div>
-        <!--   <?php   debug($data);
-      debug($member);
-       ?> -->
+       
           <div class="card-body">
             <p><?php echo $mess;?></p>
             <?= $this->Form->create(); ?>
