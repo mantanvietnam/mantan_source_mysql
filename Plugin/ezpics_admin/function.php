@@ -149,11 +149,6 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                                 'classIcon'=>'bx bx-category',
                                                 'permission'=>'listCategoryEzpics',
                                             ),
-                                       /* array('title'=>'Font chữ',
-                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-font-listFontAdmin.php',
-                                                'classIcon'=>'bx bx-category',
-                                                'permission'=>'listfontAdmin',
-                                            ),*/
                                     )
                         );
 $menus[0]['sub'][8]= array( 'title'=>'Thống kê',
@@ -192,7 +187,23 @@ $menus[0]['sub'][8]= array( 'title'=>'Thống kê',
                                             ),
                                     )
                         );
-
+$menus[0]['sub'][9]= array('title'=>'Mẫu câu hỏi',
+                            'url'=>'/',
+                            'classIcon'=>'bx bx-spreadsheet',
+                            'permission'=>'settingsEzpics',
+                            'sub'=> array(array('title'=>'Danh mục câu hỏi',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-question-listCategoryQuestion.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listCategoryQuestion',
+                                            ),
+                                        array('title'=>'Câu hỏi',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-question-listQuestion.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'listQuestion',
+                                            ),
+                                     
+                                    )
+                        );
 
 
 

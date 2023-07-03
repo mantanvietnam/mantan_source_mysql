@@ -948,3 +948,4 @@ function getSizeProduct()
             ['name'=>'A5 (dọc)','width'=>559,'height'=>794],
         ];
 }
+?>

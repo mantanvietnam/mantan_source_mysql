@@ -9,4 +9,5 @@ include_once('controller/topDesignerController.php'); // top Designer
 include_once('controller/fontController.php'); // font chữa
 include_once('controller/homeController.php'); // thống kê
 include_once('controller/warehousesController.php'); // kho
+include_once('controller/questionController.php'); // câu hỏi
 ?>
