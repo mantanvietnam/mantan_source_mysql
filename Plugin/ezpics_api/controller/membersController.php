@@ -1010,13 +1010,17 @@ function statisticalAPI($input){
     $totalDataProduct = count($totalDataProduct);
 
 
-    $return = array('code'=>1,
-    				'luong_dang_ky' => @$totalDatatoday,
-    				'luong_dang_nhap' => @$totalDatalastlogin,
-    				'doanh_thu' => @$Order,
-    				'mau_duyet' => @$totalDataProduct
-				);
+    $return = [	'static_code'=>1,
+				'static_luong_dang_ky' => (int) @$totalDatatoday,
+				'static_luong_dang_nhap' => (int) @$totalDatalastlogin,
+				'static_doanh_thu' => (int) @$Order,
+				'static_mau_duyet' => (int) @$totalDataProduct,
+				'static_today' => date('H:i d/m/Y')
+			];
 
+	if(function_exists('sendNotificationAdmin')){
+		sendNotificationAdmin('649e829c2a4b5185c86af438', $return);
+	}
 
     return $return;
 
