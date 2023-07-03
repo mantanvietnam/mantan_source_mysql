@@ -49,6 +49,7 @@ function saveRegisterMemberAPI($input)
 
 
 					$modelMember->save($data);
+					sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
@@ -199,6 +200,7 @@ function checkLoginFacebookAPI($input)
 
 
 				$modelMember->save($data);
+				sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 
 				$return = array(	'code'=>0, 
 			    						'info_member'=>$data
@@ -283,6 +285,7 @@ function checkLoginGoogleAPI($input)
 
 
 				$modelMember->save($data);
+				sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 
 				$return = array(	'code'=>0, 
 			    						'info_member'=>$data
