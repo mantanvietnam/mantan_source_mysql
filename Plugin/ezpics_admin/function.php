@@ -511,7 +511,7 @@ function sendEmailunsuccessfulProduct($email='', $fullName='',$nameProduct='',$n
     
         $cc = array();
         $bcc = array();
-        $subject = '[Ezpics] ' . 'Từ trỗi mẫu thiết kế';
+        $subject = '[Ezpics] ' . 'Từ chỗi mẫu thiết kế';
 
         $content='<!DOCTYPE html>
         <html lang="en">
@@ -549,7 +549,7 @@ function sendEmailunsuccessfulProduct($email='', $fullName='',$nameProduct='',$n
             <div class="bao">
                 <div class="nd">
                     <div class="head">
-                        <span>Từ trỗi mẫu thiết kế </span>
+                        <span>Từ chỗi mẫu thiết kế </span>
                     </div>
                     <div class="main">
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
