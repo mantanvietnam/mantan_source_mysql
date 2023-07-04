@@ -24,7 +24,7 @@ function listCategoryQuestion($input){
         $infoCategory->image = $dataSend['image'];
         $infoCategory->meta_title = $infoCategory->name;
         $infoCategory->keyword = str_replace(array('"', "'"), '’', @$dataSend['meta_keyword']);
-        $infoCategory->description = str_replace(array('"', "'"), '’',@ $dataSend['meta_description']);
+        $infoCategory->description = str_replace(array('"', "'"), '’',@$dataSend['meta_description']);
         $infoCategory->type = 'question_categories';
         $infoCategory->created_at = date('Y-m-d H:i:s');
 
