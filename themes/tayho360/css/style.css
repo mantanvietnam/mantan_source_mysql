@@ -4220,6 +4220,11 @@ color: #188181;
 }
 
 /* artifact địa điểm chi tiết*/
+
+#artifacts-section{
+	display: none;
+}
+
 #artifacts-section .place-artifacts-img img{
 	width: 100%;
 	height: 100%;
@@ -4400,6 +4405,10 @@ color: #188181;
 .info-tour #tour-chi-tiet-intro p{
 	font-size: 18px;
 	line-height: 1.3;
+}
+
+.info-tour .iframe-banner{
+	margin-bottom: 72px;
 }
 
 .time-line .main-menu .content .title{
