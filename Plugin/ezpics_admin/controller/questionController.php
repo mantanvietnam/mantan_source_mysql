@@ -10,7 +10,6 @@ function listCategoryQuestion($input){
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        
         // tính ID category
         if(!empty($dataSend['idCategoryEdit'])){
             $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
@@ -21,10 +20,10 @@ function listCategoryQuestion($input){
         // tạo dữ liệu save
         $infoCategory->name = str_replace(array('"', "'"), '’', @$dataSend['name']);
         $infoCategory->parent = 0;
-        $infoCategory->image = $dataSend['image'];
-        $infoCategory->meta_title = $infoCategory->name;
-        $infoCategory->keyword = str_replace(array('"', "'"), '’', @$dataSend['meta_keyword']);
-        $infoCategory->description = str_replace(array('"', "'"), '’',@$dataSend['meta_description']);
+        $infoCategory->image = @$dataSend['image'];
+        $infoCategory->meta_title = @$infoCategory->name;
+        $infoCategory->keyword = str_replace(array('"', "'"), '’', @$dataSend['keyword']);
+        $infoCategory->description = str_replace(array('"', "'"), '’', @$dataSend['description']);
         $infoCategory->type = 'question_categories';
         $infoCategory->created_at = date('Y-m-d H:i:s');
 
