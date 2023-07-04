@@ -23,7 +23,7 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Danh mục</label>
-                    <select name="category_id" class="form-select color-dropdown">
+                    <select name="category_id" required class="form-select color-dropdown">
                       <option value="">Tất cả</option>
                       <?php
                       if(!empty($listCategory)){

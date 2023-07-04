@@ -73,7 +73,7 @@ function listQuestion($input){
 
     $metaTitleMantan = 'Danh sách câu hỏi';
     $modelQuestion = $controller->loadModel('Questions');
-   
+  
        $conditions = array();
             if(!empty($_GET['category_id'])){
                 $conditions['category_id'] = $_GET['category_id'];
@@ -92,6 +92,8 @@ function listQuestion($input){
             
         }
     }
+
+
 
     $totalData = $modelQuestion->find()->where($conditions)->all()->toList();
     $totalMoney = 0;
@@ -169,11 +171,7 @@ function addQuestion($input){
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        
-        // tính ID category
-       
-
-        // tạo dữ liệu save
+      
         $data->name = str_replace(array('"', "'"), '’', @$dataSend['name']);
         $data->category_id = @$dataSend['category_id'];
         $data->created_at = date('Y-m-d H:i:s');
