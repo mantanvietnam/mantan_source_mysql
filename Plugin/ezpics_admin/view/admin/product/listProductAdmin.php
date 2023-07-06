@@ -128,7 +128,7 @@
                      <a class="btn rounded-pill btn-icon btn-outline-secondary"   data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
                      ';
 
-                     $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
+                     $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn rounded-pill btn-icon btn-outline-secondary"  onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
                   }
 
                   $thumbnail = '';
@@ -182,6 +182,7 @@
          if(!empty($listData)){
                 foreach ($listData as $item) {
                    $linkopenapp = '';
+                   $status = '';
                   $type = '<span class="text-danger">Mẫu sao chép</span>';
                   if($item->type=='user_create'){
                     $type = '<span class="text-success">Mẫu gốc</span>';
@@ -193,17 +194,17 @@
                   }elseif($item->status==1){
                     $s = '<span class="text-primary">Chờ duyệt</span>';
                   
-                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                        <a class="btn btn-danger" title="Từ chối" data-bs-toggle="modal"
-                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx  bxs-message-square-x"></i></a>';
+                            data-bs-target="#basicModal'.$item->id.'" style="color: white;">Từ chối</a>';
                   }elseif($item->status==2){
                     $s = ' <span class="text-success">Đang đăng bán</span>';
 
-                    $status = ' <a class="btn btn-danger"   data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
+                    $status = ' <a class="btn btn-danger" style="color: white;" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị">Hủy hiển thị</a>
                      ';
 
-                     $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"  align="center"></p><button align="center" type="button" class="btn btn btn-success" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
+                     $linkopenapp = '<span id="id'.$item->id.'" style="color: red;"  align="center"></span><button align="center" type="button" class="btn btn btn-success" id="idbutton'.$item->id.'" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')">chia sẻ</button>';
                   }
 
                   $thumbnail = '';
@@ -236,8 +237,8 @@
                           </p>
                           <p ><b>Trạng thái:</b> '.$s.'</p>
                           <p style="text-align: center;"> '.$status.'&nbsp;&nbsp;&nbsp;&nbsp;'.@$linkopenapp.'  &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
+                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'" style=" margin: 20px; ">
+                             xóa
                             </a>
                           </p>
                   </div>';
@@ -357,6 +358,9 @@
 
     // show mess
     $('#'+messId).html('Đã sao chép');
+
+    const element = document.getElementById("idbutton"+messId);
+    element.remove();
 
     setInterval(emptyMess, 3000,messId);
 

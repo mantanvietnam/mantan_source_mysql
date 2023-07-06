@@ -1,3 +1,5 @@
+<script language="javascript" type="text/javascript" src="/plugins/ezpics_admin/view/admin/js/ezpics_admin.js"></script>
+<link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Kho mẫu thiết kế</h4>
 
@@ -45,44 +47,71 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách kho mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> Kho</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Ảnh đại diện</th>
-            <th>Tên kho</th>
-             <th>Chủ kho</th> 
-            <th>Giá bán</th>
-           
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                ?>
-                  <tr>
-                    <td><?php echo @$item->id ?></td>
-                    <td><img src="<?php echo @$item->thumbnail ?>" width="100" /></td>
-                    <td><?php echo $item->name ?></td>
-                    <td>
-                      <?php echo  $item->designer->name ?><br/>
-                      <?php echo  $item->designer->phone ?><br/>
-                      <?php echo  $item->designer->email ?>
-                    </td>
-                    <td><?php echo number_format($item->price); ?></td>
-                  </tr>
-           <?php   }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Ảnh đại diện</th>
+              <th>Tên kho</th>
+               <th>Chủ kho</th> 
+              <th>Giá bán</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  ?>
+                    <tr>
+                      <td><?php echo @$item->id ?></td>
+                      <td><img src="<?php echo @$item->thumbnail ?>" width="100" /></td>
+                      <td><?php echo $item->name ?></td>
+                      <td>
+                        <?php echo  $item->designer->name ?><br/>
+                        <?php echo  $item->designer->phone ?><br/>
+                        <?php echo  $item->designer->email ?>
+                      </td>
+                      <td><?php echo number_format($item->price); ?></td>
+                    </tr>
+             <?php   }
+              }else{
+                echo '<tr>
+                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
+                      </tr>';
+              }
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+     <div id="mobile_view">
+      <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  ?>
+                    <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                      <p><b>Kho <?php echo @$item->id ?>:</b> <?php echo $item->name ?></p>
+                      <p><img src="<?php echo @$item->thumbnail ?>" style="width: 100%;" /></p>
+                      <p><b>Chủ kho:  </b></br>
+                        <?php echo  $item->designer->name ?><br/>
+                        <?php echo  $item->designer->phone ?><br/>
+                        <?php echo  $item->designer->email ?>
+                      </p>
+                      <p><b>Giá:  </b><?php echo number_format($item->price); ?></p>
+                    </div>
+             <?php   }
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
+    </div>
+
 
     <!-- Phân trang -->
     <div class="demo-inline-spacing">
