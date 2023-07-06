@@ -17,7 +17,7 @@
   class="light-style customizer-hide"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="/plugins/ezpics_designer/view/home/assets/"
+  data-assets-path="/plugins/databot_spa/view/home/assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -27,12 +27,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập công cụ thiết kế cho Designer - Ezpics</title>
+    <title>Đăng nhập công cụ phần mền quản lý SPA</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" />
+    <link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/databot_spa/view/home/assets/img/avatar-ezpics.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,25 +43,25 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/css/demo.css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/css/pages/page-auth.css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
-    <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/helpers.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/plugins/ezpics_designer/view/home/assets/js/config.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/js/config.js"></script>
   </head>
 
   <body>
@@ -77,14 +77,14 @@
               <div class="app-brand justify-content-center">
                 <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
-                    <img src="/plugins/ezpics_designer/view/home/assets/img/avatar-ezpics.png" width="50">
+                    <img src="/plugins/databot_spa/view/home/assets/img/avatar-ezpics.png" width="50">
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">EZPICS</span>
+                  <span class="app-brand-text demo text-body fw-bolder">SPA</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Ezpics - Dùng là thích! 👋</h4>
-              <p class="mb-4">Mời bạn đăng nhập công cụ thiết kế hình ảnh dành cho Designer</p>
+              <h4 class="mb-2">phần mền quản lý SPA! 👋</h4>
+              <p class="mb-4">Mời bạn đăng nhập công cụ phần mền quản lý SPA</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
@@ -107,18 +107,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/popper/popper.js"></script>
-    <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/bootstrap.js"></script>
-    <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/menu.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="/plugins/ezpics_designer/view/home/assets/js/main.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/js/main.js"></script>
 
     <!-- Page JS -->
 
