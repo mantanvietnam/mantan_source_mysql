@@ -1,3 +1,5 @@
+<script language="javascript" type="text/javascript" src="/plugins/ezpics_admin/view/admin/js/ezpics_admin.js"></script>
+<link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Người dùng</h4>
   <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
@@ -77,86 +79,150 @@
         <h5 class="card-header" style="float: right;">Người dùng đăng ký ngày hôm nay - <b class="text-danger"><?php echo number_format($totalDatatoday);?></b> người dùng</h5>
       </div>
     </div>
-     <p><?php echo @$mess;?></p>  
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Ảnh đại diện</th>
-            <th>Khách hàng</th>
-            <th>Thống kê</th>
-            <th>Loại tài khoản</th>
-            <!-- <th>Trạng thái</th> -->
-            <th>Cộng tiền</th>
-            <th>Trừ tiền</th>
-            <th>Sửa</th>
-            <th>Khóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $type = 'Người dùng';
-                if($item->type==1){
-                  $type = 'Designer <br/>CK: '.$item->commission;
-                }
+    <p><?php echo @$mess;?></p>  
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Ảnh đại diện</th>
+              <th>Khách hàng</th>
+              <th>Thống kê</th>
+              <th>Loại tài khoản</th>
+              <!-- <th>Trạng thái</th> -->
+              <th>Cộng tiền</th>
+              <th>Trừ tiền</th>
+              <th>Sửa</th>
+              <th>Khóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $type = 'Người dùng';
+                  if($item->type==1){
+                    $type = 'Designer <br/>CK: '.$item->commission;
+                  }
 
-                $status = 'Kích hoạt <br/>
-                 <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
-                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                          </a>';
-                if($item->status==0){
-                  $status = 'Khóa <br/>
-                 <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
-                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
-                          </a>';
-                }
+                  $status = 'Kích hoạt <br/>
+                   <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  if($item->status==0){
+                    $status = 'Khóa <br/>
+                   <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
+                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  }
 
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td><img src="'.$item->avatar.'" width="100" /></td>
+                          <td>
+                            '.$item->name.'<br/>
+                            '.$item->phone.'<br/>
+                            '.$item->email.'<br/>
+                            Đăng ký: '.$item->created_at.'<br/>
+                            Đăng nhập lần cuối lúc: '.$item->last_login.'
+                          </td>
+                          <td style="width: 16%;">Số dư: '.number_format($item->account_balance).'đ <br/>
+                              SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
+                              SL kho: '.number_format($item->totaWarehouse).'<br/>
+                              SL theo dõi : '.number_format($item->totaFollowDesigner).'
+                          </td>
+                          <td>'.$type.'</td>
+                         
+                          <td align="center">
+                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
+                              <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
+                            </a>
+                          </td>
+                           <td align="center">
+                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
+                              <i class="bx bx-shield-minus me-1" style="font-size: 22px;"></i>
+                            </a>
+                          </td>
+                           <td align="center">
+                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a>
+                          </td>
+                          <td align="center">'.$status.'</td>
+                        </tr>';
+                }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td><img src="'.$item->avatar.'" width="100" /></td>
-                        <td>
-                          '.$item->name.'<br/>
-                          '.$item->phone.'<br/>
-                          '.$item->email.'<br/>
-                          Đăng ký: '.$item->created_at.'<br/>
-                          Đăng nhập lần cuối lúc: '.$item->last_login.'
-                        </td>
-                        <td style="width: 16%;">Số dư: '.number_format($item->account_balance).'đ <br/>
-                            SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
-                            SL kho: '.number_format($item->totaWarehouse).'<br/>
-                            SL theo dõi : '.number_format($item->totaFollowDesigner).'
-                        </td>
-                        <td>'.$type.'</td>
-                       
-                        <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
-                            <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
-                          </a>
-                        </td>
-                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
-                            <i class="bx bx-shield-minus me-1" style="font-size: 22px;"></i>
-                          </a>
-                        </td>
-                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
-                          </a>
-                        </td>
-                        <td align="center">'.$status.'</td>
+                        <td colspan="10" align="center">Chưa có người dùng</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có người dùng</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $type = 'Người dùng';
+                  if($item->type==1){
+                    $type = 'Designer  &nbsp;&nbsp;&nbsp;&nbsp; CK: '.$item->commission;
+                  }
+
+                  $status = '
+                   <a class=" btn btn-danger"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a><br/> Kích hoạt ';
+                  if($item->status==0){
+                    $status = '
+                   <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
+                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                            </a><br/>Khóa ';
+                  }
+
+            echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                     <p><b>Người dùng '.$item->id.':</b> '.$item->name.'</p>
+                          <p><img src="'.$item->avatar.'" width="100" /></p>
+                          <p>
+                            '.$item->phone.'<br/>
+                            '.$item->email.'<br/>
+                            Đăng ký: '.$item->created_at.'<br/>
+                            Đăng nhập lần cuối lúc: '.$item->last_login.'
+                          </p>
+                          <p><b>Thống kê:</b> <br/>
+                          Số dư: '.number_format($item->account_balance).'đ <br/>
+                              SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
+                              SL kho: '.number_format($item->totaWarehouse).'<br/>
+                              SL theo dõi : '.number_format($item->totaFollowDesigner).'
+                          </p>
+                          <p><b>Loại tài khoản: </b>'.$type.'</p>
+                         
+                          <p align="center">
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
+                              <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
+                            </a>
+                           &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
+                              <i class="bx bx-shield-minus me-1" style="font-size: 22px;"></i>
+                            </a>
+                          </p>
+                           <p align="center">
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a>
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                          '.$status.'</p>
+                  </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
     </div>
 
     <!-- Phân trang -->

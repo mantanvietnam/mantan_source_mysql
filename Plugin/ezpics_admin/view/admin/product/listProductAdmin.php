@@ -1,3 +1,5 @@
+<script language="javascript" type="text/javascript" src="/plugins/ezpics_admin/view/admin/js/ezpics_admin.js"></script>
+<link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Mẫu thiết kế</h4>
 
@@ -83,95 +85,170 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Ảnh thiết kế</th>
-            <th>Ảnh đại diện</th>
-            <th>Mẫu thiết kế</th>
-            <!-- <th>Chủ mẫu</th> -->
-            <th>Thống kê</th>
-            <th>Giá bán</th>
-            <th>Trạng thái</th>
-            <!-- <th>Khóa</th> -->
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                 $linkopenapp = '';
-                $type = '<span class="text-danger">Mẫu sao chép</span>';
-                if($item->type=='user_create'){
-                  $type = '<span class="text-success">Mẫu gốc</span>';
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Ảnh thiết kế</th>
+              <th>Ảnh đại diện</th>
+              <th>Mẫu thiết kế</th>
+              <!-- <th>Chủ mẫu</th> -->
+              <th>Thống kê</th>
+              <th>Giá bán</th>
+              <th>Trạng thái</th>
+              <!-- <th>Khóa</th> -->
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                   $linkopenapp = '';
+                  $type = '<span class="text-danger">Mẫu sao chép</span>';
+                  if($item->type=='user_create'){
+                    $type = '<span class="text-success">Mẫu gốc</span>';
+                  }
+
+                  if($item->status==0){
+                   $status = '<span class="text-danger">Chưa đăng bán</span>';
+                  
+                  }elseif($item->status==1){
+                    $status = '<span class="text-primary">Chờ duyệt</span>
+                    <br>
+                     <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+                      <br/>
+                      <br/>
+                       <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
+                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx  bxs-message-square-x"></i></a>';
+                  }elseif($item->status==2){
+                     $status = '<span class="text-success">Đang đăng bán</span><br>
+                     <a class="btn rounded-pill btn-icon btn-outline-secondary"   data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
+                     ';
+
+                     $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
+                  }
+
+                  $thumbnail = '';
+                  if(!empty($item->thumbnail)){
+                    $thumbnail = '<img src="'.$item->thumbnail.'" width="100" />';
+                  }
+
+                  echo '<tr>
+                          <td>
+                            <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$item->designer->token.'">'.$item->id.'</a><br/>
+                            '.date('d/m/Y', strtotime($item->created_at)).'
+                          </td>
+                          <td>
+                            <img src="'.$item->image.'" width="100" /><br/>Tác giả<br/>
+                             '.$item->designer->name.'<br/>
+                            '.$item->designer->phone.'<br/>
+                            '.$item->designer->email.'
+                            
+                          </td>
+                          <td>'.$thumbnail.'</td>
+                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'</td>
+                          <td>
+                            Sell: '.number_format($item->sold).'<br/>
+                            View: '.number_format($item->views).'<br/>
+                            Like: '.number_format($item->favorites).'<br/>
+                          </td>
+                          <td>
+                            '.number_format($item->sale_price).'<br/>
+                            <del>'.number_format($item->price).'</del>
+                          </td>
+                          <td style="text-align: center;">'.$status.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
                 }
-
-                if($item->status==0){
-                 $status = '<span class="text-danger">Chưa đăng bán</span>';
-                
-                }elseif($item->status==1){
-                  $status = '<span class="text-primary">Chờ duyệt</span>
-                  <br>
-                   <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
-                    <br/>
-                    <br/>
-                     <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
-                          data-bs-target="#basicModal'.$item->id.'" ><i class="bx  bxs-message-square-x"></i></a>';
-                }elseif($item->status==2){
-                   $status = '<span class="text-success">Đang đăng bán</span><br>
-                   <a class="btn rounded-pill btn-icon btn-outline-secondary"   data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
-                   ';
-
-                   $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"></p><button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
-                }
-
-                $thumbnail = '';
-                if(!empty($item->thumbnail)){
-                  $thumbnail = '<img src="'.$item->thumbnail.'" width="100" />';
-                }
-
+              }else{
                 echo '<tr>
-                        <td>
-                          <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$item->designer->token.'">'.$item->id.'</a><br/>
-                          '.date('d/m/Y', strtotime($item->created_at)).'
-                        </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" /><br/>Tác giả<br/>
-                           '.$item->designer->name.'<br/>
-                          '.$item->designer->phone.'<br/>
-                          '.$item->designer->email.'
-                          
-                        </td>
-                        <td>'.$thumbnail.'</td>
-                        <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'</td>
-                        <td>
-                          Sell: '.number_format($item->sold).'<br/>
-                          View: '.number_format($item->views).'<br/>
-                          Like: '.number_format($item->favorites).'<br/>
-                        </td>
-                        <td>
-                          '.number_format($item->sale_price).'<br/>
-                          <del>'.number_format($item->price).'</del>
-                        </td>
-                        <td style="text-align: center;">'.$status.'</td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+         if(!empty($listData)){
+                foreach ($listData as $item) {
+                   $linkopenapp = '';
+                  $type = '<span class="text-danger">Mẫu sao chép</span>';
+                  if($item->type=='user_create'){
+                    $type = '<span class="text-success">Mẫu gốc</span>';
+                  }
+
+                  if($item->status==0){
+                   $s = '<span class="text-danger">Chưa đăng bán</span>';
+                  
+                  }elseif($item->status==1){
+                    $s = '<span class="text-primary">Chờ duyệt</span>';
+                  
+                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                       <a class="btn btn-danger" title="Từ chối" data-bs-toggle="modal"
+                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx  bxs-message-square-x"></i></a>';
+                  }elseif($item->status==2){
+                    $s = ' <span class="text-success">Đang đăng bán</span>';
+
+                    $status = ' <a class="btn btn-danger"   data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" title="Hủy hiển thị"><i class="bx bx-shield-x"></i></a>
+                     ';
+
+                     $linkopenapp = '<p id="id'.$item->id.'" style="color: red;"  align="center"></p><button align="center" type="button" class="btn btn btn-success" onclick="copyToClipboard(\'https://designer.ezpics.vn/detail/'. $item->slug.'-'.$item->id.'.html\',\'id'.$item->id.'\')"><i class="bx bxs-share-alt"></i></button>';
+                  }
+
+                  $thumbnail = '';
+                  if(!empty($item->thumbnail)){
+                    $thumbnail = '<img src="'.$item->thumbnail.'" style="width: 100%;" />';
+                  }
+
+            echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                    <p>
+                            <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$item->designer->token.'">'.$item->id.'</a><br/>
+                            '.date('d/m/Y', strtotime($item->created_at)).'
+                          </p>
+                          <p>
+                            <img src="'.$item->image.'" style="width: 100%;" /><br/>Tác giả<br/>
+                             '.$item->designer->name.'<br/>
+                            '.$item->designer->phone.'<br/>
+                            '.$item->designer->email.'
+                            
+                          </p>
+                          <p>'.$thumbnail.'</p>
+                          <p ><b>Tên Mẫu thiết kế:</b> '.$item->name.'<br/><p align="center">'.$type.'</p><br/></p>
+                          <p><b>Thống kê:</b> <br/>
+                            Sell: '.number_format($item->sold).'<br/>
+                            View: '.number_format($item->views).'<br/>
+                            Like: '.number_format($item->favorites).'<br/>
+                          </p>
+                          <p><b>Giá :</b>
+                            '.number_format($item->sale_price).'đ &nbsp;&nbsp;&nbsp;&nbsp;
+                            <del>'.number_format($item->price).' đ </del>
+                          </p>
+                          <p ><b>Trạng thái:</b> '.$s.'</p>
+                          <p style="text-align: center;"> '.$status.'&nbsp;&nbsp;&nbsp;&nbsp;'.@$linkopenapp.'  &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </p>
+                  </div>';
+          }
+         
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
     </div>
 
     <!-- Phân trang -->
