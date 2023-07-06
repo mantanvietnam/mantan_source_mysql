@@ -118,7 +118,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                   <div class="mb-3">
                     <label class="form-label">Bài đăng mẫu kèm hình ảnh </label><br>
                     <?php
@@ -126,7 +126,7 @@
                     ?>                      
                     <textarea class="form-control" name="content" rows="5"><?php echo @$data->content; ?></textarea>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <button type="submit" class="btn btn-primary">Lưu</button>

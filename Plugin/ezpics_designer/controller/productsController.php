@@ -473,7 +473,7 @@ function addProduct($input)
 		        $data->name = $dataSend['name'];
 		        $data->price = (int) $dataSend['price'];
 		        $data->sale_price = (int) $dataSend['sale_price'];
-		        $data->content = @$dataSend['content'];
+		       // $data->content = @$dataSend['content'];
 		        $data->sale = null;
 		        $data->related_packages = null;
 		        
