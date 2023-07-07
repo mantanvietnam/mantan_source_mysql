@@ -405,6 +405,12 @@ a{
 	font-weight: bold;
 }
 
+#product-details .product-information .modal-footer a{
+	background-color: #FFCA00;
+	color: #000;
+	border: none;
+}
+
 #product-details .product-information button{
 	background: #FFCA00;
 	width: 240px;
@@ -414,6 +420,11 @@ a{
 	font-size: 17px;	
 	border: none;
 	transition: all 0.5s ease;
+	margin-right: 10px;
+}
+
+#product-details .product-information .product-button-chatbot button{
+	width: 500px;
 }
 
 #product-details .product-information button a{
@@ -761,6 +772,10 @@ a{
 		top: 0;
 		transform: translateY(0);
 		height: 632px;
+	}
+
+	#product-details .product-information .product-button-chatbot button{
+		width: 240px;
 	}
 }
 

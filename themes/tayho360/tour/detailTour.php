@@ -74,7 +74,7 @@ $infoUser = $session->read('infoUser');
                         <section class="page-banner">
                             <div class="iframe-banner">
                                 <iframe src="<?php echo $data->image360 ?>"
-                                    frameborder="0"></iframe>
+                                allowfullscreen ="true" frameborder="0"></iframe>
                             </div>
                         </section>
                     <?php } ?>

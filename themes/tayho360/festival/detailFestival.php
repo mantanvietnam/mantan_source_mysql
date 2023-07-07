@@ -7,7 +7,7 @@ global $urlThemeActive;
     
          <section class="page-banner">
             <div class="iframe-banner">
-                <iframe src="<?php echo $data->image360 ?>"
+                <iframe allowfullscreen="true" src="<?php echo $data->image360 ?>"
                     frameborder="0"></iframe>
             </div>
         </section>

@@ -17,41 +17,121 @@
                 $thumbnail = (!empty($product->thumbnail))?$product->thumbnail:$product->image;
 
                 $description = (!empty($product->description))?nl2br($product->description):''?>
-        <section id="product-details">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 col-md-7 col-12 product-img">
-                        <div class="product-img-item">
-                            <img src="<?php echo $thumbnail; ?>" alt="">
-                        </div>
-                    </div>
+                <section id="product-details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7 col-12 product-img">
+                                <div class="product-img-item">
+                                    <img src="<?php echo $thumbnail; ?>" alt="">
+                                </div>
+                            </div>
 
-                    <div class="col-lg-5 col-md-5 col-12 product-information">
-                        <h1 class="product-title"><?php echo $product->name ?></h1>
-                        <div>
-                            <p>Tác giả: <a class="product-name-user" href="<?php echo $user->link_open_app ; ?>"><?php echo $user->name ?></a></p>
-                            <p>Lượt xem: <span><?php echo $product->views ?></span></p>
-                            <!-- <p>Đã bán: <span><?php echo $product->sold ?></span></p>
-                            <div class="price-product">
-                                <p>Giá bán: <span><?php echo $sale_price  ?></span></p>
-                            </div> -->
-                            <p>Đã tạo: <span><?php echo number_format($product->export_image) ?> ảnh</span></p>
-                            <?php if(!empty($description)){ ?>
-                            <p><span><?php echo $description ?></span></p>
-                            <?php } ?>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="product-button">
-                            <!-- <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button> -->
-                            <button type="button" class="btn btn-warning mt-3" onclick="showPopup();">
-                            <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
-                            </button>
+                            <div class="col-lg-5 col-md-5 col-12 product-information">
+                                <h1 class="product-title"><?php echo $product->name ?></h1>
+                                <div>
+                                    <p>Tác giả: <a class="product-name-user" href="<?php echo $user->link_open_app ; ?>"><?php echo $user->name ?></a></p>
+                                    <p>Lượt xem: <span><?php echo $product->views ?></span></p>
+                                    <!-- <p>Đã bán: <span><?php echo $product->sold ?></span></p>
+                                    <div class="price-product">
+                                        <p>Giá bán: <span><?php echo $sale_price  ?></span></p>
+                                    </div> -->
+                                    <p>Đã tạo: <span><?php echo number_format($product->export_image) ?> ảnh</span></p>
+                                    <?php if(!empty($description)){ ?>
+                                    <p><span><?php echo $description ?></span></p>
+                                    <?php } ?>
+                                </div>
+                                <br>
+                                <div class="product-button">
+                                    <!-- <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button> -->
+                                    <button type="button" class="btn btn-warning mt-3" onclick="showPopup();">
+                                        <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
+                                    </button>
+
+                                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                        <i class="fa-solid fa-book"></i> Hướng dẫn
+                                    </button>
+
+                                    <!-- modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Hướng dẫn</h5>
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                B1: Bấm nút NHẬP THÔNG TIN bên dưới
+                                                </br>
+                                                B2: Chọn ảnh của bạn
+                                                </br>
+                                                B3: Bấm nút TẠO FILE
+                                                </br>
+                                                B4: Lưu ảnh về máy và chia sẻ lên mạng xã hội (nếu không được thì nhấn giữ ảnh khoảng 3 giây rồi chọn "Lưu vào Ảnh")
+                                                </br>
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--  -->
+                                </div>
+                                
+                                <!-- button chat bot -->
+                                <div class="product-button product-button-chatbot">
+                                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalChatBot">
+                                        <i class="fa-solid fa-robot"></i> Tích hợp CHATBOT
+                                    </button>
+
+                                    <!-- modal -->
+                                    <div class="modal fade" id="modalChatBot" tabindex="-1" role="dialog" aria-labelledby="modalChatBotTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Tích hợp CHATBOT</h5>
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Link ảnh nhúng vào thẻ image trong Chatbot:
+                                                </br>
+                                                <?php
+                                                    $urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id=3449&Avatar={{profile pic url}}&full_name={{full_name}}';
+
+                                                    // if(!empty($listLayer)){
+                                                    //     foreach ($listLayer as $layer) {
+                                                    //         $content = json_decode($layer->content, true);
+
+                                                    //         if(!empty($content['variable']) && !empty($content['variableLabel'])){
+                                                    //             echo '<p>'.$content['variableLabel'].'</p>';
+
+                                                    //             if($content['type'] == 'text'){
+                                                    //                 echo '<input required type="text" name="'.$content['variable'].'" value="" class="form-control" />';
+                                                    //             }else if($content['type'] == 'image'){
+                                                    //                 echo '<input required type="file" name="'.$content['variable'].'" value="" class="form-control" />';
+                                                    //             }
+
+                                                    //         }
+                                                    //     }
+                                                    // }
+
+                                                    echo $urlChatBot;
+                                                ?>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
     <?php   }
          if (!empty($dataOther)){
      ?>
