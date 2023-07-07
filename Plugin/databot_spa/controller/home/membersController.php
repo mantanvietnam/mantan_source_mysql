@@ -53,7 +53,7 @@ function login($input)
 
 			    			$session->write('infoUser', $info_customer);
 			    			
-							return $controller->redirect('/dashboard');
+							return $controller->redirect('/managerSelectSpa');
 						}else{
 							$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 						}
@@ -70,7 +70,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/dashboard');
+		return $controller->redirect('/managerSelectSpa');
 	}
 }
 
@@ -236,7 +236,6 @@ function confirm($input){
 	global $session;
 	$phone = $session->read('phone');
 
-	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
 
 	if($isRequestPost){
@@ -273,6 +272,7 @@ function register($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
 	$mess = '';
 	
 	if($isRequestPost){
@@ -282,22 +282,18 @@ function register($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		
-		/*if(empty($dataSend['status'])) $dataSend['status']=1;
-		if(empty($dataSend['password'])) $dataSend['password']= $dataSend['phone'];
-		if(empty($dataSend['aff'])) $dataSend['aff']= $dataSend['phone'];
-		if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
-		if(empty($dataSend['type'])) $dataSend['type']= 0;*/
+		
 
 		$avatar= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
 
         $portfolio = '';
-		if(!empty($_FILES["portfolio"]["name"])){
+		if(!empty($_FILES["avatar"]["name"])){
       $today= getdate();
-	    $thumbnail = uploadImage($today[0], 'portfolio');
-	    $portfolio = $thumbnail['linkOnline'];
+	    $thumbnail = uploadImage($today[0], 'avatar');
+	    $avatar = $thumbnail['linkOnline'];
     }
 
-		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['portfolio']["name"])){
+		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['avatar']["name"])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
@@ -309,6 +305,7 @@ function register($input)
 					$data->avatar = $avatar;
 					$data->phone = $dataSend['phone'];
 					$data->email = @$dataSend['email'];
+					$data->number_spa = @$dataSend['number_spa'];
 					$data->password = md5($dataSend['password']);
 					$data->status = 1; //1: kích hoạt, 0: khóa
 					$data->type = 1; // 0: nhân viên, 1: Member
@@ -317,8 +314,27 @@ function register($input)
 					$data->dateline_at = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). '30 days'));
 
 					$modelMember->save($data);
-			    	$mess = '<p class="text-success">Yêu cầu đăng ký  phần mền quản lý SPA</p>';
-					
+
+					$checkMember = $modelMember->find()->where(array('phone'=>$data->phone))->first();
+					if(!empty($checkMember)){
+
+						$dataSpa = $modelSpas->newEmptyEntity();
+						$dataSpa->name = $dataSend['name_spa'];
+						$dataSpa->address = $avatar;
+						$dataSpa->phone = $dataSend['phone'];
+						$dataSpa->email = @$dataSend['email'];
+						$dataSpa->id_member = $checkMember->id;
+						$dataSpa->address = @$dataSend['address'];
+						$dataSpa->slug = createSlugMantan($dataSpa->name);
+						$dataSpa->created_at = date('Y-m-d H:i:s');
+						$dataSpa->updated_at = date('Y-m-d H:i:s');
+
+						$modelSpas->save($dataSpa);
+
+				    	$mess = '<p class="text-success">Yêu cầu đăng ký  phần mền quản lý SPA thành công</p>';
+			    	}else{
+			    		$mess = '<p class="text-success">không tạo được cơ sở</p>';
+			    	}
 				}else{
 					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
 				}
@@ -332,4 +348,48 @@ function register($input)
 	
 	setVariable('mess', $mess);
 }
+
+// Lua chon spa
+function managerSelectSpa() {
+	global $controller;
+    global $isRequestPost;
+    global $urlHomes;
+    global $session;
+    global $urlHomeManager;
+    setVariable('permission', 'managerSelectHotel');
+    $modelMember = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+	$infoUser = $session->read('infoUser');
+
+	if(!empty($infoUser)){
+	    $mess= '';
+	    if(!empty($_GET['status'])){
+	        switch($_GET['status']){
+	            case 'deleteHotelDone': $mess= '<p class="color_green">Xóa Spa thành công</p>';break;
+	            case 'addHotelDone': $mess= '<p class="color_green">Thêm mới Spa thành công</p>';break;
+	            case 'deleteHotelFail': $mess= '<p class="color_red">Xóa Spa thất bại</p>';break;
+	            case 'selectHotelFail': $mess= '<p class="color_red">Không tồn tại thông tin Spa này</p>';break;
+	        }
+	    }
+	    
+	    $dataList = $modelSpas->find()->where(array('id_member'=>$infoUser->id))->all()->toList();
+
+
+	    if ($isRequestPost) {
+	        if (!empty($_POST['idspa'])) {
+	            $hotel= $modelSpas->get($_POST['idspa']);
+	            if(!empty($hotel)){
+	                $session->write('idspa', $_POST['idspa']);
+	                return $controller->redirect('/dashboard');
+	            }
+	        }
+	    } 
+
+	    setVariable('mess', $mess);
+	    setVariable('dataList', $dataList);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
  ?>

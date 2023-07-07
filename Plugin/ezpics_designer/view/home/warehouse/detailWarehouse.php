@@ -19,7 +19,7 @@
 
                             <div class="designer-button-group">
                                 <a class="button-share" href="<?php echo $designer->link_open_app ; ?>"><i class="fa-solid fa-user-plus"></i> Theo dõi</a>
-                                <a class="button-share button-share-link" onclick="copyToClipboard('https://designer.ezpics.vn/designer/<?php echo $designer->name.'-'.$designer->id; ?>.html','share')"><i class="fa-solid fa-share-nodes"></i></a>
+                                <a class="button-share button-share-link" onclick="copyToClipboard('https://designer.ezpics.vn/designer/<?php echo createSlugMantan($designer->name).'-'.$designer->id; ?>.html','share')"><i class="fa-solid fa-share-nodes"></i></a>
                             </div>
 
                             <div class="designer-bio">

@@ -10,8 +10,13 @@
 	$routesPlugin['forgotPass']= 'databot_spa/view/home/member/forgotPass.php';
 	$routesPlugin['confirm']= 'databot_spa/view/home/member/confirm.php';
 	$routesPlugin['register']= 'databot_spa/view/home/member/register.php';
+	$routesPlugin['managerSelectSpa']= 'databot_spa/view/home/member/managerSelectSpa.php';
 
 	$routesPlugin['listProduct']= 'databot_spa/view/home/product/listProduct.php';
 	$routesPlugin['listCategoryProduct']= 'databot_spa/view/home/product/listCategoryProduct.php';
 	$routesPlugin['deleteCategoryProduct']= 'databot_spa/view/home/product/deleteCategoryProduct.php';
+
+	//spa
+	$routesPlugin['listSpa']= 'databot_spa/view/home/spa/listSpa.php';
+	$routesPlugin['addSpa']= 'databot_spa/view/home/spa/addSpa.php';
 ?>

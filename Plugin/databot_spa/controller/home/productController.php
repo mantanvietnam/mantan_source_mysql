@@ -8,6 +8,8 @@ function listCategoryProduct($input){
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $idspa = $session->read('idspa');
+
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -24,6 +26,7 @@ function listCategoryProduct($input){
             $infoCategory->parent = 0;
             $infoCategory->image = $dataSend['image'];
             $infoCategory->id_member = $infoUser->id;
+            $infoCategory->id_spa = $idspa;
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_product';
@@ -33,7 +36,7 @@ function listCategoryProduct($input){
             $slugNew = $slug;
             $number = 0;
             do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id);
+                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id, 'id_spa'=>$idspa);
                 $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                 if(!empty($listData)){
@@ -48,7 +51,7 @@ function listCategoryProduct($input){
 
         }
 
-        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id);
+        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id, 'id_spa'=>$idspa);
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);

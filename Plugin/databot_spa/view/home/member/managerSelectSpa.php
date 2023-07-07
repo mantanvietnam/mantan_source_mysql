@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng ký công cụphần mền quản lý SPA</title>
+    <title>Chọn SPA  </title>
 
     <meta name="description" content="" />
 
@@ -68,7 +68,7 @@
     <!-- Content -->
 
     <div class="container-xxl">
-      <div class="authentication-wrapper  container-p-y">
+      <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           <!-- Register -->
           <div class="card">
@@ -84,74 +84,34 @@
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Phần mền quản lý SPA! 👋</h4>
-              <p class="mb-4">Mời bạn đăng ký công cụphần mền quản lý SPA</p>
-             <p class="mb-4" style="color: red"> <?php echo @$mess;?></p>
-              <form id="formAuthentication" class="mb-3" action="" method="POST" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
+              <p class="mb-4">Mời bạn chọn  SPA</p>
+              <?php echo @$mess;?>
+              <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
-                <div class="row">
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Tên Spa  (*)</label>
-                    <input type="text" required class="form-control" id="name_spa" name="name_spa" placeholder="" autofocus />
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Họ và tên (*)</label>
-                    <input type="text" required class="form-control" id="name" name="name" placeholder="" autofocus />
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Số điện thoại (*)</label>
-                    <input type="text" required class="form-control" id="phone" name="phone" placeholder="" autofocus />
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Email (*)</label>
-                    <input type="text" required class="form-control" id="email" name="email" placeholder="" autofocus />
-                  </div>
-                  
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3 form-password-toggle">
-                    <div class="d-flex justify-content-between">
-                      <label class="form-label" for="password">Mật khẩu (*)</label>
-                    </div>
-                    <div class="input-group input-group-merge">
-                      <input type="password" required id="password" class="form-control" name="password" placeholder="" aria-describedby="password" />
-                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Địa chỉ</label>
-                    <input type="text" required class="form-control" id="address" name="address" placeholder="" autofocus />
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3 form-password-toggle">
-                    <div class="d-flex justify-content-between">
-                      <label class="form-label" for="password">Nhập lại mật khẩu (*)</label>
-                    </div>
-                    <div class="input-group input-group-merge">
-                      <input type="password" required id="password_again" class="form-control" name="password_again" placeholder="" aria-describedby="password_again" />
-                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-3 mb-3">
-                    <label for="" class="form-label">Ảnh đại diện</label>
-                     <div class="m_bg_img" style="">
-                        <input type="file" name="avatar" required>
-                     </div>
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-3 mb-3">
-                    <label for="" class="form-label">Số cơ sở</label>
-                     <input type="number"  class="form-control" id="number_spa" name="number_spa" placeholder="" autofocus />
+
+                <div class="mb-3">
+                  <div class="form-check">
+                    <label class="form-check-label" for="remember-me">cơ sở </label>
+                    <select class="form-select" name="idspa" id="idspa">
+                        <?php 
+                         
+                          if(!empty($dataList)){
+                            foreach($dataList as $data){
+                                echo '<option  value="'.$data->id.'">'.$data->name.'</option>';
+                            }
+                          }
+                        ?>
+                      </select>
                   </div>
                 </div>
-                
-                <div class="text-center" style=" width: 10%; margin: 0 45%;  ">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Đăng ký</button>
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">chọn</button>
                 </div>
               </form>
 
-              <p class="text-center">
-                <span>Bạn đã có tài khoản?</span>
-                <a href="/login">
-                  <span>Đăng nhập</span>
-                </a>
-              </p>
+              
             </div>
+            
           </div>
           <!-- /Register -->
         </div>
@@ -177,7 +137,6 @@
 
     <!-- Page JS -->
 
-  
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
