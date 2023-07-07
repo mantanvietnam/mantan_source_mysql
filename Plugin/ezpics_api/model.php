@@ -16,5 +16,7 @@ include('model/font.php'); // font chữ
 
 include('model/warehouses.php'); // font chữ
 include('model/questions.php'); //câu hỏi
+include('model/warehouse_products.php'); //câu hỏi
+include('model/warehouse_users.php'); //câu hỏi
 
 ?>
