@@ -183,7 +183,7 @@ function fixJsonProductDetail($input)
 
 function fixDeepLink($input)
 {
-	/*
+	
 	global $controller;
 
 	$modelWarehouses = $controller->loadModel('Warehouses');
@@ -209,7 +209,7 @@ function fixDeepLink($input)
 	        $modelWarehouses->save($item);
 	    }
     }
-    */
+    
 }
 
 function fixPrice($input)

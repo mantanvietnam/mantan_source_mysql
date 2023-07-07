@@ -97,43 +97,27 @@
                                             </div>
                                             <div class="modal-body">
                                                 Link ảnh nhúng vào thẻ image trong Chatbot:
-                                                </br>
-                                                
-                                                </br>
+                                                <br/>
+                                        
                                                 <?php
                                                     // $urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id=3449&Avatar={{profile pic url}}&full_name={{full_name}}';
+                                                    $urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id;
 
-                                                    $full_name= '';
-                                                    $pic_url= '';
                                                     if(!empty($listLayer)){
                                                         foreach ($listLayer as $layer) {
                                                             $content = json_decode($layer->content, true);
 
                                                             if(!empty($content['variable']) && !empty($content['variableLabel'])){
-                                                                // echo '<p>'.$content['variableLabel'].'</p>';
-                                                                if($content['type'] == 'text'){
-                                                                    // echo '<input required type="text" name="'.$content['variable'].'" value="" class="form-control" />';
-                                                                    $full_name= $content['variable'];
-                                                                }else if($content['type'] == 'image'){
-                                                                    // echo '<input required type="file" name="'.$content['variable'].'" value="" class="form-control" />';
-                                                                    $pic_url= $content['variable'];
-                                                                }
-
-
-
+                                                               
+                                                                $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
                                                             }
                                                         }
                                                     }
-
-                                                     $urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id.'&Avatar={{'.$pic_url.'}}&full_name={{'.$full_name.'}}';
-
-                                                     echo($urlChatBot);
+                                                    
+                                                    echo('<a href="'.$urlChatBot.'" target="blank">'.$urlChatBot.'</a>');
 
                                                      
                                                 ?>
-                                                <br/>
-                                                <p id="thongbao" style="color: red;"></p>
-                                                <a class="button-share button-share-link" onclick="copyToClipboard('<?php echo($urlChatBot); ?>','share')"><i class="fa-solid fa-share-nodes"></i></a>
                                             </div>
                                             <div class="modal-footer">
                                                 <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
@@ -245,30 +229,6 @@
         </form>
       </div>
     </div>
-     <script type="text/javascript">
-        function copyToClipboard(textCopy,messId) {
-            // Create a "hidden" input
-            var aux = document.createElement("input");
-
-            // Assign it the value of the specified element
-            aux.setAttribute("value", textCopy);
-
-            // Append it to the body
-            document.body.appendChild(aux);
-
-            // Highlight its content
-            aux.select();
-
-            // Copy the highlighted text
-            document.execCommand("copy");
-
-            // Remove it from the body
-            document.body.removeChild(aux);
-            $('#thongbao').html('Đã sao chép');
-
-            // show mess
-            // alert('Đã sao chép link chia sẻ vào bộ nhớ đệm của bạn.');
-        }
-    </script>
+  
     
     <?php include(__DIR__.'/../footerPublic.php') ; ?>
