@@ -98,6 +98,8 @@
                                             <div class="modal-body">
                                                 Link ảnh nhúng vào thẻ image trong Chatbot:
                                                 </br>
+                                                
+                                                </br>
                                                 <?php
                                                     // $urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id=3449&Avatar={{profile pic url}}&full_name={{full_name}}';
 
