@@ -34,7 +34,7 @@ $menus[0]['sub'][1]= array('title'=>'Thông tin Người dùng',
                             'permission'=>'listDesignRegistrationAdmin',
                             
                         );
-$menus[0]['sub'][2]= array('title'=>'Order mẫu thiết kế',
+$menus[0]['sub'][2]= array('title'=>'Order mẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_designer-view-admin-orderProduct-listOrderProductAdmin.php',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listDesignRegistrationAdmin',
@@ -208,5 +208,45 @@ function getLayer($stt, $type = 'text', $link = '', $width = '30', $height = '30
         'variable' => $variable,
         'variableLabel' => $variableLabel,
     ];
+}
+
+function compressImageBase64($base64Image)
+{
+    if(function_exists('getKey')){
+        $keyTinipng = getKey(22);
+    }else{
+        $keyTinipng = '';
+    }
+    
+    if(!empty($keyTinipng)){
+        require_once("lib/tinify/vendor/autoload.php");
+        Tinify\setKey($keyTinipng);
+
+        try {
+            Tinify\validate();
+
+            $sourceData = base64_decode($base64Image);
+            $source = Tinify\fromBuffer($sourceData);
+
+            $compressed = $source->toBuffer();
+            $compressedBase64 = base64_encode($compressed);
+
+            return $compressedBase64;
+        } catch (\Tinify\AccountException $e) {
+            // Xử lý lỗi tài khoản TinyPNG
+            return false;
+        } catch (\Tinify\ClientException $e) {
+            // Xử lý lỗi máy chủ hoặc kết nối
+            return false;
+        } catch (\Tinify\ServerException $e) {
+            // Xử lý lỗi máy chủ TinyPNG
+            return false;
+        } catch (\Tinify\ConnectionException $e) {
+            // Xử lý lỗi kết nối
+            return false;
+        }
+    }
+
+    return false;
 }
 ?>
