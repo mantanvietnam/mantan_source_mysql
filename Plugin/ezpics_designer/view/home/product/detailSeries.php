@@ -47,9 +47,9 @@
                                         <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
                                     </button>
 
-                                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                        <i class="fa-solid fa-book"></i> Hướng dẫn
-                                    </button>
+                                    <a type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                        <i class="fa-solid fa-book"></i> 
+                                    </a>
 
                                     <!-- modal -->
                                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -78,13 +78,10 @@
                                         </div>
                                     </div>
                                     <!--  -->
-                                </div>
-                                
-                                <!-- button chat bot -->
-                                <div class="product-button product-button-chatbot">
-                                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalChatBot">
-                                        <i class="fa-solid fa-robot"></i> Tích hợp CHATBOT
-                                    </button>
+
+                                    <a type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalChatBot">
+                                        <i class="fa-solid fa-robot"></i> 
+                                    </a>
 
                                     <!-- modal -->
                                     <div class="modal fade" id="modalChatBot" tabindex="-1" role="dialog" aria-labelledby="modalChatBotTitle" aria-hidden="true">
@@ -125,6 +122,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                
+                                <!-- button chat bot -->
+                                <div class="product-button product-button-chatbot">
+                                    
                                 </div>
                             </div>
                         </div>
