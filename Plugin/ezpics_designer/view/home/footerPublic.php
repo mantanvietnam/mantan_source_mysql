@@ -17,6 +17,7 @@
                             <div class="downloadapp-footer-item">
                                 <a href="https://apps.apple.com/vn/app/ezpics-kho-m%E1%BA%ABu-thi%E1%BA%BFt-k%E1%BA%BF-%E1%BA%A3nh/id1659195883?l=vi"><img src="/plugins/ezpics_designer/view/home/designer/assets/img/logo-appstore-download-300x95.png" alt=""></a>
                                 <a href="https://play.google.com/store/apps/details?id=vn.ezpics&hl=vi&gl=US"><img src="/plugins/ezpics_designer/view/home/designer/assets/img/Logo-google-play-store-e1578969817208-300x95.png" alt=""></a>
+                                <p>Giữ tay vào ảnh để tải về</p>
                             </div>
                         </div>
                     </div>

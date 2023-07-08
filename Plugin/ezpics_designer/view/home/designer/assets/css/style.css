@@ -836,6 +836,14 @@ a{
 	.button-buy{
 		margin-right: 0 !important
 	}
+
+	#product-details .product-img-item img{
+		height: auto;
+	}
+
+	.product-button .modal-body{
+		text-align: left;
+	}
 }
 
 /* bo sung */
@@ -875,4 +883,9 @@ a{
 
 .search-input{
 	text-align: center;
+}
+
+.downloadapp-footer-item p{
+	margin-bottom: 40px;
+	color: #FFCA00;
 }
