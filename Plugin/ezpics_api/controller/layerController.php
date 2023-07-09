@@ -125,7 +125,6 @@ function listLayerAPI($input){
 					unset($layers['movelayer']);
 					unset($layers['layer']);
 					unset($layers['list_layer_check']);
-					unset($layers['list_layer_check']);
 
 					if(!empty($layers['data']['productDetail'])){
 					 	$productDetail = array();

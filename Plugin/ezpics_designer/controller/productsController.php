@@ -766,7 +766,7 @@ function createImageSeries($input)
         	}
 
         	if(!empty($_GET['id'])){
-        		$max = 2000;
+        		$max = 1500;
 	        	if($product->width<=$max && $product->height<=$max){
 	        		$width = $product->width;
 	        		$height = $product->height;
@@ -798,7 +798,7 @@ function createImageSeries($input)
 	        }
 
 	        if(!empty($_GET['id'])){ 
-	        	$dataImage = compressImageBase64($dataImage);
+	        	//$dataImage = compressImageBase64($dataImage);
 
 	        	// Giải mã dữ liệu base64
 				$imageData = base64_decode($dataImage);

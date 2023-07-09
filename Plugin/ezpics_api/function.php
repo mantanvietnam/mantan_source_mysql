@@ -595,14 +595,14 @@ function getLayerProductForEdit($idProduct=0)
 
                     // căn tọa độ lề trái
                     if(!isset($layer->postion_left)){
-                        $layer->postion_left = 50; 
+                        $layer->postion_left = (double) 50; 
                     }else{
                         $layer->postion_left = (double) $layer->postion_left; 
                     }
 
                     // căn tọa độ lề trên
                     if(!isset($layer->postion_top)){
-                        $layer->postion_top = 50; 
+                        $layer->postion_top = (double) 50; 
                     }else{
                         $layer->postion_top = (double) $layer->postion_top; 
                     }
@@ -715,6 +715,8 @@ function getLayerProductForEdit($idProduct=0)
 
                     $list_layer[$item->id] = $layer;
                 }
+
+                $pro->productDetail[$k]->content = json_encode($layer);
             }
             krsort($list_layer_check);
 
