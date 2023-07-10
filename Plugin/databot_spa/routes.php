@@ -15,8 +15,11 @@
 	$routesPlugin['listProduct']= 'databot_spa/view/home/product/listProduct.php';
 	$routesPlugin['listCategoryProduct']= 'databot_spa/view/home/product/listCategoryProduct.php';
 	$routesPlugin['deleteCategoryProduct']= 'databot_spa/view/home/product/deleteCategoryProduct.php';
+	$routesPlugin['listTrademarkProduct']= 'databot_spa/view/home/product/listTrademarkProduct.php';
+	$routesPlugin['deleteTrademarkProduct']= 'databot_spa/view/home/product/deleteTrademarkProduct.php';
 
 	//spa
 	$routesPlugin['listSpa']= 'databot_spa/view/home/spa/listSpa.php';
 	$routesPlugin['addSpa']= 'databot_spa/view/home/spa/addSpa.php';
+	$routesPlugin['deleteSpa']= 'databot_spa/view/home/spa/deleteSpa.php';
 ?>

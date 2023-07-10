@@ -84,7 +84,7 @@
 
                   $warehouses = '';
                   if(!empty($item->warehouses)){
-                    $warehouses = '<img src="'.$item->warehouses->thumbnail.'" width="100" /><br/>ID: '.$item->warehouses->id.'<br/>Tên kho: '.$item->warehouses->name;
+                    $warehouses = '<img src="'.$item->warehouses->thumbnail.'"  style= "width: 100%"  /><br/>ID: '.$item->warehouses->id.'<br/>Tên kho: '.$item->warehouses->name;
                   }
 
                   echo '<tr>
@@ -117,7 +117,7 @@
         </table>
       </div>
     </div>
-     <div id="mobile_view">
+    <div id="mobile_view">
       <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {

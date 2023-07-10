@@ -82,6 +82,7 @@ function searchProductAPI($input)
 
 	if(!empty($dataSend['nameDesigner'])){
 		$conditionsMember['name LIKE'] = '%'.$dataSend['nameDesigner'].'%';
+		$conditionsMember['type'] = 1;
 		$member = $modelMembers->find()->where($conditionsMember)->first();
 		if(!empty($member)){
 			$conditions['user_id'] = (int) $member->id;

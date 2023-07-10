@@ -360,19 +360,21 @@ function managerSelectSpa() {
 	    
 	    $dataList = $modelSpas->find()->where(array('id_member'=>$infoUser->id))->all()->toList();
 
-
-	    if ($isRequestPost) {
-	        if (!empty($_POST['idspa'])) {
-	            $hotel= $modelSpas->get($_POST['idspa']);
-	            if(!empty($hotel)){
-	                $session->write('idspa', $_POST['idspa']);
-	                return $controller->redirect('/dashboard');
-	            }
-	        }
-	    } 
-
-	    setVariable('mess', $mess);
-	    setVariable('dataList', $dataList);
+	    if(!empty($dataList)){
+		    if ($isRequestPost) {
+		        if (!empty($_POST['idspa'])) {
+		            $hotel= $modelSpas->get($_POST['idspa']);
+		            if(!empty($hotel)){
+		                $session->write('idspa', $_POST['idspa']);
+		                return $controller->redirect('/dashboard');
+		            }
+		        }
+		    } 
+	    	setVariable('mess', $mess);
+	    	setVariable('dataList', $dataList);
+		}else{
+			return $controller->redirect('/addSpa');
+		}
 	}else{
 		return $controller->redirect('/login');
 	}

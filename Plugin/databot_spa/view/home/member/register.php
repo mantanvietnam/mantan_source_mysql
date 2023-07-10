@@ -74,17 +74,17 @@
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
-              <div class="app-brand justify-content-center">
+              <!-- <div class="app-brand justify-content-center">
                 <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <img src="/plugins/databot_spa/view/home/assets/img/avatar-ezpics.png" width="50">
                   </span>
                   <span class="app-brand-text demo text-body fw-bolder">SPA</span>
                 </a>
-              </div>
+              </div> -->
               <!-- /Logo -->
-              <h4 class="mb-2">Phần mền quản lý SPA! 👋</h4>
-              <p class="mb-4">Mời bạn đăng ký công cụphần mền quản lý SPA</p>
+              <h4 class="mb-2 " style=" text-align: center; ">Phần mền quản lý SPA! 👋</h4>
+              <p class="mb-4 " style=" text-align: center; ">Mời bạn đăng ký công cụphần mền quản lý SPA</p>
              <p class="mb-4" style="color: red"> <?php echo @$mess;?></p>
               <form id="formAuthentication" class="mb-3" action="" method="POST" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
@@ -93,10 +93,10 @@
                     <label for="" class="form-label">Tên Spa  (*)</label>
                     <input type="text" required class="form-control" id="name_spa" name="name_spa" placeholder="" autofocus />
                   </div>
-                  <div class=" col-12 col-sm-12 col-md-6 mb-3">
+                  <!-- <div class=" col-12 col-sm-12 col-md-6 mb-3">
                     <label for="" class="form-label">Họ và tên (*)</label>
                     <input type="text" required class="form-control" id="name" name="name" placeholder="" autofocus />
-                  </div>
+                  </div> -->
                   <div class=" col-12 col-sm-12 col-md-6 mb-3">
                     <label for="" class="form-label">Số điện thoại (*)</label>
                     <input type="text" required class="form-control" id="phone" name="phone" placeholder="" autofocus />

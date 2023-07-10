@@ -51,7 +51,7 @@ function listCategoryProduct($input){
 
         }
 
-        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id, 'id_spa'=>$idspa);
+        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id);
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -77,6 +77,180 @@ function deleteCategoryProduct($input){
                 $modelCategories->delete($data);
             }
         }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function listTrademarkProduct($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        $idspa = $session->read('idspa');
+        $modelTrademarks = $controller->loadModel('Trademarks');
+
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idEdit'])){
+                $data = $modelTrademarks->get( (int) $dataSend['idEdit']);
+            }else{
+                $data = $modelTrademarks->newEmptyEntity();
+                $data->created_at =date('Y-m-d H:i:s');
+            }
+
+            // tạo dữ liệu save
+            $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $data->image = $dataSend['image'];
+            $data->id_member = $infoUser->id;
+            $data->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            // tạo slug
+            $data->slug = createSlugMantan($data->name);
+            $modelTrademarks->save($data);
+
+        }
+
+        $conditions = array('id_member'=>$infoUser->id);
+        $listData = $modelTrademarks->find()->where($conditions)->all()->toList();
+
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function deleteTrademarkProduct($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+
+        $modelTrademarks = $controller->loadModel('Trademarks');
+
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id);
+            $data = $modelTrademarks->find()->where($conditions)->first();
+            if(!empty($data)){
+                $modelTrademarks->delete($data);
+            }
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+
+function listProduct(){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+        $metaTitleMantan = 'Danh sách mẫu thiết kế  bán';
+
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $user = $session->read('infoUser');
+        
+        $modelTrademarks = $controller->loadModel('Trademarks');
+        $idspa = $session->read('idspa');
+
+        $conditions = array('id_member'=>$user->id, 'id_spa'=>$idspa);
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['category_id'])){
+            $conditions['category_id'] = $_GET['category_id'];
+        }
+
+        if(isset($_GET['status'])){
+            if($_GET['status']!=''){
+                $conditions['status'] = $_GET['status'];
+            }
+        }
+
+        if(!empty($_GET['name'])){
+            $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        }
+
+       
+        $listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $totalData = $modelProducts->find()->where($conditions)->all()->toList();
+        
+
+        
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$user->id);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
+
+        $conditionsTrademar = array('id_member'=>$user->id);
+        $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->all()->toList();
+
+        
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+        setVariable('listCategory', $listCategory);
+        setVariable('listTrademar', $listTrademar);
     }else{
         return $controller->redirect('/login');
     }

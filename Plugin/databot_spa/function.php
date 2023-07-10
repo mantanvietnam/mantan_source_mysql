@@ -22,12 +22,17 @@ $urlCreateImage = 'http://14.225.238.137:3000/convert';
 $menus= array();
 $menus[0]['title']= 'Quản lý SPA';
 
-$menus[0]['sub'][0]= array('title'=>' Tài khoản quản trị SPA',
+$menus[0]['sub'][0]= array('title'=>'Tài khoản quản trị SPA',
                             'url'=>'/plugins/admin/databot_spa-view-admin-member-listMemberAdmin.php',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listMemberAdmin.php',
-                            
                         );
+$menus[0]['sub'][1]= array('title'=>'Danh sách SPA',
+                            'url'=>'/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'listSpaAdmin.php',
+                        );
+
 addMenuAdminMantan($menus);
 
 global $urlHomes;

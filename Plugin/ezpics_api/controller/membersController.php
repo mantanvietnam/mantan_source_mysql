@@ -1028,4 +1028,37 @@ function statisticalAPI($input){
     return $return;
 
 }
+
+function searchDesignerAPI($input){
+
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=> 0);
+
+	if($isRequestPost){
+
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		if(!empty($dataSend['name'])){
+			$conditions['name LIKE'] = '%'.$dataSend['name'].'%';
+			
+		}
+		$conditions['type'] = 1;
+		$data = $modelMember->find()->where($conditions)->all()->toList();
+
+		$return = array('code'=>1,
+							'data' => $data,
+							'mess'=>'Lấy data thành công'
+						);
+
+
+
+	}
+
+	return 	$return;
+}
 ?>

@@ -1,11 +1,5 @@
-<?php include(__DIR__.'/../header.php'); ?>
-
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Cơ sở SPA</h4>
-  <?php if ($infoUser->number_spa > $totalData){ ?>
-     <p><a href="/addSpa" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
-  <?php } ?>
- 
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -13,14 +7,20 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
 
           <div class="col-md-2">
-            <label class="form-label">Tên mẫu</label>
+            <label class="form-label">Tên cơ sở</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
-          
-          
+          <div class="col-md-2">
+            <label class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
@@ -33,59 +33,53 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách SPA  </h5>
+    <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
      <p><?php echo @$mess;?></p>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="" style="text-align: center;">
-            <th>ID</th>
-            <th>Tên</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>Địa chỉ</th>
-            <th>Sửa</th>
-             <?php if ($totalData<1){ ?>
-            <th>Xóa</th>
-              <?php } ?>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Tên cơ sở</th>
+              <th>member</th> 
+              <th>Ngày tạo</th> 
+              <!-- <th>Khóa</th> -->
+              <th>sửa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                   
 
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.'</td>
+                          <td>
+                             '.$item->member->name.'<br/>
+                            '.$item->member->phone.'<br/>
+                            '.$item->member->email.'
+                            
+                          </td>
+                          <td>'.$item->created_at.'</td>
+                          <td align="center">
+                            <a class="dropdown-item"  href="/plugins/admin/databot_spa-view-admin-spa-addSpaAdmin.php/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
+                }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->name.'</td>
-                        <td>'.$item->phone.'</td>
-                        <td>'.$item->email.'</td>
-                        <td>'.$item->address.'</td>
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addSpa?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>';
-                 if($totalData<1){
-                  echo '<td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteSpa/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>';
-                        }
-                    echo '  </tr>';
+                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
+                      </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
-    </div>
-
+            ?>
+          </tbody>
+        </table>
+      </div>
+   
     <!-- Phân trang -->
     <div class="demo-inline-spacing">
       <nav aria-label="Page navigation">
@@ -130,7 +124,6 @@
     </div>
     <!--/ Basic Pagination -->
   </div>
+ 
   <!--/ Responsive Table -->
 </div>
-
-<?php include(__DIR__.'/../footer.php'); ?>

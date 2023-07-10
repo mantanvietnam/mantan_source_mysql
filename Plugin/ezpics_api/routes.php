@@ -149,4 +149,5 @@
 	$routesPlugin['addContentAPI']= 'ezpics_api/view/addContentAPI.php';
 	$routesPlugin['listContentAPI']= 'ezpics_api/view/listContentAPI.php';
 	$routesPlugin['getContentAPI']= 'ezpics_api/view/getContentAPI.php';
+	$routesPlugin['searchDesignerAPI']= 'ezpics_api/view/searchDesignerAPI.php';
 ?>

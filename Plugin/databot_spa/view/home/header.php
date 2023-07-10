@@ -127,7 +127,18 @@
                     <div>Danh mục sản phẩn</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listTrademarkProduct" class="menu-link">
+                    <div>Nhãn hiệu</div>
+                  </a>
+                </li>
               </ul>
+            </li>
+            <li class="menu-item">
+              <a href="/listSpa" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-news"></i>
+                <div>Thông tin spa</div>
+              </a>
             </li>
             
             

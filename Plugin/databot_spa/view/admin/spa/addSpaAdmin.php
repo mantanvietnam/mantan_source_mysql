@@ -1,6 +1,3 @@
-<?php include(__DIR__.'/../header.php'); ?>
-
-<!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"><a href="/listSpa">Cơ sở Spa </a> /</span>
@@ -14,7 +11,6 @@
             <h5 class="mb-0">Thông tin cơ sở Spa</h5>
           </div>
           <div class="card-body">
-            <p><?php echo @$mess;?></p>
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
@@ -56,5 +52,3 @@
 
     </div>
 </div>
-
-<?php include(__DIR__.'/../footer.php'); ?>
