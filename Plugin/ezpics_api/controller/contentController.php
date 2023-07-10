@@ -49,7 +49,7 @@ function addContentAPI($input){
 	return $return;
 }
 
-function ListContentAPI($input){
+function listContentAPI($input){
 	global $isRequestPost;
 	global $controller;
 	global $session;

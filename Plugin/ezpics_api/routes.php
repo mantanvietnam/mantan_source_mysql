@@ -147,5 +147,6 @@
 	$routesPlugin['listQuestionAPI']= 'ezpics_api/view/listQuestionAPI.php';
 	$routesPlugin['getQuestionAPI']= 'ezpics_api/view/getQuestionAPI.php';
 	$routesPlugin['addContentAPI']= 'ezpics_api/view/addContentAPI.php';
-	$routesPlugin['ListContentAPI']= 'ezpics_api/view/ListContentAPI.php';
+	$routesPlugin['listContentAPI']= 'ezpics_api/view/listContentAPI.php';
+	$routesPlugin['getContentAPI']= 'ezpics_api/view/getContentAPI.php';
 ?>
