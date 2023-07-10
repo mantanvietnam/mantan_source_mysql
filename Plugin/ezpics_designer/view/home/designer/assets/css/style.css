@@ -178,6 +178,7 @@ a{
 
 #designer-content .box-product .nav-tabs{
 	border-bottom: none ;
+	margin-bottom: 23px;
 }
 
 #designer-content .box-product .nav-tabs .nav-link{
@@ -185,7 +186,7 @@ a{
 	font-weight: bold;
 	border-radius: 15px;
 	margin-right: 10px;
-	font-size: 20px;
+	font-size: 17px;
 }
 
 #designer-content .box-product .nav-tabs .nav-link:hover{
