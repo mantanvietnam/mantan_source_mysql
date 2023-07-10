@@ -128,16 +128,6 @@
                       <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     </div>
                   </div>
-                  <div class=" col-12 col-sm-12 col-md-3 mb-3">
-                    <label for="" class="form-label">Ảnh đại diện</label>
-                     <div class="m_bg_img" style="">
-                        <input type="file" name="avatar" required>
-                     </div>
-                  </div>
-                  <div class=" col-12 col-sm-12 col-md-3 mb-3">
-                    <label for="" class="form-label">Số cơ sở</label>
-                     <input type="number"  class="form-control" id="number_spa" name="number_spa" placeholder="" autofocus />
-                  </div>
                 </div>
                 
                 <div class="text-center" style=" width: 10%; margin: 0 45%;  ">

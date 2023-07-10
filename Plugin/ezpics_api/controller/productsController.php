@@ -52,6 +52,7 @@ function searchProductAPI($input)
 	global $session;
 
 	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
 
 	$dataSend = $input['request']->getData();
 
@@ -77,6 +78,16 @@ function searchProductAPI($input)
 
 	if(!empty($dataSend['category_id'])){
 		$conditions['category_id'] = (int) $dataSend['category_id'];
+	}
+
+	if(!empty($dataSend['nameDesigner'])){
+		$conditionsMember['name LIKE'] = '%'.$dataSend['nameDesigner'].'%';
+		$member = $modelMembers->find()->where($conditionsMember)->first();
+		if(!empty($member)){
+			$conditions['user_id'] = (int) $member->id;
+		}else{
+			$conditions['user_id'] = 0;
+		}
 	}
 
 	if(!empty($dataSend['price'])){

@@ -281,19 +281,7 @@ function register($input)
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-		
-		
-
-		$avatar= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
-
-        $portfolio = '';
-		if(!empty($_FILES["avatar"]["name"])){
-      $today= getdate();
-	    $thumbnail = uploadImage($today[0], 'avatar');
-	    $avatar = $thumbnail['linkOnline'];
-    }
-
-		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['avatar']["name"])){
+		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
@@ -302,10 +290,9 @@ function register($input)
 					$data = $modelMember->newEmptyEntity();
 
 					$data->name = $dataSend['name'];
-					$data->avatar = $avatar;
 					$data->phone = $dataSend['phone'];
 					$data->email = @$dataSend['email'];
-					$data->number_spa = @$dataSend['number_spa'];
+					$data->number_spa = 1;
 					$data->password = md5($dataSend['password']);
 					$data->status = 1; //1: kích hoạt, 0: khóa
 					$data->type = 1; // 0: nhân viên, 1: Member
@@ -320,7 +307,6 @@ function register($input)
 
 						$dataSpa = $modelSpas->newEmptyEntity();
 						$dataSpa->name = $dataSend['name_spa'];
-						$dataSpa->address = $avatar;
 						$dataSpa->phone = $dataSend['phone'];
 						$dataSpa->email = @$dataSend['email'];
 						$dataSpa->id_member = $checkMember->id;

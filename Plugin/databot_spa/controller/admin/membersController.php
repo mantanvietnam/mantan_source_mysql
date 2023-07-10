@@ -191,6 +191,7 @@ function addMemberAdmin($input)
 				$data->status = (int) $dataSend['status'];
 				$data->updated_at = date('Y-m-d H:i:s');
 				$data->dateline_at = @$dataSend['dateline_at'];
+				$data->number_spa = @$dataSend['number_spa'];
 
 				if(empty($_GET['id'])){
 

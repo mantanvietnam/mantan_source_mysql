@@ -16,7 +16,8 @@ include('model/font.php'); // font chữ
 
 include('model/warehouses.php'); // font chữ
 include('model/questions.php'); //câu hỏi
-include('model/warehouse_products.php'); //câu hỏi
-include('model/warehouse_users.php'); //câu hỏi
+include('model/warehouse_products.php'); // san phẩn kho
+include('model/warehouse_users.php'); // người dùng mua kho 
+include('model/product_contents.php'); // nội dung sản phẩm 
 
 ?>

@@ -78,5 +78,48 @@ function listSpa($input){
 	}
 } 
 
+function addSpa($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+	$modelSpas = $controller->loadModel('Spas');
+	$infoUser = $session->read('infoUser');
+
+	$conditions = array();
+	$conditions['id_member']= $infoUser->id;
+
+	$totalData = $modelSpas->find()->where($conditions)->all()->toList();
+	$totalData = count($totalData);
+
+	if(!empty($infoUser)){
+
+
+		 // lấy data edit
+	    if(!empty($_GET['id'])){
+	        $data = $modelSpas->get( (int) $_GET['id']);
+
+	    }else{
+	    	if ($infoUser->number_spa > $totalData){ 
+		        $data = $modelSpas->newEmptyEntity();
+		        $data->created = getdate()[0];
+	    	}else{
+	    		return $controller->redirect('/listSpa');
+	    	}
+
+	    }
+
+
+
+
+
+	}else{
+		return $controller->redirect('/login');
+	}
+
+}
 
  ?>

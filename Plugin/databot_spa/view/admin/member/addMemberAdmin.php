@@ -57,6 +57,10 @@
                       </select>
                     </div>
                   </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Số cơ sở</label>
+                     <input type="number"  class="form-control" id="number_spa" name="number_spa" value="<?php echo @$data->number_spa;?>" placeholder=""  />
+                  </div>
 
                 
                 </div>
