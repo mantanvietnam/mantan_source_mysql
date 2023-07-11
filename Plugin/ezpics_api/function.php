@@ -584,7 +584,14 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->width = $layer->width.'vw';
 
                     // chiều cao của layer
-                    if(!isset($layer->height)) $layer->height = '10vh'; 
+                    if(empty($layer->height) || $layer->height == '0px' || $layer->height == '0vw'){
+                        $layer->height = '80vh';
+                    }
+                    $layer->height = str_replace('px','',$layer->height);
+                    $layer->height = str_replace('vw','',$layer->height);
+                    if($layer->height>100) $layer->height= 80;
+                    $layer->height = $layer->height.'vh';
+
 
                     // cờ đánh dấu việc có dùng hiệu ứng gradient hay không
                     if(!isset($layer->gradient)){

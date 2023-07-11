@@ -113,32 +113,37 @@ function addFontAdmin($input)
 
 
         if(!empty($dataSend['name'])){
-            // tạo dữ liệu save
-            $data->name = @$dataSend['name'];
-            $data->font = @$dataSend['font'];
-            $data->font_woff2 = @$dataSend['font_woff2'];
-            $data->font_ttf = @$dataSend['font_ttf'];
-            $data->font_otf = @$dataSend['font_otf'];
-            
-            $data->style = @$dataSend['style'];
-            $data->weight = @$dataSend['weight'];
-            $data->updated_at = date('Y-m-d H:i:s');
+            $checkName = $modelFont->find()->where(['name'=>$dataSend['name']])->first();
 
-            if(empty($_GET['id'])){
-                $data->created_at = date('Y-m-d H:i:s');
-            }
+            if(empty($checkName)){
+                // tạo dữ liệu save
+                $data->name = @$dataSend['name'];
+                $data->font = @$dataSend['font'];
+                $data->font_woff2 = @$dataSend['font_woff2'];
+                $data->font_ttf = @$dataSend['font_ttf'];
+                $data->font_otf = @$dataSend['font_otf'];
+                
+                $data->style = @$dataSend['style'];
+                $data->weight = @$dataSend['weight'];
+                $data->updated_at = date('Y-m-d H:i:s');
 
-            $modelFont->save($data);
+                if(empty($_GET['id'])){
+                    $data->created_at = date('Y-m-d H:i:s');
+                }
 
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                $modelFont->save($data);
 
-             if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php?status=2');
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+                 if(!empty($_GET['id'])){
+                    return $controller->redirect('/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php?status=2');
+                }else{
+                  
+                    return $controller->redirect('/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php?status=1');
+                }
             }else{
-              
-                return $controller->redirect('/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php?status=1');
+                $mess= '<p class="text-danger">Tên font đã tồn tại</p>';
             }
-            
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
         }

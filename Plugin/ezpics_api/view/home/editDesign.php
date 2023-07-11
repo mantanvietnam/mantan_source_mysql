@@ -492,15 +492,6 @@
 	                                <div class="form-group w-100">
 	                                    <select name="font-family " class="form-select color-dropdown" id="font-family" >
 	                                    	<option value="">Chọn font chữ</option>
-	                                    	<option value="Arial">Arial</option>
-	                                    	<option value="Times New Roman">Times New Roman</option>
-	                                    	<option value="Verdana">Verdana</option>
-	                                    	<option value="Tahoma">Tahoma</option>
-	                                    	<option value="Helvetica">Helvetica</option>
-	                                    	<option value="Calibri">Calibri</option>
-	                                    	<option value="Cambria">Cambria</option>
-	                                    	<option value="Georgia">Georgia</option>
-	                                    	<option value="Trebuchet MS">Trebuchet MS</option>
 	                                    	<?php 
 	                                    	if(!empty($fonts)){
 	                                    		foreach ($fonts as $f) {
