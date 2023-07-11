@@ -10,8 +10,8 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
-            <label class="form-label">ID</label>
-            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+            <label class="form-label">Mã</label>
+            <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
 
           <div class="col-md-2">
@@ -21,12 +21,12 @@
 
           <div class="col-md-3">
             <label class="form-label">Danh mục</label>
-            <select name="category_id" class="form-select color-dropdown">
+            <select name="id_category" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php
               if(!empty($listCategory)){
                 foreach ($listCategory as $key => $value) {
-                  if(empty($_GET['category_id']) || $_GET['category_id']!=$value->id){
+                  if(empty($_GET['id_category']) || $_GET['id_category']!=$value->id){
                     echo '<option value="'.$value->id.'">'.$value->name.'</option>';
                   }else{
                     echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
@@ -59,12 +59,12 @@
 
           <div class="col-md-3">
             <label class="form-label">Nhãn hiệu</label>
-            <select name="warehouse_id" class="form-select color-dropdown">
+            <select name="id_trademark" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php
               if(!empty($listTrademar)){
                 foreach ($listTrademar as $key => $value) {
-                  if(empty($_GET['warehouse_id']) || $_GET['warehouse_id']!=$value->id){
+                  if(empty($_GET['id_trademark']) || $_GET['id_trademark']!=$value->id){
                     echo '<option value="'.$value->id.'">'.$value->name.'</option>';
                   }else{
                     echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
@@ -92,7 +92,7 @@
       <table class="table table-bordered">
         <thead>
           <tr class="" style="text-align: center;">
-            <th>ID</th>
+            <th>MÃ</th>
             <th>Ảnh </th>
             <th>Mẫu sản phẩm</th>
             <th>Giá bán</th>
@@ -105,8 +105,7 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $link_share = 'https://designer.ezpics.vn/detail/'.$item->slug.'-'.$item->id.'.html';
-
+                
                
                 if($item->status==0){
                  $status = '<span class="text-danger">ẩn</span>';
@@ -117,17 +116,14 @@
 
                 echo '<tr>
                         <td>
-                          '.$item->id.'
+                          '.$item->code.'
                         </td>
                         <td>
                           <img src="'.$item->image.'" width="100" />
                           
                         </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" /><br/>
-                          '.date('d/m/Y', strtotime($item->created_at)).'
-                        </td>
-                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</td>
+                       
+                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/></td>
                         <td>
                           '.number_format($item->price_old).'<br/>
                           <del>'.number_format($item->price).'</del>

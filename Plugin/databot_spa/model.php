@@ -1,6 +1,7 @@
 <?php 
 include('model/members.php'); // người dùng
 include('model/spas.php'); // spa
-include('model/trademarks.php'); // spa
-include('model/products.php'); // spa
+include('model/trademarks.php'); // nhãn hiệu 
+include('model/products.php'); // sản phẩn 
+include('model/warehouses.php'); // kho
 ?>

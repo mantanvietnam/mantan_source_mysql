@@ -273,6 +273,7 @@ function register($input)
 
 	$modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
+	$modelWarehouse = $controller->loadModel('Warehouses');
 	$mess = '';
 	
 	if($isRequestPost){
@@ -316,6 +317,20 @@ function register($input)
 						$dataSpa->updated_at = date('Y-m-d H:i:s');
 
 						$modelSpas->save($dataSpa);
+
+						$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$dataSpa->name 'id_member' = $checkMember->id))->first();
+						if($checkspa){
+							$dataWarehouse = $modelWarehouse->newEmptyEntity();
+							$dataWarehouse->name = $dataSend['address'];
+							$dataWarehouse->credit = 1;
+							$dataWarehouse->id_member = $checkMember->id;
+							$dataWarehouse->id_spa = $checkspa->id;
+							$dataWarehouse->slug = createSlugMantan($dataWarehouse->name);
+							$dataWarehouse->created_at = date('Y-m-d H:i:s');
+							$modelWarehouse->save($dataWarehouse);
+						}
+
+
 
 				    	$mess = '<p class="text-success">Yêu cầu đăng ký  phần mền quản lý SPA thành công</p>';
 			    	}else{
