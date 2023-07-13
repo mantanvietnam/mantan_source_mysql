@@ -5,6 +5,10 @@
 				<a href="data:image/png;base64,<?php echo $dataImage;?>" class="btn btn-warning mb-2 mt-3" download="<?php echo $slug.'-'.time().'.png';?>">
 					<i class="fa-solid fa-cloud-arrow-down"></i> Tải ảnh
 				</a>
+
+				<!-- <a style="width: auto" href="data:image/png;base64,<?php echo $dataImage;?>" class="btn btn-warning mb-2 mt-3" download="<?php echo $slug.'-'.time().'.png';?>">
+					<i class="fa-solid fa-pen-to-square"></i> Nhập lại thông tin
+				</a> -->
 			</p>
 			<img id="imageId" src="data:image/png;base64,<?php echo $dataImage;?>" width="100%" />
 	</main>
