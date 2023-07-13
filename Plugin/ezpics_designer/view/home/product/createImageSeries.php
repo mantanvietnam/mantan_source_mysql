@@ -6,7 +6,7 @@
 					<i class="fa-solid fa-cloud-arrow-down"></i> Tải ảnh
 				</a>
 
-				 <a style="width: auto" href="/detail-series/<?php echo @$slug.'-'.@$id; ?>.html" class="btn btn-warning mb-2 mt-3" download="<?php echo $slug.'-'.time().'.png';?>">
+				 <a style="width: auto" href="/detail-series/<?php echo @$slug.'-'.@$id; ?>.html" class="btn btn-warning mb-2 mt-3" >
 					<i class="fa-solid fa-pen-to-square"></i> Nhập lại thông tin
 				</a> 
 			</p>
