@@ -318,7 +318,7 @@ function register($input)
 
 						$modelSpas->save($dataSpa);
 
-						$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$dataSpa->name 'id_member' = $checkMember->id))->first();
+						$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$dataSpa->name, 'id_member' => $checkMember->id))->first();
 						if($checkspa){
 							$dataWarehouse = $modelWarehouse->newEmptyEntity();
 							$dataWarehouse->name = $dataSend['address'];

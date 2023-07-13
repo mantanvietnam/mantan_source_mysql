@@ -132,6 +132,11 @@
                     <div>Nhãn hiệu</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listWarehouse" class="menu-link">
+                    <div>Kho</div>
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="menu-item">
