@@ -757,7 +757,7 @@ function createImageSeries($input)
 					            if(!empty($image['linkOnline'])){
 					            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
 
-					            	$listRemoveImage[] = '/public_html/'.$image['linkLocal'];
+					            	$listRemoveImage[] = '/public_html/'.@$image['linkLocal'];
 					            }
 					        }
         				}
@@ -813,6 +813,7 @@ function createImageSeries($input)
 		}
 		
 		setVariable('dataImage', $dataImage);
+		setVariable('id', $id);
 		setVariable('slug', $product->slug);
 	}else{
 		return $controller->redirect('https://ezpics.vn');

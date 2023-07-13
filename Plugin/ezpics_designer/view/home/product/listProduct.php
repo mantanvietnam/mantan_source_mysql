@@ -98,88 +98,153 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách mẫu thiết kế bán - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="" style="text-align: center;">
-            <th>ID</th>
-            <th>Ảnh thiết kế</th>
-            <th>Ảnh đại diện</th>
-            <th>Mẫu thiết kế</th>
-            <th>Thống kê</th>
-            <th>Giá bán</th>
-            <th>Trạng thái</th>
-            <th>Sửa thông tin</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $link_share = 'https://designer.ezpics.vn/detail/'.$item->slug.'-'.$item->id.'.html';
+    <div id="desktop_view">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="" style="text-align: center;">
+              <th>ID</th>
+              <th>Ảnh thiết kế</th>
+              <th>Ảnh đại diện</th>
+              <th>Mẫu thiết kế</th>
+              <th>Thống kê</th>
+              <th>Giá bán</th>
+              <th>Trạng thái</th>
+              <th>Sửa thông tin</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $link_share = 'https://designer.ezpics.vn/detail/'.$item->slug.'-'.$item->id.'.html';
 
-                $type = '<span class="text-danger">Mẫu sao chép</span>';
-                if($item->type=='user_create'){
-                  $type = '<span class="text-success">Mẫu gốc</span>';
-                }
+                  $type = '<span class="text-danger">Mẫu sao chép</span>';
+                  if($item->type=='user_create'){
+                    $type = '<span class="text-success">Mẫu gốc</span>';
+                  }
 
-                if($item->status==0){
-                 $status = '<span class="text-danger">Chưa đăng bán</span>';
-                
-                }elseif($item->status==1){
-                  $status = '<span class="text-primary">Chờ duyệt</span>';
-                }elseif($item->status==2){
-                   $status = '<span class="text-success">Đang đăng bán</span>';
-                }
+                  if($item->status==0){
+                   $status = '<span class="text-danger">Chưa đăng bán</span>';
+                  
+                  }elseif($item->status==1){
+                    $status = '<span class="text-primary">Chờ duyệt</span>';
+                  }elseif($item->status==2){
+                     $status = '<span class="text-success">Đang đăng bán</span>';
+                  }
 
-                $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
+                  $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
 
-                echo '<tr>
-                        <td>
-                          '.$item->id.'
-                        </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" />
+                  echo '<tr>
+                          <td>
+                            '.$item->id.'
+                          </td>
+                          <td>
+                            <img src="'.$item->image.'" width="100" />
+                            
+                          </td>
+                          <td>
+                            <img src="'.$image.'" width="100" /><br/>
+                            '.date('d/m/Y', strtotime($item->created_at)).'
+                          </td>
+                          <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</td>
+                          <td>
+                            Bán: '.number_format($item->sold).'<br/>
+                            Xem: '.number_format($item->views).'<br/>
+                            Thích: '.number_format($item->favorites).'<br/>
+                          </td>
+                          <td>
+                            '.number_format($item->sale_price).'<br/>
+                            <del>'.number_format($item->price).'</del>
+                          </td>
+                          <td>'.$status.'</td>
                           
-                        </td>
-                        <td>
-                          <img src="'.$image.'" width="100" /><br/>
-                          '.date('d/m/Y', strtotime($item->created_at)).'
-                        </td>
-                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</td>
-                        <td>
-                          Bán: '.number_format($item->sold).'<br/>
-                          Xem: '.number_format($item->views).'<br/>
-                          Thích: '.number_format($item->favorites).'<br/>
-                        </td>
-                        <td>
-                          '.number_format($item->sale_price).'<br/>
-                          <del>'.number_format($item->price).'</del>
-                        </td>
-                        <td>'.$status.'</td>
-                        
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
+                          <td align="center">
+                             <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                              <i class="bx bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
 
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
+                }
+              }else{
+                echo '<tr>
+                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="mobile_view">
+      <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $link_share = 'https://designer.ezpics.vn/detail/'.$item->slug.'-'.$item->id.'.html';
+
+                  $type = '<span class="text-danger">Mẫu sao chép</span>';
+                  if($item->type=='user_create'){
+                    $type = '<span class="text-success">Mẫu gốc</span>';
+                  }
+
+                  if($item->status==0){
+                   $status = '<span class="text-danger">Chưa đăng bán</span>';
+                  
+                  }elseif($item->status==1){
+                    $status = '<span class="text-primary">Chờ duyệt</span>';
+                  }elseif($item->status==2){
+                     $status = '<span class="text-success">Đang đăng bán</span>';
+                  }
+
+                  $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
+
+                  echo ' <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
+                          <p><b>Mẫu '.$item->id.'</b><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</p>
+                          <p>
+                            <img src="'.$item->image.'"  style="width: 100%;" />
+                            
+                          </p>
+                          <p>
+                            <img src="'.$image.'"  style="width: 100%;" /><br/>
+                            '.date('d/m/Y', strtotime($item->created_at)).'
+                          </p>
+                          <p><b>thống kê</b><br/>
+                            Bán: '.number_format($item->sold).'<br/>
+                            Xem: '.number_format($item->views).'<br/>
+                            Thích: '.number_format($item->favorites).'<br/>
+                          </p>
+                          <p><b>Giá</b><br/>
+                            '.number_format($item->sale_price).'<br/>
+                            <del>'.number_format($item->price).'</del>
+                          </p>
+                          <p><b>trạng thái</b>'.$status.'</p>
+                          <div class="mb-3 row">
+                            <div class="col-md-6" style="width: 50%;">
+                              <a class="dropdown-item btn btn-primary d-block" href="/addProduct/?id='.$item->id.'">
+                                      <i class="bx bx-edit"></i> sửa
+                                    </a>
+                            </div>
+                            <div class="col-md-6" style="width: 50%;">
+                                <a class="btn btn-danger d-block" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
+                                      <i class="bx bx-trash me-1"></i> xóa
+                                    </a>
+                            </div>
+                          </div>
+                        </div>';
+                }
+        }else{
+          echo '<div class="col-sm-12 item">
+                  <p class="text-danger">Chưa có dữ liệu</p>
+                </div>';
+        }
+      ?>
     </div>
 
     <!-- Phân trang -->
