@@ -108,7 +108,7 @@ function addWarehouse($input)
 			$data = $modelWarehouses->get($_GET['id']);
 		}else{
 			$data = $modelWarehouses->newEmptyEntity();
-		    $dataFile->created_at = date('Y-m-d H:i:s');
+		    $data->created_at = date('Y-m-d H:i:s');
 		}
 	    
 	    $infoUser = $session->read('infoUser');
@@ -120,24 +120,22 @@ function addWarehouse($input)
 	        	
 		        // tạo dữ liệu save
 		        $data->name = $dataSend['name'];
-		        $data->id_member = $infoUser->id;
-		        $data->id_spa = $idspa;
-		        $data->credit = $credit;
+		        $data->id_member = (int) $infoUser->id;
+		        $data->id_spa = (int) $idspa;
+		        $data->credit =(int) $dataSend['credit'];
 		        $data->description = $dataSend['description'];
-		       
-			    $conditions = [''=>$user->id,''=>$idspa];
+
 			        
 		            $modelWarehouses->save($data);
-		        }
+		        
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên kho mẫu thiết kế</p>';
 		    }
-	    
-
-	    setVariable('data', $data);
-	    setVariable('mess', $mess);
+	    	setVariable('data', $data);
+	    	setVariable('mess', $mess);
+		}
 	}else{
 		return $controller->redirect('/login');
 	}

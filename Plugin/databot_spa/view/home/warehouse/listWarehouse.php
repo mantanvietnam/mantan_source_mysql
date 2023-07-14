@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
-  <p><a href="/addProduct" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Kho</h4>
+  <p><a href="/addWarehouse" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -9,72 +9,11 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
-            <label class="form-label">Mã</label>
-            <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
-          </div>
-
+          
           <div class="col-md-2">
             <label class="form-label">Tên mẫu</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Danh mục</label>
-            <select name="id_category" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php
-              if(!empty($listCategory)){
-                foreach ($listCategory as $key => $value) {
-                  if(empty($_GET['id_category']) || $_GET['id_category']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                  }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Bán </option>
-              <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Ẩn bán</option>
-            </select>
-          </div>
-
-          <!-- <div class="col-md-2">
-            <label class="form-label">Loại sản phẩm</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
-              <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
-            </select>
-          </div> -->
-
-         
-
-          <div class="col-md-3">
-            <label class="form-label">Nhãn hiệu</label>
-            <select name="id_trademark" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php
-              if(!empty($listTrademar)){
-                foreach ($listTrademar as $key => $value) {
-                  if(empty($_GET['id_trademark']) || $_GET['id_trademark']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                  }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div>
-          
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
@@ -92,10 +31,8 @@
       <table class="table table-bordered">
         <thead>
           <tr class="" style="text-align: center;">
-            <th>MÃ</th>
-            <th>Ảnh </th>
-            <th>Mẫu sản phẩm</th>
-            <th>Giá bán</th>
+            <th>ID</th>
+            <th>Tên kho</th>
             <th>Trạng thái</th>
             <th>Sửa thông tin</th>
             <th>Xóa</th>
@@ -107,37 +44,31 @@
               foreach ($listData as $item) {
                 
                
-                if($item->status==0){
-                 $status = '<span class="text-danger">ẩn</span>';
+                if($item->credit==0){
+                 $status = '<span class="text-danger">không cho bán âm</span>';
                 
-                }elseif($item->status==1){
-                  $status = '<span class="text-primary">bán</span>';
+                }elseif($item->credit==1){
+                  $status = '<span class="text-primary">cho bán âm</span>';
                 }
 
                 echo '<tr>
                         <td>
-                          '.$item->code.'
-                        </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" />
-                          
+                          '.$item->id.'
                         </td>
                        
-                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/></td>
-                        <td>
-                          '.number_format($item->price_old).'<br/>
-                          <del>'.number_format($item->price).'</del>
-                        </td>
+                       
+                        <td>'.$item->name.'</td>
+                       
                         <td>'.$status.'</td>
                         
                         <td align="center">
-                           <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                           <a  class="dropdown-item" href="/addWarehouse?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
                             <i class="bx bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteWarehouse/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
