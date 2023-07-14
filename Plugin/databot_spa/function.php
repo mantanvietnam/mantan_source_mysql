@@ -56,14 +56,7 @@ function createToken($length=30)
     return substr(str_shuffle($chars), 0, $length).time();
 }
 
-function getCustomer($id)
-{
-    global $modelOption;
-    global $controller;
-    $modelCustomer = $controller->loadModel('customers');
-        $data = $modelCustomer->find()->where(['id'=>intval($id)])->first();       
-        return $data;
-}
+
 
 
 
@@ -147,4 +140,12 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
     }
 }
 
+function getSpa($id)
+{
+    global $modelOption;
+    global $controller;
+    $modelSpa = $controller->loadModel('Spas');
+        $data = $modelSpa->find()->where(['id'=>intval($id)])->first();       
+        return $data;
+}
 ?>

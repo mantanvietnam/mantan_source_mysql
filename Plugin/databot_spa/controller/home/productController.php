@@ -8,8 +8,6 @@ function listCategoryProduct($input){
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
-        $idspa = $session->read('idspa');
-
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -26,7 +24,7 @@ function listCategoryProduct($input){
             $infoCategory->parent = 0;
             $infoCategory->image = $dataSend['image'];
             $infoCategory->id_member = $infoUser->id;
-            $infoCategory->id_spa = $idspa;
+            $infoCategory->id_spa = $infoUser->id_spa;
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_product';
@@ -36,7 +34,7 @@ function listCategoryProduct($input){
             $slugNew = $slug;
             $number = 0;
             do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id, 'id_spa'=>$idspa);
+                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id, 'id_spa'=>$infoUser->id_spa);
                 $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                 if(!empty($listData)){
@@ -92,7 +90,6 @@ function listTrademarkProduct($input){
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
-        $idspa = $session->read('idspa');
         $modelTrademarks = $controller->loadModel('Trademarks');
 
 
@@ -170,9 +167,8 @@ function listProduct(){
         $user = $session->read('infoUser');
         
         $modelTrademarks = $controller->loadModel('Trademarks');
-        $idspa = $session->read('idspa');
 
-        $conditions = array('id_member'=>$user->id, 'id_spa'=>$idspa);
+        $conditions = array('id_member'=>$user->id, 'id_spa'=>$user->id_spa);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -273,7 +269,6 @@ function addProduct($input){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $infoUser = $session->read('infoUser');
-        $idspa = $session->read('idspa');
         
         $modelTrademarks = $controller->loadModel('Trademarks');
         $mess= '';
@@ -300,7 +295,7 @@ function addProduct($input){
                 $data->description = @$dataSend['description'];
                 $data->id_trademark =(int) @$dataSend['id_trademark'];
                 $data->id_member = $infoUser->id;
-                $data->id_spa = (int) $idspa;
+                $data->id_spa = (int) $infoUser->id_spa;
                 $data->price = (int)@$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->hot = (int) @$dataSend['hot'];
@@ -339,5 +334,6 @@ function addProduct($input){
             return $controller->redirect('/login');
         }
 }
+
 ?>
 

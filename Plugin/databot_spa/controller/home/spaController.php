@@ -101,7 +101,7 @@ function addSpa($input){
 
 	$modelSpas = $controller->loadModel('Spas');
 	$infoUser = $session->read('infoUser');
-
+	$modelWarehouse = $controller->loadModel('Warehouses');
 	$conditions = array();
 	$conditions['id_member']= $infoUser->id;
 
@@ -130,6 +130,7 @@ function addSpa($input){
 	    	$data->name = $dataSend['name'];
 	    	$data->phone = $dataSend['phone'];
 	    	$data->address = $dataSend['address'];
+	    	$data->email = $dataSend['email'];
 	    	$data->note = $dataSend['note'];
 	    	$data->updated_at =date('Y-m-d H:i:s');
 	    	$data->slug = createSlugMantan($dataSend['name']);
@@ -137,6 +138,17 @@ function addSpa($input){
 	    	if(!empty($_GET['id'])){
 	    		return $controller->redirect('/listSpa?status=2');
 	    	}else{
+	    		$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$data->name, 'id_member' => $infoUser->id, 'address'=>$data->address ))->first();
+						if($checkspa){
+							$dataWarehouse = $modelWarehouse->newEmptyEntity();
+							$dataWarehouse->name = $dataSend['address'];
+							$dataWarehouse->credit = 1;
+							$dataWarehouse->id_member = $infoUser->id;
+							$dataWarehouse->id_spa = $checkspa->id;
+							$dataWarehouse->created_at = date('Y-m-d H:i:s');
+							$modelWarehouse->save($dataWarehouse);
+						}
+
 	    		return $controller->redirect('/managerSelectSpa');
 	    	}
 

@@ -282,7 +282,7 @@ function register($input)
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
+		if(!empty($dataSend['name_spa']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
@@ -290,7 +290,7 @@ function register($input)
 					// tạo người dùng mới
 					$data = $modelMember->newEmptyEntity();
 
-					$data->name = $dataSend['name'];
+					$data->name = $dataSend['name_spa'];
 					$data->phone = $dataSend['phone'];
 					$data->email = @$dataSend['email'];
 					$data->number_spa = 1;
@@ -321,11 +321,10 @@ function register($input)
 						$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$dataSpa->name, 'id_member' => $checkMember->id))->first();
 						if($checkspa){
 							$dataWarehouse = $modelWarehouse->newEmptyEntity();
-							$dataWarehouse->name = $dataSend['address'];
+							$dataWarehouse->name = $checkspa->address;
 							$dataWarehouse->credit = 1;
 							$dataWarehouse->id_member = $checkMember->id;
 							$dataWarehouse->id_spa = $checkspa->id;
-							$dataWarehouse->slug = createSlugMantan($dataWarehouse->name);
 							$dataWarehouse->created_at = date('Y-m-d H:i:s');
 							$modelWarehouse->save($dataWarehouse);
 						}
@@ -375,18 +374,29 @@ function managerSelectSpa() {
 	    
 	    $dataList = $modelSpas->find()->where(array('id_member'=>$infoUser->id))->all()->toList();
 
+
+
 	    if(!empty($dataList)){
-		    if ($isRequestPost) {
-		        if (!empty($_POST['idspa'])) {
-		            $hotel= $modelSpas->get($_POST['idspa']);
-		            if(!empty($hotel)){
-		                $session->write('idspa', $_POST['idspa']);
-		                return $controller->redirect('/dashboard');
-		            }
-		        }
-		    } 
-	    	setVariable('mess', $mess);
-	    	setVariable('dataList', $dataList);
+	    	$totalData = count($dataList);
+	    	if($totalData > 1){
+			    if ($isRequestPost) {
+			        if (!empty($_POST['idspa'])) {
+			            $hotel= $modelSpas->get($_POST['idspa']);
+			            if(!empty($hotel)){
+			            	$infoUser->id_spa = $_POST['idspa'];
+			                $session->write('infoUser', @$infoUser);
+			                return $controller->redirect('/dashboard');
+			            }
+			        }
+			    } 
+		    	setVariable('mess', $mess);
+		    	setVariable('dataList', $dataList);
+		    }else{
+		    	$data = $modelSpas->find()->where(array('id_member'=>$infoUser->id))->first();
+		    	$infoUser->id_spa = $data->id;
+			                $session->write('infoUser', @$infoUser);
+			    return $controller->redirect('/dashboard');
+		    }
 		}else{
 			return $controller->redirect('/addSpa');
 		}

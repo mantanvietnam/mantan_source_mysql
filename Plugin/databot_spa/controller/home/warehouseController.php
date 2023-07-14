@@ -8,14 +8,13 @@ function listWarehouse($input){
     global $urlCurrent;
 
     $user = $session->read('infoUser');
-    $idspa = $session->read('idspa');
     if(!empty($user)){
     	$metaTitleMantan = 'Danh sách khách hàng mua kho';
 
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
 
-		$conditions = ['id_member'=>$user->id,'id_spa'=>$idspa];
+		$conditions = ['id_member'=>$user->id,'id_spa'=>$user->id_spa];
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -97,9 +96,6 @@ function addWarehouse($input)
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
 
-		$user = $session->read('infoUser');
-		$idspa = $session->read('idspa');
-
 		$mess= '';
 
 		// lấy data edit
@@ -121,7 +117,7 @@ function addWarehouse($input)
 		        // tạo dữ liệu save
 		        $data->name = $dataSend['name'];
 		        $data->id_member = (int) $infoUser->id;
-		        $data->id_spa = (int) $idspa;
+		        $data->id_spa = (int)$infoUser->id_spa;
 		        $data->credit =(int) $dataSend['credit'];
 		        $data->description = $dataSend['description'];
 
