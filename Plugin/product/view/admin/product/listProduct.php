@@ -25,7 +25,7 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_category.'</td>
-                        <td>'.$item->title.'</td>
+                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct.php/?id='.$item->id.'">

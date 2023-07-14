@@ -42,5 +42,10 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt',
 									)
 						);
 
+$menus[0]['sub'][5]= array( 'title'=>'Hướng dẫn APIs',
+                            'url'=>'/plugins/admin/2top_crm_training-view-admin-guide-guideTrainingAPIsCRM.php',
+                            'classIcon'=>'bx bx-support',
+                            'permission'=>'guideTrainingAPIsCRM'
+                        );
 
 addMenuAdminMantan($menus);

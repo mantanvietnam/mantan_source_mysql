@@ -603,6 +603,10 @@
 	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/brightness.png" class="img-fluid" alt=""></div>
 	                                    <div class="info">Độ sáng</div>
 	                                </div>
+	                                <div class="item-replace text-center clc-action-edit image" onclick="lat_anh();">
+	                                    <div class="icon"><img src="https://apis.ezpics.vn/plugins/ezpics_api/view/image/icon-editor/4074990.png" class="img-fluid" alt=""></div>
+	                                    <div class="info">Lật ảnh</div>
+	                                </div>
 	                            </div>
 	                        </div>
 	                        <div class="content-action" id="thaotacchu"> 

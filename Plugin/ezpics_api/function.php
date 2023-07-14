@@ -639,8 +639,15 @@ function getLayerProductForEdit($idProduct=0)
                     if(empty($layer->variableLabel)){
                         $layer->variableLabel = '';
                     }
-                    
-                    
+
+                    // cờ đánh dấu hiệu ứng lật ảnh
+                    if(empty($layer->lat_anh)){
+                        $layer->lat_anh = 0;
+                        $class_lat_anh = '';
+                    }else{
+                        $layer->lat_anh = 1;
+                        $class_lat_anh = 'lat_anh';
+                    }
                     
                     $dnone = empty($layer->status) ? 'd-none' : '';
                     
@@ -700,7 +707,7 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
                     */
 
-                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" >
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" data-latanh="'.$layer->lat_anh.'" >
                        
                         <div class="list-selection-choose d-none">
                             <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
@@ -711,7 +718,7 @@ function getLayerProductForEdit($idProduct=0)
                             </button>
                         </div>
 
-                        <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';opacity: '.$layer->opacity.';border-radius: '.$layer->border.'px">
+                        <img src="'.$layer->banner.'" class="img-fluid '.$img.' image'.$key.' '.$class_lat_anh.'" data-maxw="'.$item->wight.'" data-maxh="'.$item->height.'" style="width: '.$layer->width.';opacity: '.$layer->opacity.';border-radius: '.$layer->border.'px">
                     
                         <span class="'.$text.' text'.$key.'" style="display:inline-block;word-wrap:anywhere;width: '.$layer->width.';color: '.$layer->color.';font-size: '.$layer->size.';font-family: '.$layer->font.';text-decoration: '.$layer->gachchan.';text-transform: '.$layer->uppercase.';font-weight: '.$layer->indam.';letter-spacing: '.$layer->gianchu.';line-height: '.$layer->giandong.';font-style: '.$layer->innghieng.';'.'opacity: '.$layer->opacity.';'.$style_gradient.'">'.$layer->text.'</span>
                     

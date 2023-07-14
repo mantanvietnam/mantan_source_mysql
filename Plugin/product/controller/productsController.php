@@ -95,7 +95,7 @@ function addProduct($input)
 
         if(!empty($dataSend['title'])){
 	        // tạo dữ liệu save
-	        $data->title = $dataSend['title'];
+	        $data->title = str_replace(array('"', "'"), '’', $dataSend['title']);
             $data->id_category = (int) $dataSend['id_category'];
             $data->hot = (int) $dataSend['hot'];
             $data->description = $dataSend['description'];

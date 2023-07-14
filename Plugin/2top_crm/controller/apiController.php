@@ -5,6 +5,8 @@ function saveCustomerAPI($input)
 	global $controller;
 	global $session;
 
+	$modelMember = $controller->loadModel('Members');
+
 	$return = array('code'=>1,
 					'set_attributes'=>array('id_customer'=>0),
 					'messages'=>array(array('text'=>''))
@@ -60,7 +62,14 @@ function saveCustomerAPI($input)
     								'birthday_month'=>(int) @$birthday_month,
     								'birthday_year'=>(int) @$birthday_year,
     						);
-    		$id_customer = addCustomer($dataCustomer);
+
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'] ))->first();
+
+			if(empty($checkPhone)){
+				$id_customer = addCustomer($dataCustomer);
+			}else{
+				$id_customer = $checkPhone->id;
+			}
     		
     		$return = array('code'=>0, 
     						'set_attributes'=>array('id_customer'=>$id_customer),

@@ -2023,3 +2023,11 @@ main {
   background-color: rgba(0, 0, 0, 0.3);
   top: 0;
 }
+.lat_anh{
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}

@@ -3,4 +3,7 @@ include_once('controller/productsController.php'); // sản phẩm
 include_once('controller/optionsController.php'); // cài đặt
 include_once('controller/categoriesController.php'); // danh mục
 include_once('controller/apiController.php'); // api
+
+include_once('controller/home/categoriesController.php'); 
+include_once('controller/home/productsController.php'); 
 ?>

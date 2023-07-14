@@ -2849,5 +2849,31 @@ function checkPositionLayer()
     }
 }
 
+function lat_anh()
+{
+    if($('div').hasClass('active-hover')){
+        let idproduct = $('.active-hover').data('idproduct');
+        let id = $('.active-hover').data('id');
+        let layer = $('.active-hover').data('layer');
+        let latanh = $('.active-hover').data('latanh');
+
+        if(latanh==0){
+            latanh = 1;
+            $('.active-hover').find('img').addClass('lat_anh');
+        }else{
+            latanh = 0;
+            $('.active-hover').find('img').removeClass('lat_anh');
+        }
+
+        $('.active-hover').data('latanh',latanh);
+        
+        updatelayerClient(layer,'lat_anh',idproduct,latanh);
+    }else{
+        $(".content-action").removeClass("active");
+        $(".clc-action-edit").removeClass("active");
+        printErrorMsg(['Chọn layer để thao tác']);
+    }
+}
+
 setTimeout(saveproduct, 60000, 0);
 
