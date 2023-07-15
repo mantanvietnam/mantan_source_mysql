@@ -25,7 +25,7 @@
       </div>
     </div>
   </form>
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Thông tin thu nhập cao nhất</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">

@@ -44,7 +44,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách khách hàng mua kho mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> khách</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

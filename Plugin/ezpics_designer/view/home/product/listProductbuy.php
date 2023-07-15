@@ -58,7 +58,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách mẫu thiết kế mua - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
     <div id="desktop_view">
       <div class="table-responsive">

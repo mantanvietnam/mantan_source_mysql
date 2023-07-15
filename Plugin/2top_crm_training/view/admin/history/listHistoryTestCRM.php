@@ -36,7 +36,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách lịch sử thi</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

@@ -15,6 +15,36 @@ function listProduct($input)
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    if(!empty($_GET['title'])){
+        $conditions['title LIKE'] = '%'.$_GET['title'].'%';
+    }
+
+    if(!empty($_GET['id_category'])){
+        $conditions['id_category'] = (int) $_GET['id_category'];
+    }
+
+    if(!empty($_GET['id_manufacturer'])){
+        $conditions['id_manufacturer'] = (int) $_GET['id_manufacturer'];
+    }
+
+    if(isset($_GET['hot'])){
+        if($_GET['hot']!=''){
+            $conditions['hot'] = (int) $_GET['hot'];
+        }
+    }
+
+    if(!empty($_GET['code'])){
+        $conditions['code'] = $_GET['code'];
+    }
+
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
     
     $listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -62,6 +92,12 @@ function listProduct($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type' => 'category_product');
+    $categories = $modelCategories->find()->where($conditions)->all()->toList();
+
+    $conditions = array('type' => 'manufacturer_product');
+    $manufacturers = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -69,6 +105,8 @@ function listProduct($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('categories', $categories);
+    setVariable('manufacturers', $manufacturers);
 }
 
 function addProduct($input)

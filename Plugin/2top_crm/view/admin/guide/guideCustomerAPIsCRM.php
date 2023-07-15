@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - KHÁCH HÀNG</h4>
   
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Hướng dẫn tích hợp API</h5>
     <div class="row table-responsive">
       <div class="col-12">

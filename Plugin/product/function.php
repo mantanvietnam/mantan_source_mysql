@@ -7,6 +7,11 @@ $menus[0]['sub'][0]= array(	'title'=>'Sản phẩm',
 							'permission'=>'listProduct'
 						);
 
+$menus[0]['sub'][1]= array(	'title'=>'Đơn hàng',
+							'url'=>'/plugins/admin/product-view-admin-order-listOrderAdmin.php',
+							'classIcon'=>'bx bx-cart-add',
+							'permission'=>'listOrderAdmin'
+						);
 
 $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'url'=>'/',
@@ -21,6 +26,11 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
                                                 'url'=>'/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct.php',
                                                 'classIcon'=>'bx bx-category',
                                                 'permission'=>'listManufacturerProduct',
+                                            ),
+                                            array('title'=>'Gửi thông báo',
+                                                'url'=>'/plugins/admin/product-view-admin-smaxbot-settingSmaxbotAdmin.php',
+                                                'classIcon'=>'bx bx-category',
+                                                'permission'=>'settingSmaxbotAdmin',
                                             ),
 
 									)

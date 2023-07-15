@@ -2,7 +2,7 @@
 
 
  <!-- Responsive Table -->
- <div class="card m-4">
+ <div class="card m-4 row">
     <h5 class="card-header">Lịch sử giao dịch xóa ảnh nền - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
     <div class="table-responsive">
       <table class="table table-bordered">

@@ -5,7 +5,7 @@
   </h4>
   
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header"><?php echo $data->title;?></h5>
     <div class="table-responsive">
       <table class="table table-bordered">

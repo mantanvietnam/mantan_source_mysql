@@ -1,8 +1,94 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
   <p><a href="/plugins/admin/product-view-admin-product-addProduct.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
+  <!-- Form Search -->
+  <form method="get" action="">
+    <div class="card mb-4">
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" name="title" value="<?php if(!empty($_GET['title'])) echo $_GET['title'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Danh mục</label>
+            <select name="id_category" class="form-control">
+              <option value="">Tất cả</option>
+              <?php
+                if(!empty($categories)){
+                  foreach($categories as $item){
+                    if(empty($_GET['id_category']) || $_GET['id_category']!=$item->id){
+                      echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                    }else{
+                      echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                    }
+                  }
+                }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Nhà sản xuất</label>
+            <select name="id_manufacturer" class="form-control">
+              <option value="">Tất cả</option>
+              <?php
+                if(!empty($manufacturers)){
+                  foreach($manufacturers as $item){
+                    if(empty($_GET['id_manufacturer']) || $_GET['id_manufacturer']!=$item->id){
+                      echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                    }else{
+                      echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                    }
+                  }
+                }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Ghim lên đầu</label>
+            <select name="hot" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="0" <?php if(isset($_GET['hot']) && $_GET['hot']=='0') echo 'selected';?> >Không ghim</option>
+              <option value="1" <?php if(!empty($_GET['hot']) && $_GET['hot']=='1') echo 'selected';?> >Có ghim</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Mã sản phẩm</label>
+            <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+          
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--/ Form Search -->
+
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách sản phẩm</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

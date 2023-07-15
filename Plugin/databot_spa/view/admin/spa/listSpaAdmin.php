@@ -32,7 +32,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
      <p><?php echo @$mess;?></p>
       <div class="table-responsive">

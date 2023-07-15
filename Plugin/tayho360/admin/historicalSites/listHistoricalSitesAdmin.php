@@ -20,7 +20,7 @@
         
         </tbody></table>
     </form>
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách Thông tin điểm đến di tích và danh lam</h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">

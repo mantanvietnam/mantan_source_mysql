@@ -6,7 +6,7 @@
   <p><a href="/plugins/admin/tayho360-admin-tour-addReportAdmin.php?idtour=<?php echo($_GET['idtour']) ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách thông tin  Lịch trình tour</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">

@@ -2,7 +2,7 @@
 
 
  <!-- Responsive Table -->
- <div class="card m-4">
+ <div class="card m-4 row">
     <h5 class="card-header">Lịch sử giao dịch bán hàng - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
     <div id="desktop_view">
       <div class="table-responsive">

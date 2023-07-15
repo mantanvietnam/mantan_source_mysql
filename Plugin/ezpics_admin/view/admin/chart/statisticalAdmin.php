@@ -28,7 +28,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <div class="row">
       <div class="col-md-6">
         <h5 class="card-header">Thống kê nhanh</h5>

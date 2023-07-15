@@ -32,7 +32,7 @@ function category($input)
         	$metaDescriptionMantan = $category->description;
             
 
-            $conditions = array('id_category'=>$category->id);
+            $conditions = array('id_category'=>$category->id, 'status'=>'active');
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
@@ -121,7 +121,7 @@ function manufacturer($input)
         	$metaDescriptionMantan = $category->description;
             
 
-            $conditions = array('id_category'=>$category->id);
+            $conditions = array('id_manufacturer'=>$category->id, 'status'=>'active');
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;

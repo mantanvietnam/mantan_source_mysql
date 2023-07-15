@@ -22,6 +22,8 @@ function product($input)
             $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
             $conditions = array('slug'=>$slug);
         }
+
+        $conditions['status'] = 'active';
         
         $product = $modelProduct->find()->where($conditions)->first();
 
@@ -32,7 +34,7 @@ function product($input)
         	$metaDescriptionMantan = $product->description;
             
 
-            $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category);
+            $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category, 'status'=>'active');
 			$limit = 12;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
@@ -48,5 +50,150 @@ function product($input)
     }else{
         return $controller->redirect('/');
     }
+}
+
+function products($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+
+    $metaTitleMantan = 'Tất cả sản phẩm';
+
+    $modelProduct = $controller->loadModel('Products');
+
+    $conditions = ['status'=>'active'];
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+    // phân trang
+    $totalData = $modelProduct->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('list_product', $list_product);
+}
+
+function search($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+
+    $metaTitleMantan = 'Tìm kiếm sản phẩm';
+
+    $modelProduct = $controller->loadModel('Products');
+
+    $conditions = ['status'=>'active'];
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+
+    if(!empty($_GET['key'])){
+        $conditions['OR'] = [
+                                ['title LIKE'=>'%'.$_GET['key'].'%'],
+                                ['keyword LIKE'=>'%'.$_GET['key'].'%']
+                            ];
+    }
+
+    if(!empty($_GET['category'])){
+        $conditions['id_category IN'] = $_GET['category'];
+    }
+
+    if(!empty($_GET['manufacturer'])){
+        $conditions['id_manufacturer IN'] = $_GET['manufacturer'];
+    }
+    
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+    // phân trang
+    $totalData = $modelProduct->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    
+    setVariable('list_product', $list_product);
 }
 ?>

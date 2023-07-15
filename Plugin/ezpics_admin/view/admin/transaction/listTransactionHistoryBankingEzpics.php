@@ -49,7 +49,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <div class="row">
       <div class="col-md-6">
         <h5 class="card-header">Giao dịch nạp tiền - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>

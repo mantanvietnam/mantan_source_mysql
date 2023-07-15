@@ -6,7 +6,7 @@ $dataList = $data["list"];
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Danh sách liên hệ</h4>
     <!-- Responsive Table -->
-    <div class="card">
+    <div class="card row">
         <h5 class="card-header">Danh sách liên hệ</h5>
         <div class="table-responsive">
             <table class="table table-bordered">

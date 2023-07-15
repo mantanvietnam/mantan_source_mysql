@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
   <p><a href="/plugins/admin/smartqr-view-admin-member-addMember.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách khách hàng</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

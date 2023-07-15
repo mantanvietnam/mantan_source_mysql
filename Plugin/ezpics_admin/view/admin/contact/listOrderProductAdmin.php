@@ -34,8 +34,8 @@
         
         </tbody></table> -->
     </form>
-  <div class="card">
-    <h5 class="card-header">Thông tin Order mẫu thiết kế</h5>
+  <div class="card row">
+    <h5 class="card-header">Thông tin Order mẫu thiết kế</h5>
     <p><?php echo @$mess;?></p>
     <div id="desktop_view">
       <div class="table-responsive">

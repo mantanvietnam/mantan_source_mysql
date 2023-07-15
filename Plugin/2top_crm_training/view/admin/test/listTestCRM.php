@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - BÀI THI</h4>
   <p><a href="/plugins/admin/2top_crm_training-view-admin-test-addTestCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Bài thi</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

@@ -3,7 +3,7 @@
     <h4 class="fw-bold py-3 mb-4">Tiêu chí đánh giá</h4>
 
     <!-- Basic Layout -->
-      <div class="row">
+      <div class="row row">
         <div class="col-xl">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">

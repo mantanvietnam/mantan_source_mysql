@@ -51,7 +51,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách câu hỏi - <b class="text-danger"><?php echo number_format($totalData);?></b> câu</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

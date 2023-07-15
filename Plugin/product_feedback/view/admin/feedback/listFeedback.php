@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">Đánh giá chất lượng sản phẩm</h4>
   <p><a href="/plugins/admin/product_feedback-view-admin-feedback-addFeedback.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Đánh giá</h5>
     <div class="table-responsive">
       <table class="table table-bordered">

@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">Thông tin link liên kết</h4>
   <p><a href="/plugins/admin/linkWeb-admin-addLinkWebAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách Thông tin link liên kết</h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">

@@ -5,7 +5,13 @@
 	$routesPlugin['searchProductAPI']= 'product/searchProductAPI.php';
 
 	// frontend
-	$routesPlugin['category']= 'product/view/home/product/category.php';
-	$routesPlugin['manufacturer']= 'product/view/home/product/manufacturer.php';
-	$routesPlugin['product']= 'product/view/home/product/product.php';
+	$routesPlugin['products']= 'product/view/home/products.php';
+	$routesPlugin['category']= 'product/view/home/category.php';
+	$routesPlugin['manufacturer']= 'product/view/product/manufacturer.php';
+	$routesPlugin['product']= 'product/view/home/product.php';
+	$routesPlugin['search']= 'product/view/home/search.php';
+
+	$routesPlugin['addProductToCart']= 'product/view/home/addProductToCart.php';
+	$routesPlugin['deleteProductCart']= 'product/view/home/deleteProductCart.php';
+	$routesPlugin['clearCart']= 'product/view/home/clearCart.php';
 ?>

@@ -32,7 +32,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách SPA  </h5>
      <p><?php echo @$mess;?></p>
     <div class="table-responsive">

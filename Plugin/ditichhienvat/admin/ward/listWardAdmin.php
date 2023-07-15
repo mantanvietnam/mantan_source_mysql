@@ -2,7 +2,7 @@
   <h4 class="fw-bold py-3 mb-4">Thông tin Phường Xã</h4>
   <p><a href="/plugins/admin/ditichhienvat-admin-ward-addWardAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách Thông tin Phường Xã</h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">

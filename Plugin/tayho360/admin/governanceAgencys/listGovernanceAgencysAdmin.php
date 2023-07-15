@@ -24,7 +24,7 @@
         
         </tbody></table>
     </form>
-  <div class="card">
+  <div class="card row">
     <h5 class="card-header">Danh sách Thông tin cơ quan hành chính</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
