@@ -136,4 +136,49 @@ function getContentAPI($input){
 
 	return $return;
 }
+
+function  deleteContentAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelContent = $controller->loadModel('ProductContents');
+
+	$return = array('code'=>0);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($checkPhone)){
+				$data = $modelContent->find()->where(array('user_id'=>$checkPhone->id, 'id'=>$dataSend['id']))->first();
+				if(!empty($data)){
+
+					$modelContent->delete($data);
+				
+					$return = array('code'=>1,
+							'mess'=>'Xóa content thành công'
+						);
+				}else{
+					$return = array('code'=>0,
+								'mess'=>'không Xóa được'
+					);
+				}
+			}else{
+				$return = array('code'=>0,
+							'mess'=>'Tài khoản không tồn tại hoặc sai token'
+				);
+			}
+		}else{
+			$return = array('code'=>0,
+				'mess'=>'Gửi thiếu dữ liệu'
+			);
+		}
+	}
+
+	return $return;
+}
  ?>

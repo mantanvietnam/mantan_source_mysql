@@ -1061,4 +1061,34 @@ function searchDesignerAPI($input){
 
 	return 	$return;
 }
+
+function listDesignerAPI($input){
+
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=> 0);
+
+	if($isRequestPost){
+
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		
+		$conditions['type'] = 1;
+		$data = $modelMember->find()->where($conditions)->all()->toList();
+
+		$return = array('code'=>1,
+							'data' => $data,
+							'mess'=>'Lấy data thành công'
+						);
+
+
+
+	}
+
+	return 	$return;
+}
 ?>

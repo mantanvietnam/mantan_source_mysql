@@ -33,6 +33,44 @@ function getListWarehousesAPI($input){
 	return $return;
 }
 
+function searchtWarehousesAPI($input){
+
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');;
+
+	
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$conditions = array();
+		if(!empty($dataSend['name'])){
+			$conditions['name']= $dataSend['name'];
+		}
+
+			// lấy kho 
+			$data = $modelWarehouses->find()->where($conditions)->all()->toList();
+			if(!empty($data)){
+				$listData = array();
+				foreach($data as $key => $item){
+					$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
+					$listData[] =$item;
+				}
+				$return = array('code'=>1,
+								'data'=> $listData,
+					 			'mess'=>'Bạn lấy data thành công',
+					 		);
+			}else{
+				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
+			}
+		
+	}
+	return $return;
+}
+
 function getProductsWarehousesAPI($input){
 
 	global $isRequestPost;
