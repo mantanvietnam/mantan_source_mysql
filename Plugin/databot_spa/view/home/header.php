@@ -147,6 +147,19 @@
               </ul>
             </li>
             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div>Đột ngũ </div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listSaff" class="menu-link">
+                    <div>Nhân viên</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
               <a href="/listSpa" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Thông tin spa</div>

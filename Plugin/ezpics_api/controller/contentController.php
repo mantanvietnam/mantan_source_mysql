@@ -31,17 +31,17 @@ function addContentAPI($input){
 
 
 				}else{
-					$return = array('code'=>0,
+					$return = array('code'=>4,
 								'mess'=>'Sản phẩm không tồn tại'
 				);
 				}
 			}else{
-				$return = array('code'=>0,
+				$return = array('code'=>3,
 							'mess'=>'Tài khoản không tồn tại hoặc sai token'
 				);
 			}
 		}else{
-			$return = array('code'=>0,
+			$return = array('code'=>2,
 				'mess'=>'Gửi thiếu dữ liệu'
 			);
 		}
@@ -75,17 +75,17 @@ function listContentAPI($input){
 							'mess'=>'Lấy data thành công'
 						);
 				}else{
-					$return = array('code'=>0,
+					$return = array('code'=>4,
 								'mess'=>'không có data'
 					);
 				}
 			}else{
-				$return = array('code'=>0,
+				$return = array('code'=>3,
 							'mess'=>'Tài khoản không tồn tại hoặc sai token'
 				);
 			}
 		}else{
-			$return = array('code'=>0,
+			$return = array('code'=>2,
 				'mess'=>'Gửi thiếu dữ liệu'
 			);
 		}
@@ -119,17 +119,17 @@ function getContentAPI($input){
 							'mess'=>'Lấy data thành công'
 						);
 				}else{
-					$return = array('code'=>0,
+					$return = array('code'=>4,
 								'mess'=>'không có data'
 					);
 				}
 			}else{
-				$return = array('code'=>0,
+				$return = array('code'=>3,
 							'mess'=>'Tài khoản không tồn tại hoặc sai token'
 				);
 			}
 		}else{
-			$return = array('code'=>0,
+			$return = array('code'=>2,
 				'mess'=>'Gửi thiếu dữ liệu'
 			);
 		}
@@ -164,17 +164,17 @@ function  deleteContentAPI($input){
 							'mess'=>'Xóa content thành công'
 						);
 				}else{
-					$return = array('code'=>0,
+					$return = array('code'=>4,
 								'mess'=>'không Xóa được'
 					);
 				}
 			}else{
-				$return = array('code'=>0,
+				$return = array('code'=>3,
 							'mess'=>'Tài khoản không tồn tại hoặc sai token'
 				);
 			}
 		}else{
-			$return = array('code'=>0,
+			$return = array('code'=>2,
 				'mess'=>'Gửi thiếu dữ liệu'
 			);
 		}
@@ -210,17 +210,17 @@ function  updateContentAPI($input){
 							'mess'=>'Sửa content thành công'
 						);
 				}else{
-					$return = array('code'=>0,
-								'mess'=>'không sửa được'
+					$return = array('code'=>4,
+								'mess'=>'sai id không sửa được'
 					);
 				}
 			}else{
-				$return = array('code'=>0,
+				$return = array('code'=>3,
 							'mess'=>'Tài khoản không tồn tại hoặc sai token'
 				);
 			}
 		}else{
-			$return = array('code'=>0,
+			$return = array('code'=>2,
 				'mess'=>'Gửi thiếu dữ liệu'
 			);
 		}

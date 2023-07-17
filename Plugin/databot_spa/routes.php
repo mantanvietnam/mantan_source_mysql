@@ -30,4 +30,5 @@
 	$routesPlugin['listCustomer']= 'databot_spa/view/home/customer/listCustomer.php';
 	$routesPlugin['addCustomer']= 'databot_spa/view/home/customer/addCustomer.php';
 	$routesPlugin['deleteCustomer']= 'databot_spa/view/home/customer/deleteCustomer.php';
+	$routesPlugin['listSaff']= 'databot_spa/view/home/saff/listSaff.php';
 ?>

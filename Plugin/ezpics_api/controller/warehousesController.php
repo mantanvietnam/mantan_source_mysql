@@ -64,7 +64,7 @@ function searchtWarehousesAPI($input){
 					 			'mess'=>'Bạn lấy data thành công',
 					 		);
 			}else{
-				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
+				$return = array('code'=>2, 'mess'=>'Kho không tồn tại');
 			}
 		
 	}
