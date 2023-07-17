@@ -112,10 +112,22 @@
             <!-- Cards -->
 
             <li class="menu-item">
-              <a href="/listCustomer" class="menu-link">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="bx bxs-user-detail"></i>
                 <div>Khách hàng</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listCustomer" class="menu-link">
+                    <div>Khách hàng</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listCategoryCustomer" class="menu-link">
+                    <div>Nhóm khách hàng</div> 
+                  </a>
+                </li>
+              </ul>
             </li>           
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -149,7 +161,7 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div>Đột ngũ </div>
+                <div>Đội ngũ</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">

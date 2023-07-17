@@ -50,7 +50,9 @@
                     <label class="form-label" for="basic-default-email">Nhân viên phụ trách</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_staff" id="id_staff">
-                        <option value="1" <?php if(isset($data->id_staff) && $data->id_staff=='0') echo 'selected'; ?> >Nguyễn huu bẵng</option>
+                        <?php foreach($dataMember as $key => $item){ ?>
+                        <option value="<?php echo $item->id ?>" <?php if(isset($data->id_staff) && $data->id_staff==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                      <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -58,7 +60,9 @@
                     <label class="form-label" for="basic-default-email">Nhóm khách hàng </label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_group" id="id_group">
-                        <option value="1" <?php if(isset($data->id_group) && $data->id_group=='0') echo 'selected'; ?> >Vip</option>
+                        <?php foreach($dataGroup as $key => $item){ ?>
+                        <option value="<?php echo $item->id ?>" <?php if(isset($data->id_group) && $data->id_group==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                      <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -103,7 +107,9 @@
                     <label class="form-label" for="basic-default-email">Chi nhánh</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_spa" id="id_spa">
-                        <option value="1" <?php if(isset($data->id_spa) && $data->id_spa=='0') echo 'selected'; ?> >Vip</option>
+                        <?php foreach($dataSpa as $key => $item){ ?>
+                        <option value="<?php echo $item->id ?>" <?php if(isset($data->id_spa) && $data->id_spa== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                      <?php } ?>
                       </select>
                     </div>
                   </div>

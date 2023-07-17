@@ -62,13 +62,13 @@
                         <td>'.$status.'</td>
                         
                         <td align="center">
-                           <a  class="dropdown-item" href="/addWarehouse?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                           <a  class="dropdown-item" href="/addWarehouse?id='.$item->id.'" title="sửa thông tin kho này">
                             <i class="bx bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteWarehouse/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho này không?\');" href="/deleteWarehouse/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

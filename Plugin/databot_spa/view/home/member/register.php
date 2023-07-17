@@ -84,7 +84,7 @@
               </div> -->
               <!-- /Logo -->
               <h4 class="mb-2 " style=" text-align: center; ">Phần mền quản lý SPA! 👋</h4>
-              <p class="mb-4 " style=" text-align: center; ">Mời bạn đăng ký công cụphần mền quản lý SPA</p>
+              <p class="mb-4 " style=" text-align: center; ">Mời bạn đăng ký công cụ phần mền quản lý SPA</p>
              <p class="mb-4" style="color: red"> <?php echo @$mess;?></p>
               <form id="formAuthentication" class="mb-3" action="" method="POST" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">

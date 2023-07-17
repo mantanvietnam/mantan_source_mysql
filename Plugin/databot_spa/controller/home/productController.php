@@ -24,7 +24,6 @@ function listCategoryProduct($input){
             $infoCategory->parent = 0;
             $infoCategory->image = $dataSend['image'];
             $infoCategory->id_member = $infoUser->id_member;
-            $infoCategory->id_spa = $infoUser->id_spa;
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_product';
@@ -34,7 +33,7 @@ function listCategoryProduct($input){
             $slugNew = $slug;
             $number = 0;
             do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa);
+                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id_member);
                 $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                 if(!empty($listData)){

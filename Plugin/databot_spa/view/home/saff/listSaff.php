@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Nhân viên</h4>
-  <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addSaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -59,14 +59,12 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Thông tin </th>
-            <th>Ngày đăng ký</th>
-            <th>Đăng nhập</th>
-            <th>Hết hạn</th>
-            <th>Loại tài khoản</th>
-            <!-- <th>Trạng thái</th> -->
+            <th>Tên nhân viên</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>trạng thái</th>
             <th>Sửa</th>
-            <th>Khóa</th>
+            <th>xóa</th>
           </tr>
         </thead>
         <tbody>
@@ -78,35 +76,27 @@
                   $type = 'Member ';
                 }
 
-                $status = 'Kích hoạt <br/>
-                 <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
-                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                          </a>';
+                $status = 'Kích hoạt <br/>';
                 if($item->status==0){
-                  $status = 'Khóa <br/>
-                 <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
-                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
-                          </a>';
+                  $status = 'Khóa';
                 }
 
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->name.'<br/>
-                          '.$item->phone.'<br/>
-                          '.$item->email.'<br/>
-                        </td>
-                        <td>'.$item->created_at.'</td>
-                        <td>'.$item->last_login.'</td>
-                        <td>'.$item->dateline_at.'</td>
-                        <td>'.$type.'</td>
+                        <td>'.$item->name.' </td>
+                        <td>'.$item->phone.'</td>
+                        <td>'.$item->email.'</td>
+                        <td>'.$status.'</td>
                        
                         
                          <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/databot_spa-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                           </a>
                         </td>
-                        <td align="center">'.$status.'</td>
+                        <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhân viên này không?\');" href="/addSaff?id='.$item->id.'">
+                            <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
+                          </a></td>
                       </tr>';
               }
             }else{
