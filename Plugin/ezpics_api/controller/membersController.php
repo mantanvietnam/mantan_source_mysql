@@ -1079,13 +1079,16 @@ function listDesignerAPI($input){
 		
 		$conditions['type'] = 1;
 		$data = $modelMember->find()->where($conditions)->all()->toList();
-
-		$return = array('code'=>1,
-							'data' => $data,
-							'mess'=>'Lấy data thành công'
-						);
-
-
+		if(!empty($data)){
+			$return = array('code'=>1,
+								'data' => $data,
+								'mess'=>'Lấy data thành công'
+							);
+		}else{
+			$return = array('code'=>2,
+								'mess'=>'không có data'
+							);
+		}
 
 	}
 
