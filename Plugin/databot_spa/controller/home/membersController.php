@@ -35,6 +35,11 @@ function login($input)
 	    		$conditions = array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']));
 	    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
+	    		if($info_customer->type == 0){
+	    			$info_member = $modelMembers->find()->where(array('id'=>$info_customer->id_member, 'type'=>1))->first();
+			    	$info_customer->dateline_at = $info_member->dateline_at;
+			    }
+
 	    		if($info_customer){
 	    			// hiến hạn sử dụng
 	    			if($info_customer->dateline_at >= date('Y-m-d H:i:s')){
@@ -47,6 +52,9 @@ function login($input)
 			    			$info_customer->last_login = date('Y-m-d H:i:s');
 
 			    			$modelMembers->save($info_customer);
+			    			if($info_customer->type == 1){
+			    				$info_customer->id_member = $info_customer->id;
+			    			}
 
 			    			$session->write('CheckAuthentication', true);
 		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
@@ -91,10 +99,6 @@ function dashboard($input)
 	global $metaTitleMantan;
 
 	$metaTitleMantan = 'Thống kê tài khoản';
-
-	// $modelProduct = $controller->loadModel('Products');
-	// $modelOrder = $controller->loadModel('Orders');
-
 	if(!empty($session->read('infoUser'))){
 		$conditions = array('user_id'=>$session->read('infoUser')->id, 'type'=>'user_create', 'status'=>2);
 		$limit = 5;
@@ -372,7 +376,7 @@ function managerSelectSpa() {
 	        }
 	    }
 	    
-	    $dataList = $modelSpas->find()->where(array('id_member'=>$infoUser->id))->all()->toList();
+	    $dataList = $modelSpas->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
 
 
 
@@ -392,7 +396,7 @@ function managerSelectSpa() {
 		    	setVariable('mess', $mess);
 		    	setVariable('dataList', $dataList);
 		    }else{
-		    	$data = $modelSpas->find()->where(array('id_member'=>$infoUser->id))->first();
+		    	$data = $modelSpas->find()->where(array('id_member'=>$infoUser->id_member))->first();
 		    	$infoUser->id_spa = $data->id;
 			                $session->write('infoUser', @$infoUser);
 			    return $controller->redirect('/dashboard');

@@ -14,7 +14,7 @@ function listWarehouse($input){
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
 
-		$conditions = ['id_member'=>$user->id,'id_spa'=>$user->id_spa];
+		$conditions = ['id_member'=>$user->id_member,'id_spa'=>$user->id_spa];
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -116,7 +116,7 @@ function addWarehouse($input)
 	        	
 		        // tạo dữ liệu save
 		        $data->name = $dataSend['name'];
-		        $data->id_member = (int) $infoUser->id;
+		        $data->id_member = (int) $infoUser->id_member;
 		        $data->id_spa = (int)$infoUser->id_spa;
 		        $data->credit =(int) $dataSend['credit'];
 		        $data->description = $dataSend['description'];
@@ -149,7 +149,7 @@ function deleteWarehouse($input)
 			$data = $modelWarehouses->get($_GET['id']);
 			$user = $session->read('infoUser');
 			
-			if($data && $data->id_member == $user->id){
+			if($data && $data->id_member == $user->id_member){
 	         	// xóa kho mẫu thiết kế
 				$modelWarehouses->delete($data);
 	        }

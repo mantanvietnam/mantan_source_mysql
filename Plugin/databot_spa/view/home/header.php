@@ -72,6 +72,7 @@
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/popper/popper.js"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap.js"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap-datepicker.js?time=<?php echo  getdate()[0]; ?>"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
   </head>
 

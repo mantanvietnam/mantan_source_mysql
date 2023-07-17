@@ -48,7 +48,7 @@ function searchtWarehousesAPI($input){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
 		if(!empty($dataSend['name'])){
-			$conditions['name']= $dataSend['name'];
+			$conditions['name LIKE']= '%'.$dataSend['name'].'%';
 		}
 
 			// lấy kho 

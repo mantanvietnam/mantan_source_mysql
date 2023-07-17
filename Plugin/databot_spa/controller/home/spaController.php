@@ -22,7 +22,7 @@ function listSpa($input){
 		$order = array('id'=>'desc');
 		
 
-		$conditions['id_member']= $infoUser->id;
+		$conditions['id_member']= $infoUser->id_member;
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
@@ -103,7 +103,7 @@ function addSpa($input){
 	$infoUser = $session->read('infoUser');
 	$modelWarehouse = $controller->loadModel('Warehouses');
 	$conditions = array();
-	$conditions['id_member']= $infoUser->id;
+	$conditions['id_member']= $infoUser->id_member;
 
 	$totalData = $modelSpas->find()->where($conditions)->all()->toList();
 	$totalData = count($totalData);
@@ -119,7 +119,7 @@ function addSpa($input){
 	    	if ($infoUser->number_spa > $totalData){ 
 		        $data = $modelSpas->newEmptyEntity();
 		        $data->created_at = date('Y-m-d H:i:s');
-		        $data->id_member = $infoUser->id;
+		        $data->id_member = $infoUser->id_member;
 	    	}else{
 	    		return $controller->redirect('/listSpa');
 	    	}
@@ -138,12 +138,12 @@ function addSpa($input){
 	    	if(!empty($_GET['id'])){
 	    		return $controller->redirect('/listSpa?status=2');
 	    	}else{
-	    		$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$data->name, 'id_member' => $infoUser->id, 'address'=>$data->address ))->first();
+	    		$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$data->name, 'id_member' => $infoUser->id_member, 'address'=>$data->address ))->first();
 						if($checkspa){
 							$dataWarehouse = $modelWarehouse->newEmptyEntity();
 							$dataWarehouse->name = $dataSend['address'];
 							$dataWarehouse->credit = 1;
-							$dataWarehouse->id_member = $infoUser->id;
+							$dataWarehouse->id_member = $infoUser->id_member;
 							$dataWarehouse->id_spa = $checkspa->id;
 							$dataWarehouse->created_at = date('Y-m-d H:i:s');
 							$modelWarehouse->save($dataWarehouse);
@@ -176,7 +176,7 @@ function deleteSpa($input){
 	$infoUser = $session->read('infoUser');
 
 	$conditions = array();
-	$conditions['id_member']= $infoUser->id;
+	$conditions['id_member']= $infoUser->id_member;
 
 	$totalData = $modelSpas->find()->where($conditions)->all()->toList();
 	$totalData = count($totalData);

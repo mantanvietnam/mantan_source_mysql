@@ -23,7 +23,7 @@ function listCategoryProduct($input){
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = 0;
             $infoCategory->image = $dataSend['image'];
-            $infoCategory->id_member = $infoUser->id;
+            $infoCategory->id_member = $infoUser->id_member;
             $infoCategory->id_spa = $infoUser->id_spa;
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
@@ -34,7 +34,7 @@ function listCategoryProduct($input){
             $slugNew = $slug;
             $number = 0;
             do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id, 'id_spa'=>$infoUser->id_spa);
+                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa);
                 $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
                 if(!empty($listData)){
@@ -49,7 +49,7 @@ function listCategoryProduct($input){
 
         }
 
-        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id);
+        $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -69,7 +69,7 @@ function deleteCategoryProduct($input){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
-            $conditions = array('id'=> $_GET['id'], 'type' => 'category_product', 'id_member'=>$infoUser->id);
+            $conditions = array('id'=> $_GET['id'], 'type' => 'category_product', 'id_member'=>$infoUser->id_member);
             $data = $modelCategories->find()->where($conditions)->first();
             if(!empty($data)){
                 $modelCategories->delete($data);
@@ -107,7 +107,7 @@ function listTrademarkProduct($input){
             // tạo dữ liệu save
             $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $data->image = $dataSend['image'];
-            $data->id_member = $infoUser->id;
+            $data->id_member = $infoUser->id_member;
             $data->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             // tạo slug
             $data->slug = createSlugMantan($data->name);
@@ -115,7 +115,7 @@ function listTrademarkProduct($input){
 
         }
 
-        $conditions = array('id_member'=>$infoUser->id);
+        $conditions = array('id_member'=>$infoUser->id_member);
         $listData = $modelTrademarks->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -138,7 +138,7 @@ function deleteTrademarkProduct($input){
         $modelTrademarks = $controller->loadModel('Trademarks');
 
         if(!empty($_GET['id'])){
-            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id);
+            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             $data = $modelTrademarks->find()->where($conditions)->first();
             if(!empty($data)){
                 $modelTrademarks->delete($data);
@@ -168,7 +168,7 @@ function listProduct(){
         
         $modelTrademarks = $controller->loadModel('Trademarks');
 
-        $conditions = array('id_member'=>$user->id, 'id_spa'=>$user->id_spa);
+        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$user->id_spa);
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -232,11 +232,11 @@ function listProduct(){
             $urlPage = $urlPage . '?page=';
         }
 
-        $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$user->id);
+        $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$user->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
-        $conditionsTrademar = array('id_member'=>$user->id);
+        $conditionsTrademar = array('id_member'=>$user->id_member);
         $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->all()->toList();
 
         
@@ -294,7 +294,7 @@ function addProduct($input){
                 $data->id_category =(int) @$dataSend['id_category'];
                 $data->description = @$dataSend['description'];
                 $data->id_trademark =(int) @$dataSend['id_trademark'];
-                $data->id_member = $infoUser->id;
+                $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $infoUser->id_spa;
                 $data->price = (int)@$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
@@ -318,11 +318,11 @@ function addProduct($input){
                 $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
             }
         }
-         $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$infoUser->id);
+         $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
-        $conditionsTrademar = array('id_member'=>$infoUser->id);
+        $conditionsTrademar = array('id_member'=>$infoUser->id_member);
         $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->all()->toList();
 
         setVariable('data', $data);

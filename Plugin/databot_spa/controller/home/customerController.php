@@ -13,7 +13,7 @@ function listCustomer($input)
 	if(!empty($infoUser)){
 
 
-		$conditions = array('id_member'=>$infoUser->id, 'id_spa'=>$infoUser->id_spa);
+		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa);
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -113,7 +113,8 @@ function addCustomer($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-
+        debug($dataSend);
+        die;	
 
         if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
@@ -128,9 +129,24 @@ function addCustomer($input)
 		        $data->avatar = $dataSend['avatar'];
 		        $data->phone = $dataSend['phone'];
 		        $data->email = $dataSend['email'];
-		        $data->address = $dataSend['address'];
+		        $data->cmnd = $dataSend['cmnd'];
+		        $data->avatar = $dataSend['avatar'];
+		        $data->birthday = $dataSend['birthday'];
+		        $data->id_group = $dataSend['id_group'];
+		        $data->code = $dataSend['code'];
+		        $data->link_facebook = $dataSend['link_facebook'];
+		        $data->source = $dataSend['source'];
+		        $data->id_spa = $dataSend['id_spa'];
+		        $data->medical_history = $dataSend['medical_history'];
+		        $data->request_current = $dataSend['request_current'];
+		        $data->advise_towards = $dataSend['advise_towards'];
+		        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
+		        $data->advisory = $dataSend['advisory'];
+		        $data->id_service = $dataSend['email'];
+		        $data->address = $dataSend['id_service'];
+		        $data->id_staff = $dataSend['id_staff'];
 		        $data->sex = (int) $dataSend['sex'];
-		        $data->id_member = $infoUser->id;
+		        $data->id_member = $infoUser->id_member;
 				$data->updated_at = date('Y-m-d H:i:s');
             	$data->id_spa = $infoUser->id_spa;
 

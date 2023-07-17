@@ -13,6 +13,8 @@ $sqlInstallDatabase .="CREATE TABLE `trademarks` ( `id` INT NOT NULL AUTO_INCREM
 
 $sqlInstallDatabase .="CREATE TABLE `warehouses` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `description` TEXT NULL DEFAULT NULL , `created_at` INT NULL DEFAULT NULL , `credit` INT NULL DEFAULT NULL , `id_member` INT NOT NULL , `id_spa` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `customers` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL  , `phone` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL  , `email` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL  , `address` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL  , `sex` BOOLEAN NOT NULL , `id_city` TINYINT NOT NULL , `id_messenger` VARCHAR(255) NOT NULL, `avatar` TEXT NOT NULL, `status` VARCHAR(255) NOT NULL , `pass` VARCHAR(255) NOT NULL , `id_parent` INT NOT NULL DEFAULT '0' , `id_level` INT NOT NULL DEFAULT '0' , `birthday_date` INT NOT NULL , `birthday_month` INT NOT NULL , `birthday_year` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; "";
+
 $sqlInstallDatabase .= "";
 
 $sqlInstallDatabase .= "";
