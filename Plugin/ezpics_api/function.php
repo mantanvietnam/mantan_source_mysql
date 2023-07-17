@@ -561,6 +561,13 @@ function getLayerProductForEdit($idProduct=0)
                     // độ nghiêng của layer
                     if(!isset($layer->rotate)) $layer->rotate = '0deg'; 
 
+                    // khóa layer
+                    if(!isset($layer->lock)){
+                        $layer->lock = 0; 
+                    }else{
+                        $layer->lock = (int) $layer->lock; 
+                    }
+
                     // link ảnh của layer image
                     if(empty($layer->banner)){
                         $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png'; 
