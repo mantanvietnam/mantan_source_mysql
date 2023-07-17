@@ -33,7 +33,7 @@ function getListWarehousesAPI($input){
 	return $return;
 }
 
-function searchtWarehousesAPI($input){
+function searchWarehousesAPI($input){
 
 	global $isRequestPost;
 	global $controller;

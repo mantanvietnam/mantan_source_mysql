@@ -152,6 +152,6 @@
 	$routesPlugin['searchDesignerAPI']= 'ezpics_api/view/searchDesignerAPI.php';
 	$routesPlugin['listDesignerAPI']= 'ezpics_api/view/listDesignerAPI.php';
 	$routesPlugin['deleteContentAPI']= 'ezpics_api/view/deleteContentAPI.php';
-	$routesPlugin['searchtWarehousesAPI']= 'ezpics_api/view/searchtWarehousesAPI.php';
+	$routesPlugin['searchWarehousesAPI']= 'ezpics_api/view/searchWarehousesAPI.php';
 	$routesPlugin['updateContentAPI']= 'ezpics_api/view/updateContentAPI.php';
 ?>
