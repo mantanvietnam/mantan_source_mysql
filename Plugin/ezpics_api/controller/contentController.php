@@ -67,9 +67,18 @@ function listContentAPI($input){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
-				$data = $modelContent->find()->where(array('user_id'=>$checkPhone->id))->all()->toList();
-				if(!empty($data)){
-				
+				$dataContent = $modelContent->find()->where(array('user_id'=>$checkPhone->id))->all()->toList();
+				if(!empty($dataContent)){
+					$data = array();
+					foreach($dataContent as $key => $item){
+						$checkProduct = $modelProduct->find()->where(array('id'=>$item->product_id))->first();
+
+						$item->nameProduct = $checkProduct->name;
+						$item->imageProduct = $checkProduct->image;
+
+						$data[] = $item; 
+					}
+
 					$return = array('code'=>1,
 							'data' => $data,
 							'mess'=>'Lấy data thành công'
