@@ -122,6 +122,10 @@ function getContentAPI($input){
 			if(!empty($checkPhone)){
 				$data = $modelContent->find()->where(array('user_id'=>$checkPhone->id, 'id'=>$dataSend['id']))->first();
 				if(!empty($data)){
+
+					$checkProduct = $modelProduct->find()->where(array('id'=>$item->product_id))->first();
+					$data->nameProduct = $checkProduct->name;
+					$data->imageProduct = $checkProduct->image;
 				
 					$return = array('code'=>1,
 							'data' => $data,

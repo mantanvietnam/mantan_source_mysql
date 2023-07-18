@@ -153,6 +153,7 @@ function saveRequestWithdrawAPI($input)
 		                				';
 		                
 		                $modelOrder->save($order);
+		                sendNotificationAdmin('64b65562b2efeb42a68a4f8a');
 
 		                $return = array('code'=>0,
 										'messages'=>array(array('text'=>'Tạo yêu cầu rút tiền thành công'))

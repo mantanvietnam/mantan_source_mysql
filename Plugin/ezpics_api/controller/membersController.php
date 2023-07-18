@@ -1043,12 +1043,15 @@ function searchDesignerAPI($input){
 
 		$dataSend = $input['request']->getData();
 		$conditions = array();
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
+		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		$order = array('id'=>'desc');
 		if(!empty($dataSend['name'])){
 			$conditions['name LIKE'] = '%'.$dataSend['name'].'%';
 			
 		}
 		$conditions['type'] = 1;
-		$data = $modelMember->find()->where($conditions)->all()->toList();
+		$data = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 		if(!empty($data)){
 			$return = array('code'=>1,
 								'data' => $data,

@@ -179,13 +179,13 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="bx bxs-user-detail"></i>
+                <i class="bx bx bx-basket"></i>
                 <div>Dịch vụ</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/listService" class="menu-link">
-                    <div>dịch vụ</div> 
+                    <div>Dịch vụ</div> 
                   </a>
                 </li>
                 <li class="menu-item">

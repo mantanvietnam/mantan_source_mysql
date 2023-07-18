@@ -35,8 +35,8 @@ function listCustomer($input)
 			$conditions['status'] = $_GET['status'];
 		}
 
-		if(!empty($_GET['full_name'])){
-			$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
+		if(!empty($_GET['name'])){
+			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
 	    $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();

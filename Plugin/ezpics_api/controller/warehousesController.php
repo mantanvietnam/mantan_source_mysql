@@ -47,12 +47,15 @@ function searchWarehousesAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
+		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		$order = array('id'=>'desc');
 		if(!empty($dataSend['name'])){
 			$conditions['name LIKE']= '%'.$dataSend['name'].'%';
 		}
 
 			// lấy kho 
-			$data = $modelWarehouses->find()->where($conditions)->all()->toList();
+			$data = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
