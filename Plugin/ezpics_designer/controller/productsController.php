@@ -798,7 +798,7 @@ function createImageSeries($input)
 	        }
 
 	        if(!empty($_GET['id'])){ 
-	        	//$dataImage = compressImageBase64($dataImage);
+	        	$dataImage = compressImageBase64($dataImage);
 
 	        	// Giải mã dữ liệu base64
 				$imageData = base64_decode($dataImage);
@@ -827,6 +827,7 @@ function addDataSeries($input)
 	global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $urlCreateImage;
 
     if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Nhập dữ liệu cho mẫu in hàng loạt';
@@ -841,10 +842,47 @@ function addDataSeries($input)
 			$product = $modelProduct->find()->where(['id'=>$id])->first();
 
 			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
-				
+				if($isRequestPost){
+					$dataSeries = uploadAndReadExcelData('dataSeries');
+
+					if($dataSeries){
+						unset($dataSeries[0]);
+
+						$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+						if(!empty($listLayer)){
+							$listDataImage = [];
+							
+							foreach ($dataSeries as $row) {
+								$number = -1;
+								$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
+
+			                    foreach ($listLayer as $layer) {
+			                        $content = json_decode($layer->content, true);
+
+			                        if(!empty($content['variable']) && !empty($content['variableLabel'])){
+			                        	$number++;
+			                        	$urlThumb .= '&'.$content['variable'].'='.$row[$number];
+			                        }
+			                    }
+			                   
+			                    $urlExportImage = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
+
+			                    $dataImage = sendDataConnectMantan($urlExportImage);
+
+			                    //$listDataImage[] = compressImageBase64($dataImage);
+			                    $listDataImage[] = $dataImage;
+			                }
+
+			                if(!empty($listDataImage)){
+			                	createZipFromBase64Images($listDataImage, $product->slug);
+			                }
+		                }
+					}
+				}
 
 				setVariable('mess', $mess);
-				//export_excel();
+				setVariable('product', $product);
 			}else{
 				return $controller->redirect('/listProductSeries');
 			}
@@ -893,7 +931,7 @@ function exportFormDataSeries($input)
 
 				$dataExcel = [];
 
-				export_excel($titleExcel, $dataExcel);
+				export_excel($titleExcel, $dataExcel, $product->slug);
 			}else{
 				return $controller->redirect('/listProductSeries');
 			}

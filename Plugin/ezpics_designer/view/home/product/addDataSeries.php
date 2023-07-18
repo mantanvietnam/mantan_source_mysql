@@ -11,7 +11,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Nhập dữ liệu mẫu in</h5>
+            <h5 class="mb-0"><?php echo $product->name;?></h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -21,8 +21,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Nội dung file excel</label>
-                    <textarea class="form-control" name="content" rows="5"></textarea>
+                    <label class="form-label">Chọn file excel để tải lên</label>
+                    <input type="file" name="dataSeries" class="form-control" required>
                   </div>
                 </div>
               </div>

@@ -3,19 +3,24 @@ use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\Message;
 use Cake\Mailer\TransportFactory;
+use Cake\Http\Response;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**********************************************************
  *  Các file đã sửa
  *  1. /src/Controller/AppController.php sửa trong hàm initialize
  *  2. /config/bootstrap.php include file mantanFunctions.php
  *  3. /.htacess bổ sung thêm RewriteCond
+ *  4. Cần chạy PHP 8.0 trở lên và chèn extension=zip vào php.ini
  * 
  * 
  * 
@@ -798,7 +803,7 @@ function getMenusDefault($id=0)
     return $links;
 }
 
-function export_excel($title=[], $data=[])
+function export_excel($title=[], $data=[], $name_file='')
 {
 	/*
 		$title = [
@@ -817,6 +822,8 @@ function export_excel($title=[], $data=[])
 	global $controller;
 
 	if(!empty($title)){
+		if(empty($name_file)) $name_file = time();
+
 		$name_colum = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ'];
 	    
 	    // Tạo một đối tượng Spreadsheet
@@ -856,7 +863,7 @@ function export_excel($title=[], $data=[])
 
 	    // Đặt header cho file Excel
 	    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	    header('Content-Disposition: attachment;filename="example.xlsx"');
+	    header('Content-Disposition: attachment;filename="'.$name_file.'.xlsx"');
 	    header('Cache-Control: max-age=0');
 
 	    // Ghi dữ liệu vào file Excel
@@ -865,6 +872,112 @@ function export_excel($title=[], $data=[])
 	    // Ngăn CakePHP tiếp tục xử lý layout và view
 	    $controller->autoRender = false;
 	}
+}
+
+function readExcelData($filePath='')
+{
+	global $controller;
+
+	require_once __DIR__ . '/../library/PhpOffice/vendor/autoload.php';
+
+	$data = [];
+
+    if(!empty($filePath) && file_exists($filePath)){
+	    // Tạo một đối tượng Spreadsheet từ tệp Excel
+	    $spreadsheet = IOFactory::load($filePath);
+	    
+	    // Chọn trang tính (sheet) đầu tiên
+	    $sheet = $spreadsheet->getActiveSheet();
+	    
+	    // Lấy dữ liệu từ các ô trong sheet
+	    $data = [];
+	    foreach ($sheet->getRowIterator() as $row) {
+	        $rowData = [];
+	        foreach ($row->getCellIterator() as $cell) {
+	            $rowData[] = $cell->getValue();
+	        }
+	        $data[] = $rowData;
+	    }
+	}
+
+	return $data;
+}
+
+function uploadAndReadExcelData($nameInput='file')
+{
+	global $controller;
+	global $isRequestPost;
+
+	require_once __DIR__ . '/../library/PhpOffice/vendor/autoload.php';
+
+	$data = [];
+
+    // Kiểm tra xem đã có tệp được tải lên chưa
+    if ($isRequestPost && isset($_FILES[$nameInput]) && empty($_FILES[$nameInput]["error"])) {
+        // Lấy thông tin về tệp được tải lên
+        $uploadedFile = $_FILES[$nameInput];
+        
+        // Kiểm tra và xử lý lỗi tải lên nếu cần thiết
+        
+        // Tạo một đối tượng Spreadsheet từ tệp Excel được tải lên
+        try {
+            $spreadsheet = IOFactory::load($uploadedFile['tmp_name']);
+            
+            // Chọn trang tính (sheet) đầu tiên
+            $sheet = $spreadsheet->getActiveSheet();
+            
+            // Lấy dữ liệu từ các ô trong sheet
+            $data = [];
+            foreach ($sheet->getRowIterator() as $row) {
+                $rowData = [];
+                foreach ($row->getCellIterator() as $cell) {
+                    $rowData[] = $cell->getValue();
+                }
+                $data[] = $rowData;
+            }
+        } catch (ReaderException $e) {
+            // Xử lý lỗi đọc tệp Excel
+            echo 'Lỗi đọc tệp Excel: ' . $e->getMessage();
+        }
+    }
+
+    return $data;
+}
+
+
+function createZipFromBase64Images($base64Images=[], $fileZip='zipImage')
+{
+	global $controller;
+    
+    // Tạo tệp ZIP
+    $zip = new ZipArchive();
+    $zipName = $fileZip.'_'.time().'.zip';
+	$filename = './'.$zipName;
+
+	if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+	    exit("cannot open <$filename>\n");
+	}
+    
+    // Lặp qua danh sách mã Base64
+    foreach ($base64Images as $index => $base64Image) {
+    	$zip->addFromString($index.'.png', base64_decode($base64Image));
+    }
+    
+    // Đóng tệp ZIP
+    $zip->close();
+    
+    // Phản hồi tệp ZIP để người dùng tải xuống
+    header('Content-Type: application/zip');
+    header('Content-disposition: attachment; filename=' . $zipName);
+    header('Content-Length: ' . filesize($filename));
+    readfile($filename);
+    
+    // Xóa tệp ZIP sau khi đã gửi phản hồi
+    unlink($filename);
+    
+    // Dừng xử lý của CakePHP
+    $controller->autoRender = false;
+	   
 }
 
 ?>
