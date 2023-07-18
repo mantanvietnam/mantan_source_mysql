@@ -177,6 +177,24 @@
                 <div>Thông tin spa</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="bx bxs-user-detail"></i>
+                <div>Dịch vụ</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listService" class="menu-link">
+                    <div>dịch vụ</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listCategoryService" class="menu-link">
+                    <div>Nhóm dịch vụ</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>
             
             
           </ul>

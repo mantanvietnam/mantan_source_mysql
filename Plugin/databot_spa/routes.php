@@ -34,4 +34,10 @@
 	$routesPlugin['deleteCategoryCustomer']= 'databot_spa/view/home/customer/deleteCategoryCustomer.php';
 	$routesPlugin['listSaff']= 'databot_spa/view/home/saff/listSaff.php';
 	$routesPlugin['addSaff']= 'databot_spa/view/home/saff/addSaff.php';
+
+	$routesPlugin['listService']= 'databot_spa/view/home/service/listService.php';
+	$routesPlugin['addService']= 'databot_spa/view/home/service/addService.php';
+	$routesPlugin['deleteService']= 'databot_spa/view/home/service/deleteService.php';
+	$routesPlugin['listCategoryService']= 'databot_spa/view/home/service/listCategoryService.php';
+	$routesPlugin['deleteCategoryService']= 'databot_spa/view/home/service/deleteCategoryService.php';
 ?>
