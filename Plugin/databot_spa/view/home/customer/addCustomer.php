@@ -141,7 +141,9 @@
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Dịch vụ quan tâm</label>
                   <select class="form-select" name="id_service" id="id_service">
-                      <option value="1" <?php if(isset($data->id_service) && $data->id_service=='0') echo 'selected'; ?> >Vip</option>
+                    <?php foreach($dataService as $key => $item){ ?>
+                      <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                    <?php } ?>
                   </select>
                 </div>
               </div>

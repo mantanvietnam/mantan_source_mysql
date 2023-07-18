@@ -891,7 +891,7 @@ function transactioncMoneyEzpics($input){
 					$modelMembers->save($member);
 					$modelOrders->save($data);
 
-					 $dataSendNotification= array('title'=>'bạn đã rút tiền thành công','time'=>date('H:i d/m/Y'),'content'=>'Số tiền bạn rút là: '.number_format($data->total).'VNĐ','action'=>'productNew');
+					 $dataSendNotification= array('title'=>'Bạn đã rút tiền thành công','time'=>date('H:i d/m/Y'),'content'=>'Số tiền bạn rút là: '.number_format($data->total).'VNĐ','action'=>'productNew');
 					 if(!empty($member->token_device)){
                 		sendNotification($dataSendNotification, $member->token_device);
             		}

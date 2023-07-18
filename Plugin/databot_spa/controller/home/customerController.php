@@ -97,6 +97,7 @@ function addCustomer($input)
     $metaTitleMantan = 'Thông tin khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
+	$modelService = $controller->loadModel('Services');
 	$modelMembers = $controller->loadModel('Members');
 	$modelSpa = $controller->loadModel('Spas');
 	$mess= '';
@@ -169,11 +170,15 @@ function addCustomer($input)
 
     $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
     $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
+
+    $Service = array('id_member'=>$infoUser->id_member);
+    $dataService = $modelService->find()->where($Service)->order(['id' => 'DESC'])->all()->toList();
    
     setVariable('data', $data);
     setVariable('dataMember', $dataMember);
     setVariable('dataSpa', $dataSpa);
     setVariable('dataGroup', $dataGroup);
+    setVariable('dataService', $dataService);
     setVariable('mess', $mess);
     }else{
 		return $controller->redirect('/login');
