@@ -127,6 +127,11 @@
                     <div>Nhóm khách hàng</div> 
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listSourceCustomer" class="menu-link">
+                    <div>Nguồn khách hàng</div> 
+                  </a>
+                </li>
               </ul>
             </li>           
             <li class="menu-item">
@@ -195,7 +200,19 @@
                 </li>
               </ul>
             </li>
-            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="bx bx bx-basket"></i>
+                <div>Hệ thống</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listRoom" class="menu-link">
+                    <div>Phòng</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>
             
           </ul>
         </aside>

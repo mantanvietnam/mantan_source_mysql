@@ -32,6 +32,7 @@
 	$routesPlugin['deleteCustomer']= 'databot_spa/view/home/customer/deleteCustomer.php';
 	$routesPlugin['listCategoryCustomer']= 'databot_spa/view/home/customer/listCategoryCustomer.php';
 	$routesPlugin['deleteCategoryCustomer']= 'databot_spa/view/home/customer/deleteCategoryCustomer.php';
+	$routesPlugin['listSourceCustomer']= 'databot_spa/view/home/customer/listSourceCustomer.php';
 	$routesPlugin['listSaff']= 'databot_spa/view/home/saff/listSaff.php';
 	$routesPlugin['addSaff']= 'databot_spa/view/home/saff/addSaff.php';
 
@@ -40,4 +41,6 @@
 	$routesPlugin['deleteService']= 'databot_spa/view/home/service/deleteService.php';
 	$routesPlugin['listCategoryService']= 'databot_spa/view/home/service/listCategoryService.php';
 	$routesPlugin['deleteCategoryService']= 'databot_spa/view/home/service/deleteCategoryService.php';
+	$routesPlugin['listRoom']= 'databot_spa/view/home/room/listRoom.php';
+	$routesPlugin['deleteRoom']= 'databot_spa/view/home/room/deleteRoom.php';
 ?>

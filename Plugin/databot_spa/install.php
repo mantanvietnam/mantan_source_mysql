@@ -19,7 +19,7 @@ $sqlInstallDatabase .= "CREATE TABLE `customer_group` ( `id` INT NOT NULL AUTO_I
 
 $sqlInstallDatabase .= "CREATE TABLE `services` ( `id` INT NOT NULL , `name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , `code` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , `id_category` INT NOT NULL , `id_member` INT NOT NULL , `id_spa` INT NULL DEFAULT NULL , `price` INT NULL DEFAULT NULL , `price_old` INT NULL DEFAULT NULL , `image` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `created_at` DATETIME NULL DEFAULT NULL , `updated_at` DATETIME NULL DEFAULT NULL , `duration` INT NULL DEFAULT NULL COMMENT 'thời lương ' , `hot` INT NULL DEFAULT NULL ) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .= "";
+$sqlInstallDatabase .= "CREATE TABLE `rooms` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , `created_at` DATETIME NULL DEFAULT NULL , `status` INT NULL DEFAULT NULL , `id_member` INT NOT NULL , `id_spa` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
 /*
 $sqlDeleteDatabase .= "DROP TABLE lessons; ";

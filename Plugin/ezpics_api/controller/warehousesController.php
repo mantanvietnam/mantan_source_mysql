@@ -262,6 +262,8 @@ function getListBuyWarehousesAPI($input){
 					if($dataWarehouse){
 						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
 						$dataWarehouse->deadline_at = $item->deadline_at;
+						$ngay = date('Y-m-d', strtotime($item->deadline_at));
+						$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
 						$listData[] = $dataWarehouse;
 					}
 				}
@@ -311,6 +313,8 @@ function checkBuyWarehousesAPI($input){
 					if($dataWarehouse){
 						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
 						$dataWarehouse->deadline_at = $data->deadline_at;
+						$ngay = date('Y-m-d', strtotime($data->deadline_at));
+						$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
 						$listData = $dataWarehouse;
 					}
 				

@@ -96,10 +96,9 @@
                     <label class="form-label" for="basic-default-email">Nguồn khách hàng </label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="source" id="source">
-                        <option value="Vãng lai" <?php if(isset($data->source) && $data->source=='Vãng lai') echo 'selected'; ?> >Vãng lai</option>
-                        <option value="Mạng xã hội" <?php if(!empty($data->source) && $data->source=='Mạng xã hội') echo 'selected'; ?> >Mạng xã hội</option>
-                        <option value="website" <?php if(!empty($data->source) && $data->source=='website') echo 'selected'; ?> >website</option>
-                        <option value="Gới thiệu" <?php if(!empty($data->source) && $data->source=='Gới thiệu') echo 'selected'; ?> >Gới thiệu</option>
+                       <?php foreach($dataSource as $key => $item){ ?>
+                        <option value="<?php echo $item->id ?>" <?php if(isset($data->source) && $data->source==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                      <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -148,7 +147,10 @@
                 </div>
               </div>
               <div class="col-md-12">
-                  <label class="form-label" for="basic-default-fullname">Dịch vụ quan tâm</label>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Thông tin thêm</label>
+                  <textarea class="form-control" name="note"><?php echo @$data->note;?></textarea>
+                </div>
               </div>
               <button type="submit" style=" width: 70px; " class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>

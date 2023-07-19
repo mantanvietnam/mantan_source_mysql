@@ -1,21 +1,21 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Nhóm khách hàng</h4>
+    <h4 class="fw-bold py-3 mb-4">Nguồn khách hàng</h4>
 
     <!-- Basic Layout -->
       <div class="row">
         <div class="col-xl">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Nhóm khách hàng</h5>
+              <h5 class="mb-0">Nguồn khách hàng</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Tên tên nhóm</th>
+                        <th>Tên tên Nguồn</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
                       </tr>
@@ -25,7 +25,7 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
-                                    <td>'.$item->name.'</td>
+                                    <td><a target="_blank" href="/category/'.$item->slug.'.html">'.$item->name.'</a></td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
@@ -62,7 +62,7 @@
               <?= $this->Form->create(); ?>
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên nhóm</label>
+                  <label class="form-label" for="basic-default-phone">Tên nguồi</label>
                   <input
                     type="text"
                     class="form-control phone-mask"
@@ -116,10 +116,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/listCategoryCustomer';
+            window.location = '/listSourceCustomer';
           })
           .fail(function() {
-            window.location = '/listCategoryCustomer';
+            window.location = '/listSourceCustomer';
           });
       }
     }

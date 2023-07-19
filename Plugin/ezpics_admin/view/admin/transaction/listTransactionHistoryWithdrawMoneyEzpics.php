@@ -82,7 +82,7 @@
                   }
 
                    if($item->total >= 500000 && $item->status==1){
-                     $total = ' <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Sử lý" data-bs-toggle="modal"
+                     $total = ' <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Xem chi tiết yêu cầu rút tiền" data-bs-toggle="modal"
                             data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
                    }else{
                        $total = '';

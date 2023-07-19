@@ -117,8 +117,6 @@ function addCustomer($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        debug($dataSend);
-        die;	
 
         if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
@@ -136,23 +134,25 @@ function addCustomer($input)
 		        $data->cmnd = $dataSend['cmnd'];
 		        $data->avatar = $dataSend['avatar'];
 		        $data->birthday = $dataSend['birthday'];
-		        $data->id_group = $dataSend['id_group'];
+		        $data->id_group = (int) $dataSend['id_group'];
 		        $data->code = $dataSend['code'];
 		        $data->link_facebook = $dataSend['link_facebook'];
 		        $data->source = $dataSend['source'];
-		        $data->id_spa = $dataSend['id_spa'];
+		        $data->id_spa = (int) $dataSend['id_spa'];
 		        $data->medical_history = $dataSend['medical_history'];
 		        $data->request_current = $dataSend['request_current'];
 		        $data->advise_towards = $dataSend['advise_towards'];
 		        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
 		        $data->advisory = $dataSend['advisory'];
-		        $data->id_service = $dataSend['email'];
-		        $data->address = $dataSend['id_service'];
-		        $data->id_staff = $dataSend['id_staff'];
+		        $data->id_service =(int) $dataSend['id_service'];
+		        $data->address = $dataSend['address'];
+		        $data->note = $dataSend['note'];
+		        $data->id_staff = (int) $dataSend['id_staff'];
 		        $data->sex = (int) $dataSend['sex'];
-		        $data->id_member = $infoUser->id_member;
+		        $data->id_member =(int) $infoUser->id_member;
 				$data->updated_at = date('Y-m-d H:i:s');
-            	$data->id_spa = $infoUser->id_spa;
+
+
 
 		        $modelCustomer->save($data);
 
@@ -173,12 +173,16 @@ function addCustomer($input)
 
     $Service = array('id_member'=>$infoUser->id_member);
     $dataService = $modelService->find()->where($Service)->order(['id' => 'DESC'])->all()->toList();
+
+    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
+    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
    
     setVariable('data', $data);
     setVariable('dataMember', $dataMember);
     setVariable('dataSpa', $dataSpa);
     setVariable('dataGroup', $dataGroup);
     setVariable('dataService', $dataService);
+    setVariable('dataSource', $dataSource);
     setVariable('mess', $mess);
     }else{
 		return $controller->redirect('/login');
@@ -264,6 +268,64 @@ function listCategoryCustomer($input){
     }
 }
 
+function listSourceCustomer($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            // tính ID category
+            if(!empty($dataSend['idCategoryEdit'])){
+                $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+            }else{
+                $infoCategory = $modelCategories->newEmptyEntity();
+            }
+
+            // tạo dữ liệu save
+            $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+            $infoCategory->parent = 0;
+            $infoCategory->image = $dataSend['image'];
+            $infoCategory->id_member = $infoUser->id_member;
+            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->type = 'category_source_customer';
+
+            // tạo slug
+            $slug = createSlugMantan($infoCategory->name);
+            $slugNew = $slug;
+            $number = 0;
+            do{
+                $conditions = array('slug'=>$slugNew,'type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
+                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+                if(!empty($listData)){
+                    $number++;
+                    $slugNew = $slug.'-'.$number;
+                }
+            }while (!empty($listData));
+
+            $infoCategory->slug = $slugNew;
+
+            $modelCategories->save($infoCategory);
+
+        }
+
+        $conditions = array('type' => 'category_source_customer', 'id_member'=>$infoUser->id_member);
+        $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 function deleteCategoryCustomer($input){
     global $isRequestPost;
     global $modelCategories;
@@ -275,7 +337,7 @@ function deleteCategoryCustomer($input){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
-            $conditions = array('id'=> $_GET['id'], 'type' => 'category_customer', 'id_member'=>$infoUser->id_member);
+            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             $data = $modelCategories->find()->where($conditions)->first();
             if(!empty($data)){
                 $modelCategories->delete($data);

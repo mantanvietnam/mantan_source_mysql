@@ -11,4 +11,5 @@ include_once('controller/home/warehouseController.php'); // kho
 include_once('controller/home/customerController.php'); // khách hàng
 include_once('controller/home/staffController.php'); // khách hàng
 include_once('controller/home/serviceController.php'); // khách hàng
+include_once('controller/home/roomController.php'); // khách hàng
 ?>
