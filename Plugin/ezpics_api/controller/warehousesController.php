@@ -449,7 +449,7 @@ function buyProductWarehousesAPI($input)
 }
 
 function  getInfoWarehouseAPI($input){
-		global $isRequestPost;
+	global $isRequestPost;
 	global $controller;
 	global $modelCategories;
 
