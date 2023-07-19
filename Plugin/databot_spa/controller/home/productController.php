@@ -334,5 +334,26 @@ function addProduct($input){
         }
 }
 
+function deleteProduct($input){
+    global $controller;
+    global $session;
+    $modelProduct = $controller->loadModel('Products');
+    $infoUser = $session->read('infoUser');
+    if(!empty($infoUser)){
+    
+        if(!empty($_GET['id'])){
+            $data = $modelProduct->get($_GET['id']);
+            
+            if($data){
+                $modelProduct->delete($data);
+            }
+        }
+
+        return $controller->redirect('listProduct.php');
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 ?>
 

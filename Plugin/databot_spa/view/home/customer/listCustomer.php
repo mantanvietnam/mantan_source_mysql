@@ -66,7 +66,7 @@
                   $sex= 'nữ';
                 }
                 echo '<tr>
-                        <td>'.$item->id.'</td>=
+                        <td>'.$item->id.'</td>
                         <td>'.$item->name.'</td>
                         <td>'.$item->phone.'</td>
                         <td>'.$item->email.'</td>

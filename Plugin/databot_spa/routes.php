@@ -18,6 +18,7 @@
 	$routesPlugin['listTrademarkProduct']= 'databot_spa/view/home/product/listTrademarkProduct.php';
 	$routesPlugin['deleteTrademarkProduct']= 'databot_spa/view/home/product/deleteTrademarkProduct.php';
 	$routesPlugin['addProduct']= 'databot_spa/view/home/product/addProduct.php';
+	$routesPlugin['deleteProduct']= 'databot_spa/view/home/product/deleteProduct.php';
 
 	//spa
 	$routesPlugin['listSpa']= 'databot_spa/view/home/spa/listSpa.php';
