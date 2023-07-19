@@ -207,6 +207,11 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
+                  <a href="/listBed" class="menu-link">
+                    <div>Giường</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
                   <a href="/listRoom" class="menu-link">
                     <div>Phòng</div> 
                   </a>

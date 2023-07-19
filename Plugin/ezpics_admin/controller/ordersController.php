@@ -316,7 +316,9 @@ function listTransactionHistoryWithdrawMoneyEzpics($input)
     if(@$_GET['mess']==1){
     	$mess = '<span class="text-success">Đã xử lý giao dịch thành công</span>';
     }
-
+    if(@$_GET['mess']==2){
+    	$mess = '<span class="text-success">Tài khoản này không đủ tiền</span>';
+    } 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('totalData', $totalData);
@@ -904,6 +906,8 @@ function transactioncMoneyEzpics($input){
 					}else{
 					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=1');
 					}
+				}else{
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=2');
 				}
 			}
 		}

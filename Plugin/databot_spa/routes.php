@@ -43,4 +43,6 @@
 	$routesPlugin['deleteCategoryService']= 'databot_spa/view/home/service/deleteCategoryService.php';
 	$routesPlugin['listRoom']= 'databot_spa/view/home/room/listRoom.php';
 	$routesPlugin['deleteRoom']= 'databot_spa/view/home/room/deleteRoom.php';
+	$routesPlugin['listBed']= 'databot_spa/view/home/bed/listBed.php';
+	$routesPlugin['deleteBed']= 'databot_spa/view/home/bed/deleteBed.php';
 ?>

@@ -21,6 +21,8 @@ $sqlInstallDatabase .= "CREATE TABLE `services` ( `id` INT NOT NULL , `name` TEX
 
 $sqlInstallDatabase .= "CREATE TABLE `rooms` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , `created_at` DATETIME NULL DEFAULT NULL , `status` INT NULL DEFAULT NULL , `id_member` INT NOT NULL , `id_spa` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `quayso_spa`.`beds` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `created_at` DATETIME NOT NULL , `status` INT NOT NULL , `id_member` INT NOT NULL , `id_spa` INT NOT NULL , `id_room` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
 /*
 $sqlDeleteDatabase .= "DROP TABLE lessons; ";
 $sqlDeleteDatabase .= "DROP TABLE historytests; ";
