@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="../asset/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- boostrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+        <!-- slick -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+        ></script>
+    
+    </head>
+<body>
+    <header>
+        <section id="topbar">
+            <div class="container-fluid">
+                <div class="row">
+                
+                    <div class="col-6 topbar-item-left d-flex">
+                        <div class="header-hotline">
+                            <p>Hotline: <strong>1900.636.000 </strong>(8h - 12h, 13h30 - 17h) </p>
+                        </div>
+                        <div class="link-hotline">
+                            <a href="">Liên hệ</a>
+                        </div>
+                    </div>
+        
+                    <div class="col-6 topbar-item-right">
+                        <i class="fa-solid fa-bell"></i> Thông báo
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="header-menu">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Navbar scroll</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Link
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+            </nav>
+        </section>
+    </header>
+    <!--  -->
+    
+    <!-- Content -->
+    <main>
+        <section id="section-breadcrumb">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Hệ thống cửa hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+
+        <section id="section-branch">
+            <div class="branch-content">
+                <div class="container">
+                    <div class="title-pageDetail">
+                        <h1>Hệ thống cửa hàng</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-12 branch-left">
+                            <div class="branch-info">
+                                <h2>Tìm cửa hàng</h2>
+                                <div class="branch-filter">
+                                    <p>Chọn tỉnh thành</p>
+                                    <select class="form-select">
+                                        <option value="Hà Nội">Hà Nội</option>
+                                        <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                    </select>
+                                </div>
+
+                                
+                                <div class="branch-filter">
+                                    <p>Chọn cửa hàng</p>
+                                    <select class="form-select">
+                                        <option value="Thành phố Hà Nội">Thành phố Hà Nội</option>
+                                        <option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option>
+                                    </select>
+                                </div>
+
+                                <div class="branch-detail">
+                                    <div class="branch-item">
+                                        <h3 class="branch-name">Cửa hàng Hồng Bàng</h3>
+                                        <p class="branch-address">Số 490 Hồng Bàng, Phường 16, Quận 11, Thành phố Hồ Chí Minh </p>
+                                        <p class="branch-time">Thời gian hoạt động: <span>8h30 - 20h00 (kể cả CN và ngày lễ)</span></p>
+                                        <p class="branch-phone">Số điện thoại: <span>0987654321</span></p>
+                                        <a href="">Xem bản đồ</a>
+                                    </div>
+
+                                    <div class="branch-item">
+                                        <h3 class="branch-name">Cửa hàng Hồng Bàng</h3>
+                                        <p class="branch-address">Số 490 Hồng Bàng, Phường 16, Quận 11, Thành phố Hồ Chí Minh </p>
+                                        <p class="branch-time">Thời gian hoạt động: <span>8h30 - 20h00 (kể cả CN và ngày lễ)</span></p>
+                                        <p class="branch-phone">Số điện thoại: <span>0987654321</span></p>
+                                        <a href="">Xem bản đồ</a>
+                                    </div>
+
+                                    <div class="branch-item">
+                                        <h3 class="branch-name">Cửa hàng Hồng Bàng</h3>
+                                        <p class="branch-address">Số 490 Hồng Bàng, Phường 16, Quận 11, Thành phố Hồ Chí Minh </p>
+                                        <p class="branch-time">Thời gian hoạt động: <span>8h30 - 20h00 (kể cả CN và ngày lễ)</span></p>
+                                        <p class="branch-phone">Số điện thoại: <span>0987654321</span></p>
+                                        <a href="">Xem bản đồ</a>
+                                    </div>
+
+                                    <div class="branch-item">
+                                        <h3 class="branch-name">Cửa hàng Hồng Bàng</h3>
+                                        <p class="branch-address">Số 490 Hồng Bàng, Phường 16, Quận 11, Thành phố Hồ Chí Minh </p>
+                                        <p class="branch-time">Thời gian hoạt động: <span>8h30 - 20h00 (kể cả CN và ngày lễ)</span></p>
+                                        <p class="branch-phone">Số điện thoại: <span>0987654321</span></p>
+                                        <a href="">Xem bản đồ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 col-md-12 col-12 branch-right">
+                            <div class="branch-map" id="branchMap">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29793.980453127915!2d105.81636412211103!3d21.022778419204496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zSMOgIE7hu5lpLCBIb8OgbiBLaeG6v20sIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1689276271361!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+        </section>
+    </main>
+    
+    <!-- footer -->
+    <footer>
+        <section id="main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 footer-item">
+                        <div class="footer-title">
+                            <h2>Về Mode Fashion</h2>
+                        </div>
+                        <div class="footer-content-info">
+                            <p>Với các giải pháp công nghệ tốt nhất, Haravan là tất cả những gì bạn cần để xây dựng thương hiệu online, thành công trong bán lẻ và marketing đột phá.</p>
+                            <div class="footer-social">
+                                <ul>
+                                    <li>
+                                        <a href=""><i class="fa-brands fa-facebook-f"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="fa-brands fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="fa-brands fa-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="fa-brands fa-tiktok"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="fa-brands fa-youtube"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="footer-payment">
+                                <div class="payment-title">
+                                    <p>Phương thức thanh toán</p>
+                                </div>
+                                <ul class="payment-icon">
+                                    <li><img src="../asset/img/payment_1_img.jpg" alt=""></li>
+                                    <li><img src="../asset/img/payment_2_img.jpg" alt=""></li>
+                                    <li><img src="../asset/img/payment_3_img.jpg" alt=""></li>
+                                    <li><img src="../asset/img/payment_4_img.jpg" alt=""></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 footer-item">
+                        <div class="footer-title">
+                            <h2>Thông tin liên hệ</h2>
+                        </div>
+
+                        <div class="footer-address">
+                            <ul>
+                                <li>
+                                    <p><span>Địa chỉ: </span> Tầng 4, tòa nhà Flemington, số 182, đường Lê Đại Hành, phường 15, quận 11, Tp. Hồ Chí Minh.</p>
+                                </li>
+                                <li>
+                                    <p><span>Điện thoại: </span> 0367977132</p>
+                                </li>
+                                <li>
+                                    <p><span>Fax: </span>1900.636.000</p>
+                                </li>
+                                <li>
+                                    <p><span>Email: </span>hi@powerdrink.com</p>
+                                </li>
+                            </ul>
+                            
+                            <div class="footer-payment">
+                                <div class="payment-title">
+                                    <p>Phương thức thanh toán</p>
+                                </div>
+                                <ul class="payment-icon">
+                                    <li><img src="../asset/img/shipment_1_img.jpg" alt=""></li>
+                                    <li><img src="../asset/img/shipment_2_img.jpg" alt=""></li>
+                                    <li><img src="../asset/img/shipment_3_img.jpg" alt=""></li>
+                                    <li><img src="../asset/img/shipment_4_img.jpg" alt=""></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 footer-item">
+                        <div class="footer-title">
+                            <h2>Thông tin liên hệ</h2>
+                        </div>
+
+                        <div class="footer-group-link">
+                            <ul>
+                                <li>
+                                    <a href="">Sản phẩm khuyến mãi</a>
+                                </li>
+                                <li>
+                                    <a href="">Sản phẩm nổi bật</a>
+                                </li>
+                                <li>
+                                    <a href="">Tất cả sản phẩm</a>
+                                </li>
+                                <li>
+                                    <a href="">FAQs - Câu hỏi thường gặp</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12 footer-item">
+                        <div class="footer-title">
+                            <h2>Thông tin liên hệ</h2>
+                        </div>
+
+                        <div class="footer-group-link">
+                            <ul>
+                                <li>
+                                    <a href="">Tìm kiếm</a>
+                                </li>
+                                <li>
+                                    <a href="">Giới thiệu</a>
+                                </li>
+                                <li>
+                                    <a href="">Chính sách đổi trả</a>
+                                </li>
+                                <li>
+                                    <a href="">Chính sách bảo mật</a>
+                                </li>
+                                <li>
+                                    <a href="">Điều khoản dịch vụ</a>
+                                </li>
+                                <li>
+                                    <a href="">Liên hệ</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+
+        <section id="footer-copyright">
+            <div class="container">
+                <p>Copyright © 2023 Power Drink. Powered by Haravan</p>
+            </div>
+        </section>
+    </footer>
+
+    <!-- slick -->
+    <script src="../asset/js/main.js"></script>
+    <script src="../asset/js/slick.js"></script>
+</body>
+
+
+</html>

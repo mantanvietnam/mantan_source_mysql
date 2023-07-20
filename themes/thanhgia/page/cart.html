@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../asset/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- boostrap -->   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- slick -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    ></script>
+    <script
+        type="text/javascript"
+        src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
+    ></script>
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+</head>
+<body>
+    <main>
+        <section id="section-breadcrumb">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Hệ thống cửa hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+    
+        <section id="section-cart">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-12 cart-content-left">
+                        <div class="cart-content-left-box">
+                            <div class="cart-content">
+                                <div class="cart-heading">
+                                    <h1>Giỏ hàng của bạn</h1>
+                                    <p>Bạn đang có <strong>1 sản phẩm</strong> trong giỏ hàng</p>
+                                </div>
+        
+                                <div class="cart-shipfree">
+                                    <p>Bạn cần mua thêm <span>283,000₫</span> để được <strong>MIỄN PHÍ VẬN CHUYỂN</strong></p>   
+                                </div>
+                            </div>
+        
+                            <!-- danh sách sản phẩm đặt -->
+                            <div class="list-cart-product">
+                                <div class="table-product">
+                                    <div class="table-product-item">
+                                        <div class="table-product-item-img">
+                                            <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                            <a href="">Xóa</a>
+                                        </div>
+
+                                        <div class="table-product-item-detail">
+                                            <h3>
+                                                <a href="">Health & High Strength Energy Drink</a>
+                                            </h3>
+                                            <span>1 lon</span>
+                                            <p>17,000₫ <del>19,000₫</del></p>
+                                        </div>
+
+                                        <div class="table-product-item-price">
+                                            <span>102,000₫</span>
+                                            <div class="cart-button-group">
+                                                <button>+</button>
+                                                <input type="text" value="1">
+                                                <button>- </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+        
+                            <!-- Ghi chú -->
+                            <div class="cart-note">
+                                <div class="cart-note-title">
+                                    <p>Ghi chú đơn hàng</p>
+                                </div>
+        
+                                <div class="cart-note-box">
+                                    <textarea placeholder="" rows="5"></textarea>
+                                </div>
+                            </div> 
+        
+                            <!-- Xuất hóa đơn hàng -->
+                            <div class="cart-export-bill">
+                                <div class="cart-export-text">
+                                    <span><i class="fa-solid fa-check"></i></span>
+                                    <p>Xuất hoá đơn cho đơn hàng</p>
+                                </div>
+                                
+                                <div class="cart-export-form">
+                                    <form action="">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-12 input-group-export">
+                                                <input type="text" placeholder="Tên công ty" required>
+                                            </div> 
+
+                                            <div class="col-lg-4 col-md-4 col-12 input-group-export">
+                                                <input type="text" placeholder="Mã số thuế" required>
+                                            </div> 
+
+                                            <div class="col-lg-4 col-md-4 col-12 input-group-export">
+                                                <input type="text" placeholder="Email" required>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12 col-12 input-group-export">
+                                                <input type="text" placeholder="Địa chỉ công ty" required>
+                                            </div>
+                                            <div class="form-btn">
+                                                <a href="" class="btndark btn-save">LƯU THÔNG TIN</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-quickview modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-6 col-lg-6 slide-quickview">
+                                                                <div class="slide-quickview-main">
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                    </div>
+                                                                </div>
+        
+                                                                <div class="slide-quickview-sub">
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="quickview-img">
+                                                                        <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+        
+                                                            <div class="col-12 col-md-6 col-lg-6 detail-quickview">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            </div>
+                            <!--  -->
+        
+                            <!-- Có thể bạn sẽ thích -->
+                            <div id="section-product-featured" class="cart-product-like">
+                                <div class="cart-product-like-title">
+                                    <h2>Có thể bạn sẽ thích</h2>
+                                </div>
+                                <!-- Slide sản phẩm -->
+                                <div class="product-like-slide">
+                                    <div class="product-featured-item">
+                                        <div class="product-featured-inner">
+                                            <div class="product-featured-img">
+                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
+                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
+                                                <div class="item-sale">
+                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
+                                                </div>
+                                                <!-- modal button -->
+                                                <button type="button" class="btn btn-eye-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                            </div>
+                
+                                            <div class="product-featured-details">
+                                                <div class="product-featured-title">
+                                                    <a href="">Drink De Energy Health & Strength</a>
+                                                </div>
+                                                <div class="product-featured-price">
+                                                    <span class="price">35.000đ</span>
+                                                    <span class="price-del">25.000đ</span>
+                                                </div> 
+                                                <div class="product-button-action">
+                                                    <div class="product-button-cart">
+                                                        <a href="" class="button-cart">
+                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="product-featured-item">
+                                        <div class="product-featured-inner">
+                                            <div class="product-featured-img">
+                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
+                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
+                                                <div class="item-sale">
+                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
+                                                </div>
+                                                <!-- modal button -->
+                                                <button type="button" class="btn btn-eye-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-quickview modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-md-6 col-lg-6 slide-quickview">
+                                                                        <div class="slide-quickview-main">
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                            </div>
+                                                                        </div>
+                
+                                                                        <div class="slide-quickview-sub">
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                
+                                                                    <div class="col-12 col-md-6 col-lg-6 detail-quickview">
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                            </div>
+                
+                                            <div class="product-featured-details">
+                                                <div class="product-featured-title">
+                                                    <a href="">Drink De Energy Health & Strength</a>
+                                                </div>
+                                                <div class="product-featured-price">
+                                                    <span class="price">35.000đ</span>
+                                                    <span class="price-del">25.000đ</span>
+                                                </div> 
+                                                <div class="product-button-action">
+                                                    <div class="product-button-cart">
+                                                        <a href="" class="button-cart">
+                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="product-featured-item">
+                                        <div class="product-featured-inner">
+                                            <div class="product-featured-img">
+                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
+                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
+                                                <div class="item-sale">
+                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
+                                                </div>
+                                                <!-- modal button -->
+                                                <button type="button" class="btn btn-eye-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-quickview modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-md-6 col-lg-6 slide-quickview">
+                                                                        <div class="slide-quickview-main">
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                            </div>
+                                                                        </div>
+                
+                                                                        <div class="slide-quickview-sub">
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                
+                                                                    <div class="col-12 col-md-6 col-lg-6 detail-quickview">
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                            </div>
+                
+                                            <div class="product-featured-details">
+                                                <div class="product-featured-title">
+                                                    <a href="">Drink De Energy Health & Strength</a>
+                                                </div>
+                                                <div class="product-featured-price">
+                                                    <span class="price">35.000đ</span>
+                                                    <span class="price-del">25.000đ</span>
+                                                </div> 
+                                                <div class="product-button-action">
+                                                    <div class="product-button-cart">
+                                                        <a href="" class="button-cart">
+                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="product-featured-item">
+                                        <div class="product-featured-inner">
+                                            <div class="product-featured-img">
+                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
+                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
+                                                <div class="item-sale">
+                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
+                                                </div>
+                                                <!-- modal button -->
+                                                <button type="button" class="btn btn-eye-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-quickview modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-md-6 col-lg-6 slide-quickview">
+                                                                        <div class="slide-quickview-main">
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                            </div>
+                                                                        </div>
+                
+                                                                        <div class="slide-quickview-sub">
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-2_650ae36b6e404a0ea3bbf00cf5145bcb_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-3_9a41acb6c6e1458eb8105b99508a01a0_master.jpg" alt="">
+                                                                            </div>
+                                                                            <div class="quickview-img">
+                                                                                <img src="../asset/img/prod-1-4_10e463e37b514ba9bdbee0c31c75e088_master.jpg" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                
+                                                                    <div class="col-12 col-md-6 col-lg-6 detail-quickview">
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                            </div>
+                
+                                            <div class="product-featured-details">
+                                                <div class="product-featured-title">
+                                                    <a href="">Drink De Energy Health & Strength</a>
+                                                </div>
+                                                <div class="product-featured-price">
+                                                    <span class="price">35.000đ</span>
+                                                    <span class="price-del">25.000đ</span>
+                                                </div> 
+                                                <div class="product-button-action">
+                                                    <div class="product-button-cart">
+                                                        <a href="" class="button-cart">
+                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <!--  -->
+
+                                 <!-- Modal -->
+                                           
+                            </div>
+                        </div>
+                    </div>
+    
+
+                    <div class="col-lg-4 col-md-12 col-12 cart-right">
+                        <div class="order-box">
+                            <h2 class="bill-title">Thông tin đơn hàng</h2>
+                            <!-- <div class="time">
+                                <div class="time-title">
+                                    <p>THỜI GIAN GIAO HÀNG</p> 
+                                    <p class="txt-time">Chọn thời gian</p>
+                                </div>
+                                <div class="time-radio-button">
+                                    <div class="radio-item">
+                                        <input class="input-radio" type="radio" name="timeRadios" id="timeRadios-1" value="timeNow">
+                                        <label class="lable-radio">Giao khi có hàng</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input class="input-radio" type="radio" name="timeRadios" id="timeRadios-2" value="timeDate">
+                                        <label class="lable-radio">Chọn thời gian</label>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="total-price">
+                                <p>Tổng tiền : </p> 
+                                <span>35,000đ</span>
+                            </div>
+                            <div class="policy-delivery">
+                                <p>Phí vận chuyển sẽ được tính ở trang thanh toán.</p>
+                                <p>Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</p>
+                                <div class="summary-alert">
+                                    Giỏ hàng của bạn hiện chưa đạt mức tối thiểu để thanh toán.
+                                </div>
+                            </div>
+                            <div class="pay-button">	
+                                <button class="checkout-btn btnred disabled">Thanh toán</button>
+                            </div>
+                        </div>  
+
+                        <div class="policy-purchase">
+                            <div class="summary-warning alert-order">						
+                                <p><strong>Chính sách mua hàng</strong>:</p>
+                                <p>Hiện chúng tôi chỉ áp dụng thanh toán với đơn hàng có giá trị tối thiểu <strong>100.000₫ </strong> trở lên.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-promotion">
+                            <div class="cart-promotion-title">
+                                <h2>Khuyến mãi dành cho bạn</h2>
+                            </div>
+                            <div class="cart-promotion-slide">
+                                <div class="promotion-item">
+                                    <div class="promotion-left">
+                                        <div class="promotion-img">
+                                            <img src="../asset/img/home_coupon_2_img.png" alt="">
+                                        </div>
+                                    </div>
+    
+                                    <div class="promotion-right">
+                                        <div class="promotion-top">
+                                            <div class="promotion-info">
+                                                <h3>Giảm 20</h3>
+                                                <p>Đơn hàng từ 200k</p>
+                                            </div>
+                                            
+                                            <div class="promotion-note">
+                                                <span class="promotion-note-img">
+                                                    <img src="../asset/img/icons/circle.png" alt="">
+                                                    <div class="promotion-form">
+                                                        <div class="promotion-body">
+                                                            <div class="promotion-row1 promotion-row">
+                                                                <div class="row-title">
+                                                                    <p>Mã</p>
+                                                                </div>
+                                                                <div class="row-content">
+                                                                    <strong>WECQRQCWR</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="promotion-row2 promotion-row">
+                                                                <div class="row-title">
+                                                                    <p>HSD</p>
+                                                                </div>
+                                                                <div class="row-content">
+                                                                    <strong>15/07/2023</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="promotion-row1 promotion-row">
+                                                                <div class="row-content">
+                                                                    <ul>
+                                                                        <li>Dành cho đơn hàng từ 300k</li>
+                                                                        <li>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán</li>
+                                            
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                 
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="promotion-bottom">
+                                            <div class="promotion-code">
+                                                <p>Mã: <strong>ASDWEVRWE</strong></p>
+                                                <p>HSD: 20/07/2023</p>
+                                            </div>
+
+                                            <div class="promotion-copy">
+                                                <button>Sao chép mã</button>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="promotion-item">
+                                    <div class="promotion-left">
+                                        <div class="promotion-img">
+                                            <img src="../asset/img/home_coupon_2_img.png" alt="">
+                                        </div>
+                                    </div>
+    
+                                    <div class="promotion-right">
+                                        <div class="promotion-top">
+                                            <div class="promotion-info">
+                                                <h3>Giảm 20</h3>
+                                                <p>Đơn hàng từ 200k</p>
+                                            </div>
+                                            
+                                            <div class="promotion-note">
+                                                <span class="promotion-note-img">
+                                                    <img src="../asset/img/icons/circle.png" alt="">
+                                                    <div class="promotion-form">
+                                                        <div class="promotion-body">
+                                                            <div class="promotion-row1 promotion-row">
+                                                                <div class="row-title">
+                                                                    <p>Mã</p>
+                                                                </div>
+                                                                <div class="row-content">
+                                                                    <strong>WECQRQCWR</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="promotion-row2 promotion-row">
+                                                                <div class="row-title">
+                                                                    <p>HSD</p>
+                                                                </div>
+                                                                <div class="row-content">
+                                                                    <strong>15/07/2023</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="promotion-row1 promotion-row">
+                                                                <div class="row-content">
+                                                                    <ul>
+                                                                        <li>Dành cho đơn hàng từ 300k</li>
+                                                                        <li>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán</li>
+                                            
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                 
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="promotion-bottom">
+                                            <div class="promotion-code">
+                                                <p>Mã: <strong>ASDWEVRWE</strong></p>
+                                                <p>HSD: 20/07/2023</p>
+                                            </div>
+
+                                            <div class="promotion-copy">
+                                                <button>Sao chép mã</button>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- script -->
+    <script src="../asset/js/main.js"></script>
+    <script src="../asset/js/slick.js"></script>
+</body>
+    
+</html>
+
+
+
+
+
+
