@@ -143,81 +143,89 @@ function buyWarehousesAPI($input)
 			if(!empty($Warehouse)){
 				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 				$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
+				$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
+				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id))->first();
 				if(!empty($infoUser)){
-					if($infoUser->account_balance>=$Warehouse->price){
+					if(empty($WarehouseUser)){
+						if($infoUser->account_balance>=$Warehouse->price){
 
-						// trừ tiền tài khoản người muas
-						$infoUser->account_balance -= $Warehouse->price;
-						$modelMember->save($infoUser);
+							// trừ tiền tài khoản người mua
+							$infoUser->account_balance -= $Warehouse->price;
+							$modelMember->save($infoUser);
 
-						
+							
 
-						// lưu lịch sử mua kho mẫu thiết kế của khách hàng
-						$order = $modelOrder->newEmptyEntity();
-						$order->code = 'W'.time().$infoUser->id.rand(0,10000);
-						$order->member_id = $infoUser->id;
-						$order->product_id = (int) $dataSend['idWarehouse']; // id kho mẫu
-						$order->total = $Warehouse->price;
-						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-						$order->type = 7; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế
-						$order->meta_payment = 'Mua kho mẫu thiết kế ID '.$dataSend['idWarehouse'];
-						$order->created_at = date('Y-m-d H:i:s');
-						$modelOrder->save($order);
+							// lưu lịch sử mua kho mẫu thiết kế của khách hàng
+							$order = $modelOrder->newEmptyEntity();
+							$order->code = 'W'.time().$infoUser->id.rand(0,10000);
+							$order->member_id = $infoUser->id;
+							$order->product_id = (int) $dataSend['idWarehouse']; // id kho mẫu
+							$order->total = $Warehouse->price;
+							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+							$order->type = 7; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế
+							$order->meta_payment = 'Mua kho mẫu thiết kế ID '.$dataSend['idWarehouse'];
+							$order->created_at = date('Y-m-d H:i:s');
+							$modelOrder->save($order);
 
-						// lưu lịch sử bán kho mẫu thiết kế của designer
-						$order = $modelOrder->newEmptyEntity();
-						$order->code = 'W'.time().$infoUserSell->id.rand(0,10000);
-						$order->member_id = $infoUserSell->id;
-						$order->product_id = (int) $dataSend['idWarehouse']; // id kho mẫu
-						if(!empty(@$infoUserSell->commission)){
-	                    	$order->total = ((int) @$infoUserSell->commission / 100) * $Warehouse->price;
-	                	}else{
-	                		$order->total = (70 / 100) * $Warehouse->price;
-	                	}
-						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-						$order->type = 8; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế , 8: bán kho mẫu thiết kế
-						$order->meta_payment = 'Bán kho mẫu thiết kế ID '.$dataSend['idWarehouse'];
-						$order->created_at = date('Y-m-d H:i:s');
-						$modelOrder->save($order);
-
-						 // cộng tiền tài khoản bán
-				        $infoUserSell->account_balance += $order->total;
-				        $modelMember->save($infoUserSell);
-
-
-						// tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
-	                    if($Warehouse->price > 0){
+							// lưu lịch sử bán kho mẫu thiết kế của designer
 							$order = $modelOrder->newEmptyEntity();
 							$order->code = 'W'.time().$infoUserSell->id.rand(0,10000);
-		                    $order->member_id = 0;
-		                    $order->product_id = $Warehouse->id;
-		                    if(!empty(@$infoUserSell->commission)){
-		                    	$order->total = ((100 - (int) @$infoUserSell->commission) / 100) * $Warehouse->price;
+							$order->member_id = $infoUserSell->id;
+							$order->product_id = (int) $dataSend['idWarehouse']; // id kho mẫu
+							if(!empty(@$infoUserSell->commission)){
+		                    	$order->total = ((int) @$infoUserSell->commission / 100) * $Warehouse->price;
 		                	}else{
-		                		$order->total = (30 / 100) * $Warehouse->price;
+		                		$order->total = (70 / 100) * $Warehouse->price;
 		                	}
-		                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-		                    $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu
-		                    $order->meta_payment = 'Chiết khấu Kho thiết kế ID '.$Warehouse->id;
-		                    $order->created_at = date('Y-m-d H:i:s');
-		                    $modelOrder->save($order);
-	                	}
+							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+							$order->type = 8; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế , 8: bán kho mẫu thiết kế
+							$order->meta_payment = 'Bán kho mẫu thiết kế ID '.$dataSend['idWarehouse'];
+							$order->created_at = date('Y-m-d H:i:s');
+							$modelOrder->save($order);
 
-	                	 $data = $modelWarehouseUsers->newEmptyEntity();
-	                	 // tạo dữ liệu save
-					     $data->warehouse_id = (int) $Warehouse->id;
-					     $data->user_id = $infoUser->id;
-					     $data->designer_id = $infoUserSell->id;
-					     $data->price = $Warehouse->price;
-					     $data->created_at = date('Y-m-d H:i:s');
-					     $data->note ='';
-					     $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
-					        
-					     $modelWarehouseUsers->save($data);
-					     $return = array('code'=>1, 'mess'=>'Bạn đã mua kho thành công');
+							 // cộng tiền tài khoản bán
+					        $infoUserSell->account_balance += $order->total;
+					        $modelMember->save($infoUserSell);
+
+
+							// tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
+		                    if($Warehouse->price > 0){
+								$order = $modelOrder->newEmptyEntity();
+								$order->code = 'W'.time().$infoUserSell->id.rand(0,10000);
+			                    $order->member_id = 0;
+			                    $order->product_id = $Warehouse->id;
+			                    if(!empty(@$infoUserSell->commission)){
+			                    	$order->total = ((100 - (int) @$infoUserSell->commission) / 100) * $Warehouse->price;
+			                	}else{
+			                		$order->total = (30 / 100) * $Warehouse->price;
+			                	}
+			                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+			                    $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu
+			                    $order->meta_payment = 'Chiết khấu Kho thiết kế ID '.$Warehouse->id;
+			                    $order->created_at = date('Y-m-d H:i:s');
+			                    $modelOrder->save($order);
+		                	}
+
+		                	 $data = $modelWarehouseUsers->newEmptyEntity();
+		                	 // tạo dữ liệu save
+						     $data->warehouse_id = (int) $Warehouse->id;
+						     $data->user_id = $infoUser->id;
+						     $data->designer_id = $infoUserSell->id;
+						     $data->price = $Warehouse->price;
+						     $data->created_at = date('Y-m-d H:i:s');
+						     $data->note ='';
+						     $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
+						        
+						     $modelWarehouseUsers->save($data);
+						     $return = array('code'=>1, 'mess'=>'Bạn đã mua kho thành công');
+						}else{
+							$return = array('code'=>4,
+											'mess'=>'Tài khoản không đủ tiền'
+											);
+						}
 					}else{
-						$return = array('code'=>4,
-										'mess'=>'Tài khoản không đủ tiền'
+						$return = array('code'=>5,
+										'mess'=>'bạn đã mua kho này rồi'
 										);
 					}
 				}else{
@@ -457,7 +465,7 @@ function  getInfoWarehouseAPI($input){
 	global $controller;
 	global $modelCategories;
 
-	$modelWarehouses = $controller->loadModel('Warehouses');;
+	$modelWarehouses = $controller->loadModel('Warehouses');
 
 	
 	$return = array('code'=>0);
@@ -476,6 +484,178 @@ function  getInfoWarehouseAPI($input){
 					 		);
 			}else{
 				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
+			}
+		
+	}
+	return $return;
+}
+
+function extendWarehousesAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+
+	
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$number = (!empty($dataSend['number']))?(int) $dataSend['number']:1;
+		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token'])){
+			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse']))->first();
+
+			if(!empty($Warehouse)){
+				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
+				
+				if(!empty($infoUser)){
+					$WarehouseUsers = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id,'warehouse_id'=>$Warehouse->id))->first();
+					if(!empty($WarehouseUsers)){
+						$Warehouse->price = $Warehouse->price*$number;
+						if($infoUser->account_balance>=$Warehouse->price){
+
+							// trừ tiền tài khoản người muas
+							$infoUser->account_balance -= $Warehouse->price;
+							$modelMember->save($infoUser);
+
+							
+
+							// lưu lịch sử mua kho mẫu thiết kế của khách hàng
+							$order = $modelOrder->newEmptyEntity();
+							$order->code = 'W'.time().$infoUser->id.rand(0,10000);
+							$order->member_id = $infoUser->id;
+							$order->product_id = (int) $dataSend['idWarehouse']; // id kho mẫu
+							$order->total = $Warehouse->price;
+							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+							$order->type = 7; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế
+							$order->meta_payment = 'Mua kho mẫu thiết kế ID '.$dataSend['idWarehouse'];
+							$order->created_at = date('Y-m-d H:i:s');
+							$modelOrder->save($order);
+
+							// lưu lịch sử bán kho mẫu thiết kế của designer
+							$order = $modelOrder->newEmptyEntity();
+							$order->code = 'W'.time().$infoUserSell->id.rand(0,10000);
+							$order->member_id = $infoUserSell->id;
+							$order->product_id = (int) $dataSend['idWarehouse']; // id kho mẫu
+							if(!empty(@$infoUserSell->commission)){
+		                    	$order->total = ((int) @$infoUserSell->commission / 100) * $Warehouse->price;
+		                	}else{
+		                		$order->total = (70 / 100) * $Warehouse->price;
+		                	}
+							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+							$order->type = 8; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế , 8: bán kho mẫu thiết kế
+							$order->meta_payment = 'Bán kho mẫu thiết kế ID '.$dataSend['idWarehouse'];
+							$order->created_at = date('Y-m-d H:i:s');
+							$modelOrder->save($order);
+
+							 // cộng tiền tài khoản bán
+					        $infoUserSell->account_balance += $order->total;
+					        $modelMember->save($infoUserSell);
+
+
+							// tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
+		                    if($Warehouse->price > 0){
+								$order = $modelOrder->newEmptyEntity();
+								$order->code = 'W'.time().$infoUserSell->id.rand(0,10000);
+			                    $order->member_id = 0;
+			                    $order->product_id = $Warehouse->id;
+			                    if(!empty(@$infoUserSell->commission)){
+			                    	$order->total = ((100 - (int) @$infoUserSell->commission) / 100) * $Warehouse->price;
+			                	}else{
+			                		$order->total = (30 / 100) * $Warehouse->price;
+			                	}
+			                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+			                    $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu
+			                    $order->meta_payment = 'Chiết khấu Kho thiết kế ID '.$Warehouse->id;
+			                    $order->created_at = date('Y-m-d H:i:s');
+			                    $modelOrder->save($order);
+		                	}
+
+		                	 // tạo dữ liệu save
+						    $WarehouseUsers->warehouse_id = (int) $Warehouse->id;
+						    $WarehouseUsers->user_id = $infoUser->id;
+						    $WarehouseUsers->designer_id = $infoUserSell->id;
+						    $WarehouseUsers->price = $Warehouse->price;
+						    $WarehouseUsers->created_at = date('Y-m-d H:i:s');
+						    $WarehouseUsers->note ='';
+						    if($WarehouseUsers->deadline_at->format('Y-m-d H:i:s') <= date('Y-m-d H:i:s')){
+						     	$WarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($WarehouseUsers->created_at . ' +'.@$Warehouse->date_use*$number.' days'));
+						    }else{
+						    	$WarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($WarehouseUsers->deadline_at . ' +'.@$Warehouse->date_use*$number.' days'));
+						    }
+						     $modelWarehouseUsers->save($WarehouseUsers);
+						     $return = array('code'=>1, 'mess'=>'Bạn đã gia hạn kho thành công');
+						}else{
+							$return = array('code'=>4,
+											'mess'=>'Tài khoản không đủ tiền'
+											);
+						}
+					}else{
+						$return = array('code'=>5,
+									'mess'=>'Bạn chưa mua kho này '
+								);
+					}
+				}else{
+					$return = array('code'=>2,
+									'mess'=>'Bạn chưa đăng nhập'
+								);
+				}
+			}else{
+				$return = array('code'=>3,
+								'mess'=>'Kho này không tồn tại'
+							);
+				}
+			}
+		}
+		return $return;
+}
+
+function notificationWarehousesAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelMember = $controller->loadModel('Members');
+	
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$conditions['deadline_at <='] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days'));
+		$conditions['deadline_at >='] = date('Y-m-d H:i:s');
+
+			// lấy kho 
+			$data = $modelWarehouseUsers->find()->where($conditions)->all()->toList();
+			
+			if(!empty($data)){
+				foreach($data as $key => $item){
+					$ngay = date('Y-m-d', strtotime($item->deadline_at));
+					$date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
+
+					$member =	$modelMember->get($item->user_id);
+					$Warehouses =	$modelWarehouses->get($item->warehouse_id);
+					$dataSendNotification= array('warehouse_id'=>$item->warehouse_id, 'title'=>'Thông báo hết hạn kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" sắp hết hạn. Thời hạn sử dụng của kho mẫu thiết kế sẽ kết thúc vào ngày '.date('d-m-Y', strtotime($item->deadline_at)),'action'=>'extendWarehouseSendNotification');
+					
+					if(!empty($member->token_device)){
+						sendNotification($dataSendNotification, $member->token_device);
+					}
+				}
+				
+				$return = array('code'=>1,
+					 			'mess'=>'Thông báo thành công',
+					 		);
+			}else{
+				$return = array('code'=>2, 'mess'=>'Kho không tồn tại');
 			}
 		
 	}
