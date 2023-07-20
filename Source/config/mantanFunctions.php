@@ -66,6 +66,12 @@ global $infoSite;
 global $contactSite;
 global $smtpSite;
 
+global $isHome;
+global $isCategory;
+global $isPost;
+global $isPage;
+global $isPlugin;
+
 if(isset($_SERVER['HTTPS'])){
     $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
 }

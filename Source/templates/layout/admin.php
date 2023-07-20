@@ -336,7 +336,7 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  Chào mừng bạn đến với hệ thống Mantan
+                  Mantan System
                 </div>
               </div>
 
@@ -358,8 +358,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block"><?php echo $infoAdmin->fullName;?></span>
+                            <small class="text-muted"><?php echo $infoAdmin->user;?></small>
                           </div>
                         </div>
                       </a>
@@ -368,24 +368,15 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/admins/profile">
                         <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
+                        <span class="align-middle">Trang cá nhân</span>
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/admins/changePass">
                         <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
+                        <span class="align-middle">Đổi mật khẩu</span>
                       </a>
                     </li>
                     <li>

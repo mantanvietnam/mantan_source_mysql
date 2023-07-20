@@ -798,7 +798,7 @@ function createImageSeries($input)
 	        }
 
 	        if(!empty($_GET['id'])){ 
-	        	$dataImage = compressImageBase64($dataImage);
+	        	//$dataImage = compressImageBase64($dataImage);
 
 	        	// Giải mã dữ liệu base64
 				$imageData = base64_decode($dataImage);
