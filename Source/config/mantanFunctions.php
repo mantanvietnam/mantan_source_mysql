@@ -72,6 +72,12 @@ global $isPost;
 global $isPage;
 global $isPlugin;
 
+$isHome = false;
+$isCategory = false;
+$isPost = false;
+$isPage = false;
+$isPlugin = false;
+
 if(isset($_SERVER['HTTPS'])){
     $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
 }

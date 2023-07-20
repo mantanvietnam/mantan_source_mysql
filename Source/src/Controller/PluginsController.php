@@ -10,6 +10,9 @@ class PluginsController extends AppController{
 	public function index($url=''){
 		global $routesPlugin;
 		global $routesTheme;
+		global $isPlugin;
+
+		$isPlugin = true;
 
 		if(isset($routesPlugin[$url])){
 			$url= $routesPlugin[$url];

@@ -10,6 +10,9 @@ class HomesController extends AppController{
 	public function index()
     {
         global $themeActive;
+        global $isHome;
+
+        $isHome = true;
 
         $url= '/themes/'.$themeActive.'/index.php';
         
@@ -25,6 +28,8 @@ class HomesController extends AppController{
         global $metaTitleMantan;
         global $metaKeywordsMantan;
         global $metaDescriptionMantan;
+        global $isPost;
+        global $isPage;
 
         $modelPosts = $this->Posts;
 
@@ -44,6 +49,12 @@ class HomesController extends AppController{
 
                     $input= array('fileProcess'=>$url,'request'=>$this->request);
                     postTheme($input);
+                }
+
+                if($data->type == 'post'){
+                    $isPost = true;
+                }else{
+                    $isPage = true;
                 }
 
                 // lấy danh sách tin tức khác
@@ -150,6 +161,9 @@ class HomesController extends AppController{
         global $urlCurrent;
         global $modelCategories;
         global $infoSite;
+        global $isCategory;
+
+        $isCategory = true;
 
         $modelPosts = $this->Posts;
 
