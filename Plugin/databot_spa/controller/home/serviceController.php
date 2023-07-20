@@ -209,9 +209,9 @@ function addService($input){
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
                  if(!empty($_GET['id'])){
-                    return $controller->redirect('/listProduct?mess=2');
+                    return $controller->redirect('/listService?mess=2');
                 }else{
-                    return $controller->redirect('/listProduct?mess=1');
+                    return $controller->redirect('/listService?mess=1');
                 }
                 
             }else{
