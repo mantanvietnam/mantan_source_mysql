@@ -433,7 +433,7 @@
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
 	                                    <label>Tên mẫu thiết kế:</label>
-	                                    <input type="text" name="nameProduct" class="thongtininput form-control nameProduct" data-field="name"/>
+	                                    <input type="text" name="nameProduct" id="nameProduct" onchange="updateNameProduct();" class=" form-control nameProduct" data-field="name"/>
 	                                </div>
 	                            </div>
 	                            <div class="list-chang-replace">
@@ -451,7 +451,7 @@
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
 	                                    <label>Chuyên mục:</label>
-	                                    <select name="categor_pro " class="form-select color-dropdown" id="categor_pro">
+	                                    <select name="categor_pro " class="form-select color-dropdown" id="categor_pro" onchange="updateCategoryProduct();">
 	                                    	<?php 
 	                                    	if(!empty($categories)){
 	                                    		foreach ($categories as $cat) {
@@ -465,7 +465,7 @@
 	                            <div class="list-chang-replace">
 	                                <div class="form-group w-100">
 	                                    <label>Trạng thái:</label>
-	                                    <select name="status_pro" class="form-select color-dropdown" id="status_pro">
+	                                    <select name="status_pro" class="form-select color-dropdown" id="status_pro" onchange="updateStatusProduct();">
 	                                        <option value="1">Đề nghị bán</option>
 	                                        <option value="0">Ẩn chưa bán</option>
 	                                    </select>
