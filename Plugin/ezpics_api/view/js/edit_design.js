@@ -160,75 +160,82 @@ function hover() {
 }
 
 // update thông tin sản phẩm select
-function update_select_info() {
-    $('.box-detail-edit-user-create #status_pro').change(function(event) {
-        $.ajax({
-            url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
-            data: {
-                id: localStorage.getItem("id"),
-                field: 'status',
-                value: this.value,
-            },
-            type: "POST",
-            success:function(data){
-                if($.isEmptyObject(data.error)){
-                   
-                }else{
-                    printErrorMsg(data.error);
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-            }
-        });    
-    });
+function updateStatusProduct()
+{
+    let valueChange = $('#status_pro').val();
 
-    $('.box-detail-edit-user-create #categor_pro').change(function(event) {
-        $.ajax({
-            url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
-            data: {
-                id: localStorage.getItem("id"),
-                field: 'category_id',
-                value: this.value,
-            },
-            type: "POST",
-            success:function(data){
-                if($.isEmptyObject(data.error)){
-                   
-                }else{
-                    printErrorMsg(data.error);
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
+    $.ajax({
+        url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
+        data: {
+            id: localStorage.getItem("id"),
+            field: 'status',
+            value: valueChange,
+        },
+        type: "POST",
+        success:function(data){
+            if($.isEmptyObject(data.error)){
+               
+            }else{
+                printErrorMsg(data.error);
             }
-        });    
-    });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });    
+}
 
-    $('.box-detail-edit-user-create .nameProduct').change(function(event) {
-        $.ajax({
-            url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
-            data: {
-                id: localStorage.getItem("id"),
-                field: 'name',
-                value: this.value,
-            },
-            type: "POST",
-            success:function(data){
-                if($.isEmptyObject(data.error)){
-                 
-                }else{
-                    printErrorMsg(data.error);
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
+function updateCategoryProduct()
+{
+    let valueChange = $('#categor_pro').val();
+
+    $.ajax({
+        url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
+        data: {
+            id: localStorage.getItem("id"),
+            field: 'category_id',
+            value: valueChange,
+        },
+        type: "POST",
+        success:function(data){
+            if($.isEmptyObject(data.error)){
+               
+            }else{
+                printErrorMsg(data.error);
             }
-        });    
-    });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });    
+}
+
+function updateNameProduct()
+{
+    let valueChange = $('#nameProduct').val();
+
+    $.ajax({
+        url: 'https://apis.ezpics.vn/apis/updateInfoProduct',
+        data: {
+            id: localStorage.getItem("id"),
+            field: 'name',
+            value: valueChange,
+        },
+        type: "POST",
+        success:function(data){
+            if($.isEmptyObject(data.error)){
+             
+            }else{
+                printErrorMsg(data.error);
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });       
 }
 
 // cap screen 
@@ -1905,7 +1912,6 @@ $(".upimg[type='file']").on('change', function() {
                                 // update thông tin cơ bản khi nhập
                                 if (data.type == 'user_create') {
                                     update_input_info(data.data.id);
-                                    update_select_info();
                                     $('.thongtin').removeClass('d-none');
                                 }else{
                                     $('.thongtin').addClass('d-none');
@@ -2039,7 +2045,6 @@ $(".upimgThumbnail[type='file']").on('change', function() {
                                 // update thông tin cơ bản khi nhập
                                 if (data.type == 'user_create') {
                                     update_input_info(data.data.id);
-                                    update_select_info();
                                     $('.thongtin').removeClass('d-none');
                                 }else{
                                     $('.thongtin').addClass('d-none');
@@ -2184,7 +2189,6 @@ $(".replace[type='file']").on('change', function() {
                                 // update thông tin cơ bản khi nhập
                                 if (data.type == 'user_create') {
                                     update_input_info(data.data.id);
-                                    update_select_info();
                                     $('.thongtin').removeClass('d-none');
                                 }else{
                                     $('.thongtin').addClass('d-none');
@@ -2725,7 +2729,6 @@ function clearDataOld(data)
     // update thông tin cơ bản khi nhập
     if (data.type == 'user_create' || data.type == 'user_series') {
         update_input_info(data.data.id);
-        update_select_info();
         $('.thongtin').removeClass('d-none');
 
         if (data.type == 'user_series') {
