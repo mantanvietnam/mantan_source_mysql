@@ -123,3 +123,4 @@
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->
+  <?php include(__DIR__.'/../footer.php'); ?> 

@@ -145,6 +145,10 @@ function updateInfoProduct($input)
     global $controller;
 
     $modelProduct = $controller->loadModel('Products');
+    $modelWarehouses = $controller->loadModel('Warehouses');
+    $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+    $modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+    $modelMember = $controller->loadModel('Members');
 
     if(!empty($session->read('infoUser')) && $isRequestPost){
         $dataSend = $input['request']->getData();
@@ -197,6 +201,21 @@ function updateInfoProduct($input)
                         $pro->status = (int) $dataSend['value'];
                         if($pro->status == 1){
                             sendNotificationAdmin('6479b6f4b4a51d8bb38fc547');
+                            $warehouseProducts = $modelWarehouseProducts->find()->where(['product_id'=>$pro->id])->all()->toList();
+                            if(!empty($warehouseProducts)){
+                                foreach($warehouseProducts as $keywp => $product){
+                                    $warehouse = $modelWarehouses->find()->where(['id'=>$product->warehouse_id])->first();
+                                    $warehouseUser = $modelWarehouseUsers->find()->where(['warehouse_id'=>$warehouse->id])->all()->toList();
+                                    foreach($warehouseUser as $keyus => $item){
+                                        $user = $modelMember->find()->where(['id'=>$item->user_id])->first();
+                                        $dataSendNotification= array('product_id'=>$pro->id, 'title'=>'Thông báo có mẫu thiết kế mới trong kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" có mẫu mới là "'.$pro->name.'"!','action'=>'productNewWarehouseNotification');
+                                        if(!empty($user->token_device)){
+                                            sendNotification($dataSendNotification, $member->token_device);
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                         break;
                 }

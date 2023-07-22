@@ -167,6 +167,18 @@
               </a>
             </li>
             <li class="menu-item">
+              <a href="/orderWarehouse" class="menu-link">
+                <i class='bx bx-cart' ></i> 
+                <div data-i18n="Add">Mua kho</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/sellWarehouse" class="menu-link">
+                <i class='bx bx-cart' ></i> 
+                <div data-i18n="Add">Bán kho</div>
+              </a>
+            </li>
+            <li class="menu-item">
               <a href="/recharge" class="menu-link">
                 <i class='bx bx-money' ></i> 
                 <div data-i18n="Add">Nạp tiền</div>

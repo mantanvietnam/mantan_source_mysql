@@ -27,6 +27,8 @@
 	$routesPlugin['sellproduct']= 'ezpics_designer/view/home/order/sellproduct.php';
 	$routesPlugin['withdrawmoney']= 'ezpics_designer/view/home/order/withdrawmoney.php';
 	$routesPlugin['removeimage']= 'ezpics_designer/view/home/order/removeimage.php';
+	$routesPlugin['orderWarehouse']= 'ezpics_designer/view/home/order/orderWarehouse.php';
+	$routesPlugin['sellWarehouse']= 'ezpics_designer/view/home/order/sellWarehouse.php';
 
 	// public
 	$routesPlugin['detail']= 'ezpics_designer/view/home/product/detailProduct.php';

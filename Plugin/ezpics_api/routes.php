@@ -115,6 +115,7 @@
 	$routesPlugin['listFont']= 'ezpics_api/view/listFont.php';
 	$routesPlugin['listLayerAPI']= 'ezpics_api/view/listLayerAPI.php';
 	$routesPlugin['saveLayerAPI']= 'ezpics_api/view/saveLayerAPI.php';
+	$routesPlugin['updateListLayerAPI']= 'ezpics_api/view/updateListLayerAPI.php';
 	$routesPlugin['updateLayerAPI']= 'ezpics_api/view/updateLayerAPI.php';
 	$routesPlugin['addLayerImageAPI']= 'ezpics_api/view/addLayerImageAPI.php';
 	$routesPlugin['changeLayerImageAPI']= 'ezpics_api/view/changeLayerImageAPI.php';

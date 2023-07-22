@@ -113,7 +113,7 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="bx bxs-user-detail"></i>
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div>Khách hàng</div>
               </a>
               <ul class="menu-sub">
@@ -139,7 +139,6 @@
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Sản phẩm</div>
               </a>
-
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/listProduct" class="menu-link">
@@ -184,7 +183,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="bx bx bx-basket"></i>
+                <i class="menu-icon tf-icons bx bx bx-basket"></i>
                 <div>Dịch vụ</div>
               </a>
               <ul class="menu-sub">
@@ -202,7 +201,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="bx bx bx-basket"></i>
+                <i class="menu-icon tf-icons bx bx bx-basket"></i>
                 <div>Hệ thống</div>
               </a>
               <ul class="menu-sub">

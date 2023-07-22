@@ -24,18 +24,18 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name; ?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Email </label>
+                    <label class="form-label">Email (*)</label>
                      <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$data->email; ?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Địa chỉ  </label>
+                    <label class="form-label">Địa chỉ  (*)</label>
                      <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address; ?>" />
                   </div>
                 </div>
 
                 <div class="col-md-6">
                    <div class="mb-3">
-                    <label class="form-label">Số điện thoại</label>
+                    <label class="form-label">Số điện thoại (*)</label>
                      <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
                   </div>
                  <!--  <div class="mb-3">

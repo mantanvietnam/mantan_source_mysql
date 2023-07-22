@@ -8,4 +8,5 @@ include('model/customers.php'); // khach hàng
 include('model/services.php'); // dịch vụ 
 include('model/rooms.php'); // phòng
 include('model/beds.php'); // giường
+include('model/combo.php'); // combo
 ?>

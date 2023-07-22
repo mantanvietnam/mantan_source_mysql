@@ -71,7 +71,6 @@ function updateLayerAPI($input){
 
 				if(!empty($datalayer)){
 					$content = json_decode($datalayer->content, true);
-
 	            	$content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
 
 	            	$datalayer->content = json_encode($content);
@@ -530,4 +529,95 @@ function copyLayerAPI($input)
 	return $return;
 }
 
+function saveLayerAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelFont = $controller->loadModel('Font');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$user = $modelMember->find()->where(array('token'=> $dataSend['token']))->first();;
+		
+		if(!empty($user)){
+			// lấy tk người dùng 
+			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct'], 'user_id'=>$user->id))->first();
+			if (!empty($dataProduct)) {
+				$datalayer = $modelProductDetail->find()->where(array('id'=>$dataSend['idLayer'], 'products_id'=>$dataSend['idProduct']))->first();
+
+				if(!empty($datalayer)){
+
+	            	$datalayer->content = $dataSend['layer'];
+					$datalayer->updated_at = date('Y-m-d H:i:s');
+
+					// lưu data 
+					$modelProductDetail->save($datalayer);
+					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
+				}else{
+					$return = array('code'=>4, 'mess'=>'Layer bạn không dúng');
+				}
+				
+			}else{
+				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
+			}
+		}else{
+			
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+
+	}
+	return $return;
+}
+
+function updateListLayerAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelFont = $controller->loadModel('Font');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$user = $modelMember->find()->where(array('token'=> $dataSend['token']))->first();;
+		
+		if(!empty($user)){
+			// lấy tk người dùng 
+			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct'], 'user_id'=>$user->id))->first();
+			if (!empty($dataProduct)) {
+            	$data= str_replace('   ', '', utf8_encode($dataSend['listLayer']));
+				$data= str_replace(array("\r", "\n"), '', $data);
+				$listData = json_decode($data, true);
+				foreach($listData as $key => $item){
+				 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
+				 	if(!empty($datalayer)){
+					 	$datalayer->content = json_encode($item['content']);
+					 	$datalayer->updated_at = date('Y-m-d H:i:s');
+					 	$modelProductDetail->save($datalayer);
+				 	}
+				}
+					
+					$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công');
+				
+				
+			}else{
+				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
+			}
+		}else{
+			
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+
+	}
+	return $return;
+}
 ?>
+

@@ -1,9 +1,9 @@
-<?php include(__DIR__.'/../header.php'); ?> 
+	<?php include(__DIR__.'/../header.php'); ?> 
 
 
  <!-- Responsive Table -->
  <div class="card m-4 row">
-    <h5 class="card-header">Lịch sử giao dịch bán hàng - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
+    <h5 class="card-header">Lịch sử giao dịch mua kho - <b class="text-danger"><?php echo number_format($totalData);?></b></h5>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -65,7 +65,7 @@
                             '.$item->note.'
                           </td>
                           <td align="center">
-                          <a href="/detailOrder?id='.$item -> id.'"><i class="bx bx-show-alt"></i></a>
+                          <a href="/detailOrder?id='.$item ->id.'"><i class="bx bx-show-alt"></i></a>
                           </td>
                         </tr>';
                 }
@@ -123,9 +123,7 @@
                           <p><bGhi chú:</b>
                             '.$item->note.'
                           </p>
-                          <p> 
-                          <a style="width:60%;" class="dropdown-item btn btn-primary d-block" href="/detailOrder?id='.$item ->id.'"><i class="bx bx-show-alt"></i>Xem chi tiết</a>
-                          </p>
+                          
                         </div>';
                 }
         }else{
@@ -135,6 +133,7 @@
         }
       ?>
     </div>
+
     <!-- Phân trang -->
     <div class="demo-inline-spacing">
       <nav aria-label="Page navigation">
@@ -180,4 +179,5 @@
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->
+
   <?php include(__DIR__.'/../footer.php'); ?> 
