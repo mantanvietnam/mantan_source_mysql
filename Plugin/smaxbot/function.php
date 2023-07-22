@@ -17,12 +17,12 @@ function sendNotificationAdmin($idBlock='', $attributesSmax=['new_notification'=
 	global $metaTitleMantan;
 	global $isRequestPost;
 
-	$conditions = array('type' => 'settingSmaxBot');
+	$conditions = array('key_word' => 'settingSmaxBot');
     $data = $modelOptions->find()->where($conditions)->first();
 
     $data_value = array();
-    if(!empty($data->content)){
-        $data_value = json_decode($data->content, true);
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
     }
 
 	// gửi thông báo cho smax.bot

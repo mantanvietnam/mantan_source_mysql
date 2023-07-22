@@ -34,13 +34,13 @@ function deleteLayerAPI($input){
 				$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'sản phẩm này không dùng');
+				$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 			}	
 		}else{
-			$return = array('code'=>0, 'mess'=>'layer không tồn tại');
+			$return = array('code'=>0, 'mess'=>'Layer không tồn tại');
 		}
 	}else{
-			$return = array('code'=>0, 'mess'=>'Bạn chưa có giữ liệu truyền vào');
+			$return = array('code'=>0, 'mess'=>'Bạn chưa có dữ liệu truyền vào');
 		}
 	return $return;
 }

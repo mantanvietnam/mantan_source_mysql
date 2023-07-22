@@ -342,13 +342,13 @@ function showUploadFile($idInput='',$nameInput='',$value='',$number='')
 				}
 			</script>
 
-			<div class="row">
-				<div class="col-8 col-xs-8 col-sm-8">
-					<input class="form-control" type="text" name="'.$nameInput.'" id="'.$idInput.'" value="'.$value.'" />
-				</div>
-				<div class="col-2 col-xs-2 col-sm-2">
-					<input type="button" class="btn btn-secondary" value="Upload" onclick="BrowseServerImage'.$number.'();" />
-				</div>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="btnGroupAddonUpload'.$number.'" name="'.$nameInput.'" id="'.$idInput.'" value="'.$value.'">
+
+			    <div class="input-group-prepend">
+			      <div class="btn btn-secondary input-group-text" onclick="BrowseServerImage'.$number.'();" id="btnGroupAddonUpload'.$number.'">Upload</div>
+			    </div>
+			    
 			</div>';
 }
 

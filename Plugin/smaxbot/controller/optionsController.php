@@ -8,7 +8,7 @@ function settingSmaxbot($input)
     $metaTitleMantan = 'Cài đặt chung - Smax Bot';
     $mess= '';
 
-    $conditions = array('type' => 'settingSmaxBot');
+    $conditions = array('key_word' => 'settingSmaxBot');
     $data = $modelOptions->find()->where($conditions)->first();
     if(empty($data)){
         $data = $modelOptions->newEmptyEntity();
@@ -23,8 +23,8 @@ function settingSmaxbot($input)
                         'idBlock' => $dataSend['idBlock'],
                     );
 
-        $data->type = 'settingSmaxBot';
-        $data->content = json_encode($value);
+        $data->key_word = 'settingSmaxBot';
+        $data->value = json_encode($value);
 
         $modelOptions->save($data);
 
@@ -32,8 +32,8 @@ function settingSmaxbot($input)
     }
 
     $data_value = array();
-    if(!empty($data->content)){
-        $data_value = json_decode($data->content, true);
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
     }
 
     setVariable('data_value', $data_value);
