@@ -102,15 +102,15 @@ function listService($input){
 			$conditions['id'] = (int) $_GET['id'];
 		}
 
-		
-		if(!empty($_GET['status'])){
-			$conditions['status'] = $_GET['status'];
-		}
+		if(isset($_GET['status'])){
+            if($_GET['status']!=''){
+                $conditions['status'] = $_GET['status'];
+            }
+        }
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
-
 	    $listData = $modelService->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 	    $totalData = $modelService->find()->where($conditions)->all()->toList();
@@ -143,6 +143,9 @@ function listService($input){
 	    } else {
 	        $urlPage = $urlPage . '?page=';
 	    }
+          $conditionsCategorie = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -150,7 +153,8 @@ function listService($input){
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    
-	    setVariable('listData', $listData);
+        setVariable('listData', $listData);
+	    setVariable('listCategory', $listCategory);
 
     }else{
         return $controller->redirect('/login');
@@ -231,6 +235,27 @@ function addService($input){
         }else{
             return $controller->redirect('/login');
         }
+}
+
+function deleteService($input){
+      global $controller;
+    global $session;
+    $modelService = $controller->loadModel('Services');
+    $infoUser = $session->read('infoUser');
+    if(!empty($infoUser)){
+    
+        if(!empty($_GET['id'])){
+            $data = $modelService->get($_GET['id']);
+            
+            if($data){
+                $modelService->delete($data);
+            }
+        }
+
+        return $controller->redirect('/listService');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
  
 ?>

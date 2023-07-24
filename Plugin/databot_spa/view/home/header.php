@@ -133,7 +133,21 @@
                   </a>
                 </li>
               </ul>
-            </li>           
+            </li>  
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-credit-card"></i>
+                <div>Thẻ dịch vụ</div>
+              </a>
+              <ul class="menu-sub">
+               
+                <li class="menu-item">
+                  <a href="/listCombo" class="menu-link">
+                    <div>Combo liệu trình</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>         
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-news"></i>

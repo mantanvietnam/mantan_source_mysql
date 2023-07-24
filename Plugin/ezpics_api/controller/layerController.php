@@ -206,8 +206,8 @@ function addLayerImageAPI($input){
 			            
 			            $modelProductDetail->save($new);
 			                
-			            //getLayerProductForEdit($dataSend['idproduct']);
-			            $return = array('code'=>1, 'mess'=>'Bạn thêm ảnh thành công');
+			            $new->content = json_decode($new->content , true);
+			            $return = array('code'=>1, 'data'=>$new, 'mess'=>'Bạn thêm ảnh thành công');
 			         }else{
 			        	 $return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
 			        }
@@ -320,32 +320,32 @@ function changeLayerImageNew($input){
 		            if(!empty($product)){
 			            $sizeBackground = getimagesize($product->thumn);
 
-			            $tyle = $sizeBackground[0]*100/(int)(isset($dataSend['width']))? $dataSend['width']:100;
-			            if($tyle>30) $tyle = 30;
+			           /* $tyle = $sizeBackground[0]*100/(int)(isset(@$dataSend['width']))? @$dataSend['width']:100;
+			            if($tyle>30) $tyle = 30;*/
 
 			            $new = $modelProductDetail->find()->where(array('id'=>$dataSend['idlayer'], 'products_id '=>$dataSend['idproduct']))->first();
 			            if(!empty($new)){
 				            $replace = json_decode($new->content);
             				$replace->banner = $thumbnail['linkOnline'];
             				$new->content = json_encode($replace);
-            				$datalayer->updated_at = date('Y-m-d H:i:s');
+            				$new->updated_at = date('Y-m-d H:i:s');
 				            
 				            $modelProductDetail->save($new);
 				                
 				            $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
 				        }else{
-			        	   $return = array('code'=>0, 'mess'=>'Layer này không đúng');
+			        	   $return = array('code'=>5, 'mess'=>'Layer này không đúng');
 			        	}     
 			        }else{
-			        	$return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+			        	$return = array('code'=>4, 'mess'=>'Sản phẩm này không dùng');
 			        }
 				
 		        }else{
-		           $return = array('code'=>0, 'mess'=>'Bạn không có ảnh');
+		           $return = array('code'=>3, 'mess'=>'Bạn không có ảnh');
 				
 		        }}
 		    }else{
-		       $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+		       $return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
 				
 		    } 
 	}
@@ -387,7 +387,8 @@ function addLayerText($input){
 					$datalayer->sort = 1;
 
 					$modelProductDetail->save($datalayer);
-					$return = array('code'=>1, 'mess'=>'Bạn thêm layer thành công');
+					$datalayer->content = json_decode($datalayer->content , true);
+					$return = array('code'=>1, 'data'=>$datalayer, 'mess'=>'Bạn thêm layer thành công');
 					
 				}else{
 				$return = array('code'=>0, 'mess'=>'Bạn chữa đăng nhập');

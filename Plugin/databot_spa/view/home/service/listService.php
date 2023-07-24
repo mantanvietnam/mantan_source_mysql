@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
+  <h4 class="fw-bold py-3 mb-4">Dịch vụ</h4>
   <p><a href="/addService" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -15,7 +15,7 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Tên mẫu</label>
+            <label class="form-label">Tên Dịch vụ</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
@@ -41,8 +41,8 @@
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Bán </option>
-              <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Ẩn bán</option>
+              <option value="1" <?php if(isset($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Bán </option>
+              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Ẩn bán</option>
             </select>
           </div>
 
@@ -55,25 +55,6 @@
             </select>
           </div> -->
 
-         
-
-          <div class="col-md-3">
-            <label class="form-label">Nhãn hiệu</label>
-            <select name="id_trademark" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php
-              if(!empty($listTrademar)){
-                foreach ($listTrademar as $key => $value) {
-                  if(empty($_GET['id_trademark']) || $_GET['id_trademark']!=$value->id){
-                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                  }else{
-                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div>
           
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
@@ -87,14 +68,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Sản phẩm</h5>
+    <h5 class="card-header">Danh sách dịch vụ</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="" style="text-align: center;">
             <th>MÃ</th>
             <th>Ảnh </th>
-            <th>Mẫu sản phẩm</th>
+            <th>Dịch vụ</th>
             <th>Giá bán</th>
             <th>Trạng thái</th>
             <th>Sửa thông tin</th>
@@ -116,14 +97,14 @@
 
                 echo '<tr>
                         <td>
-                          '.$item->code.'
+                          '.$item->id.'
                         </td>
                         <td>
                           <img src="'.$item->image.'" width="100" />
                           
                         </td>
                        
-                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/></td>
+                        <td>'.$item->name.'</td>
                         <td>
                           '.number_format($item->price_old).'<br/>
                           <del>'.number_format($item->price).'</del>
@@ -131,13 +112,13 @@
                         <td>'.$status.'</td>
                         
                         <td align="center">
-                           <a  class="dropdown-item" href="/addService?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                           <a  class="dropdown-item" href="/addService?id='.$item->id.'" title="sửa thông tin dịch vụ">
                             <i class="bx bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteService/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa thiết kế không?\');" href="/deleteService/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -145,7 +126,7 @@
               }
             }else{
               echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
+                      <td colspan="10" align="center">Chưa có dịch vụ</td>
                     </tr>';
             }
           ?>

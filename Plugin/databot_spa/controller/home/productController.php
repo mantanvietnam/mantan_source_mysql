@@ -278,7 +278,7 @@ function addProduct($input){
 
         }else{
             $data = $modelProducts->newEmptyEntity();
-             $data->created = getdate()[0];
+             $data->created_at = date('Y-m-d H:i:s');
         }
 
 
@@ -300,6 +300,7 @@ function addProduct($input){
                 $data->hot = (int) @$dataSend['hot'];
                 $data->code = @$dataSend['code'];
                 $data->status = @$dataSend['status'];
+                $data->updated_at = date('Y-m-d H:i:s');
                 
                 $data->slug = createSlugMantan(trim($dataSend['name']));
                 
