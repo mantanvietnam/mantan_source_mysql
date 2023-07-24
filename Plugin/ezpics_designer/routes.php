@@ -38,6 +38,7 @@
 
 	// khách hàng
 	$routesPlugin['listCustomer']= 'ezpics_designer/view/home/customer/listCustomer.php';
+	$routesPlugin['listFollow']= 'ezpics_designer/view/home/customer/listFollow.php';
 
 	//thống Kê
 	$routesPlugin['chartFollow']= 'ezpics_designer/view/home/chart/chartFollow.php';

@@ -1,10 +1,10 @@
 <?php include(__DIR__.'/../header.php'); ?> 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Lượng người theo dõi</h4>
 
 
   <!-- Form Search -->
-<!--   <form method="get" action="">
+<!--   <form method="get" action="">a
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
@@ -58,7 +58,7 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
+  <div class="card">
     <h5 class="card-header">Danh sách khách hàng</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
