@@ -81,12 +81,18 @@ function settingHomeThemeThanhgia($input)
 
     					'title_working' => $dataSend['title_working'],
     					'image_working' => $dataSend['image_working'],
+                        'image1_working' => $dataSend['image1_working'],
     					'title1_working' => $dataSend['title1_working'],
     					'content1_working' => $dataSend['content1_working'],
+                        'image2_working' => $dataSend['image2_working'],
     					'title2_working' => $dataSend['title2_working'],
     					'content2_working' => $dataSend['content2_working'],
-    					'title3_working' => $dataSend['title3_working'],
+    					'image3_working' => $dataSend['image3_working'],
+                        'title3_working' => $dataSend['title3_working'],
     					'content3_working' => $dataSend['content3_working'],
+                        'image4_working' => $dataSend['image4_working'],
+                        'title4_working' => $dataSend['title4_working'],
+                        'content4_working' => $dataSend['content4_working'],
 
     					'title1_footer' => $dataSend['title1_footer'],
     					'content1_footer' => $dataSend['content1_footer'],
@@ -113,22 +119,71 @@ function settingHomeThemeThanhgia($input)
 
 function indexTheme($input)
 {
-	global $modelOptions;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
 
-	$conditions = array('key_word' => 'settingHomeThemeThanhgia');
-    $data = $modelOptions->find()->where($conditions)->first();
+    $modelProduct = $controller->loadModel('Products');
 
-    $data_value = array();
-    if(!empty($data->value)){
-        $data_value = json_decode($data->value, true);
+    // SLIDE HOME
+    $slide_home = [];
+    if(!empty($settingThemes['id_slide'])){
+        $slide_home = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_slide']])->all()->toList();
     }
 
-    setVariable('settingThemes', $data_value);
+    // SẢN PHẨM MỚI
+    $conditions = array();
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // SẢN PHẨM NỔI BẬT
+    $conditions = array('hot'=>1);
+    $limit = 8;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $hot_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // TIN TỨC MỚI
+    $conditions = array('type'=>'post');
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $news = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    setVariable('slide_home', $slide_home);
+    setVariable('new_product', $new_product);
+    setVariable('hot_product', $hot_product);
+    setVariable('news', $news);
 }
 
 function postTheme($input)
 {
-	
+    global $controller;
+    global $modelCategories;
+
+	$modelProduct = $controller->loadModel('Products');
+
+    // SẢN PHẨM MỚI
+    $conditions = array();
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // DANH MỤC TIN TỨC
+    $conditions = array('type' => 'post');
+    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('new_product', $new_product);
+    setVariable('category_post', $category_post);
 }
 
 function searchTheme($input)
@@ -138,7 +193,25 @@ function searchTheme($input)
 
 function categoryPostTheme($input)
 {
+    global $controller;
+    global $modelCategories;
 
+    $modelProduct = $controller->loadModel('Products');
+
+    // SẢN PHẨM MỚI
+    $conditions = array();
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // DANH MỤC TIN TỨC
+    $conditions = array('type' => 'post');
+    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('new_product', $new_product);
+    setVariable('category_post', $category_post);
 }
 
 function categoryAlbumTheme($input)

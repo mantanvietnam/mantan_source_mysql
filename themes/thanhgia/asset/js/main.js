@@ -78,14 +78,14 @@ $(document).ready(function() {
     var moneyFormat = wNumb({
       decimals: 0,
       thousand: ',',
-      prefix: '$'
+      prefix: ''
     });
     noUiSlider.create(rangeSlider, {
-      start: [100000, 1000000],
-      step: 1,
+      start: [minPrice, maxPrice],
+      step: 10000,
       range: {
-        'min': [100000],
-        'max': [1000000]
+        'min': [0],
+        'max': [5000000]
       },
       format: moneyFormat,
       connect: true
@@ -95,9 +95,9 @@ $(document).ready(function() {
     rangeSlider.noUiSlider.on('update', function(values, handle) {
       document.getElementById('slider-range-value1').innerHTML = values[0];
       document.getElementById('slider-range-value2').innerHTML = values[1];
-      document.getElementsByName('min-value').value = moneyFormat.from(
+      document.getElementById('min-value').value = moneyFormat.from(
         values[0]);
-      document.getElementsByName('max-value').value = moneyFormat.from(
+      document.getElementById('max-value').value = moneyFormat.from(
         values[1]);
     });
   });

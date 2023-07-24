@@ -7,9 +7,9 @@
 	// frontend
 	$routesPlugin['products']= 'product/view/home/products.php';
 	$routesPlugin['category']= 'product/view/home/category.php';
-	$routesPlugin['manufacturer']= 'product/view/product/manufacturer.php';
+	$routesPlugin['manufacturer']= 'product/view/home/manufacturer.php';
 	$routesPlugin['product']= 'product/view/home/product.php';
-	$routesPlugin['search']= 'product/view/home/search.php';
+	$routesPlugin['search-product']= 'product/view/home/search.php';
 
 	$routesPlugin['addProductToCart']= 'product/view/home/addProductToCart.php';
 	$routesPlugin['deleteProductCart']= 'product/view/home/deleteProductCart.php';

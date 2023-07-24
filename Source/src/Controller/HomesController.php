@@ -30,6 +30,8 @@ class HomesController extends AppController{
         global $metaDescriptionMantan;
         global $isPost;
         global $isPage;
+        global $postDetail;
+        global $modelCategories;
 
         $modelPosts = $this->Posts;
 
@@ -57,6 +59,11 @@ class HomesController extends AppController{
                     $isPage = true;
                 }
 
+                $category = [];
+                if($data->idCategory > 0){
+                    $category = $modelCategories->find()->where(['id'=>$data->idCategory])->first();
+                }
+
                 // lấy danh sách tin tức khác
                 $conditions = array('id !='=>$data->id, 'type'=>$data->type);
                 $limit = 3;
@@ -68,9 +75,11 @@ class HomesController extends AppController{
                 $metaTitleMantan = $data->title;
                 $metaKeywordsMantan = $data->keyword;
                 $metaDescriptionMantan = $data->description;
+                $postDetail = $data;
 
                 $this->set('post', $data);
                 $this->set('otherPosts', $otherPosts);
+                $this->set('category', $category);
             } else {
                 return $this->redirect('/');
             }
@@ -162,6 +171,7 @@ class HomesController extends AppController{
         global $modelCategories;
         global $infoSite;
         global $isCategory;
+        global $categoryDetail;
 
         $isCategory = true;
 
@@ -238,6 +248,7 @@ class HomesController extends AppController{
         $metaTitleMantan = $category->name;
         $metaKeywordsMantan = $category->keyword;
         $metaDescriptionMantan = $category->description;
+        $categoryDetail = $category;
 
         $this->set('page', $page);
         $this->set('totalPage', $totalPage);

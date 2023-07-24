@@ -186,6 +186,8 @@
               </div>
 
               <?php 
+              global $hookMenusAppearanceMantan;
+              
               if(!empty($hookMenusAppearanceMantan)){
                 foreach ($hookMenusAppearanceMantan as $components) {
                   echo '<p><b>'.$components['title'].'</b></p>

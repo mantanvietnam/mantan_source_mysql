@@ -427,7 +427,12 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh mục 1</label>
+                    <?php showUploadFile('image1_working','image1_working', @$setting['image1_working'],17);?>
+                  </div>
+
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
                     <input type="text" class="form-control" name="title1_working" value="<?php echo @$setting['title1_working'];?>" />
@@ -439,7 +444,12 @@
                   </div>
                 </div>
                 
-                <div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh mục 2</label>
+                    <?php showUploadFile('image2_working','image2_working', @$setting['image2_working'],18);?>
+                  </div>
+
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2</label>
                     <input type="text" class="form-control" name="title2_working" value="<?php echo @$setting['title2_working'];?>" />
@@ -451,7 +461,12 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh mục 3</label>
+                    <?php showUploadFile('image3_working','image3_working', @$setting['image3_working'],19);?>
+                  </div>
+
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Tiêu đề mục 3</label>
                     <input type="text" class="form-control" name="title3_working" value="<?php echo @$setting['title3_working'];?>" />
@@ -460,6 +475,23 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Nội dung mục 3</label>
                     <input type="text" class="form-control" name="content3_working" value="<?php echo @$setting['content3_working'];?>" />
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh mục 4</label>
+                    <?php showUploadFile('image4_working','image4_working', @$setting['image4_working'],20);?>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 4</label>
+                    <input type="text" class="form-control" name="title4_working" value="<?php echo @$setting['title4_working'];?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 4</label>
+                    <input type="text" class="form-control" name="content4_working" value="<?php echo @$setting['content4_working'];?>" />
                   </div>
                 </div>
                 

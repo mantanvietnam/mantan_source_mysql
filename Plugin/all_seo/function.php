@@ -28,6 +28,9 @@
 		global $urlCurrent;
 		global $urlHomes;
 		
+		global $postDetail;
+		global $categoryDetail;
+		
 		$page= explode('page:', $urlCurrent);
 		if(count($page)>1)
 		{
@@ -62,16 +65,16 @@
 					$metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
 					$metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
 					
-					if(isset($category->name)){
-						$metaTitleMantan= str_replace('%categoryName%', $category->name, $metaTitleMantan);
+					if(isset($categoryDetail->name)){
+						$metaTitleMantan= str_replace('%categoryName%', $categoryDetail->name, $metaTitleMantan);
 					}
 
-					if(isset($category->keyword)){
-						$metaTitleMantan= str_replace('%categoryKeyword%', $category->keyword, $metaTitleMantan);
+					if(isset($categoryDetail->keyword)){
+						$metaTitleMantan= str_replace('%categoryKeyword%', $categoryDetail->keyword, $metaTitleMantan);
 					}
 
-					if(isset($category->description)){
-						$metaTitleMantan= str_replace('%categoryDescription%', $category->description, $metaTitleMantan);
+					if(isset($categoryDetail->description)){
+						$metaTitleMantan= str_replace('%categoryDescription%', $categoryDetail->description, $metaTitleMantan);
 					}
 
 					$metaTitleMantan= str_replace('%page%', $page, $metaTitleMantan);
@@ -92,16 +95,16 @@
 					$metaKeywordsMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaKeywordsMantan);
 					$metaKeywordsMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaKeywordsMantan);
 					
-					if(isset($category->name)){
-						$metaKeywordsMantan= str_replace('%categoryName%', $category->name, $metaKeywordsMantan);
+					if(isset($categoryDetail->name)){
+						$metaKeywordsMantan= str_replace('%categoryName%', $categoryDetail->name, $metaKeywordsMantan);
 					}
 
-					if(isset($category->keyword)){
-						$metaKeywordsMantan= str_replace('%categoryKeyword%', $category->keyword, $metaKeywordsMantan);
+					if(isset($categoryDetail->keyword)){
+						$metaKeywordsMantan= str_replace('%categoryKeyword%', $categoryDetail->keyword, $metaKeywordsMantan);
 					}
 
-					if(isset($category->description)){
-						$metaKeywordsMantan= str_replace('%categoryDescription%', $category->description, $metaKeywordsMantan);
+					if(isset($categoryDetail->description)){
+						$metaKeywordsMantan= str_replace('%categoryDescription%', $categoryDetail->description, $metaKeywordsMantan);
 					}
 
 					$metaKeywordsMantan= str_replace('%page%', $page, $metaKeywordsMantan);
@@ -122,16 +125,16 @@
 					$metaDescriptionMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaDescriptionMantan);
 					$metaDescriptionMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaDescriptionMantan);
 					
-					if(isset($category->name)){
-						$metaDescriptionMantan= str_replace('%categoryName%', $category->name, $metaDescriptionMantan);
+					if(isset($categoryDetail->name)){
+						$metaDescriptionMantan= str_replace('%categoryName%', $categoryDetail->name, $metaDescriptionMantan);
 					}
 
-					if(isset($category->keyword)){
-						$metaDescriptionMantan= str_replace('%categoryKeyword%', $category->keyword, $metaDescriptionMantan);
+					if(isset($categoryDetail->keyword)){
+						$metaDescriptionMantan= str_replace('%categoryKeyword%', $categoryDetail->keyword, $metaDescriptionMantan);
 					}
 
-					if(isset($category->description)){
-						$metaDescriptionMantan= str_replace('%categoryDescription%', $category->description, $metaDescriptionMantan);
+					if(isset($categoryDetail->description)){
+						$metaDescriptionMantan= str_replace('%categoryDescription%', $categoryDetail->description, $metaDescriptionMantan);
 					}
 
 					$metaDescriptionMantan= str_replace('%page%', $page, $metaDescriptionMantan);
@@ -146,11 +149,11 @@
 					}
 				}
 
-				if(!empty($category->image)){
-					if(strpos($category->image, 'http') === false){
-						$metaImageMantan= $urlHomes.$category->image;
+				if(!empty($categoryDetail->image)){
+					if(strpos($categoryDetail->image, 'http') === false){
+						$metaImageMantan= $urlHomes.$categoryDetail->image;
 					}else{
-						$metaImageMantan= $category->image;
+						$metaImageMantan= $categoryDetail->image;
 					}
 				}
 			} else if($isPost || $isPage)
@@ -161,9 +164,9 @@
 					$metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
 					$metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
 					
-					$metaTitleMantan= str_replace('%postName%', $post->title, $metaTitleMantan);
-					$metaTitleMantan= str_replace('%postKeyword%', $post->keyword, $metaTitleMantan);
-					$metaTitleMantan= str_replace('%postDescription%', $post->description, $metaTitleMantan);
+					$metaTitleMantan= str_replace('%postName%', $postDetail->title, $metaTitleMantan);
+					$metaTitleMantan= str_replace('%postKeyword%', $postDetail->keyword, $metaTitleMantan);
+					$metaTitleMantan= str_replace('%postDescription%', $postDetail->description, $metaTitleMantan);
 				}
 				
 				if(!empty($listData['post']['keyword']))
@@ -172,9 +175,9 @@
 					$metaKeywordsMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaKeywordsMantan);
 					$metaKeywordsMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaKeywordsMantan);
 					
-					$metaKeywordsMantan= str_replace('%postName%', $post->title, $metaKeywordsMantan);
-					$metaKeywordsMantan= str_replace('%postKeyword%', $post->keyword, $metaKeywordsMantan);
-					$metaKeywordsMantan= str_replace('%postDescription%', $post->description, $metaKeywordsMantan);
+					$metaKeywordsMantan= str_replace('%postName%', $postDetail->title, $metaKeywordsMantan);
+					$metaKeywordsMantan= str_replace('%postKeyword%', $postDetail->keyword, $metaKeywordsMantan);
+					$metaKeywordsMantan= str_replace('%postDescription%', $postDetail->description, $metaKeywordsMantan);
 				}
 				
 				if(!empty($listData['post']['description']))
@@ -183,17 +186,17 @@
 					$metaDescriptionMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaDescriptionMantan);
 					$metaDescriptionMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaDescriptionMantan);
 					
-					$metaDescriptionMantan= str_replace('%postName%', $post->title, $metaDescriptionMantan);
-					$metaDescriptionMantan= str_replace('%postKeyword%', $post->keyword, $metaDescriptionMantan);
-					$metaDescriptionMantan= str_replace('%postDescription%', $post->description, $metaDescriptionMantan);
+					$metaDescriptionMantan= str_replace('%postName%', $postDetail->title, $metaDescriptionMantan);
+					$metaDescriptionMantan= str_replace('%postKeyword%', $postDetail->keyword, $metaDescriptionMantan);
+					$metaDescriptionMantan= str_replace('%postDescription%', $postDetail->description, $metaDescriptionMantan);
 				}
 
-				if(!empty($post->image)){
+				if(!empty($postDetail->image)){
 					
-					if(strpos($post->image, 'http') === false){
-						$metaImageMantan= $urlHomes.$post->image;
+					if(strpos($postDetail->image, 'http') === false){
+						$metaImageMantan= $urlHomes.$postDetail->image;
 					}else{
-						$metaImageMantan= $post->image;
+						$metaImageMantan= $postDetail->image;
 					}
 					
 				}

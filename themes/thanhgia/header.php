@@ -1,3 +1,4 @@
+<?php global $settingThemes;?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +50,7 @@
                         <div class="notify-box">
                             <div class="icon-notificaiton">
                                 <span>0</span>
-                                <i class="fa-solid fa-bell"></i>
+                                <i class="fa-solid fa-cart-shopping"></i>
                             </div>
                             <p>Giỏ hàng</p> 
                         </div>
@@ -63,40 +64,41 @@
         <section id="header-menu">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><?php echo $settingThemes['name_web'];?></a>
+                    <a class="navbar-brand" href="/"><?php echo @$settingThemes['name_web'];?></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tin tức</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Sản phẩm
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Sản phẩm mới</a></li>
-                                <li><a class="dropdown-item" href="#">Sản phẩm nổi bật</a></li>
-                            </ul>
-                        </li>
+                        <?php 
+                            $menu = getMenusDefault();
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Giới thiệu</a>
-                        </li>
+                            if(!empty($menu)){
+                                foreach($menu as $key => $value){
+                                    if(!empty($value->sub)){
+                                        echo '  <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        '.$value->name.'
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">';
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hệ thống cửa hàng</a>
-                        </li>
+                                                        foreach ($value->sub as $sub) {
+                                                            echo '<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                        }
+                                        echo        '</ul>
+                                                </li>';
+                                    }else{
+                                        echo '  <li class="nav-item">
+                                                    <a class="nav-link" href="'.$value->link.'">'.$value->name.'</a>
+                                                </li>';
+                                    }
+                                }
+                            }
+                        ?>
                     </ul>
                     <div class="menu-header-right d-flex">
                         <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <a class="icon-header" href=""><i class="fa-solid fa-user"></i></a>
-                        <a class="icon-header" href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="icon-header" href="/login"><i class="fa-solid fa-user"></i></a>
                     </div>
                   </div>
                 </div>
@@ -107,17 +109,15 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-3 logo">
-                                <a href="" class="logo-name">Power Drink</a>
+                                <a href="" class="logo-name"><?php echo @$settingThemes['name_web'];?></a>
                             </div>
     
                             <div class="col-lg-6 search-form">
                                 <div class="search-form-box">
-                                    <input class="search-input" type="text" placeholder="Tìm kiếm sản phẩm">
-                                    <button class="search-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                                </div>
-    
-                                <div class="search-text">
-                                    <p>Gợi ý cho bạn: <a href="">Sản phẩm mới</a></p>
+                                    <form action="/search-product" method="get">
+                                        <input class="search-input" type="text" name="key" value="<?php echo @$_GET['key'];?>" placeholder="Tìm kiếm sản phẩm">
+                                        <button class="search-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                    </form>
                                 </div>
                             </div>
     

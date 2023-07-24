@@ -1,0 +1,1 @@
+<?php getFileTheme('product/product.php');?>

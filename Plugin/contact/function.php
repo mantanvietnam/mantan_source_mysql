@@ -7,3 +7,12 @@ $menus[0]['sub'][0] = array('title' => 'Danh sách thông tin liên hệ',
     'classIcon' => 'menu-icon tf-icons bx bxs-data',
 );
 addMenuAdminMantan($menus);
+
+$categoryMenu[0]['title'] = 'Tài khoản';
+$categoryMenu[0]['sub'] = array(array ( 'url' => '/contact',
+                                    'name' => 'Liên hệ'
+                                    ),
+                            );
+
+
+addMenusAppearance($categoryMenu);

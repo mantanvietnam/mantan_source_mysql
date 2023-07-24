@@ -108,13 +108,22 @@ function products($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type' => 'category_product');
+    $category_all = $modelCategories->find()->where($conditions)->all()->toList();
+
+    $conditions = array('type' => 'manufacturer_product');
+    $manufacturer_all = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
     
     setVariable('list_product', $list_product);
+    setVariable('category_all', $category_all);
+    setVariable('manufacturer_all', $manufacturer_all);
 }
 
 function search($input)
@@ -153,6 +162,14 @@ function search($input)
     if(!empty($_GET['manufacturer'])){
         $conditions['id_manufacturer IN'] = $_GET['manufacturer'];
     }
+
+    if(!empty($_GET['min-value'])){
+        $conditions['price >='] = (int) $_GET['min-value'];
+    }
+
+    if(!empty($_GET['max-value'])){
+        $conditions['price <='] = (int) $_GET['max-value'];
+    }
     
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
@@ -188,12 +205,21 @@ function search($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type' => 'category_product');
+    $category_all = $modelCategories->find()->where($conditions)->all()->toList();
+
+    $conditions = array('type' => 'manufacturer_product');
+    $manufacturer_all = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
     
     setVariable('list_product', $list_product);
+    setVariable('category_all', $category_all);
+    setVariable('manufacturer_all', $manufacturer_all);
 }
 ?>

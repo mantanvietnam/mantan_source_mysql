@@ -1,1 +1,1 @@
-ok
+<?php getFileTheme('product/category.php');?>

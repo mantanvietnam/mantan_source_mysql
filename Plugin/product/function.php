@@ -38,3 +38,38 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 
 
 addMenuAdminMantan($menus);
+
+global $modelCategories;
+
+$conditions = array('type' => 'category_product');
+$productCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
+if(isset($productCategory)){
+	$category[0]['title'] = 'Danh mục sản phẩm';
+	$category[0]['sub'] = [];
+
+    foreach ($productCategory as $key => $value) {
+    	$category[0]['sub'][] = [	'url' => '/category/'.$value->slug.'.html',
+                                  	'name' => $value->name
+                              	];
+    }
+}
+
+$category[1]['title'] = 'Sản phẩm';
+$category[1]['sub'] = array(array (	'url' => '/products',
+                                    'name' => 'Tất cả sản phẩm'
+                                    ),
+                                    
+                            array (
+                              'url' => '/cart',
+                              'name' => 'Giỏ hàng'
+                            ),
+                            
+                            array (
+                              'url' => '/search',
+                              'name' => 'Tìm kiếm sản phẩm'
+                            ),
+                        );
+
+
+addMenusAppearance($category);

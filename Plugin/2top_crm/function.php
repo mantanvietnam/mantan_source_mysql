@@ -29,6 +29,45 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 
 addMenuAdminMantan($menus);
 
+$categoryMenu[0]['title'] = 'Tài khoản';
+$categoryMenu[0]['sub'] = array(array ( 'url' => '/register',
+                                    'name' => 'Đăng ký'
+                                    ),
+                                    
+                                array (
+                                  'url' => '/login',
+                                  'name' => 'Đăng nhập'
+                                ),
+                                
+                                array (
+                                  'url' => '/logout',
+                                  'name' => 'Đăng xuất'
+                                ),
+
+                                array (
+                                  'url' => '/infoUser',
+                                  'name' => 'Thông tin tài khoản'
+                                ),
+
+                                array (
+                                  'url' => '/editInfoUser',
+                                  'name' => 'Đổi thông tin tài khoản'
+                                ),
+
+                                array (
+                                  'url' => '/changepassword',
+                                  'name' => 'Đổi mật khẩu'
+                                ),
+
+                                array (
+                                  'url' => '/forgotpassword',
+                                  'name' => 'Quên mật khẩu'
+                                ),
+                            );
+
+
+addMenusAppearance($categoryMenu);
+
 /*
 global $session;
 global $infoUser;

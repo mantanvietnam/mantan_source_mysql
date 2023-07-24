@@ -72,14 +72,23 @@ function category($input)
 		        $urlPage = $urlPage . '?page=';
 		    }
 
+		    $conditions = array('type' => 'category_product');
+    		$category_all = $modelCategories->find()->where($conditions)->all()->toList();
+
+    		$conditions = array('type' => 'manufacturer_product');
+    		$manufacturer_all = $modelCategories->find()->where($conditions)->all()->toList();
+
 		    setVariable('page', $page);
 		    setVariable('totalPage', $totalPage);
 		    setVariable('back', $back);
 		    setVariable('next', $next);
 		    setVariable('urlPage', $urlPage);
+		    setVariable('totalData', $totalData);
             
             setVariable('category', $category);
             setVariable('list_product', $list_product);
+            setVariable('category_all', $category_all);
+            setVariable('manufacturer_all', $manufacturer_all);
         }else{
             return $controller->redirect('/');
         }
@@ -161,14 +170,23 @@ function manufacturer($input)
 		        $urlPage = $urlPage . '?page=';
 		    }
 
+		    $conditions = array('type' => 'category_product');
+    		$category_all = $modelCategories->find()->where($conditions)->all()->toList();
+
+    		$conditions = array('type' => 'manufacturer_product');
+    		$manufacturer_all = $modelCategories->find()->where($conditions)->all()->toList();
+
 		    setVariable('page', $page);
 		    setVariable('totalPage', $totalPage);
 		    setVariable('back', $back);
 		    setVariable('next', $next);
 		    setVariable('urlPage', $urlPage);
+		    setVariable('totalData', $totalData);
             
             setVariable('category', $category);
             setVariable('list_product', $list_product);
+            setVariable('category_all', $category_all);
+            setVariable('manufacturer_all', $manufacturer_all);
         }else{
             return $controller->redirect('/');
         }
