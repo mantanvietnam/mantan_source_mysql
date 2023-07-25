@@ -51,4 +51,8 @@
 	$routesPlugin['addCombo']= 'databot_spa/view/home/combo/addCombo.php';
 	$routesPlugin['deleteCombo']= 'databot_spa/view/home/combo/deleteCombo.php';
 
+	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
+	$routesPlugin['addOrder']= 'databot_spa/view/home/order/addOrder.php';
+	$routesPlugin['deleteOrder']= 'databot_spa/view/home/order/deleteOrder.php';
+
 ?>

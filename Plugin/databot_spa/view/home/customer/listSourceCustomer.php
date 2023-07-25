@@ -15,7 +15,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Tên tên Nguồn</th>
+                        <th>Tên Nguồn</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
                       </tr>
@@ -62,7 +62,7 @@
               <?= $this->Form->create(); ?>
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên nguồi</label>
+                  <label class="form-label" for="basic-default-phone">Tên nguồn</label>
                   <input
                     type="text"
                     class="form-control phone-mask"

@@ -15,7 +15,7 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Tên mẫu</label>
+            <label class="form-label">Tên sản phẩm</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
@@ -94,7 +94,7 @@
           <tr class="" style="text-align: center;">
             <th>MÃ</th>
             <th>Ảnh </th>
-            <th>Mẫu sản phẩm</th>
+            <th>Tên sản phẩm</th>
             <th>Giá bán</th>
             <th>Trạng thái</th>
             <th>Sửa thông tin</th>

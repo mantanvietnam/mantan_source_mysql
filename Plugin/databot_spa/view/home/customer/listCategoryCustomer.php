@@ -15,7 +15,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Tên tên nhóm</th>
+                        <th>Tên nhóm</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
                       </tr>

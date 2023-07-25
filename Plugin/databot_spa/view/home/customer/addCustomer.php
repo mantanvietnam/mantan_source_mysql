@@ -25,7 +25,7 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Số CMT</label>
-                    <input required type="number" class="form-control phone-mask" name="cmnd" id="cmnd" value="<?php echo @$data->cmnd;?>" />
+                    <input  type="number" class="form-control phone-mask" name="cmnd" id="cmnd" value="<?php echo @$data->cmnd;?>" />
                   </div>
 
                   <div class="mb-3">
@@ -44,7 +44,7 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ngày sinh (*)</label>
-                    <input type="text" required class="form-control hasDatepicker datepicker" placeholder="" name="birthday" id="birthday" value="<?php echo @$data->birthday;?>" />
+                    <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="birthday" id="birthday" value="<?php echo @$data->birthday;?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Nhân viên phụ trách</label>
@@ -71,7 +71,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Mã khách hàng (*)</label>
-                    <input type="text" required class="form-control" placeholder="" name="code" id="code" value="<?php echo @$data->code;?>" />
+                    <input type="text"  class="form-control" placeholder="" name="code" id="code" value="<?php echo @$data->code;?>" />
                   </div>
 
                   <div class="mb-3">

@@ -14,4 +14,5 @@ include_once('controller/home/serviceController.php'); // khách hàng
 include_once('controller/home/roomController.php'); // phòng
 include_once('controller/home/bedController.php'); // giường
 include_once('controller/home/comboController.php'); // combo
+include_once('controller/home/orderController.php'); // combo
 ?>

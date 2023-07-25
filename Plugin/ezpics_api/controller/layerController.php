@@ -553,7 +553,8 @@ function saveLayerAPI($input){
 
 				if(!empty($datalayer)){
 
-	            	$datalayer->content = $dataSend['layer'];
+	            	$datalayer->content = json_encode($dataSend['layer']);
+	            	$datalayer->sort = @$dataSend['sort'];
 					$datalayer->updated_at = date('Y-m-d H:i:s');
 
 					// lưu data 
@@ -594,14 +595,15 @@ function updateListLayerAPI($input){
 			// lấy tk người dùng 
 			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct'], 'user_id'=>$user->id))->first();
 			if (!empty($dataProduct)) {
-            	$data= str_replace('   ', '', utf8_encode($dataSend['listLayer']));
-				$data= str_replace(array("\r", "\n"), '', $data);
+				$data = str_replace(array("\r", "\n"), '', $dataSend['listLayer']);
+				$data = str_replace('\"', '"', $data);
 				$listData = json_decode($data, true);
 				foreach($listData as $key => $item){
 				 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
 				 	if(!empty($datalayer)){
 					 	$datalayer->content = json_encode($item['content']);
 					 	$datalayer->updated_at = date('Y-m-d H:i:s');
+					 	$datalayer->sort = @$item['sort'];
 					 	$modelProductDetail->save($datalayer);
 				 	}
 				}

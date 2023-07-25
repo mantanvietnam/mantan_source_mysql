@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="/plugins/databot_spa/view/home/assets/css/datetimepicker.css" />
 
     <!-- Page CSS -->
 
@@ -74,6 +75,8 @@
     <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap.js"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap-datepicker.js?time=<?php echo  getdate()[0]; ?>"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="/plugins/databot_spa/view/home/assets/js/datetimepicker.full.js"></script>
   </head>
 
   <body>
@@ -136,6 +139,20 @@
             </li>  
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div>Đặt hẹn</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listOrder" class="menu-link">
+                    <div>Lịch hẹn</div> 
+                  </a>
+                </li>
+                
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-credit-card"></i>
                 <div>Thẻ dịch vụ</div>
               </a>
@@ -156,12 +173,12 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/listProduct" class="menu-link">
-                    <div>Sản phẩn</div>
+                    <div>Sản phẩm</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="/listCategoryProduct" class="menu-link">
-                    <div>Danh mục sản phẩn</div>
+                    <div>Danh mục sản phẩm</div>
                   </a>
                 </li>
                 <li class="menu-item">

@@ -122,7 +122,7 @@ function addCustomer($input)
         	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
         	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-        	$conditions = ['phone'=>$dataSend['phone']];
+        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
         	$checkPhone = $modelCustomer->find()->where($conditions)->first();
 
         	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){

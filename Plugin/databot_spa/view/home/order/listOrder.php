@@ -1,11 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
-
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Cơ sở SPA</h4>
-  <?php if ($infoUser->number_spa > $totalData){ ?>
-     <p><a href="/addSpa" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
-  <?php } ?>
- 
+  <h4 class="fw-bold py-3 mb-4">Đặt lịch hẹn</h4>
+  <p><a href="/addOrder" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -13,17 +9,28 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-
-          <div class="col-md-2">
-            <label class="form-label">Tên cơ sở</label>
-            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
-          
-          
-          <div class="col-md-1">
+          <div class="col-md-3">
+            <label class="form-label">Họ tên</label>
+            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+          </div>
+          <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="submit" class="btn btn-primary d-block">Lọc</button>
+            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
         </div>
       </div>
@@ -32,53 +39,54 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
-    <h5 class="card-header">Danh sách SPA  </h5>
-     <p><?php echo @$mess;?></p>
+  <div class="card">
+    <h5 class="card-header">Danh sách Đặt lịch hẹn</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-          <tr class="" style="text-align: center;">
+          <tr class="">
             <th>ID</th>
-            <th>Tên</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>Địa chỉ</th>
+            <th>Khách hàng</th>
+            <th>số điện thoại</th>
+            <th>email</th>
+            <th>địa chỉ</th>
             <th>Sửa</th>
-             <?php if ($totalData<1){ ?>
             <th>Xóa</th>
-              <?php } ?>
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                
 
+                if($item->sex=='1'){
+                  $sex= 'nam';
+                }else{
+                  $sex= 'nữ';
+                }
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.$item->name.'</td>
                         <td>'.$item->phone.'</td>
                         <td>'.$item->email.'</td>
                         <td>'.$item->address.'</td>
+                        
+                        <td>'.$sex.'</td>
                         <td align="center">
-                           <a  class="dropdown-item" href="/addSpa?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>
+                          <a class="dropdown-item" href="/addOrder/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
                           </a>
-                        </td>';
-                 if($totalData<1){
-                  echo '<td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteSpa/?id='.$item->id.'">
+                        </td>
+                        <td align="center">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteOrder/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
-                        </td>';
-                        }
-                    echo '  </tr>';
+                        </td>
+                      </tr>';
               }
             }else{
               echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
+                      <td colspan="10" align="center">Chưa có khách hàng</td>
                     </tr>';
             }
           ?>
@@ -91,7 +99,7 @@
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <?php
-            if($totalPage>0){
+            if(@$totalPage>0){
                 if ($page > 5) {
                     $startPage = $page - 5;
                 } else {
@@ -132,5 +140,4 @@
   </div>
   <!--/ Responsive Table -->
 </div>
-
 <?php include(__DIR__.'/../footer.php'); ?>
