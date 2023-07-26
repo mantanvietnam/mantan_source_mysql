@@ -156,10 +156,58 @@
                       </div>
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-4">
                             <div class="mb-3">
                               <label class="form-label">Hình minh họa</label>
                               <?php showUploadFile('image','image',@$data->image,0);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 1</label>
+                              <?php showUploadFile('image1','images[1]',@$data->images[1],1);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 2</label>
+                              <?php showUploadFile('image2','images[2]',@$data->images[2],2);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 3</label>
+                              <?php showUploadFile('image3','images[3]',@$data->images[3],3);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 4</label>
+                              <?php showUploadFile('image4','images[4]',@$data->images[4],4);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 5</label>
+                              <?php showUploadFile('image5','images[5]',@$data->images[5],5);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 6</label>
+                              <?php showUploadFile('image6','images[6]',@$data->images[6],6);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 7</label>
+                              <?php showUploadFile('image7','images[7]',@$data->images[7],7);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 8</label>
+                              <?php showUploadFile('image8','images[8]',@$data->images[8],8);?>
                             </div>
                           </div>
                         </div>

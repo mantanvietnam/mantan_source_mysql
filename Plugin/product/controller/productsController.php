@@ -124,6 +124,8 @@ function addProduct($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelProduct->get( (int) $_GET['id']);
+
+        $data->images = json_decode($data->images, true);
     }else{
         $data = $modelProduct->newEmptyEntity();
     }
@@ -140,6 +142,7 @@ function addProduct($input)
             $data->keyword = $dataSend['keyword'];
 	        $data->info = $dataSend['info'];
 	        $data->image = $dataSend['image'];
+            $data->images = json_encode($dataSend['images']);
             $data->code = $dataSend['code'];
             $data->price = (int) $dataSend['price'];
             $data->price_old = (int) $dataSend['price_old'];
@@ -168,6 +171,8 @@ function addProduct($input)
             $data->slug = $slugNew;
 
 	        $modelProduct->save($data);
+
+            $data->images = json_decode($data->images, true);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{

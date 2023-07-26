@@ -1,4 +1,25 @@
 <?php 
+function cart($input)
+{
+	global $session;
+	global $controller;
+
+	$modelProduct = $controller->loadModel('Products');
+
+	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
+
+	// SẢN PHẨM NGẪU NHIÊN
+    $conditions = array();
+    $limit = 9;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	setVariable('list_product', $list_product);
+	setVariable('new_product', $new_product);
+}
+
 function addProductToCart($input)
 {
 	global $session;

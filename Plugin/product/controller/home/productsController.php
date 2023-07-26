@@ -33,7 +33,9 @@ function product($input)
         	$metaKeywordsMantan = $product->keyword;
         	$metaDescriptionMantan = $product->description;
             
+            $product->images = json_decode($product->images, true);
 
+            // SẢN PHẨM KHÁC
             $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category, 'status'=>'active');
 			$limit = 12;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -42,8 +44,16 @@ function product($input)
 		    
 		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
             
+            // NHÀ SẢN XUẤT
+            $manufacturer = $modelCategories->find()->where(['id'=>$product->id_manufacturer])->first();
+
+            // DANH MỤC SẢN PHẨM
+            $category = $modelCategories->find()->where(['id'=>$product->id_category])->first();
+
             setVariable('product', $product);
             setVariable('other_product', $other_product);
+            setVariable('category', $category);
+            setVariable('manufacturer', $manufacturer);
         }else{
             return $controller->redirect('/');
         }

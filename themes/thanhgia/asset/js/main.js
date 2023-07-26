@@ -6,66 +6,127 @@ $ = jQuery
 
 $( document ).ready(function() {
     
+  
+  $('.cart-export-form').hide();
+  $(".menu-cat-lv0").click(function(){
+      $(this).find(".menu-cat-lv1").slideToggle();
+      $(this).find(".button-sub").toggleClass("change");
+  });
 
-    $('.cart-export-form').hide();
-    $(".menu-cat-lv0").click(function(){
-        $(this).find(".menu-cat-lv1").slideToggle();
-        $(this).find(".button-sub").toggleClass("change");
-    });
+  // header menu
+  // $('.search-box-fixed').hide();
+  // $('#section-overlay').hide();
+  $(".menu-header-right .icon-glass").click(function(){
+      $('.search-box-fixed').fadeIn();
+      $('#section-overlay').addClass('open');
+  });
 
-    // header menu
-    // $('.search-box-fixed').hide();
-    // $('#section-overlay').hide();
-    $(".menu-header-right .icon-glass").click(function(){
-        $('.search-box-fixed').fadeIn();
-        $('#section-overlay').addClass('open');
-    });
+  $(".action-close i").click(function(){
+      $('.search-box-fixed').fadeToggle();
+      $('#section-overlay').toggleClass('open');
+  });
 
-    $(".action-close i").click(function(){
-        $('.search-box-fixed').fadeToggle();
-        $('#section-overlay').toggleClass('open');
-    });
+  $(".product-cat-filter-button").click(function(){
+      $('#section-overlay').toggleClass('open');
+      $('#section-filter-box').css('display', 'block').animate({ left: '0' }, 500); // 1000 là thời gian hiệu ứng (milliseconds)
+  });
 
-    $(".product-cat-filter-button").click(function(){
-        $('#section-overlay').toggleClass('open');
-        $('#section-filter-box').css('display', 'block').animate({ left: '0' }, 500); // 1000 là thời gian hiệu ứng (milliseconds)
-    });
+  $(".close-filter").click(function(){
+    $('#section-overlay').removeClass('open')
+    $('#section-filter-box').css('display', 'none');
+    $('#section-filter-box').css('left', '-200px');
+  });
 
-    $(".close-filter").click(function(){
-      $('#section-overlay').removeClass('open')
-      $('#section-filter-box').css('display', 'none');
-      $('#section-filter-box').css('left', '-200px');
-    });
+  // button filter 
+  
+  $('.filter-subtitle').click(function(){
+      $(this).toggleClass('filter-active-menu');
+      $(this).parent().find('.filter-content').slideToggle();
+  })
 
-    // button filter 
+  // sticky
+  const headerMenu = $("#header-menu");
+  const content = $(".content");
+  const triggerHeight = 500; // Set the height where you want the menu to become sticky
 
-    $('.filter-subtitle').click(function(){
-        $(this).toggleClass('filter-active-menu');
-        $(this).parent().find('.filter-content').slideToggle();
-    })
+  function updateStickyHeader() {
+      if ($(window).scrollTop() >= triggerHeight) {
+      headerMenu.addClass("sticky-header");
+      content.css("padding-top", headerMenu.outerHeight() + "px");
+      } else {
+      headerMenu.removeClass("sticky-header");
+      content.css("padding-top", 0);
+      }
+  }
 
-    // sticky
-    const headerMenu = $("#header-menu");
-    const content = $(".content");
-    const triggerHeight = 500; // Set the height where you want the menu to become sticky
-
-    function updateStickyHeader() {
-        if ($(window).scrollTop() >= triggerHeight) {
-        headerMenu.addClass("sticky-header");
-        content.css("padding-top", headerMenu.outerHeight() + "px");
-        } else {
-        headerMenu.removeClass("sticky-header");
-        content.css("padding-top", 0);
-        }
-    }
-
-    // Call the function on page load and when scrolling
-    $(window).on("load scroll", updateStickyHeader);
+  // Call the function on page load and when scrolling
+  $(window).on("load scroll", updateStickyHeader);
     
 
-    // keo
+  // Chi tiết sản phẩm
+  // xem thêm và rút gọn
+  let isExpanded = false;
+  $('#toggleButton').click(function(){
+    if(!isExpanded){
+      $('.product-info-tab .tab-content .intro-content').css('max-height','none')
+    }
+    else{
+      $('.product-info-tab .tab-content .intro-content').css('max-height','240px')
+    }
+    isExpanded = !isExpanded;
 
+    $('.button-show').toggleClass('before-active')
+  });
 });
+
+$(document).ready(function() {
+  // Chọn phần tử có ID "myElement"
+  var myElement = $(".productDetail-related-list");
+
+  // Thêm class "myClass" vào phần tử khi width đạt đến 400px
+  $(window).on('resize', function() {
+    if (myElement.width() < 426) {
+      myElement.addClass("productDetail-related-list-slide");
+      
+    } else {
+      myElement.removeClass("productDetail-related-list-slide");
+    }
+  });
+});
+
+
+
+// zoom ảnh
+// $(document).ready(function() {
+//   $(".productDetail-main-img").hover(
+//     function() {
+//       // Lấy đường dẫn của ảnh gốc
+//       var imageSrc = $(this).find("img").attr("src");
+      
+//       // Đặt ảnh phóng to trong div zoomed-image
+//       $('#section-product-detail .zoomed-image').css("background-image", "url(" + imageSrc + ")");
+      
+//       // Hiển thị div zoomed-image
+//       $('#section-product-detail .zoomed-image').css("visibility", "visible");
+//     },
+//     function() {
+//       // Ẩn div zoomed-image khi không hover nữa
+//       $('#section-product-detail .zoomed-image').css("visibility", "hidden");
+//     }
+//   );
+
+//   $(".productDetail-main-img").mousemove(function(event) {
+//     // Cập nhật vị trí của ảnh phóng to theo vị trí chuột
+//     var zoomedImage = $(this).find(".zoomed-image");
+//     var containerOffset = $(this).offset();
+//     var posX = event.pageX - containerOffset.left;
+//     var posY = event.pageY - containerOffset.top;
+
+//     zoomedImage.css({ left: posX, top: posY });
+//   });
+// });
+
+
 
 // Requires jQuery
 
@@ -100,6 +161,20 @@ $(document).ready(function() {
       document.getElementById('max-value').value = moneyFormat.from(
         values[1]);
     });
+
+
+    // input check
+     // Add event listener to all radio inputs
+     $('.product-info-classify-detail input[type="radio"]').change(function() {
+      // Remove the class 'checked-item' from all items first
+      $('.product-classify-item').removeClass('checked-item');
+
+      // Check if the current input is checked, then add the class 'checked-item' to its parent item
+      if ($(this).prop('checked')) {
+          $(this).parent().addClass('checked-item');
+      }
+  });
+
   });
   
   
@@ -465,7 +540,7 @@ $(document).ready(function() {
     Spectrum.prototype.convert = function(value) {
       return this.getStep(this.toStepping(value));
     };
-    /*	Every input option is tested and parsed. This'll prevent
+    /*  Every input option is tested and parsed. This'll prevent
       endless validation in internal methods. These tests are
       structured with an item for every option available. An
       option can be marked as required by setting the 'r' flag.
@@ -2045,3 +2120,14 @@ $(document).ready(function() {
       /** @export */
     window.wNumb = wNumb;
   }());
+
+function addProductToCart(idProduct)
+{
+  $.ajax({
+    method: "GET",
+    url: "/addProductToCart/?id_product="+idProduct
+  })
+  .done(function( msg ) {
+    window.location = '/cart';
+  });
+}

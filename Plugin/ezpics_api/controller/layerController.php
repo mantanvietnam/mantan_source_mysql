@@ -267,7 +267,7 @@ function changeLayerImageAPI($input){
 				    $modelProductDetail->save($datalayer);
 					                
 					//getLayerProductForEdit($dataSend['idproduct']);
-					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
+					$return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công', 'link'=>$thumbnail['link']);
 				}else{
 					$return = array('code'=>0, 'mess'=>'Bạn chọn layer chưa đúng');
 				}
@@ -332,7 +332,7 @@ function changeLayerImageNew($input){
 				            
 				            $modelProductDetail->save($new);
 				                
-				            $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công');
+				            $return = array('code'=>1, 'mess'=>'Bạn sửa layer thành công', 'link'=>$thumbnail['linkOnline']);
 				        }else{
 			        	   $return = array('code'=>5, 'mess'=>'Layer này không đúng');
 			        	}     
@@ -598,6 +598,7 @@ function updateListLayerAPI($input){
 				$data = str_replace(array("\r", "\n"), '', $dataSend['listLayer']);
 				$data = str_replace('\"', '"', $data);
 				$listData = json_decode($data, true);
+				
 				foreach($listData as $key => $item){
 				 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
 				 	if(!empty($datalayer)){
@@ -607,10 +608,10 @@ function updateListLayerAPI($input){
 					 	$modelProductDetail->save($datalayer);
 				 	}
 				}
+
+				$returnExport = exportImageThumb($dataSend['idProduct']);
 					
-					$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công');
-				
-				
+				$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
 			}else{
 				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
 			}

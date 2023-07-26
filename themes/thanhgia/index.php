@@ -315,7 +315,7 @@
                                                 </div> 
                                                 <div class="product-button-action">
                                                     <div class="product-button-cart">
-                                                        <a href="'.$link.'" class="button-cart">
+                                                        <a onclick="addProductToCart('.$product->id.')" href="javascript:void(0);" class="button-cart">
                                                             <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
                                                         </a>
                                                     </div>

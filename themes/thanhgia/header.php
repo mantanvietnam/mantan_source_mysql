@@ -49,10 +49,15 @@
                     <div class="col-lg-6 col-md-6 col-12 topbar-item-right">
                         <div class="notify-box">
                             <div class="icon-notificaiton">
-                                <span>0</span>
+                                <span>
+                                    <?php 
+                                        $list_product_cart = (!empty($session->read('product_order')))?$session->read('product_order'):[];
+                                        echo count($list_product_cart);
+                                    ?>
+                                </span>
                                 <i class="fa-solid fa-cart-shopping"></i>
                             </div>
-                            <p>Giỏ hàng</p> 
+                            <p><a href="/cart">Giỏ hàng</a></p> 
                         </div>
                     </div>
                 </div>

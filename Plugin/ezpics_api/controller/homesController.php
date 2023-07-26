@@ -915,52 +915,8 @@ function createThumb(){
 
     if(!empty($_GET['id'])){
         $id = (int) $_GET['id'];
-        
-        $product = $modelProduct->find()->where(array('id'=>$id))->first();
 
-        if(!empty($product)){
-            $url = $urlCreateImage.'?url='.urlencode('https://apis.ezpics.vn/createImageFromTemplate/?id='.$id).'&width='.$product->width.'&height='.$product->height;
-
-            $data = sendDataConnectMantan($url);
-            
-            /*
-            $url = 'http://14.225.238.137:3000/convert';
-
-            $att = [
-                    'url' => 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$_GET['id'],
-                    'width' => $product->width,
-                    'height' => $product->height
-                    ];
-            
-            $data = sendDataConnectMantan($url,$att);
-
-            */
-
-            if(!empty($data)){
-                $name = __DIR__.'/../../../upload/admin/images/'.$product->user_id.'/thumb_product_'.$product->id.'.png';
-
-                if (!file_exists(__DIR__.'/../../../upload/admin/images/'.$product->user_id )) {
-                    mkdir(__DIR__.'/../../../upload/admin/images/'.$product->user_id, 0755, true);
-                }
-                
-                // unlink($name);
-
-                file_put_contents($name, base64_decode($data));
-
-                $image = 'https://apis.ezpics.vn/upload/admin/images/'.$product->user_id.'/thumb_product_'.$product->id.'.png?time='.time();
-
-                $product->image = $image;
-                $product->zipThumb = 0;
-            
-                $modelProduct->save($product);
-
-                return ['success' => 'Thành công','link' => $image];
-            }else{
-                return ['error' => 'Chưa tạo được ảnh thumbnail'];
-            }
-        }else{
-            return ['error' => 'Sản phẩm không tồn tại'];
-        }
+        return exportImageThumb($id);
     }else{
         return ['error' => 'Gửi thiếu ID sản phẩm'];
     }
