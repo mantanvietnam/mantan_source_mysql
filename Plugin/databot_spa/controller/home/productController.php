@@ -350,7 +350,7 @@ function deleteProduct($input){
             }
         }
 
-        return $controller->redirect('listProduct.php');
+        return $controller->redirect('listProduct');
     }else{
         return $controller->redirect('/login');
     }

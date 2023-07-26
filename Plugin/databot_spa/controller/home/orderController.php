@@ -6,7 +6,7 @@ function listOrder($input){
     global $session;
 
     $metaTitleMantan = 'Danh sách đăt';
-
+    $modelService = $controller->loadModel('Services');
 	$modelOrder = $controller->loadModel('Orders');
 	$infoUser = $session->read('infoUser');
 	if(!empty($infoUser)){
@@ -30,15 +30,24 @@ function listOrder($input){
 			$conditions['email'] = $_GET['email'];
 		}
 
-		if(!empty($_GET['status'])){
-			$conditions['status'] = $_GET['status'];
-		}
+		if(isset($_GET['status'])){
+            if($_GET['status']!=''){
+                $conditions['status'] = $_GET['status'];
+            }
+        }
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
 	    $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	     if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $conditions_scan = array('id'=>$value->id);
+            $listData[$key]->Service  = $modelService->find()->where($conditions_scan)->first();
+        }
+    }
 
 	    $totalData = $modelOrder->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
@@ -180,7 +189,7 @@ function addOrder($input){
 		        
 
 		        $modelOrder->save($save);
-		        $mess= '<p class="text-danger">Bạn đặt lịch hẹn thành công</p>';
+		        $mess= '<p class="text-success">Bạn đặt lịch hẹn thành công</p>';
 		    }
 
 
@@ -216,7 +225,24 @@ function addOrder($input){
 }
 
 function deleteOrder($input){
+    global $controller;
+    global $session;
+	$modelOrder = $controller->loadModel('Orders');
+    $infoUser = $session->read('infoUser');
+    if(!empty($infoUser)){
+    
+        if(!empty($_GET['id'])){
+            $data = $modelOrder->get($_GET['id']);
+            
+            if($data){
+                $modelOrder->delete($data);
+            }
+        }
 
+        return $controller->redirect('listOrder');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 ?>

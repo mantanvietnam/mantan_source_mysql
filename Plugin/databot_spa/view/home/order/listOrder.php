@@ -28,6 +28,18 @@
             <label class="form-label">Email</label>
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
+           <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
+              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa xác nhận </option>
+              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Xác nhận</option>
+              <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Không đến</option>
+              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Hủy</option>
+              <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Đã đến</option>
+              <option value="5" <?php if(!empty($_GET['status']) && $_GET['status']=='5') echo 'selected';?> >Đặt online</option>
+            </select>
+          </div>
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -46,10 +58,10 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Khách hàng</th>
-            <th>số điện thoại</th>
-            <th>email</th>
-            <th>địa chỉ</th>
+            <th>Thông tin Khách hàng</th>
+            <th>Dịch vụ</th>
+            <th>thời gian</th>
+            <th>Trạnh thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -58,20 +70,43 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $arr = explode(',', @$item->type);
+                $type = '';
+                if(in_array(0, $arr)){
+                  $type .= 'Mặc định,';
+                }
+                if(in_array(1, $arr)){
+                  $type .= ' Lịch chăm sóc,';
+                }
+                if(in_array(2, $arr)){
+                  $type .= 'Lịch liệu trình,';
+                }
+                if(in_array(3, $arr)){
+                  $type .= 'Lịch điều trị,';
+                }
 
-                if($item->sex=='1'){
-                  $sex= 'nam';
-                }else{
-                  $sex= 'nữ';
+                if($item->status==0){
+                  $status= 'Chưa xác nhận';
+                }elseif($item->status==1){
+                  $status= 'Xác nhận';
+                }elseif($item->status==2){
+                  $status= 'Không đến';
+                }elseif($item->status==3){
+                  $status= 'Hủy';
+                }elseif($item->status==4){
+                  $status= 'Đã đến';
+                }elseif($item->status==5){
+                  $status= 'Đặt online';
                 }
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->name.'</td>
-                        <td>'.$item->phone.'</td>
-                        <td>'.$item->email.'</td>
-                        <td>'.$item->address.'</td>
-                        
-                        <td>'.$sex.'</td>
+                        <td>'.$item->name.'<br/>
+                            '.$item->phone.'<br/>
+                            '.$item->email.'
+                          </td>
+                        <td>'.$item->Service->name.'<br/>'.$type.'</td>
+                        <td>'.date("d/m/Y H:i", @$data['created_orders']).'</td>
+                        <td>'.$status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/addOrder/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
