@@ -49,6 +49,7 @@
                             <li>Tác giả: '.@$file['info']->author.'</li>
                             <li>Email: '.@$file['info']->email.'</li>
                             <li>Website: '.@$file['info']->web.'</li>
+                            <li>Plugin yêu cầu: '.@$file['info']->request.'</li>
                           </ul>
                          </td>
                             </tr>';  

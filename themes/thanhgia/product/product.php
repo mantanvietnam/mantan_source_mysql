@@ -304,7 +304,7 @@
 
         $.ajax({
             method: "GET",
-            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity;
+            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity
         })
         .done(function( msg ) {
             window.location = '/cart';

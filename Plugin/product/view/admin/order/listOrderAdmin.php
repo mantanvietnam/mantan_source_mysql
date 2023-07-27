@@ -1,5 +1,46 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Đơn hàng</h4>
+
+  <!-- Form Search -->
+  <form method="get" action="">
+    <div class="card mb-4">
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="new" <?php if(!empty($_GET['status']) && $_GET['status']=='new') echo 'selected';?> >Đơn hàng mới</option>
+              <option value="done" <?php if(!empty($_GET['status']) && $_GET['status']=='done') echo 'selected';?> >Đã xử lý</option>
+            </select>
+          </div>
+          
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--/ Form Search -->
+
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách đơn hàng</h5>

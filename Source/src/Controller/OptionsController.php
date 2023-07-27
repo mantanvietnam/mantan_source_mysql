@@ -172,6 +172,7 @@ class OptionsController extends AppController{
                     $info->author= '';
                     $info->email= '';
                     $info->web= '';
+                    $info->request= '';
                 }
             
                 if(in_array($file, $plugins_site_value)){

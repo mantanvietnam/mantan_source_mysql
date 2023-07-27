@@ -1,4 +1,4 @@
-<?php getHeader();?>
+<?php getHeader();global $infoUser;?>
     <main>
         <section id="section-breadcrumb">
             <div class="container">
@@ -70,17 +70,6 @@
 
                                 echo    '</div>
                                     </div>
-
-                                    <!-- Ghi chú -->
-                                    <div class="cart-note">
-                                        <div class="cart-note-title">
-                                            <p>Ghi chú đơn hàng</p>
-                                        </div>
-                
-                                        <div class="cart-note-box">
-                                            <textarea placeholder="" rows="5"></textarea>
-                                        </div>
-                                    </div> 
                 
                                     ';
                             }else{
@@ -174,7 +163,7 @@
                             <?php 
                                 if($price_total > 0){
                                     echo '  <div class="pay-button">  
-                                                <button class="checkout-btn btnred disabled">Thanh toán</button>
+                                                <button onclick="showPopupOrder();" class="checkout-btn btnred disabled">Thanh toán</button>
                                             </div>';
                                 }else{
                                     echo '<div class="policy-delivery">
@@ -200,6 +189,79 @@
         </section>
     </main>
 
+<!-- Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Thông tin đặt mua hàng</h5>
+      </div>
+      <form action="/createOrder" method="post">
+          <div class="modal-body">
+            <input type="hidden" name="id_user" value="<?php echo @$infoUser->id;?>">
+            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+
+            <p>Họ tên (*)</p>
+            <input type="text" name="full_name" value="<?php echo @$infoUser->full_name;?>" class="form-control" required>
+
+            <p>Số điện thoại (*)</p>
+            <input type="text" name="phone" value="<?php echo @$infoUser->phone;?>" class="form-control" required>
+
+            <p>Địa chỉ nhận hàng (*)</p>
+            <input type="text" name="address" value="<?php echo @$infoUser->address;?>" class="form-control" required>
+
+            <p>Email</p>
+            <input type="email" name="email" value="<?php echo @$infoUser->email;?>" class="form-control">
+
+            <p>Ghi chú đơn hàng</p>
+            <textarea placeholder="" rows="5" class="form-control" name="note_user"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Tạo đơn đặt</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="notificationModalLabel">Thông báo</h5>
+        </div>
+      
+        <div class="modal-body" id="notificationMess"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function showPopupOrder()
+    {
+        $('#orderModal').modal('show');
+    }
+
+    function showPopupMess(mess)
+    {
+        $('#notificationMess').html(mess);
+        $('#notificationModal').modal('show');
+    }
+</script>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    var messError = '<?php echo @$_GET['error']?>';
+
+    if(messError=='create_order_done'){
+        showPopupMess('Tạo đơn hàng thành công, bộ phận CSKH sẽ sớm liên hệ với anh/chị.');
+    }else if(messError=='empty_cart'){
+        showPopupMess('Tạo đơn thất bại do giỏ hàng trống');
+    }else if(messError=='empty_data'){
+        showPopupMess('Tạo đơn thất bại do gửi thiếu dữ liệu');
+    }
+});
+</script>
 <?php getFooter();?>
 
 

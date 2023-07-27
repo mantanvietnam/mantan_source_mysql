@@ -15,6 +15,23 @@ function listOrderAdmin($input)
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    if(!empty($_GET['full_name'])){
+        $conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
+    }
+
+    if(!empty($_GET['phone'])){
+        $conditions['phone'] = $_GET['phone'];
+    }
+
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
+
     
     $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -59,7 +76,8 @@ function listOrderAdmin($input)
     setVariable('listData', $listData);
 }
 
-function deleteOrderAdmin($input){
+function deleteOrderAdmin($input)
+{
     global $controller;
 
     $modelOrder = $controller->loadModel('Orders');
@@ -75,4 +93,39 @@ function deleteOrderAdmin($input){
     }
 
     return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+}
+
+function viewOrderAdmin($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Chi tiết đơn hàng';
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
+
+    if(!empty($_GET['id'])){
+        $order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
+
+        if(!empty($order)){
+            $detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
+
+            if(!empty($detail_order)){
+                foreach ($detail_order as $key => $value) {
+                    $detail_order[$key]->product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+                }
+            }
+
+            setVariable('order', $order);
+            setVariable('detail_order', $detail_order);
+        }else{
+            return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+        }
+    }else{
+        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+    }
 }
