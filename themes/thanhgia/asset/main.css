@@ -109,14 +109,14 @@ table {
     z-index: 1;
     width: 48px;
     height: 48px;
-    color: #ea4d2a;
+    color: #034440;
     border-radius: 2px;
     padding: 0;
 }
 
 #section-news-post .slick-arrow, #section-product-featured .slick-arrow , #section-product-tab .slick-arrow{
     transform: translateY(-137%);
-    background-color: #ea4d2a;
+    background-color: #034440;
     border: none;
     z-index: 1;
     width: 40px;
@@ -214,7 +214,7 @@ table {
 
 .productDetail-related-list .slick-arrow{
     transform: translateY(-50%);
-    background-color: #ea4d2a;
+    background-color: #034440;
     border: none;
     z-index: 1;
     width: 48px;
@@ -267,7 +267,7 @@ strong{
 
 #topbar{
     height: 35px;
-    background-color: rgb(233,78,42);
+    background-color: #034440;
     display: flex;
     align-items: center;
     font-size: 13px;
@@ -504,7 +504,7 @@ strong{
 
 #header-menu .search-input:focus{
     background-color: #f6f6f6;
-    border: 1px solid #ea4d2a;
+    border: 1px solid #034440;
 }
 
 #header-menu .search-button{
@@ -611,7 +611,7 @@ strong{
     width: 12px;
     height: 12px;
     border-radius: 2px;
-    background-color: #ea4d2a;
+    background-color: #034440;
     border: none;
 }
 
@@ -667,7 +667,7 @@ strong{
     content: "";
     width: 150px;
     height: 1px;
-    background: #ea4d2a;
+    background: #034440;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -684,7 +684,7 @@ strong{
     width: 10px;
     height: 10px;
     bottom: -5px;
-    background-color: #ea4d2a;
+    background-color: #034440;
     -webkit-transform: rotate(45deg);
 }
 
@@ -802,7 +802,7 @@ strong{
 #section-element .element-content .info-element-left .element-image{
     width: 60px;
     height: 60px;
-    border: 1px solid #ea4d2a;
+    border: 1px solid #034440;
     line-height: 59px;
     vertical-align: middle;
     text-align: center;
@@ -816,7 +816,7 @@ strong{
 #section-element .element-content .info-element-right .element-image{
     width: 60px;
     height: 60px;
-    border: 1px solid #ea4d2a;
+    border: 1px solid #034440;
     line-height: 59px;
     vertical-align: middle;
     text-align: center;
@@ -900,7 +900,7 @@ strong{
     display: inline-block;
     z-index: 1;
     overflow: hidden;
-    background-color: #ea4d2a;
+    background-color: #034440;
     color: #fff;
     padding: 12px 28px;
     border: 0;
@@ -1116,7 +1116,7 @@ strong{
     display: inline-block;
     z-index: 1;
     overflow: hidden;
-    background-color: #ea4d2a;
+    background-color: #034440;
     color: #fff;
     padding: 12px 28px;
     border: 0;
@@ -1261,7 +1261,7 @@ strong{
 #footer-copyright {
     padding: 15px 0;
     text-align: center;
-    background-color: #ea4d2a;
+    background-color: #034440;
     color: #fff;
 }
 
@@ -1272,7 +1272,7 @@ strong{
 
 .product-featured-price .price{
     margin-right: 4px;
-    color: #ff2c26;
+    color: #034440;
     font-weight: 600;
     font-size: 15px;
 }
@@ -1369,7 +1369,7 @@ strong{
     -o-transition: all 0.3s;
 	transition: all 0.3s;
 
-    background-color: #ea4d2a !important;
+    background-color: #034440 !important;
     height: 100%;
     left: -35%;
     top: 0;
@@ -1419,7 +1419,7 @@ strong{
 .product-featured-img .item-sale{
     position: absolute;
     left: 10px;
-    background: red;
+    background: #034440;
     letter-spacing: 0.5px;
     min-width: 52px;
     border-radius: 11px;
@@ -1449,13 +1449,13 @@ strong{
 
 #section-product-tab .nav-pills .nav-link.active{
     color: #fff;
-    background: #ea4d2a;
-    border-color: #ea4d2a;
+    background: #034440;
+    border-color: #034440;
 }
 
 #section-product-tab .nav-pills .nav-link:hover{
-    background: #ea4d2a;
-    border-color: #ea4d2a;
+    background: #034440;
+    border-color: #034440;
     color: #fff;
     transition: all linear 0.3s;
 }
@@ -1826,7 +1826,7 @@ position: relative;
     display: inline-block;
     z-index: 1;
     overflow: hidden;
-    background-color: #ea4d2a;
+    background-color: #034440;
     color: #fff;
     padding: 12px 28px;
     border: 0;
@@ -2680,7 +2680,7 @@ position: relative;
 #section-cart .cart-content-left .cart-content .cart-shipfree span{
     font-size: 18px;
     font-weight: 600;
-    color: #ff2c26;
+    color: #034440;
 }
 
 #section-cart .cart-content-left .cart-content .cart-shipfree strong{
@@ -2732,7 +2732,7 @@ position: relative;
 }
 
 #section-cart .cart-content-left .cart-export-bill span{
-    border: 2px solid #ea4d2a;
+    border: 2px solid #034440;
     line-height: 1.1;
     padding: 1px 3px;
     border-radius: 100%;
@@ -2745,7 +2745,7 @@ position: relative;
 }
 
 #section-cart .cart-content-left .cart-export-bill i{
-    color: #ea4d2a
+    color: #034440
 }
 
 #section-cart .cart-content-left .cart-export-bill p{
@@ -2835,7 +2835,7 @@ position: relative;
 #section-cart .total-price span {
     font-weight: bold;
     float: right;
-    color: red;
+    color: #034440;
     font-size: 24px;
 }
 
@@ -2846,7 +2846,7 @@ position: relative;
 #section-cart .pay-button button {
     width: 100%; 
     height: 40px;
-    background-color: red;
+    background-color: #034440;
     color: #fff;
     border: none;
     padding: 10px 5px;
@@ -3058,7 +3058,7 @@ position: relative;
 }
 
 .promotion-bottom .promotion-copy button{
-    background-color: #ea4d2a;
+    background-color: #034440;
     text-transform: uppercase;
     border: none;
     padding: 3px 6px;
@@ -3385,7 +3385,7 @@ position: relative;
     z-index: 1;
     width: 12px;
     height: 6px;
-    border: 1.5px solid #ea4d2a;
+    border: 1.5px solid #034440;
     border-top-style: none;
     border-right-style: none;
     transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
@@ -3849,7 +3849,7 @@ cursor: not-allowed;
     font-size: 20px;
     line-height: 34px;
     font-weight: 600;
-    color: #ff2c26;
+    color: #034440;
 }
 
 #section-product-detail .product-info .product-info-detail .product-price  .product-price-number del{
@@ -4070,7 +4070,7 @@ cursor: not-allowed;
 }
 
 .product-info-tab .nav-pills .nav-link.active{
-    color: #ea4d2a;
+    color: #034440;
 }
 
 .product-info-tab .nav-pills .nav-link.active::before{
@@ -4078,7 +4078,7 @@ cursor: not-allowed;
     position: absolute;
     height: 1px;
     width: 100%;
-    background: #ea4d2a;
+    background: #034440;
     bottom: 0;
 }
 
@@ -4237,13 +4237,13 @@ cursor: not-allowed;
 
 .productDetail-sub-img.slick-center img{
     border-radius: 12px;
-    border: 1px solid #ea4d2a;
+    border: 1px solid #034440;
     overflow: hidden;
 }
 /* 
 .productDetail-main-img.slick-current img{
     border-radius: 12px;
-    border: 1px solid #ea4d2a;
+    border: 1px solid #034440;
     overflow: hidden;
 } */
 
