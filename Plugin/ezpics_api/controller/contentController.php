@@ -72,9 +72,10 @@ function listContentAPI($input){
 					$data = array();
 					foreach($dataContent as $key => $item){
 						$checkProduct = $modelProduct->find()->where(array('id'=>$item->product_id))->first();
-
-						$item->nameProduct = $checkProduct->name;
-						$item->imageProduct = $checkProduct->image;
+						if(!empty($checkProduct)){
+							$item->nameProduct = $checkProduct->name;
+							$item->imageProduct = $checkProduct->image;
+						}
 
 						$data[] = $item; 
 					}
