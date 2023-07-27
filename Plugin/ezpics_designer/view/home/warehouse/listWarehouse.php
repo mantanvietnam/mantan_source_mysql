@@ -55,12 +55,12 @@
                   $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
 
                    $status = 'Kích hoạt <br/>
-                   <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=1">
+                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->status==0){
                     $status = 'Khóa <br/>
-                   <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=2">
+                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=2">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   }
@@ -112,12 +112,12 @@
                 foreach ($listData as $item) {
 
                   $status = 'Kích hoạt <br/>
-                   <a class="btn btn-danger d-block"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=1">
+                   <a class="btn btn-danger d-block"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->status==0){
                     $status = 'Khóa <br/>
-                   <a class="btn btn-danger d-block"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=2">
+                   <a class="btn btn-danger d-block"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=2">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   }

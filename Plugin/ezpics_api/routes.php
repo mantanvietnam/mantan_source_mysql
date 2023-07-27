@@ -141,6 +141,8 @@
 	$routesPlugin['extendWarehousesAPI']= 'ezpics_api/view/extendWarehousesAPI.php';
 	$routesPlugin['getInfoWarehouseAPI']= 'ezpics_api/view/getInfoWarehouseAPI.php';
 	$routesPlugin['notificationWarehousesAPI']= 'ezpics_api/view/notificationWarehousesAPI.php';
+	$routesPlugin['addWarehouseAPI']= 'ezpics_api/view/addWarehouseAPI.php';
+	$routesPlugin['getListWarehouseDesignerAPI']= 'ezpics_api/view/getListWarehouseDesignerAPI.php';
 
 	// thong ke 
 	
