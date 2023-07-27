@@ -622,7 +622,7 @@ function detailDesigner($input)
 				$follow = $modelFollowDesigner->find()->where(array('designer_id' => $designer->id))->all()->toList();
 				$quantityFollow  = count(@$follow);
 
-				$Warehouse = $modelWarehouse->find()->where(array('user_id' => $designer->id))->all()->toList();
+				$Warehouse = $modelWarehouse->find()->where(array('user_id' => $designer->id, 'status'=>1))->all()->toList();
 
 				$quantityWarehouse  = count(@$Warehouse);
 
