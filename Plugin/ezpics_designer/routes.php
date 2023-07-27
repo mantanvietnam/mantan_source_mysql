@@ -53,6 +53,7 @@
 	$routesPlugin['listWarehouseUser']= 'ezpics_designer/view/home/warehouse_user/listWarehouseUser.php';
 	$routesPlugin['addWarehouseUser']= 'ezpics_designer/view/home/warehouse_user/addWarehouseUser.php';
 	$routesPlugin['deleteWarehouseUser']= 'ezpics_designer/view/home/warehouse_user/deleteWarehouseUser.php';
+	$routesPlugin['lockWarehouse']= 'ezpics_designer/view/home/warehouse_user/lockWarehouse.php';
 
 
 ?>

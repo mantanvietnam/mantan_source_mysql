@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/css/demo.css" />
-    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/css/ezpics_admin.css" />
+    <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/css/ezpics_admin.css?time=<?php echo  getdate()[0]; ?>" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/plugins/ezpics_designer/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -75,7 +75,7 @@
     <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/bootstrap.js"></script>
     <script src="/plugins/ezpics_designer/view/home/assets/vendor/js/bootstrap.js"></script>
     <script src="/plugins/ezpics_designer/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/plugins/ezpics_designer/view/home/assets/js/ezpics_admin.js"></script>
+    <script src="/plugins/ezpics_designer/view/home/assets/js/ezpics_admin.js?time=<?php echo  getdate()[0]; ?>"></script>
   </head>
 
   <body>

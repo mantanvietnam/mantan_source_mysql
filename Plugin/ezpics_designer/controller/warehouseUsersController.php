@@ -140,11 +140,11 @@ function addWarehouseUser($input)
 
 	    				// tạo dữ liệu save
 				        $data->warehouse_id = (int) $dataSend['warehouse_id'];
-				        $data->user_id = $info_customer->id;
-				        $data->designer_id = $infoUser->id;
-				        $data->price = $dataSend['price'];
+				        $data->user_id = @$info_customer->id;
+				        $data->designer_id = @$infoUser->id;
+				        $data->price = @$dataSend['price'];
 				        $data->created_at = date('Y-m-d H:i:s');
-				        $data->note = $dataSend['note'];
+				        $data->note = @$dataSend['note'];
 				        $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.$dataSend['date_use'].' days'));
 				        
 				        $modelWarehouseUsers->save($data);

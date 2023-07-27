@@ -10,6 +10,7 @@ function product($input)
 	global $metaKeywordsMantan;
 	global $metaDescriptionMantan;
 	global $metaImageMantan;
+    global $session;
 
     $metaTitleMantan = 'Chi tiết sản phẩm';
 
@@ -50,10 +51,25 @@ function product($input)
             // DANH MỤC SẢN PHẨM
             $category = $modelCategories->find()->where(['id'=>$product->id_category])->first();
 
+            // LƯU LỊCH SỬ XEM
+            if(empty($session->read('product_view'))){
+                $list_product_view[$product->id] = $product;
+                $session->write('product_view', $list_product_view);
+            }else{
+                $list_product_view = $session->read('product_view');
+
+                if(empty($list_product_view[$product->id])){
+                    $list_product_view[$product->id] = $product;
+                    $session->write('product_view', $list_product_view);
+                }
+            }
+            
+
             setVariable('product', $product);
             setVariable('other_product', $other_product);
             setVariable('category', $category);
             setVariable('manufacturer', $manufacturer);
+            setVariable('list_product_view', $list_product_view);
         }else{
             return $controller->redirect('/');
         }

@@ -45,7 +45,7 @@
               <th>Giá bán</th>
               <th>Ngày dùng</th>
               <th>Sửa</th>
-              <th>Xóa</th>
+              <th>Trạng thái</th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +53,17 @@
               if(!empty($listData)){
                 foreach ($listData as $item) {
                   $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
+
+                   $status = 'Kích hoạt <br/>
+                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  if($item->status==0){
+                    $status = 'Khóa <br/>
+                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=2">
+                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  }
 
                   echo '<tr>
                           <td>
@@ -82,11 +93,7 @@
                             </a>
                           </td>
 
-                          <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho mẫu thiết kế không?\');" href="/deleteWarehouse/?id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
-                            </a>
-                          </td>
+                          <td align="center">'.$status.'</td>
                         </tr>';
                 }
               }else{
@@ -103,6 +110,17 @@
       <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+
+                  $status = 'Kích hoạt <br/>
+                   <a class="btn btn-danger d-block"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  if($item->status==0){
+                    $status = 'Khóa <br/>
+                   <a class="btn btn-danger d-block"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/lockWarehouse.php/?id='.$item->id.'&status=2">
+                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  }
                   ?>
                     <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                       <p><b>Kho <?php echo @$item->id ?>:</b> <?php echo $item->name ?></p>
@@ -119,10 +137,7 @@
                                   <i class="bx bx-edit"></i> sửa
                                 </a>
                         </div>
-                        <div class="col-md-6" style="width: 50%;">
-                            <a class="btn btn-danger d-block" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho mẫu thiết kế không?\');" href="/deleteWarehouse/?id='.$item->id.'">
-                                  <i class="bx bx-trash me-1"></i> xóa
-                                </a>
+                        <div class="col-md-6" style="width: 50%;"><?php echo  $status; ?>
                         </div>
                       </div>
                     </div>

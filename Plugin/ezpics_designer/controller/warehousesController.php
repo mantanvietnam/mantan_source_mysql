@@ -178,6 +178,7 @@ function addWarehouse($input)
 	            }
 
 	            $data->slug = $slugNew;
+	            $data->status = 1;
 		        
 		        $modelWarehouses->save($data);
 
@@ -223,7 +224,7 @@ function addWarehouse($input)
 	}
 }
 
-function deleteWarehouse($input)
+function lockWarehouse($input)
 {
 	global $controller;
 	global $session;
@@ -234,22 +235,18 @@ function deleteWarehouse($input)
 		$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 		
 		if(!empty($_GET['id'])){
-			$data = $modelWarehouses->get($_GET['id']);
-			$user = $session->read('infoUser');
-			
-			if($data && $data->user_id == $user->id){
-	         	// xóa kho mẫu thiết kế
-				$modelWarehouses->delete($data);
-
-				// xóa danh sách user mua kho
-				$conditions = ['warehouse_id'=>$data->id];
-				$modelWarehouseUsers->deleteAll($conditions);
-
-				// xóa danh sách sản phẩm trong kho
-				$conditions = ['warehouse_id'=>$data->id];
-				$modelWarehouseProducts->deleteAll($conditions);
-	        }
-		}
+		$data = $modelWarehouses->get($_GET['id']);
+		
+		if($data){
+			if(!empty($_GET['status']==1)){
+				$data->status = 0;
+			}else{
+				$data->status = 1;
+			}
+			$data->token = '';
+         	$modelWarehouses->save($data);
+        }
+	}
 
 		return $controller->redirect('/listWarehouse');
 	}else{
@@ -276,12 +273,13 @@ function detailWarehouse($input){
 		$count = count($slug)-1;
 		$id = (int) $slug[$count];
 
-		$Warehouse = $modelWarehouses->find()->where(['id'=>$id])->first();
+		$Warehouse = $modelWarehouses->find()->where(['id'=>$id,'status'=>1])->first();
 		$dataSend = $input['request']->getData();
 
-		$designer = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
+		
 
 		if(!empty($Warehouse)){
+			$designer = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;

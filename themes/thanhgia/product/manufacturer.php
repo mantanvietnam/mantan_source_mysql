@@ -23,19 +23,6 @@
                         <div class="product-cat-filter-button" >
                             <p><i class="fa-solid fa-filter"></i> Bộ lọc</p>
                         </div>
-
-                        <div class="product-cat-sort">
-                            <span class="title">Sắp xếp theo</span>
-                            <span class="text">Mới nhất</span>
-                            <span class="icon"><i class="fa-solid fa-chevron-down"></i></span>
-                            
-                            <ul class="sort-list">
-                                <li>Giá tăng dần</li>
-                                <li>Giá giảm dần</li>
-                                <li>Cũ nhất</li>
-                                <li>Mới nhất</li>
-                            </ul>
-                        </div>
                     </div>
 
 
