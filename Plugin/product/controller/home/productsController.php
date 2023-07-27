@@ -37,7 +37,7 @@ function product($input)
 
             // SẢN PHẨM KHÁC
             $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category, 'status'=>'active');
-			$limit = 12;
+			$limit = 4;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
 		    $order = array('id'=>'desc');

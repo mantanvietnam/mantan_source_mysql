@@ -1,4 +1,4 @@
-<?php getHeader();?>
+<?php getHeader();global $settingThemes;?>
     <main>
         <section id="section-breadcrumb">
             <div class="container">
@@ -115,331 +115,51 @@
                                         
 
                                         <div class="col-xl-5 col-lg-12 col-md-12 col-12 product-promotion">
-                                            <div class="promotion-item">
-                                                <div class="promotion-left">
-                                                    <div class="promotion-img">
-                                                        <img src="../asset/img/home_coupon_2_img.png" alt="">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="promotion-right">
-                                                    <div class="promotion-top">
-                                                        <div class="promotion-info">
-                                                            <h3>Giảm 20</h3>
-                                                            <p>Đơn hàng từ 200k</p>
-                                                        </div>
-                                                        
-                                                        <div class="promotion-note">
-                                                            <span class="promotion-note-img">
-                                                                <img src="../asset/img/icons/circle.png" alt="">
-                                                                <div class="promotion-form">
-                                                                    <div class="promotion-body">
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>Mã</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>WECQRQCWR</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row2 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>HSD</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>15/07/2023</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-content">
-                                                                                <ul>
-                                                                                    <li>Dành cho đơn hàng từ 300k</li>
-                                                                                    <li>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán</li>
-                                                        
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>                                                 
-                                                            </span>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="promotion-bottom">
-                                                        <div class="promotion-code">
-                                                            <p>Mã: <strong>ASDWEVRWE</strong></p>
-                                                            <p>HSD: 20/07/2023</p>
-                                                        </div>
-            
-                                                        <div class="promotion-copy">
-                                                            <button>Sao chép mã</button>
-                                                        </div>
-                                                       
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <?php
+                                            if(!empty($other_product)){
+                                                foreach ($other_product as $key => $value) {
+                                                    if(!empty($product->price)){
+                                                        $price = number_format($product->price).'đ';
+                                                    }else{
+                                                        $price = 'Giá liên hệ';
+                                                    }
 
-                                            <div class="promotion-item">
-                                                <div class="promotion-left">
-                                                    <div class="promotion-img">
-                                                        <img src="../asset/img/home_coupon_2_img.png" alt="">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="promotion-right">
-                                                    <div class="promotion-top">
-                                                        <div class="promotion-info">
-                                                            <h3>Giảm 20</h3>
-                                                            <p>Đơn hàng từ 200k</p>
-                                                        </div>
-                                                        
-                                                        <div class="promotion-note">
-                                                            <span class="promotion-note-img">
-                                                                <img src="../asset/img/icons/circle.png" alt="">
-                                                                <div class="promotion-form">
-                                                                    <div class="promotion-body">
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>Mã</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>WECQRQCWR</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row2 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>HSD</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>15/07/2023</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-content">
-                                                                                <ul>
-                                                                                    <li>Dành cho đơn hàng từ 300k</li>
-                                                                                    <li>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán</li>
-                                                        
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
+                                                    echo '<div class="promotion-item">
+                                                            <div class="promotion-left">
+                                                                <div class="promotion-img">
+                                                                    <img src="'.$value->image.'" alt="">
+                                                                </div>
+                                                            </div>
+                            
+                                                            <div class="promotion-right">
+                                                                <div class="promotion-top">
+                                                                    <div class="promotion-info">
+                                                                        <h3>'.$value->title.'</h3>
+                                                                        <p>'.$price.'</p>
                                                                     </div>
-                                                                </div>                                                 
-                                                            </span>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="promotion-bottom">
-                                                        <div class="promotion-code">
-                                                            <p>Mã: <strong>ASDWEVRWE</strong></p>
-                                                            <p>HSD: 20/07/2023</p>
-                                                        </div>
-            
-                                                        <div class="promotion-copy">
-                                                            <button>Sao chép mã</button>
-                                                        </div>
-                                                       
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="promotion-item">
-                                                <div class="promotion-left">
-                                                    <div class="promotion-img">
-                                                        <img src="../asset/img/home_coupon_2_img.png" alt="">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="promotion-right">
-                                                    <div class="promotion-top">
-                                                        <div class="promotion-info">
-                                                            <h3>Giảm 20</h3>
-                                                            <p>Đơn hàng từ 200k</p>
-                                                        </div>
-                                                        
-                                                        <div class="promotion-note">
-                                                            <span class="promotion-note-img">
-                                                                <img src="../asset/img/icons/circle.png" alt="">
-                                                                <div class="promotion-form">
-                                                                    <div class="promotion-body">
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>Mã</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>WECQRQCWR</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row2 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>HSD</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>15/07/2023</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-content">
-                                                                                <ul>
-                                                                                    <li>Dành cho đơn hàng từ 300k</li>
-                                                                                    <li>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
+                                                                </div>
+                        
+                                                                <div class="promotion-bottom">
+                                                                    <div class="promotion-code">
+                                                                        <p>Mã: <strong>'.$value->code.'</strong></p>
                                                                     </div>
-                                                                </div>                                                 
-                                                            </span>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="promotion-bottom">
-                                                        <div class="promotion-code">
-                                                            <p>Mã: <strong>ASDWEVRWE</strong></p>
-                                                            <p>HSD: 20/07/2023</p>
-                                                        </div>
-            
-                                                        <div class="promotion-copy">
-                                                            <button>Sao chép mã</button>
-                                                        </div>
-                                                       
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="promotion-item">
-                                                <div class="promotion-left">
-                                                    <div class="promotion-img">
-                                                        <img src="../asset/img/home_coupon_2_img.png" alt="">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="promotion-right">
-                                                    <div class="promotion-top">
-                                                        <div class="promotion-info">
-                                                            <h3>Giảm 20</h3>
-                                                            <p>Đơn hàng từ 200k</p>
-                                                        </div>
-                                                        
-                                                        <div class="promotion-note">
-                                                            <span class="promotion-note-img">
-                                                                <img src="../asset/img/icons/circle.png" alt="">
-                                                                <div class="promotion-form">
-                                                                    <div class="promotion-body">
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>Mã</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>WECQRQCWR</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row2 promotion-row">
-                                                                            <div class="row-title">
-                                                                                <p>HSD</p>
-                                                                            </div>
-                                                                            <div class="row-content">
-                                                                                <strong>15/07/2023</strong>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="promotion-row1 promotion-row">
-                                                                            <div class="row-content">
-                                                                                <ul>
-                                                                                    <li>Dành cho đơn hàng từ 300k</li>
-                                                                                    <li>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán</li>
-                                                        
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
+                        
+                                                                    <div class="promotion-copy">
+                                                                        <button onclick="addProductToCart('.$value->id.')">Thêm giỏ hàng</button>
                                                                     </div>
-                                                                </div>                                                 
-                                                            </span>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="promotion-bottom">
-                                                        <div class="promotion-code">
-                                                            <p>Mã: <strong>ASDWEVRWE</strong></p>
-                                                            <p>HSD: 20/07/2023</p>
-                                                        </div>
-            
-                                                        <div class="promotion-copy">
-                                                            <button>Sao chép mã</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                }
+                                            }
+                                            ?>
                                             
                                         </div>
                                     </div>
 
                                     <div class="product-footer">
 
-                                    </div>
-                                </div>
-
-                                <div class="product-info-footer">
-                                    <div class="product-service">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-4 col-12 item-service">
-                                                <div class="item-service-img">
-                                                    <img src="../asset/img/product_info1_desc1_img.png" alt="">
-                                                </div>
-
-                                                <div class="item-service-text">
-                                                    Miễn phí giao hàng
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-12 item-service">
-                                                <div class="item-service-img">
-                                                    <img src="../asset/img/product_info1_desc1_img.png" alt="">
-                                                </div>
-
-                                                <div class="item-service-text">
-                                                    Miễn phí giao hàng
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-12 item-service">
-                                                <div class="item-service-img">
-                                                    <img src="../asset/img/product_info1_desc1_img.png" alt="">
-                                                </div>
-
-                                                <div class="item-service-text">
-                                                    Miễn phí giao hàng
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-12 item-service">
-                                                <div class="item-service-img">
-                                                    <img src="../asset/img/product_info1_desc1_img.png" alt="">
-                                                </div>
-
-                                                <div class="item-service-text">
-                                                    Miễn phí giao hàng
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-12 item-service">
-                                                <div class="item-service-img">
-                                                    <img src="../asset/img/product_info1_desc1_img.png" alt="">
-                                                </div>
-
-                                                <div class="item-service-text">
-                                                    Miễn phí giao hàng
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-12 item-service">
-                                                <div class="item-service-img">
-                                                    <img src="../asset/img/product_info1_desc1_img.png" alt="">
-                                                </div>
-
-                                                <div class="item-service-text">
-                                                    Miễn phí giao hàng
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                  
@@ -454,7 +174,7 @@
         <section id="section-product-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-9 col-md-12 col-12 product-content-left">
+                    <div class="col-lg-12 col-md-12 col-12 product-content-left">
                         <div class="product-info-tab">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -663,164 +383,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-        
-                    <div class="col-lg-3 col-md-12 col-12 product-content-right">
-                        <div class="product-content-related">
-                            <div class="productDetail-related">
-                                <div class="productDetail-related-title">
-                                    <h2>Sản phẩm liên quan</h2>
-                                </div>
-
-                                <div class="productDetail-related-list">
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
