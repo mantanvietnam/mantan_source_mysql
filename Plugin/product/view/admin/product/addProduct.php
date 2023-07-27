@@ -30,6 +30,11 @@
                         </button>
                       </li>
                       <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
+                          Chính sách - Quy định
+                        </button>
+                      </li>
+                      <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
                           Hình ảnh
                         </button>
@@ -150,6 +155,16 @@
                             <div class="mb-3">
                               <label class="form-label">Thông tin mô tả về sản phẩm</label>
                               <?php showEditorInput('info', 'info', @$data->info);?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-rule" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label">Chính sách - Quy định áp dụng với sản phẩm</label>
+                              <?php showEditorInput('rule', 'rule', @$data->rule);?>
                             </div>
                           </div>
                         </div>

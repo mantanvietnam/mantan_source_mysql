@@ -88,14 +88,14 @@
                                                     <div class="product-detail-title">
                                                         <span>Số lượng</span>
                                                     </div>
-                                                    <button class="button-number-change" type="button">+</button>
-                                                    <input class="value-number" type="text" value="1">
-                                                    <button class="button-number-change" type="button">-</button>
+                                                    <button class="button-number-change" type="button" onclick="plusQuantity();">+</button>
+                                                    <input class="value-number" id="quantity_buy" type="text" value="1">
+                                                    <button class="button-number-change" type="button" onclick="minusQuantity();">-</button>
                                                 </div>
 
                                                 <div class="product-info-active">
                                                     <div class="product-button-group">
-                                                        <button type="button" onclick="addProductToCart(<?php echo $product->id;?>)" class="product-button-addcart">
+                                                        <button type="button" onclick="addProductCart(<?php echo $product->id;?>)" class="product-button-addcart">
                                                             <span>Thêm vào giỏ</span>
                                                         </button>
 
@@ -183,41 +183,11 @@
                                 <li class="nav-item" role="presentation">
                                   <button class="nav-link" id="pills-content2-tab" data-bs-toggle="pill" data-bs-target="#pills-content2" type="button" role="tab" aria-controls="pills-content2" aria-selected="false">Chính sách đổi trả</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="pills-content3-tab" data-bs-toggle="pill" data-bs-target="#pills-content3" type="button" role="tab" aria-controls="pills-content3" aria-selected="false">Điều khoản dịch vụ</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-content4-tab" data-bs-toggle="pill" data-bs-target="#pills-content4" type="button" role="tab" aria-controls="pills-content4" aria-selected="false">Điều khoản dịch vụ</button>
-                                </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-content1" role="tabpanel" aria-labelledby="pills-content1-tab" tabindex="0">
                                     <div class="intro-content">
-                                        Giải khát và bù năng lượng
-                                        <br>
-                                        Vị cafe thơm ngon
-                                        <br>
-                                        Thiết kế chai nhỏ tiện dụng
-                                        <br>
-                                        Sản xuất tại Việt Nam
-                                        <br>
-                                        Vinacafe là thương hiệu của Việt Nam
-                                        <br>
-                                        Dung tích 330ml
-                                        <br>
-                                        Thành phần và công dụng:
-                                        <br>
-                                        Sản phẩm có thành phần tự nhiên từ nước, đường, C02 thực phẩm, màu tổng hợp caramen, hương vani, hương cà phê, caffeine, taurine, inositol, vitamin B3, vitamin B6, chất điều chỉnh độ axit, muối, mùi vị thơm ngon, sảng khoái.
-                                        <br>
-                                        Nước tăng lực vị cà phê 247 Wake-up có thành phần nguyên liệu được lựa chọn kỹ lưỡng, không chứa hóa chất độc hại, an toàn cho người dùng.
-                                        <br>
-                                        Được sản xuất trên quy trình công nghệ hiện đại, được kiểm duyệt chặt chẽ đảm bảo chất lượng an toàn, không có đường hóa học, không chứa hóa chất độc hại, mang đến sự an tâm cho bạn.<br>Hướng dẫn sử dụng:
-                                        <br>
-                                        Uống trực tiếp, để lạnh uống ngon hơn.
-                                        <br
-                                        >Bảo quản:
-                                        <br>
-                                        Để nơi khô sạch, thoáng mát.
+                                        <?php echo $product->info;?>
                                     </div>
 
                                     <div class="button-show">
@@ -225,9 +195,15 @@
                                     </div>
                                 </div>
                                 
-                                <div class="tab-pane fade" id="pills-content2" role="tabpanel" aria-labelledby="pills-content2-tab" tabindex="0">...</div>
-                                <div class="tab-pane fade" id="pills-content3" role="tabpanel" aria-labelledby="pills-content3-tab" tabindex="0">...</div>
-                                <div class="tab-pane fade" id="pills-content4" role="tabpanel" aria-labelledby="pills-content4-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="pills-content2" role="tabpanel" aria-labelledby="pills-content2-tab" tabindex="0">
+                                    <div class="intro-content">
+                                        <?php echo $product->rule;?>
+                                    </div>
+
+                                    <div class="button-show">
+                                        <button id="toggleButton">Xem thêm</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
     
@@ -237,150 +213,65 @@
                                     <h2>Sản phẩm đã xem</h2>
                                 </div>
                                 <div class="product-featured-slide product-viewed-slide">
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
+                                    <?php
+                                    if(!empty($list_product_view)){
+                                        foreach ($list_product_view as $key => $value) {
+                                            $link = '/product/'.$value->slug.'.html';
+
+                                            $giam = 0;
+                                            if(!empty($value->price_old) && !empty($value->price)){
+                                                $giam = 100 - 100*$value->price/$value->price_old;
+                                            }
+
+                                            if($giam>0){
+                                                $giam = '<img src="'.$urlThemeActive.'/asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
+                                                            <div class="item-sale">
+                                                                <span><i class="fa-solid fa-bolt"></i> -'.$giam.'%</span>
+                                                            </div>';
+                                            }else{
+                                                $giam = '';
+                                            }
+
+                                            if(!empty($value->price)){
+                                                $price = number_format($value->price).'đ';
+                                            }else{
+                                                $price = 'Giá liên hệ';
+                                            }
+
+                                            if(!empty($value->price_old)){
+                                                $price_old = number_format($value->price_old).'đ';
+                                            }else{
+                                                $price_old = '';
+                                            }
+
+                                            echo '<div class="product-featured-item">
+                                                    <div class="product-featured-inner">
+                                                        <div class="product-featured-img">
+                                                            <a href="'.$link.'"><img src="'.$value->image.'" alt=""></a>
+                                                            '.$giam.'
+                                                        </div>
+                            
+                                                        <div class="product-featured-details">
+                                                            <div class="product-featured-title">
+                                                                <a href="'.$link.'">'.$value->title.'</a>
+                                                            </div>
+                                                            <div class="product-featured-price">
+                                                                <span class="price">'.$price.'</span>
+                                                                <span class="price-del">'.$price_old.'</span>
+                                                            </div> 
+                                                            <div class="product-button-action">
+                                                                <div class="product-button-cart">
+                                                                    <a onclick="addProductToCart('.$value->id.')" href="javascript:void(0);" class="button-cart">
+                                                                        <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
                                                     </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                
-                                    <div class="product-featured-item">
-                                        <div class="product-featured-inner">
-                                            <div class="product-featured-img">
-                                                <a href=""><img src="../asset/img/prod-1-1_4163197fc0be49fc93e5487ec6ac9a44_large.jpg" alt=""></a>
-                                                <img src="../asset/img/frame1_5f151d3f2bce42b99a356c60c1cf7864.jpg" alt="">
-                                                <div class="item-sale">
-                                                    <span><i class="fa-solid fa-bolt"></i> -12%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="product-featured-details">
-                                                <div class="product-featured-title">
-                                                    <a href="">Drink De Energy Health & Strength</a>
-                                                </div>
-                                                <div class="product-featured-price">
-                                                    <span class="price">35.000đ</span>
-                                                    <span class="price-del">25.000đ</span>
-                                                </div> 
-                                                <div class="product-button-action">
-                                                    <div class="product-button-cart">
-                                                        <a href="" class="button-cart">
-                                                            <i class="fa-solid fa-cart-shopping"></i><span>Thêm vào giỏ</span>    
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
+                                                </div>';
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -391,4 +282,33 @@
         </section>
     </main>
 
+<script type="text/javascript">
+    function plusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity++;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function minusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity--;
+        if(quantity<1) quantity=1;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function addProductCart(idProduct)
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+
+        $.ajax({
+            method: "GET",
+            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity;
+        })
+        .done(function( msg ) {
+            window.location = '/cart';
+        });
+    }
+</script>
 <?php getFooter();?>
