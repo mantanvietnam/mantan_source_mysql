@@ -76,19 +76,40 @@ $(document).ready(function(){
         ]
     });
 
+    // Đã xem
+
+    $('.productDetail-related-list').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows:true,
+      prevArrow:
+      `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
+      nextArrow:
+      `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
+    });
+   
+
     $('.productDetail-sub-slide').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        asNavFor: '.productDetail-main-slide',
-        focusOnSelect: true
-        });
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      asNavFor: '.productDetail-main-slide',
+      centerMode: true,
+      focusOnSelect: true,
+      prevArrow:
+      `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
+      nextArrow:
+      `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
+    });
 
     $('.productDetail-main-slide').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: true,
         fade: true,
-        asNavFor: '.productDetail-sub-slide'
+        asNavFor: '.productDetail-sub-slide',
+        prevArrow:
+        `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
+        nextArrow:
+        `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
     });
 
     //Chi tiết tin tức 
