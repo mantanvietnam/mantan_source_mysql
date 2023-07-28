@@ -425,7 +425,7 @@ function buyProductAPI($input)
 					$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
                     $order->member_id = $infoUserSell->id;
                     $order->product_id = $product->id;
-                    if(!empty(@$infoUserSell->commission)){
+                    if($infoUserSell->commission!= null){
                     	$order->total = ((int) @$infoUserSell->commission / 100) * $product->sale_price;
                 	}else{
                 		$order->total = (70 / 100) * $product->sale_price;
@@ -446,7 +446,7 @@ function buyProductAPI($input)
 						$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
 	                    $order->member_id = 0;
 	                    $order->product_id = $product->id;
-	                    if(!empty(@$infoUserSell->commission)){
+	                    if(@$infoUserSell->commission!= null){
 	                    	$order->total = ((100 - (int) @$infoUserSell->commission) / 100) * $product->sale_price;
 	                	}else{
 	                		$order->total = (30 / 100) * $product->sale_price;
