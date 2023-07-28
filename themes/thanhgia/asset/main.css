@@ -658,6 +658,27 @@ strong{
 
 
 /* title */
+
+#section-element .section-title:before{
+    background: #fff;
+}
+
+#section-element .section-title:before {
+    content: "";
+    width: 150px;
+    height: 1px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+#section-element .section-title:after{
+    background: #fff;
+}
+
 .section-title{
     position: relative;
     margin-bottom: 50px;
@@ -710,7 +731,7 @@ strong{
 
 
 .section-title a:hover{
-    color: #ee5c3a
+    color: #034440
 }
 /* Lý do */
 
@@ -1033,7 +1054,7 @@ strong{
 }
 
 #section-news-post .slide-home-news .home-news-item .news-item-title h3 a:hover{
-    color: #ee5c3a;
+    color: #034440;
 }
 
 
@@ -1068,7 +1089,7 @@ strong{
 }
 
 #section-news-post .slide-home-news .home-news-item .news-item-meta a:hover{
-    color: #ee5c3a
+    color: #034440
 }
 
 #section-news-post .slide-home-news .home-news-item{
@@ -1302,7 +1323,7 @@ strong{
 }
 
 .product-featured-title a:hover{
-    color: #ee5c3a
+    color: #034440
 }
 
 .product-featured-price {
@@ -1843,7 +1864,7 @@ position: relative;
 #section-contact-content .contact-box-left .contact-form .button-contact:before{
     content: '';
     display: block;
-    background-color: #ee5c3a;
+    background-color: #034440;
     position: absolute;
     left: -10%;
     top: -10%;
@@ -1958,7 +1979,7 @@ position: relative;
 }
 
 #section-news .post-box .post-box-detail .post-title a:hover{
-    color: #ee5c3a;
+    color: #034440;
     transition: all .3s linear;
 }
 
@@ -2067,7 +2088,7 @@ position: relative;
     line-height: 26px;
     text-align: center;
     border-radius: 100%;
-    background: #ee5c3a;
+    background: #034440;
     color: #fff;
     font-size: 12px;
     z-index: 1;
@@ -2103,7 +2124,7 @@ position: relative;
 }
 
 #section-news .post-new-detail .post-new-title a:hover{
-    color: #ee5c3a;
+    color: #034440;
     transition: all 0.3s linear 
 }
 
@@ -2137,7 +2158,7 @@ position: relative;
 }
 
 #section-news .menu-cat .menu-cat-lv0>a:hover{
-    color: #ee5c3a;
+    color: #034440;
     transition: all 0.3 linear;
 
 }
@@ -2203,7 +2224,7 @@ position: relative;
 }
 
 #section-news .menu-cat .menu-cat-list .menu-cat-lv0 .menu-cat-lv1 a:hover{
-    color: #ee5c3a
+    color: #034440
 }
 
 /* Tin tức chi tiết */
@@ -2314,7 +2335,7 @@ position: relative;
 }
 
 #section-news .detailNews-content .detailNews-move span a:hover{
-    color: #ee5c3a;
+    color: #034440;
 }
 
 /* Bài viết liên quan */
@@ -2627,7 +2648,7 @@ position: relative;
 #section-sign-in .box-sign-in .form-sign .sign-action button{
     text-transform: uppercase;
     font-weight: 600;
-    background-color: #ee5c3a;
+    background-color: #034440;
     height: 100%;
     color: #fff;
     border: none;
@@ -3736,7 +3757,7 @@ cursor: not-allowed;
 
 .button-filter-box button{
     width: 100%;
-    background-color: #ee5c3a;
+    background-color: #034440;
     color: #fff;
     border: none;
     height: 49px;
@@ -3959,8 +3980,8 @@ cursor: not-allowed;
     width: 100%;
     min-height: 50px;
     background: #fff;
-    border: 1px solid #e70505;
-    color: #e70505;
+    border: 1px solid #034440;
+    color: #034440;
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
@@ -3974,7 +3995,7 @@ cursor: not-allowed;
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
-    background-color: #e70505;
+    background-color: #034440;
     border: none;
 }
 
@@ -4256,6 +4277,7 @@ cursor: not-allowed;
 }
 /* ressponsive */
 
+
 /* he thong */
 @media (max-width: 426px){
     #section-branch .branch-content{
@@ -4274,4 +4296,15 @@ cursor: not-allowed;
         overflow: none;
         position: relative;
     }
+}
+
+
+/* bo sung */
+.pagination .page-item.active>.page-link{
+    background-color: #034440;
+    color: #fff;
+}
+
+.pagination .page-item .page-link{
+    color: #454545;
 }
