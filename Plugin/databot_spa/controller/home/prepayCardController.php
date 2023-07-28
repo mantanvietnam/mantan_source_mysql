@@ -77,4 +77,13 @@ function listPrepayCard($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function addPrepayCard($input){
+
+}
+
+function deletePrepayCard($input){
+
+}
+
  ?>

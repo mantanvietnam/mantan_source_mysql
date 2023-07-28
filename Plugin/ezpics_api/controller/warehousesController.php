@@ -838,6 +838,8 @@ function updateWarehouseAPI($input)
 			        $data->keyword = $dataSend['keyword'];
 			        $data->description = $dataSend['description'];
 
+			        $modelWarehouses->save($data);
+
 					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
 				
 				$return = array('code'=>1,
