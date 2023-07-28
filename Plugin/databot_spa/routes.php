@@ -55,4 +55,9 @@
 	$routesPlugin['addOrder']= 'databot_spa/view/home/order/addOrder.php';
 	$routesPlugin['deleteOrder']= 'databot_spa/view/home/order/deleteOrder.php';
 
+	$routesPlugin['listPrepayCard']= 'databot_spa/view/home/prepayCard/listPrepayCard.php';
+	$routesPlugin['addPrepayCard']= 'databot_spa/view/home/prepayCard/addPrepayCard.php';
+	$routesPlugin['deletePrepayCard']= 'databot_spa/view/home/prepayCard/deletePrepayCard.php';
+
+
 ?>

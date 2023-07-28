@@ -31,7 +31,7 @@
 	$routesPlugin['checkLoginGoogleAPI']= 'ezpics_api/view/checkLoginGoogleAPI.php';
 	$routesPlugin['checkLoginAppleAPI']= 'ezpics_api/view/checkLoginAppleAPI.php';
 	$routesPlugin['checkCodeAffiliateAPI']= 'ezpics_api/view/checkCodeAffiliateAPI.php';
-	$routesPlugin['updateLastLoginAPI']= 'ezpics_api/view/updateLastLoginAPI.php';
+	$routesPlugin['updateWarehouseAPI']= 'ezpics_api/view/updateWarehouseAPI.php';
 
 	// quên mật khẩu
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'ezpics_api/view/requestCodeForgotPasswordAPI.php';

@@ -792,7 +792,7 @@ function getListWarehouseDesignerAPI($input){
 	return $return;
 }
 
-function UpdateWarehouseAPI($input)
+function updateWarehouseAPI($input)
 {
 	global $controller;
 	global $isRequestPost;
@@ -806,72 +806,55 @@ function UpdateWarehouseAPI($input)
 	$return = array('code'=>0);
 	$modelWarehouses = $controller->loadModel('Warehouses');
 	$modelManagerFile = $controller->loadModel('ManagerFile');
-	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 	$modelMember = $controller->loadModel('Members');
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-	    if(!empty($dataSend['name']) && !empty($dataSend['token'])){
+	    if(!empty($dataSend['token'])){
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 			if(!empty($infoUser)){
-		        if(isset($_FILES['file']) && empty($_FILES['file']["error"])){
+		        // lấy kho 
+			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'user_id'=>$infoUser->id ))->first();
+			if(!empty($data)){
+				if(isset($_FILES['file']) && empty($_FILES['file']["error"])){
 		        	$thumbnail = uploadImage($infoUser->id, 'file');
-		        }else{
-		        	$thumbnail = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+		        	if(!empty($thumbnail['linkOnline'])){
+				        $thumbnail = $thumbnail['linkOnline'];
+
+				        // lưu vào database file
+				        $dataFile = $modelManagerFile->newEmptyEntity();
+						$dataFile->link = $thumbnail;
+				        $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+				        $dataFile->created_at = date('Y-m-d H:i:s');
+						$modelManagerFile->save($dataFile);
+						$data->thumbnail = $thumbnail;
+			    	}
 		        }
-
-	        	if(!empty($thumbnail['linkOnline'])){
-			        $thumbnail = $thumbnail['linkOnline'];
-
-			        // lưu vào database file
-			        $dataFile = $modelManagerFile->newEmptyEntity();
-					$dataFile->link = $thumbnail;
-			        $dataFile->user_id = $infoUser->id;
-			        $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
-			        $dataFile->created_at = date('Y-m-d H:i:s');
-					$modelManagerFile->save($dataFile);
-			    }
-			        $data = $modelWarehouses->newEmptyEntity();
-			        // tạo dữ liệu save
-			        $data->name = $dataSend['name'];
+		        	$data->name = $dataSend['name'];
 			        $data->user_id = $infoUser->id;
 			        $data->price = (int) $dataSend['price'];
 			        $data->date_use = (int) $dataSend['date_use'];
-			        $data->thumbnail = $thumbnail;
 			        $data->link_open_app = '';
 			        $data->keyword = $dataSend['keyword'];
 			        $data->description = $dataSend['description'];
-			      
 
-			        // tạo slug
-		            $slug = createSlugMantan($dataSend['name']);
-		            $slugNew = $slug;
-		            $number = 0;
-
-		            $conditions = array('slug'=>$slugNew);
-		        	$listData = $modelWarehouses->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-		        	if(!empty($listData)){
-		        		$number++;
-		        		$slugNew = $slug.'-'.$number;
-		        	}
-		            $data->slug = $slugNew;
-		            $data->status = 1;
-			        
-			        $modelWarehouses->save($data);
-
-			       $return = array('code'=>1,
-	                    				'data'=>$data,
-										'messages'=>array(array('text'=>'Bạn thêm kho mới thành công'))
-										);
+					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
+				
+				$return = array('code'=>1,
+								'data'=> $data,
+					 			'mess'=>'Bạn sửa thành công',
+					 		);
+			}else{
+				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
+			}
 			}else{
 			    $return = array('code'=>0,
-								'messages'=>array(array('text'=>'Bạn chưa đăng nhập'))
+								'mess'=>'Bạn chưa đăng nhập'
 								);
 			}
 		}else{
 			$return = array('code'=>2,
-							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+							'mess'=>'Gửi thiếu dữ liệu'
 							);
 		}
 	}
