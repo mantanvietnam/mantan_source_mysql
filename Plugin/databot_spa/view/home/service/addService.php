@@ -62,8 +62,8 @@
                       <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Ẩn
                   </div>
                    <div class="mb-3">
-                    <label class="form-label">Ảnh sản phẩm (*)</label>
-                    <?php showUploadFile('image','image',@$user->image,0);?>
+                    <label class="form-label">Ảnh dịch vụ</label>
+                    <?php showUploadFile('image','image',@$data->image,0);?>
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Giá </label>
@@ -74,7 +74,7 @@
                     <input  type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>"/>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Mô tả sản phẩm </label>
+                    <label class="form-label">Mô tả dịch vụ </label>
                     <textarea class="form-control phone-mask" rows="5" name="description"><?php echo @$data->description;?></textarea>
                   </div>
                 </div>
