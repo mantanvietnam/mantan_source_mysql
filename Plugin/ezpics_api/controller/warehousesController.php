@@ -847,10 +847,10 @@ function updateWarehouseAPI($input)
 					 			'mess'=>'Bạn sửa thành công',
 					 		);
 			}else{
-				$return = array('code'=>0, 'mess'=>'Kho không tồn tại');
+				$return = array('code'=>4, 'mess'=>'Kho không tồn tại');
 			}
 			}else{
-			    $return = array('code'=>0,
+			    $return = array('code'=>3,
 								'mess'=>'Bạn chưa đăng nhập'
 								);
 			}
