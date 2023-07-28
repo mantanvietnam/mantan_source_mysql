@@ -95,10 +95,11 @@ function createOrder($input)
 	global $isRequestPost;
 	global $session;
 	global $controller;
+	global $modelOptions;
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelOrder = $controller->loadModel('Orders');
-	$modelOrderDetail = $controller->loadModel('OrderDetail');
+	$modelOrderDetail = $controller->loadModel('OrderDetails');
 
 	if(!empty($_POST['full_name']) && !empty($_POST['phone']) && !empty($_POST['address'])){
 		$dataSend = $input['request']->getData();
@@ -143,15 +144,17 @@ function createOrder($input)
 
 			// gửi thông báo cho admin qua Smax bot
 			if(function_exists('sendNotificationAdmin')){
-    			$settingSmaxBotProduct = $modelOptions->find()->where(['type' => 'settingSmaxBotProduct'])->first();
-    			if(!empty($settingSmaxBotProduct->content)){
-			        $settingSmaxBotProduct = json_decode($settingSmaxBotProduct->content, true);
+    			$settingSmaxBotProduct = $modelOptions->find()->where(['key_word' => 'settingSmaxBotProduct'])->first();
+    			if(!empty($settingSmaxBotProduct->value)){
+			        $settingSmaxBotProduct = json_decode($settingSmaxBotProduct->value, true);
 
 			        if(!empty($settingSmaxBotProduct['idBlockNewOrder'])){
 			        	sendNotificationAdmin($settingSmaxBotProduct['idBlockNewOrder']);
 			        }
 			    }
 			}
+
+			$session->write('product_order', []);
 
 			return $controller->redirect('/cart/?error=create_order_done');
 		}else{
