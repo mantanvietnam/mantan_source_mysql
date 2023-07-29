@@ -2,17 +2,19 @@
 
 $menus = array();
 $menus[0]['title'] = 'Liên hệ';
-$menus[0]['sub'][0] = array('title' => 'Danh sách thông tin liên hệ',
-    'url'=>'/plugins/admin/contact-views-admin-index.php',
-    'classIcon' => 'menu-icon tf-icons bx bxs-data',
+$menus[0]['sub'][0] = array('title' => 'Danh sách liên hệ',
+                            'url'=>'/plugins/admin/contact-views-admin-listContactAdmin.php',
+                            'classIcon' => 'menu-icon tf-icons bx bxs-data',
+                            'permission'=>'listContactAdmin'
 );
 addMenuAdminMantan($menus);
 
-$categoryMenu[0]['title'] = 'Tài khoản';
+$categoryMenu[0]['title'] = 'Liên hệ';
 $categoryMenu[0]['sub'] = array(array ( 'url' => '/contact',
-                                    'name' => 'Liên hệ'
+                                        'name' => 'Liên hệ'
                                     ),
                             );
 
 
 addMenusAppearance($categoryMenu);
+?>

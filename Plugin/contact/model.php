@@ -1,4 +1,3 @@
 <?php
-namespace App\Model\Table;
-use Cake\ORM\Table;
-include_once("models/contactTable.php");
+include_once("models/contacts.php");
+?>

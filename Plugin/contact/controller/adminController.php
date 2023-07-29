@@ -1,84 +1,80 @@
 <?php
 
-use App\Model\Table\contactTable;
-
-function index()
-{
-    $table = new contactTable();
-    $data = [];
-    $list = $table
-        ->find()
-        ->order(["id" => "DESC"])
-        ->toArray();
-
-    $data["list"] = $list;
-    setVariable("data", $data);
-}
-
-function add()
-{
-    $data = "Hello";
-    setVariable("data", $data);
-}
-
-function store($input)
+function listContactAdmin($input)
 {
     global $controller;
-    global $isRequestPost;
+    global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
-    global $routesPlugin;
-    $svTable = new contactTable();
-    if ($isRequestPost) {
-        //Validate nếu cần
 
-        //Kết thúc validate
-        $data = $input["request"]->getData();
+    $metaTitleMantan = 'Danh sách liên hệ';
 
+    $modelContacts = $controller->loadModel('Contacts');
 
-        $svTable->insert($data);
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+    
+    $listData = $modelContacts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // phân trang
+    $totalData = $modelContacts->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
     }
-    return $controller->redirect("/plugins/admin/contact-views-admin-index.php");
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    
+    setVariable('listData', $listData);
 }
 
-function edit()
-{
-    if (isset($_GET["id"])) {
-        $id = (int)$_GET["id"];
-        $table = new contactTable();
-        $sv = $table->findID($id);
-        setVariable("data", $sv);
-    }
-}
-
-function update($input)
-{
+function deleteContact($input){
     global $controller;
-    global $isRequestPost;
-    global $modelCategories;
-    global $metaTitleMantan;
-    global $routesPlugin;
-    $svTable = new contactTable();
-    if ($isRequestPost) {
-        //Validate nếu cần
 
-        //Kết thúc validate
-        $data = $input["request"]->getData();
-        $svTable->updateItem($data);
+    $modelContacts = $controller->loadModel('Contacts');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelContacts->get($_GET['id']);
+        
+        if($data){
+            $modelContacts->delete($data);
+        }
     }
-    return $controller->redirect("/plugins/admin/contact-views-admin-index.php");
-}
 
-function delete()
-{
-    global $controller;
-    global $routesPlugin;
-    if (isset($_GET["id"])) {
-        $id = (int)$_GET["id"];
-        $table = new contactTable();
-        $sv = $table->deleteID($id);
-    }
-    return $controller->redirect("/plugins/admin/contact-views-admin-index.php");
+    return $controller->redirect('/plugins/admin/contact-views-admin-listContactAdmin.php');
 }
 
 ?>
