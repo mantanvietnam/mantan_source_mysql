@@ -9,7 +9,8 @@ global $key_transaction;
 global $keyFirebase;
 global $urlCreateImage;
 
-$urlCreateImage = 'http://14.225.238.137:3000/convert';
+//$urlCreateImage = 'http://14.225.238.137:3000/convert';
+$urlCreateImage = 'http://171.244.16.76:3000/convert';
 
 $number_bank = '06931228668';
 $name_bank = 'Tiên Phong Bank (TPB)';

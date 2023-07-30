@@ -17,7 +17,7 @@ function contact($input)
 
         $data = $modelContacts->newEmptyEntity();
 
-        if(!empty($dataSend['subject']) && !empty($data->name) && !empty($data->phone_number)){
+        if(!empty($dataSend['subject']) && !empty($dataSend['name']) && !empty($dataSend['phone_number'])){
             // tạo dữ liệu save
             $data->subject = $dataSend['subject'];
             $data->name = $dataSend['name'];
@@ -28,7 +28,9 @@ function contact($input)
             
             $modelContacts->save($data);
 
-            $mess = '<p class="text-danger">Lưu dữ liệu thành công</p>';
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        }else{
+            $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
         }
         
     }

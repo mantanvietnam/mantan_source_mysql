@@ -103,7 +103,9 @@
                     </ul>
                     <div class="menu-header-right d-flex">
                         <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <!--
                         <a class="icon-header" href="/login"><i class="fa-solid fa-user"></i></a>
+                        -->
                     </div>
                   </div>
                 </div>
