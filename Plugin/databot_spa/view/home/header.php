@@ -157,7 +157,11 @@
                 <div>Thẻ dịch vụ</div>
               </a>
               <ul class="menu-sub">
-               
+               <li class="menu-item">
+                  <a href="/listPrepayCard" class="menu-link">
+                    <div>Mệnh giá thẻ trả trước</div> 
+                  </a>
+                </li>
                 <li class="menu-item">
                   <a href="/listCombo" class="menu-link">
                     <div>Combo liệu trình</div> 

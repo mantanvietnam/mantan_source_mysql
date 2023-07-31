@@ -79,7 +79,66 @@ function listPrepayCard($input)
 }
 
 function addPrepayCard($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
 
+    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    if(!empty($session->read('infoUser'))){
+        $modelMembers = $controller->loadModel('Members');
+		$modelPrepayCard = $controller->loadModel('PrepayCards');
+        $infoUser = $session->read('infoUser');
+        
+        $modelTrademarks = $controller->loadModel('Trademarks');
+        $mess= '';
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelService->get( (int) $_GET['id']);
+
+        }else{
+            $data = $modelPrepayCard->newEmptyEntity();
+             $data->created_at = date('Y-m-d H:i:s');
+        }
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            if(!empty($dataSend['name'])){
+                // tạo dữ liệu save
+                $data->name = @$dataSend['name'];
+                $data->id_member = $infoUser->id_member;
+                $data->id_spa = (int) $infoUser->id_spa;
+                $data->status = @$dataSend['status'];
+                $data->price = @$dataSend['price'];
+                $data->discount_money = @$dataSend['discount_money'];
+                $data->total_price = @$dataSend['total_price'];
+                $data->special_price_momo = @$dataSend['special_price_momo'];
+                $data->note = @$dataSend['note'];
+                $data->use_time = @$dataSend['use_time'];                
+                
+                $modelPrepayCard->save($data);
+
+                $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+                 if(!empty($_GET['id'])){
+                    return $controller->redirect('/listPrepayCard?mess=2');
+                }else{
+                    return $controller->redirect('/listPrepayCard?mess=1');
+                }
+                
+            }else{
+                $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
+            }
+        }
+
+        setVariable('data', $data);
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function deletePrepayCard($input){
