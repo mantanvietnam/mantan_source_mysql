@@ -209,19 +209,7 @@
                 <div data-i18n="Add">Danh sách lượng người theo dõi</div>
               </a>
             </li>
-             <li class="menu-header small text-uppercase"><span class="menu-header-text">Khách hàng</span></li>
-            <li class="menu-item">
-              <a href="/listCustomer" class="menu-link">
-                <i class='bx bxs-user-detail' ></i> 
-                <div data-i18n="Add">Danh sách khách hàng</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="/listFollow" class="menu-link">
-                <i class='bx bxs-user-detail' ></i> 
-                <div data-i18n="Add">Danh sách lượng người theo dõi</div>
-              </a>
-            </li> <li class="menu-header small text-uppercase"><span class="menu-header-text">Thống kê</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Thống kê</span></li>
             <li class="menu-item">
               <a href="/chartFollow" class="menu-link">
                 <i class='bx bx-line-chart' ></i> 

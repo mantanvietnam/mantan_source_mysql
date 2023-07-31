@@ -70,6 +70,11 @@ $menus[0]['sub'][3]= array('title'=>'Giao dịch',
                                                 'classIcon'=>'bx bx-history',
                                                 'permission'=>'listTransactionHistoryBuyWarehouseEzpics',
                                             ),
+                                            array('title'=>'tạo nội dung',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryCreateConnetnEzpics.php',
+                                                'classIcon'=>'bx bx-history',
+                                                'permission'=>'listTransactionHistoryCreateConnetnEzpics',
+                                            ),
                                         
                                     )
                         );

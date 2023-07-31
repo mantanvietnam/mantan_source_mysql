@@ -151,6 +151,7 @@ function buyWarehousesAPI($input)
 
 							// trừ tiền tài khoản người mua
 							$infoUser->account_balance -= $Warehouse->price;
+							$infoUser->buyingMoney += $product->sale_price;
 							$modelMember->save($infoUser);
 
 							
@@ -185,6 +186,7 @@ function buyWarehousesAPI($input)
 
 							 // cộng tiền tài khoản bán
 					        $infoUserSell->account_balance += $order->total;
+			        		$infoUserSell->sellingMoney += $order->total;
 					        $modelMember->save($infoUserSell);
 
 

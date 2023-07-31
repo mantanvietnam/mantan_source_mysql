@@ -123,6 +123,7 @@
 	$routesPlugin['addNotificationProductAPI']= 'ezpics_api/view/addNotificationProductAPI.php';
 	$routesPlugin['copyLayerAPI']= 'ezpics_api/view/copyLayerAPI.php';
 	$routesPlugin['getInfoUserAPI']= 'ezpics_api/view/getInfoUserAPI.php';
+	$routesPlugin['addLayerImageUrlAPI']= 'ezpics_api/view/addLayerImageUrlAPI.php';
 
 	//FollowDesigner
 	$routesPlugin['addFollowDesignerAPI']= 'ezpics_api/view/addFollowDesignerAPI.php';

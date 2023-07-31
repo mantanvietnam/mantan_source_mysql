@@ -106,7 +106,7 @@
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <?php
-            if($totalPage>0){
+            if(@$totalPage>0){
                 if ($page > 5) {
                     $startPage = $page - 5;
                 } else {

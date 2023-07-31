@@ -52,13 +52,12 @@
   <div class="card row">
     <div class="row">
       <div class="col-md-6">
-        <h5 class="card-header">Giao dịch rút tiền - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
+        <h5 class="card-header">Giao dịch tạo nội dung - <b class="text-danger"><?php echo number_format($totalData);?></b> giao dịch</h5>
       </div>
       <div class="col-md-6">
         <h5 class="card-header" style="float: right;">Tổng số tiền là   <b class="text-danger"><?php echo number_format($totalMoney);?></b> đ</h5>
       </div>
     </div>
-    <?php echo @$mess; ?>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -69,6 +68,7 @@
               <th>Mã giao dịch</th>
               <th>Số tiền</th>
               <th>Người dùng</th>
+              <th>Mẫu thiết kế</th>
               <th>Trạng thái</th>
             </tr>
           </thead>
@@ -81,12 +81,10 @@
                     $status = '<span class="text-success">Đã xử lý</span>';
                   }
 
-                   if($item->total >= 500000 && $item->status==1){
-                     $total = ' <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Xem chi tiết yêu cầu rút tiền" data-bs-toggle="modal"
-                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
-                   }else{
-                       $total = '';
-                   }
+                  $product = '';
+                  if(!empty($item->product)){
+                    $product = '<img src="'.$item->product->image.'" width="100" /><br/>ID: '.$item->product->id;
+                  }
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
@@ -96,13 +94,13 @@
                           
                           <td>
                             '.$item->member->name.'<br/>
-                            <a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->member->id.'">'.$item->member->phone.'</a><br/>
-                            '.$item->member->email.'<br/>
-                            Số dư '.number_format($item->member->account_balance).' đ<br/>
-                            Số bán: '.number_format($item->member->sellingMoney).' đ
+                            '.$item->member->phone.'<br/>
+                            '.$item->member->email.'
                           </td>
                           
-                          <td style="text-align: center;">'.$status.'</br>'.@$total.'</td>
+                          <td>'.$product.'</td>
+
+                          <td>'.$status.'</td>
                           
                           
                         </tr>';
@@ -126,12 +124,10 @@
               if($item->status==2){
                 $status = '<span class="text-success">Đã xử lý</span>';
               }
-               if($item->total >= 500000 && $item->status==1){
-                     $total = ' <a class="btn rounded-pill btn-icon btn-outline-secondary" title="Sử lý" data-bs-toggle="modal"
-                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
-                   }else{
-                       $total = '';
-                   }
+              $product = '';
+                  if(!empty($item->product)){
+                    $product = '<img src="'.$item->product->image.'" style= "width: 100%" /><br/>ID: '.$item->product->id;
+                  }
 
 
 
@@ -141,17 +137,16 @@
                           <p><b>Mã giao dịch: </b>'.$item->code.'</p>
                           <p><b>Số tiền: </b>'.number_format($item->total).'</p>
                           
-                          <p><b>Người dùng:</b><br/>
+                          <p><b>Người bán:</b><br/>
                             '.$item->member->name.'<br/>
-                            <a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->member->id.'">'.$item->member->phone.'</a><br/>
-                            '.$item->member->email.'<br/>
-                            Số dữ '.number_format($item->member->account_balance).' đ<br/>
-                            Số bán: '.number_format($item->member->sellingMoney).' đ
+                            '.$item->member->phone.'<br/>
+                            '.$item->member->email.'
                           </p>
-                          
-                          <p><b>Nội dung: </b>'.$item->note.'</p>total
+                           <p><b>Mẫu</b><br/>
+                            '.$product.'
+                           </p>
+                          <p><b>Nội dung: </b>'.$item->note.'</p>
                           <p><b>Trạng thái: </b>'.$status.'</p>
-                          <p>'.$status.'</p>
                           
                           
                </div>';
@@ -206,48 +201,6 @@
         </ul>
       </nav>
     </div>
-     <div class="col-lg-4 col-md-6">
-                      <!-- <small class="text-light fw-semibold">Default</small> -->
-                      <div class="mt-3">
-                        <!-- Button trigger modal -->
-                        
-                        <!-- Modal -->
-                      <?php  if(!empty($listData)){
-              foreach ($listData as $items) { ?>
-                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
-                                
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin rút tiền </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
-                              </div>
-
-                            <div style=" padding: 20px; ">
-                              <p><label>ID:</label> <?php echo $items->id ?></p>
-                              <p><label>MÃ giao dịch:</label> <?php echo $items->code ?></p>
-                              <p><label>Tên:</label> <?php echo $items->member->name ?></p>
-                              <p><label>Điện thoại:</label> <?php echo $items->member->phone ?></p>
-                              <p><label>Email:</label> <?php echo $items->member->email ?></p>
-                              <p><?php echo $items->note; ?></p>
-                              <p><label>Số dư tài khoản:</label> <?php echo number_format($items->member->account_balance); ?>  VNĐ</p>
-                              <p><label>Số được phép rút:</label> <?php echo number_format($items->member->sellingMoney); ?>  VNĐ</p>
-                              <p><label>Số tiền rút:</label> <?php echo number_format($items->total); ?>  VNĐ</p>
-                              <?php if ($items->member->sellingMoney >= $items->total){ ?>
-                                <a class="btn btn-primary" onclick="return confirm(\'Bạn có chắc chắn muốn sử lý giao dịch này không?\');" href="/plugins/admin/ezpics_admin-view-admin-transaction-transactioncMoneyEzpics.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận chuyển tiền</a>
-                              <?php }else{
-                                      echo '<p class="text-danger">Tài khoản này không đủ tiền để rút!</p>';
-                                } ?>
-                              
-                            </div>
-                             
-                              
-                            </div>
-                          </div>
-                        </div>
-                      <?php }} ?>
-                      </div>
-                    </div>
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->

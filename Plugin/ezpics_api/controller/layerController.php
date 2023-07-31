@@ -227,6 +227,75 @@ function addLayerImageAPI($input){
 
 }
 
+// addLayerImageUrl
+function addLayerImageUrlAPI($input){
+    global $isRequestPost;
+    global $controller;
+    $return = array('code'=>0);
+
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    $modelMember = $controller->loadModel('Members');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+    $modelProduct = $controller->loadModel('Products');
+    if($isRequestPost){
+    	$dataSend = $input['request']->getData();
+
+	    $user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+	    if(!empty($user)){
+	            if(!empty($dataSend['imageUrl'])){
+
+		            $f = $modelManagerFile->newEmptyEntity();
+		            
+		            $f->link = $dataSend['imageUrl'];
+		            $f->user_id = $user->id;
+		            $f->type = 0; // 0 là user up, 1 là cap, 2 là payment   
+		            $f->created_at = date('Y-m-d H:i:s');
+		            
+		            $modelManagerFile->save($f);
+
+		            $productDetail = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idproduct']))->all()->toList();
+		            $idlayer = count($productDetail)+1;
+
+		            // layer mới
+		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
+		            if(!empty($product)){
+			            $sizeBackground = getimagesize($product->thumn);
+
+			            $tyle = $sizeBackground[0]*100/30;
+			            if($tyle>30) $tyle = 30;
+
+			            $new = $modelProductDetail->newEmptyEntity();
+			            
+			            $new->name = 'Layer '.$idlayer;
+			            $new->products_id = $dataSend['idproduct'];
+			            $new->content = json_encode(getLayer($idlayer,'image',$dataSend['imageUrl'],$tyle, $tyle));
+			            $new->sort = $idlayer;
+			            
+			            $new->created_at = date('Y-m-d H:i:s');
+			            
+			            $modelProductDetail->save($new);
+			                
+			            $new->content = json_decode($new->content , true);
+			            $return = array('code'=>1, 'data'=>$new, 'mess'=>'Bạn thêm ảnh thành công');
+			         }else{
+			        	 $return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+			        }
+				
+		        }else{
+		           $return = array('code'=>0, 'mess'=>'Bạn không có ảnh');
+				
+		        }
+		    }else{
+		       $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+				
+		    } 
+
+		}
+	
+	return $return;
+
+}
 
 //thay ảnh có sắn trên server
 function changeLayerImageAPI($input){

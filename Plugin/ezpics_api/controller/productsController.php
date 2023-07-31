@@ -402,10 +402,12 @@ function buyProductAPI($input)
 				
 					// trừ tiền tài khoản mua
 					$infoUser->account_balance -= $product->sale_price;
+					$infoUser->buyingMoney += $product->sale_price;
 					$modelMember->save($infoUser);
 
 					// cập nhập số lần bán sản phẩm
 					$product->sold ++;
+
 					$modelProduct->save($product);
 
 					// tạo đơn mua hàng của người mua (lịch sử giao dịch)
@@ -438,6 +440,7 @@ function buyProductAPI($input)
 
                     // cộng tiền tài khoản bán
 			        $infoUserSell->account_balance += $order->total;
+			        $infoUserSell->sellingMoney += $order->total;
 			        $modelMember->save($infoUserSell);
 
                     // tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
@@ -856,3 +859,166 @@ function getSizeProductAPI($input)
 {
 	return getSizeProduct();
 }
+
+function detailSeriesAPI($input)
+{
+	global $controller;
+	global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMembers = $controller->loadModel('Members');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+	
+		if(!empty($input['request']->getAttribute('params')['pass'][1])){
+			$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+			$slug = explode('-', $slug);
+			$count = count($slug)-1;
+			$id = (int) $slug[$count];
+
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				$product->views ++;
+				$modelProduct->save($product);
+
+				$user = $modelMembers->get($product->user_id);
+
+				if(!empty($product->thumbnail)){
+					$product->image = $product->thumbnail;
+				}
+
+				$metaTitleMantan = 'Mẫu thiết kế: '.$product->name;
+				$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
+				$metaImageMantan = $product->image;
+
+				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+				$dataOther = $modelProduct->find()->where(array('category_id'=>$product->category_id,  $product->type == 'user_series', 'status'=>1))->all()->toList();
+
+				setVariable('product', $product);
+				setVariable('user', $user);
+				setVariable('listLayer', $listLayer);
+			}else{
+				return $controller->redirect('https://ezpics.vn');
+			}
+		}else{
+			return $controller->redirect('https://ezpics.vn');
+		}
+	}
+}
+
+function createImageSeriesAPI($input)
+{
+	global $controller;
+	global $urlCreateImage;
+	global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
+	global $response;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+
+	$dataImage = '';
+	
+	if(!empty($_REQUEST['id'])){
+		$id = (int) $_REQUEST['id'];
+
+		$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+			$product->export_image ++;
+			$modelProduct->save($product);
+
+			$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
+
+			$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+			$listRemoveImage = [];
+			if(!empty($listLayer)){
+        		foreach ($listLayer as $layer) {
+        			$content = json_decode($layer->content, true);
+
+        			if(!empty($content['variable'])){
+        				if(!empty($_REQUEST[$content['variable']])){
+    						$urlThumb .= '&'.$content['variable'].'='.$_REQUEST[$content['variable']];
+    					}
+
+        				if($content['type'] == 'image'){
+        					if(isset($_FILES[$content['variable']]) && empty($_FILES[$content['variable']]["error"])){
+					            $image = uploadImageFTP($product->user_id, $content['variable'], $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
+					            if(!empty($image['linkOnline'])){
+					            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
+
+					            	$listRemoveImage[] = '/public_html/'.@$image['linkLocal'];
+					            }
+					        }
+        				}
+        			}
+        		}
+        	}
+
+        	if(!empty($_GET['id'])){
+        		$max = 1500;
+	        	if($product->width<=$max && $product->height<=$max){
+	        		$width = $product->width;
+	        		$height = $product->height;
+	        	}else{
+	        		if($product->width > $product->height){
+	        			$width = $max;
+	        			$tyle = $width/$product->width;
+	        			$height = round($tyle*$product->height);
+	        		}else{
+	        			$height = $max;
+	        			$tyle = $height/$product->height;
+	        			$width = round($tyle*$product->width);
+	        		}
+	        	}
+	        }else{
+	        	$width = $product->width;
+	        	$height = $product->height;
+	        }
+        	
+			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
+		
+	        $dataImage = sendDataConnectMantan($url);
+
+	        // xóa ảnh người dùng up lên sau khi chụp xong
+	        if(!empty($listRemoveImage)){
+	        	foreach ($listRemoveImage as $item) {
+	        		removeFileFTP($item, $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
+	        	}
+	        }
+
+	        if(!empty($_GET['id'])){ 
+	        	//$dataImage = compressImageBase64($dataImage);
+
+	        	// Giải mã dữ liệu base64
+				$imageData = base64_decode($dataImage);
+
+				// Kiểm tra nếu dữ liệu ảnh hợp lệ
+				if ($imageData !== false) {
+					header('Content-Type: image/png');
+					echo $imageData;
+					$controller->autoRender = false;
+				}
+	        }
+		}
+		
+		setVariable('dataImage', $dataImage);
+		setVariable('id', $id);
+		setVariable('slug', $product->slug);
+	}else{
+		return $controller->redirect('https://ezpics.vn');
+	}
+}
+
+
+?>
