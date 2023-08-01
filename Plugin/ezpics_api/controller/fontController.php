@@ -113,7 +113,13 @@ function addFontAdmin($input)
 
 
         if(!empty($dataSend['name'])){
-            $checkName = $modelFont->find()->where(['name'=>$dataSend['name']])->first();
+            $conditionsCheck = ['name'=>$dataSend['name']];
+
+            if(!empty($_GET['id'])){
+                $conditionsCheck['id !='] = (int) $_GET['id'];
+            }
+
+            $checkName = $modelFont->find()->where($conditionsCheck)->first();
 
             if(empty($checkName)){
                 // tạo dữ liệu save
