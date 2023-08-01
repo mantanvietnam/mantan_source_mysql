@@ -402,7 +402,6 @@ function buyProductAPI($input)
 				
 					// trừ tiền tài khoản mua
 					$infoUser->account_balance -= $product->sale_price;
-					$infoUser->buyingMoney += $product->sale_price;
 					$modelMember->save($infoUser);
 
 					// cập nhập số lần bán sản phẩm

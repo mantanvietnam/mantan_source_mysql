@@ -418,7 +418,6 @@ function removeBackgroundLayer($input)
 
                         // trừ tiền tài khoản
                         $infoUser->account_balance -= $price_remove_background;
-                        $infoUser->buyingMoney += $price_remove_background;
                         $modelMember->save($infoUser);
 
                         // lưu lịch sử giao dịch

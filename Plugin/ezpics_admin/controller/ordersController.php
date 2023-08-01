@@ -1041,19 +1041,18 @@ function plusMoneyEzpics(){
 
 
 	foreach($listData as $key => $item){
-		$listOrder = $modelOrders->find()->where(['member_id'=>$item->id])->all()->toList();
+		$listOrder = $modelOrders->find()->where(['member_id'=>$item->id, 'status'=>2])->all()->toList();
 		if(!empty($listOrder)){
 			$item->sellingMoney = 0;
 			$item->buyingMoney = 0;
 			foreach($listOrder as $k => $Order){
 				if($Order->type==3 || $Order->type==8){
 					$item->sellingMoney += $Order->total;
-				}elseif($Order->type== 0 || $Order->type== 4 || $Order->type== 6 ||$Order->type== 7){
+				}elseif($Order->type== 1 ){
 					$item->buyingMoney += $Order->total;
-					debug($Order);
 				}
 			}
-			//$modelMembers->save($item);
+			$modelMembers->save($item);
 			$listData[$key] = $item;
 		}
 	}

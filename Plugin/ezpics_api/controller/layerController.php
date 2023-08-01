@@ -279,15 +279,15 @@ function addLayerImageUrlAPI($input){
 			            $new->content = json_decode($new->content , true);
 			            $return = array('code'=>1, 'data'=>$new, 'mess'=>'Bạn thêm ảnh thành công');
 			         }else{
-			        	 $return = array('code'=>0, 'mess'=>'Sản phẩm này không dùng');
+			        	 $return = array('code'=>4, 'mess'=>'Sản phẩm này không dùng');
 			        }
 				
 		        }else{
-		           $return = array('code'=>0, 'mess'=>'Bạn không có ảnh');
+		           $return = array('code'=>3, 'mess'=>'Bạn không có ảnh');
 				
 		        }
 		    }else{
-		       $return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
+		       $return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
 				
 		    } 
 
