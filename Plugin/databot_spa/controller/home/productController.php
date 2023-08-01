@@ -11,7 +11,6 @@ function listCategoryProduct($input){
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            
             // tính ID category
             if(!empty($dataSend['idCategoryEdit'])){
                 $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
@@ -43,9 +42,7 @@ function listCategoryProduct($input){
             }while (!empty($listData));
 
             $infoCategory->slug = $slugNew;
-
             $modelCategories->save($infoCategory);
-
         }
 
         $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
@@ -280,7 +277,6 @@ function addProduct($input){
             $data = $modelProducts->newEmptyEntity();
              $data->created_at = date('Y-m-d H:i:s');
         }
-
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();

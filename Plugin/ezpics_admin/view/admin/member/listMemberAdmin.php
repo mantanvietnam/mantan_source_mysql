@@ -136,9 +136,9 @@
                             '.$pro.'
 
                           </td>
-                          <td style="width: 16%;">Số dư: '.number_format($item->account_balance).'đ <br/>
-                              số tiền bán: '.number_format($item->sellingMoney).'đ<br/>
-                              Số tiền nạp: '.number_format($item->buyingMoney).'đ<br/>
+                          <td style="width: 16%;">Số dư: '.number_format(@$item->account_balance).'đ <br/>
+                              số tiền bán: '.number_format(@$item->sellingMoney).'đ<br/>
+                              Số tiền nạp: '.number_format(@$item->buyingMoney).'đ<br/>
                               SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
                               SL kho: '.number_format($item->totaWarehouse).'<br/>
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'
@@ -204,8 +204,8 @@
                           </p>
                           <p><b>Thống kê:</b> <br/>
                           Số dư: '.number_format($item->account_balance).'đ <br/>
-                              số tiền bán: '.number_format($item->sellingMoney).'đ<br/>
-                              Số tiền nạp: '.number_format($item->buyingMoney).'đ<br/>
+                              số tiền bán: '.number_format(@$item->sellingMoney).'đ<br/>
+                              Số tiền nạp: '.number_format(@$item->buyingMoney).'đ<br/>
                               SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
                               SL kho: '.number_format($item->totaWarehouse).'<br/>
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'

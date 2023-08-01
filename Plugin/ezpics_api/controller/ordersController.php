@@ -413,7 +413,7 @@ function memberBuyProAPI($input){
 				$modelOrder->save($order);
 				$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 			}else{
-				$return = array('code'=>2, 'mess'=>'Tài khoản không đủ tiền');
+				$return = array('code'=>3, 'mess'=>'Tài khoản không đủ tiền');
 			}
 		}else{
 			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');

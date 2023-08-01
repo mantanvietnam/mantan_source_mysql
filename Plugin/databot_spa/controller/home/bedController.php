@@ -12,6 +12,8 @@ function listBed($input){
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
 
+
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
             
@@ -33,12 +35,15 @@ function listBed($input){
             return $controller->redirect('/listBed');
 
         }
-
+      
         $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa);
         $listData = $modelBed->find()->where($conditions)->order(['id_room'=>'desc'])->all()->toList();
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
-                $listData[$key]->room = $modelRoom->find->where(['id'=>$value->id_room])->first();
+                $room = $modelRoom->find()->where(['id'=>$value->id_room])->first();
+                if(!empty($room)){
+                    $listData[$key]->room = $room;
+                }
             }
         }
         $listRoom = $modelRoom->find()->where($conditions)->all()->toList();

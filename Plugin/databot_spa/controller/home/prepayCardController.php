@@ -12,7 +12,6 @@ function listPrepayCard($input)
 	$infoUser = $session->read('infoUser');
 	if(!empty($infoUser)){
 
-
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa);
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -22,8 +21,6 @@ function listPrepayCard($input)
 		if(!empty($_GET['id'])){
 			$conditions['id'] = (int) $_GET['id'];
 		}
-
-		
 
 		if(!empty($_GET['status'])){
 			$conditions['status'] = $_GET['status'];
@@ -97,7 +94,7 @@ function addPrepayCard($input){
 
         // lấy data edit
         if(!empty($_GET['id'])){
-            $data = $modelService->get( (int) $_GET['id']);
+            $data = $modelPrepayCard->get( (int) $_GET['id']);
 
         }else{
             $data = $modelPrepayCard->newEmptyEntity();
@@ -106,7 +103,6 @@ function addPrepayCard($input){
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-
             if(!empty($dataSend['name'])){
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
@@ -142,7 +138,24 @@ function addPrepayCard($input){
 }
 
 function deletePrepayCard($input){
+    global $controller;
+    global $session;
+    $modelPrepayCard = $controller->loadModel('PrepayCards');
+    $infoUser = $session->read('infoUser');
+    if(!empty($infoUser)){
+    
+        if(!empty($_GET['id'])){
+            $data = $modelPrepayCard->get($_GET['id']);
+            
+            if($data){
+                $modelPrepayCard->delete($data);
+            }
+        }
 
+        return $controller->redirect('/listPrepayCard');
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
  ?>
