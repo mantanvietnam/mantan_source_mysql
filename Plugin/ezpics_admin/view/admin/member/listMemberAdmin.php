@@ -106,6 +106,13 @@
                     $type = 'Designer <br/>CK: '.$item->commission;
                   }
 
+                  if($item->member_pro==1){
+                    $pro = 'Bản PRO <br/>ngày hết hạn: '.$item->deadline_pro;
+                  }else{
+                    $pro = 'Bản thường';
+                  }
+
+
                   $status = 'Kích hoạt <br/>
                    <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
@@ -125,7 +132,9 @@
                             '.$item->phone.'<br/>
                             '.$item->email.'<br/>
                             Đăng ký: '.$item->created_at.'<br/>
-                            Đăng nhập lần cuối lúc: '.$item->last_login.'
+                            Đăng nhập lần cuối lúc: '.$item->last_login.'<br/>
+                            '.$pro.'
+
                           </td>
                           <td style="width: 16%;">Số dư: '.number_format($item->account_balance).'đ <br/>
                               số tiền bán: '.number_format($item->sellingMoney).'đ<br/>
