@@ -101,7 +101,7 @@ function listRoomBed($input){
         }
 
 
-
+        setVariable('listData', $listData);
 
     }else{
         return $controller->redirect('/login');
