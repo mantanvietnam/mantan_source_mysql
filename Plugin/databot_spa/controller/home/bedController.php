@@ -78,4 +78,33 @@ function deleteBed($input){
         return $controller->redirect('/login');
     }
 }
+
+function listRoomBed($input){
+        global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Danh sách danh Phòng';
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa);
+        $listData = $modelRoom->find()->where($conditions)->all()->toList();
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $listData[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa))->all()->toList();
+            }
+        }
+
+
+        setVariable('listData', $listData);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
  ?>
