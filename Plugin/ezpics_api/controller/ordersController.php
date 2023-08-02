@@ -385,9 +385,11 @@ function orderCreateContentAPI($input){
 function memberBuyProAPI($input){
 	global $isRequestPost;
 	global $controller;
+	global $price_pro;
 
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 
 	$return = array('code'=>0);
 	
@@ -395,9 +397,21 @@ function memberBuyProAPI($input){
 		$dataSend = $input['request']->getData();	
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
+		if(!empty($dataSend['discountCode'])){
+
+		$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
+
+			if(!empty($discountCode)){
+				$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+			}else{
+				return array('code'=>4, 'mess'=>'Bạn nhập mã không dùng');
+			}
+
+		}
+
 		if(!empty($user)){
-			if($user->account_balance >=99000){
-				$user->account_balance -= 99000;
+			if($user->account_balance >=$price_pro){
+				$user->account_balance -= $price_pro;
 				$user->member_pro = 1;
 				$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
 				$modelMember->save($user);
@@ -405,7 +419,7 @@ function memberBuyProAPI($input){
 				$order = $modelOrder->newEmptyEntity();
 				$order->code = 'W'.time().$user->id.rand(0,10000);
 				$order->member_id = $user->id;
-				$order->total = 99000;
+				$order->total = $price_pro;
 				$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
 				$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
 				$order->meta_payment = 'Mua phiêu bản Pro';

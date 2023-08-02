@@ -159,6 +159,11 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                                 'classIcon'=>'bx bx-category',
                                                 'permission'=>'listCategoryEzpics',
                                             ),
+                                        array('title'=>'Mã giảm giá',
+                                            'url'=>'/plugins/admin/ezpics_admin-view-admin-discountCode-listDiscountCodeAdmin.php',
+                                            'classIcon'=>'bx bx-category',
+                                            'permission'=>'listDiscountCodeAdmin',
+                                        ),
                                     )
                         );
 $menus[0]['sub'][8]= array( 'title'=>'Thống kê',

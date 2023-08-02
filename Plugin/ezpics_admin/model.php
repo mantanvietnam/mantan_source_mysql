@@ -10,4 +10,5 @@ include('model/font.php'); // phông chữ
 include('model/warehouses.php'); // kho mẫu thiết kế
 include('model/follow_designers.php'); // theo dõi designer
 include('model/questions.php'); // câu hỏi
+include('model/discount_code.php'); // mã giảm giá
 ?>

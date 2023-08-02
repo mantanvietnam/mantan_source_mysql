@@ -8,6 +8,7 @@ global $link_qr_bank;
 global $key_transaction;
 global $keyFirebase;
 global $urlCreateImage;
+global $price_pro;
 
 //$urlCreateImage = 'http://14.225.238.137:3000/convert';
 $urlCreateImage = 'http://171.244.16.76:3000/convert';
@@ -30,6 +31,7 @@ addMenuAdminMantan($menus);
 
 $price_remove_background = 0;
 $price_create_content = 1000;
+$price_pro = 999000;
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 
