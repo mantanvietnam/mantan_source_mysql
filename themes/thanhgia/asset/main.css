@@ -932,6 +932,13 @@ strong{
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: none;
+    transition: all 0.5s linear;
+
+}
+
+#section-home-intro .home-intro-content .home-intro-view a:hover{
+    background-color: #057a73;
+    transition: all 0.5s linear;
 }
 
 /* Chi tiết và đóng gói */
@@ -1550,6 +1557,16 @@ strong{
 }
 
 @media (max-width: 426px){
+    /* trng chu */
+    .section-title h2, .section-title a {
+        font-size: 27px
+    }
+
+    #section-home-intro .home-intro-content .home-intro-title{
+        font-size: 23px;
+        margin-top: 13px;
+    }
+
     /* header menu */
     #topbar {
         height: auto;
@@ -1864,7 +1881,7 @@ position: relative;
 #section-contact-content .contact-box-left .contact-form .button-contact:before{
     content: '';
     display: block;
-    background-color: #034440;
+    background-color: #057a73;
     position: absolute;
     left: -10%;
     top: -10%;
@@ -1874,6 +1891,8 @@ position: relative;
     transform: skewX(15deg);
     transition: width 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86)
 }
+
+
 
 #section-contact-content .contact-box-left .contact-form .button-contact:hover:before{
     width: 120%;
@@ -3976,6 +3995,33 @@ cursor: not-allowed;
     margin-bottom: 20px;
 }
 
+.product-info-active .product-button-group .product-button-buynow{
+    position: relative;    
+    z-index: 1;
+    overflow: hidden;
+    transition:all 0.5s linear;
+}
+
+.product-info-active .product-button-group .product-button-buynow::before{
+    content: '';
+    display: block;
+    background-color: #057a73;
+    position: absolute;
+    left: -10%;
+    top: -10%;
+    bottom: -10%;
+    width: 0;
+    z-index: -1;
+    transform: skewX(15deg);
+    transition: width 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86)
+}
+
+.product-info-active .product-button-group .product-button-buynow:hover:before{
+    width: 120%;
+}
+
+
+
 .product-info-active .product-button-group .product-button-addcart{
     width: 100%;
     min-height: 50px;
@@ -3985,6 +4031,34 @@ cursor: not-allowed;
     font-weight: 600;
     font-size: 15px;
     text-transform: uppercase;
+    position: relative;    
+    z-index: 1;
+    overflow: hidden;
+    transition:all 0.5s linear;
+
+}
+
+.product-info-active .product-button-group .product-button-addcart::before{
+    content: '';
+    display: block;
+    background-color: #034440;
+    position: absolute;
+    left: -10%;
+    top: -10%;
+    bottom: -10%;
+    width: 0;
+    z-index: -1;
+    transform: skewX(15deg);
+    transition: width 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86)
+}
+
+.product-info-active .product-button-group .product-button-addcart:hover:before{
+    width: 120%;
+}
+
+.product-info-active .product-button-group .product-button-addcart:hover{
+    color: #fff;
+    transition:all 0.5s linear;
 }
 
 .product-info-active .product-button-group .product-button-buynow{
