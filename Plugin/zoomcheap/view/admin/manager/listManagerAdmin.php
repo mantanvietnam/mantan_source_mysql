@@ -45,10 +45,10 @@
           <tr class="">
             <th>ID</th>
             <th>Họ và tên</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
+            <th>Liên hệ</th>
+            <th>Số dư</th>
+            <th>Thuê zoom</th>
+            <th colspan="3">Lựa chọn</th>
           </tr>
         </thead>
         <tbody>
@@ -58,17 +58,25 @@
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.$item->fullname.'</td>
-                        <td>'.$item->phone.'</td>
-                        <td>'.$item->email.'</td>
-                        <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addManagerAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
+                        <td>
+                          '.$item->phone.' 
+                          </br>
+                          '.$item->email.' 
+                        </td>
+                        <td>'.$item->coin.'</td>
+                        <td>
+                         
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/zoomcheap-view-admin-manager-deleteManager.php/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
+                          <a> + Nạp tiền </a>
+                        </td>
+
+                        <td align="center">
+                          <a> - Trừ tiền </a>
+                        </td>
+
+                        <td align="center">
+                          <a>Đổi pass </a>
                         </td>
                       </tr>';
               }
