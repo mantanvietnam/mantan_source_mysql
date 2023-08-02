@@ -154,4 +154,3 @@ function deleteDiscountCodeAdmin($input){
     return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-discountCode-listDiscountCodeAdmin.php?status=3');
 }
 ?>
- ?>

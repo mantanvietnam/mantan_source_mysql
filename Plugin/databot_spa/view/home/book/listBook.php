@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Đặt lịch hẹn</h4>
-  <p><a href="/addOrder" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addBook" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -54,7 +54,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách Đặt lịch hẹn</h5>
     <div class="table-responsive">
-      <table class="table table-bordered">
+      <table class="table table-bBooked">
         <thead>
           <tr class="">
             <th>ID</th>
@@ -105,15 +105,15 @@
                             '.$item->email.'
                           </td>
                         <td>'.$item->Service->name.'<br/>'.$type.'</td>
-                        <td>'.date("d/m/Y H:i", @$data['created_orders']).'</td>
+                        <td>'.date("d/m/Y H:i", @$data['created_book']).'</td>
                         <td>'.$status.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/addOrder/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/addBook/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteOrder/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteBook/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
