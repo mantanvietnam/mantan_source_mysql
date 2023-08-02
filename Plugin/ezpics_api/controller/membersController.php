@@ -1037,6 +1037,10 @@ function searchDesignerAPI($input){
 
 	$modelMember = $controller->loadModel('Members');
 
+	$modelProduct = $controller->loadModel('Products');
+	$modelWarehouse = $controller->loadModel('Warehouses');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
+
 	$return = array('code'=> 0);
 
 	if($isRequestPost){
@@ -1053,6 +1057,12 @@ function searchDesignerAPI($input){
 		$conditions['type'] = 1;
 		$data = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 		if(!empty($data)){
+			foreach($data as $key => $item){
+		    	$data[$key]->totalProducts  = count($modelProduct->find()->where(array('type'=>'user_create', 'status'=> 2, 'user_id'=> $item->id))->all()->toList());
+
+		    	$data[$key]->totalWarehouse = count($modelWarehouse->find()->where(array('user_id'=> $item->id))->all()->toList());
+		    	$data[$key]->totalFollowDesigner = count($modelFollowDesigner->find()->where(array('designer_id'=> $item->id))->all()->toList());
+		    }
 			$return = array('code'=>1,
 								'data' => $data,
 								'mess'=>'Lấy data thành công'
@@ -1077,6 +1087,9 @@ function listDesignerAPI($input){
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelWarehouse = $controller->loadModel('Warehouses');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
 
 	$return = array('code'=> 0);
 
@@ -1088,6 +1101,13 @@ function listDesignerAPI($input){
 		$conditions['type'] = 1;
 		$data = $modelMember->find()->where($conditions)->all()->toList();
 		if(!empty($data)){
+			 foreach($data as $key => $item){
+		    	$data[$key]->totalProducts  = count($modelProduct->find()->where(array('type'=>'user_create', 'status'=> 2, 'user_id'=> $item->id))->all()->toList());
+
+		    	$data[$key]->totalWarehouse = count($modelWarehouse->find()->where(array('user_id'=> $item->id))->all()->toList());
+		    	$data[$key]->totalFollowDesigner = count($modelFollowDesigner->find()->where(array('designer_id'=> $item->id))->all()->toList());
+		    }
+		    
 			$return = array('code'=>1,
 								'data' => $data,
 								'mess'=>'Lấy data thành công'
