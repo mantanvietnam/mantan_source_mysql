@@ -99,7 +99,7 @@ function listRoomBed($input){
                 $listData[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa))->all()->toList();
             }
         }
-
+        
 
         setVariable('listData', $listData);
 

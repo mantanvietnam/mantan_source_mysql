@@ -151,6 +151,20 @@
                 
               </ul>
             </li>
+             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-shopping-bag"></i>
+                <div>Bán hàng</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listRoomBed" class="menu-link">
+                    <div>Sơ đồ giường</div> 
+                  </a>
+                </li>
+                
+              </ul>
+            </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-credit-card"></i>
