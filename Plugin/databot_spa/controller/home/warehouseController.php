@@ -118,7 +118,6 @@ function addWarehouse($input)
 		        $data->name = $dataSend['name'];
 		        $data->id_member = (int) $infoUser->id_member;
 		        $data->id_spa = (int)$infoUser->id_spa;
-		        $data->credit =(int) $dataSend['credit'];
 		        $data->description = $dataSend['description'];
 
 			        
@@ -129,9 +128,11 @@ function addWarehouse($input)
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên kho mẫu thiết kế</p>';
 		    }
-	    	setVariable('data', $data);
-	    	setVariable('mess', $mess);
+
+	    	
 		}
+		setVariable('data', $data);
+	    	setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/login');
 	}

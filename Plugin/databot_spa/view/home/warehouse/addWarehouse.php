@@ -3,7 +3,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listProduct">Kho </a> /</span>
+    <span class="text-muted fw-light"><a href="/listWarehouse">Kho </a> /</span>
     Thông tin kho 
   </h4>
 
@@ -25,11 +25,11 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>"/>
                   </div>
                   
-                  <div class="mb-3 " style="height: 68px;">
+                  <!-- <div class="mb-3 " style="height: 68px;">
                     <label class="form-label">Trạng thái:</label><br/>
                       <input type="radio" name="credit" class="" id="credit" value="1" <?php if(@ $data['credit']==1) echo 'checked="checked"';   ?> > cho bán âm&ensp;
                       <input type="radio" name="credit" class="" id="credit" value="0" <?php if(@ $data['credit']==0) echo 'checked="checked"';   ?> > không cho bán âm
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-6">
                 

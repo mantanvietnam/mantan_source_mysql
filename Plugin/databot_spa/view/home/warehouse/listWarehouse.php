@@ -11,7 +11,7 @@
         <div class="row gx-3 gy-2 align-items-center">
           
           <div class="col-md-2">
-            <label class="form-label">Tên mẫu</label>
+            <label class="form-label">Tên kho</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
           <div class="col-md-1">
@@ -26,14 +26,14 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Sản phẩm</h5>
+    <h5 class="card-header">Danh sách kho</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="" style="text-align: center;">
             <th>ID</th>
             <th>Tên kho</th>
-            <th>Trạng thái</th>
+            <th>Nội dung</th>
             <th>Sửa thông tin</th>
             <th>Xóa</th>
           </tr>
@@ -59,7 +59,7 @@
                        
                         <td>'.$item->name.'</td>
                        
-                        <td>'.$status.'</td>
+                        <td>'.$item->description.'</td>
                         
                         <td align="center">
                            <a  class="dropdown-item" href="/addWarehouse?id='.$item->id.'" title="sửa thông tin kho này">
