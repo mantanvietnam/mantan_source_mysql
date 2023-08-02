@@ -10,5 +10,6 @@ include('model/rooms.php'); // phòng
 include('model/beds.php'); // giường
 include('model/combo.php'); // combo
 include('model/order.php'); // combo
+include('model/books.php'); // combo
 include('model/prepayCard.php'); // prepayCard
 ?>

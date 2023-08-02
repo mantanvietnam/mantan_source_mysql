@@ -52,9 +52,9 @@
 	$routesPlugin['addCombo']= 'databot_spa/view/home/combo/addCombo.php';
 	$routesPlugin['deleteCombo']= 'databot_spa/view/home/combo/deleteCombo.php';
 
-	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
-	$routesPlugin['addOrder']= 'databot_spa/view/home/order/addOrder.php';
-	$routesPlugin['deleteOrder']= 'databot_spa/view/home/order/deleteOrder.php';
+	$routesPlugin['listBook']= 'databot_spa/view/home/book/listBook.php';
+	$routesPlugin['addBook']= 'databot_spa/view/home/book/addBook.php';
+	$routesPlugin['deleteBook']= 'databot_spa/view/home/book/deleteBook.php';
 
 	$routesPlugin['listPrepayCard']= 'databot_spa/view/home/prepayCard/listPrepayCard.php';
 	$routesPlugin['addPrepayCard']= 'databot_spa/view/home/prepayCard/addPrepayCard.php';

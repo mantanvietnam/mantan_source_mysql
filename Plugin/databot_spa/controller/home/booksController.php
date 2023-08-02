@@ -1,5 +1,5 @@
 <?php 
-function listOrder($input){
+function listBook($input){
 	global $controller;
 	global $urlCurrent;
 	global $metaTitleMantan;
@@ -7,7 +7,7 @@ function listOrder($input){
 
     $metaTitleMantan = 'Danh sách đăt';
     $modelService = $controller->loadModel('Services');
-	$modelOrder = $controller->loadModel('Orders');
+	$modelBook = $controller->loadModel('Books');
 	$infoUser = $session->read('infoUser');
 	if(!empty($infoUser)){
 
@@ -16,7 +16,7 @@ function listOrder($input){
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
-		$order = array('id'=>'desc');
+		$Book = array('id'=>'desc');
 
 		if(!empty($_GET['id'])){
 			$conditions['id'] = (int) $_GET['id'];
@@ -40,7 +40,7 @@ function listOrder($input){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
-	    $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($Book)->all()->toList();
 
 	     if(!empty($listData)){
         foreach ($listData as $key => $value) {
@@ -49,7 +49,7 @@ function listOrder($input){
         }
     }
 
-	    $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+	    $totalData = $modelBook->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -92,7 +92,7 @@ function listOrder($input){
 	}
 }
 
-function addOrder($input){
+function addBook($input){
 	global $controller;
 	global $isRequestPost;
     global $modelCategories;
@@ -104,7 +104,7 @@ function addOrder($input){
     $metaTitleMantan = 'Thông tin khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
-	$modelOrder = $controller->loadModel('Orders');
+	$modelBook = $controller->loadModel('Books');
 	$modelService = $controller->loadModel('Services');
 	$modelMembers = $controller->loadModel('Members');
 	$modelSpa = $controller->loadModel('Spas');
@@ -116,9 +116,9 @@ function addOrder($input){
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $save = $modelOrder->get( (int) $_GET['id']);
+        $save = $modelBook->get( (int) $_GET['id']);
     }else{
-        $save = $modelOrder->newEmptyEntity();
+        $save = $modelBook->newEmptyEntity();
 		$save->created_at = date('Y-m-d H:i:s');
     }
 
@@ -175,20 +175,20 @@ function addOrder($input){
 		        $save->id_member = (int) $infoUser->id_member;
 		        $save->id_service =(int) $dataSend['id_service'];
 		        $save->status = $dataSend['status'];
-		        $save->created_orders = strtotime(@$dataSend['created_orders']);
+		        $save->created_book = strtotime(@$dataSend['created_book']);
 		        $save->note = $dataSend['note'];
 		        $save->apt_step = $dataSend['apt_step'];
 		        $save->apt_times = $dataSend['apt_times'];
 		        $save->type =  implode(',', $dataSend['at_type']);
 		        $save->status = (int)  $dataSend['status'];
 
-		        $thoigian = explode(' ', $dataSend['created_orders']);
+		        $thoigian = explode(' ', $dataSend['created_book']);
                 $time_start = explode('/', $thoigian[0]);
                 $timeStart= explode(':', $thoigian[1]);
-                $save->created_orders = mktime($timeStart[0],$timeStart[1],0,$time_start[1],$time_start[0],$time_start[2]);
+                $save->created_book = mktime($timeStart[0],$timeStart[1],0,$time_start[1],$time_start[0],$time_start[2]);
 		        
 
-		        $modelOrder->save($save);
+		        $modelBook->save($save);
 		        $mess= '<p class="text-success">Bạn đặt lịch hẹn thành công</p>';
 		    }
 
@@ -224,22 +224,22 @@ function addOrder($input){
 	}
 }
 
-function deleteOrder($input){
+function deleteBook($input){
     global $controller;
     global $session;
-	$modelOrder = $controller->loadModel('Orders');
+	$modelBook = $controller->loadModel('Books');
     $infoUser = $session->read('infoUser');
     if(!empty($infoUser)){
     
         if(!empty($_GET['id'])){
-            $data = $modelOrder->get($_GET['id']);
+            $data = $modelBook->get($_GET['id']);
             
             if($data){
-                $modelOrder->delete($data);
+                $modelBook->delete($data);
             }
         }
 
-        return $controller->redirect('listOrder');
+        return $controller->redirect('listBook');
     }else{
         return $controller->redirect('/login');
     }

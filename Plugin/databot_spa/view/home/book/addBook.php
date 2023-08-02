@@ -3,7 +3,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listOrder">Lịch hẹn</a> /</span>
+    <span class="text-muted fw-light"><a href="/listBook">Lịch hẹn</a> /</span>
     Thông tin lịch hẹn
   </h4>
 
@@ -41,7 +41,7 @@
                             </div>
                             <div class="mb-3 form-group col-md-6">
                                  <label class="form-label" for="basic-default-fullname">Ngày đặt:</label>
-                                <input type="text" name="created_orders" class="form-control hasDatepicker datepickerorder" id="datestart" value="<?php echo (!empty($data['created_orders']))?  date("d/m/Y H:i", @$data['created_orders']) : " " ?>">
+                                <input type="text" name="created_book" class="form-control hasDatepicker datepickerorder" id="datestart" value="<?php echo (!empty($data['created_book']))?  date("d/m/Y H:i", @$data['created_book']) : " " ?>">
                             </div>
                             <div class="mb-3 col-md-6">
                               <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>

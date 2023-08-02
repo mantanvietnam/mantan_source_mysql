@@ -111,7 +111,15 @@
                   }else{
                     $pro = 'Bản thường';
                   }
+                   $sellingMoney = 0;
+                  if(!empty($item->sellingMoney)){
+                      $sellingMoney = $item->sellingMoney;
+                  }
 
+                  $buyingMoney = 0;
+                  if(!empty($item->buyingMoney)){
+                      $buyingMoney = $item->buyingMoney;
+                  }
 
                   $status = 'Kích hoạt <br/>
                    <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
@@ -137,8 +145,8 @@
 
                           </td>
                           <td style="width: 16%;">Số dư: '.number_format(@$item->account_balance).'đ <br/>
-                              số tiền bán: '.number_format(@$item->sellingMoney).'đ<br/>
-                              Số tiền nạp: '.number_format(@$item->buyingMoney).'đ<br/>
+                              số tiền bán: '. number_format(@$sellingMoney).'đ<br/>
+                              Số tiền nạp: '.number_format(@$buyingMoney).'đ<br/>
                               SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
                               SL kho: '.number_format($item->totaWarehouse).'<br/>
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'
@@ -182,6 +190,16 @@
                     $type = 'Designer  &nbsp;&nbsp;&nbsp;&nbsp; CK: '.$item->commission;
                   }
 
+                   $sellingMoney = 0;
+                  if(!empty($item->sellingMoney)){
+                      $sellingMoney = $item->sellingMoney;
+                  }
+
+                  $buyingMoney = 0;
+                  if(!empty($item->buyingMoney)){
+                      $buyingMoney = $item->buyingMoney;
+                  }
+
                   $status = '
                    <a class=" btn btn-danger"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
@@ -204,8 +222,8 @@
                           </p>
                           <p><b>Thống kê:</b> <br/>
                           Số dư: '.number_format($item->account_balance).'đ <br/>
-                              số tiền bán: '.number_format(@$item->sellingMoney).'đ<br/>
-                              Số tiền nạp: '.number_format(@$item->buyingMoney).'đ<br/>
+                              số tiền bán: '.number_format(@$sellingMoney).'đ<br/>
+                              Số tiền nạp: '.number_format(@$buyingMoney).'đ<br/>
                               SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
                               SL kho: '.number_format($item->totaWarehouse).'<br/>
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'
