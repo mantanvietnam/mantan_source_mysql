@@ -13,7 +13,7 @@ $sqlInstallDatabase .= "CREATE TABLE `links` ( `id` INT NOT NULL AUTO_INCREMENT 
 
 $sqlInstallDatabase .= "CREATE TABLE `orders` ( `id` INT NOT NULL AUTO_INCREMENT , `numberHour` INT NOT NULL , `dateStart` INT NOT NULL , `dateEnd` INT NOT NULL , `price` INT NOT NULL , `idManager` INT NOT NULL , `idZoom` INT NOT NULL , `type` INT NOT NULL , `code` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `extend_time_use` INT NOT NULL , `modified` INT NOT NULL , `created` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
-$sqlInstallDatabase .= "CREATE TABLE `zooms` ( `id` INT NOT NULL AUTO_INCREMENT , `user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `pass` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `key_host` VARCHAR(255) NOT NULL , `type` INT NOT NULL , `status` VARCHAR(255) NOT NULL , `dateEnd` INT NOT NULL , `idOrder` INT NOT NULL , `modified` INT NOT NULL , `created` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .= "CREATE TABLE `zooms` ( `id` INT NOT NULL AUTO_INCREMENT , `user` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `pass` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `key_host` VARCHAR(255) NOT NULL , `type` INT NOT NULL , `status` VARCHAR(255) NOT NULL , `dateEnd` INT NULL , `idOrder` INT NULL , `modified` INT NOT NULL , `created` INT NOT NULL , `client_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `client_secret` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `account_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 
 

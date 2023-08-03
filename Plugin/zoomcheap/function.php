@@ -1,4 +1,6 @@
 <?php 
+include(__DIR__.'/lib/Guzzle/vendor/autoload.php');
+
 $menus= array();
 $menus[0]['title']= 'Zoom Cheap';
 $menus[0]['sub'][0]= array(	'title'=>'Khách hàng',
