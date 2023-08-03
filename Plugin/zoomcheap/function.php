@@ -1,5 +1,6 @@
 <?php 
-include(__DIR__.'/lib/Guzzle/vendor/autoload.php');
+require_once __DIR__.'/lib/Guzzle/vendor/autoload.php';
+require_once __DIR__ . '/lib/google/vendor/autoload.php';
 
 $menus= array();
 $menus[0]['title']= 'Zoom Cheap';
@@ -27,4 +28,20 @@ $menus[0]['sub'][3]= array(	'title'=>'Tài khoản Zoom',
 							'permission'=>'listAccountZoomAdmin'
 						);
 
+$menus[0]['sub'][4]= array(	'title'=>'Cài đặt giá',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin.php',
+							'classIcon'=>'bx bxl-zoom',
+							'permission'=>'listPriceAdmin'
+						);
+
 addMenuAdminMantan($menus);
+
+global $urlHomes;
+global $google_clientId;
+global $google_clientSecret;
+global $google_redirectURL;
+
+$google_clientId= '637094275991-2f53f5g9ls2d34r05ugshhugb57ng4rm.apps.googleusercontent.com';
+$google_clientSecret= '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';
+
+$google_redirectURL= $urlHomes . 'ggCallback';
