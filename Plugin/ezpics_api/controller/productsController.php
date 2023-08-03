@@ -343,6 +343,7 @@ function createProductAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelWarehouses = $controller->loadModel('Warehouses');
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -356,8 +357,9 @@ function createProductAPI($input)
 				$price = (int) @$dataSend['price'];
 				$sale_price = (int) @$dataSend['sale_price'];
 				$category_id = (int) @$dataSend['category_id'];
+				$warehouse =  explode(',', @$dataSend['warehouse_id']);
 
-	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id);
+	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id,@$warehouse);
 	        }else{
 	        	$return = array('code'=>3,
 							'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))

@@ -813,7 +813,7 @@ function zipImage($urlLocalFile)
     }
 }
 
-function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1)
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='')
 {
     global $controller;
 
@@ -825,6 +825,8 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $modelProduct = $controller->loadModel('Products');
         $modelManagerFile = $controller->loadModel('ManagerFile');
         $modelProductDetail = $controller->loadModel('ProductDetails');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 
         $newproduct = $modelProduct->newEmptyEntity();
 
@@ -945,6 +947,24 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         
         
         $modelProductDetail->save($newLayer);
+
+       
+        if(!empty($warehouse)){
+            $conditions = ['product_id'=>$newproduct->id, ];
+            $modelWarehouseProducts->deleteAll($conditions);
+
+            foreach($warehouse as $warehouse_id) {
+                $Warehouses = $modelWarehouses->find()->where(array('id'=>$warehouse_id, 'user_id'=>$infoUser->id))->first();
+                if(!empty($Warehouses)){
+                    $warehouse_products = $modelWarehouseProducts->newEmptyEntity();
+                    $warehouse_products->warehouse_id = $warehouse_id;
+                    $warehouse_products->product_id = $newproduct->id;
+                    $warehouse_products->user_id = $infoUser->id;
+                    $modelWarehouseProducts->save($warehouse_products);
+                }
+            }
+            
+        }
 
         $return = array('code'=>0,
                         'product_id'=>$newproduct->id,

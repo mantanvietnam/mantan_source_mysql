@@ -491,7 +491,7 @@ function memberExtendProAPI($input){
 					$order->meta_payment = 'Mua phiêu bản Pro';
 					$order->created_at = date('Y-m-d H:i:s');
 					$modelOrder->save($order);
-					$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+					$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 				}else{
 					$return = array('code'=>3, 'mess'=>'Tài khoản không đủ tiền');
 				}
