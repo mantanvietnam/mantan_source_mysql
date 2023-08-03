@@ -314,25 +314,31 @@ function checkBuyWarehousesAPI($input){
 			$conditions = array('warehouse_id'=>$dataSend['idWarehouse']);
 			$conditions['user_id'] = $infoUser->id;
 			$conditions['deadline_at >='] =date('Y-m-d H:i:s');
+			$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'], 'user_id'=>$infoUser->id))->first();
 
-			$data = $modelWarehouseUsers->find()->where($conditions)->first();
-			if(!empty($data)){
-				$listData = array();
-					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id))->first();
-					if($dataWarehouse){
-						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
-						$dataWarehouse->deadline_at = $data->deadline_at;
-						$ngay = date('Y-m-d', strtotime($data->deadline_at));
-						$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
-						$listData = $dataWarehouse;
-					}
-				
-				$return = array('code'=>1,
-								'data'=> $listData,
-					 			'mess'=>'Bạn đã mua kho này',
-					 		);
+
+			if(empty($checkWarehouses)){
+				$data = $modelWarehouseUsers->find()->where($conditions)->first();
+				if(!empty($data)){
+					$listData = array();
+						$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id))->first();
+						if($dataWarehouse){
+							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
+							$dataWarehouse->deadline_at = $data->deadline_at;
+							$ngay = date('Y-m-d', strtotime($data->deadline_at));
+							$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
+							$listData = $dataWarehouse;
+						}
+						
+					$return = array('code'=>1,
+									'data'=> $listData,
+						 			'mess'=>'Bạn đã mua kho này',
+						 		);
+				}else{
+					$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho này');
+				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho này');
+				$return = array('code'=>3, 'mess'=>'Kho này do bạn tạo');
 			}
 		}else{
 			$return = array('code'=>2,
