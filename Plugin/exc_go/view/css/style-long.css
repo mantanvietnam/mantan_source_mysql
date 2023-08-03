@@ -1,0 +1,15 @@
+.list-selection-choose{
+    position: absolute;
+    bottom: 100%;
+    left: 0px;
+}
+.btn-style-design-delete,.btn-style-design-copy,.btn-style-design-edit {
+    border: none;
+    background: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: black;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
