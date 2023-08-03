@@ -82,43 +82,45 @@ function addZoom($input)
 {
 	global $controller;
 	global $isRequestPost;
+	global $modelCategories;
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Thông tin sản phẩm';
 
-	$modelZoom = $controller->loadModel('Zooms');
+	$modelZooms = $controller->loadModel('Zooms');
 	$mess= '';
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelZoom->get( (int) $_GET['id']);
+        $data = $modelZooms->get( (int) $_GET['id']);
 
         $data->images = json_decode($data->images, true);
     }else{
-        $data = $modelZoom->newEmptyEntity();
+        $data = $modelZooms->newEmptyEntity();
     }
 
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['title'])){
-	        // tạo dữ liệu save
-            $data->status = $dataSend['type'];
-	        $data->status = $dataSend['user'];
-            $data->status = $dataSend['pass'];
-	        $data->status = $dataSend['key_host'];
-	        $data->status = $dataSend['status'];
-
-	        
+        if(!empty($dataSend['user'])){
+            $data->user = $dataSend['user'];
+            $data->type = $dataSend['type'];
+	        $data->status = $dataSend['status'];	
+            $data->pass = $dataSend['pass'];
+            $data->key_host = $dataSend['key_host'];	
+            $data->modified = $dataSend['modified'];
+            $data->created = $dataSend['created'];
+            $data->client_id = $dataSend['client_id'];
+            $data->client_secret = $dataSend['client_secret'];
+            $data->account_id = $dataSend['account_id'];
             
-
+        
+	        
+        
 	        $modelZooms->save($data);
-
-            $data->images = json_decode($data->images, true);
-
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
 	    }
     }
 
