@@ -404,7 +404,7 @@ function memberBuyProAPI($input){
 			if(!empty($discountCode)){
 				$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
 			}else{
-				return array('code'=>4, 'mess'=>'Bạn nhập mã không dùng');
+				return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
 			}
 
 		}
@@ -464,7 +464,7 @@ function memberExtendProAPI($input){
 			if(!empty($discountCode)){
 				$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
 			}else{
-				return array('code'=>4, 'mess'=>'Bạn nhập mã không dùng');
+				return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
 			}
 
 		}
