@@ -859,8 +859,9 @@ function getSizeProductAPI($input)
 	return getSizeProduct();
 }
 
-function detailSeriesAPI($input)
+function detailProductSeriesAPI($input)
 {
+	global $isRequestPost;
 	global $controller;
 	global $metaTitleMantan;
 	global $metaKeywordsMantan;
@@ -870,17 +871,15 @@ function detailSeriesAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelMembers = $controller->loadModel('Members');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$return = array('code'=>0);
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 	
-		if(!empty($input['request']->getAttribute('params')['pass'][1])){
-			$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
-			$slug = explode('-', $slug);
-			$count = count($slug)-1;
-			$id = (int) $slug[$count];
+		if(!empty($dataSend['idProduct'])){
+			
 
-			$product = $modelProduct->find()->where(['id'=>$id])->first();
+			$product = $modelProduct->find()->where(['id'=>$dataSend['idProduct']])->first();
 
 			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
 				$product->views ++;
@@ -899,17 +898,37 @@ function detailSeriesAPI($input)
 				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
 
 				$dataOther = $modelProduct->find()->where(array('category_id'=>$product->category_id,  $product->type == 'user_series', 'status'=>1))->all()->toList();
+				$urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id;
 
-				setVariable('product', $product);
-				setVariable('user', $user);
-				setVariable('listLayer', $listLayer);
+                if(!empty($listLayer)){
+                    foreach ($listLayer as $layer) {
+                        $content = json_decode($layer->content, true);
+                        if(!empty($content['variable']) && !empty($content['variableLabel'])){
+                            $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
+                        }
+                    }
+                }
+                $data = array();
+				$data['product'] = $product;
+				$data['user'] = $user;
+				$data['urlCreateImage'] = $urlChatBot;
+				$data['listLayer'] = $listLayer;
+
+
+				$return = array('code'=>1,
+							'data' => $data,
+					'mess'=>'Bạn sửa list layer thành công');
 			}else{
-				return $controller->redirect('https://ezpics.vn');
+				$return = array('code'=>3,
+					'mess'=>'sản phẩm này không dúng');
 			}
 		}else{
-			return $controller->redirect('https://ezpics.vn');
+			$return = array('code'=>3,
+					'mess'=>'thiếu dữ liệu');
 		}
 	}
+
+	return $return;
 }
 
 function createImageSeriesAPI($input)

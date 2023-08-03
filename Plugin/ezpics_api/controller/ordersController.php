@@ -442,7 +442,7 @@ function memberBuyProAPI($input){
 	return $return;
 }
 
-function memberextendProAPI($input){
+function memberExtendProAPI($input){
 	global $isRequestPost;
 	global $controller;
 	global $price_pro;

@@ -33,8 +33,9 @@
 	$routesPlugin['checkCodeAffiliateAPI']= 'ezpics_api/view/checkCodeAffiliateAPI.php';
 	$routesPlugin['updateWarehouseAPI']= 'ezpics_api/view/updateWarehouseAPI.php';
 	$routesPlugin['memberBuyProAPI']= 'ezpics_api/view/memberBuyProAPI.php';
+	$routesPlugin['memberExtendProAPI']= 'ezpics_api/view/memberExtendProAPI.php';
 
-	// quên mật khẩu
+	// quên mật khẩu 
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'ezpics_api/view/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'ezpics_api/view/saveNewPassAPI.php';
 
@@ -83,8 +84,9 @@
 	$routesPlugin['getProductByCategoryAPI']= 'ezpics_api/view/getProductByCategoryAPI.php';
 	$routesPlugin['getProductAllCategoryAPI']= 'ezpics_api/view/getProductAllCategoryAPI.php';
 	$routesPlugin['getProductCategoryAPI']= 'ezpics_api/view/getProductCategoryAPI.php';
+	$routesPlugin['detailProductSeriesAPI']= 'ezpics_api/view/detailProductSeriesAPI.php';
 
-	// post
+	// post 
 	$routesPlugin['getNewPostAPI']= 'ezpics_api/view/getNewPostAPI.php';
 	$routesPlugin['getInfoPostAPI']= 'ezpics_api/view/getInfoPostAPI.php';
 
