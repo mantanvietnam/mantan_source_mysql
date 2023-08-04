@@ -21,6 +21,7 @@
 	$routesPlugin['updateWarehouseAPI']= 'excgo/view/updateWarehouseAPI.php';
 	$routesPlugin['memberBuyProAPI']= 'excgo/view/memberBuyProAPI.php';
 	$routesPlugin['memberExtendProAPI']= 'excgo/view/memberExtendProAPI.php';
+	$routesPlugin['acceptMemberAPI']= 'excgo/view/acceptMemberAPI.php';
 
 	// quên mật khẩu 
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'excgo/view/requestCodeForgotPasswordAPI.php';
