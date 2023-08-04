@@ -1,52 +1,45 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Danh sách đơn hàng</h4>
-  <p><a href="/addOrder" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Giao dịch</h4>
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách đơn thuê Zoom</h5>
+    <h5 class="card-header">Lịch sử giao dịch</h5>
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Thời gian thuê</th>
-              <th>Loại Zoom</th>
-              <th>Giá thuê</th>
-              <th>Phòng họp</th>
+              <th>Thời gian</th>
+              <th>Số tiền</th>
+              <th>Kiểu</th>
+              <th>Nội dung</th>
             </tr>
           </thead>
           <tbody>
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  if($item->dateEnd > time()){
-                    if(empty($item->idRoom)){
-                      $room = '<a href="/createRoom/?idOrder='.$item->id.'" class="btn btn-primary">Tạo phòng</a>';
-                    }else{
-                      $room = '<a href="/room/?id='.$item->idRoom.'">Xem phòng</a>';
-                    }
+                  if($item->type == 'minus'){
+                    $type = '<p class="text-danger">Trừ tiền</p>';
                   }else{
-                    $room = '<p class="text-danger">Đơn hết hạn</p>';
+                    $type = '<p class="text-success">Cộng tiền</p>';
                   }
+
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>
-                            <p class="text-success">'.date('H:i d/m/Y', $item->dateStart).'</p>
-                            <p class="text-danger">'.date('H:i d/m/Y', $item->dateEnd).'</p>
-                          </td>
-                          <td>'.$item->type.'</td>
-                          <td>'.number_format($item->price).'đ</td>
-                          <td>'.$room.'</td>
+                          <td>'.date('H:i d/m/Y', $item->time).'</td>
+                          <td>'.number_format($item->numberCoin).'đ</td>
+                          <td>'.$type.'</td>
+                          <td>'.$item->note.'</td>
                         </tr>';
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có đơn thuê nào</td>
+                        <td colspan="10" align="center">Chưa có giao dịch nào</td>
                       </tr>';
               }
             ?>
@@ -58,17 +51,24 @@
       <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  if($item->type == 'minus'){
+                    $type = '<span class="text-danger">Trừ tiền</span>';
+                  }else{
+                    $type = '<span class="text-success">Cộng tiền</span>';
+                  }
                   ?>
                     <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                      <p><b>Đơn hàng:</b> <?php echo @$item->id ?></p>
-                      <p><span class="text-success"><?php echo date('H:i d/m/Y', $item->dateStart).'</span> - <span class="text-danger">'.date('H:i d/m/Y', $item->dateEnd).'</span>';?></p>
-                      <p><b>Zoom:</b> <?php echo $item->type;?></p>
-                      <p><b>Giá:</b> <?php echo number_format($item->price);?>đ</p>
+                      <p><b>ID giao dịch:</b> <?php echo @$item->id; ?></p>
+                      <p><b>Thời gian:</b> <?php echo date('H:i d/m/Y', $item->time); ?></p>
+                      <p><b>Số tiền:</b> <?php echo number_format($item->numberCoin);?>đ</p>
+                      <p><b>Kiểu:</b> <?php echo $type;?></p>
+                      <p><?php echo $item->note;?></p>
+                      
                     </div>
              <?php   }
         }else{
           echo '<div class="col-sm-12 item">
-                  <p class="text-danger">Chưa có đơn thuê nào</p>
+                  <p class="text-danger">Chưa có giao dịch nào</p>
                 </div>';
         }
       ?>

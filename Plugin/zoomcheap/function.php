@@ -48,7 +48,7 @@ $google_clientSecret= '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';
 
 $google_redirectURL= $urlHomes . 'ggCallback';
 
-function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $topic= '' , $start_time=0 , $hour = 1)
+function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $topic= '' , $start_time=0 , $duration = 60, $pass = '')
 {
 	$return = [];
 
@@ -62,6 +62,7 @@ function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $to
 
 		if(empty($topic)) $topic = 'Phòng họp '.time();
 		if(empty($start_time)) $start_time = time();
+		if(empty($pass)) $pass = rand(100000,999999);
 
 		// Endpoint API Zoom để lấy Access Token
 		$tokenUrl = 'https://zoom.us/oauth/token';
@@ -98,11 +99,11 @@ function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $to
 			// Dữ liệu yêu cầu tạo phòng họp mới
 			$meetingData = array(
 			    'topic' => $topic,
-			    'type' => 2, // 1 - Phòng họp, 2 - Hội nghị web
+			    'type' => 1, // 1 - Phòng họp, 2 - Hội nghị web
 			    'start_time' => date('Y-m-dTH:m:s', $start_time), // Thời gian bắt đầu (UTC)
-			    'duration' => 60 * $hour, // Độ dài phòng họp (phút)
+			    'duration' => $duration, // Độ dài phòng họp (phút)
 			    'timezone' => 'Asia/Ho_Chi_Minh',
-			    // Các thông tin khác nếu cần thiết
+			    'password' => $pass
 			);
 
 			// Gọi API Zoom để tạo phòng họp mới

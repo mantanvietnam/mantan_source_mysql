@@ -6,6 +6,7 @@ include('controller/home/zoomsController.php');
 include('controller/home/ordersController.php');
 include('controller/home/roomsController.php');
 include('controller/home/apisController.php');
+include('controller/home/historiesController.php');
 
 // admin
 include('controller/admin/managersController.php');

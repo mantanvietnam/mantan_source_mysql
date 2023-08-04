@@ -58,9 +58,6 @@ function checkDeadlineOrderAPI($input)
 
 	if(!empty($listData)){
 		foreach ($listData as $key => $order) {
-			$order->idZoom = 0;
-			$modelOrders->save($order);
-
 			$zoom = $modelZooms->find()->where(['id' => $order->idZoom])->first();
 
 			if(!empty($zoom)){
@@ -69,6 +66,9 @@ function checkDeadlineOrderAPI($input)
 
 				$number_deadline++;
 			}
+
+			$order->idZoom = 0;
+			$modelOrders->save($order);
 		}
 	}
 
