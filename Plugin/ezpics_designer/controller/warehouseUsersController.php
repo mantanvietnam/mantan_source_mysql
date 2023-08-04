@@ -42,6 +42,8 @@ function listWarehouseUser($input)
 
 	    $listData = $modelWarehouseUsers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+	   
+
 	    if(!empty($listData)){
 	    	foreach ($listData as $key => $value) {
 	    		$listData[$key]->infoUser = $modelMembers->find()->where(['id'=>$value->user_id])->first();

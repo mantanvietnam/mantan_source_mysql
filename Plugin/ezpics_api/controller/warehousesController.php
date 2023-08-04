@@ -870,4 +870,68 @@ function updateWarehouseAPI($input)
 	return $return;
 }
 
+function addUserWarehouseAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+
+	
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token']) && !empty($dataSend['phone'])){
+			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			if(!empty($infoUser)){
+				$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'user_id'=>$infoUser->id))->first();
+				$infoUserSell = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUserSell->id))->first();
+				if(!empty($Warehouse)){
+					if(empty($WarehouseUser)){
+						$data = $modelWarehouseUsers->newEmptyEntity();
+		                // tạo dữ liệu save
+						$data->warehouse_id = (int) $Warehouse->id;
+						$data->user_id = $infoUserSell->id;
+						$data->designer_id = $infoUser->id;
+						$data->price = 0;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->note ='';
+						$data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
+						        
+						$modelWarehouseUsers->save($data);
+						
+						$dataSendNotification= array('warehouse_id'=>$item->warehouse_id, 'title'=>'Thông báo nhận kho mẫu thiết kế  ','time'=>date('H:i d/m/Y'),'content'=>'Bạn đã nhận kho mẫu thiết kế  "'.$Warehouse->name.'"  từ designer "'.$infoUser->name.'".','action'=>'addUserWarehouseSendNotification');
+					
+					if(!empty($infoUserSell->token_device)){
+						sendNotification($dataSendNotification, $member->token_device);
+					}
+						$return = array('code'=>1, 'mess'=>'Bạn đã thêm người vào kho thành công');
+						
+					}else{
+						$return = array('code'=>5,
+										'mess'=>'Người này đã mua kho của bạn rồi'
+										);
+					}
+				}else{
+					$return = array('code'=>3,
+								'mess'=>'Kho này không tồn tại'
+							);
+				}
+			}else{
+				
+				$return = array('code'=>2,
+									'mess'=>'Bạn chưa đăng nhập'
+								);
+			}
+		}
+	}
+	return $return;
+}
+
 ?>

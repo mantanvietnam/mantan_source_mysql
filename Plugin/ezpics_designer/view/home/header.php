@@ -163,7 +163,7 @@
             <li class="menu-item">
               <a href="/sellproduct" class="menu-link">
                 <i class='bx bx-cart' ></i> 
-                <div data-i18n="Add">Bán Mẫu thiếu kế</div>
+                <div data-i18n="Add">Bán mẫu thiết kế</div>
               </a>
             </li>
             <!-- <li class="menu-item">

@@ -31,13 +31,21 @@ function saveRegisterMemberAPI($input)
 				if($dataSend['password'] == $dataSend['password_again']){
 					$data = $modelMember->newEmptyEntity();
 
+					if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+						$avatar = uploadImage($dataSend['phone'], 'avatar', 'avatar_'.$dataSend['phone']);
+					}
+
+					if(!empty($avatar['linkOnline'])){
+						$data->avatar = $avatar['linkOnline'];
+					}
+
 					$data->name = $dataSend['name'];
-					$data->avatar = $dataSend['avatar'];
 					$data->phone = $dataSend['phone'];
 					$data->email = @$dataSend['email'];
+					$data->code_otp = random_int(100000, 999999);
 					$data->password = md5($dataSend['password']);
-					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
-					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
+					$data->status = 0; //1: kích hoạt, 0: khóa
+					$data->type =  0; // 0: người dùng, 1: tài xế
 					$data->token = createToken();
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
@@ -75,6 +83,9 @@ function saveRegisterMemberAPI($input)
 
 	return $return;
 }
+
+
+
 
 function checkLoginMemberAPI($input)
 {
@@ -684,7 +695,7 @@ function saveInfoUserAPI($input)
 
 			if(!empty($checkPhone)){
 				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-					$avatar = uploadImage($checkPhone->id, 'avatar', 'avatar_'.$checkPhone->id);
+					$avatar = uploadImage($checkPhone->phone, 'avatar', 'avatar_'.$checkPhone->phone);
 				}
 
 				if(!empty($avatar['linkOnline'])){
@@ -699,7 +710,7 @@ function saveInfoUserAPI($input)
 				}
 
 				if(isset($_FILES['file_cv']) && empty($_FILES['file_cv']["error"])){
-					$file_cv = uploadImage($checkPhone->id, 'file_cv', 'file_cv_'.$checkPhone->id);
+					$file_cv = uploadImage($checkPhone->phone, 'file_cv', 'file_cv_'.$checkPhone->phone);
 
 					if(!empty($file_cv['linkOnline'])){
 						$checkPhone->file_cv = $file_cv['linkOnline'].'?time='.time();
