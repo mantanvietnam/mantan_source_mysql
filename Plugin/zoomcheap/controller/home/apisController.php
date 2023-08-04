@@ -159,6 +159,8 @@ function addMoneyTPBankAPI($input)
 		        $dataHistories->created = time();
 
 		        $modelHistories->save($dataHistories);
+
+		        $mess = 'Cộng thành công '.number_format($money).'đ cho tài khoản '.$phone;
 			}else{
 				$mess = 'Không tìm thấy tài khoản khách hàng';
 			}
