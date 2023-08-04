@@ -24,7 +24,6 @@ function listOrderZoomAdmin($input)
     }
     
     $listData = $modelOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-    debug($listData);
     if(!empty($listData)){
         foreach($listData as $key => $value){
             if(!empty($value->idManager)){
@@ -33,8 +32,6 @@ function listOrderZoomAdmin($input)
             
             if(!empty($value->idZoom)){
                 $infoZoom = $modelZooms->find()->where(['id'=> $value->idZoom])->first(); 
-                debug($infoZoom);
-            
             }
 
             if(!empty($value->idRoom)){

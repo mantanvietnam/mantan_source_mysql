@@ -48,9 +48,6 @@
         </thead>
         <tbody>
           <?php 
-          debug($listData);
-          debug($infoRoom);
-
             if(!empty($listData)){
 
               foreach ($listData as $item) {

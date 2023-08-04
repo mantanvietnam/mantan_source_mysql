@@ -34,51 +34,46 @@
             <th>Thời gian thuê</th>
             <th>Khách hàng</th>
             <th>Tài khoản Zoom</th>
-            <th>Phòng cố định</th>
-            <th>Phòng tự tạo</th>
-            <th>Sửa</th>
+            <th>Phòng họp</th>
             <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
           <?php 
-              debug($infoManager);
-              debug($infoZoom);
-
-
             if(!empty($listData)){
 
               foreach ($listData as $item) {
               echo  '<tr>
-                      <td>'.$item->id.'</td>
-                      <td>'.$item->type.'</td>
-                      <td>
-                        <p>'.date("Y-m-d H:i:s",$item->dateStart).'</p>
-                        <p>'.date("Y-m-d H:i:s",$item->dateEnd).'</p>
-                      </td>
-                      <td>
-                        '.$infoManager->fullname.'
-                        </br>
-                        '.$infoManager->phone.'
-                        </br>
-                        '.$infoManager->email.'
-                        </br>
-                        '.number_format($infoManager->coin).' đ
-                      </td>
-                      <td>'.$infoZoom.'</td>
-
-                      
-                      <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?ID='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
+                        <td>'.$item->id.'</td>
+                        <td>'.$item->type.'</td>
+                        <td>
+                          <p>'.date("Y-m-d H:i:s",$item->dateStart).'</p>
+                          <p>'.date("Y-m-d H:i:s",$item->dateEnd).'</p>
+                        </td>
+                        <td>
+                          '.$infoManager->fullname.'
+                          </br>
+                          '.$infoManager->phone.'
+                          </br>
+                          '.$infoManager->email.'
+                          </br>
+                          '.number_format($infoManager->coin).' đ
+                        </td>
+                        <td>
+                          <p>Key host: '.$infoZoom->key_host.'</p>
+                          <p>Tài khoản: '.$infoZoom->user.'</p>
+                          <p>Mật khẩu '.@$infoZoom->pass.'</p>
+                        </td>
+                        <td>
+                          '.$infoRoom->info['id'].'
+                          '.@$infoRoom->info['password'].'
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteZoom/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="'.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
-                        
+                          
                       </tr>';
               }
             }else{
