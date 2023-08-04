@@ -139,14 +139,14 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Giao dịch</span></li>
             <li class="menu-item">
               <a href="/addMoney" class="menu-link">
-                <i class='bx bx-cart' ></i> 
+                <i class='bx bx-credit-card' ></i>  
                 <div data-i18n="Add">Nạp tiền</div>
               </a>
             </li>
             
             <li class="menu-item">
               <a href="/listHistories" class="menu-link">
-                <i class='bx bx-cart' ></i> 
+                <i class='bx bx-history'></i> 
                 <div data-i18n="Add">Lịch sử giao dịch</div>
               </a>
             </li>
