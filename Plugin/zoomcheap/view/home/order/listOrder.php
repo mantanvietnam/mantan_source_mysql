@@ -27,7 +27,7 @@
                     if(empty($item->idRoom)){
                       $room = '<a href="/createRoom/?idOrder='.$item->id.'" class="btn btn-primary">Tạo phòng</a>';
                     }else{
-                      $room = '';
+                      $room = '<a href="/room/?id='.$item->idRoom.'">Xem phòng</a>';
                     }
                   }else{
                     $room = '<p class="text-danger">Đơn hết hạn</p>';

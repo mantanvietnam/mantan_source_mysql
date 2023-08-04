@@ -121,7 +121,7 @@
                 <div data-i18n="Tempaltes">Tạo đơn mới</div>
               </a>
             </li>
-
+            <!--
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Link cố định</span></li>
             <li class="menu-item">
               <a href="/listLink" class="menu-link">
@@ -135,7 +135,7 @@
                 <div data-i18n="Add">Mua link mới</div>
               </a>
             </li>
-
+            -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Giao dịch</span></li>
             <li class="menu-item">
               <a href="/addMoney" class="menu-link">
@@ -145,12 +145,13 @@
             </li>
             
             <li class="menu-item">
-              <a href="/sellWarehouse" class="menu-link">
+              <a href="/listHistories" class="menu-link">
                 <i class='bx bx-cart' ></i> 
                 <div data-i18n="Add">Lịch sử giao dịch</div>
               </a>
             </li>
-           
+            
+            <!--
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Mua tài khoản</span></li>
             <li class="menu-item">
               <a href="/addMoney" class="menu-link">
@@ -165,7 +166,7 @@
                 <div data-i18n="Add">Canva Pro</div>
               </a>
             </li>
-
+            -->
             
           </ul>
         </aside>
