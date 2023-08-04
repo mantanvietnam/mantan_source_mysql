@@ -421,8 +421,8 @@ function addProduct($input)
 
 	        if(!empty($dataSend['name'])){
 	        	
-        		if(!empty($data->image)){
-        			$thumb = $data->image;
+        		if(!empty($data->thumn)){
+        			$thumb = $data->thumn;
         		}else{
         			$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
         		}
@@ -483,7 +483,7 @@ function addProduct($input)
 				}
 				
 		        $data->sold = 0;
-		        $data->image = $thumb;
+		        if(empty($data->image)) $data->image = $thumb;
 		        $data->thumn = $thumb;
 		        $data->user_id = $infoUser->id;
 		        $data->product_id = 0;
