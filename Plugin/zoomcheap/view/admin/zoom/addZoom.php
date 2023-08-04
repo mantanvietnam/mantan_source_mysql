@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/student-view-admin-student-listStudent.php">Tài khoản zoom</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin.php">Tài khoản zoom</a> /</span>
     Thông tin tài khoản zoom
   </h4>
   <!-- Basic Layout -->

@@ -1,6 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin tài khoản zoom</h4> 
-  <p><a href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin Đơn hàng thuê Zoom</h4> 
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -13,11 +12,6 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
-          <div class="col-md-3">
-            <label class="form-label">Tài khoản</label>
-            <input type="text" class="form-control" name="user" value="<?php if(!empty($_GET['user'])) echo $_GET['user'];?>">
-          </div>
-          
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -30,49 +24,52 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách tài khoản zoom</h5>
+    <h5 class="card-header">Danh sách tài khoản Zoom</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th colpan="2">ID</th>
-            <th>Loại tài khoản</th>
-            <th>Tài khoản</th>
-            <th>Mật khẩu</th>
-            <th>API</th>
-            <th>ID room</th>
-            <th>Pass room</th>
+            <th>ID</th>
+            <th>Loại Zoom</th>
+            <th>Thời gian thuê</th>
+            <th>Khách hàng</th>
+            <th>Tài khoản Zoom</th>
+            <th>Phòng cố định</th>
+            <th>Phòng tự tạo</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
           <?php 
-          debug($listData);
-          debug($infoRoom);
+              debug($infoManager);
+              debug($infoZoom);
+
 
             if(!empty($listData)){
 
               foreach ($listData as $item) {
-                echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->type.'</td>
-                        <td>
-                          '.$item->user.'
-                          </br>
-                          '.$item->status.'
-                        </td>
-                        <td>'.$item->pass.'</td>
-                        <td>
-                          Key host: '.$item->key_host.'
-                        </td>
-                        <td>'.$infoRoom->info['id'].'</td>
-                        <td>'.$infoRoom->info['password'].'</td>;
+              echo  '<tr>
+                      <td>'.$item->id.'</td>
+                      <td>'.$item->type.'</td>
+                      <td>
+                        <p>'.date("Y-m-d H:i:s",$item->dateStart).'</p>
+                        <p>'.date("Y-m-d H:i:s",$item->dateEnd).'</p>
+                      </td>
+                      <td>
+                        '.$infoManager->fullname.'
+                        </br>
+                        '.$infoManager->phone.'
+                        </br>
+                        '.$infoManager->email.'
+                        </br>
+                        '.number_format($infoManager->coin).' đ
+                      </td>
+                      <td>'.$infoZoom.'</td>
 
-                        
                       
                       <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?ID='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>

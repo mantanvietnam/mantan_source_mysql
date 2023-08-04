@@ -44,7 +44,9 @@ function listAccountZoomAdmin($input)
                 $infoOrder = $modelOrders->find()->where(['id'=> $value->idOrder])->first();
                 if(!empty($infoOrder->idRoom)){
                     $infoRoom = $modelRooms->find()->where(['id'=> $infoOrder->idRoom])->first(); 
+                    $infoRoom->info = json_decode($infoRoom->info, true);
                 }
+                
             }   
            
         }
