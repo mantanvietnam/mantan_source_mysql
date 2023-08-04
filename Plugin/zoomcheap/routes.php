@@ -15,4 +15,7 @@
 	$routesPlugin['addOrder']= 'zoomcheap/view/home/order/addOrder.php';
 
 	$routesPlugin['createRoom']= 'zoomcheap/view/home/zoom/createRoom.php';
+
+	
+	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';
 ?>
