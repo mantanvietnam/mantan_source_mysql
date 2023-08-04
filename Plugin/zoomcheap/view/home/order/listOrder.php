@@ -23,6 +23,16 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  if($item->dateEnd > time()){
+                    if(empty($item->idRoom)){
+                      $room = '<a href="/createRoom/?idOrder='.$item->id.'" class="btn btn-primary">Tạo phòng</a>';
+                    }else{
+                      $room = '';
+                    }
+                  }else{
+                    $room = '<p class="text-danger">Đơn hết hạn</p>';
+                  }
+
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>
@@ -31,9 +41,7 @@
                           </td>
                           <td>'.$item->type.'</td>
                           <td>'.number_format($item->price).'đ</td>
-                          <td>
-                            
-                          </td>
+                          <td>'.$room.'</td>
                         </tr>';
                 }
               }else{

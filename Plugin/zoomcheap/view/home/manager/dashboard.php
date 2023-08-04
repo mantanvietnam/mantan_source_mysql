@@ -72,7 +72,7 @@
                 </div>
               </div>
               <span>Tổng tiền đã nạp</span>
-              <h3 class="card-title text-nowrap mb-1"><?php echo number_format($session->read('infoUser')->coin);?>đ</h3>
+              <h3 class="card-title text-nowrap mb-1"><?php echo number_format($allMoneyPlus);?>đ</h3>
               <?php 
                 /*
                 $hieu = $countOrderOld - $countOrderNew;
