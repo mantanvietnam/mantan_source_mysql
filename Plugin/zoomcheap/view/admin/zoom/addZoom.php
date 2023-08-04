@@ -1,15 +1,15 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/student-view-admin-student-listStudent.php">Sinh viên</a> /</span>
-    Thông tin sinh viên
+    <span class="text-muted fw-light"><a href="/plugins/admin/student-view-admin-student-listStudent.php">Tài khoản zoom</a> /</span>
+    Thông tin tài khoản zoom
   </h4>
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin sinh viên</h5>
+            <h5 class="mb-0">Thông tin tài khoản zoom</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -17,8 +17,15 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Loại tài khoản (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="type" id="type" value="<?php echo @$data->type;?>" />
+                    <label class="form-label">Trạng thái</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="type" id="type">
+                        <option value="100" <?php if(!empty($data->type) && $data->type=='100') echo 'selected'; ?> >100 người dùng</option>
+                        <option value="300" <?php if(!empty($data->type) && $data->type=='300') echo 'selected'; ?> >300 người dùng</option>
+                        <option value="500" <?php if(!empty($data->type) && $data->type=='500') echo 'selected'; ?> >500 người dùng</option>
+                        <option value="1000" <?php if(!empty($data->type) && $data->type=='1000') echo 'selected'; ?> >1000 người dùng</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="mb-3">
@@ -44,16 +51,6 @@
                         <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Modified (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="modified" id="modified" value="<?php echo @$data->modified;?>" />
-                  </div>
-                  
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Created (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="created" id="created" value="<?php echo @$data->created;?>" />
                   </div>
 
                   <div class="mb-3">

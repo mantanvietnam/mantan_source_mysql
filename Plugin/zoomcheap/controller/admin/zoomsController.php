@@ -9,6 +9,9 @@ function listAccountZoomAdmin($input)
     $metaTitleMantan = 'Danh sách tài khoản zoom';
 
 	$modelZooms = $controller->loadModel('Zooms');
+    $modelOrders = $controller->loadModel('Orders');
+    $modelRooms = $controller->loadModel('Rooms');
+
 
 	$conditions = array();
 	$limit = 20;
@@ -35,7 +38,18 @@ function listAccountZoomAdmin($input)
 	}
     
     $listData = $modelZooms->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
+    if(!empty($listData)){
+        foreach($listData as $key => $value){
+            if(!empty($value->idOrder)){
+                $infoOrder = $modelOrders->find()->where(['id'=> $value->idOrder])->first();
+                if(!empty($infoOrder->idRoom)){
+                    $infoRoom = $modelRooms->find()->where(['id'=> $infoOrder->idRoom])->first(); 
+                }
+            }   
+           
+        }
+    }    
+   
     // phân trang
     $totalData = $modelZooms->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
@@ -75,6 +89,8 @@ function listAccountZoomAdmin($input)
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);    
     setVariable('listData', $listData);
+    setVariable('infoRoom', $infoRoom);
+
 
 }
 
@@ -102,18 +118,18 @@ function addZoom($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['id'])){
+        if(!empty($dataSend['user'])){
             $data->user = $dataSend['user'];
             $data->type = $dataSend['type'];
 	        $data->status = $dataSend['status'];	
             $data->pass = $dataSend['pass'];
             $data->key_host = $dataSend['key_host'];	
-            $data->modified = time($dataSend['modified']);
-            $data->created = time($dataSend['created']);
+            $data->modified = getdate()[0];
+            $data->created = getdate()[0];
             $data->client_id = $dataSend['client_id'];
             $data->client_secret = $dataSend['client_secret'];
             $data->account_id = $dataSend['account_id'];
-            
+          
         
 	        
         

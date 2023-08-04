@@ -36,9 +36,12 @@
         <thead>
           <tr class="">
             <th colpan="2">ID</th>
+            <th>Loại tài khoản</th>
             <th>Tài khoản</th>
             <th>Mật khẩu</th>
             <th>API</th>
+            <th>ID room</th>
+            <th>Pass room</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -46,11 +49,14 @@
         <tbody>
           <?php 
           debug($listData);
+          debug($infoRoom);
+
             if(!empty($listData)){
 
               foreach ($listData as $item) {
                 echo '<tr>
                         <td>'.$item->id.'</td>
+                        <td>'.$item->type.'</td>
                         <td>
                           '.$item->user.'
                           </br>
@@ -60,8 +66,12 @@
                         <td>
                           Key host: '.$item->key_host.'
                         </td>
+                        <td>'.$infoRoom->id.'</td>
+                        <td>'.$infoRoom->id.'</td>;
 
-                        <td align="center">
+                        
+                      
+                      <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?ID='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
