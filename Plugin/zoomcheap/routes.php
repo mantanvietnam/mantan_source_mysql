@@ -18,6 +18,7 @@
 	$routesPlugin['room']= 'zoomcheap/view/home/room/room.php';
 
 	$routesPlugin['listHistories']= 'zoomcheap/view/home/histories/listHistories.php';
+	$routesPlugin['addMoney']= 'zoomcheap/view/home/histories/addMoney.php';
 
 
 	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';

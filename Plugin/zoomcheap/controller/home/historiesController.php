@@ -1,4 +1,20 @@
 <?php 
+function addMoney($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Nạp tiền vào tài khoản';
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+
 function listHistories($input)
 {
 	global $controller;
