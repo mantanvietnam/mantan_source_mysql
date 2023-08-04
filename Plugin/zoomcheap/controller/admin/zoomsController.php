@@ -102,14 +102,14 @@ function addZoom($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['user'])){
+        if(!empty($dataSend['id'])){
             $data->user = $dataSend['user'];
             $data->type = $dataSend['type'];
 	        $data->status = $dataSend['status'];	
             $data->pass = $dataSend['pass'];
             $data->key_host = $dataSend['key_host'];	
-            $data->modified = $dataSend['modified'];
-            $data->created = $dataSend['created'];
+            $data->modified = time($dataSend['modified']);
+            $data->created = time($dataSend['created']);
             $data->client_id = $dataSend['client_id'];
             $data->client_secret = $dataSend['client_secret'];
             $data->account_id = $dataSend['account_id'];
