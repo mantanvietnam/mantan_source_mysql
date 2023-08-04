@@ -84,7 +84,7 @@ function saveRegisterMemberAPI($input)
 	return $return;
 }
 
-function acceptMemberAPI{
+function acceptMemberAPI($input){
 	global $isRequestPost;
 	global $controller;
 	global $session;
@@ -98,19 +98,19 @@ function acceptMemberAPI{
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$checkPhone = $modelMember->find()->where(array('code_otp'=>$dataSend['code_otp']))->first();
 
-		if(empty($checkPhone)){
-			$data->code_otp = random_int(100000, 999999);
+		$checkPhone = $modelMember->find()->where(array('code_otp'=>(int)$dataSend['code_otp'],'phone'=>$dataSend['phone']))->first();
+		if(!empty($checkPhone)){
+			$checkPhone->code_otp = random_int(100000, 999999);
 
-			$data->status = 1; //1: kích hoạt, 0: khóa
-			$modelMember->save($data);
+			$checkPhone->status = 1; //1: kích hoạt, 0: khóa
+			$modelMember->save($checkPhone);
 					//sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 
-				$return = array('code'=>0, 
-			    				'set_attributes'=>array('id_member'=>$data->id),
+				$return = array('code'=>1, 
+			    				'set_attributes'=>array('id_member'=>$checkPhone->id),
 			    				'messages'=>array(array('text'=>'Lưu thông tin thành công')),
-			    				'info_member'=>$data
+			    				'info_member'=>$checkPhone
 			    			);
 		}else{
 			$return = array('code'=>2,
@@ -118,6 +118,7 @@ function acceptMemberAPI{
 				);
 		}
 	}
+	return $return;
 }
 
 
