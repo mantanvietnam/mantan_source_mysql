@@ -39,7 +39,7 @@
             <th>Loại tài khoản</th>
             <th>Tài khoản</th>
             <th>Mật khẩu</th>
-            <th>API</th>
+            <th>Key Host</th>
             <th>ID room</th>
             <th>Pass room</th>
             <th>Sửa</th>
@@ -61,13 +61,10 @@
                         </td>
                         <td>'.$item->pass.'</td>
                         <td>
-                          Key host: '.$item->key_host.'
+                          '.$item->key_host.'
                         </td>
-                        <td>'.$infoRoom->info['id'].'</td>
-                        <td>'.$infoRoom->info['password'].'</td>;
-
-                        
-                      
+                        <td>'.@$item->infoRoom->info['id'].'</td>
+                        <td>'.@$item->infoRoom->info['password'].'</td>;
                       <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

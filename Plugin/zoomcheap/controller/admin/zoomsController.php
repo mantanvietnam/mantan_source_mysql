@@ -31,11 +31,9 @@ function listAccountZoomAdmin($input)
         $conditions['type'] = $_GET['type'];
     }
 
-    if(isset($_GET['status'])){
-		if($_GET['status']!=''){
-			$conditions['status'] = (int) $_GET['status'];
-		}
-	}
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
     
     $listData = $modelZooms->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     if(!empty($listData)){
@@ -45,7 +43,11 @@ function listAccountZoomAdmin($input)
                 if(!empty($infoOrder->idRoom)){
                     $infoRoom = $modelRooms->find()->where(['id'=> $infoOrder->idRoom])->first(); 
                     $infoRoom->info = json_decode($infoRoom->info, true);
+
+                    $listData[$key]->infoRoom = $infoRoom;
+                    $listData[$key]->infoOrder = $infoOrder;
                 }
+
                 
             }   
            
@@ -91,8 +93,6 @@ function listAccountZoomAdmin($input)
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);    
     setVariable('listData', $listData);
-    setVariable('infoRoom', $infoRoom);
-
 
 }
 
@@ -111,8 +111,6 @@ function addZoom($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelZooms->get( (int) $_GET['id']);
-
-        $data->images = json_decode($data->images, true);
     }else{
         $data = $modelZooms->newEmptyEntity();
     }
@@ -126,15 +124,12 @@ function addZoom($input)
 	        $data->status = $dataSend['status'];	
             $data->pass = $dataSend['pass'];
             $data->key_host = $dataSend['key_host'];	
-            $data->modified = getdate()[0];
-            $data->created = getdate()[0];
+            $data->modified = time();
+            $data->created = time();
             $data->client_id = $dataSend['client_id'];
             $data->client_secret = $dataSend['client_secret'];
             $data->account_id = $dataSend['account_id'];
-          
-        
-	        
-        
+            
 	        $modelZooms->save($data);
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
@@ -152,12 +147,9 @@ function deleteZoom($input){
 	$modelZooms = $controller->loadModel('Zooms');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelZooms->get($_GET['id']);
-		
+		$data= $modelZooms->find()->where(['id'=>(int)$_GET['id']])->first(); 
 		if($data){
          	$modelZooms->delete($data);
-
-         	deleteSlugURL($data->slug);
         }
 	}
 

@@ -12,3 +12,5 @@ include('controller/home/historiesController.php');
 include('controller/admin/managersController.php');
 include('controller/admin/zoomsController.php');
 include('controller/admin/ordersController.php');
+include('controller/admin/historiesController.php');
+

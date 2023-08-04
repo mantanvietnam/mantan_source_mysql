@@ -1,6 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin Đơn hàng thuê Zoom</h4> 
-
+  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -12,6 +11,21 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
+          <div class="col-md-3">
+            <label class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" name="fullname" value="<?php if(!empty($_GET['fullname'])) echo $_GET['fullname'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+          </div>
+          
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -24,48 +38,45 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Đơn hàng thuê Zoom</h5>
+    <h5 class="card-header">Danh sách khách hàng</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Loại Zoom</th>
-            <th>Thời gian thuê</th>
-            <th>Khách hàng</th>
-            <th>Tài khoản Zoom</th>
-            <th>Phòng họp</th>
+            <th>Họ và tên</th>
+            <th>Liên hệ</th>
+            <th>Số dư</th>
+            <th>Thuê zoom</th>
+            <th colspan="3">Lựa chọn</th>
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
-
               foreach ($listData as $item) {
-              echo  '<tr>
+                echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->type.'</td>
+                        <td>'.$item->fullname.'</td>
                         <td>
-                          <p>'.date("Y-m-d H:i:s",$item->dateStart).'</p>
-                          <p>'.date("Y-m-d H:i:s",$item->dateEnd).'</p>
-                        </td>
-                        <td>
-                          '.$item->infoManager->fullname.'
+                          '.$item->phone.' 
                           </br>
-                          '.$item->infoManager->phone.'
-                          </br>
-                          '.$item->infoManager->email.'
-                          </br>
-                          '.number_format($item->infoManager->coin).' đ
+                          '.$item->email.' 
                         </td>
+                        <td>'.$item->coin.'</td>
                         <td>
-                          <p>Tài khoản: '.@$item->infoZoom->user.'</p>
-                          <p>Mật khẩu: '.@$item->infoZoom->pass.'</p>
-                          <p>Key host: '.@$item->infoZoom->key_host.'</p>
+                         
                         </td>
-                        <td>
-                          '.@$item->infoRoom->info['id'].'
-                          '.@$item->infoRoom->info['password'].'
+                        <td align="center">
+                          <a> + Nạp tiền </a>
+                        </td>
+
+                        <td align="center">
+                          <a> - Trừ tiền </a>
+                        </td>
+
+                        <td align="center">
+                          <a>Đổi pass </a>
                         </td>
                       </tr>';
               }

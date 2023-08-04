@@ -28,15 +28,18 @@ function listOrderZoomAdmin($input)
         foreach($listData as $key => $value){
             if(!empty($value->idManager)){
                 $infoManager = $modelManagers->find()->where(['id'=> $value->idManager])->first(); 
+                $listData[$key]->infoManager = $infoManager;
             }
             
             if(!empty($value->idZoom)){
                 $infoZoom = $modelZooms->find()->where(['id'=> $value->idZoom])->first(); 
+                $listData[$key]->infoZoom = $infoZoom;
             }
 
             if(!empty($value->idRoom)){
                 $infoRoom = $modelRooms->find()->where(['id'=> $value->idRoom])->first(); 
                 $infoRoom->info = json_decode($infoRoom->info, true);
+                $listData[$key]->infoRoom = $infoRoom;
             }
         }
     }    
@@ -80,31 +83,6 @@ function listOrderZoomAdmin($input)
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);    
     setVariable('listData', $listData);
-    setVariable('infoManager', $infoManager);
-    setVariable('infoRoom', $infoRoom);
-    setVariable('infoZoom', $infoZoom);
-
-
-
-
 }
 
-
-function deleteOrder($input){
-	global $controller;
-
-	$modelZooms = $controller->loadModel('Zooms');
-	
-	if(!empty($_GET['id'])){
-		$data = $modelZooms->get($_GET['id']);
-		
-		if($data){
-         	$modelZooms->delete($data);
-
-         	deleteSlugURL($data->slug);
-        }
-	}
-
-	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-order-listOrderZoomAdmin.php');
-}
 ?>
