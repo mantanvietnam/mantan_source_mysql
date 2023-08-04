@@ -84,6 +84,41 @@ function saveRegisterMemberAPI($input)
 	return $return;
 }
 
+function acceptMemberAPI{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1,
+					'set_attributes'=>array('id_customer'=>0),
+					'messages'=>array(array('text'=>''))
+				);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$checkPhone = $modelMember->find()->where(array('code_otp'=>$dataSend['code_otp']))->first();
+
+		if(empty($checkPhone)){
+			$data->code_otp = random_int(100000, 999999);
+
+			$data->status = 1; //1: kích hoạt, 0: khóa
+			$modelMember->save($data);
+					//sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
+
+				$return = array('code'=>0, 
+			    				'set_attributes'=>array('id_member'=>$data->id),
+			    				'messages'=>array(array('text'=>'Lưu thông tin thành công')),
+			    				'info_member'=>$data
+			    			);
+		}else{
+			$return = array('code'=>2,
+					'messages'=>array(array('text'=>'Gửi sai mã OTP'))
+				);
+		}
+	}
+}
 
 
 
@@ -581,6 +616,8 @@ function getInfoUserAPI($input)
 	return $return;
 }
 
+
+
 function lockAccountAPI($input)
 {
 	global $isRequestPost;
@@ -756,6 +793,8 @@ function saveInfoUserAPI($input)
 	return $return;
 }
 
+
+
 function requestCodeForgotPasswordAPI($input)
 {
 	global $isRequestPost;
@@ -778,15 +817,14 @@ function requestCodeForgotPasswordAPI($input)
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(!empty($checkPhone->email)){
-				$code = rand(1000,9999);
 
-				$checkPhone->token = $code;
-				$modelMember->save($checkPhone);
+				//$checkPhone->token = $code;
+				//$modelMember->save($checkPhone);
 
-				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code->code_otp);
 
 				$return = array('code'=>0,
-								'codeForgotPassword' => $code,
+								'code_otp' => $code->code_otp,
 								'messages'=>array(array('text'=>''))
 							);
 			}else{
@@ -821,7 +859,7 @@ function saveNewPassAPI($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(!empty($dataSend['phone']) 
-			&& !empty($dataSend['code'])
+			&& !empty($dataSend['code_otp'])
 			&& !empty($dataSend['passNew'])
 			&& !empty($dataSend['passAgain'])
 
@@ -829,9 +867,10 @@ function saveNewPassAPI($input)
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(!empty($checkPhone)){
-				if($checkPhone->token == $dataSend['code'] ){
+				if($checkPhone->code_otp == $dataSend['code_otp'] ){
 					if($dataSend['passNew'] == $dataSend['passAgain']){
 						$checkPhone->password = md5($dataSend['passNew']);
+						$data->code_otp = random_int(100000, 999999);
 						$checkPhone->token = '';
 
 						$modelMember->save($checkPhone);
@@ -965,11 +1004,6 @@ function statisticalAPI($input){
     
             }
         }
-
-
-
-
-
 
     $return = [	'static_code'=>1,
 				'static_luong_dang_ky' => (int) @$totalDatatoday,
