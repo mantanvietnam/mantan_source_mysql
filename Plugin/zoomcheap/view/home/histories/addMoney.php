@@ -18,27 +18,27 @@
               <div class="col-md-12">
                 <div class="mb-3">
                   <label class="form-label">Số tiền muốn nạp (*)</label>
-                  <input type="text" id="money" class="form-control" value="">
+                  <input type="number" id="money" class="form-control" value="">
                 </div>
               </div>
 
               <div class="col-md-12">
                 <div class="mb-3">
-                  <button type="button" class="btn btn-primary">Nạp tiền</button>
+                  <button type="button" class="btn btn-primary" onclick="showInfoBanking();">Nạp tiền</button>
                 </div>
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" style="display: none;" id="infoBanking">
               <div class="col-12 col-sm-12 col-md-12">
                   Quý khách vui lòng quét mã QR thanh toán bên dưới hoặc chuyển khoản ngân hàng theo thông tin sau:
                   <p><b>Mã QR thanh toán:</b></p>
-                  <img src="https://img.vietqr.io/image/TPB-06931228001-compact2.png?amount=50000&addInfo=<?php echo $session->read('infoUser')->phone;?> thuezoom&accountName=Tran Ngoc Manh" width="200">
+                  <img id="imageQR" src="https://img.vietqr.io/image/TPB-06931228001-compact2.png?amount=50000&addInfo=<?php echo $session->read('infoUser')->phone;?> thuezoom&accountName=Tran Ngoc Manh" width="200">
 
                   <p><b>Ngân hàng:</b> TP Bank</p>
                   <p onclick="copyToClipboard('stk','mess')"><b>Số tài khoản:</b> <span id="stk">06931228001</span> <i class='bx bx-copy' ></i></p>
                   <p><b>Chủ tài khoản:</b> Trần Ngọc Mạnh</p>
-                  <p><b>Số tiền nạp:</b> 50.000đ</p>
+                  <p id="moneyBanking"><b>Số tiền nạp:</b> 50.000đ</p>
                   <p onclick="copyToClipboard('contentPay','mess')">Nội dung chuyển tiền: <b id="contentPay"><?php echo $session->read('infoUser')->phone;?> thuezoom</b> <i class='bx bx-copy' ></i></p>
                   <p>Vui lòng nhập đúng nội dung chuyển tiền, nhập sai không được cộng tiền chúng tôi không chịu trách nhiệm.</p>
                   <p id="mess" style="color: red;"></p>
@@ -79,6 +79,16 @@ function copyToClipboard(idCopy,messId) {
 
     setInterval(emptyMess, 3000,messId);
 
+}
+
+function showInfoBanking()
+{
+  var money = parseInt($('#money').val());
+  var phone = "<?php echo $session->read('infoUser')->phone;?>";
+  $('#moneyBanking').html('<b>Số tiền nạp:</b> '+money+'đ');
+  $('#imageQR').attr("src","https://img.vietqr.io/image/TPB-06931228001-compact2.png?amount="+money+"&addInfo="+phone+" thuezoom&accountName=Tran Ngoc Manh");
+
+  $('#infoBanking').show();
 }
 </script>
 

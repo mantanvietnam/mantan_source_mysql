@@ -22,4 +22,5 @@
 
 
 	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';
+	$routesPlugin['addMoneyTPBankAPI']= 'zoomcheap/view/home/addMoneyTPBankAPI.php';
 ?>
