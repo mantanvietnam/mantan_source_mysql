@@ -44,6 +44,13 @@
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Ngày hết hạn dùng thử (*)</label>
+                    <input required type="text" class="form-control datepicker" name="deadline" id="deadline" value="<?php echo (!empty($data->deadline))?date('d/m/Y', $data->deadline):'';?>" />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="status" id="status">
@@ -67,10 +74,6 @@
                     <label class="form-label" for="basic-default-phone">Account id (*)</label>
                     <input required type="text" class="form-control phone-mask" name="account_id" id="account_id" value="<?php echo @$data->account_id;?>" />
                   </div>
-
-                  
-
-                  
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
