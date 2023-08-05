@@ -130,6 +130,14 @@ function addZoom($input)
             $data->client_secret = $dataSend['client_secret'];
             $data->account_id = $dataSend['account_id'];
             
+            $deadline = 0;
+            if(!empty($dataSend['deadline'])){
+                $deadline = explode('/', $dataSend['deadline']);
+                $deadline = mktime(0,0,0,$deadline[1],$deadline[0],$deadline[2]);
+            }
+	        
+            $data->deadline = $deadline;
+            
 	        $modelZooms->save($data);
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
