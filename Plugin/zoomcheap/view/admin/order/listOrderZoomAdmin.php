@@ -64,8 +64,8 @@
                           <p>Key host: '.@$item->infoZoom->key_host.'</p>
                         </td>
                         <td>
-                          '.@$item->infoRoom->info['id'].'
-                          '.@$item->infoRoom->info['password'].'
+                          <p>ID: '.@$item->infoRoom->info['id'].'</p>
+                          <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
                         </td>
                       </tr>';
               }

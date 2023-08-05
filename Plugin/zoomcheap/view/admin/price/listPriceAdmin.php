@@ -1,6 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
-  <p><a href="/plugins/admin/zoomcheap-view-admin-manager-addManagerExcel.php" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin Cài đặt giá</h4> 
+  <p><a href="/plugins/admin/zoomcheap-view-admin-price-addPriceAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -12,19 +13,15 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
-          <div class="col-md-3">
-            <label class="form-label">Tên khách hàng</label>
-            <input type="text" class="form-control" name="fullname" value="<?php if(!empty($_GET['fullname'])) echo $_GET['fullname'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Số điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Email</label>
-            <input type="text" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+          <div class="col-md-2">
+            <label class="form-label">Loại</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="100" <?php if(!empty($_GET['type']) && $_GET['type']=='100') echo 'selected';?> >100 người</option>
+              <option value="300" <?php if(!empty($_GET['type']) && $_GET['type']=='300') echo 'selected';?> >300 người</option>
+              <option value="500" <?php if(!empty($_GET['type']) && $_GET['type']=='500') echo 'selected';?> >500 người</option>
+              <option value="1000" <?php if(!empty($_GET['type']) && $_GET['type']=='1000') echo 'selected';?> >1000 người</option>
+            </select>
           </div>
           
           <div class="col-md-2">
@@ -39,46 +36,40 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Danh sách Cài đặt giá</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Họ và tên</th>
-            <th>Liên hệ</th>
-            <th>Số dư</th>
-            <th>Thuê zoom</th>
-            <th colspan="3">Lựa chọn</th>
+            <th>Loại tài khoản</th>
+            <th>Giá</th>
+            <th>Giờ</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
+
               foreach ($listData as $item) {
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->fullname.'</td>
-                        <td>
-                          '.$item->phone.' 
-                          </br>
-                          '.$item->email.' 
-                        </td>
-                        <td>'.number_format($item->coin).'</td>
-                        <td>
-                         
+                        <td>'.$item->type.'</td>
+                        <td>'.number_format($item->price).' đ</td>
+                        <td>'.$item->hour.' giờ</td>
+                      <td align="center">
+                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-price-addPriceAdmin.php/?id='.$item->id.'">
+                            <i class="bx bx-edit-alt me-1"></i>
+                          </a>
                         </td>
                         <td align="center">
-                          <a> + Nạp tiền </a>
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deletePriceAdmin.php/?id='.$item->id.'">
+                            <i class="bx bx-trash me-1"></i>
+                          </a>
                         </td>
-
-                        <td align="center">
-                          <a> - Trừ tiền </a>
-                        </td>
-
-                        <td align="center">
-                          <a>Đổi pass </a>
-                        </td>
+                        
                       </tr>';
               }
             }else{

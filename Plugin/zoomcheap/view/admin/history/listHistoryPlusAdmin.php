@@ -48,7 +48,7 @@
                           <p>'.$item->infoManager->fullname.'</p>
                           <p>'.$item->infoManager->phone.'</p>
                           <p>'.$item->infoManager->email.'</p>
-                          <p>Số dư: '.$item->numberCoinManager.'đ</p>
+                          <p>Số dư: '.number_format($item->numberCoinManager).'đ</p>
                         </td>
                         <td >'.$item->note.'</td>
 
