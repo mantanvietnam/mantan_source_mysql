@@ -13,9 +13,15 @@ $menus[0]['sub'][0]= array(	'title'=>'Khách hàng',
 						);
 
 $menus[0]['sub'][1]= array(	'title'=>'Lịch sử nạp tiền',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryAddMoney.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryPlusAdmin.php',
 							'classIcon'=>'bx bx-history',
-							'permission'=>'listHistoryAddMoney'
+							'permission'=>'listHistoryPlusAdmin'
+						);
+
+$menus[0]['sub'][5]= array(	'title'=>'Lịch sử trừ tiền',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryMinusAdmin.php',
+							'classIcon'=>'bx bx-history',
+							'permission'=>'listHistoryMinusAdmin'
 						);
 
 $menus[0]['sub'][2]= array(	'title'=>'Đơn hàng thuê Zoom',
@@ -35,6 +41,7 @@ $menus[0]['sub'][4]= array(	'title'=>'Cài đặt giá',
 							'classIcon'=>'bx bxl-zoom',
 							'permission'=>'listPriceAdmin'
 						);
+
 
 addMenuAdminMantan($menus);
 

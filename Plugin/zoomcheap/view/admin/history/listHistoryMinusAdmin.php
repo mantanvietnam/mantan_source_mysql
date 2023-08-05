@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Lịch sử trừ tiền</h4>
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -9,21 +9,6 @@
           <div class="col-md-1">
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Tên khách hàng</label>
-            <input type="text" class="form-control" name="fullname" value="<?php if(!empty($_GET['fullname'])) echo $_GET['fullname'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Số điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label">Email</label>
-            <input type="text" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
           
           <div class="col-md-2">
@@ -38,17 +23,17 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Danh sách Lịch sử trừ tiền</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Họ và tên</th>
-            <th>Liên hệ</th>
-            <th>Số dư</th>
-            <th>Thuê zoom</th>
-            <th colspan="3">Lựa chọn</th>
+            <th>Thời gian</th>
+            <th>Số tiền</th>
+            <th>Tài khoản</th>
+            <th>Ghi chú</th>
+
           </tr>
         </thead>
         <tbody>
@@ -57,27 +42,16 @@
               foreach ($listData as $item) {
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->fullname.'</td>
+                        <td>'.date("Y-m-d H:i:s",$item->time).'</td>
+                        <td>'.number_format($item->numberCoin).'đ</td>
                         <td>
-                          '.$item->phone.' 
-                          </br>
-                          '.$item->email.' 
+                          <p>'.$item->infoManager->fullname.'</p>
+                          <p>'.$item->infoManager->phone.'</p>
+                          <p>'.$item->infoManager->email.'</p>
+                          <p>Số dư: '.$item->numberCoinManager.'đ</p>
                         </td>
-                        <td>'.$item->coin.'</td>
-                        <td>
-                         
-                        </td>
-                        <td align="center">
-                          <a> + Nạp tiền </a>
-                        </td>
+                        <td >'.$item->note.'</td>
 
-                        <td align="center">
-                          <a> - Trừ tiền </a>
-                        </td>
-
-                        <td align="center">
-                          <a>Đổi pass </a>
-                        </td>
                       </tr>';
               }
             }else{
