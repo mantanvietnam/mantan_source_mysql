@@ -1,4 +1,55 @@
 <?php 
+function addManagerExcel($input)
+{
+    global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Nhập dữ liệu khách hàng';
+
+    $modelManagers = $controller->loadModel('Managers');
+
+    $mess = '';
+    if($isRequestPost){
+        $managerExcel = uploadAndReadExcelData('managerExcel');
+
+        if($managerExcel){
+            unset($managerExcel[0]);
+
+            foreach ($managerExcel as $row) {
+                $row[1] = str_replace(array(' ','.','-'), '', $row[1]);
+                $row[1] = str_replace('+84','0',$row[1]);
+
+                $checkPhone = $modelManagers->find()->where(array('phone'=>$row[1]))->first();
+
+                if(empty($checkPhone)){
+                    // tạo người dùng mới
+                    $data = $modelManagers->newEmptyEntity();
+
+                    $data->fullname = $row[0];
+                    $data->phone = $row[1];
+                    $data->email = $row[2];
+                    $data->password = $row[3];
+                    $data->coin = (int) $row[4];
+                    $data->modified = $row[5];
+                    $data->created = $row[5];
+                    $data->lastLogin = $row[6];
+                    $data->avatar = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
+
+                    $modelManagers->save($data);
+                }
+
+            }
+
+            $mess = 'Lưu dữ liệu thành công';
+        }
+    }
+
+    setVariable('mess', $mess);
+}
+
 function listManagerAdmin($input)
 {
 	global $controller;

@@ -22,24 +22,12 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Họ tên (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$user->name;?>"/>
+                    <input required type="text" class="form-control phone-mask" name="fullname" id="fullname" value="<?php echo @$user->fullname;?>"/>
                   </div>
-
-                  <div class="mb-3">
-                    <label class="form-label">Ảnh đại diện (*)</label>
-                    <?php showUploadFile('avatar','avatar',@$user->avatar,0);?>
-                  </div>
-
-                  
 
                   <div class="mb-3">
                     <label class="form-label">Email (*)</label>
                     <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$user->email;?>"/>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label">Trang cá nhân</label>
-                    <input type="text" disabled class="form-control" name="link_share" id="link_share" value="<?php echo 'https://designer.ezpics.vn/designer/'.createSlugMantan($user->name).'-'.$user->id.'.html';?>"/>
                   </div>
                 </div>
                 
@@ -50,13 +38,8 @@
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label">Mã giới thiệu</label>
-                    <input disabled type="text" class="form-control phone-mask" name="aff" id="aff" value="<?php echo @$user->aff;?>"/>
-                  </div>
-
-                  <div class="mb-3">
                     <label class="form-label">Số dư tài khoản</label>
-                    <input disabled type="text" class="form-control" name="account_balance" id="account_balance" value="<?php echo number_format(@$user->account_balance);?>"/>
+                    <input disabled type="text" class="form-control" name="coin" id="coin" value="<?php echo number_format(@$user->coin);?>"/>
                   </div>
 
                   

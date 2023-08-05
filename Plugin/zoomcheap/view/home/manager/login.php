@@ -131,6 +131,7 @@
               <div class="col-sm-12 text-center mb-2">
                   <div class="login_f gg">
                       <?php
+                      /*
                       global $google_clientId;
                       global $google_clientSecret;
                       global $google_redirectURL;
@@ -147,6 +148,7 @@
                       $authUrl = $client->createAuthUrl();
                    
                       echo '<a class="btn btn-danger" href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="bx bxl-google"></i> Đăng nhập với Google</a>';
+                      */
                       ?>
                   </div>
               </div>

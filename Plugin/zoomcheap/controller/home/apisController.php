@@ -160,6 +160,10 @@ function addMoneyTPBankAPI($input)
 
 		        $modelHistories->save($dataHistories);
 
+		        if(!empty($infoUser->email)){
+		        	sendEmailAddMoney($infoUser->email, $infoUser->fullname, $money);
+		    	}
+
 		        $mess = 'Cộng thành công '.number_format($money).'đ cho tài khoản '.$phone;
 			}else{
 				$mess = 'Không tìm thấy tài khoản khách hàng';

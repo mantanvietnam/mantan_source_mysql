@@ -5,7 +5,7 @@ global $sqlDeleteDatabase;
 $sqlInstallDatabase = '';
 $sqlDeleteDatabase = '';
 
-$sqlInstallDatabase .= "CREATE TABLE `managers` ( `id` INT NOT NULL AUTO_INCREMENT , `fullname` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `phone` VARCHAR(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `coin` INT NOT NULL , `modified` INT NOT NULL , `created` INT NOT NULL , `lastLogin` INT NOT NULL , `avatar` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .= "CREATE TABLE `managers` ( `id` INT NOT NULL AUTO_INCREMENT , `fullname` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `phone` VARCHAR(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `coin` INT NOT NULL , `modified` INT NOT NULL , `created` INT NOT NULL , `lastLogin` INT NOT NULL , `avatar` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `otp` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `histories` ( `id` INT NOT NULL AUTO_INCREMENT , `time` INT NOT NULL , `idManager` INT NOT NULL , `numberCoin` INT NOT NULL , `numberCoinManager` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `type_note` VARCHAR(255) NOT NULL , `modified` INT NOT NULL , `created` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 

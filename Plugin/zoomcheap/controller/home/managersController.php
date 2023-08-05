@@ -100,7 +100,7 @@ function changePass($input)
 
 	$metaTitleMantan = 'Đổi mật khẩu';
 
-	$modelMembers = $controller->loadModel('Members');
+	$modelManagers = $controller->loadModel('Managers');
 
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
@@ -110,13 +110,12 @@ function changePass($input)
 
 			if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
 				if($dataSend['passNew'] == $dataSend['passAgain']){
-					$user = $modelMembers->get($session->read('infoUser')->id);
+					$user = $modelManagers->get($session->read('infoUser')->id);
 
 					if($user->password == md5($dataSend['passOld'])){
 						$user->password = md5($dataSend['passNew']);
-						$user->token = createToken(25);
 
-						$modelMembers->save($user);
+						$modelManagers->save($user);
 
 						$session->write('infoUser', $user);
 
@@ -147,30 +146,29 @@ function account($input)
 
 	$metaTitleMantan = 'Đổi thông tin tài khoản';
 
-	$modelMembers = $controller->loadModel('Members');
+	$modelManagers = $controller->loadModel('Managers');
 
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
 
-		$user = $modelMembers->get($session->read('infoUser')->id);
+		$user = $modelManagers->get($session->read('infoUser')->id);
 
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
 
-			if(!empty($dataSend['name']) && !empty($dataSend['avatar']) && !empty($dataSend['email'])){
-				$user->name = $dataSend['name'];
-				$user->avatar = $dataSend['avatar'];
+			if(!empty($dataSend['fullname']) && !empty($dataSend['email'])){
+				$user->fullname = $dataSend['fullname'];
 				$user->email = $dataSend['email'];
 
-				$modelMembers->save($user);
-
-				$session->write('infoUser', $user);
+				$modelManagers->save($user);
 
 				$mess= '<p class="text-success">Đổi thông tin thành công</p>';
 			}else{
 				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 			}
 		}
+
+		$session->write('infoUser', $user);
 
 		setVariable('mess', $mess);
 		setVariable('user', $user);
@@ -187,66 +185,85 @@ function forgotPass($input){
 
 	$metaTitleMantan = 'Số điện thoại xác thực';
 
-	$modelMembers = $controller->loadModel('Members');
+	$modelManagers = $controller->loadModel('Managers');
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$conditions = array();
-		$conditions['phone'] = $dataSend['phone'];
-		$checkMember = $modelMembers->find()->where($conditions)->first();
 
-		if(!empty($checkMember)){
-			@$pass = getdate()[0];
-			$checkMember->password = md5($pass);
-			
-			$modelMembers->save($checkMember);
-			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
-			$session->write('phone', $checkMember->phone);
-			
-			return $controller->redirect('/confirm');
+		if(!empty($dataSend['phone'])){
+			$conditions = array();
 
+			$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+			$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
+			$conditions['phone'] = $dataSend['phone'];
+			$checkMember = $modelManagers->find()->where($conditions)->first();
+
+			if(!empty($checkMember)){
+				$checkMember->otp = rand(100000,999999);
+				
+				$modelManagers->save($checkMember);
+				sendEmailnewpassword($checkMember->email, $checkMember->name, $checkMember->otp);
+				$session->write('phone', $checkMember->phone);
+				
+				return $controller->redirect('/confirm');
+			}else{
+				$mess= '<p class="text-danger">Số điện thoại không đúng!</p>';
+			}
 		}else{
-			$mess= '<p class="text-danger">Số điện thoại không đúng!</p>';
+			$mess= '<p class="text-danger">Gửi thiếu số điện thoại</p>';
 		}
 		setVariable('mess', $mess);
 	}
 }
 
-function confirm($input){
-
+function confirm($input)
+{
 	global $metaTitleMantan;
 	global $isRequestPost;
 	global $controller;
 	global $session;
 	$phone = $session->read('phone');
 
-	$modelCustomer = $controller->loadModel('Customers');
-	$modelMembers = $controller->loadModel('Members');
+	$modelManagers = $controller->loadModel('Managers');
 
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
-		$conditions = array();
-		$conditions = array('phone'=>@$phone, 'password'=>md5($dataSend['code']));
-	    		$data = $modelMembers->find()->where($conditions)->first();
-	    		if(!empty($data)){
-	    				if($dataSend['pass'] == $dataSend['passAgain']){
-	    				$data->password = md5($dataSend['pass']);
+	if(!empty($phone)){
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
 
-	    				$modelMembers->save($data);
-	    				$session->destroy();
+			$mess = '';
+
+			if(!empty($dataSend['code'])){
+				$conditions = array();
+				$conditions = array('phone'=>$phone, 'otp'=>$dataSend['code']);
+			    		
+				$data = $modelManagers->find()->where($conditions)->first();
+				
+				if(!empty($data)){
+					if($dataSend['pass'] == $dataSend['passAgain']){
+						$data->password = md5($dataSend['pass']);
+						$data->otp = 0;
+
+						$modelManagers->save($data);
+						$session->destroy();
 			    			
 						return $controller->redirect('/login');		
 
-	    			}else{
-	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
-	    			}
-	    		}else{
-	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
-	    		}
-	    setVariable('mess', $mess);
-	}
+					}else{
+						$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
+					}
+				}else{
+					$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
+				}
+			}else{
+			    $mess= '<p class="text-danger">Bạn chưa nhập mã xác thực</p>';
+			}
 
+			setVariable('mess', $mess);
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
 
 }
 
