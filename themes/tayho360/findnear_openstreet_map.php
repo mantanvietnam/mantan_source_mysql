@@ -147,32 +147,36 @@
 </div>
  
 <script type="text/javascript">
+  var keyMap = 'efe2301638f6af0bd594f5f607d6dc86ea53e3406d158d44';
+
+  var locations = [<?php
+    $findNear = getFindnear();
+
+    if (!empty($findNear)) {
+        $listShowMap= array();
+        
+        foreach ($findNear as $data) {
+          if(!empty($data['lat']) & !empty($data['long'])){
+              $content   = '<img src='.$data['image'].' style=width:200px;height:156px;  ><br/><a href='.$data['urlSlug'].'>' . $data['name']. '</a>';
+              $content.='<br/>Điện thoại: ' . @$data['phone'];
+              $content.='<br/>Địa chỉ: ' . $data['address'];
+
+              $listShowMap[]= '["' . $content . '", ' . $data['lat'] . ', ' . $data['long'] . ', "' . $data['icon'] . '","'.$data['type'].'"]';
+            }
+        }
+        
+        echo implode(',', $listShowMap);
+    }
+    ?>];
+
+  const map = L.map('map_HS', {
+    center: [21.057646992531012, 105.83320869683257],
+    zoom: 15,
+  });
+
+  const pointLayer = L.layerGroup().addTo(map);
+
   function initMap() {
-    var keyMap = 'efe2301638f6af0bd594f5f607d6dc86ea53e3406d158d44';
-
-    var locations = [<?php
-      if (!empty(getFindnear())) {
-          $listShowMap= array();
-          
-          foreach (getFindnear() as $data) {
-            if(!empty($data['lat']) & !empty($data['long'])){
-                $content   = '<img src='.$data['image'].' style=width:200px;height:156px;  ><br/><a href='.$data['urlSlug'].'>' . $data['name']. '</a>';
-                $content.='<br/>Điện thoại: ' . @$data['phone'];
-                $content.='<br/>Địa chỉ: ' . $data['address'];
-
-                $listShowMap[]= '["' . $content . '", ' . $data['lat'] . ', ' . $data['long'] . ', "' . $data['icon'] . '","'.$data['type'].'"]';
-              }
-          }
-          
-          echo implode(',', $listShowMap);
-      }
-      ?>];
-
-    const map = L.map('map_HS', {
-      center: [21.057646992531012, 105.83320869683257],
-      zoom: 15,
-    });
-
     L.tileLayer('https://maps.vnpost.vn/api/tm/{z}/{x}/{y}@@2x.png?apikey='+keyMap, {
       attribution: 'Map data &copy; <a href="https://vmap.vn">Vmap</a>, <a href="http://openstreetmap.org">OSM Contributors</a>',
       maxZoom: 18,
@@ -181,6 +185,8 @@
     }).addTo(map);
 
     var icon, y, i;
+
+    pointLayer.clearLayers();
 
     for (y = 1; y < 10; y++) {
       if($('#check-all'+y).is(":checked")){
@@ -191,11 +197,15 @@
               iconSize: [40, 40],
             });
 
-            L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(map);
+            L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(pointLayer);
           }
         }
+      }else{
+        console.log(y);
       }
     }  
+
+    
   }
 </script> 
 
