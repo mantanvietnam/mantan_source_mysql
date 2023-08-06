@@ -2,11 +2,30 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Danh sách đơn hàng</h4>
-  <p><a href="/addOrder" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p>
+      <a href="/addOrder" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> &nbsp;&nbsp;&nbsp;
+      <a href="/addMoney" class="btn btn-danger"><i class='bx bx-plus'></i> Nạp tiền (<?php echo number_format($session->read('infoUser')->coin);?>đ)</a>
+  </p>
 
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách đơn thuê Zoom</h5>
+    
+    <div class="row mb-3">
+      <div class="col-6 col-sm-6 col-md-3">
+        <b>Zoom 100:</b> <?php echo $numberAcc100;?>
+      </div>
+      <div class="col-6 col-sm-6 col-md-3">
+        <b>Zoom 300:</b> <?php echo $numberAcc300;?>
+      </div>
+      <div class="col-6 col-sm-6 col-md-3">
+        <b>Zoom 500:</b> <?php echo $numberAcc500;?>
+      </div>
+      <div class="col-6 col-sm-6 col-md-3">
+        <b>Zoom 1000:</b> <?php echo $numberAcc1000;?>
+      </div>
+    </div>
+
     <div id="desktop_view">
       <div class="table-responsive">
         <table class="table table-bordered">

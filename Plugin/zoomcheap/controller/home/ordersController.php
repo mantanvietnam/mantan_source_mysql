@@ -12,8 +12,10 @@ function listOrder($input)
 
 		$modelManagers = $controller->loadModel('Managers');
 		$modelOrders = $controller->loadModel('Orders');
+		$modelZooms = $controller->loadModel('Zooms');
 
-		$user = $session->read('infoUser');
+		$user = $modelManagers->find()->where(['id'=>$session->read('infoUser')->id])->first();
+		$session->write('infoUser',$user);
 
 		$conditions = array('idManager'=>$user->id);
 		$limit = 20;
@@ -62,6 +64,19 @@ function listOrder($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    // thống kê tài khoản trống
+	    $numberAcc100 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>100])->all()->toList();
+	    $numberAcc100 = count($numberAcc100);
+
+	    $numberAcc300 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>300])->all()->toList();
+	    $numberAcc300 = count($numberAcc300);
+
+	    $numberAcc500 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>500])->all()->toList();
+	    $numberAcc500 = count($numberAcc500);
+
+	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000])->all()->toList();
+	    $numberAcc1000 = count($numberAcc1000);
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
@@ -70,6 +85,10 @@ function listOrder($input)
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('numberAcc100', $numberAcc100);
+	    setVariable('numberAcc300', $numberAcc300);
+	    setVariable('numberAcc500', $numberAcc500);
+	    setVariable('numberAcc1000', $numberAcc1000);
 	}else{
 		return $controller->redirect('/login');
 	}

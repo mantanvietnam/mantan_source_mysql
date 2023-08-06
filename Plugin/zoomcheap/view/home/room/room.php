@@ -17,18 +17,24 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label class="form-label">Giới hạn phòng họp</label>
-                  <input type="text" class="form-control" name="" value="<?php echo $order->type;?> người">
+                  <label class="form-label">Tên phòng họp (*)</label>
+                  <input type="text" onchange="updateInfoRoom();" class="form-control" id="topic" value="<?php echo $room['topic'];?>">
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label">Tên phòng họp</label>
-                  <input type="text" class="form-control" name="" value="<?php echo $room['topic'];?>">
+                  <label class="form-label">Giới hạn phòng họp</label>
+                  <input type="text" class="form-control" name="" disabled value="<?php echo $order->type;?> người">
                 </div>
                 
                 <div class="mb-3">
                   <label class="form-label">ID phòng họp</label>
-                  <input type="text" class="form-control" name="" value="<?php echo $room['id'];?>">
+                  <input type="text" class="form-control" disabled name="" value="<?php echo $room['id'];?>">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Tự động gia hạn (*)</label><br/>
+                  <input type="radio" name="extend_time_use" value="0" onclick="updateInfoRoom();" <?php if(empty($order->extend_time_use)) echo 'checked';?> /> Tắt &nbsp;&nbsp;&nbsp;
+                  <input type="radio" name="extend_time_use" value="1" onclick="updateInfoRoom();" <?php if(!empty($order->extend_time_use)) echo 'checked';?> /> Bật 
                 </div>
                 
               </div>
@@ -36,25 +42,28 @@
               <div class="col-md-6">
                 
                 <div class="mb-3">
-                  <label class="form-label">Mật khẩu phòng họp</label>
-                  <input type="text" class="form-control" name="" value="<?php echo @$room['password'];?>">
+                  <label class="form-label">Mật khẩu phòng họp (*)</label>
+                  <input type="text" onchange="updateInfoRoom();" class="form-control" id="password" value="<?php echo @$room['password'];?>">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Key host</label>
-                  <input type="text" class="form-control" name="" value="<?php echo $zoom->key_host;?>">
+                  <input type="text" class="form-control" disabled name="" value="<?php echo $zoom->key_host;?>">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Link phòng họp</label>
-                  <input type="text" class="form-control" name="" value="<?php echo $room['join_url'];?>">
+                  <input type="text" class="form-control" disabled name="" value="<?php echo $room['join_url'];?>">
                 </div>
                 
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" onclick="copyFormatted('contentShare','mess')">Chia sẻ</button>
-            <p id="mess" style="color: red;"></p>
+            <button type="button" class="btn btn-primary" onclick="copyFormatted('contentShare','mess')">Chia sẻ</button> &nbsp;&nbsp;&nbsp;
+
+            <a target="_blank" href="<?php echo $room['join_url'];?>" class="btn btn-danger">Vào phòng họp</a>
+
+            <p id="mess" style="color: red;" class="mt-3"></p>
           </div>
         </div>
       </div>
@@ -107,6 +116,29 @@ function copyFormatted(idDivCopy, idDivMess) {
 
   $('#'+idDivMess).html('Đã sao chép');
 }
+</script>
+
+<script type="text/javascript">
+  function updateInfoRoom()
+  {
+    var topic = $('#topic').val();
+    var password = $('#password').val();
+    var extend_time_use = $("input[name='extend_time_use']:checked").val();
+    var idRoom = '<?php echo (int) $_GET['id']?>';
+
+    if(topic!='' && password!=''){
+      $.ajax({
+        method: "POST",
+        url: "/apis/updateInfoRoomAPI",
+        data: { topic: topic, password: password, extend_time_use: extend_time_use, idRoom: idRoom }
+      })
+        .done(function( msg ) {
+          $('#mess').html('Cập nhập thông tin phòng họp thành công');
+        });
+    }else{
+      alert('Bạn không được để trống tên phòng họp hoặc mật khẩu phòng');
+    }
+  }
 </script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

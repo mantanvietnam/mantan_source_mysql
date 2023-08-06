@@ -12,6 +12,7 @@ function checkDeadlineOrderAPI($input)
 	$timeNext7p = $timeNow + 7*60;
 	$number_extend = 0;
 	$number_deadline = 0;
+	$number_deadline_zoom = 0;
 
 	// gia hạn tự động
 	$conditions = ['dateEnd >=' => $timeNow, 'dateEnd <='=>$timeNext7p, 'extend_time_use'=>1];
@@ -72,7 +73,20 @@ function checkDeadlineOrderAPI($input)
 		}
 	}
 
-	return ['number_extend'=>$number_extend,'number_deadline'=>$number_deadline];
+	// khóa tài khoản Zoom hết hạn
+	$listDeadlineZoom = $modelZooms->find()->where(['deadline >'=>0, 'deadline <'=>time(), 'status'=>'active'])->all()->toList();
+
+	if(!empty($listDeadlineZoom)){
+		foreach ($listDeadlineZoom as $key => $value) {
+			$value->status = 'lock';
+
+			$modelZooms->save($value);
+
+			$number_deadline_zoom++;
+		}
+	}
+
+	return ['number_extend'=>$number_extend, 'number_deadline_order'=>$number_deadline, 'number_deadline_zoom'=>$number_deadline_zoom];
 }
 
 function addMoneyTPBankAPI($input)
@@ -179,4 +193,38 @@ function addMoneyTPBankAPI($input)
 	}
 
 	return $return;
+}
+
+function updateInfoRoomAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelManagers = $controller->loadModel('Managers');
+	$modelOrders = $controller->loadModel('Orders');
+	$modelRooms = $controller->loadModel('Rooms');
+	$modelZooms = $controller->loadModel('Zooms');
+
+	if(!empty($session->read('infoUser'))){
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			if(!empty($dataSend['idRoom'])){
+				$room = $modelRooms->find()->where(['id'=>(int) $dataSend['idRoom'], 'idManager'=>$session->read('infoUser')->id])->first();
+
+				if(!empty($room)){
+					$order = $modelOrders->find()->where(['id'=>$room->id_order, 'idManager'=>$session->read('infoUser')->id])->first();
+
+					if(!empty($order)){
+						$order->extend_time_use = (int) $dataSend['extend_time_use'];
+
+						$modelOrders->save($order);
+					}
+				}
+			}
+		}
+	}
+
+	return ['code'=>1, 'order'=>$order, 'room'=>$room];
 }

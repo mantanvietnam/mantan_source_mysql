@@ -81,6 +81,11 @@ function createRoom($input)
 							}
 
 							if(!empty($room['id'])){
+								if(!empty($dataSend['input_pass'])){
+									$join_url = explode('?', $room['join_url']);
+									$room['join_url'] = $join_url[0];
+								}
+
 								// lưu phòng họp mới
 								$dataRoom = $modelRooms->newEmptyEntity();
 

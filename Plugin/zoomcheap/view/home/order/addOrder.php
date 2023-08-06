@@ -6,7 +6,7 @@
     <span class="text-muted fw-light"><a href="/listOrder">Thuê Zoom</a> /</span>
     Tạo đơn mới
   </h4>
-  <p><a href="/addMoney" class="btn btn-primary"><i class='bx bx-plus'></i> Nạp tiền (<?php echo number_format($infoUser->coin);?>đ)</a></p>
+  <p><a href="/addMoney" class="btn btn-danger"><i class='bx bx-plus'></i> Nạp tiền (<?php echo number_format($infoUser->coin);?>đ)</a></p>
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
@@ -33,7 +33,7 @@
                   
                   <div class="mb-3">
                     <label class="form-label">Tự động gia hạn (*)</label><br/>
-                    <input type="radio" name="extend_time_use" value="0" checked /> Tắt &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="extend_time_use" value="0" /> Tắt &nbsp;&nbsp;&nbsp;
                     <input type="radio" name="extend_time_use" value="1" /> Bật 
                   </div>
                   
