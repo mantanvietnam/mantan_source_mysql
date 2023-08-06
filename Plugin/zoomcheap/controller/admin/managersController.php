@@ -127,4 +127,64 @@ function listManagerAdmin($input)
 
 }
 
+function addMoneyManagerAdmin($input){
+	global $controller;
+
+	global $isRequestPost;
+
+	$modelHistories = $controller->loadModel('Histories');
+	$modelManagers = $controller->loadModel('Managers');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelManagers->get($_GET['id']);
+		if ($isRequestPost) {
+			$dataSend = $input['request']->getData();
+
+			if($_GET['type']=='plus'){
+				$data->coin = $data->coin + $dataSend['coinChange'];
+
+				$history = $modelHistories->newEmptyEntity();
+
+                $history->time = time();
+                $history->idManager = $data->id;
+                $history->numberCoin = $dataSend['coinChange'];
+                $history->numberCoinManager = $data->coin;
+                $history->type = 'plus'; 
+                $history->note = 'Bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
+                $history->type_note = 'plus_admin'; 
+                $history->modified = time();
+                $history->created = time();
+               
+                $modelHistories->save($history);
+
+			}elseif($_GET['type']=='minus'){
+				$data->coin = $data->coin - $dataSend['coinChange'];
+
+				$history = $modelHistories->newEmptyEntity();
+
+                $history->time = time();
+                $history->idManager = $data->id;
+                $history->numberCoin = $dataSend['coinChange'];
+                $history->numberCoinManager = $data->coin;
+                $history->type = 'minus'; 
+                $history->note = 'Bạn trừ tiền trong admin lý do công là:  '.@$dataSend['note'];
+                $history->type_note = 'minus_admin'; 
+                $history->modified = time();
+                $history->created = time();
+               
+                $modelHistories->save($history);
+
+			}
+
+			$modelMembers->save($data);
+		}
+		setVariable('data', $data);
+	}else{
+
+	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin.php');																									
+	}
+
+
+}
+
 ?>
