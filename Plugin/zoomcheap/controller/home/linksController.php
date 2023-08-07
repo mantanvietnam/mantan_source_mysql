@@ -115,7 +115,7 @@ function addLink($input)
 	        	$checkLink = $modelLinks->find()->where($conditions)->first();
 
 	        	if(empty($checkLink)){
-	        		if($infoUser->coin >= $price_link){
+	        		if($infoUser->coin >= $price_link || !empty($data->id)){
 			        	
 			        	// tạo dữ liệu save link
 				        $data->title = $dataSend['title'];
@@ -128,24 +128,26 @@ function addLink($input)
 				        
 				        $modelLinks->save($data);
 
-				        // trừ tiền tài khoản
-				        $infoUser->coin -= $price_link;
-				        $modelManagers->save($infoUser);
+				        if(empty($_GET['id'])){
+					        // trừ tiền tài khoản
+					        $infoUser->coin -= $price_link;
+					        $modelManagers->save($infoUser);
 
-				        // lưu lịch sử giao dịch
-				        $dataHistories = $modelHistories->newEmptyEntity();
+					        // lưu lịch sử giao dịch
+					        $dataHistories = $modelHistories->newEmptyEntity();
 
-				        $dataHistories->time = time();
-				        $dataHistories->idManager = $infoUser->id;
-				        $dataHistories->numberCoin = $price_link;
-				        $dataHistories->numberCoinManager = $infoUser->coin;
-				        $dataHistories->type = 'minus';
-				        $dataHistories->note = 'Mua link cố định';
-				        $dataHistories->type_note = 'minus_link';
-				        $dataHistories->modified = time();
-				        $dataHistories->created = time();
+					        $dataHistories->time = time();
+					        $dataHistories->idManager = $infoUser->id;
+					        $dataHistories->numberCoin = $price_link;
+					        $dataHistories->numberCoinManager = $infoUser->coin;
+					        $dataHistories->type = 'minus';
+					        $dataHistories->note = 'Mua link cố định';
+					        $dataHistories->type_note = 'minus_link';
+					        $dataHistories->modified = time();
+					        $dataHistories->created = time();
 
-				        $modelHistories->save($dataHistories);
+					        $modelHistories->save($dataHistories);
+					    }
 
 				        return $controller->redirect('/listLink');
 				    }else{
