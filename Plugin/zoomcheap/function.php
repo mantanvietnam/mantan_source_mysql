@@ -58,6 +58,76 @@ $google_clientSecret= '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';
 
 $google_redirectURL= $urlHomes . 'ggCallback';
 
+function closeRoom($clientId = '', $clientSecret = '', $account_id = '', $meetingId = '')
+{
+    if(!empty($clientId) && !empty($clientSecret) && !empty($account_id) && !empty($meetingId)){
+
+        // Endpoint API Zoom để lấy Access Token
+        $tokenUrl = 'https://zoom.us/oauth/token';
+
+        // Dữ liệu yêu cầu lấy Access Token
+        $data = array(
+            'grant_type' => 'account_credentials',
+            'account_id' => $account_id, // Thay thế YOUR_ACCOUNT_ID bằng account_id cụ thể
+        );
+
+        // Chuỗi mã xác thực Basic (clientId:clientSecret được mã hóa Base64)
+        $authHeader = base64_encode($clientId . ':' . $clientSecret);
+
+        // Gửi yêu cầu POST với thông tin xác thực
+        $httpClient = new Client();
+        $response = $httpClient->post($tokenUrl, [
+            'form_params' => $data,
+            'headers' => [
+                'Authorization' => 'Basic ' . $authHeader,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        // Xử lý dữ liệu phản hồi nếu cần
+        $responseData = json_decode($response->getBody(), true);
+
+        if(!empty($responseData['access_token'])){
+            // Thông tin tài khoản Zoom của người dùng (sau khi ủy quyền)
+            $jwtToken = $responseData['access_token'];
+
+            // Gửi yêu cầu DELETE để kết thúc phòng họp
+            $httpClient = new Client();
+
+            // Endpoint API Zoom để kết thúc phòng họp
+            $updateMeetingUrl = "https://api.zoom.us/v2/meetings/{$meetingId}/status";
+
+            // Dữ liệu yêu cầu cập nhật trạng thái kết thúc phòng họp
+            $meetingData = array(
+                'action' => 'end', // Đặt trạng thái cuộc họp thành "end"
+            );
+            
+            $response = $httpClient->put($updateMeetingUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $jwtToken,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
+                'json' => $meetingData,
+            ]);
+
+            // Endpoint API Zoom để kết thúc phòng họp
+            $deleteMeetingUrl = "https://api.zoom.us/v2/meetings/{$meetingId}";
+            
+            $responseDelete = $httpClient->delete($deleteMeetingUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $jwtToken,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+
+            // Xử lý dữ liệu phản hồi nếu cần
+            return json_decode($responseDelete->getBody(), true);
+        }
+    }
+}
+
 function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $topic= '' , $start_time=0 , $duration = 60, $pass = '')
 {
 	$return = [];

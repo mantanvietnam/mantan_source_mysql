@@ -179,3 +179,22 @@ function addLink($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function redirectLink($input)
+{
+	global $controller;
+
+	$modelLinks = $controller->loadModel('Links');
+
+	if(!empty($input['request']->getAttribute('params')['pass'][1])){
+		$code = $input['request']->getAttribute('params')['pass'][1];
+
+		$checkLink = $modelLinks->find()->where(['code'=>$code])->first();
+
+		if(!empty($checkLink->goto)){
+			return $controller->redirect($checkLink->goto);
+		}
+	}
+
+	return $controller->redirect('https://zoomcheap.com');
+}

@@ -7,6 +7,7 @@ function checkDeadlineOrderAPI($input)
 	$modelManagers = $controller->loadModel('Managers');
 	$modelHistories = $controller->loadModel('Histories');
 	$modelZooms = $controller->loadModel('Zooms');
+	$modelRooms = $controller->loadModel('Rooms');
 
 	$timeNow = time();
 	$timeNext7p = $timeNow + 7*60;
@@ -66,6 +67,12 @@ function checkDeadlineOrderAPI($input)
 				$modelZooms->save($zoom);
 
 				$number_deadline++;
+
+				// báo sang Zoom để khóa phòng
+				$room = $modelRooms->find()->where(['id' => $order->idRoom])->first();
+				$room->info = json_decode($room->info, true);
+
+				closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
 			}
 
 			$order->idZoom = 0;

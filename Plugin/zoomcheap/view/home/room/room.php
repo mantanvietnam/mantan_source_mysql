@@ -48,12 +48,12 @@
 
                 <div class="mb-3">
                   <label class="form-label">Key host</label>
-                  <input type="text" class="form-control" disabled name="" value="<?php echo $zoom->key_host;?>">
+                  <input type="text" class="form-control" disabled name="" value="<?php echo @$zoom->key_host;?>">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Link phòng họp</label>
-                  <input type="text" class="form-control" disabled name="" value="<?php echo $room['join_url'];?>">
+                  <input type="text" class="form-control" disabled name="" value="<?php echo (!empty($link))?$link:$room['join_url'];?>">
                 </div>
                 
               </div>
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<p style="display: none;" id="contentShare">ID phòng: <?php echo $room['id'];?><br/>Mật khẩu: <?php echo @$room['password'];?><br/>Link tham gia: <?php echo $room['join_url'];?></p>
+<p style="display: none;" id="contentShare">ID phòng: <?php echo $room['id'];?><br/>Mật khẩu: <?php echo @$room['password'];?><br/>Link tham gia: <?php echo (!empty($link))?$link:$room['join_url'];?></p>
 
 <script type="text/javascript">
 function copyFormatted(idDivCopy, idDivMess) {

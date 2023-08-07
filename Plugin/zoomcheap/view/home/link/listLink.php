@@ -32,7 +32,7 @@
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->title.'</td>
-                          <td>'.'https://vaozoom.us/'.$item->code.'</td>
+                          <td>'.'https://vaozoom.us/r/'.$item->code.'</td>
                           <td>'.$item->goto.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addLink/?id='.$item->id.'">
@@ -64,7 +64,7 @@
                     <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                       <p><b><?php echo $item->title; ?></b></p>
                       <p><b>ID:</b> <?php echo $item->id; ?></p>
-                      <p><b>Link:</b> <?php echo 'https://vaozoom.us/'.$item->code; ?></p>
+                      <p><b>Link:</b> <?php echo 'https://vaozoom.us/r/'.$item->code; ?></p>
                       <p><b>Đích:</b> <?php echo $item->goto; ?></p>
 
                       <p>
