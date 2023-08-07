@@ -289,7 +289,7 @@ function forgotpassword($input){
 		$checkCustomer = $modelCustomer->find()->where($conditions)->first();
 		if(!empty($checkCustomer)){
 			@$pass = getdate()[0];
-			$checkCustomer->pass = md5($pass);
+			$checkCustomer->token = md5($pass);
 			
 			$modelCustomer->save($checkCustomer);
 			sendEmailnewpassword($checkCustomer->email, $checkCustomer->full_name, $pass);
@@ -321,7 +321,7 @@ function confirm($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions = array('email'=>@$email, 'pass'=>md5($dataSend['code']));
+		$conditions = array('email'=>@$email, 'token'=>md5($dataSend['code']));
 	    		$data = $modelCustomer->find()->where($conditions)->first();
 	    		if(!empty($data)){
 	    				$session->destroy();

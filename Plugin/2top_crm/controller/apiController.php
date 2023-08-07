@@ -850,7 +850,7 @@ function requestCodeForgotPasswordAPI($input)
 		$checkCustomer = $modelCustomer->find()->where($conditions)->first();
 		if(!empty($checkCustomer)){
 			@$pass = getdate()[0];
-			$checkCustomer->pass = md5($pass);
+			$checkCustomer->token = md5($pass);
 			
 			$modelCustomer->save($checkCustomer);
 			sendEmailnewpassword($checkCustomer->email, $checkCustomer->full_name, $pass);
@@ -879,7 +879,7 @@ function saveNewPassAPI($input)
 	
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions = array('email'=>@$dataSend['email'], 'pass'=>md5($dataSend['code']));
+		$conditions = array('email'=>@$dataSend['email'], 'token'=>md5($dataSend['code']));
 	    		$data = $modelCustomer->find()->where($conditions)->first();
 	    		if(!empty($data)){
 	    			if($dataSend['pass'] == $dataSend['passAgain']){

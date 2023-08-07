@@ -8,7 +8,7 @@ function saveRegisterMemberAPI($input)
 	$modelMember = $controller->loadModel('Members');
 
 	$return = array('code'=>1,
-					'set_attributes'=>array('id_customer'=>0),
+					'set_attributes'=>array('id_member'=>0),
 					'messages'=>array(array('text'=>''))
 				);
 	
@@ -17,34 +17,15 @@ function saveRegisterMemberAPI($input)
 
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-		
-		if(empty($dataSend['status'])) $dataSend['status']=1;
-		if(empty($dataSend['password'])) $dataSend['password']= $dataSend['phone'];
-		if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
 		
 
-		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
+		if(!empty($dataSend['phone'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
-				if($dataSend['password'] == $dataSend['password_again']){
-					$data = $modelMember->newEmptyEntity();
-
-					if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
-						$avatar = uploadImage($dataSend['phone'], 'avatar', 'avatar_'.$dataSend['phone']);
-					}
-
-					if(!empty($avatar['linkOnline'])){
-						$data->avatar = $avatar['linkOnline'];
-					}
-
-					$data->name = $dataSend['name'];
+				$data = $modelMember->newEmptyEntity();
 					$data->phone = $dataSend['phone'];
-					$data->email = @$dataSend['email'];
 					$data->code_otp = random_int(100000, 999999);
-					$data->password = md5($dataSend['password']);
-					$data->status = 0; //1: kích hoạt, 0: khóa
 					$data->type =  0; // 0: người dùng, 1: tài xế
 					$data->token = createToken();
 					$data->created_at = date('Y-m-d H:i:s');
@@ -60,22 +41,18 @@ function saveRegisterMemberAPI($input)
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
 			    						'info_member'=>$data
 			    					);
-				}else{
-					$return = array('code'=>4,
-										'set_attributes'=>array('id_customer'=>0),
-										'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
-									);
-				}
+				
 			}else{
-				$return = array('code'=>3,
-					'set_attributes'=>array('id_customer'=>0),
-					'messages'=>array(array('text'=>'Số điện thoại đã tồn tại'))
-				);
+				$return = array('code'=>3, 
+			    				'set_attributes'=>array('id_member'=>$checkPhone->id),
+			    				'messages'=>array(array('text'=>'Số điện thoại đã tồn tại')),
+			    				'info_member'=>$checkPhone
+			    				);
 
 			}
 		}else{
 			$return = array('code'=>2,
-					'set_attributes'=>array('id_customer'=>0),
+					'set_attributes'=>array('id_member'=>0),
 					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
 				);
 		}
@@ -92,7 +69,7 @@ function acceptMemberAPI($input){
 	$modelMember = $controller->loadModel('Members');
 
 	$return = array('code'=>1,
-					'set_attributes'=>array('id_customer'=>0),
+					'set_attributes'=>array('id_member'=>0),
 					'messages'=>array(array('text'=>''))
 				);
 	
@@ -109,7 +86,7 @@ function acceptMemberAPI($input){
 
 				$return = array('code'=>1, 
 			    				'set_attributes'=>array('id_member'=>$checkPhone->id),
-			    				'messages'=>array(array('text'=>'Lưu thông tin thành công')),
+			    				'messages'=>array(array('text'=>'kích hoạt tài khoản  thành công')),
 			    				'info_member'=>$checkPhone
 			    			);
 		}else{
@@ -121,7 +98,134 @@ function acceptMemberAPI($input){
 	return $return;
 }
 
+function savePasswordMemberAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
 
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1,
+					'set_attributes'=>array('id_member'=>0),
+					'messages'=>array(array('text'=>''))
+				);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+			if(!empty(!$checkPhone)){
+				if($dataSend['password'] == $dataSend['password_again']){
+					$checkPhone->code_otp = random_int(100000, 999999);
+					$checkPhone->password = md5($dataSend['password']);
+					$checkPhone->status = 0; //1: kích hoạt, 0: khóa
+					$checkPhone->type =  0; // 0: người dùng, 1: tài xế
+					$checkPhone->token = createToken();
+					$checkPhone->last_login = date('Y-m-d H:i:s');
+
+					$modelMember->save($checkPhone);
+
+					$return = array(	'code'=>0, 
+			    						'set_attributes'=>array('id_member'=>$checkPhone->id),
+			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
+			    						'info_member'=>$checkPhone
+			    					);
+				}else{
+					$return = array('code'=>4,
+								'set_attributes'=>array('id_member'=>0),
+								'messages'=>array(array('text'=>'Mật khẩu nhập lại không đúng'))
+							);
+				}
+			}else{
+				$return = array('code'=>4,
+										'set_attributes'=>array('id_member'=>0),
+										'messages'=>array(array('text'=>'số điện thoại không đúng'))
+									);
+			}
+		}else{
+			$return = array('code'=>2,
+					'set_attributes'=>array('id_member'=>0),
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+				);
+		}
+
+	}
+	return $return;
+}
+
+function saveInfoMemberAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>1,
+					'set_attributes'=>array('id_member'=>0),
+					'messages'=>array(array('text'=>''))
+				);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+		
+		if(empty($dataSend['status'])) $dataSend['status']=1;
+		if(empty($dataSend['password'])) $dataSend['password']= $dataSend['phone'];
+		
+
+		if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+
+			if(!empty(!$checkPhone)){
+				$data = $modelMember->newEmptyEntity();
+
+				if(isset($_FILES['avatar']) && empty($_FILES['avatar']["error"])){
+					$avatar = uploadImage($dataSend['phone'], 'avatar', 'avatar_'.$dataSend['phone']);
+				}
+
+				if(!empty($avatar['linkOnline'])){
+					$checkPhone->avatar = $avatar['linkOnline'];
+				}
+
+				$checkPhone->name = $dataSend['name'];
+				$checkPhone->email = @$dataSend['email'];
+				$checkPhone->code_otp = random_int(100000, 999999);
+				$checkPhone->token = createToken();
+				$checkPhone->last_login = date('Y-m-d H:i:s');
+				$checkPhone->token_device = @$dataSend['token_device'];
+
+				$modelMember->save($checkPhone);
+
+				$return = array('code'=>0, 
+		    					'set_attributes'=>array('id_member'=>$checkPhone->id),
+		    					'messages'=>array(array('text'=>'Lưu thông tin thành công')),
+		    					'info_member'=>$checkPhone
+		    				);
+				
+			}else{
+				$return = array('code'=>3,
+					'set_attributes'=>array('id_member'=>0),
+					'messages'=>array(array('text'=>'Số điện thoại không tồn tại'))
+				);
+
+			}
+		}else{
+			$return = array('code'=>2,
+					'set_attributes'=>array('id_member'=>0),
+					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+				);
+		}
+	}
+
+	return $return;
+}
 
 function checkLoginMemberAPI($input)
 {
@@ -254,174 +358,6 @@ function checkLoginFacebookAPI($input)
 	return $return;
 }
 
-/*function checkLoginGoogleAPI($input)
-{
-	global $isRequestPost;
-	global $controller;
-	global $session;
-
-	$modelMember = $controller->loadModel('Members');
-
-	$return = array('code'=>1);
-	
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
-
-		if(!empty($dataSend['id_google'])){
-			if(empty($dataSend['phone'])) $dataSend['phone'] = 'GG'.$dataSend['id_google'];
-
-			$checkPhone = $modelMember->find()->where(array('id_google'=>$dataSend['id_google'] ))->first();
-
-			if(empty($checkPhone) && !empty($dataSend['phone'])){
-				$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-				$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-				$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'] ))->first();
-			}
-
-			if(empty($checkPhone) && !empty($dataSend['email'])){
-				$checkPhone = $modelMember->find()->where(array('email'=>$dataSend['email'] ))->first();
-			}
-
-			if(!empty($checkPhone)){
-				if($checkPhone->status == 1){
-					$checkPhone->token = createToken();
-					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
-					$checkPhone->id_google = @$dataSend['id_google'];
-					$modelMember->save($checkPhone);
-
-					$return = array(	'code'=>0, 
-			    						'info_member'=>$checkPhone
-			    					);
-				}else{
-					$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản đã bị khóa hoặc không tồn tại'))
-								);
-				}
-			}else{
-				// tạo mới tài khoản
-				$data = $modelMember->newEmptyEntity();
-
-				if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
-
-				$data->name = $dataSend['name'];
-				$data->avatar = $dataSend['avatar'];
-				$data->phone = @$dataSend['phone'];
-				$data->aff = @$dataSend['phone'];
-				$data->affsource = '';
-				$data->email = @$dataSend['email'];
-				$data->password = md5(@$dataSend['phone']);
-				$data->account_balance = 10000; // tặng 10k cho tài khoản mới
-				$data->status = 1; //1: kích hoạt, 0: khóa
-				$data->type = 0; // 0: người dùng, 1: designer
-				$data->token = createToken();
-				$data->created_at = date('Y-m-d H:i:s');
-				$data->last_login = date('Y-m-d H:i:s');
-				$data->token_device = @$dataSend['token_device'];
-				$data->id_google = $dataSend['id_google'];
-
-
-				$modelMember->save($data);
-				sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
-
-				$return = array(	'code'=>0, 
-			    						'info_member'=>$data
-			    					);
-			}
-		}else{
-			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
-		}
-	}
-
-	return $return;
-}
-
-function checkLoginAppleAPI($input)
-{
-	global $isRequestPost;
-	global $controller;
-	global $session;
-
-	$modelMember = $controller->loadModel('Members');
-
-	$return = array('code'=>1);
-	
-	if($isRequestPost){
-		$dataSend = $input['request']->getData();
-
-		if(!empty($dataSend['id_apple'])){
-			if(empty($dataSend['phone'])) $dataSend['phone'] = 'A'.$dataSend['id_apple'];
-
-			$checkPhone = $modelMember->find()->where(array('id_apple'=>$dataSend['id_apple'] ))->first();
-
-			if(empty($checkPhone) && !empty($dataSend['phone'])){
-				$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-				$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-				$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone'] ))->first();
-			}
-
-			if(empty($checkPhone) && !empty($dataSend['email'])){
-				$checkPhone = $modelMember->find()->where(array('email'=>$dataSend['email'] ))->first();
-			}
-
-			if(!empty($checkPhone)){
-				if($checkPhone->status == 1){
-					$checkPhone->token = createToken();
-					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
-					$modelMember->save($checkPhone);
-
-					$return = array(	'code'=>0, 
-			    						'info_member'=>$checkPhone
-			    					);
-				}else{
-					$return = array('code'=>3,
-									'messages'=>array(array('text'=>'Tài khoản đã bị khóa hoặc không tồn tại'))
-								);
-				}
-			}else{
-				// tạo mới tài khoản
-				$data = $modelMember->newEmptyEntity();
-
-				if(empty($dataSend['avatar'])) $dataSend['avatar']= 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-avatar.png';
-
-				$data->name = $dataSend['name'];
-				$data->avatar = $dataSend['avatar'];
-				$data->phone = @$dataSend['phone'];
-				$data->aff = @$dataSend['phone'];
-				$data->affsource = '';
-				$data->email = @$dataSend['email'];
-				$data->password = md5(@$dataSend['phone']);
-				$data->account_balance = 10000; // tặng 10k cho tài khoản mới
-				$data->status = 1; //1: kích hoạt, 0: khóa
-				$data->type = 0; // 0: người dùng, 1: designer
-				$data->token = createToken();
-				$data->created_at = date('Y-m-d H:i:s');
-				$data->last_login = date('Y-m-d H:i:s');
-				$data->token_device = @$dataSend['token_device'];
-				$data->id_apple = $dataSend['id_apple'];
-
-
-				$modelMember->save($data);
-
-				$return = array(	'code'=>0, 
-			    						'info_member'=>$data
-			    					);
-			}
-		}else{
-			$return = array('code'=>2,
-					'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
-				);
-		}
-	}
-
-	return $return;
-}*/
-
 function logoutMemberAPI($input)
 {
 	global $isRequestPost;
@@ -457,68 +393,6 @@ function logoutMemberAPI($input)
 	}
 
 	return $return;
-}
-
-function getTopDesignerAPI($input){
-	global $isRequestPost;
-	global $controller;
-	global $session;
-
-	$modelMember = $controller->loadModel('Members');
-
-	$dataSend = $input['request']->getData();
-	$listDesign = [];
-
-	if(empty($dataSend['orderBy'])) $dataSend['orderBy'] = 'bestSeller';
-
-	if($dataSend['orderBy'] == 'bestSeller' || $dataSend['orderBy'] == 'bestMoney'){
-		// bán được nhiều mẫu hoặc doanh thu cao trong tuần
-		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
-		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
-		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-		$order = array();
-
-		$listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-		$listDesignStatic = [];
-
-		if(!empty($listData)){
-			foreach ($listData as $key => $value) {
-				if(empty($listDesignStatic[$value->member_id])){
-					$listDesignStatic[$value->member_id] = 0;
-				}
-
-				if($dataSend['orderBy'] == 'bestSeller'){
-					$listDesignStatic[$value->member_id] ++;
-				}else{
-					$listDesignStatic[$value->member_id] += $value->total;
-				}
-			}
-
-			arsort($listDesignStatic);
-
-			foreach ($listDesignStatic as $key => $value) {
-				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				if(!empty($member)){
-					$member->sold = $value;
-					unset($member->password);
-					unset($member->token);
-
-					$listDesign[] = $member;
-				}
-			}
-		}
-	}elseif($dataSend['orderBy'] == 'bestCreate'){
-		// tạo nhiều mẫu bán trong tuần
-		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'status'=>1);
-		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
-		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-		$order = array();
-
-		$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-		$listDesignStatic = [];
-	}
-
-	return 	array('listData'=>$listDesign);
 }
 
 function getInfoMemberAPI($input)
@@ -617,8 +491,6 @@ function getInfoUserAPI($input)
 	return $return;
 }
 
-
-
 function lockAccountAPI($input)
 {
 	global $isRequestPost;
@@ -636,6 +508,7 @@ function lockAccountAPI($input)
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
+				$checkPhone->code_otp = random_int(100000, 999999);
 				$checkPhone->status = 0;
 				$checkPhone->token = '';
 				$modelMember->save($checkPhone);
@@ -793,8 +666,6 @@ function saveInfoUserAPI($input)
 
 	return $return;
 }
-
-
 
 function requestCodeForgotPasswordAPI($input)
 {
@@ -966,61 +837,6 @@ function updateLastLoginAPI($input){
 	return $return;
 }
 
-function statisticalAPI($input){
-	global $isRequestPost;
-	global $controller;
-	global $session;
-
-	$modelMember = $controller->loadModel('Members');
-	$modelOrder = $controller->loadModel('Orders');
-
-	$return = array('code'=>0);
-
-	$conditiontoday['created_at >='] = date('Y-m-d').' 00:00:00';
-	$conditiontoday['created_at <='] = date('Y-m-d H:i:s');
-
-	$conditionlastlogin['last_login >='] = date('Y-m-d').' 00:00:00';
-	$conditionlastlogin['last_login <='] = date('Y-m-d H:i:s');
-
-
-	$totalDatatoday = $modelMember->find()->where($conditiontoday)->all()->toList();
-    $totalDatatoday = count($totalDatatoday);
-
-    $totalDatalastlogin = $modelMember->find()->where($conditionlastlogin)->all()->toList();
-    $totalDatalastlogin = count($totalDatalastlogin);
-
-    $conditionOrder['created_at >='] = date('Y-m-d').' 00:00:00';
-	$conditionOrder['created_at <='] = date('Y-m-d H:i:s');
-	$conditionOrder['type'] = 1;
-	$conditionOrder['status'] = 2;
-	$conditionOrder['payment_kind'] = 1;
-
-    $totalDataOrder = $modelOrder->find()->where($conditionOrder)->all()->toList();
-   $Order = 0;
-
-     if(!empty($totalDataOrder)){
-            foreach ($totalDataOrder as $item) {
-             
-               @$Order += $item->total;
-    
-            }
-        }
-
-    $return = [	'static_code'=>1,
-				'static_luong_dang_ky' => (int) @$totalDatatoday,
-				'static_luong_dang_nhap' => (int) @$totalDatalastlogin,
-				'static_doanh_thu' => (int) @$Order,
-				'static_today' => date('H:i d/m/Y')
-			];
-
-	if(function_exists('sendNotificationAdmin')){
-		//sendNotificationAdmin('649e829c2a4b5185c86af438', $return);
-	}
-
-    return $return;
-
-}
-
 function searchDesignerAPI($input){
 
 	global $isRequestPost;
@@ -1084,5 +900,4 @@ function listDesignerAPI($input){
 
 	return 	$return;
 }
-
 ?>
