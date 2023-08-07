@@ -109,7 +109,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Thông tin nạp tiền Ezpics</title>
+            <title>Mã xác thực cấp lại mật khẩu mới</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
