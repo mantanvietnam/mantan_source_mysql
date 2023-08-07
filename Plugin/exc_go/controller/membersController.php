@@ -155,7 +155,7 @@ function savePasswordMemberAPI($input){
 	}
 	return $return;
 }
-s
+
 function saveInfoMemberAPI($input)
 {
 	global $isRequestPost;
