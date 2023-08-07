@@ -2,7 +2,7 @@
 namespace App\Model\Table;
 use Cake\ORM\Table;
 
-class ContactssTable extends Table
+class ContactsTable extends Table
 {
 	/*
 	public function initialize(array $config): void
