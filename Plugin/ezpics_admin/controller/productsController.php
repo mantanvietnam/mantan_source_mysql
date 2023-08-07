@@ -227,16 +227,15 @@ function listProductTrendAdmin($input)
 	$listCategory = $modelCategories->find()->where($conditions)->order($order)->all()->toList();
 
 	$mess = '';
-	 if(@$_GET['mess']==0){
-        $mess= '<p class="text-success" style="padding-left: 1.5em;">Bỏ mẫu thiết kế thành công</p>';
-
-    }elseif(@$_GET['mess']==1){
-        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mẫu thiết kế thành công</p>';
-
-    }elseif(@$_GET['mess']==2){
-
-        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sản phẩm này chưa được duyệt</p>';
-    }
+	if(isset($_GET['mess'])){
+		if(@$_GET['mess']==0){
+	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Bỏ mẫu thiết kế thành công</p>';
+	    }elseif(@$_GET['mess']==1){
+	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mẫu thiết kế thành công</p>';
+	    }elseif(@$_GET['mess']==2){
+	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sản phẩm này chưa được duyệt</p>';
+	    }
+	}
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -400,7 +399,7 @@ function addTrendProductAdmin($input)
          		if(!empty($_GET['page'])){
 					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess='.$_GET['status'].'&page='.$_GET['page']);
 				}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess='.$_GET['status'].'&');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php?mess='.$_GET['status']);
 				}
         	}
         }else{
