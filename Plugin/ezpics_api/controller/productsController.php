@@ -952,7 +952,7 @@ function detailProductSeriesAPI($input)
 
 				$return = array('code'=>1,
 							'data' => $data,
-					'mess'=>'Bạn sửa list layer thành công');
+					'mess'=>'Bạn lấy data thành công');
 			}else{
 				$return = array('code'=>3,
 					'mess'=>'sản phẩm này không dúng');
