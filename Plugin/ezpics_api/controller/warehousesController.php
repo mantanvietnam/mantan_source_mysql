@@ -894,7 +894,7 @@ function addUserWarehouseAPI($input){
 				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUserSell->id))->first();
 				if(!empty($Warehouse)){
 					if(empty($WarehouseUser)){
-						if(!empty($infoUserSell){
+						if(!empty($infoUserSell)){
 							$data = $modelWarehouseUsers->newEmptyEntity();
 			                // tạo dữ liệu save
 							$data->warehouse_id = (int) $Warehouse->id;
