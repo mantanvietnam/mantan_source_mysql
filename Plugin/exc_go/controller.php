@@ -1,3 +1,3 @@
 <?php 
-include_once('controller/membersController.php'); // thành viên
+include_once('controller/api/membersController.php'); // thành viên
 ?>

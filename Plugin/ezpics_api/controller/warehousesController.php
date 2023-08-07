@@ -894,24 +894,30 @@ function addUserWarehouseAPI($input){
 				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUserSell->id))->first();
 				if(!empty($Warehouse)){
 					if(empty($WarehouseUser)){
-						$data = $modelWarehouseUsers->newEmptyEntity();
-		                // tạo dữ liệu save
-						$data->warehouse_id = (int) $Warehouse->id;
-						$data->user_id = $infoUserSell->id;
-						$data->designer_id = $infoUser->id;
-						$data->price = 0;
-						$data->created_at = date('Y-m-d H:i:s');
-						$data->note ='';
-						$data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
-						        
-						$modelWarehouseUsers->save($data);
+						if(!empty($infoUserSell){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+			                // tạo dữ liệu save
+							$data->warehouse_id = (int) $Warehouse->id;
+							$data->user_id = $infoUserSell->id;
+							$data->designer_id = $infoUser->id;
+							$data->price = 0;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
+							        
+							$modelWarehouseUsers->save($data);
+							
+							$dataSendNotification= array('warehouse_id'=>$Warehouse->id, 'title'=>'Thông báo nhận kho mẫu thiết kế  ','time'=>date('H:i d/m/Y'),'content'=>'Bạn đã nhận kho mẫu thiết kế  "'.$Warehouse->name.'"  từ designer "'.$infoUser->name.'".','action'=>'addUserWarehouseSendNotification');
 						
-						$dataSendNotification= array('warehouse_id'=>$item->warehouse_id, 'title'=>'Thông báo nhận kho mẫu thiết kế  ','time'=>date('H:i d/m/Y'),'content'=>'Bạn đã nhận kho mẫu thiết kế  "'.$Warehouse->name.'"  từ designer "'.$infoUser->name.'".','action'=>'addUserWarehouseSendNotification');
-					
-					if(!empty($infoUserSell->token_device)){
-						sendNotification($dataSendNotification, $member->token_device);
-					}
-						$return = array('code'=>1, 'mess'=>'Bạn đã thêm người vào kho thành công');
+							if(!empty($infoUserSell->token_device)){
+								sendNotification($dataSendNotification, $member->token_device);
+							}
+							$return = array('code'=>1, 'mess'=>'Bạn đã thêm người vào kho thành công');
+						}else{
+							$return = array('code'=>6,
+										'mess'=>'Số điện thoại này không đúng'
+										);
+						}
 						
 					}else{
 						$return = array('code'=>5,
