@@ -21,11 +21,22 @@ $key_transaction = 'ezpics';
 
 $menus= array();
 $menus[0]['title']= 'Exc-go';
+
 $menus[0]['sub'][6]= array('title'=>'Cài đặt Font chữ',
                             'url'=>'/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
                         );
+
+
+$menus[1]['title']= 'Thành viên';
+
+$menus[1]['sub'][0]= array('title'=>'Thông tin thành viên',
+                            'url'=>'/plugins/admin/exc_go-view-admin-member-listMemberAdmin.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'listMemberAdmin',
+                        );
+
 addMenuAdminMantan($menus);
 
 
