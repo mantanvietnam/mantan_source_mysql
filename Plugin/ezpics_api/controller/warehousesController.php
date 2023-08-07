@@ -888,13 +888,17 @@ function addUserWarehouseAPI($input){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token']) && !empty($dataSend['phone'])){
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
 			if(!empty($infoUser)){
 				$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'user_id'=>$infoUser->id))->first();
+
 				$infoUserSell = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
-				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUserSell->id))->first();
-				if(!empty($Warehouse)){
-					if(empty($WarehouseUser)){
-						if(!empty($infoUserSell)){
+				if(!empty($infoUserSell)){
+					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUserSell->id))->first();
+
+
+					if(!empty($Warehouse)){
+						if(!empty($WarehouseUser)){
 							$data = $modelWarehouseUsers->newEmptyEntity();
 			                // tạo dữ liệu save
 							$data->warehouse_id = (int) $Warehouse->id;
@@ -913,21 +917,22 @@ function addUserWarehouseAPI($input){
 								sendNotification($dataSendNotification, $member->token_device);
 							}
 							$return = array('code'=>1, 'mess'=>'Bạn đã thêm người vào kho thành công');
+						
+						
 						}else{
+							$return = array('code'=>5,
+											'mess'=>'Người này đã mua kho của bạn rồi'
+											);
+						}
+					}else{
+						$return = array('code'=>3,
+									'mess'=>'Kho này không tồn tại'
+								);
+					}
+				}else{
 							$return = array('code'=>6,
 										'mess'=>'Số điện thoại này không đúng'
 										);
-						}
-						
-					}else{
-						$return = array('code'=>5,
-										'mess'=>'Người này đã mua kho của bạn rồi'
-										);
-					}
-				}else{
-					$return = array('code'=>3,
-								'mess'=>'Kho này không tồn tại'
-							);
 				}
 			}else{
 				
