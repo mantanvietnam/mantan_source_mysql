@@ -79,4 +79,73 @@ function listMemberAdmin($input)
     setVariable('listData', $listData);
 
 }
+
+function addMemberAdmin($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Thông tin sản phẩm';
+
+	$modelMembers = $controller->loadModel('Members');
+	$mess= '';
+
+	// lấy data edit
+    if(!empty($_GET['id'])){
+        $data = $modelMembers->get( (int) $_GET['id']);
+    }else{
+        $data = $modelMembers->newEmptyEntity();
+    }
+
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['user'])){
+            $data->user = $dataSend['user'];
+            $data->type = $dataSend['type'];
+	        $data->status = $dataSend['status'];	
+            $data->pass = $dataSend['pass'];
+            $data->key_host = $dataSend['key_host'];	
+            $data->modified = time();
+            $data->created = time();
+            $data->client_id = $dataSend['client_id'];
+            $data->client_secret = $dataSend['client_secret'];
+            $data->account_id = $dataSend['account_id'];
+            
+            
+	        $modelMembers->save($data);
+	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+	    }else{
+	    	$mess= '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+	    }
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
+
+
+function lockMemberAdmin($input){
+	global $controller;
+
+	$modelMembers = $controller->loadModel('Members');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelMembers->get($_GET['id']);
+		
+		if($data){
+			if(isset($_GET['status'])){
+				$data->status =$_GET['status'];
+         		$modelMembers->save($data);
+            }
+        }
+	}
+
+	return $controller->redirect('/plugins/admin/exc_go-view-admin-member-listMemberAdmin.php');
+}
+
+
 ?>
+

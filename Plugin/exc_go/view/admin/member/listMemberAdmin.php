@@ -58,13 +58,33 @@
             <th>Họ và tên</th>
             <th>Liên hệ</th>
             <th>Loại tài khoản</th>
-            <th>Khóa</th>
+            <th>Sửa</th>
+            <th>Trạng thái</th>
           </tr>
         </thead>
         <tbody>
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                if($item->type ==0){
+                  $type = 'Người dùng';
+                }else{
+                  $type = 'Tài xế';
+                }
+ 
+               if($item->status==0){
+                 $status = '
+                <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                           <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                         </a><br/>Khóa ';
+               }
+               else{
+                $status = '
+                <a class=" btn btn-danger"  title="Khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=0">
+                           <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                         </a><br/> Kích hoạt ';
+               }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->avatar.'" width="100" /></td>
@@ -74,10 +94,18 @@
                           </br>
                           '.$item->email.' 
                         </td>
-                     
-                        <td>
-                         
-                        </td>
+                        <td>'.$type.' </td>
+                        <td> 
+                        <p align="center">
+                        <a class="btn btn-success" href="/plugins/admin/exc_go-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                          <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                        </a>
+                        </p>
+
+                        <td>'.$status.'</td>
+                        
+                      </td>
+
                       </tr>';
               }
             }else{
