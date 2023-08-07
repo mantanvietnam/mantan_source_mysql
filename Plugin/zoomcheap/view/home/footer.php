@@ -7,26 +7,10 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://ezpics.vn" target="_blank" class="footer-link fw-bolder">Ezpics</a>
+                  <a href="https://zoomcheap.com/" target="_blank" class="footer-link fw-bolder">Zoom Cheap</a>
                 </div>
                 <div>
-                  <a href="https://www.facebook.com/ezpicsvn" class="footer-link me-4" target="_blank">Facebook</a>
-                  
-                  <a href="https://www.youtube.com/channel/UCHk4WJSIfxCKXrlN1FjnUBQ" target="_blank" class="footer-link me-4">Youtube</a>
-
-                  <a
-                    href="https://www.tiktok.com/@ezpicsvn"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Tiktok</a
-                  >
-
-                  <a
-                    href="https://www.instagram.com/ezpicsvn/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Instagram</a
-                  >
+                  <a href="https://www.facebook.com/thuezoomtudong" class="footer-link me-4" target="_blank">Facebook</a>
                 </div>
               </div>
             </footer>
@@ -65,14 +49,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCQ02R5K9G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PCQ02R5K9G');
-</script>
+    
   </body>
 </html>

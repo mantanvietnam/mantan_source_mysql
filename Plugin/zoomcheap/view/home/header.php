@@ -121,21 +121,21 @@
                 <div data-i18n="Tempaltes">Tạo đơn mới</div>
               </a>
             </li>
-            <!--
+            
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Link cố định</span></li>
             <li class="menu-item">
               <a href="/listLink" class="menu-link">
-                <i class='bx bxs-user-detail' ></i> 
+                <i class='bx bx-link' ></i> 
                 <div data-i18n="Add">Danh sách link</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/addLink" class="menu-link">
-                <i class='bx bxs-user-detail' ></i> 
+                <i class='bx bx-message-alt-add' ></i> 
                 <div data-i18n="Add">Mua link mới</div>
               </a>
             </li>
-            -->
+            
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Giao dịch</span></li>
             <li class="menu-item">
               <a href="/addMoney" class="menu-link">

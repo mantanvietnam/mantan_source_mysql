@@ -49,6 +49,9 @@ global $urlHomes;
 global $google_clientId;
 global $google_clientSecret;
 global $google_redirectURL;
+global $price_link;
+
+$price_link = 50000;
 
 $google_clientId= '637094275991-2f53f5g9ls2d34r05ugshhugb57ng4rm.apps.googleusercontent.com';
 $google_clientSecret= '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';
@@ -105,12 +108,29 @@ function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $to
 
 			// Dữ liệu yêu cầu tạo phòng họp mới
 			$meetingData = array(
+                /*
 			    'topic' => $topic,
-			    'type' => 1, // 1 - Phòng họp, 2 - Hội nghị web
+			    'type' => 2, // 1 - Phòng họp, 2 - Hội nghị web
 			    'start_time' => date('Y-m-dTH:m:s', $start_time), // Thời gian bắt đầu (UTC)
 			    'duration' => $duration, // Độ dài phòng họp (phút)
 			    'timezone' => 'Asia/Ho_Chi_Minh',
 			    'password' => $pass
+                */
+
+                'topic' => $topic,
+                'timezone' => 'Asia/Saigon',
+                'password' => $pass,
+                'agenda' => 'Phòng hợp được cung cấp bởi Zoom Cheap',
+              
+                'settings' => [
+                    'host_video' => false,
+                    'participant_video' => true,
+                    'join_before_host' => true,
+                    'audio' => true,
+                    'approval_type' => 2,
+                    'waiting_room' => false,
+                ],
+
 			);
 
 			// Gọi API Zoom để tạo phòng họp mới
@@ -296,4 +316,10 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
 
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
+}
+
+function randPass( $length ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return substr(str_shuffle($chars),0,$length);
+
 }

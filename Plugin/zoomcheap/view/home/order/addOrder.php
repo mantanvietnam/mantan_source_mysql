@@ -33,7 +33,7 @@
                   
                   <div class="mb-3">
                     <label class="form-label">Tự động gia hạn (*)</label><br/>
-                    <input type="radio" name="extend_time_use" value="0" /> Tắt &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="extend_time_use" value="0" checked /> Tắt &nbsp;&nbsp;&nbsp;
                     <input type="radio" name="extend_time_use" value="1" /> Bật 
                   </div>
                   

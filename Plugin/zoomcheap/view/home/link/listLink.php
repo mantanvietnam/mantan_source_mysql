@@ -1,30 +1,15 @@
 <?php include(__DIR__.'/../header.php'); ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Danh sách đơn hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Danh sách liên kết</h4>
   <p>
-      <a href="/addOrder" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> &nbsp;&nbsp;&nbsp;
+      <a href="/addLink" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> &nbsp;&nbsp;&nbsp;
       <a href="/addMoney" class="btn btn-danger"><i class='bx bx-plus'></i> Nạp tiền (<?php echo number_format($session->read('infoUser')->coin);?>đ)</a>
   </p>
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách đơn thuê Zoom</h5>
-    
-    <div class="row mb-3">
-      <div class="col-6 col-sm-6 col-md-3">
-        <b>Zoom 100:</b> <?php echo $numberAcc100;?>
-      </div>
-      <div class="col-6 col-sm-6 col-md-3">
-        <b>Zoom 300:</b> <?php echo $numberAcc300;?>
-      </div>
-      <div class="col-6 col-sm-6 col-md-3">
-        <b>Zoom 500:</b> <?php echo $numberAcc500;?>
-      </div>
-      <div class="col-6 col-sm-6 col-md-3">
-        <b>Zoom 1000:</b> <?php echo $numberAcc1000;?>
-      </div>
-    </div>
+    <h5 class="card-header">Danh sách link cố định</h5>
 
     <div id="desktop_view">
       <div class="table-responsive">
@@ -32,40 +17,38 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Thời gian thuê</th>
-              <th>Loại Zoom</th>
-              <th>Giá thuê</th>
-              <th>Phòng họp</th>
+              <th>Tên liên kết</th>
+              <th>Link cố định</th>
+              <th>Link đích</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
             </tr>
           </thead>
           <tbody>
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  if($item->dateEnd > time()){
-                    if(empty($item->idRoom)){
-                      $room = '<a href="/createRoom/?idOrder='.$item->id.'" class="btn btn-primary">Tạo phòng</a>';
-                    }else{
-                      $room = '<a href="/room/?id='.$item->idRoom.'">Xem phòng</a>';
-                    }
-                  }else{
-                    $room = '<p class="text-danger">Đơn hết hạn</p>';
-                  }
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>
-                            <p class="text-success">'.date('H:i d/m/Y', $item->dateStart).'</p>
-                            <p class="text-danger">'.date('H:i d/m/Y', $item->dateEnd).'</p>
+                          <td>'.$item->title.'</td>
+                          <td>'.'https://vaozoom.us/'.$item->code.'</td>
+                          <td>'.$item->goto.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" href="/addLink/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
                           </td>
-                          <td>'.$item->type.'</td>
-                          <td>'.number_format($item->price).'đ</td>
-                          <td>'.$room.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteLink/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
                         </tr>';
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có đơn thuê nào</td>
+                        <td colspan="10" align="center">Chưa có link cố định nào</td>
                       </tr>';
               }
             ?>
@@ -77,28 +60,28 @@
       <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  if($item->dateEnd > time()){
-                    if(empty($item->idRoom)){
-                      $room = '<a href="/createRoom/?idOrder='.$item->id.'" class="btn btn-primary">Tạo phòng</a>';
-                    }else{
-                      $room = '<a href="/room/?id='.$item->idRoom.'">Xem phòng</a>';
-                    }
-                  }else{
-                    $room = '<p class="text-danger">Đơn hết hạn</p>';
-                  }
-
                   ?>
                     <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                      <p><b>Đơn hàng:</b> <?php echo @$item->id ?></p>
-                      <p><span class="text-success"><?php echo date('H:i d/m/Y', $item->dateStart).'</span> - <span class="text-danger">'.date('H:i d/m/Y', $item->dateEnd).'</span>';?></p>
-                      <p><b>Zoom:</b> <?php echo $item->type;?></p>
-                      <p><b>Giá:</b> <?php echo number_format($item->price);?>đ</p>
-                      <p><?php echo $room;?></p>
+                      <p><b><?php echo $item->title; ?></b></p>
+                      <p><b>ID:</b> <?php echo $item->id; ?></p>
+                      <p><b>Link:</b> <?php echo 'https://vaozoom.us/'.$item->code; ?></p>
+                      <p><b>Đích:</b> <?php echo $item->goto; ?></p>
+
+                      <p>
+                        <a class="btn btn-primary" href="/addLink/?id=<?php echo $item->id; ?>">
+                          <i class="bx bx-edit-alt me-1"></i>
+                        </a> &nbsp;&nbsp;&nbsp;
+
+                        <a class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/deleteLink/?id=<?php echo $item->id; ?>">
+                          <i class="bx bx-trash me-1"></i>
+                        </a>
+                      </p>
+
                     </div>
              <?php   }
         }else{
           echo '<div class="col-sm-12 item">
-                  <p class="text-danger">Chưa có đơn thuê nào</p>
+                  <p class="text-danger">Chưa có link cố định nào</p>
                 </div>';
         }
       ?>

@@ -20,6 +20,9 @@
 	$routesPlugin['listHistories']= 'zoomcheap/view/home/histories/listHistories.php';
 	$routesPlugin['addMoney']= 'zoomcheap/view/home/histories/addMoney.php';
 
+	$routesPlugin['listLink']= 'zoomcheap/view/home/link/listLink.php';
+	$routesPlugin['addLink']= 'zoomcheap/view/home/link/addLink.php';
+
 
 	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';
 	$routesPlugin['addMoneyTPBankAPI']= 'zoomcheap/view/home/addMoneyTPBankAPI.php';
