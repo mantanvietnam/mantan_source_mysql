@@ -50,8 +50,9 @@
 	$routesPlugin['getIdProductCloneAPI']= 'ezpics_api/view/getIdProductCloneAPI.php';
 	$routesPlugin['searchProductAPI']= 'ezpics_api/view/searchProductAPI.php';
 	$routesPlugin['getSizeProductAPI']= 'ezpics_api/view/getSizeProductAPI.php';
+	$routesPlugin['listTrendProductAPI']= 'ezpics_api/view/listTrendProductAPI.php';
 	
-	// sửa thiết kế
+	// sửa thiết kế 
 	$routesPlugin['edit-design']= 'ezpics_api/view/home/editDesign.php';
 	$routesPlugin['dataEditThemeUser']= 'ezpics_api/view/home/dataEditThemeUser.php';
 	$routesPlugin['updateInfoProduct']= 'ezpics_api/view/home/updateInfoProduct.php';

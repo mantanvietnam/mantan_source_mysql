@@ -241,6 +241,39 @@ function getTrendProductAPI($input)
 	return 	array('listData'=>$listData);
 }
 
+function listTrendProductAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+
+	$dataSend = $input['request']->getData();
+
+	$conditions = array('trend' =>1, 'type'=>'user_create', 'status'=>2);
+	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
+	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+	$order = array('views'=>'desc', 'favorites'=>'desc', 'id'=>'desc');
+
+	$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	if(!empty($listData)){
+		foreach ($listData as $key => $value) {
+			$infoUser = $modelMember->find()->where(['id'=>(int) $value->user_id])->first();
+
+			$listData[$key]->author = @$infoUser->name;
+
+			if(empty($value->thumbnail)){
+				$listData[$key]->thumbnail = $value->image;
+			}
+		}
+	}
+
+	return 	array('listData'=>$listData);
+}
+
 function getInfoProductAPI($input)
 {
 	global $isRequestPost;

@@ -19,6 +19,12 @@ $menus[0]['sub'][1]= array( 'title'=>'Mẫu thiết kế',
                             'classIcon'=>'bx bx-paint',
                             'permission'=>'listProductAdmin'
                         );
+$menus[0]['sub'][10]= array( 'title'=>'Mẫu thiết kế xu hướng',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php',
+                            'classIcon'=>'bx bx-paint',
+                            'permission'=>'listProductTrendAdmin'
+                        );
+
 $menus[0]['sub'][2]= array( 'title'=>'Kho nẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php',
                             'classIcon'=>'bx bxs-cylinder',
