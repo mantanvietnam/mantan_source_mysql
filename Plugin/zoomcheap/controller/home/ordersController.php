@@ -101,9 +101,6 @@ function addOrder($input)
 	global $modelCategories;
     global $metaTitleMantan;
     global $session;
-    global $ftp_server_upload_image;
-	global $ftp_username_upload_image;
-	global $ftp_password_upload_image;
 
     if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Thuê tài khoản Zoom';
@@ -139,7 +136,7 @@ function addOrder($input)
 					        $data->price = (int) $checkPrice->price;
 					        $data->idManager = $infoUser->id;
 					        $data->type = (int) $dataSend['type'];
-					        $data->extend_time_use = (int) $dataSend['extend_time_use'];
+					        $data->extend_time_use = (int) @$dataSend['extend_time_use'];
 					        $data->modified = time();
 					        $data->created = time();
 					        $data->idZoom = $checkZoom->id;

@@ -40,7 +40,7 @@ function login($input)
 
 	    			$session->write('infoUser', $info_customer);
 	    			
-					return $controller->redirect('/dashboard');
+					return $controller->redirect('/listOrder');
 	    		}else{
 	    			$mess= '<p class="text-danger">Sai số điện thoại hoặc mật khẩu</p>';
 	    		}
@@ -51,7 +51,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/dashboard');
+		return $controller->redirect('/listOrder');
 	}
 }
 

@@ -11,6 +11,7 @@ function createRoom($input)
 			$modelOrders = $controller->loadModel('Orders');
 			$modelRooms = $controller->loadModel('Rooms');
 			$modelZooms = $controller->loadModel('Zooms');
+			$modelLinks = $controller->loadModel('Links');
 
 			$order = $modelOrders->find()->where(['id'=> (int) $_GET['idOrder'], 'idManager'=>$session->read('infoUser')->id, 'idRoom'=>0, 'dateEnd >='=>time()])->first();
 
@@ -86,6 +87,19 @@ function createRoom($input)
 									$room['join_url'] = $join_url[0];
 								}
 
+								// tạo link mới
+								$dataLink = $modelLinks->newEmptyEntity();
+
+								$dataLink->title = $dataSend['topic'];
+						        $dataLink->code = createSlugMantan($dataSend['topic']).'-'.time();
+						        $dataLink->idManager = 0;
+						        $dataLink->goto = $room['join_url'];
+						        $dataLink->idOrder = 0;
+						        $dataLink->modified = time();
+						        $dataLink->created = time();
+						        
+						        $modelLinks->save($dataLink);
+
 								// lưu phòng họp mới
 								$dataRoom = $modelRooms->newEmptyEntity();
 
@@ -93,6 +107,7 @@ function createRoom($input)
 								$dataRoom->id_order = $order->id;
 								$dataRoom->id_zoom = $zoom->id;
 								$dataRoom->info = json_encode($room);
+								$dataRoom->link = 'https://vaozoom.us/r/'.$dataLink->code;
 
 								$modelRooms->save($dataRoom);
 
@@ -146,6 +161,7 @@ function room($input)
 				if(!empty($order)){
 					$zoom = $modelZooms->find()->where(['id'=>$room->id_zoom])->first();
 					
+					$link = $room->link;
 					$room = json_decode($room->info, true);
 
 					$metaTitleMantan = $room['topic'];
@@ -153,6 +169,7 @@ function room($input)
 					setVariable('room', $room);
 					setVariable('order', $order);
 					setVariable('zoom', $zoom);
+					setVariable('link', $link);
 				}else{
 					return $controller->redirect('/listOrder/?status=orderDeadline');
 				}

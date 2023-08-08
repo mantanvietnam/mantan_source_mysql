@@ -23,11 +23,16 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone"><?php if($_GET['type']=='plus') {
-                    echo 'Số tiền Cộng cho tài khoản '.@$data->fullname.' - '.@$data->phone.' - '.number_format($data->coin).'đ';
-                  }else{
-                    echo 'Số tiền Trừ cho tài khoản '.@$data->fullname.' - '.@$data->phone.' - '.number_format($data->coin).'đ';
-                  } ?>  (*)</label>
+                    <label class="form-label" for="basic-default-phone">
+                      <?php 
+                        if($_GET['type']=='plus') {
+                          echo 'Số tiền Cộng cho tài khoản '.@$data->fullname.' - '.@$data->phone.' - '.number_format($data->coin).'đ';
+                        }else{
+                          echo 'Số tiền Trừ cho tài khoản '.@$data->fullname.' - '.@$data->phone.' - '.number_format($data->coin).'đ';
+                        } 
+                      ?>  
+                    (*)
+                    </label>
                     <input required type="number" class="form-control phone-mask" name="coinChange" id="coinChange" value="" />
                   </div>
                   <div class="mb-3">
