@@ -18,8 +18,10 @@ function bookCarAPI($input){
 			$book->time_book = @$dataSend['time_book'];
 			$book->first_point = @$dataSend['first_point'];
 			$book->destination = @$dataSend['destination'];
-			$book->location_first_point = @$dataSend['location_first_point'];
-			$book->location_destination = @$dataSend['location_destination'];
+			$book->long_first_point = @$dataSend['long_first_point'];
+			$book->long_destination = @$dataSend['long_destination'];
+			$book->lat_first_point = @$dataSend['lat_first_point'];
+			$book->lat_destination = @$dataSend['lat_destination'];
 			$book->distance = @$dataSend['distance'];
 			$book->price = @$dataSend['price'];
 			$book->status = 0;

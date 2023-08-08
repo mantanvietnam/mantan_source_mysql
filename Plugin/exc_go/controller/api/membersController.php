@@ -32,10 +32,7 @@ function saveRegisterMemberAPI($input)
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];
 
-
 					$modelMember->save($data);
-					//sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
-
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
@@ -82,7 +79,6 @@ function acceptMemberAPI($input){
 
 			$checkPhone->status = 1; //1: kích hoạt, 0: khóa
 			$modelMember->save($checkPhone);
-					//sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 
 				$return = array('code'=>1, 
 			    				'set_attributes'=>array('id_member'=>$checkPhone->id),
@@ -342,7 +338,6 @@ function checkLoginFacebookAPI($input)
 				$data->token_device = @$dataSend['token_device'];
 
 				$modelMember->save($data);
-				//sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 
 				$return = array(	'code'=>0, 
 			    						'info_member'=>$data
@@ -597,11 +592,7 @@ function saveInfoUserAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['token']) 
-			&& !empty($dataSend['name'])
-			&& !empty($dataSend['email'])
-
-		){
+		if(!empty($dataSend['token']) && !empty($dataSend['name'])&& !empty($dataSend['email'])){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
@@ -615,18 +606,6 @@ function saveInfoUserAPI($input)
 
 				$checkPhone->name = $dataSend['name'];
 				$checkPhone->email = $dataSend['email'];
-
-				if(isset($dataSend['description'])){
-					$checkPhone->description = $dataSend['description'];
-				}
-
-				if(isset($_FILES['file_cv']) && empty($_FILES['file_cv']["error"])){
-					$file_cv = uploadImage($checkPhone->phone, 'file_cv', 'file_cv_'.$checkPhone->phone);
-
-					if(!empty($file_cv['linkOnline'])){
-						$checkPhone->file_cv = $file_cv['linkOnline'].'?time='.time();
-					}
-				}
 
 				if(!empty($dataSend['phone'])){
 					$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
@@ -650,7 +629,6 @@ function saveInfoUserAPI($input)
 
 					$return = array('code'=>0);
 				}
-
 				
 			}else{
 				$return = array('code'=>3,
@@ -690,9 +668,6 @@ function requestCodeForgotPasswordAPI($input)
 
 			if(!empty($checkPhone->email)){
 
-				//$checkPhone->token = $code;
-				//$modelMember->save($checkPhone);
-
 				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code->code_otp);
 
 				$return = array('code'=>0,
@@ -730,12 +705,7 @@ function saveNewPassAPI($input)
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-		if(!empty($dataSend['phone']) 
-			&& !empty($dataSend['code_otp'])
-			&& !empty($dataSend['passNew'])
-			&& !empty($dataSend['passAgain'])
-
-		){
+		if(!empty($dataSend['phone']) && !empty($dataSend['code_otp']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(!empty($checkPhone)){

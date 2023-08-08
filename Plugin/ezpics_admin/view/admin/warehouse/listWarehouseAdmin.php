@@ -57,6 +57,7 @@
               <th>Tên kho</th>
                <th>Chủ kho</th> 
               <th>Giá bán</th>
+              <th>Trạng thái</th>
              
             </tr>
           </thead>
@@ -64,17 +65,30 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
+
+                   $status = 'Kích hoạt <br/>
+                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  if($item->status==0){
+                    $status = 'Khóa <br/>
+                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=2">
+                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  }
                   ?>
                     <tr>
                       <td><?php echo @$item->id ?></td>
                       <td><img src="<?php echo @$item->thumbnail ?>" width="100" /></td>
-                      <td><?php echo $item->name ?></td>
+                      <td><a href="<?php echo $link_share ?>" target="_blank" ><?php echo $item->name ?></a></td>
                       <td>
                         <?php echo  $item->designer->name ?><br/>
                         <?php echo  $item->designer->phone ?><br/>
                         <?php echo  $item->designer->email ?>
                       </td>
                       <td><?php echo number_format($item->price); ?></td>
+                      <td align="center"><?php echo $status ?></td>
                     </tr>
              <?php   }
               }else{
@@ -92,9 +106,20 @@
       <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
+                  $status = 'Kích hoạt <br/>
+                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  if($item->status==0){
+                    $status = 'Khóa <br/>
+                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=2">
+                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                            </a>';
+                  }
                   ?>
                     <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                      <p><b>Kho <?php echo @$item->id ?>:</b> <?php echo $item->name ?></p>
+                      <p><b>Kho <?php echo @$item->id ?>:</b> <a href="<?php echo $link_share ?>" target="_blank" ><?php echo $item->name ?></a></p>
                       <p><img src="<?php echo @$item->thumbnail ?>" style="width: 100%;" /></p>
                       <p><b>Chủ kho:  </b></br>
                         <?php echo  $item->designer->name ?><br/>

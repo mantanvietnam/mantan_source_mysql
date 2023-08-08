@@ -275,7 +275,7 @@ function getListBuyWarehousesAPI($input){
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
-					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id))->first();
+					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1))->first();
 					if($dataWarehouse){
 						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
 						$dataWarehouse->deadline_at = $item->deadline_at;
@@ -322,14 +322,14 @@ function checkBuyWarehousesAPI($input){
 			$conditions = array('warehouse_id'=>$dataSend['idWarehouse']);
 			$conditions['user_id'] = $infoUser->id;
 			$conditions['deadline_at >='] =date('Y-m-d H:i:s');
-			$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'], 'user_id'=>$infoUser->id))->first();
+			$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'status'=>1, 'user_id'=>$infoUser->id))->first();
 
 
 			if(empty($checkWarehouses)){
 				$data = $modelWarehouseUsers->find()->where($conditions)->first();
 				if(!empty($data)){
 					$listData = array();
-						$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id))->first();
+						$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id,'status'=>1))->first();
 						if($dataWarehouse){
 							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
 							$dataWarehouse->deadline_at = $data->deadline_at;
@@ -740,9 +740,11 @@ function addWarehouseAPI($input)
 		        		$slugNew = $slug.'-'.$number;
 		        	}
 		            $data->slug = $slugNew;
-		            $data->status = 1;
+		            $data->status = 0;
 			        
 			        $modelWarehouses->save($data);
+
+					sendNotificationAdmin('64d1ca287026d948fbb45a74');
 
 			       $return = array('code'=>1,
 	                    				'data'=>$data,

@@ -100,8 +100,6 @@ function listWarehouseAdmin($input)
     setVariable('listData', $listData);
 }
 
-
-
 function detailWarehouse($input){
 	global $urlCurrent;
 	global $isRequestPost;
@@ -229,6 +227,36 @@ function detailWarehouse($input){
 	}else{
 		return $controller->redirect('https://ezpics.page.link/vn1s');
 	}
+}
+
+function lockWarehouse($input){
+	global $controller;
+	global $session;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelMembers = $controller->loadModel('Members');
+		
+	if(!empty($_GET['id'])){
+		$data = $modelWarehouses->get($_GET['id']);
+		
+		if($data){
+			if(!empty($_GET['status']==1)){
+				$data->status = 0;
+				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã bị khóa','action'=>'adminSendNotification');
+			}else{
+				$data->status = 1;
+				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã được phê duyệt','action'=>'adminSendNotification');
+			}
+         	$modelWarehouses->save($data);
+         	
+		     $user = $modelMembers->find()->where(array('id'=>$data->user_id))->first();	
+            if(!empty($user->token_device)){
+               sendNotification($dataSendNotification, $user->token_device);
+            }
+        }
+	}
+
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php');
 }
 
 ?>
