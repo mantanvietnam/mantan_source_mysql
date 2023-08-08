@@ -136,7 +136,8 @@ function addMoneyManagerAdmin($input)
 	$modelManagers = $controller->loadModel('Managers');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelManagers->get($_GET['id']);
+        $data = $modelManagers->find()->where(['id'=> $_GET['id']])->first(); 
+
 		if ($isRequestPost) {
 			$dataSend = $input['request']->getData();
             if(!empty($_GET['type'])){
@@ -150,7 +151,7 @@ function addMoneyManagerAdmin($input)
                     $history->numberCoin = $dataSend['coinChange'];
                     $history->numberCoinManager = $data->coin;
                     $history->type = 'plus'; 
-                    $history->note = 'Bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
+                    $history->note = 'Bạn được cộng tiền trong admin lý do cộng là:  '.@$dataSend['note'];
                     $history->type_note = 'plus_admin'; 
                     $history->modified = time();
                     $history->created = time();
@@ -167,7 +168,7 @@ function addMoneyManagerAdmin($input)
                     $history->numberCoin = $dataSend['coinChange'];
                     $history->numberCoinManager = $data->coin;
                     $history->type = 'minus'; 
-                    $history->note = 'Bạn trừ tiền trong admin lý do công là:  '.@$dataSend['note'];
+                    $history->note = 'Bạn trừ tiền trong admin lý do trừ là:  '.@$dataSend['note'];
                     $history->type_note = 'minus_admin'; 
                     $history->modified = time();
                     $history->created = time();
@@ -176,7 +177,7 @@ function addMoneyManagerAdmin($input)
 
                 }
             }
-			$modelMembers->save($data);
+			$modelManagers->save($data);
 		}
 		setVariable('data', $data);
 	}else{

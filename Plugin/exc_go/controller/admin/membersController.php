@@ -35,6 +35,10 @@ function listMemberAdmin($input)
     if(!empty($_GET['type'])){
         $conditions['type'] = $_GET['type'];
     }
+
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
     
     $listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -87,7 +91,7 @@ function addMemberAdmin($input)
 	global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Thông tin sản phẩm';
+    $metaTitleMantan = 'Thông tin thành viên';
 
 	$modelMembers = $controller->loadModel('Members');
 	$mess= '';
@@ -102,19 +106,15 @@ function addMemberAdmin($input)
 	if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['user'])){
-            $data->user = $dataSend['user'];
+        if(!empty($dataSend['name'])){
+            $data->name = $dataSend['name'];
+            $data->avatar = $dataSend['avatar'];
+            $data->phone = $dataSend['phone'];
+            $data->status = $dataSend['status'];
             $data->type = $dataSend['type'];
-	        $data->status = $dataSend['status'];	
-            $data->pass = $dataSend['pass'];
-            $data->key_host = $dataSend['key_host'];	
-            $data->modified = time();
-            $data->created = time();
-            $data->client_id = $dataSend['client_id'];
-            $data->client_secret = $dataSend['client_secret'];
-            $data->account_id = $dataSend['account_id'];
-            
-            
+            $data->password = $dataSend['password'];
+            $data->email = $dataSend['email'];
+
 	        $modelMembers->save($data);
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{

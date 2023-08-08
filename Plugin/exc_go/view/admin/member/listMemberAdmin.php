@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Thành viên</h4>
   <p><a href="/plugins/admin/zoomcheap-view-admin-manager-addManagerExcel.php" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
   <!-- Form Search -->
   <form method="get" action="">
@@ -13,8 +13,8 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên khách hàng</label>
-            <input type="text" class="form-control" name="fullname" value="<?php if(!empty($_GET['fullname'])) echo $_GET['fullname'];?>">
+            <label class="form-label">Tên thành viên</label>
+            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
           <div class="col-md-3">
@@ -29,10 +29,19 @@
 
           <div class="col-md-2">
             <label class="form-label">Loại</label>
-            <select name="status" class="form-select color-dropdown">
+            <select name="type" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <option value="0" <?php if(!empty($_GET['type']) && $_GET['type']=='0') echo 'selected';?> >Người dùng</option>
               <option value="1" <?php if(!empty($_GET['type']) && $_GET['type']=='1') echo 'selected';?> >Tài xế</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Kích hoạt</option>
+              <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Khóa</option>
             </select>
           </div>
           
@@ -56,7 +65,7 @@
             <th>ID</th>
             <th>Avatar</th>
             <th>Họ và tên</th>
-            <th>Liên hệ</th>
+            <th>Thông tin</th>
             <th>Loại tài khoản</th>
             <th>Sửa</th>
             <th>Trạng thái</th>
@@ -74,25 +83,32 @@
  
                if($item->status==0){
                  $status = '
-                <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                  <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
-                         </a><br/>Khóa ';
-               }
-               else{
+                  </a><br/>Khóa ';
+                }
+                else{
                 $status = '
-                <a class=" btn btn-danger"  title="Khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=0">
+                  <a class=" btn btn-danger"  title="Khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=0">
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
-                         </a><br/> Kích hoạt ';
-               }
+                  </a><br/> Kích hoạt ';
+                }
 
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->avatar.'" width="100" /></td>
-                        <td>'.$item->name.'</td>
                         <td>
+                          '.$item->name.'
+                          </br>
                           '.$item->phone.' 
                           </br>
                           '.$item->email.' 
+                        </td>
+                        <td>
+                          Số dư: '.number_format($item->account_balance).' đ
+                          <br>
+                          Địa chỉ: '.$item->address.'
+
                         </td>
                         <td>'.$type.' </td>
                         <td> 
@@ -102,7 +118,7 @@
                         </a>
                         </p>
 
-                        <td>'.$status.'</td>
+                        <td align="center">'.$status.'</td>
                         
                       </td>
 

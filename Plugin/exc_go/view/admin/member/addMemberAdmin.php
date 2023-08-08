@@ -18,22 +18,27 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Tài khoản (*)</label>
-                    <input required type="email" class="form-control phone-mask" name="user" id="user" value="<?php echo @$data->user;?>" />
+                    <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Password (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="pass" id="pass" value="<?php echo @$data->pass;?>" />
+                    <input required type="text" class="form-control phone-mask" name="password" id="password" value="<?php echo @$data->password;?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Key host (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="key_host" id="key_host" value="<?php echo @$data->key_host;?>" />
+                    <label class="form-label" for="basic-default-phone">Số điện thoại (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Ngày hết hạn dùng thử (*)</label>
-                    <input required type="text" class="form-control datepicker" name="deadline" id="deadline" value="<?php echo (!empty($data->deadline))?date('d/m/Y', $data->deadline):'';?>" />
+                    <label class="form-label" for="basic-default-phone">Email (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$data->email;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Địa chỉ</label>
+                    <input type="text" class="form-control datepicker" name="address" id="address" value="<?php echo @$data->address;?>" />
                   </div>
                 </div>
 
@@ -42,25 +47,25 @@
                     <label class="form-label">Trạng thái</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="status" id="status">
-                        <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
-                        <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                        <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected'; ?> >Kích hoạt</option>
+                        <option value="0" <?php if(!empty($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Client id (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="client_id" id="client_id" value="<?php echo @$data->client_id;?>" />
+                    <label class="form-label" for="basic-default-phone">Hình ảnh (*)</label>
+                    <?php showUploadFile('avatar','avatar',@$data->avatar,0);?>
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Client secret (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="client_secret" id="client_secret" value="<?php echo @$data->client_secret;?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Account id (*)</label>
-                    <input required type="text" class="form-control phone-mask" name="account_id" id="account_id" value="<?php echo @$data->account_id;?>" />
+                    <label class="form-label">Loại tài khoản</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="type" id="type">
+                        <option value="0" <?php if(!empty($data->type) && $data->type=='0') echo 'selected'; ?> >Người dùng</option>
+                        <option value="1" <?php if(!empty($data->type) && $data->type=='1') echo 'selected'; ?> >Tài xế</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>

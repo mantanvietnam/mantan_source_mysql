@@ -69,11 +69,11 @@
                          
                         </td>
                         <td align="center">
-                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-member-addMoneyManagerAdmin.php/?type=plus&id='.$item->id.'">+ Nạp tiền </a>
+                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addMoneyManagerAdmin.php/?type=plus&id='.$item->id.'">+ Nạp tiền </a>
                         </td>
 
                         <td align="center">
-                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-member-addMoneyManagerAdmin.php/?type=minus&id='.$item->id.'">- Trừ tiền </a>
+                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addMoneyManagerAdmin.php/?type=minus&id='.$item->id.'">- Trừ tiền </a>
                         </td>
 
                         <td align="center">
