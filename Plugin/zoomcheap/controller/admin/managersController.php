@@ -139,43 +139,43 @@ function addMoneyManagerAdmin($input)
 		$data = $modelManagers->get($_GET['id']);
 		if ($isRequestPost) {
 			$dataSend = $input['request']->getData();
+            if(!empty($_GET['type'])){
+                if($_GET['type']=='plus'){
+                    $data->coin = $data->coin + $dataSend['coinChange'];
 
-			if($_GET['type']=='plus'){
-				$data->coin = $data->coin + $dataSend['coinChange'];
+                    $history = $modelHistories->newEmptyEntity();
 
-				$history = $modelHistories->newEmptyEntity();
+                    $history->time = time();
+                    $history->idManager = $data->id;
+                    $history->numberCoin = $dataSend['coinChange'];
+                    $history->numberCoinManager = $data->coin;
+                    $history->type = 'plus'; 
+                    $history->note = 'Bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
+                    $history->type_note = 'plus_admin'; 
+                    $history->modified = time();
+                    $history->created = time();
+                
+                    $modelHistories->save($history);
 
-                $history->time = time();
-                $history->idManager = $data->id;
-                $history->numberCoin = $dataSend['coinChange'];
-                $history->numberCoinManager = $data->coin;
-                $history->type = 'plus'; 
-                $history->note = 'Bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
-                $history->type_note = 'plus_admin'; 
-                $history->modified = time();
-                $history->created = time();
-               
-                $modelHistories->save($history);
+                }elseif($_GET['type']=='minus'){
+                    $data->coin = $data->coin - $dataSend['coinChange'];
 
-			}elseif($_GET['type']=='minus'){
-				$data->coin = $data->coin - $dataSend['coinChange'];
+                    $history = $modelHistories->newEmptyEntity();
 
-				$history = $modelHistories->newEmptyEntity();
+                    $history->time = time();
+                    $history->idManager = $data->id;
+                    $history->numberCoin = $dataSend['coinChange'];
+                    $history->numberCoinManager = $data->coin;
+                    $history->type = 'minus'; 
+                    $history->note = 'Bạn trừ tiền trong admin lý do công là:  '.@$dataSend['note'];
+                    $history->type_note = 'minus_admin'; 
+                    $history->modified = time();
+                    $history->created = time();
+                
+                    $modelHistories->save($history);
 
-                $history->time = time();
-                $history->idManager = $data->id;
-                $history->numberCoin = $dataSend['coinChange'];
-                $history->numberCoinManager = $data->coin;
-                $history->type = 'minus'; 
-                $history->note = 'Bạn trừ tiền trong admin lý do công là:  '.@$dataSend['note'];
-                $history->type_note = 'minus_admin'; 
-                $history->modified = time();
-                $history->created = time();
-               
-                $modelHistories->save($history);
-
-			}
-
+                }
+            }
 			$modelMembers->save($data);
 		}
 		setVariable('data', $data);

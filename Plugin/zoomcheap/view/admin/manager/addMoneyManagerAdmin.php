@@ -36,11 +36,14 @@
                     <input required type="number" class="form-control phone-mask" name="coinChange" id="coinChange" value="" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><?php if($_GET['type']=='plus') {
-                    echo 'Lý do cộng';
-                  }else{
-                    echo 'Lý do trừ';
-                  } ?>  (*)</label>
+                    <label class="form-label" for="basic-default-fullname">
+                      <?php if($_GET['type']=='plus') {
+                              echo 'Lý do cộng';
+                            }else{
+                            echo 'Lý do trừ';
+                      } ?>  
+                    (*)
+                    </label>
                     <input type="text" required class="form-control" placeholder="" name="note" id="note" value="" />
                   </div>                  
                 </div>
