@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Chọn SPA  </title>
+    <title>Lựa chọn cơ sở kinh doanh</title>
 
     <meta name="description" content="" />
 
@@ -83,15 +83,15 @@
                 </a>
               </div> -->
               <!-- /Logo -->
-              <h4 class="mb-2">Phần mền quản lý SPA! 👋</h4>
-              <p class="mb-4">Mời bạn chọn  SPA</p>
+              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
+              <p class="mb-4">Mời bạn chọn cơ sở kinh doanh</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <label class="form-check-label" for="remember-me">cơ sở </label>
+                    <label class="form-check-label" for="remember-me">Cơ sở kinh doanh</label>
                     <select class="form-select" name="idspa" id="idspa">
                         <?php 
                          
@@ -105,7 +105,7 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">chọn</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Chọn</button>
                 </div>
               </form>
 

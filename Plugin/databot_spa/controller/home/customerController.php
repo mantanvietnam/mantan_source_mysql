@@ -9,9 +9,9 @@ function listCustomer($input)
     $metaTitleMantan = 'Danh sách khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
-
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa);
 		$limit = 20;
@@ -92,98 +92,93 @@ function addCustomer($input)
 	global $metaTitleMantan;
 	global $session;
 
-
-
     $metaTitleMantan = 'Thông tin khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelService = $controller->loadModel('Services');
 	$modelMembers = $controller->loadModel('Members');
 	$modelSpa = $controller->loadModel('Spas');
+	
 	$mess= '';
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 
-
-
-	// lấy data edit
-    if(!empty($_GET['id'])){
-        $data = $modelCustomer->get( (int) $_GET['id']);
-    }else{
-        $data = $modelCustomer->newEmptyEntity();
-		$data->created_at = date('Y-m-d H:i:s');
-    }
-
-	if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-
-
-        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
-        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
-        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
-
-        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
-		        // tạo dữ liệu save
-		        $data->name = $dataSend['name'];
-		        $data->avatar = $dataSend['avatar'];
-		        $data->phone = $dataSend['phone'];
-		        $data->email = $dataSend['email'];
-		        $data->cmnd = $dataSend['cmnd'];
-		        $data->avatar = $dataSend['avatar'];
-		        $data->birthday = $dataSend['birthday'];
-		        $data->id_group = (int) $dataSend['id_group'];
-		        $data->code = $dataSend['code'];
-		        $data->link_facebook = $dataSend['link_facebook'];
-		        $data->source = $dataSend['source'];
-		        $data->id_spa = (int) $dataSend['id_spa'];
-		        $data->medical_history = $dataSend['medical_history'];
-		        $data->request_current = $dataSend['request_current'];
-		        $data->advise_towards = $dataSend['advise_towards'];
-		        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
-		        $data->advisory = $dataSend['advisory'];
-		        $data->id_service =(int) $dataSend['id_service'];
-		        $data->address = $dataSend['address'];
-		        $data->note = $dataSend['note'];
-		        $data->id_staff = (int) $dataSend['id_staff'];
-		        $data->sex = (int) $dataSend['sex'];
-		        $data->id_member =(int) $infoUser->id_member;
-				$data->updated_at = date('Y-m-d H:i:s');
-
-
-
-		        $modelCustomer->save($data);
-
-		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-		    }else{
-		    	$mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
-		    }
+		// lấy data edit
+	    if(!empty($_GET['id'])){
+	        $data = $modelCustomer->get( (int) $_GET['id']);
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+	        $data = $modelCustomer->newEmptyEntity();
+			$data->created_at = date('Y-m-d H:i:s');
 	    }
-    }
 
-    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+		if ($isRequestPost) {
+	        $dataSend = $input['request']->getData();
 
-    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
-    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
+	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+	        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-    $Service = array('id_member'=>$infoUser->id_member);
-    $dataService = $modelService->find()->where($Service)->order(['id' => 'DESC'])->all()->toList();
+	        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
+	        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
 
-    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
-    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
-   
-    setVariable('data', $data);
-    setVariable('dataMember', $dataMember);
-    setVariable('dataSpa', $dataSpa);
-    setVariable('dataGroup', $dataGroup);
-    setVariable('dataService', $dataService);
-    setVariable('dataSource', $dataSource);
-    setVariable('mess', $mess);
+	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
+			        // tạo dữ liệu save
+			        $data->name = $dataSend['name'];
+			        $data->avatar = $dataSend['avatar'];
+			        $data->phone = $dataSend['phone'];
+			        $data->email = $dataSend['email'];
+			        $data->cmnd = $dataSend['cmnd'];
+			        $data->avatar = $dataSend['avatar'];
+			        $data->birthday = $dataSend['birthday'];
+			        $data->id_group = (int) $dataSend['id_group'];
+			        $data->code = $dataSend['code'];
+			        $data->link_facebook = $dataSend['link_facebook'];
+			        $data->source = $dataSend['source'];
+			        $data->id_spa = (int) $dataSend['id_spa'];
+			        $data->medical_history = $dataSend['medical_history'];
+			        $data->request_current = $dataSend['request_current'];
+			        $data->advise_towards = $dataSend['advise_towards'];
+			        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
+			        $data->advisory = $dataSend['advisory'];
+			        $data->id_service =(int) $dataSend['id_service'];
+			        $data->address = $dataSend['address'];
+			        $data->note = $dataSend['note'];
+			        $data->id_staff = (int) $dataSend['id_staff'];
+			        $data->sex = (int) $dataSend['sex'];
+			        $data->id_member =(int) $infoUser->id_member;
+					$data->updated_at = date('Y-m-d H:i:s');
+
+			        $modelCustomer->save($data);
+
+			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+			    }else{
+			    	$mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+			    }
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+		    }
+	    }
+
+	    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+
+	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
+	    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
+
+	    $service = array('id_member'=>$infoUser->id_member);
+	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
+
+	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
+	    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
+	   
+	    setVariable('data', $data);
+	    setVariable('dataMember', $dataMember);
+	    setVariable('dataSpa', $dataSpa);
+	    setVariable('dataGroup', $dataGroup);
+	    setVariable('dataService', $dataService);
+	    setVariable('dataSource', $dataSource);
+	    setVariable('mess', $mess);
     }else{
 		return $controller->redirect('/login');
 	}
@@ -192,19 +187,21 @@ function addCustomer($input)
 function deleteCustomer($input){
 	global $controller;
 	global $session;
-	$modelCustomer = $controller->loadModel('Customers');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
 	
+	$modelCustomer = $controller->loadModel('Customers');
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
 		if(!empty($_GET['id'])){
 			$data = $modelCustomer->get($_GET['id']);
 			
-			if($data){
+			if(!empty($data)){
 	         	$modelCustomer->delete($data);
 	        }
 		}
 
-		return $controller->redirect('listCustomer.php');
+		return $controller->redirect('/listCustomer');
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -216,7 +213,8 @@ function listCategoryCustomer($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Nhóm khách hàng';
+
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
@@ -238,28 +236,14 @@ function listCategoryCustomer($input){
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_customer';
-
-            // tạo slug
-            $slug = createSlugMantan($infoCategory->name);
-            $slugNew = $slug;
-            $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_customer', 'id_member'=>$infoUser->id_member);
-                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
-                }
-            }while (!empty($listData));
-
-            $infoCategory->slug = $slugNew;
+            $infoCategory->slug = createSlugMantan($infoCategory->name);
 
             $modelCategories->save($infoCategory);
 
         }
 
         $conditions = array('type' => 'category_customer', 'id_member'=>$infoUser->id_member);
+        
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -274,7 +258,7 @@ function listSourceCustomer($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Nguồn khách hàng';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
@@ -296,28 +280,14 @@ function listSourceCustomer($input){
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_source_customer';
-
-            // tạo slug
-            $slug = createSlugMantan($infoCategory->name);
-            $slugNew = $slug;
-            $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
-                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
-                }
-            }while (!empty($listData));
-
-            $infoCategory->slug = $slugNew;
+            $infoCategory->slug = createSlugMantan($infoCategory->name);
 
             $modelCategories->save($infoCategory);
 
         }
 
         $conditions = array('type' => 'category_source_customer', 'id_member'=>$infoUser->id_member);
+        
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -332,13 +302,14 @@ function deleteCategoryCustomer($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Xóa nhóm khách hàng';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             $data = $modelCategories->find()->where($conditions)->first();
+            
             if(!empty($data)){
                 $modelCategories->delete($data);
             }

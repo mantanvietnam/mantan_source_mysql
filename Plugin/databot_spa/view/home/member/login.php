@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập công cụ phần mền quản lý SPA  </title>
+    <title>Đăng nhập phần mềm quản lý SPA  </title>
 
     <meta name="description" content="" />
 
@@ -83,8 +83,8 @@
                 </a>
               </div> -->
               <!-- /Logo -->
-              <h4 class="mb-2">Phần mền quản lý SPA! 👋</h4>
-              <p class="mb-4">Mời bạn đăng nhập phần mền quản lý SPA</p>
+              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
+              <p class="mb-4">Mời bạn đăng nhập phần mềm quản lý SPA</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
@@ -136,30 +136,7 @@
                 </a>
               </p>
             </div>
-            <!-- <div class="row">
-              <div class="col-sm-12 text-center mb-2">
-                  <div class="login_f gg">
-                      <?php
-                      global $google_clientId;
-                      global $google_clientSecret;
-                      global $google_redirectURL;
-
-                      $client = new Google_Client();
-                      $client->setClientId($google_clientId);
-                      $client->setClientSecret($google_clientSecret);
-                      $client->setRedirectUri($google_redirectURL);
-                      $client->setApplicationName('Đăng nhập Ezpics');
-                      //$client->setApprovalPrompt('force');
-
-                      $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
-
-                      $authUrl = $client->createAuthUrl();
-                   
-                      echo '<a class="btn btn-danger" href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="bx bxl-google"></i> Đăng nhập với Google</a>';
-                      ?>
-                  </div>
-              </div>
-            </div> -->
+            
           </div>
           <!-- /Register -->
         </div>
