@@ -4382,3 +4382,7 @@ cursor: not-allowed;
 .pagination .page-item .page-link{
     color: #454545;
 }
+
+.pagination .page-item .page-link{
+    border-color: transparent !important;
+}
