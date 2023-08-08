@@ -18,10 +18,6 @@ function login($input)
     			case 'account_lock':
     				$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
     				break;
-    			
-    			case 'account_not_designer':
-    				$mess= '<p class="text-danger">Bạn chưa đăng ký để trở thành Designer</p>';
-    				break;
     		}
     	}
 
@@ -35,29 +31,32 @@ function login($input)
 	    		$conditions = array('phone'=>$dataSend['phone'], 'password'=>md5($dataSend['password']));
 	    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
-	    		if($info_customer->type == 0){
-	    			$info_member = $modelMembers->find()->where(array('id'=>$info_customer->id_member, 'type'=>1))->first();
-			    	$info_customer->dateline_at = $info_member->dateline_at;
-			    }
-
 	    		if($info_customer){
-	    			// hiến hạn sử dụng
+	    			// nếu đây là nhân viên
+		    		if($info_customer->type == 0){
+		    			$info_member = $modelMembers->find()->where(array('id'=>$info_customer->id_member, 'type'=>1))->first();
+				    	
+				    	// lấy tình trạng tài khoản của nhân viên theo chủ spa
+				    	$info_customer->dateline_at = $info_member->dateline_at;
+				    	$info_customer->status = $info_member->status;
+				    }
+
+	    			// còn hạn sử dụng
 	    			if($info_customer->dateline_at >= date('Y-m-d H:i:s')){
 
 	    				// nếu tài khoản không bị khóa
 	    				if($info_customer->status == 1){
-
-	    				
-
 			    			$info_customer->last_login = date('Y-m-d H:i:s');
 
 			    			$modelMembers->save($info_customer);
+			    			
+			    			// nếu là chủ spa
 			    			if($info_customer->type == 1){
 			    				$info_customer->id_member = $info_customer->id;
 			    			}
 
 			    			$session->write('CheckAuthentication', true);
-		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
+		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id_member.'/');
 
 			    			$session->write('infoUser', $info_customer);
 			    			
@@ -66,7 +65,7 @@ function login($input)
 							$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 						}
 					}else{
-						$mess= '<p class="text-danger">ài khoản của bạn đã hết hạn</p>';
+						$mess= '<p class="text-danger">Tài khoản của bạn đã hết hạn</p>';
 					}
 	    		}else{
 	    			$mess= '<p class="text-danger">Sai số điện thoại hoặc mật khẩu</p>';
@@ -99,11 +98,9 @@ function dashboard($input)
 	global $metaTitleMantan;
 
 	$metaTitleMantan = 'Thống kê tài khoản';
+	
 	if(!empty($session->read('infoUser'))){
-		$conditions = array('user_id'=>$session->read('infoUser')->id, 'type'=>'user_create', 'status'=>2);
-		$limit = 5;
-		$page = 1;
-
+		
 		
 	}else{
 		return $controller->redirect('/login');
@@ -133,8 +130,7 @@ function changePass($input)
 
 					if($user->password == md5($dataSend['passOld'])){
 						$user->password = md5($dataSend['passNew']);
-						$user->token = createToken(25);
-
+						
 						$modelMembers->save($user);
 
 						$session->write('infoUser', $user);
@@ -204,7 +200,7 @@ function forgotPass($input){
 	global $controller;
 	global $session;
 
-	$metaTitleMantan = 'Số điện thoại xác thực';
+	$metaTitleMantan = 'Quên mật khẩu';
 
 	$modelMembers = $controller->loadModel('Members');
 
@@ -215,8 +211,8 @@ function forgotPass($input){
 		$checkMember = $modelMembers->find()->where($conditions)->first();
 
 		if(!empty($checkMember)){
-			@$pass = getdate()[0];
-			$checkMember->code_otp = md5($pass);
+			$pass = rand(100000,999999);
+			$checkMember->code_otp = $pass;
 			
 			$modelMembers->save($checkMember);
 			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
@@ -238,30 +234,37 @@ function confirm($input){
 	global $isRequestPost;
 	global $controller;
 	global $session;
+	
 	$phone = $session->read('phone');
 
 	$modelMembers = $controller->loadModel('Members');
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
+		
 		$conditions = array();
-		$conditions = array('phone'=>@$phone, 'code_otp'=>md5($dataSend['code']));
-	    		$data = $modelMembers->find()->where($conditions)->first();
-	    		if(!empty($data)){
-	    				if($dataSend['pass'] == $dataSend['passAgain']){
-	    				$data->password = md5($dataSend['pass']);
+		$conditions = array('phone'=>@$phone, 'code_otp'=>$dataSend['code']);
+		
+		$data = $modelMembers->find()->where($conditions)->first();
+		
+		if(!empty($data)){
+			if($dataSend['pass'] == $dataSend['passAgain']){
+				$data->password = md5($dataSend['pass']);
+				$data->code_otp = rand(100000, 999999);
 
-	    				$modelMembers->save($data);
-	    				$session->destroy();
-			    			
-						return $controller->redirect('/login');		
+				$modelMembers->save($data);
+				
+				$session->destroy();
+	    			
+				return $controller->redirect('/login');		
 
-	    			}else{
-	    				$mess= '<p class="text-danger">Mật khẩu xác nhập mới bạn không đúng</p>';
-	    			}
-	    		}else{
-	    			$mess= '<p class="text-danger">Mã xác thực bạn không đúng</p>';
-	    		}
+			}else{
+				$mess= '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';
+			}
+		}else{
+			$mess= '<p class="text-danger">Mã xác thực của bạn không đúng</p>';
+		}
+
 	    setVariable('mess', $mess);
 	}
 }
@@ -285,6 +288,7 @@ function register($input)
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
 		if(!empty($dataSend['name_spa']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
+			
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
@@ -293,50 +297,50 @@ function register($input)
 					$data = $modelMember->newEmptyEntity();
 
 					$data->name = $dataSend['name_spa'];
+					$data->avatar = 'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->phone = $dataSend['phone'];
 					$data->email = @$dataSend['email'];
-					$data->number_spa = 1;
 					$data->password = md5($dataSend['password']);
 					$data->status = 1; //1: kích hoạt, 0: khóa
-					$data->type = 1; // 0: nhân viên, 1: Member
+					$data->type = 1; // 0: nhân viên, 1: chủ spa
+					$data->id_member = 0;
 					$data->created_at = date('Y-m-d H:i:s');
+					$data->updated_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->dateline_at = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). '30 days'));
+					$data->number_spa = 1;
+					$data->address = $dataSend['address'];
+					$data->code_otp = rand(100000, 999999);
 
 					$modelMember->save($data);
 
-					$checkMember = $modelMember->find()->where(array('phone'=>$data->phone))->first();
-					if(!empty($checkMember)){
+					// tạo cơ sở spa mới
+					$dataSpa = $modelSpas->newEmptyEntity();
 
-						$dataSpa = $modelSpas->newEmptyEntity();
-						$dataSpa->name = $dataSend['name_spa'];
-						$dataSpa->phone = $dataSend['phone'];
-						$dataSpa->email = @$dataSend['email'];
-						$dataSpa->id_member = $checkMember->id;
-						$dataSpa->address = @$dataSend['address'];
-						$dataSpa->slug = createSlugMantan($dataSpa->name);
-						$dataSpa->created_at = date('Y-m-d H:i:s');
-						$dataSpa->updated_at = date('Y-m-d H:i:s');
+					$dataSpa->name = $dataSend['name_spa'];
+					$dataSpa->phone = $dataSend['phone'];
+					$dataSpa->email = @$dataSend['email'];
+					$dataSpa->id_member = $data->id;
+					$dataSpa->address = @$dataSend['address'];
+					$dataSpa->slug = createSlugMantan($dataSpa->name);
+					$dataSpa->created_at = date('Y-m-d H:i:s');
+					$dataSpa->updated_at = date('Y-m-d H:i:s');
 
-						$modelSpas->save($dataSpa);
+					$modelSpas->save($dataSpa);
 
-						$checkspa = $modelSpas->find()->where(array('phone'=>$data->phone, 'name'=>$dataSpa->name, 'id_member' => $checkMember->id))->first();
-						if($checkspa){
-							$dataWarehouse = $modelWarehouse->newEmptyEntity();
-							$dataWarehouse->name = $checkspa->address;
-							$dataWarehouse->credit = 1;
-							$dataWarehouse->id_member = $checkMember->id;
-							$dataWarehouse->id_spa = $checkspa->id;
-							$dataWarehouse->created_at = date('Y-m-d H:i:s');
-							$modelWarehouse->save($dataWarehouse);
-						}
+					// tạo kho mới
+					$dataWarehouse = $modelWarehouse->newEmptyEntity();
+					
+					$dataWarehouse->name = $dataSpa->address;
+					$dataWarehouse->credit = 1;
+					$dataWarehouse->id_member = $data->id;
+					$dataWarehouse->id_spa = $dataSpa->id;
+					$dataWarehouse->created_at = date('Y-m-d H:i:s');
+					
+					$modelWarehouse->save($dataWarehouse);
 
-
-
-				    	$mess = '<p class="text-success">Yêu cầu đăng ký  phần mền quản lý SPA thành công</p>';
-			    	}else{
-			    		$mess = '<p class="text-success">không tạo được cơ sở</p>';
-			    	}
+			    	$mess = '<p class="text-success">Đăng ký phần mền quản lý SPA thành công</p>';
+		    	
 				}else{
 					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
 				}
@@ -351,32 +355,20 @@ function register($input)
 	setVariable('mess', $mess);
 }
 
-// Lua chon spa
 function managerSelectSpa() {
 	global $controller;
     global $isRequestPost;
     global $urlHomes;
     global $session;
-    global $urlHomeManager;
-    setVariable('permission', 'managerSelectHotel');
+    
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
-	$infoUser = $session->read('infoUser');
 
-	if(!empty($infoUser)){
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 	    $mess= '';
-	    if(!empty($_GET['status'])){
-	        switch($_GET['status']){
-	            case 'deleteHotelDone': $mess= '<p class="color_green">Xóa Spa thành công</p>';break;
-	            case 'addHotelDone': $mess= '<p class="color_green">Thêm mới Spa thành công</p>';break;
-	            case 'deleteHotelFail': $mess= '<p class="color_red">Xóa Spa thất bại</p>';break;
-	            case 'selectHotelFail': $mess= '<p class="color_red">Không tồn tại thông tin Spa này</p>';break;
-	        }
-	    }
 	    
 	    $dataList = $modelSpas->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-
-
 
 	    if(!empty($dataList)){
 	    	$totalData = count($dataList);
@@ -384,19 +376,24 @@ function managerSelectSpa() {
 			    if ($isRequestPost) {
 			        if (!empty($_POST['idspa'])) {
 			            $hotel= $modelSpas->get($_POST['idspa']);
+			            
 			            if(!empty($hotel)){
 			            	$infoUser->id_spa = $_POST['idspa'];
 			                $session->write('infoUser', @$infoUser);
+			                
 			                return $controller->redirect('/dashboard');
 			            }
 			        }
 			    } 
+
 		    	setVariable('mess', $mess);
 		    	setVariable('dataList', $dataList);
 		    }else{
 		    	$data = $modelSpas->find()->where(array('id_member'=>$infoUser->id_member))->first();
+		    	
 		    	$infoUser->id_spa = $data->id;
-			                $session->write('infoUser', @$infoUser);
+			    $session->write('infoUser', @$infoUser);
+			    
 			    return $controller->redirect('/dashboard');
 		    }
 		}else{
@@ -407,4 +404,4 @@ function managerSelectSpa() {
 	}
 }
 
- ?>
+?>

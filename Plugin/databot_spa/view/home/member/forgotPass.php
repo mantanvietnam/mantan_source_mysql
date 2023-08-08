@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập công cụ phần mền quản lý SPA</title>
+    <title>Quên mật khẩu</title>
 
     <meta name="description" content="" />
 
@@ -73,18 +73,8 @@
           <!-- Register -->
           <div class="card">
             <div class="card-body">
-              <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">
-                    <img src="/plugins/databot_spa/view/home/assets/img/avatar-ezpics.png" width="50">
-                  </span>
-                  <span class="app-brand-text demo text-body fw-bolder">SPA</span>
-                </a>
-              </div>
-              <!-- /Logo -->
-              <h4 class="mb-2">phần mền quản lý SPA! 👋</h4>
-              <p class="mb-4">Mời bạn đăng nhập công cụ phần mền quản lý SPA</p>
+              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
+              <p class="mb-4">Mời bạn nhập thông tin để lấy lại mật khẩu</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">

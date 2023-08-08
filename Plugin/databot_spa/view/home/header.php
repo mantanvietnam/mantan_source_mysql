@@ -73,7 +73,7 @@
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/popper/popper.js"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap.js"></script>
-    <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap-datepicker.js?time=<?php echo  getdate()[0]; ?>"></script>
+    <script src="/plugins/databot_spa/view/home/assets/vendor/js/bootstrap-datepicker.js"></script>
     <script src="/plugins/databot_spa/view/home/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
     <script src="/plugins/databot_spa/view/home/assets/js/datetimepicker.full.js"></script>
@@ -88,10 +88,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="/dashboard" class="app-brand-link">
-              <span class="app-brand-logo demo">
-                <img src="/plugins/databot_spa/view/home/assets/img/avatar-ezpics.png" width="50">
-              </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">EZPICS</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">MY SPA</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

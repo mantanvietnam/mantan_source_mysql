@@ -158,6 +158,7 @@ function addWarehouse($input)
 		        if(empty($_GET['id'])){
 			        $data->created_at = date('Y-m-d H:i:s');
 			        $data->views = 0;
+			        $data->status = 0;
 			    }
 
 		        // tạo slug
@@ -178,7 +179,7 @@ function addWarehouse($input)
 	            }
 
 	            $data->slug = $slugNew;
-	            $data->status = 1;
+	            
 		        
 		        $modelWarehouses->save($data);
 
@@ -209,6 +210,7 @@ function addWarehouse($input)
 
 		            $data->link_open_app = @$deep_link->shortLink;
 		            $modelWarehouses->save($data);
+		            sendNotificationAdmin('64d1ca287026d948fbb45a74');
 		        }
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

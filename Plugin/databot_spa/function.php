@@ -122,12 +122,12 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
                             <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
-                            <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
+                            <span>Phần mềm quản lý Spa chuyên nghiệp</span>
                         </div>
-                        <ul class="list-unstyled" style="    font-size: 15px;">
+                        <ul class="list-unstyled" style=" font-size: 15px;">
                             <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
                             <li>Mobile: 0828266622</li>
-                            <li>Website: <a href="https://ezpics.vn">https://ezpics.vn</a></li>
+                            <li>Website: <a href="https://databot.vn">https://databot.vn</a></li>
                         </ul>
                     </div>
 
@@ -144,8 +144,11 @@ function getSpa($id)
 {
     global $modelOption;
     global $controller;
+    
     $modelSpa = $controller->loadModel('Spas');
-        $data = $modelSpa->find()->where(['id'=>intval($id)])->first();       
-        return $data;
+        
+    $data = $modelSpa->find()->where(['id'=>intval($id)])->first();       
+    
+    return $data;
 }
 ?>
