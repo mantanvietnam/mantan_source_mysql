@@ -5,7 +5,8 @@ function getListWarehousesAPI($input){
 	global $controller;
 	global $modelCategories;
 
-	$modelWarehouses = $controller->loadModel('Warehouses');;
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProduct = $controller->loadModel('WarehouseProducts');
 
 	
 	$return = array('code'=>0);
@@ -19,7 +20,10 @@ function getListWarehousesAPI($input){
 				$listData = array();
 				foreach($data as $key => $item){
 					$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
-					$listData[] =$item;
+					$product =count($modelWarehouseProduct->find()->where(array('warehouse_id'=>$item->id))->all()->toList());
+					if($product>0){
+						$listData[] =$item;
+					}
 				}
 				$return = array('code'=>1,
 								'data'=> $listData,
@@ -39,7 +43,8 @@ function searchWarehousesAPI($input){
 	global $controller;
 	global $modelCategories;
 
-	$modelWarehouses = $controller->loadModel('Warehouses');;
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProduct = $controller->loadModel('WarehouseProducts');
 
 	
 	$return = array('code'=>0);
@@ -60,7 +65,10 @@ function searchWarehousesAPI($input){
 				$listData = array();
 				foreach($data as $key => $item){
 					$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
-					$listData[] =$item;
+					$product =count($modelWarehouseProduct->find()->where(array('warehouse_id'=>$item->id))->all()->toList());
+					if($product>0){
+						$listData[] =$item;
+					}
 				}
 				$return = array('code'=>1,
 								'data'=> $listData,
@@ -565,7 +573,6 @@ function extendWarehousesAPI($input)
 							 // cộng tiền tài khoản bán
 					        $infoUserSell->account_balance += $order->total;
 					        $modelMember->save($infoUserSell);
-
 
 							// tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
 		                    if($Warehouse->price > 0){
