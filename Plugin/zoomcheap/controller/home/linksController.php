@@ -198,5 +198,5 @@ function redirectLink($input)
 		}
 	}
 
-	return $controller->redirect('https://zoomcheap.com');
+	return $controller->redirect('https://zoomcheap.com/trang-thong-bao-mac-dinh/');
 }

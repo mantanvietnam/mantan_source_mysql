@@ -127,9 +127,9 @@ function listManagerAdmin($input)
 
 }
 
-function addMoneyManagerAdmin($input){
+function addMoneyManagerAdmin($input)
+{
 	global $controller;
-
 	global $isRequestPost;
 
 	$modelHistories = $controller->loadModel('Histories');
