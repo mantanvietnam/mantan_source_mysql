@@ -5,18 +5,19 @@ function listBook($input){
 	global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách đăt';
+    $metaTitleMantan = 'Lịch hẹn';
+
     $modelService = $controller->loadModel('Services');
 	$modelBook = $controller->loadModel('Books');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
-
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
-		$Book = array('id'=>'desc');
+		$order = array('id'=>'desc');
 
 		if(!empty($_GET['id'])){
 			$conditions['id'] = (int) $_GET['id'];
@@ -40,14 +41,14 @@ function listBook($input){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
-	    $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($Book)->all()->toList();
+	    $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-	     if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            $conditions_scan = array('id'=>$value->id);
-            $listData[$key]->Service  = $modelService->find()->where($conditions_scan)->first();
-        }
-    }
+	    if(!empty($listData)){
+	        foreach ($listData as $key => $value) {
+	            $conditions_scan = array('id'=>$value->id);
+	            $listData[$key]->Service  = $modelService->find()->where($conditions_scan)->first();
+	        }
+	    }
 
 	    $totalData = $modelBook->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
@@ -99,126 +100,88 @@ function addBook($input){
 	global $metaTitleMantan;
 	global $session;
 
-
-
-    $metaTitleMantan = 'Thông tin khách hàng';
+    $metaTitleMantan = 'Thông tin lịch hẹn';
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelBook = $controller->loadModel('Books');
 	$modelService = $controller->loadModel('Services');
 	$modelMembers = $controller->loadModel('Members');
 	$modelSpa = $controller->loadModel('Spas');
-	$mess= '';
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 
+		$mess= '';
 
-
-	// lấy data edit
-    if(!empty($_GET['id'])){
-        $save = $modelBook->get( (int) $_GET['id']);
-    }else{
-        $save = $modelBook->newEmptyEntity();
-		$save->created_at = date('Y-m-d H:i:s');
-    }
-
-	if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-        
-        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
-        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
-        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
-        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
-
-        	if(empty($checkPhone)){
-        		$data = $modelCustomer->newEmptyEntity();
-        		$data->created_at = date('Y-m-d H:i:s');
-		        // tạo dữ liệu save
-		        $data->name = $dataSend['name'];
-		        $data->avatar = $dataSend['avatar'];
-		        $data->phone = $dataSend['phone'];
-		        $data->email = $dataSend['email'];
-		        $data->cmnd = $dataSend['cmnd'];
-		        $data->avatar = $dataSend['avatar'];
-		        $data->birthday = $dataSend['birthday'];
-		        $data->id_group = (int) @$dataSend['id_group'];
-		        $data->code = @$dataSend['code'];
-		        $data->link_facebook = $dataSend['link_facebook'];
-		        $data->source = $dataSend['source'];
-		        $data->id_spa = (int) $dataSend['id_spa'];
-		        $data->medical_history = $dataSend['medical_history'];
-		        $data->request_current = $dataSend['request_current'];
-		        $data->advise_towards = $dataSend['advise_towards'];
-		        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
-		        $data->advisory = $dataSend['advisory'];
-		        $data->id_service =(int) $dataSend['id_service'];
-		        $data->address = $dataSend['address'];
-		        $data->note = $dataSend['note'];
-		        $data->id_staff = (int) $dataSend['id_staff'];
-		        $data->sex = (int) $dataSend['sex'];
-		        $data->id_member =(int) $infoUser->id_member;
-				$data->updated_at = date('Y-m-d H:i:s');
-
-		        $modelCustomer->save($data);
-		    }
-		    $conditions = ['phone'=>$dataSend['phone'],'id_member'=>$infoUser->id_member];
-		    $checkCustomer = $modelCustomer->find()->where($conditions)->first();
-		    if(!empty($checkCustomer)){
-		    	$save->name = $dataSend['name'];
-		        $save->phone = $dataSend['phone'];
-		        $save->email = $dataSend['email'];
-		        $save->id_customers = $checkCustomer->id;
-		        $save->id_staff = (int) $dataSend['id_staff'];
-		        $save->id_spa = (int) $dataSend['id_spa'];
-		        $save->id_member = (int) $infoUser->id_member;
-		        $save->id_service =(int) $dataSend['id_service'];
-		        $save->status = $dataSend['status'];
-		        $save->created_book = strtotime(@$dataSend['created_book']);
-		        $save->note = $dataSend['note'];
-		        $save->apt_step = $dataSend['apt_step'];
-		        $save->apt_times = $dataSend['apt_times'];
-		        $save->type =  implode(',', $dataSend['at_type']);
-		        $save->status = (int)  $dataSend['status'];
-
-		        $thoigian = explode(' ', $dataSend['created_book']);
-                $time_start = explode('/', $thoigian[0]);
-                $timeStart= explode(':', $thoigian[1]);
-                $save->created_book = mktime($timeStart[0],$timeStart[1],0,$time_start[1],$time_start[0],$time_start[2]);
-		        
-
-		        $modelBook->save($save);
-		        $mess= '<p class="text-success">Bạn đặt lịch hẹn thành công</p>';
-		    }
-
-
-
-
+		// lấy data edit
+	    if(!empty($_GET['id'])){
+	        $save = $modelBook->get( (int) $_GET['id']);
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+	        $save = $modelBook->newEmptyEntity();
+			$save->created_at = date('Y-m-d H:i:s');
 	    }
-    }
 
-    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+		if ($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+	        
+	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+	        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
-    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
+	        	$conditions = ['id'=>$dataSend['id_customer'],'id_member'=>$infoUser->id_member];
+	        	$checkCustomer = $modelCustomer->find()->where($conditions)->first();
 
-    $Service = array('id_member'=>$infoUser->id_member);
-    $dataService = $modelService->find()->where($Service)->order(['id' => 'DESC'])->all()->toList();
+			    if(!empty($checkCustomer)){
+			    	$save->name = $dataSend['name'];
+			        $save->phone = $dataSend['phone'];
+			        $save->email = $dataSend['email'];
+			        $save->id_customers = $checkCustomer->id;
+			        $save->id_staff = (int) $dataSend['id_staff'];
+			        $save->id_spa = (int) $dataSend['id_spa'];
+			        $save->id_member = (int) $infoUser->id_member;
+			        $save->id_service =(int) $dataSend['id_service'];
+			        $save->created_book = strtotime(@$dataSend['created_book']);
+			        $save->note = $dataSend['note'];
+			        $save->apt_step = $dataSend['apt_step'];
+			        $save->apt_times = $dataSend['apt_times'];
+			        $save->type =  implode(',', $dataSend['at_type']);
+			        $save->status = (int)  $dataSend['status'];
 
-    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
-    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
-   
-    setVariable('data', $save);
-    setVariable('dataMember', $dataMember);
-    setVariable('dataSpa', $dataSpa);
-    setVariable('dataGroup', $dataGroup);
-    setVariable('dataService', $dataService);
-    setVariable('dataSource', $dataSource);
-    setVariable('mess', $mess);
+			        $thoigian = explode(' ', $dataSend['created_book']);
+	                $time_start = explode('/', $thoigian[0]);
+	                $timeStart= explode(':', $thoigian[1]);
+	                $save->created_book = mktime($timeStart[0],$timeStart[1],0,$time_start[1],$time_start[0],$time_start[2]);
+			        
+			        $modelBook->save($save);
+
+			        $mess= '<p class="text-success">Bạn đặt lịch hẹn thành công</p>';
+			    }else{
+			    	$mess= '<p class="text-danger">Không tồn tại thông tin khách hàng</p>';
+			    }
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+		    }
+	    }
+
+	    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+
+	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
+	    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
+
+	    $Service = array('id_member'=>$infoUser->id_member);
+	    $dataService = $modelService->find()->where($Service)->order(['id' => 'DESC'])->all()->toList();
+
+	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
+	    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
+	   
+	    setVariable('data', $save);
+	    setVariable('dataMember', $dataMember);
+	    setVariable('dataSpa', $dataSpa);
+	    setVariable('dataGroup', $dataGroup);
+	    setVariable('dataService', $dataService);
+	    setVariable('dataSource', $dataSource);
+	    setVariable('mess', $mess);
     }else{
 		return $controller->redirect('/login');
 	}
@@ -227,10 +190,12 @@ function addBook($input){
 function deleteBook($input){
     global $controller;
     global $session;
+	
 	$modelBook = $controller->loadModel('Books');
-    $infoUser = $session->read('infoUser');
-    if(!empty($infoUser)){
     
+    if(!empty($session->read('infoUser'))){
+    	$infoUser = $session->read('infoUser');
+
         if(!empty($_GET['id'])){
             $data = $modelBook->get($_GET['id']);
             
