@@ -379,7 +379,9 @@ function managerSelectSpa() {
 			            
 			            if(!empty($hotel)){
 			            	$infoUser->id_spa = $_POST['idspa'];
+			                
 			                $session->write('infoUser', @$infoUser);
+			                $session->write('id_spa', $_POST['idspa']);
 			                
 			                return $controller->redirect('/dashboard');
 			            }
@@ -393,6 +395,7 @@ function managerSelectSpa() {
 		    	
 		    	$infoUser->id_spa = $data->id;
 			    $session->write('infoUser', @$infoUser);
+			    $session->write('id_spa', $data->id);
 			    
 			    return $controller->redirect('/dashboard');
 		    }

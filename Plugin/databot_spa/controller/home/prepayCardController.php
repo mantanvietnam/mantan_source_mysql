@@ -12,7 +12,7 @@ function listPrepayCard($input)
 	$infoUser = $session->read('infoUser');
 	if(!empty($infoUser)){
 
-		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$infoUser->id_spa);
+		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -107,7 +107,7 @@ function addPrepayCard($input){
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
                 $data->id_member = $infoUser->id_member;
-                $data->id_spa = (int) $infoUser->id_spa;
+                $data->id_spa = (int) $session->read('id_spa');
                 $data->status = @$dataSend['status'];
                 $data->price = @$dataSend['price'];
                 $data->discount_money = @$dataSend['discount_money'];

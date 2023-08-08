@@ -23,7 +23,7 @@ function listRoom($input){
             // tạo dữ liệu save
             $data->name = $dataSend['name'];
             $data->status = 1;
-            $data->id_spa = $infoUser->id_spa;
+            $data->id_spa = $session->read('id_spa');
             $data->id_member = $infoUser->id_member;
             $data->created_at = date('Y-m-d H:i:s');
 
@@ -31,7 +31,7 @@ function listRoom($input){
 
         }
 
-        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa);
+        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
         $listData = $modelRoom->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);

@@ -6,38 +6,39 @@ function listBed($input){
     global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh Phòng';
+    $metaTitleMantan = 'Danh sách giường';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
 
-
-
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
             
-            // tính ID category
             if(!empty($dataSend['idEdit'])){
                 $data = $modelBed->get( (int) $dataSend['idEdit']);
             }else{
                 $data = $modelBed->newEmptyEntity();
             }
+
             // tạo dữ liệu save
             $data->name = $dataSend['name'];
             $data->status = 1;
             $data->id_room = $dataSend['id_room'];
-            $data->id_spa = $infoUser->id_spa;
+            $data->id_spa = $session->read('id_spa');
             $data->id_member = $infoUser->id_member;
             $data->created_at = date('Y-m-d H:i:s');
 
             $modelBed->save($data);
-            return $controller->redirect('/listBed');
 
+            return $controller->redirect('/listBed');
         }
       
-        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa);
+        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
+        
         $listData = $modelBed->find()->where($conditions)->order(['id_room'=>'desc'])->all()->toList();
+        
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
                 $room = $modelRoom->find()->where(['id'=>$value->id_room])->first();
@@ -46,6 +47,7 @@ function listBed($input){
                 }
             }
         }
+
         $listRoom = $modelRoom->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
@@ -62,14 +64,18 @@ function deleteBed($input){
     global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Xóa giường';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        
         $modelBed = $controller->loadModel('Beds');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
+            
             $data = $modelBed->find()->where($conditions)->first();
+            
             if(!empty($data)){
                 $modelBed->delete($data);
             }
@@ -80,23 +86,26 @@ function deleteBed($input){
 }
 
 function listRoomBed($input){
-        global $isRequestPost;
+    global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
 
     $metaTitleMantan = 'Danh sách danh Phòng';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa);
+        $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
+        
         $listData = $modelRoom->find()->where($conditions)->all()->toList();
+        
         if(!empty($listData)){
             foreach($listData as $key => $item){
-                $listData[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$infoUser->id_spa))->all()->toList();
+                $listData[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
             }
         }
         

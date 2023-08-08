@@ -117,7 +117,7 @@ function addWarehouse($input)
 		        // tạo dữ liệu save
 		        $data->name = $dataSend['name'];
 		        $data->id_member = (int) $infoUser->id_member;
-		        $data->id_spa = (int)$infoUser->id_spa;
+		        $data->id_spa = (int)$session->read('id_spa');
 		        $data->description = $dataSend['description'];
 
 			        
