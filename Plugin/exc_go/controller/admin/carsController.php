@@ -105,4 +105,23 @@ function listCarAdmin($input)
 
 }
 
+function lockCarAdmin($input){
+	global $controller;
+
+	$modelCars = $controller->loadModel('Cars');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelCars->get($_GET['id']);
+		
+		if($data){
+			if(isset($_GET['status'])){
+				$data->status =$_GET['status'];
+         		$modelCars->save($data);
+            }
+        }
+	}
+
+	return $controller->redirect('/plugins/admin/exc_go-view-admin-car-listCarAdmin.php');
+}
+
 ?>

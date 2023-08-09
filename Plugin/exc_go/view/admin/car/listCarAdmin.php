@@ -59,7 +59,7 @@
             <th>ID</th>
             <th>Ảnh xe</th>
             <th>Tên xe</th>
-            <th>Thông tin</th>
+            <th>Thông tin tài xế</th>
             <th>Ghi chú</th>
             <th>Loại đặt</th>
             <th>Trạng thái</th>
@@ -67,21 +67,29 @@
         </thead>
         <tbody>
           <?php 
+            global $typeCar;
             if(!empty($listData)){
               debug($listData);
               foreach ($listData as $item) {
                if($item->status==0){
                  $status = '
-                  <a class="btn btn-success"  title="Kích hoạt xe" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                  <a class="btn btn-success"  title="Kích hoạt xe" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockCarAdmin.php/?id='.$item->id.'&status=1">
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Khóa ';
                 }
                 else{
                 $status = '
-                  <a class=" btn btn-danger"  title="Khóa xe" onclick="return confirm(\'Bạn có chắc chắn muốn khóa xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=0">
+                  <a class=" btn btn-danger"  title="Khóa xe" onclick="return confirm(\'Bạn có chắc chắn muốn khóa xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockCarAdmin.php/?id='.$item->id.'&status=0">
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Kích hoạt ';
                 }
+
+                if($item->type_book==0){
+                  $type_book = 'Chở đơn ';
+                 }
+                 else{
+                  $type_book = 'Chở ghép';
+                 }
 
                 echo '<tr>
                         <td>'.$item->id.'</td>
@@ -90,23 +98,29 @@
                             Tên xe: '.$item->name_car.'
                           </br>
                             Biển số xe: '.$item->license_plates.' 
+                          </br>
+                            Loại xe: '.$typeCar[$item->type_car].'
                         </td>
                         <td>
-                          Số dư: '.number_format($item->account_balance).' đ
+                          Họ và tên: '.$item->infoMember->name.'
                           <br>
-                          Địa chỉ: '.$item->address.'
+                          Số dư: '.number_format($item->infoMember->account_balance).' đ
+                          <br>
+                          Địa chỉ: '.$item->infoMember->address.'
+                          <br>
+                          Số điện thoại: '.$item->infoMember->phone.'
+                          <br>
+                          Email: '.$item->infoMember->email.'
                         </td>
-                        <td>'.$type.' </td>
-                        <td> 
-                        <p align="center">
-                        <a class="btn btn-success" href="/plugins/admin/exc_go-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
-                          <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
-                        </a>
-                        </p>
+                        <td>
+                          '.$item->note.'
+                        </td>
+                        <td>'.$type_book.'</td>
+
+                       
 
                         <td align="center">'.$status.'</td>
                         
-                      </td>
 
                       </tr>';
               }
