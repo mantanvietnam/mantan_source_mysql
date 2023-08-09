@@ -152,7 +152,6 @@ function saveInfoMemberAPI($input)
 
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
 		
 		if(empty($dataSend['status'])) $dataSend['status']=1;
 		if(empty($dataSend['password'])) $dataSend['password']= $dataSend['phone'];
