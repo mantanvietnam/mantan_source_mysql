@@ -31,8 +31,8 @@ function bookCarAPI($input){
 			$book->updated_at =  date('Y-m-d H:i:s');
 
 			$modelBookCar->save($book);
-			$return= array('code'=>1;
-							'book_code'=> $book->id;
+			$return= array('code'=>1,
+							'book_code'=> $book->id,
 							'mess' => 'bạn đặt xe thành công',
 						);
 
@@ -68,8 +68,8 @@ function receiveVisitorAPI($input){
 				if(!empty($book)){
 					$book->customer = $customer;
 				}
-				$return= array('code'=>1;
-								'data'=> $book;
+				$return= array('code'=>1,
+								'data'=> $book,
 								'mess' => 'bạn nhận quốc xe thành công',
 							);
 			}else{
@@ -98,8 +98,8 @@ function listBookAPI($input){
 			$book = $modelBookCar->find()->where(array('id'=>$dataSend['idBook']))->all()->toList();
 			if(!empty($book)){
 				
-				$return= array('code'=>1;
-								'data'=> $book;
+				$return= array('code'=>1,
+								'data'=> $book,
 								'mess' => 'bạn lấy data thành công',
 							);
 			}else{
