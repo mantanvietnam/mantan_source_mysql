@@ -1,23 +1,10 @@
 <?php 
-global $price_remove_background;
-global $price_create_content;
-global $name_bank;
-global $number_bank;
-global $account_holders_bank;
-global $link_qr_bank;
-global $key_transaction;
-global $keyFirebase;
-global $urlCreateImage;
-global $price_pro;
+
 
 //$urlCreateImage = 'http://14.225.238.137:3000/convert';
 $urlCreateImage = 'http://171.244.16.76:3000/convert';
 
-$number_bank = '06931228668';
-$name_bank = 'Tiên Phong Bank (TPB)';
-$account_holders_bank = 'Trần Ngọc Mạnh';
-$link_qr_bank = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/link_qr_bank.jpg';
-$key_transaction = 'ezpics';
+
 
 $menus= array();
 $menus[0]['title']= 'Exc-go';
@@ -44,6 +31,13 @@ $typeCar = ['4'=>'Xe 4 chỗ',
             '5'=>'Xe 5 chỗ',
             '7'=>'Xe 7 chỗ',
             '9'=>'Xe 9 chỗ',
+            '16'=>'Xe 16 chỗ',
+            '29'=>'Xe 29 chỗ',
+            '32'=>'Xe  32 chỗ',
+            '96'=>'Xe 96 chỗ',
+            '45'=>'Xe 45 chỗ',
+            '55'=>'Xe 55 chỗ',
+            '65'=>'Xe 65 chỗ',
             ];
 
 function createToken($length=30)
@@ -299,22 +293,5 @@ function getListCity()
 
     );
 }
-
-function typeCar()
-{
-    return [
-            ['id'=>1, 'name'=>'4 chỗ'],
-            ['id'=>1, 'name'=>'7 chỗ'],
-            ['id'=>1, 'name'=>'9 chỗ'],
-            ['id'=>1, 'name'=>'16 chỗ'],
-            ['id'=>1, 'name'=>'29 chỗ'],
-            ['id'=>1, 'name'=>'32 chỗ'],
-            ['id'=>1, 'name'=>'36 chỗ'],
-            ['id'=>1, 'name'=>'45 chỗ'],
-            ['id'=>1, 'name'=>'55 chỗ'],
-            ['id'=>1, 'name'=>'65 chỗ'],
-        ];
-}
-
 
 ?>
