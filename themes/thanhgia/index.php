@@ -539,10 +539,11 @@
                 <h2>ĐĂNG KÝ NHẬN THÔNG BÁO MỚI NHẤT</h2>
                 <p>Để cập nhật những sản phẩm mới, nhận thông tin ưu đãi đặc biệt và thông tin giảm giá khác</p>
             </div>
-            <form action="/add" method="post">
+            <form action="/addSubscribe" method="post">
+                <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="form-group">
                     <span class="icon-email"><i class="fa-regular fa-envelope"></i></span>
-                    <input type="gmail" placeholder="Nhập email của bạn">
+                    <input type="email" placeholder="Nhập email của bạn" value="" name="email" required>
                     <span class="newsletter-box">
                         <button type="submit" class="newsletter-button">
                             Đăng ký
