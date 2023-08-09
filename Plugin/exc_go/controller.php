@@ -9,4 +9,7 @@ include_once('controller/admin/carsController.php'); // xe
 //adi
 include_once('controller/api/membersController.php'); // thành viên
 include_once('controller/api/contactController.php'); // cotacts
+include_once('controller/api/carController.php'); // cotacts
+include_once('controller/api/contactController.php'); // cotacts
+include_once('controller/api/bookController.php'); // cotacts
 ?>
