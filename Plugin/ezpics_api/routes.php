@@ -165,4 +165,5 @@
 	$routesPlugin['deleteContentAPI']= 'ezpics_api/view/deleteContentAPI.php';
 	$routesPlugin['searchWarehousesAPI']= 'ezpics_api/view/searchWarehousesAPI.php';
 	$routesPlugin['updateContentAPI']= 'ezpics_api/view/updateContentAPI.php';
+	$routesPlugin['getProductUserAPI']= 'ezpics_api/view/getProductUserAPI.php';
 ?>

@@ -581,7 +581,6 @@ function getInfoUserAPI($input)
 				if($checkPhone->type==1){
 
 					$product = $modelProduct->find()->where(array('user_id' => $checkPhone->id, 'type'=>'user_create','status'=>2))->all()->toList();
-					$checkPhone->listProduct = @$product;
 					$checkPhone->quantityProduct = count(@$product);
 
 					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();
@@ -615,6 +614,47 @@ function getInfoUserAPI($input)
 	
 	}
 
+	return $return;
+}
+
+function getProductUserAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
+	$modelProduct = $controller->loadModel('Products');
+	$modelOrder = $controller->loadModel('Orders');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['idUser'])){
+			$checkPhone = $modelMember->find()->where(array('id'=>$dataSend['idUser'] , 'type'=> 1))->first();
+			if(!empty($checkPhone)){
+				$limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+				$product = $modelProduct->find()->limit($limit)->page($page)->where(array('user_id' => $dataSend['idUser'], 'type'=>'user_create','status'=>2))->all()->toList();
+				if(!empty($product)){
+					$return = array('code'=>0,
+								 'data'=>$product,
+								 'messages'=>array(array('text'=>'Bạn lấy dữ liệu thành công'))
+								);
+				}
+			}else{
+				$return = array('code'=>3,
+							'messages'=>array(array('text'=>'Tài khoản không tồn tại'))
+					);
+			}
+		}else{
+			$return = array('code'=>2,
+						'messages'=>array(array('text'=>'Bạn thiếu dữ liệu'))
+					);
+		}
+
+	}
 	return $return;
 }
 
