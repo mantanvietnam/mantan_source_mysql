@@ -33,7 +33,6 @@ function saveRequestDriverAPI($input)
 				$data->type = 1; //1: đăng ký tài xế
 				$data->status = 0; // 0: chưa xử lý, 1: đã xử lý
 				$data->created_at = date('Y-m-d H:i:s');
-
 				$modelContact->save($data);
 				
 				$return = array('code'=>0,'messages'=>array(array('text'=>'Lưu đăng ký thành công')));
