@@ -2,6 +2,8 @@
 
 //admin
 include_once('controller/admin/membersController.php'); // thành viên
+include_once('controller/admin/carsController.php'); // xe
+
 
 
 //adi

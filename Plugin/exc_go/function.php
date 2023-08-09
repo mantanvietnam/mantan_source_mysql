@@ -28,12 +28,16 @@ $menus[1]['sub'][0]= array('title'=>'Thông tin thành viên',
                             'permission'=>'listMemberAdmin',
                         );
 
+$menus[2]['sub'][0]= array('title'=>'Thông tin xe',
+                            'url'=>'/plugins/admin/exc_go-view-admin-car-listCarAdmin.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'listCarAdmin',
+                        );
+
 addMenuAdminMantan($menus);
 
 
-$price_remove_background = 0;
-$price_create_content = 1000;
-$price_pro = 999000;
+
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 
