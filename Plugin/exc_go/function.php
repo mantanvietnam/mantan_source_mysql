@@ -1,10 +1,6 @@
 <?php 
 
 
-//$urlCreateImage = 'http://14.225.238.137:3000/convert';
-$urlCreateImage = 'http://171.244.16.76:3000/convert';
-
-
 
 $menus= array();
 $menus[0]['title']= 'Exc-go';
