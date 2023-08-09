@@ -28,6 +28,9 @@
 	// quên mật khẩu 
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'excgo/view/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'excgo/view/saveNewPassAPI.php';
+	$routesPlugin['bookCarAPI']= 'excgo/view/bookCarAPI.php';
+	$routesPlugin['receiveVisitorAPI']= 'excgo/view/receiveVisitorAPI.php';
+	$routesPlugin['listBookAPI']= 'excgo/view/listBookAPI.php';
 
 	// product
 	
