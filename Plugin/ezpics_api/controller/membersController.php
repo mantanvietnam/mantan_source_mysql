@@ -636,12 +636,30 @@ function getProductUserAPI($input){
 			if(!empty($checkPhone)){
 				$limit = (!empty($dataSend['limit']))?(int)$dataSend['limit']:20;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-				$product = $modelProduct->find()->limit($limit)->page($page)->where(array('user_id' => $dataSend['idUser'], 'type'=>'user_create','status'=>2))->all()->toList();
+				$conditions = array('user_id' => $dataSend['idUser']);
+
+				if(!empty($dataSend['type'])){
+					if($dataSend['type']=='user_create'){
+						$conditions['status']= 2;
+					}elseif($dataSend['type']=='user_series') {
+						$conditions['status']= 1;
+					}
+					$conditions['type']= $dataSend['type'];
+				}else{
+					$conditions['type']='user_create';
+					$conditions['status']= 2;
+				}
+
+				$product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
 				if(!empty($product)){
-					$return = array('code'=>0,
+					$return = array('code'=>1,
 								 'data'=>$product,
 								 'messages'=>array(array('text'=>'Bạn lấy dữ liệu thành công'))
 								);
+				}else{
+					$return = array('code'=>4,
+							'messages'=>array(array('text'=>'không có data '))
+					);
 				}
 			}else{
 				$return = array('code'=>3,
