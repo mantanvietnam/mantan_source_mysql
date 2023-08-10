@@ -242,16 +242,19 @@ function lockWarehouse($input){
 		if($data){
 			if($_GET['status']==0){
 				$data->status = 0;
-				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã bị khóa nội dung là: '.$_GET['note'].'.','action'=>'adminSendNotification');
+				$dataSendNotification= array('title'=>'Thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết"'.$data->name.'" đã bị khóa nội dung là: '.$_GET['note'].'.','action'=>'adminSendNotification');
 			}else{
 				$data->status = 1;
-				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã được phê duyệt','action'=>'adminSendNotification');
+				$dataSendNotification= array('title'=>'Thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết"'.$data->name.'" đã được  phê duyệt','action'=>'adminSendNotification');
 			}
          	$modelWarehouses->save($data);
          	
 		     $user = $modelMembers->find()->where(array('id'=>$data->user_id))->first();	
             if(!empty($user->token_device)){
                sendNotification($dataSendNotification, $user->token_device);
+            }
+            if(!empty($user->email)){
+            	sendEmailLockWarehouse($user->email,$user->name,$data->name,$_GET['status'],@$_GET['note']);
             }
         }
 	}

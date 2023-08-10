@@ -94,8 +94,14 @@ function listBookAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token'], 'type'=>1))->first();
+
 		if(!empty($infoUser)){
-			$book = $modelBookCar->find()->where(array('id'=>$dataSend['idBook']))->all()->toList();
+			$conditions = array();
+			if(isset($dataSend['status'])){
+				$conditions['status'] = $dataSend['status'];
+			}
+
+			$book = $modelBookCar->find()->where($conditions)->all()->toList();
 			if(!empty($book)){
 				
 				$return= array('code'=>1,
@@ -112,6 +118,40 @@ function listBookAPI($input){
 	return $return;
 }
 
+function historyUserBookAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
 
+	$modelBookCar = $controller->loadModel('BookCars');
+
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token'], 'type'=>1))->first();
+
+		if(!empty($infoUser)){
+			$conditions = array('customer_id'=>$infoUser->id);
+			if(isset($dataSend['status'])){
+				$conditions['status'] = $dataSend['status'];
+			}
+
+			$book = $modelBookCar->find()->where($conditions)->all()->toList();
+			if(!empty($book)){
+				
+				$return= array('code'=>1,
+								'data'=> $book,
+								'mess' => 'bạn lấy data thành công',
+							);
+			}else{
+				$return = array('code'=>3, 'mess'=>'chưa có data');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+	}
+	return $return;
+}
 
 ?>

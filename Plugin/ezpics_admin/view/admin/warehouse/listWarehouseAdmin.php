@@ -195,7 +195,7 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Nội dung từ chối của Kho ID: <?php echo $items->id; ?></h5>
+                                <h5 class="modal-title" id="exampleModalLabel1">Nội dung Khóa kho của Kho ID: <?php echo $items->id; ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                              <form action="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php" method="GET">
