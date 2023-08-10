@@ -7,14 +7,18 @@ function listSaff($input)
     global $session;
     global $controller;
     global $urlCurrent;
-     $mess ='';
+     
+    $metaTitleMantan = 'Danh sách nhân viên';
 
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
+	$modelMembers = $controller->loadModel('Members');
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 
-		$modelMembers = $controller->loadModel('Members');
+		$mess ='';
+
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
 		$order = ['id' => 'DESC'];
@@ -34,15 +38,11 @@ function listSaff($input)
 			$conditions['email'] = $_GET['email'];
 		}
 
-		
-
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
-
 	    
 	    $listData = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-	    
 
 	    $totalData = $modelMember->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
@@ -74,7 +74,8 @@ function listSaff($input)
 	    } else {
 	        $urlPage = $urlPage . '?page=';
 	    }
-	     if(@$_GET['statuss']==1){
+	    
+	    if(@$_GET['statuss']==1){
 	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
 
 	    }elseif(@$_GET['status']==2){
@@ -104,6 +105,7 @@ function listSaff($input)
 		return $controller->redirect('/login');
 	}
 }
+
 function addSaff($input){	
 	global $isRequestPost;
     global $modelCategories;
@@ -111,75 +113,74 @@ function addSaff($input){
     global $session;
     global $controller;
     global $urlCurrent;
-     $mess ='';
+
+    $metaTitleMantan = 'Thông tin nhân viên';
 
     $modelMembers = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
 		// lấy data edit
-    if(!empty($_GET['id'])){
-        $data = $modelMembers->get( (int) $_GET['id']);
-    }else{
-        $data = $modelMembers->newEmptyEntity();
-        $data->created_at = date('Y-m-d H:i:s');
-    }
-
-	if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-
-        if(!empty($dataSend['name'])){
-        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', @$dataSend['phone']));
-        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-
-        	$conditions = ['phone'=>$dataSend['phone']];
-        	$checkPhone = $modelMembers->find()->where($conditions)->first();
-
-        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
-		        // tạo dữ liệu save
-		        $data->name = $dataSend['name'];
-		        $data->avatar = $dataSend['avatar'];
-				$data->email = $dataSend['email'];
-				$data->address = $dataSend['address'];
-				$data->birthday = $dataSend['birthday'];
-				$data->id_member = $infoUser->id_member;
-				$data->type = 0;
-				$data->status = (int) $dataSend['status'];
-				$data->updated_at = date('Y-m-d H:i:s');
-
-				if(empty($_GET['id'])){
-
-		        	$data->phone = $dataSend['phone'];
-
-					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
-					$data->password = md5($dataSend['password']);
-
-					$data->token = '';
-				}else{
-					if(!empty($dataSend['password'])){
-			        	$data->password = md5($dataSend['password']);
-			        }
-				}
-
-
-		        $modelMembers->save($data);
-
-		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-		    }else{
-		    	$mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
-		    }
+	    if(!empty($_GET['id'])){
+	        $data = $modelMembers->get( (int) $_GET['id']);
 	    }else{
-	    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+	        $data = $modelMembers->newEmptyEntity();
+	        $data->created_at = date('Y-m-d H:i:s');
 	    }
-    }
 
-    setVariable('data', $data);
-    setVariable('mess', $mess);
+		if($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+
+	        $mess ='';
+
+	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', @$dataSend['phone']));
+	        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+	        	$conditions = ['phone'=>$dataSend['phone']];
+	        	$checkPhone = $modelMembers->find()->where($conditions)->first();
+
+	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
+			        // tạo dữ liệu save
+			        $data->name = $dataSend['name'];
+			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+					$data->email = $dataSend['email'];
+					$data->address = $dataSend['address'];
+					$data->birthday = $dataSend['birthday'];
+					$data->id_member = $infoUser->id_member;
+					$data->type = 0; // 0: nhân viên, 1: chủ spa
+					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
+					$data->updated_at = date('Y-m-d H:i:s');
+					$data->phone = $dataSend['phone'];
+					$data->code_otp = rand(100000, 999999);
+					
+					if(empty($_GET['id'])){
+						if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+						$data->password = md5($dataSend['password']);
+					}else{
+						if(!empty($dataSend['password'])){
+				        	$data->password = md5($dataSend['password']);
+				        }
+					}
+
+			        $modelMembers->save($data);
+
+			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+			    }else{
+			    	$mess= '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+			    }
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+		    }
+	    }
+
+	    setVariable('data', $data);
+	    setVariable('mess', $mess);
 
 	}else{
 		return $controller->redirect('/login');
 	}
-
 }
 ?>
-

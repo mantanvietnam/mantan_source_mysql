@@ -236,7 +236,7 @@ function listCategoryCustomer($input){
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_customer';
-            $infoCategory->slug = createSlugMantan($infoCategory->name);
+            $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 
             $modelCategories->save($infoCategory);
 
@@ -280,7 +280,7 @@ function listSourceCustomer($input){
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_source_customer';
-            $infoCategory->slug = createSlugMantan($infoCategory->name);
+            $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 
             $modelCategories->save($infoCategory);
 

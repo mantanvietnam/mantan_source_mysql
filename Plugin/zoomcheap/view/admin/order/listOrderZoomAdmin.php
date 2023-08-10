@@ -31,7 +31,7 @@
           <tr class="">
             <th>ID</th>
             <th>Loại Zoom</th>
-            <th>Thời gian thuê</th>
+            <th width="200">Thời gian thuê</th>
             <th>Khách hàng</th>
             <th>Tài khoản Zoom</th>
             <th>Phòng họp</th>
@@ -42,32 +42,47 @@
             if(!empty($listData)){
 
               foreach ($listData as $item) {
-              echo  '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->type.'</td>
-                        <td>
-                          <p>'.date("Y-m-d H:i:s",$item->dateStart).'</p>
-                          <p>'.date("Y-m-d H:i:s",$item->dateEnd).'</p>
-                        </td>
-                        <td>
-                          '.$item->infoManager->fullname.'
-                          </br>
-                          '.$item->infoManager->phone.'
-                          </br>
-                          '.$item->infoManager->email.'
-                          </br>
-                          '.number_format($item->infoManager->coin).' đ
-                        </td>
-                        <td>
-                          <p>Tài khoản: '.@$item->infoZoom->user.'</p>
-                          <p>Mật khẩu: '.@$item->infoZoom->pass.'</p>
-                          <p>Key host: '.@$item->infoZoom->key_host.'</p>
-                        </td>
-                        <td>
-                          <p>ID: '.@$item->infoRoom->info['id'].'</p>
-                          <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
-                        </td>
-                      </tr>';
+                $timeBuy = ($item->dateEnd-$item->dateStart)/3600;
+
+                if($timeBuy<24){
+                  $timeBuy = $timeBuy.' giờ';
+                }else{
+                  $timeBuy = $timeBuy/24;
+                  $timeBuy = $timeBuy.' ngày';
+                }
+
+                $extend_time_use= '';
+                if($item->extend_time_use) $extend_time_use= 'Bật gia hạn tự động';
+
+                echo  '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->type.'</td>
+                          <td>
+                            <p class="text-success">'.date("H:i d/m/Y",$item->dateStart).'</p>
+                            <p class="text-danger">'.date("H:i d/m/Y",$item->dateEnd).'</p>
+                            <p>'.$timeBuy.'</p>
+                            '.$extend_time_use.'
+                          </td>
+                          <td>
+                            '.$item->infoManager->fullname.'
+                            </br>
+                            '.$item->infoManager->phone.'
+                            </br>
+                            '.$item->infoManager->email.'
+                            </br>
+                            '.number_format($item->infoManager->coin).' đ
+                          </td>
+                          <td>
+                            ID: '.@$item->infoZoom->id.'
+                            <p>'.@$item->infoZoom->user.'</p>
+                            <p>'.@$item->infoZoom->pass.'</p>
+                            <p>'.@$item->infoZoom->key_host.'</p>
+                          </td>
+                          <td>
+                            <p>ID: '.@$item->infoRoom->info['id'].'</p>
+                            <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
+                          </td>
+                        </tr>';
               }
             }else{
               echo '<tr>

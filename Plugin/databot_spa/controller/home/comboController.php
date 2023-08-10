@@ -5,14 +5,15 @@ function listCombo($input){
 	global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách khách hàng';
+    $metaTitleMantan = 'Danh sách combo sản phẩm';
 
 	$modelCombo = $controller->loadModel('Combos');
 	$modelProduct = $controller->loadModel('Products');
 	$modelService = $controller->loadModel('Services');
-	$modelCombo = $controller->loadModel('Combos');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
+
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -40,6 +41,7 @@ function listCombo($input){
     					$prod[$idProduct]= $pro;
 	                }
 	            }
+
 	            $listData[$key]->product = $prod;
 	            $services = array();
 	            if(!empty($item->service)){
@@ -101,35 +103,37 @@ function listCombo($input){
 }
 
 function addCombo($input){
-     global $isRequestPost;
+    global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
     global $urlCurrent;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Thông tin combo sản phẩm';
+
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
         $modelCombo = $controller->loadModel('Combos');
         $modelProducts = $controller->loadModel('Products');
-        $infoUser = $session->read('infoUser');
         $modelService = $controller->loadModel('Services');
         $modelTrademarks = $controller->loadModel('Trademarks');
+        
+        $infoUser = $session->read('infoUser');
+        
         $mess= '';
 
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelCombo->get( (int) $_GET['id']);
-
         }else{
             $data = $modelCombo->newEmptyEntity();
             $data->created_at = date('Y-m-d H:i:s');
         }
 
-
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
+            
             if(!empty($dataSend['name'])){
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
@@ -141,6 +145,7 @@ function addCombo($input){
                 $data->price = (int)@$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
                 $data->status = @$dataSend['status'];
+                
                 $product = array();
                 if (!empty($dataSend['idHangHoa']) && !empty($dataSend['soluong'])) {
                     foreach($dataSend['idHangHoa'] as $key=>$idHangHoa){
@@ -159,8 +164,8 @@ function addCombo($input){
                     }
                 }
 
-                 $data->product = json_encode(@$product);
-                 $data->service = json_encode(@$service);
+                $data->product = json_encode(@$product);
+                $data->service = json_encode(@$service);
 
 				$data->updated_at = date('Y-m-d H:i:s');
 
@@ -178,24 +183,25 @@ function addCombo($input){
                 $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
             }
         }
+
         $conditionsCategorieProduct = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
         $order = array('name'=>'asc');
         $categoryProduct = $modelCategories->find()->where($conditionsCategorieProduct)->order($order)->all()->toList();
 
         if(!empty($categoryProduct)){
-    	foreach ($categoryProduct as $key => $value) {
-    		$categoryProduct[$key]->product = $modelProducts->find()->where(array('id_category'=>$value->id))->order($order)->all()->toList();
-    		}
-    	}
+	    	foreach ($categoryProduct as $key => $value) {
+	    		$categoryProduct[$key]->product = $modelProducts->find()->where(array('id_category'=>$value->id))->order($order)->all()->toList();
+	    	}
+	    }
 
  		$conditionsCategorieService = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
         $CategoryService = $modelCategories->find()->where($conditionsCategorieService)->order($order)->all()->toList();
 
         if(!empty($CategoryService)){
-    	foreach ($CategoryService as $key => $Service) {
-    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id))->order($order)->all()->toList();
-    		}
-    	}
+	    	foreach ($CategoryService as $key => $Service) {
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id))->order($order)->all()->toList();
+	    	}
+	    }
 
 
         $conditionsTrademar = array('id_member'=>$infoUser->id_member);
@@ -205,20 +211,20 @@ function addCombo($input){
         setVariable('categoryProduct', $categoryProduct);
         setVariable('CategoryService', $CategoryService);
         setVariable('listTrademar', $listTrademar);
-
-
-        }else{
-            return $controller->redirect('/login');
-        }
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function deleteCombo($input){
     global $controller;
     global $session;
-    $modelCombo = $controller->loadModel('Combos');
-    $infoUser = $session->read('infoUser');
-    if(!empty($infoUser)){
     
+    $modelCombo = $controller->loadModel('Combos');
+    
+    if(!empty($session->read('infoUser'))){
+    	$infoUser = $session->read('infoUser');
+
         if(!empty($_GET['id'])){
             $data = $modelCombo->get($_GET['id']);
             
@@ -227,7 +233,7 @@ function deleteCombo($input){
             }
         }
 
-        return $controller->redirect('listCombo.php');
+        return $controller->redirect('/listCombo');
     }else{
         return $controller->redirect('/login');
     }

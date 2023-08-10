@@ -7,9 +7,10 @@ function listWarehouse($input){
     global $controller;
     global $urlCurrent;
 
-    $user = $session->read('infoUser');
-    if(!empty($user)){
-    	$metaTitleMantan = 'Danh sách khách hàng mua kho';
+    $metaTitleMantan = 'Danh sách kho hàng';
+
+    if(!empty($session->read('infoUser'))){
+    	$user = $session->read('infoUser');
 
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
@@ -29,8 +30,6 @@ function listWarehouse($input){
 		}
 
 	    $listData = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-	   
 
 	    $totalData = $modelWarehouses->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
@@ -89,9 +88,9 @@ function addWarehouse($input)
 	global $ftp_username_upload_image;
 	global $ftp_password_upload_image;
 
-    if(!empty($session->read('infoUser'))){
-	    $metaTitleMantan = 'Thông tin kho';
+	$metaTitleMantan = 'Thông tin kho';
 
+    if(!empty($session->read('infoUser'))){
 
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
@@ -99,7 +98,6 @@ function addWarehouse($input)
 		$mess= '';
 
 		// lấy data edit
-
 		if(!empty($_GET['id'])){
 			$data = $modelWarehouses->get($_GET['id']);
 		}else{
@@ -120,19 +118,16 @@ function addWarehouse($input)
 		        $data->id_spa = (int)$session->read('id_spa');
 		        $data->description = $dataSend['description'];
 
-			        
-		            $modelWarehouses->save($data);
-		        
+			    $modelWarehouses->save($data);
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên kho mẫu thiết kế</p>';
 		    }
-
-	    	
 		}
+		
 		setVariable('data', $data);
-	    	setVariable('mess', $mess);
+	    setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -161,5 +156,4 @@ function deleteWarehouse($input)
 		return $controller->redirect('/login');
 	}
 }
-
- ?>
+?>

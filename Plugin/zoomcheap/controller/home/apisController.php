@@ -11,9 +11,9 @@ function checkDeadlineOrderAPI($input)
 
 	$timeNow = time();
 	$timeNext7p = $timeNow + 7*60;
-	$number_extend = 0;
-	$number_deadline = 0;
-	$number_deadline_zoom = 0;
+	$number_extend = [];
+	$number_deadline = [];
+	$number_deadline_zoom = [];
 
 	// gia hạn tự động
 	$conditions = ['dateEnd >=' => $timeNow, 'dateEnd <='=>$timeNext7p, 'extend_time_use'=>1];
@@ -48,7 +48,7 @@ function checkDeadlineOrderAPI($input)
 		        $order->dateEnd += $order->numberHour * 60 * 60;
 		        $modelOrders->save($order);
 
-		        $number_extend++;
+		        $number_extend[] = $order->id;
 			}
 		}
 	}
@@ -66,7 +66,7 @@ function checkDeadlineOrderAPI($input)
 				$zoom->idOrder = 0;
 				$modelZooms->save($zoom);
 
-				$number_deadline++;
+				$number_deadline[] = $order->id;
 
 				// báo sang Zoom để khóa phòng
 				$room = $modelRooms->find()->where(['id' => $order->idRoom])->first();
@@ -89,7 +89,7 @@ function checkDeadlineOrderAPI($input)
 
 			$modelZooms->save($value);
 
-			$number_deadline_zoom++;
+			$number_deadline_zoom[] = $value->id;
 		}
 	}
 

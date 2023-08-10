@@ -322,7 +322,7 @@ function register($input)
 					$dataSpa->email = @$dataSend['email'];
 					$dataSpa->id_member = $data->id;
 					$dataSpa->address = @$dataSend['address'];
-					$dataSpa->slug = createSlugMantan($dataSpa->name);
+					$dataSpa->slug = createSlugMantan($dataSpa->name).'-'.time();
 					$dataSpa->created_at = date('Y-m-d H:i:s');
 					$dataSpa->updated_at = date('Y-m-d H:i:s');
 

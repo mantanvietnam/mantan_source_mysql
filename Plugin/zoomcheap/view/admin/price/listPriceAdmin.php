@@ -54,11 +54,17 @@
             if(!empty($listData)){
 
               foreach ($listData as $item) {
+                if($item->hour < 24){
+                  $hour = $item->hour.' giờ';
+                }else{
+                  $hour = $item->hour/24;
+                  $hour = $hour.' ngày';
+                }
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.$item->type.'</td>
                         <td>'.number_format($item->price).' đ</td>
-                        <td>'.$item->hour.' giờ</td>
+                        <td>'.$hour.'</td>
                       <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-price-addPriceAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

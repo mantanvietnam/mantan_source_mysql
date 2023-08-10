@@ -102,28 +102,35 @@ function closeRoom($clientId = '', $clientSecret = '', $account_id = '', $meetin
                 'action' => 'end', // Đặt trạng thái cuộc họp thành "end"
             );
             
-            $response = $httpClient->put($updateMeetingUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $jwtToken,
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
-                ],
-                'json' => $meetingData,
-            ]);
+            try {
+                $response = $httpClient->put($updateMeetingUrl, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $jwtToken,
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json',
+                    ],
+                    'json' => $meetingData,
+                ]);
 
-            // Endpoint API Zoom để kết thúc phòng họp
-            $deleteMeetingUrl = "https://api.zoom.us/v2/meetings/{$meetingId}";
-            
-            $responseDelete = $httpClient->delete($deleteMeetingUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $jwtToken,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-            ]);
+                // Endpoint API Zoom để kết thúc phòng họp
+                $deleteMeetingUrl = "https://api.zoom.us/v2/meetings/{$meetingId}";
+                
+                $responseDelete = $httpClient->delete($deleteMeetingUrl, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $jwtToken,
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                ]);
 
-            // Xử lý dữ liệu phản hồi nếu cần
-            return json_decode($responseDelete->getBody(), true);
+                // Xử lý dữ liệu phản hồi nếu cần
+                return json_decode($responseDelete->getBody(), true);
+            }catch (\GuzzleHttp\Exception\RequestException $e) {
+                return [];
+
+                // Xử lý lỗi nếu có
+                echo 'Error: ' . $e->getMessage();
+            }
         }
     }
 }
@@ -219,7 +226,9 @@ function createNewRoom($clientId = '', $clientSecret = '', $account_id = '', $to
 			    // Xử lý dữ liệu phản hồi nếu cần
 			    $return = json_decode($response->getBody(), true);
 			} catch (\GuzzleHttp\Exception\RequestException $e) {
-			    // Xử lý lỗi nếu có
+			    return [];
+
+                // Xử lý lỗi nếu có
 			    echo 'Error: ' . $e->getMessage();
 			}
 		}

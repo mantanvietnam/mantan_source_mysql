@@ -5,7 +5,8 @@ function listCategoryService($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Danh mục dịch vụ';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
@@ -27,22 +28,7 @@ function listCategoryService($input){
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_service';
-
-            // tạo slug
-            $slug = createSlugMantan($infoCategory->name);
-            $slugNew = $slug;
-            $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_service', 'id_member'=>$infoUser->id_member);
-                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
-                }
-            }while (!empty($listData));
-
-            $infoCategory->slug = $slugNew;
+            $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 
             $modelCategories->save($infoCategory);
 
@@ -63,13 +49,16 @@ function deleteCategoryService($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Xóa danh mục sản phẩm';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'type' => 'category_service', 'id_member'=>$infoUser->id_member);
+            
             $data = $modelCategories->find()->where($conditions)->first();
+            
             if(!empty($data)){
                 $modelCategories->delete($data);
             }
@@ -87,9 +76,11 @@ function listService($input){
     global $urlCurrent;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Danh sách dịch vụ';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        
         $modelService = $controller->loadModel('Services');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
@@ -111,7 +102,8 @@ function listService($input){
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
-	    $listData = $modelService->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    
+        $listData = $modelService->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 	    $totalData = $modelService->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
@@ -143,7 +135,8 @@ function listService($input){
 	    } else {
 	        $urlPage = $urlPage . '?page=';
 	    }
-          $conditionsCategorie = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
+        
+        $conditionsCategorie = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
@@ -155,7 +148,6 @@ function listService($input){
 	    
         setVariable('listData', $listData);
 	    setVariable('listCategory', $listCategory);
-
     }else{
         return $controller->redirect('/login');
     }
@@ -169,24 +161,23 @@ function addService($input){
     global $controller;
     global $urlCurrent;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Thông tin dịch vụ';
+    
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
         $modelService = $controller->loadModel('Services');
-        $infoUser = $session->read('infoUser');
-        
         $modelTrademarks = $controller->loadModel('Trademarks');
+
+        $infoUser = $session->read('infoUser');
         $mess= '';
 
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelService->get( (int) $_GET['id']);
-
         }else{
             $data = $modelService->newEmptyEntity();
              $data->created = getdate()[0];
         }
-
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -206,44 +197,42 @@ function addService($input){
                 $data->code = @$dataSend['code'];
                 $data->status = @$dataSend['status'];
                 
-                $data->slug = createSlugMantan(trim($dataSend['name']));
+                $data->slug = createSlugMantan(trim($dataSend['name'])).'-'.time();
                 
                 $modelService->save($data);
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
-                 if(!empty($_GET['id'])){
+                if(!empty($_GET['id'])){
                     return $controller->redirect('/listService?mess=2');
                 }else{
                     return $controller->redirect('/listService?mess=1');
                 }
-                
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
             }
         }
-         $conditionsCategorie = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
+        
+        $conditionsCategorie = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
-       
-
         setVariable('data', $data);
         setVariable('listCategory', $listCategory);
-
-
-        }else{
-            return $controller->redirect('/login');
-        }
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function deleteService($input){
-      global $controller;
+    global $controller;
     global $session;
+
     $modelService = $controller->loadModel('Services');
-    $infoUser = $session->read('infoUser');
-    if(!empty($infoUser)){
-    
+
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+
         if(!empty($_GET['id'])){
             $data = $modelService->get($_GET['id']);
             
@@ -257,5 +246,4 @@ function deleteService($input){
         return $controller->redirect('/login');
     }
 }
- 
 ?>

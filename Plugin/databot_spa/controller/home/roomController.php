@@ -6,9 +6,11 @@ function listRoom($input){
     global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh Phòng';
+    $metaTitleMantan = 'Danh sách Phòng';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        
         $modelRoom = $controller->loadModel('Rooms');
 
         if ($isRequestPost) {
@@ -19,16 +21,16 @@ function listRoom($input){
                 $data = $modelRoom->get( (int) $dataSend['idEdit']);
             }else{
                 $data = $modelRoom->newEmptyEntity();
+                $data->created_at = date('Y-m-d H:i:s');
             }
+
             // tạo dữ liệu save
             $data->name = $dataSend['name'];
             $data->status = 1;
             $data->id_spa = $session->read('id_spa');
             $data->id_member = $infoUser->id_member;
-            $data->created_at = date('Y-m-d H:i:s');
 
             $modelRoom->save($data);
-
         }
 
         $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
@@ -47,14 +49,18 @@ function deleteRoom($input){
     global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Xóa phòng';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        
         $modelRoom = $controller->loadModel('Rooms');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
+            
             $data = $modelRoom->find()->where($conditions)->first();
+            
             if(!empty($data)){
                 $modelRoom->delete($data);
             }

@@ -52,11 +52,25 @@
                     $room = '<p class="text-danger">Đơn hết hạn</p>';
                   }
 
+                  $extend_time_use= '';
+                  if($item->extend_time_use) $extend_time_use= 'Bật gia hạn tự động';
+
+                  $timeBuy = ($item->dateEnd-$item->dateStart)/3600;
+
+                  if($timeBuy<24){
+                    $timeBuy = $timeBuy.' giờ';
+                  }else{
+                    $timeBuy = $timeBuy/24;
+                    $timeBuy = $timeBuy.' ngày';
+                  }
+
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>
                             <p class="text-success">'.date('H:i d/m/Y', $item->dateStart).'</p>
                             <p class="text-danger">'.date('H:i d/m/Y', $item->dateEnd).'</p>
+                            <p>'.$timeBuy.'</p>
+                            '.$extend_time_use.'
                           </td>
                           <td>'.$item->type.'</td>
                           <td>'.number_format($item->price).'đ</td>

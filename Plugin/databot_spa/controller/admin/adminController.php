@@ -119,7 +119,7 @@ function addSpaAdmin($input){
         $data->address = $dataSend['address'];
         $data->note = $dataSend['note'];
         $data->updated_at =date('Y-m-d H:i:s');
-        $data->slug = createSlugMantan($dataSend['name']);
+        $data->slug = createSlugMantan($dataSend['name']).'-'.time();
         $modelSpas->save($data);
         if(!empty($_GET['id'])){
             return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php?status=2');

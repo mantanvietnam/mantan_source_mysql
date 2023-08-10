@@ -6,12 +6,13 @@ function listCategoryProduct($input){
     global $session;
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            // tính ID category
+            
             if(!empty($dataSend['idCategoryEdit'])){
                 $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
             }else{
@@ -26,22 +27,7 @@ function listCategoryProduct($input){
             $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
             $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             $infoCategory->type = 'category_product';
-
-            // tạo slug
-            $slug = createSlugMantan($infoCategory->name);
-            $slugNew = $slug;
-            $number = 0;
-            do{
-                $conditions = array('slug'=>$slugNew,'type'=>'category_product', 'id_member'=>$infoUser->id_member);
-                $listData = $modelCategories->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
-
-                if(!empty($listData)){
-                    $number++;
-                    $slugNew = $slug.'-'.$number;
-                }
-            }while (!empty($listData));
-
-            $infoCategory->slug = $slugNew;
+            $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
             $modelCategories->save($infoCategory);
         }
 
@@ -60,13 +46,16 @@ function deleteCategoryProduct($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Xóa danh mục sản phẩm';
+
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'type' => 'category_product', 'id_member'=>$infoUser->id_member);
+            
             $data = $modelCategories->find()->where($conditions)->first();
+            
             if(!empty($data)){
                 $modelCategories->delete($data);
             }
@@ -83,11 +72,12 @@ function listTrademarkProduct($input){
     global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Nhãn hiệu sản phẩm';
+
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        
         $modelTrademarks = $controller->loadModel('Trademarks');
-
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -106,7 +96,7 @@ function listTrademarkProduct($input){
             $data->id_member = $infoUser->id_member;
             $data->description = str_replace(array('"', "'"), '’', $dataSend['description']);
             // tạo slug
-            $data->slug = createSlugMantan($data->name);
+            $data->slug = createSlugMantan($data->name).'-'.time();
             $modelTrademarks->save($data);
 
         }
@@ -127,7 +117,7 @@ function deleteTrademarkProduct($input){
     global $session;
     global $controller;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Xóa nhãn hiệu sản phẩm';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
@@ -135,7 +125,9 @@ function deleteTrademarkProduct($input){
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
+            
             $data = $modelTrademarks->find()->where($conditions)->first();
+            
             if(!empty($data)){
                 $modelTrademarks->delete($data);
             }
@@ -145,7 +137,6 @@ function deleteTrademarkProduct($input){
     }
 }
 
-
 function listProduct(){
     global $isRequestPost;
     global $modelCategories;
@@ -154,17 +145,17 @@ function listProduct(){
     global $controller;
     global $urlCurrent;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Danh sách sản phẩm';
+    
     if(!empty($session->read('infoUser'))){
-        $metaTitleMantan = 'Danh sách mẫu thiết kế  bán';
 
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
-        $user = $session->read('infoUser');
-        
         $modelTrademarks = $controller->loadModel('Trademarks');
+        
+        $user = $session->read('infoUser');
 
-        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$user->id_spa);
+        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -194,10 +185,8 @@ function listProduct(){
 
        
         $listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-        $totalData = $modelProducts->find()->where($conditions)->all()->toList();
-        
 
-        
+        $totalData = $modelProducts->find()->where($conditions)->all()->toList();
         $totalData = count($totalData);
 
         $balance = $totalData % $limit;
@@ -235,8 +224,6 @@ function listProduct(){
         $conditionsTrademar = array('id_member'=>$user->id_member);
         $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->all()->toList();
 
-        
-
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -260,13 +247,14 @@ function addProduct($input){
     global $controller;
     global $urlCurrent;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Thông tin sản phẩm';
+    
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
-        $infoUser = $session->read('infoUser');
-        
         $modelTrademarks = $controller->loadModel('Trademarks');
+
+        $infoUser = $session->read('infoUser');
         $mess= '';
 
         // lấy data edit
@@ -298,13 +286,13 @@ function addProduct($input){
                 $data->status = @$dataSend['status'];
                 $data->updated_at = date('Y-m-d H:i:s');
                 
-                $data->slug = createSlugMantan(trim($dataSend['name']));
+                $data->slug = createSlugMantan(trim($dataSend['name'])).'-'.time();
                 
                 $modelProducts->save($data);
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
-                 if(!empty($_GET['id'])){
+                if(!empty($_GET['id'])){
                     return $controller->redirect('/listProduct?mess=2');
                 }else{
                     return $controller->redirect('/listProduct?mess=1');
@@ -314,7 +302,8 @@ function addProduct($input){
                 $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
             }
         }
-         $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
+        
+        $conditionsCategorie = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
@@ -324,20 +313,20 @@ function addProduct($input){
         setVariable('data', $data);
         setVariable('listCategory', $listCategory);
         setVariable('listTrademar', $listTrademar);
-
-
-        }else{
-            return $controller->redirect('/login');
-        }
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 
 function deleteProduct($input){
     global $controller;
     global $session;
-    $modelProduct = $controller->loadModel('Products');
-    $infoUser = $session->read('infoUser');
-    if(!empty($infoUser)){
     
+    $modelProduct = $controller->loadModel('Products');
+    
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+
         if(!empty($_GET['id'])){
             $data = $modelProduct->get($_GET['id']);
             
@@ -346,11 +335,9 @@ function deleteProduct($input){
             }
         }
 
-        return $controller->redirect('listProduct');
+        return $controller->redirect('/listProduct');
     }else{
         return $controller->redirect('/login');
     }
 }
-
 ?>
-

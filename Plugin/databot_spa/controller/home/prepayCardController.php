@@ -6,11 +6,12 @@ function listPrepayCard($input)
 	global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách khách hàng';
+    $metaTitleMantan = 'Thẻ dịch vụ';
 
 	$modelPrepayCard = $controller->loadModel('PrepayCards');
-	$infoUser = $session->read('infoUser');
-	if(!empty($infoUser)){
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
@@ -83,13 +84,15 @@ function addPrepayCard($input){
     global $controller;
     global $urlCurrent;
 
-    $metaTitleMantan = 'Danh sách danh mục sản phẩm';
+    $metaTitleMantan = 'Thông tin thẻ dịch vụ';
+    
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelPrepayCard = $controller->loadModel('PrepayCards');
-        $infoUser = $session->read('infoUser');
+		$modelTrademarks = $controller->loadModel('Trademarks');
         
-        $modelTrademarks = $controller->loadModel('Trademarks');
+        $infoUser = $session->read('infoUser');
+
         $mess= '';
 
         // lấy data edit
@@ -98,11 +101,12 @@ function addPrepayCard($input){
 
         }else{
             $data = $modelPrepayCard->newEmptyEntity();
-             $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = date('Y-m-d H:i:s');
         }
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
+            
             if(!empty($dataSend['name'])){
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
@@ -120,7 +124,7 @@ function addPrepayCard($input){
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
-                 if(!empty($_GET['id'])){
+                if(!empty($_GET['id'])){
                     return $controller->redirect('/listPrepayCard?mess=2');
                 }else{
                     return $controller->redirect('/listPrepayCard?mess=1');
@@ -140,10 +144,12 @@ function addPrepayCard($input){
 function deletePrepayCard($input){
     global $controller;
     global $session;
+
     $modelPrepayCard = $controller->loadModel('PrepayCards');
-    $infoUser = $session->read('infoUser');
-    if(!empty($infoUser)){
     
+    if(!empty($session->read('infoUser'))){
+    	$infoUser = $session->read('infoUser');
+
         if(!empty($_GET['id'])){
             $data = $modelPrepayCard->get($_GET['id']);
             
@@ -157,5 +163,4 @@ function deletePrepayCard($input){
         return $controller->redirect('/login');
     }
 }
-
- ?>
+?>
