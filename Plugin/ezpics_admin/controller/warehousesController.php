@@ -240,9 +240,9 @@ function lockWarehouse($input){
 		$data = $modelWarehouses->get($_GET['id']);
 		
 		if($data){
-			if(!empty($_GET['status']==1)){
+			if($_GET['status']==0){
 				$data->status = 0;
-				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã bị khóa','action'=>'adminSendNotification');
+				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã bị khóa nội dung là: '.$_GET['note'].'.','action'=>'adminSendNotification');
 			}else{
 				$data->status = 1;
 				$dataSendNotification= array('title'=>'thông báo phê duyệt kho mẫu thiết kế','time'=>date('H:i d/m/Y'),'content'=>'kho mẫu thiết"'.$data->name.'" đã được phê duyệt','action'=>'adminSendNotification');

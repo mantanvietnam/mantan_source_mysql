@@ -68,12 +68,12 @@
                   $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
 
                    $status = 'Kích hoạt <br/>
-                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
+                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->status==0){
                     $status = 'Khóa <br/>
-                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=2">
+                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   }
@@ -108,12 +108,12 @@
                 foreach ($listData as $item) {
                   $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
                   $status = 'Kích hoạt <br/>
-                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
+                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->status==0){
                     $status = 'Khóa <br/>
-                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=2">
+                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   }
@@ -195,15 +195,10 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Nội dung từ chối của mẫu ID: <?php echo $items->id; ?></h5>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
+                                <h5 class="modal-title" id="exampleModalLabel1">Nội dung từ chối của Kho ID: <?php echo $items->id; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
-                             <form action="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php" method="GET">
+                             <form action="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php" method="GET">
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="hidden" value="0"  name="status">
@@ -220,6 +215,8 @@
                       <?php }} ?>
                       </div>
                     </div>
+
+
   <!--/ Responsive Table -->
 </div>
 <script type="text/javascript">
