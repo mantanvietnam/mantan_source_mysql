@@ -51,7 +51,7 @@ function searchWarehousesAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$conditions = array('status'=>1);
+		$conditions = array('status'=>1, 'number_product >'=>0);
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array('id'=>'desc');
@@ -61,6 +61,8 @@ function searchWarehousesAPI($input){
 
 			// lấy kho 
 			$data = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+			$totalData = count($modelWarehouses->find()->where($conditions)->order($order)->all()->toList());
+
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
@@ -72,6 +74,7 @@ function searchWarehousesAPI($input){
 				}
 				$return = array('code'=>1,
 								'data'=> $listData,
+								'totalData'=> $totalData,
 					 			'mess'=>'Bạn lấy data thành công',
 					 		);
 			}else{

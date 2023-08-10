@@ -573,6 +573,11 @@ function addProduct($input)
 		        		$warehouse_products->user_id = $infoUser->id;
 
 		        		$modelWarehouseProducts->save($warehouse_products);
+
+		        		$totalProducts = count($modelWarehouseProducts->find()->where(['warehouse_id'=>$warehouse_id])->all()->toList());
+		        		$listWarehouse = $modelWarehouses->get($warehouse_id);
+		        		$listWarehouse->number_product = $totalProducts;
+		        		$modelWarehouses->save($listWarehouse);
 		        	}
 		        }
 

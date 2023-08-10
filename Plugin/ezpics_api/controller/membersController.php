@@ -581,6 +581,7 @@ function getInfoUserAPI($input)
 				if($checkPhone->type==1){
 
 					$product = $modelProduct->find()->where(array('user_id' => $checkPhone->id, 'type'=>'user_create','status'=>2))->all()->toList();
+					$checkPhone->listProduct = @$product;
 					$checkPhone->quantityProduct = count(@$product);
 
 					$Order = $modelOrder->find()->where(array('member_id' => $checkPhone->id, 'type'=>3))->all()->toList();

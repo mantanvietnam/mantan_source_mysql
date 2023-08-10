@@ -1,7 +1,8 @@
 <?php 
-include('model/members.php'); // người dùng
-include('model/contacts.php'); // người dùng
-include('model/book_cars.php'); // người dùng
-include('model/cars.php'); // xe
+include('model/members.php'); 
+include('model/contacts.php'); 
+include('model/book_cars.php'); 
+include('model/cars.php'); 
+include('model/order.php'); 
 
 ?>

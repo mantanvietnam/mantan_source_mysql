@@ -231,6 +231,7 @@ function checkLoginMemberAPI($input)
 
 				$checkPhone->token = createToken();
 				$checkPhone->last_login = date('Y-m-d H:i:s');
+				$checkPhone->code_otp = random_int(100000, 999999);
 				$checkPhone->token_device = @$dataSend['token_device'];
 				$modelMember->save($checkPhone);
 
@@ -271,6 +272,7 @@ function logoutMemberAPI($input)
 
 			if(!empty($checkPhone)){
 				$checkPhone->token = '';
+				$checkPhone->code_otp = random_int(100000, 999999);
 				$checkPhone->token_device = null;
 				$modelMember->save($checkPhone);
 
