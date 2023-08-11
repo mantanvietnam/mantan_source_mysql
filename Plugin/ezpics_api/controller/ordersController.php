@@ -390,6 +390,7 @@ function memberBuyProAPI($input){
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>0);
 	
@@ -406,7 +407,6 @@ function memberBuyProAPI($input){
 			}else{
 				return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
 			}
-
 		}
 
 		if(!empty($user)){
@@ -421,11 +421,32 @@ function memberBuyProAPI($input){
 					$order->code = 'W'.time().$user->id.rand(0,10000);
 					$order->member_id = $user->id;
 					$order->total = $price_pro;
-					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+					if(!empty($discountCode)){
+						$order->discount_id = $discountCode->id;
+					}
+					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý 
 					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
 					$order->meta_payment = 'Mua phiêu bản Pro';
 					$order->created_at = date('Y-m-d H:i:s');
 					$modelOrder->save($order);
+
+					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$infoUser->id))->first();
+					if(empty($WarehouseUser)){
+						$data = $modelWarehouseUsers->newEmptyEntity();
+
+			            // tạo dữ liệu save
+						$data->warehouse_id = (int) 1;
+						$data->user_id = $user->id;
+						$data->designer_id = 343;
+						$data->price = $price_pro;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->note ='';
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}else{
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}
 					$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 				}else{
 					$return = array('code'=>3, 'mess'=>'Tài khoản không đủ tiền');
@@ -486,6 +507,9 @@ function memberExtendProAPI($input){
 					$order->code = 'W'.time().$user->id.rand(0,10000);
 					$order->member_id = $user->id;
 					$order->total = $price_pro;
+					if(!empty($discountCode)){
+						$order->discount_id = $discountCode->id;
+					}
 					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
 					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
 					$order->meta_payment = 'Mua phiêu bản Pro';
