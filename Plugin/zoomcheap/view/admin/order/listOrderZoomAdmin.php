@@ -54,6 +54,22 @@
                 $extend_time_use= '';
                 if($item->extend_time_use) $extend_time_use= 'Bật gia hạn tự động';
 
+                $infoZoom = '';
+                $infoRoom = '';
+
+                if(!empty($item->infoZoom->user)){
+                  $infoZoom = 'ID: '.@$item->infoZoom->id.'
+                              <p>'.@$item->infoZoom->user.'</p>
+                              <p>'.@$item->infoZoom->pass.'</p>
+                              <p>'.@$item->infoZoom->key_host.'</p>';
+                  
+                  if(!empty($item->infoRoom->info['id'])){
+                    $infoRoom = '<p>ID: '.@$item->infoRoom->info['id'].'</p>
+                              <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
+                              <p class="text-center"><a onclick="return confirm(\'Bạn có chắc chắn muốn xóa phòng họp không?\');" href="/plugins/admin/zoomcheap-view-admin-order-deleteRoomAdmin.php?idOrder='.$item->id.'"><i class="bx bx-trash"></i></a></p>';
+                  }
+                }
+
                 echo  '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->type.'</td>
@@ -73,14 +89,10 @@
                             '.number_format($item->infoManager->coin).' đ
                           </td>
                           <td>
-                            ID: '.@$item->infoZoom->id.'
-                            <p>'.@$item->infoZoom->user.'</p>
-                            <p>'.@$item->infoZoom->pass.'</p>
-                            <p>'.@$item->infoZoom->key_host.'</p>
+                            '.$infoZoom.'
                           </td>
                           <td>
-                            <p>ID: '.@$item->infoRoom->info['id'].'</p>
-                            <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
+                            '.$infoRoom.'
                           </td>
                         </tr>';
               }

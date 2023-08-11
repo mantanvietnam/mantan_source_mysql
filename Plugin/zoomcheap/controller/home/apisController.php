@@ -62,6 +62,9 @@ function checkDeadlineOrderAPI($input)
 		foreach ($listData as $key => $order) {
 			$zoom = $modelZooms->find()->where(['id' => $order->idZoom])->first();
 
+			$order->idZoom = 0;
+			$modelOrders->save($order);
+			
 			if(!empty($zoom)){
 				$zoom->idOrder = 0;
 				$modelZooms->save($zoom);
@@ -74,9 +77,6 @@ function checkDeadlineOrderAPI($input)
 
 				closeRoom($zoom->client_id, $zoom->client_secret, $zoom->account_id, $room->info['id']);
 			}
-
-			$order->idZoom = 0;
-			$modelOrders->save($order);
 		}
 	}
 
