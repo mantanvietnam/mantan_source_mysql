@@ -30,7 +30,11 @@ $menus[0]['sub'][2]= array( 'title'=>'Kho nẫu thiết kế',
                             'classIcon'=>'bx bxs-cylinder',
                             'permission'=>'listWarehouseAdmin'
                         );
-
+$menus[0]['sub'][11]= array( 'title'=>'Kho nẫu thiết kế xu hướng',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php',
+                            'classIcon'=>'bx bxs-cylinder',
+                            'permission'=>'listWarehouseTrendAdmin'
+                        );
 
 $menus[0]['sub'][3]= array('title'=>'Giao dịch',
                             'url'=>'/',

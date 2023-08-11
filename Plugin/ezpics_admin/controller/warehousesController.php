@@ -262,4 +262,132 @@ function lockWarehouse($input){
 	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php');
 }
 
+function listWarehouseTrendAdmin($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách xu hướng kho mẫu	 thiết kế';
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelMember = $controller->loadModel('Members');
+
+	$conditions = array();
+	$limit = 20;
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+	if($page<1) $page = 1;
+	$order = array('id'=>'desc');
+
+	if(!empty($_GET['id'])){
+		$conditions['id'] = (int) $_GET['id'];
+	}
+
+	if(!empty($_GET['type'])){
+		$conditions['type'] = $_GET['type'];
+	}
+
+	
+		$conditions['status'] = 1;
+		
+
+	if(!empty($_GET['name'])){
+		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+	}
+
+	
+
+	$conditions['trend'] = 1;
+
+    $listData = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($listData)){
+    	foreach ($listData as $key => $value) {
+    		$listData[$key]->designer = $modelMember->get($value->user_id);
+    	}
+    }
+
+    $totalData = $modelWarehouses->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+	$mess = '';
+	if(isset($_GET['mess'])){
+		if(@$_GET['mess']==0){
+	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Bỏ mẫu thiết kế thành công</p>';
+	    }elseif(@$_GET['mess']==1){
+	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mẫu thiết kế thành công</p>';
+	    }elseif(@$_GET['mess']==2){
+	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sản phẩm này chưa được duyệt</p>';
+	    }
+	}
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    
+    setVariable('listData', $listData);
+    setVariable('mess', $mess);
+}
+
+function addTrendWarehouseAdmin($input)
+{
+	global $controller;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelWarehouses->find()->where(array('id'=>$_GET['id'],'status'=>1))->first();
+		if($data){
+			if(isset($_GET['status'])){
+				$data->trend =$_GET['status'];
+         		$modelWarehouses->save($data);
+
+         		if(!empty($_GET['page'])){
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php?mess='.$_GET['status'].'&page='.$_GET['page']);
+				}else{
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php?mess='.$_GET['status']);
+				}
+        	}
+        }else{
+        	if(!empty($_GET['page'])){
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouses-listWarehouseTrendAdmin.php?mess=2page='.$_GET['page']);
+				}else{
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php?mess=2');
+				}
+        }
+	}	
+}
+
 ?>
