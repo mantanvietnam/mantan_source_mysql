@@ -167,7 +167,6 @@ $sqlInstallDatabase .="CREATE TABLE `services` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `duration` int(11) DEFAULT NULL COMMENT 'thời lương ',
-  `hot` int(11) DEFAULT NULL,
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id` int(11) NOT NULL,
   `status` tinyint(4) DEFAULT NULL

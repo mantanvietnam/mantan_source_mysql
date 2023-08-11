@@ -188,4 +188,40 @@ function addMoneyManagerAdmin($input)
 
 }
 
+function changePassManagerAdmin($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelManagers = $controller->loadModel('Managers');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelManagers->find()->where(['id'=> $_GET['id']])->first(); 
+
+        $mess = '';
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+            
+            if(!empty($dataSend['pass'])){
+                $data->password = md5($dataSend['pass']);
+
+                $modelManagers->save($data);
+
+                $mess = 'Lưu dữ liệu thành công';
+            }else{
+                $mess = 'Gửi thiếu dữ liệu';
+            }
+            
+        }
+
+        setVariable('mess', $mess);
+    }else{
+
+        return $controller->redirect('/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin.php');                                                                                                   
+    }
+
+
+}
+
 ?>

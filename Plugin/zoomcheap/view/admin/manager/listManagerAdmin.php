@@ -77,7 +77,7 @@
                         </td>
 
                         <td align="center">
-                          <a>Đổi pass </a>
+                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-changePassManagerAdmin.php/?id='.$item->id.'">Đổi pass </a>
                         </td>
                       </tr>';
               }
