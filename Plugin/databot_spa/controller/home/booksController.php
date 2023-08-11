@@ -169,12 +169,17 @@ function addBook($input){
 	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
 	    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
 
-	    $Service = array('id_member'=>$infoUser->id_member);
-	    $dataService = $modelService->find()->where($Service)->order(['id' => 'DESC'])->all()->toList();
+	    $service = array('id_member'=>$infoUser->id_member);
+	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
 
 	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
 	    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
-	   
+	   	
+	   	if(empty($dataService)){
+	   		// nếu chưa cài đặt dịch vụ
+	   		return $controller->redirect('/listService/?error=requestService');
+	   	}
+
 	    setVariable('data', $save);
 	    setVariable('dataMember', $dataMember);
 	    setVariable('dataSpa', $dataSpa);

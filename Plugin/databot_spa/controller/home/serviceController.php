@@ -8,6 +8,16 @@ function listCategoryService($input){
     $metaTitleMantan = 'Danh mục dịch vụ';
     
     if(!empty($session->read('infoUser'))){
+        $mess= '';
+        
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestCategoryService':
+                    $mess= '<p class="text-danger">Bạn cần tạo nhóm dịch vụ trước</p>';
+                    break;
+            }
+        }
+
         $infoUser = $session->read('infoUser');
 
         if ($isRequestPost) {
@@ -38,6 +48,7 @@ function listCategoryService($input){
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -79,6 +90,16 @@ function listService($input){
     $metaTitleMantan = 'Danh sách dịch vụ';
     
     if(!empty($session->read('infoUser'))){
+        $mess= '';
+        
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestService':
+                    $mess= '<p class="text-danger">Bạn cần tạo dịch vụ trước</p>';
+                    break;
+            }
+        }
+
         $infoUser = $session->read('infoUser');
         
         $modelService = $controller->loadModel('Services');
@@ -148,6 +169,7 @@ function listService($input){
 	    
         setVariable('listData', $listData);
 	    setVariable('listCategory', $listCategory);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -193,7 +215,6 @@ function addService($input){
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
                 $data->price_old = (int) @$dataSend['price_old'];
-                $data->hot = (int) @$dataSend['hot'];
                 $data->code = @$dataSend['code'];
                 $data->status = @$dataSend['status'];
                 
@@ -216,6 +237,10 @@ function addService($input){
         $conditionsCategorie = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
+
+        if(empty($listCategory)){
+            return $controller->redirect('/listCategoryService/?error=requestCategoryService');
+        }
 
         setVariable('data', $data);
         setVariable('listCategory', $listCategory);

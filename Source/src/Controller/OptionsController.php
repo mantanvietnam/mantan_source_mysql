@@ -455,11 +455,13 @@ class OptionsController extends AppController{
         global $metaTitleMantan;
 
         $metaTitleMantan = 'Cài đặt trình đơn';
-        $modelOptions = $this->Options;
-        $mess= '';
+
+        $modelOptions = $this->loadModel('Options');
         $modelCategories = $this->loadModel('Categories');
         $modelPosts = $this->loadModel('Posts');
         $modelMenus = $this->loadModel('Menus');
+
+        $mess= '';
 
         if ($this->request->is('post')) {
             $dataSend = $this->request->getData();
@@ -470,7 +472,7 @@ class OptionsController extends AppController{
                         $menu = $modelOptions->newEmptyEntity();
 
                         if(!empty($dataSend['idEdit'])){
-                            $menu = $modelOptions->get((int) $dataSend['idEdit']);
+                            $menu = $modelOptions->find()->where(['id'=>(int) $dataSend['idEdit']])->first();
 
                             if(empty($menu)){
                                 $menu = $modelOptions->newEmptyEntity();
@@ -502,7 +504,7 @@ class OptionsController extends AppController{
                     if(!empty($dataSend['idMenu'])){
                         if(!empty($dataSend['nameLink'])){
                             if(!empty($dataSend['idLink'])){
-                                $link = $modelMenus->get((int) $dataSend['idLink']);
+                                $link = $modelMenus->find()->where(['id'=>(int) $dataSend['idLink']])->first();
 
                                 if(empty($link)){
                                     $link = $modelMenus->newEmptyEntity();
@@ -542,7 +544,7 @@ class OptionsController extends AppController{
         }
 
         if(!empty($_GET['id'])){
-            $menu = $modelOptions->get((int) @$_GET['id']);
+            $menu = $modelOptions->find()->where(['id'=>(int) @$_GET['id']])->first();
         }
 
         if(empty($menu)){
