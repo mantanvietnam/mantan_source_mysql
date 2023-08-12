@@ -430,7 +430,7 @@ function memberBuyProAPI($input){
 					$order->created_at = date('Y-m-d H:i:s');
 					$modelOrder->save($order);
 
-					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$infoUser->id))->first();
+					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
 					if(empty($WarehouseUser)){
 						$data = $modelWarehouseUsers->newEmptyEntity();
 
