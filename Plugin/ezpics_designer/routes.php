@@ -55,5 +55,8 @@
 	$routesPlugin['deleteWarehouseUser']= 'ezpics_designer/view/home/warehouse_user/deleteWarehouseUser.php';
 	$routesPlugin['lockWarehouse']= 'ezpics_designer/view/home/warehouse_user/lockWarehouse.php';
 
+	//user 
+	$routesPlugin['allProduct']= 'ezpics_designer/view/user/listAllProduct.php';
+
 
 ?>
