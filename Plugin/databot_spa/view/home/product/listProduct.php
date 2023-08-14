@@ -125,8 +125,7 @@
                        
                         <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/></td>
                         <td>
-                          '.number_format($item->price_old).'<br/>
-                          <del>'.number_format($item->price).'</del>
+                          '.number_format($item->price).'đ
                         </td>
                         <td>'.$status.'</td>
                         

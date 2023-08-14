@@ -280,7 +280,6 @@ function addProduct($input){
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
-                $data->price_old = (int) @$dataSend['price_old'];
                 $data->hot = (int) @$dataSend['hot'];
                 $data->code = @$dataSend['code'];
                 $data->status = @$dataSend['status'];

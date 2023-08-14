@@ -182,6 +182,7 @@ function addService($input){
     global $session;
     global $controller;
     global $urlCurrent;
+    global $urlHomes;
 
     $metaTitleMantan = 'Thông tin dịch vụ';
     
@@ -205,6 +206,9 @@ function addService($input){
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['name'])){
+                if(empty($dataSend['image'])) $dataSend['image'] = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
+                if(empty($dataSend['code'])) $dataSend['code'] = createToken(10);
+
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
                 $data->image = @$dataSend['image'];
@@ -214,7 +218,6 @@ function addService($input){
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
-                $data->price_old = (int) @$dataSend['price_old'];
                 $data->code = @$dataSend['code'];
                 $data->status = @$dataSend['status'];
                 

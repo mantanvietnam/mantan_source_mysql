@@ -46,8 +46,8 @@
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Thời lượng (phút)</label>
-                    <input  type="number" class="form-control phone-mask" name="duration" id="duration" value="<?php echo @$data->duration;?>"/>
+                    <label class="form-label">Thời lượng (phút *)</label>
+                    <input  type="number" class="form-control phone-mask" name="duration" id="duration" value="<?php echo @$data->duration;?>" required/>
                   </div>
                   
                   <div class="mb-3 ">
@@ -64,14 +64,12 @@
                     <label class="form-label">Ảnh dịch vụ</label>
                     <?php showUploadFile('image','image',@$data->image,0);?>
                   </div>
+                  
                   <div class="mb-3">
-                    <label class="form-label">Giá mặc định (*)</label>
+                    <label class="form-label">Giá dịch vụ (*)</label>
                     <input required type="text" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>"/>
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label">Giá ưu đãi </label>
-                    <input  type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>"/>
-                  </div>
+                  
                   <div class="mb-3">
                     <label class="form-label">Mô tả dịch vụ </label>
                     <textarea class="form-control phone-mask" rows="5" name="description"><?php echo @$data->description;?></textarea>

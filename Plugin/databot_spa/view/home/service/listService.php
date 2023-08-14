@@ -11,12 +11,12 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
-            <label class="form-label">Mã</label>
+            <label class="form-label">Mã dịch vụ</label>
             <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Tên Dịch vụ</label>
+            <label class="form-label">Tên dịch vụ</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
@@ -41,20 +41,11 @@
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
-              <option value="1" <?php if(isset($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Bán </option>
-              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Ẩn bán</option>
+              <option value="">Tất cả</option>
+              <option value="1" <?php if(isset($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Kích hoạt</option>
+              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Khóa</option>
             </select>
           </div>
-
-          <!-- <div class="col-md-2">
-            <label class="form-label">Loại sản phẩm</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
-              <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
-            </select>
-          </div> -->
 
           
           <div class="col-md-1">
@@ -74,7 +65,7 @@
       <table class="table table-bordered">
         <thead>
           <tr class="" style="text-align: center;">
-            <th>MÃ</th>
+            <th>Mã dịch vụ</th>
             <th>Ảnh </th>
             <th>Dịch vụ</th>
             <th>Giá bán</th>
@@ -90,10 +81,10 @@
                 
                
                 if($item->status==0){
-                 $status = '<span class="text-danger">ẩn</span>';
+                 $status = '<span class="text-danger">Kích hoạt</span>';
                 
                 }elseif($item->status==1){
-                  $status = '<span class="text-primary">bán</span>';
+                  $status = '<span class="text-primary">Khóa</span>';
                 }
 
                 echo '<tr>
@@ -107,8 +98,7 @@
                        
                         <td>'.$item->name.'</td>
                         <td>
-                          '.number_format($item->price_old).'<br/>
-                          <del>'.number_format($item->price).'</del>
+                          '.number_format($item->price).'
                         </td>
                         <td>'.$status.'</td>
                         

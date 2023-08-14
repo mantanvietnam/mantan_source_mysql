@@ -31,13 +31,6 @@
                 </div>
 
                 <div class="form-group mb-3 col-md-6">
-                    <label class="col-sm-12 form-label  control-label">GIÁ ƯU ĐÃI </label>
-                    <div class="col-sm-12">
-                        <input value="<?php echo @$data['price'];?>" type="text" name="price_old" id="price_old" class="form-control input_money"  placeholder=""/>
-                    </div>
-                </div>
-
-                <div class="form-group mb-3 col-md-6">
                     <label class="col-sm-12 form-label control-label">Số lượng<span class="required">*</span>: </label>
                     <div class="col-sm-12">
                         <input value="<?php echo @$data['quantity'];?>" type="text" required="" name="quantity" id="quantity" class="form-control input_money"  placeholder=""/>

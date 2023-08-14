@@ -143,7 +143,6 @@ function addCombo($input){
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
-                $data->price_old = (int) @$dataSend['price_old'];
                 $data->status = @$dataSend['status'];
                 
                 $product = array();
