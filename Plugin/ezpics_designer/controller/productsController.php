@@ -967,47 +967,47 @@ function listAllProduct($input)
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
-	$order = array('Products.id'=>'desc');
+
+	if(!empty($_GET['order'])){
+		if($_GET['order']==1){
+			$order = array('sale_price'=>'desc');	
+		}elseif($_GET['order']==2){
+			$order = array('sale_price'=>'asc');
+		}elseif($_GET['order']==3){
+			$order = array('created_at'=>'desc');
+		}elseif($_GET['order']==4){
+			$order = array('created_at'=>'asc');
+		}
+	}else{
+		$order = array('id'=>'desc');
+	}
+	
 
 	//if(!isset($_GET['type'])) $_GET['type'] = 'user_create';
 	//if(!isset($_GET['status'])) $_GET['status'] = 1;
 
-	if(!empty($_GET['id'])){
-		$conditions['Products.id'] = (int) $_GET['id'];
+	
+
+	if(!empty($_GET['category'])){
+		$conditions['category_id'] = $_GET['category'];
 	}
 
-	if(!empty($_GET['category_id'])){
-		$conditions['category_id'] = $_GET['category_id'];
+	if(!empty($_GET['price'])){
+		$price = explode('-', $_GET['price']);
+		$conditions['sale_price >='] = (int) $price[0];
+		$conditions['sale_price <='] = (int) $price[1];
 	}
 
 
 	$conditions['type'] = 'user_create';
 
-	if(!empty($_GET['type'])){
-		$conditions['type'] = $_GET['type'];
-	}
-
-	if(isset($_GET['status'])){
-		if($_GET['status']!=''){
-			$conditions['status'] = $_GET['status'];
-		}
-	}
+	
 
 	if(!empty($_GET['name'])){
 		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 	}
 
-	if(!empty($_GET['date_start'])){
-		$date_start = explode('/', $_GET['date_start']);
-		$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-		$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
-	}
-
-	if(!empty($_GET['date_end'])){
-		$date_end = explode('/', $_GET['date_end']);
-		$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-		$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
-	}
+	
 
 	$listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	$totalData = $modelProducts->find()->where($conditions)->all()->toList();

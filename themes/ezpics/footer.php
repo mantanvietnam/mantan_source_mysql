@@ -54,6 +54,7 @@
     
 
     <script src="<?php echo $urlThemeActive;?>asset/js/slick_2.js"></script>
+    <script src="<?php echo $urlThemeActive;?>asset/js/main.js"></script>
 
 </body>
 </html>

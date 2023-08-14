@@ -258,7 +258,7 @@
                             <div class="news-item-info">
                                 <div class="news-item-title">
                                     <h3>
-                                        <a href=""><?php echo $value->title ?></a>
+                                        <a href="<?php echo @$link ?>"><?php echo $value->title ?></a>
                                     </h3>
                                 </div>
             
