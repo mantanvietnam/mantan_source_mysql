@@ -41,6 +41,12 @@ function listMemberAdmin($input)
 		}
 	}
 
+	if(isset($_GET['pro'])){
+		if($_GET['pro']!=''){
+			$conditions['member_pro'] = (int) $_GET['pro'];
+		}
+	}
+
 	if(isset($_GET['type'])){
 		if($_GET['type']!=''){
 			$conditions['type'] = (int) $_GET['type'];
@@ -381,13 +387,13 @@ function memberBuyProAdmin($input){
 	
 	$dataSend = $input['request']->getData();	
 	$user = $modelMember->find()->where(array('id'=>$_GET['id']))->first();
-	if(!empty($_GET['date_use'])){
+	if(isset($_GET['date_use'])){
 		$date = $_GET['date_use'];
 	}else{
 		$date = 365;
 	}
 
-	if(!empty($_GET['price'])){
+	if(isset($_GET['price'])){
 		$price = $_GET['price'];
 	}else{
 		$price = 0;

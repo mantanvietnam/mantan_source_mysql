@@ -54,6 +54,14 @@
               <option value="1" <?php if(!empty($_GET['order']) && $_GET['order']=='1') echo 'selected';?> >Hoạt động gần đây</option>
             </select>
           </div>
+          <div class="col-md-2">
+            <label class="form-label">phiên bản</label>
+            <select name="pro" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="1" <?php if(isset($_GET['pro']) && $_GET['pro']=='1') echo 'selected';?> >bản Pro</option>
+              <option value="0" <?php if(isset($_GET['pro']) && $_GET['pro']=='0') echo 'selected';?> >bản thường</option>
+            </select>
+          </div>
           
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
@@ -334,11 +342,11 @@
                                   <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-12">
                                       <label class="form-label">Giá Nâng cấp</label>
-                                      <input type="number" value="" class="form-control" placeholder="Mặc định là 0đ" name="price">
+                                      <input type="number" value="0" class="form-control" placeholder="Mặc định là 0đ" name="price">
                                     </div>
                                     <div class="col-md-12">
                                       <label class="form-label">Số ngày gia hạn</label>
-                                      <input type="number" value="" class="form-control" placeholder="Mặc định là 1 năm" name="date_use">
+                                      <input type="number" value="365" class="form-control" placeholder="Mặc định là 1 năm" name="date_use">
                                     </div>
                                   </div>
                                 </div>
