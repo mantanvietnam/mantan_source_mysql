@@ -884,8 +884,8 @@ function getMyProductSeriesAPI($input)
 					}
 					$return = array('code'=>1,'listData'=>$listData);
 				}else{
-					$return = array('code'=>2,
-									'mess'=>'Bạn không có mẫu thiết kế	'
+					$return = array('code'=>3,
+									'mess'=>'Bạn không có mẫu thiết kế'
 								);
 				}
 			}else{
