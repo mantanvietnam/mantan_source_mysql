@@ -32,6 +32,7 @@ function saveRegisterMemberAPI($input)
 					$modelMember->save($data);
 					$return = array('code'=>1, 
 			    					'id_member'=>$data->id,
+			    					'code_otp'=>$data->code_otp,
 			    					'mess'=>'Lưu thông tin thành công',
 			    					'info_member'=>$data
 			    					);
@@ -75,6 +76,7 @@ function acceptMemberAPI($input){
 
 				$return = array('code'=>1, 
 			    				'id_member'=>$checkPhone->id,
+			    				'code_otp'=>$checkPhone->code_otp,
 			    				'mess'=>'kích hoạt tài khoản thành công',
 			    				'info_member'=>$checkPhone
 			    			);
@@ -100,7 +102,7 @@ function savePasswordMemberAPI($input){
 
 		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
 		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
-		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
+		if(!empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again'])){
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(!empty(!$checkPhone)){
@@ -123,7 +125,7 @@ function savePasswordMemberAPI($input){
 							);
 				}
 			}else{
-				$return = array('code'=>4,
+				$return = array('code'=>3,
 								'mess'=>'số điện thoại không đúng'
 									);
 			}

@@ -48,7 +48,7 @@
                     
                     <div class="menu-mobile">
                         <ul class="navbar-nav mb-2 mb-lg-0">
-                             <?php 
+                            <?php 
                             $menu = getMenusDefault();
 
                             if(!empty($menu)){
@@ -73,21 +73,6 @@
                                 }
                             }
                         ?>
-                           <!--  <li class="nav-item">
-                                <a class="nav-link" href="https://ezpics.vn/tinh-nang/">TÍNH NĂNG</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://ezpics.vn/mau-thiet-ke-noi-bat/">MẪU THIẾT KẾ NỔI BẬT</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://huongdan.ezpics.vn/">HƯỚNG DẪN SỬ DỤNG</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://ezpics.vn/category/blog/">BLOG</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://ezpics.vn/lien-he/">LIÊN HỆ</a>
-                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -97,21 +82,31 @@
                     <div class="col-5 header-menu">
                         <ul class="navbar-nav mb-2 mb-lg-0">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://ezpics.vn/tinh-nang/">TÍNH NĂNG</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://ezpics.vn/mau-thiet-ke-noi-bat/">MẪU THIẾT KẾ NỔI BẬT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://huongdan.ezpics.vn/">HƯỚNG DẪN SỬ DỤNG</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://ezpics.vn/category/blog/">BLOG</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://ezpics.vn/lien-he/">LIÊN HỆ</a>
-                        </li>
+                        <?php 
+                            $menu = getMenusDefault();
+
+                            if(!empty($menu)){
+                                foreach($menu as $key => $value){
+                                    if(!empty($value->sub)){
+                                        echo '  <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        '.$value->name.'
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">';
+
+                                                        foreach ($value->sub as $sub) {
+                                                            echo '<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                        }
+                                        echo        '</ul>
+                                                </li>';
+                                    }else{
+                                        echo '  <li class="nav-item">
+                                                    <a class="nav-link" href="'.$value->link.'">'.$value->name.'</a>
+                                                </li>';
+                                    }
+                                }
+                            }
+                        ?>
                         </ul>
                     </div>
 

@@ -107,9 +107,11 @@
                   }
 
                   if($item->member_pro==1){
-                    $pro = 'Bản PRO <br/>ngày hết hạn: '.$item->deadline_pro;
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.$item->deadline_pro;
                   }else{
-                    $pro = 'Bản thường';
+                    $pro = 'Bản: thường  <a  style="color: red;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" onclick="return confirm(\'Bạn có chắc chắn muốn nâng cấp lên bản Pro người dùng không?\');" data-bs-target="#basicModal'.$item->id.'">Nâng cấp lên bản Pro
+                              <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
+                            </a>';
                   }
                    $sellingMoney = 0;
                   if(!empty($item->sellingMoney)){
@@ -200,6 +202,14 @@
                       $buyingMoney = $item->buyingMoney;
                   }
 
+                  if($item->member_pro==1){
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.$item->deadline_pro;
+                  }else{
+                    $pro = 'Bản: thường <a style="color: red;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" onclick="return confirm(\'Bạn có chắc chắn muốn nâng cấp lên bản Pro người dùng không?\');" data-bs-target="#basicModal'.$item->id.'"> Nâng cấp lên bản Pro
+                              <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
+                            </a>';
+                  }
+
                   $status = '
                    <a class=" btn btn-danger"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
@@ -218,7 +228,8 @@
                             '.$item->phone.'<br/>
                             '.$item->email.'<br/>
                             Đăng ký: '.$item->created_at.'<br/>
-                            Đăng nhập lần cuối lúc: '.$item->last_login.'
+                            Đăng nhập lần cuối lúc: '.$item->last_login.'<br/>
+                            '.$pro.'
                           </p>
                           <p><b>Thống kê:</b> <br/>
                           Số dư: '.number_format($item->account_balance).'đ <br/>
@@ -299,6 +310,47 @@
       </nav>
     </div>
     <!--/ Basic Pagination -->
+    <?php  if(!empty($listData)){
+              foreach ($listData as $items) { ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Nâng cấp bản Pro cho ID : <?php echo $items->id; ?></h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                             <form action="/plugins/admin/ezpics_admin-view-admin-member-memberBuyProAdmin.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <input type="hidden" value="0"  name="status">
+                                <input type="hidden" value="<?php echo @$_GET['page']; ?>"  name="page">
+                                <div class="card-body">
+                                  <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-12">
+                                      <label class="form-label">Giá Nâng cấp</label>
+                                      <input type="number" value="" class="form-control" placeholder="Mặc định là 0đ" name="price">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <label class="form-label">Số ngày gia hạn</label>
+                                      <input type="number" value="" class="form-control" placeholder="Mặc định là 1 năm" name="date_use">
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Nâng cấp</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
   </div>
   <!--/ Responsive Table -->
 </div>
