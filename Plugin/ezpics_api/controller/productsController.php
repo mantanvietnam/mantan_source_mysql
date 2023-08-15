@@ -1,23 +1,4 @@
 <?php 
-function fixCategoryProduct($input)
-{	
-	/*
-	global $controller;
-
-	$modelProduct = $controller->loadModel('Products');
-	$modelProductCategory = $controller->loadModel('ProductCategory');
-
-	$listProducts = $modelProduct->find()->all()->toList();
-
-	foreach ($listProducts as $key => $value) {
-		$conditions = ['product_id'=>$value->id];
-		$category = $modelProductCategory->find()->where($conditions)->first();
-		$value->category_id = $category->category_id;
-		$modelProduct->save($value);
-	}
-	*/
-}
-
 function getNewProductAPI($input)
 {
 	global $isRequestPost;
@@ -117,7 +98,6 @@ function getProductByCategoryAPI($input)
 	global $session;
 
 	$modelProduct = $controller->loadModel('Products');
-	$modelProductCategory = $controller->loadModel('ProductCategory');
 
 	$dataSend = $input['request']->getData();
 	$listProduct = [];
@@ -161,7 +141,6 @@ function getProductAllCategoryAPI($input)
 	global $modelCategories;
 
 	$modelProduct = $controller->loadModel('Products');
-	$modelProductCategory = $controller->loadModel('ProductCategory');
 
 	// lấy tất cả danh mục thiết kế
 	$conditions = array('type'=>'product_categories');
