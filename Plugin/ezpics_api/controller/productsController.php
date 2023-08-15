@@ -856,7 +856,7 @@ function getMyProductSeriesAPI($input)
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
-	$return = array('listData'=>[]);
+	$return = array('code'=>0);
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
@@ -881,7 +881,11 @@ function getMyProductSeriesAPI($input)
 					}
 				}
 
-				$return = array('listData'=>$listData);
+				$return = array('code'=>1,'listData'=>$listData);
+			}else{
+				$return = array('code'=>2,
+									'mess'=>'Bạn chưa đăng nhập'
+								);
 			}
 		}
 	}
