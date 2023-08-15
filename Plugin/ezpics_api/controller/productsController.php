@@ -879,9 +879,11 @@ function getMyProductSeriesAPI($input)
 							$listData[$key]->thumbnail = $value->image;
 						}
 					}
+					$return = array('code'=>1,'listData'=>$listData);
 				}
-
-				$return = array('code'=>1,'listData'=>$listData);
+				$return = array('code'=>2,
+									'mess'=>'Bạn không có mẫu thiết kế'
+								);
 			}else{
 				$return = array('code'=>2,
 									'mess'=>'Bạn chưa đăng nhập'
