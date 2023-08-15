@@ -109,7 +109,7 @@
                   if($item->member_pro==1){
                     $pro = 'Bản: PRO <br/>ngày hết hạn: '.$item->deadline_pro;
                   }else{
-                    $pro = 'Bản: thường  <a  style="color: red;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" onclick="return confirm(\'Bạn có chắc chắn muốn nâng cấp lên bản Pro người dùng không?\');" data-bs-target="#basicModal'.$item->id.'">Nâng cấp lên bản Pro
+                    $pro = 'Bản: thường  <a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Nâng cấp lên bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
                             </a>';
                   }
@@ -205,7 +205,7 @@
                   if($item->member_pro==1){
                     $pro = 'Bản: PRO <br/>ngày hết hạn: '.$item->deadline_pro;
                   }else{
-                    $pro = 'Bản: thường <a style="color: red;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" onclick="return confirm(\'Bạn có chắc chắn muốn nâng cấp lên bản Pro người dùng không?\');" data-bs-target="#basicModal'.$item->id.'"> Nâng cấp lên bản Pro
+                    $pro = 'Bản: thường <a style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'"> Nâng cấp lên bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
                             </a>';
                   }
