@@ -20,7 +20,7 @@
                     <div class="product-cat-heading">
                         <div class="product-cat-title">
                             <h1>Tất cả sản phẩm</h1>
-                            <p><strong>6</strong> sản phẩm</p>
+                            <p><strong><?php echo $totalData; ?></strong> sản phẩm</p>
                         </div>
 
                         <div class="product-cat-filter-button" >
