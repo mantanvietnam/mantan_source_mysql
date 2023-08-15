@@ -16,7 +16,7 @@ global $infoUser;
 global $session;
 
 // CÀI ĐẶT TRANG CHỦ
-$conditions = array('type' => 'settingHomeTheme');
+$conditions = array('key_word' => 'settingHomeTheme');
 $data = $modelOptions->find()->where($conditions)->first();
 
 
