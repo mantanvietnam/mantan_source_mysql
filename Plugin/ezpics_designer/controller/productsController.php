@@ -970,13 +970,13 @@ function listAllProduct($input)
 
 	if(!empty($_GET['order'])){
 		if($_GET['order']==1){
-			$order = array('sale_price'=>'desc');	
+			$order = array('price'=>'asc');	
 		}elseif($_GET['order']==2){
-			$order = array('sale_price'=>'asc');
+			$order = array('price'=>'desc');
 		}elseif($_GET['order']==3){
-			$order = array('created_at'=>'desc');
-		}elseif($_GET['order']==4){
 			$order = array('created_at'=>'asc');
+		}elseif($_GET['order']==4){
+			$order = array('created_at'=>'desc');
 		}
 	}else{
 		$order = array('id'=>'desc');

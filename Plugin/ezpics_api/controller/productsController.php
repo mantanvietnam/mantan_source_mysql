@@ -861,6 +861,7 @@ function getMyProductSeriesAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
+
 		if(!empty($dataSend['token'])){
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
@@ -873,6 +874,8 @@ function getMyProductSeriesAPI($input)
 
 				$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+
+
 				if(!empty($listData)){
 					foreach ($listData as $key => $value) {
 						if(empty($value->thumbnail)){
@@ -880,10 +883,11 @@ function getMyProductSeriesAPI($input)
 						}
 					}
 					$return = array('code'=>1,'listData'=>$listData);
-				}
-				$return = array('code'=>2,
+				}else{
+					$return = array('code'=>2,
 									'mess'=>'Bạn không có mẫu thiết kế	'
 								);
+				}
 			}else{
 				$return = array('code'=>2,
 									'mess'=>'Bạn chưa đăng nhập'

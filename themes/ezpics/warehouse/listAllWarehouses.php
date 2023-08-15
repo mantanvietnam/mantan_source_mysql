@@ -65,7 +65,7 @@
                                     </div>
                 
                                     <div class="warehouse-item-selled">
-                                        <p>Đã bán: <span><?php echo @$item->price ?></span></p>
+                                        <p>Đã bán: <span><?php echo @$item->number_user ?></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -119,71 +119,73 @@
         
         <section id="section-filter-box">
             <div class="filter-box-inner">
-                <div class="filter-box-header">
-                    <p>Bộ lọc</p>
-                    <p class="close-filter"><i class="fa-solid fa-x"></i></p>
-                </div>
+                <form action="" method="GET">
+                    <div class="filter-box-header">
+                        <p>Bộ lọc</p>
+                        <p class="close-filter"><i class="fa-solid fa-x"></i></p>
+                    </div>
 
-                <div class="filter-box-content">
-                    <!-- Danh mục -->
-                    <div class="filter-group filter-search">
-                        <div class="filter-group-block">
-                            <div class="filter-subtitle">
-                                <span>Tên sản phẩm</span>
-                            </div>
+                    <div class="filter-box-content">
+                        <!-- Danh mục -->
+                        <div class="filter-group filter-search">
+                            <div class="filter-group-block">
+                                <div class="filter-subtitle">
+                                    <span>Tên kho</span>
+                                </div>
 
-                            <div class="filter-content">
-                                <input type="text" placeholder="Nhập tên sản phẩm">
+                                <div class="filter-content">
+                                    <input type="text" name="name" placeholder="Nhập tên kho">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    
-                    <!-- Giá -->
-                    <div class="filter-group filter-price">
-                        <div class="filter-group-block">
-                            <div class="filter-subtitle">
-                                <span>Khoảng giá</span>
+                        
+                        <!-- Giá -->
+                        <div class="filter-group filter-price">
+                            <div class="filter-group-block">
+                                <div class="filter-subtitle">
+                                    <span>Khoảng giá</span>
+                                </div>
+
+                                <!-- <div class="filter-content">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <div id="slider-range"></div>
+                                        </div>
+                                    </div>
+                                    <div class="slider-labels">
+                                        <div class="caption">
+                                        <strong>Từ:</strong> <span id="slider-range-value1"></span>
+                                        </div>
+                                        <div class="text-right caption">
+                                        <strong>Đến:</strong> <span id="slider-range-value2"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <form>
+                                            <input type="hidden" name="min-value" value="">
+                                            <input type="hidden" name="max-value" value="">
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <select name="price" class="form-select color-dropdown">
+                                    <option></option>
+                                    <option value="0-0">Miễn phí</option>
+                                    <option value="1-9999">Dưới 10.000đ</option>
+                                    <option value="10000-100000">từ 10.000đ đếm 100.000đ</option>
+                                    <option value="1111111">trên 100.000đ</option>
+                                </select>
                             </div>
-
-                            <!-- <div class="filter-content">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                    <div id="slider-range"></div>
-                                    </div>
-                                </div>
-                                <div class="slider-labels">
-                                    <div class="caption">
-                                    <strong>Từ:</strong> <span id="slider-range-value1"></span>
-                                    </div>
-                                    <div class="text-right caption">
-                                    <strong>Đến:</strong> <span id="slider-range-value2"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                    <form>
-                                        <input type="hidden" name="min-value" value="">
-                                        <input type="hidden" name="max-value" value="">
-                                    </form>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <select name="price" class="form-select color-dropdown">
-                                <option></option>
-                                <option value="0-0">Miễn phí</option>
-                                <option value="1-9999">Dưới 10.000đ</option>
-                                <option value="10000-100000">từ 10.000đ đếm 100.000đ</option>
-                                <option value="1111111">trên 100.000đ</option>
-                            </select>
                         </div>
-                    </div>
 
-                    <div class="button-filter-box">
-                        <button class="filter-button-submmit" type="submit">Lọc</button>
-                    </div>
+                        <div class="button-filter-box">
+                            <button class="filter-button-submmit" type="submit">Lọc</button>
+                        </div>
 
-                </div>
+                    </div>
+                </form>
             </div>
         </section>
     </main>

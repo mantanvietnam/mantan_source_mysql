@@ -395,28 +395,51 @@ function listAllWarehouses($input){
 
 	$modelWarehouses = $controller->loadModel('Warehouses');
 	$modelWarehouseProduct = $controller->loadModel('WarehouseProducts');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	
 	$return = array('code'=>0);
 
 	$dataSend = $input['request']->getData();
 	$conditions = array('status'=>1, 'number_product >'=>0);
-	$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
-	$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
-	$order = array('id'=>'desc');
+	$limit = (!empty($_GET['limit']))?(int) $_GET['limit']:20;
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if(!empty($_GET['name'])){
 		$conditions['name LIKE']= '%'.$_GET['name'].'%';
+	}
+
+	if(!empty($_GET['order'])){
+		if($_GET['order']==1){
+			$order = array('price'=>'asc');	
+		}elseif($_GET['order']==2){
+			$order = array('price'=>'desc');
+		}elseif($_GET['order']==3){
+			$order = array('created_at'=>'asc');
+		}elseif($_GET['order']==4){
+			$order = array('created_at'=>'desc');
+		}
+	}else{
+		$order = array('id'=>'desc');
+	}
+
+	if(!empty($_GET['price'])){
+		$price = explode('-', $_GET['price']);
+		$conditions['sale_price >='] = (int) $price[0];
+		$conditions['sale_price <='] = (int) $price[1];
 	}
 
 			// lấy kho 
 	$listData = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	$totalData = count($modelWarehouses->find()->where($conditions)->order($order)->all()->toList());
 
-
-
 	if(!empty($listData)){
 		foreach($listData as $key => $item){
-			$listData[$key]->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';	
+			$listData[$key]->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
+	    	$users = $modelWarehouseUsers->find()->where(['warehouse_id'=>$item->id])->all()->toList();
+	    	$listData[$key]->number_user = count($users);
+
+	    	$products = $modelWarehouseProduct->find()->where(['warehouse_id'=>$item->id])->all()->toList();
+	    	$listData[$key]->number_product = count($products);   	
 		}
 	}
 		
