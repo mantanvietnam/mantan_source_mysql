@@ -57,6 +57,7 @@
 
 	//user 
 	$routesPlugin['allProduct']= 'ezpics_designer/view/user/listAllProduct.php';
+	$routesPlugin['allWarehouse']= 'ezpics_designer/view/user/listAllWarehouses.php';
 
 
 ?>

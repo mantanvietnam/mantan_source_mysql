@@ -412,10 +412,11 @@ function listAllWarehouses($input){
 	$listData = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	$totalData = count($modelWarehouses->find()->where($conditions)->order($order)->all()->toList());
 
+
+
 	if(!empty($listData)){
-		$listData = array();
 		foreach($listData as $key => $item){
-			$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';	
+			$listData[$key]->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';	
 		}
 	}
 		
@@ -456,7 +457,6 @@ function listAllWarehouses($input){
 	setVariable('next', $next);
 	setVariable('urlPage', $urlPage);
 	setVariable('totalData', $totalData);
-	    
 	setVariable('listData', $listData);
 }
 
