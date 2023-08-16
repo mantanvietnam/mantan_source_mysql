@@ -25,8 +25,8 @@
                   <input type="text" required class="form-control" placeholder="" name="user_to" id="user_to" value="" />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="basic-default-fullname">ID mẫu thiếu kế</label>
-                  <input type="text" class="form-control" placeholder="" name="id_product" id="id_product" value="" />
+                  <label class="form-label" for="basic-default-fullname">ID mẫu thiết kế</label>
+                  <input type="text" class="form-control" placeholder="Nếu để trống thì chuyển đổi tất cả mẫu thiết kế !!!" name="id_product" id="id_product" value="" />
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
