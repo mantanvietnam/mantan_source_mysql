@@ -24,7 +24,7 @@ $menus[0]['sub'][10]= array( 'title'=>'Mẫu thiết kế xu hướng',
                             'classIcon'=>'bx bx-paint',
                             'permission'=>'listProductTrendAdmin'
                         );
-$menus[0]['sub'][12]= array( 'title'=>' Chuyển mẫu thiết kế cho Designer',
+$menus[0]['sub'][12]= array( 'title'=>' Chuyển mẫu thiết kế cho Designer khác',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-member-transferManagerAdmin.php',
                             'classIcon'=>'bx bx-transfer',
                             'permission'=>'transferManagerAdmin'
