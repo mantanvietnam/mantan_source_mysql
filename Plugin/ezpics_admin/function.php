@@ -24,6 +24,11 @@ $menus[0]['sub'][10]= array( 'title'=>'Mẫu thiết kế xu hướng',
                             'classIcon'=>'bx bx-paint',
                             'permission'=>'listProductTrendAdmin'
                         );
+$menus[0]['sub'][12]= array( 'title'=>'Chuyển đổi designer',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-member-transferManagerAdmin.php',
+                            'classIcon'=>'bx bx-transfer',
+                            'permission'=>'transferManagerAdmin'
+                        );
 
 $menus[0]['sub'][2]= array( 'title'=>'Kho nẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php',

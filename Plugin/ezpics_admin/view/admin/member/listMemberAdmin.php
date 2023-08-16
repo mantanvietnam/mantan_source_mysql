@@ -148,7 +148,7 @@
                             '.$item->email.'<br/>
                             Đăng ký: '.$item->created_at.'<br/>
                             Đăng nhập lần cuối lúc: '.$item->last_login.'<br/>
-                            '.$pro.'<br/>
+                            '.$pro.'<br/><br/>
                             <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
                              Cộng tiền 
                             </a>

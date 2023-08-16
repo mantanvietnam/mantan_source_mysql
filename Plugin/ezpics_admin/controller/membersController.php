@@ -454,4 +454,63 @@ function memberBuyProAdmin($input){
 	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=7');
 }
 
+function transferManagerAdmin($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelWarehouseUser = $controller->loadModel('WarehouseUsers');
+	$modelWarehouseProduct = $controller->loadModel('WarehouseProducts');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$mess = '';
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if($dataSend['user_from']!=$dataSend['user_to']){
+			$userFrom =  $modelMember->find()->where(array('phone'=>$dataSend['user_from'],'type'=>1))->first();
+			$userTo =  $modelMember->find()->where(array('phone'=>$dataSend['user_to'],'type'=>1))->first();
+			if(!empty($userFrom)){
+				if(!empty($userTo)){
+					if(!empty($dataSend['id_product'])){
+						$idProduct = explode(',',$dataSend['id_product']);
+						$so = 0;
+						foreach($idProduct as $key => $id){
+							$product = $modelProduct->find()->where(array('id'=>$id,'user_id'=>$userFrom->id,'OR' => [['type'=>'user_create'],['type'=>'user_series']]))->first();
+							if(!empty($product)){
+								$modelWarehouseProduct->deleteAll(array('product_id'=>$product->id));
+								$product->user_id = $userTo->id;
+								$modelProduct->save($product);
+								$so += 1; 
+
+							}
+						}
+						$mess = 'bạn chuyển được '.$so.' mẫu thành công ';
+					}else{
+						$listProduct = $modelProduct->find()->where(array('user_id'=>$userFrom->id,'OR' => [['type'=>'user_create'],['type'=>'user_series']]))->all()->toList();
+						if(!empty($listProduct)){
+							$so = 0;
+							foreach($listProduct as $key => $item){
+								$modelWarehouseProduct->deleteAll(array('product_id'=>$item->id));
+								$item->user_id = $userTo->id;
+								$modelProduct->save($item);
+								$so += 1;
+							}
+							$mess = 'bạn chuyển được '.$so.' mẫu thành công ';
+						}
+					}
+				}else{
+					$mess = 'Tài khoản nhận không dùng';
+				}
+			}else{
+				$mess = 'Tài khoản của chuyền không đùng';
+			}
+		}else{
+			$mess = '2 tài khoản không được giống nhau';
+		}
+	}
+
+	setVariable('mess', $mess);
+}
+
 ?>
