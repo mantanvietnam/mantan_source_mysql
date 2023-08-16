@@ -503,7 +503,7 @@ function transferManagerAdmin($input){
 					$mess = 'Tài khoản nhận không dùng';
 				}
 			}else{
-				$mess = 'Tài khoản của chuyền không đùng';
+				$mess = 'Tài khoản chuyển không đùng';
 			}
 		}else{
 			$mess = '2 tài khoản không được giống nhau';

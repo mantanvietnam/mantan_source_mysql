@@ -17,11 +17,11 @@
             <?= $this->Form->create(); ?>
               <div class="row">
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="basic-default-phone">Tài khoản chuyền(*)</label>
+                  <label class="form-label" for="basic-default-phone">Tài khoản chuyển (*)</label>
                   <input required type="text" class="form-control phone-mask" name="user_from" id="user_from" value="<?php echo @$data->name;?>" />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="basic-default-fullname">Tài khoản nhận(*)</label>
+                  <label class="form-label" for="basic-default-fullname">Tài khoản nhận (*)</label>
                   <input type="text" required class="form-control" placeholder="" name="user_to" id="user_to" value="" />
                 </div>
                 <div class="mb-3 col-md-6">
