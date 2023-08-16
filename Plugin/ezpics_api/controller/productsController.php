@@ -1062,5 +1062,100 @@ function createImageSeriesAPI($input)
 	}
 }
 
+function updateInfoProductAPI($input)
+{
+    global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelWarehouses = $controller->loadModel('Warehouses');
+    $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+    $modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+    $modelMember = $controller->loadModel('Members');
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+        $user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+        if(!empty($user)){
+	        $pro = $modelProduct->find()->where(array('id'=>$dataSend['id'], 'user_id'=>$user->id))->first();
+
+	        if (empty($pro)) {
+	            return ['code'=>4, 'mess' => 'Sản phẩm của bạn đã bị xóa khỏi hệ thống']; 
+	        }else{
+	            if(!empty($dataSend['field']) && isset($dataSend['value'])){
+	                switch ($dataSend['field']) {
+	                    case 'category_id':
+	                        $pro->category_id = (int) $dataSend['value'];
+	                        break;
+	                    
+	                    case 'price':
+	                        $pro->price = (int) str_replace(',','',$dataSend['value']);
+	                        break;
+	                    
+	                    case 'sale_price':
+	                        $pro->sale_price = (int) str_replace(',','',$dataSend['value']);
+	                        break;
+	                    
+	                    case 'name':
+	                        $pro->name = $dataSend['value'];
+
+	                        // tạo slug
+	                        $slug = createSlugMantan($dataSend['value']);
+	                        $slugNew = $slug;
+	                        $number = 0;
+
+	                        if(empty($pro->slug) || $pro->slug!=$slugNew){
+	                            do{
+	                                $conditions = array('slug'=>$slugNew);
+	                                $listData = $modelProduct->find()->where($conditions)->all()->toList();
+
+	                                if(!empty($listData)){
+	                                    $number++;
+	                                    $slugNew = $slug.'-'.$number;
+	                                }
+	                            }while (!empty($listData));
+	                        }
+
+	                        $pro->slug = $slugNew;
+
+	                        break;
+
+	                    case 'status':
+	                        $pro->status = (int) $dataSend['value'];
+	                        if($pro->status == 1){
+	                            sendNotificationAdmin('6479b6f4b4a51d8bb38fc547');
+	                            $warehouseProducts = $modelWarehouseProducts->find()->where(['product_id'=>$pro->id])->all()->toList();
+	                            if(!empty($warehouseProducts)){
+	                                foreach($warehouseProducts as $keywp => $product){
+	                                    $Warehouses = $modelWarehouses->find()->where(['id'=>$product->warehouse_id])->first();
+	                                    $warehouseUser = $modelWarehouseUsers->find()->where(['warehouse_id'=>$Warehouses->id])->all()->toList();
+	                                    foreach($warehouseUser as $keyus => $item){
+	                                        $user = $modelMember->find()->where(['id'=>$item->user_id])->first();
+	                                        $dataSendNotification= array('product_id'=>$pro->id, 'title'=>'Thông báo có mẫu thiết kế mới trong kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" có mẫu mới là "'.$pro->name.'"!','action'=>'productNewWarehouseNotification');
+	                                        if(!empty($user->token_device)){
+	                                            sendNotification($dataSendNotification, $user->token_device);
+	                                        }
+	                                    }
+	                                }
+	                            }
+
+	                        }
+	                        break;
+	                }
+
+	                $modelProduct->save($pro);
+
+	                return ['code' => 1, 'mess' => 'Bạn sủa thông tin thành công ' ];
+	            }else{
+	                return ['code' => 3, 'mess' => 'Không được để trống dữ liệu']; 
+	            }
+	        } 
+	    }else{
+	        return ['code' => 2, 'mess' => 'Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn'];
+	    }
+    } 
+}
+
 
 ?>

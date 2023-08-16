@@ -208,9 +208,9 @@ function updateInfoProduct($input)
                                     $warehouseUser = $modelWarehouseUsers->find()->where(['warehouse_id'=>$warehouse->id])->all()->toList();
                                     foreach($warehouseUser as $keyus => $item){
                                         $user = $modelMember->find()->where(['id'=>$item->user_id])->first();
-                                        $dataSendNotification= array('product_id'=>$pro->id, 'title'=>'Thông báo có mẫu thiết kế mới trong kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$Warehouses->name.'" có mẫu mới là "'.$pro->name.'"!','action'=>'productNewWarehouseNotification');
+                                        $dataSendNotification= array('product_id'=>$pro->id, 'title'=>'Thông báo có mẫu thiết kế mới trong kho ','time'=>date('H:i d/m/Y'),'content'=>'Kho mẫu thiết kế "'.$warehouse->name.'" có mẫu mới là "'.$pro->name.'"!','action'=>'productNewWarehouseNotification');
                                         if(!empty($user->token_device)){
-                                            sendNotification($dataSendNotification, $member->token_device);
+                                            sendNotification($dataSendNotification, $user->token_device);
                                         }
                                     }
                                 }
