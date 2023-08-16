@@ -513,4 +513,31 @@ function transferManagerAdmin($input){
 	setVariable('mess', $mess);
 }
 
+function getWarehouseByUser($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelWarehouse = $controller->loadModel('Warehouses');
+	$return = array('code'=>0);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$user =  $modelMember->find()->where(array('phone'=>$dataSend['user'],'type'=>1))->first();
+		if(!empty($user)){
+			$Warehouse =  $modelMember->find()->where(array('user_id'=>$dataSend['user'],'type'=>1))->all()->toList();
+			if(!empty($Warehouse)){
+				$return = array('code'=>1, 'data'=>$Warehouse,'mess'=>'bạn lấy data thành công!');
+			}else{
+				$return = array('code'=>2,'mess'=>'không có kho nào!');
+			}
+		}else{
+			$return = array('code'=>3,'mess'=>'tài khoản sai!');
+		}
+
+	}
+	return $return;
+}
+
 ?>
