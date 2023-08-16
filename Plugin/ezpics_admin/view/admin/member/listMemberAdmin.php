@@ -98,9 +98,6 @@
               <th>Khách hàng</th>
               <th>Thống kê</th>
               <th>Loại tài khoản</th>
-              <!-- <th>Trạng thái</th> -->
-              <th>Cộng tiền</th>
-              <th>Trừ tiền</th>
               <th>Sửa</th>
               <th>Khóa</th>
             </tr>
@@ -131,12 +128,12 @@
                       $buyingMoney = $item->buyingMoney;
                   }
 
-                  $status = 'Kích hoạt <br/>
+                  $status = '<span style="color: #60bc2f;">Kích hoạt</span> <br/>
                    <a class="dropdown-item"  title="khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
                               <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                             </a>';
                   if($item->status==0){
-                    $status = 'Khóa <br/>
+                    $status = '<span style="color: red;">Khóa</span> <br/>
                    <a class="dropdown-item"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/ezpics_admin-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=2">
                               <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                             </a>';
@@ -151,8 +148,13 @@
                             '.$item->email.'<br/>
                             Đăng ký: '.$item->created_at.'<br/>
                             Đăng nhập lần cuối lúc: '.$item->last_login.'<br/>
-                            '.$pro.'
-
+                            '.$pro.'<br/>
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
+                             Cộng tiền 
+                            </a>
+                            <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
+                             Trừ tiền 
+                            </a>
                           </td>
                           <td style="width: 16%;">Số dư: '.number_format(@$item->account_balance).'đ <br/>
                               số tiền bán: '. number_format(@$sellingMoney).'đ<br/>
@@ -163,16 +165,7 @@
                           </td>
                           <td>'.$type.'</td>
                          
-                          <td align="center">
-                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
-                              <i class="bx bx-shield-plus me-1" style="font-size: 22px;"></i>
-                            </a>
-                          </td>
-                           <td align="center">
-                            <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
-                              <i class="bx bx-shield-minus me-1" style="font-size: 22px;"></i>
-                            </a>
-                          </td>
+                          
                            <td align="center">
                             <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>

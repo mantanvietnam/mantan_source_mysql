@@ -1141,7 +1141,9 @@ function updateInfoProductAPI($input)
 	                            }
 
 	                        }
-	                        break;
+	                    	break;
+	                    default:
+   						return ['code' => 5, 'mess' => 'field không tồn tại'];
 	                }
 
 	                $modelProduct->save($pro);

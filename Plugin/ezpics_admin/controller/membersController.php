@@ -438,7 +438,7 @@ function memberBuyProAdmin($input){
 					$WarehouseUser->deadline_at = $user->deadline_pro;
 					$modelWarehouseUsers->save($WarehouseUser);
 				}
-				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản Pro ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản Pro!','action'=>'addMoneySuccess',);
+				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản Pro ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản Pro!','action'=>'memberBuyPro',);
 				if(!empty($user->token_device)){
                     sendNotification($dataSendNotification, $user->token_device);
                             
