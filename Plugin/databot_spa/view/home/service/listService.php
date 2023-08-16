@@ -59,70 +59,89 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
+  <div class="card">
     <h5 class="card-header">Danh sách dịch vụ</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="" style="text-align: center;">
-            <th>Mã dịch vụ</th>
-            <th>Ảnh </th>
-            <th>Dịch vụ</th>
-            <th>Giá bán</th>
-            <th>Trạng thái</th>
-            <th>Sửa thông tin</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                
-               
-                if($item->status==0){
-                 $status = '<span class="text-danger">Kích hoạt</span>';
-                
-                }elseif($item->status==1){
-                  $status = '<span class="text-primary">Khóa</span>';
-                }
 
-                echo '<tr>
-                        <td>
-                          '.$item->id.'
-                        </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" />
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="" style="text-align: center;">
+              <th>Mã DV</th>
+              <th>Ảnh </th>
+              <th>Dịch vụ</th>
+              <th>Giá bán</th>
+              <th>Hoa hồng</th>
+              <th>Trạng thái</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  
+                 
+                  if($item->status==0){
+                   $status = 'Kích hoạt';
+                  
+                  }elseif($item->status==1){
+                    $status = '<span class="text-danger">Khóa</span>';
+                  }
+
+                  if(!empty($item->commission_staff_fix)){
+                    $staff = '<p>Nhân viên: '.$item->commission_staff_fix.'đ</p>';
+                  }else{
+                    $staff = '<p>Nhân viên: '.$item->commission_staff_percent.'%</p>';
+                  }
+
+                  if(!empty($item->commission_affiliate_fix)){
+                    $affiliate = '<p>Giới thiệu: '.$item->commission_affiliate_fix.'đ</p>';
+                  }else{
+                    $affiliate = '<p>Giới thiệu: '.$item->commission_affiliate_percent.'%</p>';
+                  }
+
+                  echo '<tr>
+                          <td>
+                            '.$item->id.'
+                          </td>
+                          <td>
+                            <img src="'.$item->image.'" width="100" />
+                          </td>
+                         
+                          <td>'.$item->name.'</td>
+                          <td>
+                            '.number_format($item->price).'
+                          </td>
+                          <td>
+                            '.$staff.'
+                            '.$affiliate.'
+                          </td>
+                          <td>'.$status.'</td>
                           
-                        </td>
-                       
-                        <td>'.$item->name.'</td>
-                        <td>
-                          '.number_format($item->price).'
-                        </td>
-                        <td>'.$status.'</td>
-                        
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addService?id='.$item->id.'" title="sửa thông tin dịch vụ">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
+                          <td align="center">
+                             <a  class="dropdown-item" href="/addService?id='.$item->id.'" title="sửa thông tin dịch vụ">
+                              <i class="bx bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
 
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa thiết kế không?\');" href="/deleteService/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa thiết kế không?\');" href="/deleteService/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
+                }
+              }else{
+                echo '<tr>
+                        <td colspan="10" align="center">Chưa có dịch vụ</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có dịch vụ</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

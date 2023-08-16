@@ -41,58 +41,60 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách khách hàng</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Khách hàng</th>
-            <th>số điện thoại</th>
-            <th>email</th>
-            <th>địa chỉ</th>
-            <th>Gới tính</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Khách hàng</th>
+              <th>số điện thoại</th>
+              <th>email</th>
+              <th>địa chỉ</th>
+              <th>Gới tính</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
 
-                if($item->sex=='1'){
-                  $sex= 'nam';
-                }else{
-                  $sex= 'nữ';
+                  if($item->sex=='1'){
+                    $sex= 'nam';
+                  }else{
+                    $sex= 'nữ';
+                  }
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.'</td>
+                          <td>'.$item->phone.'</td>
+                          <td>'.$item->email.'</td>
+                          <td>'.$item->address.'</td>
+                          
+                          <td>'.$sex.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCustomer/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
                 }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->name.'</td>
-                        <td>'.$item->phone.'</td>
-                        <td>'.$item->email.'</td>
-                        <td>'.$item->address.'</td>
-                        
-                        <td>'.$sex.'</td>
-                        <td align="center">
-                          <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCustomer/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có khách hàng</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có khách hàng</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

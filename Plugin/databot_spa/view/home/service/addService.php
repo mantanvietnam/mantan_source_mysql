@@ -8,6 +8,9 @@
   </h4>
 
   <!-- Basic Layout -->
+  <form enctype="multipart/form-data" method="post" action="">
+    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
@@ -15,9 +18,8 @@
             <h5 class="mb-0">Thông tin dịch vụ</h5>
           </div>
           <div class="card-body">
-            <p><?php echo @$mess;?></p>
-            <form enctype="multipart/form-data" method="post" action="">
-              <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+              <p><?php echo @$mess;?></p>
+            
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -72,18 +74,51 @@
                   
                   <div class="mb-3">
                     <label class="form-label">Mô tả dịch vụ </label>
-                    <textarea class="form-control phone-mask" rows="5" name="description"><?php echo @$data->description;?></textarea>
+                    <textarea class="form-control phone-mask" rows="8" name="description"><?php echo @$data->description;?></textarea>
                   </div>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Lưu</button> 
-            </form>
+              
+            
+          </div>
+          <hr/>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cài đặt hoa hồng dịch vụ</h5>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <p class="text-danger">Hệ thống sẽ ưu tiên tính tiền cố định trước rồi mới đến tính theo hoa hồng</p>
+              <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Nhân viên thực hiện</label><br/>
+                    Trả số tiền cố định<br/>
+                    <input type="number" min="0" class="form-control phone-mask" name="commission_staff_fix" id="commission_staff_fix" value="<?php echo @$data->commission_staff_fix;?>"/>
+
+                    Trả theo %<br/>
+                    <input type="number" min="0" max="100" class="form-control phone-mask" name="commission_staff_percent" id="commission_staff_percent" value="<?php echo @$data->commission_staff_percent;?>"/>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Người giới thiệu</label><br/>
+                    Trả số tiền cố định<br/>
+                    <input type="number" min="0" class="form-control phone-mask" name="commission_affiliate_fix" id="commission_affiliate_fix" value="<?php echo @$data->commission_affiliate_fix;?>"/>
+
+                    Trả theo %<br/>
+                    <input type="number" min="0" max="100" class="form-control phone-mask" name="commission_affiliate_percent" id="commission_affiliate_percent" value="<?php echo @$data->commission_affiliate_percent;?>"/>
+                  </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button> 
           </div>
         </div>
       </div>
 
     </div>
+  </form>
+
 </div>
 
 <?php include(__DIR__.'/../footer.php'); ?>

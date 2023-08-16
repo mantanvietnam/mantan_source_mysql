@@ -31,68 +31,71 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách Combo liệu trình</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Tên combo</th>
-            <th>Sản phẩm và dịch vụ </th>
-            <th>Số lượng</th>
-            <th>giá</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
 
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Tên combo</th>
+              <th>Sản phẩm và dịch vụ </th>
+              <th>Số lượng</th>
+              <th>giá</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.'</td>
+                          <td>';
+
+                          if(!empty($item->product)){
+                            echo '<b>Sản phẩm:</b><br/>';
+                            foreach($item->product as $product){
+                               echo '&ensp; '.$product->name.' số lượng '.$product->quantityCombo.'<br/>';
+                            }
+                          }
+                          if(!empty($item->service)){
+                            echo '<b>Dịch vụ:</b><br/>';
+                            foreach($item->service as $service){
+                               echo '&ensp; '.$service->name.' số lượng '.$service->quantityCombo.'<br/>';
+                            }
+                          }
+
+
+
+                    echo      '</td>
+
+                          <td>'.$item->quantity.'</td>
+                          <td>'.$item->price.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" href="/addCombo/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCombo/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
+                }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->name.'</td>
-                        <td>';
-
-                        if(!empty($item->product)){
-                          echo '<b>Sản phẩm:</b><br/>';
-                          foreach($item->product as $product){
-                             echo '&ensp; '.$product->name.' số lượng '.$product->quantityCombo.'<br/>';
-                          }
-                        }
-                        if(!empty($item->service)){
-                          echo '<b>Dịch vụ:</b><br/>';
-                          foreach($item->service as $service){
-                             echo '&ensp; '.$service->name.' số lượng '.$service->quantityCombo.'<br/>';
-                          }
-                        }
-
-
-
-                  echo      '</td>
-
-                        <td>'.$item->quantity.'</td>
-                        <td>'.$item->price.'</td>
-                        <td align="center">
-                          <a class="dropdown-item" href="/addCombo/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCombo/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có khách hàng</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có khách hàng</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

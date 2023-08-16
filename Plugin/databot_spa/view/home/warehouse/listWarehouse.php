@@ -25,63 +25,66 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
+  <div class="card">
     <h5 class="card-header">Danh sách kho</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="" style="text-align: center;">
-            <th>ID</th>
-            <th>Tên kho</th>
-            <th>Nội dung</th>
-            <th>Sửa thông tin</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                
-               
-                if($item->credit==0){
-                 $status = '<span class="text-danger">không cho bán âm</span>';
-                
-                }elseif($item->credit==1){
-                  $status = '<span class="text-primary">cho bán âm</span>';
+
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="" style="text-align: center;">
+              <th>ID</th>
+              <th>Tên kho</th>
+              <th>Nội dung</th>
+              <th>Sửa thông tin</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  
+                 
+                  if($item->credit==0){
+                   $status = '<span class="text-danger">không cho bán âm</span>';
+                  
+                  }elseif($item->credit==1){
+                    $status = '<span class="text-primary">cho bán âm</span>';
+                  }
+
+                  echo '<tr>
+                          <td>
+                            '.$item->id.'
+                          </td>
+                         
+                         
+                          <td>'.$item->name.'</td>
+                         
+                          <td>'.$item->description.'</td>
+                          
+                          <td align="center">
+                             <a  class="dropdown-item" href="/addWarehouse?id='.$item->id.'" title="sửa thông tin kho này">
+                              <i class="bx bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho này không?\');" href="/deleteWarehouse/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
                 }
-
+              }else{
                 echo '<tr>
-                        <td>
-                          '.$item->id.'
-                        </td>
-                       
-                       
-                        <td>'.$item->name.'</td>
-                       
-                        <td>'.$item->description.'</td>
-                        
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addWarehouse?id='.$item->id.'" title="sửa thông tin kho này">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho này không?\');" href="/deleteWarehouse/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

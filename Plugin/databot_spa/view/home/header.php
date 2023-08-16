@@ -185,6 +185,21 @@
                 </li>
               </ul>
             </li>         
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div>Đội ngũ</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listSaff" class="menu-link">
+                    <div>Nhân viên</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-news"></i>
@@ -215,26 +230,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div>Đội ngũ</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="/listSaff" class="menu-link">
-                    <div>Nhân viên</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="/listSpa" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-news"></i>
-                <div>Thông tin spa</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx bx-basket"></i>
+                <i class="menu-icon tf-icons bx bx-basket"></i>
                 <div>Dịch vụ</div>
               </a>
               <ul class="menu-sub">
@@ -252,8 +248,8 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx bx-basket"></i>
-                <div>Hệ thống</div>
+                <i class="menu-icon tf-icons bx bx-bed"></i>
+                <div>Phòng - Giường</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -268,7 +264,12 @@
                 </li>
               </ul>
             </li>
-            
+            <li class="menu-item">
+              <a href="/listSpa" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-news"></i>
+                <div>Thông tin spa</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->

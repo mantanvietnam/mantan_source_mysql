@@ -42,6 +42,8 @@ function listCategoryService($input){
 
             $modelCategories->save($infoCategory);
 
+            $mess= '<p class="text-success">Lưu thông tin thành công</p>';
+
         }
 
         $conditions = array('type' => 'category_service', 'id_member'=>$infoUser->id_member);
@@ -199,7 +201,7 @@ function addService($input){
             $data = $modelService->get( (int) $_GET['id']);
         }else{
             $data = $modelService->newEmptyEntity();
-             $data->created = getdate()[0];
+            $data->created = getdate()[0];
         }
 
         if ($isRequestPost) {
@@ -218,8 +220,11 @@ function addService($input){
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
-                $data->code = @$dataSend['code'];
                 $data->status = @$dataSend['status'];
+                $data->commission_staff_fix = (int) @$dataSend['commission_staff_fix'];
+                $data->commission_staff_percent = (int) @$dataSend['commission_staff_percent'];
+                $data->commission_affiliate_fix = (int) @$dataSend['commission_affiliate_fix'];
+                $data->commission_affiliate_percent = (int) @$dataSend['commission_affiliate_percent'];
                 
                 $data->slug = createSlugMantan(trim($dataSend['name'])).'-'.time();
                 

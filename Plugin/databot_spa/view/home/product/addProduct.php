@@ -8,6 +8,8 @@
   </h4>
 
   <!-- Basic Layout -->
+  <form enctype="multipart/form-data" method="post" action="">
+    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
@@ -15,9 +17,8 @@
             <h5 class="mb-0">Thông tin Sản phẩm</h5>
           </div>
           <div class="card-body">
-            <p><?php echo @$mess;?></p>
-            <form enctype="multipart/form-data" method="post" action="">
-              <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
+              <p><?php echo @$mess;?></p>
+            
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -25,13 +26,13 @@
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>"/>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Mã</label>
+                    <label class="form-label">Mã sản phẩm</label>
                     <input type="text" class="form-control phone-mask" name="code" id="code" value="<?php echo @$data->code;?>"/>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Danh mục</label>
-                    <select name="id_category" class="form-select color-dropdown">
-                      <option value="">Tất cả</option>
+                    <label class="form-label">Danh mục (*)</label>
+                    <select name="id_category" class="form-select color-dropdown" required>
+                      <option value="">Chọn danh mục</option>
                       <?php
                       if(!empty($listCategory)){
                         foreach ($listCategory as $key => $value) {
@@ -46,9 +47,9 @@
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Nhãn hiệu</label>
-                    <select name="id_trademark" class="form-select color-dropdown">
-                      <option value="">Tất cả</option>
+                    <label class="form-label">Nhãn hiệu (*)</label>
+                    <select required name="id_trademark" class="form-select color-dropdown">
+                      <option value="">Chọn nhãn hiệu</option>
                       <?php
                       if(!empty($listTrademar)){
                         foreach ($listTrademar as $key => $value) {
@@ -62,24 +63,20 @@
                       ?>
                     </select>
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label">Ưu tiên </label>
-                    <input  type="number" class="form-control phone-mask" name="hot" id="hot" value="<?php echo @$data->hot;?>"/>
+                  <div class="mb-3 ">
+                    <label class="form-label">Trạng thái:</label><br/>
+                      <input type="radio" name="status" class="" id="status" value="active" <?php if(empty($data->status) || $data->status == 'active') echo 'checked="checked"';   ?> > Hiển thị &nbsp;
+                      <input type="radio" name="status" class="" id="status" value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'checked="checked"';   ?> > Khóa
                   </div>
                 </div>
                 
                 <div class="col-md-6">
-                  <div class="mb-3 " style="height: 68px;">
-                    <label class="form-label">Trạng thái:</label><br/>
-                      <input type="radio" name="status" class="" id="status" value="1" <?php if(@ $data['status']==1) echo 'checked="checked"';   ?> > Hiển thị&ensp;
-                      <input type="radio" name="status" class="" id="status" value="0" <?php if(@ $data['status']==0) echo 'checked="checked"';   ?> > Ẩn
-                  </div>
-                   <div class="mb-3">
-                    <label class="form-label">Ảnh sản phẩm (*)</label>
+                  <div class="mb-3">
+                    <label class="form-label">Ảnh sản phẩm</label>
                     <?php showUploadFile('image','image',@$user->image,0);?>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Giá sản phẩm</label>
+                    <label class="form-label">Giá sản phẩm (*)</label>
                     <input required type="text" class="form-control phone-mask" name="price" id="price" value="<?php echo @$data->price;?>"/>
                   </div>
                   
@@ -89,14 +86,44 @@
                   </div>
                 </div>
               </div>
+          </div>
 
-              <button type="submit" class="btn btn-primary">Lưu</button> 
-            </form>
+          <hr/>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cài đặt hoa hồng dịch vụ</h5>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <p class="text-danger">Hệ thống sẽ ưu tiên tính tiền cố định trước rồi mới đến tính theo hoa hồng</p>
+              <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Nhân viên thực hiện</label><br/>
+                    Trả số tiền cố định<br/>
+                    <input type="number" min="0" class="form-control phone-mask" name="commission_staff_fix" id="commission_staff_fix" value="<?php echo @$data->commission_staff_fix;?>"/>
+
+                    Trả theo %<br/>
+                    <input type="number" min="0" max="100" class="form-control phone-mask" name="commission_staff_percent" id="commission_staff_percent" value="<?php echo @$data->commission_staff_percent;?>"/>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Người giới thiệu</label><br/>
+                    Trả số tiền cố định<br/>
+                    <input type="number" min="0" class="form-control phone-mask" name="commission_affiliate_fix" id="commission_affiliate_fix" value="<?php echo @$data->commission_affiliate_fix;?>"/>
+
+                    Trả theo %<br/>
+                    <input type="number" min="0" max="100" class="form-control phone-mask" name="commission_affiliate_percent" id="commission_affiliate_percent" value="<?php echo @$data->commission_affiliate_percent;?>"/>
+                  </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button> 
           </div>
         </div>
       </div>
 
     </div>
+  </form>
 </div>
 
 <?php include(__DIR__.'/../footer.php'); ?>

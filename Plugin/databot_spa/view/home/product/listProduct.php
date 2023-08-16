@@ -40,20 +40,11 @@
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
-              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Bán </option>
-              <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Ẩn bán</option>
+              <option value="" >Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
           </div>
-
-          <!-- <div class="col-md-2">
-            <label class="form-label">Loại sản phẩm</label>
-            <select name="type" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
-              <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
-            </select>
-          </div> -->
 
          
 
@@ -86,70 +77,91 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
+  <div class="card">
     <h5 class="card-header">Danh sách Sản phẩm</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="" style="text-align: center;">
-            <th>MÃ</th>
-            <th>Ảnh </th>
-            <th>Tên sản phẩm</th>
-            <th>Giá bán</th>
-            <th>Trạng thái</th>
-            <th>Sửa thông tin</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                
-               
-                if($item->status==0){
-                 $status = '<span class="text-danger">ẩn</span>';
-                
-                }elseif($item->status==1){
-                  $status = '<span class="text-primary">bán</span>';
-                }
 
-                echo '<tr>
-                        <td>
-                          '.$item->code.'
-                        </td>
-                        <td>
-                          <img src="'.$item->image.'" width="100" />
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="" style="text-align: center;">
+              <th>Ảnh </th>
+              <th>Tên sản phẩm</th>
+              <th>Số lượng</th>
+              <th>Giá bán</th>
+              <th>Hoa hồng</th>
+              <th>Trạng thái</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  
+                 
+                  if($item->status=='active'){
+                   $status = 'Hiển thị';
+                  }elseif($item->status=='lock'){
+                    $status = '<span class="text-danger">Khóa</span>';
+                  }
+
+                  if(!empty($item->commission_staff_fix)){
+                    $staff = '<p>Nhân viên: '.$item->commission_staff_fix.'đ</p>';
+                  }else{
+                    $staff = '<p>Nhân viên: '.$item->commission_staff_percent.'%</p>';
+                  }
+
+                  if(!empty($item->commission_affiliate_fix)){
+                    $affiliate = '<p>Giới thiệu: '.$item->commission_affiliate_fix.'đ</p>';
+                  }else{
+                    $affiliate = '<p>Giới thiệu: '.$item->commission_affiliate_percent.'%</p>';
+                  }
+
+                  echo '<tr>
+                          <td>
+                            <img src="'.$item->image.'" width="100" />
+                            
+                          </td>
+                         
+                          <td>'.$item->name.'<br/></td>
+
+                          <td>
+                            '.number_format($item->quantity).'
+                          </td>
+
+                          <td>
+                            '.number_format($item->price).'đ
+                          </td>
+                          <td>
+                            '.$staff.'
+                            '.$affiliate.'
+                          </td>
+                          <td>'.$status.'</td>
                           
-                        </td>
-                       
-                        <td><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/></td>
-                        <td>
-                          '.number_format($item->price).'đ
-                        </td>
-                        <td>'.$status.'</td>
-                        
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
+                          <td align="center">
+                             <a  class="dropdown-item" href="/addProduct?id='.$item->id.'" title="">
+                              <i class="bx bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
 
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa sản phẩm không?\');" href="/deleteProduct/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
+                }
+              }else{
+                echo '<tr>
+                        <td colspan="10" align="center">Chưa có sản phẩm nào</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

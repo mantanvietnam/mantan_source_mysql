@@ -10,12 +10,12 @@
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Giường</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body row">
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Tên tên giường</th>
+                        <th>Giường</th>
                         <th>Phòng</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
@@ -42,7 +42,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="3" align="center">Chưa có giường</td>
+                                  <td colspan="13" align="center">Chưa có giường</td>
                                 </tr>';
                         }
                       ?>
@@ -65,12 +65,13 @@
                 <input type="hidden" name="idEdit" id="idEdit" value="" />
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Tên giường</label>
-                  <input type="text" class="form-control phone-mask" name="name" id="name" value="" />
+                  <input type="text" class="form-control phone-mask" name="name" id="name" value="" required />
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Phòng</label>
-                  <select class="form-select" name="id_room" id="id_room">
-                        <?php foreach($listRoom as $key => $item){ ?>
+                  <select class="form-select" name="id_room" id="id_room" required>
+                      <option value="">Chọn phòng</option>
+                      <?php foreach($listRoom as $key => $item){ ?>
                         <option value="<?php echo $item->id ?>" ><?php echo $item->name ?></option>
                       <?php } ?>
                       </select>

@@ -46,67 +46,70 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
+  <div class="card">
     <div class="row">
       <div class="col-md-6">
         <h5 class="card-header">Danh sách nhân viên</h5>
       </div>
      
     </div>
-     <p><?php echo @$mess;?></p>  
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Tên nhân viên</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>trạng thái</th>
-            <th>Sửa</th>
-            <th>xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $type = 'Người dùng';
-                if($item->type==1){
-                  $type = 'Member ';
-                }
+    <p><?php echo @$mess;?></p>  
+    
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Tên nhân viên</th>
+              <th>Số điện thoại</th>
+              <th>Email</th>
+              <th>trạng thái</th>
+              <th>Sửa</th>
+              <th>xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $type = 'Người dùng';
+                  if($item->type==1){
+                    $type = 'Member ';
+                  }
 
-                $status = 'Kích hoạt <br/>';
-                if($item->status==0){
-                  $status = 'Khóa';
-                }
+                  $status = 'Kích hoạt <br/>';
+                  if($item->status==0){
+                    $status = 'Khóa';
+                  }
 
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.' </td>
+                          <td>'.$item->phone.'</td>
+                          <td>'.$item->email.'</td>
+                          <td>'.$status.'</td>
+                         
+                          
+                           <td align="center">
+                            <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a>
+                          </td>
+                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhân viên này không?\');" href="/addSaff?id='.$item->id.'">
+                              <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
+                            </a></td>
+                        </tr>';
+                }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->name.' </td>
-                        <td>'.$item->phone.'</td>
-                        <td>'.$item->email.'</td>
-                        <td>'.$status.'</td>
-                       
-                        
-                         <td align="center">
-                          <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
-                          </a>
-                        </td>
-                        <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhân viên này không?\');" href="/addSaff?id='.$item->id.'">
-                            <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
-                          </a></td>
+                        <td colspan="10" align="center">Chưa có người dùng</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có người dùng</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

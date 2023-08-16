@@ -102,16 +102,16 @@ function addSpa($input){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelWarehouse = $controller->loadModel('Warehouses');
 
-	$conditions = array();
-	$conditions['id_member']= $infoUser->id_member;
-
-	$totalData = $modelSpas->find()->where($conditions)->all()->toList();
-	$totalData = count($totalData);
-
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
 
-		 // lấy data edit
+		$conditions = array();
+		$conditions['id_member']= $infoUser->id_member;
+
+		$totalData = $modelSpas->find()->where($conditions)->all()->toList();
+		$totalData = count($totalData);
+		
+		// lấy data edit
 	    if(!empty($_GET['id'])){
 	        $data = $modelSpas->get( (int) $_GET['id']);
 

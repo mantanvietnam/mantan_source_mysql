@@ -127,21 +127,24 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_category` int(11) NOT NULL,
-  `hot` int(10) DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
+  `quantity` INT NOT NULL DEFAULT '0',
   `id_trademark` int(11) NOT NULL,
-  `status` tinyint(255) DEFAULT NULL,
+  `status` VARCHAR(20) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `view` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `commission_staff_fix` INT NOT NULL DEFAULT '0',
+  `commission_staff_percent` INT NOT NULL DEFAULT '0',
+  `commission_affiliate_fix` INT NOT NULL DEFAULT '0',
+  `commission_affiliate_percent` INT NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `rooms` (
@@ -167,7 +170,11 @@ $sqlInstallDatabase .="CREATE TABLE `services` (
   `duration` int(11) DEFAULT NULL COMMENT 'thời lương ',
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id` int(11) NOT NULL,
-  `status` tinyint(4) DEFAULT NULL
+  `status` tinyint(4) DEFAULT NULL,
+  `commission_staff_fix` INT NOT NULL DEFAULT '0',
+  `commission_staff_percent` INT NOT NULL DEFAULT '0',
+  `commission_affiliate_fix` INT NOT NULL DEFAULT '0',
+  `commission_affiliate_percent` INT NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `spas` (

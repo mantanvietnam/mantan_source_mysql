@@ -50,6 +50,10 @@ function listBed($input){
 
         $listRoom = $modelRoom->find()->where($conditions)->all()->toList();
 
+        if(empty($listRoom)){
+            return $controller->redirect('/listRoom/?error=requestRoom');
+        }
+
         setVariable('listData', $listData);
         setVariable('listRoom', $listRoom);
     }else{
@@ -109,7 +113,6 @@ function listRoomBed($input){
             }
         }
         
-
         setVariable('listData', $listData);
 
     }else{

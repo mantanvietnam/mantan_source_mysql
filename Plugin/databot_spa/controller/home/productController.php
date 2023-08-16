@@ -10,6 +10,15 @@ function listCategoryProduct($input){
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
+        $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestCategoryProduct':
+                    $mess= '<p class="text-danger">Bạn cần tạo nhóm sản phẩm trước</p>';
+                    break;
+            }
+        }
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
             
@@ -29,12 +38,15 @@ function listCategoryProduct($input){
             $infoCategory->type = 'category_product';
             $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
             $modelCategories->save($infoCategory);
+
+            $mess= '<p class="text-success">Lưu thông tin thành công</p>';
         }
 
         $conditions = array('type' => 'category_product', 'id_member'=>$infoUser->id_member);
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -76,6 +88,15 @@ function listTrademarkProduct($input){
 
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+
+        $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestCategoryTrademark':
+                    $mess= '<p class="text-danger">Bạn cần tạo nhãn hiệu sản phẩm trước</p>';
+                    break;
+            }
+        }
         
         $modelTrademarks = $controller->loadModel('Trademarks');
 
@@ -99,12 +120,15 @@ function listTrademarkProduct($input){
             $data->slug = createSlugMantan($data->name).'-'.time();
             $modelTrademarks->save($data);
 
+            $mess= '<p class="text-success">Lưu thông tin thành công</p>';
+
         }
 
         $conditions = array('id_member'=>$infoUser->id_member);
         $listData = $modelTrademarks->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -173,10 +197,8 @@ function listProduct(){
             $conditions['id_trademark'] = $_GET['id_trademark'];
         }
 
-        if(isset($_GET['status'])){
-            if($_GET['status']!=''){
-                $conditions['status'] = $_GET['status'];
-            }
+        if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
         }
 
         if(!empty($_GET['name'])){
@@ -246,6 +268,7 @@ function addProduct($input){
     global $session;
     global $controller;
     global $urlCurrent;
+    global $urlHomes;
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
@@ -263,13 +286,17 @@ function addProduct($input){
 
         }else{
             $data = $modelProducts->newEmptyEntity();
-             $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = date('Y-m-d H:i:s');
+            $data->quantity = 0;
         }
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
 
             if(!empty($dataSend['name'])){
+                if(empty($dataSend['code'])) $dataSend['code'] = createToken(10);
+                if(empty($dataSend['image'])) $dataSend['image'] = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
+
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
                 $data->image = @$dataSend['image'];
@@ -280,10 +307,12 @@ function addProduct($input){
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
-                $data->hot = (int) @$dataSend['hot'];
-                $data->code = @$dataSend['code'];
-                $data->status = @$dataSend['status'];
+                $data->status = $dataSend['status'];
                 $data->updated_at = date('Y-m-d H:i:s');
+                $data->commission_staff_fix = (int) @$dataSend['commission_staff_fix'];
+                $data->commission_staff_percent = (int) @$dataSend['commission_staff_percent'];
+                $data->commission_affiliate_fix = (int) @$dataSend['commission_affiliate_fix'];
+                $data->commission_affiliate_percent = (int) @$dataSend['commission_affiliate_percent'];
                 
                 $data->slug = createSlugMantan(trim($dataSend['name'])).'-'.time();
                 
@@ -307,7 +336,16 @@ function addProduct($input){
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
         $conditionsTrademar = array('id_member'=>$infoUser->id_member);
-        $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->all()->toList();
+        $order = array('name'=>'asc');
+        $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->order($order)->all()->toList();
+
+        if(empty($listCategory)){
+            return $controller->redirect('/listCategoryProduct/?error=requestCategoryProduct');
+        }
+
+        if(empty($listTrademar)){
+            return $controller->redirect('/listTrademarkProduct/?error=requestCategoryTrademark');
+        }
 
         setVariable('data', $data);
         setVariable('listCategory', $listCategory);

@@ -32,58 +32,61 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
+  <div class="card">
     <h5 class="card-header">Danh sách SPA  </h5>
-     <p><?php echo @$mess;?></p>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="" style="text-align: center;">
-            <th>ID</th>
-            <th>Tên</th>
-            <th>Số điện thoại</th>
-            <th>Email</th>
-            <th>Địa chỉ</th>
-            <th>Sửa</th>
-             <?php if ($totalData<1){ ?>
-            <th>Xóa</th>
-              <?php } ?>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                
+    <p><?php echo @$mess;?></p>
 
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="" style="text-align: center;">
+              <th>ID</th>
+              <th>Tên</th>
+              <th>Số điện thoại</th>
+              <th>Email</th>
+              <th>Địa chỉ</th>
+              <th>Sửa</th>
+               <?php if ($totalData<1){ ?>
+              <th>Xóa</th>
+                <?php } ?>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  
+
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.'</td>
+                          <td>'.$item->phone.'</td>
+                          <td>'.$item->email.'</td>
+                          <td>'.$item->address.'</td>
+                          <td align="center">
+                             <a  class="dropdown-item" href="/addSpa?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
+                              <i class="bx bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>';
+                   if($totalData<1){
+                    echo '<td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteSpa/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>';
+                          }
+                      echo '  </tr>';
+                }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->name.'</td>
-                        <td>'.$item->phone.'</td>
-                        <td>'.$item->email.'</td>
-                        <td>'.$item->address.'</td>
-                        <td align="center">
-                           <a  class="dropdown-item" href="/addSpa?id='.$item->id.'" title="sửa thông tin mẫu thiết kế">
-                            <i class="bx bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>';
-                 if($totalData<1){
-                  echo '<td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteSpa/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>';
-                        }
-                    echo '  </tr>';
+                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
+                      </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

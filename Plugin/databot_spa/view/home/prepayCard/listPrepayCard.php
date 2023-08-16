@@ -41,58 +41,61 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách mệnh giá thẻ trả trước</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Thông tin thẻ trả trước</th>
-            <th>Mệnh giá</th>
-            <th>Giá bán</th>
-            <th>Thời gian sử dụng</th>
-            <th>Trạng thái</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
+    
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Thông tin thẻ trả trước</th>
+              <th>Mệnh giá</th>
+              <th>Giá bán</th>
+              <th>Thời gian sử dụng</th>
+              <th>Trạng thái</th>
+              <th>Sửa</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
 
-                if($item->status=='1'){
-                  $status= 'hiện';
-                }else{
-                  $status= 'ẩn';
+                  if($item->status=='1'){
+                    $status= 'hiện';
+                  }else{
+                    $status= 'ẩn';
+                  }
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td>'.$item->name.'</td>
+                          <td>'.number_format($item->discount_money).'</td>
+                          <td>'.number_format($item->price).'</td>
+                          <td>'.$item->use_time.'</td>
+                          
+                          <td>'.$status.'</td>
+                          <td align="center">
+                            <a class="dropdown-item" href="/addPrepayCard/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                          <td align="center">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deletePrepayCard/?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
+                            </a>
+                          </td>
+                        </tr>';
                 }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td>'.$item->name.'</td>
-                        <td>'.number_format($item->discount_money).'</td>
-                        <td>'.number_format($item->price).'</td>
-                        <td>'.$item->use_time.'</td>
-                        
-                        <td>'.$status.'</td>
-                        <td align="center">
-                          <a class="dropdown-item" href="/addPrepayCard/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
-                        <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deletePrepayCard/?id='.$item->id.'">
-                            <i class="bx bx-trash me-1"></i>
-                          </a>
-                        </td>
+                        <td colspan="10" align="center">Chưa có khách hàng</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có khách hàng</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Phân trang -->

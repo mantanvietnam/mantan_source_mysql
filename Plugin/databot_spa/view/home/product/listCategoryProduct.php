@@ -10,7 +10,9 @@
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Danh mục</h5>
             </div>
-            <div class="card-body">
+
+            <div class="card-body row">
+                <?php echo $mess;?>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -40,7 +42,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="3" align="center">Chưa có chủ đề</td>
+                                  <td colspan="13" align="center">Chưa có chủ đề</td>
                                 </tr>';
                         }
                       ?>

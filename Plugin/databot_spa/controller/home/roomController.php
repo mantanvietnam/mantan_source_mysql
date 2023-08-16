@@ -9,6 +9,15 @@ function listRoom($input){
     $metaTitleMantan = 'Danh sách Phòng';
     
     if(!empty($session->read('infoUser'))){
+        $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestRoom':
+                    $mess= '<p class="text-danger">Bạn cần tạo phòng trước</p>';
+                    break;
+            }
+        }
+
         $infoUser = $session->read('infoUser');
         
         $modelRoom = $controller->loadModel('Rooms');
@@ -31,12 +40,15 @@ function listRoom($input){
             $data->id_member = $infoUser->id_member;
 
             $modelRoom->save($data);
+
+            $mess= '<p class="text-success">Lưu thông tin thành công</p>';
         }
 
         $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
         $listData = $modelRoom->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }

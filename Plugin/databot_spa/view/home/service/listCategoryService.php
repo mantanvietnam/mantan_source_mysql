@@ -2,7 +2,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Nhóm dịch vụ</h4>
-    <?php echo $mess;?>
+    
     <!-- Basic Layout -->
       <div class="row">
         <div class="col-xl">
@@ -10,12 +10,13 @@
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Nhóm dịch vụ</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body row">
+                <?php echo $mess;?>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Tên nhóm</th>
+                        <th class="text-center">Tên nhóm</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
                       </tr>
@@ -25,7 +26,7 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
-                                    <td>'.$item->name.'<td>
+                                    <td>'.$item->name.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
@@ -40,7 +41,7 @@
                           }
                         }else{
                           echo '<tr>
-                                  <td colspan="3" align="center">Chưa có chủ đề</td>
+                                  <td colspan="13" align="center">Chưa có chủ đề</td>
                                 </tr>';
                         }
                       ?>
