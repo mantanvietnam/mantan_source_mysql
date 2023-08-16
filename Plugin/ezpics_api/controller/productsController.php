@@ -1146,7 +1146,7 @@ function updateInfoProductAPI($input)
 
 	                $modelProduct->save($pro);
 
-	                return ['code' => 1, 'mess' => 'Bạn sủa thông tin thành công ' ];
+	                return ['code' => 1, 'mess' => 'Bạn sửa thông tin thành công ' ];
 	            }else{
 	                return ['code' => 3, 'mess' => 'Không được để trống dữ liệu']; 
 	            }
