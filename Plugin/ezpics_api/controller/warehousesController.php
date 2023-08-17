@@ -108,7 +108,8 @@ function getProductsWarehousesAPI($input){
 																'OR' => [
 					    													['status'=>1],
 					    													['status'=>2]
-					    												]
+					    												],
+					    										'name LIKE'=> '%'.$dataSend['name'].'%'
 														])->first();
 					if(!empty($Product)){
 						$dataProduct[] = $Product;
@@ -121,10 +122,10 @@ function getProductsWarehousesAPI($input){
 						 			'mess'=>'Bạn lấy data thành công',
 						 		);
 				}else{
-					$return = array('code'=>0, 'mess'=>'Kho này chưa có sản phẩm');
+					$return = array('code'=>3, 'mess'=>'Kho này chưa có sản phẩm');
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'Kho này chưa có sản phẩm');
+				$return = array('code'=>2, 'mess'=>'Kho này không tồn tại');
 			}
 	
 	}
