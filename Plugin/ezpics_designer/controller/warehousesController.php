@@ -182,8 +182,6 @@ function addWarehouse($input)
 
 		        $modelWarehouses->save($data);
 
-		        
-
 		        if(empty($_GET['id'])){
 		        	// tự thêm tác giả vào kho
 		        	$dataWarehouseUsers = $modelWarehouseUsers->newEmptyEntity();
