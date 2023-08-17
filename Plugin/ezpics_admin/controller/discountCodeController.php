@@ -111,12 +111,16 @@ function addDiscountCodeAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-
         if(!empty($dataSend['name'])){
             // tạo dữ liệu save
             $data->name = @$dataSend['name'];
             $data->code = @$dataSend['code'];
             $data->discount = @$dataSend['discount'];
+            $data->number_user = @$dataSend['number_user'];
+            $data->type = @$dataSend['type'];
+            if(!empty($dataSend['deadline_at'])){
+                $data->deadline_at = @$dataSend['deadline_at'];
+            }
             $data->note = @$dataSend['note'];
             $modelDiscountCode->save($data);
 

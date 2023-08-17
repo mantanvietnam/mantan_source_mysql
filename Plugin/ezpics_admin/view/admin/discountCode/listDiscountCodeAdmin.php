@@ -43,6 +43,9 @@
             <th>Tên </th>
             <th>Mã</th>
             <th>Giảm giá</th>
+            <th>số lần</th>
+            <th>Ngày Hết hạn</th>
+            <th>khiểu</th>
             <th>nội dung</th>
             <th>sữa</th>
             <th>Xóa</th>
@@ -57,6 +60,9 @@
                         <td>'.@$item->name.'</td>
                         <td>'.@$item->code.'</td>
                         <td>'.@$item->discount.'%</td>
+                        <td>'.@$item->number_user.'</td>
+                        <td>'.@$item->deadline_at.'</td>
+                        <td>'.@$item->type.'</td>
                         <td>'.@$item->note.'</td>
                          <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php/?id='.$item->id.'">

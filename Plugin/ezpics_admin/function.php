@@ -1062,4 +1062,10 @@ function sendEmailMinusMoney($email='', $fullName='', $coin= '', $note= '')
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+
+global $typeDiscount;
+
+$typeDiscount = ['kho'=>'kho',
+            'pro'=>'pro',
+            ];
 ?>

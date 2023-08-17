@@ -333,7 +333,7 @@ function checkBuyWarehousesAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-
+		
 
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		if(!empty($infoUser)){
@@ -342,8 +342,7 @@ function checkBuyWarehousesAPI($input){
 			$conditions = array('warehouse_id'=>$dataSend['idWarehouse']);
 			$conditions['user_id'] = $infoUser->id;
 			$conditions['deadline_at >='] =date('Y-m-d H:i:s');
-			$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'status'=>1, 'user_id'=>$infoUser->id))->first();
-
+			$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'], 'user_id'=>$infoUser->id))->first();
 
 			if(empty($checkWarehouses)){
 				$data = $modelWarehouseUsers->find()->where($conditions)->first();
