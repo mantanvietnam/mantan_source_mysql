@@ -99,31 +99,38 @@ function getProductsWarehousesAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
+		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+		$order = array('Products.id'=>'desc');
+		$conditions = array('OR' => [['Products.status'=>1],['Products.status'=>2]]);
+		if(!empty($dataSend['name'])){
+			$conditions['Products.name LIKE'] = '%'.$dataSend['name'].'%';
+		}
 
-			$data = $modelWarehouseProducts->find()->where(array('warehouse_id'=>$dataSend['idWarehouse']))->all()->toList();
-			if(!empty($data)){
-				$dataProduct = array();
-				foreach($data as $key => $item){
-					$Product = $modelProduct->find()->where([	'id'=>$item->product_id,
-																'OR' => [
-					    													['status'=>1],
-					    													['status'=>2]
-					    												],
-					    										'name LIKE'=> '%'.$dataSend['name'].'%'
-														])->first();
-					if(!empty($Product)){
-						$dataProduct[] = $Product;
-					}	
-				}
+		$conditions['wp.warehouse_id'] = $dataSend['idWarehouse'];
+		$conditions['Products.type'] = 'user_create';
 
-				if(!empty($dataProduct)){
-					$return = array('code'=>1,
-									'data'=> $dataProduct,
-						 			'mess'=>'Bạn lấy data thành công',
-						 		);
-				}else{
-					$return = array('code'=>3, 'mess'=>'Kho này chưa có sản phẩm');
-				}
+		$listData = $modelProduct->find()->join([
+					        'table' => 'warehouse_products',
+					        'alias' => 'wp',
+					        'type' => 'INNER',
+					        'conditions' => 'wp.product_id = Products.id',
+					    ])->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		
+		$totalData = count($modelProduct->find()->join([
+					        'table' => 'warehouse_products',
+					        'alias' => 'wp',
+					        'type' => 'INNER',
+					        'conditions' => 'wp.product_id = Products.id',
+					    ])->where($conditions)->all()->toList());	
+
+			if(!empty($listData)){
+				$return = array('code'=>1,
+								'data'=> $listData,
+								'totalData'=>$totalData,
+						 		'mess'=>'Bạn lấy data thành công',
+						);
+				
 			}else{
 				$return = array('code'=>2, 'mess'=>'Kho này không tồn tại');
 			}
