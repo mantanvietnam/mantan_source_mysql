@@ -117,20 +117,29 @@ function getProductsWarehousesAPI($input){
 					        'conditions' => 'wp.product_id = Products.id',
 					    ])->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 		
-		$totalData = count($modelProduct->find()->join([
+		$totalData = $modelProduct->find()->join([
 					        'table' => 'warehouse_products',
 					        'alias' => 'wp',
 					        'type' => 'INNER',
 					        'conditions' => 'wp.product_id = Products.id',
-					    ])->where($conditions)->all()->toList());	
+					    ])->where($conditions)->all()->toList();	
+
+		$tota = count($totalData);
 
 			if(!empty($listData)){
-				$return = array('code'=>1,
+				if(!empty($dataSend['page'])){
+					$return = array('code'=>1,
 								'data'=> $listData,
-								'totalData'=>$totalData,
+								'totalData'=>$tota,
 						 		'mess'=>'Bạn lấy data thành công',
 						);
-				
+				}else{
+					$return = array('code'=>1,
+								'data'=> $totalData,
+								'totalData'=>$tota,
+						 		'mess'=>'Bạn lấy data thành công',
+						);
+				}
 			}else{
 				$return = array('code'=>2, 'mess'=>'Kho này không tồn tại');
 			}
