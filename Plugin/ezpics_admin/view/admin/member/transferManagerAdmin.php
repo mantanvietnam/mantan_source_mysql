@@ -51,13 +51,14 @@
             url: '/apis/getWarehouseByUser',
             data: { user: user },
             success:function(res){
-              if(res['data']!=null){
+              if(res['code']==1){
                 html = '<label class="form-label" for="basic-default-fullname">Kho</label><br/>';
                 for(i=0;i<res['data'].length;i++){
-                 console.log(res['data'][i]['name']);
                   html+= '<input type="checkbox" id="warehouse_id" name="warehouse_id[]" value="'+res['data'][i]['id']+'" /> '+res['data'][i]['name']+'<br/>'
                 }
                 document.getElementById('warehouse').innerHTML = html;
+              }else{
+                document.getElementById('warehouse').innerHTML = '';
               }
             }
         })

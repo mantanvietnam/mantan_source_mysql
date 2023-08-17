@@ -120,44 +120,47 @@ function addWarehouseUser($input)
 	    
 	    $infoUser = $session->read('infoUser');
 
-	    $data = $modelWarehouseUsers->newEmptyEntity();
+	    
 
 		if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
 
 	        if(!empty($dataSend['phone'])){
-	        	$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-				$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+	        	$listphone = explode(',',$dataSend['phone']);
+	        	foreach($listphone as $key => $phone){
+		        	$phone= str_replace(array(' ','.','-'), '', @$phone);
+					$phone= str_replace('+84','0',$phone);
 
-	    		$conditions = array('phone'=>$dataSend['phone']);
-	    		$info_customer = $modelMembers->find()->where($conditions)->first();
+		    		$conditions = array('phone'=>$phone);
+		    		$info_customer = $modelMembers->find()->where($conditions)->first();
 
-	    		if(!empty($info_customer)){
-	    			$conditions = array('user_id'=>$info_customer->id, 'warehouse_id'=>$dataSend['warehouse_id']);
-	    			$checkOrder = $modelWarehouseUsers->find()->where($conditions)->first();
+		    		if(!empty($info_customer)){
+		    			$conditions = array('user_id'=>$info_customer->id, 'warehouse_id'=>$dataSend['warehouse_id']);
+		    			$checkOrder = $modelWarehouseUsers->find()->where($conditions)->first();
+		    			if(empty($checkOrder)){
+		    				$data = $modelWarehouseUsers->newEmptyEntity();
+			    			$dataSend['price'] = (int) $dataSend['price'];
+			    			$dataSend['date_use'] = (int) $dataSend['date_use'];
 
-	    			if(empty($checkOrder)){
-		    			$dataSend['price'] = (int) $dataSend['price'];
-		    			$dataSend['date_use'] = (int) $dataSend['date_use'];
+		    				// tạo dữ liệu save
+					        $data->warehouse_id = (int) $dataSend['warehouse_id'];
+					        $data->user_id = @$info_customer->id;
+					        $data->designer_id = @$infoUser->id;
+					        $data->price = @$dataSend['price'];
+					        $data->created_at = date('Y-m-d H:i:s');
+					        $data->note = @$dataSend['note'];
+					        $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.$dataSend['date_use'].' days'));
+					        
+					        $modelWarehouseUsers->save($data);
 
-	    				// tạo dữ liệu save
-				        $data->warehouse_id = (int) $dataSend['warehouse_id'];
-				        $data->user_id = @$info_customer->id;
-				        $data->designer_id = @$infoUser->id;
-				        $data->price = @$dataSend['price'];
-				        $data->created_at = date('Y-m-d H:i:s');
-				        $data->note = @$dataSend['note'];
-				        $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.$dataSend['date_use'].' days'));
-				        
-				        $modelWarehouseUsers->save($data);
-
-				        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+					        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+					    }else{
+					    	$mess= '<p class="text-danger">Khách hàng này đã mua kho mẫu thiết kế của bạn</p>';
+					    }
 				    }else{
-				    	$mess= '<p class="text-danger">Khách hàng này đã mua kho mẫu thiết kế của bạn</p>';
+				    	$mess= '<p class="text-danger">Không tồn tại tài khoản khách hàng</p>';
 				    }
-			    }else{
-			    	$mess= '<p class="text-danger">Không tồn tại tài khoản khách hàng</p>';
-			    }
+				}
 		    }else{
 		    	$mess= '<p class="text-danger">Bạn chưa nhập tên kho mẫu thiết kế</p>';
 		    }
@@ -167,7 +170,7 @@ function addWarehouseUser($input)
 		$order = array('name'=>'asc');
 		$listWarehouses = $modelWarehouses->find()->where($conditions)->order($order)->all()->toList();
 
-	    setVariable('data', $data);
+	    setVariable('data', @$data);
 	    setVariable('mess', $mess);
 	    setVariable('listWarehouses', $listWarehouses);
 	}else{

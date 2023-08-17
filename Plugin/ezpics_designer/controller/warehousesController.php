@@ -179,9 +179,10 @@ function addWarehouse($input)
 	            }
 
 	            $data->slug = $slugNew;
-	            
-		        
+
 		        $modelWarehouses->save($data);
+
+		        
 
 		        if(empty($_GET['id'])){
 		        	// tự thêm tác giả vào kho
@@ -210,6 +211,7 @@ function addWarehouse($input)
 
 		            $data->link_open_app = @$deep_link->shortLink;
 		            $modelWarehouses->save($data);
+		            
 		            sendNotificationAdmin('64d1ca287026d948fbb45a74');
 		        }
 
