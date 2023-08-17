@@ -571,6 +571,9 @@ function getMyProductAPI($input)
 
 			if(!empty($infoUser)){
 				$conditions = array('user_id'=>$infoUser->id);
+				if(!empty($dataSend['type'])){
+					$conditions['type']= $dataSend['type'];
+				}
 				$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
 				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 				if($page<1) $page = 1;
