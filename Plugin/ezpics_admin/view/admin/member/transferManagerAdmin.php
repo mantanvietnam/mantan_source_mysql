@@ -18,15 +18,18 @@
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-phone">Tài khoản chuyển (*)</label>
-                  <input required type="text" class="form-control phone-mask" name="user_from" id="user_from" value="<?php echo @$data->name;?>" />
+                  <input required type="text" class="form-control phone-mask" name="user_from" id="user_from" value="" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-fullname">Tài khoản nhận (*)</label>
-                  <input type="text" required class="form-control" placeholder="" name="user_to" id="user_to" value="" />
+                  <input type="text" required class="form-control" oninput="getWarehouseByUser()" placeholder="" name="user_to" id="user_to" value="" />
                 </div>
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="basic-default-fullname">ID mẫu thiết kế</label>
                   <input type="text" class="form-control" placeholder="Nếu để trống thì chuyển đổi tất cả mẫu thiết kế !!!" name="id_product" id="id_product" value="" />
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div id="warehouse"></div>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
@@ -37,3 +40,30 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+  
+  function getWarehouseByUser(){
+      var user = document.getElementById("user_to").value;
+      
+        $.ajax({
+            method: 'POST',
+            url: '/apis/getWarehouseByUser',
+            data: { user: user },
+            success:function(res){
+              if(res['data']!=null){
+                html = '<label class="form-label" for="basic-default-fullname">Kho</label><br/>';
+                for(i=0;i<res['data'].length;i++){
+                 console.log(res['data'][i]['name']);
+                  html+= '<input type="checkbox" id="warehouse_id" name="warehouse_id[]" value="'+res['data'][i]['id']+'" /> '+res['data'][i]['name']+'<br/>'
+                }
+                document.getElementById('warehouse').innerHTML = html;
+              }
+            }
+        })
+
+        
+            
+    };
+
+</script>

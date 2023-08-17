@@ -482,6 +482,17 @@ function transferManagerAdmin($input){
 								$product->user_id = $userTo->id;
 								$modelProduct->save($product);
 								$so += 1; 
+								if(!empty($dataSend['warehouse_id'])){
+									foreach($dataSend['warehouse_id'] as $keyW => $warehouse_id){
+										$warehouse_products = $modelWarehouseProduct->newEmptyEntity();
+
+						        		$warehouse_products->warehouse_id = $warehouse_id;
+						        		$warehouse_products->product_id = $product->id;
+						        		$warehouse_products->user_id =  $userTo->id;
+
+						        		$modelWarehouseProduct->save($warehouse_products);
+									}
+								}
 
 							}
 						}
@@ -495,6 +506,17 @@ function transferManagerAdmin($input){
 								$item->user_id = $userTo->id;
 								$modelProduct->save($item);
 								$so += 1;
+								if(!empty($dataSend['warehouse_id'])){
+									foreach($dataSend['warehouse_id'] as $keyW => $warehouse_id){
+										$warehouse_products = $modelWarehouseProduct->newEmptyEntity();
+
+						        		$warehouse_products->warehouse_id = $warehouse_id;
+						        		$warehouse_products->product_id = $item->id;
+						        		$warehouse_products->user_id =  $userTo->id;
+
+						        		$modelWarehouseProduct->save($warehouse_products);
+									}
+								}
 							}
 							$mess = 'bạn chuyển được '.$so.' mẫu thành công ';
 						}
@@ -519,14 +541,15 @@ function getWarehouseByUser($input){
 	global $price_pro;
 
 	$modelMember = $controller->loadModel('Members');
-	$modelProduct = $controller->loadModel('Products');
 	$modelWarehouse = $controller->loadModel('Warehouses');
+
 	$return = array('code'=>0);
+
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$user =  $modelMember->find()->where(array('phone'=>$dataSend['user'],'type'=>1))->first();
 		if(!empty($user)){
-			$Warehouse =  $modelMember->find()->where(array('user_id'=>$dataSend['user'],'type'=>1))->all()->toList();
+			$Warehouse =  $modelWarehouse->find()->where(array('user_id'=>$user->id))->all()->toList();
 			if(!empty($Warehouse)){
 				$return = array('code'=>1, 'data'=>$Warehouse,'mess'=>'bạn lấy data thành công!');
 			}else{
