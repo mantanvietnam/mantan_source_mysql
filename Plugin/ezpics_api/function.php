@@ -919,7 +919,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         if($type=='user_create'){
             $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
             $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
-                                                'link'=>'https://ezpics.page.link/detailProduct?id='.$newproduct->id,
+                                                'link'=>'https://ezpics.page.link/detailProduct?id='.$newproduct->id.'&type='.$newproduct->type,
                                                 'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
                                                 'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
                                         ]
