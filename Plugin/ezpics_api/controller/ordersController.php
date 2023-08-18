@@ -425,7 +425,7 @@ function memberBuyProAPI($input){
 						$order->discount_id = $discountCode->id;
 					}
 					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý 
-					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
+					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
 					$order->meta_payment = 'Mua phiêu bản Pro';
 					$order->created_at = date('Y-m-d H:i:s');
 					$modelOrder->save($order);
