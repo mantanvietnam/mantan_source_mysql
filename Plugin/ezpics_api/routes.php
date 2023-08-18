@@ -51,6 +51,7 @@
 	$routesPlugin['searchProductAPI']= 'ezpics_api/view/searchProductAPI.php';
 	$routesPlugin['getSizeProductAPI']= 'ezpics_api/view/getSizeProductAPI.php';
 	$routesPlugin['listTrendProductAPI']= 'ezpics_api/view/listTrendProductAPI.php';
+	$routesPlugin['updateProductAPI']= 'ezpics_api/view/updateProductAPI.php';
 	
 	// sửa thiết kế 
 	$routesPlugin['edit-design']= 'ezpics_api/view/home/editDesign.php';

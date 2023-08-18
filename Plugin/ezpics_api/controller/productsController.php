@@ -387,6 +387,143 @@ function createProductAPI($input)
 	return 	$return;
 }
 
+function updateProductAPI($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $urlCreateImage;
+	global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
+	global $ftp_password_upload_image;
+
+	$return = array('code'=>0);
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['idProduct']) && !empty($dataSend['token'])){
+			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($infoUser)){
+				$product =  $modelProduct->find()->where(array('id'=>$dataSend['idProduct'],'user_id'=>$infoUser->id))->first();
+				if(!empty($product)){
+					if(!empty($dataSend['name'])){
+						$product->name = $dataSend['name'];
+					}
+					if(!empty($dataSend['price'])){
+						$product->price = (int) @$dataSend['price'];
+					}
+					if(!empty($dataSend['sale_price'])){
+						$product->sale_price = (int) @$dataSend['sale_price'];
+					}
+					if(!empty($dataSend['category_id'])){
+						$product->category_id = (int) @$dataSend['category_id'];
+					}
+
+					if(!empty($dataSend['status']) && @$dataSend['status']<2){
+
+						$product->status = (int) @$dataSend['status'];
+					}
+
+					if(!empty($dataSend['description']) && @$dataSend['description']<2){
+
+						$product->description = (int) @$dataSend['description'];
+					}
+
+					if(!empty($dataSend['warehouse_id'])){
+						$warehouse =  explode(',', @$dataSend['warehouse_id']);
+						$modelWarehouseProducts->deleteAll(array('product_id'=>$product->id));
+
+			        	foreach ($warehouse as $warehouse_id) {
+			        		$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$warehouse_id,'user_id'=>$infoUser->id))->first();
+			        		if(!empty($checkWarehouses)){
+				        		$warehouse_products = $modelWarehouseProducts->newEmptyEntity();
+
+				        		$warehouse_products->warehouse_id = $warehouse_id;
+				        		$warehouse_products->product_id = $product->id;
+				        		$warehouse_products->user_id = $infoUser->id;
+
+				        		$modelWarehouseProducts->save($warehouse_products);
+
+				        		$totalProducts = count($modelWarehouseProducts->find()->where(['warehouse_id'=>$warehouse_id])->all()->toList());
+				        		$listWarehouse = $modelWarehouses->get($warehouse_id);
+				        		$listWarehouse->number_product = $totalProducts;
+				        		$modelWarehouses->save($listWarehouse);
+			        		}
+			        	}
+					}
+					if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
+			            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
+			            if(!empty($background['linkOnline'])){
+			                $thumb = $background['linkOnline'];
+
+			                // lưu vào database file
+			                $dataFile = $modelManagerFile->newEmptyEntity();
+
+			                $dataFile->link = $background['linkOnline'];
+			                $dataFile->user_id = $infoUser->id;
+			                $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+			                $dataFile->created_at = date('Y-m-d H:i:s');
+
+			                $modelManagerFile->save($dataFile);
+
+			                $product->thumn = $thumb;
+			            }
+			        }
+			        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
+			            $thumbnail = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
+			            if(!empty($thumbnail['linkOnline'])){
+			                $thumbnails = $thumbnail['linkOnline'];
+
+			                // lưu vào database file
+			                $dataFile = $modelManagerFile->newEmptyEntity();
+
+			                $dataFile->link = $thumbnails;
+			                $dataFile->user_id = $infoUser->id;
+			                $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+			                $dataFile->created_at = date('Y-m-d H:i:s');
+
+			                $modelManagerFile->save($dataFile);
+
+			                $product->thumbnail = $thumbnails;
+			            }
+			        }
+
+
+			        $modelProduct->save($product);
+			        $return = array('code'=>1,
+							'mess'=>'bạn sửa thành công!'
+							);
+				}else{
+					$return = array('code'=>4,
+							'mess'=>'Sản phẩm này không tồn tại!'
+							);
+				}
+	        }else{
+	        	$return = array('code'=>3,
+							'mess'=>'Không tồn tại tài khoản người dùng'
+							);
+	        }
+		}else{
+			$return = array('code'=>2,
+							'mess'=>'Bạn chưa nhập tên mẫu thiết kế'
+							);
+		}
+	}
+
+	return 	$return;
+}
+
+
 function buyProductAPI($input)
 {
 	global $isRequestPost;
