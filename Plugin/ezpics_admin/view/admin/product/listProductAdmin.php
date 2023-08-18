@@ -58,6 +58,7 @@
             <select name="type" class="form-select color-dropdown">
               <option value="user_create" <?php if(!empty($_GET['type']) && $_GET['type']=='user_create') echo 'selected';?> >Mẫu gốc</option>
               <option value="user_edit" <?php if(!empty($_GET['type']) && $_GET['type']=='user_edit') echo 'selected';?> >Mẫu sao chép</option>
+              <option value="user_series" <?php if(!empty($_GET['type']) && $_GET['type']=='user_series') echo 'selected';?> >Mẫu in hàng loạt</option>
               <option value="" <?php if(isset($_GET['type']) && $_GET['type']=='') echo 'selected';?>>Tất cả</option>
             </select>
           </div>

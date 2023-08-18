@@ -239,6 +239,20 @@ $menus[0]['sub'][9]= array('title'=>'Mẫu câu hỏi',
 
 addMenuAdminMantan($menus);
 
+global $typeDiscount;
+
+$typeDiscount = ['kho'=>'kho',
+            'pro'=>'pro',
+            ];
+global $ftp_server_upload_image;
+global $ftp_username_upload_image;
+global $ftp_password_upload_image;
+global $ftp_password_upload_image;
+
+$ftp_server_upload_image = "171.244.16.76";
+$ftp_username_upload_image = "ezpics";
+$ftp_password_upload_image = "uImzVeNYgF";
+
 function sendNotification($data,$target){
     global $keyFirebase;
     $url = 'https://fcm.googleapis.com/fcm/send';
@@ -1063,9 +1077,7 @@ function sendEmailMinusMoney($email='', $fullName='', $coin= '', $note= '')
     }
 }
 
-global $typeDiscount;
 
-$typeDiscount = ['kho'=>'kho',
-            'pro'=>'pro',
-            ];
+
+
 ?>

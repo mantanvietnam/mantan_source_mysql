@@ -390,4 +390,131 @@ function addTrendWarehouseAdmin($input)
 	}	
 }
 
+function addWarehouseAdmin($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
+
+
+	$metaTitleMantan = 'Thông tin kho mẫu thiết kế';
+
+		$modelWarehouses = $controller->loadModel('Warehouses');
+		$modelManagerFile = $controller->loadModel('ManagerFile');
+		$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+		$modelMember = $controller->loadModel('Members');
+		$modelOrder = $controller->loadModel('Orders');
+
+		$mess= '';
+		if ($isRequestPost){
+	        $dataSend = $input['request']->getData();
+	        $user = $modelMember->find()->where(array('phone'=>$dataSend['user']))->first();
+
+	        if(!empty($user)){
+	        	if ($user->account_balance>$dataSend['price']){
+			        if(!empty($dataSend['name'])){
+			        	$data = $modelWarehouses->newEmptyEntity();
+			        	if(!empty($data->thumbnail)){
+			        		$thumbnail = $data->thumbnail;
+			        	}else{
+			        		$thumbnail = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+			        	}
+		        		
+			        	if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
+				            $thumbnail = uploadImageFTP($user->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
+				            if(!empty($thumbnail['linkOnline'])){
+				                $thumbnail = $thumbnail['linkOnline'];
+
+				                // lưu vào database file
+				                $dataFile = $modelManagerFile->newEmptyEntity();
+
+				                $dataFile->link = $thumbnail;
+				                $dataFile->user_id = $user->id;
+				                $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+				                $dataFile->created_at = date('Y-m-d H:i:s');
+
+				                $modelManagerFile->save($dataFile);
+				            }
+				        }
+
+				        // tạo dữ liệu save
+				        $data->name = $dataSend['name'];
+				        $data->user_id = $user->id;
+				        $data->price = (int) $dataSend['price'];
+				        $data->date_use = (int) $dataSend['date_use'];
+				        $data->thumbnail = $thumbnail;
+				        $data->link_open_app = '';
+				        $data->keyword = $dataSend['keyword'];
+				        $data->description = $dataSend['description'];
+				        $data->created_at = date('Y-m-d H:i:s');
+					    $data->views = 0;
+					    $data->status = 0;
+		            	$data->slug = createSlugMantan($dataSend['name']);
+		            	
+			        	$modelWarehouses->save($data);
+
+				       
+				        if($dataSend['price']>0){
+				        	$user->account_balance -= $dataSend['price'];
+				        	$modelMember->save($user);
+
+				        	$order = $modelOrder->newEmptyEntity();
+							$order->code = 'W'.time().$infoUser->id.rand(0,10000);
+							$order->member_id = $user->id;
+							$order->product_id = (int) $data->id; // id kho mẫu
+							$order->total = $price_warehouses;
+							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+							$order->type = 10; //0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
+							$order->meta_payment = 'Tạo kho mẫu thiết kế ID '.$data->id;
+							$order->created_at = date('Y-m-d H:i:s');
+							$modelOrder->save($order);
+						}
+
+			        	// tự thêm tác giả vào kho
+			        	$dataWarehouseUsers = $modelWarehouseUsers->newEmptyEntity();
+				        $dataWarehouseUsers->warehouse_id = (int) $data->id;
+				        $dataWarehouseUsers->user_id = $user->id;
+				        $dataWarehouseUsers->price = 0;
+				        $dataWarehouseUsers->created_at = date('Y-m-d H:i:s');
+				        $dataWarehouseUsers->note = '';
+					    $dataWarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +3650 days'));
+					    
+					        $modelWarehouseUsers->save($dataWarehouseUsers);	
+
+				        // tạo link deep
+				        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+			            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+			                                                'link'=>'https://ezpics.page.link/warehouse?id='.$data->id,
+			                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+			                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+			                                        ]
+			                        ];
+		            $header_deep = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		            $deep_link = json_decode($deep_link);
+		            $data->link_open_app = @$deep_link->shortLink;
+		            $modelWarehouses->save($data);
+				            
+
+			        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+			    }else{
+			    	$mess= '<p class="text-danger">Bạn chưa nhập tên kho mẫu thiết kế</p>';
+			    }
+			}
+		}else{
+			$mess= '<p class="text-danger">User này không tồi tại</p>';
+		}
+    }
+
+    setVariable('data', @$data);
+	setVariable('mess', $mess);
+	
+}
+
 ?>
