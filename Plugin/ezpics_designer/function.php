@@ -6,10 +6,13 @@ global $urlCreateImage;
 global $ftp_server_upload_image;
 global $ftp_username_upload_image;
 global $ftp_password_upload_image;
-
+global $ftp_password_upload_image;
+global $price_warehouses;
 $ftp_server_upload_image = "171.244.16.76";
 $ftp_username_upload_image = "ezpics";
 $ftp_password_upload_image = "uImzVeNYgF";
+
+$price_warehouses = 1000000;
 
 /*
 $ftp_server_upload_image = "13.215.88.179";

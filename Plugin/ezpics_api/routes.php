@@ -150,6 +150,7 @@
 	$routesPlugin['addWarehouseAPI']= 'ezpics_api/view/addWarehouseAPI.php';
 	$routesPlugin['getListWarehouseDesignerAPI']= 'ezpics_api/view/getListWarehouseDesignerAPI.php';
 	$routesPlugin['addUserWarehouseAPI']= 'ezpics_api/view/addUserWarehouseAPI.php';
+	$routesPlugin['addWarehouseLostMoneyAPI']= 'ezpics_api/view/addWarehouseLostMoneyAPI.php';
 
 	// thong ke 
 	

@@ -67,11 +67,12 @@
                     <label class="form-label">Từ khóa (*)</label>
                     <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword; ?>" />
                   </div>
-
+                  <?php if(@$_GET['type']!='user_series'){ ?>
                   <div class="mb-3">
                     <label class="form-label">Mô tả về mẫu thiết kế</label>
                     <textarea class="form-control" name="description" rows="5"><?php echo @$data->description; ?></textarea>
                   </div>
+                <?php } ?>
                 </div>
 
                 <div class="col-md-6">
@@ -84,7 +85,7 @@
                     <label class="form-label">Hình nền (*)</label>
                     <input type="file" name="background" value="<?php echo @$data->image; ?>" class="form-control" <?php if(empty($_GET)) echo 'required'; ?>>
                   </div>
-
+                  <?php if(@$_GET['type']!='user_series'){ ?>
                   <div class="mb-3">
                     <label class="form-label">Giá bán (*)</label>
                     <input type="number" min="0" max="99000" class="form-control phone-mask" name="sale_price" id="sale_price" value="<?php echo @$data->sale_price; ?>" required />
@@ -116,6 +117,12 @@
                       ?>
                     </div>
                   </div>
+                <?php }else{ ?>
+                    <div class="mb-3">
+                    <label class="form-label">Mô tả về mẫu thiết kế</label>
+                    <textarea class="form-control" name="description" rows="5"><?php echo @$data->description; ?></textarea>
+                  </div>
+                <?php } ?>
                 </div>
 
                 <!-- <div class="col-md-12">

@@ -76,7 +76,7 @@ function listWarehouse($input)
 
 	    $mess = '';
 	    if(@$_GET['mess']==1){
-	    	$mess = '<p class="text-success">Tài khoản của bạn không đủ tiền tạo kho</p>';
+	    	$mess = '<p class="text-success">Tài khoản của bạn không đủ tiền tạo kho!</p>';
 	    }
 
 	    setVariable('page', $page);
@@ -103,33 +103,32 @@ function addWarehouse($input)
     global $ftp_server_upload_image;
 	global $ftp_username_upload_image;
 	global $ftp_password_upload_image;
-	global $price_warehousesl;
+	global $price_warehouses;
 
     if(!empty($session->read('infoUser'))){
-    	$user = $session->read('infoUser');
-    	debug($user);
-    	die;
+
 	    $metaTitleMantan = 'Thông tin kho mẫu thiết kế';
 
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		$modelManagerFile = $controller->loadModel('ManagerFile');
 		$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+		$modelMember = $controller->loadModel('Members');
+		$modelOrder = $controller->loadModel('Orders');
 
 		$mess= '';
 
-		// lấy data edit
+		$infoUser = $session->read('infoUser');
 
+		// lấy data edit
 		if(!empty($_GET['id'])){
 			$data = $modelWarehouses->get($_GET['id']);
 		}else{
-			if($user->account_balance>$price_warehousesl){
+			if($infoUser->account_balance>$price_warehouses){
 				$data = $modelWarehouses->newEmptyEntity();
 			}else{
 				return $controller->redirect('/listWarehouse?mess=1');
 			}
 		}
-	    
-	    $infoUser = $session->read('infoUser');
 
 		if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
@@ -196,7 +195,24 @@ function addWarehouse($input)
 
 		        $modelWarehouses->save($data);
 
+		       
 		        if(empty($_GET['id'])){
+		        	$User = $modelMember->get($infoUser->id);
+		        	$User->account_balance -= $price_warehouses;
+		        	$modelMember->save($User);
+		        	$session->write('infoUser', $User);
+
+		        	$order = $modelOrder->newEmptyEntity();
+					$order->code = 'W'.time().$infoUser->id.rand(0,10000);
+					$order->member_id = $infoUser->id;
+					$order->product_id = (int) $data->id; // id kho mẫu
+					$order->total = $price_warehouses;
+					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+					$order->type = 10; //0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
+					$order->meta_payment = 'Tạo kho mẫu thiết kế ID '.$data->id;
+					$order->created_at = date('Y-m-d H:i:s');
+					$modelOrder->save($order);
+
 		        	// tự thêm tác giả vào kho
 		        	$dataWarehouseUsers = $modelWarehouseUsers->newEmptyEntity();
 			        $dataWarehouseUsers->warehouse_id = (int) $data->id;
