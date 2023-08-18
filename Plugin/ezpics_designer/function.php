@@ -20,8 +20,9 @@ $ftp_username_upload_image = "admin_apis";
 $ftp_password_upload_image = "sIu6v%OHwfmKxcx-";
 */
 
-//$urlCreateImage = 'http://14.225.238.137:3000/convert';
-$urlCreateImage = 'http://171.244.16.76:3000/convert';
+$urlsCreateImage = ['http://14.225.238.137:3000/convert','http://171.244.16.76:3000/convert'];
+$randIndex = array_rand($urlsCreateImage);
+$urlCreateImage = $urlsCreateImage[$randIndex];
 
 $menus= array();
 $menus[0]['title']= 'Ezpics';
