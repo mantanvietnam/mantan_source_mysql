@@ -427,14 +427,14 @@ function updateProductAPI($input)
 						$product->category_id = (int) @$dataSend['category_id'];
 					}
 
-					if(!empty($dataSend['status']) && @$dataSend['status']<2){
+					if(isset($dataSend['status']) && @$dataSend['status']<2){
 
 						$product->status = (int) @$dataSend['status'];
 					}
 
-					if(!empty($dataSend['description']) && @$dataSend['description']<2){
+					if(!empty($dataSend['description'])){
 
-						$product->description = (int) @$dataSend['description'];
+						$product->description = @$dataSend['description'];
 					}
 
 					if(!empty($dataSend['warehouse_id'])){
@@ -476,6 +476,7 @@ function updateProductAPI($input)
 			                $modelManagerFile->save($dataFile);
 
 			                $product->thumn = $thumb;
+			                $product->image = $thumb;
 			            }
 			        }
 			        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){

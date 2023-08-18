@@ -74,6 +74,11 @@ function listWarehouse($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    $mess = '';
+	    if(@$_GET['mess']==1){
+	    	$mess = '<p class="text-success">Tài khoản của bạn không đủ tiền tạo kho</p>';
+	    }
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
@@ -81,6 +86,7 @@ function listWarehouse($input)
 	    setVariable('urlPage', $urlPage);
 	    setVariable('totalData', $totalData);
 	    
+	    setVariable('mess', $mess);
 	    setVariable('listData', $listData);
 	}else{
 		return $controller->redirect('/login');
@@ -97,8 +103,12 @@ function addWarehouse($input)
     global $ftp_server_upload_image;
 	global $ftp_username_upload_image;
 	global $ftp_password_upload_image;
+	global $price_warehousesl;
 
     if(!empty($session->read('infoUser'))){
+    	$user = $session->read('infoUser');
+    	debug($user);
+    	die;
 	    $metaTitleMantan = 'Thông tin kho mẫu thiết kế';
 
 		$modelWarehouses = $controller->loadModel('Warehouses');
@@ -112,7 +122,11 @@ function addWarehouse($input)
 		if(!empty($_GET['id'])){
 			$data = $modelWarehouses->get($_GET['id']);
 		}else{
-			$data = $modelWarehouses->newEmptyEntity();
+			if($user->account_balance>$price_warehousesl){
+				$data = $modelWarehouses->newEmptyEntity();
+			}else{
+				return $controller->redirect('/listWarehouse?mess=1');
+			}
 		}
 	    
 	    $infoUser = $session->read('infoUser');
