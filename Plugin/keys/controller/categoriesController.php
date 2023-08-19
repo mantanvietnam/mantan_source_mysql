@@ -3,8 +3,11 @@ function listCategoryKey($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
+    global $controller;
 
     $metaTitleMantan = 'Danh sách ứng dụng';
+
+    $modelKeys = $controller->loadModel('Appkeys');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -46,6 +49,14 @@ function listCategoryKey($input){
 
     $conditions = array('type' => 'application_key');
     $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $listKeys = $modelKeys->find()->where(['id_category'=>$value->id])->all()->toList();
+
+            $listData[$key]->number_key = count($listKeys);
+        }
+    }
 
     setVariable('listData', $listData);
 }

@@ -76,6 +76,7 @@ function addKey($input)
 	global $isRequestPost;
 	global $modelCategories;
     global $metaTitleMantan;
+    global $session;
 
     $metaTitleMantan = 'Thông tin khóa';
 
@@ -93,22 +94,40 @@ function addKey($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['value'])){
-	        // tạo dữ liệu save
-	        $data->value = $dataSend['value'];
-            $data->id_category = (int) $dataSend['id_category'];
-            $data->status = $dataSend['status'];
-            $data->user = $dataSend['user'];
-            $data->pass = $dataSend['pass'];
+            $session->write('id_category_key', $dataSend['id_category']);
 
-            if(empty($data->used)) $data->used = 0;
-            if(empty($data->month)) $data->month = (int) date('m');
+            $conditions = ['value'=>trim($dataSend['value']), 'id_category'=>(int) $dataSend['id_category']];
 
-	        $modelKeys->save($data);
+            if(!empty($_GET['id'])){
+                $conditions['id !='] = (int) $_GET['id'];
+            }
 
-	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            $checkKey = $modelKeys->find()->where($conditions)->first();
+
+            if(empty($checkKey)){
+    	        // tạo dữ liệu save
+    	        $data->value = trim($dataSend['value']);
+                $data->id_category = (int) $dataSend['id_category'];
+                $data->status = $dataSend['status'];
+                $data->user = $dataSend['user'];
+                $data->pass = $dataSend['pass'];
+
+                if(empty($data->used)) $data->used = 0;
+                if(empty($data->month)) $data->month = (int) date('m');
+
+    	        $modelKeys->save($data);
+
+    	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Key đã tồn tại</p>';
+            }
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập key</p>';
 	    }
+    }
+
+    if(empty($data->id_category) && !empty($session->read('id_category_key'))){
+        $data->id_category = $session->read('id_category_key');
     }
 
     $conditions = array('type' => 'application_key');

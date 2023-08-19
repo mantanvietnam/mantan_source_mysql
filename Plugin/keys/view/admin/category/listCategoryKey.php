@@ -25,9 +25,12 @@
                       <?php 
                         if(!empty($listData)){
                           foreach ($listData as $item) {
+                            $number = $item->number_key*$item->description;
+                            $number = $item->number_key.' x '.$item->description.' = '.number_format($number);
+                            
                             echo '<tr>
                                     <td>'.$item->id.'</td>
-                                    <td>'.$item->name.'</td>
+                                    <td>'.$item->name.'<br/>'.$number.'</td>
                                     <td>'.$item->description.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
