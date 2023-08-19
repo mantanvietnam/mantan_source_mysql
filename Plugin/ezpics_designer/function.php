@@ -1,5 +1,4 @@
 <?php 
-
 require_once __DIR__ . '/lib/google/vendor/autoload.php';
 
 global $urlCreateImage;
@@ -20,9 +19,12 @@ $ftp_username_upload_image = "admin_apis";
 $ftp_password_upload_image = "sIu6v%OHwfmKxcx-";
 */
 
+/*
 $urlsCreateImage = ['http://14.225.238.137:3000/convert','http://171.244.16.76:3000/convert'];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
+*/
+$urlCreateImage = 'http://171.244.16.76:3000/convert';
 
 $menus= array();
 $menus[0]['title']= 'Ezpics';
@@ -253,5 +255,82 @@ function compressImageBase64($base64Image)
     }
 
     return false;
+}
+
+function screenshotProduct($url='', $width=1920, $height=1080)
+{
+    if(function_exists('getKey')){
+        $keyScreenshot = getKey(36);
+    }else{
+        $keyScreenshot = '';
+    }
+
+    if(!empty($keyScreenshot) && !empty($url)){
+        include('lib/guzzle/vendor/autoload.php');
+
+        $client = new GuzzleHttp\Client();
+        
+        $headers = [
+          'x-api-key' => $keyScreenshot,
+          'Content-Type' => 'application/json'
+        ];
+
+        $body = '{
+          "url": "'.$url.'",
+          "device": "desktop",
+          "fullPage": true,
+          "viewport": {
+                "width": '.$width.',
+                "height": '.$height.'
+            }
+        }';
+
+        $request = $client->post('https://api.siterelic.com/screenshot', [
+                        'headers' => $headers,
+                        'json' => json_decode($body, true), // Sử dụng 'json' để tự động thiết lập 'Content-Type: application/json'
+                    ]);
+        
+        $return = $request->getBody()->getContents();
+
+
+        $return = json_decode($return, true);
+
+        return @$return['data'];
+    }else{
+        return '';
+    }
+}
+
+function screenshotProduct2($url='', $width=1920, $height=1080)
+{
+    if(function_exists('getKey')){
+        $keyScreenshot = getKey(37);
+    }else{
+        $keyScreenshot = '';
+    }
+
+    if(!empty($keyScreenshot) && !empty($url)){
+        require_once __DIR__ . '/lib/screenshotmachine/vendor/screenshotmachine/screenshotmachine-php/ScreenshotMachine.php';
+
+        $secret_phrase = ""; //leave secret phrase empty, if not needed
+
+        $machine = new ScreenshotMachine($keyScreenshot, $secret_phrase);
+
+        //mandatory parameter
+
+        $options['url'] = $url;
+
+        // all next parameters are optional, see our website screenshot API guide for more details
+        $options['dimension'] = $width."x".$height;  // or "1366xfull" for full length screenshot
+        $options['device'] = "desktop";
+        $options['format'] = "png";
+        $options['cacheLimit'] = "0";
+        $options['delay'] = "200";
+        $options['zoom'] = "100";
+
+        return $machine->generate_screenshot_api_url($options);
+    }else{
+        return '';
+    }
 }
 ?>

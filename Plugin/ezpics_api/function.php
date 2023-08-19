@@ -11,9 +11,12 @@ global $urlCreateImage;
 global $price_pro;
 global $price_warehouses;
 
+/*
 $urlsCreateImage = ['http://14.225.238.137:3000/convert','http://171.244.16.76:3000/convert'];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
+*/
+$urlCreateImage = 'http://171.244.16.76:3000/convert';
 
 $number_bank = '06931228668';
 $name_bank = 'Tiên Phong Bank (TPB)';
@@ -46,6 +49,14 @@ function createToken($length=30)
 
 function removeBackground($link_image_local='',$create_new= false)
 {
+    $linkImage = removeBackgroundRemoveBG($link_image_local, $create_new);
+    //$linkImage = removeBackgroundPhotoroom($link_image_local, $create_new);
+
+    return $linkImage;
+}
+
+function removeBackgroundRemoveBG($link_image_local='',$create_new= false)
+{
     if(!empty($link_image_local)){
         if(function_exists('getKey')){
             $key_remove_bg = getKey(23);
@@ -74,6 +85,47 @@ function removeBackground($link_image_local='',$create_new= false)
                 ],
                 'headers' => [
                     'X-Api-Key' => $key_remove_bg
+                ]
+            ]);
+
+            if($create_new){
+                $link = explode('.', $link_image_local);
+                $n = count($link)-1;
+                $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.'.$link[$n];
+            }
+
+            $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");
+            
+            fwrite($fp, $res->getBody());
+            fclose($fp);
+        }
+    }
+
+    return $link_image_local;
+}
+
+function removeBackgroundPhotoroom($link_image_local='',$create_new= false)
+{
+    if(!empty($link_image_local)){
+        if(function_exists('getKey')){
+            $key_remove_bg = getKey(38);
+        }else{
+            $key_remove_bg = '';
+        }
+        
+        if(!empty($key_remove_bg)){
+            include('library/guzzle/vendor/autoload.php');
+
+            $client = new GuzzleHttp\Client();
+            $res = $client->post('https://sdk.photoroom.com/v1/segment', [
+                'multipart' => [
+                    [
+                        'name'     => 'image_file',
+                        'contents' => fopen(__DIR__.'/../../'.$link_image_local, 'r')
+                    ]
+                ],
+                'headers' => [
+                    'x-api-key' => $key_remove_bg
                 ]
             ]);
 
@@ -1055,6 +1107,50 @@ function exportImageThumb($id = 0)
         }
     }else{
         return ['error' => 'Gửi thiếu ID sản phẩm'];
+    }
+}
+
+function screenshotProduct($url='', $width=1920, $height=1080)
+{
+    if(function_exists('getKey')){
+        $keyScreenshot = getKey(36);
+    }else{
+        $keyScreenshot = '';
+    }
+
+    if(!empty($keyScreenshot) && !empty($url)){
+        include('lib/guzzle/vendor/autoload.php');
+
+        $client = new GuzzleHttp\Client();
+        
+        $headers = [
+          'x-api-key' => $keyScreenshot,
+          'Content-Type' => 'application/json'
+        ];
+
+        $body = '{
+          "url": "'.$url.'",
+          "device": "desktop",
+          "fullPage": true,
+          "viewport": {
+                "width": '.$width.',
+                "height": '.$height.'
+            }
+        }';
+
+        $request = $client->post('https://api.siterelic.com/screenshot', [
+                        'headers' => $headers,
+                        'json' => json_decode($body, true), // Sử dụng 'json' để tự động thiết lập 'Content-Type: application/json'
+                    ]);
+        
+        $return = $request->getBody()->getContents();
+
+
+        $return = json_decode($return, true);
+
+        return @$return['data'];
+    }else{
+        return '';
     }
 }
 ?>

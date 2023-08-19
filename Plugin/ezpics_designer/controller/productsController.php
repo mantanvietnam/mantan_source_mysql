@@ -792,9 +792,17 @@ function createImageSeries($input)
 	        	$height = $product->height;
 	        }
         	
+        	// dùng tool xuất ảnh tự code
 			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
-		
-	        $dataImage = sendDataConnectMantan($url);
+			$dataImage = sendDataConnectMantan($url);
+
+	        // dùng siterelic api
+			// $urlImage = screenshotProduct($urlThumb, $width, $height);
+			// $dataImage = base64_encode(file_get_contents($urlImage));
+
+			// dùng screenshotmachine api
+			//$urlImage = screenshotProduct2($urlThumb, $width, $height);
+			//$dataImage = base64_encode(file_get_contents($urlImage));
 
 	        // xóa ảnh người dùng up lên sau khi chụp xong
 	        if(!empty($listRemoveImage)){
@@ -871,10 +879,14 @@ function addDataSeries($input)
 			                        	$urlThumb .= '&'.$content['variable'].'='.$row[$number];
 			                        }
 			                    }
-			                   
+			                   	
+			                   	// dùng tool tự code
 			                    $urlExportImage = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
-
 			                    $dataImage = sendDataConnectMantan($urlExportImage);
+
+			                    // dùng screenshotProduct api
+			                    //$urlImage = screenshotProduct($urlThumb, $product->width, $product->height);
+								//$dataImage = base64_encode(file_get_contents($urlImage));
 
 			                    //$listDataImage[] = compressImageBase64($dataImage);
 			                    $listDataImage[] = $dataImage;

@@ -35,13 +35,13 @@ function getKey($id_application)
 			$conditions['used <'] = (int) $app->description;
 		}
 
-		$key = $modelKeys->find()->where($conditions)->first();
+		$key = $modelKeys->find()->where($conditions)->order('RAND()')->limit(1)->first();
 		
 		// tìm thêm tháng khác
 		if(empty($key)){
 			$conditions = ['id_category'=>$id_application, 'month !='=>$month, 'status'=>'active'];
 
-			$key = $modelKeys->find()->where($conditions)->first();
+			$key = $modelKeys->find()->where($conditions)->order('RAND()')->limit(1)->first();
 		}
 
 		if(!empty($key)){
