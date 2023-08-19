@@ -2,7 +2,8 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Kho mẫu thiết kế</h4>
-  <p><a href="/addWarehouse" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a  onclick="return confirm('Phí tạo kho là 1.000.000 đ bạn muốn tạo không ?');" class="btn btn-primary" href="/addWarehouse"><i class='bx bx-plus'></i> Thêm mới</a>
+  </p>
 
   <!-- Form Search -->
   <form method="get" action="">
