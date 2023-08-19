@@ -937,7 +937,7 @@ strong{
 }
 
 #section-home-intro .home-intro-content .home-intro-view a:hover{
-    background-color: #057a73;
+    background-color: #ecf3f3;
     transition: all 0.5s linear;
 }
 
@@ -1828,6 +1828,7 @@ strong{
 
 #section-contact-content{
     margin: 30px 0;
+    padding-bottom: 30px
 }
 
 
@@ -4374,8 +4375,10 @@ cursor: not-allowed;
 
 
 /* bo sung */
+
+
 .pagination .page-item.active>.page-link{
-    background-color: #034440;
+    background-color: #4c5858;
     color: #fff;
 }
 
@@ -4388,7 +4391,9 @@ cursor: not-allowed;
 }
 
 
-/* bổ sung */
+/* bổ sung thay ddooir background */
+
+
 #section-reason .reason-content .reason-content-sub p{
     color: #fff;
 }
@@ -4406,11 +4411,11 @@ main{
 }
 
 .section-title:after{
-    color: #fff;
+    background-color: #fff;
 }
 
 .section-title:before{
-    color: #fff;
+    background-color: #fff;
 }
 
 #section-reason .reason-content .reason-content-title h3{
@@ -4445,4 +4450,19 @@ main{
 
 #section-newsletter .section-title p{
      color: #fff;
+}
+
+#section-detailPack{
+    background-color: #034440;
+}
+
+#section-news-post{
+    background-color: #034440;
+
+}
+
+#section-newsletter .form-group .newsletter-button{
+    background-color: #efe7e7;
+    color: #034440;
+    
 }
