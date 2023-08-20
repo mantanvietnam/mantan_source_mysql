@@ -1,6 +1,65 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Quản lý khóa</h4>
   <p><a href="/plugins/admin/keys-view-admin-key-addKey.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
+  <!-- Form Search -->
+  <form method="get" action="">
+    <div class="card mb-4">
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <div class="card-body">
+        <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Giá trị khóa</label>
+            <input type="text" class="form-control" name="value" value="<?php if(!empty($_GET['value'])) echo $_GET['value'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Tài khoản</label>
+            <input type="text" class="form-control" name="user" value="<?php if(!empty($_GET['user'])) echo $_GET['user'];?>">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Loại khóa</label>
+            <select name="id_category" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php
+              if(!empty($listCategory)){
+                foreach ($listCategory as $key => $value) {
+                  if(empty($_GET['id_category']) || $_GET['id_category']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="" >Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary d-block">Lọc</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--/ Form Search -->
+
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách khóa</h5>
@@ -30,7 +89,7 @@
 
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.$item->value.'</td>
+                        <td>'.$item->value.'<br/>User: '.$item->user.'</td>
                         <td>'.$item->name_category.'</td>
                         <td>'.$used.'</td>
                         <td>'.$item->status.'</td>

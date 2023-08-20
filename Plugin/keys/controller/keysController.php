@@ -15,6 +15,26 @@ function listKey($input)
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    if(!empty($_GET['value'])){
+        $conditions['value'] = trim($_GET['value']);
+    }
+
+    if(!empty($_GET['user'])){
+        $conditions['user'] = trim($_GET['user']);
+    }
+
+    if(!empty($_GET['id_category'])){
+        $conditions['id_category'] = (int) $_GET['id_category'];
+    }
+
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
     
     $listData = $modelKeys->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -61,6 +81,9 @@ function listKey($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type' => 'application_key');
+    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -68,6 +91,7 @@ function listKey($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('listCategory', $listCategory);
 }
 
 function addKey($input)

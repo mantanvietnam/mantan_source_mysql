@@ -52,7 +52,7 @@ function listCategoryKey($input){
 
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
-            $listKeys = $modelKeys->find()->where(['id_category'=>$value->id])->all()->toList();
+            $listKeys = $modelKeys->find()->where(['id_category'=>$value->id, 'status'=>'active'])->all()->toList();
 
             $listData[$key]->number_key = count($listKeys);
         }

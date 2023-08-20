@@ -49,8 +49,8 @@ function createToken($length=30)
 
 function removeBackground($link_image_local='',$create_new= false)
 {
-    $linkImage = removeBackgroundRemoveBG($link_image_local, $create_new);
-    //$linkImage = removeBackgroundPhotoroom($link_image_local, $create_new);
+    //$linkImage = removeBackgroundRemoveBG($link_image_local, $create_new);
+    $linkImage = removeBackgroundPhotoroom($link_image_local, $create_new);
 
     return $linkImage;
 }
