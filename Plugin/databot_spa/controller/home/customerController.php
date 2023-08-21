@@ -39,10 +39,48 @@ function listCustomer($input)
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
-	    $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    
 
 	    $totalData = $modelCustomer->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
+
+	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+
+    	$titleExcel = 	[
+							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
+							['name'=>'giới tính', 'type'=>'text', 'width'=>15],
+							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
+							['name'=>'Email', 'type'=>'text', 'width'=>35],
+							['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
+							['name'=>'địa chỉ', 'type'=>'text', 'width'=>35],
+						];
+
+		$dataExcel = [];
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$sex = 'Nữ';
+				if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
+
+				$status = 'Kích hoạt';
+				if(empty($value->status)) $status = 'Khóa';
+				if(!empty($value->type) && $value->type==1) $type = 'Designer';
+
+				$dataExcel[] = [
+								$value->name, 
+								$sex,
+								$value->phone, 
+								$value->email, 
+								$value->cmnd,  
+								$value->address,  
+							];
+			}
+		}
+
+		export_excel($titleExcel, $dataExcel);
+    }else{
+    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
 
 	    $balance = $totalData % $limit;
 	    $totalPage = ($totalData - $balance) / $limit;
