@@ -133,7 +133,8 @@ function changePass($input)
 						
 						$modelMembers->save($user);
 
-						$session->write('infoUser', $user);
+						 $session->write('infoUser', $user);
+						 return $controller->redirect('/managerSelectSpa');
 
 						$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
 					}else{

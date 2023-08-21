@@ -49,7 +49,7 @@
               <th>Tên nhóm nhân viên</th>
               <th>Nội dung</th>
               <th>Sửa</th>
-               <th>Khóa</th> 
+               <th>Xóa</th> 
             </tr>
           </thead>
           <tbody>

@@ -172,6 +172,74 @@ function addSaff($input){
 	}
 }
 
+function lockSaff($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhóm nhân viên';
+
+    $modelMember = $controller->loadModel('Members');
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		if(!empty($_GET['id'])){
+		$data = $modelMember->get($_GET['id']);
+		
+			if($data){
+				if(isset($_GET['status'])){
+					$data->status = $_GET['status'];
+				
+	         	$modelMember->save($data);
+	         	return $controller->redirect('/listSaff');
+	        	}
+			}
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function changePassSaff($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhóm nhân viên';
+
+    $modelMember = $controller->loadModel('Members');
+	
+	$mess = '';
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		if(!empty($_GET['id'])){
+		$data = $modelMember->get($_GET['id']);
+		
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			$data->password= md5($dataSend['passNew']);
+         	$modelMember->save($data);
+         	return $controller->redirect('/listSaff');
+        }
+
+        setVariable('data', $data);
+	    setVariable('mess', $mess);
+	}
+
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
 function listGroupSaff(){
 	global $isRequestPost;
     global $modelCategories;
@@ -285,8 +353,6 @@ function addGroupSaff($input){
 
 		if($isRequestPost) {
 	        $dataSend = $input['request']->getData();
-
-
 
 	        if(!empty($dataSend['name'])){
 	        	// tạo dữ liệu save
