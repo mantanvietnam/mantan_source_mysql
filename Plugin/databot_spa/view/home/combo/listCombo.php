@@ -15,12 +15,22 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Combo liệu trình</label>
+            <label class="form-label">Tên gói combo</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="" >Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+            <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
         </div>
       </div>
@@ -41,7 +51,8 @@
               <th>Tên combo</th>
               <th>Sản phẩm và dịch vụ </th>
               <th>Số lượng</th>
-              <th>giá</th>
+              <th>Giá bán</th>
+              <th>Hoa hồng</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -50,6 +61,11 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  if(!empty($item->commission_staff_fix)){
+                    $staff = number_format($item->commission_staff_fix).'đ';
+                  }else{
+                    $staff = $item->commission_staff_percent.'%';
+                  }
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
@@ -59,13 +75,13 @@
                           if(!empty($item->product)){
                             echo '<b>Sản phẩm:</b><br/>';
                             foreach($item->product as $product){
-                               echo '&ensp; '.$product->name.' số lượng '.$product->quantityCombo.'<br/>';
+                               echo '&nbsp; '.$product->name.' số lượng '.$product->quantityCombo.'<br/>';
                             }
                           }
                           if(!empty($item->service)){
                             echo '<b>Dịch vụ:</b><br/>';
                             foreach($item->service as $service){
-                               echo '&ensp; '.$service->name.' số lượng '.$service->quantityCombo.'<br/>';
+                               echo '&nbsp; '.$service->name.' số lần '.$service->quantityCombo.'<br/>';
                             }
                           }
 
@@ -73,15 +89,16 @@
 
                     echo      '</td>
 
-                          <td>'.$item->quantity.'</td>
-                          <td>'.$item->price.'</td>
+                          <td>'.number_format($item->quantity).'</td>
+                          <td>'.number_format($item->price).'</td>
+                          <td>'.$staff.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addCombo/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCombo/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa gói combo không?\');" href="/deleteCombo/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -89,7 +106,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có khách hàng</td>
+                        <td colspan="10" align="center">Chưa có gói combo nào</td>
                       </tr>';
               }
             ?>
