@@ -1100,6 +1100,7 @@ function detailProductSeriesAPI($input)
 
 function createImageSeriesAPI($input)
 {
+	global $isRequestPost;
 	global $controller;
 	global $urlCreateImage;
 	global $ftp_server_upload_image;
@@ -1111,98 +1112,77 @@ function createImageSeriesAPI($input)
 	$modelProductDetail = $controller->loadModel('ProductDetails');
 
 	$dataImage = '';
-	
-	if(!empty($_REQUEST['id'])){
-		$id = (int) $_REQUEST['id'];
+	$return = array('code'=>0);
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['idProduct'])){
+			$id = (int) $dataSend['idProduct'];
 
-		$product = $modelProduct->find()->where(['id'=>$id])->first();
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
 
-		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
-			$product->export_image ++;
-			$modelProduct->save($product);
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				$product->export_image ++;
+				$modelProduct->save($product);
 
-			$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
+				$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
 
-			$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
 
-			$listRemoveImage = [];
-			if(!empty($listLayer)){
-        		foreach ($listLayer as $layer) {
-        			$content = json_decode($layer->content, true);
+				$listRemoveImage = [];
+				if(!empty($listLayer)){
+	        		foreach ($listLayer as $layer) {
+	        			$content = json_decode($layer->content, true);
 
-        			if(!empty($content['variable'])){
-        				if(!empty($_REQUEST[$content['variable']])){
-    						$urlThumb .= '&'.$content['variable'].'='.$_REQUEST[$content['variable']];
-    					}
+	        			if(!empty($content['variable'])){
+	        				if(!empty($dataSend[$content['variable']]) && $content['type'] == 'text'){
+	    						 $urlThumb .= '&'.$content['variable'].'='.$dataSend[$content['variable']];
+	    					}
 
-        				if($content['type'] == 'image'){
-        					if(isset($_FILES[$content['variable']]) && empty($_FILES[$content['variable']]["error"])){
-					            $image = uploadImageFTP($product->user_id, $content['variable'], $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+	        				if($content['type'] == 'image'){
+	        					if(isset($_FILES[$content['variable']]) && empty($_FILES[$content['variable']]["error"])){
+						            $image = uploadImage($product->id, $content['variable']);
+						            if(!empty($image['linkOnline'])){
+						            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
 
-					            if(!empty($image['linkOnline'])){
-					            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
-
-					            	$listRemoveImage[] = '/public_html/'.@$image['linkLocal'];
-					            }
-					        }
-        				}
-        			}
-        		}
-        	}
-
-        	if(!empty($_GET['id'])){
-        		$max = 1500;
-	        	if($product->width<=$max && $product->height<=$max){
-	        		$width = $product->width;
-	        		$height = $product->height;
-	        	}else{
-	        		if($product->width > $product->height){
-	        			$width = $max;
-	        			$tyle = $width/$product->width;
-	        			$height = round($tyle*$product->height);
-	        		}else{
-	        			$height = $max;
-	        			$tyle = $height/$product->height;
-	        			$width = round($tyle*$product->width);
+						            	$listRemoveImage[] = @$image['linkLocal'];
+						            }
+						        }
+	        				}
+	        			}
 	        		}
 	        	}
-	        }else{
-	        	$width = $product->width;
-	        	$height = $product->height;
-	        }
-        	
-			$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$width.'&height='.$height;
-		
-	        $dataImage = sendDataConnectMantan($url);
+	        	
+				$url = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
+			
+		        $dataImage = sendDataConnectMantan($url);
 
-	        // xóa ảnh người dùng up lên sau khi chụp xong
-	        if(!empty($listRemoveImage)){
-	        	foreach ($listRemoveImage as $item) {
-	        		removeFileFTP($item, $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image);
-	        	}
-	        }
+		        // xóa ảnh người dùng up lên sau khi chụp xong
+		        if(!empty($listRemoveImage)){
+		        	foreach ($listRemoveImage as $item) {
 
-	        if(!empty($_GET['id'])){ 
-	        	//$dataImage = compressImageBase64($dataImage);
+		        		removeFile($item);
+		        	}
+		        }
 
-	        	// Giải mã dữ liệu base64
-				$imageData = base64_decode($dataImage);
+			    $data = array();
+				$data['dataImage'] = $dataImage;
+				$data['id'] = $id;
+				$data['slug'] = $product->slug;
 
-				// Kiểm tra nếu dữ liệu ảnh hợp lệ
-				if ($imageData !== false) {
-					header('Content-Type: image/png');
-					echo $imageData;
-					$controller->autoRender = false;
-				}
-	        }
+				$return = array('code'=>1,
+								'data' => $data,
+						'mess'=>'Bạn lấy data thành công');
+			}else{
+				$return = array('code'=>2,
+						'mess'=>'Không tìm thấy sản phẩm này');
+			}
+		}else{
+			$return = array('code'=>3,
+						'mess'=>'bạn chuyền thiếu dữ liệu');
 		}
-		
-		setVariable('dataImage', $dataImage);
-		setVariable('id', $id);
-		setVariable('slug', $product->slug);
-	}else{
-		return $controller->redirect('https://ezpics.vn');
 	}
+	return $return;
+
 }
 
 function updateInfoProductAPI($input)
