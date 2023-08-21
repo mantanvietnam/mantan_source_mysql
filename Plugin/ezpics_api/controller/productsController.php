@@ -1040,13 +1040,12 @@ function detailProductSeriesAPI($input)
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-	
 		if(!empty($dataSend['idProduct'])){
-			
+			$product = $modelProduct->find()->where(array('id'=>(int)$dataSend['idProduct']))->first();
 
-			$product = $modelProduct->find()->where(['id'=>$dataSend['idProduct']])->first();
 
 			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+
 				$product->views ++;
 				$modelProduct->save($product);
 
@@ -1066,13 +1065,15 @@ function detailProductSeriesAPI($input)
 				$urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id;
 
                 if(!empty($listLayer)){
-                    foreach ($listLayer as $layer) {
+                    foreach ($listLayer as $key => $layer) {
                         $content = json_decode($layer->content, true);
                         if(!empty($content['variable']) && !empty($content['variableLabel'])){
                             $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
                         }
+                        $listLayer[$key]['content'] = $content;
                     }
                 }
+
                 $data = array();
 				$data['product'] = $product;
 				$data['user'] = $user;
@@ -1092,6 +1093,7 @@ function detailProductSeriesAPI($input)
 					'mess'=>'thiếu dữ liệu');
 		}
 	}
+
 
 	return $return;
 }
