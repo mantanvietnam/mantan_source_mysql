@@ -17,17 +17,15 @@
             <p><?php echo @$mess;?></p>
             <?= $this->Form->create(); ?>
               <div class="row">
-                <div class="col-md-12">
-                  <div class="mb-3">
+                  <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-phone">Tên nhóm nhân viên (*)</label>
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung</label>
-                    <textarea class="form-control" name="note"><?php echo @$data->note;?></textarea>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="basic-default-fullname">keyword</label>
+                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword;?>" />
                   </div>
                 </div>
-              </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>
           </div>

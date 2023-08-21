@@ -47,7 +47,6 @@
             <tr class="">
               <th>ID</th>
               <th>Tên nhóm nhân viên</th>
-              <th>Nội dung</th>
               <th>Sửa</th>
                <th>Xóa</th> 
             </tr>
@@ -59,7 +58,6 @@
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.' </td>
-                          <td>'.$item->note.' </td>
                           <td align="center">
                             <a class="dropdown-item" href="/addGroupSaff?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
@@ -73,7 +71,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có nhân viên</td>
+                        <td colspan="10" align="center">Chưa có nhóm nhân viên</td>
                       </tr>';
               }
             ?>

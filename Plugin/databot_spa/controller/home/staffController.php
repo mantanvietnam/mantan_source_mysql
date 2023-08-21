@@ -265,20 +265,22 @@ function listGroupSaff(){
 
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
+
+		$conditions = array('type' => 'category_member', 'id_member'=>$infoUser->id_member);
 		
 		if(!empty($_GET['id'])){
 			$conditions['id'] = (int) $_GET['id'];
 		}
 
-	
+		
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 	    
-	    $listData = $modelMemberGroup->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    $listData = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-	    $totalData = $modelMemberGroup->find()->where($conditions)->all()->toList();
+	    $totalData = $modelCategories->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
@@ -343,9 +345,9 @@ function addGroupSaff($input){
 
 		// lấy data edit
 	    if(!empty($_GET['id'])){
-	        $data = $modelMemberGroup->get( (int) $_GET['id']);
+	        $data = $modelCategories->get( (int) $_GET['id']);
 	    }else{
-	        $data = $modelMemberGroup->newEmptyEntity();
+	        $data = $modelCategories->newEmptyEntity();
 	        $data->created_at = date('Y-m-d H:i:s');
 	    }
 
@@ -357,11 +359,13 @@ function addGroupSaff($input){
 	        if(!empty($dataSend['name'])){
 	        	// tạo dữ liệu save
 			    $data->name = @$dataSend['name'];
-			    $data->note = @$dataSend['note'];
+			    $data->type = 'category_member';
+			    $data->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+			    $data->slug = createSlugMantan($data->name).'-'.time();
 			    $data->id_member = $infoUser->id_member;
 
 			    
-			    $modelMemberGroup->save($data);
+			    $modelCategories->save($data);
 
 			    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 			    
@@ -387,10 +391,6 @@ function deteleGroupSaff($input){
     global $urlCurrent;
 
     $metaTitleMantan = 'Thông tin Nhóm nhân viên';
-
-    $modelMembers = $controller->loadModel('Members');
-	$modelSpas = $controller->loadModel('Spas');
-	$modelMemberGroup = $controller->loadModel('MemberGroups');
 	
 	if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
@@ -398,10 +398,10 @@ function deteleGroupSaff($input){
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             
-            $data = $modelMemberGroup->find()->where($conditions)->first();
+            $data = $modelCategories->find()->where($conditions)->first();
             
             if(!empty($data)){
-                $modelMemberGroup->delete($data);
+                $modelCategories->delete($data);
                 return $controller->redirect('/listGroupSaff');
             }
         }
