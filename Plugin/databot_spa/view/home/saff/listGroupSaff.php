@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Nhân viên</h4>
-  <p><a href="/addSaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Nhóm nhân viên</h4>
+  <p><a href="/addGroupSaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -15,28 +15,10 @@
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Họ tên</label>
+            <label class="form-label">Tên nhóm</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
-          <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select class="form-select" name="status" id="status">
-              <option value="">Tất cả</option>
-              <option value="1" <?php if(isset($_GET['status']) && $_GET['status']=='1') echo 'selected'; ?> >Kích hoạt</option>
-              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected'; ?> >Khóa</option>
-            </select>
-          </div>
           
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
@@ -52,7 +34,7 @@
   <div class="card">
     <div class="row">
       <div class="col-md-6">
-        <h5 class="card-header">Danh sách nhân viên</h5>
+        <h5 class="card-header">Danh sách nhóm nhân viên</h5>
       </div>
      
     </div>
@@ -64,45 +46,27 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Tên nhân viên</th>
-              <th>Số điện thoại</th>
-              <th>Email</th>
-              <th>Trạng thái</th>
-              <th>Đổi mật khẩu</th>
+              <th>Tên nhóm nhân viên</th>
+              <th>Nội dung</th>
               <th>Sửa</th>
-              <th>Khóa</th>
+               <th>Khóa</th> 
             </tr>
           </thead>
           <tbody>
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-
-                  $status = 'Kích hoạt <br/>';
-                  if($item->status==0){
-                    $status = 'Khóa';
-                  }
-
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.' </td>
-                          <td>'.$item->phone.'</td>
-                          <td>'.$item->email.'</td>
-                          <td>'.$status.'</td>
-                         
+                          <td>'.$item->note.' </td>
                           <td align="center">
-                            <a class="dropdown-item" href="/changePassSaff?id='.$item->id.'">
-                              <i class="bx bx-lock-open"></i>
-                            </a>
-                          </td>
-
-                          <td align="center">
-                            <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
+                            <a class="dropdown-item" href="/addGroupSaff?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
 
-                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockSaff?id='.$item->id.'">
+                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhóm nhân viên này không?\');" href="/deteleGroupSaff?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a></td>
                         </tr>';

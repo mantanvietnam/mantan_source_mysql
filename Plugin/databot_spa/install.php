@@ -215,6 +215,13 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `id_spa` int(11) NOT NULL
 ) ENGINE=InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `member_groups` (
+  `id` INT(11) NOT NULL, 
+  `name`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `note`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+  `id_member` INT(11) NOT NULL,
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -229,6 +236,7 @@ $sqlDeleteDatabase .= "DROP TABLE services; ";
 $sqlDeleteDatabase .= "DROP TABLE spas; ";
 $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
+$sqlDeleteDatabase .= "DROP TABLE member_groups; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";
