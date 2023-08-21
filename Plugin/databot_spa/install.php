@@ -41,15 +41,17 @@ $sqlInstallDatabase .= "CREATE TABLE `combos` (
   `service` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `discount` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_price` int(11) DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` VARCHAR(20) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
-  `id_spa` int(11) NOT NULL
+  `id_spa` int(11) NOT NULL,
+  `commission_staff_fix` INT NOT NULL DEFAULT '0',
+  `commission_staff_percent` INT NOT NULL DEFAULT '0',
+  `use_time` INT NOT NULL DEFAULT '0',
+  `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `customers` (
