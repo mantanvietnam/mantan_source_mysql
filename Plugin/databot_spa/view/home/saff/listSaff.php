@@ -97,7 +97,7 @@
                          
                           <td align="center">
                             <a class="dropdown-item" href="/changePassSaff?id='.$item->id.'">
-                              <i class="bx bx-loader"></i>
+                              <i class="bx bx-transfer"></i>
                             </a>
                           </td>
 

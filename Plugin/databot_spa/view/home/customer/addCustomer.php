@@ -8,6 +8,7 @@
   </h4>
 
   <!-- Basic Layout -->
+  <?= $this->Form->create(); ?>
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
@@ -15,8 +16,8 @@
             <h5 class="mb-0">Thông tin khách hàng</h5>
           </div>
           <div class="card-body">
-            <p><?php echo $mess;?></p>
-            <?= $this->Form->create(); ?>
+              <p><?php echo $mess;?></p>
+            
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -112,8 +113,16 @@
                       </select>
                     </div>
                   </div>
+                </div>
               </div>
-              <h5 class="mb-0" style="padding-top: 30px;">Thông tin bệnh lý</h5>
+          </div>
+
+          <hr/>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Thông tin bệnh lý</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Tiền sử bệnh lý đang mắc</label>
@@ -153,12 +162,13 @@
                 </div>
               </div>
               <button type="submit" style=" width: 70px; " class="btn btn-primary">Lưu</button>
-            <?= $this->Form->end() ?>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
+  <?= $this->Form->end() ?>
 </div>
 <style type="text/css">
   .datepicker-dropdown .table-condensed{
@@ -172,6 +182,6 @@
         dateFormat: "dd/mm/yy"
       });
     } );
-    </script>
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>
