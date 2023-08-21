@@ -1,28 +1,43 @@
+
+<?php 
+    global $settingThemes;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    // foreach($album_photo as $key){
+    //     debug($album_photo);
+
+    // }
+?>
 <?php getHeader();?>
     
     <main>
+        <?php
+        if(!empty($slide_home)){
+        echo'
         <section id="section-home-banner">
             <div class="home-banner">
                 <div class="logo-banner-box">
                     <div class="container">
                         <div class="logo-warm">
-                            <img src="<?php echo $urlThemeActive;?>/asset/img/logo-warm.png" alt="">
+                            <img src="'; echo $urlThemeActive; echo'/asset/img/logo-warm.png" alt="">
                         </div>
                     </div>
                 </div>
-                <div class="banner-home-slide">
+                <div class="banner-home-slide">';
+                
+                foreach($slide_home as $key => $value){
+                echo'
                     <div class="banner-img">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/background-slide.png" alt="">
+                        <img src="'.$value->image.'" alt="">
                     </div>
-                    <div class="banner-img">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/background-slide.png" alt="">
-                    </div>
-                    <div class="banner-img">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/background-slide.png" alt="">
-                    </div>
+                ';
+                }
+                echo'
                 </div>
             </div>
-        </section>
+        </section>';
+        }
+        ?>
 
         <section id="section-logo-home">
             <div class="container-fluid logo-home-box">
@@ -42,7 +57,7 @@
         <!-- WARM Facility -->
         <section id="section-facility" data-aos="fade-up">
             <div class="title-section">
-                <h1>WARM Facility</h1>
+                <h1><?php echo @$settingThemes['title_section_1'];?></h1>
                 <div class="title-divide-section"></div>
             </div>
 
@@ -51,23 +66,20 @@
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-sm-12 col-12 facility-content-left">
                             <div class="title-facility-content">
-                                <h2>Water and Resource Management Facility</h2>
+                                <h2><?php echo @$settingThemes['title_content_section_1'];?></h2>
                             </div>
 
                             <div class="introduce-facility-content">
-                                <h3>an introduction</h3>
+                                <h3><?php echo @$settingThemes['title_sub_section_1'];?></h3>
                             </div>
 
                             <div class="text-facility-content">
-                                Water and Natural Resources Management (WARM) Facility is a 20-million-euro-grant by EU Delegation entrusted to AFD Vietnam for implementation to actualize commitments of  #TeamEurope in supporting Vietnam in water and natural resources management to adapt to climate change.
-                                <br>
-                                <br>
-                                WARM Facility lasts for 9 years (May 2015 - May 2029) and supports the preparation and implementation of strategic infrastructure investment projects in the areas of water and natural resources management in response to key local challenges such as flooding and coastal erosion, exacerbated by climate change. In addition, the experience gained from these projects will contribute to the policy dialogue on climate, environment and natural resource management.
+                                <h3><?php echo @$settingThemes['content_section_1'];?></h3>
                             </div>
                         </div>
 
                         <div class="col-lg-7 col-md-7 col-sm-12 col-12 facility-content-right">
-                            <iframe src="https://www.youtube.com/embed/cH4E_t3m3xM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                        
+                            <iframe src="<?php echo @$settingThemes['link_video_section_1'];?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                        
                         </div>
                     </div>
                 </div>
@@ -78,7 +90,7 @@
         <!-- Our Projects -->
         <section id="section-project" data-aos="fade-up">
             <div class="title-section">
-                <h1>OUR PROJECTs</h1>
+                <h1><?php echo @$settingThemes['title_section_2'];?></h1>
                 <div class="title-divide-section"></div>
             </div>
             <div class="project-content">
@@ -141,7 +153,7 @@
         <!-- key date -->
         <section data-aos="fade-up" style="background-image: url(<?php echo $urlThemeActive;?>/asset/img/background-keydate.png);" id="section-keydate">
             <div class="title-section">
-                <h1>Key data</h1>
+                <h1><?php echo @$settingThemes['title_section_3'];?></h1>
                 <div class="title-divide-section"></div>
             </div>
 
@@ -150,26 +162,24 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-7 col-12 keydate-left">
                             <div class="keydate-grant">
-                                <span class="keydate-number">0M</span>
-                                <p>grant by EU</p>
+                                <span class="keydate-number"><?php echo @$settingThemes['content_1_section_3'];?></span><span>M</span>
+                                <p><?php echo @$settingThemes['title_content_1_section_3'];?></p>
                             </div>
 
                             <div class="keydate-loan">
-                                <span class="keydate-number">200M</span>
-                                <p>loan by AFD</p>
+                                <span class="keydate-number"><?php echo @$settingThemes['content_2_section_3'];?></span><span>M</span>
+                                <p><?php echo @$settingThemes['title_content_2_section_3'];?></p>
                             </div>
 
                             <div class="keydate-years">
-                                <span>9 Years</span>
-                                <p>2021-2029</p>
+                                <span class="number-years"><?php echo @$settingThemes['content_3_section_3'];?> </span>&nbsp; &nbsp;<span>Years</span>
+                                <p><?php echo @$settingThemes['title_content_3_section_3'];?></p>
                             </div>
                         </div>
         
                         <div class="col-lg-5 col-md-5 col-12 keydate-right">
-                            <span><span class="number-project">8</span> Projects</span>
-                            <p>Bac Kan, Dien Bien, Son La,
-                                <br> Quang Tri, Quang Nam, Ninh Thuan, 
-                            <br>Hau Giang, Ca Mau</p>
+                            <span><span class="number-project"><?php echo @$settingThemes['content_4_section_3'];?></span> Projects</span>
+                            <p><?php echo @$settingThemes['title_content_4_section_3'];?></p>
                         </div>
                     </div>
                 </div>
@@ -179,51 +189,27 @@
         <!-- photo -->
         <section data-aos="fade-up" style="background-image: url(<?php echo $urlThemeActive;?>/asset/img/background-photo.png);" id="section-photo">
             <div class="title-section">
-                <h1>Photos of activities</h1>
+                <h1><?php echo @$settingThemes['title_section_4'];?></h1>
                 <div class="title-divide-section"></div>
             </div>
 
             <div class="photo-content">
                 <div class="photo-slide">
-                    <div class="photo-item">
-                        <div class="photo-item-img">
-                            <a href="">
-                                <img src="<?php echo $urlThemeActive;?>/asset/img/slide-photo.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="photo-item">
-                        <div class="photo-item-img">
-                            <a href="">
-                                <img src="<?php echo $urlThemeActive;?>/asset/img/slide-photo.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="photo-item">
-                        <div class="photo-item-img">
-                            <a href="">
-                                <img src="<?php echo $urlThemeActive;?>/asset/img/slide-photo.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="photo-item">
-                        <div class="photo-item-img">
-                            <a href="">
-                                <img src="<?php echo $urlThemeActive;?>/asset/img/slide-photo.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="photo-item">
-                        <div class="photo-item-img">
-                            <a href="">
-                                <img src="<?php echo $urlThemeActive;?>/asset/img/slide-photo.png" alt="">
-                            </a>
-                        </div>
-                    </div>
+                    <?php
+                        if(!empty($album_photo)){
+                            foreach($album_photo as $key => $value){
+                                echo'
+                                <div class="photo-item">
+                                    <div class="photo-item-img">
+                                        <a href="'.$value->slug.'">
+                                            <img src="'.$value->image.'" alt="">
+                                        </a>
+                                    </div>
+                                </div>';
+                            }
+                        }
+                    ?>
+                  
                 </div>
 
                 <div class="photo-link">

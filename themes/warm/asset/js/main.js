@@ -14,7 +14,7 @@ $(document).ready(function() {
             animationsTriggered = true; // Đánh dấu hiệu ứng đã được kích hoạt
             animateCounter($(this).find('.keydate-grant .keydate-number'));
             animateCounter2($(this).find('.keydate-loan .keydate-number'));
-            animateCounter3($(this).find('.keydate-years span'));
+            animateCounter3($(this).find('.keydate-years .number-years'));
             animateCounter4($(this).find('.number-project'));
           }
         });

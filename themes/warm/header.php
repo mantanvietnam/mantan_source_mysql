@@ -68,6 +68,30 @@
                                                     <i class="fa-brands fa-facebook-f"></i>
                                                 </a>';
                                     }
+
+                                    if(!empty($settingThemes['instagram'])){
+                                        echo '  <a href="'.$settingThemes['instagram'].'">
+                                                    <i class="fa-brands fa-instagram"></i>
+                                                </a>';
+                                    }
+
+                                    if(!empty($settingThemes['tiktok'])){
+                                        echo '  <a href="'.$settingThemes['tiktok'].'">
+                                                    <i class="fa-brands fa-tiktok"></i>
+                                                </a>';
+                                    }
+
+                                    if(!empty($settingThemes['twitter'])){
+                                        echo '  <a href="'.$settingThemes['twitter'].'">
+                                                    <i class="fa-brands fa-twitter"></i>
+                                                </a>';
+                                    }
+
+                                    if(!empty($settingThemes['linkedIn'])){
+                                        echo '  <a href="'.$settingThemes['linkedIn'].'">
+                                            <i class="fa-brands fa-linkedin-in"></i>
+                                        </a>';
+                                    }
                                 ?>
                                 
                             </div>
@@ -86,37 +110,34 @@
                       </button>
                       <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav navbar-header-menu mb-2 mb-lg-0 me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">News & Events</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Media</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Library 
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>                           
-                                </ul>
-                            </li>
+                            <?php 
+                            $menu = getMenusDefault();
+                            if(!empty($menu)){
+                                foreach($menu as $key => $value){
+                                    if(!empty($value->sub)){
+                                    echo
+                                    '<li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            '.$value->name.'
+                                        </a>
+                                        <ul class="dropdown-menu">';
+                                            foreach($value->sub as $sub){
+                                                echo'<li><a class="dropdown-item" href="#">'.$sub->name.'</a></li>';
+                                            }; 
+                                    echo'
+                                        </ul>
+                                    </li>';
+                                    }
+                                    else{
+                                    echo'  
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#">'.$value->name.'</a>
+                                    </li>';       
+                                    }
+                                }
+                            }
+                            ?>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Contact
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                </ul>
-                            </li>
                         </ul>
                         <form class="search-menu d-flex" role="search">
                             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
