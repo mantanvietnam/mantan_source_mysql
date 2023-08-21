@@ -5,7 +5,7 @@
 
     <!-- Basic Layout -->
       <div class="row">
-        <div class="col-xl">
+        <div class="col-md-7">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Danh mục</h5>
@@ -17,6 +17,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Tên danh mục</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
@@ -27,7 +28,8 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
-                                    <td><a target="_blank" href="/category/'.$item->slug.'.html">'.$item->name.'</a></td>
+                                    <td>'.$item->id.'</td>
+                                    <td>'.$item->name.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
@@ -55,7 +57,7 @@
           </div>
         </div>
 
-        <div class="col-xl">
+        <div class="col-md-5">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Thông tin</h5>

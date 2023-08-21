@@ -41,15 +41,17 @@ $sqlInstallDatabase .= "CREATE TABLE `combos` (
   `service` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `discount` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_price` int(11) DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` VARCHAR(20) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
-  `id_spa` int(11) NOT NULL
+  `id_spa` int(11) NOT NULL,
+  `commission_staff_fix` INT NOT NULL DEFAULT '0',
+  `commission_staff_percent` INT NOT NULL DEFAULT '0',
+  `use_time` INT NOT NULL DEFAULT '0',
+  `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `customers` (
@@ -112,8 +114,8 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
 $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (
   `id` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` int(11) DEFAULT NULL,
-  `total_price` int(11) DEFAULT NULL,
+  `price` INT(11) NOT NULL DEFAULT '0',
+  `price_sell` INT(11) NOT NULL DEFAULT '0',
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `use_time` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
@@ -215,6 +217,13 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `id_spa` int(11) NOT NULL
 ) ENGINE=InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `member_groups` (
+  `id` INT(11) NOT NULL, 
+  `name`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `note`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+  `id_member` INT(11) NOT NULL,
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -229,6 +238,7 @@ $sqlDeleteDatabase .= "DROP TABLE services; ";
 $sqlDeleteDatabase .= "DROP TABLE spas; ";
 $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
+$sqlDeleteDatabase .= "DROP TABLE member_groups; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

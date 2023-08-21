@@ -31,6 +31,14 @@ function listPrepayCard($input)
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
+		if(!empty($_GET['price'])){
+			$conditions['price'] = (int) $_GET['price'];
+		}
+
+		if(!empty($_GET['price_sell'])){
+			$conditions['price_sell'] = (int) $_GET['price_sell'];
+		}
+
 	    $listData = $modelPrepayCard->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 	    $totalData = $modelPrepayCard->find()->where($conditions)->all()->toList();
@@ -114,7 +122,7 @@ function addPrepayCard($input){
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->status = @$dataSend['status'];
                 $data->price = @$dataSend['price'];
-                $data->total_price = @$dataSend['total_price'];
+                $data->price_sell = @$dataSend['price_sell'];
                 $data->note = @$dataSend['note'];
                 $data->use_time = (int) $dataSend['use_time'];                
                 $data->commission_staff_fix = (int) $dataSend['commission_staff_fix'];                

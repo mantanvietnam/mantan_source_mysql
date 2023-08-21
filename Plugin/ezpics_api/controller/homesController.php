@@ -519,7 +519,7 @@ function createLayerVariable($input)
             $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height'], $dataSend['text'], $dataSend['nameVariable'], $dataSend['variableLabel']));
             $new->sort = $idlayer;
             $new->created_at = date('Y-m-d H:i:s');
-            
+  
             $modelProductDetail->save($new);
         }
         

@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Loại thẻ trả trước</h4>
-  <p><a href="/addPrepayCard" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Nhóm nhân viên</h4>
+  <p><a href="/addGroupSaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -14,31 +14,13 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
-          <div class="col-md-3">
-            <label class="form-label">Tên thẻ</label>
+          <div class="col-md-2">
+            <label class="form-label">Tên nhóm</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
-          <div class="col-md-2">
-            <label class="form-label">Mệnh giá thẻ</label>
-            <input type="text" class="form-control" name="price" value="<?php if(!empty($_GET['price'])) echo $_GET['price'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Giá bán</label>
-            <input type="text" class="form-control" name="price_sell" value="<?php if(!empty($_GET['price_sell'])) echo $_GET['price_sell'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="" >Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
-            </select>
-          </div>
-
-          <div class="col-md-2">
+          
+          <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
@@ -50,7 +32,13 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách loại thẻ trả trước</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="card-header">Danh sách nhóm nhân viên</h5>
+      </div>
+     
+    </div>
+    <p><?php echo @$mess;?></p>  
     
     <div class="row">
       <div class="table-responsive">
@@ -58,56 +46,32 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Tên thẻ</th>
-              <th>Mệnh giá</th>
-              <th>Giá bán</th>
-              <th>Hoa hồng</th>
-              <th>Thời gian SD</th>
-              <th>Trạng thái</th>
+              <th>Tên nhóm nhân viên</th>
               <th>Sửa</th>
-              <th>Xóa</th>
+               <th>Xóa</th> 
             </tr>
           </thead>
           <tbody>
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-
-                  if($item->status=='active'){
-                    $status= 'Kích hoạt';
-                  }else{
-                    $status= 'Khóa';
-                  }
-
-                  if(!empty($item->commission_staff_fix)){
-                    $staff = number_format($item->commission_staff_fix).'đ';
-                  }else{
-                    $staff = $item->commission_staff_percent.'%';
-                  }
-
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.$item->name.'</td>
-                          <td>'.number_format($item->price).'</td>
-                          <td>'.number_format($item->price_sell).'</td>
-                          <td>'.$staff.'</td>
-                          <td>'.$item->use_time.' ngày</td>
-                          <td>'.$status.'</td>
+                          <td>'.$item->name.' </td>
                           <td align="center">
-                            <a class="dropdown-item" href="/addPrepayCard/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/addGroupSaff?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
-                          <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa loại thẻ trả trước không?\');" href="/deletePrepayCard/?id='.$item->id.'">
+
+                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhóm nhân viên này không?\');" href="/deteleGroupSaff?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
-                            </a>
-                          </td>
+                            </a></td>
                         </tr>';
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có loại thẻ trả trước</td>
+                        <td colspan="10" align="center">Chưa có nhóm nhân viên</td>
                       </tr>';
               }
             ?>

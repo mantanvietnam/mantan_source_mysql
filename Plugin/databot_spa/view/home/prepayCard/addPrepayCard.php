@@ -32,7 +32,7 @@
 
                     <div class="mb-3">
                       <label class="form-label" for="basic-default-fullname">Giá bán (*)</label>
-                      <input type="number" required class="form-control" placeholder="" name="total_price" id="total_price" value="<?php echo @$data->total_price;?>" />
+                      <input type="number" required class="form-control" placeholder="" name="price_sell" id="price_sell" value="<?php echo @$data->price_sell;?>" />
                     </div>
                     
                     <div class="mb-3">

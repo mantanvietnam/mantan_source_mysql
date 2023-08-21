@@ -12,7 +12,6 @@ function listSaff($input)
 
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
-	$modelMembers = $controller->loadModel('Members');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -81,23 +80,7 @@ function listSaff($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 	    
-	    if(@$_GET['statuss']==1){
-	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Thêm mới dữ liệu thành công</p>';
-
-	    }elseif(@$_GET['status']==2){
-	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Sửa dữ liệu thành công</p>';
-
-	    }elseif(@$_GET['statuss']==3){
-
-	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
-	    }elseif(@$_GET['statuss']==4){
-
-	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Cộng tiền thành công</p>';
-	    }elseif(@$_GET['statuss']==5){
-
-	        $mess= '<p class="text-success" style="padding-left: 1.5em;">Trừ tiền thành công</p>';
-	    }
-
+	    
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('totalData', $totalData);
@@ -187,5 +170,243 @@ function addSaff($input){
 	}else{
 		return $controller->redirect('/login');
 	}
+}
+
+function lockSaff($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhóm nhân viên';
+
+    $modelMember = $controller->loadModel('Members');
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		if(!empty($_GET['id'])){
+		$data = $modelMember->get($_GET['id']);
+		
+			if($data){
+				if(isset($_GET['status'])){
+					$data->status = $_GET['status'];
+				
+	         	$modelMember->save($data);
+	         	return $controller->redirect('/listSaff');
+	        	}
+			}
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function changePassSaff($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhóm nhân viên';
+
+    $modelMember = $controller->loadModel('Members');
+	
+	$mess = '';
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		if(!empty($_GET['id'])){
+		$data = $modelMember->get($_GET['id']);
+		
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			$data->password= md5($dataSend['passNew']);
+         	$modelMember->save($data);
+         	return $controller->redirect('/listSaff');
+        }
+
+        setVariable('data', $data);
+	    setVariable('mess', $mess);
+	}
+
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function listGroupSaff(){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+     
+    $metaTitleMantan = 'Danh sách nhóm nhân viên';
+
+    $modelMember = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelMemberGroup = $controller->loadModel('MemberGroups');
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		$mess ='';
+
+		$conditions = array('id_member'=>$infoUser->id_member);
+		$limit = 20;
+		$order = ['id' => 'DESC'];
+
+		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+		if($page<1) $page = 1;
+
+		$conditions = array('type' => 'category_member', 'id_member'=>$infoUser->id_member);
+		
+		if(!empty($_GET['id'])){
+			$conditions['id'] = (int) $_GET['id'];
+		}
+
+		
+
+		if(!empty($_GET['name'])){
+			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+		}
+	    
+	    $listData = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	    $totalData = $modelCategories->find()->where($conditions)->all()->toList();
+	    $totalData = count($totalData);
+
+	    $balance = $totalData % $limit;
+	    $totalPage = ($totalData - $balance) / $limit;
+	    if ($balance > 0)
+	        $totalPage+=1;
+
+	    $back = $page - 1;
+	    $next = $page + 1;
+	    if ($back <= 0)
+	        $back = 1;
+	    if ($next >= $totalPage)
+	        $next = $totalPage;
+
+	    if (isset($_GET['page'])) {
+	        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+	        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+	    } else {
+	        $urlPage = $urlCurrent;
+	    }
+	    if (strpos($urlPage, '?') !== false) {
+	        if (count($_GET) >= 1) {
+	            $urlPage = $urlPage . '&page=';
+	        } else {
+	            $urlPage = $urlPage . 'page=';
+	        }
+	    } else {
+	        $urlPage = $urlPage . '?page=';
+	    }
+	   
+
+	    setVariable('page', $page);
+	    setVariable('totalPage', $totalPage);
+	    setVariable('totalData', $totalData);
+	    setVariable('back', $back);
+	    setVariable('next', $next);
+	    setVariable('urlPage', $urlPage);
+	    setVariable('mess', $mess);
+	    
+	    setVariable('listData', $listData);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function addGroupSaff($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Thông tin Nhóm nhân viên';
+
+    $modelMembers = $controller->loadModel('Members');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelMemberGroup = $controller->loadModel('MemberGroups');
+	
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+
+		// lấy data edit
+	    if(!empty($_GET['id'])){
+	        $data = $modelCategories->get( (int) $_GET['id']);
+	    }else{
+	        $data = $modelCategories->newEmptyEntity();
+	        $data->created_at = date('Y-m-d H:i:s');
+	    }
+
+	    $mess ='';
+
+		if($isRequestPost) {
+	        $dataSend = $input['request']->getData();
+
+	        if(!empty($dataSend['name'])){
+	        	// tạo dữ liệu save
+			    $data->name = @$dataSend['name'];
+			    $data->type = 'category_member';
+			    $data->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+			    $data->slug = createSlugMantan($data->name).'-'.time();
+			    $data->id_member = $infoUser->id_member;
+
+			    
+			    $modelCategories->save($data);
+
+			    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+			    
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
+		    }
+	    }
+
+	    setVariable('data', $data);
+	    setVariable('mess', $mess);
+
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function deteleGroupSaff($input){	
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+
+    $metaTitleMantan = 'Thông tin Nhóm nhân viên';
+	
+	if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+
+        if(!empty($_GET['id'])){
+            $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
+            
+            $data = $modelCategories->find()->where($conditions)->first();
+            
+            if(!empty($data)){
+                $modelCategories->delete($data);
+                return $controller->redirect('/listGroupSaff');
+            }
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
 }
 ?>

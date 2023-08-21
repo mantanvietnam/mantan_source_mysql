@@ -5,7 +5,7 @@ function listCombo($input){
 	global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách combo sản phẩm';
+    $metaTitleMantan = 'Danh sách combo dịch vụ';
 
 	$modelCombo = $controller->loadModel('Combos');
 	$modelProduct = $controller->loadModel('Products');
@@ -27,6 +27,10 @@ function listCombo($input){
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
+
+		if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
 
 	    $listData = $modelCombo->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -109,8 +113,9 @@ function addCombo($input){
     global $session;
     global $controller;
     global $urlCurrent;
+    global $urlHomes;
 
-    $metaTitleMantan = 'Thông tin combo sản phẩm';
+    $metaTitleMantan = 'Thông tin combo dịch vụ';
 
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
@@ -137,13 +142,17 @@ function addCombo($input){
             if(!empty($dataSend['name'])){
                 // tạo dữ liệu save
                 $data->name = @$dataSend['name'];
-                $data->image = @$dataSend['image'];
-                $data->quantity = @$dataSend['quantity'];
+                $data->price = (int)@$dataSend['price'];
                 $data->description = @$dataSend['description'];
+                $data->status = @$dataSend['status'];
+                $data->updated_at = date('Y-m-d H:i:s');
+                $data->quantity = (int) @$dataSend['quantity'];
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
-                $data->price = (int)@$dataSend['price'];
-                $data->status = @$dataSend['status'];
+                $data->commission_staff_fix = (int) @$dataSend['commission_staff_fix'];
+                $data->commission_staff_percent = (int) @$dataSend['commission_staff_percent'];
+                $data->use_time = (int) @$dataSend['use_time'];
+                $data->image = (!empty($dataSend['image']))?$dataSend['image']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
                 
                 $product = array();
                 if (!empty($dataSend['idHangHoa']) && !empty($dataSend['soluong'])) {
@@ -163,23 +172,14 @@ function addCombo($input){
                     }
                 }
 
-                $data->product = json_encode(@$product);
-                $data->service = json_encode(@$service);
-
-				$data->updated_at = date('Y-m-d H:i:s');
+                $data->product = json_encode($product);
+                $data->service = json_encode($service);
 
                 $modelCombo->save($data);
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-
-                 if(!empty($_GET['id'])){
-                    return $controller->redirect('/listCombo?mess=2');
-                }else{
-                    return $controller->redirect('/listCombo?mess=1');
-                }
-                
             }else{
-                $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
+                $mess= '<p class="text-danger">Bạn chưa nhập tên gói combo</p>';
             }
         }
 
@@ -189,7 +189,7 @@ function addCombo($input){
 
         if(!empty($categoryProduct)){
 	    	foreach ($categoryProduct as $key => $value) {
-	    		$categoryProduct[$key]->product = $modelProducts->find()->where(array('id_category'=>$value->id))->order($order)->all()->toList();
+	    		$categoryProduct[$key]->product = $modelProducts->find()->where(array('id_category'=>$value->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
 	    	}
 	    }
 
@@ -198,18 +198,14 @@ function addCombo($input){
 
         if(!empty($CategoryService)){
 	    	foreach ($CategoryService as $key => $Service) {
-	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id))->order($order)->all()->toList();
+	    		$CategoryService[$key]->service = $modelService->find()->where(array('id_category'=>$Service->id, 'id_spa'=>(int) $session->read('id_spa')))->order($order)->all()->toList();
 	    	}
 	    }
-
-
-        $conditionsTrademar = array('id_member'=>$infoUser->id_member);
-        $listTrademar = $modelTrademarks->find()->where($conditionsTrademar)->all()->toList();
 
         setVariable('data', $data);
         setVariable('categoryProduct', $categoryProduct);
         setVariable('CategoryService', $CategoryService);
-        setVariable('listTrademar', $listTrademar);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }

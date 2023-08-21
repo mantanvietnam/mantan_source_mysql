@@ -133,7 +133,13 @@ function changePass($input)
 						
 						$modelMembers->save($user);
 
-						$session->write('infoUser', $user);
+						// nếu là chủ spa
+			    		if($user->type == 1){
+			    			$user->id_member = $user->id;
+			    		}
+
+						 $session->write('infoUser', $user);
+						 return $controller->redirect('/managerSelectSpa');
 
 						$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
 					}else{
@@ -179,7 +185,13 @@ function account($input)
 
 				$modelMembers->save($user);
 
+				// nếu là chủ spa
+			    if($user->type == 1){
+			    	$user->id_member = $user->id;
+			    }
+
 				$session->write('infoUser', $user);
+				return $controller->redirect('/managerSelectSpa');
 
 				$mess= '<p class="text-success">Đổi thông tin thành công</p>';
 			}else{

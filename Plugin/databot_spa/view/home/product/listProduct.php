@@ -108,13 +108,13 @@
                   }
 
                   if(!empty($item->commission_staff_fix)){
-                    $staff = '<p>Nhân viên: '.$item->commission_staff_fix.'đ</p>';
+                    $staff = '<p>Nhân viên: '.number_format($item->commission_staff_fix).'đ</p>';
                   }else{
                     $staff = '<p>Nhân viên: '.$item->commission_staff_percent.'%</p>';
                   }
 
                   if(!empty($item->commission_affiliate_fix)){
-                    $affiliate = '<p>Giới thiệu: '.$item->commission_affiliate_fix.'đ</p>';
+                    $affiliate = '<p>Giới thiệu: '.number_format($item->commission_affiliate_fix).'đ</p>';
                   }else{
                     $affiliate = '<p>Giới thiệu: '.$item->commission_affiliate_percent.'%</p>';
                   }

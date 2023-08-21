@@ -77,14 +77,15 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  $type = 'Người dùng';
-                  if($item->type==1){
-                    $type = 'Member ';
-                  }
 
                   $status = 'Kích hoạt <br/>';
+                  $button = '<a class="dropdown-item" title="Khóa"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockSaff?id='.$item->id.'&status=0">
+                              <i class="bx bx-lock-open"></i> </a>';
                   if($item->status==0){
                     $status = 'Khóa';
+                    $button = '<a class="dropdown-item" title="Kích hoạt" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt nhân viên này không?\');" href="/lockSaff?id='.$item->id.'&status=1">
+                              <i class="bx bx-lock"></i> </a>';
+
                   }
 
                   echo '<tr>
@@ -96,7 +97,7 @@
                          
                           <td align="center">
                             <a class="dropdown-item" href="/changePassSaff?id='.$item->id.'">
-                              <i class="bx bx-lock-open"></i>
+                              <i class="bx bx-transfer"></i>
                             </a>
                           </td>
 
@@ -106,9 +107,7 @@
                             </a>
                           </td>
 
-                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockSaff?id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
-                            </a></td>
+                          <td align="center">'.$button.'</td>
                         </tr>';
                 }
               }else{

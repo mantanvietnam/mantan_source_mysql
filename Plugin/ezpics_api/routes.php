@@ -87,6 +87,7 @@
 	$routesPlugin['getProductAllCategoryAPI']= 'ezpics_api/view/getProductAllCategoryAPI.php';
 	$routesPlugin['getProductCategoryAPI']= 'ezpics_api/view/getProductCategoryAPI.php';
 	$routesPlugin['detailProductSeriesAPI']= 'ezpics_api/view/detailProductSeriesAPI.php';
+	$routesPlugin['createImageSeriesAPI']= 'ezpics_api/view/createImageSeriesAPI.php';
 
 	// post 
 	$routesPlugin['getNewPostAPI']= 'ezpics_api/view/getNewPostAPI.php';

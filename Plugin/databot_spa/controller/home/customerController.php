@@ -39,10 +39,48 @@ function listCustomer($input)
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
-	    $listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    
 
 	    $totalData = $modelCustomer->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
+
+	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+
+    	$titleExcel = 	[
+							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
+							['name'=>'giới tính', 'type'=>'text', 'width'=>15],
+							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
+							['name'=>'Email', 'type'=>'text', 'width'=>35],
+							['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
+							['name'=>'địa chỉ', 'type'=>'text', 'width'=>35],
+						];
+
+		$dataExcel = [];
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$sex = 'Nữ';
+				if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
+
+				$status = 'Kích hoạt';
+				if(empty($value->status)) $status = 'Khóa';
+				if(!empty($value->type) && $value->type==1) $type = 'Designer';
+
+				$dataExcel[] = [
+								$value->name, 
+								$sex,
+								$value->phone, 
+								$value->email, 
+								$value->cmnd,  
+								$value->address,  
+							];
+			}
+		}
+
+		export_excel($titleExcel, $dataExcel);
+    }else{
+    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
 
 	    $balance = $totalData % $limit;
 	    $totalPage = ($totalData - $balance) / $limit;
@@ -172,6 +210,14 @@ function addCustomer($input)
 	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
 	    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
 	   
+	    if(empty($dataGroup)){
+	    	return $controller->redirect('/listCategoryCustomer/?error=requestCategoryCustomer');
+	    }
+
+	    if(empty($dataSource)){
+	    	return $controller->redirect('/listSourceCustomer/?error=requestSourceCustomer');
+	    }
+
 	    setVariable('data', $data);
 	    setVariable('dataMember', $dataMember);
 	    setVariable('dataSpa', $dataSpa);
@@ -218,6 +264,15 @@ function listCategoryCustomer($input){
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
+        $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestCategoryCustomer':
+                    $mess= '<p class="text-danger">Bạn cần tạo nhóm khách hàng trước</p>';
+                    break;
+            }
+        }
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
             
@@ -231,15 +286,16 @@ function listCategoryCustomer($input){
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = 0;
-            $infoCategory->image = $dataSend['image'];
+            $infoCategory->image = '';
             $infoCategory->id_member = $infoUser->id_member;
-            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
-            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->keyword = '';
+            $infoCategory->description = '';
             $infoCategory->type = 'category_customer';
             $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 
             $modelCategories->save($infoCategory);
 
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
         }
 
         $conditions = array('type' => 'category_customer', 'id_member'=>$infoUser->id_member);
@@ -247,6 +303,7 @@ function listCategoryCustomer($input){
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -257,10 +314,20 @@ function listSourceCustomer($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $urlHomes;
 
     $metaTitleMantan = 'Nguồn khách hàng';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+
+        $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestSourceCustomer':
+                    $mess= '<p class="text-danger">Bạn cần tạo nguồn khách hàng trước</p>';
+                    break;
+            }
+        }
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -275,15 +342,16 @@ function listSourceCustomer($input){
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = 0;
-            $infoCategory->image = $dataSend['image'];
+            $infoCategory->image = (!empty($dataSend['image']))?$dataSend['image']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';;
             $infoCategory->id_member = $infoUser->id_member;
-            $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
-            $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+            $infoCategory->keyword = '';
+            $infoCategory->description = '';
             $infoCategory->type = 'category_source_customer';
             $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 
             $modelCategories->save($infoCategory);
 
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
         }
 
         $conditions = array('type' => 'category_source_customer', 'id_member'=>$infoUser->id_member);
@@ -291,6 +359,7 @@ function listSourceCustomer($input){
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }

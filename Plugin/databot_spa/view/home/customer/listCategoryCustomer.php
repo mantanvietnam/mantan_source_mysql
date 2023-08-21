@@ -5,16 +5,18 @@
 
     <!-- Basic Layout -->
       <div class="row">
-        <div class="col-xl">
+        <div class="col-md-7">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Nhóm khách hàng</h5>
             </div>
             <div class="card-body row">
+                <?php echo $mess;?>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Tên nhóm</th>
                         <th class="text-center">Sửa</th>
                         <th class="text-center">Xóa</th>
@@ -25,9 +27,10 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
+                                    <td>'.$item->id.'</td>
                                     <td>'.$item->name.'</td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -53,7 +56,7 @@
           </div>
         </div>
 
-        <div class="col-xl">
+        <div class="col-md-5">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Thông tin</h5>
@@ -72,21 +75,6 @@
                   />
                 </div>
 
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Hình minh họa</label>
-                  <?php showUploadFile('image','image','',0);?>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Từ khóa</label>
-                  <input type="text" class="form-control" placeholder="" name="keyword" id="keyword" value="" />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Mô tả</label>
-                  <input type="text" class="form-control" placeholder="" name="description" id="description" value="" />
-                </div>
-
                 <button type="submit" class="btn btn-primary">Lưu</button>
               <?= $this->Form->end() ?>
             </div>
@@ -98,12 +86,9 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name, image, keyword, description){
+    function editData(id, name){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
-      $('#image').val(image);
-      $('#keyword').val(keyword);
-      $('#description').val(description);
     }
 
     function deleteCategory(id){
