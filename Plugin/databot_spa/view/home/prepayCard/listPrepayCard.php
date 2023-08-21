@@ -15,22 +15,32 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Họ tên</label>
-            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+            <label class="form-label">Tên thẻ</label>
+            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+            <label class="form-label">Mệnh giá thẻ</label>
+            <input type="text" class="form-control" name="price" value="<?php if(!empty($_GET['price'])) echo $_GET['price'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+            <label class="form-label">Giá bán</label>
+            <input type="text" class="form-control" name="price_sell" value="<?php if(!empty($_GET['price_sell'])) echo $_GET['price_sell'];?>">
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select name="status" class="form-select color-dropdown">
+              <option value="" >Tất cả</option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
+              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            </select>
+          </div>
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
-            <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
+            <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
         </div>
       </div>
@@ -79,7 +89,7 @@
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
                           <td>'.number_format($item->price).'</td>
-                          <td>'.number_format($item->total_price).'</td>
+                          <td>'.number_format($item->price_sell).'</td>
                           <td>'.$staff.'</td>
                           <td>'.$item->use_time.' ngày</td>
                           <td>'.$status.'</td>

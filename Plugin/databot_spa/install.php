@@ -112,8 +112,8 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
 $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (
   `id` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` int(11) DEFAULT NULL,
-  `total_price` int(11) DEFAULT NULL,
+  `price` INT(11) NOT NULL DEFAULT '0',
+  `price_sell` INT(11) NOT NULL DEFAULT '0',
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `use_time` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
