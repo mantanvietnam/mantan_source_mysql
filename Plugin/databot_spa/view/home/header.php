@@ -168,37 +168,11 @@
             <!-- Cards -->
 
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="/listPrepayCard" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-credit-card"></i>
-                <div>Thẻ dịch vụ</div>
+                <div>Loại thẻ trả trước</div>
               </a>
-              <ul class="menu-sub">
-               <li class="menu-item">
-                  <a href="/listPrepayCard" class="menu-link">
-                    <div>Mệnh giá thẻ trả trước</div> 
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="/listCombo" class="menu-link">
-                    <div>Combo liệu trình</div> 
-                  </a>
-                </li>
-              </ul>
-            </li>         
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div>Đội ngũ</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="/listSaff" class="menu-link">
-                    <div>Nhân viên</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            </li>   
             
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -228,6 +202,7 @@
                 </li>
               </ul>
             </li>
+            
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-basket"></i>
@@ -246,6 +221,14 @@
                 </li>
               </ul>
             </li>
+
+            <li class="menu-item">
+              <a href="/listCombo" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-gift'></i>
+                <div>Combo dịch vụ</div>
+              </a>
+            </li>
+
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-bed"></i>
@@ -264,6 +247,21 @@
                 </li>
               </ul>
             </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div>Đội ngũ</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listSaff" class="menu-link">
+                    <div>Nhân viên</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
             <li class="menu-item">
               <a href="/listSpa" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>

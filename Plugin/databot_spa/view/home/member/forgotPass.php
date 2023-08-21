@@ -86,6 +86,13 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Gửi</button>
                 </div>
               </form>
+
+              <p class="text-center">
+                <span>Bạn đã có tài khoản?</span>
+                <a href="/login">
+                  <span>Đăng nhập</span>
+                </a>
+              </p>
             </div>
           </div>
           <!-- /Register -->

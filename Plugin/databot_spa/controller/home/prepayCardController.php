@@ -114,11 +114,11 @@ function addPrepayCard($input){
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->status = @$dataSend['status'];
                 $data->price = @$dataSend['price'];
-                $data->discount_money = @$dataSend['discount_money'];
                 $data->total_price = @$dataSend['total_price'];
-                $data->special_price_momo = @$dataSend['special_price_momo'];
                 $data->note = @$dataSend['note'];
-                $data->use_time = @$dataSend['use_time'];                
+                $data->use_time = (int) $dataSend['use_time'];                
+                $data->commission_staff_fix = (int) $dataSend['commission_staff_fix'];                
+                $data->commission_staff_percent = (int) $dataSend['commission_staff_percent'];                
                 
                 $modelPrepayCard->save($data);
 

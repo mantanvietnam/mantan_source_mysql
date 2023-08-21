@@ -13,13 +13,25 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
+          <div class="col-md-1">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+          </div>
 
           <div class="col-md-2">
             <label class="form-label">Tên cơ sở</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
-          
+          <div class="col-md-2">
+            <label class="form-label">Điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
+          </div>
           
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
@@ -80,7 +92,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
+                        <td colspan="10" align="center">Chưa có cơ sở spa nào</td>
                       </tr>';
               }
             ?>

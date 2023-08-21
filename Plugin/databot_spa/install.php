@@ -113,14 +113,14 @@ $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (
   `id` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) DEFAULT NULL,
-  `discount_money` int(11) DEFAULT NULL,
   `total_price` int(11) DEFAULT NULL,
-  `special_price_momo` int(11) DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `use_time` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL
+  `status` VARCHAR(20) NOT NULL,
+  `commission_staff_fix` INT NOT NULL DEFAULT '0',
+  `commission_staff_percent` INT NOT NULL DEFAULT '0',
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `products` (
@@ -188,7 +188,10 @@ $sqlInstallDatabase .="CREATE TABLE `spas` (
   `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  `facebook` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `website` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `zalo` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NULL
 ) ENGINE=InnoDB;
 ";
 

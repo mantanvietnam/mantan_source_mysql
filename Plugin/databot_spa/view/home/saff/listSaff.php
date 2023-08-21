@@ -29,15 +29,18 @@
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
 
-          
+          <div class="col-md-2">
+            <label class="form-label">Trạng thái</label>
+            <select class="form-select" name="status" id="status">
+              <option value="">Tất cả</option>
+              <option value="1" <?php if(isset($_GET['status']) && $_GET['status']=='1') echo 'selected'; ?> >Kích hoạt</option>
+              <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected'; ?> >Khóa</option>
+            </select>
+          </div>
           
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
-          </div>
-          <div class="col-md-1">
-            <label class="form-label">&nbsp;</label>
-            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
           </div>
         </div>
       </div>
@@ -64,9 +67,10 @@
               <th>Tên nhân viên</th>
               <th>Số điện thoại</th>
               <th>Email</th>
-              <th>trạng thái</th>
+              <th>Trạng thái</th>
+              <th>Đổi mật khẩu</th>
               <th>Sửa</th>
-              <th>xóa</th>
+              <th>Khóa</th>
             </tr>
           </thead>
           <tbody>
@@ -90,20 +94,26 @@
                           <td>'.$item->email.'</td>
                           <td>'.$status.'</td>
                          
-                          
-                           <td align="center">
-                            <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                          <td align="center">
+                            <a class="dropdown-item" href="/changePassSaff?id='.$item->id.'">
+                              <i class="bx bx-lock-open"></i>
                             </a>
                           </td>
-                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn xóa nhân viên này không?\');" href="/addSaff?id='.$item->id.'">
-                              <i class="bx bx-trash me-1" style="font-size: 22px;"></i>
+
+                          <td align="center">
+                            <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+
+                          <td align="center"> <a class="dropdown-item"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockSaff?id='.$item->id.'">
+                              <i class="bx bx-trash me-1"></i>
                             </a></td>
                         </tr>';
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có người dùng</td>
+                        <td colspan="10" align="center">Chưa có nhân viên</td>
                       </tr>';
               }
             ?>

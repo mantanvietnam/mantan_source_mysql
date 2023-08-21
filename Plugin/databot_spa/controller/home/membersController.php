@@ -275,6 +275,7 @@ function register($input)
 	global $isRequestPost;
 	global $controller;
 	global $session;
+	global $urlHomes;
 
 	$modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
@@ -325,6 +326,10 @@ function register($input)
 					$dataSpa->slug = createSlugMantan($dataSpa->name).'-'.time();
 					$dataSpa->created_at = date('Y-m-d H:i:s');
 					$dataSpa->updated_at = date('Y-m-d H:i:s');
+					$dataSpa->image = $urlHomes.'/plugins/databot_spa/view/home/assets/img/default-thumbnail.jpg';
+					$dataSpa->facebook = '';
+					$dataSpa->website = '';
+					$dataSpa->zalo = $dataSend['phone'];
 
 					$modelSpas->save($dataSpa);
 

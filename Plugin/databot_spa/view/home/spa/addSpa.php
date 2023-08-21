@@ -31,17 +31,33 @@
                     <label class="form-label">Địa chỉ  (*)</label>
                      <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address; ?>" />
                   </div>
+                  <div class="mb-3">
+                    <label class="form-label">Facebook</label>
+                    <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$data->facebook; ?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Zalo</label>
+                    <input type="text" class="form-control phone-mask" name="zalo" id="zalo" value="<?php echo @$data->zalo; ?>" />
+                  </div>
                 </div>
 
                 <div class="col-md-6">
-                   <div class="mb-3">
+                  <div class="mb-3">
                     <label class="form-label">Số điện thoại (*)</label>
-                     <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
+                    <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
                   </div>
-                 <!--  <div class="mb-3">
-                    <label class="form-label">Hình minh họa</label>
-                    <input type="file" name="image" value="<?php echo @$data->image; ?>" class="form-control">
-                  </div> -->
+                  
+                  <div class="mb-3">
+                    <label class="form-label">Hình đại diện cơ sỏ</label>
+                    <?php showUploadFile('image','image',@$data->image,0);?>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Website</label>
+                    <input type="text" class="form-control phone-mask" name="website" id="website" value="<?php echo @$data->website; ?>" />
+                  </div>
+
                   <div class="mb-3">
                     <label class="form-label">Mô tả</label>
                     <textarea class="form-control" rows="3" name="note"><?php echo @$data->note; ?></textarea>

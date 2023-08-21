@@ -27,6 +27,18 @@ function listSpa($input){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
+		if(!empty($_GET['id'])){
+			$conditions['id'] = (int) $_GET['id'];
+		}
+
+		if(!empty($_GET['phone'])){
+			$conditions['phone'] = $_GET['phone'];
+		}
+
+		if(!empty($_GET['email'])){
+			$conditions['email'] = $_GET['email'];
+		}
+
 		$listData = $modelSpas->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 		$totalData = $modelSpas->find()->where($conditions)->all()->toList();
@@ -135,6 +147,11 @@ function addSpa($input){
 	    	$data->updated_at =date('Y-m-d H:i:s');
 	    	$data->slug = createSlugMantan($dataSend['name']).'-'.time();
 	    	$data->id_member = $infoUser->id_member;
+
+	    	$data->facebook = $dataSend['facebook'];
+			$data->website = $dataSend['website'];
+			$data->zalo = $dataSend['zalo'];
+			$data->image = $dataSend['image'];
 	    	
 	    	$modelSpas->save($data);
 	    	

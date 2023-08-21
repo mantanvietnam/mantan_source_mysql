@@ -33,28 +33,35 @@
                     <input type="email" class="form-control" placeholder="" name="email" id="email" value="<?php echo @$data->email;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ngày sinh (*)</label>
-                    <input type="text" required class="form-control hasDatepicker datepicker" placeholder="" name="birthday" id="birthday" value="<?php echo @$data->birthday;?>" />
+                    <label class="form-label" for="basic-default-fullname">Ngày sinh</label>
+                    <input type="text" class="form-control hasDatepicker datepicker" placeholder="" name="birthday" id="birthday" value="<?php echo @$data->birthday;?>" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
+                    <input type="text"  <?php if(!empty($_GET['id'])) echo 'readonly=""'; ?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
+                  </div>
+
+                  <?php 
+                    if(empty($_GET['id'])){
+                      echo '<div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Mật khẩu tài khoản</label>
+                              <input type="text" autocomplete="off" required class="form-control" placeholder="" name="password" id="password" value=""  />
+                            </div>';
+                    }
+                  ?>
+
+                  <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
                     <input type="text" class="form-control" placeholder="" name="address" id="address" value="<?php echo @$data->address;?>" />
                   </div>
-                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                    <input type="text"  <?php if(!empty($_GET['id'])) echo 'disabled=""'; ?> class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone; ?>" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Mật khẩu tài khoản</label>
-                    <input type="password" autocomplete="off" class="form-control" placeholder="" name="password" id="password" value="" />
-                  </div>
+
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Trạng thái</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="status" id="status">
-                        <option value="1" <?php if(!empty($data->status) && $data->status=='1') echo 'selected'; ?> >Kích hoạt</option>
+                        <option value="1">Kích hoạt</option>
                         <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
@@ -81,6 +88,6 @@
         dateFormat: "dd/mm/yy"
       });
     } );
-    </script>
+</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

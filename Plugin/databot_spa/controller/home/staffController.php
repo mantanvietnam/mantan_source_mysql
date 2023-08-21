@@ -21,7 +21,7 @@ function listSaff($input)
 
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
-		$order = ['id' => 'DESC'];
+		$order = ['status'=>'desc','id' => 'DESC'];
 
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -40,6 +40,12 @@ function listSaff($input)
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+		}
+
+		if(isset($_GET['status'])){
+			if($_GET['status']!=''){
+				$conditions['status'] = (int) $_GET['status'];
+			}
 		}
 	    
 	    $listData = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -130,10 +136,10 @@ function addSaff($input){
 	        $data->created_at = date('Y-m-d H:i:s');
 	    }
 
+	    $mess ='';
+
 		if($isRequestPost) {
 	        $dataSend = $input['request']->getData();
-
-	        $mess ='';
 
 	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
 	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', @$dataSend['phone']));
@@ -144,26 +150,25 @@ function addSaff($input){
 
 	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
 			        // tạo dữ liệu save
+			        if(empty($_GET['id'])){
+			        	$data->phone = $dataSend['phone'];
+			        	$data->created_at = date('Y-m-d H:i:s');
+			        	$data->id_member = $infoUser->id_member;
+			        	$data->type = 0; // 0: nhân viên, 1: chủ spa
+			        	$data->number_spa = 0;
+
+			        	if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
+						$data->password = md5($dataSend['password']);
+			        }
+
 			        $data->name = $dataSend['name'];
 			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->email = $dataSend['email'];
 					$data->address = $dataSend['address'];
 					$data->birthday = $dataSend['birthday'];
-					$data->id_member = $infoUser->id_member;
-					$data->type = 0; // 0: nhân viên, 1: chủ spa
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
 					$data->updated_at = date('Y-m-d H:i:s');
-					$data->phone = $dataSend['phone'];
 					$data->code_otp = rand(100000, 999999);
-					
-					if(empty($_GET['id'])){
-						if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
-						$data->password = md5($dataSend['password']);
-					}else{
-						if(!empty($dataSend['password'])){
-				        	$data->password = md5($dataSend['password']);
-				        }
-					}
 
 			        $modelMembers->save($data);
 

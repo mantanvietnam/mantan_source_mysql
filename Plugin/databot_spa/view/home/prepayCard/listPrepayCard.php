@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Mệnh giá thẻ trả trước</h4>
+  <h4 class="fw-bold py-3 mb-4">Loại thẻ trả trước</h4>
   <p><a href="/addPrepayCard" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -40,7 +40,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách mệnh giá thẻ trả trước</h5>
+    <h5 class="card-header">Danh sách loại thẻ trả trước</h5>
     
     <div class="row">
       <div class="table-responsive">
@@ -48,10 +48,11 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Thông tin thẻ trả trước</th>
+              <th>Tên thẻ</th>
               <th>Mệnh giá</th>
               <th>Giá bán</th>
-              <th>Thời gian sử dụng</th>
+              <th>Hoa hồng</th>
+              <th>Thời gian SD</th>
               <th>Trạng thái</th>
               <th>Sửa</th>
               <th>Xóa</th>
@@ -62,18 +63,25 @@
               if(!empty($listData)){
                 foreach ($listData as $item) {
 
-                  if($item->status=='1'){
-                    $status= 'hiện';
+                  if($item->status=='active'){
+                    $status= 'Kích hoạt';
                   }else{
-                    $status= 'ẩn';
+                    $status= 'Khóa';
                   }
+
+                  if(!empty($item->commission_staff_fix)){
+                    $staff = number_format($item->commission_staff_fix).'đ';
+                  }else{
+                    $staff = $item->commission_staff_percent.'%';
+                  }
+
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
-                          <td>'.number_format($item->discount_money).'</td>
                           <td>'.number_format($item->price).'</td>
-                          <td>'.$item->use_time.'</td>
-                          
+                          <td>'.number_format($item->total_price).'</td>
+                          <td>'.$staff.'</td>
+                          <td>'.$item->use_time.' ngày</td>
                           <td>'.$status.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addPrepayCard/?id='.$item->id.'">
@@ -81,7 +89,7 @@
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deletePrepayCard/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa loại thẻ trả trước không?\');" href="/deletePrepayCard/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -89,7 +97,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có khách hàng</td>
+                        <td colspan="10" align="center">Chưa có loại thẻ trả trước</td>
                       </tr>';
               }
             ?>
