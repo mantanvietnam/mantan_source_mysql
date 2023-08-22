@@ -212,7 +212,21 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `id_spa` int(11) NOT NULL
 ) ENGINE=InnoDB;";
 
-
+$sqlInstallDatabase .="CREATE TABLE `bills` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `code` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `id_member` INT NOT NULL ,
+  `id_spa` INT NULL DEFAULT NULL ,
+  `id_saff` INT NOT NULL ,
+  `total` BIGINT NOT NULL ,
+  `note` TEXT NULL DEFAULT NULL ,
+  `type` INT NOT NULL COMMENT '0: Thu, 1: chi, ' ,
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `updated_at` DATETIME NULL DEFAULT NULL , 
+  `type_collection_bill` VARCHAR(255) NULL DEFAULT NULL, 
+  `status` VARCHAR(20) NULL DEFAULT NULL , 
+  `id_customer` INT NULL DEFAULT NULL , 
+) ENGINE = InnoDB;"
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -227,6 +241,7 @@ $sqlDeleteDatabase .= "DROP TABLE services; ";
 $sqlDeleteDatabase .= "DROP TABLE spas; ";
 $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
+$sqlDeleteDatabase .= "DROP TABLE bills; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";
