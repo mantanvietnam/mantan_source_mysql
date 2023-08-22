@@ -148,7 +148,7 @@
                 
               </ul>
             </li>
-             <li class="menu-item">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-shopping-bag"></i>
                 <div>Bán hàng</div>
@@ -247,7 +247,24 @@
                 </li>
               </ul>
             </li>
-
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
+                <div>Quản lý thu chị</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listCollectionBill" class="menu-link">
+                    <div>Phiếu thu</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listBill" class="menu-link">
+                    <div>Phiếu chi</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>

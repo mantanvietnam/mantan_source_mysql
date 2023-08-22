@@ -48,10 +48,10 @@ function listCustomer($input)
 	    }
 
 		// xử lý xuất excel
-	     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+    		$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
 
-    	$titleExcel = 	[
+    		$titleExcel = 	[
 							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
 							['name'=>'Giới tính', 'type'=>'text', 'width'=>15],
 							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
@@ -76,74 +76,74 @@ function listCustomer($input)
 							['name'=>'Link facebook', 'type'=>'text', 'width'=>35],
 						];
 
-		$dataExcel = [];
-		if(!empty($listData)){
-			foreach ($listData as $key => $value) {
-				$sex = 'Nữ';
-				if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
-				$staff = $modelMembers->find()->where(['id'=>(int)$value->id_staff])->first();
-				$nameStaff = '';
-				if(!empty($staff)){
-					$nameStaff = $staff->name;
-				}
-				$source = $modelCategories->find()->where(['id'=>(int)$value->source])->first();
-				$namesource = '';
-				if(!empty($source)){
-					$namesource = $source->name;
-				}
-				$group = $modelCategories->find()->where(['id'=>(int)$value->id_group])->first();
-				$namegroup = '';
-				if(!empty($group)){
-					$namegroup = $group->name;
-				}
+			$dataExcel = [];
+			if(!empty($listData)){
+				foreach ($listData as $key => $value) {
+					$sex = 'Nữ';
+					if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
+					$staff = $modelMembers->find()->where(['id'=>(int)$value->id_staff])->first();
+					$nameStaff = '';
+					if(!empty($staff)){
+						$nameStaff = $staff->name;
+					}
+					$source = $modelCategories->find()->where(['id'=>(int)$value->source])->first();
+					$namesource = '';
+					if(!empty($source)){
+						$namesource = $source->name;
+					}
+					$group = $modelCategories->find()->where(['id'=>(int)$value->id_group])->first();
+					$namegroup = '';
+					if(!empty($group)){
+						$namegroup = $group->name;
+					}
 
-				$spa = $modelSpas->find()->where(['id'=>(int)$value->id_spa])->first();
-				$namespa = '';
-				if(!empty($spa)){
-					$namespa = $spa->name;
-				}
+					$spa = $modelSpas->find()->where(['id'=>(int)$value->id_spa])->first();
+					$namespa = '';
+					if(!empty($spa)){
+						$namespa = $spa->name;
+					}
 
-				$service = $modelService->find()->where(['id'=>(int)$value->id_service])->first();
-				$nameservice = '';
-				if(!empty($service)){
-					$nameservice = $service->name;
-				}
+					$service = $modelService->find()->where(['id'=>(int)$value->id_service])->first();
+					$nameservice = '';
+					if(!empty($service)){
+						$nameservice = $service->name;
+					}
 
-				$product = $modelProduct->find()->where(['id'=>(int)$value->id_product])->first();
-				$nameproduct = '';
-				if(!empty($product)){
-					$nameproduct = $product->name;
-				}
+					$product = $modelProduct->find()->where(['id'=>(int)$value->id_product])->first();
+					$nameproduct = '';
+					if(!empty($product)){
+						$nameproduct = $product->name;
+					}
 
-				$dataExcel[] = [
-								$value->name, 
-								$sex,
-								$value->phone, 
-								$value->email, 
-								$value->cmnd,  
-								$value->address,  
-								$value->birthday,  
-								$value->job,  
-								$nameStaff,  
-								$namesource,
-								$namegroup,
-								$namespa,
-								$value->medical_history,
-								$value->drug_allergy_history,
-								$value->request_current,
-								$value->advisory,
-								$value->advise_towards,
-								$nameservice,
-								$nameproduct,
-								$value->note,
-								$value->avatar,
-								$value->link_facebook,
-							];
+					$dataExcel[] = [
+									$value->name, 
+									$sex,
+									$value->phone, 
+									$value->email, 
+									$value->cmnd,  
+									$value->address,  
+									$value->birthday,  
+									$value->job,  
+									$nameStaff,  
+									$namesource,
+									$namegroup,
+									$namespa,
+									$value->medical_history,
+									$value->drug_allergy_history,
+									$value->request_current,
+									$value->advisory,
+									$value->advise_towards,
+									$nameservice,
+									$nameproduct,
+									$value->note,
+									$value->avatar,
+									$value->link_facebook,
+								];
+				}
 			}
-		}
 
-		export_excel($titleExcel, $dataExcel);
-    }else{
+			export_excel($titleExcel, $dataExcel);
+	    }else{
 	    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    }
 

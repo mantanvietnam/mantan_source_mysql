@@ -22,9 +22,9 @@ global $type_collection_bill;
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-fullname">Thời gian </label>
                     <?php if(!empty($_GET['id'])){ ?>
-                      <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="apt_date_time" id="apt_date_time" value="<?php echo @$data->apt_date_time->format('d/m/Y H:i');?>" />
+                      <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="created_at" id="created_at" value="<?php echo @$data->created_at->format('d/m/Y H:i');?>" />
                   <?php }else{ ?>
-                      <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="apt_date_time" id="apt_date_time" value="<?php echo date('d/m/Y H:i');?>" />
+                      <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="created_at" id="created_at" value="<?php echo date('d/m/Y H:i');?>" />
                     <?php } ?>
                   </div>
                   <div class="mb-3 col-md-6">

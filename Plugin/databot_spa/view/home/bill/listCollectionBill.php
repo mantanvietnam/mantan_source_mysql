@@ -32,6 +32,10 @@
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
+          </div>
         </div>
       </div>
     </div>
@@ -41,7 +45,7 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách phiếu thu</h5>
-
+    <?php echo @$mess; ?>
     <div class="row">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -66,7 +70,7 @@
                     if($item->status==0)$status = 'chưa sử lý';
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.@$item->apt_date_time->format('d/m/Y H:i').'</td>
+                          <td>'.@$item->created_at->format('d/m/Y H:i').'</td>
                           <td>'.$item->staff->name.'</td>
                           <td>'.number_format($item->total).'</td>
                           <td>'.$type_collection_bill[$item->type_collection_bill].'</td>
@@ -77,7 +81,7 @@
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa gói combo không?\');" href="/addCollectionBill/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa phiếu thu không?\');" href="/DeleteBill/?id='.$item->id.'&url=1">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -85,7 +89,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có gói combo nào</td>
+                        <td colspan="10" align="center">Chưa có gói phiếu thu nào</td>
                       </tr>';
               }
             ?>
