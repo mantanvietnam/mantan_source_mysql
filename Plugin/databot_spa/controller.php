@@ -16,4 +16,5 @@ include_once('controller/home/bedController.php'); // giường
 include_once('controller/home/comboController.php'); // combo
 include_once('controller/home/booksController.php'); // books
 include_once('controller/home/prepayCardController.php'); // combo
+include_once('controller/home/billController.php'); // combo
 ?>
