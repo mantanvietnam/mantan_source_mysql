@@ -2,6 +2,7 @@
 function listCustomer($input)
 {
 	global $controller;
+	global $modelCategories;
 	global $urlCurrent;
 	global $metaTitleMantan;
     global $session;
@@ -10,6 +11,9 @@ function listCustomer($input)
 
 	$modelCustomer = $controller->loadModel('Customers');
 	$modelMembers = $controller->loadModel('Members');
+	$modelService = $controller->loadModel('Services');
+	$modelSpas = $controller->loadModel('Spas');
+	$modelProduct = $controller->loadModel('Products');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');

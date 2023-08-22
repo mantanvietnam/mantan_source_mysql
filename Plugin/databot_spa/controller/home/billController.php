@@ -52,29 +52,29 @@ function listCollectionBill($input){
     		$listData = $modelBill->find()->where($conditions)->order($order)->all()->toList();
 
     		$titleExcel = 	[
-							['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
-							['name'=>'Người thu', 'type'=>'text', 'width'=>25],
-							['name'=>'Số tiền', 'type'=>'text', 'width'=>25],
-							['name'=>'Hình thức', 'type'=>'text', 'width'=>25],
-							['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
+							['name'=>'Thời gian', 'type'=>'text', 'width'=>15],
+							['name'=>'Người thu', 'type'=>'text', 'width'=>15],
+							['name'=>'Số tiền', 'type'=>'text', 'width'=>15],
+							['name'=>'Hình thức', 'type'=>'text', 'width'=>15],
+							['name'=>'Trạng thái', 'type'=>'text', 'width'=>10],
 						];
 
 			$dataExcel = [];
 			if(!empty($listData)){
 				foreach ($listData as $key => $value) {
-					$staff = $modelMember->find()->where(array('id'=>$item->id_staff))->first();
+					$staff = $modelMember->find()->where(array('id'=>$value->id_staff))->first();
 					$name = '';
 					if(!empty($staff)){
 						$name = $staff->name;
 					}
 					 $status = 'đã sử lý';
-                    if($item->status==0)$status = 'chưa sử lý';
+                    if($value->status==0)$status = 'chưa sử lý';
 					$dataExcel[] = [
-									@$value->created_at->format('d/m/Y H:i'), 
-									@$name, 
-									@$value->total, 
+									$value->created_at->format('d/m/Y H:i'), 
+									$name, 
+									$value->total, 
 									$type_collection_bill[$value->type_collection_bill], 
-									$staff, 
+									$status, 
 								];
 				}
 			}
@@ -254,8 +254,41 @@ function listBill($input){
 			$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
 		}
 
+		if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+    		$listData = $modelBill->find()->where($conditions)->order($order)->all()->toList();
 
-		$listData = $modelBill->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    		$titleExcel = 	[
+							['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+							['name'=>'Người chi', 'type'=>'text', 'width'=>25],
+							['name'=>'Số tiền', 'type'=>'text', 'width'=>25],
+							['name'=>'Hình thức', 'type'=>'text', 'width'=>25],
+							['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
+						];
+
+			$dataExcel = [];
+			if(!empty($listData)){
+				foreach ($listData as $key => $value) {
+					$staff = $modelMember->find()->where(array('id'=>$value->id_staff))->first();
+					$name = '';
+					if(!empty($staff)){
+						$name = $staff->name;
+					}
+					 $status = 'đã sử lý';
+                    if($value->status==0)$status = 'chưa sử lý';
+					$dataExcel[] = [
+									@$value->created_at->format('d/m/Y H:i'), 
+									@$name, 
+									@$value->total, 
+									$type_collection_bill[$value->type_collection_bill], 
+									$status,
+								];
+				}
+			}
+
+			export_excel($titleExcel, $dataExcel);
+	    }else{
+	    	$listData = $modelBill->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    }
 		if(!empty($listData)){
 			foreach($listData as $key =>$item){
 				$staff = $modelMember->find()->where(array('id'=>$item->id_staff))->first();

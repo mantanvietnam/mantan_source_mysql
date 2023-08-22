@@ -291,17 +291,19 @@ function getListBuyWarehousesAPI($input){
 		if(!empty($infoUser)){
 
 			// lấy kho 
-			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id,'deadline_at >=' => date('Y-m-d H:i:s')))->all()->toList();
+			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id, 'deadline_at >=' => date('Y-m-d H:i:s')))->all()->toList();
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
 					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1))->first();
-					if($dataWarehouse){
-						$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
-						$dataWarehouse->deadline_at = $item->deadline_at;
-						$ngay = date('Y-m-d', strtotime($item->deadline_at));
-						$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
-						$listData[] = $dataWarehouse;
+					if(!empty($dataWarehouse)){
+						if($dataWarehouse->user_id!=$infoUser->id){
+							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
+							$dataWarehouse->deadline_at = $item->deadline_at;
+							$ngay = date('Y-m-d', strtotime($item->deadline_at));
+							$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
+							$listData[] = $dataWarehouse;
+						}
 					}
 				}
 				$return = array('code'=>1,
