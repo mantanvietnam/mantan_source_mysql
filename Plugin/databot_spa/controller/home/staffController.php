@@ -1,5 +1,5 @@
 <?php 
-function listSaff($input)
+function listStaff($input)
 {
 	global $isRequestPost;
     global $modelCategories;
@@ -95,7 +95,7 @@ function listSaff($input)
 	}
 }
 
-function addSaff($input){	
+function addStaff($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -178,7 +178,7 @@ function addSaff($input){
 	}
 }
 
-function lockSaff($input){
+function lockStaff($input){
 	global $isRequestPost;
     global $metaTitleMantan;
     global $session;
@@ -200,7 +200,7 @@ function lockSaff($input){
 					$data->status = $_GET['status'];
 				
 	         	$modelMember->save($data);
-	         	return $controller->redirect('/listSaff');
+	         	return $controller->redirect('/listStaff');
 	        	}
 			}
 		}
@@ -209,7 +209,7 @@ function lockSaff($input){
 	}
 }
 
-function changePassSaff($input){
+function changePassStaff($input){
 	global $isRequestPost;
     global $metaTitleMantan;
     global $session;
@@ -232,7 +232,7 @@ function changePassSaff($input){
 
 			$data->password= md5($dataSend['passNew']);
          	$modelMember->save($data);
-         	return $controller->redirect('/listSaff');
+         	return $controller->redirect('/listStaff');
         }
 
         setVariable('data', $data);
@@ -244,7 +244,7 @@ function changePassSaff($input){
 	}
 }
 
-function listGroupSaff(){
+function listGroupStaff(){
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -330,7 +330,7 @@ function listGroupSaff(){
 	}
 }
 
-function addGroupSaff($input){	
+function addGroupStaff($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -385,7 +385,7 @@ function addGroupSaff($input){
 	}
 }
 
-function deteleGroupSaff($input){	
+function deteleGroupStaff($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -405,7 +405,7 @@ function deteleGroupSaff($input){
             
             if(!empty($data)){
                 $modelCategories->delete($data);
-                return $controller->redirect('/listGroupSaff');
+                return $controller->redirect('/listGroupStaff');
             }
         }
     }else{
