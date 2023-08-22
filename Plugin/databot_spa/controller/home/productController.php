@@ -173,6 +173,16 @@ function listProduct(){
     
     if(!empty($session->read('infoUser'))){
 
+        $mess= '';
+        
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestProduct':
+                    $mess= '<p class="text-danger">Bạn cần tạo sản phẩm trước</p>';
+                    break;
+            }
+        }
+
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -256,6 +266,7 @@ function listProduct(){
         setVariable('listData', $listData);
         setVariable('listCategory', $listCategory);
         setVariable('listTrademar', $listTrademar);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }

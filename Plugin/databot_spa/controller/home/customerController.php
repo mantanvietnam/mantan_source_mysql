@@ -9,6 +9,7 @@ function listCustomer($input)
     $metaTitleMantan = 'Danh sách khách hàng';
 
 	$modelCustomer = $controller->loadModel('Customers');
+	$modelMembers = $controller->loadModel('Members');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -31,57 +32,66 @@ function listCustomer($input)
 			$conditions['email'] = $_GET['email'];
 		}
 
-		if(!empty($_GET['status'])){
-			$conditions['status'] = $_GET['status'];
+		if(!empty($_GET['id_staff'])){
+			$conditions['id_staff'] = (int) $_GET['id_staff'];
 		}
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
-	    
+		$listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $listStaffs[] = $infoUser;
+	    $listStaff = [];
+	    foreach ($listStaffs as $key => $value) {
+	    	$listStaff[$value->id] = $value;
+	    }
+
+		// xử lý xuất excel
+	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+	    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+
+	    	$titleExcel = 	[
+								['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
+								['name'=>'Giới tính', 'type'=>'text', 'width'=>15],
+								['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
+								['name'=>'Email', 'type'=>'text', 'width'=>35],
+								['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
+								['name'=>'Địa chỉ', 'type'=>'text', 'width'=>35],
+								['name'=>'Điểm tích lũy', 'type'=>'number', 'width'=>15],
+								['name'=>'NV chăm sóc', 'type'=>'text', 'width'=>35],
+							];
+
+			$dataExcel = [];
+			if(!empty($listData)){
+				foreach ($listData as $key => $value) {
+					$sex = 'Nữ';
+					if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
+
+					$status = 'Kích hoạt';
+					if(empty($value->status)) $status = 'Khóa';
+					if(!empty($value->type) && $value->type==1) $type = 'Designer';
+
+					$dataExcel[] = [
+									$value->name, 
+									$sex,
+									$value->phone, 
+									$value->email, 
+									$value->cmnd,  
+									$value->address,  
+									$value->point,  
+									@$listStaff[$value->id_staff]->name
+								];
+				}
+			}
+
+			export_excel($titleExcel, $dataExcel, 'danh_sach_khach_hang_'.date('d_m_Y') );
+	    }else{
+	    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    }
 
 	    $totalData = $modelCustomer->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
-
-	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
-
-    	$titleExcel = 	[
-							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
-							['name'=>'giới tính', 'type'=>'text', 'width'=>15],
-							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
-							['name'=>'Email', 'type'=>'text', 'width'=>35],
-							['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
-							['name'=>'địa chỉ', 'type'=>'text', 'width'=>35],
-						];
-
-		$dataExcel = [];
-		if(!empty($listData)){
-			foreach ($listData as $key => $value) {
-				$sex = 'Nữ';
-				if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
-
-				$status = 'Kích hoạt';
-				if(empty($value->status)) $status = 'Khóa';
-				if(!empty($value->type) && $value->type==1) $type = 'Designer';
-
-				$dataExcel[] = [
-								$value->name, 
-								$sex,
-								$value->phone, 
-								$value->email, 
-								$value->cmnd,  
-								$value->address,  
-							];
-			}
-		}
-
-		export_excel($titleExcel, $dataExcel);
-    }else{
-    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-    }
-
 	    $balance = $totalData % $limit;
 	    $totalPage = ($totalData - $balance) / $limit;
 	    if ($balance > 0)
@@ -117,6 +127,7 @@ function listCustomer($input)
 	    setVariable('urlPage', $urlPage);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('listStaff', $listStaff);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -129,6 +140,7 @@ function addCustomer($input)
     global $modelCategories;
 	global $metaTitleMantan;
 	global $session;
+	global $urlHomes;
 
     $metaTitleMantan = 'Thông tin khách hàng';
 
@@ -136,6 +148,7 @@ function addCustomer($input)
 	$modelService = $controller->loadModel('Services');
 	$modelMembers = $controller->loadModel('Members');
 	$modelSpa = $controller->loadModel('Spas');
+	$modelProducts = $controller->loadModel('Products');
 	
 	$mess= '';
 	
@@ -148,6 +161,7 @@ function addCustomer($input)
 	    }else{
 	        $data = $modelCustomer->newEmptyEntity();
 			$data->created_at = date('Y-m-d H:i:s');
+			$data->point = 0;
 	    }
 
 		if ($isRequestPost) {
@@ -163,29 +177,42 @@ function addCustomer($input)
 	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
 			        // tạo dữ liệu save
 			        $data->name = $dataSend['name'];
-			        $data->avatar = $dataSend['avatar'];
+			        $data->id_member =(int) $infoUser->id_member;
+			        $data->id_spa = (int) $dataSend['id_spa'];
 			        $data->phone = $dataSend['phone'];
 			        $data->email = $dataSend['email'];
-			        $data->cmnd = $dataSend['cmnd'];
-			        $data->avatar = $dataSend['avatar'];
-			        $data->birthday = $dataSend['birthday'];
-			        $data->id_group = (int) $dataSend['id_group'];
-			        $data->code = $dataSend['code'];
-			        $data->link_facebook = $dataSend['link_facebook'];
-			        $data->source = $dataSend['source'];
-			        $data->id_spa = (int) $dataSend['id_spa'];
-			        $data->medical_history = $dataSend['medical_history'];
-			        $data->request_current = $dataSend['request_current'];
-			        $data->advise_towards = $dataSend['advise_towards'];
-			        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
-			        $data->advisory = $dataSend['advisory'];
-			        $data->id_service =(int) $dataSend['id_service'];
 			        $data->address = $dataSend['address'];
-			        $data->note = $dataSend['note'];
-			        $data->id_staff = (int) $dataSend['id_staff'];
+			        $data->updated_at = date('Y-m-d H:i:s');
 			        $data->sex = (int) $dataSend['sex'];
-			        $data->id_member =(int) $infoUser->id_member;
-					$data->updated_at = date('Y-m-d H:i:s');
+			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+			        $data->birthday = $dataSend['birthday'];
+			        $data->cmnd = $dataSend['cmnd'];
+			        $data->link_facebook = $dataSend['link_facebook'];
+			        $data->id_staff = (int) $dataSend['id_staff'];
+			        $data->source = (int) $dataSend['source'];
+			        $data->id_group = (int) $dataSend['id_group'];
+			        $data->id_service =(int) $dataSend['id_service'];
+			        $data->medical_history = $dataSend['medical_history'];
+			        $data->drug_allergy_history = $dataSend['drug_allergy_history'];
+			        $data->request_current = $dataSend['request_current'];
+			        $data->advisory = $dataSend['advisory'];
+			        $data->advise_towards = $dataSend['advise_towards'];
+			        $data->note = $dataSend['note'];
+			        $data->job = $dataSend['job'];
+			        $data->id_product =(int) $dataSend['id_product'];
+
+					if(empty($_GET['id']) || empty($data->referral_code)){
+						if(!empty($dataSend['referral_code'])){
+							$dataSend['referral_code'] = trim(str_replace(array(' ','.','-'), '', $dataSend['referral_code']));
+	        				$dataSend['referral_code'] = str_replace('+84','0',$dataSend['referral_code']);
+
+							$checkAff = $modelCustomer->find()->where(['phone'=>$dataSend['referral_code'], 'id_member'=>$infoUser->id_member])->first();
+
+							if(!empty($checkAff)){
+								$data->referral_code = $dataSend['referral_code'];
+							}
+						}
+					}
 
 			        $modelCustomer->save($data);
 
@@ -198,18 +225,29 @@ function addCustomer($input)
 		    }
 	    }
 
+	    // danh sách nhân viên
 	    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    
+	    // danh sách cơ sở
 	    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
 
+	    // nhóm khách hàng
 	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
-	    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
+	    $dataGroup = $modelCategories->find()->where($category)->order(['name' => 'ASC'])->all()->toList();
 
-	    $service = array('id_member'=>$infoUser->id_member);
-	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
+	    // danh sách dịch vụ
+	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $dataService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
 
+	    // danh sách sản phẩm
+	    $product = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $dataProduct = $modelProducts->find()->where($product)->order(['name' => 'ASC'])->all()->toList();
+
+	    // danh sách nguồn khách hàng
 	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
-	    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
-	   
+	    $dataSource = $modelCategories->find()->where($source)->order(['name' => 'ASC'])->all()->toList();
+	   	
+	   	/*
 	    if(empty($dataGroup)){
 	    	return $controller->redirect('/listCategoryCustomer/?error=requestCategoryCustomer');
 	    }
@@ -218,13 +256,24 @@ function addCustomer($input)
 	    	return $controller->redirect('/listSourceCustomer/?error=requestSourceCustomer');
 	    }
 
+	    if(empty($dataService)){
+	    	return $controller->redirect('/listService/?error=requestService');
+	    }
+
+	    if(empty($dataProduct)){
+	    	return $controller->redirect('/listProduct/?error=requestProduct');
+	    }
+	    */
+
 	    setVariable('data', $data);
-	    setVariable('dataMember', $dataMember);
+	    setVariable('dataMember', $dataMember); 
 	    setVariable('dataSpa', $dataSpa);
 	    setVariable('dataGroup', $dataGroup);
 	    setVariable('dataService', $dataService);
+	    setVariable('dataProduct', $dataProduct);
 	    setVariable('dataSource', $dataSource);
 	    setVariable('mess', $mess);
+	    setVariable('infoUser', $infoUser);
     }else{
 		return $controller->redirect('/login');
 	}
@@ -342,7 +391,7 @@ function listSourceCustomer($input){
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
             $infoCategory->parent = 0;
-            $infoCategory->image = (!empty($dataSend['image']))?$dataSend['image']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';;
+            $infoCategory->image = (!empty($dataSend['image']))?$dataSend['image']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
             $infoCategory->id_member = $infoUser->id_member;
             $infoCategory->keyword = '';
             $infoCategory->description = '';

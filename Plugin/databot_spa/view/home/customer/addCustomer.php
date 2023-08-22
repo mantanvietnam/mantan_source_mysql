@@ -44,16 +44,18 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ngày sinh (*)</label>
+                    <label class="form-label" for="basic-default-fullname">Ngày sinh</label>
                     <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="birthday" id="birthday" value="<?php echo @$data->birthday;?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Nhân viên phụ trách</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_staff" id="id_staff">
+                        <option value="<?php echo $infoUser->id; ?>"><?php echo $infoUser->name; ?></option>
+                        
                         <?php foreach($dataMember as $key => $item){ ?>
                         <option value="<?php echo $item->id ?>" <?php if(isset($data->id_staff) && $data->id_staff==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                      <?php } ?>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -61,20 +63,21 @@
                     <label class="form-label" for="basic-default-email">Nhóm khách hàng </label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_group" id="id_group">
+                        <option value="0">Chọn nhóm khách hàng</option>
                         <?php foreach($dataGroup as $key => $item){ ?>
-                        <option value="<?php echo $item->id ?>" <?php if(isset($data->id_group) && $data->id_group==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                      <?php } ?>
+                          <option value="<?php echo $item->id ?>" <?php if(isset($data->id_group) && $data->id_group==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                        <?php } ?>
                       </select>
                     </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Mã người giới thiệu</label>
+                    <input type="text" <?php if(!empty($_GET['id']) && !empty($data->referral_code)) echo 'disabled';?>  class="form-control" placeholder="" name="referral_code" id="referral_code" value="<?php echo @$data->referral_code;?>" />
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Mã khách hàng (*)</label>
-                    <input type="text"  class="form-control" placeholder="" name="code" id="code" value="<?php echo @$data->code;?>" />
-                  </div>
-
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
                     <input type="text" required class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
@@ -93,13 +96,20 @@
                     <label class="form-label" for="basic-default-fullname">Link facebook</label>
                     <input type="text" class="form-control" placeholder="" name="link_facebook" id="link_facebook" value="<?php echo @$data->link_facebook;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Nghề nghiệp</label>
+                    <input type="text" class="form-control" placeholder="" name="job" id="job" value="<?php echo @$data->job;?>" />
+                  </div>
+
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Nguồn khách hàng </label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="source" id="source">
-                       <?php foreach($dataSource as $key => $item){ ?>
-                        <option value="<?php echo $item->id ?>" <?php if(isset($data->source) && $data->source==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                      <?php } ?>
+                        <option value="0">Chọn nguồn khách hàng</option>
+                        <?php foreach($dataSource as $key => $item){ ?>
+                          <option value="<?php echo $item->id ?>" <?php if(isset($data->source) && $data->source==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -112,6 +122,11 @@
                       <?php } ?>
                       </select>
                     </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ngày tạo tài khoản</label>
+                    <input type="text" disabled  class="form-control" placeholder="" name="created_at" id="created_at" value="<?php echo @$data->created_at;?>" />
                   </div>
                 </div>
               </div>
@@ -136,6 +151,26 @@
                   <label class="form-label" for="basic-default-fullname">Khả năng tư vấn hướng tới</label>
                   <input type="text" class="form-control" placeholder="" name="advise_towards" id="advise_towards" value="<?php echo @$data->advise_towards;?>" />
                 </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Dịch vụ quan tâm</label>
+                  <select class="form-select" name="id_service" id="id_service">
+                    <option value="0">Chọn dịch vụ quan tâm</option>
+                    <?php foreach($dataService as $key => $item){ ?>
+                      <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Sản phẩm quan tâm</label>
+                  <select class="form-select" name="id_product" id="id_product">
+                    <option value="0">Chọn sản phẩm quan tâm</option>
+                    <?php foreach($dataProduct as $key => $item){ ?>
+                      <option value="<?php echo $item->id ?>" <?php if(isset($data->id_product) && $data->id_product== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
@@ -146,21 +181,14 @@
                   <label class="form-label" for="basic-default-fullname">Khả năng tư vấn hướng dẫn</label>
                   <input type="text" class="form-control" placeholder="" name="advisory" id="advisory" value="<?php echo @$data->advisory;?>" />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Dịch vụ quan tâm</label>
-                  <select class="form-select" name="id_service" id="id_service">
-                    <?php foreach($dataService as $key => $item){ ?>
-                      <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12">
+
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Thông tin thêm</label>
-                  <textarea class="form-control" name="note"><?php echo @$data->note;?></textarea>
+                  <textarea placeholder="Sở thích, thói quen, yêu thích, ghét, mối quan hệ ...." class="form-control" rows="5" name="note"><?php echo @$data->note;?></textarea>
                 </div>
+                
               </div>
+              
               <button type="submit" style=" width: 70px; " class="btn btn-primary">Lưu</button>
             </div>
           </div>

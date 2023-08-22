@@ -28,6 +28,25 @@
             <label class="form-label">Email</label>
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">NV phụ trách</label>
+            <select name="id_staff" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+                if(!empty($listStaff)){
+                  foreach ($listStaff as $key => $value) {
+                    if(empty($_GET['id_staff']) || $_GET['id_staff']!=$value->id){
+                      echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                    }else{
+                      echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                    }
+                  }
+                }
+              ?>
+            </select>
+          </div>
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -52,10 +71,10 @@
             <tr class="">
               <th>ID</th>
               <th>Khách hàng</th>
-              <th>số điện thoại</th>
-              <th>email</th>
-              <th>địa chỉ</th>
-              <th>Gới tính</th>
+              <th>Điện thoại</th>
+              <th>Điểm</th>
+              <th>Địa chỉ</th>
+              <th>NV phụ trách</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -65,19 +84,13 @@
               if(!empty($listData)){
                 foreach ($listData as $item) {
 
-                  if($item->sex=='1'){
-                    $sex= 'nam';
-                  }else{
-                    $sex= 'nữ';
-                  }
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
                           <td>'.$item->phone.'</td>
-                          <td>'.$item->email.'</td>
+                          <td>'.number_format($item->point).'</td>
                           <td>'.$item->address.'</td>
-                          
-                          <td>'.$sex.'</td>
+                          <td>'.@$listStaff[$item->id_staff]->name.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
