@@ -48,45 +48,102 @@ function listCustomer($input)
 	    }
 
 		// xử lý xuất excel
-	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
-	    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+	     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+    	$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
 
-	    	$titleExcel = 	[
-								['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
-								['name'=>'Giới tính', 'type'=>'text', 'width'=>15],
-								['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
-								['name'=>'Email', 'type'=>'text', 'width'=>35],
-								['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
-								['name'=>'Địa chỉ', 'type'=>'text', 'width'=>35],
-								['name'=>'Điểm tích lũy', 'type'=>'number', 'width'=>15],
-								['name'=>'NV chăm sóc', 'type'=>'text', 'width'=>35],
-							];
+    	$titleExcel = 	[
+							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
+							['name'=>'Giới tính', 'type'=>'text', 'width'=>15],
+							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
+							['name'=>'Email', 'type'=>'text', 'width'=>35],
+							['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
+							['name'=>'Địa chỉ', 'type'=>'text', 'width'=>35],
+							['name'=>'Ngày sinh', 'type'=>'text', 'width'=>35],
+							['name'=>'Nghề nghiệp', 'type'=>'text', 'width'=>35],
+							['name'=>'Nhân viên phụ tránh', 'type'=>'text', 'width'=>35],
+							['name'=>'Nguồn khách hàng', 'type'=>'text', 'width'=>35],
+							['name'=>'Nhóm khách hàng', 'type'=>'text', 'width'=>35],
+							['name'=>'Chi nhánh', 'type'=>'text', 'width'=>35],
+							['name'=>'Tiền sử bệnh lý dang mắc', 'type'=>'text', 'width'=>35],
+							['name'=>'Tiền sử mang thai/ dị ứng thuốc', 'type'=>'text', 'width'=>35],
+							['name'=>'Nhu cầu', 'type'=>'text', 'width'=>35],
+							['name'=>'Khả năng tư vân hướng dẫn', 'type'=>'text', 'width'=>35],
+							['name'=>'Khả năng tư vân hướng tới', 'type'=>'text', 'width'=>35],
+							['name'=>'Dịch vụ quan tâm', 'type'=>'text', 'width'=>35],
+							['name'=>'Sản phẩm quan tâm', 'type'=>'text', 'width'=>35],
+							['name'=>'Nội dung thêm', 'type'=>'text', 'width'=>35],
+							['name'=>'Ảnh', 'type'=>'text', 'width'=>35],
+							['name'=>'Link facebook', 'type'=>'text', 'width'=>35],
+						];
 
-			$dataExcel = [];
-			if(!empty($listData)){
-				foreach ($listData as $key => $value) {
-					$sex = 'Nữ';
-					if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
-
-					$status = 'Kích hoạt';
-					if(empty($value->status)) $status = 'Khóa';
-					if(!empty($value->type) && $value->type==1) $type = 'Designer';
-
-					$dataExcel[] = [
-									$value->name, 
-									$sex,
-									$value->phone, 
-									$value->email, 
-									$value->cmnd,  
-									$value->address,  
-									$value->point,  
-									@$listStaff[$value->id_staff]->name
-								];
+		$dataExcel = [];
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$sex = 'Nữ';
+				if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
+				$staff = $modelMembers->find()->where(['id'=>(int)$value->id_staff])->first();
+				$nameStaff = '';
+				if(!empty($staff)){
+					$nameStaff = $staff->name;
 				}
-			}
+				$source = $modelCategories->find()->where(['id'=>(int)$value->source])->first();
+				$namesource = '';
+				if(!empty($source)){
+					$namesource = $source->name;
+				}
+				$group = $modelCategories->find()->where(['id'=>(int)$value->id_group])->first();
+				$namegroup = '';
+				if(!empty($group)){
+					$namegroup = $group->name;
+				}
 
-			export_excel($titleExcel, $dataExcel, 'danh_sach_khach_hang_'.date('d_m_Y') );
-	    }else{
+				$spa = $modelSpas->find()->where(['id'=>(int)$value->id_spa])->first();
+				$namespa = '';
+				if(!empty($spa)){
+					$namespa = $spa->name;
+				}
+
+				$service = $modelService->find()->where(['id'=>(int)$value->id_service])->first();
+				$nameservice = '';
+				if(!empty($service)){
+					$nameservice = $service->name;
+				}
+
+				$product = $modelProduct->find()->where(['id'=>(int)$value->id_product])->first();
+				$nameproduct = '';
+				if(!empty($product)){
+					$nameproduct = $product->name;
+				}
+
+				$dataExcel[] = [
+								$value->name, 
+								$sex,
+								$value->phone, 
+								$value->email, 
+								$value->cmnd,  
+								$value->address,  
+								$value->birthday,  
+								$value->job,  
+								$nameStaff,  
+								$namesource,
+								$namegroup,
+								$namespa,
+								$value->medical_history,
+								$value->drug_allergy_history,
+								$value->request_current,
+								$value->advisory,
+								$value->advise_towards,
+								$nameservice,
+								$nameproduct,
+								$value->note,
+								$value->avatar,
+								$value->link_facebook,
+							];
+			}
+		}
+
+		export_excel($titleExcel, $dataExcel);
+    }else{
 	    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    }
 
