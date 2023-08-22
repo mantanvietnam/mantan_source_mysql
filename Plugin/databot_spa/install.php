@@ -223,6 +223,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `type` INT NOT NULL COMMENT '0: Thu, 1: chi, ' ,
   `created_at` DATETIME NULL DEFAULT NULL ,
   `updated_at` DATETIME NULL DEFAULT NULL , 
+  `apt_date_time` DATETIME NULL DEFAULT NULL , 
   `type_collection_bill` VARCHAR(255) NULL DEFAULT NULL, 
   `status` VARCHAR(20) NULL DEFAULT NULL , 
   `id_customer` INT NULL DEFAULT NULL , 
