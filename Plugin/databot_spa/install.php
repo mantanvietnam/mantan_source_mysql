@@ -100,6 +100,7 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1 : members, 0: nhân viên ',
+  `id_group` int(11) DEFAULT NULL,
   `id_member` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -217,13 +218,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `id_spa` int(11) NOT NULL
 ) ENGINE=InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `member_groups` (
-  `id` INT(11) NOT NULL, 
-  `name`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-  `created_at` DATETIME NULL DEFAULT NULL ,
-  `note`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
-  `id_member` INT(11) NOT NULL,
-) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -238,7 +233,6 @@ $sqlDeleteDatabase .= "DROP TABLE services; ";
 $sqlDeleteDatabase .= "DROP TABLE spas; ";
 $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
-$sqlDeleteDatabase .= "DROP TABLE member_groups; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

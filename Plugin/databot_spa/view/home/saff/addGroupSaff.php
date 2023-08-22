@@ -21,10 +21,7 @@
                     <label class="form-label" for="basic-default-phone">Tên nhóm nhân viên (*)</label>
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="basic-default-fullname">keyword</label>
-                    <input required type="text" class="form-control phone-mask" name="keyword" id="keyword" value="<?php echo @$data->keyword;?>" />
-                  </div>
+                  
                 </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>

@@ -121,7 +121,7 @@ function addSaff($input){
 
 	    $mess ='';
 
-		if($isRequestPost) {
+		if($isRequestPost){
 	        $dataSend = $input['request']->getData();
 
 	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
@@ -145,6 +145,7 @@ function addSaff($input){
 			        }
 
 			        $data->name = $dataSend['name'];
+			        $data->id_group =(int) @$dataSend['id_group'];
 			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->email = $dataSend['email'];
 					$data->address = $dataSend['address'];
@@ -164,8 +165,13 @@ function addSaff($input){
 		    }
 	    }
 
+	    $conditionsCategorie = array('type' => 'category_member', 'id_member'=>$infoUser->id_member);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
+
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
+        setVariable('listCategory', $listCategory);
 
 	}else{
 		return $controller->redirect('/login');
@@ -174,7 +180,6 @@ function addSaff($input){
 
 function lockSaff($input){
 	global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
@@ -206,7 +211,6 @@ function lockSaff($input){
 
 function changePassSaff($input){
 	global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
@@ -360,7 +364,6 @@ function addGroupSaff($input){
 	        	// tạo dữ liệu save
 			    $data->name = @$dataSend['name'];
 			    $data->type = 'category_member';
-			    $data->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
 			    $data->slug = createSlugMantan($data->name).'-'.time();
 			    $data->id_member = $infoUser->id_member;
 
