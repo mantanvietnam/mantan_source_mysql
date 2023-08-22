@@ -13,6 +13,11 @@ $menus[0]['sub'][0]= array( 'title'=>'Người dùng',
                             'classIcon'=>'bx bx-user',
                             'permission'=>'listMemberAdmin'
                         );
+$menus[0]['sub'][14]= array( 'title'=>'Người dùng sắp hết hạn Pro',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-member-listMemberDeadlineProAdmin.php',
+                            'classIcon'=>'bx bx-user',
+                            'permission'=>'listMemberDeadlineProAdmin'
+                        );
 
 $menus[0]['sub'][1]= array( 'title'=>'Mẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php',
