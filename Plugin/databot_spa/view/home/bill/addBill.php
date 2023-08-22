@@ -4,16 +4,15 @@ global $type_collection_bill;
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listCollectionBill">Phiếu thu</a> /</span>
-    Thông tin phiếu thu 
+    <span class="text-muted fw-light"><a href="/listBill">Phiếu chi</a> /</span>
+    Thông tin phiếu chi
   </h4>
-
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin phiếu thu</h5>
+            <h5 class="mb-0">Thông tin phiếu chi</h5>
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
@@ -67,13 +66,6 @@ global $type_collection_bill;
     text-align: center;
   }
 </style>
-<!-- <script>
-    $( function() {
-      $( ".datepicker" ).datepicker({
-        dateFormat: "dd/mm/yy H:"
-      });
-    } );
-</script> -->
 
 <script type="text/javascript">
   $(function () {

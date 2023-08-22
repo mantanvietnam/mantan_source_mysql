@@ -132,6 +132,7 @@ function addCollectionBill($input){
                  
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
+            $data->apt_date_time = DateTime::createFromFormat('d/m/Y H:i', @$dataSend['apt_date_time'])->format('Y-m-d H:i:s'); 
             $data->id_spa = @$infoUser->id_spa;
             $data->id_staff = @$infoUser->id;
             $data->total = (int)@$dataSend['total'];
@@ -151,14 +152,13 @@ function addCollectionBill($input){
             }else{
                 return $controller->redirect('/listCollectionBill?mess=1');
             }
-        }
+        }	
 
         setVariable('data', $data);
     }else{
         return $controller->redirect('/login');
     }
 }
-
 
 // Danh sách Phiếu chi
 function listBill($input){
@@ -199,13 +199,13 @@ function listBill($input){
 		if(!empty($_GET['date_start'])){
 			$date_start = explode('/', $_GET['date_start']);
 			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-			$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+			$conditions['apt_date_time >='] = date('Y-m-d H:i:s', $date_start);
 		}
 
 		if(!empty($_GET['date_end'])){
 			$date_end = explode('/', $_GET['date_end']);
 			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-			$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+			$conditions['apt_date_time <='] = date('Y-m-d H:i:s', $date_end);
 		}
 
 
@@ -261,5 +261,64 @@ function listBill($input){
 	}else{
 		return $controller->redirect('/login');
 	}
+}
+
+function addBill($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Thông tin sản phẩm';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelMembers = $controller->loadModel('Members');
+		$modelBill = $controller->loadModel('Bills');
+
+        $infoUser = $session->read('infoUser');
+        $mess= '';
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $data = $modelBill->get( (int) $_GET['id']);
+
+        }else{
+            $data = $modelBill->newEmptyEntity();
+            $data->created_at = date('Y-m-d H:i:s');
+        }
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+                 
+            // tạo dữ liệu save
+            $data->id_member = @$infoUser->id_member;
+            $data->apt_date_time = DateTime::createFromFormat('d/m/Y H:i', @$dataSend['apt_date_time'])->format('Y-m-d H:i:s'); 
+            $data->id_spa = @$infoUser->id_spa;
+            $data->id_staff = @$infoUser->id;
+            $data->total = (int)@$dataSend['total'];
+            $data->type = 1;
+            $data->note = @$dataSend['note'];
+            $data->updated_at = date('Y-m-d H:i:s');
+            $data->type_collection_bill = @$dataSend['type_collection_bill'];
+            $data->status = 0;
+
+           
+            $modelBill->save($data);
+
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+            if(!empty($_GET['id'])){
+                return $controller->redirect('/listBill?mess=2');
+            }else{
+                return $controller->redirect('/listBill?mess=1');
+            }
+        }	
+
+        setVariable('data', $data);
+    }else{
+        return $controller->redirect('/login');
+    }
 }
  ?>

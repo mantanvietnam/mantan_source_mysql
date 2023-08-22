@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Phiếu thu</h4>
-  <p><a href="/addCollectionBill" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Phiếu chi</h4>
+  <p><a href="/addBill" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -14,17 +14,22 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
-          <div class="col-md-3">
-            <label class="form-label">Tên gói combo</label>
-            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+          <div class="col-md-2">
+            <label class="form-label">Tạo từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
 
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="" >Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+              <option value="0" <?php if(!empty($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >chưa sử lý </option>
+              <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Dã sử lý</option>
             </select>
           </div>
 
@@ -40,7 +45,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách phiếu thu</h5>
+    <h5 class="card-header">Danh sách phiếu chi</h5>
 
     <div class="row">
       <div class="table-responsive">
@@ -49,7 +54,7 @@
             <tr class="">
               <th>ID</th>
               <th>Thới gian</th>
-              <th>Người thu</th>
+              <th>Người chi</th>
               <th>Số tiền</th>
               <th>hình thức</th>
               <th>Trạng thái</th>
@@ -72,12 +77,12 @@
                           <td>'.$type_collection_bill[$item->type_collection_bill].'</td>
                           <td>'.$status.'</td>
                           <td align="center">
-                            <a class="dropdown-item" href="/addCollectionBill/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/addBill/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa gói combo không?\');" href="/addCollectionBill/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa gói combo không?\');" href="/DeleteBill/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -140,4 +145,17 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+<style type="text/css">
+  .datepicker-dropdown .table-condensed{
+    width: 100%; 
+    text-align: center;
+  }
+</style>
+ <script>
+    $( function() {
+      $( ".datepicker" ).datepicker({
+        dateFormat: "dd/mm/yy "
+      });
+    } );
+</script> 
 <?php include(__DIR__.'/../footer.php'); ?>
