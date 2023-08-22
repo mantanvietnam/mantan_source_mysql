@@ -787,22 +787,23 @@ strong{
 	}
 
 	.project-slide .slick-next {
-		right: 37%;
+		right: 32%;
 	}
 
 	.project-slide .slick-prev {
-		left: 37%;
+		left: 32%;
 	}
 	
 
 	/* keydate */
 	#section-keydate .keydate-left span{
-		font-size: 35px;
+		font-size: 31px;
 	}
 
 	#section-keydate .keydate-left .keydate-number::before{
 		top: -2px;
 		font-size: 25px;
+		right: -42px;
 	}
 
 	#section-keydate .keydate-right span {

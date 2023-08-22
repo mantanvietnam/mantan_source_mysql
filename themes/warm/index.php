@@ -3,10 +3,6 @@
     global $settingThemes;
     global $modelAlbums;
     global $modelAlbuminfos;
-    // foreach($album_photo as $key){
-    //     debug($album_photo);
-
-    // }
 ?>
 <?php getHeader();?>
     
@@ -95,57 +91,22 @@
             </div>
             <div class="project-content">
                 <div class="project-slide">
-                    <div class="project-item">
-                        <div class="project-item-title">
-                            <h2><strong>Dien Bien</strong> Project</h2> 
-                        </div>
+                    <?php 
+                    if(!empty($home_projects)){
+                        foreach($home_projects as $key => $value){
+                            echo'
+                            <div class="project-item">
+                                <div class="project-item-title">
+                                    <h2><strong>'.$value->title.'</strong> Project</h2> 
+                                </div>
 
-                        <div class="project-item-img">
-                            <a href=""><img src="<?php echo $urlThemeActive;?>/asset/img/project-slide.png" alt=""></a>
-                        </div>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-item-title">
-                            <h2><strong>Dien Bien</strong> Project</h2> 
-                        </div>
-
-                        <div class="project-item-img">
-                            <a href=""><img src="<?php echo $urlThemeActive;?>/asset/img/project-slide.png" alt=""></a>
-                        </div>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-item-title">
-                            <h2><strong>Dien Bien</strong> Project</h2> 
-                        </div>
-
-                        <div class="project-item-img">
-                            <a href=""><img src="<?php echo $urlThemeActive;?>/asset/img/project-slide.png" alt=""></a>
-                        </div>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-item-title">
-                            <h2><strong>Dien Bien</strong> Project</h2> 
-                        </div>
-
-                        <div class="project-item-img">
-                            <a href=""><img src="<?php echo $urlThemeActive;?>/asset/img/project-slide.png" alt=""></a>
-                        </div>
-                    </div>
-
-                    <div class="project-item">
-                        <div class="project-item-title">
-                            <h2><strong>Dien Bien</strong> Project</h2> 
-                        </div>
-
-                        <div class="project-item-img">
-                            <a href=""><img src="<?php echo $urlThemeActive;?>/asset/img/project-slide.png" alt=""></a>
-                        </div>
-                    </div>
-
-               
+                                <div class="project-item-img">
+                                    <a href="'.$value->slug_drive.'"><img src="'.$value->image.'" alt=""></a>
+                                </div>
+                            </div>';
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </section>

@@ -4,6 +4,8 @@ $(document).ready(function(){
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows:false,
+        autoplay: true,
+        autoplaySpeed: 2000,
     });
 
     $('.project-slide').slick({
@@ -15,7 +17,8 @@ $(document).ready(function(){
         `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
         nextArrow:
         `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
-        
+        // autoplay: true,
+        // autoplaySpeed: 2000,
         responsive: [
             {
               breakpoint: 1024,
@@ -44,7 +47,8 @@ $(document).ready(function(){
         `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
         nextArrow:
         `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
-      
+        // autoplay: true,
+        // autoplaySpeed: 2000,
         responsive: [
           {
             breakpoint: 1024,

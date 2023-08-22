@@ -104,9 +104,18 @@ function indexTheme($input)
  
     $album_photo = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+     // Slide photo ảnh
+     $modelProjects = $controller->loadModel('Projects');
+     $conditions = array();
+     $order = array('id'=>'desc');
+ 
+     $home_projects = $modelProjects->find()->where($conditions)->order($order)->all()->toList();
+
+    
 
     setVariable('slide_home', $slide_home);
     setVariable('album_photo', $album_photo);
+    setVariable('home_projects', $home_projects);
 
 }
 
