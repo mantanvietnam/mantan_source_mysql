@@ -403,6 +403,7 @@ function updateProductAPI($input)
 	$modelMember = $controller->loadModel('Members');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
 	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
 	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 
 	if($isRequestPost){
@@ -460,7 +461,8 @@ function updateProductAPI($input)
 			        	}
 					}
 					if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
-			            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+			            $background = uploadImage($infoUser->id, 'background');
+
 
 			            if(!empty($background['linkOnline'])){
 			                $thumb = $background['linkOnline'];
@@ -480,8 +482,8 @@ function updateProductAPI($input)
 			            }
 			        }
 			        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
-			            $thumbnail = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
-
+			            $thumbnail = uploadImage($infoUser->id, 'thumbnail');
+			            
 			            if(!empty($thumbnail['linkOnline'])){
 			                $thumbnails = $thumbnail['linkOnline'];
 
@@ -498,8 +500,6 @@ function updateProductAPI($input)
 			                $product->thumbnail = $thumbnails;
 			            }
 			        }
-
-
 			        $modelProduct->save($product);
 			        $return = array('code'=>1,
 							'mess'=>'bạn sửa thành công!'
