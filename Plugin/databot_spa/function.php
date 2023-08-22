@@ -56,9 +56,14 @@ function createToken($length=30)
     return substr(str_shuffle($chars), 0, $length).time();
 }
 
-
-
-
+global $type_collection_bill;
+$type_collection_bill = array(  'tien_mat'=>'Tiền mặt',
+                                    'chuyen_khoan'=>'Chuyển khoản',
+                                    'the_tin_dung'=>'Quẹt thẻ',
+                                    'vi_dien_tu'=>'Ví điện tử',
+                                    'cong_no'=>'Công nợ',
+                                    'hinh_thuc_khac'=>'Hình thức khác',
+                                );
 
 function sendEmailnewpassword($email='', $fullName='', $pass= '')
 {
