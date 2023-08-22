@@ -262,40 +262,44 @@ function getInfoProductAPI($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
 
-	$dataSend = $input['request']->getData();
+	
 	$data = $modelProduct->newEmptyEntity();
 	$otherData = [];
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		if(!empty($dataSend['id'])){
+			$data = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
 
-	if(!empty($dataSend['id'])){
-		$data = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
+			if(!empty($data)){
+				$data->views ++;
+				$modelProduct->save($data);
 
-		if(!empty($data)){
-			$data->views ++;
-			$modelProduct->save($data);
+				$infoUser = $modelMember->find()->where(['id'=>(int) $data->user_id])->first();
+				$data->author = @$infoUser->name;
 
-			$infoUser = $modelMember->find()->where(['id'=>(int) $data->user_id])->first();
-			$data->author = @$infoUser->name;
+				if(empty($data->thumbnail)){
+					$data->thumbnail = $data->image;
+				}
 
-			if(empty($data->thumbnail)){
-				$data->thumbnail = $data->image;
-			}
+				if($data->type == 'user_create'){
+					$data->link_share = 'https://designer.ezpics.vn/detail/'.$data->slug.'-'.$data->id.'.html';
+				}elseif($data->type == 'user_series'){
+					$data->link_share = 'https://designer.ezpics.vn/detail-series/'.$data->slug.'-'.$data->id.'.html';
+				}else{
+					$data->link_share = $data->image;
+				}
 
-			if($data->type == 'user_create'){
-				$data->link_share = 'https://designer.ezpics.vn/detail/'.$data->slug.'-'.$data->id.'.html';
-			}else{
-				$data->link_share = $data->image;
-			}
+				$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>2];
+				$limit= 12;
+				$page= 1;
+				$order = array();
+				$otherData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-			$conditions = ['category_id'=>$data->category_id, 'id !='=>$data->id, 'type'=>'user_create', 'status'=>2];
-			$limit= 12;
-			$page= 1;
-			$order = array();
-			$otherData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-			if(!empty($otherData)){
-				foreach ($otherData as $key => $value) {
-					if(empty($value->thumbnail)){
-						$otherData[$key]->thumbnail = $value->image;
+				if(!empty($otherData)){
+					foreach ($otherData as $key => $value) {
+						if(empty($value->thumbnail)){
+							$otherData[$key]->thumbnail = $value->image;
+						}
 					}
 				}
 			}
@@ -403,6 +407,7 @@ function updateProductAPI($input)
 	$modelMember = $controller->loadModel('Members');
 	$modelProductDetail = $controller->loadModel('ProductDetails');
 	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
 	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 
 	if($isRequestPost){
@@ -460,7 +465,8 @@ function updateProductAPI($input)
 			        	}
 					}
 					if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
-			            $background = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+			            $background = uploadImage($infoUser->id, 'background');
+
 
 			            if(!empty($background['linkOnline'])){
 			                $thumb = $background['linkOnline'];
@@ -480,8 +486,8 @@ function updateProductAPI($input)
 			            }
 			        }
 			        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
-			            $thumbnail = uploadImageFTP($infoUser->id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
-
+			            $thumbnail = uploadImage($infoUser->id, 'thumbnail');
+			            
 			            if(!empty($thumbnail['linkOnline'])){
 			                $thumbnails = $thumbnail['linkOnline'];
 
@@ -498,8 +504,6 @@ function updateProductAPI($input)
 			                $product->thumbnail = $thumbnails;
 			            }
 			        }
-
-
 			        $modelProduct->save($product);
 			        $return = array('code'=>1,
 							'mess'=>'bạn sửa thành công!'
@@ -1054,6 +1058,8 @@ function detailProductSeriesAPI($input)
 				if(!empty($product->thumbnail)){
 					$product->image = $product->thumbnail;
 				}
+
+				$product->link_share = 'https://designer.ezpics.vn/detail-series/'.$product->slug.'-'.$product->id.'.html';
 
 				$metaTitleMantan = 'Mẫu thiết kế: '.$product->name;
 				$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';

@@ -180,6 +180,90 @@ function listMemberAdmin($input)
     setVariable('listData', $listData);
 }
 
+function listMemberDeadlineProAdmin($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách người dùng sắp hết hạn Pro';
+    $mess = '';
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelWarehouse = $controller->loadModel('Warehouses');
+	$modelFollowDesigner = $controller->loadModel('FollowDesigners');
+	$conditions = array();
+	$limit = 20;
+
+
+	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+	if($page<1) $page = 1;
+	if(empty(@$_GET['order'])){
+		$order = array('id'=>'desc');
+	}elseif(@$_GET['order']==1){
+		$order = array('last_login'=>'desc');
+	}
+	
+	$conditions['member_pro'] = 1;
+	$conditions['deadline_pro <'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 8 days'));
+    
+    $listData = $modelMembers->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    
+
+    if(!empty($listData)){
+    	foreach($listData as $key => $item){
+    		$listData[$key]->totaProducts  = count($modelProduct->find()->where(array('type'=>'user_create', 'status'=> 2, 'user_id'=> $item->id))->all()->toList());
+
+    		$listData[$key]->totaWarehouse = count($modelWarehouse->find()->where(array('user_id'=> $item->id))->all()->toList());
+    		$listData[$key]->totaFollowDesigner = count($modelFollowDesigner->find()->where(array('designer_id'=> $item->id))->all()->toList());
+    	}
+    }
+    
+
+    $totalData = $modelMembers->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+     
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('totalData', $totalData);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('mess', $mess);
+    
+    setVariable('listData', $listData);
+}
+
 function addMemberAdmin($input)
 {
 	global $controller;

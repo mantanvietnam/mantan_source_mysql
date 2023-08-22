@@ -35,12 +35,12 @@
 	$routesPlugin['deleteCategoryCustomer']= 'databot_spa/view/home/customer/deleteCategoryCustomer.php';
 	$routesPlugin['listSourceCustomer']= 'databot_spa/view/home/customer/listSourceCustomer.php';
 	
-	$routesPlugin['listSaff']= 'databot_spa/view/home/saff/listSaff.php';
-	$routesPlugin['addSaff']= 'databot_spa/view/home/saff/addSaff.php';
-	$routesPlugin['lockSaff']= 'databot_spa/view/home/saff/lockSaff.php';
-	$routesPlugin['listGroupSaff']= 'databot_spa/view/home/saff/listGroupSaff.php';
-	$routesPlugin['addGroupSaff']= 'databot_spa/view/home/saff/addGroupSaff.php';
-	$routesPlugin['changePassSaff']= 'databot_spa/view/home/saff/changePassSaff.php';
+	$routesPlugin['listStaff']= 'databot_spa/view/home/staff/listStaff.php';
+	$routesPlugin['addStaff']= 'databot_spa/view/home/staff/addStaff.php';
+	$routesPlugin['lockStaff']= 'databot_spa/view/home/staff/lockStaff.php';
+	$routesPlugin['listGroupStaff']= 'databot_spa/view/home/staff/listGroupStaff.php';
+	$routesPlugin['addGroupStaff']= 'databot_spa/view/home/staff/addGroupStaff.php';
+	$routesPlugin['changePassStaff']= 'databot_spa/view/home/staff/changePassStaff.php';
 
 	$routesPlugin['listService']= 'databot_spa/view/home/service/listService.php';
 	$routesPlugin['addService']= 'databot_spa/view/home/service/addService.php';
@@ -65,5 +65,10 @@
 	$routesPlugin['addPrepayCard']= 'databot_spa/view/home/prepayCard/addPrepayCard.php';
 	$routesPlugin['deletePrepayCard']= 'databot_spa/view/home/prepayCard/deletePrepayCard.php';
 
-
+	//bill
+	$routesPlugin['listCollectionBill']= 'databot_spa/view/home/bill/listCollectionBill.php';
+	$routesPlugin['addCollectionBill']= 'databot_spa/view/home/bill/addCollectionBill.php';
+	$routesPlugin['listBill']= 'databot_spa/view/home/bill/listBill.php';
+	$routesPlugin['addBill']= 'databot_spa/view/home/bill/addBill.php';
+	$routesPlugin['deleteBill']= 'databot_spa/view/home/bill/deleteBill.php';
 ?>

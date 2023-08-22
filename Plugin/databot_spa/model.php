@@ -9,8 +9,8 @@ include('model/services.php'); // dịch vụ
 include('model/rooms.php'); // phòng
 include('model/beds.php'); // giường
 include('model/combo.php'); // combo
-include('model/order.php'); // combo
 include('model/books.php'); // Đặt lịch hẹn
 include('model/prepayCard.php'); // prepayCard
 include('model/member_groups.php'); // nhóm nhân viên
+include('model/bill.php'); // hóa đơn
 ?>

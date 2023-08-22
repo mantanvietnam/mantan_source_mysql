@@ -43,9 +43,11 @@
                       <label class="form-label" for="basic-default-email">Nhân viên phụ trách</label>
                       <div class="input-group input-group-merge">
                         <select class="form-select" name="id_staff" id="id_staff">
-                        <?php foreach($dataMember as $key => $item){ ?>
-                          <option value="<?php echo $item->id ?>" <?php if(isset($data->id_staff) && $data->id_staff==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                            <?php } ?>
+                          <option value="<?php echo $infoUser->id; ?>"><?php echo $infoUser->name; ?></option>
+
+                          <?php foreach($dataMember as $key => $item){ ?>
+                            <option value="<?php echo $item->id ?>" <?php if(isset($data->id_staff) && $data->id_staff==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
+                          <?php } ?>
                         </select>
                       </div>
                     </div>
@@ -60,21 +62,32 @@
                       </div>
                     </div>
                     <div class="mb-3 col-md-6">
-                      <label class="form-label" for="basic-default-fullname">Dịch vụ quan tâm</label>
-                      <select class="form-select" name="id_service" id="id_service">
+                      <label class="form-label" for="basic-default-fullname">Dịch vụ (*)</label>
+                      <select class="form-select" name="id_service" id="id_service" required>
+                        <option value="">Chọn dịch vụ</option>
                         <?php foreach($dataService as $key => $item){ ?>
                           <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
                         <?php } ?>
                       </select>
                     </div>
-                     <div class="mb-3 col-md-3">
+
+                    <div class="mb-3 col-md-2">
+                        <label class="form-label" for="basic-default-fullname">Lặp</label>
+                        <p class="switch">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                        </p>
+                    </div>
+
+                    <div class="mb-3 col-md-2">
                         <label class="form-label" for="basic-default-fullname">Cách ngày</label>
                         <input type="number" class="form-control" placeholder="" name="apt_step" id="apt_step" value="<?php echo @$data->apt_step;?>" />
-                      </div>
-                       <div class="mb-3 col-md-3">
-                        <label class="form-label" for="basic-default-fullname">Lần</label>
+                    </div>
+                    
+                    <div class="mb-3 col-md-2">
+                        <label class="form-label" for="basic-default-fullname">Tổng số lần</label>
                         <input type="number" class="form-control" placeholder="" name="apt_times" id="apt_times" value="<?php echo @$data->apt_times;?>" />
-                      </div>
+                    </div>
                     <div class="mb-3 col-md-12">
                        <label class="form-label" for="basic-default-fullname">Kiểu đặt</label>
                       <div class="form-group d-flex justify-content-around">

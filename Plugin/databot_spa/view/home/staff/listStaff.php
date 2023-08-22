@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Nhân viên</h4>
-  <p><a href="/addSaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addStaff" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -79,11 +79,11 @@
                 foreach ($listData as $item) {
 
                   $status = 'Kích hoạt <br/>';
-                  $button = '<a class="dropdown-item" title="Khóa"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockSaff?id='.$item->id.'&status=0">
+                  $button = '<a class="dropdown-item" title="Khóa"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockStaff?id='.$item->id.'&status=0">
                               <i class="bx bx-lock-open"></i> </a>';
                   if($item->status==0){
                     $status = 'Khóa';
-                    $button = '<a class="dropdown-item" title="Kích hoạt" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt nhân viên này không?\');" href="/lockSaff?id='.$item->id.'&status=1">
+                    $button = '<a class="dropdown-item" title="Kích hoạt" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt nhân viên này không?\');" href="/lockStaff?id='.$item->id.'&status=1">
                               <i class="bx bx-lock"></i> </a>';
 
                   }
@@ -96,13 +96,13 @@
                           <td>'.$status.'</td>
                          
                           <td align="center">
-                            <a class="dropdown-item" href="/changePassSaff?id='.$item->id.'">
+                            <a class="dropdown-item" href="/changePassStaff?id='.$item->id.'">
                               <i class="bx bx-transfer"></i>
                             </a>
                           </td>
 
                           <td align="center">
-                            <a class="dropdown-item" href="/addSaff?id='.$item->id.'">
+                            <a class="dropdown-item" href="/addStaff?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>

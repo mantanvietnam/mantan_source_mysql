@@ -1,5 +1,5 @@
 <?php 
-function listSaff($input)
+function listStaff($input)
 {
 	global $isRequestPost;
     global $modelCategories;
@@ -95,7 +95,7 @@ function listSaff($input)
 	}
 }
 
-function addSaff($input){	
+function addStaff($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -121,7 +121,7 @@ function addSaff($input){
 
 	    $mess ='';
 
-		if($isRequestPost) {
+		if($isRequestPost){
 	        $dataSend = $input['request']->getData();
 
 	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
@@ -145,6 +145,7 @@ function addSaff($input){
 			        }
 
 			        $data->name = $dataSend['name'];
+			        $data->id_group =(int) @$dataSend['id_group'];
 			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->email = $dataSend['email'];
 					$data->address = $dataSend['address'];
@@ -164,17 +165,21 @@ function addSaff($input){
 		    }
 	    }
 
+	    $conditionsCategorie = array('type' => 'category_member', 'id_member'=>$infoUser->id_member);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
+
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
+        setVariable('listCategory', $listCategory);
 
 	}else{
 		return $controller->redirect('/login');
 	}
 }
 
-function lockSaff($input){
+function lockStaff($input){
 	global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
@@ -195,7 +200,7 @@ function lockSaff($input){
 					$data->status = $_GET['status'];
 				
 	         	$modelMember->save($data);
-	         	return $controller->redirect('/listSaff');
+	         	return $controller->redirect('/listStaff');
 	        	}
 			}
 		}
@@ -204,9 +209,8 @@ function lockSaff($input){
 	}
 }
 
-function changePassSaff($input){
+function changePassStaff($input){
 	global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
@@ -228,7 +232,7 @@ function changePassSaff($input){
 
 			$data->password= md5($dataSend['passNew']);
          	$modelMember->save($data);
-         	return $controller->redirect('/listSaff');
+         	return $controller->redirect('/listStaff');
         }
 
         setVariable('data', $data);
@@ -240,7 +244,7 @@ function changePassSaff($input){
 	}
 }
 
-function listGroupSaff(){
+function listGroupStaff(){
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -326,7 +330,7 @@ function listGroupSaff(){
 	}
 }
 
-function addGroupSaff($input){	
+function addGroupStaff($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -360,7 +364,6 @@ function addGroupSaff($input){
 	        	// tạo dữ liệu save
 			    $data->name = @$dataSend['name'];
 			    $data->type = 'category_member';
-			    $data->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
 			    $data->slug = createSlugMantan($data->name).'-'.time();
 			    $data->id_member = $infoUser->id_member;
 
@@ -382,7 +385,7 @@ function addGroupSaff($input){
 	}
 }
 
-function deteleGroupSaff($input){	
+function deteleGroupStaff($input){	
 	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -402,7 +405,7 @@ function deteleGroupSaff($input){
             
             if(!empty($data)){
                 $modelCategories->delete($data);
-                return $controller->redirect('/listGroupSaff');
+                return $controller->redirect('/listGroupStaff');
             }
         }
     }else{

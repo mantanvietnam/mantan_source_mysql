@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Kho mẫu thiết kế</h4>
+  <p><a  href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php" style=" color: white; " class="btn btn-primary"><i class='bx bx-plus'></i> Thêm kho mẫu thiết kế</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">

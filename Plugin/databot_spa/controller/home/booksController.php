@@ -187,6 +187,7 @@ function addBook($input){
 	    setVariable('dataService', $dataService);
 	    setVariable('dataSource', $dataSource);
 	    setVariable('mess', $mess);
+	    setVariable('infoUser', $infoUser);
     }else{
 		return $controller->redirect('/login');
 	}

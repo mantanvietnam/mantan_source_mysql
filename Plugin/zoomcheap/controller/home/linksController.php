@@ -168,7 +168,11 @@ function addLink($input)
 	    if(!empty($listOrder)){
 	    	foreach ($listOrder as $key => $order) {
 	    		$listOrder[$key]->room = $modelRooms->find()->where(['id'=>$order->idRoom])->first();
-	    		$listOrder[$key]->room->info = json_decode($listOrder[$key]->room->info, true);
+
+	    		if(!empty($listOrder[$key]->room->info)){
+	    			$listOrder[$key]->room->info = json_decode($listOrder[$key]->room->info, true);
+	    		}
+	    		
 	    	}
 	    }
 

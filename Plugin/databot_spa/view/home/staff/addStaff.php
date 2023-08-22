@@ -2,7 +2,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listSaff">Nhân viên</a> /</span>
+    <span class="text-muted fw-light"><a href="/listStaff">Nhân viên</a> /</span>
     Thông tin Nhân viên 
   </h4>
 
@@ -65,6 +65,23 @@
                         <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
                       </select>
                     </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Nhóm nhân viên</label>
+                    <select name="id_group" class="form-select color-dropdown" required>
+                      <option value="">Chọn nhóm nhân viên</option>
+                      <?php
+                      if(!empty($listCategory)){
+                        foreach ($listCategory as $key => $value) {
+                          if(empty(@$data->id_group) || @$data->id_group!=$value->id){
+                            echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                          }else{
+                            echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                          }
+                        }
+                      }
+                      ?>
+                    </select>
                   </div>
                 </div>
               </div>

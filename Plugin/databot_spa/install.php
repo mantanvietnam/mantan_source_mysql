@@ -55,6 +55,7 @@ $sqlInstallDatabase .= "CREATE TABLE `combos` (
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
@@ -64,15 +65,13 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `sex` tinyint(4) NOT NULL,
-  `id` int(11) NOT NULL,
   `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `birthday` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cmnd` int(12) DEFAULT NULL,
+  `cmnd` VARCHAR(255) NULL DEFAULT NULL,
   `link_facebook` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `referral_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_staff` int(11) DEFAULT NULL,
-  `source` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Nguồn khách hàng',
+  `source` INT NULL DEFAULT '0' COMMENT 'Nguồn khách hàng'
   `id_group` int(11) DEFAULT NULL,
   `id_service` int(11) DEFAULT NULL,
   `medical_history` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -80,15 +79,10 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `request_current` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `advisory` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `advise_towards` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB;";
-
-$sqlInstallDatabase .="CREATE TABLE `customer_groups` (
-  `id` int(11) NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_member` int(11) NOT NULL
+  `job` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `id_product` INT NULL,
+  `point` INT NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `members` (
@@ -97,9 +91,10 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
   `status` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1 : members, 0: nhân viên ',
+  `id_group` int(11) DEFAULT NULL,
   `id_member` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -159,6 +154,7 @@ $sqlInstallDatabase .= "CREATE TABLE `rooms` (
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `services` (
+  `id` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_category` int(11) NOT NULL,
@@ -171,7 +167,6 @@ $sqlInstallDatabase .="CREATE TABLE `services` (
   `updated_at` datetime DEFAULT NULL,
   `duration` int(11) DEFAULT NULL COMMENT 'thời lương ',
   `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id` int(11) NOT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `commission_staff_fix` INT NOT NULL DEFAULT '0',
   `commission_staff_percent` INT NOT NULL DEFAULT '0',
@@ -217,13 +212,22 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `id_spa` int(11) NOT NULL
 ) ENGINE=InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `member_groups` (
-  `id` INT(11) NOT NULL, 
-  `name`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+$sqlInstallDatabase .="CREATE TABLE `bills` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `code` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `id_member` INT NOT NULL ,
+  `id_spa` INT NULL DEFAULT NULL ,
+  `id_saff` INT NOT NULL ,
+  `total` BIGINT NOT NULL ,
+  `note` TEXT NULL DEFAULT NULL ,
+  `type` INT NOT NULL COMMENT '0: Thu, 1: chi, ' ,
   `created_at` DATETIME NULL DEFAULT NULL ,
-  `note`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
-  `id_member` INT(11) NOT NULL,
-) ENGINE = InnoDB;";
+  `updated_at` DATETIME NULL DEFAULT NULL , 
+  `apt_date_time` DATETIME NULL DEFAULT NULL , 
+  `type_collection_bill` VARCHAR(255) NULL DEFAULT NULL, 
+  `status` VARCHAR(20) NULL DEFAULT NULL , 
+  `id_customer` INT NULL DEFAULT NULL , 
+) ENGINE = InnoDB;"
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -238,7 +242,7 @@ $sqlDeleteDatabase .= "DROP TABLE services; ";
 $sqlDeleteDatabase .= "DROP TABLE spas; ";
 $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
-$sqlDeleteDatabase .= "DROP TABLE member_groups; ";
+$sqlDeleteDatabase .= "DROP TABLE bills; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

@@ -309,7 +309,7 @@ function register($input)
 					// tạo người dùng mới
 					$data = $modelMember->newEmptyEntity();
 
-					$data->name = $dataSend['name_spa'];
+					$data->name = $dataSend['name_spa'].' (chủ)';
 					$data->avatar = 'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->phone = $dataSend['phone'];
 					$data->email = @$dataSend['email'];
