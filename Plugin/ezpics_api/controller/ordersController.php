@@ -632,4 +632,24 @@ function memberExtendProAPI($input){
 	return $return;
 }
 
+function getPrice(){
+	global $price_remove_background;
+	global $price_create_content;
+	global $price_pro;
+	global $price_warehouses;
+	global $recommenders;
+	global $price_min_create_warehouses;
+
+	$price = array();
+
+	$price['price_remove_background'] = $price_remove_background;
+	$price['price_create_content'] = $price_create_content;
+	$price['price_pro'] = $price_pro;
+	$price['price_warehouses'] = $price_warehouses;
+	$price['recommenders'] = $recommenders;
+	$price['price_min_create_warehouses'] = $price_min_create_warehouses;
+
+	$return = array('price'=>$price);
+
+}
 ?>
