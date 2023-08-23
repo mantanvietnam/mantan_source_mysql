@@ -443,5 +443,11 @@ function deleteBill($input){
         return $controller->redirect('/login');
     }
 }
- ?>
+
+function printCollectionBill(){
+
+}
+
+?>
+
 

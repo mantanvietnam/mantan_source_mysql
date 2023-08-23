@@ -146,7 +146,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="/addWarehouse" class="menu-link">
+              <a href="/addWarehouse" onclick="return confirm('Phí tạo kho là 1.000.000 đ bạn muốn tạo không ?');" class="menu-link">
                 <i class='bx bxl-play-store'></i> 
                 <div data-i18n="Add">Tạo kho mới</div>
               </a>

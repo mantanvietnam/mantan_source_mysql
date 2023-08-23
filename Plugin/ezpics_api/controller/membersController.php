@@ -36,7 +36,12 @@ function saveRegisterMemberAPI($input)
 					$data->avatar = $dataSend['avatar'];
 					$data->phone = $dataSend['phone'];
 					$data->aff = $dataSend['aff'];
-					$data->affsource = @$dataSend['affsource'];
+					if($dataSend['affsource']!=$dataSend['aff']){
+						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
+						if(empty($affsource)){
+							$data->affsource = $affsource->id;
+						}
+					}
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 10000; // tặng 10k cho tài khoản mới

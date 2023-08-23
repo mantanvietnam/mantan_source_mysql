@@ -25,26 +25,8 @@
                     <input type="text" required class="form-control" placeholder="" name="code" id="code" value="<?php echo @$data->code;?>" />
                   </div> 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">kiểu mã </label>
-                    <select name="type" id="type" class="form-select color-dropdown" required onchange="getDataOption();">
-                      <option value="">Chọn kho mẫu</option>
-                      <?php
-                      global $typeDiscount;
-                      if(!empty($typeDiscount)){
-                        foreach ($typeDiscount as $key => $value) {
-                          if(@$data->type !=$value){
-                            echo '<option data-price="'.$value.'" data-date="'.$value.'" value="'.$value.'">'.$value.'</option>';
-                          }else{
-                            echo '<option data-price="'.$value.'" data-date="'.$value->date.'"  selected value="'.$value.'">'.$value.'</option>';
-                          }
-                        }
-                      }
-                      ?>
-                    </select>
-                  </div> 
-                  <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ngày hết hạn </label>
-                    <input type="datetime-local"  class="form-control" placeholder="" name="deadline_at" id="deadline_at" value="<?php echo  str_replace('AM', 'SA',str_replace('PM', 'CH', @$data->deadline_at->format('d/m/Y h:i A')));?>" />
+                    <input type="text"  class="form-control datepicker" placeholder="" name="deadline_at" id="deadline_at" value="<?php if(!empty($data->deadline_at)){  echo @$data->deadline_at->format('d/m/Y');}?>" />
                   </div>         
                 </div>
                 <div class="col-md-6">

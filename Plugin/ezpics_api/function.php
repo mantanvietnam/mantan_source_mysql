@@ -10,6 +10,8 @@ global $keyFirebase;
 global $urlCreateImage;
 global $price_pro;
 global $price_warehouses;
+global $price_min_create_warehouses;
+global $recommenders;
 
 /*
 $urlsCreateImage = ['http://14.225.238.137:3000/convert','http://171.244.16.76:3000/convert'];
@@ -36,8 +38,10 @@ addMenuAdminMantan($menus);
 
 $price_remove_background = 0;
 $price_create_content = 1000;
-$price_pro = 999000;
-$price_warehouses = 1000000;
+$price_pro = 1999000;
+$price_warehouses = 999000;
+$recommenders = 5;
+$price_min_create_warehouses = 300000;
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
 
@@ -150,6 +154,7 @@ function process_add_money($number=0, $order_id=0)
     global $modelOption;
     global $key_transaction;
     global $controller;
+    global $recommenders;
 
     $number = (int) $number;
     $order_id = (int) $order_id;
@@ -175,6 +180,33 @@ function process_add_money($number=0, $order_id=0)
                     $checkOrder->updated_at = date('Y-m-d H:i:s');
                     
                     $modelOrder->save($checkOrder);
+
+                    // Cộng tiền cho thằng giới thiệu 
+                    if(!empty($data->affsource)){
+                        $User = $modelMember->find()->where(array('id'=>$data->affsource))->first();
+                        if(!empty($User)){
+                            $User->account_balance += ((int) $recommenders / 100) * $number;
+                            $modelMember->save($User);
+
+                            $order = $modelOrder->newEmptyEntity();
+                            $order->code = 'W'.time().$User->id.rand(0,10000);
+                            $order->member_id = $User->id;
+                            $order->total = ((int) $recommenders / 100) * $number;
+                            $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+                            $order->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+                            $order->meta_payment = 'Bạn được công tiền hoa hồng giới thiệu';
+                            $order->created_at = date('Y-m-d H:i:s');
+
+                            $modelOrder->save($order);
+
+                            // gửi thông báo về app
+                            $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format($order->total).'đ vào tài khoản '.$User->phone,'action'=>'addMoneySuccess');
+
+                            if(!empty($User->token_device)){
+                                sendNotification($dataSendNotification, $data->token_device);
+                            }
+                        }
+                    }
 
                     // gửi email
                     if(!empty($data->email) && !empty($data->name)){

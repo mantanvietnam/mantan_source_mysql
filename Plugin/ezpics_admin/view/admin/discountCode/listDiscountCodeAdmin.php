@@ -45,7 +45,6 @@
             <th>Giảm giá</th>
             <th>số lần</th>
             <th>Ngày Hết hạn</th>
-            <th>khiểu</th>
             <th>nội dung</th>
             <th>sữa</th>
             <th>Xóa</th>
@@ -55,14 +54,23 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $data = '';
+                if(!empty($item->deadline_at)){
+                  $data = $item->deadline_at->format('d/m/Y');
+                }
+                if($item->discount>101){
+                  $discount = number_format($item->discount).'đ';
+                }else{
+                   $discount = $item->discount.'%';
+                }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.@$item->name.'</td>
                         <td>'.@$item->code.'</td>
-                        <td>'.@$item->discount.'%</td>
+                        <td>'.@$discount.'</td>
                         <td>'.@$item->number_user.'</td>
-                        <td>'.@$item->deadline_at.'</td>
-                        <td>'.@$item->type.'</td>
+                        <td>'.$data.'</td>
                         <td>'.@$item->note.'</td>
                          <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php/?id='.$item->id.'">
