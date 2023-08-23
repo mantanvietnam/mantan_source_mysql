@@ -632,7 +632,7 @@ function memberExtendProAPI($input){
 	return $return;
 }
 
-function getPrice(){
+function getPriceAPI(){
 	global $price_remove_background;
 	global $price_create_content;
 	global $price_pro;
