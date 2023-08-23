@@ -700,8 +700,8 @@ function detailSeries($input)
 				$product->image = $product->thumbnail;
 			}
 
-			$metaTitleMantan = 'Mẫu thiết kế: '.$product->name;
-			$metaDescriptionMantan = 'Ảnh được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
+			$metaTitleMantan = 'Mẫu in hàng loạt: '.$product->name;
+			$metaDescriptionMantan = 'Ảnh in hàng loạt được tạo từ mẫu thiết kế: '.$product->name.' của tác giả '.$user->name.' trên Ezpics';
 			$metaImageMantan = $product->image;
 
 			$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();

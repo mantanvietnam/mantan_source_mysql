@@ -971,7 +971,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $modelProduct->save($newproduct);
 
         // tạo deep link
-        if($type=='user_create'){
+        if($type=='user_create' || $type=='user_series'){
             $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
             $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
                                                 'link'=>'https://ezpics.page.link/detailProduct?id='.$newproduct->id.'&type='.$newproduct->type,

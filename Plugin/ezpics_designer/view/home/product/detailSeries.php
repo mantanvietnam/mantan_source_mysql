@@ -43,9 +43,9 @@
                                 <br>
                                 <div class="product-button">
                                     <!-- <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button> -->
-                                    <button type="button" class="btn btn-warning mt-3" onclick="showPopup();">
+                                    <a href="<?php echo $product->link_open_app ?>" class="btn btn-warning mt-3" >
                                         <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
-                                    </button>
+                                    </a>
 
                                     <a type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                         <i class="fa-solid fa-book"></i> 
@@ -61,7 +61,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                B1: Bấm nút NHẬP THÔNG TIN bên dưới
+                                                B1: Bấm nút NHẬP THÔNG TIN bên dưới để mở app Ezpics
                                                 </br>
                                                 B2: Chọn ảnh của bạn
                                                 </br>
