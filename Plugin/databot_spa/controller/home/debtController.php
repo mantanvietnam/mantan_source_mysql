@@ -55,10 +55,13 @@ function listCollectionDebt($input){
 
     		$titleExcel = 	[
 							['name'=>'Thời gian', 'type'=>'text', 'width'=>15],
-							['name'=>'Người nộp', 'type'=>'text', 'width'=>15],
-							['name'=>'Người thu', 'type'=>'text', 'width'=>15],
-							['name'=>'Số tiền', 'type'=>'number', 'width'=>15],
-							['name'=>'Hình thức', 'type'=>'text', 'width'=>15],
+							['name'=>'Người Nợ', 'type'=>'text', 'width'=>15],
+							['name'=>'Nhân viên', 'type'=>'text', 'width'=>15],
+							['name'=>'Tổng số tiền nợ', 'type'=>'number', 'width'=>15],
+							['name'=>'đã trả', 'type'=>'number', 'width'=>15],
+							['name'=>'Còn lại', 'type'=>'number', 'width'=>15],
+							['name'=>'Số lần trả', 'type'=>'text', 'width'=>15],
+							['name'=>'trạng thái', 'type'=>'text', 'width'=>15],
 							['name'=>'Nội dung thu', 'type'=>'text', 'width'=>30],
 						];
 
@@ -70,13 +73,18 @@ function listCollectionDebt($input){
 					if(!empty($staff)){
 						$name = $staff->name;
 					}
-					 
+
+					$status = 'Chưa trả hết';
+					if(!empty($value->status))$status = 'Đã trả hết';
 					$dataExcel[] = [
 									date('d/m/Y H:i', $value->time), 
 									$value->full_name, 
 									$name,
 									$value->total, 
-									@$type_collection_bill[$value->type_collection_bill], 
+									$value->total_payment, 
+									$value->total-$value->total_payment, 
+									$value->number_payment, 
+									$status, 
 									$value->note, 
 								];
 				}
@@ -86,9 +94,6 @@ function listCollectionDebt($input){
 	    }else{
 	    	$listData = $modelDebt->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    }
-
-	    debug($listData);
-	    die;
 
 	    if(!empty($listData)){
 			foreach($listData as $key =>$item){

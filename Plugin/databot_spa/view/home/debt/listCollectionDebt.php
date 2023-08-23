@@ -35,7 +35,7 @@ global $type_collection_bill;
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên người nộp</label>
+            <label class="form-label">Tên người nợ</label>
             <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
           </div>
 
