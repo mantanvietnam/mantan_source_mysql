@@ -179,6 +179,11 @@
                     <div>Phiếu chi</div> 
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listCollectionDebt" class="menu-link">
+                    <div>Công nợ phải thu</div> 
+                  </a>
+                </li>
               </ul>
             </li>
 

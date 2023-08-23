@@ -30,6 +30,10 @@ function listCollectionBill($input){
 			$conditions['id_staff'] = (int) $_GET['id_staff'];
 		}
 
+		if(!empty($_GET['id_debt'])){
+			$conditions['id_debt'] = (int) $_GET['id_debt'];
+		}
+
 		if(!empty($_GET['full_name'])){
 			$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
 		}
@@ -243,6 +247,10 @@ function listBill($input){
 
 		if(!empty($_GET['id_staff'])){
 			$conditions['id_staff'] = (int) $_GET['id_staff'];
+		}
+
+		if(!empty($_GET['id_debt'])){
+			$conditions['id_debt'] = (int) $_GET['id_debt'];
 		}
 
 		if(!empty($_GET['full_name'])){

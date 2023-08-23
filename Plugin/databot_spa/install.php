@@ -229,8 +229,26 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `updated_at` DATETIME NULL DEFAULT NULL , 
   `type_collection_bill` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Hình thức thanh toán', 
   `id_customer` INT NULL DEFAULT NULL , 
+  `id_debt` INT NOT NULL ,
   `time` INT NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB;"
+
+$sqlInstallDatabase .="CREATE TABLE `debts` ( 
+  `id` INT NOT NULL , 
+  `id_member` INT NOT NULL COMMENT 'ID chủ spa' ,
+  `id_spa` INT NOT NULL , 
+  `id_staff` INT NOT NULL COMMENT 'ID nhân viên thực hiện thu tiền ' ,
+  `total` INT NOT NULL COMMENT 'số tiền nợ' ,
+  `total_payment` INT NULL DEFAULT '0' COMMENT 'số tiền trả' ,
+  `number_payment` INT NULL DEFAULT '0' COMMENT 'số lần trả ' ,
+  `full_name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `id_customer` INT NOT NULL , `time` INT NULL DEFAULT NULL , 
+  `type` INT NOT NULL COMMENT '0: Nợ phải thu, 1: Nợ Phải trả,' , 
+  `status` INT NULL DEFAULT NULL COMMENT '0 : chưa trả ,1 đã trả ' , 
+  `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `created_at` DATETIME NULL DEFAULT NULL , 
+  `updated_at` DATETIME NULL DEFAULT NULL 
+) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -246,6 +264,7 @@ $sqlDeleteDatabase .= "DROP TABLE spas; ";
 $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
+$sqlDeleteDatabase .= "DROP TABLE debts; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

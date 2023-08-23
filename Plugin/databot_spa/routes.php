@@ -74,4 +74,8 @@
 	$routesPlugin['listBill']= 'databot_spa/view/home/bill/listBill.php';
 	$routesPlugin['addBill']= 'databot_spa/view/home/bill/addBill.php';
 	$routesPlugin['deleteBill']= 'databot_spa/view/home/bill/deleteBill.php';
+
+	// debt
+	$routesPlugin['listCollectionDebt']= 'databot_spa/view/home/debt/listCollectionDebt.php';
+	$routesPlugin['addCollectionDebt']= 'databot_spa/view/home/debt/addCollectionDebt.php';
 ?>
