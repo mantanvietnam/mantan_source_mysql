@@ -216,6 +216,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `code` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
   `id_member` INT NOT NULL ,
+  `fulll_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_spa` INT NULL DEFAULT NULL ,
   `id_saff` INT NOT NULL ,
   `total` BIGINT NOT NULL ,
