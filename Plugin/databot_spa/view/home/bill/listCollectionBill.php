@@ -91,7 +91,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có gói phiếu thu nào</td>
+                        <td colspan="10" align="center">Chưa có phiếu thu nào</td>
                       </tr>';
               }
             ?>

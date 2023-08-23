@@ -36,6 +36,24 @@
                     <label class="form-label" for="basic-default-fullname">Ngày sinh</label>
                     <input type="text" class="form-control hasDatepicker datepicker" placeholder="" name="birthday" id="birthday" value="<?php echo @$data->birthday;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Nhóm nhân viên</label>
+                    <select name="id_group" class="form-select color-dropdown" required>
+                      <option value="">Chọn nhóm nhân viên</option>
+                      <?php
+                      if(!empty($listCategory)){
+                        foreach ($listCategory as $key => $value) {
+                          if(empty(@$data->id_group) || @$data->id_group!=$value->id){
+                            echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                          }else{
+                            echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                          }
+                        }
+                      }
+                      ?>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -66,23 +84,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label">Nhóm nhân viên</label>
-                    <select name="id_group" class="form-select color-dropdown" required>
-                      <option value="">Chọn nhóm nhân viên</option>
-                      <?php
-                      if(!empty($listCategory)){
-                        foreach ($listCategory as $key => $value) {
-                          if(empty(@$data->id_group) || @$data->id_group!=$value->id){
-                            echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                          }else{
-                            echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                          }
-                        }
-                      }
-                      ?>
-                    </select>
-                  </div>
+                  
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>

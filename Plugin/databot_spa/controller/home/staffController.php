@@ -169,6 +169,10 @@ function addStaff($input){
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategorie)->order($order)->all()->toList();
 
+        if(empty($listCategory)){
+        	return $controller->redirect('/listGroupStaff/?error=requestGroupStaff');
+        }
+
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
         setVariable('listCategory', $listCategory);
@@ -259,9 +263,16 @@ function listGroupStaff(){
 	$modelMemberGroup = $controller->loadModel('MemberGroups');
 	
 	if(!empty($session->read('infoUser'))){
-		$infoUser = $session->read('infoUser');
+		$mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestGroupStaff':
+                    $mess= '<p class="text-danger">Bạn cần tạo nhóm nhân viên trước</p>';
+                    break;
+            }
+        }
 
-		$mess ='';
+		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;

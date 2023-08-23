@@ -84,7 +84,7 @@
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa gói phiếu chi không?\');" href="/DeleteBill/?id='.$item->id.'&url=2">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa phiếu chi không?\');" href="/DeleteBill/?id='.$item->id.'&url=2">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -92,7 +92,7 @@
                 }
               }else{
                 echo '<tr>
-                        <td colspan="10" align="center">Chưa có gói phiếu chi nào</td>
+                        <td colspan="10" align="center">Chưa có phiếu chi nào</td>
                       </tr>';
               }
             ?>

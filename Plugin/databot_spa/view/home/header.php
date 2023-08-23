@@ -163,6 +163,25 @@
               </ul>
             </li>
 
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
+                <div>Quản lý thu chi</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/listCollectionBill" class="menu-link">
+                    <div>Phiếu thu</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listBill" class="menu-link">
+                    <div>Phiếu chi</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cài đặt hệ thống</span></li>
             <!-- Cards -->
@@ -247,24 +266,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
-                <div>Quản lý thu chị</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="/listCollectionBill" class="menu-link">
-                    <div>Phiếu thu</div> 
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="/listBill" class="menu-link">
-                    <div>Phiếu chi</div> 
-                  </a>
-                </li>
-              </ul>
-            </li>
+            
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>
@@ -272,12 +274,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listSaff" class="menu-link">
+                  <a href="/listStaff" class="menu-link">
                     <div>Nhân viên</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listGroupSaff" class="menu-link">
+                  <a href="/listGroupStaff" class="menu-link">
                     <div>Nhóm nhân viên</div>
                   </a>
                 </li>
