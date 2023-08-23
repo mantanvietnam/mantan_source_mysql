@@ -53,6 +53,7 @@
             <tr class="">
               <th>ID</th>
               <th>Thới gian</th>
+              <th>Người nộp</th>
               <th>Người thu</th>
               <th>Số tiền</th>
               <th>hình thức</th>
@@ -71,8 +72,9 @@
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.@$item->created_at->format('d/m/Y H:i').'</td>
+                          <td>'.@$item->full_name.'</td>
                           <td>'.$item->staff->name.'</td>
-                          <td>'.number_format($item->total).'</td>
+                          <td>'.number_format($item->total).'đ</td>
                           <td>'.$type_collection_bill[$item->type_collection_bill].'</td>
                           <td>'.$status.'</td>
                           <td align="center">

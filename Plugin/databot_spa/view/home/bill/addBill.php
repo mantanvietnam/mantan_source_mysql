@@ -19,6 +19,10 @@ global $type_collection_bill;
             <?= $this->Form->create(); ?>
               <div class="row">
                   <div class="mb-3 col-md-6">
+                    <label class="form-label" for="basic-default-phone">Người nhận tiền (*)</label>
+                    <input required type="text" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
+                  </div>
+                  <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-fullname">Thời gian </label>
                     <?php if(!empty($_GET['id'])){ ?>
                       <input type="text"  class="form-control hasDatepicker datepicker" placeholder="" name="created_at" id="created_at" value="<?php echo @$data->created_at->format('d/m/Y H:i');?>" />
@@ -46,7 +50,7 @@ global $type_collection_bill;
                       ?>
                     </select>
                   </div>
-                  <div class="mb-3 col-md-6">
+                  <div class="mb-3 col-md-12">
                     <label class="form-label" for="basic-default-phone">Nội dung thu</label>
                     
                     <textarea  class="form-control" rows="5" name="note"><?php echo @$data->note;?></textarea>

@@ -53,6 +53,7 @@ function listCollectionBill($input){
 
     		$titleExcel = 	[
 							['name'=>'Thời gian', 'type'=>'text', 'width'=>15],
+							['name'=>'Người nội', 'type'=>'text', 'width'=>15],
 							['name'=>'Người thu', 'type'=>'text', 'width'=>15],
 							['name'=>'Số tiền', 'type'=>'text', 'width'=>15],
 							['name'=>'Hình thức', 'type'=>'text', 'width'=>15],
@@ -71,7 +72,8 @@ function listCollectionBill($input){
                     if($value->status==0)$status = 'chưa sử lý';
 					$dataExcel[] = [
 									$value->created_at->format('d/m/Y H:i'), 
-									$name, 
+									$value->full_name, 
+									$name,
 									$value->total, 
 									$type_collection_bill[$value->type_collection_bill], 
 									$status, 
@@ -182,6 +184,7 @@ function addCollectionBill($input){
             $data->id_spa = @$infoUser->id_spa;
             $data->id_staff = @$infoUser->id;
             $data->total = (int)@$dataSend['total'];
+            $data->full_name = @$dataSend['full_name'];
             $data->type = 0;
             $data->note = @$dataSend['note'];
             $data->updated_at = date('Y-m-d H:i:s');
@@ -259,6 +262,7 @@ function listBill($input){
 
     		$titleExcel = 	[
 							['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+							['name'=>'Người nhận', 'type'=>'text', 'width'=>25],
 							['name'=>'Người chi', 'type'=>'text', 'width'=>25],
 							['name'=>'Số tiền', 'type'=>'text', 'width'=>25],
 							['name'=>'Hình thức', 'type'=>'text', 'width'=>25],
@@ -277,6 +281,7 @@ function listBill($input){
                     if($value->status==0)$status = 'chưa sử lý';
 					$dataExcel[] = [
 									@$value->created_at->format('d/m/Y H:i'), 
+									@$value->full_name, 
 									@$name, 
 									@$value->total, 
 									$type_collection_bill[$value->type_collection_bill], 
@@ -381,12 +386,13 @@ function addBill($input){
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
                  
-            // tạo dữ liệu save
+            // tạo dữ liệu save 
             $data->id_member = @$infoUser->id_member;
             $data->created_at = DateTime::createFromFormat('d/m/Y H:i', @$dataSend['created_at'])->format('Y-m-d H:i:s'); 
             $data->id_spa = @$infoUser->id_spa;
             $data->id_staff = @$infoUser->id;
             $data->total = (int)@$dataSend['total'];
+            $data->full_name = $dataSend['full_name'];
             $data->type = 1;
             $data->note = @$dataSend['note'];
             $data->updated_at = date('Y-m-d H:i:s');
