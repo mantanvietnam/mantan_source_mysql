@@ -17,4 +17,7 @@ include_once('controller/home/comboController.php'); // combo
 include_once('controller/home/booksController.php'); // books
 include_once('controller/home/prepayCardController.php'); // combo
 include_once('controller/home/billController.php'); // combo
+
+// api
+include_once('controller/api/customerController.php'); // api khách hàng
 ?>

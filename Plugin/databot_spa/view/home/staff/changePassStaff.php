@@ -38,18 +38,5 @@
 
     </div>
 </div>
-<style type="text/css">
-  .datepicker-dropdown .table-condensed{
-    width: 100%; 
-    text-align: center;
-  }
-</style>
-<script>
-    $( function() {
-      $( ".datepicker" ).datepicker({
-        dateFormat: "dd/mm/yy"
-      });
-    } );
-</script>
 
 <?php include(__DIR__.'/../footer.php'); ?>

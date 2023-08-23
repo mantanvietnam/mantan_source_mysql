@@ -9,42 +9,45 @@ function listCollectionBill($input){
 	global $type_collection_bill;
 
 	if(!empty($session->read('infoUser'))){
-	    $metaTitleMantan = 'Danh sách Phiếu thu';
+	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
+		
 		$user = $session->read('infoUser');
 
-		$conditions = array();
+		$conditions = array('type'=>0, 'id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
 		$order = array('id'=>'desc');
-		$conditions['type'] = 0;
-		$conditions['id_member']= $user->id;
-		$conditions['id_spa']= $user->id_spa;
-		if(!empty($_GET['id_spa'])){
-			$conditions['id_spa'] = $_GET['id_spa'];
-		}
-
-		if(!empty($_GET['status'])){
-			$conditions['status'] = $_GET['status'];
+		
+		if(!empty($_GET['id'])){
+			$conditions['id'] = (int) $_GET['id'];
 		}
 
 		if(!empty($_GET['id_staff'])){
-			$conditions['id_staff'] = $_GET['id_staff'];
+			$conditions['id_staff'] = (int) $_GET['id_staff'];
+		}
+
+		if(!empty($_GET['full_name'])){
+			$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
 		}
 
 		if(!empty($_GET['date_start'])){
 			$date_start = explode('/', $_GET['date_start']);
 			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-			$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+			$conditions['time >='] = $date_start;
 		}
 
 		if(!empty($_GET['date_end'])){
 			$date_end = explode('/', $_GET['date_end']);
 			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-			$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+			$conditions['time <='] = $date_end;
+		}
+
+		if(!empty($_GET['id_customer'])){
+			$conditions['id_customer'] = (int) $_GET['id_customer'];
 		}
 
 		// xử lý xuất excel
@@ -53,11 +56,11 @@ function listCollectionBill($input){
 
     		$titleExcel = 	[
 							['name'=>'Thời gian', 'type'=>'text', 'width'=>15],
-							['name'=>'Người nội', 'type'=>'text', 'width'=>15],
+							['name'=>'Người nộp', 'type'=>'text', 'width'=>15],
 							['name'=>'Người thu', 'type'=>'text', 'width'=>15],
-							['name'=>'Số tiền', 'type'=>'text', 'width'=>15],
+							['name'=>'Số tiền', 'type'=>'number', 'width'=>15],
 							['name'=>'Hình thức', 'type'=>'text', 'width'=>15],
-							['name'=>'Trạng thái', 'type'=>'text', 'width'=>10],
+							['name'=>'Nội dung thu', 'type'=>'text', 'width'=>30],
 						];
 
 			$dataExcel = [];
@@ -68,20 +71,19 @@ function listCollectionBill($input){
 					if(!empty($staff)){
 						$name = $staff->name;
 					}
-					 $status = 'đã sử lý';
-                    if($value->status==0)$status = 'chưa sử lý';
+					 
 					$dataExcel[] = [
-									$value->created_at->format('d/m/Y H:i'), 
+									date('d/m/Y H:i', $value->time), 
 									$value->full_name, 
 									$name,
 									$value->total, 
-									$type_collection_bill[$value->type_collection_bill], 
-									$status, 
+									@$type_collection_bill[$value->type_collection_bill], 
+									$value->note, 
 								];
 				}
 			}
 
-			export_excel($titleExcel, $dataExcel);
+			export_excel($titleExcel, $dataExcel, 'phieu-thu-'.date('d-m-Y'));
 	    }else{
 	    	$listData = $modelBill->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    }
@@ -127,15 +129,13 @@ function listCollectionBill($input){
 	    }
 
 	    $mess = '';
-	    if(@$_GET['mess']==1){
-	    	$mess = '<p class="text-success">thêm thành công</p>';
-	    }elseif(@$_GET['mess']==2){
-	    	$mess = '<p class="text-success">sửa thành công</p>';
-	    }elseif(@$_GET['mess']==3){
-	    	$mess = '<p class="text-success">xóa thành công</p>';
+	    if(@$_GET['mess']==3){
+	    	$mess = '<p class="text-success">Xóa thành công</p>';
 	    }
 
-		setVariable('mess', $mess);
+	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
+	    $listStaffs[] = $user;
+
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
@@ -144,7 +144,8 @@ function listCollectionBill($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
-
+	    setVariable('mess', $mess);
+	    setVariable('listStaffs', $listStaffs);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -159,7 +160,7 @@ function addCollectionBill($input){
     global $urlCurrent;
     global $urlHomes;
 
-    $metaTitleMantan = 'Thông tin sản phẩm';
+    $metaTitleMantan = 'Thông tin phiếu thu';
     
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
@@ -171,39 +172,43 @@ function addCollectionBill($input){
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelBill->get( (int) $_GET['id']);
-
         }else{
             $data = $modelBill->newEmptyEntity();
+            $data->created_at = date('Y-m-d H:i:s');
+            $data->time = time();
         }
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
                  
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
-            $data->created_at = DateTime::createFromFormat('d/m/Y H:i', @$dataSend['created_at'])->format('Y-m-d H:i:s'); 
-            $data->id_spa = @$infoUser->id_spa;
+            $data->id_spa = $session->read('id_spa');
             $data->id_staff = @$infoUser->id;
             $data->total = (int)@$dataSend['total'];
-            $data->full_name = @$dataSend['full_name'];
-            $data->type = 0;
             $data->note = @$dataSend['note'];
+            $data->type = 0; //0: Thu, 1: chi
             $data->updated_at = date('Y-m-d H:i:s');
             $data->type_collection_bill = @$dataSend['type_collection_bill'];
-            $data->status = 0;
+            $data->id_customer = (int)@$dataSend['id_customer'];
+            $data->full_name = @$dataSend['full_name'];
 
+            if(!empty($dataSend['time'])){
+            	$time = explode(' ', $dataSend['time']);
+            	$date = explode('/', $time[0]);
+            	$hour = explode(':', $time[1]);
+            	$data->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+            	$data->time = time();
+            }
            
             $modelBill->save($data);
 
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-
-            if(!empty($_GET['id'])){
-                return $controller->redirect('/listCollectionBill?mess=2');
-            }else{
-                return $controller->redirect('/listCollectionBill?mess=1');
-            }
         }	
 
         setVariable('data', $data);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -216,57 +221,61 @@ function listBill($input){
 	global $metaTitleMantan;
 	global $modelCategories;
 	global $session;
+	global $type_collection_bill;
 
 	if(!empty($session->read('infoUser'))){
-	    $metaTitleMantan = 'Danh sách Phiếu chi';
+	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
+		
 		$user = $session->read('infoUser');
 
-
-		$conditions = array();
+		$conditions = array('type'=>1, 'id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
 		$order = array('id'=>'desc');
-		$conditions['type'] = 1;
-		$conditions['id_member']= $user->id;
-		$conditions['id_spa']= $user->id_spa;
-		if(!empty($_GET['id_spa'])){
-			$conditions['id_spa'] = $_GET['id_spa'];
-		}
-
-		if(!empty($_GET['status'])){
-			$conditions['status'] = $_GET['status'];
+		
+		if(!empty($_GET['id'])){
+			$conditions['id'] = (int) $_GET['id'];
 		}
 
 		if(!empty($_GET['id_staff'])){
-			$conditions['id_staff'] = $_GET['id_staff'];
+			$conditions['id_staff'] = (int) $_GET['id_staff'];
+		}
+
+		if(!empty($_GET['full_name'])){
+			$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
 		}
 
 		if(!empty($_GET['date_start'])){
 			$date_start = explode('/', $_GET['date_start']);
 			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-			$conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+			$conditions['time >='] = $date_start;
 		}
 
 		if(!empty($_GET['date_end'])){
 			$date_end = explode('/', $_GET['date_end']);
 			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-			$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+			$conditions['time <='] = $date_end;
 		}
 
-		if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+		if(!empty($_GET['id_customer'])){
+			$conditions['id_customer'] = (int) $_GET['id_customer'];
+		}
+
+		// xử lý xuất excel
+	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
     		$listData = $modelBill->find()->where($conditions)->order($order)->all()->toList();
 
     		$titleExcel = 	[
-							['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
-							['name'=>'Người nhận', 'type'=>'text', 'width'=>25],
-							['name'=>'Người chi', 'type'=>'text', 'width'=>25],
-							['name'=>'Số tiền', 'type'=>'text', 'width'=>25],
-							['name'=>'Hình thức', 'type'=>'text', 'width'=>25],
-							['name'=>'Trạng thái', 'type'=>'text', 'width'=>25],
+							['name'=>'Thời gian', 'type'=>'text', 'width'=>15],
+							['name'=>'Người nhận', 'type'=>'text', 'width'=>15],
+							['name'=>'Người chi', 'type'=>'text', 'width'=>15],
+							['name'=>'Số tiền', 'type'=>'number', 'width'=>15],
+							['name'=>'Hình thức', 'type'=>'text', 'width'=>15],
+							['name'=>'Nội dung chi', 'type'=>'text', 'width'=>30],
 						];
 
 			$dataExcel = [];
@@ -277,24 +286,24 @@ function listBill($input){
 					if(!empty($staff)){
 						$name = $staff->name;
 					}
-					 $status = 'đã sử lý';
-                    if($value->status==0)$status = 'chưa sử lý';
+					 
 					$dataExcel[] = [
-									@$value->created_at->format('d/m/Y H:i'), 
-									@$value->full_name, 
-									@$name, 
-									@$value->total, 
-									$type_collection_bill[$value->type_collection_bill], 
-									$status,
+									date('d/m/Y H:i', $value->time), 
+									$value->full_name, 
+									$name,
+									$value->total, 
+									@$type_collection_bill[$value->type_collection_bill], 
+									$value->note, 
 								];
 				}
 			}
 
-			export_excel($titleExcel, $dataExcel);
+			export_excel($titleExcel, $dataExcel, 'phieu-chi-'.date('d-m-Y'));
 	    }else{
 	    	$listData = $modelBill->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    }
-		if(!empty($listData)){
+
+	    if(!empty($listData)){
 			foreach($listData as $key =>$item){
 				$staff = $modelMember->find()->where(array('id'=>$item->id_staff))->first();
 				if(!empty($staff)){
@@ -302,6 +311,7 @@ function listBill($input){
 				}
 			}
 		}
+
 		$totalData = $modelBill->find()->where($conditions)->all()->toList();
 	    $totalData = count($totalData);
 
@@ -334,15 +344,12 @@ function listBill($input){
 	    }
 
 	    $mess = '';
-	    if(@$_GET['mess']==1){
-	    	$mess = '<p class="text-success">thêm thành công</p>';
-	    }elseif(@$_GET['mess']==2){
-	    	$mess = '<p class="text-success">sửa thành công</p>';
-	    }elseif(@$_GET['mess']==3){
-	    	$mess = '<p class="text-success">xóa thành công</p>';
+	    if(@$_GET['mess']==3){
+	    	$mess = '<p class="text-success">Xóa thành công</p>';
 	    }
 
-		setVariable('mess', $mess);
+	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
+	    $listStaffs[] = $user;
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -352,7 +359,8 @@ function listBill($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
-
+	    setVariable('mess', $mess);
+	    setVariable('listStaffs', $listStaffs);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -367,7 +375,7 @@ function addBill($input){
     global $urlCurrent;
     global $urlHomes;
 
-    $metaTitleMantan = 'Thông tin sản phẩm';
+    $metaTitleMantan = 'Thông tin phiếu chi';
     
     if(!empty($session->read('infoUser'))){
         $modelMembers = $controller->loadModel('Members');
@@ -379,39 +387,43 @@ function addBill($input){
         // lấy data edit
         if(!empty($_GET['id'])){
             $data = $modelBill->get( (int) $_GET['id']);
-
         }else{
             $data = $modelBill->newEmptyEntity();
+            $data->created_at = date('Y-m-d H:i:s');
+            $data->time = time();
         }
+
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
                  
-            // tạo dữ liệu save 
+            // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
-            $data->created_at = DateTime::createFromFormat('d/m/Y H:i', @$dataSend['created_at'])->format('Y-m-d H:i:s'); 
-            $data->id_spa = @$infoUser->id_spa;
+            $data->id_spa = $session->read('id_spa');
             $data->id_staff = @$infoUser->id;
             $data->total = (int)@$dataSend['total'];
-            $data->full_name = $dataSend['full_name'];
-            $data->type = 1;
             $data->note = @$dataSend['note'];
+            $data->type = 1; //0: Thu, 1: chi
             $data->updated_at = date('Y-m-d H:i:s');
             $data->type_collection_bill = @$dataSend['type_collection_bill'];
-            $data->status = 0;
+            $data->id_customer = (int)@$dataSend['id_customer'];
+            $data->full_name = @$dataSend['full_name'];
 
+            if(!empty($dataSend['time'])){
+            	$time = explode(' ', $dataSend['time']);
+            	$date = explode('/', $time[0]);
+            	$hour = explode(':', $time[1]);
+            	$data->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+            	$data->time = time();
+            }
            
             $modelBill->save($data);
 
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-
-            if(!empty($_GET['id'])){
-                return $controller->redirect('/listBill?mess=2');
-            }else{
-                return $controller->redirect('/listBill?mess=1');
-            }
         }	
 
         setVariable('data', $data);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
@@ -433,7 +445,7 @@ function deleteBill($input){
                 $modelBill->delete($data);
             }
         }
-        if($_GET['url']=1){
+        if($_GET['url']='listCollectionBill'){
         	 return $controller->redirect('/listCollectionBill?mess=3');
         }else{
         	return $controller->redirect('/listBill?mess=3');
@@ -449,5 +461,3 @@ function printCollectionBill(){
 }
 
 ?>
-
-

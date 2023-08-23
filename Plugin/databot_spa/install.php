@@ -214,20 +214,18 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
 
 $sqlInstallDatabase .="CREATE TABLE `bills` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `code` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
-  `id_member` INT NOT NULL ,
+  `id_member` INT(11) NOT NULL COMMENT 'ID chủ spa',
   `full_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_spa` INT NULL DEFAULT NULL ,
-  `id_saff` INT NOT NULL ,
-  `total` BIGINT NOT NULL ,
+  `id_staff` INT(11) NOT NULL COMMENT 'ID nhân viên thực hiện thu tiền' ,
+  `total` INT(11) NOT NULL DEFAULT '0' COMMENT 'số tiền thu chi' ,
   `note` TEXT NULL DEFAULT NULL ,
   `type` INT NOT NULL COMMENT '0: Thu, 1: chi, ' ,
   `created_at` DATETIME NULL DEFAULT NULL ,
   `updated_at` DATETIME NULL DEFAULT NULL , 
-  `apt_date_time` DATETIME NULL DEFAULT NULL , 
-  `type_collection_bill` VARCHAR(255) NULL DEFAULT NULL, 
-  `status` VARCHAR(20) NULL DEFAULT NULL , 
+  `type_collection_bill` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Hình thức thanh toán', 
   `id_customer` INT NULL DEFAULT NULL , 
+  `time` INT NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB;"
 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";

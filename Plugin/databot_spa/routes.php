@@ -1,6 +1,9 @@
 <?php
 	global $routesPlugin;
 
+	// api
+	$routesPlugin['searchCustomerApi']= 'databot_spa/view/api/customer/searchCustomerApi.php'; 
+
 	// member
 	$routesPlugin['login']= 'databot_spa/view/home/member/login.php';
 	$routesPlugin['logout']= 'databot_spa/view/home/member/logout.php';

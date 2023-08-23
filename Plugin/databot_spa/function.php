@@ -57,11 +57,10 @@ function createToken($length=30)
 }
 
 global $type_collection_bill;
-$type_collection_bill = array(  'tien_mat'=>'Tiền mặt',
+$type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
                                     'chuyen_khoan'=>'Chuyển khoản',
                                     'the_tin_dung'=>'Quẹt thẻ',
                                     'vi_dien_tu'=>'Ví điện tử',
-                                    'cong_no'=>'Công nợ',
                                     'hinh_thuc_khac'=>'Hình thức khác',
                                 );
 

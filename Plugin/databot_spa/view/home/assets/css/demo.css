@@ -104,3 +104,7 @@
   text-align: center;
   margin-top: 1rem;
 }
+.datepicker-dropdown .table-condensed{
+    width: 100%; 
+    text-align: center;
+}

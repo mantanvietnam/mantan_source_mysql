@@ -18,7 +18,7 @@ function listCustomer($input)
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
 
-		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
+		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -56,45 +56,49 @@ function listCustomer($input)
     		$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
 
     		$titleExcel = 	[
-							['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
-							['name'=>'Giới tính', 'type'=>'text', 'width'=>15],
-							['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
-							['name'=>'Email', 'type'=>'text', 'width'=>35],
-							['name'=>'Số CMT', 'type'=>'number', 'width'=>15],
-							['name'=>'Địa chỉ', 'type'=>'text', 'width'=>35],
-							['name'=>'Ngày sinh', 'type'=>'text', 'width'=>35],
-							['name'=>'Nghề nghiệp', 'type'=>'text', 'width'=>35],
-							['name'=>'Nhân viên phụ tránh', 'type'=>'text', 'width'=>35],
-							['name'=>'Nguồn khách hàng', 'type'=>'text', 'width'=>35],
-							['name'=>'Nhóm khách hàng', 'type'=>'text', 'width'=>35],
-							['name'=>'Chi nhánh', 'type'=>'text', 'width'=>35],
-							['name'=>'Tiền sử bệnh lý dang mắc', 'type'=>'text', 'width'=>35],
-							['name'=>'Tiền sử mang thai/ dị ứng thuốc', 'type'=>'text', 'width'=>35],
-							['name'=>'Nhu cầu', 'type'=>'text', 'width'=>35],
-							['name'=>'Khả năng tư vân hướng dẫn', 'type'=>'text', 'width'=>35],
-							['name'=>'Khả năng tư vân hướng tới', 'type'=>'text', 'width'=>35],
-							['name'=>'Dịch vụ quan tâm', 'type'=>'text', 'width'=>35],
-							['name'=>'Sản phẩm quan tâm', 'type'=>'text', 'width'=>35],
-							['name'=>'Nội dung thêm', 'type'=>'text', 'width'=>35],
-							['name'=>'Ảnh', 'type'=>'text', 'width'=>35],
-							['name'=>'Link facebook', 'type'=>'text', 'width'=>35],
+								['name'=>'ID', 'type'=>'text', 'width'=>10],
+								['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
+								['name'=>'Giới tính', 'type'=>'text', 'width'=>15],
+								['name'=>'Điện thoại', 'type'=>'text', 'width'=>15],
+								['name'=>'Email', 'type'=>'text', 'width'=>35],
+								['name'=>'Số CMT', 'type'=>'text', 'width'=>15],
+								['name'=>'Địa chỉ', 'type'=>'text', 'width'=>35],
+								['name'=>'Ngày sinh', 'type'=>'text', 'width'=>35],
+								['name'=>'Nghề nghiệp', 'type'=>'text', 'width'=>35],
+								['name'=>'Nhân viên phụ tránh', 'type'=>'text', 'width'=>35],
+								['name'=>'Nguồn khách hàng', 'type'=>'text', 'width'=>35],
+								['name'=>'Nhóm khách hàng', 'type'=>'text', 'width'=>35],
+								['name'=>'Chi nhánh', 'type'=>'text', 'width'=>35],
+								['name'=>'Tiền sử bệnh lý dang mắc', 'type'=>'text', 'width'=>35],
+								['name'=>'Tiền sử mang thai/ dị ứng thuốc', 'type'=>'text', 'width'=>35],
+								['name'=>'Nhu cầu', 'type'=>'text', 'width'=>35],
+								['name'=>'Khả năng tư vân hướng dẫn', 'type'=>'text', 'width'=>35],
+								['name'=>'Khả năng tư vân hướng tới', 'type'=>'text', 'width'=>35],
+								['name'=>'Dịch vụ quan tâm', 'type'=>'text', 'width'=>35],
+								['name'=>'Sản phẩm quan tâm', 'type'=>'text', 'width'=>35],
+								['name'=>'Nội dung thêm', 'type'=>'text', 'width'=>35],
+								['name'=>'Ảnh', 'type'=>'text', 'width'=>35],
+								['name'=>'Link facebook', 'type'=>'text', 'width'=>35],
 						];
 
 			$dataExcel = [];
 			if(!empty($listData)){
 				foreach ($listData as $key => $value) {
 					$sex = 'Nữ';
-					if(!empty($value->sex) && $value->sex==1) $type = 'Nam';
+					if(!empty($value->sex) && $value->sex==1) $sex = 'Nam';
+					
 					$staff = $modelMembers->find()->where(['id'=>(int)$value->id_staff])->first();
 					$nameStaff = '';
 					if(!empty($staff)){
 						$nameStaff = $staff->name;
 					}
+
 					$source = $modelCategories->find()->where(['id'=>(int)$value->source])->first();
 					$namesource = '';
 					if(!empty($source)){
 						$namesource = $source->name;
 					}
+
 					$group = $modelCategories->find()->where(['id'=>(int)$value->id_group])->first();
 					$namegroup = '';
 					if(!empty($group)){
@@ -120,6 +124,7 @@ function listCustomer($input)
 					}
 
 					$dataExcel[] = [
+									$value->id, 
 									$value->name, 
 									$sex,
 									$value->phone, 
@@ -145,8 +150,8 @@ function listCustomer($input)
 								];
 				}
 			}
-
-			export_excel($titleExcel, $dataExcel);
+			
+			export_excel($titleExcel, $dataExcel, 'danh-sach-khach-hang'.date('d-m-Y'));
 	    }else{
 	    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 	    }

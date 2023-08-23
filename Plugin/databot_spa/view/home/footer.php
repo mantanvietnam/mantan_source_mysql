@@ -7,7 +7,7 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://ezpics.vn" target="_blank" class="footer-link fw-bolder">Ezpics</a>
+                  <a href="https://ezpics.vn" target="_blank" class="footer-link fw-bolder">Data Bot</a>
                 </div>
                 <div>
                   <a href="https://www.facebook.com/ezpicsvn" class="footer-link me-4" target="_blank">Facebook</a>
@@ -59,14 +59,21 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCQ02R5K9G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    
+    <script>
+      $( function() {
+        $( ".datepicker" ).datepicker({
+          dateFormat: "dd/mm/yy "
+        });
+      } );
+    </script> 
 
-  gtag('config', 'G-PCQ02R5K9G');
-</script>
+    <script type="text/javascript">
+      $(function () {
+        $('.datetimepicker').datetimepicker({
+          dateFormat: "dd/mm/yy H:i"
+        });
+      });
+    </script>
   </body>
 </html>

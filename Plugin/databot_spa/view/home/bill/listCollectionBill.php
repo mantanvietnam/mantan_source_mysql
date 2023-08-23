@@ -10,28 +10,53 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
-            <label class="form-label">ID</label>
+            <label class="form-label">ID phiếu</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tên gói combo</label>
-            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="" >Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
+            <label class="form-label">Nhân viên thu</label>
+            <select name="id_staff" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+              if(!empty($listStaffs)){
+                foreach ($listStaffs as $key => $value) {
+                  if(empty($_GET['id_staff']) || $_GET['id_staff']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
             </select>
           </div>
 
+          <div class="col-md-3">
+            <label class="form-label">Tên người nộp</label>
+            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+          </div>
+
           <div class="col-md-2">
+            <label class="form-label">Tạo từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">ID khách hàng</label>
+            <input type="text" class="form-control" name="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
+          </div>
+
+          <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>
           </div>
+
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
@@ -52,13 +77,12 @@
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Thới gian</th>
+              <th>Thời gian</th>
               <th>Người nộp</th>
               <th>Người thu</th>
               <th>Số tiền</th>
-              <th>hình thức</th>
-              <th>Trạng thái</th>
-              <th>sửa</th>
+              <th>Nội dung phiếu thu</th>
+              <th>Sửa</th>
               <th>Xóa</th>
             </tr>
           </thead>
@@ -67,23 +91,22 @@
               if(!empty($listData)){
                 global $type_collection_bill;
                 foreach ($listData as $item) {
-                    $status = 'đã sử lý';
-                    if($item->status==0)$status = 'chưa sử lý';
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.@$item->created_at->format('d/m/Y H:i').'</td>
+                          <td>'.date('d/m/Y H:i', $item->time).'</td>
                           <td>'.@$item->full_name.'</td>
                           <td>'.$item->staff->name.'</td>
-                          <td>'.number_format($item->total).'đ</td>
-                          <td>'.$type_collection_bill[$item->type_collection_bill].'</td>
-                          <td>'.$status.'</td>
+                          <td>'.number_format($item->total).'đ<br/>'.$type_collection_bill[$item->type_collection_bill].'</td>
+                          <td>'.$item->note.'</td>
+                          
                           <td align="center">
                             <a class="dropdown-item" href="/addCollectionBill/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
+
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa phiếu thu không?\');" href="/DeleteBill/?id='.$item->id.'&url=1">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa phiếu thu không?\');" href="/deleteBill/?id='.$item->id.'&url=listCollectionBill">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
