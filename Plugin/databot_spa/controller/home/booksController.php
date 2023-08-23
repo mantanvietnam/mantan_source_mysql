@@ -9,6 +9,7 @@ function listBook($input){
 
     $modelService = $controller->loadModel('Services');
 	$modelBook = $controller->loadModel('Books');
+	$modelMembers = $controller->loadModel('Members');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -23,6 +24,10 @@ function listBook($input){
 			$conditions['id'] = (int) $_GET['id'];
 		}
 
+		if(!empty($_GET['full_name'])){
+			$conditions['name LIKE'] = '%'.$_GET['full_name'].'%';
+		}
+
 		if(!empty($_GET['phone'])){
 			$conditions['phone'] = $_GET['phone'];
 		}
@@ -33,20 +38,27 @@ function listBook($input){
 
 		if(isset($_GET['status'])){
             if($_GET['status']!=''){
-                $conditions['status'] = $_GET['status'];
+                $conditions['status'] = (int) $_GET['status'];
             }
         }
 
-		if(!empty($_GET['name'])){
-			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+        if(!empty($_GET['type'])){
+			$conditions[$_GET['type']] = 1;
+		}
+
+		if(!empty($_GET['id_staff'])){
+			$conditions['id_staff'] = (int) $_GET['id_staff'];
+		}
+
+		if(!empty($_GET['id_service'])){
+			$conditions['id_service'] = (int) $_GET['id_service'];
 		}
 
 	    $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
 	    if(!empty($listData)){
 	        foreach ($listData as $key => $value) {
-	            $conditions_scan = array('id'=>$value->id);
-	            $listData[$key]->Service  = $modelService->find()->where($conditions_scan)->first();
+	            $listData[$key]->service  = $modelService->find()->where(['id'=>$value->id_service])->first();
 	        }
 	    }
 
@@ -81,6 +93,14 @@ function listBook($input){
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    // danh sách nhân viên
+	    $listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $listStaffs[] = $infoUser;
+
+	    // danh sách dịch vụ
+	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $listService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
@@ -88,6 +108,8 @@ function listBook($input){
 	    setVariable('urlPage', $urlPage);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('listStaffs', $listStaffs);
+	    setVariable('listService', $listService);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -119,42 +141,66 @@ function addBook($input){
 	    }else{
 	        $save = $modelBook->newEmptyEntity();
 			$save->created_at = date('Y-m-d H:i:s');
+			$save->time_book = time();
 	    }
 
 		if ($isRequestPost) {
 	        $dataSend = $input['request']->getData();
 	        
-	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
+	        if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['id_service'])){
 	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
 	        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-	        	$conditions = ['id'=>$dataSend['id_customer'],'id_member'=>$infoUser->id_member];
+	        	$conditions = ['id_member'=>$infoUser->id_member];
+
+	        	if(!empty($dataSend['id_customer'])){
+	        		$conditions['id'] = (int) $dataSend['id_customer'];
+	        	} else {
+	        		$conditions['phone'] = $dataSend['phone'];
+	        	}
+	        	
 	        	$checkCustomer = $modelCustomer->find()->where($conditions)->first();
 
 			    if(!empty($checkCustomer)){
+			    	if(empty($dataSend['apt_step']) || empty($dataSend['apt_times'])){
+			    		$dataSend['apt_step'] = 0; // khoảng cách ngày
+			    		$dataSend['apt_times'] = 0; // số lần lặp
+			    		$dataSend['repeat_book'] = 0;
+			    	}
+
 			    	$save->name = $dataSend['name'];
 			        $save->phone = $dataSend['phone'];
 			        $save->email = $dataSend['email'];
-			        $save->id_customers = $checkCustomer->id;
-			        $save->id_staff = (int) $dataSend['id_staff'];
-			        $save->id_spa = (int) $dataSend['id_spa'];
 			        $save->id_member = (int) $infoUser->id_member;
+			        $save->id_customer = $checkCustomer->id;
 			        $save->id_service =(int) $dataSend['id_service'];
-			        $save->created_book = strtotime(@$dataSend['created_book']);
-			        $save->note = $dataSend['note'];
-			        $save->apt_step = $dataSend['apt_step'];
-			        $save->apt_times = $dataSend['apt_times'];
-			        $save->type =  implode(',', $dataSend['at_type']);
-			        $save->status = (int)  $dataSend['status'];
 
-			        $thoigian = explode(' ', $dataSend['created_book']);
-	                $time_start = explode('/', $thoigian[0]);
-	                $timeStart= explode(':', $thoigian[1]);
-	                $save->created_book = mktime($timeStart[0],$timeStart[1],0,$time_start[1],$time_start[0],$time_start[2]);
+			        if(!empty($dataSend['time_book'])){
+		            	$time = explode(' ', $dataSend['time_book']);
+		            	$date = explode('/', $time[0]);
+		            	$hour = explode(':', $time[1]);
+		            	$save->time_book = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+		            }else{
+		            	$save->time_book = time();
+		            }
+
+		            $save->time_book_end = $save->time_book + $dataSend['apt_times']*$dataSend['apt_step']*24*60*60;
+
+			        $save->id_staff = (int) $dataSend['id_staff'];
+			        $save->status = (int)  $dataSend['status'];
+			        $save->note = $dataSend['note'];
+			        $save->apt_step = (int) @$dataSend['apt_step'];
+			        $save->apt_times = (int) @$dataSend['apt_times'];
+			        $save->id_spa = (int) $session->read('id_spa');
+			        $save->type1 = (int) @$dataSend['type1'];
+			        $save->type2 = (int) @$dataSend['type2'];
+			        $save->type3 = (int) @$dataSend['type3'];
+			        $save->type4 = (int) @$dataSend['type4'];
+			        $save->repeat_book = (int) @$dataSend['repeat_book'];
 			        
 			        $modelBook->save($save);
 
-			        $mess= '<p class="text-success">Bạn đặt lịch hẹn thành công</p>';
+			        $mess= '<p class="text-success">Đặt lịch hẹn thành công</p>';
 			    }else{
 			    	$mess= '<p class="text-danger">Không tồn tại thông tin khách hàng</p>';
 			    }
@@ -164,28 +210,18 @@ function addBook($input){
 	    }
 
 	    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-	    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-
-	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
-	    $dataGroup = $modelCategories->find()->where($category)->order(['id' => 'DESC'])->all()->toList();
 
 	    $service = array('id_member'=>$infoUser->id_member);
 	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
 
-	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
-	    $dataSource = $modelCategories->find()->where($source)->order(['id' => 'DESC'])->all()->toList();
-	   	
 	   	if(empty($dataService)){
 	   		// nếu chưa cài đặt dịch vụ
 	   		return $controller->redirect('/listService/?error=requestService');
 	   	}
 
 	    setVariable('data', $save);
-	    setVariable('dataMember', $dataMember);
-	    setVariable('dataSpa', $dataSpa);
-	    setVariable('dataGroup', $dataGroup);
 	    setVariable('dataService', $dataService);
-	    setVariable('dataSource', $dataSource);
+	    setVariable('dataMember', $dataMember);
 	    setVariable('mess', $mess);
 	    setVariable('infoUser', $infoUser);
     }else{

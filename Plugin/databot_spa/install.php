@@ -21,18 +21,22 @@ $sqlInstallDatabase .= "CREATE TABLE `books` (
   `phone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_member` int(11) NOT NULL,
-  `id_group` int(11) DEFAULT NULL,
-  `id_customers` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
   `id_service` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `created_book` int(11) NOT NULL,
+  `time_book` INT(11) NOT NULL COMMENT 'thời gian đặt lịch hẹn',
+  `time_book_end` INT NOT NULL,
   `id_staff` int(11) DEFAULT NULL,
-  `type` text DEFAULT NULL COMMENT 'kiểu đặt (0 Mặc định, 1  Lịch chăm sóc, 2 Lịch liệu trình,  3Lịch điều trị)',
   `status` int(4) DEFAULT NULL COMMENT '0: Chưa xác nhận, 1: Xác nhận, 2:Không đến,  3:Hủy, 4:Đã đến , 5:Đặt online.',
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `apt_step` int(11) DEFAULT NULL,
   `apt_times` int(11) DEFAULT NULL,
-  `id_spa` int(11) DEFAULT NULL
+  `id_spa` int(11) DEFAULT NULL,
+  `type1` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch tư vấn',
+  `type2` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch chăm sóc',
+  `type3` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch liệu trình',
+  `type4` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch điều trị',
+  `repeat_book` BOOLEAN NOT NULL DEFAULT FALSE
 ) ENGINE=InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `combos` (

@@ -28,18 +28,69 @@
             <label class="form-label">Email</label>
             <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
           </div>
-           <div class="col-md-2">
+          
+          <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
-              <option value="" <?php if(isset($_GET['status']) && $_GET['status']=='') echo 'selected';?> >Tất cả</option>
+              <option value="">Tất cả</option>
               <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa xác nhận </option>
               <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Xác nhận</option>
               <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Không đến</option>
-              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Hủy</option>
+              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Hủy lịch</option>
               <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Đã đến</option>
               <option value="5" <?php if(!empty($_GET['status']) && $_GET['status']=='5') echo 'selected';?> >Đặt online</option>
             </select>
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Kiểu đặt</label>
+            <select name="type" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="type1" <?php if(isset($_GET['type']) && $_GET['type']=='type1') echo 'selected';?> >Lịch tư vấn </option>
+              <option value="type2" <?php if(isset($_GET['type']) && $_GET['type']=='type2') echo 'selected';?> >Lịch chăm sóc </option>
+              <option value="type3" <?php if(isset($_GET['type']) && $_GET['type']=='type3') echo 'selected';?> >Lịch liệu trình </option>
+              <option value="type4" <?php if(isset($_GET['type']) && $_GET['type']=='type4') echo 'selected';?> >Lịch điều trị </option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">NV chăm sóc</label>
+            <select name="id_staff" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+              if(!empty($listStaffs)){
+                foreach ($listStaffs as $key => $value) {
+                  if(empty($_GET['id_staff']) || $_GET['id_staff']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Dịch vụ</label>
+            <select name="id_service" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php 
+              if(!empty($listService)){
+                foreach ($listService as $key => $value) {
+                  if(empty($_GET['id_service']) || $_GET['id_service']!=$value->id){
+                    echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                  }else{
+                    echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div>
+
+          
+
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
@@ -58,10 +109,11 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Thông tin Khách hàng</th>
+            <th>Thời gian</th>
+            <th>Khách hàng</th>
             <th>Dịch vụ</th>
-            <th>thời gian</th>
-            <th>Trạnh thái</th>
+            <th>Kiểu đặt</th>
+            <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -71,18 +123,21 @@
             if(!empty($listData)){
               foreach ($listData as $item) {
                 $arr = explode(',', @$item->type);
-                $type = '';
-                if(in_array(0, $arr)){
-                  $type .= 'Mặc định,';
+                $type = [];
+                if(!empty($item->type1)){
+                  $type[] = 'Lịch tư vấn';
                 }
-                if(in_array(1, $arr)){
-                  $type .= ' Lịch chăm sóc,';
+
+                if(!empty($item->type2)){
+                  $type[] = 'Lịch chăm sóc';
                 }
-                if(in_array(2, $arr)){
-                  $type .= 'Lịch liệu trình,';
+
+                if(!empty($item->type3)){
+                  $type[] = 'Lịch liệu trình';
                 }
-                if(in_array(3, $arr)){
-                  $type .= 'Lịch điều trị,';
+
+                if(!empty($item->type4)){
+                  $type[] = 'Lịch điều trị';
                 }
 
                 if($item->status==0){
@@ -92,28 +147,40 @@
                 }elseif($item->status==2){
                   $status= 'Không đến';
                 }elseif($item->status==3){
-                  $status= 'Hủy';
+                  $status= 'Hủy lịch';
                 }elseif($item->status==4){
                   $status= 'Đã đến';
                 }elseif($item->status==5){
                   $status= 'Đặt online';
                 }
+
+                $repeat_book = [date("d/m/Y H:i", $item->time_book)];
+                if(!empty($item->repeat_book)){
+                  $time_book = $item->time_book;
+                  for($i=1;$i<$item->apt_times;$i++){
+                    $time_book += $item->apt_step*24*60*60;
+                    $repeat_book[] = date("d/m/Y H:i", $time_book);
+                  }
+                }
+
                 echo '<tr>
                         <td>'.$item->id.'</td>
+                        <td>'.implode('<br/>', $repeat_book).'</td>
                         <td>'.$item->name.'<br/>
-                            '.$item->phone.'<br/>
-                            '.$item->email.'
+                            '.$item->phone.'
                           </td>
-                        <td>'.$item->Service->name.'<br/>'.$type.'</td>
-                        <td>'.date("d/m/Y H:i", @$data['created_book']).'</td>
+                        <td>'.$item->service->name.'</td>
+                        <td>'.implode('<br/>', $type).'</td>
                         <td>'.$status.'</td>
+
                         <td align="center">
                           <a class="dropdown-item" href="/addBook/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
+
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteBook/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa lịch hẹn không?\');" href="/deleteBook/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -121,7 +188,7 @@
               }
             }else{
               echo '<tr>
-                      <td colspan="10" align="center">Chưa có khách hàng</td>
+                      <td colspan="10" align="center">Chưa có lịch hẹn</td>
                     </tr>';
             }
           ?>

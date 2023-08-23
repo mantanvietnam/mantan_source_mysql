@@ -26,7 +26,7 @@ global $type_collection_bill;
                   
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="basic-default-fullname">Thời gian tạo phiếu (*)</label>
-                    <input type="text" required  class="form-control hasDatepicker datetimepicker" placeholder="" name="time" id="time" value="<?php echo date('d/m/Y H:i', $data->time);?>" />
+                    <input type="text" required  class="form-control hasDatepicker datetimepicker" placeholder="" name="time_book" id="time_book" value="<?php echo date('d/m/Y H:i', $data->time_book);?>" />
                   </div>
 
                   <div class="mb-3 col-md-6">

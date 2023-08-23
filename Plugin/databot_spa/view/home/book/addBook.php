@@ -25,10 +25,11 @@
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-phone">Tên khách hàng (*)</label>
                       <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" >
+                      <input type="hidden" name="id_customer" id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
                     </div>
                     <div class="mb-3 form-group col-md-6">
                          <label class="form-label" for="basic-default-fullname">Ngày đặt:</label>
-                        <input type="text" name="created_book" class="form-control datepicker datepickerorder" id="datestart" value="<?php echo (!empty($data['created_book']))?  date("d/m/Y H:i", @$data['created_book']) : " " ?>">
+                        <input type="text" name="time_book" class="form-control hasDatepicker datetimepicker" id="time_book" value="<?php echo (!empty($data['time_book']))?  date("d/m/Y H:i", @$data['time_book']) : " " ?>">
                     </div>
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
@@ -51,16 +52,7 @@
                         </select>
                       </div>
                     </div>
-                    <div class="mb-3 col-md-6">
-                      <label class="form-label" for="basic-default-email">Chi nhánh</label>
-                      <div class="input-group input-group-merge">
-                        <select class="form-select" name="id_spa" id="id_spa">
-                          <?php foreach($dataSpa as $key => $item){ ?>
-                            <option value="<?php echo $item->id ?>" <?php if(isset($data->id_spa) && $data->id_spa== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
+                    
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-fullname">Dịch vụ (*)</label>
                       <select class="form-select" name="id_service" id="id_service" required>
@@ -71,93 +63,71 @@
                       </select>
                     </div>
 
-                    <div class="mb-3 col-md-2">
+                    <div class="mb-3 col-md-1">
                         <label class="form-label" for="basic-default-fullname">Lặp</label>
-                        <p class="switch">
-                          <input type="checkbox">
-                          <span class="slider round"></span>
-                        </p>
+                        <div class="form-check form-switch mb-2">
+                          <input onclick="repeatBook();" class="form-check-input" type="checkbox" id="repeat_book" name="repeat_book" value="1" style="width: 40px;height: 20px;" <?php if(!empty($data->repeat_book)) echo 'checked';?> >
+                        </div>
                     </div>
 
                     <div class="mb-3 col-md-2">
                         <label class="form-label" for="basic-default-fullname">Cách ngày</label>
-                        <input type="number" class="form-control" placeholder="" name="apt_step" id="apt_step" value="<?php echo @$data->apt_step;?>" />
+                        <input disabled type="number" class="form-control" placeholder="" name="apt_step" id="apt_step" value="<?php echo @$data->apt_step;?>" required />
                     </div>
                     
-                    <div class="mb-3 col-md-2">
+                    <div class="mb-3 col-md-3">
                         <label class="form-label" for="basic-default-fullname">Tổng số lần</label>
-                        <input type="number" class="form-control" placeholder="" name="apt_times" id="apt_times" value="<?php echo @$data->apt_times;?>" />
+                        <input disabled type="number" class="form-control" placeholder="" name="apt_times" id="apt_times" value="<?php echo @$data->apt_times;?>" required />
                     </div>
+
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="basic-default-fullname">Trạng thái</label>
+                        <select name="status" class="form-select">
+                          <option value="0">Chưa xác nhận</option>
+                          <option value="1" <?php if(!empty($data->status) && $data->status==1) echo 'selected';?>>Xác nhận</option>
+                          <option value="2" <?php if(!empty($data->status) && $data->status==2) echo 'selected';?>>Không đến</option>
+                          <option value="3" <?php if(!empty($data->status) && $data->status==3) echo 'selected';?>>Đã đến</option>
+                          <option value="4" <?php if(!empty($data->status) && $data->status==4) echo 'selected';?>>Hủy lịch</option>
+                          <option value="5" <?php if(!empty($data->status) && $data->status==5) echo 'selected';?>>Đặt online</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3 col-md-12">
                        <label class="form-label" for="basic-default-fullname">Kiểu đặt</label>
                       <div class="form-group d-flex justify-content-around">
-                        <?php 
-                            $arr = explode(',', @$data['type']);
-                             ?>
-                                    <label class="i-checks i-checks-sm">
-                                    <input type="checkbox" name="at_type[]" class="staffcheck"  <?php if(in_array(0, $arr)) echo 'checked ';  ?> value="0">
-                                    <i></i>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp; Mặc định</span>
-                                </label>
-                                    <label class="i-checks i-checks-sm">
+                          <label class="i-checks i-checks-sm">
+                              <input type="checkbox" name="type1" class="staffcheck"  <?php if(!empty($data->type1)) echo 'checked ';  ?> value="1">
+                              
+                              <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch tư vấn</span>
+                          </label>
+                          
+                          <label class="i-checks i-checks-sm">
 
-                                    <input type="checkbox" name="at_type[]" class="staffcheck"  <?php if(in_array(1, $arr)) echo 'checked ';  ?> value="1">
-                                    <i></i>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch chăm sóc</span>
-                                </label>
-                                    <label class="i-checks i-checks-sm">
+                              <input type="checkbox" name="type2" class="staffcheck"  <?php if(!empty($data->type2)) echo 'checked ';  ?> value="1">
+                              
+                              <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch chăm sóc</span>
+                          </label>
 
-                                    <input type="checkbox" name="at_type[]" class="staffcheck"  <?php if(in_array(2, $arr)) echo 'checked ';  ?> value="2">
-                                    <i></i>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch liệu trình</span>
-                                </label>
-                                    <label class="i-checks i-checks-sm">
+                          <label class="i-checks i-checks-sm">
 
-                                    <input type="checkbox" name="at_type[]" class="staffcheck"  <?php if(in_array(3, $arr)) echo 'checked ';  ?> value="3">
-                                    <i></i>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch điều trị</span>
-                                </label>
-                                    
+                              <input type="checkbox" name="type3" class="staffcheck"  <?php if(!empty($data->type3)) echo 'checked ';  ?> value="1">
+                              
+                              <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch liệu trình</span>
+                          </label>
+                          
+                          <label class="i-checks i-checks-sm">
+
+                              <input type="checkbox" name="type4" class="staffcheck"  <?php if(!empty($data->type4)) echo 'checked ';  ?> value="1">
+                              
+                              <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch điều trị</span>
+                          </label> 
                       </div>
                     </div>
                     <div class="mb-3 col-md-12">
                       <label class="form-label" for="basic-default-fullname">Thông tin thêm</label>
                       <textarea class="form-control" rows="5" name="note"><?php echo @$data->note;?></textarea>
                     </div>
-                    <div class="mb-3 col-md-12">
-                      <div class="form-group d-flex justify-content-around">
-                        <label class="i-checks i-checks-sm">
-                            <input type="radio" name="status" checked="" value="0" style="background-color:#7266BA">
-                            <i></i>
-                            <span style="color:#7266BA">&nbsp; &nbsp; Chưa xác nhận</span>
-                        </label>
-                                                <label class="i-checks i-checks-sm">
-                            <input type="radio" name="status" value="1" style="background-color:#9ACC51">
-                            <i></i>
-                            <span style="color:#9ACC51">&nbsp; &nbsp; Xác nhận</span>
-                        </label>
-                                                <label class="i-checks i-checks-sm">
-                            <input type="radio" name="status" value="2" style="background-color:#F6973B">
-                            <i></i>
-                            <span style="color:#F6973B">&nbsp; &nbsp; Không đến</span>
-                        </label>
-                                                <label class="i-checks i-checks-sm">
-                            <input type="radio" name="status" value="3" style="background-color:#F26C4F">
-                            <i></i>
-                            <span style="color:#F26C4F">&nbsp; &nbsp; Hủy</span>
-                        </label>
-                                                <label class="i-checks i-checks-sm">
-                            <input type="radio" name="status" value="4" style="background-color:#FA91C8">
-                            <i></i>
-                            <span style="color:#FA91C8">&nbsp; &nbsp; Đã đến</span>
-                        </label>
-                                                <label class="i-checks i-checks-sm">
-                            <input type="radio" name="status" value="5" style="background-color:#23B7E5">
-                            <i></i>
-                            <span style="color:#23B7E5">&nbsp; &nbsp; Đặt online</span>
-                        </label>
-                      </div>
-                    </div>
+                    
                     <div class="mb-3 col-md-12">
                       <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
@@ -175,8 +145,157 @@
 </div>
 
 <script type="text/javascript">
-    jQuery('.datepickerorder').datetimepicker({
-      format:'d/m/Y H:i'
-    }).on('dp.change', function (e) { });
+  function repeatBook() {
+    if($('#repeat_book').is(":checked")){
+      $('#apt_step').prop("disabled", false);
+      $('#apt_times').prop("disabled", false);
+    }else{
+      $('#apt_step').prop("disabled", true);
+      $('#apt_times').prop("disabled", true);
+    }
+  }
+
+  repeatBook();
 </script>
+<script type="text/javascript">
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $("#name")
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+
+            $('#id_customer').val(0);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerApi", {
+                    key: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+               
+                $('#name').val(ui.item.name);
+                $('#id_customer').val(ui.item.id);
+                $('#phone').val(ui.item.phone);
+                $('#email').val(ui.item.email);
+          
+                return false;
+            }
+        });
+
+        $("#phone")
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+
+            $('#id_customer').val(0);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerApi", {
+                    key: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+               
+                $('#name').val(ui.item.name);
+                $('#id_customer').val(ui.item.id);
+                $('#phone').val(ui.item.phone);
+                $('#email').val(ui.item.email);
+          
+                return false;
+            }
+        });
+
+        $("#email")
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+
+            $('#id_customer').val(0);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchCustomerApi", {
+                    key: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+               
+                $('#name').val(ui.item.name);
+                $('#id_customer').val(ui.item.id);
+                $('#phone').val(ui.item.phone);
+                $('#email').val(ui.item.email);
+          
+                return false;
+            }
+        });
+    });
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 <?php include(__DIR__.'/../footer.php'); ?>
