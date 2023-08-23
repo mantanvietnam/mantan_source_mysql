@@ -226,13 +226,13 @@ function addMoneyApplePayAPI($input)
             if(!empty($infoUser->affsource)){
                 $User = $modelMember->find()->where(array('id'=>$infoUser->affsource))->first();
        	        if(!empty($User)){
-                    $User->account_balance += ((int) $recommenders / 100) * $number;
+                    $User->account_balance += ((int) $recommenders / 100) * $dataSend['money'];
                     $modelMember->save($User);
 
                     $data = $modelOrder->newEmptyEntity();
                     $data->code = 'W'.time().$User->id.rand(0,10000);
                     $data->member_id = $User->id;
-                    $data->total = ((int) $recommenders / 100) * $number;
+                    $data->total = ((int) $recommenders / 100) * $dataSend['money'];
                     $data->status = 2; // 1: chưa xử lý, 2 đã xử lý
                     $data->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
                     $data->meta_payment = 'Bạn được công tiền hoa hồng giới thiệu';
@@ -244,7 +244,7 @@ function addMoneyApplePayAPI($input)
                     $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format($data->total).'đ vào tài khoản '.$User->phone,'action'=>'addMoneySuccess');
 
                     if(!empty($User->token_device)){
-                        sendNotification($dataSendNotification, $data->token_device);
+                        sendNotification($dataSendNotification, $User->token_device);
                     }
                 }
             }
@@ -646,10 +646,9 @@ function getPriceAPI(){
 	$price['price_create_content'] = $price_create_content;
 	$price['price_pro'] = $price_pro;
 	$price['price_warehouses'] = $price_warehouses;
-	$price['recommenders'] = $recommenders;
 	$price['price_min_create_warehouses'] = $price_min_create_warehouses;
 
-	$return = array('price'=>$price);
+	return array('price'=>$price);
 
 }
 ?>

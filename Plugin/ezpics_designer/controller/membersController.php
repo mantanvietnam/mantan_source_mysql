@@ -365,6 +365,7 @@ function register($input)
     }
 
 		if(empty($mess) && !empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($_FILES['portfolio']["name"])  && !empty($dataSend['content'])){
+			
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(empty($checkPhone)){
@@ -376,7 +377,12 @@ function register($input)
 					$data->avatar = $avatar;
 					$data->phone = $dataSend['phone'];
 					$data->aff = $dataSend['phone'];
-					$data->affsource = $dataSend['affsource'];
+					if($dataSend['affsource']!=$dataSend['phone']){
+						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
+						if(empty($affsource)){
+							$data->affsource = $affsource->id;
+						}
+					}
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 10000; // tặng 10k cho tài khoản mới

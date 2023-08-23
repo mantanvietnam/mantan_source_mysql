@@ -203,7 +203,7 @@ function process_add_money($number=0, $order_id=0)
                             $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format($order->total).'đ vào tài khoản '.$User->phone,'action'=>'addMoneySuccess');
 
                             if(!empty($User->token_device)){
-                                sendNotification($dataSendNotification, $data->token_device);
+                                sendNotification($dataSendNotification, $User->token_device);
                             }
                         }
                     }

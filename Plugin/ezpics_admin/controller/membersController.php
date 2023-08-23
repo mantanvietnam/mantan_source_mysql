@@ -360,7 +360,7 @@ function lockMemberAdmin($input){
 
 function addMoneyManager($input){
 	global $controller;
-
+    global $recommenders;
 	global $isRequestPost;
 
 	$modelOrder = $controller->loadModel('Orders');
@@ -372,7 +372,7 @@ function addMoneyManager($input){
 			$dataSend = $input['request']->getData();
 
 			if($_GET['type']=='plus'){
-				$data->account_balance = $data->account_balance + $dataSend['coin'];
+				$data->account_balance +=  $dataSend['coin'];
 
 				$order = $modelOrder->newEmptyEntity();
 				
@@ -387,11 +387,41 @@ function addMoneyManager($input){
                 $order->created_at = date('Y-m-d H:i:s');
                 $order->payment_kind = $dataSend['payment_kind'];
                 $order->note = 'bạn được công tiền trong admin lý do công là:  '.@$dataSend['note'];
+
+
                 
                 $modelOrder->save($order);
 
+                if($order->payment_kind==1){
+                	 if(!empty($data->affsource)){
+                        $User = $modelMembers->find()->where(array('id'=>$data->affsource))->first();
+                        if(!empty($User)){
+                            $User->account_balance += ((int) $recommenders / 100) * $dataSend['coin'];
+                            $modelMembers->save($User);
+
+                            $save = $modelOrder->newEmptyEntity();
+                            $save->code = 'W'.time().$User->id.rand(0,10000);
+                            $save->member_id = $User->id;
+                            $save->total = ((int) $recommenders / 100) * $dataSend['coin'];
+                            $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+                            $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+                            $save->meta_payment = 'Bạn được công tiền hoa hồng giới thiệu';
+                            $save->created_at = date('Y-m-d H:i:s');
+
+                            $modelOrder->save($save);
+
+                            // gửi thông báo về app
+                            $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format($save->total).'đ vào tài khoản '.$User->phone,'action'=>'addMoneySuccess');
+
+                            if(!empty($User->token_device)){
+                                sendNotification($dataSendNotification, $User->token_device);
+                            }
+                        }
+                    }
+                }
+
 			}elseif($_GET['type']=='minus'){
-				$data->account_balance = $data->account_balance - $dataSend['coin'];
+				$data->account_balance -=  $dataSend['coin'];
 
 				$order = $modelOrder->newEmptyEntity();
 				
