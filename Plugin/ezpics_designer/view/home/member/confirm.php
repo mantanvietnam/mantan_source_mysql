@@ -89,7 +89,7 @@
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Mã xác nhận</label>
+                  <label for="phone" class="form-label">Mã xác nhận trong email</label>
                   <input type="text" class="form-control" id="code" name="code" placeholder="" required>
                 </div>
                 <div class="mb-3">
@@ -97,7 +97,7 @@
                   <input type="password" class="form-control" id="pass" name="pass" placeholder="" required>
                 </div>
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Mã xác nhận</label>
+                  <label for="phone" class="form-label">Nhập lại mật khẩu mới</label>
                   <input type="password" class="form-control" id="passAgain" name="passAgain" placeholder="" required>
                 </div>
                 <div class="mb-3">

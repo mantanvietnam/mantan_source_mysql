@@ -96,6 +96,7 @@ function addDiscountCodeAdmin($input)
 
 
     $modelDiscountCode = $controller->loadModel('DiscountCodes');
+    $modelMember = $controller->loadModel('Members');
     $mess= '';
 
     // lấy data edit
@@ -119,6 +120,12 @@ function addDiscountCodeAdmin($input)
             $data->number_user = @$dataSend['number_user'];
             if(!empty($dataSend['deadline_at'])){
                 $data->deadline_at = DateTime::createFromFormat('d/m/Y', @$dataSend['deadline_at'])->format('Y-m-d 23:59:59');
+            }
+            if(!empty($dataSend['user'])){
+                $checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['user']))->first();
+                if(!empty($checkPhone)){
+                    $data->user = $dataSend['user'];
+                }
             }
             $data->note = @$dataSend['note'];
             $modelDiscountCode->save($data);

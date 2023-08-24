@@ -250,6 +250,33 @@ $sqlInstallDatabase .="CREATE TABLE `debts` (
   `updated_at` DATETIME NULL DEFAULT NULL 
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `partners` ( 
+  `id` INT NOT NULL ,
+  `name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
+  `phone` TEXT NOT NULL ,
+  `email` INT NULL DEFAULT NULL ,
+  `address` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
+  `id_member` INT NOT NULL , 
+  `created_at` DATETIME NOT NULL , 
+  `updated_at` DATETIME NOT NULL 
+) ENGINE = InnoDB;";
+
+$sqlDeleteDatabase .="CREATE TABLE `warehouse_products` ( 
+  `id` INT NOT NULL ,
+  `id_member` INT NOT NULL COMMENT 'ID ' , 
+  `id_spa` INT NOT NULL , 
+  `id_staff` INT NULL DEFAULT NULL COMMENT 'ID nhân viên thực hiện' , 
+  `id_product` INT NOT NULL COMMENT 'ID sản phẩn' , 
+  `id_warehouse` INT NOT NULL COMMENT 'ID kho' , 
+  `impor_ price` INT NOT NULL COMMENT 'giá nhập' , 
+  `quantity` INT NULL DEFAULT NULL COMMENT 'số lượng ban đâu' , 
+  `inventory_quantity` INT NULL DEFAULT NULL COMMENT 'số lượng tồn kho' , 
+  `deadline` INT NULL DEFAULT NULL , 
+  `created_at` INT NOT NULL , 
+  `id_partner` INT NULL DEFAULT NULL 
+) ENGINE = InnoDB;"
+
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
 $sqlDeleteDatabase .= "DROP TABLE combos; ";
@@ -265,6 +292,7 @@ $sqlDeleteDatabase .= "DROP TABLE trademarks; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE debts; ";
+$sqlDeleteDatabase .= "DROP TABLE partners; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

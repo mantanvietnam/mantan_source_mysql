@@ -3,8 +3,9 @@
 
 	// api
 	$routesPlugin['searchCustomerApi']= 'databot_spa/view/api/customer/searchCustomerApi.php'; 
+	$routesPlugin['searchPartnerApi']= 'databot_spa/view/api/customer/searchPartnerApi.php'; 
 
-	// member
+	// member 
 	$routesPlugin['login']= 'databot_spa/view/home/member/login.php';
 	$routesPlugin['logout']= 'databot_spa/view/home/member/logout.php';
 	$routesPlugin['dashboard']= 'databot_spa/view/home/dashboard.php';
@@ -78,4 +79,13 @@
 	// debt
 	$routesPlugin['listCollectionDebt']= 'databot_spa/view/home/debt/listCollectionDebt.php';
 	$routesPlugin['addCollectionDebt']= 'databot_spa/view/home/debt/addCollectionDebt.php';
+	$routesPlugin['paymentCollectionBill']= 'databot_spa/view/home/debt/paymentCollectionBill.php';
+	$routesPlugin['listPayableDebt']= 'databot_spa/view/home/debt/listPayableDebt.php';
+	$routesPlugin['addPayableDebt']= 'databot_spa/view/home/debt/addPayableDebt.php';
+	$routesPlugin['paymentBill']= 'databot_spa/view/home/debt/paymentBill.php';
+
+	$routesPlugin['listPartner']= 'databot_spa/view/home/partner/listPartner.php';
+	$routesPlugin['addPartner']= 'databot_spa/view/home/partner/addPartner.php';
+	$routesPlugin['deletePartner']= 'databot_spa/view/home/partner/deletePartner.php';
+
 ?>

@@ -426,6 +426,8 @@ function memberBuyProAPI($input){
 		$dataSend = $input['request']->getData();	
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token'], ))->first();
 
+		$pricepro = $price_pro;
+
 		if(!empty($dataSend['discountCode'])){
 
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
@@ -466,8 +468,6 @@ function memberBuyProAPI($input){
 				return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
 			}
 		}
-
-		
 
 		if(!empty($user)){
 			if($user->member_pro!=1){
@@ -512,6 +512,32 @@ function memberBuyProAPI($input){
 						$discountCode->number_user -= 1;
 						$modelDiscountCode->save($discountCode);
 					}
+					if(!empty($discountCode->user) && $pricepro > $price_pro){
+						$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+						if(!empty($checkPhone)){
+							$checkPhone->account_balance += (20 / 100) * $price_pro;
+							$modelMember->save($checkPhone);
+
+							$save = $modelOrder->newEmptyEntity();
+	                        $save->code = 'P'.time().$checkPhone->id.rand(0,10000);
+	                        $save->member_id = $checkPhone->id;
+	                        $save->total = (20 / 100) * $price_pro;
+	                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+	                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+	                        $save->created_at = date('Y-m-d H:i:s');
+
+	                        $modelOrder->save($save);
+
+							// gửi thông báo về app
+	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format((25/100)*$price_pro).'đ vào tài khoản '.$checkPhone->phone,'action'=>'addMoneySuccess');
+
+	                        if(!empty($checkPhone->token_device)){
+	                            sendNotification($dataSendNotification, $checkPhone->token_device);
+	                        }
+
+						}
+					}
 
 					$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 				}else{
@@ -543,7 +569,7 @@ function memberExtendProAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();	
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-
+		$pricepro = $price_pro;
 		if(!empty($dataSend['discountCode'])){
 
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
@@ -598,7 +624,7 @@ function memberExtendProAPI($input){
 					$modelMember->save($user);
 
 					$order = $modelOrder->newEmptyEntity();
-					$order->code = 'W'.time().$user->id.rand(0,10000);
+					$order->code = 'P'.time().$user->id.rand(0,10000);
 					$order->member_id = $user->id;
 					$order->total = $price_pro;
 					if(!empty($discountCode)){
@@ -613,6 +639,32 @@ function memberExtendProAPI($input){
 					if(!empty($discountCode->number_user)){
 						$discountCode->number_user -= 1;
 						$modelDiscountCode->save($discountCode);
+					}
+					if(!empty($discountCode->user) && $pricepro > $price_pro){
+						$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+						if(!empty($checkPhone)){
+							$checkPhone->account_balance += (20 / 100) * $price_pro;
+							$modelMember->save($checkPhone);
+
+							$save = $modelOrder->newEmptyEntity();
+	                        $save->code = 'W'.time().$checkPhone->id.rand(0,10000);
+	                        $save->member_id = $checkPhone->id;
+	                        $save->total = (20 / 100) * $price_pro;
+	                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+	                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+	                        $save->created_at = date('Y-m-d H:i:s');
+
+	                        $modelOrder->save($save);
+
+							// gửi thông báo về app
+	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format((25/100)*$price_pro).'đ vào tài khoản '.$checkPhone->phone,'action'=>'addMoneySuccess');
+
+	                        if(!empty($checkPhone->token_device)){
+	                            sendNotification($dataSendNotification, $checkPhone->token_device);
+	                        }
+
+						}
 					}
 
 

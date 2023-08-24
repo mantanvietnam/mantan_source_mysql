@@ -415,7 +415,7 @@ function addWarehouseAdmin($input)
 	        $user = $modelMember->find()->where(array('phone'=>$dataSend['user']))->first();
 
 	        if(!empty($user)){
-	        	if ($user->account_balance>$dataSend['price']){
+	        	if ($user->account_balance>$dataSend['price_creates']){
 			        if(!empty($dataSend['name'])){
 			        	$data = $modelWarehouses->newEmptyEntity();
 			        	if(!empty($data->thumbnail)){
@@ -459,15 +459,15 @@ function addWarehouseAdmin($input)
 			        	$modelWarehouses->save($data);
 
 				       
-				        if($dataSend['price']>0){
-				        	$user->account_balance -= $dataSend['price'];
+				        if($dataSend['price_creates']>0){
+				        	$user->account_balance -= $dataSend['price_creates'];
 				        	$modelMember->save($user);
 
 				        	$order = $modelOrder->newEmptyEntity();
-							$order->code = 'W'.time().$infoUser->id.rand(0,10000);
+							$order->code = 'W'.time().$user->id.rand(0,10000);
 							$order->member_id = $user->id;
 							$order->product_id = (int) $data->id; // id kho mẫu
-							$order->total = $price_warehouses;
+							$order->total = $dataSend['price_creates'];
 							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
 							$order->type = 10; //0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
 							$order->meta_payment = 'Tạo kho mẫu thiết kế ID '.$data->id;
@@ -508,7 +508,7 @@ function addWarehouseAdmin($input)
 			    }
 			}
 		}else{
-			$mess= '<p class="text-danger">User này không tồi tại</p>';
+			$mess= '<p class="text-danger">Tài khoản này không tồn tại</p>';
 		}
     }
 

@@ -297,7 +297,7 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -377,7 +377,7 @@ function sendEmailCodeForgotPassword($email='', $fullName='', $code= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">

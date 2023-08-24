@@ -88,7 +88,7 @@
                   <input type="password" class="form-control" id="pass" name="pass" placeholder="" required>
                 </div>
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Mã xác nhận</label>
+                  <label for="phone" class="form-label">Nhập lại mật khẩu mới</label>
                   <input type="password" class="form-control" id="passAgain" name="passAgain" placeholder="" required>
                 </div>
                 <div class="mb-3">

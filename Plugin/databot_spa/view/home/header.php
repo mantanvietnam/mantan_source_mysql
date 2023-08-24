@@ -162,7 +162,6 @@
                 
               </ul>
             </li>
-
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
@@ -179,9 +178,23 @@
                     <div>Phiếu chi</div> 
                   </a>
                 </li>
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-book-content"></i>
+                <div>Quản lý công nợ</div>
+              </a>
+              <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/listCollectionDebt" class="menu-link">
                     <div>Công nợ phải thu</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listPayableDebt" class="menu-link">
+                    <div>Công nợ phải trả</div> 
                   </a>
                 </li>
               </ul>
@@ -217,6 +230,11 @@
                 <li class="menu-item">
                   <a href="/listTrademarkProduct" class="menu-link">
                     <div>Nhãn hiệu</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listPartner" class="menu-link">
+                    <div>Đối tác</div>
                   </a>
                 </li>
                 <li class="menu-item">
