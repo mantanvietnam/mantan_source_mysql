@@ -44,8 +44,12 @@ function listCustomer($input)
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
-		$listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-	    $listStaffs[] = $infoUser;
+		$conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+		$listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+	    
 	    $listStaff = [];
 	    foreach ($listStaffs as $key => $value) {
 	    	$listStaff[$value->id] = $value;

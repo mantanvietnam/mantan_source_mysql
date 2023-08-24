@@ -142,8 +142,11 @@ function listCollectionDebt($input){
 	    	$mess = '<p class="text-success">Bạn Số tiền thanh toán nhỏ hơn nợ</p>';
 	    }
 
-	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
-	    $listStaffs[] = $user;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -421,8 +424,11 @@ function listPayableDebt($input){
 	    	$mess = '<p class="text-success">Bạn Số tiền thanh toán nhỏ hơn nợ</p>';
 	    }
 
-	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
-	    $listStaffs[] = $user;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);

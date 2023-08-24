@@ -94,8 +94,11 @@ function listBook($input){
 	    }
 
 	    // danh sách nhân viên
-	    $listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-	    $listStaffs[] = $infoUser;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
 	    // danh sách dịch vụ
 	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
