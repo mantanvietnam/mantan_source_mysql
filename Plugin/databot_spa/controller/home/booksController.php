@@ -212,7 +212,11 @@ function addBook($input){
 		    }
 	    }
 
-	    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $dataMember = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
 	    $service = array('id_member'=>$infoUser->id_member);
 	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();

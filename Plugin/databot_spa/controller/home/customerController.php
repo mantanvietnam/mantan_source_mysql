@@ -296,7 +296,11 @@ function addCustomer($input)
 	    }
 
 	    // danh sách nhân viên
-	    $dataMember = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $dataMember = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 	    
 	    // danh sách cơ sở
 	    $dataSpa = $modelSpa->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
