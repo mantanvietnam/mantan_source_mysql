@@ -18,6 +18,7 @@ include_once('controller/home/booksController.php'); // books
 include_once('controller/home/prepayCardController.php'); // combo
 include_once('controller/home/billController.php'); // hóa đơn
 include_once('controller/home/debtController.php'); // công nợ
+include_once('controller/home/partnerController.php'); // đối tác
 
 // api
 include_once('controller/api/customerController.php'); // api khách hàng

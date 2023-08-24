@@ -14,4 +14,5 @@ include('model/prepayCard.php'); // prepayCard
 include('model/member_groups.php'); // nhóm nhân viên
 include('model/bill.php'); // hóa đơn
 include('model/debt.php'); // Công nợ
+include('model/partner.php'); // Đối tác
 ?>

@@ -26,7 +26,7 @@
                   
                   <div class="mb-3">
                     <label class="form-label">Giá bán (*)</label>
-                    <input type="number" min="0" class="form-control phone-mask" placeholder="bạn sẽ nhận 65% giá trị của kho (giá tốn thiểu là 300,000 đ)" name="price" id="price" value="<?php echo @$data->price; ?>" required />
+                    <input type="number" min="0" class="form-control phone-mask" placeholder="Bạn sẽ nhận 65% giá trị của kho (giá tốn thiểu là 300,000 đ)" name="price" id="price" value="<?php echo @$data->price; ?>" required />
                   </div>
                   
                   <div class="mb-3">

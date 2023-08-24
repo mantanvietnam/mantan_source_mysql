@@ -464,7 +464,7 @@ function addWarehouseAdmin($input)
 				        	$modelMember->save($user);
 
 				        	$order = $modelOrder->newEmptyEntity();
-							$order->code = 'W'.time().$infoUser->id.rand(0,10000);
+							$order->code = 'W'.time().$user->id.rand(0,10000);
 							$order->member_id = $user->id;
 							$order->product_id = (int) $data->id; // id kho mẫu
 							$order->total = $price_warehouses;
