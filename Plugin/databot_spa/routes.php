@@ -4,6 +4,7 @@
 	// api
 	$routesPlugin['searchCustomerApi']= 'databot_spa/view/api/customer/searchCustomerApi.php'; 
 	$routesPlugin['searchPartnerApi']= 'databot_spa/view/api/customer/searchPartnerApi.php'; 
+	$routesPlugin['searchProductApi']= 'databot_spa/view/api/customer/searchProductApi.php'; 
 
 	// member 
 	$routesPlugin['login']= 'databot_spa/view/home/member/login.php';

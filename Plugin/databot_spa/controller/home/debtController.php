@@ -142,8 +142,11 @@ function listCollectionDebt($input){
 	    	$mess = '<p class="text-success">Bạn Số tiền thanh toán nhỏ hơn nợ</p>';
 	    }
 
-	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
-	    $listStaffs[] = $user;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -172,7 +175,9 @@ function addCollectionDebt($input){
     $metaTitleMantan = 'Thông tin công nợ phải thu';
     
     if(!empty($session->read('infoUser'))){
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember
+
+        		 = $controller->loadModel('Members');
 		$modelDebts = $controller->loadModel('Debts');
 
         $infoUser = $session->read('infoUser');
@@ -186,7 +191,16 @@ function addCollectionDebt($input){
             $data->created_at = date('Y-m-d H:i:s');
             $data->status = 0;
             $data->time = time();
+            $data->id_staff = @$infoUser->id;
         }
+
+        $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $listStaffs = $modelMember
+
+	    		->find()->where($conditionsStaff)->all()->toList();
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -194,7 +208,7 @@ function addCollectionDebt($input){
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
             $data->id_spa = $session->read('id_spa');
-            $data->id_staff = @$infoUser->id;
+            $data->id_staff = (int)@$dataSend['id_staff'];
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 0; //0: Thu, 1: chi
@@ -218,6 +232,9 @@ function addCollectionDebt($input){
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('listStaffs', $listStaffs);
+
+	    setVariable('listStaffs', $listStaffs);
     }else{
         return $controller->redirect('/login');
     }
@@ -232,10 +249,10 @@ function paymentCollectionBill($input){
     global $urlCurrent;
     global $urlHomes;
 
-    $metaTitleMantan = 'Thông tin phiếu thu';
+    $metaTitleMantan = 'Thông tin công nợ phải trả';
     
     if(!empty($session->read('infoUser'))){
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelDebts = $controller->loadModel('Debts');
 
@@ -421,8 +438,11 @@ function listPayableDebt($input){
 	    	$mess = '<p class="text-success">Bạn Số tiền thanh toán nhỏ hơn nợ</p>';
 	    }
 
-	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
-	    $listStaffs[] = $user;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -451,7 +471,9 @@ function addPayableDebt($input){
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
     if(!empty($session->read('infoUser'))){
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember
+
+        		 = $controller->loadModel('Members');
 		$modelDebts = $controller->loadModel('Debts');
 
         $infoUser = $session->read('infoUser');
@@ -465,7 +487,15 @@ function addPayableDebt($input){
             $data->created_at = date('Y-m-d H:i:s');
             $data->status = 0;
             $data->time = time();
+
+            $data->id_staff = @$infoUser->id;
         }
+
+        $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -473,7 +503,7 @@ function addPayableDebt($input){
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
             $data->id_spa = $session->read('id_spa');
-            $data->id_staff = @$infoUser->id;
+            $data->id_staff = (int)@$dataSend['id_staff'];
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 1; //0: Thu, 1: chi
@@ -497,6 +527,7 @@ function addPayableDebt($input){
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('listStaffs', $listStaffs);
     }else{
         return $controller->redirect('/login');
     }
@@ -514,7 +545,7 @@ function paymentBill($input){
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
     if(!empty($session->read('infoUser'))){
-        $modelMembers = $controller->loadModel('Members');
+        $modelMember= $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelDebts = $controller->loadModel('Debts');
 

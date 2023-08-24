@@ -51,8 +51,6 @@
                     <label class="form-label" for="basic-default-email">Nhân viên phụ trách</label>
                     <div class="input-group input-group-merge">
                       <select class="form-select" name="id_staff" id="id_staff">
-                        <option value="<?php echo $infoUser->id; ?>"><?php echo $infoUser->name; ?></option>
-                        
                         <?php foreach($dataMember as $key => $item){ ?>
                         <option value="<?php echo $item->id ?>" <?php if(isset($data->id_staff) && $data->id_staff==$item->id ) echo 'selected'; ?> ><?php echo $item->name ?></option>
                         <?php } ?>

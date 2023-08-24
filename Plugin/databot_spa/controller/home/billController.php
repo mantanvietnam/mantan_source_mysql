@@ -137,8 +137,11 @@ function listCollectionBill($input){
 	    	$mess = '<p class="text-success">Xóa thành công</p>';
 	    }
 
-	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
-	    $listStaffs[] = $user;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -180,7 +183,15 @@ function addCollectionBill($input){
             $data = $modelBill->newEmptyEntity();
             $data->created_at = date('Y-m-d H:i:s');
             $data->time = time();
+            $data->id_staff = $infoUser->id;
         }
+
+        $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+
+        $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -188,7 +199,7 @@ function addCollectionBill($input){
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
             $data->id_spa = $session->read('id_spa');
-            $data->id_staff = @$infoUser->id;
+            $data->id_staff = (int)@$dataSend['id_staff'];;
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 0; //0: Thu, 1: chi
@@ -213,6 +224,8 @@ function addCollectionBill($input){
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('user', $infoUser);
+        setVariable('listStaffs', $listStaffs);
     }else{
         return $controller->redirect('/login');
     }
@@ -356,8 +369,11 @@ function listBill($input){
 	    	$mess = '<p class="text-success">Xóa thành công</p>';
 	    }
 
-	    $listStaffs = $modelMember->find()->where(array('id_member'=>$user->id_member))->all()->toList();
-	    $listStaffs[] = $user;
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+	    $listStaffs = $modelMember->find()->where($conditionsStaff)->all()->toList();
 
 		setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -399,7 +415,16 @@ function addBill($input){
             $data = $modelBill->newEmptyEntity();
             $data->created_at = date('Y-m-d H:i:s');
             $data->time = time();
+            $data->id_staff = $infoUser->id;
         }
+
+         $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+
+        $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+	    $listStaffs[] = $infoUser;
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -407,7 +432,7 @@ function addBill($input){
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
             $data->id_spa = $session->read('id_spa');
-            $data->id_staff = @$infoUser->id;
+            $data->id_staff = (int)@$dataSend['id_staff'];
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 1; //0: Thu, 1: chi
@@ -432,6 +457,7 @@ function addBill($input){
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('listStaffs', $listStaffs);
     }else{
         return $controller->redirect('/login');
     }

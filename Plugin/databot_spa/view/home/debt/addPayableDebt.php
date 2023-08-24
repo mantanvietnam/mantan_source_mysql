@@ -34,6 +34,21 @@ global $type_collection_bill;
                   <label class="form-label" for="basic-default-phone">Số tiền (*)</label>
                   <input required type="number" min="100" class="form-control phone-mask" name="total" id="total" value="<?php echo @$data->total;?>" />
                 </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="basic-default-phone">Nhân viên phụ trách (*)</label>
+                    <select name="id_staff" class="form-select color-dropdown" required>
+                      <option value="">Chọn nhân viên</option>
+                      <?php
+                        foreach ($listStaffs as $key => $value) {
+                          if(empty(@$data->id_staff) || @$data->id_staff!=$value->id){
+                            echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                          }else{
+                            echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                          }
+                        }
+                      ?>
+                    </select> 
+                  </div>
                 <div class="mb-3 col-md-12">
                     <label class="form-label" for="basic-default-phone">Nội dung nợ</label>
                     <textarea  class="form-control" rows="5" name="note"><?php echo @$data->note;?></textarea>

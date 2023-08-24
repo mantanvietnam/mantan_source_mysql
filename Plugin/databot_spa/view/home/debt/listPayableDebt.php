@@ -93,12 +93,17 @@ global $type_collection_bill;
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  $status = 'đã trả xong';
+                  $status = ' <td align="center" colspan="2" >đã trả xong';
                   if($item->status==0){
-                    $status = 'Chưa trả xong<br/>
+                    $status = '<td align="center">
+                            <a class="dropdown-item" href="/addPayableDebt/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                    <td align="center">Chưa trả xong<br/>
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
                               <i class="bx bxl-paypal me-1"></i>
-                            </a>
+                            </a></td>
                     ';
                   }
                   echo '<tr>
@@ -113,13 +118,7 @@ global $type_collection_bill;
                           </td>
                           <td align="center"><a href="/listBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></td>
                           <td>'.$item->note.'</td>
-                          <td align="center">
-                            <a class="dropdown-item" href="/addPayableDebt/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
-
-                          <td align="center">'.$status.'</td>
+                          '.$status.'
                         </tr>';
                 }
               }else{
