@@ -354,6 +354,7 @@ function lockProductAdmin($input)
 	
 }
 
+
 function deleteProductAdmin($input){
 	global $controller;
 
@@ -410,5 +411,31 @@ function addTrendProductAdmin($input)
 				}
         }
 	}	
+}
+
+function updateProductAdmin($input)
+{
+	global $controller;
+
+	$modelProducts = $controller->loadModel('Products');
+	$modelmember = $controller->loadModel('Members');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelProducts->get($_GET['id']);
+		if($data){
+			$data->name = $_GET['name'];
+			$data->keyword = $_GET['keyword'];
+
+         	$modelProducts->save($data);
+        }
+	}
+
+	if(!empty($_GET['page'])){
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php?page='.$_GET['page']);
+	}else{
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+	}
+
+	
 }
 ?>

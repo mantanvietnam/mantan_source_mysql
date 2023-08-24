@@ -150,7 +150,7 @@
                             
                           </td>
                           <td>'.$thumbnail.'</td>
-                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'</td>
+                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'<br/><a style="width: 70px;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edittext'.$item->id.'" ><i class="bx bx-edit"></i></a></td>
                           <td>
                             Sell: '.number_format($item->sold).'<br/>
                             View: '.number_format($item->views).'<br/>
@@ -325,6 +325,38 @@
                                 <input type="hidden" value="<?php echo @$_GET['page']; ?>"  name="page">
                                 <input type="text" value="" class="form-control"  required="" name="note">
                                 
+                                <button type="submit" class="btn btn-primary">Từ chối</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal fade" id="edittext<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Sửa thông tin mẫu thiết kế: <?php echo $items->id; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                              </div>
+                             <form action="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <input type="hidden" value="0"  name="status">
+                                <div class="card-body">
+                                  <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-12">
+                                      <input type="hidden" value="<?php echo @$_GET['page']; ?>"  name="page">
+                                      <label class="form-label" for="basic-default-phone">Tên mẫu</label>
+                                      <input type="text" value="<?php echo $items->name; ?>" class="form-control" name="name">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <label class="form-label" for="basic-default-phone">keyword</label>
+                                      <input type="text" value="<?php echo $items->keyword; ?>" class="form-control" name="keyword">
+                                    </div>
+                                  </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Từ chối</button>
                               </div>
                              </form>

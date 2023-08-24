@@ -86,20 +86,27 @@ global $type_collection_bill;
               <th>Số lần trả</th>
               <th>Nội dung phiếu thu</th>
               <th>Sửa</th>
-              <th>Trả</th>
+              <th >Trả</th>
             </tr>
           </thead>
           <tbody>
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  $status = 'đã trả xong';
+                  $status = ' <td align="center" colspan="2" >đã trả xong';
                   if($item->status==0){
-                    $status = 'Chưa trả xong<br/>
+                    $status = '<td align="center">
+                            <a class="dropdown-item" href="/addCollectionDebt/?id='.$item->id.'">
+                              <i class="bx bx-edit-alt me-1"></i>
+                            </a>
+                          </td>
+                    <td align="center">Chưa trả xong<br/>
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
                               <i class="bx bxl-paypal me-1"></i>
-                            </a>
+                            </a></td>
                     ';
+
+                    $update = '';
                   }
                   echo '<tr>
                           <td>'.$item->id.'</td>
@@ -113,13 +120,9 @@ global $type_collection_bill;
                           </td>
                           <td align="center"><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></td>
                           <td>'.$item->note.'</td>
-                          <td align="center">
-                            <a class="dropdown-item" href="/addCollectionDebt/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
+                          
 
-                          <td align="center">'.$status.'</td>
+                          '.$status.'
                         </tr>';
                 }
               }else{

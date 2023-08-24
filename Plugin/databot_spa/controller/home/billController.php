@@ -183,7 +183,11 @@ function addCollectionBill($input){
             $data = $modelBill->newEmptyEntity();
             $data->created_at = date('Y-m-d H:i:s');
             $data->time = time();
+            $data->id_staff = $infoUser->id;
         }
+
+        $listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $listStaffs[] = $infoUser;
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -191,7 +195,7 @@ function addCollectionBill($input){
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
             $data->id_spa = $session->read('id_spa');
-            $data->id_staff = @$infoUser->id;
+            $data->id_staff = (int)@$dataSend['id_staff'];;
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 0; //0: Thu, 1: chi
@@ -216,6 +220,8 @@ function addCollectionBill($input){
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('user', $infoUser);
+        setVariable('listStaffs', $listStaffs);
     }else{
         return $controller->redirect('/login');
     }
@@ -405,7 +411,11 @@ function addBill($input){
             $data = $modelBill->newEmptyEntity();
             $data->created_at = date('Y-m-d H:i:s');
             $data->time = time();
+            $data->id_staff = $infoUser->id;
         }
+
+        $listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+	    $listStaffs[] = $infoUser;
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -413,7 +423,7 @@ function addBill($input){
             // tạo dữ liệu save
             $data->id_member = @$infoUser->id_member;
             $data->id_spa = $session->read('id_spa');
-            $data->id_staff = @$infoUser->id;
+            $data->id_staff = (int)@$dataSend['id_staff'];
             $data->total = (int)@$dataSend['total'];
             $data->note = @$dataSend['note'];
             $data->type = 1; //0: Thu, 1: chi
@@ -438,6 +448,7 @@ function addBill($input){
 
         setVariable('data', $data);
         setVariable('mess', $mess);
+        setVariable('listStaffs', $listStaffs);
     }else{
         return $controller->redirect('/login');
     }
