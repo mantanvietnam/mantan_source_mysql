@@ -300,14 +300,14 @@ img{
 #section-category-product .category-product-item .category-product-info{
     position: absolute;
     bottom: 0;
-    height: 279px;
+    height: 306px;
     padding:32px;
     left: 0;
     right: 0;
 }
 
 #section-category-product .category-product-item .category-product-info .category-product-info-title{
-    height: 53px;
+    height: 64px;
 }
 
 #section-category-product .category-product-item .category-product-info .category-product-info-title a{

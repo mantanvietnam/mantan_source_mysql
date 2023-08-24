@@ -188,6 +188,11 @@
                             <label class="form-label" for="basic-default-fullname">Tiêu đề 1</label>
                             <input type="text" class="form-control" name="title1_footer" value="<?php echo @$setting['title1_footer'];?>" />
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">ID menu 1</label>
+                            <input type="text" class="form-control" name="id1_menu_footer" value="<?php echo @$setting['id1_menu_footer'];?>" />
+                        </div>
                     </div>
 
                     <div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">

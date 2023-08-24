@@ -534,7 +534,7 @@
               </div>
                 
               <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                  <button type="submit" class="btn btn-primary">Lưu</button>
               </div>
             </div>
           </div>

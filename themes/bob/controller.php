@@ -48,6 +48,12 @@ function settingHomeThemeBOB($input)
                         'link_address_footer' => $dataSend['link_address_footer'], 
                         'email_footer' => $dataSend['email_footer'], 
                         'link_email_footer' => $dataSend['link_email_footer'], 
+
+
+                        'title1_footer' => $dataSend['title1_footer'], 
+                        'id1_menu_footer' => $dataSend['id1_menu_footer'], 
+
+
                         
                     );
 
@@ -75,33 +81,39 @@ function indexTheme($input)
     global $modelPosts;
     global $controller;
     global $settingThemes;
+    global $modelProduct;
+    global $modelCategories;
 
+    $modelProduct = $controller->loadModel('Products');
+    $modelMenus = $controller->loadModel('Menus');
     // SLIDE HOME
     $slide_home = [];
     if(!empty($settingThemes['id_slide'])){
         $slide_home = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_slide']])->all()->toList();
     }
 
-    // // Slide photo ảnh
-    // $conditions = array('id_category'=>3);
-    // $limit = 8;
-    // $page = 1;
-    // $order = array('id'=>'desc');
- 
-    // $album_photo = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    // SẢN PHẨM MỚI
+    $conditions = array('type' => 'category_product');
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
 
-    //  // Slide photo ảnh
-    //  $modelProjects = $controller->loadModel('Projects');
-    //  $conditions = array();
-    //  $order = array('id'=>'desc');
- 
-    //  $home_projects = $modelProjects->find()->where($conditions)->order($order)->all()->toList();
+    $new_category_product = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-    
+
+    // Menu 
+
+    if(!empty($settingThemes['id1_menu_footer'])){
+        $menu_footer = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id1_menu_footer']])->all()->toList();
+    }
+
 
     setVariable('slide_home', $slide_home);
-    // setVariable('album_photo', $album_photo);
-    // setVariable('home_projects', $home_projects);
+    setVariable('new_category_product', $new_category_product);
+    setVariable('slide_home', $slide_home);
+    setVariable('menu_footer', $menu_footer);
+
+
 
 }
 

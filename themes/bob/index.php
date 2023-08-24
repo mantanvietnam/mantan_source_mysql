@@ -44,137 +44,36 @@
         <section id="section-category-product">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-lg-4 col-12 category-product-item">
-                        <div class="category-product-box">
-                            <div class="category-product-overlay"></div>
-                            <div class="category-product-img">
-                                <a href="">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-product-info">
-                                <div class="category-product-info-title">
-                                    <a href="">Yen Lam Melamine</a>
-                                </div>
-                                <div class="category-product-info-description">
-                                    <p href="">Melamine là lớp nhựa phủ bề mặt chống trầy xước, có tính thẩm mỹ rất cao và phong phú màu sắc. Hiện nay, Yên Lâm có sẵn 80 mã màu melamine từ các loại vân gỗ như: Walnut (óc chó), Oak (sồi), Maple, Beech,  ... đến vân đá, xi măng, bê tông, ... vô cùng đa dạng để Qúy Khách hàng lựa chọn.</p>
-                                </div>
-                                <div class="category-product-info-button">
-                                    <a href="">Xem tất cả</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 col-12 category-product-item">
-                        <div class="category-product-box">
-                            <div class="category-product-overlay"></div>
-                            <div class="category-product-img">
-                                <a href="">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-product-info">
-                                <div class="category-product-info-title">
-                                    <a href="">Yen Lam Melamine</a>
-                                </div>
-                                <div class="category-product-info-description">
-                                    <p href="">Melamine là lớp nhựa phủ bề mặt chống trầy xước, có tính thẩm mỹ rất cao và phong phú màu sắc. Hiện nay, Yên Lâm có sẵn 80 mã màu melamine từ các loại vân gỗ như: Walnut (óc chó), Oak (sồi), Maple, Beech,  ... đến vân đá, xi măng, bê tông, ... vô cùng đa dạng để Qúy Khách hàng lựa chọn.</p>
-                                </div>
-                                <div class="category-product-info-button">
-                                    <a href="">Xem tất cả</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 col-12 category-product-item">
-                        <div class="category-product-box">
-                            <div class="category-product-overlay"></div>
-                            <div class="category-product-img">
-                                <a href="">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-product-info">
-                                <div class="category-product-info-title">
-                                    <a href="">Yen Lam Melamine</a>
-                                </div>
-                                <div class="category-product-info-description">
-                                    <p href="">Melamine là lớp nhựa phủ bề mặt chống trầy xước, có tính thẩm mỹ rất cao và phong phú màu sắc. Hiện nay, Yên Lâm có sẵn 80 mã màu melamine từ các loại vân gỗ như: Walnut (óc chó), Oak (sồi), Maple, Beech,  ... đến vân đá, xi măng, bê tông, ... vô cùng đa dạng để Qúy Khách hàng lựa chọn.</p>
-                                </div>
-                                <div class="category-product-info-button">
-                                    <a href="">Xem tất cả</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 col-12 category-product-item">
-                        <div class="category-product-box">
-                            <div class="category-product-overlay"></div>
-                            <div class="category-product-img">
-                                <a href="">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-product-info">
-                                <div class="category-product-info-title">
-                                    <a href="">Yen Lam Melamine</a>
-                                </div>
-                                <div class="category-product-info-description">
-                                    <p href="">Melamine là lớp nhựa phủ bề mặt chống trầy xước, có tính thẩm mỹ rất cao và phong phú màu sắc. Hiện nay, Yên Lâm có sẵn 80 mã màu melamine từ các loại vân gỗ như: Walnut (óc chó), Oak (sồi), Maple, Beech,  ... đến vân đá, xi măng, bê tông, ... vô cùng đa dạng để Qúy Khách hàng lựa chọn.</p>
-                                </div>
-                                <div class="category-product-info-button">
-                                    <a href="">Xem tất cả</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 col-12 category-product-item">
-                        <div class="category-product-box">
-                            <div class="category-product-overlay"></div>
-                            <div class="category-product-img">
-                                <a href="">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-product-info">
-                                <div class="category-product-info-title">
-                                    <a href="">Yen Lam Melamine</a>
-                                </div>
-                                <div class="category-product-info-description">
-                                    <p href="">Melamine là lớp nhựa phủ bề mặt chống trầy xước.</p>
-                                </div>
-                                <div class="category-product-info-button">
-                                    <a href="">Xem tất cả</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-lg-4 col-12 category-product-item">
-                        <div class="category-product-box">
-                            <div class="category-product-overlay"></div>
-                            <div class="category-product-img">
-                                <a href="">
-                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-product-info">
-                                <div class="category-product-info-title">
-                                    <a href="">Yen Lam Melamine</a>
-                                </div>
-                                <div class="category-product-info-description">
-                                    <p href="">Melamine là lớp nhựa phủ bề mặt chống trầy xước, có tính thẩm mỹ rất cao và phong phú màu sắc. Hiện nay, Yên Lâm có sẵn 80 mã màu melamine từ các loại vân gỗ như: Walnut (óc chó), Oak (sồi), Maple, Beech,  ... đến vân đá, xi măng, bê tông, ... vô cùng đa dạng để Qúy Khách hàng lựa chọn.</p>
-                                </div>
-                                <div class="category-product-info-button">
-                                    <a href="">Xem tất cả</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        if(!empty($new_category_product)){
+                            foreach($new_category_product as $key => $value){
+                                echo '
+                                <div class="col-md-4 col-lg-4 col-12 category-product-item">
+                                    <div class="category-product-box">
+                                        <div class="category-product-overlay"></div>
+                                        <div class="category-product-img">
+                                            <a href="'.$value->slug.'">
+                                                <img src="'.$value->image.'" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="category-product-info">
+                                            <div class="category-product-info-title">
+                                                <a href="'.$value->slug.'">'.$value->name.'</a>
+                                            </div>
+                                            <div class="category-product-info-description">
+                                                <p>'.$value->description.'</p>
+                                            </div>
+                                            <div class="category-product-info-button">
+                                                <a href="'.$value->slug.'">Xem tất cả</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                            }
+                           
+                        }
+                    ?>
+                   
                 </div>
             </div>
         </section>

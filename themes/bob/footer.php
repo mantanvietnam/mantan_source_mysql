@@ -34,11 +34,15 @@
 
                                 <div class="menu-footer-box">
                                     <ul>
-                                        <li><a href="">Giới thiệu</a></li>
-                                        <li><a href="">Tuyển dụng</a></li>
-                                        <li><a href="">Dự án</a></li>
-                                        <li><a href="">e-Catalogue</a></li>
-                                        <li><a href="">Liên hệ</a></li>
+                                        <?php 
+                                            if(!empty($menu_footer)){
+                                                foreach($menu_footer as $key => $value){
+                                                    echo'
+                                                    <li><a href="'.$value->link.'">'.$value->name.'</a></li>';
+                                                }
+                                            }
+                                        ?>
+                                       
                                     </ul>
                                 </div>
                             </div>
