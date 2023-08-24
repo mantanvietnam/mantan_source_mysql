@@ -40,8 +40,8 @@
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Giá</label>
-                    <input type="text" class="form-control phone-mask" name="price" id="price" value="0" />
+                    <label class="form-label">Giá tạo kho</label>
+                    <input type="text" class="form-control phone-mask" name="price_creates" id="price_creates" value="0" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Từ khóa (*)</label>

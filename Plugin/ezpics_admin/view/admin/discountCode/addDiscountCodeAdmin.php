@@ -27,6 +27,10 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ngày hết hạn </label>
                     <input type="text"  class="form-control datepicker" placeholder="" name="deadline_at" id="deadline_at" value="<?php if(!empty($data->deadline_at)){  echo @$data->deadline_at->format('d/m/Y');}?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">tài khoản hưởng hoa hông </label>
+                    <input  type="text" class="form-control phone-mask" name="user" id="user" value="<?php echo @$data->user;?>" />
                   </div>         
                 </div>
                 <div class="col-md-6">

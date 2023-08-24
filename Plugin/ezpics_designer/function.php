@@ -11,8 +11,18 @@ $ftp_server_upload_image = "171.244.16.76";
 $ftp_username_upload_image = "ezpics";
 $ftp_password_upload_image = "uImzVeNYgF";
 
-$price_warehouses = 1000000;
+global $urlCreateImage;
+global $price_pro;
+global $price_min_create_warehouses;
+global $price_remove_background;
+global $recommenders;
 
+$price_remove_background = 0;
+$price_create_content = 1000;
+$price_pro = 1999000;
+$price_warehouses = 999000;
+$recommenders = 5;
+$price_min_create_warehouses = 300000;
 /*
 $ftp_server_upload_image = "13.215.88.179";
 $ftp_username_upload_image = "admin_apis";
@@ -160,7 +170,7 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">

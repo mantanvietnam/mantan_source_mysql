@@ -243,12 +243,6 @@ $menus[0]['sub'][9]= array('title'=>'Mẫu câu hỏi',
 
 
 addMenuAdminMantan($menus);
-
-global $typeDiscount;
-
-$typeDiscount = ['kho'=>'kho',
-            'pro'=>'pro',
-            ];
 global $ftp_server_upload_image;
 global $ftp_username_upload_image;
 global $ftp_password_upload_image;
@@ -370,7 +364,7 @@ function sendEmailsuccessfulDesigner($email='', $fullName='', $certificate='')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -459,7 +453,7 @@ function sendEmailunsuccessfuldesigner($email='', $fullName='', $note='')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -539,7 +533,7 @@ function sendEmailsuccessfulProduct($email='', $fullName='',$nameProduct='', $ce
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -628,7 +622,7 @@ function sendEmailunsuccessfulProduct($email='', $fullName='',$nameProduct='',$n
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -709,7 +703,7 @@ function sendEmailtransactioncMoney($email='', $fullName='',$order=array(), $cer
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -804,7 +798,7 @@ function sendEmailLockWarehouse($email='', $fullName='', $Warehouses='', $status
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -883,7 +877,7 @@ function sendEmailBuyPro($email='', $fullName='')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -982,7 +976,7 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '', $note= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
@@ -1066,7 +1060,7 @@ function sendEmailMinusMoney($email='', $fullName='', $coin= '', $note= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
                             <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
