@@ -25,7 +25,14 @@
                 echo'
                     <div class="banner-img">
                         <img src="'.$value->image.'" alt="">
+                        <div class="description-img">
+                            <div class="container">
+                                <p>'.$value->description.'</p>
+                            </div>   
+                        </div>
                     </div>
+
+                    
                 ';
                 }
                 echo'
