@@ -186,8 +186,12 @@ function addCollectionBill($input){
             $data->id_staff = $infoUser->id;
         }
 
-        $listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
-	    $listStaffs[] = $infoUser;
+        $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+
+        $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -414,7 +418,12 @@ function addBill($input){
             $data->id_staff = $infoUser->id;
         }
 
-        $listStaffs = $modelMembers->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+         $conditionsStaff['OR'] = [ 
+									['id'=>$user->id_member],
+									['id_member'=>$user->id_member],
+								];
+
+        $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 	    $listStaffs[] = $infoUser;
 
         if ($isRequestPost) {
