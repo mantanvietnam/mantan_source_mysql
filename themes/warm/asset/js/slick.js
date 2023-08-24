@@ -11,7 +11,7 @@ $(document).ready(function(){
     $('.project-slide').slick({
         infinite: true,
         slidesToShow: 4,
-        slidesToScroll: 1,
+        slidesToScroll: 4,
         arrows:true,
         prevArrow:
         `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-chevron-left"></i></button>`,
@@ -19,6 +19,7 @@ $(document).ready(function(){
         `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
         // autoplay: true,
         // autoplaySpeed: 2000,
+       
         responsive: [
             {
               breakpoint: 1024,
@@ -49,6 +50,8 @@ $(document).ready(function(){
         `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-chevron-right"></i></button>`,
         // autoplay: true,
         // autoplaySpeed: 2000,
+        // centerMode: true,
+        // variableWidth: true, // Bật kích thước biến đổi
         responsive: [
           {
             breakpoint: 1024,

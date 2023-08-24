@@ -121,8 +121,10 @@ $(document).ready(function() {
       $(".language-box").toggle();
     });
 
-
-
+    // test slick
+    $a= $('#section-photo > div.photo-content > div.photo-slide.slick-initialized.slick-slider > div > div > div.photo-item.slick-slide.slick-active:first-child()').css('padding', '10px');
+    $b= $('main')
+    console.log($a.html());
 });
 
 

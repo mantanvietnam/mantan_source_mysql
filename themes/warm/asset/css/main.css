@@ -140,7 +140,7 @@ strong{
 }
 
 #section-topbar .topbar .change-language span{
-	font-size: 13px;
+	font-size: 14px;
 }
 
 #section-topbar .row-topbar{
@@ -168,7 +168,7 @@ strong{
 
 #section-topbar .row-topbar .topbar-right .topbar-letter a{
 	color: #fff;
-	font-size: 11px;
+	font-size: 14px;
 }
 
 #section-topbar .row-topbar .topbar-right .topbar-follow{
@@ -178,7 +178,7 @@ strong{
 }
 
 #section-topbar .row-topbar .topbar-right .topbar-follow span{
-	font-size: 13px;
+	font-size: 14px;
 }
 
 #section-topbar .row-topbar .topbar-right .topbar-follow a{
@@ -307,10 +307,17 @@ strong{
 
 
 #section-home-banner .logo-warm{
+	width: 184px;
+	height: auto;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	
 }
+
+#section-home-banner .logo-warm img{
+	width: 100%;
+}
+
 
 #section-home-banner .banner-home-slide .banner-img img{
 	width: 100%;
@@ -335,6 +342,20 @@ strong{
 
 #section-logo-home .logo-home-box .logo-home-item .logo-home-img{
 	margin-right: 35px;
+}
+
+#section-logo-home .logo-home-box .logo-home-item .logo-home-img img{
+	width: 100%;
+}
+
+#section-logo-home .logo-home-box .logo-home-item .logo-home-1{
+	width: 74px;
+	height: auto;
+}
+
+#section-logo-home .logo-home-box .logo-home-item .logo-home-2{
+	width: 125px;
+	height: auto;
 }
 
 /* Facility */
@@ -547,8 +568,12 @@ strong{
 	font-size: 16px;
 }
 
+#section-photo .photo-content .photo-item:first-child{
+	/* margin-left: 0; */
+}
+
 #section-photo .photo-content .photo-item .photo-item-img{
-	height: 281px;
+	height: 225px;
 	overflow: hidden;
 }
 
@@ -566,15 +591,8 @@ strong{
 }
 
 #section-photo .photo-content .photo-item{
-	margin: 0 17px;
-}
-
-#section-photo .photo-item.slick-active:first-child{
-	margin-left: 0;
-}
-
-#section-photo .photo-item.slick-active:last-child{
-	margin-right: 0;
+	margin-right: 36px;
+	max-width: 455px;
 }
 
 
@@ -693,6 +711,31 @@ strong{
 	#section-keydate .keydate-right p{
 		padding-right: 88px;
 	}
+}
+
+@media (max-width: 1441px){
+	/* menu */
+	#section-menu .nav-link{
+		font-size: 19px;
+	}
+
+	.container{
+		max-width: 1200px;
+	}
+
+	#section-project .project-content {
+		max-width: 1320px;	
+	}
+
+	#section-facility .facility-content .title-facility-content h2{
+		font-size: 35px;
+	}
+
+	#section-facility .facility-content .facility-content-left {
+		padding-right: 60px;
+	}
+
+	
 }
 
 

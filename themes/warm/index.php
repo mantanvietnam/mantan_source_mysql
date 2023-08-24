@@ -15,7 +15,7 @@
                 <div class="logo-banner-box">
                     <div class="container">
                         <div class="logo-warm">
-                            <img src="'; echo $urlThemeActive; echo'/asset/img/logo-warm.png" alt="">
+                            <img src="'; echo $urlThemeActive; echo'/asset/img/WARM-horz-EN-_1_.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -39,11 +39,11 @@
             <div class="container-fluid logo-home-box">
                 <div class="logo-home-item">
                     <div class="logo-home-img logo-home-1">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/logo_1.png" alt="">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/flag_yellow_high.jpeg" alt="">
                     </div>
         
                     <div class="logo-home-img logo-home-2">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/logo_2.png" alt="">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/logo-afd.png" alt="">
                     </div>
                 </div>
                 
