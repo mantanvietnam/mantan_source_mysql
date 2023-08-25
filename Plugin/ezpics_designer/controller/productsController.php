@@ -46,7 +46,10 @@ function listProduct($input)
 		}
 
 		if(!empty($_GET['name'])){
-			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+			$conditions['OR'] = [
+									['name LIKE'=>'%'.$_GET['name'].'%'],
+									['keyword LIKE'=>'%'.$_GET['name'].'%']
+								];
 		}
 
 		if(!empty($_GET['date_start'])){
@@ -175,7 +178,10 @@ function listProductSeries($input)
 		}
 
 		if(!empty($_GET['name'])){
-			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+			$conditions['OR'] = [
+									['name LIKE'=>'%'.$_GET['name'].'%'],
+									['keyword LIKE'=>'%'.$_GET['name'].'%']
+								];
 		}
 
 		if(!empty($_GET['date_start'])){
@@ -285,7 +291,10 @@ function listProductbuy($input)
 		}
 
 		if(!empty($_GET['name'])){
-			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+			$conditions['OR'] = [
+									['name LIKE'=>'%'.$_GET['name'].'%'],
+									['keyword LIKE'=>'%'.$_GET['name'].'%']
+								];
 		}
 
 		if(!empty($_GET['date_start'])){
@@ -1017,7 +1026,10 @@ function listAllProduct($input)
 	
 
 	if(!empty($_GET['name'])){
-		$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+		$conditions['OR'] = [
+									['name LIKE'=>'%'.$_GET['name'].'%'],
+									['keyword LIKE'=>'%'.$_GET['name'].'%']
+								];
 	}
 
 	

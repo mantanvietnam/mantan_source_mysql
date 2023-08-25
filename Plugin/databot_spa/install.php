@@ -229,6 +229,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `updated_at` DATETIME NULL DEFAULT NULL , 
   `type_collection_bill` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Hình thức thanh toán', 
   `id_customer` INT NULL DEFAULT NULL , 
+  `id_warehouse_product` INT NULL DEFAULT NULL , 
   `id_debt` INT NOT NULL ,
   `time` INT NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB;"
@@ -262,12 +263,11 @@ $sqlInstallDatabase .="CREATE TABLE `partners` (
   `updated_at` DATETIME NOT NULL 
 ) ENGINE = InnoDB;";
 
-$sqlDeleteDatabase .="CREATE TABLE `warehouse_products` ( 
+$sqlInstallDatabase .="CREATE TABLE `warehouse_products` ( 
   `id` INT NOT NULL ,
   `id_member` INT NOT NULL COMMENT 'ID ' , 
   `id_spa` INT NOT NULL , 
   `id_staff` INT NULL DEFAULT NULL COMMENT 'ID nhân viên thực hiện' , 
-  `id_product` INT NOT NULL COMMENT 'ID sản phẩn' , 
   `id_warehouse` INT NOT NULL COMMENT 'ID kho' , 
   `impor_ price` INT NOT NULL COMMENT 'giá nhập' , 
   `quantity` INT NULL DEFAULT NULL COMMENT 'số lượng ban đâu' , 
@@ -275,8 +275,19 @@ $sqlDeleteDatabase .="CREATE TABLE `warehouse_products` (
   `deadline` INT NULL DEFAULT NULL , 
   `created_at` INT NOT NULL , 
   `id_partner` INT NULL DEFAULT NULL 
-) ENGINE = InnoDB;"
+) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `warehouse_product_detaileds` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `id_warehouse_product` INT NOT NULL , 
+  `id_product` INT NOT NULL , 
+  `impor_ price` INT NULL DEFAULT NULL , 
+  `quantity` INT NOT NULL , 
+  `inventory_quantity` INT NULL DEFAULT NULL , 
+  `created_at` DATETIME NOT NULL , 
+ ) ENGINE = InnoDB;";
+ 
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
 $sqlDeleteDatabase .= "DROP TABLE combos; ";
@@ -293,6 +304,8 @@ $sqlDeleteDatabase .= "DROP TABLE warehouses; ";
 $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE debts; ";
 $sqlDeleteDatabase .= "DROP TABLE partners; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse_product_detaileds; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

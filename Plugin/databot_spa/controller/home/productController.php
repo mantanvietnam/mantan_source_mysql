@@ -388,4 +388,118 @@ function deleteProduct($input){
         return $controller->redirect('/login');
     }
 }
+
+function addProductWarehouse($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Thông tin sản phẩm';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseProductDetaileds = $controller->loadModel('WarehouseProductDetaileds');
+        $modelBill = $controller->loadModel('Bills');
+        $modelDebts = $controller->loadModel('Debts');
+
+        $user = $session->read('infoUser');
+
+        $conditionsWarehouse = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
+        $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
+
+
+
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            $warehouse = $modelWarehouses->get($dataSend['idWarehouse']);
+            $dataWP = $modelWarehouseProducts->newEmptyEntity();
+            $dataWP->id_member = $user->id_member;
+            $dataWP->id_spa = $user->id_spa;
+            $dataWP->id_staff = $user->id;
+            $dataWP->id_warehouse = $dataSend['idWarehouse'];
+            $dataWP->created_at =  date('Y-m-d H:i:s');
+            $dataWP->id_partner = $dataSend['idPartner'];
+
+            $modelWarehouseProducts->save($dataWP);
+
+            $total = 0;
+
+            foreach($dataSend['idHangHoa'] as $key => $value){
+                $total += (int)$dataSend['price'][$key]* (int)$dataSend['soluong'][$key];
+                $product = $modelWarehouseProductDetaileds->newEmptyEntity();
+
+                $product->id_member = $user->id_member;
+                $product->id_warehouse_product = $dataWP->id;
+                $product->id_product = $value;
+                $product->impor_price = (int) $dataSend['price'][$key];
+                $product->quantity = (int) $dataSend['soluong'][$key];
+                $product->inventory_quantity = (int) $dataSend['soluong'][$key];
+                $product->created_at =  date('Y-m-d H:i:s');
+
+                $modelWarehouseProductDetaileds->save($product);
+
+                $pro = $modelProducts->get($value);
+                $pro->quantity += (int)$dataSend['soluong'][$key]; 
+                $modelProducts->save($pro);
+
+            }
+            
+
+            if($dataSend['typeBill']=='cong_no'){
+                // lưu vào công nợ
+                $debt = $modelDebts->newEmptyEntity();
+                
+                $debt->created_at = date('Y-m-d H:i:s');
+                $debt->status = 0;
+                $debt->time = time();
+                $debt->id_member = @$user->id_member;
+                $debt->id_spa = $session->read('id_spa');
+                $debt->id_staff = $user->id;
+                $debt->total = (int) $total;
+                $debt->note =  'nhập lô hàng có ID là '.$dataWP->id.' vào kho '.$warehouse->name.' ngày '. date('Y-m-d H:i:s');
+                $debt->type = 1; //0: Thu, 1: chi
+                $debt->updated_at = date('Y-m-d H:i:s');
+                $debt->id_customer = (int)@$dataSend['idPartner'];
+                $debt->full_name = @$dataSend['partner_name'];
+                $debt->id_warehouse_product = $dataWP->id;
+
+                $modelDebts->save($debt);
+            }else{
+                // lưu vào bill 
+                $bill = $modelBill->newEmptyEntity();
+                
+                $bill->created_at = date('Y-m-d H:i:s');
+                $bill->time = time();
+                $bill->id_member = @$user->id_member;
+                $bill->id_spa = $session->read('id_spa');
+                $bill->id_staff = $user->id;
+                $bill->total = (int) $total;
+                $bill->note = 'nhập lô hàng có ID là '.$dataWP->id.' vào kho '.$warehouse->name.' ngày '. date('Y-m-d H:i:s');
+                $bill->type = 1; //0: Thu, 1: chi
+                $bill->updated_at = date('Y-m-d H:i:s');
+                $bill->type_collection_bill = $dataSend['typeBill'];
+                $bill->id_customer = (int)@$dataSend['idPartner'];
+                $bill->full_name = @$dataSend['partner_name'];
+                $bill->id_warehouse_product = $dataWP->id;
+
+                $modelBill->save($bill);
+
+            }
+             return $controller->redirect('/listProduct');
+        }
+
+
+        setVariable('listWarehouse', $listWarehouse);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

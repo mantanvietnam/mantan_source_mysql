@@ -112,6 +112,12 @@
             <!-- Cards -->
 
             <li class="menu-item">
+              <a href="/listRoomBed" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-sitemap"></i>
+                <div>Sơ đồ SPA</div>
+              </a>
+            </li>   
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div>Khách hàng</div>
@@ -155,11 +161,20 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/listRoomBed" class="menu-link">
-                    <div>Sơ đồ giường</div> 
+                  <a href="/buyProduct" class="menu-link">
+                    <div>Bán sản phẩm</div> 
                   </a>
                 </li>
-                
+                <li class="menu-item">
+                  <a href="/buyCombo" class="menu-link">
+                    <div>Bán thẻ liệu trình</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/buyPrepayCard" class="menu-link">
+                    <div>Bán thẻ trả trước</div> 
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="menu-item">
@@ -267,7 +282,7 @@
             <li class="menu-item">
               <a href="/listCombo" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-gift'></i>
-                <div>Combo dịch vụ</div>
+                <div>Combo liệu trình</div>
               </a>
             </li>
 

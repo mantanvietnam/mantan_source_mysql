@@ -94,6 +94,7 @@
    $routesPlugin['bookHotelAPI'] = 'tayho360/view/bookHotelAPI.php';
    $routesPlugin['getmapAPI'] = 'tayho360/view/getmapAPI.php';
    $routesPlugin['bookingonlineAPI'] = 'tayho360/view/bookingonlineAPI.php';
-   $routesPlugin['listHotleAPI'] = 'tayho360/view/listHotleAPI.php';
-   $routesPlugin['detailHotleAPI'] = 'tayho360/view/detailHotleAPI.php';
+   $routesPlugin['listHotelAPI'] = 'tayho360/view/listHotelAPI.php';
+   $routesPlugin['detailHotelAPI'] = 'tayho360/view/detailHotelAPI.php';
+   $routesPlugin['getMostFavoriteAPI'] = 'tayho360/view/getMostFavoriteAPI.php';
 ?>

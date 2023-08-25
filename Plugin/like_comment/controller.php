@@ -9,22 +9,84 @@ function addlike ($input){
 
     global $session;
     $infoUser = $session->read('infoUser');
-        $modelLike = $controller->loadModel('Likes');
-        $data = $modelLike->newEmptyEntity();
+    $modelLike = $controller->loadModel('Likes');
+    $data = $modelLike->newEmptyEntity();
+
+    $modelGovernanceAgency = $controller->loadModel('Governanceagencys');
+    $modelFestival = $controller->loadModel('Festivals');
+    $modelRestaurant = $controller->loadModel('Restaurants');
+    $modelTour = $controller->loadModel('Tours');
+    $modelHotel = $controller->loadModel('Hotels');
+    $modelHistoricalsite = $controller->loadModel('Historicalsites');
+    $modelPlace = $controller->loadModel('Places');
+    $modelService = $controller->loadModel('Services');
+    $modelEventcenter = $controller->loadModel('Eventcenters');
+    $modelCraftvillage = $controller->loadModel('Craftvillages');
        
 
-        if(!empty($_POST)){
-            $data->created = getdate()[0];
-            $data->idobject=$_POST['idobject'];
-            $data->type=$_POST['type'];
-            $data->idcustomer=$_POST['idcustomer'];
+    if(!empty($_POST)){
+        $data->created = getdate()[0];
+        $data->idobject=$_POST['idobject'];
+        $data->type=$_POST['type'];
+        $data->idcustomer=$_POST['idcustomer'];
+        $conditions = array('id'=>$data->idobject);
+        if($data->type=="co_quan_hanh_chinh"){
+            $bject = $modelGovernanceAgency->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelGovernanceAgency->save($bject);
+            }
+            
+        }elseif($data->type=="dich_vu_ho_tro_du_lich"){
+            $bject = $modelService->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelServices->save($bject);
+            }
+        }elseif($data->type=="danh_lam"){
+            $bject = $modelPlace->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelPlace->save($bject);
+            }
+        }elseif($data->type=="le_hoi"){
+            $bject = $modelFestival->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelFestival->save($bject);
+            }
+        }elseif($data->type=="nha_hang"){
+            $bject = $modelRestaurant->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelRestaurant->save($bject);
+            } 
+        }elseif($data->type=="tung_tam_hoi_nghi_su_kien"){
+            $bject = $modelEventcenter->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelEventcenter->save($bject);
+            } 
+        }elseif($data->type=="di_tich_lich_su"){
+            $bject = $modelHistoricalsite->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelHistoricalsite->save($bject);
+            }
+        }elseif($data->type=="khach_san"){
+            $bject = $modelHotel->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like += 1;
+                $modelHotel->save($bject);
+            } 
+        }
 
-            $modelLike->save($data);
-             $return = array('code'=>1,
+        $modelLike->save($data);
+        $return = array('code'=>1,
                             'data' =>$data,
                             'messages'=>'ok'
             );
-             }
+    }
         return $return;
 }
 
@@ -38,31 +100,92 @@ function delelelike ($input){
     global $session;
     $mess ="ok";
     $infoUser = $session->read('infoUser');
-        $modelLike = $controller->loadModel('Likes');
-        if(!empty($_POST)){
-            $conditions['idobject']=$_POST['idobject'];
-            $conditions['type']=$_POST['type'];
-            $conditions['idcustomer']=$_POST['idcustomer'];
+    $modelLike = $controller->loadModel('Likes');
+    $modelGovernanceAgency = $controller->loadModel('Governanceagencys');
+    $modelFestival = $controller->loadModel('Festivals');
+    $modelRestaurant = $controller->loadModel('Restaurants');
+    $modelTour = $controller->loadModel('Tours');
+    $modelHotel = $controller->loadModel('Hotels');
+    $modelHistoricalsite = $controller->loadModel('Historicalsites');
+    $modelPlace = $controller->loadModel('Places');
+    $modelService = $controller->loadModel('Services');
+    $modelEventcenter = $controller->loadModel('Eventcenters');
+    $modelCraftvillage = $controller->loadModel('Craftvillages');
+    $modelHotel = $controller->loadModel('Hotels');
+    if(!empty($_POST)){
+        $condition['idobject']=$_POST['idobject'];
+        $condition['type']=$_POST['type'];
+        $condition['idcustomer']=$_POST['idcustomer'];
 
+        $data = $modelLike->find()->where($condition)->first();
+        $conditions = array('id'=>$data->idobject);
+        if($data->type=="co_quan_hanh_chinh"){
+            $bject = $modelGovernanceAgency->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelGovernanceAgency->save($bject);
+            }
+            
+        }elseif($data->type=="dich_vu_ho_tro_du_lich"){
+            $bject = $modelService->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelServices->save($bject);
+            }
+        }elseif($data->type=="danh_lam"){
+            $bject = $modelPlace->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelPlace->save($bject);
+            }
+        }elseif($data->type=="le_hoi"){
+            $bject = $modelFestival->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelFestival->save($bject);
+            }
+        }elseif($data->type=="nha_hang"){
+            $bject = $modelRestaurant->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelRestaurant->save($bject);
+            } 
+        }elseif($data->type=="tung_tam_hoi_nghi_su_kien"){
+            $bject = $modelEventcenter->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelEventcenter->save($bject);
+            } 
+        }elseif($data->type=="di_tich_lich_su"){
+            $bject = $modelHistoricalsite->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelHistoricalsite->save($bject);
+            }
+        }elseif($data->type=="khach_san"){
+            $bject = $modelHotel->find()->where($conditions)->first();
+            if(!empty($bject)){
+                $bject->number_like -= 1;
+                $modelHotel->save($bject);
+            } 
+        }
 
-            $data = $modelLike->find()->where($conditions)->first();
-
-          if(!empty($data)){
+        if(!empty($data)){
             $modelLike->delete($data);
             $return = array('code'=>1,
                             'messages'=>'ok'
             );
-             }else{
-                 $return = array('code'=>2,
-                            'messages'=>'không ok'
+        }else{
+                $return = array('code'=>2,
+                        'messages'=>'không ok'
             );
             }
-         }
-        return $return;
+    }
+    return $return;
         
 }
 
- function addComment ($input){
+function addComment ($input){
 
     global $isRequestPost;
     global $modelUser;
@@ -323,10 +446,10 @@ function listlikegetcustom($input){
                 $Hotel = getHotel($item->idobject);
                 if(!empty($Hotel)){
                     $listData[]= array(
-                    'id'=> @$Hotel['data']['Hotel']['id'],
-                    'name'=> @$Hotel['data']['Hotel']['name'],
-                    'address'=> @$Hotel['data']['Hotel']['address'],
-                    'image' => @$Hotel['data']['Hotel']['image'][0],
+                    'id'=> @$Hotel->id,
+                    'name'=> @$Hotel->name,
+                    'address'=> @$Hotel->address,
+                    'image' => @$Hotel->image,
                     'type'=> "khach_san",
                     );
                 }
