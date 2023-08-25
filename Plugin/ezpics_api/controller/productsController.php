@@ -54,7 +54,10 @@ function searchProductAPI($input)
 	}
 
 	if(!empty($dataSend['name'])){
-		$conditions['name LIKE'] = '%'.$dataSend['name'].'%';
+		$conditions['OR'] = [
+								['name LIKE'=>'%'.$dataSend['name'].'%'],
+								['keyword LIKE'=>'%'.$dataSend['name'].'%']
+							];
 	}
 
 	if(!empty($dataSend['category_id'])){
