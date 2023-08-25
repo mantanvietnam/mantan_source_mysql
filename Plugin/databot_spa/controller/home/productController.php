@@ -388,4 +388,34 @@ function deleteProduct($input){
         return $controller->redirect('/login');
     }
 }
+
+function addProductWarehouse($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Thông tin sản phẩm';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseProductDetaileds = $controller->loadModel('WarehouseProductDetaileds');
+
+        $user = $session->read('infoUser');
+
+        $conditionsWarehouse = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
+        $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
+
+
+        setVariable('listWarehouse', $listWarehouse);
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 ?>

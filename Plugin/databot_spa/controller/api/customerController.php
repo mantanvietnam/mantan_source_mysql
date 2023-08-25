@@ -80,6 +80,7 @@ function searchProductApi($input)
 {
 	global $controller;
 	global $session;
+	
 
 	$return = [];
 
