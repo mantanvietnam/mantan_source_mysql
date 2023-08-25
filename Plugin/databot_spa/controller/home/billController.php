@@ -187,8 +187,8 @@ function addCollectionBill($input){
         }
 
         $conditionsStaff['OR'] = [ 
-									['id'=>$user->id_member],
-									['id_member'=>$user->id_member],
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
 								];
 
         $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
@@ -419,12 +419,11 @@ function addBill($input){
         }
 
          $conditionsStaff['OR'] = [ 
-									['id'=>$user->id_member],
-									['id_member'=>$user->id_member],
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
 								];
 
         $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
-	    $listStaffs[] = $infoUser;
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();

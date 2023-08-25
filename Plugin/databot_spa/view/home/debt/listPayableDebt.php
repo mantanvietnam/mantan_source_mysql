@@ -195,8 +195,6 @@ global $type_collection_bill;
                                 <div class="card-body">
                                   <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-12">
-                                      <!-- <label class="form-label">Tên người nợ</label>
-                                      <input type="text" value="<?php echo $item->full_name ?>" class="form-control" placeholder="Mặc định là 0đ" name="price"> -->
                                       <p><label class="form-label">Đối tác:</label> <?php echo $items->full_name ?></p>
                                       <p><label class="form-label">Số tiền Nợ:</label> <?php echo number_format($items->total) ?> đ</p>
                                       <p><label class="form-label">Số tiền đã trả:</label> <?php echo number_format($items->total_payment) ?> đ</p>
@@ -214,7 +212,7 @@ global $type_collection_bill;
                                         <option value="">Chọn hình thức thanh toán</option>
                                         <?php
                                           foreach ($type_collection_bill as $key => $value) {
-                                              echo '<option selected value="'.$key.'">'.$value.'</option>';
+                                              echo '<option value="'.$key.'">'.$value.'</option>';
                                           }
                                         ?>
                                       </select>
