@@ -46,7 +46,7 @@
             <div class="container-fluid logo-home-box">
                 <div class="logo-home-item">
                     <div class="logo-home-img logo-home-1">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/flag_yellow_high.jpeg" alt="">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/Logo-set-with-GG-EU-emblem (1).png" alt="">
                     </div>
         
                     <div class="logo-home-img logo-home-2">
