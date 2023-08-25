@@ -435,13 +435,33 @@ function updateProductAdmin($input)
          	$modelProducts->save($data);
         }
 	}
-
+	$user ="?";
 	if(!empty($_GET['page'])){
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php?page='.$_GET['page']);
-	}else{
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+		$user .="&page=".$_GET['page'];
+	}
+	if(!empty($_GET['id_product'])){
+		$user .="&id=".$_GET['id_product'];
+	}
+	if(!empty($_GET['phone'])){
+		$user .="&phone=".$_GET['phone'];
+	}
+	if(!empty($_GET['category_id'])){
+		$user .="&category_id=".$_GET['category_id'];
+	}
+	if(!empty($_GET['status'])){
+		$user .="&status=".$_GET['status'];
+	}
+	if(!empty($_GET['type'])){
+		$user .="&type=".$_GET['type'];
+	}
+	if(!empty($_GET['date_start'])){
+		$user .="&date_start=".$_GET['date_start'];
+	}
+	if(!empty($_GET['date_end'])){
+		$user .="&date_end=".$_GET['date_end'];
 	}
 
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php'.$user);
 	
 }
 ?>

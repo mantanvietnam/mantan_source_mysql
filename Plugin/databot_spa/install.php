@@ -229,6 +229,7 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `updated_at` DATETIME NULL DEFAULT NULL , 
   `type_collection_bill` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Hình thức thanh toán', 
   `id_customer` INT NULL DEFAULT NULL , 
+  `id_warehouse_product` INT NULL DEFAULT NULL , 
   `id_debt` INT NOT NULL ,
   `time` INT NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB;"

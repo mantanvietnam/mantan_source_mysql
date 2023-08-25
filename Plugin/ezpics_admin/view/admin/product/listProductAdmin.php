@@ -150,7 +150,7 @@
                             
                           </td>
                           <td>'.$thumbnail.'</td>
-                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'<br/><a style="width: 70px;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edittext'.$item->id.'" ><i class="bx bx-edit"></i></a></td>
+                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#edittext'.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a></td>
                           <td>
                             Sell: '.number_format($item->sold).'<br/>
                             View: '.number_format($item->views).'<br/>
@@ -162,7 +162,7 @@
                           </td>
                           <td style="text-align: center;">'.$status.'</td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
+                            <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-deleteProductAdmin.php/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -348,6 +348,14 @@
                                   <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-12">
                                       <input type="hidden" value="<?php echo @$_GET['page']; ?>"  name="page">
+                                      <input type="hidden" value="<?php echo @$_GET['id']; ?>"  name="id_product">
+                                      <input type="hidden" value="<?php echo @$_GET['name']; ?>"  name="name">
+                                      <input type="hidden" value="<?php echo @$_GET['phone']; ?>"  name="phone">
+                                      <input type="hidden" value="<?php echo @$_GET['category_id']; ?>"  name="category_id">
+                                      <input type="hidden" value="<?php echo @$_GET['status']; ?>"  name="status">
+                                      <input type="hidden" value="<?php echo @$_GET['type']; ?>"  name="type">
+                                      <input type="hidden" value="<?php echo @$_GET['date_start']; ?>"  name="date_start">
+                                      <input type="hidden" value="<?php echo @$_GET['date_end']; ?>"  name="date_end">
                                       <label class="form-label" for="basic-default-phone">Tên mẫu</label>
                                       <input type="text" value="<?php echo $items->name; ?>" class="form-control" name="name">
                                     </div>
@@ -357,7 +365,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Từ chối</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                               </div>
                              </form>
                               

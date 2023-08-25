@@ -950,7 +950,7 @@ function bookRestaurantAPI($input) {
       return $return;
 }
 
-function listHotleAPI($input){
+function listHotelAPI($input){
     
      header('Access-Control-Allow-Methods: *');
      global $controller;
@@ -974,7 +974,7 @@ function listHotleAPI($input){
         return $return;
 }
 
-function detailHotleAPI($input){
+function detailHotelAPI($input){
     
     header('Access-Control-Allow-Methods: *');
     $return= array('code'=>0);
@@ -982,33 +982,40 @@ function detailHotleAPI($input){
     $modelHotel = $controller->loadModel('Hotels');
     $dataSend =$input['request']->getData();       
     if (!empty($dataSend['id'])) {
-            $data=$modelHotel->get( (int) $dataSend['id']);
-            $data['listImage']=array( 
-                $data['image'],
-                $data['image2'],
-                $data['image3'],
-                $data['image4'],
-                $data['image5'],
-                $data['image6'],
-                $data['image7'],
-                $data['image8'],
-                $data['image9'],
-                $data['image10'],
-        );
+            $data= $modelHotel->find()->where(['id'=>$dataSend['id']])->first();
+
+            if(!empty($data)){
+                $data['listImage']=array( 
+                    $data['image'],
+                    $data['image2'],
+                    $data['image3'],
+                    $data['image4'],
+                    $data['image5'],
+                    $data['image6'],
+                    $data['image7'],
+                    $data['image8'],
+                    $data['image9'],
+                    $data['image10'],
+            );
 
 
-        $data['dichvu'] = array();
-        $listFurniture = getListFurniture();
-        foreach( explode(',', @$data->furniture) as $furniture){
-            $data['dichvu'][] = $listFurniture[$furniture]['name'];
-        }
+            $data['dichvu'] = array();
+            $listFurniture = getListFurniture();
+            foreach( explode(',', @$data->furniture) as $furniture){
+                $data['dichvu'][] = $listFurniture[$furniture]['name'];
+            }
 
-        $month=array();
-        $month['status']=1;
-        $order = array('created'=>'desc');
-        $otherData = $modelHotel->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
+            $month=array();
+            $month['status']=1;
+            $order = array('created'=>'desc');
+            $otherData = $modelHotel->find()->limit(10)->page(1)->where($month)->order($order)->all()->toList();
 
-            $return= array('code'=>1,'data'=>$data,'otherData'=>$otherData);
+                $return= array('code'=>1,'data'=>$data,'otherData'=>$otherData);
+            }else{
+                 $return = array('code'=>0,'data'=>'Id khách sạn không tồn tại');
+            }
+        }else{
+            $return= array('code'=>0,'data'=>'bạn thiếu giữ liệu ');
         }
 
 
@@ -1029,43 +1036,54 @@ function bookHotelAPI($input) {
     global $metaDescriptionMantan;
 
         $bookHotel = $controller->loadModel('BookHotels');
+        $modelHotel = $controller->loadModel('Hotels');
+        
+        $modelCustomer = $controller->loadModel('Customers');
 
     $dataSend = $input['request']->getData();
 
  
 
-    if(!empty($dataSend['name'])){
+    if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['email']) && !empty($dataSend['idcustomer']) && !empty($dataSend['idhotel'])){
          $date_start = explode(' ', @$dataSend['date_start']);
             $date_end = explode(' ', @$dataSend['date_end']);
+        $dataHotel = $modelHotel->find()->where(['id'=>$dataSend['idhotel']])->first();
 
+        if(!empty($dataHotel)){
 
-        $data = $bookHotel->newEmptyEntity();
-             $data->created = getdate()[0];
+            $dataCustomer = $modelCustomer->find()->where(['id'=>$dataSend['idcustomer']])->first();
 
-        $data->idhotel = @$dataSend['idhotel'];
-        $data->idcustomer = (int) @$dataSend['idcustomer'];
-        $data->name = @$dataSend['name'];
-        $data->phone = @$dataSend['phone'];
-        $data->email = @$dataSend['email'];
-        $data->numberpeople = (int) @$dataSend['number_people'];
-        $data->note = @$dataSend['not'];
-        $data->status = 'processing';
-        $data->date_end = @$dataSend['date_end'];
-        $data->date_start = @$dataSend['date_start'];
-        $data->number_room = (int) @$dataSend['number_room'];
-        $data->pricePay =(int) @$dataSend['pricepay'];
+            if(!empty($dataCustomer)){
 
+                $data = $bookHotel->newEmptyEntity();
+                     $data->created = getdate()[0];
 
-      
-        if($bookHotel->save($data)){
+                $data->idhotel = @$dataSend['idhotel'];
+                $data->idcustomer = (int) @$dataSend['idcustomer'];
+                $data->name = @$dataSend['name'];
+                $data->phone = @$dataSend['phone'];
+                $data->email = @$dataSend['email'];
+                $data->numberpeople = (int) @$dataSend['number_people'];
+                $data->note = @$dataSend['not'];
+                $data->status = 'processing';
+                $data->date_end = @$dataSend['date_end'];
+                $data->date_start = @$dataSend['date_start'];
+                $data->number_room = (int) @$dataSend['number_room'];
+              
+                if($bookHotel->save($data)){
 
-          $return = array('code'=>1,'data'=>'bạn đăt phòng thành công ');
+                  $return = array('code'=>1,'data'=>'bạn đăt phòng thành công ');
+                }else{
+                    $return = array('code'=>0,'data'=>'bạn đăt phòng không thành công');
+                }
+            }else{
+                $return = array('code'=>0,'data'=>'Id khách hàng không tồn tại');
+            }
         }else{
-        $return = array('code'=>0,'data'=>'bạn đăt phòng không thành công');
+            $return = array('code'=>0,'data'=>'Id khách sạn không tồn tại');
         }
-
     }else{
-        $return= array('code'=>0,'data'=>'bạn đăt phòng không thành công');
+        $return= array('code'=>0,'data'=>'bạn thiếu giữ liệu ');
     } 
 
     return $return;
@@ -1328,7 +1346,7 @@ function bookingonlineAPI($input){
             $tour = getTour($value->idtour);
                 $datatour[] =  array("id"=> @$value->id,
                         "name"=> @$tour->name,
-                        "created"=> @$value->created,
+                        "created"=> @$value->created,   
                         "date_start"=> @$tour->datestart,
                         "date_end"=> @$tour->dateend,
                         "numberpeople"=> @$value->numberpeople,
@@ -1359,6 +1377,233 @@ function bookingonlineAPI($input){
 
    
      return $return;
+}
+
+function getMostFavoriteAPI(){
+
+    global $urlHomes;
+    global $controller;
+       $conditions['number_like >']= 1;
+       $order = array('number_like'=>'desc');
+
+        $modelGovernanceAgency = $controller->loadModel('Governanceagencys');
+        $governanceAgency= $modelGovernanceAgency->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelFestival = $controller->loadModel('Festivals');
+        $festival= $modelFestival->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelRestaurant = $controller->loadModel('Restaurants');
+        $restaurant= $modelRestaurant->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        // $modelTour = $controller->loadModel('Tours');
+        // $tour= $modelTour->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelHotel = $controller->loadModel('Hotels');
+        $hotel= $modelHotel->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelHistoricalsite = $controller->loadModel('Historicalsites');
+        $historicalsite= $modelHistoricalsite->find()->where($conditions)->all();
+
+        $modelPlace = $controller->loadModel('Places');
+        $Place= $modelPlace->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelService = $controller->loadModel('Services');
+        $service= $modelService->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelEventcenter = $controller->loadModel('Eventcenters');
+        $eventcenter= $modelEventcenter->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        $modelCraftvillage = $controller->loadModel('Craftvillages');
+        $Craftvillage= $modelCraftvillage->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+        
+        $modelHotel = $controller->loadModel('Hotels');
+        $Hotel= $modelHotel->find()->limit(5)->where($conditions)->order($order)->all()->toList();
+
+
+        $listData = array();
+
+        if(!empty($Craftvillage)){
+            foreach($eventcenter as $keyCraftvillage => $listCraftvillage){
+                $listData[] =  array('name'=> $listCraftvillage->name,
+                                    'id'=> $listCraftvillage->id,
+                                    'address'=> $listCraftvillage->address,
+                                    'phone'=> $listCraftvillage->phone,
+                                    'image'=> $listCraftvillage->image,
+                                    'lat'=> $listCraftvillage->latitude,
+                                    'long'=> $listCraftvillage->longitude,
+                                    'number_like'=> $listCraftvillage->number_like,
+                                    'urlSlug'=> 'chi_tiet_lang_nghe/'.$listCraftvillage->urlSlug.'.html',
+                                    'type'=> 'lang_nghe',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        }
+
+        if(!empty($governanceAgency)){
+            foreach($governanceAgency as $keyGovernanceAgency => $listGovernanceAgency){
+                $listData[] =  array('name'=> $listGovernanceAgency->name,
+                                    'id'=> $listGovernanceAgency->id,
+                                    'address'=> $listGovernanceAgency->address,
+                                    'phone'=> $listGovernanceAgency->phone,
+                                    'image'=> $listGovernanceAgency->image,
+                                    'lat'=> $listGovernanceAgency->latitude,
+                                    'long'=> $listGovernanceAgency->longitude,
+                                    'number_like'=> $listGovernanceAgency->number_like,
+                                    'urlSlug'=> 'chi_tiet_co_quan_hanh_chinh/'.$listGovernanceAgency->urlSlug.'.html',
+                                    'type'=> 'co_quan_hanh_chinh',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/hanhchinh.png',
+
+                );
+            }
+        } 
+
+        if(!empty($service)){
+            foreach($service as $keyService => $listService){
+                $listData[] =  array('name'=> $listService->name,
+                                    'id'=> $listService->id,
+                                    'address'=> $listService->address,
+                                    'phone'=> $listService->phone,
+                                    'image'=> $listService->image,
+                                    'lat'=> $listService->latitude,
+                                    'long'=> $listService->longitude,
+                                    'number_like'=> $listService->number_like,
+                                    'urlSlug'=> 'chi_tiet_dich_vu_ho_tro_du_lich/'.$listService->urlSlug.'.html',
+                                    'type'=> 'dich_vu_ho_tro_du_lich',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/hotro.png',
+
+                );
+            }
+        }
+
+         if(!empty($eventcenter)){
+            foreach($eventcenter as $keyEventcenter => $listEventcenter){
+                $listData[] =  array('name'=> $listEventcenter->name,
+                                    'id'=> $listEventcenter->id,
+                                    'address'=> $listEventcenter->address,
+                                    'phone'=> $listEventcenter->phone,
+                                    'image'=> $listEventcenter->image,
+                                    'lat'=> $listEventcenter->latitude,
+                                    'long'=> $listEventcenter->longitude,
+                                    'number_like'=> $listEventcenter->number_like,
+                                    'urlSlug'=> 'chi_tiet_trung_tam_hoi_nghi_su_kien/'.$listEventcenter->urlSlug.'.html',
+                                    'type'=> 'trung_tam_hoi_nghi_su_kien',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        } 
+
+        if(!empty($historicalsite)){
+            foreach($historicalsite as $keyGovernanceAgency => $listhistoricalsite){
+                $listData[] =  array('name'=> $listhistoricalsite->name,
+                                    'id'=> $listhistoricalsite->id,
+                                    'address'=> $listhistoricalsite->address,
+                                    'phone'=> $listhistoricalsite->phone,
+                                    'image'=> $listhistoricalsite->image,
+                                    'lat'=> $listhistoricalsite->latitude,
+                                    'long'=> $listhistoricalsite->longitude,
+                                    'number_like'=> $listhistoricalsite->number_like,
+                                    'urlSlug'=> 'chi_tiet_di_tich_lich_su/'.$listhistoricalsite->urlSlug.'.html',
+                                    'type'=> 'di_tich_lich_su',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/ditich.png',
+
+                );
+            }
+        } 
+
+        if(!empty($Place)){
+            foreach($Place as $keyPlace => $listPlace){
+                $listData[] =  array('name'=> $listPlace->name,
+                                    'id'=> $listPlace->id,
+                                    'address'=> $listPlace->address,
+                                    'phone'=> $listPlace->phone,
+                                    'image'=> $listPlace->image,
+                                    'lat'=> $listPlace->latitude,
+                                    'long'=> $listPlace->longitude,
+                                    'number_like'=> $listPlace->number_like,
+                                    'urlSlug'=> 'chi_tiet_danh_lam/'.$listPlace->urlSlug.'.html',
+                                    'type'=> 'danh_lam',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/ditich.png',
+
+                );
+            }
+        } 
+
+        if(!empty($festival)){
+            foreach($festival as $keyfestival => $listFestival){
+                $listData[] =  array('name'=> $listFestival->name,
+                                    'id'=> $listFestival->id,
+                                    'address'=> $listFestival->address,
+                                    'phone'=> $listFestival->phone,
+                                    'image'=> $listFestival->image,
+                                    'lat'=> $listFestival->latitude,
+                                    'long'=> $listFestival->longitude,
+                                    'number_like'=> $listFestival->number_like,
+                                    'urlSlug'=> 'chi_tiet_le_hoi/'.$listFestival->urlSlug.'.html',
+                                    'type'=> 'le_hoi',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/lehoi.png',
+
+                );
+            }
+        }
+      if(!empty($restaurant)){
+            foreach($restaurant as $keyrestaurant => $listRestaurant){
+                $listData[] =  array('name'=> $listRestaurant->name,
+                                    'id'=> $listRestaurant->id,
+                                    'address'=> $listRestaurant->address,
+                                    'phone'=> $listRestaurant->phone,
+                                    'image'=> $listRestaurant->image,
+                                    'lat'=> $listRestaurant->latitude,
+                                    'long'=> $listRestaurant->longitude,
+                                    'number_like'=> $listRestaurant->number_like,
+                                    'urlSlug'=> 'chi_tiet_nha_hang/'.$listRestaurant->urlSlug.'.html',
+                                    'type'=> 'nha_hang',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/nhahanh.png',
+
+                );
+            }
+        }
+     if(!empty($tour)){
+            foreach($tour as $keyTour => $listTour){
+                $listData[] =  array('name'=> $listTour->name,
+                                    'id'=> $listTour->id,
+                                    'address'=> $listTour->address,
+                                    'phone'=> $listTour->phone,
+                                    'image'=> $listTour->image,
+                                    'lat'=> $listTour->latitude,
+                                    'long'=> $listTour->longitude,
+                                    'number_like'=> $listTour->number_like,
+                                    'urlSlug'=> 'chi_tiet_tour/'.$listTour->urlSlug.'.html',
+                                    'type'=> 'tour',
+                                     'icon'=> 'https://tayho360.vn/themes/tayho360/assets/icon/hotro.png',
+
+                );
+            }
+        }
+
+        if(!empty(@$Hotel)){
+            foreach($Hotel as $keyHotel => $listHotel){
+                $listData[] =   array('name'=> $listHotel->name,
+                                    'address'=> $listHotel->address,
+                                    'phone'=> $listHotel->phone,
+                                    'image'=> $listHotel->image,
+                                    'lat'=> $listHotel->latitude,
+                                    'long'=> $listHotel->longitude,
+                                    'number_like'=> $listHotel->number_like,
+                                    'urlSlug'=> 'chi_tiet_khach_san/'.$listHotel->urlSlug.'.html',
+                                    'type'=> 'khach_san',
+                                     'icon'=> '/themes/tayho360/assets/icon/khachsan.png',
+
+                );
+            }
+        }
+         $return= array('code'=>1,'listData'=>$listData);
+
+    //echo json_encode($return);
+        return $return;
+
 }
 
  ?>

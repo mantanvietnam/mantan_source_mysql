@@ -3,7 +3,8 @@
     <h4 class="fw-bold py-3 mb-4">Danh mục nhập hàng vào kho</h4>
 
     <div class="data-content">
-        <form id="" action="" class="form-horizontal" method="post" enctype="multipart/form-data">                          
+        <form id="" action="" class="form-horizontal" method="post" enctype="multipart/form-data">  
+        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
             <div class=" card mb-4">
                 <div class="card-body">
                     <div class=" row">
@@ -31,16 +32,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Hình thức<span class="required">*</span>:</label>
-                            <div class="col-sm-12">
-                                <select name="typeImport" class="form-control" >
-                                    <option value="new">Nhập hàng mới</option>
-                                    <option value="again">Nhập lại hàng bán</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="form-group col-md-3">
                             <label class="col-sm-12 control-label">Nhà cung cấp:</label>
                             <div class="col-sm-12">
@@ -54,23 +45,22 @@
             
             <div>
                 <div class="form-group col-md-12">
-                    <div class="" id="showDesktop">
-                        <div class="row" style="margin-bottom: 10px;">
-                            <div class="col-md-12 col-xs-12 col-sm-12">
-                                <button type="button" class="btn btn-primary" onclick="return addRow();">
-                                    <i class="fa fa-plus" aria-hidden="true"></i></button>
-                            </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <button type="button" class="btn btn btn-danger" onclick="return addRow();">
+                                <i class="bx bx-plus" aria-hidden="true"></i> Thêm sản phẩm
+                            </button>
                         </div>
+                    </div>
                     <div class=" card mb-4">
                         <div class="card-body">
-                            <div class="scroll-table">
+                            <div class="scroll-table mb-3">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th >Hàng hóa</th>
                                                 <th >Số lượng</th>
-                                                <th >Đơn vị</th>
                                                 <th >Đơn giá nhập</th>
                                                 <th >Thành tiền</th>
                                                 <th>Xóa</th>
@@ -88,9 +78,6 @@
                                                         <input value="" type="text" required="" name="soluong[1]" max="7" id="soluong-1" class="form-control"  placeholder="" onchange="tinhtien();"/>
                                                     </td>
                                                     <td>
-                                                        <input type="text" placeholder="" disabled="" class="form-control" name="unit-1" value="" id="unit-1">
-                                                    </td>
-                                                    <td>
                                                         <input value="" type="text" required="" name="price[1]" id="price-1" class="form-control input_money"  placeholder="" onchange="tinhtien();" />
                                                     </td>
                                                    
@@ -98,7 +85,7 @@
                                                         <input value="" type="text" disabled="" name="money[1]" id="money-1" class="form-control input_money"  placeholder=""/>
                                                         </td>
                                                         <td align="center">
-                                                            <a style="color:#fff;" href="javascript:void(0);" onclick="deleteProduct(1);"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item" href="javascript:void(0);" onclick="deleteProduct(1);"><i class="bx bx-trash me-1" aria-hidden="true"></i></a>
                                                         </td>
                                                     </tr>
                                                                 <?php }else{ 
@@ -114,9 +101,6 @@
                                                                                 
                                                                                 <td>
                                                                                     <input value="'.$item['Merchandise']['numberOrder'].'" type="text" required="" name="soluong['.$dem.']" max="7" id="soluong-'.$dem.'" class="form-control "  placeholder="" onchange="tinhtien();"/>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" placeholder="" disabled="" class="form-control" name="unit-'.$dem.'" value="'.$item['Merchandise']['unit'].'" id="unit-'.$dem.'">
                                                                                 </td>
                                                                                 <td>
                                                                                     <input value="'.$item['Merchandise']['priceOrder'].'" type="text" required="" name="price['.$dem.']" id="price-'.$dem.'" class="form-control input_money"  placeholder="" onchange="tinhtien();" />
@@ -141,15 +125,15 @@
                                     </table>
                                </div>
                             </div>
+                            <div class="row ">
+                                <div class="text-center col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
-            <div class="row ">
-                <div class="text-center col-sm-12">
-                    <button type="submit" class="buttonMM">Lưu thông tin</button>
-                </div>
-            </div>
+            
         </form>
     </div>
 </div>          
@@ -166,14 +150,14 @@
         numberProduct++;
        
             // màn desktop
-        $('#tbody tr:last').after('<tr id="trProduct-'+row+'"><td><input type="hidden" name="idHangHoa['+row+']" id="idHangHoa-'+row+'" value=""><input type="text" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-'+row+'" id="searchProduct-'+row+'"></td><td><input required="" value="" onchange="tinhtien();" type="text" id="soluong-'+row+'" max="7" name="soluong['+row+']" class="form-control "  placeholder=""/></td><td><input type="text" placeholder="" disabled="" class="form-control" name="unit-'+row+'" value="" id="unit-'+row+'"></td><td><input required="" value="" onchange="tinhtien();" type="text" id="price-'+row+'" name="price['+row+']" class="form-control input_money"  placeholder=""/></td><td><input value="" disabled type="text" id="money-'+row+'" name="money['+row+']" class="form-control input_money"  placeholder=""/></td><td align="center"><a href="javascript:void(0);" style="color:#fff;" onclick="deleteProduct('+row+');"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');
+        $('#tbody tr:last').after('<tr id="trProduct-'+row+'"><td><input type="hidden" name="idHangHoa['+row+']" id="idHangHoa-'+row+'" value=""><input type="text" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-'+row+'" id="searchProduct-'+row+'"></td><td><input required="" value="" onchange="tinhtien();" type="text" id="soluong-'+row+'" max="7" name="soluong['+row+']" class="form-control "  placeholder=""/></td><td><input required="" value="" onchange="tinhtien();" type="text" id="price-'+row+'" name="price['+row+']" class="form-control input_money"  placeholder=""/></td><td><input value="" disabled type="text" id="money-'+row+'" name="money['+row+']" class="form-control input_money"  placeholder=""/></td><td align="center"><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct('+row+');"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');
         
         $(".datepicker").datepicker({
             autoclose: true,
             todayHighlight: true,
         }); 
 
-        $('.input_money').divide({delimiter: ',',divideThousand: true});
+        // $('.input_money').divide({delimiter: ',',divideThousand: true});
         
         searchProduct(row);
 
