@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/listCombo">Combo dịch vụ</a> /</span>
+        <span class="text-muted fw-light"><a href="/listCombo">Combo liệu trình</a> /</span>
         Thông tin gói combo
     </h4>
 
@@ -12,7 +12,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin gói combo dịch vụ</h5>
+            <h5 class="mb-0">Thông tin gói combo liệu trình</h5>
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
