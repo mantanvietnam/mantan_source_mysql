@@ -10,7 +10,6 @@ function listPartner($input)
     $metaTitleMantan = 'Danh sách đối tác';
 
 	$modelPartner = $controller->loadModel('Partners');
-	$modelProduct = $controller->loadModel('Products');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -99,11 +98,22 @@ function listPartner($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    $mess= '';
+        
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestWarehouse':
+                    $mess= '<p class="text-danger">Bạn cần tạo đối tác trước</p>';
+                    break;
+            }
+        }
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('back', $back);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
+	    setVariable('mess', $mess);
 	    
 	    setVariable('listData', $listData);
 	}else{

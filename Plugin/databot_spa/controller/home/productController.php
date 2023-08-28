@@ -408,6 +408,7 @@ function addProductWarehouse($input){
         $modelWarehouseProductDetaileds = $controller->loadModel('WarehouseProductDetaileds');
         $modelBill = $controller->loadModel('Bills');
         $modelDebts = $controller->loadModel('Debts');
+        $modelPartner = $controller->loadModel('Partners');
 
         $user = $session->read('infoUser');
 
@@ -493,8 +494,32 @@ function addProductWarehouse($input){
                 $modelBill->save($bill);
 
             }
-             return $controller->redirect('/listProduct');
+             return $controller->redirect('/importHistorytWarehouse');
         }
+
+        $order = array('name'=>'asc');
+
+        $conditionsProduct = array('id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        $listProduct = $modelProducts->find()->where($conditionsProduct)->order($order)->all()->toList();
+
+        if(empty($listProduct)){
+            return $controller->redirect('/listProduct/?error=requestProduct');
+        }
+
+        $conditionsWarehouse = array('id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->order($order)->all()->toList();
+
+        if(empty($listWarehouse)){
+            return $controller->redirect('/listWarehouse/?error=requestWarehouse');
+        }
+
+        $conditionsPartner = array('id_member'=>$user->id_member);
+        $listPartner = $modelPartner->find()->where($conditionsPartner)->order($order)->all()->toList();
+
+        if(empty($listWarehouse)){
+            return $controller->redirect('/listPartner/?error=requestPartner');
+        }
+
 
 
         setVariable('listWarehouse', $listWarehouse);
@@ -502,4 +527,146 @@ function addProductWarehouse($input){
         return $controller->redirect('/login');
     }
 }
+
+function importHistorytWarehouse($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelMembers = $controller->loadModel('Members');
+        $modelProducts = $controller->loadModel('Products');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+        $modelWarehouseProductDetaileds = $controller->loadModel('WarehouseProductDetaileds');
+        $modelPartner = $controller->loadModel('Partners');
+
+        $user = $session->read('infoUser');
+
+        $conditions = array('WarehouseProducts.id_member'=>$user->id_member, 'WarehouseProducts.id_spa'=>$session->read('id_spa'));
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('WarehouseProducts.id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['WarehouseProducts.id'] = $_GET['id'];
+        }
+
+        if(!empty($_GET['id_Warehouse'])){
+            $conditions['id_warehouse'] = $_GET['id_Warehouse'];
+        }
+
+        if(!empty($_GET['id_partner'])){
+            $conditions['id_partner'] = $_GET['id_partner'];
+        }
+
+        if(empty($_GET['searchProduct'])){
+            $_GET['id_product'] = '';
+        }
+
+        if(!empty($_GET['id_product'])){
+            $conditions['wpd.id_product'] = $_GET['id_product'];
+        
+            $listData = $modelWarehouseProducts->find()->join([
+                            'table' => 'warehouse_product_detaileds',
+                            'alias' => 'wpd',
+                            'type' => 'INNER',
+                            'conditions' => 'wpd.id_warehouse_product = WarehouseProducts.id',
+                        ])->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            $totalData = $modelWarehouseProducts->find()->join([
+                            'table' => 'warehouse_product_detaileds',
+                            'alias' => 'wpd',
+                            'type' => 'INNER',
+                            'conditions' => 'wpd.id_warehouse_product = WarehouseProducts.id',
+                        ])->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+        }else{
+            $listData = $modelWarehouseProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+            $totalData = $modelWarehouseProducts->find()->where($conditions)->all()->toList();
+            $totalData = count($totalData);
+        }
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $listData[$key]->Warehouse = $modelWarehouses->find()->where(array('id'=>$item->id_warehouse))->first();
+                $listData[$key]->parent = $modelPartner->find()->where(array('id'=>$item->id_partner))->first();
+                $conditionDetailed = array('id_warehouse_product'=>$item->id);
+
+                if(!empty($_GET['id_product'])){
+                    $conditionDetailed['id_product'] = $_GET['id_product'];
+                }
+
+                $product = $modelWarehouseProductDetaileds->find()->where($conditionDetailed)->all()->toList();
+                if(!empty($product)){
+                    foreach($product as $k => $value){
+                        $product[$k]->prod = $modelProducts->find()->where(array('id'=>$value->id_product))->first();
+
+                    }
+                    $listData[$key]->product = $product;
+
+                }
+            }
+        }
+
+
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $order = array('name'=>'asc');
+
+        $conditionsWarehouse = array('id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+        setVariable('listWarehouse', $listWarehouse);
+        setVariable('mess', @$mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+
 ?>

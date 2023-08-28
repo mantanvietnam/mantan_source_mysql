@@ -430,7 +430,7 @@ function memberBuyProAPI($input){
 
 		if(!empty($dataSend['discountCode'])){
 
-			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
+			$discountCode = $modelDiscountCode->find()->where(array('code'=>strtoupper($dataSend['discountCode'])))->first();
 
 
 			if(!empty($discountCode)){
@@ -572,7 +572,7 @@ function memberExtendProAPI($input){
 		$pricepro = $price_pro;
 		if(!empty($dataSend['discountCode'])){
 
-			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
+			$discountCode = $modelDiscountCode->find()->where(array('code'=>strtoupper($dataSend['discountCode'])))->first();
 
 			if(!empty($discountCode)){
 				if(!empty($discountCode->deadline_at)){

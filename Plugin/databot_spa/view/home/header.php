@@ -257,6 +257,11 @@
                     <div>Kho</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/importHistorytWarehouse" class="menu-link">
+                    <div>Lịch sử nhập hàng vào kho</div>
+                  </a>
+                </li>
               </ul>
             </li>
             

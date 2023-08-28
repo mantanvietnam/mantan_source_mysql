@@ -25,6 +25,7 @@
 	$routesPlugin['addProduct']= 'databot_spa/view/home/product/addProduct.php';
 	$routesPlugin['deleteProduct']= 'databot_spa/view/home/product/deleteProduct.php';
 	$routesPlugin['addProductWarehouse']= 'databot_spa/view/home/product/addProductWarehouse.php';
+	$routesPlugin['importHistorytWarehouse']= 'databot_spa/view/home/product/importHistorytWarehouse.php';
 
 	//spa
 	$routesPlugin['listSpa']= 'databot_spa/view/home/spa/listSpa.php';

@@ -62,6 +62,16 @@ function listWarehouse($input){
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    $mess= '';
+        
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestWarehouse':
+                    $mess= '<p class="text-danger">Bạn cần tạo kho trước</p>';
+                    break;
+            }
+        }
+
 	    
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -69,6 +79,7 @@ function listWarehouse($input){
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    setVariable('totalData', $totalData);
+        setVariable('mess', $mess);
 	    
 	    setVariable('listData', $listData);
     }else{
