@@ -78,8 +78,10 @@
 	$routesPlugin['listBill']= 'databot_spa/view/home/bill/listBill.php';
 	$routesPlugin['addBill']= 'databot_spa/view/home/bill/addBill.php';
 	$routesPlugin['deleteBill']= 'databot_spa/view/home/bill/deleteBill.php';
+	$routesPlugin['printCollectionBill']= 'databot_spa/view/home/bill/printCollectionBill.php';
+	$routesPlugin['printBill']= 'databot_spa/view/home/bill/printBill.php';
 
-	// debt
+	// debt 
 	$routesPlugin['listCollectionDebt']= 'databot_spa/view/home/debt/listCollectionDebt.php';
 	$routesPlugin['addCollectionDebt']= 'databot_spa/view/home/debt/addCollectionDebt.php';
 	$routesPlugin['paymentCollectionBill']= 'databot_spa/view/home/debt/paymentCollectionBill.php';
@@ -90,5 +92,9 @@
 	$routesPlugin['listPartner']= 'databot_spa/view/home/partner/listPartner.php';
 	$routesPlugin['addPartner']= 'databot_spa/view/home/partner/addPartner.php';
 	$routesPlugin['deletePartner']= 'databot_spa/view/home/partner/deletePartner.php';
+
+	// khách hàng 
+	$routesPlugin['order']= 'databot_spa/view/home/order/order.php';
+
 
 ?>

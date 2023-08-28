@@ -156,6 +156,18 @@ function getSpa($id)
     return $data;
 }
 
+function getUserId($id)
+{
+    global $modelOption;
+    global $controller;
+    
+    $modelMembers = $controller->loadModel('Members');
+        
+    $data = $modelMembers->find()->where(['id'=>intval($id)])->first();       
+    
+    return $data;
+}
+
 function convert_number_to_words($number) {
 
         $hyphen      = ' ';

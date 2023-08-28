@@ -95,7 +95,7 @@
             <p class="rs">(Ban hành theo TT số: 200/2014/QĐ-BTC ngày 20/3/2006 của Bộ trưởng BTC)</p>
         </div>
     </div>
-    <h3 class="text-center">PHIẾU THU</h3>
+    <h3 class="text-center">PHIẾU CHI</h3>
     <p class="rs text-center"><em><?php echo 'Ngày '.$data->date['mday'] . ' tháng ' . $data->date['mon'] . ' năm ' . $data->date['year'];?></em></p>
     <div class="quyenso text-right">
         <p class="rs">Quyển số: . . . . . . . . . . . . . . </p>
@@ -104,7 +104,7 @@
         <p class="rs">Có: . . . . . . . . . . . . . . . . . . . </p>
     </div>
     <div class="content">
-        <p class="rs p_bao">Họ và tên người nộp tiền: <?php echo @$data->full_name;?></p>
+        <p class="rs p_bao">Họ và tên người nhận tiền: <?php echo @$data->full_name;?></p>
         <p class="rs p_bao">Địa chỉ: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
         <p class="rs">Lý do nộp: <?php echo @$data->note;?></p>
         <p class="rs p_bao p_bao1">Số tiền: <?php echo number_format(@$data->total);?>đ (Viết bằng chữ): <?php echo convert_number_to_words($data->total).' đồng';?></p>
@@ -113,7 +113,7 @@
             <em><?php echo 'Ngày '.$data->date['mday'] . ' tháng ' . $data->date['mon'] . ' năm ' . $data->date['year'];?></em>
         </div>
     </div>
-    <div class="dongdau display_flex mt_6">
+   <div class="dongdau display_flex mt_6">
         <div class="f1">
             <p class="rs"><strong>Giám đốc</strong></p>
             <p class="rs"><em>(Ký, họ tên, đóng dấu)</em></p>
@@ -123,7 +123,7 @@
             <p class="rs"><em>(Ký, họ tên)</em></p>
         </div>
         <div class="f1">
-            <p class="rs"><strong>Người nộp tiền</strong></p>
+            <p class="rs"><strong>Thủ quỹ</strong></p>
             <p class="rs"><em>(Ký, họ tên)</em></p>
         </div>
         <div class="f1 hide_mb">
@@ -131,7 +131,7 @@
             <p class="rs"><em>(Ký, họ tên)</em></p>
         </div>
         <div class="f1 hide_mb">
-            <p class="rs"><strong>Thủ quỹ</strong></p>
+            <p class="rs"><strong>Người nhận tiền</strong></p>
             <p class="rs"><em>(Ký, họ tên)</em></p>
         </div>
     </div>
@@ -157,7 +157,7 @@
 </div>
 </body>
 <div id="dialog-confirm" title="Thông báo" style="display: none;">
-            <p>Bạn muốn in phiếu thu này không</p>
+            <p>Bạn muốn in phiếu chi này không</p>
         </div>
         <script type="text/javascript">
             function closeFunction()
@@ -175,11 +175,11 @@
                                   "In hóa đơn": function() {
                                     $( this ).dialog( "close" );
                                     window.print();
-                                    window.location= '/listCollectionBill';
+                                    window.location= '/listBill';
                                 },
                                 Cancel: function() {
                                       //$( this ).dialog( "close" );
-                                      window.location= '/listCollectionBill';
+                                      window.location= '/listBill';
                                   }
                               }
                           });
