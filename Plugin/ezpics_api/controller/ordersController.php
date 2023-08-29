@@ -424,13 +424,16 @@ function memberBuyProAPI($input){
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token'])){
+			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token'], ))->first();
 
 		$pricepro = $price_pro;
 
 		if(!empty($dataSend['discountCode'])){
 
-			$discountCode = $modelDiscountCode->find()->where(array('code'=>strtoupper($dataSend['discountCode'])))->first();
+			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
 
 			if(!empty($discountCode)){
@@ -568,11 +571,14 @@ function memberExtendProAPI($input){
 	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token'])){
+			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		$pricepro = $price_pro;
 		if(!empty($dataSend['discountCode'])){
 
-			$discountCode = $modelDiscountCode->find()->where(array('code'=>strtoupper($dataSend['discountCode'])))->first();
+			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
 			if(!empty($discountCode)){
 				if(!empty($discountCode->deadline_at)){
@@ -702,5 +708,66 @@ function getPriceAPI(){
 
 	return array('price'=>$price);
 
+}
+
+function memberTrialProAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token'])){
+			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		
+
+		if(!empty($user)){
+			if($user->member_pro!=1){
+				$user->member_pro = 1;
+				$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
+				$modelMember->save($user);
+
+				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+				if(empty($WarehouseUser)){
+					$data = $modelWarehouseUsers->newEmptyEntity();
+			            // tạo dữ liệu save
+					$data->warehouse_id = (int) 1;
+					$data->user_id = $user->id;
+					$data->designer_id = 343;
+					$data->price = $price_pro;
+					$data->created_at = date('Y-m-d H:i:s');
+					$data->note ='';
+					$data->deadline_at = $user->deadline_pro;
+					$modelWarehouseUsers->save($data);
+				}else{
+					$data->deadline_at = $user->deadline_pro;
+					$modelWarehouseUsers->save($data);
+				}
+				if(!empty($discountCode->number_user)){
+					$discountCode->number_user -= 1;
+					$modelDiscountCode->save($discountCode);
+				}
+
+				$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro dùng thử thành công');
+				
+			}else{
+				$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+		
+	}
+
+	return $return;
 }
 ?>

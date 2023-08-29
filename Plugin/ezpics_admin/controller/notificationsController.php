@@ -23,6 +23,17 @@ function addNotificationAdmin($input)
         	if(!empty($dataSend['idUser'])){
         		$conditions['id'] = $dataSend['idUser'];
         	}
+        	if(isset($dataSend['pro'])){
+        		if($dataSend['pro']==1){
+        		$conditions['member_pro'] = 1;
+        		$conditions['deadline_pro >'] = date('Y-m-d H:i:s');
+
+        		}elseif($dataSend['pro']==0){
+        		$conditions['pro'] = 0;
+        		$conditions['deadline_pro <'] = date('Y-m-d H:i:s');
+        		}
+        	}
+
         	$conditions['token_device IS NOT'] = null;
         	$listMembers = $modelMembers->find()->where($conditions)->all()->toList();
 
@@ -74,6 +85,18 @@ function addNotificationPostNewAdmin($input){
         	if(!empty($dataSend['idUser'])){
         		$conditions['id'] = $dataSend['idUser'];
         	}
+
+        	if(isset($dataSend['pro'])){
+        		if($dataSend['pro']==1){
+        		$conditions['member_pro'] = 1;
+        		$conditions['deadline_pro >'] = date('Y-m-d H:i:s');
+
+        		}elseif($dataSend['pro']==0){
+        		$conditions['pro'] = 0;
+        		$conditions['deadline_pro <'] = date('Y-m-d H:i:s');
+        		}
+        	}
+
         	$conditions['token_device IS NOT'] = null;
         	$listMembers = $modelMembers->find()->where($conditions)->all()->toList();
 
@@ -126,6 +149,18 @@ function addNotificationProductNewAdmin($input){
         	if(!empty($dataSend['idUser'])){
         		$conditions['id'] = $dataSend['idUser'];
         	}
+
+        	if(isset($dataSend['pro'])){
+        		if($dataSend['pro']==1){
+        		$conditions['member_pro'] = 1;
+        		$conditions['deadline_pro >'] = date('Y-m-d H:i:s');
+
+        		}elseif($dataSend['pro']==0){
+        		$conditions['pro'] = 0;
+        		$conditions['deadline_pro <'] = date('Y-m-d H:i:s');
+        		}
+        	}
+        	
         	$conditions['token_device IS NOT'] = null;
         	$listMembers = $modelMembers->find()->where($conditions)->all()->toList();
 
