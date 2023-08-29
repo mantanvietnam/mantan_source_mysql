@@ -668,8 +668,7 @@ function getLayerProductForEdit($idProduct=0)
                     if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
 
                     // độ dãn dòng
-                    if(!isset($layer->giandong)) $layer->giandong = 'normal'; 
-                    if($layer->giandong=='1px' || $layer->giandong=='0') $layer->giandong = 'normal';
+                    if(empty($layer->giandong) || $layer->giandong=='1px' || $layer->giandong=='0' || $layer->giandong=='0vh') $layer->giandong = 'normal';
 
                     // chiều ngang của layer
                     if(empty($layer->width) || $layer->width == '0px' || $layer->width == '0vw'){
@@ -680,6 +679,7 @@ function getLayerProductForEdit($idProduct=0)
                     if($layer->width>100) $layer->width= 70;
                     $layer->width = $layer->width.'vw';
 
+                    /*
                     // chiều cao của layer
                     if(empty($layer->height) || $layer->height == '0px' || $layer->height == '0vw'){
                         $layer->height = '80vh';
@@ -688,7 +688,7 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->height = str_replace('vw','',$layer->height);
                     if($layer->height>100) $layer->height= 80;
                     $layer->height = $layer->height.'vh';
-
+                    */
 
                     // cờ đánh dấu việc có dùng hiệu ứng gradient hay không
                     if(!isset($layer->gradient)){
