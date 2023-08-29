@@ -1,3 +1,6 @@
 <?php
-    include_once('controller/admin/projectsController.php');
+    include_once('controller/admin/productProjectsController.php');
+    include_once('controller/admin/categoriesController.php');
+
+
 ?>

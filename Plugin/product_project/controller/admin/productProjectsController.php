@@ -7,7 +7,7 @@ function listProductProjectAdmin($input)
     global $metaTitleMantan;
     global $modelCategories;
 
-    $metaTitleMantan = 'Danh sách Project';
+    $metaTitleMantan = 'Danh sách Dự án';
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
 
@@ -23,6 +23,22 @@ function listProductProjectAdmin($input)
 
     if(!empty($_GET['name'])){
         $conditions['name LIKE'] = '%'.$_GET['name'].'%';
+    }
+
+    if(!empty($_GET['status'])){
+        $conditions['status'] = $_GET['status'];
+    }
+
+    if(!empty($listData)){
+        $kind[0] = $modelCategories->newEmptyEntity();
+
+    	foreach ($listData as $key => $value) {
+    		if(empty($kind[$value->id_kind])){
+    			$kind[$value->id_kind] = $modelCategories->get( (int) $value->id_kind);
+    		}
+    		
+    		$listData[$key]->name_category = (!empty($kind[$value->id_kind]->name))?$kind[$value->id_kind]->name:'';
+    	}
     }
     
     $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -59,6 +75,9 @@ function listProductProjectAdmin($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $conditions = array('type' => 'category_kind');
+    $listKind = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -66,6 +85,7 @@ function listProductProjectAdmin($input)
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);
     setVariable('listData', $listData);
+    setVariable('listKind', $listKind);
 
 }
 
@@ -76,7 +96,7 @@ function addProductProjectAdmin($input)
 	global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Thông tin Projects';
+    $metaTitleMantan = 'Thông tin Dự án';
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
 	$mess= '';
@@ -84,6 +104,8 @@ function addProductProjectAdmin($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelProductProjects->get( (int) $_GET['id']);
+        $data->images = json_decode($data->images, true);
+
     }else{
         $data = $modelProductProjects->newEmptyEntity();
     }
@@ -93,15 +115,40 @@ function addProductProjectAdmin($input)
 
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
-            $data->name = $dataSend['name'];
+	        $data->name = $dataSend['name'];
             $data->image = $dataSend['image'];
             $data->address = $dataSend['address'];
             $data->company_design = $dataSend['company_design'];
             $data->designer = $dataSend['designer'];
-            $data->	company_build= $dataSend['	company_build'];
+            $data->	company_build= $dataSend['company_build'];
             $data->description= $dataSend['description'];
             $data->city= $dataSend['city'];
-            $modelProductProjects->save($data);     
+            $data->id_kind= $dataSend['id_kind'];
+            $data->id_product= $dataSend['id_product'];
+            $data->status= $dataSend['status'];
+            $data->images = json_encode($dataSend['images']);
+            
+            // tạo slug
+            $slug = createSlugMantan($dataSend['name']);
+            $slugNew = $slug;
+            $number = 0;
+
+            if(empty($data->slug) || $data->slug!=$slugNew){
+                do{
+                	$conditions = array('slug'=>$slugNew);
+        			$listData = $modelProductProjects->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        			if(!empty($listData)){
+        				$number++;
+        				$slugNew = $slug.'-'.$number;
+        			}
+                }while (!empty($listData));
+            }
+            $data->slug = $slugNew;
+
+            $modelProductProjects->save($data);   
+
+            $data->images = json_decode($data->images, true);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
@@ -109,11 +156,16 @@ function addProductProjectAdmin($input)
 	    }
     }
 
+    $conditions = array('type' => 'category_kind');
+    $listKind = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('data', $data);
     setVariable('mess', $mess);
+    setVariable('listKind', $listKind);
+
 }
 
-function deleteProjectAdmin($input){
+function deleteProductProjectAdmin($input){
 	global $controller;
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
@@ -127,7 +179,7 @@ function deleteProjectAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/project-view-admin-listProjectAdmin.php');
+	return $controller->redirect('/plugins/admin/product_project-view-admin-product_project-listProductProjectAdmin.php');
 }
 
 ?>

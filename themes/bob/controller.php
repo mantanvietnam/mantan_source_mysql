@@ -52,9 +52,8 @@ function settingHomeThemeBOB($input)
 
                         'title1_footer' => $dataSend['title1_footer'], 
                         'id1_menu_footer' => $dataSend['id1_menu_footer'], 
+                        'id2_menu_footer' => $dataSend['id2_menu_footer'], 
 
-
-                        
                     );
 
         $data->key_word = 'settingHomeThemeBOB';
@@ -107,11 +106,17 @@ function indexTheme($input)
         $menu_footer = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id1_menu_footer']])->all()->toList();
     }
 
+    if(!empty($settingThemes['id1_menu_footer'])){
+        $menu_footer2 = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id2_menu_footer']])->all()->toList();
+    }
+
 
     setVariable('slide_home', $slide_home);
     setVariable('new_category_product', $new_category_product);
     setVariable('slide_home', $slide_home);
     setVariable('menu_footer', $menu_footer);
+    setVariable('menu_footer2', $menu_footer2);
+
 
 
 

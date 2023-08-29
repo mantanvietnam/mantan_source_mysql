@@ -16,7 +16,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Tiêu đề</label>
+            <label class="form-label">Tên dự án</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
@@ -68,18 +68,18 @@
                 echo '<tr>
                         <td>'.$project_item->id.'</td>
                         <td><img src="'.$project_item->image.'" width="100" /></td>
-                        <td>'.$project_item->title.'</td>
+                        <td>'.$project_item->name.'</td>
                         <td>'.$project_item->description.'</td>
                         <td>'.$status.'</td>
 
 
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/project-view-admin-addProjectAdmin.php/?id='.$project_item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/product_project-view-admin-product_project-addProductProjectAdmin.php/?id='.$project_item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteProjectAdmin/?id='.$project_item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteProductProjectAdmin/?id='.$project_item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

@@ -19,10 +19,14 @@
 
                                 <div class="menu-footer-box">
                                     <ul>
-                                        <li><a href="">Sản phẩm hỗ trợ</a></li>
-                                        <li><a href="">Wood Veneer</a></li>
-                                        <li><a href="">High Pressure Laminate (HPL)</a></li>
-                                        <li><a href="">Sản phẩm hỗ trợ</a></li>
+                                        <?php 
+                                            if(!empty($menu_footer)){
+                                                foreach($menu_footer as $key => $value){
+                                                    echo'
+                                                    <li><a href="'.$value->link.'">'.$value->name.'</a></li>';
+                                                }
+                                            }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
@@ -35,14 +39,13 @@
                                 <div class="menu-footer-box">
                                     <ul>
                                         <?php 
-                                            if(!empty($menu_footer)){
-                                                foreach($menu_footer as $key => $value){
+                                            if(!empty($menu_footer2)){
+                                                foreach($menu_footer2 as $key => $value){
                                                     echo'
                                                     <li><a href="'.$value->link.'">'.$value->name.'</a></li>';
                                                 }
                                             }
                                         ?>
-                                       
                                     </ul>
                                 </div>
                             </div>

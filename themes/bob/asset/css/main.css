@@ -728,7 +728,7 @@ img{
 }
 
 #section-footer .menu-footer .menu-footer-item:nth-child(2){
-    width: 20%;
+    width: 33%;
 }
 
 #section-footer .menu-footer .menu-footer-item:last-child{
@@ -736,7 +736,7 @@ img{
 }
 
 #section-footer .menu-footer .menu-footer-item:not(:first-child){
-    padding-left: 80px;
+    /* padding-left: 80px; */
 }
 
 #section-footer .menu-footer-title{

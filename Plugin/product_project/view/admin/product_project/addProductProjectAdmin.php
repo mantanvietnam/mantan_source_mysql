@@ -41,30 +41,82 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Tên sản phẩm (*)</label>
+                              <label class="form-label">Tên dự án (*)</label>
                               <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                             </div>
 
-                
+                            <div class="mb-3">
+                              <label class="form-label">Mã sản phẩm (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="id_product" id="id_product" value="<?php echo @$data->id_product;?>" />
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Địa chỉ (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
+                            </div>
+
                             <div class="mb-3">
                               <label class="form-label">Mô tả ngắn</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
+                              <?php debug($listKind) ?>
+                            <div class="mb-3">
+                                <label class="form-label">Danh mục (*)</label>
+                                <div class="input-group input-group-merge">
+                                  <select class="form-select" name="id_kind" id="id_kind" required>
+                                    <option value="">Chọn danh mục</option>
+                                    <?php 
+                                    if(!empty($listKind)){
+                                      foreach ($listKind as $key => $item) {
+                                        if(empty($data->id_kind) || $data->id_kind!=$item->id){
+                                          echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                        }else{
+                                          echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                        }
+                                      }
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                            </div>
 
+                            <div class="mb-3">
+                              <label class="form-label">Trạng thái</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="status" id="status">
+                                  <option value="active" <?php if(!empty($data->status) && $data->status=='active') echo 'selected'; ?> >Kích hoạt</option>
+                                  <option value="lock" <?php if(!empty($data->status) && $data->status=='lock') echo 'selected'; ?> >Khóa</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                <label class="form-label">Thành phố</label>
+                                <input required type="text" class="form-control phone-mask" name="city" id="city" value="<?php echo @$data->city;?>" />
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label">Công ty thiết kế</label>
+                                <input required type="text" class="form-control phone-mask" name="company_design" id="company_design" value="<?php echo @$data->company_design;?>" />
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label">Công ty thi công</label>
+                                <input required type="text" class="form-control phone-mask" name="company_build" id="company_build" value="<?php echo @$data->company_build;?>" />
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label">Nhà thiết kế</label>
+                                <input required type="text" class="form-control phone-mask" name="designer" id="designer" value="<?php echo @$data->designer;?>" />
+                              </div>
+                              
                           </div>
                         </div>
                       </div>
-                      <!-- <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="mb-3">
-                              <label class="form-label">Thông tin mô tả về sản phẩm</label>
-                              <?php showEditorInput('info', 'info', @$data->info);?>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
-                      <!-- <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
+
+                      <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">
                           <div class="col-md-4">
                             <div class="mb-3">
@@ -121,7 +173,7 @@
                             </div>
                           </div>
                         </div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
                 </div>
