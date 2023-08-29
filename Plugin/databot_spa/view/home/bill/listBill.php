@@ -83,7 +83,7 @@
               <th>Số tiền</th>
               <th>Nội dung phiếu chi</th>
               <th>Sửa</th>
-              <th>Xóa</th>
+              <th>in</th>
             </tr>
           </thead>
           <tbody>
@@ -104,8 +104,9 @@
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa phiếu chi không?\');" href="/deleteBill/?id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
+                            <a class="dropdown-item" href="/printBill/?id='.$item->id.'&url=listCollectionBill">
+                              <i class="bx  bx-printer me-1"></i>
+                            </a>
                             </a>
                           </td>
                         </tr>';

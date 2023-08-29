@@ -490,7 +490,61 @@ function deleteBill($input){
 }
 
 function printCollectionBill(){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+	global $type_collection_bill;
 
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Danh sách phiếu thu';
+
+	    $modelMember = $controller->loadModel('Members');
+		$modelBill = $controller->loadModel('Bills');
+
+		$user = $session->read('infoUser');
+
+		$data = $modelBill->get( (int) $_GET['id']);
+
+		setVariable('data', $data);
+
+		$data->spa = getSpa($data->id_spa);
+		$data->staff = getUserId($data->id_staff);
+
+		$data->date = getdate($data->time);
+	}else{
+        return $controller->redirect('/login');
+    }
+}
+
+function printBill(){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+	global $type_collection_bill;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Danh sách phiếu thu';
+
+	    $modelMember = $controller->loadModel('Members');
+		$modelBill = $controller->loadModel('Bills');
+
+		$user = $session->read('infoUser');
+
+		$data = $modelBill->get( (int) $_GET['id']);
+
+		setVariable('data', $data);
+
+		$data->spa = getSpa($data->id_spa);
+		$data->staff = getUserId($data->id_staff);
+
+		$data->date = getdate($data->time);
+	}else{
+        return $controller->redirect('/login');
+    }
 }
 
 ?>

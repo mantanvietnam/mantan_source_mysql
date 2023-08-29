@@ -16,7 +16,7 @@
             <p><?php echo $mess;?></p>
             <?= $this->Form->create(); ?>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Loại tài khoản</label>
                     <select name="type" class="form-select color-dropdown">
@@ -25,6 +25,18 @@
                       <option value="1" <?php if(!empty($_GET['type']) && $_GET['type']=='1') echo 'selected';?> >Designer</option>
                     </select>
                   </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">phiên bản</label>
+                    <select name="pro" class="form-select color-dropdown">
+                      <option value="">Tất cả</option>
+                      <option value="0" >bản Pro</option>
+                      <option value="1" >bản thường</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12">
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Id người dùng</label>
                     <input  type="text" class="form-control phone-mask" name="idUser" id="idUser" value="" />
