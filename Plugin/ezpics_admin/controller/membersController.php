@@ -444,7 +444,7 @@ function addMoneyManager($input){
 				$modelMembers->save($data);
 				if($_GET['type']=='plus'){
 
-					 $dataSendNotification= array('title'=>'Bạn được công tiền thành công ','content'=>'lý do bạn được cộng tiền là '.@$dataSend['note'].'đ vào trong tài khoản ạ','action'=>'addMoneySuccess');
+					 $dataSendNotification= array('title'=>'Bạn được công '.number_format(@$dataSend['coin']).'đ thành công ','content'=>'Lý do bạn được cộng tiền là '.@$dataSend['note'].', vào trong tài khoản ạ','action'=>'addMoneySuccess');
 
 					if(!empty($data->token_device)){
                         sendNotification($dataSendNotification, $data->token_device);
@@ -459,7 +459,7 @@ function addMoneyManager($input){
 					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=4');	
 				}elseif($_GET['type']=='minus'){
 
-					 $dataSendNotification= array('title'=>'Bạn bị trừ tiền ','time'=>date('H:i d/m/Y'),'content'=>'lý do bạn bị trừ là:  '.$dataSend['note'].'đ vào trong tài khoản ạ','action'=>'addMoneySuccess',);
+					 $dataSendNotification= array('title'=>'Bạn bị trừ '.number_format(@$dataSend['coin']).'đ vào trong tài khoản','time'=>date('H:i d/m/Y'),'content'=>'lý do bạn bị trừ là:  '.$dataSend['note'].' vào trong tài khoản ạ','action'=>'addMoneySuccess',);
 					  if(!empty($data->token_device)){
                             sendNotification($dataSendNotification, $data->token_device);
                             

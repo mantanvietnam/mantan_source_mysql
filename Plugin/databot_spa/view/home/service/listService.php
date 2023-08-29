@@ -83,10 +83,10 @@
                 foreach ($listData as $item) {
                   
                  
-                  if($item->status==0){
+                  if($item->status==1){
                    $status = 'Kích hoạt';
                   
-                  }elseif($item->status==1){
+                  }elseif($item->status==0){
                     $status = '<span class="text-danger">Khóa</span>';
                   }
 

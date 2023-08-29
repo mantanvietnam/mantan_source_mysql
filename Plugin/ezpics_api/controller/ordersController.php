@@ -731,37 +731,42 @@ function memberTrialProAPI($input){
 		
 
 		if(!empty($user)){
-			if($user->member_pro!=1){
-				$user->member_pro = 1;
-				$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
-				$modelMember->save($user);
+			if ($user->is_use_trial!=1) {
+				if( $user->member_pro!=1){
+					$user->member_pro = 1;
+					$user->is_use_trial = 1;
+					$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
+					$modelMember->save($user);
 
-				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
-				if(empty($WarehouseUser)){
-					$data = $modelWarehouseUsers->newEmptyEntity();
-			            // tạo dữ liệu save
-					$data->warehouse_id = (int) 1;
-					$data->user_id = $user->id;
-					$data->designer_id = 343;
-					$data->price = $price_pro;
-					$data->created_at = date('Y-m-d H:i:s');
-					$data->note ='';
-					$data->deadline_at = $user->deadline_pro;
-					$modelWarehouseUsers->save($data);
+					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+					if(empty($WarehouseUser)){
+						$data = $modelWarehouseUsers->newEmptyEntity();
+				            // tạo dữ liệu save
+						$data->warehouse_id = (int) 1;
+						$data->user_id = $user->id;
+						$data->designer_id = 343;
+						$data->price = $price_pro;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->note ='';
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}else{
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}
+					if(!empty($discountCode->number_user)){
+						$discountCode->number_user -= 1;
+						$modelDiscountCode->save($discountCode);
+					}
+
+					$return = array('code'=>1, 'mess'=>'Bạn đăng ký dùng thử phiên bản Pro thành công');
+					
 				}else{
-					$data->deadline_at = $user->deadline_pro;
-					$modelWarehouseUsers->save($data);
+					$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
 				}
-				if(!empty($discountCode->number_user)){
-					$discountCode->number_user -= 1;
-					$modelDiscountCode->save($discountCode);
-				}
-
-				$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro dùng thử thành công');
-				
 			}else{
-				$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
-			}
+					$return = array('code'=>5, 'mess'=>'Tài khoản dùng thử cấp Pro rồi');
+				}
 		}else{
 			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
 		}
