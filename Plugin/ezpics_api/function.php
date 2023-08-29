@@ -777,8 +777,10 @@ function getLayerProductForEdit($idProduct=0)
                     $style_gradient = !empty($layer->gradient) ? '-webkit-background-clip:text !important; -webkit-text-fill-color:transparent; background: linear-gradient('.$layer->linear_position.', '.implode(', ', $gradient_color).' );' : '';
                     
                     $brightness = $layer->brightness/100;
+                    $contrast = $layer->contrast/100;
+                    $saturate = $layer->saturate/100;
                     
-                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;transform: translate(0px) rotate('.$layer->rotate.');filter: brightness('.$brightness.');';
+                    $style = 'text-align:'.$layer->text_align.';left: '.(double)@$layer->postion_left.'%;top: '.(double)@$layer->postion_top.'%;transform: translate(0px) rotate('.$layer->rotate.');filter: brightness('.$brightness.');filter: contrast('.$contrast.');filter: saturate('.$saturate.');';
 
 
                     
