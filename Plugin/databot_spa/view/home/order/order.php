@@ -100,8 +100,8 @@
 		 		<div class="row">
 	               <div class="mb-3 col-md-10">
 	                   <label class="form-label" for="basic-default-phone">Khách hàng (*)</label>
-	                   <input required type="text" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
-	                    <input type="hidden" name="id_customer" id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
+	                   <input required type="text" required="" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
+	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
 	               <div class="mb-3 col-md-2">
 	                   <p><a href="/addCustomer" class="btn btn-primary" type="Thêm khách hàng"><i class='bx bx-plus'></i> </a></p>
@@ -197,7 +197,9 @@
                          <div class="box-form-bar">
                                 <div class="info-bh">
                                     <ul>
-                                        <li><span>Thành tiền</span><span id="totalMoney">0</span></li>                                        
+                                        <li><span>Thành tiền</span><span id="totalMoney">0</span>
+                                            <input type="hidden" name="total" id="total" value="">
+                                        </li>                                        
                                         <li><span>Giảm giá</span><span><input class="per-bh input_money form-control" min="0" onchange="tinhtien();" type="text" name="promotion" id="promotion" placeholder="0" value="" autocomplete="off" /></span></li>
                                         <li><span>Hình thức thanh toán</span><span>
                                             <select name="type_collection_bill" class="form-select color-dropdown" required>
@@ -222,7 +224,9 @@
                                         </li>
                                         <li id="sotentralaikhach"><span>Số tiền trả lại</span><span id="moneyCustomerReturn">0</span></li> 
 
-                                        <li class="total-bh"><p><strong>Tổng thanh toán</strong></p><p><strong id="totalPay">0</strong></p></li>
+                                        <li class="total-bh"><p><strong>Tổng thanh toán</strong></p><p><strong id="totalPay">0</strong></p>
+                                            <input type="hidden" name="totalPays" id="totalPays" value="">
+                                        </li>
                                         <li class="total-bh">
                                             <p>Giường & phòng</p>
                                             <p>
@@ -317,7 +321,7 @@ function addProduct(id, name, priceProduct,type){
                 
         var readonly;
 
-        $('#listProductOrder tr:first').after('<tr id="tr'+row+'"><td style="text-align: initial;"><input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'"><input type="hidden" name="type['+row+']" value="'+type+'">'+name+'</td><td><div class="quantity"><div class="number-spinner"><span class="ns-btn" ></span><input name="soluong['+row+']" id="soluong'+row+'"  type="number" class="pl-ns-value form-control" value="1" onchange="tinhtien();"></div></div></td><td><input type="text"  value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" id="money-'+row+'" onchange="tinhtien();"></td><td id="totalmoney'+row+'"></td><td><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');    
+        $('#listProductOrder tr:first').after('<tr id="tr'+row+'"><td style="text-align: initial;"><input type="hidden" name="idHangHoa['+row+']" id="idProduct'+row+'" value="'+id+'"><input type="hidden" name="type['+row+']" value="'+type+'">'+name+'</td><td><div class="quantity"><div class="number-spinner"><span class="ns-btn" ></span><input name="soluong['+row+']" min="1" id="soluong'+row+'"  type="number" class="pl-ns-value form-control" value="1"  onchange="tinhtien();"></div></div></td><td><input type="text"  value="'+priceProduct+'" class="input_money form-control" name="money['+row+']" min="1" id="money-'+row+'" onchange="tinhtien();"></td><td id="totalmoney'+row+'"></td><td><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct(\''+row+'\')"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');    
             $("#trFirst").hide();
            //$('.input_money').divide({delimiter: ',',divideThousand: true});
            // activeButtonPlus();
@@ -374,10 +378,12 @@ function addProduct(id, name, priceProduct,type){
                         
                         total+= money;
                     }
+                     
                     money = new Intl.NumberFormat().format(money);
                     $('#totalmoney'+i).html(money+'đ');
 
 
+                    document.getElementById("total").value = total;
                     var showTotal= new Intl.NumberFormat().format(total);
                     $('#totalMoney').html(showTotal+'đ');
 
@@ -390,6 +396,7 @@ function addProduct(id, name, priceProduct,type){
 
                    // tổng tiền cần thanh toán
                     totalPay= total-promotion;
+                     document.getElementById("totalPays").value = totalPay;
                     var showPay= new Intl.NumberFormat().format(totalPay);
                     $('#totalPay').html(showPay+'đ');
 
@@ -432,7 +439,7 @@ function addProduct(id, name, priceProduct,type){
         $('#thanhtoan').show();
 
         if(numberProduct>0){
-            r = confirm("bạn thanh toán  đơn này?");
+            r = confirm("bạn thanh toán đơn này?");
             if (r == true) {
                 if(checkProduct){
                     $('#summary-form').submit();

@@ -303,6 +303,7 @@ $sqlInstallDatabase .="CREATE TABLE `orders` (
   `status` TINYINT NOT NULL ,
   `total` INT NOT NULL ,
   `promotion` INT NULL DEFAULT NULL ,
+  `totalPay` INT NULL DEFAULT NULL ,
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `order_details` ( 

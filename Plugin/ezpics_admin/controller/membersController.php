@@ -301,8 +301,6 @@ function addMemberAdmin($input)
 				$data->affsource = $dataSend['affsource'];
 				$data->email = $dataSend['email'];
 				$data->level = $dataSend['level'];
-				
-				
 				$data->status = (int) $dataSend['status'];
 				$data->commission = (int) $dataSend['commission'];
 				$data->type = (int) $dataSend['type'];

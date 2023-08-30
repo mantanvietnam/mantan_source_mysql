@@ -30,7 +30,6 @@ function order($input){
 		$conditionsCombo = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
 		$listCombo = $modelCombo->find()->where($conditionsCombo)->all()->toList();
 		$today= getdate();
-
 		$conditionsStaff['OR'] = [ 
 									['id'=>$user->id_member],
 									['id_member'=>$user->id_member],
@@ -51,8 +50,7 @@ function order($input){
         // sử lý đơn hàng
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
-			debug($dataSend);
-			die;
+		
 
 			// tạo đơn hàng 
 			$order = $modelOrder->newEmptyEntity();
@@ -66,8 +64,10 @@ function order($input){
 			$order->created_at =date('Y-m-d H:i:s');
 			$order->updated_at =date('Y-m-d H:i:s');
 			$order->status =0;
-			/*$order->total =
-			$order->promotion =*/
+			$order->promotion =@$dataSend['promotion'];
+			$order->total =@$dataSend['total'];
+			$order->total_pay =@$dataSend['totalPays'];
+			$order->type =@$dataSend['typeOrder'];
 
 			if(!empty($dataSend['time'])){
             	$time = explode(' ', $dataSend['time']);
@@ -77,10 +77,24 @@ function order($input){
             }else{
             	$order->time = time();
             }
+
+            $modelOrder->save($order);
+            // tạo chi tiêt dơn hàng 
+            foreach($dataSend['idHangHoa'] as $key => $value){
+                $detail = $modelOrderDetails->newEmptyEntity();
+
+                $detail->id_member = $user->id_member;
+                $detail->id_order = $order->id;
+                $detail->id_product = $value;
+                $detail->price = (int) $dataSend['money'][$key];
+                $detail->quantity = (int) $dataSend['soluong'][$key];
+                $detail->type = $dataSend['type'][$key];
+
+                $modelOrderDetails->save($detail);
+
+            }
+            return $controller->redirect('/order?mess=1');
 		}
-
-		
-
 
 	    setVariable('listService', $listService);
 	    setVariable('listProduct', $listProduct);
