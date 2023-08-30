@@ -23,8 +23,8 @@ function listCategoryEzpics($input){
         $infoCategory->parent = 0;
         $infoCategory->image = $dataSend['image'];
         $infoCategory->meta_title = $infoCategory->name;
-        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['meta_keyword']);
-        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['meta_description']);
+        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
         $infoCategory->type = 'product_categories';
         $infoCategory->created_at = date('Y-m-d H:i:s');
 

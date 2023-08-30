@@ -15,11 +15,11 @@ function order($input){
 		$modelCombo = $controller->loadModel('Combos');
 		$modelProduct = $controller->loadModel('Products');
 		$modelService = $controller->loadModel('Services');
-		$modelP = $controller->loadModel('Services');
-		$modelService = $controller->loadModel('Services');
 		$modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
         $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
 
 		$conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
 		$listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -38,13 +38,7 @@ function order($input){
 
         $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 
-		if($isRequestPost){
-			$dataSend = $input['request']->getData();
-			debug($dataSend);
-			die;
-		}
-
-		$conditionsRoom = array( 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        $conditionsRoom = array( 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
         
         $listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
         
@@ -53,6 +47,39 @@ function order($input){
                 $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
             }
         }
+
+        // sử lý đơn hàng
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+			debug($dataSend);
+			die;
+
+			// tạo đơn hàng 
+			$order = $modelOrder->newEmptyEntity();
+			$order->id_member = $user->id_member;
+			$order->id_spa =$user->id_spa;
+			$order->id_staff =@$dataSend['id_Staff'];
+			$order->id_customer =@$dataSend['id_customer'];
+			$order->full_name = @$dataSend['full_name'];
+			$order->id_bed =@$dataSend['id_bed'];
+			$order->note =@$dataSend['note'];
+			$order->created_at =date('Y-m-d H:i:s');
+			$order->updated_at =date('Y-m-d H:i:s');
+			$order->status =0;
+			/*$order->total =
+			$order->promotion =*/
+
+			if(!empty($dataSend['time'])){
+            	$time = explode(' ', $dataSend['time']);
+            	$date = explode('/', $time[0]);
+            	$hour = explode(':', $time[1]);
+            	$order->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+            	$order->time = time();
+            }
+		}
+
+		
 
 
 	    setVariable('listService', $listService);

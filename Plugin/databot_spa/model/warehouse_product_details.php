@@ -2,7 +2,7 @@
 namespace App\Model\Table;
 use Cake\ORM\Table;
 
-class WarehouseProductDetailedsTable extends Table
+class WarehouseProductDetailsTable extends Table
 {
 	/*
 	public function initialize(array $config): void

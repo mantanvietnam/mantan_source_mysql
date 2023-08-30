@@ -171,7 +171,7 @@
                     <div class="left col-md-4">
                         <i class="bx bx-time" aria-hidden="true"></i>&nbsp;
                         <div class="input-group">
-                            <input type="text" name="time_checkin" id="time_checkin" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
+                            <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
                         </div>
                     </div>      
                 </div>
@@ -226,7 +226,7 @@
                                         <li class="total-bh">
                                             <p>Giường & phòng</p>
                                             <p>
-                                                <select  name="idbed" id="idbed"  class="form-select color-dropdown">
+                                                <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
                                                         <option value="">Chọn giường</option>
                                                      <?php if(!empty($listRoom))
                                                         foreach ($listRoom as $room) { 
@@ -246,7 +246,7 @@
                                         <li class="total-bh">
                                             <p>Nhân viên phụ trách</p>
                                             <p>
-                                                <select  name="idStaff" id="idStaff"  class="form-select color-dropdown">
+                                                <select  name="id_Staff" id="id_Staff"  class="form-select color-dropdown">
                                                         <option value="">Chọn nhân viên</option>
                                                      <?php if(!empty($listStaffs)){
                                                         foreach ($listStaffs as $Staff) {
@@ -263,7 +263,7 @@
                                             </p>
                                         </li>
                                         <li style="display: contents;"><span>chú ý</span><br/>
-                                            <textarea class="form-control phone-mask" rows="8" name="description"></textarea>
+                                            <textarea class="form-control phone-mask" rows="8" name="note"></textarea>
                                         </li> 
 
                                          

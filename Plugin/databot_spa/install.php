@@ -277,7 +277,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse_products` (
   `id_partner` INT NULL DEFAULT NULL 
 ) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `warehouse_product_detaileds` ( 
+$sqlInstallDatabase .="CREATE TABLE `warehouse_product_details` ( 
   `id` INT NOT NULL AUTO_INCREMENT , 
   `id_member` INT NOT NULL , 
   `id_warehouse_product` INT NOT NULL , 
@@ -287,6 +287,33 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse_product_detaileds` (
   `inventory_quantity` INT NULL DEFAULT NULL , 
   `created_at` DATETIME NOT NULL , 
  ) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `orders` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `id_spa` INT NOT NULL , 
+  `id_staff` INT NOT NULL , 
+  `id_customer` INT NULL DEFAULT NULL , 
+  `full_name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `id_bed` INT NULL DEFAULT NULL , 
+  `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
+  `time` INT NOT NULL , 
+  `created_at` DATETIME NOT NULL , 
+  `updated_at` DATETIME NOT NULL , 
+  `status` TINYINT NOT NULL ,
+  `total` INT NOT NULL ,
+  `promotion` INT NULL DEFAULT NULL ,
+) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `order_details` ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `id_member` INT NOT NULL , 
+  `id_order` INT NOT NULL , 
+  `id_product` INT NOT NULL , 
+  `type` VARCHAR(225) NOT NULL , 
+  `price` INT NULL DEFAULT NULL , 
+  `quantity` INT NULL DEFAULT NULL , 
+) ENGINE = InnoDB;"
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -305,7 +332,9 @@ $sqlDeleteDatabase .= "DROP TABLE bills; ";
 $sqlDeleteDatabase .= "DROP TABLE debts; ";
 $sqlDeleteDatabase .= "DROP TABLE partners; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
-$sqlDeleteDatabase .= "DROP TABLE warehouse_product_detaileds; ";
+$sqlDeleteDatabase .= "DROP TABLE warehouse_product_details; ";
+$sqlDeleteDatabase .= "DROP TABLE orders; ";
+$sqlDeleteDatabase .= "DROP TABLE order_details; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";
