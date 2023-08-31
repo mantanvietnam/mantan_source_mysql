@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Lịch sử nhập hàng vào kho</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh danh đơn hàng</h4>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        

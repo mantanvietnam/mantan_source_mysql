@@ -29,7 +29,7 @@
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                    <input type="text" disabled class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
+                    <input type="text"  class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                   </div>
 
                   <div class="mb-3">
