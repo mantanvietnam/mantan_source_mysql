@@ -1,7 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Lịch sử nhập hàng vào kho</h4>
-
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
@@ -15,36 +14,16 @@
                                 <input type="text"  maxlength="100" name="id" id="id" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['id'] ?>" /> 
                             </div>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Kho hàng</label>
-                            <div class="col-sm-12">  
-                                <select name="idWarehouse" id="idWarehouse" class="form-control">
-                                    <option value="">Kho hàng</option>
-                                        <?php 
-                                            if(!empty($listWarehouse)){
-                                                foreach($listWarehouse as $item){
-                                                    echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                                }
-                                            }
-                                        ?>
-                                </select>
-                            </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Tạo từ ngày</label>
+                            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Đến ngày</label>
+                            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
                         </div>
                         
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Nhà cung cấp</label>
-                            <div class="col-sm-12">
-                                <input type="hidden" name="id_partner" id="id_partner" value="<?php echo @$_GET['id_partner'] ?>">  
-                                <input type="text"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Sản phẩn:</label>
-                            <div class="col-sm-12">
-                                <input type="hidden" name="id_product" id="id_product" value="<?php echo @$_GET['id_product'] ?>">  
-                                <input type="text"  maxlength="100" name="searchProduct" id="searchProduct" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['searchProduct'] ?>" /> 
-                            </div>
-                        </div>
                         <div class="col-md-1">
                             <label class="form-label">&nbsp;</label>
                             <button type="submit" class="btn btn-primary d-block">Lọc</button>
@@ -52,7 +31,6 @@
                     </div> 
                 </div>
             </div>
-            
             <div>
                 <div class="form-group col-md-12">
                     <div class=" card mb-4">
@@ -84,7 +62,6 @@
                                                             $type = 'đã xử lý';
                                                         }
                                                         ?>
-
                                                 <tr>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
@@ -111,10 +88,8 @@
                                                             <td><?php echo $type ?></td>
 
                                                       </tr>
-                                                        <?php }} ?>
-                                                   
-                                              
-                                          <?php }}else{
+                                                        <?php }} 
+                                            }}else{
                                                 echo '<tr>
                                                         <td colspan="10" align="center">Chưa có sản phẩm nào</td>
                                                       </tr>';
@@ -123,11 +98,9 @@
                                     </table>
                                </div>
                             </div>
-                            
                         </div>
                     </div>
             </div>
-            
         </form>
     </div>
 </div>          

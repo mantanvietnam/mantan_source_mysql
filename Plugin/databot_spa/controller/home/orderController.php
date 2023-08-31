@@ -109,7 +109,7 @@ function order($input){
                 $bill->id_spa = $session->read('id_spa');
                 $bill->id_staff = (int)@$dataSend['id_staff'];
                 $bill->total = (int)@$dataSend['totalPays'];
-                $bill->note = 'bán hàng ID đơn hàng là '.$order->id.' người bán là '.$user->name.', thời gian '.date('Y-m-d H:i:s');
+                $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$user->name.', thời gian '.date('Y-m-d H:i:s');
                 $bill->type = 0; //0: Thu, 1: chi
                 $bill->id_order = $order->id;
                 $bill->updated_at = date('Y-m-d H:i:s');
@@ -146,7 +146,7 @@ function order($input){
 
 
                         }elseif($dataSend['type'][$key] == 'combo'){
-                            // sửa lý trử số lương trong kho ở sản phẩm trong combo
+                            // sử lý trử số lương trong kho ở sản phẩm trong combo
                             $combo = $modelCombo->get($value);
                             if(!empty($combo->product)){
                                 $combo_product = json_decode($combo->product);
@@ -228,8 +228,16 @@ function listOrder($input){
             $conditions['id_warehouse'] = $_GET['id_Warehouse'];
         }
 
-        if(!empty($_GET['id_partner'])){
-            $conditions['id_partner'] = $_GET['id_partner'];
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+            $conditions['time >='] = $date_start;
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+            $conditions['time <='] = $date_end;
         }
 
         if(empty($_GET['searchProduct'])){
