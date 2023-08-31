@@ -243,9 +243,6 @@ function listOrder($input){
         if(empty($_GET['searchProduct'])){
             $_GET['id_product'] = '';
         }
-
-
-
         
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
