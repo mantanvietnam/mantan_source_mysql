@@ -439,6 +439,7 @@ function addProductWarehouse($input){
 
                 $product->id_member = $user->id_member;
                 $product->id_warehouse_product = $dataWP->id;
+                $product->id_warehouse = $dataWP->id_warehouse;
                 $product->id_product = $value;
                 $product->impor_price = (int) $dataSend['price'][$key];
                 $product->quantity = (int) $dataSend['soluong'][$key];
@@ -616,8 +617,6 @@ function importHistorytWarehouse($input){
                 }
             }
         }
-
-
 
         $balance = $totalData % $limit;
         $totalPage = ($totalData - $balance) / $limit;

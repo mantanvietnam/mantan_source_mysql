@@ -64,40 +64,56 @@
                                             <tr>
                                                 <th rowspan='2'>Id</th>
                                                 <th rowspan='2'>thời gian</th>
-                                                <th rowspan='2'>tên kho</th>
                                                 <th rowspan='2'>Nhà cung cấp</th>
-                                                <th colspan="4">thông tin sản phẩn </th>
+                                                <th rowspan="2">Thành tiền </th>
+                                                <th colspan="4">thông tin sản phẩn </th>                                                
                                             </tr>
                                             <tr>
                                                 <th >Sản phẩn</th>
-                                                <th >Giá nhập</th>
+                                                <th >Giá bán</th>
                                                 <th >Số lượng ban đầu</th>
-                                                <th >Số lượng tồn kho</th>
+                                                <th >loại </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                                 if(!empty($listData)){
-                                                    foreach($listData as $key => $item){ ?>
+                                                    foreach($listData as $key => $item){ 
+                                                        $type = 'chưa xử lý';
+                                                        if($item->type=1){
+                                                            $type = 'đã xử lý';
+                                                        }
+                                                        ?>
+
                                                 <tr>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->Warehouse->name ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->parent->name ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
+                                                    Giảm giá: <?php echo number_format(@$item->promotion) ?><br/>
+                                                    Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
+                                                    Trạng thái: <?php echo $type ?></td>
                                                  
                                                             <?php  if(!empty($item->product)){ 
                                                                       foreach($item->product as $k => $value){
+                                                                        if($value->type=='product'){
+                                                                            $type ='Sản phẩm';
+                                                                        }elseif($value->type=='service') {
+                                                                           $type ='Dịch vụ';
+                                                                        }elseif($value->type=='combo'){
+                                                                            $type ='Combo';
+                                                                        }
                                                                 ?>
                                                      
                                                             <td><?php echo $value->prod->name ?></td>
-                                                            <td><?php echo number_format($value->impor_price) ?>đ</td>
+                                                            <td><?php echo number_format($value->price) ?>đ</td>
                                                             <td><?php echo $value->quantity ?></td>
-                                                            <td><?php echo $value->inventory_quantity ?></td>
+                                                            <td><?php echo $type ?></td>
+
                                                       </tr>
                                                         <?php }} ?>
-                                                       
                                                    
-                                              </tr>
+                                              
                                           <?php }}else{
                                                 echo '<tr>
                                                         <td colspan="10" align="center">Chưa có sản phẩm nào</td>

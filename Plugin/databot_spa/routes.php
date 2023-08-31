@@ -95,6 +95,7 @@
 
 	// khách hàng 
 	$routesPlugin['order']= 'databot_spa/view/home/order/order.php';
+	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
 
 
 ?>

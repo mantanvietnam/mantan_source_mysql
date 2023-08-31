@@ -87,6 +87,23 @@
         text-align: center;
         margin-bottom: 0px !important;
     }
+    .input-Warehouses{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 20px;
+    
+        align-items: stretch;
+        width: 70%;
+    }
+    .right{
+        display: flex;
+        padding: 0px 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 13px;
+    }
 </style>
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -134,7 +151,7 @@
 				  <div class="card card-body">
 				  	<div class="row diagram">
 				    <?php	foreach($listCombo as $key => $combo){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" onclick="addProduct('<?php echo $combo->id ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $Product->id ?>'>
+				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" onclick="addProduct('<?php echo $combo->id; ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $combo->id ?>'>
                                     <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
                                     <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
                                  </div> 
@@ -174,6 +191,21 @@
                             <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
                         </div>
                     </div>      
+                    <div class="right col-md-7">
+                        <p >Kho hàng (*)</p>
+                        <div class="input-Warehouses">
+                            <select  name="id_warehouse" required="" id="id_bed"  class="form-select color-dropdown">
+                                                        <option value="">Chọn Kho</option>
+                                                     <?php if(!empty($listWarehouse)){
+                                                        foreach ($listWarehouse as $warehouse) { 
+                                                            echo '<option  value="'.$warehouse->id.'">'.$warehouse->name.'</option>';
+                                                            }
+                                                            
+                                                        }?>
+                                                </select>
+                        </div>
+                        
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class=" table-bordered">
