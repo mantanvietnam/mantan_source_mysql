@@ -313,9 +313,10 @@ function getInfoLayer() {
     gianchu = gianchu.replace('vw','');
     if(gianchu=='normal') gianchu= '0';
     
-    var giandong = $('.active-hover span').css('line-height');
+    var giandong = $('.active-hover').data('giandong');
     giandong = giandong.replace('px','');
     giandong = giandong.replace('vw','');
+    giandong = giandong.replace('vh','');
     if(giandong=='normal') giandong= '0';
 
     var fontweight = $('.active-hover span').css('font-weight');

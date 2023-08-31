@@ -668,7 +668,7 @@ function getLayerProductForEdit($idProduct=0)
                     if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
 
                     // độ dãn dòng
-                    if(empty($layer->giandong) || $layer->giandong=='1px' || $layer->giandong=='0' || $layer->giandong=='0vh') $layer->giandong = 'normal';
+                    if(empty($layer->giandong) || $layer->giandong=='0px' || $layer->giandong=='0' || $layer->giandong=='0vh') $layer->giandong = 'normal';
 
                     // chiều ngang của layer
                     if(empty($layer->width) || $layer->width == '0px' || $layer->width == '0vw'){
@@ -678,17 +678,6 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->width = str_replace('vw','',$layer->width);
                     if($layer->width>100) $layer->width= 70;
                     $layer->width = $layer->width.'vw';
-
-                    /*
-                    // chiều cao của layer
-                    if(empty($layer->height) || $layer->height == '0px' || $layer->height == '0vw'){
-                        $layer->height = '80vh';
-                    }
-                    $layer->height = str_replace('px','',$layer->height);
-                    $layer->height = str_replace('vw','',$layer->height);
-                    if($layer->height>100) $layer->height= 80;
-                    $layer->height = $layer->height.'vh';
-                    */
 
                     // cờ đánh dấu việc có dùng hiệu ứng gradient hay không
                     if(!isset($layer->gradient)){
@@ -806,7 +795,7 @@ function getLayerProductForEdit($idProduct=0)
                     $layer->postion_y = $layer->postion_top*$heightWindow/100;
                     */
 
-                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" data-latanh="'.$layer->lat_anh.'" >
+                    $movelayer[] = '<div class="drag-drop layer-drag-'.$key.' '.$dnone.'" data-id="'.$item->id.'" data-idproduct="'.$pro->id.'" data-type="'.$layer->type.'" data-layer="'.$item->id.'" data-left="'.@$layer->postion_left.'" data-top="'.@$layer->postion_top.'" style="'.$style.'" data-color="'.@$layer->color.'" data-size="'.$layer->size.'" data-gradient="'.$layer->gradient.'" data-width="'.$layer->width.'" data-pos_gradient="'.$layer->linear_position.'" data-border='.$layer->border.' data-rotate="'.$layer->rotate.'" data-brightness="'.$layer->brightness.'" data-latanh="'.$layer->lat_anh.'" data-giandong="'.$layer->giandong.'" >
                        
                         <div class="list-selection-choose d-none">
                             <button class="btn-style-design-delete" onclick="deletedinlayer(\''.$pro->id.'\',\''.$item->id.'\')">
@@ -878,7 +867,6 @@ function getLayer($stt, $type = 'text', $link = '', $width = '80', $height = '30
         'giandong' => 'normal',
         'opacity' => 1,
         'width' => $width.'vw',
-        'height' => $height.'vh',
         'gradient' => 0,
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,
