@@ -166,6 +166,11 @@
                   </a>
                 </li>
                 <li class="menu-item">
+                  <a href="/listOrder" class="menu-link">
+                    <div>Danh sách đơn hàng</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
                   <a href="/buyProduct" class="menu-link">
                     <div>Bán sản phẩm</div> 
                   </a>
