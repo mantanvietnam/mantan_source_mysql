@@ -385,7 +385,7 @@ function register($input)
 					}
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
-					$data->account_balance = 10000; // tặng 10k cho tài khoản mới
+					$data->account_balance = 0; // tặng 0k cho tài khoản mới
 					$data->status = 1; //1: kích hoạt, 0: khóa
 					$data->type = 0; // 0: người dùng, 1: designer
 					$data->token = createToken();
@@ -486,7 +486,7 @@ function ggCallback($input)
 					$checkUser->affsource = '';
 					$checkUser->email = $google_account_info->email;
 					$checkUser->password = '';
-					$checkUser->account_balance = 10000; // tặng 10k cho tài khoản mới
+					$checkUser->account_balance = 0; // tặng 0k cho tài khoản mới
 					$checkUser->status = 1; //1: kích hoạt, 0: khóa
 					$checkUser->type = 0; // 0: người dùng, 1: designer
 					$checkUser->token = createToken(25);
