@@ -585,9 +585,10 @@ function buyProductAPI($input)
 					$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
                     $order->member_id = $infoUserSell->id;
                     $order->product_id = $product->id;
-                    if($infoUserSell->commission!= null){
+                    if(isset($infoUserSell->commission)){
                     	$order->total = ((int) @$infoUserSell->commission / 100) * $product->sale_price;
                 	}else{
+
                 		$order->total = (70 / 100) * $product->sale_price;
                 	}
                     $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
@@ -607,7 +608,7 @@ function buyProductAPI($input)
 						$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
 	                    $order->member_id = 0;
 	                    $order->product_id = $product->id;
-	                    if(@$infoUserSell->commission!= null){
+	                    if(isset($infoUserSell->commission)){
 	                    	$order->total = ((100 - (int) @$infoUserSell->commission) / 100) * $product->sale_price;
 	                	}else{
 	                		$order->total = (30 / 100) * $product->sale_price;

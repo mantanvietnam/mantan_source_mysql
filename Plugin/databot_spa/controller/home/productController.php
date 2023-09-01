@@ -405,7 +405,7 @@ function addProductWarehouse($input){
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
-        $modelWarehouseProductDetaileds = $controller->loadModel('WarehouseProductDetaileds');
+        $modelWarehouseProductDetails = $controller->loadModel('WarehouseProductDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelDebts = $controller->loadModel('Debts');
         $modelPartner = $controller->loadModel('Partners');
@@ -435,17 +435,18 @@ function addProductWarehouse($input){
 
             foreach($dataSend['idHangHoa'] as $key => $value){
                 $total += (int)$dataSend['price'][$key]* (int)$dataSend['soluong'][$key];
-                $product = $modelWarehouseProductDetaileds->newEmptyEntity();
+                $product = $modelWarehouseProductDetails->newEmptyEntity();
 
                 $product->id_member = $user->id_member;
                 $product->id_warehouse_product = $dataWP->id;
+                $product->id_warehouse = $dataWP->id_warehouse;
                 $product->id_product = $value;
                 $product->impor_price = (int) $dataSend['price'][$key];
                 $product->quantity = (int) $dataSend['soluong'][$key];
                 $product->inventory_quantity = (int) $dataSend['soluong'][$key];
                 $product->created_at =  date('Y-m-d H:i:s');
 
-                $modelWarehouseProductDetaileds->save($product);
+                $modelWarehouseProductDetails->save($product);
 
                 $pro = $modelProducts->get($value);
                 $pro->quantity += (int)$dataSend['soluong'][$key]; 
@@ -544,7 +545,7 @@ function importHistorytWarehouse($input){
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
-        $modelWarehouseProductDetaileds = $controller->loadModel('WarehouseProductDetaileds');
+        $modelWarehouseProductDetails = $controller->loadModel('WarehouseProductDetails');
         $modelPartner = $controller->loadModel('Partners');
 
         $user = $session->read('infoUser');
@@ -575,14 +576,14 @@ function importHistorytWarehouse($input){
             $conditions['wpd.id_product'] = $_GET['id_product'];
         
             $listData = $modelWarehouseProducts->find()->join([
-                            'table' => 'warehouse_product_detaileds',
+                            'table' => 'warehouse_product_details',
                             'alias' => 'wpd',
                             'type' => 'INNER',
                             'conditions' => 'wpd.id_warehouse_product = WarehouseProducts.id',
                         ])->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
             $totalData = $modelWarehouseProducts->find()->join([
-                            'table' => 'warehouse_product_detaileds',
+                            'table' => 'warehouse_product_details',
                             'alias' => 'wpd',
                             'type' => 'INNER',
                             'conditions' => 'wpd.id_warehouse_product = WarehouseProducts.id',
@@ -605,7 +606,7 @@ function importHistorytWarehouse($input){
                     $conditionDetailed['id_product'] = $_GET['id_product'];
                 }
 
-                $product = $modelWarehouseProductDetaileds->find()->where($conditionDetailed)->all()->toList();
+                $product = $modelWarehouseProductDetails->find()->where($conditionDetailed)->all()->toList();
                 if(!empty($product)){
                     foreach($product as $k => $value){
                         $product[$k]->prod = $modelProducts->find()->where(array('id'=>$value->id_product))->first();
@@ -616,8 +617,6 @@ function importHistorytWarehouse($input){
                 }
             }
         }
-
-
 
         $balance = $totalData % $limit;
         $totalPage = ($totalData - $balance) / $limit;

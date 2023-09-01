@@ -221,6 +221,7 @@ function addService($input){
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->price = (int)@$dataSend['price'];
                 $data->status = @$dataSend['status'];
+                $data->duration = @$dataSend['duration'];
                 $data->commission_staff_fix = (int) @$dataSend['commission_staff_fix'];
                 $data->commission_staff_percent = (int) @$dataSend['commission_staff_percent'];
                 $data->commission_affiliate_fix = (int) @$dataSend['commission_affiliate_fix'];

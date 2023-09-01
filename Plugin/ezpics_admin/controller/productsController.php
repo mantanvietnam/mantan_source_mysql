@@ -461,6 +461,10 @@ function updateProductAdmin($input)
 		$user .="&date_end=".$_GET['date_end'];
 	}
 
+	if(!empty($_GET['names'])){
+		$user .="&name=".$_GET['names'];
+	}
+
 	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php'.$user);
 	
 }

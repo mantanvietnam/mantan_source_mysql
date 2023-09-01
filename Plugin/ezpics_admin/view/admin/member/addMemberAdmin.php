@@ -29,10 +29,8 @@
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số điện thoại (*)</label>
-                    <input type="text" required class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
+                    <input type="text"  class="form-control" placeholder="" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                   </div>
-
-                  
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Email</label>
@@ -48,8 +46,6 @@
                       </select>
                     </div>
                   </div>
-
-                  
                 </div>
 
                 <div class="col-md-6">
@@ -69,11 +65,10 @@
                         <input type="number" class="form-control" placeholder="" name="commission" id="commission" value="<?php echo (int) @$data->commission;?>" />
                       </div>
                     </div>
-                    
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Mã người giới thiệu</label>
+                    <label class="form-label" for="basic-default-fullname">ID người giới thiệu</label>
                     <input type="text" class="form-control" placeholder="" name="affsource" id="affsource" value="<?php echo @$data->affsource;?>" />
                   </div>
 

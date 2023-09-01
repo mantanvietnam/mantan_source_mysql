@@ -349,7 +349,7 @@
                                     <div class="col-md-12">
                                       <input type="hidden" value="<?php echo @$_GET['page']; ?>"  name="page">
                                       <input type="hidden" value="<?php echo @$_GET['id']; ?>"  name="id_product">
-                                      <input type="hidden" value="<?php echo @$_GET['name']; ?>"  name="name">
+                                      <input type="hidden" value="<?php echo @$_GET['name']; ?>"  name="names">
                                       <input type="hidden" value="<?php echo @$_GET['phone']; ?>"  name="phone">
                                       <input type="hidden" value="<?php echo @$_GET['category_id']; ?>"  name="category_id">
                                       <input type="hidden" value="<?php echo @$_GET['status']; ?>"  name="status">

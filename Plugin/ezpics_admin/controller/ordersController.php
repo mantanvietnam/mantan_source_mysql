@@ -131,6 +131,10 @@ function listTransactionHistoryBuyProductEzpics($input)
 		$conditions['code'] = $_GET['code'];
 	}
 
+	if(!empty($_GET['product_id'])){
+		$conditions['product_id'] = $_GET['product_id'];
+	}
+
 	if(!empty($_GET['phone'])){
 		$conditionsMember['phone'] = str_replace([' ','.','-'],'',$_GET['phone']);
 		$member = $modelMembers->find()->where($conditionsMember)->first();
@@ -353,6 +357,10 @@ function listTransactionHistorySellingDesignsEzpics($input)
 
 	if(!empty($_GET['code'])){
 		$conditions['code'] = $_GET['code'];
+	}
+
+	if(!empty($_GET['product_id'])){
+		$conditions['product_id'] = $_GET['product_id'];
 	}
 
 	if(!empty($_GET['phone'])){

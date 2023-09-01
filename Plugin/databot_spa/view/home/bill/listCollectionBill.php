@@ -95,8 +95,8 @@
                           <td>'.$item->id.'</td>
                           <td>'.date('d/m/Y H:i', $item->time).'</td>
                           <td>'.@$item->full_name.'</td>
-                          <td>'.$item->staff->name.'</td>
-                          <td>'.number_format($item->total).'đ<br/>'.$type_collection_bill[$item->type_collection_bill].'</td>
+                          <td>'.@$item->staff->name.'</td>
+                          <td>'.number_format($item->total).'đ<br/>'.@$type_collection_bill[@$item->type_collection_bill].'</td>
                           <td>'.$item->note.'</td>
                           
                           <td align="center">

@@ -15,6 +15,11 @@
           </div>
 
           <div class="col-md-2">
+            <label class="form-label">ID Mẫu thiếts kế</label>
+            <input type="text" class="form-control" name="product_id" value="<?php if(!empty($_GET['product_id'])) echo $_GET['product_id'];?>">
+          </div>
+
+          <div class="col-md-2">
             <label class="form-label">SĐT người dùng</label>
             <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>

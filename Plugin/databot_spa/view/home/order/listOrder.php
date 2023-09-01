@@ -1,7 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Lịch sử nhập hàng vào kho</h4>
-
+    <h4 class="fw-bold py-3 mb-4">Danh danh đơn hàng</h4>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
         <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
@@ -15,36 +14,16 @@
                                 <input type="text"  maxlength="100" name="id" id="id" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['id'] ?>" /> 
                             </div>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Kho hàng</label>
-                            <div class="col-sm-12">  
-                                <select name="idWarehouse" id="idWarehouse" class="form-control">
-                                    <option value="">Kho hàng</option>
-                                        <?php 
-                                            if(!empty($listWarehouse)){
-                                                foreach($listWarehouse as $item){
-                                                    echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                                }
-                                            }
-                                        ?>
-                                </select>
-                            </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Tạo từ ngày</label>
+                            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Đến ngày</label>
+                            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
                         </div>
                         
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Nhà cung cấp</label>
-                            <div class="col-sm-12">
-                                <input type="hidden" name="id_partner" id="id_partner" value="<?php echo @$_GET['id_partner'] ?>">  
-                                <input type="text"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="col-sm-12 control-label">Sản phẩn:</label>
-                            <div class="col-sm-12">
-                                <input type="hidden" name="id_product" id="id_product" value="<?php echo @$_GET['id_product'] ?>">  
-                                <input type="text"  maxlength="100" name="searchProduct" id="searchProduct" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['searchProduct'] ?>" /> 
-                            </div>
-                        </div>
                         <div class="col-md-1">
                             <label class="form-label">&nbsp;</label>
                             <button type="submit" class="btn btn-primary d-block">Lọc</button>
@@ -52,7 +31,6 @@
                     </div> 
                 </div>
             </div>
-            
             <div>
                 <div class="form-group col-md-12">
                     <div class=" card mb-4">
@@ -64,41 +42,54 @@
                                             <tr>
                                                 <th rowspan='2'>Id</th>
                                                 <th rowspan='2'>thời gian</th>
-                                                <th rowspan='2'>tên kho</th>
                                                 <th rowspan='2'>Nhà cung cấp</th>
-                                                <th colspan="4">thông tin sản phẩn </th>
+                                                <th rowspan="2">Thành tiền </th>
+                                                <th colspan="4">thông tin sản phẩn </th>                                                
                                             </tr>
                                             <tr>
                                                 <th >Sản phẩn</th>
-                                                <th >Giá nhập</th>
+                                                <th >Giá bán</th>
                                                 <th >Số lượng ban đầu</th>
-                                                <th >Số lượng tồn kho</th>
+                                                <th >loại </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                                 if(!empty($listData)){
-                                                    foreach($listData as $key => $item){ ?>
+                                                    foreach($listData as $key => $item){ 
+                                                        $type = 'chưa xử lý';
+                                                        if($item->type=1){
+                                                            $type = 'đã xử lý';
+                                                        }
+                                                        ?>
                                                 <tr>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->Warehouse->name ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->parent->name ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
+                                                    Giảm giá: <?php echo number_format(@$item->promotion) ?><br/>
+                                                    Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
+                                                    Trạng thái: <?php echo $type ?></td>
                                                  
                                                             <?php  if(!empty($item->product)){ 
                                                                       foreach($item->product as $k => $value){
+                                                                        if($value->type=='product'){
+                                                                            $type ='Sản phẩm';
+                                                                        }elseif($value->type=='service') {
+                                                                           $type ='Dịch vụ';
+                                                                        }elseif($value->type=='combo'){
+                                                                            $type ='Combo';
+                                                                        }
                                                                 ?>
                                                      
                                                             <td><?php echo $value->prod->name ?></td>
-                                                            <td><?php echo number_format($value->impor_price) ?>đ</td>
+                                                            <td><?php echo number_format($value->price) ?>đ</td>
                                                             <td><?php echo $value->quantity ?></td>
-                                                            <td><?php echo $value->inventory_quantity ?></td>
+                                                            <td><?php echo $type ?></td>
+
                                                       </tr>
-                                                        <?php }} ?>
-                                                       
-                                                   
-                                              </tr>
-                                          <?php }}else{
+                                                        <?php }} 
+                                            }}else{
                                                 echo '<tr>
                                                         <td colspan="10" align="center">Chưa có sản phẩm nào</td>
                                                       </tr>';
@@ -107,11 +98,9 @@
                                     </table>
                                </div>
                             </div>
-                            
                         </div>
                     </div>
             </div>
-            
         </form>
     </div>
 </div>          
