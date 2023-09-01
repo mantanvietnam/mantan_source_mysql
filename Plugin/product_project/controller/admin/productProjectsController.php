@@ -42,7 +42,7 @@ function listProductProjectAdmin($input)
     }
     
     $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
+ 
     // phân trang
     $totalData = $modelProductProjects->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
@@ -116,17 +116,21 @@ function addProductProjectAdmin($input)
         if(!empty($dataSend['name'])){
 	        // tạo dữ liệu save
 	        $data->name = $dataSend['name'];
-            $data->image = $dataSend['image'];
             $data->address = $dataSend['address'];
             $data->company_design = $dataSend['company_design'];
             $data->designer = $dataSend['designer'];
             $data->	company_build= $dataSend['company_build'];
             $data->description= $dataSend['description'];
             $data->city= $dataSend['city'];
-            $data->id_kind= $dataSend['id_kind'];
             $data->id_product= $dataSend['id_product'];
             $data->status= $dataSend['status'];
             $data->images = json_encode($dataSend['images']);
+            $data->image = $dataSend['image'];
+
+            if(!empty($dataSend['id_kind'])){
+                $data->id_kind = implode(',', $dataSend['id_kind']);
+            }
+
             
             // tạo slug
             $slug = createSlugMantan($dataSend['name']);
@@ -162,6 +166,7 @@ function addProductProjectAdmin($input)
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('listKind', $listKind);
+    
 
 }
 

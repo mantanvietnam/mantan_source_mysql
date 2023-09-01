@@ -59,27 +59,6 @@
                               <label class="form-label">Mô tả ngắn</label>
                               <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                             </div>
-                              <?php debug($listKind) ?>
-                            <div class="mb-3">
-                                <label class="form-label">Danh mục (*)</label>
-                                <div class="input-group input-group-merge">
-                                  <select class="form-select" name="id_kind" id="id_kind" required>
-                                    <option value="">Chọn danh mục</option>
-                                    <?php 
-                                    if(!empty($listKind)){
-                                      foreach ($listKind as $key => $item) {
-                                        if(empty($data->id_kind) || $data->id_kind!=$item->id){
-                                          echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                        }else{
-                                          echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                                        }
-                                      }
-                                    }
-                                    ?>
-                                  </select>
-                                </div>
-                            </div>
-
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
                               <div class="input-group input-group-merge">
@@ -115,6 +94,39 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="mb-3">
+                                <div class="list-group">
+                                  <label class="form-label">Loại</label>
+                                  <?php
+                                  
+                                  $arr = explode(',', @$data['id_kind']);
+                                  if(!empty($listKind)){
+                                    foreach($listKind as $key => $value){
+                                      $check = '';
+                                      if(!empty($arr)){
+                                        if (in_array($value->id, $arr)) {
+                                          $check = 'checked';
+                                        }
+                                      }
+                                    echo'
+                                    <label class="list-group-item">
+                                        <input  class="form-check-input me-1" type="checkbox" '.$check.' name="id_kind[]" value="'.$value->id.'">
+                                        '.$value->name.'
+                                    </label>';
+                                    }
+                                  }
+                                 
+                                  ?>
+                          
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      <div>
 
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">
