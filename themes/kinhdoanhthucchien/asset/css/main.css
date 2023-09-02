@@ -1,0 +1,1514 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+@font-face {
+    font-family: OpenSans;
+    src: url(../font/OpenSans/OpenSans-Regular.ttf);
+   
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    font-family: OpenSans;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* chung */
+@media (min-width: 1400px){
+    .container {
+       width: 960px;
+    }
+}
+
+img{
+    max-width: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* header menu*/
+
+.header-menu-navbar{
+    background-color: #110A5C !important;
+}
+
+#header-menu .header-menu-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.header-menu-item{
+    color: #fff;
+    font-size: 26px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.header-menu-item a{
+    color: #fff;
+}
+
+.header-menu-item a.active{
+    color: #fff;
+}
+
+.header-menu-item a:hover{
+    color: #fff;
+}
+
+.header-menu-item i{
+    margin-right: 14px;
+    color: #fff;
+}
+
+.header-menu-collapse{
+    justify-content: center;
+}
+
+.navbar-toggler-icon{
+    color: #fff;
+    background-color: #d4a45c;
+    padding: 25px;
+    border-radius: 10px;
+    background-size: 67%;
+}
+
+.navbar-toggler:focus{
+    border: none;
+    outline: none;
+    box-shadow:0 0 0 0 transparent;
+}
+
+/* banner */
+
+#banner{
+    min-height: 700.3px;
+    position: relative;
+    z-index: 0;
+}
+
+.banner-image{
+
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   pointer-events: none;
+   overflow: hidden;
+   background-size: cover;
+   background-position: 0% 100%;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   opacity: 0.63;
+   z-index: -2;
+
+}
+
+.banner-overlay{
+    background-image: linear-gradient(rgb(92, 14, 10), rgb(0, 0, 0));
+    opacity: 0.85;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    z-index: -1
+}
+
+
+
+
+.banner-content-image{
+    position: relative;
+    width: 425.812px;
+    height: 701.718px;
+}
+
+.banner-content-image img{
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-content-image .banner-content-calendar{
+    position: absolute;
+    z-index: 9;
+    padding: 20px;
+    border-width: 4px;
+    border-radius: 24px;
+    border-style: dashed;
+    border-color: rgb(255, 190, 39);
+    background-color: rgba(255, 255, 255, 0);
+    min-height: 173px;
+    left: 19px;
+    right: 19px;
+    bottom: 32px;
+}
+
+.banner-content-image .banner-content-calendar p{
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+.banner-content-image .banner-content-calendar .title-calendar{
+    font-size: 30px;
+    margin-bottom: 25px;
+
+}
+
+.banner-content-image .banner-content-calendar .detail-calendar p{
+    margin-bottom: 15px;
+}
+
+.banner-content-image .banner-content-calendar .sub-calendar{
+    background-color: rgb(255, 190, 39);
+    padding: 5px 0px;
+    font-size: 16px;
+    
+}
+
+.banner-content-image .banner-content-calendar .sub-calendar p{
+    color: rgb(145, 23, 16);
+    font-weight: bold;
+}
+
+/* content text */
+
+.banner-content-text{
+    padding-top: 76px
+}
+
+.banner-content-text p{
+    color: #fff;
+    text-align: center;
+}
+
+.content-text-title{
+    font-weight: bold;
+    margin-bottom: 32px;
+}
+
+.content-text-title.content-text-title1{
+    font-size: 26px;
+}
+
+.content-text-title.content-text-title2{
+    font-size: 36px;
+    text-transform: uppercase;
+}
+
+.content-text-title.content-text-title3{
+    font-size: 23px;
+    text-transform: uppercase;
+}
+
+.content-text-details{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-text-details ul li{
+    color: #fff;
+    font-size:24px;
+    margin-bottom: 12px;
+    text-align: left;
+    position: relative;
+    padding-left: 35px;
+
+}
+
+.content-text-details ul li:before{
+    content:'';
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    top: 4px;
+    background-image: url(../image/Layer\ 0.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-size: cover;
+    left: 0;
+    top:-3px;
+}
+
+.content-text-button{
+    margin-top: 20px;
+}
+
+.content-text-button a{
+    display: flex;
+    width: 400px;
+    height: 60px;
+    background-color: rgb(232, 58, 48);
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    font-size: 19px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin: auto;
+    margin-bottom: 16px;
+}
+
+/* video */
+#section-video{
+    margin-top: 50px; 
+    padding-bottom:33px;
+}
+
+#section-video .video-content span{
+    font-size: 22px;
+    line-height: 1.6;
+}
+
+#section-video .video-content{
+    margin-bottom: 29px;
+}
+
+#section-video .title-video{
+    margin-bottom: 25px;
+}
+
+#section-video .title-video h1{
+    font-size: 33px;
+    color: #000;
+    margin-bottom: 25px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    margin: auto;
+    text-transform: uppercase;
+}
+
+
+#section-video .title-divide{
+    background-color: #11417d;
+    font-weight: bold;
+    height: 2px;
+    width: 51px;
+    margin: auto;
+}
+
+#section-video .iframe-video{
+    text-align: center;
+    width: 100%;
+}
+
+
+
+/* NẾU BẠN ĐANG MONG MUỐN */
+#section-hope{
+    min-height: 744.3px;
+    background-color: rgb(17, 10, 92);
+    padding-bottom: 51px;
+}
+
+.hope-box{
+    padding-top: 60px;
+}
+
+#section-hope .hope-title{
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+
+}
+
+#section-hope .hope-content-list{
+    border-width: 4px;
+    border-radius: 24px;
+    border-style: dashed;
+    border-color: rgb(255, 190, 39);
+    min-height: 495px;
+    padding: 40px 22px;
+}
+
+#section-hope .hope-content-list .hope-list-description h3{
+    font-size: 18px;
+    color:#fff;
+    line-height: 1.6;
+    font-weight: bold;
+    margin-bottom: 32px;
+}
+
+#section-hope .hope-content-list .hope-list-content{
+    color: #fff;
+   
+}
+
+#section-hope .hope-content-list .hope-list-content li{
+    margin-bottom: 25px;
+    position: relative;
+    padding-left: 43px;
+    font-size:18px;
+}
+
+
+#section-hope .hope-content-list .hope-list-content li:before{
+   position: absolute;
+   content: "\f0a4";
+   font-family: "Font Awesome 6 Free";
+   font-size: 32px;
+   left: 0;
+   color: #d4a45c;
+   top:-6px;
+}
+
+
+
+
+/* Nội dung khóa học */
+
+#section-content{
+    position: relative;
+}
+
+.content-background{
+    position: absolute;
+    right: 0;
+    top:0;
+    left: 0;
+    bottom: 0;
+}
+
+#section-content .content-box{
+    padding: 37px 0px;
+
+}
+
+#section-content .content-description{
+    text-align: center;
+    margin-bottom: 40px;
+
+}
+
+#section-content .content-description span{
+    font-size: 22px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+#section-content .title-content h1{
+    font-size: 33px;
+    color: #000;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#section-content .content-background{
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50% 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    filter: grayscale(49%);
+    opacity: 0.31;
+    z-index: -1;
+}
+
+
+
+
+#section-content .content-list ul li{
+    color: #000;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+
+}
+
+#section-content .content-list ul{
+    max-width: 618px;
+    border: 1px solid #000;
+    padding: 30px;
+    border-radius: 15px;
+    margin: auto;
+
+}
+
+#section-content .content-list ul li:before{
+    content: "\f02d";
+    font-family: "Font Awesome 6 Free";
+    position: absolute;
+    left: 0;
+    font-weight: 900;
+    color: #E83A30;
+}
+
+/*Những điều bạn sẽ học  */
+#section-learn{
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(188, 78, 156));
+
+}
+
+#section-learn .learn-title{
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#section-learn .learn-box{
+    padding:50px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer */
+#section-footer{
+    position: relative;
+    min-height: 396px;
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    z-index: 0;
+}
+
+#section-footer .footer-overlay{
+    background-image: linear-gradient(rgba(13, 98, 242, 0.9), rgba(5, 31, 78, 0.9));
+
+    position: absolute;
+    top:0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#section-footer .footer-box{
+    padding-top: 27px;
+}
+
+#section-footer .footer-logo{
+ 
+
+}
+
+#section-footer .footer-details .footer-title p{
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#section-footer .footer-details .footer-info{
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+#section-footer .footer-details .footer-content{
+    text-align: center;
+}
+
+#section-footer .footer-top{
+    border-bottom: 1px solid rgb(255, 255, 255, 0.1);
+    margin-bottom: 25px;
+}
+
+#section-footer .footer-bottom .footer-bank-group img{
+    width: 40px;
+    height: auto;
+}
+
+#section-footer .footer-bottom .footer-bank{
+    width: 20%;
+    margin: auto;
+}
+
+#section-footer .footer-bottom p{
+    color:#fff;
+    margin-bottom: 15px;
+    font-size: 12px;
+    text-align: center;
+}
+
+#section-footer .footer-bottom .footer-bank-group {
+    background-color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+
+
+/* NHỮNG ĐIỀU BẠN SẼ HỌC */
+
+#section-learn .learn-left-item{
+    position: relative;
+    margin-top: 105px;
+    height: 100px;
+}
+
+#section-learn .learn-right-item{
+    position: relative;
+    margin-bottom: 105px;
+    height: 100px;
+}
+
+#section-learn .learn-left-item img, #section-learn .learn-right-item img{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 105px;
+}
+
+#section-learn .learn-left-item .learn-text, #section-learn .learn-right-item .learn-text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.3;
+    padding: 42px;
+}
+
+/* Bí quyết */
+#section-secret{
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(123, 67, 151));
+}
+
+#section-secret .secret-box{
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+#section-secret .secret-item{
+    position: relative;
+    padding-left: 70px;
+    min-height: 90px;
+    margin-bottom: 20px;
+}
+
+#section-secret .secret-item .secret-item-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #EC4858;
+    border-radius: 50%;
+    padding:10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#section-secret .secret-item .secret-item-img img{
+    width: 30px;
+    height: 30px;
+}
+
+#section-secret .secret-title{
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+#section-secret .secret-title .secret-title1{
+    font-size: 23px;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#section-secret .secret-title .secret-title2{
+    font-size: 23px;
+    color: rgb(226, 189, 57);;
+    line-height: 1.6;
+    font-weight: bold;
+    margin-bottom: 15px;
+
+}
+
+#section-secret .secret-title .secret-title3{
+    font-size: 23px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+#section-secret .secret-title-note{
+    color:rgb(232, 59, 48)
+}
+
+#section-secret .secret-item-text .secret-item-title{
+    color: rgb(226, 189, 57);
+    line-height: 1.6;
+    font-size: 16px;
+
+}
+
+#section-secret .secret-item-detail{
+    color: #fff;
+    line-height: 1.6;
+    font-size: 16px;
+
+}
+
+.secret-bottom{
+    text-align: center;
+}
+
+.secret-bottom .secret-bottom-text{
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Ai là người chia sẻ */
+#section-who{
+    position: relative;
+}
+
+
+#section-who .who-background{
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    filter: blur(3px);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+#section-who .who-overlay{
+    background-image: linear-gradient(rgb(132, 132, 132), rgb(0, 0, 0));
+    opacity: 0.8;
+    mix-blend-mode: multiply;
+    will-change: transform, opacity;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#section-who .who-title h1{
+    font-size: 30px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#section-who .who-content-right{
+    font-size:15px;
+    font-weight: bold;
+    color: rgb(230, 183, 74);
+    line-height: 1.5;
+
+}
+
+#section-who .who-content{
+    padding-top: 50px;
+    padding-bottom: 62px;
+}
+
+#section-who .who-right{
+    padding-right: 120px;
+}
+
+#section-who .who-image{
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+#section-who .who-image img{
+    width: 100%;
+}
+
+#section-who .who-image-name-left{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    height: 117px;
+}
+
+#section-who .who-image-name-left img{
+    height: 100%;
+}
+
+#section-who .who-image-name-right img{
+    height: 100%;
+}
+
+.who-image-name-text{
+    position: absolute;
+    bottom: 19px;
+    font-size: 28px;
+    color: #fff;
+    font-weight: bold;
+    right: 27px;
+}
+
+#section-who .who-image-name-right {
+    position: absolute;
+    bottom: -2px;
+    right:0;
+    height: 74px;
+    width: 63%;
+}
+
+#section-who .who-image-name-left {
+    width: 62%;
+}
+
+
+
+
+/* Cam ket */
+#section-commit{
+    position: relative;
+    padding: 83px 0;
+}
+
+.commit-background{
+    position: absolute;
+    background-size: auto 100%;
+    background-origin: content-box;
+    background-position: 50% 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    filter: contrast(89%) blur(2px);
+    top:0;
+    right:0;
+    left: 0;
+    bottom:0;
+    z-index:-1
+}
+
+#section-commit .commit-detail-title h1{
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 60px;
+    font-size: 30px;
+    text-align: center;
+}
+
+#section-commit .commit-detail-content {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+    padding: 0 124px;
+}
+
+#section-commit .commit-detail{
+    margin-bottom: 136px;
+}
+
+
+/* Quà ătngj */
+#section-present{
+    position: relative;
+}
+
+
+#section-present .present-background{
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+#section-present .present-overlay{
+    background-color: rgb(17, 10, 92);    
+    opacity: 0.6;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#section-present .present-title{
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#section-present .present-content{
+    padding-top: 45px;
+    padding-bottom: 150px;
+}
+
+
+#section-present .present-title2{
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(255, 190, 39);
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 52px;
+}
+
+#section-present .present-list li{
+    font-size: 23px;
+    color:#fff;
+    list-style-type: disc;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+#section-present .present-list{
+    display: flex;
+    justify-content: center;
+}
+
+#section-present .present-list ul{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#section-present .present-price{
+    color: rgb(255, 190, 39);
+    font-weight: bold;
+}
+
+#section-present .present-total{
+    font-size: 23px;
+    color:#fff;
+    margin-bottom: 26px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* photo */
+#section-photo{
+    background-color: #110A5C;
+}
+
+#section-photo .photo-title{
+    font-size: 32px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 62px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+#section-photo .title-photo-item button{
+    background-color:rgb(49,128,232);
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 188px;
+    height: 44px;
+}
+
+#section-photo .title-photo-item{
+    margin-bottom: 45px
+}
+
+#section-photo .photo-content-item .title-photo-item{
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#section-photo .photo-image-item{
+    display: flex;
+}
+
+#section-photo .photo-content-detail{
+    padding-top: 48px;
+    padding-bottom: 160px;
+}
+
+#section-photo .photo-image-item-box{
+    margin: 10px;
+    border: 1px solid #fff;
+}
+
+/* Những ai nên tham gia chương trình  */
+#section-should{
+    position: relative;
+}
+
+.should-content{
+    padding-top: 25px;
+    padding-bottom: 50px;
+}
+
+
+#section-should .should-background{
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+#section-should .should-overlay{
+    background-color: rgb(48, 128, 232);
+    opacity: 0.7;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#section-should .should-title{
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 38px;
+
+}
+
+#section-should .should-item ul li{
+    line-height: 1.8;
+    font-size: 16px;
+    color: #fff;
+    position: relative;
+    padding-left: 34px;
+    margin-bottom: 15px;
+}
+
+#section-should .should-item ul li::before{
+    position: absolute;
+    left: 0;
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #14C72E;
+    font-size: 30px;
+    top: -11px
+}
+
+#section-should .should-content .container{
+    background-color: rgb(28, 16, 145);
+    opacity: 0.82;
+    padding: 33px 66px;
+    opacity: 0.82;
+    transition: all 0.3s linear;
+    border-radius: 15px ;
+}
+
+#section-should .should-content .container:hover{
+    opacity: 1;
+    transition: all 0.3s linear;
+
+}
+
+#section-should .should-title-item{
+    text-align: center;
+}
+
+#section-should .should-title-item button{
+    font-size: 18px;
+    background-color: rgb(232, 226, 48);
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 23px;
+    padding: 13px 20px;
+
+}
+
+
+#section-should .shouldnot-item ul li{
+    line-height: 1.8;
+    font-size: 16px;
+    color: #fff;
+    position: relative;
+    padding-left: 34px;
+    margin-bottom: 15px;
+}
+
+#section-should .shouldnot-item ul li::before{
+    position: absolute;
+    left: 0;
+    content: "\58";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: red;
+    font-size: 30px;
+    top: -11px
+}
+
+#section-should .shouldnot-title-item button{
+    font-size: 18px;
+    background-color: #E83B2F;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 23px;
+    padding: 13px 20px;
+
+}
+
+#section-should .shouldnot-title-item{
+    text-align: center;
+}
+
+#section-should .shouldnot-box{
+    display: flex;
+    justify-content: center;
+}
+
+/* Đăng ký */
+#section-register{
+    position: relative;
+}
+
+#section-register .register-background{
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+#section-register .register-overlay{
+    background-color: rgb(0, 0, 0);
+    opacity: 0.9;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#section-register .register-content{
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+#section-register .register-title-box .register-title1{
+    font-size: 32px;
+    color:rgb(230, 183, 74);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 32px;
+}
+
+#section-register .register-title-box .register-title2{
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.6;
+}   
+
+.register-item-box{
+    height: 800px;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    padding-top: 200px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-item-box .register-price{
+    font-weight: bold;
+    color: #fff;
+    font-size: 30px;
+}
+
+.register-item-box .register-price-sale{
+    background-image: linear-gradient(rgb(232, 183, 48), rgb(255, 255, 255));
+    font-weight: bold;
+    line-height: 1.6;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.register-item-content li{
+    font-size: 24px;
+    margin-bottom: 19px;
+    color: #fff;
+}
+
+.register-item-content-sale li{
+    color: rgb(186, 159, 92);
+    font-size: 20px;
+    margin-bottom: 19px;
+}
+
+.register-item-button a{
+    display: block;
+    color: #fff;
+    background-color: #FFBE28;
+    text-align: center;
+    padding: 22px 74px;
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+.register-item-content{
+    height: 300px;
+}
+
+.register-item-content-sale{
+    min-height: 300px;
+}
+
+.register-note .register-note1 p{
+    font-size: 20px;
+    color: #fff;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.register-note .register-note2 p{
+    font-size: 22px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5;
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+
+/* Lý do */
+#section-reason{
+    background-size: contain;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+#section-reason .reason-title h1{
+    color: #000;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+}
+
+#section-reason .reason-divide{
+    height: 7px;
+    width: 350px;
+    background-color: #E83A30;
+}
+
+#section-reason .reason-title {
+    margin-bottom: 53px;
+}
+
+#section-reason .reason-content{
+    line-height: 1.6;
+    padding-right: 30px;
+}
+
+#section-reason .reason-box{
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+
+#section-reason .reason-right{
+    position: absolute;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    top:0;
+    bottom:0;
+    right: 17%;
+}
+
+
+
+@media (max-width: 1441px){
+    .header-menu-item {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 768px){
+    .register-item-button a{
+        padding: 11px 74px;
+    }
+
+    .register-item-box .register-price {
+        font-size: 25px;
+    }
+
+    .register-item-box{
+        padding-top: 237px;
+    }
+
+    .register-item-content {
+        height: 247px;
+    }
+
+    .register-item-content li{
+        font-size: 20px;
+    }
+
+    .register-item-content-sale {
+        min-height: 200px;
+    }
+
+    .register-item-content-sale li{
+        margin-bottom: 15px;
+    }
+
+    #section-reason .reason-right {
+        right: 7%;
+    }
+
+    .who-image-name-text{
+        font-size: 19px;
+        bottom: 23px;
+
+    }
+}
+
+/* chung */
+@media (max-width: 426px){
+    #section-register .register-title-box .register-title1{
+        line-height: 1.6;
+    }
+
+    /* banner home */
+    .banner-content-image{
+        width: auto;
+    }
+
+    .learn-center{
+        display: none;
+    }
+
+    /* Bí quyết */
+    #section-secret .secret-item-right{
+        padding-left: 12px;
+    }
+    
+
+    /* Ai */
+    #section-who .who-right{
+        padding-right: 12px ;
+    }
+
+    #section-who .who-title h1{
+        text-align: center;
+    }
+
+    #section-who .who-right{
+        margin-top: 14px;
+    }
+
+    #section-reason .reason-right{
+        background-image: none;
+    }
+
+    .reason-right{
+        display: none;
+    }
+
+    #section-reason .reason-content{
+        padding-right: 12px;
+    }
+
+    .photo-content-item{
+        margin-bottom: 30px;
+    }
+
+
+    #section-photo .title-photo-item{
+        margin-bottom: 10px;
+    }
+
+   
+
+    #section-commit .commit-detail-title h1{
+        margin-bottom: 20px;
+    }
+
+    #section-commit .commit-detail-content{
+        padding: 0;
+    }
+
+    #section-commit .commit-detail {
+        margin-bottom: 27px;
+    }
+
+    /* Những  */
+    #section-learn .learn-left-item{
+        margin-top: 50px;
+    }
+
+    #section-learn .learn-left-item{
+        margin-top: 50px;
+    }
+
+    #section-learn .learn-right-item{
+        margin-top: 50px;
+        margin-bottom: 0;
+    }
+    
+    #section-should .should-title{
+        line-height: 1.6;
+    }
+
+    #section-should .should-content .container{
+        padding: 33px 20px;
+    }
+
+    .content-text-button a {
+        width: 80%;
+    }
+
+    /* Đăng ký */
+    .register-item-button a{
+        padding: 11px 74px;
+    }
+
+    .register-item-box .register-price {
+        font-size: 25px;
+    }
+
+    .register-item-box{
+        padding-top: 237px;
+    }
+
+    .register-item-content {
+        height: 247px;
+    }
+
+    .register-item-content li{
+        font-size: 20px;
+    }
+
+    #section-reason .reason-title h1{
+        text-align: center;
+    }
+
+    .who-image-name-text {
+    right: 54px;
+    }
+}
