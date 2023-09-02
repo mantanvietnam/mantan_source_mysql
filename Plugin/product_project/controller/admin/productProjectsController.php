@@ -42,6 +42,18 @@ function listProductProjectAdmin($input)
     }
     
     $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+    // if(!empty($listData)){
+    //     $category[0] = $modelCategories->newEmptyEntity();
+
+    // 	foreach ($listData as $key => $value) {
+    // 		if(empty($category[$value->id_category])){
+    // 			$category[$value->id_category] = $modelCategories->get( (int) $value->id_category);
+    // 		}
+    		
+    // 		$listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+    // 	}
+    // }
  
     // phân trang
     $totalData = $modelProductProjects->find()->where($conditions)->all()->toList();
@@ -119,17 +131,19 @@ function addProductProjectAdmin($input)
             $data->address = $dataSend['address'];
             $data->company_design = $dataSend['company_design'];
             $data->designer = $dataSend['designer'];
-            $data->	company_build= $dataSend['company_build'];
+            $data->company_build= $dataSend['company_build'];
             $data->description= $dataSend['description'];
             $data->city= $dataSend['city'];
             $data->id_product= $dataSend['id_product'];
             $data->status= $dataSend['status'];
             $data->images = json_encode($dataSend['images']);
             $data->image = $dataSend['image'];
+            $data->id_kind = $dataSend['id_kind'];
 
-            if(!empty($dataSend['id_kind'])){
-                $data->id_kind = implode(',', $dataSend['id_kind']);
-            }
+
+            // if(!empty($dataSend['id_kind'])){
+            //     $data->id_kind = implode(',', $dataSend['id_kind']);
+            // }
 
             
             // tạo slug

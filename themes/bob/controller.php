@@ -85,6 +85,8 @@ function indexTheme($input)
 
     $modelProduct = $controller->loadModel('Products');
     $modelMenus = $controller->loadModel('Menus');
+    $modelProductProjects = $controller->loadModel('ProductProjects');
+
     // SLIDE HOME
     $slide_home = [];
     if(!empty($settingThemes['id_slide'])){
@@ -101,7 +103,6 @@ function indexTheme($input)
 
 
     // Menu 
-
     if(!empty($settingThemes['id1_menu_footer'])){
         $menu_footer = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id1_menu_footer']])->all()->toList();
     }
@@ -110,16 +111,30 @@ function indexTheme($input)
         $menu_footer2 = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id2_menu_footer']])->all()->toList();
     }
 
+    // Dự án sản phẩm
+    $conditions2 = array('type' => 'category_kind');
+    $listProductProjects = $modelProductProjects->find()->limit($limit)->page($page)->order($order)->all()->toList();
+    $listKind = $modelCategories->find()->where($conditions2)->all()->toList();
+
+    if(!empty($listProductProjects)){
+        foreach($listProductProjects as $key => $value){
+            if(!empty($value->id_kind)){
+                $infoKind = $modelCategories->find()->where(['id'=> $value->id_kind])->first();
+                $listProductProjects[$key]->infoKind = $infoKind;
+            }   
+           
+        }
+    }    
+
 
     setVariable('slide_home', $slide_home);
     setVariable('new_category_product', $new_category_product);
     setVariable('slide_home', $slide_home);
     setVariable('menu_footer', $menu_footer);
     setVariable('menu_footer2', $menu_footer2);
-
-
-
-
+    setVariable('infoKind', $infoKind);
+    setVariable('listKind', $listKind);
+    setVariable('listProductProjects', $listProductProjects);
 }
 
 function postTheme($input)

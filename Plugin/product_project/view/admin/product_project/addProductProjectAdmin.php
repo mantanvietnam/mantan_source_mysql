@@ -90,12 +90,32 @@
                                 <label class="form-label">Nhà thiết kế</label>
                                 <input required type="text" class="form-control phone-mask" name="designer" id="designer" value="<?php echo @$data->designer;?>" />
                               </div>
+
+                              <div class="mb-3">
+                              <label class="form-label">Danh mục (*)</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="id_kind" id="id_kind" required>
+                                  <option value="">Chọn danh mục</option>
+                                  <?php 
+                                  if(!empty($listKind)){
+                                    foreach ($listKind as $key => $item) {
+                                      if(empty($data->id_kind) || $data->id_kind!=$item->id){
+                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
+                                      }
+                                    }
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
                               
                           </div>
                         </div>
                       </div>
 
-                      <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+                      <!-- <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
                         <div class="row">
                             <div class="col-md-12">
                               <div class="mb-3">
@@ -126,7 +146,7 @@
                               </div>
                             </div>
                         </div>
-                      <div>
+                      <div> -->
 
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">

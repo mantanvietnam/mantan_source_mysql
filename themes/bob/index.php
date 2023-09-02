@@ -90,257 +90,42 @@
                 </div>
                     <div class="list-product">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php 
 
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
+                                if(!empty($listProductProjects)){
+                                    foreach($listProductProjects as $key => $value){
+                                        echo'
+                                        <div class="col-lg-4 col-md-4 col-12 product-item">
+                                            <div class="product-inner">
+                                                <div class="product-overlay"></div>
+                                                <div class="product-img">
+                                                    <a href="'.$value->slug.'">
+                                                        <img src="'.$value->image.'" alt="">
+                                                    </a>
+                                                </div>
+                
+                                                <div class="product-info">
+                                                    <div class="product-info-category">
+                                                        <span>'.$value->infoKind->name.'| '.$value->city.'</span>
+                                                    </div>
+                
+                                                    <div class="product-info-title">
+                                                        <a href="'.$value->slug.'">'.$value->name.'</a>
+                                                    </div>
+                
+                                                    <div class="product-info-code">
+                                                        <span>Mã sản phẩm <span class="code">NV01</span></span>
+                                                    </div>
+                
+                                                    <a class="product-info-button" href="'.$value->slug.'">Xem chi tiết</a>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                    }
+                                }
+                            ?>
 
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-12 product-item">
-                                <div class="product-inner">
-                                    <div class="product-overlay"></div>
-                                    <div class="product-img">
-                                        <a href="">
-                                            <img src="<?php echo $urlThemeActive; ?>/asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                        </a>
-                                    </div>
-    
-                                    <div class="product-info">
-                                        <div class="product-info-category">
-                                            <span>Resort – Khách sạn</span>
-                                            <span>| Hồ Chí Minh</span>
-                                        </div>
-    
-                                        <div class="product-info-title">
-                                            <a href="">JW MARRIOTT CAM RANH</a>
-                                        </div>
-    
-                                        <div class="product-info-code">
-                                            <span>Mã sản phẩm <span class="code">NV01</span></span>
-                                        </div>
-    
-                                        <a class="product-info-button" href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div> 
                     </div>
                 </div>
