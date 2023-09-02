@@ -1,0 +1,11 @@
+<?php
+	global $routesPlugin;
+
+	// User
+	$routesPlugin['registerUserApi']= 'excgo/view/registerUserApi.php';
+	$routesPlugin['loginUserApi']= 'excgo/view/loginUserApi.php';
+	$routesPlugin['logoutUserApi']= 'excgo/view/logoutUserApi.php';
+
+
+	// Province
+    $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
