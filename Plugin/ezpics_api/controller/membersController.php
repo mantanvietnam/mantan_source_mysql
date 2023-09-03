@@ -36,9 +36,9 @@ function saveRegisterMemberAPI($input)
 					$data->avatar = $dataSend['avatar'];
 					$data->phone = $dataSend['phone'];
 					$data->aff = $dataSend['aff'];
-					if($dataSend['affsource']!=$dataSend['aff']){
+					if(!empty($dataSend['affsource']) && @$dataSend['affsource']!=$dataSend['aff']){
 						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
-						if(empty($affsource)){
+						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
 						}
 					}
