@@ -58,6 +58,7 @@ function searchWarehousesAPI($input){
 		if(!empty($dataSend['name'])){
 			$conditions['name LIKE']= '%'.$dataSend['name'].'%';
 		}
+		$conditions['number_product >'] = 0;
 
 			// lấy kho 
 			$data = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();

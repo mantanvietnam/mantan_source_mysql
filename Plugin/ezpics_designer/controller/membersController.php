@@ -377,9 +377,9 @@ function register($input)
 					$data->avatar = $avatar;
 					$data->phone = $dataSend['phone'];
 					$data->aff = $dataSend['phone'];
-					if($dataSend['affsource']!=$dataSend['phone']){
+					if(!empty($dataSend['affsource']) && $dataSend['affsource']!=$dataSend['phone']){
 						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
-						if(empty($affsource)){
+						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
 						}
 					}
