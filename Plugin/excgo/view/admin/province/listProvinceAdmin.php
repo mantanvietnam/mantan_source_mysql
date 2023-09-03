@@ -57,7 +57,7 @@
                     $status = '
                   <a class="btn btn-success"  title="Khóa tỉnh" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn Khóa tỉnh này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-province-updateStatusAdmin.php/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin.php/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã Kích hoạt ';
@@ -65,7 +65,7 @@
                     $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tỉnh" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt tỉnh này không?\');" 
-                    href="/plugins/admin/excgo-view-admin-province-updateStatusAdmin.php/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/excgo-view-admin-province-updateStatusProvinceAdmin.php/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';

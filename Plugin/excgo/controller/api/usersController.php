@@ -33,6 +33,7 @@ function registerUserApi($input): array
                 $user->password = md5($dataSend['password']);
                 $user->is_verified = 1;
                 $user->email = $dataSend['email'] ?? null;
+                $user->address = $dataSend['address'] ?? null;
                 $user->status = isset($dataSend['status']) ? (int)$dataSend['status'] : 1;
                 $user->created_at = date('Y-m-d H:i:s');
                 $user->last_login = date('Y-m-d H:i:s');

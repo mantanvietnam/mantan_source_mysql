@@ -48,20 +48,20 @@ function listProvinceAdmin($input)
     setVariable('listData', $listData);
 }
 
-function updateStatusAdmin($input)
+function updateStatusProvinceAdmin($input)
 {
     global $controller;
 
     $modelProvinces = $controller->loadModel('Provinces');
 
-    if(!empty($_GET['id'])){
+    if (!empty($_GET['id'])) {
         $data = $modelProvinces->find()->where([
-            'id' => $_GET['id']]
-        )->first();
+            'id' => $_GET['id']
+        ])->first();
 
-        if($data){
-            if(isset($_GET['status'])){
-                $data->status =$_GET['status'];
+        if ($data) {
+            if (isset($_GET['status'])) {
+                $data->status = $_GET['status'];
                 $modelProvinces->save($data);
             }
         }

@@ -5,19 +5,12 @@ $menus[0]['title'] = 'Exc-go';
 
 $menus[1]['sub'][0] = array(
     'title' => 'Thông tin thành viên',
-    'url' => '/plugins/admin/exc_go-view-admin-member-listMemberAdmin.php',
+    'url' => '/plugins/admin/excgo-view-admin-user-listUserAdmin.php',
     'classIcon' => 'bx bx-cog',
-    'permission' => 'listMemberAdmin',
+    'permission' => 'listUserAdmin',
 );
 
-$menus[2]['sub'][0] = array(
-    'title' => 'Thông tin xe',
-    'url' => '/plugins/admin/exc_go-view-admin-car-listCarAdmin.php',
-    'classIcon' => 'bx bx-cog',
-    'permission' => 'listCarAdmin',
-);
-
-$menus[3]['sub'][0] = array('title' => 'Danh sách tỉnh thành',
+$menus[2]['sub'][0] = array('title' => 'Danh sách tỉnh thành',
     'url' => '/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listProvinceAdmin',
