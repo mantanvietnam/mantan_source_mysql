@@ -116,7 +116,8 @@ function addProductProjectAdmin($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelProductProjects->get( (int) $_GET['id']);
-        $data->images = json_decode($data->images, true);
+        $data->images = json_decode($data->images, true);     
+        // $data->id_product = json_decode($data->id_product, true);
 
     }else{
         $data = $modelProductProjects->newEmptyEntity();

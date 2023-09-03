@@ -126,6 +126,21 @@ function indexTheme($input)
         }
     }    
 
+    if(!empty($listProductProjects)){
+        foreach($listProductProjects as $key => $value){
+            if(!empty($value->id_product)){
+                $arrProductID = explode(',', $value->id_product);
+                foreach($arrProductID as $item){
+                    $infoProduct = $modelProduct->find()->where(['id'=> (int)$item])->all()->toList();
+                    $listProductProjects[$key]->infoProduct = $infoProduct;
+
+                    debug($infoProduct);                   
+                }
+            }   
+           
+        }
+    }    
+
 
     setVariable('slide_home', $slide_home);
     setVariable('new_category_product', $new_category_product);
@@ -134,6 +149,7 @@ function indexTheme($input)
     setVariable('menu_footer2', $menu_footer2);
     setVariable('infoKind', $infoKind);
     setVariable('listKind', $listKind);
+    setVariable('infoProduct', $infoProduct);
     setVariable('listProductProjects', $listProductProjects);
 }
 

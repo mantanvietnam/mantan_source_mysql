@@ -47,7 +47,7 @@
 
                             <div class="mb-3">
                               <label class="form-label">Mã sản phẩm (*)</label>
-                              <input required type="text" class="form-control phone-mask" name="id_product" id="id_product" value="<?php echo @$data->id_product;?>" />
+                              <input required type="text" class="form-control phone-mask" name="id_product" id="id_product" value="<?php echo @$data['id_product'];?>" />
                             </div>
 
                             <div class="mb-3">
@@ -122,26 +122,24 @@
                                 <div class="list-group">
                                   <label class="form-label">Loại</label>
                                   <?php
-                                  
-                                  $arr = explode(',', @$data['id_kind']);
-                                  if(!empty($listKind)){
-                                    foreach($listKind as $key => $value){
-                                      $check = '';
-                                      if(!empty($arr)){
-                                        if (in_array($value->id, $arr)) {
-                                          $check = 'checked';
+                                    $arr = explode(',', @$data['id_kind']);
+                                    if(!empty($listKind)){
+                                      foreach($listKind as $key => $value){
+                                        $check = '';
+                                        if(!empty($arr)){
+                                          if (in_array($value->id, $arr)) {
+                                            $check = 'checked';
+                                          }
                                         }
+                                      echo'
+                                      <label class="list-group-item">
+                                          <input  class="form-check-input me-1" type="checkbox" '.$check.' name="id_kind[]" value="'.$value->id.'">
+                                          '.$value->name.'
+                                      </label>';
                                       }
-                                    echo'
-                                    <label class="list-group-item">
-                                        <input  class="form-check-input me-1" type="checkbox" '.$check.' name="id_kind[]" value="'.$value->id.'">
-                                        '.$value->name.'
-                                    </label>';
                                     }
-                                  }
-                                 
+
                                   ?>
-                          
                                 </div>
                               </div>
                             </div>
