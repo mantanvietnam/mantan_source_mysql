@@ -2032,5 +2032,5 @@ main {
   -ms-filter: "FlipH";
 }
 .drag-drop span::first-line{
-  line-height: normal; /* Hoặc giá trị line-height mong muốn cho dòng đầu tiên */
+  line-height: normal !important; /* Hoặc giá trị line-height mong muốn cho dòng đầu tiên */
 }

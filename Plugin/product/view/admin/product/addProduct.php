@@ -225,6 +225,78 @@
                               <?php showUploadFile('image8','images[8]',@$data->images[8],8);?>
                             </div>
                           </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 9</label>
+                              <?php showUploadFile('image9','images[9]',@$data->images[9],9);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 10</label>
+                              <?php showUploadFile('image10','images[10]',@$data->images[10],10);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 11</label>
+                              <?php showUploadFile('image11','images[11]',@$data->images[11],11);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 12</label>
+                              <?php showUploadFile('image12','images[12]',@$data->images[12],12);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 13</label>
+                              <?php showUploadFile('image13','images[13]',@$data->images[13],13);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 14</label>
+                              <?php showUploadFile('image14','images[14]',@$data->images[14],14);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 15</label>
+                              <?php showUploadFile('image15','images[15]',@$data->images[15],15);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 16</label>
+                              <?php showUploadFile('image16','images[16]',@$data->images[16],16);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 17</label>
+                              <?php showUploadFile('image17','images[17]',@$data->images[17],17);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 18</label>
+                              <?php showUploadFile('image18','images[18]',@$data->images[18],18);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 19</label>
+                              <?php showUploadFile('image19','images[19]',@$data->images[19],19);?>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 20</label>
+                              <?php showUploadFile('image20','images[20]',@$data->images[20],20);?>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -2879,5 +2879,11 @@ function lat_anh()
     }
 }
 
+function checkLineHeight()
+{
+    
+    
+}
+
 setTimeout(saveproduct, 60000, 0);
 

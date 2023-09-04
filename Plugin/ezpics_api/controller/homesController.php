@@ -927,7 +927,9 @@ function checkToolExportImage()
     global $urlCreateImage;
     
     $timeout = 5; // Thời gian chờ kết nối, tính bằng giây
-    $ip = '14.225.238.137';
+    $ip = explode('://', $urlCreateImage);
+    $ip = explode(':', $ip[1]);
+    $ip = $ip[0];
     $port = 3000;
 
     $socket = @fsockopen($ip, $port, $errorCode, $errorMessage, $timeout);
