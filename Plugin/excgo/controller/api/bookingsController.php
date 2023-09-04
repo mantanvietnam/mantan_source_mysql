@@ -36,19 +36,18 @@ function createBookingApi($input): array
                 return apiResponse(2, 'Số tiền không hợp lệ');
             }
 
-            $listProvinceIds = $modelProvince->find()
-                ->select([
-                    'id'
-                ])->where([
+            $listProvince = $modelProvince->find()->where([
                     'status' => 1
-                ])->all()
-                ->toArray();
+                ])->all();
+            $listProvinceIds = $listProvince->map(function ($item) {
+                return $item->id;
+            })->toArray();
 
-            if (in_array($dataSend['departure_province_id'], $listProvinceIds)) {
+            if (!in_array($dataSend['departure_province_id'], $listProvinceIds)) {
                 return apiResponse(2, 'Tỉnh khởi hành không hợp lệ');
             }
 
-            if (in_array($dataSend['destination_province_id'], $listProvinceIds)) {
+            if (!in_array($dataSend['destination_province_id'], $listProvinceIds)) {
                 return apiResponse(2, 'Tỉnh đến không hợp lệ');
             }
 
