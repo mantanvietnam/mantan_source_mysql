@@ -355,3 +355,10 @@ function getUserByToken($accessToken, $checkActive = false)
 
     return $modelUser->find()->where($conditions)->first();
 }
+
+global $bookingStatus;
+$bookingStatus = [
+    'unreceived' => 0,
+    'received' => 1,
+    'canceled' => 2
+];
