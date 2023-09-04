@@ -6,6 +6,8 @@
 	$routesPlugin['loginUserApi']= 'excgo/view/loginUserApi.php';
 	$routesPlugin['logoutUserApi']= 'excgo/view/logoutUserApi.php';
 
-
 	// Province
     $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
+
+    // Booking
+    $routesPlugin['createBookingApi'] = 'excgo/view/createBookingApi.php';
