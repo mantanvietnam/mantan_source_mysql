@@ -84,11 +84,7 @@ function createBookingApi($input): array
             $booking->updated_at = $now;
             $modelBooking->save($booking);
 
-            $newBooking = $modelBooking->find()->where([
-                'id' => $booking->id
-            ])->first();
-
-            return apiResponse(0, 'Lưu thông tin thành công', $newBooking);
+            return apiResponse(0, 'Lưu thông tin thành công', $booking);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
