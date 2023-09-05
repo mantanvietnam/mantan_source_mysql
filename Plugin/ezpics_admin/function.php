@@ -100,6 +100,11 @@ $menus[0]['sub'][3]= array('title'=>'Giao dịch',
                                                 'classIcon'=>'bx bx-history',
                                                 'permission'=>'listTransactionProEzpics',
                                             ),
+                                            array('title'=>'Tạo kho mẫu thiết kế',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryCreateWarehousesEzpics.php',
+                                                'classIcon'=>'bx bx-history',
+                                                'permission'=>'listTransactionHistoryCreateWarehousesEzpics',
+                                            ),
                                         
                                     )
                         );
@@ -184,6 +189,11 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                             'classIcon'=>'bx bx-category',
                                             'permission'=>'listDiscountCodeAdmin',
                                         ),
+                                        array('title'=>'Thư viên ảnh',
+                                            'url'=>'/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php',
+                                            'classIcon'=>'bx bx-category',
+                                            'permission'=>'listIngredientAdmin',
+                                        ),
                                     )
                         );
 $menus[0]['sub'][8]= array( 'title'=>'Thống kê',
@@ -248,6 +258,12 @@ global $ftp_username_upload_image;
 global $ftp_password_upload_image;
 global $ftp_password_upload_image;
 global $recommenders;
+global $type_ingredient;
+
+
+$type_ingredient = array( 'nguoi_mau' => 'Người Mẫu ',
+                          'thanh_phan' => 'Thành phần',
+                    );
 
 
 $recommenders = 5;

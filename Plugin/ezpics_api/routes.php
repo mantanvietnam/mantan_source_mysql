@@ -172,4 +172,8 @@
 	$routesPlugin['updateInfoProductAPI']= 'ezpics_api/view/updateInfoProductAPI.php';
 	$routesPlugin['getPriceAPI']= 'ezpics_api/view/getPriceAPI.php';
 	$routesPlugin['memberTrialProAPI']= 'ezpics_api/view/memberTrialProAPI.php';
+
+	$routesPlugin['listIngredientAPI']= 'ezpics_api/view/listIngredientAPI.php';
+	$routesPlugin['getIngredientAPI']= 'ezpics_api/view/getIngredientAPI.php';
+	$routesPlugin['typeIngredientAPI']= 'ezpics_api/view/typeIngredientAPI.php';	
 ?>

@@ -14,4 +14,5 @@ include('model/discount_code.php'); // mã giảm giá
 include('model/warehouse_users.php'); // user mua kho mẫu thiết kế
 include('model/warehouse_products.php'); // sản phẩm gắn với kho mẫu thiết kế
 include('model/manager_file.php'); // sản phẩm gắn với kho mẫu thiết kế
+include('model/ingredients.php'); // thành phần
 ?>

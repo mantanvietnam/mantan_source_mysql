@@ -248,6 +248,9 @@
                                               ?>
                                             </select>
                                         </span></li> 
+                                        <li class="total-bh"><p><strong>Tổng thanh toán</strong></p><p><strong id="totalPay">0</strong></p>
+                                            <input type="hidden" name="totalPays" id="totalPays" value="">
+                                        </li>
                                          <li id="sotenkhachdua">
                                             <span>Số tiền khách đưa</span>
                                             <span>
@@ -256,9 +259,7 @@
                                         </li>
                                         <li id="sotentralaikhach"><span>Số tiền trả lại</span><span id="moneyCustomerReturn">0</span></li> 
 
-                                        <li class="total-bh"><p><strong>Tổng thanh toán</strong></p><p><strong id="totalPay">0</strong></p>
-                                            <input type="hidden" name="totalPays" id="totalPays" value="">
-                                        </li>
+                                        
                                         <li class="total-bh">
                                             <p>Giường & phòng</p>
                                             <p>
@@ -431,6 +432,12 @@ function addProduct(id, name, priceProduct,type){
                      document.getElementById("totalPays").value = totalPay;
                     var showPay= new Intl.NumberFormat().format(totalPay);
                     $('#totalPay').html(showPay+'đ');
+
+                    moneyCustomerPay = $('#moneyCustomerPay').val();
+                    var moneyCustomerReturn = new Intl.NumberFormat().format(moneyCustomerPay - totalPay);
+                    $('#moneyCustomerReturn').html(moneyCustomerReturn+'đ');
+
+
 
                 }
             }
