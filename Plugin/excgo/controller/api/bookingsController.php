@@ -37,8 +37,8 @@ function createBookingApi($input): array
             }
 
             $listProvince = $modelProvince->find()->where([
-                    'status' => 1
-                ])->all();
+                'status' => 1
+            ])->all();
             $listProvinceIds = $listProvince->map(function ($item) {
                 return $item->id;
             })->toArray();
@@ -84,14 +84,72 @@ function createBookingApi($input): array
             $booking->updated_at = $now;
             $modelBooking->save($booking);
 
-            $newBooking = $modelBooking->find()->where([
-                'id' => $booking->id
-            ])->first();
-
-            return apiResponse(0, 'Lưu thông tin thành công', $newBooking);
+            return apiResponse(0, 'Lưu thông tin thành công', $booking);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function getBookingListApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelBooking = $controller->loadModel('Bookings');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        $conditions = [];
+        $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+        $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+        if ($page < 1) $page = 1;
+
+        if (!empty($dataSend['keyword'])) {
+            $conditions[] = ['OR' => [
+                ['name LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['departure LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['destination LIKE' => '%' . $dataSend['keyword'] . '%'],
+            ]];
+        }
+
+        if (!empty($dataSend['province_id'])) {
+            $conditions[] = ['OR' => [
+                ['departure_province_id' => $dataSend['province_id']],
+                ['destination_province_id' => $dataSend['province_id']]
+            ]];
+        }
+
+        $listData = $modelBooking->find()
+            ->limit($limit)
+            ->page($page)
+            ->where($conditions)
+            ->all()
+            ->toList();
+        $totalBookings = $modelBooking->find()
+            ->where($conditions)
+            ->all()
+            ->toList();
+        $paginationMeta = createPaginationMetaData(
+            count($totalBookings),
+            $limit,
+            $page
+        );
+
+        return apiResponse(0, 'Lấy danh sách cuốc xe thành công', $listData, $paginationMeta);
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');

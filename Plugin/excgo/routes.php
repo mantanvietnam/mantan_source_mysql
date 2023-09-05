@@ -11,3 +11,4 @@
 
     // Booking
     $routesPlugin['createBookingApi'] = 'excgo/view/createBookingApi.php';
+    $routesPlugin['getBookingListApi'] = 'excgo/view/getBookingListApi.php';
