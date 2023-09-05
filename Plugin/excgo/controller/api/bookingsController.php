@@ -99,6 +99,7 @@ function getBookingListApi($input): array
     global $isRequestPost;
 
     $modelBooking = $controller->loadModel('Bookings');
+    $modelPinnedProvince = $controller->loadModel('PinnedProvinces');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -131,12 +132,24 @@ function getBookingListApi($input): array
                 ['departure_province_id' => $dataSend['province_id']],
                 ['destination_province_id' => $dataSend['province_id']]
             ]];
+        } else {
+            $listPinnedProvince = $modelPinnedProvince->find()
+                ->where(['user_id =' => $currentUser->id])
+                ->all();
+            $listPinnedProvinceIds = $listPinnedProvince->map(function ($item) {
+                return $item->province_id;
+            })->toArray();
+            $conditions[] = ['OR' => [
+                ['departure_province_id IN' => $listPinnedProvinceIds],
+                ['destination_province_id IN' => $listPinnedProvinceIds]
+            ]];
         }
 
         $listData = $modelBooking->find()
             ->limit($limit)
             ->page($page)
             ->where($conditions)
+            ->order(['created_at' => 'DESC'])
             ->all()
             ->toList();
         $totalBookings = $modelBooking->find()

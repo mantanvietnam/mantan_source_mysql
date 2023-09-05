@@ -20,7 +20,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `bookings` (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `introduce_fee` int(11) NOT NULL,
   `price` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `received_at` timestamp NULL DEFAULT NULL,
   `canceled_at` timestamp NULL DEFAULT NULL,
@@ -32,7 +32,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `images` (
   `path` varchar(255) NOT NULL,
   `type` tinyint(4) NOT NULL,
   `owner_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
 
@@ -53,7 +53,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `transactions` (
   `description` text DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `type` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
@@ -80,6 +80,14 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`pinned_provinces` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `province_id` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
