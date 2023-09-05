@@ -137,7 +137,7 @@ function getBookingListApi($input): array
                 ->where(['user_id =' => $currentUser->id])
                 ->all();
             $listPinnedProvinceIds = $listPinnedProvince->map(function ($item) {
-                return $item->id;
+                return $item->province_id;
             })->toArray();
             $conditions[] = ['OR' => [
                 ['departure_province_id IN' => $listPinnedProvinceIds],
