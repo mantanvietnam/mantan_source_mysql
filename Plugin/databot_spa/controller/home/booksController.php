@@ -10,6 +10,7 @@ function listBook($input){
     $modelService = $controller->loadModel('Services');
 	$modelBook = $controller->loadModel('Books');
 	$modelMembers = $controller->loadModel('Members');
+
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -132,6 +133,8 @@ function addBook($input){
 	$modelService = $controller->loadModel('Services');
 	$modelMembers = $controller->loadModel('Members');
 	$modelSpa = $controller->loadModel('Spas');
+	$modelRoom = $controller->loadModel('Rooms');
+    $modelBed = $controller->loadModel('Beds');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -191,6 +194,7 @@ function addBook($input){
 
 			        $save->id_staff = (int) $dataSend['id_staff'];
 			        $save->status = (int)  $dataSend['status'];
+			        $save->id_bed = (int)  $dataSend['id_bed'];
 			        $save->note = $dataSend['note'];
 			        $save->apt_step = (int) @$dataSend['apt_step'];
 			        $save->apt_times = (int) @$dataSend['apt_times'];
@@ -226,11 +230,21 @@ function addBook($input){
 	   		return $controller->redirect('/listService/?error=requestService');
 	   	}
 
+	   	$conditionsRoom = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
+	   	 $listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
+        
+        if(!empty($listRoom)){
+            foreach($listRoom as $key => $item){
+                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
+            }
+        }
+
 	    setVariable('data', $save);
 	    setVariable('dataService', $dataService);
 	    setVariable('dataMember', $dataMember);
 	    setVariable('mess', $mess);
 	    setVariable('infoUser', $infoUser);
+	    setVariable('listRoom', $listRoom);
     }else{
 		return $controller->redirect('/login');
 	}

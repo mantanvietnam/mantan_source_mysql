@@ -78,7 +78,7 @@
                         <input disabled type="number" class="form-control" placeholder="" name="apt_times" id="apt_times" value="<?php echo @$data->apt_times;?>" required />
                     </div>
 
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3 col-md-3">
                         <label class="form-label" for="basic-default-fullname">Trạng thái</label>
                         <select name="status" class="form-select">
                           <option value="0">Chưa xác nhận</option>
@@ -89,6 +89,29 @@
                           <option value="5" <?php if(!empty($data->status) && $data->status==5) echo 'selected';?>>Đặt online</option>
                         </select>
                     </div>
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="basic-default-fullname">Giường & phòng </label>
+                        <select  name="id_bed" id="id_bed"  class="form-select color-dropdown"> 
+                            <option value="">Chọn giường</option>
+                            <?php if(!empty($listRoom))
+                                        foreach ($listRoom as $room) { 
+                                            echo '<optgroup label="'.$room->name.'">';
+                                            if(!empty($room->bed)){
+                                                foreach($room->bed as $bed){
+                                                   if(!empty($data->id_bed) && $data->id_bed==$bed->id){
+                                                        $selected = 'selected';
+                                                   }
+                                                                   
+                                                    echo '<option data-unit="'.@$bed->id.'"  value="'.$bed->id.'" '.$selected.'>'.$bed->name.'</option>';
+                                               }
+                                            }
+                                            echo '</optgroup>';
+                                        }?>
+                        </select>
+                    </div>
+
+
+
 
                     <div class="mb-3 col-md-12">
                        <label class="form-label" for="basic-default-fullname">Kiểu đặt</label>

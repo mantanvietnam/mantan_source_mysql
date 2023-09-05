@@ -23,11 +23,15 @@ function listIngredientAPI($input){
 		    if(!empty($dataSend['type'])){
 		        $conditions['type']= $dataSend['type'];
 		    }
+		    $limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
+			$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		    $order = array('id'=>'desc');
-			$data = $modelIngredients->find()->where($conditions)->order($order)->all()->toList();
+			$data = $modelIngredients->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+			$totalData = count($modelIngredients->find()->where($conditions)->all()->toList());
 			if(!empty($data)){
 				$return = array('code'=>1,
 								'data'=> $data,
+								'totalData'=> $totalData,
 				 				'mess'=>'Bạn lấy data thành công',
 				 			);
 			}else{

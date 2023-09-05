@@ -85,6 +85,7 @@ rel='stylesheet' type='text/css'>
         echo 'var urlCheckinBed = "'.$urlHomes.'/checkinBed";';
         echo 'var urlEditBed = "'.$urlHomes.'/listBed";';
         echo 'var urlDeleteBed = "'.$urlHomes.'/deleteBed";';
+        echo 'var listOrder = "'.$urlHomes.'/listOrder";';
     ?>
 
     $(function () {
@@ -165,12 +166,17 @@ rel='stylesheet' type='text/css'>
                         url = urlDeleteBed + '?idBed=' + options.$trigger.attr("idBed");
                         window.location = url;
                         break;
+                    case 'listOrder':
+                        url = listOrder + '?idBed=' + options.$trigger.attr("idBed");
+                        window.location = url;
+                        break;
                 }
             },
             items: {
                 "checkinBed": {name: "Nhận khách", icon: "received"},
                 "sep1": "---------",
                 "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
+                "listOrder": {name: "Danh sách khách chờ", icon: "list"},
                 "deleteBed": {name: "Xóa giường", icon: "delete"},
             }
         });

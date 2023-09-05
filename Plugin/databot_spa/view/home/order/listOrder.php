@@ -8,11 +8,9 @@
                 <h5 class="card-header">Tìm kiếm dữ liệu</h5>
                 <div class="card-body">
                     <div class=" row">
-                        <div class="form-group col-md-1">
-                            <label class="col-sm-12 control-label">ID</label>
-                            <div class="col-sm-12">
-                                <input type="text"  maxlength="100" name="id" id="id" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['id'] ?>" /> 
-                            </div>
+                        <div class="col-md-1">
+                            <label class="form-label">ID</label>
+                            <input type="text"  maxlength="100" name="id" id="id" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['id'] ?>" /> 
                         </div>
                         <div class="col-md-2">
                             <label class="form-label">Tạo từ ngày</label>
@@ -42,14 +40,15 @@
                                             <tr>
                                                 <th rowspan='2'>Id</th>
                                                 <th rowspan='2'>thời gian</th>
-                                                <th rowspan='2'>Nhà cung cấp</th>
+                                                <th rowspan='2'>khách hàng</th>
                                                 <th rowspan="2">Thành tiền </th>
+                                                <th rowspan="2">Giường </th>
                                                 <th colspan="4">thông tin sản phẩn </th>                                                
                                             </tr>
                                             <tr>
                                                 <th >Sản phẩn</th>
                                                 <th >Giá bán</th>
-                                                <th >Số lượng ban đầu</th>
+                                                <th >Số lượng </th>
                                                 <th >loại </th>
                                             </tr>
                                         </thead>
@@ -57,12 +56,18 @@
                                             <?php
                                                 if(!empty($listData)){
                                                     foreach($listData as $key => $item){ 
-                                                        $type = 'chưa xử lý';
-                                                        if($item->type=1){
-                                                            $type = 'đã xử lý';
+                                                        $type = 'Chưa xử lý';
+                                                        if($item->type==1){
+                                                            $type = 'Đã xử lý';
+                                                        }elseif($item->type==2){
+                                                            $type = ' Hủy';
+                                                        }
+                                                        $checkin ='';
+                                                        if(!empty($item->bed) && $item->status==0){
+                                                            $checkin ='<a class="dropdown-item" href="/checkinbed?id_order='. $item->id.'&id_bed='. $item->id_bed.'" title="check in"><i class="bx bx-exclude me-1"></i></a>';
                                                         }
                                                         ?>
-                                                <tr>
+                                                <tr> 
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
@@ -70,7 +75,9 @@
                                                     Giảm giá: <?php echo number_format(@$item->promotion) ?><br/>
                                                     Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
                                                     Trạng thái: <?php echo $type ?></td>
-                                                 
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo @$item->bed->name ?><br/>
+                                                        <?php echo $checkin ?>
+                                                    </td>
                                                             <?php  if(!empty($item->product)){ 
                                                                       foreach($item->product as $k => $value){
                                                                         if($value->type=='product'){

@@ -70,7 +70,11 @@ function order($input){
 			$order->note =@$dataSend['note'];
 			$order->created_at =date('Y-m-d H:i:s');
 			$order->updated_at =date('Y-m-d H:i:s');
-			$order->status =0;
+            if($dataSend['typeOrder']==1){
+			     $order->status =1;
+            }else{
+                 $order->status =0;
+            }
 			$order->promotion =@$dataSend['promotion'];
 			$order->total =@$dataSend['total'];
 			$order->total_pay =@$dataSend['totalPays'];
@@ -234,10 +238,14 @@ function listOrder($input){
             $conditions['time >='] = $date_start;
         }
 
-        if(!empty($_GET['date_end'])){
-            $date_end = explode('/', $_GET['date_end']);
-            $date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
-            $conditions['time <='] = $date_end;
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+            $conditions['time >='] = $date_start;
+        }
+
+        if(!empty($_GET['idBed'])){
+            $conditions['id_bed'] = $_GET['idBed'];
         }
 
         if(empty($_GET['searchProduct'])){
@@ -270,7 +278,9 @@ function listOrder($input){
 
                     }
                     $listData[$key]->product = $product;
-
+                    if(!empty($item->id_bed)){
+                        $listData[$key]->bed = $modelBed->find()->where(array('id'=>$item->id_bed))->first();
+                    }
                 }
             }
         }
@@ -319,6 +329,40 @@ function listOrder($input){
         setVariable('listData', $listData);
         setVariable('listWarehouse', $listWarehouse);
         setVariable('mess', @$mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function checkinbed($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Danh sách đơn hàng';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelCombo = $controller->loadModel('Combos');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelProduct = $controller->loadModel('Products');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+
+        $user = $session->read('infoUser');
+
+        if(!empty($_GET['id_order'])){
+
+        }
 
     }else{
         return $controller->redirect('/login');

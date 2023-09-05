@@ -73,7 +73,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Ảnh sản phẩm</label>
-                    <?php showUploadFile('image','image',@$user->image,0);?>
+                    <?php showUploadFile('image','image',@$data->image,0);?>
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Giá sản phẩm (*)</label>

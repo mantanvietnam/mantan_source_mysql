@@ -3,19 +3,7 @@
 require_once __DIR__ . '/lib/google/vendor/autoload.php';
 
 global $urlCreateImage;
-global $ftp_server_upload_image;
-global $ftp_username_upload_image;
-global $ftp_password_upload_image;
 
-$ftp_server_upload_image = "171.244.16.76";
-$ftp_username_upload_image = "ezpics";
-$ftp_password_upload_image = "uImzVeNYgF";
-
-/*
-$ftp_server_upload_image = "13.215.88.179";
-$ftp_username_upload_image = "admin_apis";
-$ftp_password_upload_image = "sIu6v%OHwfmKxcx-";
-*/
 
 $urlCreateImage = 'http://14.225.238.137:3000/convert';
 

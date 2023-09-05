@@ -21,10 +21,12 @@
         text-align: center;
     }
     .diagram .clear-room {
-        background: seagreen;
+        background-repeat: round;
+        background-size: auto;
         color: white;
         height: 100px;
-        margin: 1px;
+        margin: 3px;
+        padding: 0px;
     }
 
     @media screen and (max-width: 767px){
@@ -104,6 +106,17 @@
         align-items: center;
         margin: 13px;
     }
+    .item_produc{
+        background: rgba(54, 46, 46, 0.59);
+        height: 100%;
+        color: white;
+        object-fit: contain;
+        font-size: 16px;
+        z-index: 2;
+        top: 60%;
+        width: 100%;
+        padding: 5px;
+    }
 </style>
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -121,7 +134,7 @@
 	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
 	               <div class="mb-3 col-md-2">
-	                   <p><a href="/addCustomer" class="btn btn-primary" type="Thêm khách hàng"><i class='bx bx-plus'></i> </a></p>
+	                   <p><a href="/addCustomer" class="btn btn-primary" target="_blank" type="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a></p>
 	               </div>
 	           </div>
 		 	</div>
@@ -132,10 +145,13 @@
 				  <div class="card card-body">
 				  	<div class="row diagram">
 				    <?php	foreach($listService as $key => $Service){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" onclick="addProduct('<?php echo $Service->id ?>','<?php echo $Service->name ?>',<?php echo $Service->price ?>,'service');" id='service<?php echo $Service->id ?>'>
-                                    <div class="customer-name"><span class="service_name"><?php echo $Service->name ?></span></div>
-                                    <div class="customer-name"><span class="service_name"><?php echo $Service->duration ?> phút</span></div>
-                                    <div class="customer-name"><span class="service_price"><?php echo number_format($Service->price) ?>đ</span></div>
+				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Service->image ?>');" onclick="addProduct('<?php echo $Service->id ?>','<?php echo $Service->name ?>',<?php echo $Service->price ?>,'service');" id='service<?php echo $Service->id ?>'>
+                                    <div class="item_produc">
+                                        <div class="customer-name"><span class="service_name"><?php echo $Service->name ?></span></div>
+                                        <div class="customer-name"><span class="service_name"><?php echo $Service->duration ?> phút</span></div>
+                                        <div class="customer-name"><span class="service_price"><?php echo number_format($Service->price) ?>đ</span></div>
+                                    </div>
+                                    
                                  </div> 
 				  <?php   } ?>
 				</div>
@@ -151,9 +167,11 @@
 				  <div class="card card-body">
 				  	<div class="row diagram">
 				    <?php	foreach($listCombo as $key => $combo){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" onclick="addProduct('<?php echo $combo->id; ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $combo->id ?>'>
-                                    <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
-                                    <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
+				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $combo->image ?>');" onclick="addProduct('<?php echo $combo->id; ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $combo->id ?>'>
+                                    <div class="item_produc">
+                                        <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
+                                        <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
+                                    </div>
                                  </div> 
 				  <?php   } ?>
 				</div>
@@ -169,9 +187,11 @@
 				  <div class="card card-body">
 				  	<div class="row diagram">
 				     <?php foreach($listProduct as $key => $Product){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->name ?>',<?php echo $Product->price ?>,'product');" id='product_<?php echo $Product->id ?>' >
+				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->name ?>',<?php echo $Product->price ?>,'product');" id='product_<?php echo $Product->id ?>' >
+                                    <div class="item_produc">
                                        <div class="customer-name"><span class="service_name"><?php echo $Product->name ?></span></div>
                                             <div class="customer-name"><span class="service_price"><?php echo number_format($Product->price) ?>đ</span></div>
+                                        </div>
                                  </div> 
 				   <?php   } ?>
 					</div>
