@@ -50,7 +50,7 @@
                   
                 </div>
               </div>
-
+              <p class="text-danger">Chú ý: hệ thống sẽ tính thời gian thuê kể từ khi bạn tạo đơn thành công. Nếu muốn có link để truyền thông trước mà không bị tính giờ thuê thì hãy sử dụng chức năng <b><a href="/listLink">Link cố định</a></b></p>
               <button type="submit" class="btn btn-primary">Tạo đơn</button>
             </form>
           </div>

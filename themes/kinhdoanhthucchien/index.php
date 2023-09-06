@@ -25,6 +25,7 @@
     ></script>
 </head>
 <body>
+    
     <header>
         <section id="header-menu">
             <nav class="header-menu-navbar navbar navbar-expand-lg bg-body-tertiary">
@@ -36,23 +37,23 @@
                     <ul class="navbar-nav">
                       <li class="nav-item header-menu-item">
                         <i class="fa-solid fa-house"></i>
-                        <a class="nav-link"  href="#">Trang chủ</a>
+                        <a class="nav-link"  href="/">Trang chủ</a>
                       </li>
                       <li class="nav-item header-menu-item">
                         <i class="fa-solid fa-user"></i>
-                        <a class="nav-link" href="#">Giảng viên</a>
+                        <a class="nav-link" href="#section-present">Quà tặng</a>
                       </li>
                       <li class="nav-item header-menu-item">
                         <i class="fa-regular fa-file-lines"></i>
-                        <a class="nav-link" href="#">Nội dung</a>
+                        <a class="nav-link" href="#section-content">Nội dung</a>
                       </li>
                       <li class="nav-item header-menu-item">
                         <i class="fa-solid fa-book"></i>
-                        <a class="nav-link" href="#">Đăng ký khóa học</a>
+                        <a class="nav-link" target="_blank" href="<?php echo @$settingThemes['link_reg'];?>">Đăng ký khóa học</a>
                       </li>
                       <li class="nav-item header-menu-item">
                         <i class="fa-solid fa-comment"></i>
-                        <a class="nav-link" href="#">Cảm nhận học viên</a>
+                        <a class="nav-link" href="#section-learn">Kết quả</a>
                       </li>
                     </ul>
                   </div>
@@ -60,10 +61,10 @@
             </nav>
         </section>
     </header>
-
+    
     <main>
         <section id="banner" >
-            <div class="banner-image" style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/img_9163-20200512082020-20200928022838.jpg);"></div>
+            <div class="banner-image" style="background-image: url(<?php echo @$settingThemes['image_bg_1'];?>);"></div>
             <div class="banner-overlay"></div>
             <div class="banner-content">
                 <div class="container">
@@ -177,11 +178,11 @@
 
         <!-- NỘI DUNG KHÓA HỌC -->
         <section id="section-content">
-            <div class="content-background" style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/ngay3-20210714161243.jpg)"></div>
+            <div class="content-background" style="background-image: url(<?php echo @$settingThemes['image_bg_1'];?>)"></div>
             <div class="content-box">
                 <div class="container">
                     <div class="content-description">
-                        <span>Chương trình mà giúp bạn Tăng Khách Hàng, Tăng Doanh Số, Nhân bản cơ sở và mở Chuỗi.</span>
+                        <span><?php echo @$settingThemes['commit'];?></span>
                     </div>
         
                     <div class="title-content">
@@ -190,18 +191,21 @@
     
                     <div class="content-list">
                         <ul>
-                            <li>Tăng tốc việc gia tăng doanh số ngay lập tức</li>
-                            <li>Phá vỡ mọi rào cản, mọi nỗi sợ hãi của bạn</li>
-                            <li>Công thức biến bạn trở thành sát thủ bán hàng</li>
-                            <li>Bí mật gây chú ý,biến người lạ thành khách hàng</li>
-                            <li>Trở thành thỏi nam châm thu hút đội nhóm</li>
-                            <li>Bí quyết marketing và quảng bá bản thân</li>
+                            <?php 
+                                if(!empty($settingThemes['content_training'])){
+                                    $content = nl2br(@$settingThemes['content_training']);
+                                    $content = explode('<br />', $content);
+                                    foreach ($content as $value) {
+                                        echo '<li>'.$value.'</li>';
+                                    }
+                                }
+                            ?>
                             
                         </ul>
                     </div>
 
                     <div class="content-text-button">
-                        <a href="">Đăng ký ngay</a>
+                        <a href="<?php echo @$settingThemes['link_reg'];?>">Đăng ký ngay</a>
                     </div>
                 </div>
             </div>  
@@ -368,7 +372,7 @@
 
         <!-- Ai là người chia sẻ -->
         <section id="section-who" >
-            <div style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/who.jpg);" class="who-background"></div>
+            <div style="background-image: url(<?php echo @$settingThemes['image_bg_2'];?>);" class="who-background"></div>
             <div class="who-overlay"></div>
             <div class="who-content">
                 <div class="container">
@@ -433,7 +437,7 @@
 
         <!-- Chương trình phù hợp với ai -->
         <section id="section-should">
-            <div class="should-background" style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/should.jpg);" ></div>
+            <div class="should-background" style="background-image: url(<?php echo @$settingThemes['image_bg_3'];?>);" ></div>
             <div class="should-overlay"></div>
             <div class="should-content">
                 <div class="container">
@@ -498,31 +502,17 @@
                             <h1>MỘT SỐ HÌNH ẢNH KHÓA HỌC ĐÃ DIỄN RA</h1>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12 photo-content-item">
-                                <div class="title-photo-item">
-                                    <button>Tại Hà Nội</button>
-                                </div>
+                            <div class="col-lg-12 col-md-12 col-12 photo-content-item">
                                 <div class="photo-image-item">
-                                    <div class="photo-image-item-box">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/phto.jpg" alt="">
-                                    </div>
-                                    <div class="photo-image-item-box">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/phto.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="col-lg-6 col-md-6 col-12 photo-content-item">
-                                <div class="title-photo-item">
-                                    <button>Tại Hồ Chí Minh</button>
-                                </div>
-                                <div class="photo-image-item">
-                                    <div class="photo-image-item-box">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/phto.jpg" alt="">
-                                    </div>
-                                    <div class="photo-image-item-box">
-                                        <img src="<?php echo $urlThemeActive;?>/asset/image/phto.jpg" alt="">
-                                    </div>
+                                    <?php
+                                    if(!empty($albums)){
+                                        foreach ($albums as $key => $value) {
+                                            echo '<div class="photo-image-item-box">
+                                                    <img src="'.$value->image.'" alt="">
+                                                </div>';
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -535,7 +525,7 @@
 
         <!-- Quà tặng -->
         <section id="section-present">
-            <div class="present-background" style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/present-backgroundjpg.jpg);" ></div>
+            <div class="present-background" style="background-image: url(<?php echo @$settingThemes['image_bg_4'];?>);" ></div>
             <div class="present-overlay"></div>
             <div class="present-content">
                 <div class="container">
