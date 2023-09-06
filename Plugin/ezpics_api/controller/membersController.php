@@ -57,7 +57,7 @@ function saveRegisterMemberAPI($input)
 					$modelMember->save($data);
 					sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 					if(!empty($affsource)){
-					// gửi thông báo về app
+					// gửi thông báo về app cho người giới thiệu
 	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn.','action'=>'adminSendNotification');
 
 	                    if(!empty($affsource->token_device)){
