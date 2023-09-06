@@ -126,3 +126,144 @@ function logoutUserApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function changePasswordApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if (isset($dataSend['current_password'])
+            && isset($dataSend['new_password'])
+            && isset($dataSend['password_confirmation'])
+        ) {
+            if (md5($dataSend['current_password']) !== $currentUser->password) {
+                return apiResponse(3, 'Mật khẩu không chính xác');
+            }
+
+            if ($dataSend['new_password'] !== $dataSend['password_confirmation']) {
+                return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
+            }
+
+            $currentUser->password = md5($dataSend['new_password']);
+            $currentUser->access_token = createToken();
+            $currentUser->device_token = @$dataSend['device_token'];
+            $modelUser->save($currentUser);
+
+            return apiResponse(0, 'Thay đổi mật khẩu thành công', $currentUser);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function forgotPasswordApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['phone_number'])) {
+            $dataSend['phone_number'] = str_replace([' ', '.', '-'], '', $dataSend['phone_number']);
+            $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
+            $user = $modelUser->find()->where([
+                'phone_number' => $dataSend['phone_number'],
+            ])->first();
+
+            if (!$user) {
+                return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+            }
+
+            if ($user->status != 1) {
+                return apiResponse(3, 'Tài khoản đang bị khóa');
+            }
+
+            if (!$user->email) {
+                return apiResponse(3, 'Tài khoản chưa có thông tin email');
+            }
+
+            $code = rand(100000,999999);
+            $user->reset_password_code = $code;
+            $modelUser->save($user);
+            sendEmailCodeForgotPassword($user->email, $user->name, $code);
+
+            return apiResponse(0, 'Tạo mã cấp lại mật khẩu thành công');
+        }
+
+        return apiResponse(2, 'Chưa nhập số điện thoại');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function resetPasswordApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(isset($dataSend['phone_number'])
+            && isset($dataSend['code'])
+            && isset($dataSend['new_password'])
+            && isset($dataSend['password_confirmation'])
+        ) {
+            $dataSend['phone_number'] = str_replace([' ', '.', '-'], '', $dataSend['phone_number']);
+            $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
+            $user = $modelUser->find()->where([
+                'phone_number' => $dataSend['phone_number'],
+            ])->first();
+
+            if (!$user) {
+                return apiResponse(3, 'Số điện thoại chưa được đăng kí cho bất kì tài khoản nào');
+            }
+
+            if ($user->status != 1) {
+                return apiResponse(3, 'Tài khoản đang bị khóa');
+            }
+
+            if ($user->reset_password_code !== $dataSend['code']) {
+                return apiResponse(4, 'Mã cấp lại mật khẩu không chính xác');
+            }
+
+            if ($dataSend['new_password'] !== $dataSend['password_confirmation']) {
+                return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
+            }
+
+            $user->password = md5($dataSend['new_password']);
+            $user->reset_password_code = null;
+            $user->access_token = createToken();
+            $user->device_token = @$dataSend['device_token'];
+            $modelUser->save($user);
+
+            return apiResponse(0, 'Đổi mật khẩu thành công', $user);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}

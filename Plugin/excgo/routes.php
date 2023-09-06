@@ -5,6 +5,9 @@
 	$routesPlugin['registerUserApi']= 'excgo/view/registerUserApi.php';
 	$routesPlugin['loginUserApi']= 'excgo/view/loginUserApi.php';
 	$routesPlugin['logoutUserApi']= 'excgo/view/logoutUserApi.php';
+	$routesPlugin['changePasswordApi']= 'excgo/view/changePasswordApi.php';
+	$routesPlugin['forgotPasswordApi']= 'excgo/view/forgotPasswordApi.php';
+	$routesPlugin['resetPasswordApi']= 'excgo/view/resetPasswordApi.php';
 
 	// Province
     $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
