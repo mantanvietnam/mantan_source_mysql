@@ -83,7 +83,7 @@
 
                   $warehouses = '';
                   if(!empty($item->warehouses)){
-                    $product = '<img src="'.$item->warehouses->image.'" width="100" /><br/>ID: '.$item->warehouses->id;
+                    $warehouses = '<img src="'.$item->warehouses->thumbnail.'" width="100" /><br/>ID: '.$item->warehouses->id;
                   }
 
                   echo '<tr>
@@ -124,9 +124,9 @@
               if($item->status==2){
                 $status = '<span class="text-success">Đã xử lý</span>';
               }
-              $product = '';
-                  if(!empty($item->product)){
-                    $product = '<img src="'.$item->product->image.'" style= "width: 100%" /><br/>ID: '.$item->product->id;
+              $warehouses = '';
+                  if(!empty($item->warehouses)){
+                    $warehouses = '<img src="'.$item->warehouses->image.'" style= "width: 100%" /><br/>ID: '.$item->warehouses->id;
                   }
 
 
@@ -143,7 +143,7 @@
                             '.$item->member->email.'
                           </p>
                            <p><b>Mẫu</b><br/>
-                            '.$product.'
+                            '.$warehouses.'
                            </p>
                           <p><b>Nội dung: </b>'.$item->note.'</p>
                           <p><b>Trạng thái: </b>'.$status.'</p>

@@ -40,7 +40,8 @@ function saveRegisterMemberAPI($input)
 						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
 						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
-						}
+
+							
 					}
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
@@ -55,6 +56,14 @@ function saveRegisterMemberAPI($input)
 
 					$modelMember->save($data);
 					sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
+					if(!empty($affsource)){
+					// gửi thông báo về app
+	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn.','action'=>'adminSendNotification');
+
+	                    if(!empty($affsource->token_device)){
+	                        sendNotification($dataSendNotification, $affsource->token_device);
+	                    }
+					}
 
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
