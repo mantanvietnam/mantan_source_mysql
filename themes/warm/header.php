@@ -50,10 +50,6 @@
                         </div>
 
                         <div class="col-lg-6 col-9 topbar-right">
-                            <div class="topbar-letter">
-                                <a href="<?php echo @$settingThemes['link_button_sub'];?>"><?php echo @$settingThemes['name_button_sub'];?></a>
-                            </div>
-
                             <div class="topbar-follow">
                                 <span>Follow us: </span>
                                 <?php 
