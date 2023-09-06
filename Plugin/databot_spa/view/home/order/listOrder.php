@@ -34,6 +34,7 @@
                     <div class=" card mb-4">
                         <div class="card-body">
                             <div class="scroll-table mb-3">
+                                <?php echo @$mess; ?>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" style=" text-align: center; ">
                                         <thead>
@@ -71,7 +72,7 @@
                                                         ?>
                                                 <tr> 
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
-                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo date('Y-m-d H:i:s', $item->time); ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
                                                     Giảm giá: <?php echo number_format(@$item->promotion) ?><br/>

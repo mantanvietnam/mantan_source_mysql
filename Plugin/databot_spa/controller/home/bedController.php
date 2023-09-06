@@ -102,14 +102,41 @@ function listRoomBed($input){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
+        $modelOrder = $controller->loadModel('Orders');
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
         
         $listData = $modelRoom->find()->where($conditions)->all()->toList();
+
+        $currentTimestamp = time();
+
+        // Lấy thời gian đầu ngày (00:00:00)
+        $startOfDayTimestamp = strtotime("midnight", $currentTimestamp);
+
+        // Lấy thời gian cuối ngày (23:59:59)
+        $endOfDayTimestamp = strtotime("tomorrow", $startOfDayTimestamp) - 1;
+        // Chuyển đổi thành kiểu int
         
         if(!empty($listData)){
             foreach($listData as $key => $item){
-                $listData[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
+                $databed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
+                foreach($databed as $k => $value){
+                    $databed[$k]->order = $modelOrder->find()->where(array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>2))->first();
+                    $conditionsOrder = array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>0);
+                    $conditionsOrder['time >='] = $startOfDayTimestamp;
+                    $conditionsOrder['time <='] = $endOfDayTimestamp;
+
+                    $order = $modelOrder->find()->where($conditionsOrder)->all()->toList();
+
+                    if(!empty(@$order)){
+
+
+                        $databed[$k]->status = 3;
+                    }
+                }
+
+                $listData[$key]->bed = $databed;
+
             }
         }
         
@@ -119,4 +146,63 @@ function listRoomBed($input){
         return $controller->redirect('/login');
     }
 }
+
+function infoRoomBed($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Thông tin giường';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelCombo = $controller->loadModel('Combos');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelProduct = $controller->loadModel('Products');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+
+        if(!empty($_GET['idBed'])){
+            $data = $modelOrder->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>2))->first();
+
+            $data->bed = $modelBed->get($data->id_bed);
+          
+
+            $product = $modelOrderDetails->find()->where(array('id_order'=>$data->id))->all()->toList();
+
+            if(!empty($product)){
+
+                foreach($product as $k => $value){
+                    if($value->type=='product'){
+                        $product[$k]->prod = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
+                    }elseif($value->type=='service') {
+                        $product[$k]->prod = $modelService->find()->where(array('id'=>$value->id_product))->first();
+                    }elseif($value->type=='combo'){
+                        $product[$k]->prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                    }
+
+                }
+                $data->product = $product;
+            }
+            if(!empty($data->id_customer)){
+                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+            }
+
+        }
+
+        setVariable('data', $data);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+
+
  ?>

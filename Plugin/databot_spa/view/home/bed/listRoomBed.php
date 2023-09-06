@@ -17,10 +17,26 @@ rel='stylesheet' type='text/css'>
                             <div class="col-md-11 col-sm-10">
                                 <div class="row">
                                     <?php if(!empty($item->bed)){ 
-                                            foreach($item->bed as $k =>$bed){ ?>
-                                            <div class="col-xs-6 col-sm-4 col-md-2 clear-room context-menu-two" idBed="<?php echo $bed->id ?>" nameBed="<?php echo $bed->name ?>">
-                                            <div class="customer-name"><span class="room-number"><?php echo $bed->name ?></span></div>
-                                            </div>                
+                                            foreach($item->bed as $k =>$bed){ 
+                                                $background = '';
+                                                $context_menu = 'context-menu-two';
+                                                if($bed->status==3){
+                                                    $background = 'clear-room-wait';
+                                                }elseif($bed->status==1){
+                                                    $background = 'clear-room-anti';
+                                                    
+                                                }elseif($bed->status==2){
+                                                    $background = 'clear-room-guests';
+                                                    $context_menu = 'context-menu-one';
+                                                } ?>
+                                            <div class="col-xs-6 col-sm-4 col-md-2 clear-room <?php echo @$background.' '.$context_menu  ?> " idBed="<?php echo $bed->id ?>" nameBed="<?php echo $bed->name ?>">
+                                                <div class="customer-name">
+                                                    <span class="room-number"><?php echo $bed->name ?></span><br/>
+                                                <?php if(!empty($bed->order)){ ?>
+                                                       <span class="full-name"><?php echo $bed->order->full_name ?></span>
+                                                <?php } ?>
+                                                </div> 
+                                            </div>               
                                   <?php }} ?>      
                                 </div>
                             </div>
@@ -51,10 +67,19 @@ rel='stylesheet' type='text/css'>
         text-align: center;
     }
     .diagram .clear-room {
-        background: seagreen;
+        
         color: white;
         height: 100px;
         margin: 1px;
+    }
+    .clear-room-guests{
+        background: red;
+    }
+    .clear-room-anti{
+        background: seagreen;
+    }
+    .clear-room-wait{
+        background: #8d38aa;
     }
     .customer-name {
         text-align: center;
@@ -75,6 +100,13 @@ rel='stylesheet' type='text/css'>
             border: 1px solid white;
         }
     }
+    .full-name{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
 </style>   
 
 <script type="text/javascript">
@@ -82,10 +114,11 @@ rel='stylesheet' type='text/css'>
         global $urlHomes;
         global $urlCurrent;
 
-        echo 'var urlCheckinBed = "'.$urlHomes.'/checkinBed";';
-        echo 'var urlEditBed = "'.$urlHomes.'/listBed";';
-        echo 'var urlDeleteBed = "'.$urlHomes.'/deleteBed";';
-        echo 'var listOrder = "'.$urlHomes.'/listOrder";';
+        echo 'var urlCheckinBed = "'.$urlHomes.'order";';
+        echo 'var urlEditBed = "'.$urlHomes.'listBed";';
+        echo 'var urlDeleteBed = "'.$urlHomes.'deleteBed";';
+        echo 'var listOrder = "'.$urlHomes.'listOrder";';
+        echo 'var urlViewroomdetail = "'.$urlHomes.'infoRoomBed";';
     ?>
 
     $(function () {
@@ -109,7 +142,7 @@ rel='stylesheet' type='text/css'>
                     window.location = url;
                     break;
                     case 'view':
-                    url = urlViewroomdetail + '?idroom=' + options.$trigger.attr("idroom");
+                    url = urlViewroomdetail + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
                     break;
                     case 'listwaiting':
@@ -135,11 +168,8 @@ rel='stylesheet' type='text/css'>
             items: {
                 "paid": {name: "Trả phòng", icon: "checkout"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
-                "changeroom": {name: "Chuyển phòng", icon: "change"},
                 "addservice": {name: "Thêm Hàng hóa", icon: "add"},
-                "addPrepay": {name: "Thêm tiền tạm ứng", icon: "add"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
-                "clear": {name: "Báo dọn phòng", icon: "edit"},
                 "report": {name: "Báo hỏng", icon: "edit"},
                 "sep1": "---------",
                 "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
@@ -167,7 +197,7 @@ rel='stylesheet' type='text/css'>
                         window.location = url;
                         break;
                     case 'listOrder':
-                        url = listOrder + '?idBed=' + options.$trigger.attr("idBed");
+                        url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                         window.location = url;
                         break;
                 }
@@ -196,15 +226,13 @@ rel='stylesheet' type='text/css'>
                     case 'cancel':
                     cancelData(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"));
                     break;
-                    case 'changeroom':
-                    changRoom(options.$trigger.attr("idroom"));
-                    break;
+                    
                     case 'addservice':
                     url = urlAddservice + '?idroom=' + options.$trigger.attr("idroom");
                     window.location = url;
                     break;
                     case 'view':
-                    url = urlViewroomdetail + '?idroom=' + options.$trigger.attr("idroom");
+                    url = urlViewroomdetail + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
                     break;
                     case 'listwaiting':
@@ -230,11 +258,8 @@ rel='stylesheet' type='text/css'>
             items: {
                 "paid": {name: "Trả phòng", icon: "checkout"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
-                "changeroom": {name: "Chuyển phòng", icon: "change"},
                 "addservice": {name: "Thêm Hàng hóa", icon: "add"},
-                "addPrepay": {name: "Thêm tiền tạm ứng", icon: "add"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
-                "clear": {name: "Báo dọn phòng", icon: "edit"},
                 "report": {name: "Báo hỏng", icon: "edit"},
                 "sep1": "---------",
                 "listwaiting": {name: "Danh sách khách chờ", icon: "list"},

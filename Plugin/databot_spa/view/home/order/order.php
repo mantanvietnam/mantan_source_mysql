@@ -290,8 +290,11 @@
                                                             echo '<optgroup label="'.$room->name.'">';
                                                             if(!empty($room->bed)){
                                                                 foreach($room->bed as $bed){
-                                                                   
-                                                                    echo '<option data-unit="'.@$bed->id.'"  value="'.$bed->id.'">'.$bed->name.'</option>';
+                                                                    $selected = '';
+                                                                    if(!empty($_GET['idBed']==$bed->id)){
+                                                                        $selected = 'selected';
+                                                                    }
+                                                                    echo '<option data-unit="'.@$bed->id.'" '.@$selected.' value="'.$bed->id.'">'.$bed->name.'</option>';
                                                                }
                                                             }
                                                             echo '</optgroup>';
@@ -333,10 +336,19 @@
                                      <div id="luudonhang" style="display: none;">
                                         <input type="hidden" name="typeOrder" value="2">
                                     </div>
+                                    <div id="nhankhach" style="display: none;">
+                                        <input type="hidden" name="typeOrder" value="3">
+                                    </div>
                                     <ul>
                                         <li><a href="/order" class="btn  btn-secondary">Nhập lại</a></li>
+                                        <?php if(empty($_GET['idBed'])){ ?>
+
                                         <li><a  href="javascript:void(0);" class="btn btn-primary" onclick="saveOrder();">Tạo đơn</a></li>
                                         <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Thanh toán</a></li>
+                                    <?php }else{ ?>
+
+                                        <li><a  href="javascript:void(0);" class="btn btn-primary" onclick="nhankhach();">nhận khách </a></li>
+                                    <?php } ?>
                                     </ul>
                                 </div>
                             </div>
@@ -473,6 +485,7 @@ function addProduct(id, name, priceProduct,type){
   
         $('#luudonhang').show();
         $('#thanhtoan').remove();
+        $('#nhankhach').remove();
 
         if(numberProduct>0){
             r = confirm("bạn lưu đơn này?");
@@ -496,9 +509,34 @@ function addProduct(id, name, priceProduct,type){
   
         $('#luudonhang').remove();
         $('#thanhtoan').show();
+        $('#nhankhach').remove();
 
         if(numberProduct>0){
             r = confirm("bạn thanh toán đơn này?");
+            if (r == true) {
+                if(checkProduct){
+                    $('#summary-form').submit();
+                }
+            }
+        }else{
+            alert('Bạn chưa chọn sản phẩm nào');
+        }
+
+    }
+
+        // nhận khách
+    function nhankhach(){
+        tinhtien();
+        var moneyCustomerPay= $('#moneyCustomerPay').val();
+        var congno= $('#typeCollectionBill').val();
+        var r= true;
+  
+        $('#luudonhang').remove();
+        $('#luudonhang').remove();
+        $('#nhankhach').show();
+
+        if(numberProduct>0){
+            r = confirm("bạn nhận khách này vào giường?");
             if (r == true) {
                 if(checkProduct){
                     $('#summary-form').submit();

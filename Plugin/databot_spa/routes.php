@@ -59,6 +59,7 @@
 	$routesPlugin['listBed']= 'databot_spa/view/home/bed/listBed.php';
 	$routesPlugin['deleteBed']= 'databot_spa/view/home/bed/deleteBed.php';
 	$routesPlugin['listRoomBed']= 'databot_spa/view/home/bed/listRoomBed.php';
+	$routesPlugin['infoRoomBed']= 'databot_spa/view/home/bed/infoRoomBed.php';
 
 	$routesPlugin['listCombo']= 'databot_spa/view/home/combo/listCombo.php';
 	$routesPlugin['addCombo']= 'databot_spa/view/home/combo/addCombo.php';

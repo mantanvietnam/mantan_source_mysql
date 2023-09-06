@@ -241,7 +241,7 @@ function addMoneyApplePayAPI($input)
                     $modelOrder->save($data);
 
                     // gửi thông báo về app
-                    $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'- '.$user->name.' ơi. Bạn được cộng '.number_format($data->total).' VND do thành viên '.$infoUser->name' đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+                    $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'- '.$user->name.' ơi. Bạn được cộng '.number_format($data->total).' VND do thành viên '.$infoUser->name.' đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 
                     if(!empty($User->token_device)){
                         sendNotification($dataSendNotification, $User->token_device);
@@ -533,7 +533,7 @@ function memberBuyProAPI($input){
 	                        $modelOrder->save($save);
 
 							// gửi thông báo về app
-	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format((25/100)*$price_pro).'đ vào tài khoản '.$checkPhone->phone,'action'=>'addMoneySuccess');
+	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 
 	                        if(!empty($checkPhone->token_device)){
 	                            sendNotification($dataSendNotification, $checkPhone->token_device);
@@ -664,7 +664,7 @@ function memberExtendProAPI($input){
 	                        $modelOrder->save($save);
 
 							// gửi thông báo về app
-	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format((25/100)*$price_pro).'đ vào tài khoản '.$checkPhone->phone,'action'=>'addMoneySuccess');
+	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 
 	                        if(!empty($checkPhone->token_device)){
 	                            sendNotification($dataSendNotification, $checkPhone->token_device);
