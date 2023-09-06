@@ -1235,7 +1235,7 @@ function listTransactionHistoryCreateWarehousesEzpics(){
     if(!empty($listData)){
     	foreach ($listData as $key => $value) {
     		$listData[$key]->member = $modelMembers->get($value->member_id);
-    		$listData[$key]->warehouses = $modelwarehouses->find()->where(['id'=>$value->product_id])->first();
+    		$listData[$key]->warehouses = $modelWarehouse->find()->where(['id'=>$value->product_id])->first();
     	}
     }
 

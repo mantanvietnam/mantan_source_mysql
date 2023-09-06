@@ -200,7 +200,7 @@ function process_add_money($number=0, $order_id=0)
                             $modelOrder->save($order);
 
                             // gửi thông báo về app
-                            $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng '.number_format($order->total).'đ vào tài khoản '.$User->phone,'action'=>'addMoneySuccess');
+                            $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'- '.$User->name.' ơi. Bạn được cộng '.number_format($order->total).' VND do thành viên '.$data->name' đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 
                             if(!empty($User->token_device)){
                                 sendNotification($dataSendNotification, $User->token_device);

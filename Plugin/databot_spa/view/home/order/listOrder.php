@@ -60,7 +60,9 @@
                                                         if($item->type==1){
                                                             $type = 'Đã xử lý';
                                                         }elseif($item->type==2){
-                                                            $type = ' Hủy';
+                                                            $type = 'Dang sử lý';
+                                                        }elseif($item->type==3){
+                                                            $type = 'Hủy';
                                                         }
                                                         $checkin ='';
                                                         if(!empty($item->bed) && $item->status==0){
