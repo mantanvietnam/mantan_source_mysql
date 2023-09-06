@@ -14,6 +14,11 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Hình nền của khối</label>
+                  <?php showUploadFile('image_bg_1','image_bg_1', @$setting['image_bg_1'],200);?>
+                </div>
+
+                <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Hình ảnh chuyên gia đào tạo</label>
                   <?php showUploadFile('image_speaker','image_speaker', @$setting['image_speaker'],1);?>
                 </div>
@@ -35,7 +40,7 @@
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Nội dung đào tạo (mỗi nội dung 1 dòng)</label>
-                  <textarea name="content_training" class="form-control" rows="8"><?php echo @$setting['content_training'];?></textarea>
+                  <textarea name="content_training" class="form-control" rows="6"><?php echo @$setting['content_training'];?></textarea>
                 </div>
 
                 <div class="mb-3">
@@ -183,6 +188,11 @@
                   <textarea name="info_speaker_introduce" class="form-control" rows="5"><?php echo @$setting['info_speaker_introduce'];?></textarea>
                 </div>
 
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Hình nền của khối</label>
+                  <?php showUploadFile('image_bg_2','image_bg_2', @$setting['image_bg_2'],202);?>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
           </div>
@@ -207,7 +217,7 @@
 
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Lý do tham gia chương trình</label>
-                  <textarea name="info_reason_join" class="form-control" rows="5"><?php echo @$setting['info_reason_join'];?></textarea>
+                  <textarea name="info_reason_join" class="form-control" rows="8"><?php echo @$setting['info_reason_join'];?></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
@@ -282,6 +292,11 @@
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Đối tượng không nên tham gia (mỗi đối tượng 1 dòng)</label>
                   <textarea name="not_should_join" class="form-control" rows="8"><?php echo @$setting['not_should_join'];?></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Hình nền của khối</label>
+                  <?php showUploadFile('image_bg_3','image_bg_3', @$setting['image_bg_3'],203);?>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
@@ -415,6 +430,11 @@
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Tổng giá trị quà tặng</label>
                   <input type="text" class="form-control" name="price_gift" value="<?php echo @$setting['price_gift'];?>" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Hình nền của khối</label>
+                  <?php showUploadFile('image_bg_4','image_bg_4', @$setting['image_bg_4'],204);?>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>

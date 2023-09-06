@@ -18,7 +18,8 @@ function settingHomeThemeKDTC($input)
     	$dataSend = $input['request']->getData();
 
     	$value = array( 'image_speaker' => $dataSend['image_speaker'],
-    					'name_project' => $dataSend['name_project'],
+    					'image_bg_1' => $dataSend['image_bg_1'],
+                        'name_project' => $dataSend['name_project'],
     					'time_learning' => $dataSend['time_learning'],
                         'commit' => $dataSend['commit'],
                         'content_training' => $dataSend['content_training'],
@@ -52,6 +53,7 @@ function settingHomeThemeKDTC($input)
                         'name_speaker' => $dataSend['name_speaker'],
                         'image_speaker2' => $dataSend['image_speaker2'],
                         'info_speaker_introduce' => $dataSend['info_speaker_introduce'],
+                        'image_bg_2' => $dataSend['image_bg_2'],
 
                         'title_reason_join' => $dataSend['title_reason_join'],
                         'image_speaker3' => $dataSend['image_speaker3'],
@@ -68,6 +70,7 @@ function settingHomeThemeKDTC($input)
 
                         'should_join' => $dataSend['should_join'],
                         'not_should_join' => $dataSend['not_should_join'],
+                        'image_bg_3' => $dataSend['image_bg_3'],
 
                         'title_keep_place' => $dataSend['title_keep_place'],
                         'des_keep_place' => $dataSend['des_keep_place'],
@@ -85,6 +88,7 @@ function settingHomeThemeKDTC($input)
                         'title_gift' => $dataSend['title_gift'],
                         'list_gift' => $dataSend['list_gift'],
                         'price_gift' => $dataSend['price_gift'],
+                        'image_bg_4' => $dataSend['image_bg_4'],
 
                         'id_album_course' => $dataSend['id_album_course'],
                         'company' => $dataSend['company'],
@@ -115,7 +119,13 @@ function indexTheme($input)
     global $controller;
     global $settingThemes;
 
+    $albums = [];
+    if(!empty($settingThemes['id_album_course'])){
+        $albums = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_album_course']])->all()->toList();
+    }
+
     setVariable('settingThemes', $settingThemes);
+    setVariable('albums', $albums);
 }
 
 function postTheme($input)
