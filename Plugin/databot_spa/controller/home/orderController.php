@@ -56,8 +56,8 @@ function order($input){
         // sử lý đơn hàng
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
-			// debug($dataSend);
-			// die;
+			 debug($dataSend);
+			die;
 
 			// tạo đơn hàng 
 			$order = $modelOrder->newEmptyEntity();
@@ -173,8 +173,29 @@ function order($input){
                 }
 
                 return $controller->redirect('/order?mess=2');
+            }elseif($dataSend['typeOrder']==3){
+                 $Order = $modelOrder->find()->where(array('id_order'=>$dataSend['id_bed'], 'status'=>2))->first();
+                $bed = $modelBed->find()->where(array('id'=>$dataSend['id_bed'], 'status'=>2))->first();
+                if(empty($Order) && empty($bed)){
+                    $dataOrder = $modelOrder->get($order->id);
+
+                    $dataOrder->check_in = time();
+                    $dataOrder->status = 2;
+
+                    $modelOrder->save($dataOrder);
+
+                    $dataBed = $modelBed->get($dataOrder->id_bed);
+                    $dataBed->status = 2;
+
+                    $modelBed->save($dataBed);
+
+                    return $controller->redirect('/listRoomBed');
+                }else{
+                    return $controller->redirect('/listOrder?mess=conkhach');
+                }
             }else{
             	return $controller->redirect('/order?mess=1');
+                
             }
             
 		}
@@ -238,14 +259,18 @@ function listOrder($input){
             $conditions['time >='] = $date_start;
         }
 
-        if(!empty($_GET['date_start'])){
-            $date_start = explode('/', $_GET['date_start']);
-            $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
-            $conditions['time >='] = $date_start;
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $date_end = mktime(0,0,0,$date_end[1],$date_end[0],$date_end[2]);
+            $conditions['time <='] = $date_end;
         }
 
         if(!empty($_GET['idBed'])){
             $conditions['id_bed'] = $_GET['idBed'];
+        }
+
+        if(!empty($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
         }
 
         if(empty($_GET['searchProduct'])){
@@ -319,6 +344,11 @@ function listOrder($input){
         $conditionsWarehouse = array('id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
         $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
 
+        $mess = '';
+        if(@$_GET['mess']=='conkhach'){
+            $mess = '<p style="color: #00f83a;">Phòng vẫn có khách không check in được</p>';
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -347,21 +377,30 @@ function checkinbed($input){
     $metaTitleMantan = 'Danh sách đơn hàng';
     
     if(!empty($session->read('infoUser'))){
-        $modelCombo = $controller->loadModel('Combos');
-        $modelWarehouses = $controller->loadModel('Warehouses');
-        $modelProduct = $controller->loadModel('Products');
-        $modelCustomer = $controller->loadModel('Customers');
-        $modelService = $controller->loadModel('Services');
-        $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
-        $modelMembers = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
-        $modelOrderDetails = $controller->loadModel('OrderDetails');
-
         $user = $session->read('infoUser');
 
         if(!empty($_GET['id_order'])){
+            $Order = $modelOrder->find()->where(array('id_order'=>$_GET['id_bed'], 'status'=>2))->first();
+            $bed = $modelBed->find()->where(array('id'=>$_GET['id_bed'], 'status'=>2))->first();
+            if(empty($Order) && empty($bed)){
+                $dataOrder = $modelOrder->get($_GET['id_order']);
 
+                $dataOrder->check_in = time();
+                $dataOrder->status = 2;
+
+                $modelOrder->save($dataOrder);
+
+                $dataBed = $modelBed->get($_GET['id_bed']);
+                $dataBed->status = 2;
+
+                $modelBed->save($dataBed);
+
+                return $controller->redirect('/listRoomBed');
+            }else{
+                return $controller->redirect('/listOrder?mess=conkhach');
+            }
         }
 
     }else{
