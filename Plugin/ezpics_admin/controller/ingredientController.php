@@ -5,11 +5,11 @@ function listIngredientAdmin($input)
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
-    global $modelCategories;
 
     $metaTitleMantan = 'Danh sách thư viện ảnh';
 
     $modelIngredients = $controller->loadModel('Ingredients');
+
     
     $conditions = array();
      if(!empty($_GET['keyword'])){
@@ -30,8 +30,14 @@ function listIngredientAdmin($input)
 
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
-            $conditions_scan = array('id'=>$value->category_id);
-            $listData[$key]->categories = $modelCategories->find()->where($conditions_scan)->first();
+            if (!empty($value->category_id)) {
+                $conditions_scan = array('id'=>$value->category_id);
+                $categories = $modelCategories->find()->where($conditions_scan)->first();
+
+                if (!empty($categories)) {
+                    $listData[$key]->categories = $categories;
+                }
+            }
         }
     }
 

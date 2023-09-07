@@ -17,6 +17,14 @@ function listProductAdmin($input)
 	if($page<1) $page = 1;
 	$order = array('id'=>'desc');
 
+	if(!empty($_GET['order'])){
+		if($_GET['order']==1){
+			$order = array('sold'=>'desc');
+		}elseif($_GET['order']==2){
+			$order = array('views'=>'desc');
+		}
+	}
+
 	if(!isset($_GET['type'])) $_GET['type'] = 'user_create';
 	//if(!isset($_GET['status'])) $_GET['status'] = 1;
 

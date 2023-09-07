@@ -72,7 +72,14 @@
             <label class="form-label">Đến ngày</label>
             <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
-          
+          <div class="col-md-2">
+            <label class="form-label">Sắp xếp</label>
+            <select name="order" class="form-select color-dropdown">
+              <option value="" <?php if(isset($_GET['order']) && $_GET['order']=='') echo 'selected';?> >Sắp xếp</option>
+              <option value="1" <?php if(!empty($_GET['order']) && $_GET['order']=='1') echo 'selected';?> >Mẫu bán nhiều nhất</option>
+              <option value="2" <?php if(!empty($_GET['order']) && $_GET['order']=='2') echo 'selected';?> >Mấu xem nhiêu nhất</option>              
+            </select>
+          </div>
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Lọc</button>

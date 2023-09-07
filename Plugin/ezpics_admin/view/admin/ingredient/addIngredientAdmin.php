@@ -36,7 +36,7 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">thể loại</label>
-                    <select class="form-select" name="category_id" id="category_id">
+                    <select class="form-select" required name="category_id" id="category_id">
                         <option value="">Chọn thể loại</option>
                         <?php 
                           if(!empty($listCategory)){
