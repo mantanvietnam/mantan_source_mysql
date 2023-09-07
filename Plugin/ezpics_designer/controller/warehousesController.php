@@ -76,7 +76,7 @@ function listWarehouse($input)
 
 	    $mess = '';
 	    if(@$_GET['mess']==1){
-	    	$mess = '<p class="text-success">Tài khoản của bạn không đủ tiền tạo kho!</p>';
+	    	$mess = '<p class="text-success">Để thực hiện chức năng này, bạn cần có sẵn 1.000.000 VND trong ví. Vui lòng nạp thêm tiền để hoàn thành thao tác</p>';
 	    }
 
 	    setVariable('page', $page);

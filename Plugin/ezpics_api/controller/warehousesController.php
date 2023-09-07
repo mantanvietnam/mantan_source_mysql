@@ -906,7 +906,7 @@ function addWarehouseLostMoneyAPI($input)
 					}
 			   }else{
 			    	$return = array('code'=>4,
-								'mess'=>'Tài khoản của bạn không đủ tiền'
+								'mess'=>'Để thực hiện chức năng này, bạn cần có sẵn 1.000.000 VND trong ví. Vui lòng nạp thêm tiền để hoàn thành thao tác'
 								);
 				}
 			}else{

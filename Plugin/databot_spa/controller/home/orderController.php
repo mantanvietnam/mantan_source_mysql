@@ -269,7 +269,7 @@ function listOrder($input){
             $conditions['id_bed'] = $_GET['idBed'];
         }
 
-        if(!empty($_GET['status'])){
+        if(isset($_GET['status'])){
             $conditions['status'] = $_GET['status'];
         }
 

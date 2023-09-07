@@ -544,7 +544,7 @@ function memberBuyProAPI($input){
 
 					$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 				}else{
-					$return = array('code'=>3, 'mess'=>'Tài khoản không đủ tiền');
+					$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
 				}
 			}else{
 				$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
@@ -676,7 +676,7 @@ function memberExtendProAPI($input){
 
 					$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 				}else{
-					$return = array('code'=>3, 'mess'=>'Tài khoản không đủ tiền');
+					$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
 				}
 			}else{
 				$return = array('code'=>4, 'mess'=>'Tài khoản chưa lên cấp Pro');

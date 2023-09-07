@@ -65,4 +65,69 @@ function addNotificationProductAPI($input){
 	}else{
 		echo '<p class="text-danger">Không tìm được sản phẩm</p>';
 	}
-} ?>
+}
+
+function addNotificationDeadlineProAPI($input){
+	global $controller;
+	global $isRequestPost;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Gửi thông báo sản phẩm mới cho người dùng';
+
+	$modelMembers = $controller->loadModel('Members');
+
+
+	$conditions['member_pro'] = 1;
+	$conditions['deadline_pro <='] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 2 days'));
+	$conditions['deadline_pro >='] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' - 3 days'));
+
+    $listData = $modelMembers->find()->where($conditions)->all()->toList();
+   
+    $number = 0;
+    if(!empty($listData)){
+    	foreach($listData as $key => $value){
+    		$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> '','action'=>'addMoneySuccess');
+
+	        if(!empty($value->token_device)){
+	            // sendNotification($dataSendNotification, $value->token_device);
+	            $number ++;
+	        }
+    	}
+    }
+    return array('code'=>1, 'mess'=>'Đã bắt được '.$number.' thông báo');
+}
+
+function addNotificationDeadlineTrialProAPI($input){
+	global $controller;
+	global $isRequestPost;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Gửi thông báo sản phẩm mới cho người dùng';
+
+	$modelMembers = $controller->loadModel('Members');
+
+
+	$conditions['member_pro'] = 1;
+	$conditions['is_use_trial'] = 1;
+	$conditions['deadline_pro <='] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 2 days'));
+	$conditions['deadline_pro >='] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' - 3 days'));
+
+
+    
+    $listData = $modelMembers->find()->where($conditions)->all()->toList();
+
+    $number = 0;
+    if(!empty($listData)){
+    	foreach($listData as $key => $value){
+    		$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn dùng thử Pro','time'=>date('H:i d/m/Y'),'content'=> '','action'=>'addMoneySuccess');
+
+	        if(!empty($value->token_device)){
+	            // sendNotification($dataSendNotification, $value->token_device);	
+	            $number ++;
+	        }
+    	}
+    }
+    return array('code'=>1, 'mess'=>'Đã bắt được '.$number.' thông báo');
+}
+
+ ?>

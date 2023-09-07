@@ -541,6 +541,7 @@ function getInfoMemberAPI($input)
 			if(!empty($checkPhone)){
 				$name_slug = createSlugMantan($checkPhone->name);
 				$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
+				$checkPhone->link_codePQ = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://ezpics.page.link/register?affsource='$checkPhone->aff;
 				
 				$return = array('code'=>0,
 								 'data'=>$checkPhone,
@@ -605,6 +606,7 @@ function getInfoUserAPI($input)
 
 					$name_slug = createSlugMantan($checkPhone->name);
 					$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
+					$checkPhone->link_codePQ = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://ezpics.page.link/register?affsource='$checkPhone->aff;
 
 					$return = array('code'=>0,
 								 'data'=>$checkPhone,

@@ -128,17 +128,17 @@ rel='stylesheet' type='text/css'>
             callback: function (key, options) {
                 switch (key) {
                     case 'paid':
-                    url = urlPaid + '?idroom=' + options.$trigger.attr("idroom");
+                    url = urlPaid + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
                     break;
                     case 'cancel':
-                    cancelData(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"));
+                    cancelData(options.$trigger.attr("idBed"),options.$trigger.attr("nameroom"));
                     break;
                     case 'changeroom':
-                    changRoom(options.$trigger.attr("idroom"));
+                    changRoom(options.$trigger.attr("idBed"));
                     break;
                     case 'addservice':
-                    url = urlAddservice + '?idroom=' + options.$trigger.attr("idroom");
+                    url = urlAddservice + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
                     break;
                     case 'view':
@@ -146,22 +146,22 @@ rel='stylesheet' type='text/css'>
                     window.location = url;
                     break;
                     case 'listwaiting':
-                    url = urlListwaiting + '?idroom=' + options.$trigger.attr("idroom");
+                    url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                     window.location = url;
                     break;
                     case 'edit':
-                    url = urlEdit + '?idroom=' + options.$trigger.attr("idroom");
+                    url = urlEdit + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
                     break;
                     case 'report':
-                    url = urlReport + '?idroom=' + options.$trigger.attr("idroom");
+                    url = urlReport + '?idBed=' + options.$trigger.attr("idBed");
                     window.location = url;
                     break;
                     case 'clear':
-                    clearData(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"),options.$trigger.attr("clearroom"));
+                    clearData(options.$trigger.attr("idBed"),options.$trigger.attr("nameroom"),options.$trigger.attr("clearroom"));
                     break;
                     case 'addPrepay':
-                    showAddPrepay(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"));
+                    showAddPrepay(options.$trigger.attr("idBed"),options.$trigger.attr("nameroom"));
                     break;
                 }
             },
@@ -236,7 +236,7 @@ rel='stylesheet' type='text/css'>
                     window.location = url;
                     break;
                     case 'listwaiting':
-                    url = urlListwaiting + '?idroom=' + options.$trigger.attr("idroom");
+                    url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
                     window.location = url;
                     break;
                     case 'edit':
