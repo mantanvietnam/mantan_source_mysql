@@ -5,6 +5,7 @@ function listIngredientAdmin($input)
     global $urlCurrent;
     global $modelCategories;
     global $metaTitleMantan;
+    global $modelCategories;
 
     $metaTitleMantan = 'Danh sách thư viện ảnh';
 
@@ -16,9 +17,9 @@ function listIngredientAdmin($input)
         $conditions['keyword LIKE']= '%'.$_GET['keyword'].'%';
     }
 
-    if(!empty($_GET['type'])){
+    if(!empty($_GET['category_id'])){
 
-        $conditions['type']= $_GET['type'];
+        $conditions['category_id']= $_GET['category_id'];
     }
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -29,9 +30,8 @@ function listIngredientAdmin($input)
 
     if(!empty($listData)){
         foreach ($listData as $key => $value) {
-            $conditions_scan = array('id'=>$value->id);
-            $static = $modelIngredients->find()->where($conditions_scan)->all()->toList();
-            $listData[$key]->number_scan = count($static);
+            $conditions_scan = array('id'=>$value->category_id);
+            $listData[$key]->categories = $modelCategories->find()->where($conditions_scan)->first();
         }
     }
 
@@ -78,6 +78,9 @@ function listIngredientAdmin($input)
         $mess= '<p class="text-success" style="padding-left: 1.5em;">Xóa dữ liệu thành công</p>';
     }
 
+    $conditions = array('type' => 'ingredient_categories');
+    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('mess', @$mess);
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -86,6 +89,7 @@ function listIngredientAdmin($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('listCategory', $listCategory);
 }
 
 function addIngredientAdmin($input)
@@ -95,6 +99,7 @@ function addIngredientAdmin($input)
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $modelCategories;
     
     $metaTitleMantan = 'Thông tin thư viện ảnh';
 
@@ -116,7 +121,7 @@ function addIngredientAdmin($input)
         $dataSend = $input['request']->getData();
         // tạo dữ liệu saves
         $data->image = @$dataSend['image'];
-        $data->type = @$dataSend['type'];
+        $data->category_id = @$dataSend['category_id'];
         $data->status = @$dataSend['status'];
         $data->keyword = @$dataSend['keyword'];
         $data->updated_at = date('Y-m-d H:i:s');
@@ -132,10 +137,12 @@ function addIngredientAdmin($input)
         }
     }
 
-
+    $conditions = array('type' => 'ingredient_categories');
+    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
     setVariable('data', $data);
     setVariable('mess', $mess);
+    setVariable('listCategory', $listCategory);
 }
 
 function deleteIngredientAdmin($input){
@@ -150,5 +157,48 @@ function deleteIngredientAdmin($input){
     }
 
     return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php?status=3');
+}
+
+function listCategoryIngredientEzpics($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $controller;
+
+    $metaTitleMantan = 'Danh mục thư viện ảnh';
+    $modelProducts = $controller->loadModel('Products');$modelIngredients = $controller->loadModel('Ingredients');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        
+        // tính ID category
+        if(!empty($dataSend['idCategoryEdit'])){
+            $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+        }else{
+            $infoCategory = $modelCategories->newEmptyEntity();
+        }
+
+        // tạo dữ liệu save
+        $infoCategory->name = $dataSend['name'];
+        $infoCategory->type = 'ingredient_categories';
+        $infoCategory->created_at = date('Y-m-d H:i:s');
+
+        $modelCategories->save($infoCategory);
+
+    }
+
+    $conditions = array('type' => 'ingredient_categories');
+    $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    $totalIngredient = 0;
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $products = $modelIngredients->find()->where(['category_id'=>$value->id])->all()->toList();
+            $listData[$key]->number_product = count($products);
+            $totalIngredient += count($products);
+        }
+    }
+
+    setVariable('listData', $listData);
 }
 ?>

@@ -175,5 +175,5 @@
 
 	$routesPlugin['listIngredientAPI']= 'ezpics_api/view/listIngredientAPI.php';
 	$routesPlugin['getIngredientAPI']= 'ezpics_api/view/getIngredientAPI.php';
-	$routesPlugin['typeIngredientAPI']= 'ezpics_api/view/typeIngredientAPI.php';	
+	$routesPlugin['categoryIngredientAPI']= 'ezpics_api/view/categoryIngredientAPI.php';	
 ?>
