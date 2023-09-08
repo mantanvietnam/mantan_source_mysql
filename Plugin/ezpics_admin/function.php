@@ -189,10 +189,15 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                             'classIcon'=>'bx bx-category',
                                             'permission'=>'listDiscountCodeAdmin',
                                         ),
-                                        array('title'=>'Thư viên ảnh',
+                                        array('title'=>'Thư viện ảnh',
                                             'url'=>'/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php',
                                             'classIcon'=>'bx bx-category',
                                             'permission'=>'listIngredientAdmin',
+                                        ),
+                                        array('title'=>'Danh mục thư viện ảnh',
+                                            'url'=>'/plugins/admin/ezpics_admin-view-admin-ingredient-listCategoryIngredientEzpics.php',
+                                            'classIcon'=>'bx bx-category',
+                                            'permission'=>'listCategoryIngredientEzpics',
                                         ),
                                     )
                         );
@@ -259,11 +264,6 @@ global $ftp_password_upload_image;
 global $ftp_password_upload_image;
 global $recommenders;
 global $type_ingredient;
-
-
-$type_ingredient = array( 'nguoi_mau' => 'Người Mẫu ',
-                          'thanh_phan' => 'Thành phần',
-                    );
 
 
 $recommenders = 5;

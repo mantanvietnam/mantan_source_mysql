@@ -236,18 +236,23 @@ function buyWarehousesAPI($input)
 			                    $modelOrder->save($order);
 		                	}
 
-		                	 $data = $modelWarehouseUsers->newEmptyEntity();
-		                	 // tạo dữ liệu save
-						     $data->warehouse_id = (int) $Warehouse->id;
-						     $data->user_id = $infoUser->id;
-						     $data->designer_id = $infoUserSell->id;
-						     $data->price = $Warehouse->price;
-						     $data->created_at = date('Y-m-d H:i:s');
-						     $data->note ='';
-						     $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
+		                	$data = $modelWarehouseUsers->newEmptyEntity();
+		                	// tạo dữ liệu save
+						    $data->warehouse_id = (int) $Warehouse->id;
+						    $data->user_id = $infoUser->id;
+						    $data->designer_id = $infoUserSell->id;
+						    $data->price = $Warehouse->price;
+						    $data->created_at = date('Y-m-d H:i:s');
+						    $data->note ='';
+						    $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +'.@$Warehouse->date_use.' days'));
 						        
-						     $modelWarehouseUsers->save($data);
-						     $return = array('code'=>1, 'mess'=>'Bạn đã mua kho thành công');
+						    $modelWarehouseUsers->save($data);
+						    $return = array('code'=>1, 'mess'=>'Bạn đã mua kho thành công');
+
+						    $dataSendNotification= array('title'=>'Có người đăng ký mua Bộ Sưu Tập của bạn','time'=>date('H:i d/m/Y'),'content'=>$infoUserSell->name.' ơi. Bạn được cộng '.number_format((65 / 100) * $Warehouse->price).' VND vào ví do thành viên '.$infoUser->name.' đã đăng ký mua Bộ Sưu Tập '.@$Warehouse->name.' Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+		                    if(!empty($infoUserSell->token_device)){
+		                        sendNotification($dataSendNotification, $infoUserSell->token_device);
+		                    }
 						}else{
 							$return = array('code'=>4,
 											'mess'=>'Tài khoản không đủ tiền'
@@ -628,6 +633,10 @@ function extendWarehousesAPI($input)
 						    }
 						     $modelWarehouseUsers->save($WarehouseUsers);
 						     $return = array('code'=>1, 'mess'=>'Bạn đã gia hạn kho thành công');
+						      $dataSendNotification= array('title'=>'Có người đăng ký mua Bộ Sưu Tập của bạn','time'=>date('H:i d/m/Y'),'content'=>$infoUserSell->name.' ơi. Bạn được cộng '.number_format((65 / 100) * $Warehouse->price).' VND vào ví do thành viên '.$infoUser->name.' đã đăng ký mua Bộ Sưu Tập '.@$Warehouse->name.' Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+		                    if(!empty($infoUserSell->token_device)){
+		                        sendNotification($dataSendNotification, $infoUserSell->token_device);
+		                    }
 						}else{
 							$return = array('code'=>4,
 											'mess'=>'Tài khoản không đủ tiền'
@@ -897,7 +906,7 @@ function addWarehouseLostMoneyAPI($input)
 					}
 			   }else{
 			    	$return = array('code'=>4,
-								'mess'=>'Tài khoản của bạn không đủ tiền'
+								'mess'=>'Để thực hiện chức năng này, bạn cần có sẵn 1.000.000 VND trong ví. Vui lòng nạp thêm tiền để hoàn thành thao tác'
 								);
 				}
 			}else{

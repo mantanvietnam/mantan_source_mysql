@@ -409,7 +409,7 @@ function addMoneyManager($input){
                             $modelOrder->save($save);
 
                             // gửi thông báo về app
-                            $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'- '.$User->name.' ơi. Bạn được cộng '.number_format($save->total).' VND do thành viên '.$data->name' đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+                            $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'- '.$User->name.' ơi. Bạn được cộng '.number_format($save->total).' VND do thành viên '.$data->name.' đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 
                             if(!empty($User->token_device)){
                                 sendNotification($dataSendNotification, $User->token_device);

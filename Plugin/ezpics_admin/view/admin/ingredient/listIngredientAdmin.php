@@ -12,14 +12,14 @@
                 </td>
                 <td>
                   <label >Thể loại</label>
-                    <select class="form-select" name="type" id="type">
+                    <select class="form-select" name="category_id" id="category_id">
                         <option value="">Chọn thể loại</option>
                         <?php 
-                            foreach($type_ingredient as $key => $value){
-                               if($key == @$_GET['type']){
-                                echo '<option selected  value="'.$key.'">'.$value.'</option>';
+                            foreach($listCategory as $key => $value){
+                               if($value->id == @$_GET['category_id']){
+                                echo '<option selected  value="'.$value->id.'">'.$value->name.'</option>';
                               }else{
-                                echo '<option  value="'.$key.'">'.$value.'</option>';
+                                echo '<option  value="'.$value->id.'">'.$value->name.'</option>';
                               }
                             }
                         ?>
@@ -61,7 +61,7 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.@$item->image.'" width="100"></td>
                         <td>'.$item->keyword.'</td>
-                        <td>'.$type_ingredient[$item->type].'</td>
+                        <td>'.$item->categories->name.'</td>
                         <td>'.$status.'</td>
                          <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-ingredient-addIngredientAdmin.php/?id='.$item->id.'">

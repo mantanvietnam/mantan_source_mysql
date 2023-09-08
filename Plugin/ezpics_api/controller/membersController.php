@@ -40,7 +40,7 @@ function saveRegisterMemberAPI($input)
 						$affsource = $modelMember->find()->where(array('aff'=>$dataSend['affsource']))->first();
 						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
-
+						}
 							
 					}
 					$data->email = @$dataSend['email'];
@@ -59,7 +59,6 @@ function saveRegisterMemberAPI($input)
 					if(!empty($affsource)){
 					// gửi thông báo về app cho người giới thiệu
 	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn.','action'=>'adminSendNotification');
-
 	                    if(!empty($affsource->token_device)){
 	                        sendNotification($dataSendNotification, $affsource->token_device);
 	                    }
@@ -542,6 +541,7 @@ function getInfoMemberAPI($input)
 			if(!empty($checkPhone)){
 				$name_slug = createSlugMantan($checkPhone->name);
 				$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
+				$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://ezpics.page.link/register?affsource='.$checkPhone->aff;
 				
 				$return = array('code'=>0,
 								 'data'=>$checkPhone,
@@ -606,6 +606,7 @@ function getInfoUserAPI($input)
 
 					$name_slug = createSlugMantan($checkPhone->name);
 					$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
+					$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://ezpics.page.link/register?affsource='.$checkPhone->aff;
 
 					$return = array('code'=>0,
 								 'data'=>$checkPhone,

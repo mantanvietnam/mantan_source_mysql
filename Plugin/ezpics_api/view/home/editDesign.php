@@ -172,7 +172,7 @@
 	                                <a href="javascript:void(0)" class="clc-close-action">&times;</a>
 	                            </div>
 	                            <div class="list-chang-replace">
-	                                <input type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" value="#fff" class="w-100 color">
+	                                <input type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" value="#ffffff" class="w-100 color">
 	                            </div>
 	                        </div>
 	                        <div class="content-action" id="gradient"> 

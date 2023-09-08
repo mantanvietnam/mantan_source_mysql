@@ -20,8 +20,8 @@ function listIngredientAPI($input){
 		    if(!empty($dataSend['keyword'])){
 		        $conditions['keyword LIKE']= '%'.$dataSend['keyword'].'%';
 		    }
-		    if(!empty($dataSend['type'])){
-		        $conditions['type']= $dataSend['type'];
+		    if(!empty($dataSend['category_id'])){
+		        $conditions['category_id']= $dataSend['category_id'];
 		    }
 		    $limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:20;
 			$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
@@ -84,12 +84,17 @@ function getIngredientAPI($input){
 	return $return;
 }
 
-function typeIngredientAPI($input){
-	$type_ingredient = array( 'nguoi_mau' => 'Người Mẫu ',
-                          'thanh_phan' => 'Thành phần',
-                    );
+function categoryIngredientAPI($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $controller;
+
+
+	$conditions = array('type' => 'ingredient_categories');
+    $listData = $modelCategories->find()->where($conditions)->all()->toList();
 	return array('code'=>1,
-				'data'=> $type_ingredient,
+				'data'=> $listData,
 				'mess'=>'Bạn lấy data thành công',
 			);
 }

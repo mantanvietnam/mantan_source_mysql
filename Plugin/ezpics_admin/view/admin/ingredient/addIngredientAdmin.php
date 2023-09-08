@@ -36,17 +36,18 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">thể loại</label>
-                    <select class="form-select" name="type" id="type">
+                    <select class="form-select" required name="category_id" id="category_id">
                         <option value="">Chọn thể loại</option>
                         <?php 
-                          global $type_ingredient;
-                            foreach($type_ingredient as $key => $value){
-                               if($key == $data->type){
-                                echo '<option selected  value="'.$key.'">'.$value.'</option>';
+                          if(!empty($listCategory)){
+                            foreach($listCategory as $key => $value){
+                               if($value->id == $data->category_id){
+                                echo '<option selected  value="'.$value->id.'">'.$value->name.'</option>';
                               }else{
-                                echo '<option  value="'.$key.'">'.$value.'</option>';
+                                echo '<option  value="'.$value->id.'">'.$value->name.'</option>';
                               }
                             }
+                          }
                         ?>
                       </select>
                   </div>
