@@ -90,8 +90,6 @@
                     <div class="list-product">
                         <div class="row">
                             <?php 
-
-
                                 if(!empty($listProductProjects)){
                                     foreach($listProductProjects as $key => $value){
                                         echo'
