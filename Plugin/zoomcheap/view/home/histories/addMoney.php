@@ -18,7 +18,7 @@
               <div class="col-md-12">
                 <div class="mb-3">
                   <label class="form-label">Số tiền muốn nạp (*)</label>
-                  <input type="number" id="money" class="form-control" value="">
+                  <input type="number" min="10000" id="money" class="form-control" value="">
                 </div>
               </div>
 

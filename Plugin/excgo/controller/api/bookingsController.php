@@ -103,18 +103,8 @@ function getBookingListApi($input): array
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-
-        if (!isset($dataSend['access_token'])) {
-            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
-        } else {
-            $currentUser = getUserByToken($dataSend['access_token']);
-
-            if (empty($currentUser)) {
-                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
-            }
-        }
-
         $conditions = [];
+        $order = ['created_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
         if ($page < 1) $page = 1;
@@ -132,24 +122,36 @@ function getBookingListApi($input): array
                 ['departure_province_id' => $dataSend['province_id']],
                 ['destination_province_id' => $dataSend['province_id']]
             ]];
-        } else {
+        }
+
+        if (!empty($dataSend['access_token'])) {
+            // TH: user đã đăng nhập
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            // Mặc định sẽ sắp xếp các cuốc xe có điểm đi hoặc đến các tỉnh được ghim lên trước
             $listPinnedProvince = $modelPinnedProvince->find()
                 ->where(['user_id =' => $currentUser->id])
                 ->all();
-            $listPinnedProvinceIds = $listPinnedProvince->map(function ($item) {
-                return $item->province_id;
-            })->toArray();
-            $conditions[] = ['OR' => [
-                ['departure_province_id IN' => $listPinnedProvinceIds],
-                ['destination_province_id IN' => $listPinnedProvinceIds]
-            ]];
-        }
 
+            if (count($listPinnedProvince)) {
+                $listPinnedProvinceIds = $listPinnedProvince->map(function ($item) {
+                    return $item->province_id;
+                })->toArray();
+                $listPinnedProvinceIds = implode(',', $listPinnedProvinceIds);
+                $order = [
+                    "departure_province_id IN ($listPinnedProvinceIds) OR destination_province_id IN ($listPinnedProvinceIds)" => 'DESC'
+                ] + $order;
+            }
+        }
         $listData = $modelBooking->find()
             ->limit($limit)
             ->page($page)
             ->where($conditions)
-            ->order(['created_at' => 'DESC'])
+            ->order($order)
             ->all()
             ->toList();
         $totalBookings = $modelBooking->find()
