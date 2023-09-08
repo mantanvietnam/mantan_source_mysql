@@ -89,11 +89,11 @@
                         <div class="col-lg-7 col-md-7">
                             <div class="banner-content-text">
                                 <div class="content-text-title content-text-title1">
-                                    <p>Chương trình đào tạo</p>
+                                    <h1>Chương trình đào tạo</h1>
                                 </div>
 
                                 <div class="content-text-title content-text-title2">
-                                    <p><?php echo @$settingThemes['name_project'];?></p>
+                                    <h1><?php echo @$settingThemes['name_project'];?></h1>
                                 </div>
 
                                 <div class="content-text-details">
@@ -126,7 +126,7 @@
         <section id="section-video">
             <div class="container">
                 <div class="title-video">
-                    <h1><?php echo @$settingThemes['call_registration'];?></h1>   
+                    <h2><?php echo @$settingThemes['call_registration'];?></h2>   
                 </div>
 
                 <div class="video-content">
@@ -143,7 +143,7 @@
         <section id="section-hope">
             <div class="hope-box">
                 <div class="hope-title">
-                    <h1><?php echo @$settingThemes['title_demand'];?></h1>
+                    <h2><?php echo @$settingThemes['title_demand'];?></h2>
                 </div>
 
                 <div class="hope-content">
@@ -185,7 +185,7 @@
                     </div>
         
                     <div class="title-content">
-                        <h1>NỘI DUNG KHÓA HỌC</h1>   
+                        <h2>NỘI DUNG KHÓA HỌC</h2>   
                     </div>
     
                     <div class="content-list">
@@ -395,7 +395,7 @@
 
                         <div class="col-lg-8 col-md-8 col-12 who-right">
                             <div class="who-title">
-                                <h1><?php echo @$settingThemes['title_info_speaker'];?></h1>
+                                <h2><?php echo @$settingThemes['title_info_speaker'];?></h2>
                             </div>
 
                             <div class="who-content-right">
@@ -412,7 +412,7 @@
             <div class="reason-box">
                 <div class="container">
                     <div class="reason-title">
-                        <h1><?php echo @$settingThemes['title_reason_join'];?></h1>
+                        <h2><?php echo @$settingThemes['title_reason_join'];?></h2>
                         <div class="reason-divide"></div>
                     </div>
                     <div class="row">
@@ -438,7 +438,7 @@
             <div class="should-content">
                 <div class="container">
                     <div class="should-title">
-                        <h1>AI NÊN THAM GIA KHÓA HỌC NÀY</h1>
+                        <h2>AI NÊN THAM GIA KHÓA HỌC NÀY</h2>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
@@ -495,7 +495,7 @@
                 <div class="photo-content-detail">
                     <div class="container">
                         <div class="photo-title">
-                            <h1>MỘT SỐ HÌNH ẢNH KHÓA HỌC ĐÃ DIỄN RA</h1>
+                            <h2>MỘT SỐ HÌNH ẢNH KHÓA HỌC ĐÃ DIỄN RA</h2>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12 photo-content-item">
@@ -574,7 +574,7 @@
                 <div class="container">
                     <div class="register-title-box">
                         <div class="register-title1">
-                            <h1><?php echo @$settingThemes['title_keep_place'];?></h1>
+                            <h2><?php echo @$settingThemes['title_keep_place'];?></h2>
                         </div>
                         <div class="register-title2">
                             <h2><?php echo @$settingThemes['des_keep_place'];?></h2>

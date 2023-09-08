@@ -1,7 +1,6 @@
 <?php 
     global $settingThemes;
     global $modelAlbums;
-    debug($listProductProjects);
 ?>
 
 <?php getHeader();?>
@@ -71,7 +70,6 @@
                                     </div>
                                 </div>';
                             }
-                           
                         }
                     ?>
                    

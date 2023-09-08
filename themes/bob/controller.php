@@ -130,11 +130,10 @@ function indexTheme($input)
         foreach($listProductProjects as $key => $value){
             if(!empty($value->id_product)){
                 $arrProductID = explode(',', $value->id_product);
+                $listProductProjects[$key]->infoProduct = [];
                 foreach($arrProductID as $item){
-                    $infoProduct = $modelProduct->find()->where(['id'=> (int)$item])->all()->toList();
-                    $listProductProjects[$key]->infoProduct = $infoProduct;
-
-                    debug($infoProduct);                   
+                    $infoProduct = $modelProduct->find()->where(['id'=> (int)$item])->first();
+                    $listProductProjects[$key]->infoProduct[(int)$item] = $infoProduct;                  
                 }
             }   
            

@@ -230,7 +230,7 @@ a{
     padding-top: 76px
 }
 
-.banner-content-text p{
+.banner-content-text h1{
     color: #fff;
     text-align: center;
 }
@@ -325,7 +325,7 @@ a{
     margin-bottom: 25px;
 }
 
-#section-video .title-video h1{
+#section-video .title-video h2{
     font-size: 33px;
     color: #000;
     margin-bottom: 25px;
@@ -447,7 +447,7 @@ a{
 }
 
 
-#section-content .title-content h1{
+#section-content .title-content h2{
     font-size: 33px;
     color: #000;
     font-weight: bold;
@@ -776,7 +776,7 @@ a{
     z-index: -1;
 }
 
-#section-who .who-title h1{
+#section-who .who-title h2{
     font-size: 30px;
     color: #fff;
     font-weight: bold;
@@ -870,7 +870,7 @@ a{
     z-index:-1
 }
 
-#section-commit .commit-detail-title h1{
+#section-commit .commit-detail-title h2{
     color: #fff;
     font-weight: bold;
     margin-bottom: 60px;
@@ -1302,7 +1302,7 @@ a{
     position: relative;
 }
 
-#section-reason .reason-title h1{
+#section-reason .reason-title h2{
     color: #000;
     font-size: 32px;
     font-weight: bold;
@@ -1390,6 +1390,14 @@ a{
 
 /* chung */
 @media (max-width: 426px){
+    .iframe-video iframe{
+        width: 100%;
+    }
+
+    #section-secret .secret-item{
+        margin-bottom: 5px;
+    }
+
     #section-register .register-title-box .register-title1{
         line-height: 1.6;
     }
@@ -1414,7 +1422,7 @@ a{
         padding-right: 12px ;
     }
 
-    #section-who .who-title h1{
+    #section-who .who-title h2{
         text-align: center;
     }
 
@@ -1445,7 +1453,7 @@ a{
 
    
 
-    #section-commit .commit-detail-title h1{
+    #section-commit .commit-detail-title h2{
         margin-bottom: 20px;
     }
 
@@ -1461,6 +1469,7 @@ a{
     #section-learn .learn-left-item{
         margin-top: 50px;
     }
+    
 
     #section-learn .learn-left-item{
         margin-top: 50px;
@@ -1504,7 +1513,7 @@ a{
         font-size: 20px;
     }
 
-    #section-reason .reason-title h1{
+    #section-reason .reason-title h2{
         text-align: center;
     }
 

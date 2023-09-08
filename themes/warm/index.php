@@ -10,7 +10,7 @@
         <?php
         if(!empty($slide_home)){
         echo'
-        <section id="section-home-banner">
+        <section id="section-home-banner" class="section-home-banner-background">
             <div class="home-banner">
                 <div class="logo-banner-box">
                     <div class="container">

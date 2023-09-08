@@ -867,3 +867,7 @@ img{
 }
 
 
+/* Sửa css của Long */
+.list-product-all .page-item.active .page-link{
+    background-color: #000 !important;
+}
