@@ -226,6 +226,38 @@
             </li>
 
             <!-- Template -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Marketing Automation</span></li>
+            <!-- Cards -->
+
+            <li class="menu-item">
+              <a href="/listCampain" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-line-chart"></i>
+                <div>Chiến dịch</div>
+              </a>
+            </li> 
+
+            <li class="menu-item">
+              <a href="/listUserCampain" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-voice"></i>
+                <div>Người đăng ký</div>
+              </a>
+            </li> 
+
+            <li class="menu-item">
+              <a href="/listSMSMarketing" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-mail-send"></i>
+                <div>Gửi SMS</div>
+              </a>
+            </li>  
+
+            <li class="menu-item">
+              <a href="/listEmailMarketing" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-mail-send"></i>
+                <div>Gửi Email</div>
+              </a>
+            </li>   
+
+            <!-- Template -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cài đặt hệ thống</span></li>
             <!-- Cards -->
 

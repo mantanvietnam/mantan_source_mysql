@@ -315,6 +315,8 @@ $sqlInstallDatabase .="CREATE TABLE `order_details` (
   `price` INT NULL DEFAULT NULL , 
   `quantity` INT NULL DEFAULT NULL , 
 ) ENGINE = InnoDB;"
+
+$sqlInstallDatabase .="CREATE TABLE `campains` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `codeSecurity` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `numberPersonWinSpin` INT NOT NULL , `typeUserWin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `noteCheckin` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `nameTicket` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `priceTicket` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `nameLocation` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `smsRegister` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `sendSMS` INT NOT NULL , `idMember` INT NOT NULL , `idBotBanking` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `tokenBotBanking` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `idBlockSuccessfulTransaction` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `codeUser` INT NOT NULL DEFAULT '999' , `backgroundSpin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `logoSpin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `colorTextSpin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; "
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -336,6 +338,7 @@ $sqlDeleteDatabase .= "DROP TABLE warehouse_products; ";
 $sqlDeleteDatabase .= "DROP TABLE warehouse_product_details; ";
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE order_details; ";
+$sqlDeleteDatabase .= "DROP TABLE campains; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";
