@@ -90,9 +90,21 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`pinned_provinces` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`booking_fees` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `received_fee` int NOT NULL,
+  `service_fee` int NOT NULL,
+  `booking_id` int NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
 ?>
+
