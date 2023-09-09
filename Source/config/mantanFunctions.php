@@ -362,6 +362,8 @@ function mantan_header()
     global $metaKeywordsMantan;
     global $metaDescriptionMantan;
     global $metaImageMantan;
+    global $urlHomes;
+    global $urlCurrent;
 
 	$checkMantanHeader= true;
 	$infoMantanSource['verName']= 'v2.0';
@@ -391,7 +393,7 @@ function mantan_header()
 			<meta property="og:title" content="'.$metaTitleMantan.'"/>
 			<meta property="og:type" content="website"/>
 			<meta property="og:description" content="'.$metaDescriptionMantan.'"/>
-			<meta property="og:url" content="https://manmo.vn/"/>
+			<meta property="og:url" content="'.$urlCurrent.'"/>
 			<meta property="og:site_name" content="'.$metaTitleMantan.'"/>
 			<meta property="og:image" content="'.$metaImageMantan.'" />
 			<meta property="og:image:alt" content="Hình ảnh '.$metaTitleMantan.'" />
