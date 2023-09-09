@@ -300,14 +300,14 @@ img{
 #section-category-product .category-product-item .category-product-info{
     position: absolute;
     bottom: 0;
-    height: 306px;
+    height: 279px;
     padding:32px;
     left: 0;
     right: 0;
 }
 
 #section-category-product .category-product-item .category-product-info .category-product-info-title{
-    height: 64px;
+    height: 53px;
 }
 
 #section-category-product .category-product-item .category-product-info .category-product-info-title a{
@@ -687,7 +687,7 @@ img{
     border-bottom: 1px solid #A0A09F;
 }
 
-#section-form-contact .form-contact .button-submit-contact button{
+#section-form-contact .form-contact .button-submit-contact a{
     padding: 10px 20px;    
     background-color: #000;
     color: #fff;
@@ -698,7 +698,7 @@ img{
     transition: all 0.3s linear;
 }
 
-#section-form-contact .form-contact .button-submit-contact button:hover{
+#section-form-contact .form-contact .button-submit-contact a:hover{
     background-color: #fff;
     color: #000;
     transition: all 0.3s linear;
@@ -709,9 +709,13 @@ img{
 
 
 /* footer */
+#section-footer{
+    background-color: #F5F5F6;
+}
 #section-footer .footer-box{
     padding: 56px 15px; 
 }
+
 
 #section-footer .logo-footer{
     width: 90px;
@@ -728,7 +732,7 @@ img{
 }
 
 #section-footer .menu-footer .menu-footer-item:nth-child(2){
-    width: 33%;
+    width: 20%;
 }
 
 #section-footer .menu-footer .menu-footer-item:last-child{
@@ -736,7 +740,7 @@ img{
 }
 
 #section-footer .menu-footer .menu-footer-item:not(:first-child){
-    /* padding-left: 80px; */
+    padding-left: 80px;
 }
 
 #section-footer .menu-footer-title{
@@ -783,6 +787,264 @@ img{
     padding:16px 0;
     font-size: 14px;
     color: #707070
+}
+
+/* Giỏ hàng */
+
+#section-cart-title-box{
+    padding-top: 94px;
+    background-color: #F7F7F7;
+}
+
+.title-cart-text h1{
+    font-size: 48px;
+}
+
+#section-cart-title-box .section-cart-title{
+    padding: 32px 0;
+}
+
+
+.section-cart-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-cart-title .title-cart-back a{
+    padding: 10px 24px;
+    color: #000;
+    font-weight: bold;
+    background-color: #fff;
+    border: 1px solid #000;
+    transition: all 0.3s linear;
+    display: block;
+}
+
+.section-cart-title .title-cart-back a:hover{
+    color: #fff;
+    background-color: #000;
+    transition: all 0.3s linear;
+
+}
+
+/* Giỏ hàng trống */
+#section-cart-empty{
+    padding-top: 32px;
+    padding-bottom: 96px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+#section-cart-empty .section-cart-empty-inner{
+    text-align: center;
+}
+
+#section-cart-empty .cart-empty-text h3{
+    line-height: 120%;
+    font-size: 24px;
+}
+
+#section-cart-empty .cart-empty-text p{
+    font-size: 16px;
+    line-height: 150%;
+    margin-top: 4px;
+    margin-bottom: 30px;
+}
+
+#section-cart-empty .cart-empty-text a{
+    line-height: 100%;
+    font-size: 16px;
+    background-color: #000;
+    border: 1px solid #000;
+    color: #fff;
+    transition: all 0.3s linear;
+    padding: 12px 20px;
+
+}
+
+#section-cart-empty .cart-empty-text a:hover{
+    color: #000;
+    background-color: #fff;
+    transition: all 0.3s linear;
+}
+
+/* Co san pham */
+#section-cart{
+    margin-top: 87px;
+    margin-bottom: 123px;
+}
+
+#section-cart .form-contact .input-contact{
+    margin-bottom:32px;
+}
+
+#section-cart .form-contact .input-contact input{
+    border-radius: 0;
+    border-top: 1px solid transparent ;
+    border-right: 1px solid transparent ;
+    border-left: 1px solid transparent ;
+    border-bottom: 1px solid #A0A09F;
+    padding-left: 0;
+}
+
+#section-cart .form-contact .input-contact input:focus{
+    box-shadow: none;
+    border-top: 1px solid transparent ;
+    border-right: 1px solid transparent ;
+    border-left: 1px solid transparent ;
+    border-bottom: 1px solid #A0A09F;
+
+}
+
+#section-cart .form-contact .input-contact textarea{
+    border-radius: 0;
+    border-top: 1px solid transparent ;
+    border-right: 1px solid transparent ;
+    border-left: 1px solid transparent ;
+    border-bottom: 1px solid #A0A09F;
+    padding-left: 0;
+
+}
+
+#section-cart .form-contact .input-contact textarea:focus{
+    box-shadow: none;
+    border-top: 1px solid transparent ;
+    border-right: 1px solid transparent ;
+    border-left: 1px solid transparent ;
+    border-bottom: 1px solid #A0A09F;
+}
+
+#section-cart .form-contact .button-submit-contact a{
+    padding: 10px 20px;    
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+    font-weight: bold;
+    border: 1px solid #000;
+    transition: all 0.3s linear;
+    display: block;
+    text-align: center;
+}
+
+#section-cart .form-contact .button-submit-contact a:hover{
+    background-color: #fff;
+    color: #000;
+    transition: all 0.3s linear;
+
+}
+
+.cart-right .cart-right-inner{
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 29px;
+    padding-bottom: 29px;
+    border: 1px solid #000;
+}
+
+.cart-right .cart-right-inner .form-contact-title{
+    margin-bottom: 31px;
+}
+
+.cart-right .cart-right-inner .form-contact-title h3{
+    font-size: 32px;
+    line-height: 120%;
+}
+
+.cart-table{
+    padding-top: 14px;
+    padding-bottom: 16px;
+    border-top: 1px solid #DAD9DB ;
+}
+
+.cart-table .cart-table-image img{
+    max-width: 81px;
+}
+
+.cart-table .cart-table-image{
+    padding: 4px;
+    border: 1px solid #DAD9DB ;
+
+}
+
+.cart-table-info{
+    margin-left: 24px;
+}
+
+.cart-table{
+    display: flex;
+}
+
+.cart-name{
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.cart-code{
+    font-size: 16px;
+}
+
+.cart-button{
+    margin-left: auto;
+}
+
+.cart-button-inner{
+    border: 1px solid #888888;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.cart-button input{
+    width: 32px;
+    border: none;
+    text-align: center;
+}
+
+.cart-button button{
+    border: none;
+    background: transparent;
+    transition: all 0.3s linear;
+}
+
+.cart-button button:hover{
+    color:#E56400;
+    transition: all 0.3s linear;
+
+}
+
+.cart-delete a i{
+    font-size: 32px;
+    color: #B4b5b8;
+    transition: all 0.3s linear;
+    margin-left: 56px;
+}
+
+.cart-delete a i:hover{
+    font-size: 32px;
+    color: #E56400;
+    transition: all 0.3s linear;
+}
+
+.cart-left-heading{
+    display: flex;
+    margin-bottom: 21px;
+}
+
+.cart-left-heading p{
+    font-size: 18px;
+}
+
+.cart-left-heading p:first-child{
+    width: 79%;
+}
+
+.cart-left{
+    padding-right: 32px;
+}
+
+.cart-right{
+    padding-left: 32px;
+
 }
 
 
@@ -864,10 +1126,42 @@ img{
         color: #fff;
     }
 
+    /* cart */
+    .cart-left{
+        padding-right: 6px;
+    }
+    
+    .cart-right{
+        padding-left: 6px;
+    
+    }
+
+    .title-cart-text h1{
+        font-size: 35px;
+    }
+    .cart-name {
+        font-size: 19px;
+        margin-bottom: 5px;
+    }
+
+    .cart-delete a i {
+        font-size: 27px;
+        color: #B4b5b8;
+        transition: all 0.3s linear;
+        margin-left: 6px;
+    }
+
+    .cart-button input {
+        width: 10px;
+        border: none;
+        text-align: center;
+    }
+
+    .cart-left-heading p:first-child {
+        width: 74%;
+    }
+    
+
 }
 
 
-/* Sửa css của Long */
-.list-product-all .page-item.active .page-link{
-    background-color: #000 !important;
-}
