@@ -125,8 +125,8 @@
                         <td align="center">' . $type . ' </td>
                         <td> 
                         <p align="center">
-                        <a class="btn btn-success" 
-                          href="/plugins/admin/excgo-view-admin-user-addUserAdmin.php/?id=' . $item->id . '"
+                        <a class="btn btn-primary" 
+                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=' . $item->id . '"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>

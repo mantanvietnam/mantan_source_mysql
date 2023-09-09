@@ -59,11 +59,9 @@ function updateStatusProvinceAdmin($input)
             'id' => $_GET['id']
         ])->first();
 
-        if ($data) {
-            if (isset($_GET['status'])) {
-                $data->status = $_GET['status'];
-                $modelProvinces->save($data);
-            }
+        if ($data && isset($_GET['status'])) {
+            $data->status = $_GET['status'];
+            $modelProvinces->save($data);
         }
     }
 

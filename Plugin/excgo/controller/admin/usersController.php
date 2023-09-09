@@ -72,13 +72,54 @@ function updateStatusUserAdmin($input)
             'id' => $_GET['id']
         ])->first();
 
-        if ($data) {
-            if (isset($_GET['status'])) {
-                $data->status = $_GET['status'];
-                $modelUser->save($data);
-            }
+        if ($data && isset($_GET['status'])) {
+            $data->status = $_GET['status'];
+            $modelUser->save($data);
         }
     }
 
     return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin.php');
+}
+
+function viewUserDetailAdmin($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+    $metaTitleMantan = 'Thông tin người dùng';
+    $mess = '';
+
+    if (!empty($_GET['id'])) {
+        $data = $modelUser->find()
+            ->where([
+                'id' => (int)$_GET['id']
+            ])->first();
+    } else {
+        $data = $modelUser->newEmptyEntity();
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if(!empty($dataSend['name'])){
+            $data->name = $dataSend['name'];
+            $data->avatar = $dataSend['avatar'];
+            $data->phone_number = $dataSend['phone_number'];
+            $data->status = $dataSend['status'];
+            $data->type = $dataSend['type'];
+            $data->email = $dataSend['email'];
+            $data->total_coin = $dataSend['total_coin'];
+            $data->available_coin = $dataSend['available_coin'];
+
+            $modelUser->save($data);
+            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+        }else{
+            $mess= '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+        }
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
 }

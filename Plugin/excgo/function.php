@@ -4,7 +4,7 @@ $menus = array();
 $menus[0]['title'] = 'Exc-go';
 
 $menus[1]['sub'][0] = array(
-    'title' => 'Thông tin thành viên',
+    'title' => 'Danh sách thành viên',
     'url' => '/plugins/admin/excgo-view-admin-user-listUserAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserAdmin',
@@ -14,6 +14,12 @@ $menus[2]['sub'][0] = array('title' => 'Danh sách tỉnh thành',
     'url' => '/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listProvinceAdmin',
+);
+
+$menus[3]['sub'][0] = array('title' => 'Danh sách cuốc xe',
+    'url' => '/plugins/admin/excgo-view-admin-booking-listBookingAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listBookingAdmin',
 );
 
 addMenuAdminMantan($menus);

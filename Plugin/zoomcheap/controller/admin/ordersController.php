@@ -40,6 +40,11 @@ function listOrderZoomAdmin($input)
                 $infoRoom = $modelRooms->find()->where(['id'=> $value->idRoom])->first(); 
                 $infoRoom->info = json_decode($infoRoom->info, true);
                 $listData[$key]->infoRoom = $infoRoom;
+                
+                if(!empty($infoRoom->id_zoom)){
+                    $infoZoom = $modelZooms->find()->where(['id'=> $infoRoom->id_zoom])->first(); 
+                    $listData[$key]->infoZoom = $infoZoom;
+                }
             }
         }
     }    
