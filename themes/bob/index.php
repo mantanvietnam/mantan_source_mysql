@@ -167,4 +167,4 @@
         </section>
     </main>
 
-    <?php getFooter();?>
+<?php getFooter();?>

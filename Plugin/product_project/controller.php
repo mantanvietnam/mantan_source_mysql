@@ -3,7 +3,9 @@
     include_once('controller/admin/categoriesController.php');
 
     // home
-    include_once('controller/home/homeController.php');
+    include_once('controller/home/categoriesController.php');
+    include_once('controller/home/projectHomeController.php');
+    
 
 
 

@@ -1,5 +1,7 @@
 <?php
    global $routesPlugin;
-   $routesPlugin['chuyen_muc_du_an'] = 'product_project/view/home/categoryProject.php';
+   $routesPlugin['category_project'] = 'product_project/view/home/categoryProject.php';
+   $routesPlugin['project'] = 'product_project/view/home/projectDetail.php';
+
 
 ?>

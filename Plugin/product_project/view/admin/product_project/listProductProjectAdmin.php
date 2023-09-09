@@ -68,7 +68,7 @@
                 echo '<tr>
                         <td>'.$project_item->id.'</td>
                         <td><img src="'.$project_item->image.'" width="100" /></td>
-                        <td>'.$project_item->name.'</td>
+                        <td><a target="_blank" href="/project/'.$project_item->slug.'.html">'.$project_item->name.'</a></td>
                         <td>'.$project_item->description.'</td>
                         <td>'.$status.'</td>
 

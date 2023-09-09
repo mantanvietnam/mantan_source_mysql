@@ -893,15 +893,245 @@ height: 30px;
     z-index: 2;
 }
 
+/* CSS Product Details */
 
+.wrapper {
+	display: flex;
+	height: 100vh;
+	width: 600px;
+	height: 400px;
+	margin: 10px auto;
+  }
+  
+  .img-left,
+  .img-right {
+	flex: 1 1 auto;
+	border: 1px solid dimgray;
+	max-width: 50%;
+  }
+  
+  .img-left {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .img-left > img {
+	width: 100%;
+	height: auto;
+	pointer-events: none;
+  }
+  
+  .img-right {
+	position: relative;
+	overflow: hidden;
+  }
+  
+  .img-inner {
+	position: absolute;
+	width: 400%;
+	height: 400%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  .img-inner > img {
+	width: 100%;
+	height: auto;
+  }
+  .name-product h3{
+	font-size: 32px;
+  }
+  .text-gray-700 {
+    --tw-text-opacity: 1;
+    color: rgba(90, 90, 90, var(--tw-text-opacity));
+}
+.mg-bottom-4{
+	margin-bottom: 4px;
+}
+.price-product{
+	display: flex;
+	gap: 10px;
+}
+.price-product{
+	font-size: 20px;
+}
+.mg-bottom-6{
+	margin-bottom: 6px;
+}
+.name-product{
+	line-height: 1.2;
+}
+.intro-product{
+	line-height: 1.5;
+	/* width: 307px; */
+}
+.thong-so-product-details .intro-product{
+	width: 307px;
+}
+.list-san-pham .setting-click{
+	height: 100%;
+}
+.list-san-pham .img-product img{
+	display: block;
+}
+.justify-space{
+	justify-content: space-between;
+}
+.mg-top-16{
+	margin-top: 16px;
+}
+.pd-left-48{
+	padding-left: 48px;
+}
+.max-w-480{
+	max-width: 480px;
+}
+.intro-product-details .description{
+	display: flex;
+	gap: 60px;
+	line-height: 1.5;
+}
+.mg-bottom-20{
+	margin-bottom: 20px;
+}
+.thong-so-product{
+	padding-bottom: 20px;
+	border-bottom: 1px solid #333;
+}
+.button-product-details{
+	display: grid;
+	grid-template-columns: repeat(2,minmax(0,1fr));
+	gap: 16px;
+}
+.button-product-details button{
+	padding: 16px 0px;
+}
+.mg-bottom-24{
+	margin-bottom: 24px;
+}
+.button-gio{
+	background-color: #121212;
+	color: #fff;
+	font-weight: bold;
+}
+.button-yeu-cau{
+	border:1px solid #989898;
+	color: #989898;
+	background-color: #fff;
+	font-weight: bold;
+}
+.button-yeu-cau:hover{
+	background-color: #121212;
+	color: #fff;	
+}
+.h-100{
+	height: 100%;
+}
+/* Mafiny */
+.img-zoom-container {
+	position: relative;
+	height: 100%;
+  }
+  
+  .img-zoom-lens {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	/*set the size of the lens:*/
+	width: 40%;
+	height: 40%;
+  }
+  .pd-img-zoom{
+	padding: 32px;
+	border: 1px solid #989898;
+	height: 100%;
+  }
+  .img-zoom-result {
+	border: 1px solid #d4d4d4;
+	/*set the size of the result div:*/
+	width: 100%;
+	height: 100%;
+	right:-102%;
+	top:0px;
+	position:absolute;
+	display:none;
+	background-repeat: no-repeat ;
 
-/* @media (max-width: 1400px){
-	/* .container {
-		max-width: 1024px;
-		padding-right: 5rem;
-		padding-left: 5rem;
-	} */
-	/* .setting-product{
+  }
+#myimage{
+	width: 100%;
+	height: 100%;
+}
+.hover-text-primary:hover {
+    --tw-text-opacity: 1;
+    color: rgba(229, 100, 0, var(--tw-text-opacity));
+}
+.mg-left-16{
+	margin-left: 16px;
+}
+.icon-facebook-twiter{
+	display: flex;
+    left: 29%;
+    position: absolute;
+    bottom: -10px;
+    align-items: center;
+    background-color: #fff;
+    padding: 0px 16px;
+}
+.height-540{
+	height: 540px;
+}
+.intro-product-details{
+	margin-bottom: 150px;
+}
+.titel-related{
+	margin-bottom: 32px;
+}
+.swiper-related .setting-click{
+	height: 100%;
+}
+#related-products{
+	margin-bottom: 40px;
+}
+.swiper-related .button-swiper::after{
+	font-size: 25px;
+}
+.swiper-related .button-swiper{
+	width: 40px;
+	height: 40px;
+	border-radius: 30px;
+}
+.swiper-related .swiper-button-disabled{
+	background-color: aliceblue !important;
+	display: none;
+}
+.swiper-related .img-product{
+	height: 320px;
+}
+.swiper-related .img-product img{
+	height: 100%;
+	object-fit: cover;
+	object-position: bottom;
+}
+.titel-related{
+	font-size: 32px;
+}
+.img-zoom-mobile{
+	display: none;
+}
+.swiper-related .swiper-wrapper .swiper-slide:hover{
+	scale: 1;
+}
+ @media (max-width: 1400px){
+		.container {
+			max-width: 1024px;
+			padding-right: 5rem;
+			padding-left: 5rem;
+		} 
+	 .setting-product{
 		gap: 32px;
 	}
 	.list-san-pham{
@@ -913,8 +1143,14 @@ height: 30px;
 	}
 	.nav-list-product .accordion-body, .nav-list-product-two .accordion-body{
 		padding: 10px;
-	} */
-/* } */ 
+	}
+	.img-product-details{
+		width: 43%;
+	} 
+	.thong-so-product-details{
+		width: 57%;
+	}
+ } 
 @media (max-width:1024px){
 	.container{
 		width: 100%;
@@ -922,6 +1158,9 @@ height: 30px;
 		margin-left: auto;
 		padding-right: 1rem;
 		padding-left: 1rem;
+	}
+	.intro-product-details{
+		margin-bottom: 100px;
 	}
 	.list-product .grid-col-3{
 		grid-template-columns: repeat(2,minmax(0,1fr)) !important;
@@ -966,6 +1205,7 @@ height: 30px;
 	#nav-tab-project .product-inner{
 		height: 267px;
 	}
+
 }
 /* @media (min-width:425px){
 	.list-san-pham{
@@ -1051,6 +1291,34 @@ height: 30px;
 	#nav-tab-project .product-inner{
 		height: 608px;
 	}
+	.img-product-details{
+		width: 100%;
+	} 
+	.thong-so-product-details{
+		width: 100%;
+		margin-top: 30px;
+	}
+	.icon-facebook-twiter{
+		position: initial;
+		justify-content: center;
+		margin-top: 20px;
+	}
+	.intro-product-details .description{
+		flex-direction: column;
+		gap:15px
+	}
+	.intro-product-details{
+		margin-bottom: 80px;
+	}
+	.img-zoom-desktop{
+		display: none;
+	}
+	.img-zoom-mobile{
+		display: block;
+	}
+	.thong-so-product-details{
+		padding-left: 12px;
+	}
 
 }
 
@@ -1067,6 +1335,9 @@ height: 30px;
 	#nav-tab-project .product-inner{
 		height: 388px;
 	}
+	.swiper-related .img-product{
+		height: 210px;
+	}
 
 }
 
@@ -1078,10 +1349,28 @@ height: 30px;
 		width: 100%;
 	}
 }
+@media (max-width:424px){
+	.button-product-details{
+		grid-template-columns: 1fr;
+	}
+}
 
 @media (max-width:350px){
 	#nav-tab-project .product-inner{
 		height: 318px;
+	}
+}
+
+@media (max-width:350px){
+	.swiper-related .img-product{
+		height: 170px;
+	}
+	.thong-so-product-details .intro-product .justify-space{
+		justify-content: initial;
+		gap: 20px;
+	}
+	.thong-so-product-details .thong-so-product{
+		overflow: hidden;
 	}
 }
 
@@ -1094,7 +1383,7 @@ height: 30px;
 
 
 
-/* @media (min-width: 1400px){
+@media (min-width: 1400px){
 	.container {
 		max-width: 1440px;
 		padding: 0 80px;
@@ -1111,4 +1400,4 @@ height: 30px;
     gap: 56px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-} */
+}

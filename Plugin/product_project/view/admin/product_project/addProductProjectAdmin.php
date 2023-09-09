@@ -115,36 +115,16 @@
                         </div>
                       </div>
 
-                      <!-- <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
+                      <div class="tab-pane fade" id="navs-top-info" role="tabpanel">
                         <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                <div class="list-group">
-                                  <label class="form-label">Loại</label>
-                                  <?php
-                                    $arr = explode(',', @$data['id_kind']);
-                                    if(!empty($listKind)){
-                                      foreach($listKind as $key => $value){
-                                        $check = '';
-                                        if(!empty($arr)){
-                                          if (in_array($value->id, $arr)) {
-                                            $check = 'checked';
-                                          }
-                                        }
-                                      echo'
-                                      <label class="list-group-item">
-                                          <input  class="form-check-input me-1" type="checkbox" '.$check.' name="id_kind[]" value="'.$value->id.'">
-                                          '.$value->name.'
-                                      </label>';
-                                      }
-                                    }
-
-                                  ?>
-                                </div>
-                              </div>
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label">Thông tin mô tả về dự án</label>
+                              <?php showEditorInput('info', 'info', @$data->info);?>
                             </div>
+                          </div>
                         </div>
-                      <div> -->
+                      </div>
 
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">

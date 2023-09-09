@@ -42,18 +42,6 @@ function listProductProjectAdmin($input)
     }
     
     $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-    // if(!empty($listData)){
-    //     $category[0] = $modelCategories->newEmptyEntity();
-
-    // 	foreach ($listData as $key => $value) {
-    // 		if(empty($category[$value->id_category])){
-    // 			$category[$value->id_category] = $modelCategories->get( (int) $value->id_category);
-    // 		}
-    		
-    // 		$listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
-    // 	}
-    // }
  
     // phân trang
     $totalData = $modelProductProjects->find()->where($conditions)->all()->toList();
@@ -140,6 +128,8 @@ function addProductProjectAdmin($input)
             $data->images = json_encode($dataSend['images']);
             $data->image = $dataSend['image'];
             $data->id_kind = $dataSend['id_kind'];
+            $data->info = $dataSend['info'];
+
 
 
             // if(!empty($dataSend['id_kind'])){
