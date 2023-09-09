@@ -64,7 +64,7 @@
                                                 <p>'.$value->description.'</p>
                                             </div>
                                             <div class="category-product-info-button">
-                                                <a href="'.$value->slug.'">Xem tất cả</a>
+                                                <a href="category/'.$value->slug.'.html">Xem tất cả</a>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
                                                         </span>
                                                     </div>
                 
-                                                    <a class="product-info-button" href="'.$value->slug.'">Xem chi tiết</a>
+                                                    <a class="product-info-button" href="project/'.$value->slug.'.html">Xem chi tiết</a>
                                                 </div>
                                             </div>
                                         </div>';
