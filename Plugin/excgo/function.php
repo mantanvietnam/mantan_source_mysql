@@ -4,7 +4,7 @@ $menus = array();
 $menus[0]['title'] = 'Exc-go';
 
 $menus[1]['sub'][0] = array(
-    'title' => 'Thông tin thành viên',
+    'title' => 'Danh sách thành viên',
     'url' => '/plugins/admin/excgo-view-admin-user-listUserAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listUserAdmin',
