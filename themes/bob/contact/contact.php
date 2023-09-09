@@ -8,7 +8,7 @@
     <main>
         <section id="section-banner-page">
             <div class="banner-page">
-                <img src="../asset/img/anime-landscape-for-desktop-scenery-clouds-stars-buildings-wallpaper.jpg" alt="">
+                <img src="<?php echo $urlThemeActive; ?>/asset/img/anime-landscape-for-desktop-scenery-clouds-stars-buildings-wallpaper.jpg" alt="">
             </div>
         </section>
 
@@ -66,7 +66,7 @@
                     <div class="col-lg-6 col-md-6 col-12 info-contact-right">
                         <div>
                             <div class="info-contact-img-map">
-                                <img src="../asset/img/map.jpg" alt="">
+                                <img src="<?php echo $urlThemeActive; ?>/asset/img/map.jpg" alt="">
                             </div>
                         </div>
                     </div>

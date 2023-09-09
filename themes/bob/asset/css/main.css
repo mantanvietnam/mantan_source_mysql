@@ -216,7 +216,7 @@ img{
 
 /* banner trang chủ */
 #section-banner-home .banner-home-slide{
-   height: 764px;
+   height: 80vh;
 }
 
 #section-banner-home .slick-dots {
@@ -246,7 +246,7 @@ img{
 
 
 #section-banner-home .banner-home-slide .banner-slide-img{
-    height: 764px;
+    height: 80vh;
 }
 
 #section-banner-home .banner-home-slide .banner-slide-img img{
@@ -699,7 +699,7 @@ img{
     border-bottom: 1px solid #A0A09F;
 }
 
-#section-form-contact .form-contact .button-submit-contact a{
+#section-form-contact .form-contact .button-submit-contact button{
     padding: 10px 20px;    
     background-color: #000;
     color: #fff;
@@ -710,7 +710,7 @@ img{
     transition: all 0.3s linear;
 }
 
-#section-form-contact .form-contact .button-submit-contact a:hover{
+#section-form-contact .form-contact .button-submit-contact button:hover{
     background-color: #fff;
     color: #000;
     transition: all 0.3s linear;
