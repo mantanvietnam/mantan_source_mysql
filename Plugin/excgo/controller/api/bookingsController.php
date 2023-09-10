@@ -169,3 +169,130 @@ function getBookingListApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function receiveBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $serviceFee;
+    global $bookingStatus;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelBookingFee = $controller->loadModel('BookingFees');
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type == 0) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (isset($dataSend['booking_id'])) {
+                $booking = $modelBooking->find()
+                    ->where(['id' => $dataSend['booking_id']])
+                    ->first();
+
+                if (!is_null($booking->received_by)) {
+                    return apiResponse(4, 'Cuốc xe đã được nhận');
+                }
+                $receivedFee = ceil($booking->price / 10);
+
+                if ($currentUser->total_coin < $receivedFee) {
+                    return apiResponse(4, 'Tổng số dư tài khoản không đủ để nhận cuốc xe');
+                }
+
+                $bookingFee = $modelBookingFee->newEmptyEntity();
+                $bookingFee->received_fee = $receivedFee;
+                $bookingFee->service_fee = $serviceFee;
+                $bookingFee->booking_id = $booking->id;
+
+                $currentUser->total_coin = $currentUser->total_coin - $receivedFee - $serviceFee;
+
+                $booking->received_by = $currentUser->id;
+                $booking->status = $bookingStatus['received'];
+                $booking->received_at = date('Y-m-d H:i:s');
+
+                $modelUser->save($currentUser);
+                $modelBookingFee->save($bookingFee);
+                $modelBooking->save($booking);
+
+                return apiResponse(0, 'Nhận cuốc xe thành công');
+            }
+
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function cancelReceiveBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $bookingStatus;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelBookingFee = $controller->loadModel('BookingFees');
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type == 0) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (isset($dataSend['booking_id'])) {
+                $booking = $modelBooking->find()
+                    ->where(['id' => $dataSend['booking_id']])
+                    ->first();
+
+                if ($booking->received_by != $currentUser->id) {
+                    return apiResponse(4, 'Bạn không phải người nhận cuốc xe này nên không thể hủy');
+                }
+
+                if ($booking->status == $bookingStatus['completed']) {
+                    return apiResponse(4, 'Cuốc xe đã hoàn thành nên không thể hủy');
+                }
+
+                $bookingFee = $modelBookingFee->find()
+                    ->where(['booking_id' => $booking->id])
+                    ->first();
+
+                $currentUser->total_coin = $currentUser->total_coin + $bookingFee->received_fee + $bookingFee->service_fee;
+
+                $booking->received_by = null;
+                $booking->status = $bookingStatus['unreceived'];
+                $booking->received_at = null;
+
+                $modelUser->save($currentUser);
+                $modelBooking->save($booking);
+                $modelBookingFee->delete($bookingFee);
+
+                return apiResponse(0, 'Hủy cuốc xe thành công');
+            }
+
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
