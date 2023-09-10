@@ -68,6 +68,7 @@
 	$routesPlugin['capImg']= 'ezpics_api/view/home/capImg.php';
 	$routesPlugin['updateLayer']= 'ezpics_api/view/home/updateLayer.php';
 	$routesPlugin['removeBackgroundLayer']= 'ezpics_api/view/home/removeBackgroundLayer.php';
+	$routesPlugin['removeBackgroundFromDesignAPI']= 'ezpics_api/view/home/removeBackgroundFromDesignAPI.php';
 	$routesPlugin['upImageThumbnail']= 'ezpics_api/view/home/upImageThumbnail.php';
 	$routesPlugin['getListLayer']= 'ezpics_api/view/home/getListLayer.php';
 	$routesPlugin['createImageFromTemplate']= 'ezpics_api/view/home/createImageFromTemplate.php';

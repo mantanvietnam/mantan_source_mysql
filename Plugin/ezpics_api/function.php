@@ -734,6 +734,16 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->lat_anh = 1;
                         $class_lat_anh = 'lat_anh';
                     }
+
+                    // cách hiển thị của biến chữ
+                    if(empty($layer->typeShowTextVariable)){
+                        $layer->typeShowTextVariable = '';
+                    }
+
+                    // yêu cầu tự xóa nền của biến ảnh
+                    if(empty($layer->removeBackgroundAuto)){
+                        $layer->removeBackgroundAuto = 0;
+                    }
                     
                     $dnone = empty($layer->status) ? 'd-none' : '';
                     
@@ -837,7 +847,7 @@ function getLayerProductForEdit($idProduct=0)
     }
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = '80', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw')
+function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw', $typeShowTextVariable='', $removeBackgroundAuto = 0)
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
@@ -871,6 +881,8 @@ function getLayer($stt, $type = 'text', $link = '', $width = '80', $height = '30
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,
         'variableLabel' => $variableLabel,
+        'typeShowTextVariable' => $typeShowTextVariable,
+        'removeBackgroundAuto' => (int) $removeBackgroundAuto,
     ];
 }
 

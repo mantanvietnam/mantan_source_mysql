@@ -100,5 +100,9 @@
 	$routesPlugin['order']= 'databot_spa/view/home/order/order.php';
 	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
 
+	// chiến dịch 
+	$routesPlugin['listCampain']= 'databot_spa/view/home/campain/listCampain.php';
+	$routesPlugin['addCampain']= 'databot_spa/view/home/campain/addCampain.php';
+	$routesPlugin['deleteCampain']= 'databot_spa/view/home/campain/deleteCampain.php';
 
 ?>

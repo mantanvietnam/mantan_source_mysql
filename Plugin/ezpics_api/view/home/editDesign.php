@@ -686,6 +686,13 @@
 										<p>Nội dung chữ:</p>
 										<input type="text" value="" name="variableText" id="variableText" class="form-control mb-3" >
 
+										<p>Kiểu hiển thị:</p>
+										<select name="typeShowTextVariable" class="form-select color-dropdown mb-3" id="typeShowTextVariable">
+											<option value="">Mặc định</option>
+											<option value="upper">Viết hoa hết</option>
+											<option value="lower">Viết thường hết</option>
+										</select>
+
 
 										<button type="button" class="btn btn-warning" onclick="createLayerVariableText();">Tạo biến chữ</button>
 									</div>

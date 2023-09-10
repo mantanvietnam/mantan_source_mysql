@@ -699,7 +699,7 @@ function detailSeries($input)
 
 		$product = $modelProduct->find()->where(['id'=>$id])->first();
 
-		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+		if(!empty($product) && $product->type == 'user_series' && $product->status > 0){
 			$product->views ++;
 			$modelProduct->save($product);
 
@@ -747,7 +747,7 @@ function createImageSeries($input)
 
 		$product = $modelProduct->find()->where(['id'=>$id])->first();
 
-		if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+		if(!empty($product) && $product->type == 'user_series' && $product->status > 0){
 			$product->export_image ++;
 			$modelProduct->save($product);
 
@@ -762,6 +762,16 @@ function createImageSeries($input)
 
         			if(!empty($content['variable'])){
         				if(!empty($_REQUEST[$content['variable']])){
+        					if(!empty($content['typeShowTextVariable'])){
+        						if($content['typeShowTextVariable'] == 'upper'){
+        							$_REQUEST[$content['variable']] = strtoupper($_REQUEST[$content['variable']]);
+        						}
+
+        						if($content['typeShowTextVariable'] == 'lower'){
+        							$_REQUEST[$content['variable']] = strtolower($_REQUEST[$content['variable']]);
+        						}
+        					}
+
     						$urlThumb .= '&'.$content['variable'].'='.$_REQUEST[$content['variable']];
     					}
 
@@ -770,6 +780,17 @@ function createImageSeries($input)
 					            $image = uploadImageFTP($product->user_id, $content['variable'], $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
 
 					            if(!empty($image['linkOnline'])){
+					            	if(!empty($content['removeBackgroundAuto'])){
+					            		$link_local = explode('apis.ezpics.vn', $image['linkOnline']);
+				                        $link_local = trim($link_local[1],'/');
+
+				                        $dataRemove = [	'user_id' => $product->user_id,
+				                        				'linkLocal' => $link_local
+				                    				];
+
+				                        sendDataConnectMantan('https://apis.ezpics.vn/apis/removeBackgroundFromDesignAPI', $dataRemove);
+					            	}
+
 					            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
 
 					            	$listRemoveImage[] = '/public_html/'.@$image['linkLocal'];

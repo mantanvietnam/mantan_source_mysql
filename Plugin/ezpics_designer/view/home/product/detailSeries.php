@@ -42,8 +42,12 @@
                                 </div>
                                 <br>
                                 <div class="product-button">
-                                    <!-- <button><a href="<?php echo $link_open_app ?>">Mua mẫu ngay</a></button> -->
+                                    <!--
                                     <a href="<?php echo $product->link_open_app ?>" class="btn btn-warning mt-3" >
+                                    -->
+                                    
+                                    <a href="javascript:void(0);" onclick="showPopup();" class="btn btn-warning mt-3" >
+
                                         <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
                                     </a>
 

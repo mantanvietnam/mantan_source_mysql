@@ -104,4 +104,64 @@ function removeBackgroundImageAPI($input)
 
 	return 	$return;
 }
+
+function removeBackgroundFromDesignAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	global $price_remove_background;
+
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+
+	$return = array('code'=>1);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['user_id']) && !empty($dataSend['linkLocal'])){
+			$infoUser = $modelMember->find()->where(array('id'=>$dataSend['user_id']))->first();
+
+			if(!empty($infoUser)){
+				if($infoUser->account_balance >= $price_remove_background){
+					if(empty($dataSend['create_new'])) $dataSend['create_new'] = false;
+
+					removeBackground($dataSend['linkLocal'], $dataSend['create_new']);
+
+					if($price_remove_background>0){
+						// trừ tiền tài khoản
+						$infoUser->account_balance -= $price_remove_background;
+						$modelMember->save($infoUser);
+
+						// lưu lịch sử giao dịch
+						$order = $modelOrder->newEmptyEntity();
+						
+						$order->code = 'RB'.time().$infoUser->id.rand(0,10000);
+	                    $order->member_id = $infoUser->id;
+	                    $order->file_id = 0;
+	                    $order->total = $price_remove_background;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 4; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+	                    $order->meta_payment = 'Xóa ảnh nền từ mẫu in hàng loạt';
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    
+	                    $modelOrder->save($order);
+	                }
+
+	                $return = array('code'=>0, 'mess'=>'Xóa nền thành công');
+				}else{
+					$return = array('code'=>6, 'mess'=>'Tài khoản không đủ tiền');
+				}
+			}else{
+				$return = array('code'=>5, 'mess'=>'Tài khoản không tồn tại hoặc sai mã ID');
+			}
+		}else{
+			$return = array('code'=>4, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}
+
+	return 	$return;
+}
 ?>

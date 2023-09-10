@@ -20,6 +20,7 @@ include_once('controller/home/billController.php'); // hóa đơn
 include_once('controller/home/debtController.php'); // công nợ
 include_once('controller/home/partnerController.php'); // đối tác
 include_once('controller/home/orderController.php'); // đối tác
+include_once('controller/home/campainsController.php'); // chiến dịch
 
 // api
 include_once('controller/api/customerController.php'); // api khách hàng

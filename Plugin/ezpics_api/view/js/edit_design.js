@@ -2529,6 +2529,7 @@ function createLayerVariableText()
     var nameVariable = $('#nameVariableText').val();
     var variableText = $('#variableText').val();
     var variableLabel = $('#showVariableText').val();
+    var typeShowTextVariable = $('#typeShowTextVariable').val();
     
     if(nameVariable != '' && variableLabel!=''){
         let idproduct = $('.drag-drop').data('idproduct');
@@ -2558,7 +2559,8 @@ function createLayerVariableText()
                             nameVariable: nameVariable,
                             type: 'text',
                             text: variableText,
-                            variableLabel: variableLabel
+                            variableLabel: variableLabel,
+                            typeShowTextVariable: typeShowTextVariable
                         }, 
                         success:function(data){
                             if($.isEmptyObject(data.error)){

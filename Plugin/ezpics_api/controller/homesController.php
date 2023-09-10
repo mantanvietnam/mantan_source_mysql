@@ -516,7 +516,7 @@ function createLayerVariable($input)
            
             $new->name = 'Layer '.$idlayer;
             $new->products_id = $dataSend['idproduct'];
-            $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height'], $dataSend['text'], $dataSend['nameVariable'], $dataSend['variableLabel']));
+            $new->content = json_encode(getLayer($idlayer,$dataSend['type'],@$dataSend['banner'],$dataSend['width'], $dataSend['height'], $dataSend['text'], $dataSend['nameVariable'], $dataSend['variableLabel'], 'Arial', '#000', '10vw',$dataSend['typeShowTextVariable']));
             $new->sort = $idlayer;
             $new->created_at = date('Y-m-d H:i:s');
   
