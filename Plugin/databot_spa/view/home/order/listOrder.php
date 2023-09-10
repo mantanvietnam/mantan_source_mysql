@@ -58,11 +58,11 @@
                                                 if(!empty($listData)){
                                                     foreach($listData as $key => $item){ 
                                                         $type = 'Chưa xử lý';
-                                                        if($item->type==1){
+                                                        if($item->status==1){
                                                             $type = 'Đã xử lý';
-                                                        }elseif($item->type==2){
+                                                        }elseif($item->status==2){
                                                             $type = 'Dang sử lý';
-                                                        }elseif($item->type==3){
+                                                        }elseif($item->status==3){
                                                             $type = 'Hủy';
                                                         }
                                                         $checkin ='';

@@ -29,7 +29,7 @@ function addNotificationAdmin($input)
         		$conditions['deadline_pro >'] = date('Y-m-d H:i:s');
 
         		}elseif($dataSend['pro']==0){
-        		$conditions['pro'] = 0;
+        		$conditions['member_pro'] = 0;
         		$conditions['deadline_pro <'] = date('Y-m-d H:i:s');
         		}
         	}
@@ -92,7 +92,7 @@ function addNotificationPostNewAdmin($input){
         		$conditions['deadline_pro >'] = date('Y-m-d H:i:s');
 
         		}elseif($dataSend['pro']==0){
-        		$conditions['pro'] = 0;
+        		$conditions['member_pro'] = 0;
         		$conditions['deadline_pro <'] = date('Y-m-d H:i:s');
         		}
         	}
@@ -156,7 +156,7 @@ function addNotificationProductNewAdmin($input){
         		$conditions['deadline_pro >'] = date('Y-m-d H:i:s');
 
         		}elseif($dataSend['pro']==0){
-        		$conditions['pro'] = 0;
+        		$conditions['member_pro'] = 0;
         		$conditions['deadline_pro <'] = date('Y-m-d H:i:s');
         		}
         	}

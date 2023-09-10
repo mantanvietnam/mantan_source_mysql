@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin sản phẩm <button type="button" class="btn btn-danger" onclick="return addRowProduct();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm sản phẩm</button></h5>
+                  <h5 class="mb-0">thông tin sản phẩm</h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
@@ -84,35 +84,18 @@
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>
-                                            <th >Xóa</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyproduct">
-                                        <?php  $p = 0;
+                                        <?php 
                                         if(!empty($data->product)){ 
                                              
-                                          foreach($data->product as $k => $value){
-                                                $p++;
-                                    $delete= '';
-                                    if($p > 1){
-                                        $delete= '<a onclick="deleteProduct('.$p.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
-                                    }
-                                                ?>
-                                    <tr class="gradeX" id="trProduct-<?php echo $p ?>">
-                                        <td>
-                                            <input value="<?php echo $value->product->id ?>" type="hidden" required="" name="id_product[<?php echo $p ?>]" id="id_product-<?php echo $p ?>" class="form-control input_money"  />
-                                            <input value="<?php echo $value->product->name ?>" type="text" required="" onclick="return name_product(<?php echo $p ?>);" name="name_product[<?php echo $p ?>]" id="name_product-<?php echo $p ?>" class="form-control input_money"/>
-                                        </td>
-                                        <td>
-                                            <input value="<?php echo $value->price ?>" type="number" required="" name="price_product[<?php echo $p ?>]" id="price_product-<?php echo $p ?>" class="form-control input_money" onchange="tinhtien();" /></td>
-                                        <td>
-                                            <input value="<?php echo $value->quantity ?>" type="number" required="" name="quantity_product[<?php echo $p ?>]" id="quantity_product-<?php echo $p ?>" class="form-control input_money" onchange="tinhtien();" placeholder="Số lượng"/>
-                                        </td>
-                                        <td id='total_product-<?php echo $p ?>'>
-                                            <?php echo number_format($value->quantity*$value->price) ?>VNĐ
-                                            
-                                        </td>
-                                        <td><?php echo $delete ?></td>
+                                          foreach($data->product as $k => $value){?>
+                                    <tr>
+                                        <td><?php echo $value->product->name ?></td>
+                                        <td><?php echo number_format($value->price) ?></td>
+                                        <td><?php echo number_format($value->quantity); ?></td>
+                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
                                     </tr>
                                             <?php }}else{
                                                 echo '<tr  id="trProduct-0">
@@ -126,7 +109,7 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin dịch vụ <button type="button" class="btn btn-danger" onclick="return addRowService();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm dịch vụ</button></h5>
+                  <h5 class="mb-0">thông tin dịch vụ </h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
@@ -137,34 +120,18 @@
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>
-                                            <th >Xóa</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
-                                        <?php $s = 0;
+                                        <?php 
                                         if(!empty($data->service)){ 
                                            
-                                          foreach($data->service as $k => $value){
-                                                $s++;
-                                    $delete= '';
-                                    if($s > 1){
-                                        $delete= '<a onclick="deleteService('.$s.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
-                                    }?>
-                                    <tr class="gradeX" id="trservice-<?php echo $s ?>">
-                                        <td>
-                                            <input value="<?php echo $value->service->id ?>" type="hidden" required="" name="id_service[<?php echo $s ?>]" id="id_service-<?php echo $s ?>" class="form-control input_money"  />
-                                            <input value="<?php echo $value->service->name ?>" type="text" required="" onclick="return name_service(<?php echo $s ?>);" name="name_service[<?php echo $s ?>]" id="name_service-<?php echo $s ?>" class="form-control input_money"  placeholder="Số lượng"/>
-                                        </td>
-                                        <td>
-                                            <input value="<?php echo $value->price ?>" type="number" required="" onchange="tinhtien();" name="price_service[<?php echo $s ?>]" id="price_service-<?php echo $s ?>" class="form-control input_money" /></td>
-                                        <td>
-                                            <input value="<?php echo $value->quantity ?>" type="number" required="" name="quantity_service[<?php echo $s ?>]" id="quantity_service-<?php echo $s ?>" class="form-control input_money" onchange="tinhtien();" placeholder="Số lượng"/>
-                                        </td>
-                                        <td id='total_service-<?php echo $s ?>'>
-                                            <?php echo number_format($value->quantity*$value->price) ?>VNĐ
-                                            
-                                        </td>
-                                        <td><?php echo $delete ?></td>
+                                          foreach($data->service as $k => $value){?>
+                                    <tr>
+                                        <td><?php echo $value->service->name ?></td>
+                                        <td><?php echo number_format($value->price) ?></td>
+                                        <td><?php echo number_format($value->quantity); ?></td>
+                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
                                     </tr>
                                             <?php }}else{
                                                 echo '<tr id="trservice-0">
@@ -178,7 +145,7 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin combo <button type="button" class="btn btn-danger" onclick="return addRowCombo();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm combo</button></h5>
+                  <h5 class="mb-0">thông tin combo</h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
@@ -189,33 +156,17 @@
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>
-                                            <th >Xóa</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyCombo">
-                                        <?php  $c = 0;
+                                        <?php  
                                         if(!empty($data->combo)){ 
-                                          foreach($data->combo as $k => $value){
-                                                $c++;
-                                                $delete= '';
-                                                if($c > 1){
-                                                    $delete= '<a onclick="deleteCombo('.$c.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
-                                                }?>
-                                    <tr class="gradeX" id="trcombo-<?php echo $c ?>">
-                                        <td>
-                                            <input value="<?php echo $value->combo->id ?>" type="hidden" required="" name="id_combo[<?php echo $c ?>]" id="id_combo-<?php echo $c ?>" class="form-control input_money"  />
-                                            <input value="<?php echo $value->combo->name ?>" type="text" required="" onclick="return name_combo(<?php echo $c ?>);"  name="name_combo[<?php echo $c ?>]" id="name_combo-<?php echo $c ?>" class="form-control input_money"  placeholder="Số lượng"/>
-                                        </td>
-                                        <td>
-                                            <input value="<?php echo $value->price ?>" type="number" required="" onchange="tinhtien();" name="price_combo[<?php echo $c ?>]" id="price_combo-<?php echo $c ?>" class="form-control input_money" /></td>
-                                        <td>
-                                            <input value="<?php echo $value->quantity ?>" type="number" required="" name="quantity_combo[<?php echo $c ?>]" id="quantity_combo-<?php echo $c ?>" class="form-control input_money" onchange="tinhtien();" placeholder="Số lượng"/>
-                                        </td>
-                                        <td id='total_combo-<?php echo $c ?>'>
-                                            <?php echo number_format($value->quantity*$value->price) ?>VNĐ
-                                            
-                                        </td>
-                                        <td><?php echo $delete ?></td>
+                                          foreach($data->combo as $k => $value){ ?>
+                                    <tr>
+                                        <td><?php echo $value->combo->name ?></td>
+                                        <td><?php echo number_format($value->price) ?></td>
+                                        <td><?php echo number_format($value->quantity); ?></td>
+                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
                                     </tr>
                                             <?php }}else{
                                                 echo '<tr id="trcombo-0" >
@@ -228,7 +179,7 @@
                             </div>
                 </div>
               </div>
-                <button type="submit" class="btn btn-primary">Cập nhập</button> 
+                <button type="submit" class="btn btn-primary">Thanh toán</button> 
           </div>
         </div>
       </div>
@@ -237,7 +188,7 @@
   <?= $this->Form->end() ?>
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
      var p= <?php echo $p; ?>;
     function addRowProduct()
     {
@@ -570,6 +521,6 @@
 
 </script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
 
 <?php include(__DIR__.'/../footer.php'); ?>

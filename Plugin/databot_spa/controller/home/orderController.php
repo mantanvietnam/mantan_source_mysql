@@ -56,9 +56,7 @@ function order($input){
         // sử lý đơn hàng
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
-			 debug($dataSend);
-			die;
-
+			 
 			// tạo đơn hàng 
 			$order = $modelOrder->newEmptyEntity();
 			$order->id_member = $user->id_member;

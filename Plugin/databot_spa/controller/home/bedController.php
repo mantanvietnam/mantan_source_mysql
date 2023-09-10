@@ -168,35 +168,121 @@ function infoRoomBed($input){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
 
+        $user = $session->read('infoUser');
+
+        $mess = '';
+
         if(!empty($_GET['idBed'])){
             $data = $modelOrder->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>2))->first();
 
             $data->bed = $modelBed->get($data->id_bed);
           
 
-            $product = $modelOrderDetails->find()->where(array('id_order'=>$data->id))->all()->toList();
+            $product = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'product'))->all()->toList();
+            $service = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'service'))->all()->toList();
+            $combo = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'combo'))->all()->toList();
 
             if(!empty($product)){
-
                 foreach($product as $k => $value){
-                    if($value->type=='product'){
-                        $product[$k]->prod = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
-                    }elseif($value->type=='service') {
-                        $product[$k]->prod = $modelService->find()->where(array('id'=>$value->id_product))->first();
-                    }elseif($value->type=='combo'){
-                        $product[$k]->prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
-                    }
-
+                    $product[$k]->product = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
                 }
                 $data->product = $product;
             }
+
+            if(!empty($combo)){
+                foreach($combo as $k => $value){
+                    $combo[$k]->combo = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $data->combo = $combo;
+            }
+
+            if(!empty($service)){
+                foreach($service as $k => $value){
+                    $service[$k]->service = $modelService->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $data->service = $service;
+            }
+
+
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
             }
 
         }
 
+        if(@$_GET['mess']=='done'){
+            $mess = '<p class="text-success">Cập nhập thành công</p>';
+        }
+        if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            $order = $modelOrder->find()->where(array('id'=>$data->id))->first();
+
+            $order->total = $dataSend['total'];
+            $order->promotion = $dataSend['promotion'];
+            $order->total_pay = $dataSend['totalPays'];
+            $order->updated_at =date('Y-m-d H:i:s');
+
+            $modelOrder->save($order);
+
+            $modelOrderDetails->deleteAll(array('id_order'=>$order->id));
+            if(!empty($dataSend['id_product'])){
+                foreach($dataSend['id_product'] as $key => $value){
+                    if((int)$dataSend['quantity_product'][$key] >0){
+                        $detail = $modelOrderDetails->newEmptyEntity();
+
+                        $detail->id_member = $user->id_member;
+                        $detail->id_order = $order->id;
+                        $detail->id_product = $value;
+                        $detail->price = (int) $dataSend['price_product'][$key];
+                        $detail->quantity = (int) $dataSend['quantity_product'][$key];
+                        $detail->type = 'product';
+
+                        $modelOrderDetails->save($detail);
+                    }
+                }
+            }
+
+            if(!empty($dataSend['id_service'])){
+                foreach($dataSend['id_service'] as $key => $value){
+                    if((int)$dataSend['quantity_service'][$key] >0){
+                        $detail = $modelOrderDetails->newEmptyEntity();
+
+                        $detail->id_member = $user->id_member;
+                        $detail->id_order = $order->id;
+                        $detail->id_product = $value;
+                        $detail->price = (int) $dataSend['price_service'][$key];
+                        $detail->quantity = (int) $dataSend['quantity_service'][$key];
+                        $detail->type = 'service';
+
+                        $modelOrderDetails->save($detail);
+                    }
+                }
+            }
+
+            if(!empty($dataSend['id_combo'])){
+                foreach($dataSend['id_combo'] as $key => $value){
+                    if((int)$dataSend['quantity_combo'][$key] >0){
+                        $detail = $modelOrderDetails->newEmptyEntity();
+
+                        $detail->id_member = $user->id_member;
+                        $detail->id_order = $order->id;
+                        $detail->id_product = $value;
+                        $detail->price = (int) $dataSend['price_combo'][$key];
+                        $detail->quantity = (int) $dataSend['quantity_combo'][$key];
+                        $detail->type = 'combo';
+
+                        $modelOrderDetails->save($detail);
+                    }
+                }
+            }
+
+            return $controller->redirect('/infoRoomBed?mess=done&idBed='.$_GET['idBed']);
+            
+        }
+
         setVariable('data', $data);
+        setVariable('mess', @$mess);
 
     }else{
         return $controller->redirect('/login');
@@ -204,5 +290,123 @@ function infoRoomBed($input){
 }
 
 
+function cancelBed($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Thông tin giường';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelBed = $controller->loadModel('Beds');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+
+        
+        $user = $session->read('infoUser');
+         $return = array('code'=>0);
+       if($isRequestPost){
+            $dataSend = $input['request']->getData();
+
+            $data = $modelOrder->find()->where(array('id_bed'=>$dataSend['idBed'], 'status'=>2))->first();
+
+            $data->status = 3;
+            $data->note = @$data->note.', Nội dung hủy là: '.@$dataSend['note'];
+            $modelOrder->save($data);
+
+            $datebed = $modelBed->get($data->id_bed);
+            $datebed->status = 1;
+            $modelBed->save($datebed);
+
+            $return = array('code'=>1);
+        }
+
+       return $return;
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function checkoutBed($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Thông tin giường';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelCombo = $controller->loadModel('Combos');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelProduct = $controller->loadModel('Products');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+
+        $user = $session->read('infoUser');
+
+        $mess = '';
+
+        if(!empty($_GET['idBed'])){
+            $data = $modelOrder->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>2))->first();
+
+            $data->bed = $modelBed->get($data->id_bed);
+          
+
+            $product = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'product'))->all()->toList();
+            $service = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'service'))->all()->toList();
+            $combo = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'combo'))->all()->toList();
+
+            if(!empty($product)){
+                foreach($product as $k => $value){
+                    $product[$k]->product = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $data->product = $product;
+            }
+
+            if(!empty($combo)){
+                foreach($combo as $k => $value){
+                    $combo[$k]->combo = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $data->combo = $combo;
+            }
+
+            if(!empty($service)){
+                foreach($service as $k => $value){
+                    $service[$k]->service = $modelService->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $data->service = $service;
+            }
+
+
+            if(!empty($data->id_customer)){
+                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+            }
+
+        }
+
+        if(@$_GET['mess']=='done'){
+            $mess = '<p class="text-success">Cập nhập thành công</p>';
+        }
+        if($isRequestPost){
+     
+            }
+            
+        
+
+        setVariable('data', $data);
+        setVariable('mess', @$mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
 
  ?>

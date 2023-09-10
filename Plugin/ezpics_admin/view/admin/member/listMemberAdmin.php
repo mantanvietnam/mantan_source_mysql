@@ -112,7 +112,7 @@
                   }
 
                   if($item->member_pro==1){
-                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.$item->deadline_pro;
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro));
                   }else{
                     $pro = 'Bản: thường  <a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Nâng cấp lên bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
@@ -146,8 +146,8 @@
                             '.$item->name.'<br/>
                             '.$item->phone.'<br/>
                             '.$item->email.'<br/>
-                            Đăng ký: '.$item->created_at.'<br/>
-                            Đăng nhập lần cuối lúc: '.$item->last_login.'<br/>
+                            Đăng ký: '.date('H:i d/m/Y', strtotime($item->created_at)).'<br/>
+                            Đăng nhập lần cuối lúc: '.date('H:i d/m/Y', strtotime($item->last_login)).'<br/>
                             '.$pro.'<br/><br/>
                             <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
                              Cộng tiền 
@@ -204,7 +204,7 @@
                   }
 
                   if($item->member_pro==1){
-                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.$item->deadline_pro;
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro));
                   }else{
                     $pro = 'Bản: thường <a style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'"> Nâng cấp lên bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
@@ -228,8 +228,8 @@
                           <p>
                             '.$item->phone.'<br/>
                             '.$item->email.'<br/>
-                            Đăng ký: '.$item->created_at.'<br/>
-                            Đăng nhập lần cuối lúc: '.$item->last_login.'<br/>
+                            Đăng ký: '.date('H:i d/m/Y', strtotime($item->created_at)).'<br/>
+                            Đăng nhập lần cuối lúc: '.date('H:i d/m/Y', strtotime($item->last_login)).'<br/>
                             '.$pro.'
                           </p>
                           <p><b>Thống kê:</b> <br/>

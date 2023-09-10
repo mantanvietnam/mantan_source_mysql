@@ -43,7 +43,29 @@ rel='stylesheet' type='text/css'>
                     </div>
         <?php }} ?>
     </div>
-</div>                    
+</div>     
+
+<div id="showCancelRoom" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="titleRoomCancel">Hủy Giường</h4>
+            </div>
+            <div class="modal-body">
+                <div class="showMess" id="">
+                    <p>Lý do hủy Giường</p>
+                    <input type="text" name="noteCancelRoom" id="noteCancelRoom" value="" class="form-control">
+                    <br/>
+                    <input type="hidden" name="idBedCancel" value="" id="idBedCancel">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelRoomProcess();">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>               
 
 <style type="text/css">
     .card{
@@ -107,6 +129,15 @@ rel='stylesheet' type='text/css'>
         display: -webkit-box;
         -webkit-box-orient: vertical;
     }
+    .modal-header .close {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        background-color: transparent;
+        border: 0;
+        font-size: 20px;
+        -webkit-appearance: none;
+    }
 </style>   
 
 <script type="text/javascript">
@@ -119,7 +150,10 @@ rel='stylesheet' type='text/css'>
         echo 'var urlDeleteBed = "'.$urlHomes.'deleteBed";';
         echo 'var listOrder = "'.$urlHomes.'listOrder";';
         echo 'var urlViewroomdetail = "'.$urlHomes.'infoRoomBed";';
+        echo 'var urlCancel = "'.$urlHomes.'apis/cancelBed";';
+        echo 'var urlPaid = "'.$urlHomes.'checkoutBed";';
     ?>
+
 
     $(function () {
         // lựa chọn giường đã có khách chuột phải
@@ -132,7 +166,7 @@ rel='stylesheet' type='text/css'>
                     window.location = url;
                     break;
                     case 'cancel':
-                    cancelData(options.$trigger.attr("idBed"),options.$trigger.attr("nameroom"));
+                    cancelData(options.$trigger.attr("idBed"),options.$trigger.attr("nameBed"));
                     break;
                     case 'changeroom':
                     changRoom(options.$trigger.attr("idBed"));
@@ -167,10 +201,8 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                 "paid": {name: "Trả phòng", icon: "checkout"},
-                "cancel": {name: "Hủy checkin", icon: "delete"},
-                "addservice": {name: "Thêm Hàng hóa", icon: "add"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
-                "report": {name: "Báo hỏng", icon: "edit"},
+                "cancel": {name: "Hủy checkin", icon: "delete"},
                 "sep1": "---------",
                 "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
                 "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
@@ -224,7 +256,7 @@ rel='stylesheet' type='text/css'>
                     window.location = url;
                     break;
                     case 'cancel':
-                    cancelData(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"));
+                    cancelData(options.$trigger.attr("idBed"),options.$trigger.attr("idBed"));
                     break;
                     
                     case 'addservice':
@@ -258,9 +290,7 @@ rel='stylesheet' type='text/css'>
             items: {
                 "paid": {name: "Trả phòng", icon: "checkout"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
-                "addservice": {name: "Thêm Hàng hóa", icon: "add"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
-                "report": {name: "Báo hỏng", icon: "edit"},
                 "sep1": "---------",
                 "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
                 "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
@@ -305,8 +335,6 @@ rel='stylesheet' type='text/css'>
                // "receivedFast": {name: "Nhận phòng nhanh", icon: "received"},
                 "received": {name: "Nhận phòng", icon: "received"},
                 "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
-                "clear": {name: "Báo dọn phòng", icon: "edit"},
-                "report": {name: "Báo hỏng", icon: "edit"},
                 "sep1": "---------",
                 "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
                 "delete": {name: "Xóa phòng", icon: "delete"},
@@ -476,10 +504,10 @@ rel='stylesheet' type='text/css'>
         }
     }
 
-    function cancelData(idRoom,nameRoom)
+    function cancelData(idBed,nameRoom)
     {
-        $('#idRoomCancel').val(idRoom);
-        $('#titleRoomCancel').html('Hủy phòng '+nameRoom);
+        $('#idBedCancel').val(idBed);
+        $('#titleRoomCancel').html('Hủy giường '+nameRoom);
         $('#noteCancelRoom').val('');
         $('#showCancelRoom').modal('show');
 
@@ -488,17 +516,24 @@ rel='stylesheet' type='text/css'>
     function cancelRoomProcess()
     {
         var note = $('#noteCancelRoom').val();
-        var idRoom = $('#idRoomCancel').val();
+        var idBed = $('#idBedCancel').val();
+
+        console.log(note);
+        console.log(idBed);
 
         if (note != '') {
             $.ajax({
                 type: "POST",
                 url: urlCancel,
-                data: {idroom: idRoom, note: note}
+                data: {idBed: idBed, note: note}
             }).done(function (msg) {
-                window.location= '/managerHotelDiagram?status=cancelRoomDone';
+                console.log(msg);
+
+                window.location= '/listRoomBed?status=cancelRoomDone';
             })
             .fail(function () {
+
+
             });
         }else{
             $('#textAlert').html('Bạn cần nhập lý do hủy phòng');
