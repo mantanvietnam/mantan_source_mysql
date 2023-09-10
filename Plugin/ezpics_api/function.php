@@ -136,7 +136,7 @@ function removeBackgroundPhotoroom($link_image_local='',$create_new= false)
             if($create_new){
                 $link = explode('.', $link_image_local);
                 $n = count($link)-1;
-                $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.'.$link[$n];
+                $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.png';
             }
 
             $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");

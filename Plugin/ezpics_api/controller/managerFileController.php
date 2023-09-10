@@ -111,6 +111,7 @@ function removeBackgroundFromDesignAPI($input)
 	global $controller;
 	global $session;
 	global $price_remove_background;
+	global $urlHomes;
 
 	$modelManagerFile = $controller->loadModel('ManagerFile');
 	$modelMember = $controller->loadModel('Members');
@@ -128,7 +129,7 @@ function removeBackgroundFromDesignAPI($input)
 				if($infoUser->account_balance >= $price_remove_background){
 					if(empty($dataSend['create_new'])) $dataSend['create_new'] = false;
 
-					removeBackground($dataSend['linkLocal'], $dataSend['create_new']);
+					$linkImageRemove = removeBackground($dataSend['linkLocal'], $dataSend['create_new']);
 
 					if($price_remove_background>0){
 						// trừ tiền tài khoản
@@ -150,7 +151,7 @@ function removeBackgroundFromDesignAPI($input)
 	                    $modelOrder->save($order);
 	                }
 
-	                $return = array('code'=>0, 'mess'=>'Xóa nền thành công');
+	                $return = array('code'=>0, 'mess'=>'Xóa nền thành công', 'linkLocal'=>$linkImageRemove, 'linkOnline'=>$urlHomes.'/'.$linkImageRemove);
 				}else{
 					$return = array('code'=>6, 'mess'=>'Tài khoản không đủ tiền');
 				}

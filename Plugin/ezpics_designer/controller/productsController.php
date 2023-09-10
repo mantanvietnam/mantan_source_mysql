@@ -785,10 +785,19 @@ function createImageSeries($input)
 				                        $link_local = trim($link_local[1],'/');
 
 				                        $dataRemove = [	'user_id' => $product->user_id,
-				                        				'linkLocal' => $link_local
+				                        				'linkLocal' => $link_local,
+				                        				'create_new' => true
 				                    				];
 
-				                        sendDataConnectMantan('https://apis.ezpics.vn/apis/removeBackgroundFromDesignAPI', $dataRemove);
+				                        $linkImageRemove = sendDataConnectMantan('https://apis.ezpics.vn/apis/removeBackgroundFromDesignAPI', $dataRemove);
+
+										if (strpos($linkImageRemove, 'photoroom.com') == false) {
+										    $linkImageRemove = json_decode(trim($linkImageRemove) , true);
+
+					                        $listRemoveImage[] = '/public_html/'.@$linkImageRemove['linkLocal'];
+
+					                        $image['linkOnline'] = $linkImageRemove['linkOnline'];
+										}
 					            	}
 
 					            	$urlThumb .= '&'.$content['variable'].'='.$image['linkOnline'];
