@@ -130,23 +130,23 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-7 col-12 keydate-left">
                             <div class="keydate-grant">
-                                <span class="keydate-number"><?php echo @$settingThemes['content_1_section_3'];?></span><span>M</span>
+                                <span class="odometer keydate-number"><?php echo @$settingThemes['content_1_section_3'];?></span><span class="tranform-text">M</span>
                                 <p><?php echo @$settingThemes['title_content_1_section_3'];?></p>
                             </div>
 
                             <div class="keydate-loan">
-                                <span class="keydate-number"><?php echo @$settingThemes['content_2_section_3'];?></span><span>M</span>
+                                <span class="odometer2 my-numbers keydate-number"><?php echo @$settingThemes['content_2_section_3'];?></span><span class="tranform-text">M</span>
                                 <p><?php echo @$settingThemes['title_content_2_section_3'];?></p>
                             </div>
 
                             <div class="keydate-years">
-                                <span class="number-years"><?php echo @$settingThemes['content_3_section_3'];?> </span>&nbsp; &nbsp;<span>Years</span>
+                                <span class="odometer3 my-numbers number-years"><?php echo @$settingThemes['content_3_section_3'];?> </span>&nbsp; &nbsp;<span class="tranform-text">Years</span>
                                 <p><?php echo @$settingThemes['title_content_3_section_3'];?></p>
                             </div>
                         </div>
         
                         <div class="col-lg-5 col-md-5 col-12 keydate-right">
-                            <span><span class="number-project"><?php echo @$settingThemes['content_4_section_3'];?></span> Projects</span>
+                            <span class="odometer4 number-project"><?php echo @$settingThemes['content_4_section_3'];?></span> <span class="tranform-text">Projects</span>
                             <p><?php echo @$settingThemes['title_content_4_section_3'];?></p>
                         </div>
                     </div>

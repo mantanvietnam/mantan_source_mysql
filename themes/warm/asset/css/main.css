@@ -578,7 +578,6 @@ strong{
 #section-keydate .keydate-left span{
 	font-size: 59px;
 	color: #fff;
-	position: relative;
 }
 
 #section-keydate .keydate-left {
@@ -618,6 +617,15 @@ strong{
 #section-keydate .keydate-right{
 	padding-left: 90px
 }
+
+#section-keydate {
+	position: relative !important;
+}
+
+#section-keydate .tranform-text{
+	position: absolute;
+	transform: translateY(8px);
+}	
 
 /* photo */
 #section-photo{
@@ -1534,6 +1542,8 @@ strong{
 	
 
 	/* keydate */
+	
+
 	#section-keydate .keydate-left span{
 		font-size: 31px;
 	}

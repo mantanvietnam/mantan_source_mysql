@@ -91,8 +91,10 @@
         <script>
             AOS.init();
         </script>
+        <script src="<?php echo $urlThemeActive;?>/asset/js/odometer.js"></script>
         <script src="<?php echo $urlThemeActive;?>/asset/js/slick.js"></script>
         <script src="<?php echo $urlThemeActive;?>/asset/js/main.js"></script>
+        
     </footer>
 </body>
 
