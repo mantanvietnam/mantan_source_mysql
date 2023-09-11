@@ -71,7 +71,6 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `bank_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_coin` int(11) NOT NULL DEFAULT 0,
-  `available_coin` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `last_login` timestamp NULL DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,

@@ -366,5 +366,9 @@ global $bookingStatus;
 $bookingStatus = [
     'unreceived' => 0,
     'received' => 1,
-    'canceled' => 2
+    'canceled' => 2,
+    'completed' => 3,
 ];
+
+global $serviceFee;
+$serviceFee = 0;
