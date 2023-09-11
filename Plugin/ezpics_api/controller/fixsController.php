@@ -1,4 +1,11 @@
 <?php 
+function fixPhotoroom($input)
+{
+	
+	$test = removeBackgroundPhotoroomTest('upload/342926573_792268258726508_8821802697219712265_n.jpg', true);
+
+	debug($test);
+}
 function fixPass($input)
 {	
 	/*

@@ -295,6 +295,10 @@ function detailWarehouse($input){
 	global $isRequestPost;
 	global $controller;
 	global $modelCategories;
+	global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
 
 	$modelMember = $controller->loadModel('Members');
 	$modelWarehouses = $controller->loadModel('Warehouses');
@@ -315,6 +319,11 @@ function detailWarehouse($input){
 		
 
 		if(!empty($Warehouse)){
+			if(!empty($Warehouse->name)) $metaTitleMantan = $Warehouse->name;
+			if(!empty($Warehouse->thumbnail)) $metaImageMantan = $Warehouse->thumbnail;
+			if(!empty($Warehouse->keyword)) $metaKeywordsMantan = $Warehouse->keyword;
+			if(!empty($Warehouse->description)) $metaDescriptionMantan = $Warehouse->description;
+
 			$designer = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;

@@ -121,28 +121,108 @@ function removeBackgroundPhotoroom($link_image_local='',$create_new= false)
             include('library/guzzle/vendor/autoload.php');
 
             $client = new GuzzleHttp\Client();
-            $res = $client->post('https://sdk.photoroom.com/v1/segment', [
-                'multipart' => [
-                    [
-                        'name'     => 'image_file',
-                        'contents' => fopen(__DIR__.'/../../'.$link_image_local, 'r')
-                    ]
-                ],
-                'headers' => [
-                    'x-api-key' => $key_remove_bg
-                ]
-            ]);
-
-            if($create_new){
-                $link = explode('.', $link_image_local);
-                $n = count($link)-1;
-                $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.png';
-            }
-
-            $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");
             
-            fwrite($fp, $res->getBody());
-            fclose($fp);
+            try {
+                $res = $client->post('https://sdk.photoroom.com/v1/segment', [
+                    'multipart' => [
+                        [
+                            'name'     => 'image_file',
+                            'contents' => fopen(__DIR__.'/../../'.$link_image_local, 'r')
+                        ]
+                    ],
+                    'headers' => [
+                        'x-api-key' => $key_remove_bg
+                    ]
+                ]);
+
+                $http_status = $res->getStatusCode();
+
+                if ($http_status == 200) {
+                    if($create_new){
+                        $link = explode('.', $link_image_local);
+                        $n = count($link)-1;
+                        $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.png';
+                    }
+
+                    $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");
+
+                    fwrite($fp, $res->getBody());
+                    fclose($fp);
+
+                    return $link_image_local;
+                } elseif ($http_status == 403) {
+                    // Xử lý khi bị từ chối (status code 403)
+                    //return 'Lỗi: Truy cập bị từ chối 403';
+                    lockKey($key_remove_bg);
+                    return removeBackgroundPhotoroom($link_image_local, $create_new);
+                } else {
+                    // Xử lý các trường hợp khác
+                    // return 'Lỗi: Trạng thái HTTP không xác định.';
+                    lockKey($key_remove_bg);
+                    return removeBackgroundPhotoroom($link_image_local, $create_new);
+                }
+            } catch (Exception $e) {
+                // Xử lý nếu có lỗi trong quá trình gọi API
+                // return 'Lỗi: ' . $e->getMessage();
+                lockKey($key_remove_bg);
+                return removeBackgroundPhotoroom($link_image_local, $create_new);
+            }
+        }
+    }
+
+    return $link_image_local;
+}
+
+function removeBackgroundPhotoroomTest($link_image_local='',$create_new= false)
+{
+    if(!empty($link_image_local)){
+        $key_remove_bg = 'abc';
+        
+        if(!empty($key_remove_bg)){
+            include('library/guzzle/vendor/autoload.php');
+
+            $client = new GuzzleHttp\Client();
+            
+            try {
+                $res = $client->post('https://sdk.photoroom.com/v1/segment', [
+                    'multipart' => [
+                        [
+                            'name'     => 'image_file',
+                            'contents' => fopen(__DIR__.'/../../'.$link_image_local, 'r')
+                        ]
+                    ],
+                    'headers' => [
+                        'x-api-key' => $key_remove_bg
+                    ]
+                ]);
+
+                if($create_new){
+                    $link = explode('.', $link_image_local);
+                    $n = count($link)-1;
+                    $link_image_local = str_replace('.'.$link[$n], '', $link_image_local).'_rb.png';
+                }
+
+                $fp = fopen(__DIR__.'/../../'.$link_image_local, "wb");
+                
+                $http_status = $res->getStatusCode();
+                $response_body = $res->getBody();
+
+                if ($http_status == 200) {
+                    fwrite($fp, $res->getBody());
+                    fclose($fp);
+
+                    return $res->getBody();
+                } elseif ($http_status == 403) {
+                    // Xử lý khi bị từ chối (status code 403)
+                    return 'Lỗi: Truy cập bị từ chối 403';
+                } else {
+                    // Xử lý các trường hợp khác
+                    return 'Lỗi: Trạng thái HTTP không xác định.';
+                }
+            } catch (Exception $e) {
+                // Xử lý nếu có lỗi trong quá trình gọi API
+                return 'Lỗi: ' . $e->getMessage();
+            }
         }
     }
 
