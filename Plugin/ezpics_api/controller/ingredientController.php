@@ -92,7 +92,14 @@ function categoryIngredientAPI($input){
 
 
 	$conditions = array('type' => 'ingredient_categories');
+	$modelIngredients = $controller->loadModel('Ingredients');
     $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    if(!empty($listData)){
+    	foreach($listData as $key => $item){
+    		$listData[$key]->listIngredient = $modelIngredients->find()->limit(1)->page(3)->where(array('status'=>1,'category_id'=>$item->id))->all()->toList();
+    	}
+    }
 	return array('code'=>1,
 				'data'=> $listData,
 				'mess'=>'Bạn lấy data thành công',
