@@ -14,6 +14,7 @@
 	$routesPlugin['fixWidthText']= 'ezpics_api/view/fixWidthText.php';
 	$routesPlugin['fixAuthor']= 'ezpics_api/view/fixAuthor.php';
 	$routesPlugin['fixWarehouseProducts']= 'ezpics_api/view/fixWarehouseProducts.php';
+	$routesPlugin['fixPhotoroom']= 'ezpics_api/view/fixPhotoroom.php';
 
 	// nén ảnh
 	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';
