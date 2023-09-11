@@ -173,7 +173,7 @@ function viewBookingDetailAdmin($input)
                 'Bookings.description',
                 'Bookings.introduce_fee',
                 'Bookings.price',
-                'Bookings.create_at',
+                'Bookings.created_at',
                 'Bookings.updated_at',
                 'Bookings.received_at',
                 'Bookings.canceled_at',
@@ -181,7 +181,9 @@ function viewBookingDetailAdmin($input)
                 'PostedUsers.name',
                 'ReceivedUsers.id',
                 'ReceivedUsers.name',
+                'DepartureProvinces.id',
                 'DepartureProvinces.name',
+                'DestinationProvinces.id',
                 'DestinationProvinces.name',
             ])->where([
                 'Bookings.id' => $_GET['id']
@@ -204,17 +206,22 @@ function viewBookingDetailAdmin($input)
             && isset($dataSend['price'])
         ) {
             $data->name = $dataSend['name'];
-            $data->start_time = $dataSend['start_time'];
-            $data->finish_time = $dataSend['finish_time'];
+            $data->start_time = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
+            $data->finish_time = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
             $data->departure = $dataSend['departure'];
             $data->destination = $dataSend['destination'];
             $data->departure_province_id = $dataSend['departure_province_id'];
             $data->destination_province_id = $dataSend['destination_province_id'];
             $data->introduce_fee = $dataSend['introduce_fee'];
+            $data->price = $dataSend['price'];
             $data->description = $dataSend['description'];
             $data->status = $dataSend['status'];
-            $data->posted_by = $dataSend['posted_by'] ?: null;
-            $data->received_by = $dataSend['received_by'] ?: null;
+            if (isset($dataSend['posted_by'])) {
+                $data->posted_by = $dataSend['posted_by'];
+            }
+            if (isset($dataSend['posted_by'])) {
+                $data->received_by = $dataSend['received_by'];
+            }
 
             $bookingModel->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
