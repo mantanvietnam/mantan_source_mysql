@@ -103,7 +103,7 @@ function viewUserDetailAdmin($input)
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(!empty($dataSend['name'])){
+        if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
             $data->avatar = $dataSend['avatar'];
             $data->phone_number = $dataSend['phone_number'];
@@ -114,9 +114,9 @@ function viewUserDetailAdmin($input)
             $data->available_coin = $dataSend['available_coin'];
 
             $modelUser->save($data);
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-        }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        } else {
+            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
         }
     }
 
