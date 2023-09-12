@@ -372,3 +372,17 @@ $bookingStatus = [
 
 global $serviceFee;
 $serviceFee = 0;
+
+global $imageType;
+$imageType = [
+    'id-card-front' => 'id-card-front',
+    'id-card-back' => 'id-card-back',
+    'car' => 'car',
+    'avatar' => 'avatar',
+];
+
+global $ownerType;
+$ownerType = [
+    'users' => 'users',
+    'bookings' => 'bookings',
+];

@@ -267,3 +267,115 @@ function resetPasswordApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function upgradeToDriverApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelImage = $controller->loadModel('Images');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+
+        if(isset($_FILES['id_card_front'])
+            && isset($_FILES['id_card_back'])
+            && isset($_FILES['car_image_1'])
+            && isset($dataSend['bank_account'])
+            && isset($dataSend['account_number'])
+            && isset($dataSend['email'])
+            && isset($dataSend['address'])
+        ) {
+            $currentUser->bank_account = $dataSend['bank_account'];
+            $currentUser->account_number = $dataSend['account_number'];
+            $currentUser->email = $dataSend['email'];
+            $currentUser->address = $dataSend['address'];
+            $modelUser->save($currentUser);
+
+            $imageData = [];
+            $idCardFront = uploadImage($currentUser->id, 'id_card_front', 'id_card_front_' . $currentUser->id);
+            if ($idCardFront['code']) {
+                return apiResponse(4, $idCardFront['mess']);
+            }
+            $imageData[] = [
+                'path' => $idCardFront['linkOnline'],
+                'type' => $imageType['id-card-front'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+
+            $idCardBack = uploadImage($currentUser->id, 'id_card_back', 'id_card_back_' . $currentUser->id);
+            if ($idCardBack['code']) {
+                return apiResponse(4, $idCardBack['mess']);
+            }
+            $imageData[] = [
+                'path' => $idCardBack['linkOnline'],
+                'type' => $imageType['id-card-back'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+
+            $carImage = uploadImage($currentUser->id, 'car_image_1', 'car_1_' . $currentUser->id);
+            if ($carImage['code']) {
+                return apiResponse(4, $carImage['mess']);
+            }
+            $imageData[] = [
+                'path' => $carImage['linkOnline'],
+                'type' => $imageType['car'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+
+            for ($i = 2; $i <= 10; $i++) {
+                if (isset($_FILES["car_image_$i"])) {
+                    $carImage = uploadImage($currentUser->id, 'car_image_' . $i, 'car_'. $i . '_' . $currentUser->id);
+                    if ($carImage['code']) {
+                        return apiResponse(4, $carImage['mess']);
+                    }
+                    $imageData[] = [
+                        'path' => $carImage['linkOnline'],
+                        'type' => $imageType['car'],
+                        'owner_id' => $currentUser->id,
+                        'owner_type' => $ownerType['users']
+                    ];
+                } else {
+                    break;
+                }
+            }
+
+            $avatar = uploadImage($currentUser->id, 'avatar', 'avatar' . $currentUser->id);
+            if ($avatar['code']) {
+                return apiResponse(4, $avatar['mess']);
+            }
+            $imageData[] = [
+                'path' => $avatar['linkOnline'],
+                'type' => $imageType['car'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+
+            $images = $modelImage->newEntities($imageData);
+            $modelImage->saveMany($images);
+
+            return apiResponse(0, 'Gửi yêu cầu thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
