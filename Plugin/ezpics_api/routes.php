@@ -158,6 +158,7 @@
 	// thong ke 
 	
 	$routesPlugin['statisticalAPI']= 'ezpics_api/view/statisticalAPI.php';
+	$routesPlugin['staticNumberUserAPI']= 'ezpics_api/view/staticNumberUserAPI.php';
 	
 	$routesPlugin['listCategoryQuestionAPI']= 'ezpics_api/view/listCategoryQuestionAPI.php';
 	$routesPlugin['listQuestionAPI']= 'ezpics_api/view/listQuestionAPI.php';
