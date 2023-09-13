@@ -3,9 +3,8 @@
    License: none (public domain)
 */
 @font-face {
-    font-family: Quicksand;
-    src: url(./font/static/Quicksand-Regular.ttf);
-   
+    font-family: sfPro;
+    src: url(./font/SF-Pro-Display/SF-Pro-Display-Regular.otf);
 }
 
 html, body, div, span, applet, object, iframe,
@@ -27,7 +26,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-    font-family: Quicksand;
+    font-family: sfPro;
     list-style-type: none;
     line-height: 1.4;
 }
@@ -1325,7 +1324,7 @@ strong{
     display: block;
     font-size: 14px;
     margin: 0 0 4px;
-    font-weight: 500;
+    font-weight: bold;
     color: #454545
 }
 

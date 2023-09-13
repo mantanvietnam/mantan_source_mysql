@@ -146,7 +146,7 @@
                         </div>
         
                         <div class="col-lg-5 col-md-5 col-12 keydate-right">
-                            <span class="odometer4 number-project"><?php echo @$settingThemes['content_4_section_3'];?></span> <span class="tranform-text">Projects</span>
+                            <span class="odometer4 number-project"><?php echo @$settingThemes['content_4_section_3'];?></span><span class="tranform-text">&nbsp;Projects</span>
                             <p><?php echo @$settingThemes['title_content_4_section_3'];?></p>
                         </div>
                     </div>
