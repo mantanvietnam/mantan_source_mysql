@@ -49,6 +49,7 @@ function getListProvinceApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
+            $query = $modelProvinces->find();
             $listProvince = $modelProvinces->find()
                 ->join([
                     'table' => 'pinned_provinces',
@@ -58,6 +59,17 @@ function getListProvinceApi($input): array
                         'PinnedProvinces.province_id = Provinces.id',
                         'PinnedProvinces.user_id' => $currentUser->id
                     ],
+                ])->select([
+                    'Provinces.id',
+                    'Provinces.name',
+                    'Provinces.bsx',
+                    'Provinces.gps',
+                    'Provinces.status',
+                    'is_pinned' => $query->newExpr()
+                        ->case()
+                        ->when($query->newExpr()->add(['PinnedProvinces.id IS NOT NULL']))
+                        ->then(1)
+                        ->else(0)
                 ])->where($conditions)
                 ->limit($limit)
                 ->page($page)

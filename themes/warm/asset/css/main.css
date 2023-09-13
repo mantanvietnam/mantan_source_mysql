@@ -578,11 +578,22 @@ strong{
 #section-keydate .keydate-left span{
 	font-size: 59px;
 	color: #fff;
+	/* position: relative; */
 }
 
 #section-keydate .keydate-left {
 	display: flex;
     justify-content: space-around;
+}
+
+#section-keydate .keydate-left .tranform-text{
+	position: absolute;
+    transform: translateY(7px);
+}
+
+#section-keydate .keydate-right .tranform-text{
+	position: absolute;
+    transform: translateY(7px);
 }
 
 
@@ -595,10 +606,12 @@ strong{
     right: -72px;
 }
 
+
+
 #section-keydate .keydate-left p{
 	font-size: 24px;
 	color: #fff;
-	margin-top: 16px
+	margin-top: 5px
 }
 
 #section-keydate .keydate-right span {
@@ -609,7 +622,7 @@ strong{
 #section-keydate .keydate-right p{
 	font-size: 24px;
 	color: #fff;
-	margin-top: 16px;
+	margin-top: 5px;
 	line-height: 1.2;
 
 }
@@ -617,15 +630,6 @@ strong{
 #section-keydate .keydate-right{
 	padding-left: 90px
 }
-
-#section-keydate {
-	position: relative !important;
-}
-
-#section-keydate .tranform-text{
-	position: absolute;
-	transform: translateY(8px);
-}	
 
 /* photo */
 #section-photo{
@@ -706,6 +710,10 @@ strong{
 }
 
 /* footer */
+.tel-footer{
+	font-size:15px ;
+}
+
 #section-footer .footer-box{
 	padding-top: 80px;
 	padding-bottom: 60px;
@@ -1542,8 +1550,6 @@ strong{
 	
 
 	/* keydate */
-	
-
 	#section-keydate .keydate-left span{
 		font-size: 31px;
 	}

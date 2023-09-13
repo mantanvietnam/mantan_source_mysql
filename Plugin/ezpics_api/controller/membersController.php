@@ -1197,4 +1197,17 @@ function listDesignerAPI($input){
 	return 	$return;
 }
 
+function staticNumberUserAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$user = $modelMember->find()->where(['status'=>1])->all()->toList();
+
+	return ['number'=>count($user)];
+}
+
 ?>

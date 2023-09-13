@@ -111,3 +111,126 @@ function listBookingAdmin($input)
     setVariable('listProvince', $listProvince);
     setVariable('listBooking', $listBooking);
 }
+
+function viewBookingDetailAdmin($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Thông tin cuốc xe';
+    $bookingModel = $controller->loadModel('Bookings');
+    $provinceModel = $controller->loadModel('Provinces');
+    $mess = '';
+    $listProvince = $provinceModel->find()
+        ->where(['status' => 1])
+        ->all()
+        ->toList();
+
+    if (!empty($_GET['id'])) {
+        $data = $bookingModel->find()
+            ->join([
+                [
+                    'table' => 'users',
+                    'alias' => 'PostedUsers',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Bookings.posted_by = PostedUsers.id',
+                    ],
+                ],
+                [
+                    'table' => 'users',
+                    'alias' => 'ReceivedUsers',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Bookings.received_by = ReceivedUsers.id',
+                    ],
+                ],
+                [
+                    'table' => 'provinces',
+                    'alias' => 'DepartureProvinces',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Bookings.departure_province_id = DepartureProvinces.id',
+                    ],
+                ],
+                [
+                    'table' => 'provinces',
+                    'alias' => 'DestinationProvinces',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Bookings.destination_province_id = DestinationProvinces.id',
+                    ],
+                ]
+            ])->select([
+                'Bookings.id',
+                'Bookings.name',
+                'Bookings.status',
+                'Bookings.start_time',
+                'Bookings.finish_time',
+                'Bookings.departure',
+                'Bookings.destination',
+                'Bookings.description',
+                'Bookings.introduce_fee',
+                'Bookings.price',
+                'Bookings.created_at',
+                'Bookings.updated_at',
+                'Bookings.received_at',
+                'Bookings.canceled_at',
+                'PostedUsers.id',
+                'PostedUsers.name',
+                'ReceivedUsers.id',
+                'ReceivedUsers.name',
+                'DepartureProvinces.id',
+                'DepartureProvinces.name',
+                'DestinationProvinces.id',
+                'DestinationProvinces.name',
+            ])->where([
+                'Bookings.id' => $_GET['id']
+            ])->first();
+    } else {
+        $data = $bookingModel->newEmptyEntity();
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['name'])
+            && isset($dataSend['start_time'])
+            && isset($dataSend['finish_time'])
+            && isset($dataSend['departure'])
+            && isset($dataSend['destination'])
+            && isset($dataSend['departure_province_id'])
+            && isset($dataSend['destination_province_id'])
+            && isset($dataSend['introduce_fee'])
+            && isset($dataSend['price'])
+        ) {
+            $data->name = $dataSend['name'];
+            $data->start_time = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
+            $data->finish_time = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
+            $data->departure = $dataSend['departure'];
+            $data->destination = $dataSend['destination'];
+            $data->departure_province_id = $dataSend['departure_province_id'];
+            $data->destination_province_id = $dataSend['destination_province_id'];
+            $data->introduce_fee = $dataSend['introduce_fee'];
+            $data->price = $dataSend['price'];
+            $data->description = $dataSend['description'];
+            $data->status = $dataSend['status'];
+            if (isset($dataSend['posted_by'])) {
+                $data->posted_by = $dataSend['posted_by'];
+            }
+            if (isset($dataSend['posted_by'])) {
+                $data->received_by = $dataSend['received_by'];
+            }
+
+            $bookingModel->save($data);
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        } else {
+            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+        }
+    }
+
+    setVariable('data', $data);
+    setVariable('listProvince', $listProvince);
+    setVariable('mess', $mess);
+}
