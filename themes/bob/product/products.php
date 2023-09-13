@@ -3,11 +3,11 @@
     <main>
         <section id="product" class="">
             <div class="banner-product max-h-70vh max-h-80vh maxheight-480 overflow-hiden">
-                <img src="<?php echo $category->image ?>" alt="">
+                <img src="http://bobdecor.com.vn/upload/admin/files/P7fB90FcgdY69rXUY6MsNtvKiRSpkj14DkpEIZn4.jpg" alt="">
                 <div class="absolute bottom-0 w-100 linear-background--banner" >
                     <div class="container">
                         <div class="title-banner-product">
-                            <h1><?php echo $category->name ?></h1>
+                            <h1>Sản phẩm</h1>
                         </div>                    
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-gray-400 list-duong-dan">
                       <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
-                      <li class="breadcrumb-item active font-semibold" aria-current="page"><?php echo $category->name ?></li>
+                      <li class="breadcrumb-item active font-semibold" aria-current="page">Sản phẩm</li>
                     </ol>
                   </nav>
             </div>
