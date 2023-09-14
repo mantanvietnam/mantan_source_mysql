@@ -38,6 +38,13 @@ function listTransactionHistoryBankingEzpics($input)
 		}
 	}
 
+
+	if(isset($_GET['payment_kind'])){
+		if($_GET['payment_kind']!=''){
+			$conditions['payment_kind'] = (int) $_GET['payment_kind'];
+		}
+	}
+
 	if(!empty($_GET['date_start'])){
 		$date_start = explode('/', $_GET['date_start']);
 		$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
@@ -49,6 +56,7 @@ function listTransactionHistoryBankingEzpics($input)
 		$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
 		$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
 	}
+
 
     $listData = $modelOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

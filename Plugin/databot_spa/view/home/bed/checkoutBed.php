@@ -52,29 +52,56 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <h5 class="mb-0">Tổng cộng (VNĐ)</h5>
-                  <br>
-                  <div class="form-group row">
+                    <h5 class="mb-0">Tổng cộng (VNĐ)</h5>
+                    <br>
+                    <div class="form-group row">
                       <label class="col-md-6"><strong>Tiền phòng:</strong></label>
                       <div class="col-md-6" id="totalMoney"><?php echo number_format(@$data->total); ?> VNĐ</div>
                        <input type="hidden" name="total" id="total" value="<?php echo @$data->total; ?>">
-                  </div>
+                    </div>
                    <br>  
-                  <div class="form-group row">
-                      <label class="col-md-6"><strong>giảm giá:</strong></label>
-                      <div class="col-md-6"><input value="<?php echo @$data->promotion ?>" type="number"  onchange="tinhtien();" style="width: 50%;"  name="promotion" id="promotion" class="form-control input_money"  /></div>
-                  </div>
+                    <div class="form-group row">
+                          <label class="col-md-6"><strong>giảm giá:</strong></label>
+                          <?php 
+                            if($data->promotion>101){
+                              $promotion = number_format($data->promotion).'đ';
+                            }else{
+                               $promotion = $data->promotion.'%';
+                            }
+                           ?>
+                          <div class="col-md-6"><?php echo @$promotion ?></div>
+                        </div>
                    <br>  
-                  <div class="form-group row">
-                      <label class="col-md-6" style="color: blue; font-size: 14px;"><strong>Phải thanh toán:</strong></label>
-                          <div class="col-md-6" id="totalPay"><?php echo number_format(@$data->total_pay); ?> VNĐ</div>
-                           <input type="hidden" name="totalPays" id="totalPays" value="<?php echo @$data->total_pay; ?>">
-                  </div>
+                    <div class="form-group row">
+                        <label class="col-md-6" style="color: blue; font-size: 14px;"><strong>Phải thanh toán:</strong></label>
+                            <div class="col-md-6" id="totalPay"><?php echo number_format(@$data->total_pay); ?> VNĐ</div>
+                               <input type="hidden" name="totalPays" id="totalPays" value="<?php echo @$data->total_pay; ?>">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-6"><strong>Hình thức thanh toán</strong></label>
+                         <div class="col-md-6" id="totalPay">
+                        <select name="type_collection_bill" class="form-select color-dropdown" required>
+                                              <option value="">Chọn hình thức thanh toán</option>
+                                              <?php
+                                              global $type_collection_bill;
+                                                foreach ($type_collection_bill as $key => $value) {
+                                                  if(empty(@$data->type_collection_bill) || @$data->type_collection_bill!=$key){
+                                                    echo '<option value="'.$key.'">'.$value.'</option>';
+                                                  }else{
+                                                    echo '<option selected value="'.$key.'">'.$value.'</option>';
+                                                  }
+                                                }
+                                              ?>
+                                              <option value="cong_no">Công nợ</option>
+                                            </select>
+                        </div>
+                    </div> 
                 </div>
                 <div class="col-md-12">
-                   <br> 
-                  <h5 class="mb-0">thông tin sản phẩm</h5>
-                  <br>
+                    <br> 
+                    <h5 class="mb-0">thông tin sản phẩm</h5>
+                    <br>
+
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style=" text-align: center; ">
@@ -180,6 +207,7 @@
                 </div>
               </div>
                 <button type="submit" class="btn btn-primary">Thanh toán</button> 
+                <a href="infoRoomBed?idBed=<?php echo @$data->bed->id ?>" class="btn btn-primary">sửa</a> 
           </div>
         </div>
       </div>

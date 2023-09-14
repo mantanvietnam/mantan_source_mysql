@@ -380,7 +380,7 @@ function checkinbed($input){
         $user = $session->read('infoUser');
 
         if(!empty($_GET['id_order'])){
-            $Order = $modelOrder->find()->where(array('id_order'=>$_GET['id_bed'], 'status'=>2))->first();
+            $Order = $modelOrder->find()->where(array('id_bed'=>$_GET['id_bed'], 'status'=>2))->first();
             $bed = $modelBed->find()->where(array('id'=>$_GET['id_bed'], 'status'=>2))->first();
             if(empty($Order) && empty($bed)){
                 $dataOrder = $modelOrder->get($_GET['id_order']);
