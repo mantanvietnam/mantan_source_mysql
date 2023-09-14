@@ -277,6 +277,7 @@ function upgradeToDriverApi($input): array
 
     $modelUser = $controller->loadModel('Users');
     $modelImage = $controller->loadModel('Images');
+    $modelDriverRequest = $controller->loadModel('DriverRequests');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -294,6 +295,7 @@ function upgradeToDriverApi($input): array
 
         if(isset($_FILES['id_card_front'])
             && isset($_FILES['id_card_back'])
+            && isset($_FILES['avatar'])
             && isset($_FILES['car_image_1'])
             && isset($dataSend['bank_account'])
             && isset($dataSend['account_number'])
@@ -370,6 +372,18 @@ function upgradeToDriverApi($input): array
 
             $images = $modelImage->newEntities($imageData);
             $modelImage->saveMany($images);
+
+            $currentRequest = $modelDriverRequest->find()
+                ->where(['user_id' => $currentUser->id])
+                ->first();
+            if (!$currentRequest) {
+                $request = $modelDriverRequest->newEmptyEntity();
+                $request->user_id = $currentUser->id;
+                $modelDriverRequest->save($request);
+            } else {
+                $currentRequest->updated_at = date('Y-m-d H:i:s');
+                $modelDriverRequest->save($currentRequest);
+            }
 
             return apiResponse(0, 'Gửi yêu cầu thành công');
         }
