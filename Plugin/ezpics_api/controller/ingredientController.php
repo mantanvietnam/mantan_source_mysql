@@ -97,7 +97,7 @@ function categoryIngredientAPI($input){
 
     if(!empty($listData)){
     	foreach($listData as $key => $item){
-    		$listData[$key]->listIngredient = $modelIngredients->find()->limit(1)->page(3)->where(array('status'=>1,'category_id'=>$item->id))->all()->toList();
+    		$listData[$key]->listIngredient = $modelIngredients->find()->limit(3)->page(1)->where(array('status'=>1,'category_id'=>$item->id))->all()->toList();
     	}
     }
 	return array('code'=>1,

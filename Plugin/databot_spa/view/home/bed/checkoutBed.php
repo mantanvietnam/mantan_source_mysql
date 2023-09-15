@@ -55,7 +55,7 @@
                     <h5 class="mb-0">Tổng cộng (VNĐ)</h5>
                     <br>
                     <div class="form-group row">
-                      <label class="col-md-6"><strong>Tiền phòng:</strong></label>
+                      <label class="col-md-6"><strong>Tiền giường:</strong></label>
                       <div class="col-md-6" id="totalMoney"><?php echo number_format(@$data->total); ?> VNĐ</div>
                        <input type="hidden" name="total" id="total" value="<?php echo @$data->total; ?>">
                     </div>

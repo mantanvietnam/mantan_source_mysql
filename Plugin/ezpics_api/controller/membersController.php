@@ -56,6 +56,21 @@ function saveRegisterMemberAPI($input)
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];
 
+					 // tạo link deep
+			        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		            $header_deep = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		            $deep_link = json_decode($deep_link);
+
+		            $data->link_affiliate = @$deep_link->shortLink;
+
 
 					$modelMember->save($data);
 					sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
@@ -215,6 +230,20 @@ function checkLoginFacebookAPI($input)
 				$data->token_device = @$dataSend['token_device'];
 				$data->id_facebook = $dataSend['id_facebook'];
 
+				$url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		        $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		        $header_deep = ['Content-Type: application/json'];
+		        $typeData='raw';
+		        $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		        $deep_link = json_decode($deep_link);
+
+		        $data->link_affiliate = @$deep_link->shortLink;
+
 
 				$modelMember->save($data);
 				sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
@@ -300,6 +329,20 @@ function checkLoginGoogleAPI($input)
 				$data->token_device = @$dataSend['token_device'];
 				$data->id_google = $dataSend['id_google'];
 
+				$url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		        $header_deep = ['Content-Type: application/json'];
+		        $typeData='raw';
+		        $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		        $deep_link = json_decode($deep_link);
+
+		        $data->link_affiliate = @$deep_link->shortLink;
+
 
 				$modelMember->save($data);
 				sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
@@ -384,6 +427,21 @@ function checkLoginAppleAPI($input)
 				$data->last_login = date('Y-m-d H:i:s');
 				$data->token_device = @$dataSend['token_device'];
 				$data->id_apple = $dataSend['id_apple'];
+
+
+				$url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		        $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		        $header_deep = ['Content-Type: application/json'];
+		        $typeData='raw';
+		        $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		        $deep_link = json_decode($deep_link);
+
+		        $data->link_affiliate = @$deep_link->shortLink;
 
 
 				$modelMember->save($data);
@@ -545,7 +603,7 @@ function getInfoMemberAPI($input)
 			if(!empty($checkPhone)){
 				$name_slug = createSlugMantan($checkPhone->name);
 				$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
-				$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://ezpics.page.link/register?affsource='.$checkPhone->aff;
+				$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$checkPhone->link_affiliate;
 				
 				$return = array('code'=>0,
 								 'data'=>$checkPhone,
@@ -610,7 +668,7 @@ function getInfoUserAPI($input)
 
 					$name_slug = createSlugMantan($checkPhone->name);
 					$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
-					$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://ezpics.page.link/register?affsource='.$checkPhone->aff;
+					$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$checkPhone->link_affiliate;
 
 					$return = array('code'=>0,
 								 'data'=>$checkPhone,
