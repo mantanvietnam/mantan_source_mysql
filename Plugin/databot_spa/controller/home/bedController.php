@@ -415,6 +415,7 @@ function checkoutBed($input){
                 $debt->total =  $data->total_pay;
                 $debt->note =  'Bán hàng ID đơn hàng là '.$data->id.', người bán là '.$user->name.', thời gian '.date('Y-m-d H:i:s');
                 $debt->type = 0; //0: Thu, 1: chi
+                $debt->created_at = date('Y-m-d H:i:s');
                 $debt->updated_at = date('Y-m-d H:i:s');
                 $debt->id_order = $data->id;
                 $debt->id_customer = (int)@$data->id_customer;
@@ -432,6 +433,7 @@ function checkoutBed($input){
                 $bill->note = 'Bán hàng ID đơn hàng là '.$data->id.', người bán là '.$user->name.', thời gian '.date('Y-m-d H:i:s');
                 $bill->type = 0; //0: Thu, 1: chi
                 $bill->id_order = $data->id;
+                $bill->created_at = date('Y-m-d H:i:s');
                 $bill->updated_at = date('Y-m-d H:i:s');
                 $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                 $bill->id_customer = (int)@$data->id_customer;
@@ -493,7 +495,7 @@ function checkoutBed($input){
             $datebed->status = 1;
             $modelBed->save($datebed);
 
-
+            return $controller->redirect('/printInfoOrder?id='.$order->id);
         }
 
 

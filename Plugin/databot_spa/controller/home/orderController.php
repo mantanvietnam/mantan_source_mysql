@@ -115,6 +115,7 @@ function order($input){
                     $debt->total =  $data->total_pay;
                     $debt->note =  'Bán hàng ID đơn hàng là '.$data->id.', người bán là '.$user->name.', thời gian '.date('Y-m-d H:i:s');
                     $debt->type = 0; //0: Thu, 1: chi
+                    $debt->created_at = date('Y-m-d H:i:s');
                     $debt->updated_at = date('Y-m-d H:i:s');
                     $debt->id_order = $order->id;
                     $debt->id_customer = (int)@$dataSend['id_customer'];
@@ -125,7 +126,6 @@ function order($input){
                 }else{
                     // lưu bill
                     $bill = $modelBill->newEmptyEntity();
-                    $bill->created_at = date('Y-m-d H:i:s');
                     $bill->id_member = @$user->id_member;
                     $bill->id_spa = $session->read('id_spa');
                     $bill->id_staff = (int)@$dataSend['id_staff'];
@@ -133,6 +133,7 @@ function order($input){
                     $bill->note = 'Bán hàng ID đơn hàng là '.$order->id.', người bán là '.$user->name.', thời gian '.date('Y-m-d H:i:s');
                     $bill->type = 0; //0: Thu, 1: chi
                     $bill->id_order = $order->id;
+                    $bill->created_at = date('Y-m-d H:i:s');
                     $bill->updated_at = date('Y-m-d H:i:s');
                     $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                     $bill->id_customer = (int)@$dataSend['id_customer'];

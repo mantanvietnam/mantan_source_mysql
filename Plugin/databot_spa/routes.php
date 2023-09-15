@@ -109,4 +109,7 @@
 	$routesPlugin['addCampain']= 'databot_spa/view/home/campain/addCampain.php';
 	$routesPlugin['deleteCampain']= 'databot_spa/view/home/campain/deleteCampain.php';
 
+	// thống kê 
+	$routesPlugin['revenueStatistical']= 'databot_spa/view/home/statistical/revenueStatistical.php';
+	
 ?>
