@@ -62,7 +62,7 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                                 <span>Follow us: </span>
                                 <?php 
                                     if(!empty($settingThemes['youtube'])){
-                                        echo '  <a href="'.$settingThemes['youtube'].'">
+                                        echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
                                                     <i class="fa-brands fa-youtube"></i>
                                                 </a>';
                                     }

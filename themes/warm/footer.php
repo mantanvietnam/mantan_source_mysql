@@ -45,7 +45,7 @@
                                 <span>Follow us:
                                 <?php 
                                     if(!empty($settingThemes['youtube'])){
-                                        echo '  <a href="'.$settingThemes['youtube'].'">
+                                        echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
                                                     <i class="fa-brands fa-youtube"></i>
                                                 </a>';
                                     }

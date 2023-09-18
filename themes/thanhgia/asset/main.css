@@ -1295,6 +1295,18 @@ strong{
 /* sản phẩm nổi bật */
 .product-featured-img img{
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.col-lg-4 .product-featured-img{
+    width: 100%;
+    height: 375px;
+}
+
+.col-lg-3 .product-featured-img{
+    width: 100%;
+    height: 272px;
 }
 
 .product-featured-price .price{

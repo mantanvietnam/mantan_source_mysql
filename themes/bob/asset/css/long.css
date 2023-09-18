@@ -1551,3 +1551,9 @@ height: 30px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 }
+
+/* Bổ sung code */
+
+.swiper-du-an-details{
+	margin-bottom: 120px;
+}

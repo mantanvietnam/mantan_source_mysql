@@ -118,6 +118,7 @@
                                             <?php
                                             if(!empty($other_product)){
                                                 foreach ($other_product as $key => $value) {
+                                                    
                                                     if(!empty($product->price)){
                                                         $price = number_format($product->price).'đ';
                                                     }else{

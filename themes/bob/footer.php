@@ -115,7 +115,10 @@
                 <p>© Copyright 2023 Yên Lâm. All Rights Reserved.</p>
             </div>
         </section>
+        
 
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
         <script src="<?php echo $urlThemeActive; ?>/asset/js/slick.js"></script>
         <script src="<?php echo $urlThemeActive; ?>/asset/js/main.js"></script>
     </footer>

@@ -3,10 +3,15 @@
 function categoryProject($input)
 {
 	
-	global $controller;
-	global $urlCurrent;
-    global $metaTitleMantan;
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
     global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
 
 	$modelProductProjects = $controller->loadModel('ProductProjects');
     $modelProduct = $controller->loadModel('Products');
@@ -28,7 +33,7 @@ function categoryProject($input)
     	}
     }
     
-    $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $listData = $modelProductProjects->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
 
 
  
@@ -91,6 +96,9 @@ function categoryProject($input)
         }
     }    
 
+    $conditions = array('type' => 'category_kind');
+    $kind_all = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -99,8 +107,11 @@ function categoryProject($input)
     setVariable('totalData', $totalData);
     setVariable('listData', $listData);
     setVariable('listKind', $listKind);
+    setVariable('kind_all', $kind_all);
+
 
 }
 
-
 ?>
+
+

@@ -312,27 +312,18 @@ strong{
 	background-color: #fff;
 }
 
-#section-home-banner .home-banner{
+/* #section-home-banner .home-banner{
 	background-color: #fff;
-	/* background-image: url(../img/Frame.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-	padding: 18px; */
 	border-left: 10px solid #ded2cb;
     border-right: 10px solid #80a9d6;
 	background-position: 0 0, 100% 0;
     background-repeat: no-repeat;
-    /* -webkit-background-size: 100% 20%;
-    -moz-background-size: 100% 20%; */
     background-size: 100% 100%;
 	box-sizing: border-box;
-    /* background-image: -webkit-linear-gradient(top, red 0%, blue 100%), -webkit-linear-gradient(top, red 0%, blue 100%);
-    background-image: -moz-linear-gradient(top, red 0%, blue 100%), -moz-linear-gradient(top, red 0%, blue 100%);
-    background-image: -o-linear-gradient(top, red 0%, blue 100%), -o-linear-gradient(top, red 0%, blue 100%); */
     background-image: linear-gradient(to right, #ded2cb 0%,#fbd15f 20%, #ff6c41 40%, #06529a 60%,#80a9d6 100%);
 	padding-top: 11px;
 	padding-bottom: 11px;
-}
+} */
 
 #section-home-banner .logo-warm{
 	width: 184px;
@@ -413,6 +404,36 @@ strong{
 	font-size: 16px;
 	color: #fff;
 	line-height: 1.4;
+}
+
+#section-facility .facility-content .text-facility-link a{
+	font-size: 16px;
+	color: #fff;
+	line-height: 1.4;
+	margin-top: 40px;
+	text-transform: uppercase;
+	transition: all 0.3s linear;
+	position: relative;
+	
+
+}
+
+#section-facility .facility-content .text-facility-link a::before{
+	content: "";
+	position: absolute;
+	bottom: -6px;
+	width: 116px;
+	height: 2px;
+	background-color: #fff;
+}
+
+#section-facility .facility-content .text-facility-link a:hover{
+	transition: all 0.3s linear;
+	color: #73758a;
+}
+
+#section-facility .facility-content .text-facility-link{
+	margin-top: 40px;
 }
 
 #section-facility .facility-content .facility-content-left{
@@ -897,6 +918,12 @@ strong{
 
 
 /* Opportunities */
+/* Nội dung chỉnh */
+#section-opportunities .container .row{
+	flex-direction: row-reverse;
+}
+
+
 #section-opportunities .title-section{
 	margin-bottom: 40px;
 }
@@ -963,7 +990,7 @@ strong{
 }
 
 #section-opportunities .opportunity-text .opportunity-content-sub{
-	font-size: 19px;
+	font-size: 18px;
 	margin-bottom: 22px;
 	color: #000;
 	line-height: 26px;
@@ -991,6 +1018,7 @@ strong{
 
 .opportunity-button{
 	text-align: right;
+	margin-top: 27px;
 }
 
 .opportunity-button a img{
@@ -1055,7 +1083,7 @@ strong{
     padding-right: 23px;
     padding-left: 21px;
     padding-bottom: 45px;
-    min-height: 327px;
+    height: 327px;
 }
 
 #section-team .row-content2{
@@ -1221,7 +1249,7 @@ strong{
 	padding-top: 33px;
 	padding-left: 40px;
 	padding-right: 40px;
-	padding-bottom: 110px
+	padding-bottom: 0px
 }
 
 /* impact */
@@ -1247,19 +1275,20 @@ strong{
 	list-style-type: none;
 	position: relative;
 	margin-bottom: 20px;
-	padding-left: 24px;
+	padding-left: 0px;
+	font-size: 15px;
 }
 
 #section-facility-impact .facility-impact-right ul li::before{
 	content: ""; 
-	width: 8px;
-    height: 8px;
+	width: 6px;
+    height: 6px;
 	background-color: #11417d; 
 	border-radius: 50%;
 	display: inline-block;
 	position: absolute;
     left: -30px;
-    top: 70%;
+    top: 59%;
 	transform: translateY(-50%);
 }
 
@@ -1429,6 +1458,12 @@ strong{
 	}
 }
 
+@media (max-width: 1300px){
+	#facility-project-box .project-box-item-inner {
+		min-height: 670px !important;
+	}
+}
+
 @media (max-width: 1441px){
 	#section-menu .nav-link{
 		font-size: 19px;
@@ -1457,6 +1492,7 @@ strong{
 		position: absolute;
 		right: 12%;
 		top: 35px;
+		text-align: right;
 	}
 
 	#section-home-banner .logo-warm img{
@@ -1745,6 +1781,10 @@ strong{
 	}
 
 	/* about us */
+	#section-project-page .project-accordior-detail{
+		height: 530px;
+	}
+
 	#section-project-page .project-accordior{
 		flex-direction: column;
 	}
@@ -1787,6 +1827,11 @@ strong{
 		font-size: 17px;
 		text-align: center;
 		padding-left: 16px;
+	}
+
+	/* team */
+	#section-team .content2-col-inner{
+		min-height: 453px;
 	}
 
 
@@ -1850,12 +1895,20 @@ strong{
 	}
 
 	#facility-project-box .project-box-item-inner{
-		min-height: 373px;
+		min-height: 373px !important;
 		padding-top: 30px;
 	}
 
 	.project-box-item{
 		padding-left: 12px;
+	}
+
+	#facility-project-box .project-box-item4 .project-box-item-title{
+		margin-bottom: 30px;
+	}
+	/* test facility */
+	#section-facility-description .description-content-right{
+		padding-bottom: 33px;
 	}
 	
 	/* oppo */
@@ -1891,7 +1944,6 @@ strong{
 		line-height: 34px;
 		padding-top: 16px;
 		padding-bottom: 16px;
-	
 	}
 	
 

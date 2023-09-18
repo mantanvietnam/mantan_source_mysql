@@ -54,7 +54,7 @@ $(document).ready(function() {
        duration: 5000
      })
   
-     classOdometer4.innerHTML = 8;
+     classOdometer4.innerHTML = 10;
   }
   });
   
