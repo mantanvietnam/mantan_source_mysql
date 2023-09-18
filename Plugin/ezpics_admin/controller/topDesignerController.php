@@ -71,6 +71,7 @@ function listSellTopDesignerAdmin($input){
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);*/
+
     
     setVariable('listData', $listDesign);
     //ssetVariable('listCategory', $listCategory);
