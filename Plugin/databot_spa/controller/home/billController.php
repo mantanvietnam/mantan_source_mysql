@@ -158,6 +158,76 @@ function listCollectionBill($input){
 	}
 }
 
+function detailCollectionBill($input){
+	global $controller;
+	global $modelCategories;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'Tạo đơn hàng';
+
+    if(!empty($session->read('infoUser'))){
+		$user = $session->read('infoUser');
+
+		$modelCombo = $controller->loadModel('Combos');
+		$modelProduct = $controller->loadModel('Products');
+		$modelCustomer = $controller->loadModel('Customers');
+		$modelService = $controller->loadModel('Services');
+		$modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelBill = $controller->loadModel('Bills');
+
+        $data = $modelBill->get( (int) $_GET['id']);
+
+        if(!empty($data->id_order)){
+        	 $order = $modelOrder->get($data->id_order);
+
+        	$product = $modelOrderDetails->find()->where(array('id_order'=>$order->id,'type'=>'product'))->all()->toList();
+            $service = $modelOrderDetails->find()->where(array('id_order'=>$order->id,'type'=>'service'))->all()->toList();
+            $combo = $modelOrderDetails->find()->where(array('id_order'=>$order->id,'type'=>'combo'))->all()->toList();
+
+        	if(!empty($product)){
+                foreach($product as $k => $value){
+                    $product[$k]->product = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $order->product = $product;
+            }
+
+            if(!empty($combo)){
+                foreach($combo as $k => $value){
+                    $combo[$k]->combo = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $order->combo = $combo;
+            }
+
+            if(!empty($service)){
+                foreach($service as $k => $value){
+                    $service[$k]->service = $modelService->find()->where(array('id'=>$value->id_product))->first();
+                }
+                $order->service = $service;
+            }
+
+
+            if(!empty($data->id_customer)){
+                $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+            }
+
+            $order->spa = getSpa($user->id_spa);
+        }
+       	
+        setVariable('data', $data);
+        setVariable('order', $order);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 function addCollectionBill($input){
 	global $isRequestPost;
     global $modelCategories;

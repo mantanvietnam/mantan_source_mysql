@@ -85,6 +85,7 @@
 	$routesPlugin['deleteBill']= 'databot_spa/view/home/bill/deleteBill.php';
 	$routesPlugin['printCollectionBill']= 'databot_spa/view/home/bill/printCollectionBill.php';
 	$routesPlugin['printBill']= 'databot_spa/view/home/bill/printBill.php';
+	$routesPlugin['detailCollectionBill']= 'databot_spa/view/home/bill/detailCollectionBill.php';
 
 	// debt 
 	$routesPlugin['listCollectionDebt']= 'databot_spa/view/home/debt/listCollectionDebt.php';
@@ -101,10 +102,14 @@
 	// khách hàng 
 	$routesPlugin['order']= 'databot_spa/view/home/order/order.php';
 	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
+	$routesPlugin['printInfoOrder']= 'databot_spa/view/home/order/printInfoOrder.php';
 
 	// chiến dịch 
 	$routesPlugin['listCampain']= 'databot_spa/view/home/campain/listCampain.php';
 	$routesPlugin['addCampain']= 'databot_spa/view/home/campain/addCampain.php';
 	$routesPlugin['deleteCampain']= 'databot_spa/view/home/campain/deleteCampain.php';
 
+	// thống kê 
+	$routesPlugin['revenueStatistical']= 'databot_spa/view/home/statistical/revenueStatistical.php';
+	
 ?>

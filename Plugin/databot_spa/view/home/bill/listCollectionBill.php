@@ -91,8 +91,13 @@
               if(!empty($listData)){
                 global $type_collection_bill;
                 foreach ($listData as $item) {
+                    if(!empty($item->id_order)){
+                      $id = '<a href="/detailCollectionBill/?id='.$item->id.'">'.$item->id.'</a>';
+                    }else{
+                      $id = $item->id;
+                    }
                   echo '<tr>
-                          <td>'.$item->id.'</td>
+                          <td>'.$id.'</td>
                           <td>'.date('d/m/Y H:i', $item->time).'</td>
                           <td>'.@$item->full_name.'</td>
                           <td>'.@$item->staff->name.'</td>

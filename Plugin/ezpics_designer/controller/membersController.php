@@ -394,6 +394,20 @@ function register($input)
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = '';
 
+					$url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		            $header_deep = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		            $deep_link = json_decode($deep_link);
+
+		            $data->link_affiliate = @$deep_link->shortLink;
+
 					$modelMember->save($data);
 
 					if(!empty($affsource)){

@@ -135,3 +135,14 @@ $(document).ready(function() {
     var pageLocation = [],
     lastPage = null;
     zi = 0;
+
+function addProductToCart(idProduct)
+{
+  $.ajax({
+    method: "GET",
+    url: "/addProductToCart/?id_product="+idProduct
+  })
+  .done(function( msg ) {
+    window.location = '/cart';
+  });
+}

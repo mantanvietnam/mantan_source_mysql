@@ -69,13 +69,19 @@
                                                         if(!empty($item->bed) && $item->status==0){
                                                             $checkin ='<a class="dropdown-item" href="/checkinbed?id_order='. $item->id.'&id_bed='. $item->id_bed.'" title="check in"><i class="bx bx-exclude me-1"></i></a>';
                                                         }
+
+                                                        if($item->promotion>101){
+                                                          $promotion = number_format($item->promotion).'đ';
+                                                        }else{
+                                                           $promotion = $item->promotion.'%';
+                                                        }
                                                         ?>
                                                 <tr> 
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo date('Y-m-d H:i:s', $item->time); ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
-                                                    Giảm giá: <?php echo number_format(@$item->promotion) ?><br/>
+                                                    Giảm giá: <?php echo $promotion ?><br/>
                                                     Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
                                                     Trạng thái: <?php echo $type ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo @$item->bed->name ?><br/>

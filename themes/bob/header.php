@@ -51,7 +51,7 @@
         <section id="header-menu">
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <?php
                             if(!empty($infoSite['logo'])){
                                 echo'
@@ -106,10 +106,12 @@
 
         <section id="section-search">
             <div class="container">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm..." aria-describedby="basic-addon1">
-                    <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                <form action="/search-product" method="get">
+                    <div class="input-group">
+                        <input type="text" name="key" value="<?php echo @$_GET['key'];?>" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm..." aria-describedby="basic-addon1">
+                        <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
             </div>
         </section>
     </header>
