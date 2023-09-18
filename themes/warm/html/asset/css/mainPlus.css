@@ -74,3 +74,43 @@
 #section-form-contact .form-contact-box input{
     border: 1px solid #12427d;    
 }
+
+
+/* Bổ sung facility */
+.title-section-sub{
+    font-size: 19px;
+    margin-bottom: 30px;
+}
+
+.facility-project-content ul li{
+    list-style-type: none;
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    font-size: 15px;
+}
+
+.facility-project-content ul li::before{
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: -30px;
+    top: 57%;
+    transform: translateY(-50%);
+    background-color: #000;
+}
+
+
+
+@media (max-width: 426px){
+    .facility-project-content ul li::before{
+        display: none;
+    }
+
+    .facility-project-content ul{
+        padding-left: 0;
+    }
+}
