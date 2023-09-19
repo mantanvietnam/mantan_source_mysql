@@ -789,7 +789,7 @@ function checkDeadline($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token'])->first();
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 		if(!empty($user)){
 			$data = $modelMember->find()->where(array('token'=>$dataSend['token'], 'deadline_pro <='=> date('Y-m-d H:i:s'),"member_pro" => 1))->first();
