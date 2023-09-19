@@ -181,4 +181,6 @@
 	$routesPlugin['categoryIngredientAPI']= 'ezpics_api/view/categoryIngredientAPI.php';	
 	$routesPlugin['addNotificationDeadlineProAPI']= 'ezpics_api/view/addNotificationDeadlineProAPI.php';	
 	$routesPlugin['addNotificationDeadlineTrialProAPI']= 'ezpics_api/view/addNotificationDeadlineTrialProAPI.php';	
+	$routesPlugin['checkDeadline']= 'ezpics_api/view/checkDeadline.php';	
+	$routesPlugin['checkallDeadline']= 'ezpics_api/view/checkallDeadline.php';	
 ?>

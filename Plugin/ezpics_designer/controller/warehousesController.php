@@ -168,12 +168,14 @@ function addWarehouse($input)
 			        $data->link_open_app = '';
 			        $data->keyword = $dataSend['keyword'];
 			        $data->description = $dataSend['description'];
+
 			        
 			        if(empty($_GET['id'])){
 				        $data->created_at = date('Y-m-d H:i:s');
 				        $data->views = 0;
 				        $data->status = 0;
 				    }
+				    $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +365 days'));
 
 			        // tạo slug
 		            $slug = createSlugMantan($dataSend['name']);

@@ -1095,6 +1095,17 @@ function sendEmailMinusMoney($email='', $fullName='', $coin= '', $note= '')
     }
 }
 
+global $noteplusMoney;
+global $noteminusMoney;
+
+
+$noteplusMoney = array( 1=>'Nạp tiền qua chuyển khoản',
+                        2=>'Nhập sai nội dung',
+                );
+
+$noteminusMoney = array( 1=>'Nạp tiền qua chuyển khoản',
+                        2=>'Nhập sai nội dung',
+                );
 
 
 

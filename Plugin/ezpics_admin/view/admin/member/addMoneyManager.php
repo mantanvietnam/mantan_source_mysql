@@ -31,12 +31,19 @@
                     <input required type="number" class="form-control phone-mask" name="coin" id="coin" value="" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><?php if($_GET['type']=='plus') {
-                    echo 'Lý do cộng';
-                  }else{
-                    echo 'Lý do trừ';
-                  } ?>  (*)</label>
+                    <?php if($_GET['type']=='plus'){ ?>
+                    <label class="form-label" for="basic-default-fullname">Lý do cộng (*)</label>
+                    <select  name="note" class="form-select color-dropdown" id="note" >
+                      <?php global $noteplusMoney; 
+                            foreach($noteplusMoney as $key => $value){?>
+                              <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+
+                            <?php } ?>
+                    </select>
+                   <?php }else{ ?>
+                   <label class="form-label" for="basic-default-fullname">Lý do trừ (*)</label>
                     <input type="text" required class="form-control" placeholder="" name="note" id="note" value="" />
+                 <?php   } ?>
                   </div>
 
                   <?php if($_GET['type']=='plus') {?>
