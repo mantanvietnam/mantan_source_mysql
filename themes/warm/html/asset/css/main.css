@@ -1277,6 +1277,7 @@ strong{
 	margin-bottom: 20px;
 	padding-left: 0px;
 	font-size: 15px;
+	font-weight: bold;
 }
 
 #section-facility-impact .facility-impact-right ul li::before{
@@ -1300,6 +1301,7 @@ strong{
 .facility-impact-right-title{
 	text-transform: uppercase;
 	margin-bottom: 20px;;
+	font-weight: bold;
 }
 
 .facility-impact-right{
