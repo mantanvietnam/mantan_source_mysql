@@ -18,7 +18,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Tài khoản designer (*)</label>
+                    <label class="form-label">Tài khoản designer (*) </label>&ensp; <span id="account_balance"></span>
                     <input required type="text" class="form-control phone-mask" name="user" id="user" value="" />
                   </div>
                   <div class="mb-3">
@@ -40,7 +40,7 @@
 
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Giá tạo kho</label>
+                    <label class="form-label">Giá tạo kho  </label>
                     <input type="text" class="form-control phone-mask" name="price_creates" id="price_creates" value="0" />
                   </div>
                   <div class="mb-3">
@@ -72,3 +72,63 @@
 
     </div>
 </div>
+<script type="text/javascript">
+
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+        $( "#user" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+
+            // $('#id_partner').val(0);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchMemberApi", {
+                    key: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+
+               
+                $('#user').val(ui.item.phone);
+                var account_balance= new Intl.NumberFormat().format(ui.item.account_balance);
+                $('#account_balance').html('(số dư của tài khoản : '+account_balance+'đ)');
+          
+                return false;
+            }
+        });
+    });
+</script>
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

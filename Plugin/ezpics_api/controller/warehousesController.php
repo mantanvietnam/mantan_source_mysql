@@ -15,7 +15,7 @@ function getListWarehousesAPI($input){
 		$dataSend = $input['request']->getData();
 
 			// lấy kho 
-			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner'],'status'=>1))->all()->toList();
+			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner'],'status'=>1, 'deadline_at <='=> date('Y-m-d H:i:s')))->all()->toList();
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
@@ -167,7 +167,7 @@ function buyWarehousesAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token'])){
-			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'status'=>1))->first();
+			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'status'=>1, 'deadline_at <='=> date('Y-m-d H:i:s')))->first();
 
 			if(!empty($Warehouse)){
 				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
@@ -301,7 +301,7 @@ function getListBuyWarehousesAPI($input){
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
-					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1))->first();
+					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1, 'deadline_at <='=> date('Y-m-d H:i:s')))->first();
 					if(!empty($dataWarehouse)){
 						if($dataWarehouse->user_id!=$infoUser->id){
 							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
@@ -752,7 +752,8 @@ function addWarehouseAPI($input)
 			    $data->thumbnail = $thumbnail;
 			    $data->link_open_app = '';
 			    $data->keyword = $dataSend['keyword'];
-			    $data->description = $dataSend['description'];			      
+			    $data->description = $dataSend['description'];	
+			    $data->created_at = date('Y-m-d H:i:s');		      
 				// tạo slug
 		        $slug = createSlugMantan($dataSend['name']);
 		        $slugNew = $slug;
@@ -765,6 +766,7 @@ function addWarehouseAPI($input)
 	        	}
 	            $data->slug = $slugNew;
 	            $data->status = 0;
+	            $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +365 days'));
 				        
 		        $modelWarehouses->save($data);
 
