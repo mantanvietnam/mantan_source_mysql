@@ -1,8 +1,8 @@
 <?php 
     global $settingThemes;
     global $modelAlbums;
-    debug($project);
-    debug($listKind);
+    // debug($project);
+    // debug($listKind);
 ?>
 
 <?php getHeader();?>
@@ -54,15 +54,17 @@
                     <div class="intro-du-an">
                         <div class="ma-san-pham">
                             <h5 class="text-gray-600">Mã sản phẩm</h5>
-                            <div class="flex">
-                                <div class="hinh-anh-masp">
-                                    <a href="" class="w-56 h-56 block img-du-an mg-top-24">
-                                        <img src="../asset/img/kqQqoU8ZlmACbWrFmW4fiLR7UC498u6SC3CRTut6.jpg" alt="">
-                                    </a>
-                                    <h5 class="text-gray-600 mg-top-8">NV01</h5>                                    
-                                </div>
-
-                            </div>
+                            <?php 
+                            foreach($project->infoProduct as $key => $value){
+                                echo'
+                                    <div class="hinh-anh-masp">
+                                        <a href="" class="w-56 h-56 block img-du-an mg-top-24">
+                                            <img src="'.$value->image.'" alt="">
+                                        </a>
+                                        <h5 class="text-gray-600 mg-top-8">'.$value->code.'</h5>
+                                    </div>';   
+                                } 
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -75,23 +77,20 @@
             </div>
         </section>
        
-        <div class="swiper">
+        <div class="swiper swiper-du-an-details">
             <div class="swiper-wrapper duration-500">
-                <div class="swiper-slide transition-0-3">
-                    <div class="overflow-hidden setting-list-img aspect-h-2 aspect-w-3 ">
-                        <img src="../asset/img/anh-1-du-an.jpg" alt="" class="">
-                    </div>
-                </div>
-                <div class="swiper-slide transition-0-3">
-                    <div class="overflow-hidden setting-list-img duration-500 aspect-h-2 aspect-w-3 ">
-                        <img src="../asset/img/anh-1-du-an.jpg" alt="" class="">
-                    </div>
-                </div>
-                <div class="swiper-slide transition-0-3">
-                    <div class="overflow-hidden setting-list-img aspect-h-2 aspect-w-3 ">
-                        <img src="../asset/img/anh-1-du-an.jpg" alt="" class="">
-                    </div>
-                </div>
+                <?php 
+                foreach($project->images as $key => $value){
+                    if(!empty($value)){
+                    echo'
+                    <div class="swiper-slide transition-0-3">
+                        <div class="overflow-hidden setting-list-img aspect-h-2 aspect-w-3 ">
+                            <img src="'.$value.'" alt="" class="">
+                        </div>
+                    </div>';
+                    }
+                }
+                ?>
             </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>

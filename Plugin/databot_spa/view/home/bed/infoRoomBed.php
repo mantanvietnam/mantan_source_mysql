@@ -61,7 +61,7 @@
                   </div>
                    <br>  
                   <div class="form-group row">
-                      <label class="col-md-6"><strong>giảm giá:</strong></label>
+                      <label class="col-md-6"><strong>Giảm giá:</strong></label>
                       <div class="col-md-6"><input value="<?php echo @$data->promotion ?>" type="number"  onchange="tinhtien();" style="width: 50%;"  name="promotion" id="promotion" class="form-control input_money"  /></div>
                   </div>
                    <br>  
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin sản phẩm <button type="button" class="btn btn-danger" onclick="return addRowProduct();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm sản phẩm</button></h5>
+                  <h5 class="mb-0">Thông tin sản phẩm <button type="button" class="btn btn-danger" onclick="return addRowProduct();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm sản phẩm</button></h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
@@ -126,7 +126,7 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin dịch vụ <button type="button" class="btn btn-danger" onclick="return addRowService();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm dịch vụ</button></h5>
+                  <h5 class="mb-0">Thông tin dịch vụ <button type="button" class="btn btn-danger" onclick="return addRowService();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm dịch vụ</button></h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
@@ -178,14 +178,14 @@
                 </div>
                 <div class="col-md-12">
                    <br> 
-                  <h5 class="mb-0">thông tin combo <button type="button" class="btn btn-danger" onclick="return addRowCombo();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm combo</button></h5>
+                  <h5 class="mb-0">Thông tin combo <button type="button" class="btn btn-danger" onclick="return addRowCombo();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm Combo</button></h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th >combo</th>
+                                            <th >Combo</th>
                                             <th >Giá bán</th>
                                             <th >Số lượng </th>
                                             <th>Thành tiền</th>

@@ -566,6 +566,86 @@ function memberBuyProAdmin($input){
 	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=7');
 }
 
+function memberExtendProAdmin($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	$return = array('code'=>0);
+
+	
+	$dataSend = $input['request']->getData();	
+	$user = $modelMember->find()->where(array('id'=>$_GET['id']))->first();
+	if(isset($_GET['date_use'])){
+		$date = $_GET['date_use'];
+	}else{
+		$date = 365;
+	}
+
+	if(isset($_GET['price'])){
+		$price = $_GET['price'];
+	}else{
+		$price = 0;
+	}
+
+
+
+	if(!empty($user)){
+		if($user->member_pro==1){
+			if($user->account_balance >=$price){
+				if($price>0){
+					$user->account_balance -= $price;
+				}
+				$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' +'.$date.' days'));
+				$modelMember->save($user);
+				if($price>0){
+					$order = $modelOrder->newEmptyEntity();
+					$order->code = 'W'.time().$user->id.rand(0,10000);
+					$order->member_id = $user->id;
+					$order->total = $price;
+					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý 
+					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
+					$order->meta_payment = 'Gia hạn thêm phiêu bản Pro';
+					$order->created_at = date('Y-m-d H:i:s');
+					$modelOrder->save($order);
+				}
+				
+				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+				if(empty($WarehouseUser)){
+					$data = $modelWarehouseUsers->newEmptyEntity();
+			            // tạo dữ liệu save
+					$data->warehouse_id = (int) 1;
+					$data->user_id = $user->id;
+					$data->designer_id = 343;
+					$data->price = @$price;
+					$data->created_at = date('Y-m-d H:i:s');
+					$data->note ='';
+					$data->deadline_at = $user->deadline_pro;
+					$modelWarehouseUsers->save($data);
+				}else{
+					$WarehouseUser->deadline_at = $user->deadline_pro;
+					$modelWarehouseUsers->save($WarehouseUser);
+				}
+				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản Pro ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản Pro!','action'=>'memberBuyPro',);
+				if(!empty($user->token_device)){
+                    sendNotification($dataSendNotification, $user->token_device);
+                            
+                }
+
+              	if(!empty($user->email)){
+               		sendEmailBuyPro($user->email, $user->name);
+              	}
+				return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=6');
+			}
+		}
+	}		
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=7');
+}
 function transferManagerAdmin($input){
 	global $isRequestPost;
 	global $controller;

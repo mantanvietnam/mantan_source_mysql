@@ -1,5 +1,3 @@
-<?php debug($listData) ?>
-
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin Dự án</h4> 
   <p><a href="/plugins/admin/product_project-view-admin-product_project-addProductProjectAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>

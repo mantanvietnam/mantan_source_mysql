@@ -455,6 +455,7 @@ function addWarehouseAdmin($input)
 					    $data->views = 0;
 					    $data->status = 0;
 		            	$data->slug = createSlugMantan($dataSend['name']);
+		            	$data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +365 days'));
 		            	
 			        	$modelWarehouses->save($data);
 
@@ -515,6 +516,60 @@ function addWarehouseAdmin($input)
     setVariable('data', @$data);
 	setVariable('mess', $mess);
 	
+}
+
+function Warehousesdeadline(){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+
+    $metaTitleMantan = 'Danh sách kho mẫu thiết kế';
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+
+	$listData = $modelWarehouses->find()->where()->all()->toList();
+
+	if(!empty($listData)){
+    	foreach ($listData as $key => $value) {
+    		$value->deadline_at = date('Y-m-d H:i:s', strtotime($value->created_at . ' +365 days'));
+ debug($value);
+    		$modelWarehouses->save($value);
+    	}
+    }
+    debug('ok');
+    die;
+
+
+}
+
+function searchMemberApi($input)
+{
+	global $controller;
+	global $session;
+
+		$modelMember = $controller->loadModel('Members');
+            $conditions['phone LIKE'] =  '%'.$_GET['key'].'%';
+          
+            $order = array('name' => 'asc');
+
+            $listData = $modelMember->find()->where($conditions)->order($order)->all()->toList();
+            
+            if($listData){
+                foreach($listData as $data){
+                    $return[]= array('id'=>$data->id,
+                    				'label'=>$data->name.' '.$data->phone,
+                    				'value'=>$data->id,
+                    				'name'=>$data->name,
+                    				'phone'=>$data->phone,
+                    				'account_balance'=>$data->account_balance,
+                    			);
+                }
+            }
+        
+	
+
+	return $return;
 }
 
 ?>

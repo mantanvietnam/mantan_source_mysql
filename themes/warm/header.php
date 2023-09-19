@@ -9,7 +9,12 @@
     ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <script src="
+https://cdn.jsdelivr.net/npm/odometer@0.4.8/odometer.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.css
+" rel="stylesheet">    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,6 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css" rel="stylesheet">
     <!-- slick -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
     <script
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -33,6 +39,8 @@
     ></script>
     <!-- Cuộn trang -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- chay so -->    
 </head>
 <body>
     <header>
@@ -54,7 +62,7 @@
                                 <span>Follow us: </span>
                                 <?php 
                                     if(!empty($settingThemes['youtube'])){
-                                        echo '  <a href="'.$settingThemes['youtube'].'">
+                                        echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
                                                     <i class="fa-brands fa-youtube"></i>
                                                 </a>';
                                     }
@@ -112,13 +120,18 @@
                                 foreach($menu as $key => $value){
                                     if(!empty($value->sub)){
                                     echo
-                                    '<li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            '.$value->name.'
-                                        </a>
+                                    '<li class="btn-group dropdown">
+                                        <button class="nav-link nav-link-button">
+                                            <a class="" href="'.$value->link.'">
+                                                '.$value->name.'
+                                            </a>
+                                        </button>
+                                        <span class="dropdown-toggle dropdown-toggle-split button-down-menu" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </span>
                                         <ul class="dropdown-menu">';
                                             foreach($value->sub as $sub){
-                                                echo'<li><a class="dropdown-item" href="#">'.$sub->name.'</a></li>';
+                                                echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
                                             }; 
                                     echo'
                                         </ul>
@@ -127,7 +140,7 @@
                                     else{
                                     echo'  
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">'.$value->name.'</a>
+                                        <a class="nav-link active" aria-current="page" href="'.$value->link.'">'.$value->name.'</a>
                                     </li>';       
                                     }
                                 }

@@ -26,12 +26,12 @@ function listSellTopDesignerAdmin($input){
 					$conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
 			}
 		}
-		
+		$conditions['type'] = 3;
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
-
-		$listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		// $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		$listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
 		$listDesignStatic = [];
 
 
@@ -54,7 +54,7 @@ function listSellTopDesignerAdmin($input){
 			foreach ($listDesignStatic as $key => $value) {
 				
 					$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-					if(!empty($member)){
+					if(!empty($member) && $value>1){
 					$member->sold = @$value;
 					unset($member->password);
 					unset($member->token);
@@ -71,6 +71,7 @@ function listSellTopDesignerAdmin($input){
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);*/
+
     
     setVariable('listData', $listDesign);
     //ssetVariable('listCategory', $listCategory);
@@ -106,8 +107,9 @@ function listIncomeTopDesignerAdmin($input){
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
+		$conditions['type'] = 3;
 
-		$listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		$listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
 		$listDesignStatic = [];
 
 		if(!empty($listData)){
@@ -125,7 +127,7 @@ function listIncomeTopDesignerAdmin($input){
 
 			foreach ($listDesignStatic as $key => $value) {
 				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				if(!empty($member)){
+				if(!empty($member) && $value>0){
 					$member->sold = $value;
 					unset($member->password);
 					unset($member->token);
@@ -176,8 +178,9 @@ function listCreateTopDesignerAdmin($input){
 		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
+		$conditions['type'] = 'user_create';
 
-		$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		$listData = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 		$listDesignStatic = [];
 
 		if(!empty($listData)){
@@ -193,11 +196,13 @@ function listCreateTopDesignerAdmin($input){
 
 			foreach ($listDesignStatic as $key => $value) {
 				$member = $modelMember->find()->where(['id'=>(int) $key])->first();
-				$member->sold = $value;
-				unset($member->password);
-				unset($member->token);
+				if(!empty($member) && $value>1){
+					$member->sold = $value;
+					unset($member->password);
+					unset($member->token);
 
-				$listDesign[] = $member;
+					$listDesign[] = $member;
+				}
 			}
 		}
 

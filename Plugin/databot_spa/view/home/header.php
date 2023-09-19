@@ -91,7 +91,7 @@
               <span class="app-brand-text demo menu-text fw-bolder ms-2">MY SPA</span>
             </a>
 
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
           </div>
@@ -220,6 +220,20 @@
                 <li class="menu-item">
                   <a href="/listPayableDebt" class="menu-link">
                     <div>Công nợ phải trả</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
+                <div>Thống kê</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/revenueStatistical" class="menu-link">
+                    <div>Thống kê doanh thu</div> 
                   </a>
                 </li>
               </ul>

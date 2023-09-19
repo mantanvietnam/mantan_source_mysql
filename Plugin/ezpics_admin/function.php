@@ -35,12 +35,12 @@ $menus[0]['sub'][12]= array( 'title'=>' Chuyển mẫu thiết kế cho Designer
                             'permission'=>'transferManagerAdmin'
                         );
 
-$menus[0]['sub'][2]= array( 'title'=>'Kho nẫu thiết kế',
+$menus[0]['sub'][2]= array( 'title'=>'Kho mẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php',
                             'classIcon'=>'bx bxs-cylinder',
                             'permission'=>'listWarehouseAdmin'
                         );
-$menus[0]['sub'][11]= array( 'title'=>'Kho nẫu thiết kế xu hướng',
+$menus[0]['sub'][11]= array( 'title'=>'Kho mẫu thiết kế xu hướng',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php',
                             'classIcon'=>'bx bxs-cylinder',
                             'permission'=>'listWarehouseTrendAdmin'
@@ -1095,6 +1095,17 @@ function sendEmailMinusMoney($email='', $fullName='', $coin= '', $note= '')
     }
 }
 
+global $noteplusMoney;
+global $noteminusMoney;
+
+
+$noteplusMoney = array( 1=>'Nạp tiền qua chuyển khoản',
+                        2=>'Nhập sai nội dung',
+                );
+
+$noteminusMoney = array( 1=>'Nạp tiền qua chuyển khoản',
+                        2=>'Nhập sai nội dung',
+                );
 
 
 

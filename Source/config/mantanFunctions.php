@@ -557,10 +557,10 @@ function uploadImage($user_id='', $name_input='', $filenameImage='', $domain='')
             	$return = ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
             }
 
-            // Verify file size - 5MB maximum
-            $maxsize = 1024 * 1024 * 5;
+            // Verify file size - 15MB maximum
+            $maxsize = 1024 * 1024 * 15;
             if($filesize > $maxsize){
-            	$return = ['code'=>3, 'mess'=>'File ảnh vượt quá giới hạn cho phép 5Mb'];
+            	$return = ['code'=>3, 'mess'=>'File ảnh vượt quá giới hạn cho phép 15Mb'];
             }
 
             // Verify MYME type of the file
@@ -617,10 +617,10 @@ function uploadImageFTP($userID=0, $name_input='', $ftp_server='', $ftp_username
 	            return ['code'=>2, 'mess'=>'File upload không đúng định dạng ảnh'];
 	        }
 
-	        // Verify file size - 5MB maximum
-	        $maxsize = 1024 * 1024 * 5;
+	        // Verify file size - 15MB maximum
+	        $maxsize = 1024 * 1024 * 15;
 	        if($filesize > $maxsize){
-	            return ['code'=>3, 'mess'=>'File ảnh vượt quá giới hạn cho phép 5Mb'];
+	            return ['code'=>3, 'mess'=>'File ảnh vượt quá giới hạn cho phép 15Mb'];
 	        }
 
 	        // Verify MYME type of the file

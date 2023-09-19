@@ -14,6 +14,7 @@
 	$routesPlugin['fixWidthText']= 'ezpics_api/view/fixWidthText.php';
 	$routesPlugin['fixAuthor']= 'ezpics_api/view/fixAuthor.php';
 	$routesPlugin['fixWarehouseProducts']= 'ezpics_api/view/fixWarehouseProducts.php';
+	$routesPlugin['fixPhotoroom']= 'ezpics_api/view/fixPhotoroom.php';
 
 	// nén ảnh
 	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';
@@ -157,6 +158,7 @@
 	// thong ke 
 	
 	$routesPlugin['statisticalAPI']= 'ezpics_api/view/statisticalAPI.php';
+	$routesPlugin['staticNumberUserAPI']= 'ezpics_api/view/staticNumberUserAPI.php';
 	
 	$routesPlugin['listCategoryQuestionAPI']= 'ezpics_api/view/listCategoryQuestionAPI.php';
 	$routesPlugin['listQuestionAPI']= 'ezpics_api/view/listQuestionAPI.php';
@@ -179,4 +181,6 @@
 	$routesPlugin['categoryIngredientAPI']= 'ezpics_api/view/categoryIngredientAPI.php';	
 	$routesPlugin['addNotificationDeadlineProAPI']= 'ezpics_api/view/addNotificationDeadlineProAPI.php';	
 	$routesPlugin['addNotificationDeadlineTrialProAPI']= 'ezpics_api/view/addNotificationDeadlineTrialProAPI.php';	
+	$routesPlugin['checkDeadline']= 'ezpics_api/view/checkDeadline.php';	
+	$routesPlugin['checkallDeadline']= 'ezpics_api/view/checkallDeadline.php';	
 ?>

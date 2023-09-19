@@ -168,12 +168,14 @@ function addWarehouse($input)
 			        $data->link_open_app = '';
 			        $data->keyword = $dataSend['keyword'];
 			        $data->description = $dataSend['description'];
+
 			        
 			        if(empty($_GET['id'])){
 				        $data->created_at = date('Y-m-d H:i:s');
 				        $data->views = 0;
 				        $data->status = 0;
 				    }
+				    $data->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +365 days'));
 
 			        // tạo slug
 		            $slug = createSlugMantan($dataSend['name']);
@@ -295,6 +297,10 @@ function detailWarehouse($input){
 	global $isRequestPost;
 	global $controller;
 	global $modelCategories;
+	global $metaTitleMantan;
+	global $metaKeywordsMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
 
 	$modelMember = $controller->loadModel('Members');
 	$modelWarehouses = $controller->loadModel('Warehouses');
@@ -315,6 +321,11 @@ function detailWarehouse($input){
 		
 
 		if(!empty($Warehouse)){
+			if(!empty($Warehouse->name)) $metaTitleMantan = $Warehouse->name;
+			if(!empty($Warehouse->thumbnail)) $metaImageMantan = $Warehouse->thumbnail;
+			if(!empty($Warehouse->keyword)) $metaKeywordsMantan = $Warehouse->keyword;
+			if(!empty($Warehouse->description)) $metaDescriptionMantan = $Warehouse->description;
+
 			$designer = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;

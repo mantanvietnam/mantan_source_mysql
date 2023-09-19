@@ -22,7 +22,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-5 col-md-5 col-12 footer-box-center">
+                        <div class="col-lg-6 col-md-6 col-12 footer-box-center">
                             <div class="title-footer">
                                 <p><?php echo @$settingThemes['title_2_section_footer'];?></p>
                             </div>
@@ -40,12 +40,12 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-4 col-12 footer-box-right">
+                        <div class="col-lg-3 col-md-3 col-12 footer-box-right">
                             <p class="follow-us">
-                                <span>Follow:
+                                <span>Follow us:
                                 <?php 
                                     if(!empty($settingThemes['youtube'])){
-                                        echo '  <a href="'.$settingThemes['youtube'].'">
+                                        echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
                                                     <i class="fa-brands fa-youtube"></i>
                                                 </a>';
                                     }
@@ -56,7 +56,7 @@
                                                 </a>';
                                     }
 
-                                    if(!empty($settingThemes['youtube'])){
+                                    if(!empty($settingThemes['instagram'])){
                                         echo '  <a href="'.$settingThemes['instagram'].'">
                                                     <i class="fa-brands fa-instagram"></i>
                                                 </a>';
@@ -91,8 +91,10 @@
         <script>
             AOS.init();
         </script>
+        <!-- <script src="<?php echo $urlThemeActive;?>/asset/js/odometer.js"></script> -->
         <script src="<?php echo $urlThemeActive;?>/asset/js/slick.js"></script>
         <script src="<?php echo $urlThemeActive;?>/asset/js/main.js"></script>
+        
     </footer>
 </body>
 

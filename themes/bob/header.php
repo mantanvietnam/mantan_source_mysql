@@ -38,7 +38,10 @@
         type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+  />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 
 
@@ -48,7 +51,7 @@
         <section id="header-menu">
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <?php
                             if(!empty($infoSite['logo'])){
                                 echo'
@@ -103,10 +106,12 @@
 
         <section id="section-search">
             <div class="container">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm..." aria-describedby="basic-addon1">
-                    <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                <form action="/search-product" method="get">
+                    <div class="input-group">
+                        <input type="text" name="key" value="<?php echo @$_GET['key'];?>" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm..." aria-describedby="basic-addon1">
+                        <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
             </div>
         </section>
     </header>

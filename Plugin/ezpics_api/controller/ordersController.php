@@ -765,7 +765,7 @@ function memberTrialProAPI($input){
 					$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
 				}
 			}else{
-					$return = array('code'=>5, 'mess'=>'Tài khoản dùng thử cấp Pro rồi');
+					$return = array('code'=>5, 'mess'=>'Tài khoản bạn dùng thử cấp Pro rồi');
 				}
 		}else{
 			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
@@ -774,5 +774,67 @@ function memberTrialProAPI($input){
 	}
 
 	return $return;
+}
+
+function checkDeadline($input){
+	global $controller;
+	global $isRequestPost;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token'])){
+			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+		if(!empty($user)){
+			$data = $modelMember->find()->where(array('token'=>$dataSend['token'], 'deadline_pro <='=> date('Y-m-d H:i:s'),"member_pro" => 1))->first();
+			if(!empty($data)){
+				$data->member_pro = 0;
+				$modelMember->save($data);
+				$return = array('code'=>1, 'mess'=>'tài khoản của bạn đã hết hạn Pro');
+			}else{
+				$return = array('code'=>3, 'mess'=>'tài khoản của bạn chưa hết hạn Pro ');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'bạn chưa đăng nhập ');
+		}
+
+
+	}
+
+	return $return;
+
+}
+
+function checkallDeadline($input){
+	global $controller;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);	
+		$listData = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1 ))->all()->toList();
+
+		if(!empty($listData)){
+			foreach($listData as $key => $user){
+				$user->member_pro = 0;
+				$modelMember->save($user);
+				
+				// gửi thông báo về app
+	            $dataSendNotification= array('title'=>'Tài khoản của bạn dã hiết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn đã hiết hạn Pro','action'=>'addMoneySuccess');
+
+	            if(!empty($user->token_device)){
+	                sendNotification($dataSendNotification, $user->token_device);
+	            }
+			}
+		}
+		$return = array('code'=>1, 'mess'=>'Bạn đã hết hạn Pro');
+
+	return $return;
+
 }
 ?>

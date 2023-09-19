@@ -1,4 +1,11 @@
 <?php 
+function fixPhotoroom($input)
+{
+	
+	$test = removeBackgroundPhotoroomTest('upload/342926573_792268258726508_8821802697219712265_n.jpg', true);
+
+	debug($test);
+}
 function fixPass($input)
 {	
 	/*
@@ -236,6 +243,40 @@ function fixDeepLink($input)
     }
     */
     
+}
+function fixDeepMembersLink($input)
+{
+	
+	global $controller;
+	
+	$modelMember = $controller->loadModel('Members');
+	$conditions = array();
+	//$conditions['link_affiliate'] = null;
+
+	$allData = $modelMember->find()->where($conditions)->all()->toList();
+	
+	foreach($allData as $k => $item){
+		if(empty($item->link_affiliate)){
+			debug($item);
+	        /*$url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+                                                'link'=>'https://ezpics.page.link/register?affsource='.$item->aff,
+                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+                                        ]
+                        ];
+            $header_deep = ['Content-Type: application/json'];
+            $typeData='raw';
+            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+            $deep_link = json_decode($deep_link);
+
+            $item->link_affiliate = @$deep_link->shortLink;
+
+	        $modelMember->save($item);*/
+	    }
+    }
+    debug('ok');
+	die();
 }
 
 function fixPrice($input)

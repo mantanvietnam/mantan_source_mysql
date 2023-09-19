@@ -29,6 +29,15 @@
           </div>
 
           <div class="col-md-2">
+            <label class="form-label">Loại tiền</label>
+            <select name="payment_kind" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <option value="1" <?php if(!empty($_GET['payment_kind']) && $_GET['payment_kind']=='1') echo 'selected';?> >Tiền thật</option>
+              <option value="0" <?php if(!empty($_GET['payment_kind']) && $_GET['payment_kind']=='0') echo 'selected';?> >Tiền ảo</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
             <label class="form-label">Tạo từ ngày</label>
             <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
           </div>
@@ -81,11 +90,17 @@
                     $status = '<span class="text-success">Đã xử lý</span>';
                   }
 
+                  if($item->payment_kind==0){
+                    $tien = 'tiền ảo';
+                  }else{
+                    $tien = 'tiền thật';
+                  }
+
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.date('H:i d/m/Y', strtotime($item->created_at)).'</td>
                           <td>'.$item->code.'</td>
-                          <td>'.number_format($item->total).'</td>
+                          <td>'.number_format($item->total).'<br/>'.$tien.'</td>
                           
                           <td>
                             '.$item->member->name.'<br/>
@@ -118,11 +133,17 @@
                 $status = '<span class="text-success">Đã xử lý</span>';
               }
 
+              if($item->payment_kind==0){
+                    $tien = 'tiền ảo';
+                  }else{
+                    $tien = 'tiền thật';
+                  }
+
               echo '<div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
                           <p><b>ID: </b>'.$item->id.'</p>
                           <p><b>Thời gian: </b>'.date('H:i d/m/Y', strtotime($item->created_at)).'</p>
                           <p><b>Mã giao dịch: </b>'.$item->code.'</p>
-                          <p><b>Số tiền: </b>'.number_format($item->total).'</p>
+                          <p><b>Số tiền: </b>'.number_format($item->total).' ('.$tien.')</p>
                           
                           <p><b>Người dùng:</b><br/>
                             '.$item->member->name.'<br/>

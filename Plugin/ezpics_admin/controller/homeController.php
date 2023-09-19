@@ -272,7 +272,7 @@ function chartUserLastloginAdmin() {
     $modelOrders = $controller->loadModel('Orders');
     $mess= '';
 
-    $order = array('created_at'=>'asc');
+    $order = array('last_login'=>'asc');
 
 
     $conditions = array();
@@ -314,6 +314,7 @@ function chartUserLastloginAdmin() {
                 $time= @$item->last_login->toDateTimeString();
                 $time = strtotime($time);
                 $todayTime= getdate($time);
+                
 
                 $allData += 1;
            
