@@ -18,6 +18,7 @@
 
 	// nén ảnh
 	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';
+	$routesPlugin['zipFileUpload']= 'ezpics_api/view/zipFileUpload.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';

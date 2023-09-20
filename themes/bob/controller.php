@@ -101,16 +101,6 @@ function indexTheme($input)
 
     $new_category_product = $modelCategories->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-
-    // Menu 
-    if(!empty($settingThemes['id1_menu_footer'])){
-        $menu_footer = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id1_menu_footer']])->all()->toList();
-    }
-
-    if(!empty($settingThemes['id1_menu_footer'])){
-        $menu_footer2 = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id2_menu_footer']])->all()->toList();
-    }
-
     // Dự án sản phẩm
     $conditions2 = array('type' => 'category_kind');
     $listProductProjects = $modelProductProjects->find()->limit($limit)->page($page)->order($order)->all()->toList();
@@ -144,8 +134,6 @@ function indexTheme($input)
     setVariable('slide_home', $slide_home);
     setVariable('new_category_product', $new_category_product);
     setVariable('slide_home', $slide_home);
-    setVariable('menu_footer', $menu_footer);
-    setVariable('menu_footer2', $menu_footer2);
     setVariable('infoKind', $infoKind);
     setVariable('listKind', $listKind);
     setVariable('infoProduct', $infoProduct);
