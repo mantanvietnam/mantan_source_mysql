@@ -202,7 +202,7 @@ function forgotPasswordApi($input): array
                 return apiResponse(3, 'Tài khoản chưa có thông tin email');
             }
 
-            $code = rand(100000,999999);
+            $code = rand(100000, 999999);
             $user->reset_password_code = $code;
             $modelUser->save($user);
             sendEmailCodeForgotPassword($user->email, $user->name, $code);
@@ -226,7 +226,7 @@ function resetPasswordApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if(isset($dataSend['phone_number'])
+        if (isset($dataSend['phone_number'])
             && isset($dataSend['code'])
             && isset($dataSend['new_password'])
             && isset($dataSend['password_confirmation'])
@@ -293,7 +293,7 @@ function upgradeToDriverApi($input): array
         }
 
 
-        if(isset($_FILES['id_card_front'])
+        if (isset($_FILES['id_card_front'])
             && isset($_FILES['id_card_back'])
             && isset($_FILES['avatar'])
             && isset($_FILES['car_image_1'])
@@ -344,7 +344,7 @@ function upgradeToDriverApi($input): array
 
             for ($i = 2; $i <= 10; $i++) {
                 if (isset($_FILES["car_image_$i"])) {
-                    $carImage = uploadImage($currentUser->id, 'car_image_' . $i, 'car_'. $i . '_' . $currentUser->id);
+                    $carImage = uploadImage($currentUser->id, 'car_image_' . $i, 'car_' . $i . '_' . $currentUser->id);
                     if ($carImage['code']) {
                         return apiResponse(4, $carImage['mess']);
                     }
@@ -389,6 +389,76 @@ function upgradeToDriverApi($input): array
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function addMoneyTPBankApi($input): array
+{
+    global $transactionKey;
+    global $isRequestPost;
+
+    if ($isRequestPost) {
+        if (!empty($_POST['message'])) {
+            $keyApp = strtoupper($transactionKey);
+            $message = strtoupper($_POST['message']);
+
+            $description = explode('ND: ', $message);
+            $description = trim($description[1]);
+            $description = str_replace(array('IBFT ', 'THANH TOAN QR ', 'QR - '), '', $description);
+
+            $money = explode('PS:+', $message);
+            $money = explode('SD:', $money[1]);
+            $money = (int)str_replace(array('.', 'VND'), '', $money[0]);
+
+            if ($money > 0 && strlen(strstr($description, $keyApp)) > 0) {
+                // xóa dấu chấm
+                $removeDot = explode('.', $description);
+                if (count($removeDot) > 1) {
+                    for ($i = 0; $i < count($removeDot); $i++) {
+                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
+                            $description = $removeDot[$i];
+                            break;
+                        }
+                    }
+                }
+
+                // xóa dấu chấm phẩy
+                $removeDot = explode(';', $description);
+                if (count($removeDot) > 1) {
+                    for ($i = 0; $i < count($removeDot); $i++) {
+                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
+                            $description = $removeDot[$i];
+                            break;
+                        }
+                    }
+                }
+
+                // xóa dấu gạch ngang
+                $removeDot = explode('-', $description);
+                if (count($removeDot) > 1) {
+                    for ($i = 0; $i < count($removeDot); $i++) {
+                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
+                            $description = $removeDot[$i];
+                            break;
+                        }
+                    }
+                }
+
+
+                $removeSpace = explode(' ', trim($description));
+                $phoneNumber = $removeSpace[0];
+
+                $mess = processAddMoney($money, $phoneNumber);
+
+                return apiResponse(0, $mess);
+            } else {
+                return apiResponse(3, 'Sai cú pháp hoặc số tiền không đủ');
+            }
+        } else {
+            return apiResponse(2, 'Gửi thiếu nội dung SMS');
+        }
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
