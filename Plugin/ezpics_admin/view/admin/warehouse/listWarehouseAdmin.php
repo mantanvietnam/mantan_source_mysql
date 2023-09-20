@@ -58,6 +58,8 @@
               <th>Tên kho</th>
                <th>Chủ kho</th> 
               <th>Giá bán</th>
+              <th>Hết hạn</th>
+              <th>Sửa</th>
               <th>Trạng thái</th>
              
             </tr>
@@ -89,6 +91,10 @@
                         <?php echo  $item->designer->email ?>
                       </td>
                       <td><?php echo number_format($item->price); ?></td>
+                      <td><?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></td>
+                      <td><a class="dropdown-item"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a></td>
                       <td align="center"><?php echo $status ?></td>
                     </tr>
              <?php   }

@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listWarehouse">Kho mẫu thiết kế</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php">Kho mẫu thiết kế</a> /</span>
     Thông tin kho mẫu thiết kế
   </h4>
   <!-- Basic Layout -->
@@ -19,7 +19,7 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Tài khoản designer (*) </label>&ensp; <span id="account_balance"></span>
-                    <input required type="text" class="form-control phone-mask" name="user" id="user" value="" />
+                    <input required type="text" class="form-control phone-mask" name="user" id="user" value="<?php echo @$user->phone; ?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Tên kho mẫu thiết kế (*)</label>
