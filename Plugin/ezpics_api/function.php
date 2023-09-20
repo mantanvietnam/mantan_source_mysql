@@ -550,7 +550,20 @@ function sendNotification($data,$target){
     $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     
     if(is_array($target)){
-        $fields['registration_ids'] = $target;
+        if(count($target)<1000){
+            $fields['registration_ids'] = $target;
+        }else{
+            $chunkedArrays = [];
+            $chunkSize = 990;
+
+            for ($i = 0; $i < count($target); $i += $chunkSize) {
+                $chunkedArrays = array_slice($target, $i, $chunkSize);
+                $result = sendNotification($data,$chunkedArrays);
+            }
+            
+            return $result;
+        }
+        
     }else{
         $fields['to'] = $target;
     }

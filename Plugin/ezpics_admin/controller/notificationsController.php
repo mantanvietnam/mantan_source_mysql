@@ -40,13 +40,17 @@ function addNotificationAdmin($input)
         	if(!empty($listMembers)){
         		$dataSendNotification= array('title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['mess'],'action'=>'adminSendNotification');
         		$number = 0;
+        		$token_device = [];
 
 		        foreach ($listMembers as $key => $value) {
-		        	
                     if(!empty($value->token_device)){
-                        $return = sendNotification($dataSendNotification, $value->token_device);
+                    	$token_device[] = $value->token_device;
                         $number++;
                     }
+		        }
+
+		        if(!empty($token_device)){
+		        	$return = sendNotification($dataSendNotification, $token_device);
 		        }
 
 		        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
@@ -103,13 +107,17 @@ function addNotificationPostNewAdmin($input){
         	if(!empty($listMembers)){
         		$dataSendNotification= array('id'=>$dataSend['id'],'title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['mess'],'action'=>'postNew');
         		$number = 0;
+        		$token_device = [];
 
 		        foreach ($listMembers as $key => $value) {
-		        	
                     if(!empty($value->token_device)){
-                        $return = sendNotification($dataSendNotification, $value->token_device);
+                    	$token_device[] = $value->token_device;
                         $number++;
                     }
+		        }
+
+		        if(!empty($token_device)){
+		        	$return = sendNotification($dataSendNotification, $token_device);
 		        }
 
 		        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
@@ -167,13 +175,18 @@ function addNotificationProductNewAdmin($input){
         	if(!empty($listMembers)){
         		$dataSendNotification= array('id'=>$dataSend['id'],'title'=>$dataSend['title'],'time'=>date('H:i d/m/Y'),'content'=>$dataSend['mess'],'action'=>'productNew');
         		$number = 0;
+        		$token_device = [];
 
 		        foreach ($listMembers as $key => $value) {
 		        	
                     if(!empty($value->token_device)){
-                        $return = sendNotification($dataSendNotification, $value->token_device);
+                    	$token_device[] = $value->token_device;
                         $number++;
                     }
+		        }
+
+		        if(!empty($token_device)){
+		        	$return = sendNotification($dataSendNotification, $token_device);
 		        }
 
 		        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';
