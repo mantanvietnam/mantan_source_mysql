@@ -980,8 +980,7 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '', $note= '')
                         <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
                         <br/>
                         Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống 
-                        <br/>
-                        Lý do bạn cộng tiền là:  '.$note.'
+                        
                          <br/>
                         <a href="https://ezpics.vn">https://ezpics.vn</a>
                         

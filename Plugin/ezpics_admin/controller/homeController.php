@@ -228,6 +228,7 @@ function chartLoadMoneyAdmin() {
     }
 
     $conditOrder['type'] = 1;
+    $conditOrder['status'] = 2;
     
     $conditOrder['payment_kind'] = 1;
    

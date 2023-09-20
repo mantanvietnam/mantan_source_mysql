@@ -142,6 +142,11 @@ function checkLoginMemberAPI($input)
 				$checkPhone->token = createToken();
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->token_device = @$dataSend['token_device'];
+				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
+				if(!empty($checkdeadlinepro)){
+					$checkPhone->member_pro = 0;
+				}
+
 				$modelMember->save($checkPhone);
 
 				$return = array(	'code'=>0, 
@@ -601,6 +606,12 @@ function getInfoMemberAPI($input)
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
+				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
+				if(!empty($checkdeadlinepro)){
+					$checkPhone->member_pro =0;
+					$modelMember->save($checkPhone);
+				}
+
 				$name_slug = createSlugMantan($checkPhone->name);
 				$checkPhone->link_share = 'https://designer.ezpics.vn/designer/'.$name_slug.'-'.$checkPhone->id.'.html';
 				$checkPhone->link_codeQR = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='.$checkPhone->link_affiliate;
@@ -1081,6 +1092,11 @@ function updateLastLoginAPI($input){
 
 			if(!empty($checkPhone)){
 				$checkPhone->last_login = date('Y-m-d H:i:s');
+
+				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
+				if(!empty($checkdeadlinepro)){
+					$checkPhone->member_pro =0;
+				}
 
 				$modelMember->save($checkPhone);
 				$return = array('code'=>1,
