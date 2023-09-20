@@ -21,7 +21,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `bookings` (
   `introduce_fee` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
   `received_at` timestamp NULL DEFAULT NULL,
   `canceled_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -54,7 +54,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `transactions` (
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `type` tinyint(4) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
 
@@ -94,10 +94,20 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`booking_fees` (
   `received_fee` int NOT NULL,
   `service_fee` int NOT NULL,
   `booking_id` int NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`driver_requests` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `status` tinyint(1) NOT NULL DEFAULT 0,
+    `handled_by` int DEFAULT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';

@@ -8,6 +8,7 @@
 	$routesPlugin['changePasswordApi']= 'excgo/view/changePasswordApi.php';
 	$routesPlugin['forgotPasswordApi']= 'excgo/view/forgotPasswordApi.php';
 	$routesPlugin['resetPasswordApi']= 'excgo/view/resetPasswordApi.php';
+	$routesPlugin['upgradeToDriverApi']= 'excgo/view/upgradeToDriverApi.php';
 
 	// Province
     $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
