@@ -166,6 +166,12 @@ function listMemberAdmin($input)
     }elseif(@$_GET['statuss']==7){
 
         $mess= '<p class="text-success" style="padding-left: 1.5em;">Lên bản Pro không thành công</p>';
+    }elseif(@$_GET['statuss']==8){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Hạ Pro không thành công</p>';
+    }elseif(@$_GET['statuss']==9){
+
+        $mess= '<p class="text-success" style="padding-left: 1.5em;">Hạ Pro không thành công</p>';
     }
 
     setVariable('page', $page);
@@ -251,7 +257,10 @@ function listMemberDeadlineProAdmin($input)
     } else {
         $urlPage = $urlPage . '?page=';
     }
-     
+
+    if(!empty($_GET['number'])){
+     $mess= '<p class="text-success" style="padding-left: 1.5em;">Gửi thông báo thành công cho '.number_format($_GET['number']).' người dùng</p>';
+    }
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
@@ -262,6 +271,7 @@ function listMemberDeadlineProAdmin($input)
     setVariable('mess', $mess);
     
     setVariable('listData', $listData);
+    
 }
 
 function addMemberAdmin($input)
@@ -755,4 +765,73 @@ function getWarehouseByUser($input){
 	return $return;
 }
 
+function memberDownProAdmin($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	$return = array('code'=>0);
+
+	
+	$dataSend = $input['request']->getData();	
+	$user = $modelMember->find()->where(array('id'=>$_GET['id'],'member_pro'=>1 ))->first();
+
+	if(!empty($user)){
+		$user->member_pro = 0;
+		$modelMember->save($user);
+				
+	
+		$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+		if(!empty($WarehouseUser)){
+			$modelWarehouseUsers->delete($WarehouseUser);
+		}
+		$dataSendNotification= array('title'=>'Thông báo xoá chức năng PRO! ','time'=>date('H:i d/m/Y'),'content'=>'Tài khoản của bạn đã bị gỡ khỏi chức năng PRO. Cảm ơn bạn đã tin tương và đồng hành cùng EZPICS.','action'=>'adminSendNotification',);
+		if(!empty($user->token_device)){
+            sendNotification($dataSendNotification, $user->token_device);
+        }
+
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=8');
+			
+		
+	}		
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=7');
+}
+
+function NotificationDeadlineProAdmin(){
+	global $controller;
+	global $isRequestPost;
+	global $metaTitleMantan;
+
+    $metaTitleMantan = 'Gửi thông báo sản phẩm mới cho người dùng';
+
+	$modelMembers = $controller->loadModel('Members');
+
+
+	$conditions['member_pro'] = 1;
+	$conditions['deadline_pro <'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 8 days'));
+
+    $listData = $modelMembers->find()->where($conditions)->all()->toList();
+   
+    $number = 0;
+    if(!empty($listData)){
+    	foreach($listData as $key => $value){
+    		 if(!empty($value->token_device)){
+				$token_device[] = $value->token_device;
+                    $number++;
+	        }
+    	}
+    	$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn sắp hết hạn Pro. Cảm ơn bạn đã tin tương và đồng hành cùng EZPICS.','action'=>'adminSendNotification');
+
+	        if(!empty($token_device)){
+	             sendNotification($dataSendNotification, $token_device);
+	           
+	        }
+    }
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberDeadlineProAdmin.php?number='.$number);
+}
 ?>

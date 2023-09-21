@@ -437,7 +437,7 @@ function printInfoOrder($input){
     global $isRequestPost;
     global $session;
 
-    $metaTitleMantan = 'Tạo đơn hàng';
+    $metaTitleMantan = 'in đơn hàng';
 
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
