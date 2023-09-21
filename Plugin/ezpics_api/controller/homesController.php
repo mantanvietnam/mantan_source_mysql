@@ -872,38 +872,73 @@ function zipThumb($input)
     global $controller;
 
     $modelProduct = $controller->loadModel('Products');
-
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    
+    // nén ảnh mẫu thiết kế
     $conditions = array('zipThumb'=>0);
-    $limit = 5;
+    $limit = 4;
     $page = 1;
 
     $listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
 
     if(!empty($listProduct)){
         foreach ($listProduct as $key => $value) {
-            $name = __DIR__.'/../../../upload/admin/images/'.$value->user_id.'/thumb_product_'.$value->id.'.png';
-            
-            if(file_exists($name)){
-                zipImage($name);
-                echo 'Fix image '.$value->id.'<br/>';
-            }
+            if(!empty($value->image)){
+                $value->zipThumb = 1;
+                $modelProduct->save($value);
 
-            /*
-            $thumbnail = explode('upload/admin/images/data/', $value->thumbnail);
-            if(!empty($thumbnail[1])){
-                $name = __DIR__.'/../../../upload/admin/images/'.$value->user_id.'/'.$thumbnail[1];
-            
+                $name = explode('upload', $value->image);
+                $name = explode('?', $name[1]);
+                $name = __DIR__.'/../../../upload/'.$name[0];
+                
                 if(file_exists($name)){
                     zipImage($name);
-                    echo 'Fix thumbnail '.$value->id.'<br/>';
+                    echo 'Fix image '.$value->id.'<br/>';
                 }
+                
             }
-            */
-
-            $value->zipThumb = 1;
-            $modelProduct->save($value);
         }
     }
+
+    
+}
+
+function zipFileUpload($input)
+{
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelManagerFile = $controller->loadModel('ManagerFile');
+    
+   
+    // nén ảnh file up lên
+    $conditions = array('zipThumb'=>0);
+    $limit = 4;
+    $page = 1;
+
+    $listFile = $modelManagerFile->find()->limit($limit)->page($page)->where($conditions)->all()->toList();
+    
+
+    if(!empty($listFile)){
+        foreach ($listFile as $key => $value) {
+            if(!empty($value->link)){
+                $value->zipThumb = 1;
+                $modelManagerFile->save($value);
+                
+                $name = explode('upload', $value->link);
+                $name = explode('?', $name[1]);
+                $name = __DIR__.'/../../../upload/'.$name[0];
+                
+                if(file_exists($name)){
+                    zipImage($name);
+                    echo 'Fix link '.$value->id.'<br/>';
+                }
+                
+            }
+        }
+    }
+
+    
 }
 
 function createThumb(){

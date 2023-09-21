@@ -935,6 +935,80 @@ function transactioncMoneyEzpics($input){
 	}
 }
 
+function confirmReceiptMoneyEzpics($input){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $recommenders;
+
+	$modelMembers = $controller->loadModel('Members');
+	$modelOrders = $controller->loadModel('Orders');
+
+	if(!empty($_GET['id'])){
+		$data = $modelOrders->find()->where(array('id'=>$_GET['id'], 'type'=>1))->first();
+
+		if(!empty($data)){
+			$member = $modelMembers->find()->where(array('id'=>$data->member_id))->first();
+			if(!empty($member)){
+					$member->account_balance = $member->account_balance +  $data->total;
+					$data->status = 2;
+					$modelMembers->save($member);
+					$modelOrders->save($data);
+
+
+
+					 $dataSendNotification= array('title'=>'Nạp tiền thành công Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Nạp thành công '.number_format($data->total).'đ vào tài khoản ','action'=>'addMoneySuccess');
+					 if(!empty($member->token_device)){
+                		sendNotification($dataSendNotification, $member->token_device);
+            		}
+            		if(!empty($member->email)){
+            		 	sendEmailAddMoney($member->email, $member->name, $data->total);
+            		}
+
+            		// Cộng tiền cho thằng giới thiệu 
+		            if(!empty($member->affsource)){
+		                $User = $modelMembers->find()->where(array('id'=>$member->affsource))->first();
+		       	        if(!empty($User)){
+		                    $User->account_balance += ((int) $recommenders / 100) * $data->total;
+		                    $modelMembers->save($User);
+
+		                    $order = $modelOrders->newEmptyEntity();
+		                    $order->code = 'W'.time().$User->id.rand(0,10000);
+		                    $order->member_id = $User->id;
+		                    $order->total = ((int) $recommenders / 100) * $data->total;
+		                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                    $order->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+		                    $order->meta_payment = 'Bạn được công tiền hoa hồng giới thiệu';
+		                    $order->created_at = date('Y-m-d H:i:s');
+
+		                    $modelOrders->save($order);
+
+		                    // gửi thông báo về app
+		                    $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng giới thiệu','time'=>date('H:i d/m/Y'),'content'=>'- '.$User->name.' ơi. Bạn được cộng '.number_format($order->total).' VND do thành viên '.$member->name.' đã nạp tiền. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+
+		                    if(!empty($User->token_device)){
+		                        sendNotification($dataSendNotification, $User->token_device);
+		                    }
+		                }
+		            }
+
+            		if(!empty($_GET['page'])){
+						return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php?mess=1&page='.$_GET['page']);
+					}else{
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php?mess=1');
+					}
+				
+			}
+		}
+	}
+	if(!empty($_GET['page'])){
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php?page='.$_GET['page']);
+	}else{
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php');
+	}
+}
+
 //Danh sách giao dịch tạo conent
 function listTransactionHistoryCreateConnetnEzpics($input)
 {

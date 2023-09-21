@@ -18,6 +18,7 @@
 
 	// nén ảnh
 	$routesPlugin['zipThumb']= 'ezpics_api/view/zipThumb.php';
+	$routesPlugin['zipFileUpload']= 'ezpics_api/view/zipFileUpload.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';
@@ -182,5 +183,5 @@
 	$routesPlugin['addNotificationDeadlineProAPI']= 'ezpics_api/view/addNotificationDeadlineProAPI.php';	
 	$routesPlugin['addNotificationDeadlineTrialProAPI']= 'ezpics_api/view/addNotificationDeadlineTrialProAPI.php';	
 	$routesPlugin['checkDeadline']= 'ezpics_api/view/checkDeadline.php';	
-	$routesPlugin['checkallDeadline']= 'ezpics_api/view/checkallDeadline.php';	
+	$routesPlugin['checkDeadlineProAllMember']= 'ezpics_api/view/checkDeadlineProAllMember.php';	
 ?>

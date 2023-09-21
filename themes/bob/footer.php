@@ -1,4 +1,16 @@
-<?php global $settingThemes;?>
+<?php 
+    global $settingThemes;
+    global $modelMenus;
+
+    // Menu 
+    if(!empty($settingThemes['id1_menu_footer'])){
+        $menu_footer = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id1_menu_footer']])->all()->toList();
+    }
+
+    if(!empty($settingThemes['id1_menu_footer'])){
+        $menu_footer2 = $modelMenus->find()->where(['id_menu'=>(int) $settingThemes['id2_menu_footer']])->all()->toList();
+    }
+?>
 
 <footer>
         <section id="section-footer">

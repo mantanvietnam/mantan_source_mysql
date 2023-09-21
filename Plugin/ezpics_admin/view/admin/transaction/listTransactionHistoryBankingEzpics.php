@@ -85,7 +85,8 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  $status = '<span class="text-danger">Chưa xử lý</span>';
+                  $status = '<span class="text-danger">Chưa xử lý</span><br/><a class="btn rounded-pill btn-icon btn-outline-secondary" title="Xem chi tiết yêu cầu rút tiền" data-bs-toggle="modal"
+                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
                   if($item->status==2){
                     $status = '<span class="text-success">Đã xử lý</span>';
                   }
@@ -128,7 +129,8 @@
       <?php 
           if(!empty($listData)){
             foreach ($listData as $item) {
-              $status = '<span class="text-danger">Chưa xử lý</span>';
+              $status = '<span class="text-danger">Chưa xử lý</span><br/><a class="btn rounded-pill btn-icon btn-outline-secondary" title="Xem chi tiết yêu cầu rút tiền" data-bs-toggle="modal"
+                            data-bs-target="#basicModal'.$item->id.'" ><i class="bx bxs-message-square-check"></i></a>';
               if($item->status==2){
                 $status = '<span class="text-success">Đã xử lý</span>';
               }
@@ -209,4 +211,43 @@
     <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->
+   <div class="col-lg-4 col-md-6">
+                      <!-- <small class="text-light fw-semibold">Default</small> -->
+                      <div class="mt-3">
+                        <!-- Button trigger modal -->
+                        
+                        <!-- Modal -->
+                      <?php  if(!empty($listData)){
+              foreach ($listData as $items) { ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin nạp tiền </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
+                              </div>
+
+                            <div style=" padding: 20px; ">
+                              <p><label>ID:</label> <?php echo $items->id ?></p>
+                              <p><label>MÃ giao dịch:</label> <?php echo $items->code ?></p>
+                              <p><label>Tên:</label> <?php echo $items->member->name ?></p>
+                              <p><label>Điện thoại:</label> <?php echo $items->member->phone ?></p>
+                              <p><label>Email:</label> <?php echo $items->member->email ?></p>
+                              <p><?php echo $items->note; ?></p>
+                              <p><label>Số dư tài khoản:</label> <?php echo number_format($items->member->account_balance); ?>  VNĐ</p>
+                              <p><label>Số tiền nạp:</label> <?php echo number_format($items->total); ?>  VNĐ</p>
+                              
+                                <a class="btn btn-primary" onclick="return confirm(\'Bạn có chắc chắn muốn sử lý giao dịch này không?\');" href="/plugins/admin/ezpics_admin-view-admin-transaction-confirmReceiptMoneyEzpics.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" title="Xác nhận chuyển tiền  ">Xác nhận nạp tiền cho khách</a>
+                            </div>
+                             
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
+                      </div>
+                    </div>
+    <!--/ Basic Pagination -->
+  </div>
 </div>

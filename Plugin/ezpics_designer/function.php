@@ -343,4 +343,57 @@ function screenshotProduct2($url='', $width=1920, $height=1080)
         return '';
     }
 }
+
+function sendNotification($data,$target){
+    global $keyFirebase;
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array();
+    
+    $fields['data'] = $data;
+    $fields['priority'] = 'high';
+    $fields['content_available'] = true;
+
+    $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
+    
+    if(is_array($target)){
+        if(count($target)<1000){
+            $fields['registration_ids'] = $target;
+        }else{
+            $chunkedArrays = [];
+            $chunkSize = 990;
+
+            for ($i = 0; $i < count($target); $i += $chunkSize) {
+                $chunkedArrays = array_slice($target, $i, $chunkSize);
+                $result = sendNotification($data,$chunkedArrays);
+            }
+            
+            return $result;
+        }
+        
+    }else{
+        $fields['to'] = $target;
+    }
+
+    $headers = array(
+        'Content-Type:application/json',
+        'Authorization:key='.$keyFirebase
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+
+    }
+    curl_close($ch);
+
+    return $result;
+}
 ?>

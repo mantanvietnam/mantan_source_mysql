@@ -410,14 +410,29 @@ function addWarehouseAdmin($input)
 		$modelOrder = $controller->loadModel('Orders');
 
 		$mess= '';
+		if(!empty($_GET['id'])){
+			$data = $modelWarehouses->get($_GET['id']);
+			$user = $modelMember->find()->where(array('id'=>$data->user_id))->first();
+		}else{
+			$data = $modelWarehouses->newEmptyEntity();
+			$data->created_at = date('Y-m-d H:i:s');
+		}
+
 		if ($isRequestPost){
 	        $dataSend = $input['request']->getData();
-	        $user = $modelMember->find()->where(array('phone'=>$dataSend['user']))->first();
+	        if(empty($_GET['id'])){
+				$user = $modelMember->find()->where(array('phone'=>$dataSend['user']))->first();
+				if(!empty($user)){
+					$data->user_id =  $user->id;
+				}
+			}
+	       
+	        
 
 	        if(!empty($user)){
 	        	if ($user->account_balance>$dataSend['price_creates']){
 			        if(!empty($dataSend['name'])){
-			        	$data = $modelWarehouses->newEmptyEntity();
+			        	
 			        	if(!empty($data->thumbnail)){
 			        		$thumbnail = $data->thumbnail;
 			        	}else{
@@ -444,14 +459,13 @@ function addWarehouseAdmin($input)
 
 				        // tạo dữ liệu save
 				        $data->name = $dataSend['name'];
-				        $data->user_id = $user->id;
 				        $data->price = (int) $dataSend['price'];
 				        $data->date_use = (int) $dataSend['date_use'];
 				        $data->thumbnail = $thumbnail;
 				        $data->link_open_app = '';
 				        $data->keyword = $dataSend['keyword'];
 				        $data->description = $dataSend['description'];
-				        $data->created_at = date('Y-m-d H:i:s');
+				        
 					    $data->views = 0;
 					    $data->status = 0;
 		            	$data->slug = createSlugMantan($dataSend['name']);
@@ -459,33 +473,35 @@ function addWarehouseAdmin($input)
 		            	
 			        	$modelWarehouses->save($data);
 
-				       
-				        if($dataSend['price_creates']>0){
-				        	$user->account_balance -= $dataSend['price_creates'];
-				        	$modelMember->save($user);
+						if(empty($_GET['id'])){				       
+					        if($dataSend['price_creates']>0){
+					        	$user->account_balance -= $dataSend['price_creates'];
+					        	$modelMember->save($user);
 
-				        	$order = $modelOrder->newEmptyEntity();
-							$order->code = 'W'.time().$user->id.rand(0,10000);
-							$order->member_id = $user->id;
-							$order->product_id = (int) $data->id; // id kho mẫu
-							$order->total = $dataSend['price_creates'];
-							$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-							$order->type = 10; //0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
-							$order->meta_payment = 'Tạo kho mẫu thiết kế ID '.$data->id;
-							$order->created_at = date('Y-m-d H:i:s');
-							$modelOrder->save($order);
-						}
+					        	$order = $modelOrder->newEmptyEntity();
+								$order->code = 'W'.time().$user->id.rand(0,10000);
+								$order->member_id = $user->id;
+								$order->product_id = (int) $data->id; // id kho mẫu
+								$order->total = $dataSend['price_creates'];
+								$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+								$order->type = 10; //0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
+								$order->meta_payment = 'Tạo kho mẫu thiết kế ID '.$data->id;
+								$order->created_at = date('Y-m-d H:i:s');
+								$modelOrder->save($order);
+							}
 
-			        	// tự thêm tác giả vào kho
-			        	$dataWarehouseUsers = $modelWarehouseUsers->newEmptyEntity();
-				        $dataWarehouseUsers->warehouse_id = (int) $data->id;
-				        $dataWarehouseUsers->user_id = $user->id;
-				        $dataWarehouseUsers->price = 0;
-				        $dataWarehouseUsers->created_at = date('Y-m-d H:i:s');
-				        $dataWarehouseUsers->note = '';
-					    $dataWarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +3650 days'));
+				        	// tự thêm tác giả vào kho
+				        	$dataWarehouseUsers = $modelWarehouseUsers->newEmptyEntity();
+					        $dataWarehouseUsers->warehouse_id = (int) $data->id;
+					        $dataWarehouseUsers->user_id = $user->id;
+					        $dataWarehouseUsers->price = 0;
+					        $dataWarehouseUsers->created_at = date('Y-m-d H:i:s');
+					        $dataWarehouseUsers->note = '';
+						    $dataWarehouseUsers->deadline_at = date('Y-m-d H:i:s', strtotime($data->created_at . ' +3650 days'));
 					    
-					        $modelWarehouseUsers->save($dataWarehouseUsers);	
+					        $modelWarehouseUsers->save($dataWarehouseUsers);
+
+					    }   	
 
 				        // tạo link deep
 				        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
@@ -513,6 +529,9 @@ function addWarehouseAdmin($input)
 		}
     }
 
+
+
+    setVariable('user', @$user);
     setVariable('data', @$data);
 	setVariable('mess', $mess);
 	

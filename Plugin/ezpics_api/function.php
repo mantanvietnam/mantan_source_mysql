@@ -55,7 +55,12 @@ function removeBackground($link_image_local='',$create_new= false)
 {
     //$linkImage = removeBackgroundRemoveBG($link_image_local, $create_new);
     $linkImage = removeBackgroundPhotoroom($link_image_local, $create_new);
+    $linkLocalNew = __DIR__.'/../../'.$linkImage;
 
+    cropAutoImagePNG($linkLocalNew, $linkLocalNew);
+
+    //zipImage($linkLocalNew);
+    
     return $linkImage;
 }
 
@@ -545,7 +550,20 @@ function sendNotification($data,$target){
     $fields['notification'] = ['title'=>$data['title'], 'body'=>$data['content']];
     
     if(is_array($target)){
-        $fields['registration_ids'] = $target;
+        if(count($target)<1000){
+            $fields['registration_ids'] = $target;
+        }else{
+            $chunkedArrays = [];
+            $chunkSize = 990;
+
+            for ($i = 0; $i < count($target); $i += $chunkSize) {
+                $chunkedArrays = array_slice($target, $i, $chunkSize);
+                $result = sendNotification($data,$chunkedArrays);
+            }
+            
+            return $result;
+        }
+        
     }else{
         $fields['to'] = $target;
     }
@@ -966,19 +984,21 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
     ];
 }
 
-function zipImage($urlLocalFile)
+function zipImage($urlLocalFile='')
 {
-    if(function_exists('getKey')){
-        $keyTinipng = getKey(22);
-    }else{
-        $keyTinipng = '';
-    }
-    
-    if(!empty($keyTinipng)){
-        require_once("library/tinify/vendor/autoload.php");
-        Tinify\setKey($keyTinipng);
+    if(!empty($urlLocalFile)){
+        if(function_exists('getKey')){
+            $keyTinipng = getKey(22);
+        }else{
+            $keyTinipng = '';
+        }
+        
+        if(!empty($keyTinipng) && file_exists($urlLocalFile)){
+            require_once("library/tinify/vendor/autoload.php");
+            Tinify\setKey($keyTinipng);
 
-        Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
+            Tinify\fromFile($urlLocalFile)->toFile($urlLocalFile);
+        }
     }
 }
 
@@ -1270,6 +1290,103 @@ function screenshotProduct($url='', $width=1920, $height=1080)
         return @$return['data'];
     }else{
         return '';
+    }
+}
+
+function cropAutoImagePNG($sourcePath='', $destinationPath='')
+{
+    global $urlHomes;
+
+    if(!empty($sourcePath)){
+        if(empty($destinationPath)) $destinationPath = $sourcePath;
+
+        // Đọc ảnh PNG gốc
+        $image = imagecreatefrompng($sourcePath);
+
+        // Tìm giới hạn không gian thừa
+        $left = $top = $right = $bottom = null;
+
+        // Xác định giới hạn không gian thừa bằng cách tìm các biên không phải là màu trong suốt (trong trường hợp PNG, màu có giá trị alpha khác 0)
+        $width = imagesx($image);
+        $height = imagesy($image);
+
+        for ($x = 0; $x < $width; $x++) {
+            for ($y = 0; $y < $height; $y++) {
+                $pixel = imagecolorat($image, $x, $y);
+                $alpha = ($pixel >> 24) & 0xFF; // Lấy giá trị alpha
+
+                if ($alpha !== 127 && $alpha !== 0) { // Màu không phải là màu trong suốt (trắng) hoặc đen
+                    $left = $x;
+                    break 2; // Kết thúc cả hai vòng lặp
+                }
+            }
+        }
+
+        for ($x = $width - 1; $x >= 0; $x--) {
+            for ($y = 0; $y < $height; $y++) {
+                $pixel = imagecolorat($image, $x, $y);
+                $alpha = ($pixel >> 24) & 0xFF;
+
+                if ($alpha !== 127 && $alpha !== 0) {
+                    $right = $x;
+                    break 2;
+                }
+            }
+        }
+
+        for ($y = 0; $y < $height; $y++) {
+            for ($x = 0; $x < $width; $x++) {
+                $pixel = imagecolorat($image, $x, $y);
+                $alpha = ($pixel >> 24) & 0xFF;
+
+                if ($alpha !== 127 && $alpha !== 0) {
+                    $top = $y;
+                    break 2;
+                }
+            }
+        }
+
+        for ($y = $height - 1; $y >= 0; $y--) {
+            for ($x = 0; $x < $width; $x++) {
+                $pixel = imagecolorat($image, $x, $y);
+                $alpha = ($pixel >> 24) & 0xFF;
+
+                if ($alpha !== 127 && $alpha !== 0) {
+                    $bottom = $y;
+                    break 2;
+                }
+            }
+        }
+
+        // Tạo hình ảnh mới với kích thước đã xác định
+        $croppedImage = imagecrop($image, [
+            'x' => $left,
+            'y' => $top,
+            'width' => $right - $left + 1,
+            'height' => $bottom - $top + 1
+        ]);
+
+        imagedestroy($image);
+
+        if ($croppedImage !== false) {
+            // Tạo ảnh mới với nền trong suốt (transparent background)
+            $resultImage = imagecreatetruecolor($right - $left + 1, $bottom - $top + 1);
+            imagesavealpha($resultImage, true);
+            $transColor = imagecolorallocatealpha($resultImage, 0, 0, 0, 127);
+            imagefill($resultImage, 0, 0, $transColor);
+
+            // Đặt hình ảnh đã cắt vào ảnh mới
+            imagecopy($resultImage, $croppedImage, 0, 0, 0, 0, $right - $left + 1, $bottom - $top + 1);
+
+            // Lưu ảnh sau khi cắt
+            imagepng($resultImage, $destinationPath);
+            imagedestroy($croppedImage);
+            imagedestroy($resultImage);
+            
+            return ['linkOnline'=>$urlHomes.'/'.$destinationPath, 'linkLocal'=>$destinationPath];
+        } else {
+            return ['linkOnline'=>$urlHomes.'/'.$sourcePath, 'linkLocal'=>$sourcePath];
+        }
     }
 }
 ?>

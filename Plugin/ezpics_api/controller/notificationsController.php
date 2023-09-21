@@ -48,12 +48,17 @@ function addNotificationProductAPI($input){
 		if(!empty($listMembers)){
 			$dataSendNotification= array('id'=>$product->id,'title'=>$title,'time'=>date('H:i d/m/Y'),'content'=>$content,'action'=>'productNew');
 			$number = 0;
+			$token_device = [];
 
 	        foreach ($listMembers as $key => $value) {
 	            if(!empty($value->token_device)){
-	                $return = sendNotification($dataSendNotification, $value->token_device);
-	                $number++;
+	            	$token_device[] = $value->token_device;
+                    $number++;
 	            }
+	        }
+
+	        if(!empty($token_device)){
+	        	$return = sendNotification($dataSendNotification, $token_device);
 	        }
 
 	        $mess= '<p class="text-success">Gửi thông báo thành công cho '.number_format($number).' người dùng</p>';

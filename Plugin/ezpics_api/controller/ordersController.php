@@ -811,7 +811,7 @@ function checkDeadline($input){
 
 }
 
-function checkallDeadline($input){
+function checkDeadlineProAllMember($input){
 	global $controller;
 
 	$modelMember = $controller->loadModel('Members');
