@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Người dùng sắp hết hạn Pro</h4>
-  <!-- <p><a href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+  <p><a href="/plugins/admin/ezpics_admin-view-admin-member-NotificationDeadlineProAdmin.php" class="btn btn-primary"><i class='bx bx-bell'></i> Thông báo hết hạn Pro</a></p>
 
   <!-- Form Search -->
 <!--   <form method="get" action="">

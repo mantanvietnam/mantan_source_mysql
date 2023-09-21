@@ -91,13 +91,17 @@ function addNotificationDeadlineProAPI($input){
     $number = 0;
     if(!empty($listData)){
     	foreach($listData as $key => $value){
-    		$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> '','action'=>'addMoneySuccess');
-
-	        if(!empty($value->token_device)){
-	            // sendNotification($dataSendNotification, $value->token_device);
-	            $number ++;
+    		 if(!empty($value->token_device)){
+				$token_device[] = $value->token_device;
+                    $number++;
 	        }
     	}
+    	$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn sắp hết hạn Pro. Cảm ơn bạn đã tin tương và đồng hành cùng EZPICS.','action'=>'adminSendNotification');
+
+	        if(!empty($token_device)){
+	             sendNotification($dataSendNotification, $token_device);
+	           
+	        }
     }
     return array('code'=>1, 'mess'=>'Đã bắt được '.$number.' thông báo');
 }
@@ -124,12 +128,16 @@ function addNotificationDeadlineTrialProAPI($input){
     $number = 0;
     if(!empty($listData)){
     	foreach($listData as $key => $value){
-    		$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn dùng thử Pro','time'=>date('H:i d/m/Y'),'content'=> '','action'=>'addMoneySuccess');
-
 	        if(!empty($value->token_device)){
-	            // sendNotification($dataSendNotification, $value->token_device);	
-	            $number ++;
+				$token_device[] = $value->token_device;
+                    $number++;
 	        }
+    	}
+
+    	$dataSendNotification= array('title'=>'Tài khoản của bạn sắp hết hạn dùng thử Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn sắp hết hạn dùng thử Pro. Cảm ơn bạn đã tin tương và đồng hành cùng EZPICS.','action'=>'adminSendNotification');
+    	if(!empty($token_device)){
+    		sendNotification($dataSendNotification, $token_device);	
+
     	}
     }
     return array('code'=>1, 'mess'=>'Đã bắt được '.$number.' thông báo');

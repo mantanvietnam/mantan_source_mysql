@@ -112,8 +112,10 @@
                   }
 
                   if($item->member_pro==1){
-                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro)).'<br/><a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicPro'.$item->id.'">Gia hạn bản Pro
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro)).'<br/><a  style="color: #60bc2f; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicPro'.$item->id.'">Gia hạn bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
+                            </a>&ensp;<a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#downPro'.$item->id.'">Hạ bản Pro
+                              <i class="bx bx-chevrons-down" style="font-size: 22px;"></i>
                             </a>';
                   }else{
                     $pro = 'Bản: thường  <a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">Nâng cấp lên bản Pro
@@ -206,8 +208,10 @@
                   }
 
                   if($item->member_pro==1){
-                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro)).'<br/><a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicPro'.$item->id.'">Gia hạn bản Pro
+                    $pro = 'Bản: PRO <br/>ngày hết hạn: '.date('H:i d/m/Y', strtotime($item->deadline_pro)).'<br/><a  style="color: #60bc2f; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicPro'.$item->id.'">Gia hạn bản Pro
                               <i class="bx bxs-chevrons-up" style="font-size: 22px;"></i>
+                            </a><a  style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#downPro'.$item->id.'">Hạ bản Pro
+                              <i class="bx bx-chevrons-down" style="font-size: 22px;"></i>
                             </a>';
                   }else{
                     $pro = 'Bản: thường <a style="color: red; cursor: pointer;" title="Nâng cấp lên bản Pro" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'"> Nâng cấp lên bản Pro
@@ -389,6 +393,19 @@
                                 <button type="submit" class="btn btn-primary">Nâng cấp</button>
                               </div>
                              </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal fade" id="downPro<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">bạn muốn hạ tài khoản Pro ID: <?php echo $items->id; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                             <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-memberDownProAdmin.php/?id=<?php echo $items->id; ?>&page=<?php echo @$_GET['page']; ?>" style=" width: 110px; margin: 20px; ">Xác nhận</a>
                               
                             </div>
                           </div>

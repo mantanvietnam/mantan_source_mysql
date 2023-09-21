@@ -171,4 +171,182 @@ function deletePrepayCard($input){
         return $controller->redirect('/login');
     }
 }
+
+function buyPrepayCard($input){
+	global $controller;
+	global $isRequestPost;
+	global $urlCurrent;
+	global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Bán Thẻ trả trước';
+
+    $mess = "";
+
+	$modelPrepayCard = $controller->loadModel('PrepayCards');
+	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+	$modelBill = $controller->loadModel('Bills');
+	$modelMembers = $controller->loadModel('Members');
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+		$order = array('id'=>'desc');
+		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
+		$conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+		
+		$listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+	    $listData = $modelPrepayCard->find()->where($conditions)->order($order)->all()->toList();
+	    if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
+
+            $bill = $modelBill->newEmptyEntity();
+            $bill->id_member = @$infoUser->id_member;
+            $bill->id_spa = $session->read('id_spa');
+            $bill->id_staff = (int)@$dataSend['id_staff'];
+            $bill->total = (int)@$dataSend['totalPays'];
+            $bill->note = 'Bán hàng Mã thẻ trả trước, thời gian '.date('Y-m-d H:i:s');
+            $bill->type = 0; //0: Thu, 1: chi
+            $bill->created_at = date('Y-m-d H:i:s');
+            $bill->updated_at = date('Y-m-d H:i:s');
+            $bill->type_collection_bill = @$dataSend['type_collection_bill'];
+            $bill->id_customer = (int)@$dataSend['id_customer'];
+            $bill->full_name = @$dataSend['full_name'];
+            $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
+
+            if(!empty($dataSend['time'])){
+                $time = explode(' ', $dataSend['time']);
+                $date = explode('/', $time[0]);
+                $hour = explode(':', $time[1]);
+                $bill->time = mktime($hour[0], $hour[1], 0, $date[1], $date[0], $date[2]);
+            }else{
+                $bill->time = time();
+            }
+                   
+            $modelBill->save($bill);
+
+            foreach($dataSend['idHangHoa'] as $key => $value){
+                $card = $modelCustomerPrepaycard->newEmptyEntity();
+
+                $card->id_member = $infoUser->id_member;
+                $card->id_bill = $bill->id;
+                $card->id_spa = $session->read('id_spa');;
+                $card->id_prepaycard = $value;
+                $card->id_customer = @$dataSend['id_customer'];
+                $card->price_sell = (int) $dataSend['money'][$key];
+                $card->price = (int) $dataSend['priceCard'][$key];
+                $card->total = (int) $dataSend['priceCard'][$key] *(int) $dataSend['soluong'][$key];
+                $card->quantity = (int) $dataSend['soluong'][$key];
+            	$card->created_at = date('Y-m-d H:i:s');
+            	$card->updated_at = date('Y-m-d H:i:s');
+            	$card->status = 'active';
+
+                $modelCustomerPrepaycard->save($card);
+
+            }
+            return $controller->redirect('/printInfoBillCard?id='.$bill->id);
+			
+        }
+	    
+	    setVariable('listStaffs', $listStaffs);
+	    setVariable('listData', $listData);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function printInfoBillCard($input){
+	global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'in đơn hàng';
+
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+
+        $modelBill = $controller->loadModel('Bills');
+        $modelCustomer = $controller->loadModel('Customers');
+		$modelPrepayCard = $controller->loadModel('PrepayCards');
+		$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+
+
+        if(!empty($_GET['id'])){
+            $data = $modelBill->find()->where(array('id'=>$_GET['id']))->first();
+            
+           
+            $dataCustomerPrepaycard = $modelCustomerPrepaycard->find()->where(array('id_bill'=>$data->id))->all()->toList();
+
+            if(!empty($dataCustomerPrepaycard)){
+            	foreach($dataCustomerPrepaycard as $key => $item){
+
+            		$item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+            		if(!empty($item->infoPrepayCard)){
+						$dataCustomerPrepaycard[$key] = $item;
+					}
+            	}
+            	$data->CustomerCard =  $dataCustomerPrepaycard;
+            }
+             $data->spa = getSpa($user->id_spa);
+            /*debug($data);
+           	die();*/
+
+            setVariable('user', $user);
+            setVariable('data', $data);
+        }else{
+        	return $controller->redirect('/dashboard');
+        }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function printInfoBillCard($input){
+	global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'in đơn hàng';
+
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+
+        $modelBill = $controller->loadModel('Bills');
+        $modelCustomer = $controller->loadModel('Customers');
+		$modelPrepayCard = $controller->loadModel('PrepayCards');
+		$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+
+            
+           
+        $dataList = $modelCustomerPrepaycard->find()->where(array('id_bill'=>$data->id))->all()->toList();
+
+        if(!empty($dataList)){
+           	foreach($dataList as $key => $item){
+
+           		$item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+           		if(!empty($item->infoPrepayCard)){
+					$dataCustomerPrepaycard[$key] = $item;
+				}
+           	}
+           	$data->CustomerCard =  $dataCustomerPrepaycard;
+        }
+             $data->spa = getSpa($user->id_spa);
+            /*debug($data);
+           	die();*/
+
+            setVariable('user', $user);
+            setVariable('dataList', $dataList);
+        
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 ?>

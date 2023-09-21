@@ -171,16 +171,6 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/buyProduct" class="menu-link">
-                    <div>Bán sản phẩm</div> 
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="/buyCombo" class="menu-link">
-                    <div>Bán thẻ liệu trình</div> 
-                  </a>
-                </li>
-                <li class="menu-item">
                   <a href="/buyPrepayCard" class="menu-link">
                     <div>Bán thẻ trả trước</div> 
                   </a>
