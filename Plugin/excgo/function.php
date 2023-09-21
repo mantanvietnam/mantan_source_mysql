@@ -511,3 +511,6 @@ $ownerType = [
 
 global $transactionKey;
 $transactionKey = 'excgo';
+
+global $urlTransaction;
+$urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';

@@ -394,6 +394,46 @@ function upgradeToDriverApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
+function generateQRCodeApi($input): array
+{
+    global $isRequestPost;
+    global $urlTransaction;
+    global $transactionKey;
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if (isset($dataSend['amount'])) {
+            $amount = $dataSend['amount'];
+            $addInfo = "$currentUser->phone_number $transactionKey";
+            $url = $urlTransaction . "amount=$amount&addInfo=$addInfo&accountName=Tran Ngoc Manh";
+            $data = [
+                'url' => $url,
+                'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
+                'account_number' => '06931228668',
+                'account_name' => 'Trần Ngọc Mạnh',
+                'content' => $addInfo
+            ];
+
+            return apiResponse(0, 'Gửi yêu cầu nạp tiền thành công', $data);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
 function addMoneyTPBankApi($input): array
 {
     global $transactionKey;
