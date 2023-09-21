@@ -4384,6 +4384,10 @@ cursor: not-allowed;
         overflow: none;
         position: relative;
     }
+
+    .info-element-center{
+        margin-bottom: 33px;
+    }
 }
 
 
