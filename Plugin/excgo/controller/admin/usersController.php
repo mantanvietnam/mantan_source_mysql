@@ -88,6 +88,7 @@ function viewUserDetailAdmin($input)
     global $isRequestPost;
 
     $modelUser = $controller->loadModel('Users');
+    $modelImage = $controller->loadModel('Images');
     $metaTitleMantan = 'Thông tin người dùng';
     $mess = '';
 
@@ -96,6 +97,24 @@ function viewUserDetailAdmin($input)
             ->where([
                 'id' => (int)$_GET['id']
             ])->first();
+        $idCardFront = $modelImage->find()
+            ->where([
+                'owner_id' => $_GET['id'],
+                'owner_type' => 'users',
+                'type' => 'id-card-front'
+            ])->first();
+        $idCardBack = $modelImage->find()
+            ->where([
+                'owner_id' => $_GET['id'],
+                'owner_type' => 'users',
+                'type' => 'id-card-back'
+            ])->first();
+        $car = $modelImage->find()
+            ->where([
+                'owner_id' => $_GET['id'],
+                'owner_type' => 'users',
+                'type' => 'car'
+            ])->all();
     } else {
         $data = $modelUser->newEmptyEntity();
     }
@@ -120,6 +139,79 @@ function viewUserDetailAdmin($input)
         }
     }
 
+    if (isset($idCardFront) && isset($idCardBack) && isset($car)) {
+        setVariable('idCardFront', $idCardFront);
+        setVariable('idCardBack', $idCardBack);
+        setVariable('car', $car);
+    }
+
     setVariable('data', $data);
     setVariable('mess', $mess);
+}
+
+function listUpgradeRequestToDriverAdmin($input)
+{
+    global $controller;
+
+    $modelDriverRequest = $controller->loadModel('DriverRequests');
+    $modelUser = $controller->loadModel('Users');
+
+    $listUserRequest = $modelDriverRequest->find()
+        ->where(['status' => 0])
+        ->all();
+    $listUserId = $listUserRequest->map(function ($item) {
+        return $item->user_id;
+    })->toList();
+
+    $conditions = ['id IN' => $listUserId];
+    $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
+    $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
+    if ($page < 1) $page = 1;
+
+    if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
+        $conditions['id'] = $_GET['id'];
+    }
+
+    if (!empty($_GET['name'])) {
+        $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
+    }
+
+    if (!empty($_GET['phone_number'])) {
+        $conditions['phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
+    }
+
+    if (!empty($_GET['email'])) {
+        $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
+    }
+
+    if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
+        $conditions['type'] = $_GET['type'];
+    }
+
+    if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
+        $conditions['status'] = $_GET['status'];
+    }
+
+    $listData = $modelUser->find()
+        ->limit($limit)
+        ->page($page)
+        ->where($conditions)
+        ->all()
+        ->toList();
+    $totalUser = $modelUser->find()
+        ->where($conditions)
+        ->all()
+        ->toList();
+    $paginationMeta = createPaginationMetaData(
+        count($totalUser),
+        $limit,
+        $page
+    );
+
+    setVariable('page', $page);
+    setVariable('totalPage', $paginationMeta['totalPage']);
+    setVariable('back', $paginationMeta['back']);
+    setVariable('next', $paginationMeta['next']);
+    setVariable('urlPage', $paginationMeta['urlPage']);
+    setVariable('listData', $listData);
 }

@@ -82,6 +82,38 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">Ảnh CCCD mặt trước</label>
+                        <div class="text-center">
+                          <img src="<?php if (isset($idCardFront)) echo $idCardFront->path; else echo 'https://apis.exc-go.vn/plugins/excgo/view/image/default-image.jpg'; ?>" width="450px" height="300px">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">Ảnh CCCD mặt sau</label>
+                        <div class="text-center">
+                          <img src="<?php if (isset($idCardBack)) echo $idCardBack->path; else echo 'https://apis.exc-go.vn/plugins/excgo/view/image/default-image.jpg'; ?>"
+                               width="450px" height="300px"
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label class="form-label">Hình ảnh xe</label>
+                        <?php if (isset($car) && count($car)):
+                          foreach ($car as $item):
+                        ?>
+                            <div class="col-md-6 mb-3 text-center">
+                              <img src="<?php echo $item->path ?>" width="450px" height="300px" class="mb-3">
+                            </div>
+                        <?php endforeach;
+                          else: ?>
+                          <p> Chưa có hình ảnh </p>
+                        <? endif; ?>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Lưu</button>
                     <?= $this->Form->end() ?>
                 </div>

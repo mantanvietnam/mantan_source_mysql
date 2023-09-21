@@ -22,6 +22,12 @@ $menus[3]['sub'][0] = array('title' => 'Danh sách cuốc xe',
     'permission' => 'listBookingAdmin',
 );
 
+$menus[4]['sub'][0] = array('title' => 'Yêu cầu nâng cấp tài khoản',
+    'url' => '/plugins/admin/excgo-view-admin-upgradeRequest-listUpgradeRequestToDriverAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listUpgradeRequestToDriverAdmin',
+);
+
 addMenuAdminMantan($menus);
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
