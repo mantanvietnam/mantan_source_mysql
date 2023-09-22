@@ -8,7 +8,7 @@
     <main>
         <section id="section-banner-page">
             <div class="banner-page">
-                <img src="<?php echo $urlThemeActive; ?>/asset/img/anime-landscape-for-desktop-scenery-clouds-stars-buildings-wallpaper.jpg" alt="">
+                <img src="<?php echo $urlThemeActive; ?>/asset/img/banner-library.png" alt="">
             </div>
         </section>
 

@@ -7,12 +7,13 @@ $(document).ready(function(){
         dots: true
 
     });
+    console.log('a')
 });
 
 
   var swiper = 
   new Swiper('.swiper-du-an-details',{
-    slidesPerView: '2',
+    slidesPerView: '3',
     spaceBetween: 60,
     autoplay: false,
     effect: 'coverflow',

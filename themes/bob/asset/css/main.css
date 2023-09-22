@@ -1373,9 +1373,36 @@ body {
     object-fit: cover;
 }
 
+/* Bổ sung */
+.list-library{
+    padding-bottom: 50px;
+}
 
+.page-item.active .page-link{
+    background-color: #121212;
+}
 
+.navbar-project{
+    padding-bottom: 50px;
+}
 
+.img-product{
+    height: 300px;
+}
+
+.img-product img{
+    height: 100%;
+    object-fit: cover;
+}
+
+.hinh-anh-masp{
+    display: flex;
+    align-items: center;
+}
+
+.hinh-anh-masp .img-du-an{
+    margin-right: 12px;
+} 
 
 @media (min-width: 1400px){
     .container {

@@ -10,7 +10,7 @@
                     </div>
     
                     <div class="title-cart-back">
-                        <a href="javascript:void(0);"><i class="fa-solid fa-arrow-left" onclick="history.back()"></i> Quay lại</a>
+                        <!-- <a href="javascript:void(0);"><i class="fa-solid fa-arrow-left" onclick="history.back()"></i> Quay lại</a> -->
                     </div>  
                 </div>
             </div>

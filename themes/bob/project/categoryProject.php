@@ -8,14 +8,14 @@
 <main>
     <section id="banner-project" class="">
         <div class="banner-du-an max-h-70vh h-100 max-h-80vh maxheight-810 overflow-hiden">
-            <img src="<?php echo $urlThemeActive ;?>/asset/img/banner-project.png" alt="">
+            <img src="<?php echo $urlThemeActive ;?>/asset/img/banner-library.png" alt="">
             <div class="absolute bottom-0 w-100 linear-background--banner-duan" >
                 <div class="container">
                     <div class="title-banner-du-an font-Hotel-Colline">
                         <!-- <h1 class="font-Hotel-Colline text-uppcase">Đồng Hành Tạo Không Gian Hoàn Mĩ</h1>
                         <p>Cùng Yên Lâm khám phá những kiến trúc đã sử dụng sản phẩm của chúng tôi.</p> -->
                         <div class="button-dang-ki">
-                            <a href="" class="pd-16-20 ds-in-block text-button-dang-ki">Đăng kí án miễn phí</a>
+                            <a href="http://bobdecor.com.vn/contact" class="pd-16-20 ds-in-block text-button-dang-ki">Đăng kí án miễn phí</a>
                         </div>
                     </div>                    
                 </div>
@@ -156,23 +156,43 @@
                         ?>
                     </div>
 
-                    <nav aria-label="Page navigation example" class="mg-top-64">
-                        <ul class="pagination justify-center gap-10">
-                            <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <nav aria-label="Page navigation" class="mg-top-64">
+                            <ul class="pagination justify-center gap-10">
+                              <?php
+                                if($totalPage>0){
+                                    if ($page > 5) {
+                                        $startPage = $page - 5;
+                                    } else {
+                                        $startPage = 1;
+                                    }
+
+                                    if ($totalPage > $page + 5) {
+                                        $endPage = $page + 5;
+                                    } else {
+                                        $endPage = $totalPage;
+                                    }
+                                    
+                                    echo '<li class="page-item first">
+                                            <a class="page-link" href="'.$urlPage.'1"
+                                              ><i class="fa-solid fa-chevron-left"></i></a>
+                                          </li>';
+                                    
+                                    for ($i = $startPage; $i <= $endPage; $i++) {
+                                        $active= ($page==$i)?'active':'';
+
+                                        echo '<li class="page-item '.$active.'">
+                                                <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                                              </li>';
+                                    }
+
+                                    echo '<li class="page-item last">
+                                            <a class="page-link" href="'.$urlPage.$totalPage.'"
+                                              ><i class="fa-solid fa-chevron-right"></i></a>
+                                          </li>';
+                                }
+                              ?>
+                            </ul>
+                        </nav>
                     
                     <script>
                 

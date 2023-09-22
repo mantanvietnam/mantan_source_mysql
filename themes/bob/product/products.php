@@ -75,7 +75,7 @@
                                             <div class="img-product relative">
                                                 <img src="'.$product->image.'" alt="">
                                                 <div class="opacity-0 group-hover-opacity-50 bg-gray-800 duration-500 absolute h-full w-full top-0"></div>
-                                                <div class="click-product absolute group-hover-opacity-100 opacity-0 duration-500 w-100 h-100 top-0 setting-click ">
+                                                <div class="click-product absolute group-hover-opacity-100 opacity-0 duration-500 w-100 top-0 setting-click ">
                                                     <a href="'.$link.'" class="duration-500 w-full text-white border border-white setting-button-click button-click-hover hover-border-gray-800 hover-text-gray-800 hover-bg-white">Xem chi tiết</a>
                                                     
                                                     <a onclick="addProductToCart('.$product->id.')" href="javascript:void(0);"  class="duration-500 w-full text-black setting-button-click border-black bg-white hover-border-white hover-text-white hover-bg-black">Thêm vào giỏ hàng</a>

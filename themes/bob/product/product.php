@@ -1,10 +1,10 @@
 <?php getHeader();?>
     
-    <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <!-- <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/> -->
 
     <main>
-        <section class="duong-dan-product mg-top-24">
+        <section class="duong-dan-product" style="padding-top: 128px;">
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-gray-400 list-duong-dan">

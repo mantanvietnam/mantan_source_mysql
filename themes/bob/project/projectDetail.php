@@ -10,7 +10,7 @@
     <main>
         <section id="product" class="">
             <div class="banner-du-an max-h-70vh max-h-80vh maxheight-810 overflow-hiden">
-                <img src="../asset/img/banner-du-an.jpg" alt="">
+                <img src="<?php echo $urlThemeActive; ?>/asset/img/banner-library.png" alt="">
                 <div class="absolute bottom-0 w-100 linear-background--banner-duan" >
                     <div class="container">
                         <div class="title-banner-du-an font-Hotel-Colline">
@@ -58,7 +58,7 @@
                             foreach($project->infoProduct as $key => $value){
                                 echo'
                                     <div class="hinh-anh-masp">
-                                        <a href="" class="w-56 h-56 block img-du-an mg-top-24">
+                                        <a href="/product/'.$value->slug.'.html" class="w-56 h-56 block img-du-an mg-top-24">
                                             <img src="'.$value->image.'" alt="">
                                         </a>
                                         <h5 class="text-gray-600 mg-top-8">'.$value->code.'</h5>

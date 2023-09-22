@@ -96,7 +96,7 @@
                     </ul>
                     <div class="menu-header-right d-flex">
                         <button class="icon-header icon-glass" href=""><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <a class="icon-header" href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="icon-header" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
                     </div>
 
                   </div>

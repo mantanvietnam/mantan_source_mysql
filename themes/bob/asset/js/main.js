@@ -24,8 +24,6 @@ $(document).ready(function() {
 
 });
 
-
-
     function imageZoom(imgID, resultID) {
     var img, lens, result, cx, cy;
     document.getElementById('myresult').style.display= "block";
