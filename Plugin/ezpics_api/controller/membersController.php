@@ -519,7 +519,7 @@ function getTopDesignerAPI($input){
 	if($dataSend['orderBy'] == 'bestSeller' || $dataSend['orderBy'] == 'bestMoney'){
 		// bán được nhiều mẫu hoặc doanh thu cao trong tuần
 		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")));
-		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:100;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
 
@@ -559,7 +559,7 @@ function getTopDesignerAPI($input){
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
 
-		$listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		$listData = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 		$listDesignStatic = [];
 
 		if(!empty($listData)){
@@ -585,6 +585,7 @@ function getTopDesignerAPI($input){
 			}
 		}
 	}
+	
 
 	return 	array('listData'=>$listDesign);
 }
