@@ -360,4 +360,47 @@ function listCustomerPrepayCard($input){
         return $controller->redirect('/login');
     }
 }
+
+function listCustomerPrepayCardAPI($input){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'Danh sách thẻ trước';
+    $return = array();
+
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+
+        
+        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+        $modelPrepayCard = $controller->loadModel('PrepayCards');
+
+        $conditions = array('id_member'=>$user->id_member, 'total >' => 0);
+
+
+        $conditions['id_customer'] = $_GET['id_customer'];
+        $conditions['total >='] = $_GET['total'];
+        
+           
+        $listData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+
+                $item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+                $listData[$key] = $item;
+                
+            }
+        }
+
+        $return =  array('data'=>$listData);
+        
+    }
+
+    return $return;
+}
 ?>

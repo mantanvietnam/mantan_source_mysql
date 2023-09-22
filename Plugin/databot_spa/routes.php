@@ -79,6 +79,7 @@
 	$routesPlugin['buyPrepayCard']= 'databot_spa/view/home/prepayCard/buyPrepayCard.php';
 	$routesPlugin['printInfoBillCard']= 'databot_spa/view/home/prepayCard/printInfoBillCard.php';
 	$routesPlugin['listCustomerPrepayCard']= 'databot_spa/view/home/prepayCard/listCustomerPrepayCard.php';
+	$routesPlugin['listCustomerPrepayCardAPI']= 'databot_spa/view/home/prepayCard/listCustomerPrepayCardAPI.php';
 
 	//bill 
 	$routesPlugin['listCollectionBill']= 'databot_spa/view/home/bill/listCollectionBill.php';

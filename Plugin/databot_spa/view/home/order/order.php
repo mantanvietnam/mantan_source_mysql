@@ -365,12 +365,13 @@
 <script type="text/javascript">
     var listProductAdd= {};
      var row=0;
+     var id_customer=0;
     var numberProduct= 0;
     var checkProduct= true;
 
 // all sản phầm vào đơn hàng 
 function addProduct(id, name, priceProduct,type){
-        
+    id_customer = parseFloat($('#id_customer').val());
    
     if(listProductAdd.hasOwnProperty(id)){
         // thêm số lượng vào mặt hàng đã có
@@ -473,6 +474,16 @@ function addProduct(id, name, priceProduct,type){
 
                 }
             }
+
+            $.ajax({
+                method: 'GET',
+                url: '/apis/listCustomerPrepayCardAPI',
+                data: { id_customer: id_customer , total: totalPay},
+                success:function(res){
+                  console.log(res);
+                 // location.reload();
+                }
+            })
         }
     }
 

@@ -108,8 +108,20 @@ function getProductsWarehousesAPI($input){
 			$conditions['Products.name LIKE'] = '%'.$dataSend['name'].'%';
 		}
 
-		$conditions['wp.warehouse_id'] = $dataSend['idWarehouse'];
-		$conditions['Products.type'] = 'user_create';
+		if(!empty($dataSend['orderBy'])){
+			if(empty($dataSend['orderType'])) $dataSend['orderType'] = 'desc';
+			
+			switch ($dataSend['orderBy']) {
+				case 'price':$order = array('Products.sale_price'=>$dataSend['orderType']);break;
+				case 'create':$order = array('Products.id'=>$dataSend['orderType']);break;
+				case 'view':$order = array('Products.views'=>$dataSend['orderType']);break;
+				case 'favorite':$order = array('Products.favorites'=>$dataSend['orderType']);break;
+			}
+		}
+
+		if(!empty($dataSend['category_id'])){
+			$conditions['category_id'] = (int) $dataSend['category_id'];
+		}
 
 		$listData = $modelProduct->find()->join([
 					        'table' => 'warehouse_products',

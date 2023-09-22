@@ -20,18 +20,14 @@
             <input type="hidden" name="id_customer" id="id_customer" value="<?php if(!empty($_GET['id_customer'])) echo $_GET['id_customer'];?>">
           </div>
 
-          <div class="col-md-2">
-            <label class="form-label">Giá bán</label>
-            <input type="text" class="form-control" name="price_sell" value="<?php if(!empty($_GET['price_sell'])) echo $_GET['price_sell'];?>">
+           <div class="col-md-2">
+            <label class="form-label">Tạo từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Trạng thái</label>
-            <select name="status" class="form-select color-dropdown">
-              <option value="" >Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
-              <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
-            </select>
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
 
           <div class="col-md-2">
@@ -79,7 +75,9 @@
                   }
 
                   echo '<tr>
-                          <td>'.$item->id.'</td>
+                          <td>'.$item->id.'</br>
+                            '.date('H:i d/m/Y', strtotime($item->created_at)).'
+                          </td>
                           <td>'.$item->infoPrepayCard->name.'</td>
                           <td> '.$item->infoCustomer->name.'<br/>
                             '.$item->infoCustomer->phone.'<br/>

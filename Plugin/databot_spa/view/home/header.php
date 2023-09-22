@@ -175,6 +175,11 @@
                     <div>Bán thẻ trả trước</div> 
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/listCustomerPrepayCard" class="menu-link">
+                    <div>Danh sách thẻ trả trước</div> 
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="menu-item">
