@@ -16,7 +16,24 @@
                     <p><?php echo $mess ?? '';?></p>
                     <?= $this->Form->create(); ?>
 
-                    <img src="<?php echo @$data->avatar ?>" width="200px" height="200px" class="mb-3">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <img src="<?php echo @$data->avatar ?>" width="200px" height="200px" class="mb-3">
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <?php if (isset($isRequestUpgrade)): ?>
+                          <p>Người dùng yêu cầu nâng cấp tài khoản thành tài xế</p>
+                          <a class=" btn btn-primary"  title="Kích hoạt tài khoản"
+                             onclick="return confirm('Bạn có chắc chắn muốn chấp nhận yêu cầu của thành viên này không?');"
+                             href=<?php echo "/plugins/admin/excgo-view-admin-user-acceptUpgradeToDriverAdmin.php/?id=$isRequestUpgrade->user_id" ?>
+                          >
+                            Chấp nhận
+                          </a>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6 mb-3 ">
                             <label class="form-label" for="basic-default-phone">Tài khoản (*)</label>

@@ -89,6 +89,7 @@ function viewUserDetailAdmin($input)
 
     $modelUser = $controller->loadModel('Users');
     $modelImage = $controller->loadModel('Images');
+    $modelDriverRequest = $controller->loadModel('DriverRequests');
     $metaTitleMantan = 'Thông tin người dùng';
     $mess = '';
 
@@ -115,6 +116,11 @@ function viewUserDetailAdmin($input)
                 'owner_type' => 'users',
                 'type' => 'car'
             ])->all();
+
+        $isRequestUpgrade = $modelDriverRequest->find()
+            ->where(['user_id' => $_GET['id']])
+            ->where(['status' => 0])
+            ->first();
     } else {
         $data = $modelUser->newEmptyEntity();
     }
@@ -143,6 +149,10 @@ function viewUserDetailAdmin($input)
         setVariable('idCardFront', $idCardFront);
         setVariable('idCardBack', $idCardBack);
         setVariable('car', $car);
+    }
+
+    if (isset($isRequestUpgrade)) {
+        setVariable('isRequestUpgrade', $isRequestUpgrade);
     }
 
     setVariable('data', $data);
@@ -214,4 +224,33 @@ function listUpgradeRequestToDriverAdmin($input)
     setVariable('next', $paginationMeta['next']);
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $listData);
+}
+
+function acceptUpgradeToDriverAdmin($input)
+{
+    global $controller;
+    global $memberType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelDriverRequest = $controller->loadModel('DriverRequests');
+
+    if (!empty($_GET['id'])) {
+        $user = $modelUser->find()->where([
+            'id' => $_GET['id']
+        ])->first();
+
+        if ($user) {
+            $user->type = $memberType['driver'];
+            $modelUser->save($user);
+
+            $request = $modelDriverRequest->find()
+                ->where(['user_id' => $_GET['id']])
+                ->first();
+            $request->status = 1;
+            $request->handled_by = 1;
+            $modelDriverRequest->save($request);
+        }
+
+        return $controller->redirect("/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=$user->id");
+    }
 }

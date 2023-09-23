@@ -515,6 +515,12 @@ $ownerType = [
     'bookings' => 'bookings',
 ];
 
+global $memberType;
+$memberType = [
+    'user' => 1,
+    'driver' => 2,
+];
+
 global $transactionKey;
 $transactionKey = 'excgo';
 
