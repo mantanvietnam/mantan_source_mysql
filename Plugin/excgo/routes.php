@@ -9,6 +9,8 @@
 	$routesPlugin['forgotPasswordApi']= 'excgo/view/forgotPasswordApi.php';
 	$routesPlugin['resetPasswordApi']= 'excgo/view/resetPasswordApi.php';
 	$routesPlugin['upgradeToDriverApi']= 'excgo/view/upgradeToDriverApi.php';
+	$routesPlugin['addMoneyTPBankApi']= 'excgo/view/addMoneyTPBankApi.php';
+	$routesPlugin['generateQRCodeApi']= 'excgo/view/generateQRCodeApi.php';
 
 	// Province
     $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';

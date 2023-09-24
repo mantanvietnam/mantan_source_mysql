@@ -118,7 +118,7 @@
                           ' . $item->email . ' 
                         </td>
                         <td>
-                          Số dư: ' . number_format($item->available_coin) . ' đ
+                          Số dư: ' . number_format($item->total_coin) . ' đ
                           <br>
                           Địa chỉ: ' . $item->address . '
                         </td>
