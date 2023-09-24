@@ -38,6 +38,10 @@
     <div id="user-count"></div>
 
     <script>
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         function updateUserCount() {
             // Gọi AJAX để kiểm tra số lượng người dùng từ server
             // Trong ví dụ này, ta sẽ sử dụng setTimeout để giả lập dữ liệu
@@ -51,10 +55,10 @@
                     const userCount = msg.number;
 
                     // Hiển thị số lượng người dùng lên trang web
-                    document.getElementById('user-count').textContent = userCount + ' người dùng Ezpics';
+                    document.getElementById('user-count').textContent = numberWithCommas(userCount) + ' người dùng Ezpics';
                     
-                    // Lặp lại hàm này sau 1 giây
-                    setTimeout(updateUserCount, 1000);
+                    // Lặp lại hàm này sau 5 phút
+                    setTimeout(updateUserCount, 300000);
                 });
             }, 1000);
         }
