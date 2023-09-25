@@ -24,6 +24,7 @@ function order($input){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
+        $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
 
 		$conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
 		$listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -138,6 +139,12 @@ function order($input){
                     $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                     $bill->id_customer = (int)@$dataSend['id_customer'];
                     $bill->full_name = @$dataSend['full_name'];
+                    if(empty($dataSend['card'])){
+                        $bill->type_card = 0;
+                    }else{
+                        $bill->type_card = 1;
+                    }
+                    
                     $bill->moneyCustomerPay = @$dataSend['moneyCustomerPay'];
 
                     if(!empty($dataSend['time'])){
@@ -150,6 +157,13 @@ function order($input){
                     }
                    
                     $modelBill->save($bill);
+
+                    if(!empty($dataSend['card'])){
+                        $Prepaycards = $modelCustomerPrepaycards->get($dataSend['card']);
+                        $Prepaycards->total -= $bill->total;
+                        $modelCustomerPrepaycards->save($Prepaycards);
+                    }
+
                 }
             	
 
@@ -195,7 +209,7 @@ function order($input){
 
                 return $controller->redirect('/printInfoOrder?id='.$order->id);
             }elseif($dataSend['typeOrder']==3){
-                 $Order = $modelOrder->find()->where(array('id_order'=>$dataSend['id_bed'], 'status'=>2))->first();
+                 $Order = $modelOrder->find()->where(array('id_bed'=>$dataSend['id_bed'], 'status'=>2))->first();
                 $bed = $modelBed->find()->where(array('id'=>$dataSend['id_bed'], 'status'=>2))->first();
                 if(empty($Order) && empty($bed)){
                     $dataOrder = $modelOrder->get($order->id);

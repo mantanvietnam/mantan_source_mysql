@@ -370,7 +370,7 @@ function listCustomerPrepayCardAPI($input){
     global $session;
 
     $metaTitleMantan = 'Danh sách thẻ trước';
-    $return = array();
+    $return = array('code'=>0);
 
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
@@ -395,9 +395,11 @@ function listCustomerPrepayCardAPI($input){
                 $listData[$key] = $item;
                 
             }
+
+            $return =  array('code'=>1, 'data'=>$listData);
         }
 
-        $return =  array('data'=>$listData);
+        
         
     }
 

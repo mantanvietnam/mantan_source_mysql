@@ -322,6 +322,7 @@
 
                                             </p>
                                         </li>
+                                        <samp id="card"> </samp>
                                         <li style="display: contents;"><span>chú ý</span><br/>
                                             <textarea class="form-control phone-mask" rows="8" name="note"></textarea>
                                         </li> 
@@ -480,8 +481,30 @@ function addProduct(id, name, priceProduct,type){
                 url: '/apis/listCustomerPrepayCardAPI',
                 data: { id_customer: id_customer , total: totalPay},
                 success:function(res){
-                  console.log(res);
-                 // location.reload();
+                    if(res.code==1){
+                        console.log('abc'+res.data.length); 
+                        var y= 0;
+                        var data= res.data;
+                    
+                        var html = '';
+                        html += '<li id="cards" class="total-bh">'
+                        html +=    '<p>Dùng thẻ trả trước</p>';
+                        html +=    '<p>';
+                        html +=        '<select  name="card" id="card"  class="form-select color-dropdown">';
+                        html +=            '<option value="">chọn thẻ trả trước</option>';
+
+                                for(let y=0; y<data.length; y++){
+                        html +=            '<option value="'+data[y].id+'">'+data[y].infoPrepayCard.name+'</option>';
+                                }
+                        html +=        '</select>';
+                        html +=    '</p>';
+                        html == '</li>'
+                        $('#card').html(html);
+                         $('#card').show();
+                    }else{
+                         
+                        $('#cards').remove();
+                    }
                 }
             })
         }
@@ -609,6 +632,8 @@ function addProduct(id, name, priceProduct,type){
                 $('#id_customer').val(ui.item.id);
           
                 return false;
+
+                tinhtien();
             }
         });
     });

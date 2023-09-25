@@ -110,7 +110,7 @@ function getProductsWarehousesAPI($input){
 		$conditions['wp.warehouse_id'] = $dataSend['idWarehouse'];
 		$conditions['Products.type'] = 'user_create';
 
-		/*if(!empty($dataSend['orderBy'])){
+		if(!empty($dataSend['orderBy'])){
 			if(empty($dataSend['orderType'])) $dataSend['orderType'] = 'desc';
 			
 			switch ($dataSend['orderBy']) {
@@ -122,8 +122,8 @@ function getProductsWarehousesAPI($input){
 		}
 
 		if(!empty($dataSend['category_id'])){
-			$conditions['category_id'] = (int) $dataSend['category_id'];
-		}*/
+			$conditions['Products.category_id'] = (int) $dataSend['category_id'];
+		}
 
 		$listData = $modelProduct->find()->join([
 					        'table' => 'warehouse_products',

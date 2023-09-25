@@ -815,7 +815,6 @@ function checkDeadlineProAllMember($input){
 	global $controller;
 
 	$modelMember = $controller->loadModel('Members');
-	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>0);	
 		$listData = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1 ))->all()->toList();
@@ -825,10 +824,7 @@ function checkDeadlineProAllMember($input){
 				$user->member_pro = 0;
 				$modelMember->save($user);
 
-				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
-				if(!empty($WarehouseUser)){
-					$modelWarehouseUsers->delete($WarehouseUser);
-				}
+				
 				
 				// gửi thông báo về app
 	            $dataSendNotification= array('title'=>'Tài khoản của bạn dã hiết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn đã hiết hạn Pro','action'=>'addMoneySuccess');
