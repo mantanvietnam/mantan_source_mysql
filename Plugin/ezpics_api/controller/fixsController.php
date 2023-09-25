@@ -192,7 +192,7 @@ function fixDeepLink($input)
 {
 	
 	global $controller;
-	/*
+	
 	$modelWarehouses = $controller->loadModel('Warehouses');
 
 	$allData = $modelWarehouses->find()->where()->all()->toList();
@@ -241,7 +241,7 @@ function fixDeepLink($input)
         $modelProducts->save($item);
 	    
     }
-    */
+    
     
 }
 function fixDeepMembersLink($input)

@@ -815,7 +815,7 @@ function checkDeadlineProAllMember($input){
 	global $controller;
 
 	$modelMember = $controller->loadModel('Members');
-	$WarehouseUser = $controller->loadModel('WarehouseUsers');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>0);	
 		$listData = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1 ))->all()->toList();
