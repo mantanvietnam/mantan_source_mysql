@@ -110,10 +110,24 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`driver_requests` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`withdraw_requests` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `amount` int NOT NULL,
+    `status` tinyint(4) NOT NULL DEFAULT 0,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `pinned_provinces`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `booking_fees`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `driver_requests`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `withdraw_requests`;';
 ?>
 
