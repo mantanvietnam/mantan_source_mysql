@@ -460,7 +460,12 @@ function checkoutBed($input){
                 $bill->id_customer = (int)@$data->id_customer;
                 $bill->full_name = @$data->full_name;
 
-               
+                if(!empty($dataSend['card'])){
+                    $Prepaycards = $modelCustomerPrepaycard->get($dataSend['card']);
+                    $Prepaycards->total -= $bill->total;
+                    $modelCustomerPrepaycard->save($Prepaycards);
+                }
+
                 $bill->time = time();
                
                 $modelBill->save($bill);
