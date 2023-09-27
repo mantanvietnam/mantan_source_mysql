@@ -329,3 +329,42 @@ function listWithdrawRequestAdmin($input)
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $requestList);
 }
+
+function updateStatusWithdrawRequestAdmin($input)
+{
+    global $controller;
+    global $withdrawRequestStatus;
+
+    $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
+    $userModel = $controller->loadModel('Users');
+
+    if (!empty($_GET['id'])) {
+        $request = $withdrawRequestModel->find()
+            ->where([
+                'id' => $_GET['id']
+            ])->first();
+
+        $user = $userModel->find()
+            ->where([
+                'id' => $request->user_id
+            ])->first();
+
+        if ($request && isset($_GET['status'])) {
+            if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
+                $dataSendNotification= array(
+                    'title' => 'Rút tiền thành công EXC-GO',
+                    'time' => date('H:i d/m/Y'),
+                    'content' => 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number,
+                    'action' => 'withdrawMoneySuccess'
+                );
+
+                sendNotification($dataSendNotification, $user->device_token);
+            }
+
+            $request->status = $_GET['status'];
+            $withdrawRequestModel->save($request);
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php');
+}

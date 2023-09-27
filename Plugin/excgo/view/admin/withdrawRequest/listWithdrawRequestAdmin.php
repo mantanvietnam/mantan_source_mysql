@@ -108,7 +108,7 @@
                             <?php echo number_format($item->amount); ?> đ
                         </td>
                         <td class="text-center">
-                            <?php echo $item->created_at->format('d-m-Y'); ?>
+                            <?php echo $item->created_at->format('H:i d-m-Y'); ?>
                         </td>
                         <td align="center"><?php echo $status; ?></td>
                       </tr>';
