@@ -121,7 +121,8 @@ function indexTheme($input)
 
 function postTheme($input)
 {
-    
+ 
+
 }
 
 function searchTheme($input)
@@ -131,6 +132,49 @@ function searchTheme($input)
 
 function categoryPostTheme($input)
 {
+    global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    $modelPosts = $controller->loadModel('Posts');
+    // TIN TỨC MỚI
+    $conditions = array('type'=>'post');
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+    $news = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+  
+
+    // Tin tức nổi bật
+    $conditions = array('idCategory'=>"1");
+    $order = array('id'=>'desc');
+
+    $highligh_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+    // WARM Facility News 
+    $conditions = array('idCategory'=>"4");
+    $order = array('id'=>'desc');
+
+    $facility_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+
+    // Projects News 
+    $conditions = array('idCategory'=>"7");
+    $order = array('id'=>'desc');
+    $project_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+    // DANH MỤC TIN TỨC
+    $conditions = array('type' => 'post');
+    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('category_post', $category_post);
+    setVariable('highligh_post', $highligh_post);
+    setVariable('facility_post', $facility_post);
+    setVariable('project_post', $project_post);
+
 }
 
 function categoryAlbumTheme($input)

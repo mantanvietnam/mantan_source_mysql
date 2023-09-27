@@ -153,7 +153,7 @@
                         </div>
 
                         <div class="button-home-contact">
-                            <a href="">Đăng dự án miễn phí</a>
+                            <a href="/contact">Đăng dự án miễn phí</a>
                         </div>
                     </div>
     

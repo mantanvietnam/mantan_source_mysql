@@ -188,4 +188,6 @@
         
     </main>
 
-<?php getFooter();?>
+<section id="footer-home">
+    <?php getFooter();?>
+</section>

@@ -746,6 +746,10 @@ strong{
 
 }
 
+#footer-home .footer-logo{
+	display: none !important;
+}
+
 .footer-logo{
 	margin-bottom: 24px;
 }
