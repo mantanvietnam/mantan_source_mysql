@@ -591,4 +591,30 @@ function searchMemberApi($input)
 	return $return;
 }
 
+function deteleWarehouses($input){
+	global $controller;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	if(!empty($_GET['id'])){
+			$data = $modelWarehouses->get($_GET['id']);
+			if(!empty($data)){
+	         	// xóa mẫu thiết kế
+				$modelWarehouses->delete($data);
+
+				// xóa layer
+				$conditions = ['warehouse_id'=>$data->id];
+				$modelWarehouseProducts->deleteAll($conditions);
+
+				// xóa yêu thích
+				$conditions = ['warehouse_id'=>$data->id];
+				$modelWarehouseUsers->deleteAll($conditions);
+	        }
+		}
+
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php?mess=delete');
+	
+}
 ?>

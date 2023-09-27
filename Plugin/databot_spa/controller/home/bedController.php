@@ -353,6 +353,8 @@ function checkoutBed($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelDebts = $controller->loadModel('Debts');
         $modelBill = $controller->loadModel('Bills');
+        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+        $modelPrepayCard = $controller->loadModel('PrepayCards');
 
         $user = $session->read('infoUser');
 
@@ -392,9 +394,28 @@ function checkoutBed($input){
 
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+                $conditionPrepaycard = array('id_member'=>$user->id_member, 'total >' => 0);
+
+                $conditionPrepaycard['id_customer'] = $data->id_customer;
+                $conditionPrepaycard['total >='] = $data->total_pay;
+                   
+                $Prepaycard = $modelCustomerPrepaycard->find()->where($conditionPrepaycard)->all()->toList();
+
+                if(!empty($Prepaycard)){
+                    foreach($Prepaycard as $key => $item){
+
+                        $item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+                        $Prepaycard[$key] = $item;
+                        
+                    }
+                }
             }
 
         }
+
+        
+
+       
 
 
 
@@ -502,6 +523,7 @@ function checkoutBed($input){
 
         setVariable('data', $data);
         setVariable('mess', @$mess);
+        setVariable('Prepaycard', @$Prepaycard);
 
     }else{
         return $controller->redirect('/login');
