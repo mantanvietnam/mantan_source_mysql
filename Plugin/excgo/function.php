@@ -22,6 +22,12 @@ $menus[3]['sub'][0] = array('title' => 'Danh sách cuốc xe',
     'permission' => 'listBookingAdmin',
 );
 
+$menus[4]['sub'][0] = array('title' => 'Yêu cầu nâng cấp tài khoản',
+    'url' => '/plugins/admin/excgo-view-admin-upgradeRequest-listUpgradeRequestToDriverAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listUpgradeRequestToDriverAdmin',
+);
+
 addMenuAdminMantan($menus);
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
@@ -127,6 +133,86 @@ function sendEmailCodeForgotPassword($email = '', $fullName = '', $code = '')
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+
+function sendEmailAddMoney($email = '', $name = '', $coin= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+        $cc = array();
+        $bcc = array();
+        $subject = '[EXC-GO] ' . 'Nạp thành công '.number_format($coin).'đ vào tài khoản';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin nạp tiền EXC-GO</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>NẠP TIỀN '.number_format($coin).'Đ</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$name.' !</em> <br>
+                        <br/>
+                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống <a href="#">https://excgo.vn</a>
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">EXC-GO</span> <br>
+                            <span>Ứng dụng chia sẻ chuyến xe EXC-GO</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Nguyễn Văn A</li>
+                            <li>Mobile: 0123456789</li>
+                            <li>Website: <a href="#">https://excgo.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
 
 function listBank(): array
 {
@@ -362,6 +448,48 @@ function getUserByToken($accessToken, $checkActive = true)
     return $modelUser->find()->where($conditions)->first();
 }
 
+function processAddMoney($money, $phoneNumber): string
+{
+    global $controller;
+    $modelUser = $controller->loadModel('Users');
+
+    if ($money >= 1000) {
+        if($phoneNumber) {
+            $user = $modelUser->find()
+                ->where(['phone_number' => $phoneNumber])
+                ->first();
+
+            if ($user) {
+                $user->totalcoin += $money;
+                $modelUser->save($user);
+
+                if ($user->email && $user->name) {
+                    sendEmailAddMoney($user->email, $user->name, $money);
+                }
+
+                $dataSendNotification= array(
+                    'title' => 'Nạp tiền thành công EXC-GO',
+                    'time' => date('H:i d/m/Y'),
+                    'content' => 'Nạp thành công '.number_format($money).'đ vào tài khoản ' . $user->phone_number,
+                    'action' => 'addMoneySuccess'
+                );
+
+                if(!empty($user->device_token)){
+                    sendNotification($dataSendNotification, $user->device_token);
+                }
+
+                return 'Nạp tiền thành công cho tài khoản '. $user->phone_number;
+            }
+
+            return 'Tài khoản ' . $user->phone_number . ' không tồn tại';
+        }
+
+        return 'Nội dung sai cú pháp';
+    }
+
+    return 'Số tiền nạp phải lớn hơn 1.000đ';
+}
+
 global $bookingStatus;
 $bookingStatus = [
     'unreceived' => 0,
@@ -386,3 +514,15 @@ $ownerType = [
     'users' => 'users',
     'bookings' => 'bookings',
 ];
+
+global $memberType;
+$memberType = [
+    'user' => 1,
+    'driver' => 2,
+];
+
+global $transactionKey;
+$transactionKey = 'excgo';
+
+global $urlTransaction;
+$urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';

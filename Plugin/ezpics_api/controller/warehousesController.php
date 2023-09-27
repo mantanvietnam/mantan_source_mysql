@@ -15,7 +15,7 @@ function getListWarehousesAPI($input){
 		$dataSend = $input['request']->getData();
 
 			// lấy kho 
-			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner'],'status'=>1, 'deadline_at <='=> date('Y-m-d H:i:s')))->all()->toList();
+			$data = $modelWarehouses->find()->where(array('user_id'=>$dataSend['idDesigner'],'status'=>1, 'deadline_at >='=> date('Y-m-d H:i:s')))->all()->toList();
 			if(!empty($data)){
 				$listData = array();
 				foreach($data as $key => $item){
@@ -107,9 +107,23 @@ function getProductsWarehousesAPI($input){
 		if(!empty($dataSend['name'])){
 			$conditions['Products.name LIKE'] = '%'.$dataSend['name'].'%';
 		}
-
 		$conditions['wp.warehouse_id'] = $dataSend['idWarehouse'];
 		$conditions['Products.type'] = 'user_create';
+
+		if(!empty($dataSend['orderBy'])){
+			if(empty($dataSend['orderType'])) $dataSend['orderType'] = 'desc';
+			
+			switch ($dataSend['orderBy']) {
+				case 'price':$order = array('Products.sale_price'=>$dataSend['orderType']);break;
+				case 'create':$order = array('Products.id'=>$dataSend['orderType']);break;
+				case 'view':$order = array('Products.views'=>$dataSend['orderType']);break;
+				case 'favorite':$order = array('Products.favorites'=>$dataSend['orderType']);break;
+			}
+		}
+
+		if(!empty($dataSend['category_id'])){
+			$conditions['Products.category_id'] = (int) $dataSend['category_id'];
+		}
 
 		$listData = $modelProduct->find()->join([
 					        'table' => 'warehouse_products',
@@ -167,7 +181,7 @@ function buyWarehousesAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token'])){
-			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'status'=>1, 'deadline_at <='=> date('Y-m-d H:i:s')))->first();
+			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'status'=>1, 'deadline_at >='=> date('Y-m-d H:i:s')))->first();
 
 			if(!empty($Warehouse)){
 				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
@@ -299,9 +313,14 @@ function getListBuyWarehousesAPI($input){
 			// lấy kho 
 			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id, 'deadline_at >=' => date('Y-m-d H:i:s')))->all()->toList();
 			if(!empty($data)){
+				// debug($data);
+
+				 // die;
 				$listData = array();
 				foreach($data as $key => $item){
-					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1, 'deadline_at <='=> date('Y-m-d H:i:s')))->first();
+					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1))->first();
+
+
 					if(!empty($dataWarehouse)){
 						if($dataWarehouse->user_id!=$infoUser->id){
 							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';

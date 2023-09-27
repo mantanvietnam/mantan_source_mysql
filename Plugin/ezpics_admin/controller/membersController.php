@@ -204,12 +204,9 @@ function listMemberDeadlineProAdmin($input)
 
 
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-	if($page<1) $page = 1;
-	if(empty(@$_GET['order'])){
-		$order = array('id'=>'desc');
-	}elseif(@$_GET['order']==1){
-		$order = array('last_login'=>'desc');
-	}
+	
+	$order = array('deadline_pro'=>'asc');
+	
 	
 	$conditions['member_pro'] = 1;
 	$conditions['deadline_pro <'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 8 days'));

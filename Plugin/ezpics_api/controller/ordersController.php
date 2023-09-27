@@ -823,9 +823,12 @@ function checkDeadlineProAllMember($input){
 			foreach($listData as $key => $user){
 				$user->member_pro = 0;
 				$modelMember->save($user);
+
+				
 				
 				// gửi thông báo về app
 	            $dataSendNotification= array('title'=>'Tài khoản của bạn dã hiết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn đã hiết hạn Pro','action'=>'addMoneySuccess');
+
 
 	            if(!empty($user->token_device)){
 	                sendNotification($dataSendNotification, $user->token_device);

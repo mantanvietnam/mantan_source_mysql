@@ -14,6 +14,7 @@ function listCustomer($input)
 	$modelService = $controller->loadModel('Services');
 	$modelSpas = $controller->loadModel('Spas');
 	$modelProduct = $controller->loadModel('Products');
+	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
@@ -158,6 +159,12 @@ function listCustomer($input)
 			export_excel($titleExcel, $dataExcel, 'danh-sach-khach-hang'.date('d-m-Y'));
 	    }else{
 	    	$listData = $modelCustomer->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+	    }
+
+	    if(!empty($listData)){
+	    	foreach($listData as $key => $item){
+	    		$listData[$key]->Prepaycard = count($modelCustomerPrepaycard->find()->where(array('id_customer'=>$item->id))->all()->toList());
+	    	}
 	    }
 
 	    $totalData = $modelCustomer->find()->where($conditions)->all()->toList();

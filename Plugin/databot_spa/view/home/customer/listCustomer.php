@@ -75,6 +75,7 @@
               <th>Điểm</th>
               <th>Địa chỉ</th>
               <th>NV phụ trách</th>
+              <th>dùng thẻ trả trước</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -91,6 +92,7 @@
                           <td>'.number_format($item->point).'</td>
                           <td>'.$item->address.'</td>
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
+                          <td><a href="/listCustomerPrepayCard?id_customer='.$item->id.'">'.$item->Prepaycard.'</a></td>
                           <td align="center">
                             <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

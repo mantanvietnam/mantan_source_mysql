@@ -16,7 +16,24 @@
                     <p><?php echo $mess ?? '';?></p>
                     <?= $this->Form->create(); ?>
 
-                    <img src="<?php echo @$data->avatar ?>" width="200px" height="200px" class="mb-3">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <img src="<?php echo @$data->avatar ?>" width="200px" height="200px" class="mb-3">
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <?php if (isset($isRequestUpgrade)): ?>
+                          <p>Người dùng yêu cầu nâng cấp tài khoản thành tài xế</p>
+                          <a class=" btn btn-primary"  title="Kích hoạt tài khoản"
+                             onclick="return confirm('Bạn có chắc chắn muốn chấp nhận yêu cầu của thành viên này không?');"
+                             href=<?php echo "/plugins/admin/excgo-view-admin-user-acceptUpgradeToDriverAdmin.php/?id=$isRequestUpgrade->user_id" ?>
+                          >
+                            Chấp nhận
+                          </a>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6 mb-3 ">
                             <label class="form-label" for="basic-default-phone">Tài khoản (*)</label>
@@ -80,6 +97,38 @@
                           <label class="form-label" for="basic-default-phone">Số dư khả dụng (*)</label>
                           <input required type="text" class="form-control phone-mask" name="available_coin" id="available_coin" value="<?php echo @$data->available_coin;?>" />
                         </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">Ảnh CCCD mặt trước</label>
+                        <div class="text-center">
+                          <img src="<?php if (isset($idCardFront)) echo $idCardFront->path; else echo 'https://apis.exc-go.vn/plugins/excgo/view/image/default-image.jpg'; ?>" width="450px" height="300px">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">Ảnh CCCD mặt sau</label>
+                        <div class="text-center">
+                          <img src="<?php if (isset($idCardBack)) echo $idCardBack->path; else echo 'https://apis.exc-go.vn/plugins/excgo/view/image/default-image.jpg'; ?>"
+                               width="450px" height="300px"
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label class="form-label">Hình ảnh xe</label>
+                        <?php if (isset($car) && count($car)):
+                          foreach ($car as $item):
+                        ?>
+                            <div class="col-md-6 mb-3 text-center">
+                              <img src="<?php echo $item->path ?>" width="450px" height="300px" class="mb-3">
+                            </div>
+                        <?php endforeach;
+                          else: ?>
+                          <p> Chưa có hình ảnh </p>
+                        <? endif; ?>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Lưu</button>

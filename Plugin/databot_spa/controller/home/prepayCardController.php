@@ -305,48 +305,104 @@ function printInfoBillCard($input){
     }
 }
 
-function printInfoBillCard($input){
-	global $controller;
+function listCustomerPrepayCard($input){
+    global $controller;
     global $modelCategories;
     global $urlCurrent;
     global $metaTitleMantan;
     global $isRequestPost;
     global $session;
 
-    $metaTitleMantan = 'in đơn hàng';
+    $metaTitleMantan = 'Danh sách thẻ trước';
 
     if(!empty($session->read('infoUser'))){
         $user = $session->read('infoUser');
 
         $modelBill = $controller->loadModel('Bills');
         $modelCustomer = $controller->loadModel('Customers');
-		$modelPrepayCard = $controller->loadModel('PrepayCards');
-		$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+        $modelPrepayCard = $controller->loadModel('PrepayCards');
+        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 
-            
-           
-        $dataList = $modelCustomerPrepaycard->find()->where(array('id_bill'=>$data->id))->all()->toList();
+        $conditions = array('id_member'=>$user->id_member);
 
-        if(!empty($dataList)){
-           	foreach($dataList as $key => $item){
-
-           		$item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
-           		if(!empty($item->infoPrepayCard)){
-					$dataCustomerPrepaycard[$key] = $item;
-				}
-           	}
-           	$data->CustomerCard =  $dataCustomerPrepaycard;
+        if(!empty($_GET['id_customer'])){
+           $conditions['id_customer'] = $_GET['id_customer'];
         }
-             $data->spa = getSpa($user->id_spa);
-            /*debug($data);
-           	die();*/
+
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+            $conditions['created_at >='] = date('Y-m-d H:i:s', $date_start);
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+            $conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
+        } 
+           
+        $listData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+
+                $item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+                $item->infoCustomer = $modelCustomer->find()->where(array('id'=>$item->id_customer))->first();
+                $listData[$key] = $item;
+                
+            }
+        }
 
             setVariable('user', $user);
-            setVariable('dataList', $dataList);
+            setVariable('listData', $listData);
         
     }else{
         return $controller->redirect('/login');
     }
 }
 
+function listCustomerPrepayCardAPI($input){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'Danh sách thẻ trước';
+    $return = array('code'=>0);
+
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+
+        
+        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+        $modelPrepayCard = $controller->loadModel('PrepayCards');
+
+        $conditions = array('id_member'=>$user->id_member, 'total >' => 0);
+
+
+        $conditions['id_customer'] = $_GET['id_customer'];
+        $conditions['total >='] = $_GET['total'];
+        
+           
+        $listData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+
+                $item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+                $listData[$key] = $item;
+                
+            }
+
+            $return =  array('code'=>1, 'data'=>$listData);
+        }
+
+        
+        
+    }
+
+    return $return;
+}
 ?>
