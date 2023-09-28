@@ -391,7 +391,6 @@ function checkoutBed($input){
                 $data->service = $service;
             }
 
-
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
                 $conditionPrepaycard = array('id_member'=>$user->id_member, 'total >' => 0);
@@ -413,16 +412,9 @@ function checkoutBed($input){
 
         }
 
-        
-
-       
-
-
-
         if(@$_GET['mess']=='done'){
             $mess = '<p class="text-success">Cập nhập thành công</p>';
         }
-
       
         if($isRequestPost){
             $dataSend = $input['request']->getData();
@@ -459,6 +451,11 @@ function checkoutBed($input){
                 $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                 $bill->id_customer = (int)@$data->id_customer;
                 $bill->full_name = @$data->full_name;
+                if(empty($dataSend['card'])){
+                        $bill->type_card = 0;
+                    }else{
+                        $bill->type_card = 1;
+                    }
 
                 if(!empty($dataSend['card'])){
                     $Prepaycards = $modelCustomerPrepaycard->get($dataSend['card']);
@@ -523,8 +520,6 @@ function checkoutBed($input){
 
             return $controller->redirect('/printInfoOrder?id='.$order->id);
         }
-
-
 
         setVariable('data', $data);
         setVariable('mess', @$mess);
