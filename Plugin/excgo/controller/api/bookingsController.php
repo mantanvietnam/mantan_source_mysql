@@ -296,3 +296,89 @@ function cancelReceiveBookingApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function completeBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $bookingStatus;
+
+    $modelBooking = $controller->loadModel('Bookings');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type == 0) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (isset($dataSend['booking_id'])) {
+                $booking = $modelBooking->find()
+                    ->where(['id' => $dataSend['booking_id']])
+                    ->first();
+
+                if ($booking->received_by !== $currentUser->id) {
+                    return apiResponse(4, 'Bạn không phải người nhận cuốc xe này');
+                }
+
+                $booking->status = $bookingStatus['completed'];
+                $modelBooking->save($booking);
+
+                return apiResponse(0, 'Bạn đã hoàn thành cuốc xe');
+            }
+
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function checkFinishedBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $bookingStatus;
+    global $bookingFeeStatus;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelUser = $controller->loadModel('Users');
+    $modelBookingFee = $controller->loadModel('BookingFees');
+
+    if ($isRequestPost) {
+        $now = DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
+        $bookingList = $modelBooking->find()
+            ->where([
+                'status' => $bookingStatus['completed'],
+                'finish_time <=' => $now->sub(new DateInterval('P1D'))->format('Y-m-d H:i:s')
+            ])->all();
+
+        foreach ($bookingList as $booking) {
+            $bookingFee = $modelBookingFee->find()
+                ->where(['booking_id' => $booking->id])
+                ->first();
+            $user = $modelUser->find()
+                ->where(['id' => $booking->posted_by])
+                ->first();
+            $user->total_coin += $bookingFee->received_fee;
+            $booking->status = $bookingStatus['paid'];
+            $bookingFee->staus = $bookingFeeStatus['paid'];
+
+            $modelUser->save($user);
+            $modelBooking->save($booking);
+        }
+
+        return apiResponse(0, 'Thanh toán phí thành công', $bookingList->toList());
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}

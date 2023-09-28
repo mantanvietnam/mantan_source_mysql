@@ -28,6 +28,12 @@ $menus[4]['sub'][0] = array('title' => 'Yêu cầu nâng cấp tài khoản',
     'permission' => 'listUpgradeRequestToDriverAdmin',
 );
 
+$menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
+    'url' => '/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listWithdrawRequestAdmin',
+);
+
 addMenuAdminMantan($menus);
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
@@ -496,6 +502,13 @@ $bookingStatus = [
     'received' => 1,
     'canceled' => 2,
     'completed' => 3,
+    'paid' => 4,
+];
+
+global $bookingFeeStatus;
+$bookingFeeStatus = [
+    'unpaid' => 0,
+    'paid' => 1,
 ];
 
 global $serviceFee;
@@ -519,6 +532,12 @@ global $memberType;
 $memberType = [
     'user' => 1,
     'driver' => 2,
+];
+
+global $withdrawRequestStatus;
+$withdrawRequestStatus = [
+    'pending' => 0,
+    'done' => 1,
 ];
 
 global $transactionKey;
