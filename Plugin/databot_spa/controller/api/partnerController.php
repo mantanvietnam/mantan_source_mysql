@@ -1,5 +1,5 @@
-<?php
-function searchCustomerApi($input)
+<?php 
+function searchPartnerApi($input)
 {
 	global $controller;
 	global $session;
@@ -7,7 +7,7 @@ function searchCustomerApi($input)
 	$return = [];
 
 	if(!empty($session->read('infoUser'))){
-		$modelCustomer = $controller->loadModel('Customers');
+		$modelPartner = $controller->loadModel('Partners');
 
 		if(!empty($_GET['key'])){
             $conditions = array('id_member'=>$session->read('infoUser')->id_member);
@@ -15,7 +15,7 @@ function searchCustomerApi($input)
           
             $order = array('name' => 'asc');
 
-            $listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
+            $listData = $modelPartner->find()->where($conditions)->order($order)->all()->toList();
             
             if($listData){
                 foreach($listData as $data){
@@ -25,12 +25,7 @@ function searchCustomerApi($input)
                     				'name'=>$data->name,
                     				'phone'=>$data->phone,
                     				'email'=>$data->email,
-                    				'cmnd'=>$data->cmnd,
                     				'address'=>$data->address,
-                    				'sex'=>$data->sex,
-                    				'avatar'=>$data->avatar,
-                    				'birthday'=>$data->birthday,
-                    				'point'=>$data->point,
                     			);
                 }
             }
