@@ -88,7 +88,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="/dashboard" class="app-brand-link">
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">MY SPA</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">DATA SPA</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block">
@@ -263,6 +263,13 @@
               <a href="/listEmailMarketing" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div>Gửi Email</div>
+              </a>
+            </li> 
+
+            <li class="menu-item">
+              <a href="/guideAddCustomerCampainApi" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div>Tích hợp Chatbot</div>
               </a>
             </li>   
 

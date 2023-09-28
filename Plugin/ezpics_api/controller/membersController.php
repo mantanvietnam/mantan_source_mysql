@@ -1147,15 +1147,15 @@ function statisticalAPI($input){
 	$conditionOrder['payment_kind'] = 1;
 
     $totalDataOrder = $modelOrder->find()->where($conditionOrder)->all()->toList();
-   $Order = 0;
+   	$Order = 0;
 
-     if(!empty($totalDataOrder)){
+    if(!empty($totalDataOrder)){
             foreach ($totalDataOrder as $item) {
              
                @$Order += $item->total;
     
             }
-        }
+    }
 
     $conditionProduct['approval_date >='] = date('Y-m-d').' 00:00:00';
 	$conditionProduct['approval_date <='] = date('Y-m-d H:i:s');
@@ -1165,13 +1165,17 @@ function statisticalAPI($input){
 	$totalDataProduct = $modelProduct->find()->where($conditionProduct)->all()->toList();
     $totalDataProduct = count($totalDataProduct);
 
+    $totalDataMember = $modelMember->find()->where()->all()->toList();
+    $totalDataMember = count($totalDataMember);
+
 
     $return = [	'static_code'=>1,
 				'static_luong_dang_ky' => (int) @$totalDatatoday,
 				'static_luong_dang_nhap' => (int) @$totalDatalastlogin,
 				'static_doanh_thu' => (int) @$Order,
 				'static_mau_duyet' => (int) @$totalDataProduct,
-				'static_today' => date('H:i d/m/Y')
+				'static_today' => date('H:i d/m/Y'),
+				'static_member' => $totalDataMember
 			];
 
 	if(function_exists('sendNotificationAdmin')){

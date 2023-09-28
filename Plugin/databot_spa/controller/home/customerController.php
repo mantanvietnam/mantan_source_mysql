@@ -286,7 +286,8 @@ function addCustomer($input)
 							$checkAff = $modelCustomer->find()->where(['phone'=>$dataSend['referral_code'], 'id_member'=>$infoUser->id_member])->first();
 
 							if(!empty($checkAff)){
-								$data->referral_code = $dataSend['referral_code'];
+								$data->referral_code = $checkAff->phone;
+								$data->id_customer_aff = $checkAff->id;
 							}
 						}
 					}

@@ -12,6 +12,7 @@
           <tr class="">
             <th>Ngày đăng</th>
             <th>Tiêu đề</th>
+            <th>Xem</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -23,6 +24,7 @@
                 echo '<tr>
                         <td>'.date('d/m/Y', $item->time).'</td>
                         <td><a target="_blank" href="/'.$item->slug.'.html">'.$item->title.'</a></td>
+                        <td>'.number_format($item->view).'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/posts/add/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

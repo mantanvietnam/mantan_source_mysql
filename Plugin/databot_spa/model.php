@@ -20,5 +20,6 @@ include('model/warehouse_product_details.php'); // sản phẩn trong kho
 include('model/order.php'); // đơn hàng
 include('model/order_details.php'); // chi tiên đơn hàng 
 include('model/campains.php'); // chiến dịch sự kiện
+include('model/campain_customers.php'); // người dùng đăng ký tham gia chiến dịch sự kiện
 include('model/customer_prepaycards.php'); // khách hàng dùng thẻ trả trước
 ?>
