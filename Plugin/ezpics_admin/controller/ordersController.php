@@ -1369,5 +1369,82 @@ function listTransactionHistoryCreateWarehousesEzpics(){
     setVariable('totalMoney', $totalMoney);
 }
 
+function tixmoney($input){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	$modelMembers = $controller->loadModel('Members');
+	$modelOrders = $controller->loadModel('Orders');
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelProducts = $controller->loadModel('Products');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	$listMembers = $modelMembers->find()->where(array())->all()->toList();
+	$listOrders = $modelOrders->find()->where(array())->all()->toList();
+	$listWarehouses = $modelWarehouses->find()->where(array())->all()->toList();
+	$listWarehouseUsers = $modelWarehouseUsers->find()->where(array())->all()->toList();
+	$listProducts = $modelProducts->find()->where(array())->all()->toList();
+	$listDiscountCode = $modelDiscountCode->find()->where(array())->all()->toList();
+	$muber = 0;
+	foreach($listMembers as $key => $value){
+		if(!empty($value)){
+			$value->account_balance = $value->account_balance/1000;
+			$value->sellingMoney = $value->sellingMoney/1000;
+			$value->buyingMoney = $value->buyingMoney/1000;
+
+			$modelMembers->save($value);
+
+			$muber += 1;
+
+		}
+	}
+
+	foreach($listOrders as $key => $value){
+		if(!empty($value)){
+			$value->total = $value->total/1000;
+			$modelOrders->save($value);
+
+			$muber += 1;
+
+		}
+	}
+
+	foreach($listWarehouses as $key => $value){
+		if(!empty($value)){
+			$value->price = $value->price/1000;
+			$modelWarehouses->save($value);
+
+			$muber += 1;
+
+		}
+	}
+
+	foreach($listProducts as $key => $value){
+		if(!empty($value)){
+			$value->price = $value->price/1000;
+			$value->sale_price = $value->sale_price/1000;
+			$modelProducts->save($value);
+
+			$muber += 1;
+
+		}
+	}
+
+	foreach($listDiscountCode as $key => $value){
+		if(!empty($value)){
+			if($value->discount >100){
+				$value->discount = $value->discount/1000;
+				$modelDiscountCode->save($value);
+				$muber += 1;
+			}
+		}
+	}
+	debug('dã chuyển dồi dc '.$muber);
+	die();
+
+	
+}
 
 ?>

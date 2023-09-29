@@ -626,7 +626,7 @@ function memberExtendProAPI($input){
 						$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
 					}else{
 						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
-						    }
+					}
 					
 					$modelMember->save($user);
 

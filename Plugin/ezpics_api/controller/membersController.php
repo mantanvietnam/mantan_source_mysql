@@ -6,6 +6,7 @@ function saveRegisterMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>1,
 					'set_attributes'=>array('id_customer'=>0),
@@ -42,6 +43,34 @@ function saveRegisterMemberAPI($input)
 						
 						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
+
+							if($affsource->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime($affsource->deadline_pro . ' + 7   days'));
+							}else{
+								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
+							}
+							$affsource->member_pro = 1;
+
+							$modelMember->save($affsource);
+
+							$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$affsource->id))->first();
+
+							
+							if(empty($WarehouseUser)){
+								$Warehouse = $modelWarehouseUsers->newEmptyEntity();
+						            // tạo dữ liệu saves
+								$Warehouse->warehouse_id = (int) 1;
+								$Warehouse->user_id = $affsource->id;
+								$Warehouse->designer_id = 343;
+								$Warehouse->price = $price_pro;
+								$Warehouse->created_at = date('Y-m-d H:i:s');
+								$Warehouse->note ='';
+								$Warehouse->deadline_at = $affsource->deadline_pro;
+								$modelWarehouseUsers->save($Warehouse);
+							}else{
+								$WarehouseUser->deadline_at = $affsource->deadline_pro;
+								$modelWarehouseUsers->save($WarehouseUser);
+							}
 						}
 							
 					}
@@ -555,7 +584,7 @@ function getTopDesignerAPI($input){
 	}elseif($dataSend['orderBy'] == 'bestCreate'){
 		// tạo nhiều mẫu bán trong tuần
 		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'status'=>1);
-		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:100;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
 
@@ -585,8 +614,6 @@ function getTopDesignerAPI($input){
 			}
 		}
 	}
-	
-
 	return 	array('listData'=>$listDesign);
 }
 
