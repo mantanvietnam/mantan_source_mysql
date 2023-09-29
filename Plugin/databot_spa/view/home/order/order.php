@@ -322,7 +322,7 @@
 
                                             </p>
                                         </li>
-                                        <samp id="card"> </samp>
+                                        <div id="card"> </div>  
                                         <li style="display: contents;"><span>chú ý</span><br/>
                                             <textarea class="form-control phone-mask" rows="8" name="note"></textarea>
                                         </li> 
@@ -494,7 +494,8 @@ function addProduct(id, name, priceProduct,type){
                         html +=            '<option value="">chọn thẻ trả trước</option>';
 
                                 for(let y=0; y<data.length; y++){
-                        html +=            '<option value="'+data[y].id+'">'+data[y].infoPrepayCard.name+'</option>';
+                                    var total= new Intl.NumberFormat().format(data[y].total)
+                        html +=            '<option value="'+data[y].id+'">'+data[y].infoPrepayCard.name +' (tiền được tiêu '+total+')</option>';
                                 }
                         html +=        '</select>';
                         html +=    '</p>';

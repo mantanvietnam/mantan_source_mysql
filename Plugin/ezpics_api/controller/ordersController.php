@@ -507,8 +507,8 @@ function memberBuyProAPI($input){
 						$data->deadline_at = $user->deadline_pro;
 						$modelWarehouseUsers->save($data);
 					}else{
-						$data->deadline_at = $user->deadline_pro;
-						$modelWarehouseUsers->save($data);
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
 					}
 
 					if(!empty($discountCode->number_user)){
@@ -890,5 +890,15 @@ function fixProWarehouse($input){
 	debug('ok em ');
 	die;
 
+}
+
+function showDiscountCodeAPI($input){
+	global $controller;
+
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+	$listData = $modelDiscountCode->find()->where(array('user IS NULL','deadline_at >='=>date('Y-m-d H:i:s'),'number_user >='=>1))->all()->toList();
+
+	return array('data'=>$listData);
 }
 ?>

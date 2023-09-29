@@ -474,13 +474,9 @@ function addMoneyManager($input){
                     		sendEmailMinusMoney($data->email, $data->name, $dataSend['coin'], @$dataSend['note']);
                     	}
 					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=5');
-				}				
-
+				}
 
 		}
-
-
-
 
 		setVariable('data', $data);
 	}else{
@@ -517,8 +513,6 @@ function memberBuyProAdmin($input){
 	}else{
 		$price = 0;
 	}
-
-
 
 	if(!empty($user)){
 		if($user->member_pro!=1){
@@ -608,7 +602,11 @@ function memberExtendProAdmin($input){
 				if($price>0){
 					$user->account_balance -= $price;
 				}
-				$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' +'.$date.' days'));
+				if($user->deadline_pro->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
+					$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + '.$date.' days'));
+				}else{
+					$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + '.$date.' days'));
+				}
 				$modelMember->save($user);
 				if($price>0){
 					$order = $modelOrder->newEmptyEntity();

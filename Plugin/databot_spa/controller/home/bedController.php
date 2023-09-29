@@ -504,6 +504,16 @@ function checkoutBed($input){
 
                             }
                         }
+                        $value->number_uses +=1;
+                        $modelOrderDetails->save($value);
+                    }
+
+                }
+                if(!empty($data->service)){
+                    foreach($data->service as $key => $value){
+                        // sử lý trử số lương trong kho ở sản phẩm trong combo
+                        $value->number_uses +=1;
+                        $modelOrderDetails->save($value);
                     }
 
                 }
