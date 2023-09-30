@@ -80,12 +80,12 @@ function saveRegisterMemberAPI($input)
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
-					$data->token = createToken();
+					$data->token = rand(100000,999999);
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];
 
-					 // tạo link deep
+					// tạo link deep
 			        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
 		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
 		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
@@ -104,18 +104,41 @@ function saveRegisterMemberAPI($input)
 					$modelMember->save($data);
 					sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 					
-					if(!empty($affsource)){
 					// gửi thông báo về app cho người giới thiệu
-	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn. và bạn được thêm 7 sữ dụng bản Pro nữa','action'=>'adminSendNotification');
+					if(!empty($affsource)){
+	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.', người dùng '.$dataSend['name'].' ('.@$dataSend['phone'].') đã đăng ký bằng mã giới thiệu của bạn, và bạn được cộng thêm 7 ngày sử dụng bản EZPICS PRO','action'=>'adminSendNotification');
 	                    if(!empty($affsource->token_device)){
 	                        sendNotification($dataSendNotification, $affsource->token_device);
 	                    }
 					}
 
+					// gửi mã xác thực về Zalo người đăng ký
+					$url_zns = 'http://rest.esms.vn/MainService.svc/json/SendZaloMessage_V4_post_json/';
+		            $data_send_zns = [
+										"ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
+										"SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
+										"Phone" => $dataSend['phone'],
+										"Params" => [$data->token],
+										"TempID" => "205644",
+										"OAID" => "4097311281936189049",
+										"SendDate" => "",
+										"Sandbox" => "0",
+										"RequestId" => time(),
+										"campaignid" => "EZPICS OTP",
+										"CallbackUrl" => "https://apis.ezpics.vn/calbackZalo"
+									];
+		            $header_zns = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
+		            $return_zns = json_decode($return_zns);
+
+
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
-			    						'info_member'=>$data
+			    						'info_member'=>$data,
+			    						'code_otp' => $data->token,
+			    						'return_zns' => $return_zns
 			    					);
 				}else{
 					$return = array('code'=>4,
