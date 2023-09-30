@@ -40,150 +40,144 @@ function searchCustomerApi($input)
 	return $return;
 }
 
-function searchPartnerApi($input)
+function addCustomerCampainApi($input)
 {
 	global $controller;
+	global $isRequestPost;
+    global $modelCategories;
+	global $metaTitleMantan;
 	global $session;
+	global $urlHomes;
 
 	$return = [];
 
-	if(!empty($session->read('infoUser'))){
-		$modelPartner = $controller->loadModel('Partners');
+	$modelCampains = $controller->loadModel('Campains');
+	$modelCampainCustomers = $controller->loadModel('CampainCustomers');
+	$modelCustomer = $controller->loadModel('Customers');
+	$modelSpas = $controller->loadModel('Spas');
 
-		if(!empty($_GET['key'])){
-            $conditions = array('id_member'=>$session->read('infoUser')->id_member);
-            $conditions['OR'] = [['name LIKE' => '%'.$_GET['key'].'%'], ['phone' => $_GET['key']], ['email' => $_GET['key']]];
-          
-            $order = array('name' => 'asc');
+	if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
 
-            $listData = $modelPartner->find()->where($conditions)->order($order)->all()->toList();
-            
-            if($listData){
-                foreach($listData as $data){
-                    $return[]= array('id'=>$data->id,
-                    				'label'=>$data->name.' '.$data->phone,
-                    				'value'=>$data->id,
-                    				'name'=>$data->name,
-                    				'phone'=>$data->phone,
-                    				'email'=>$data->email,
-                    				'address'=>$data->address,
-                    			);
-                }
-            }
-        }
-	}
+        if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['id_campain']) ){
+        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', $dataSend['phone']));
+        	$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-	return $return;
-}
+        	
+    		$infoCampain = $modelCampains->find()->where(['id'=>(int) $dataSend['id_campain']])->first();
 
-function searchProductApi($input)
-{
-	global $controller;
-	global $session;
-	
+    		if(!empty($infoCampain)){
+    			$dataSend['id_member'] = $infoCampain->idMember;
+    		}
+        	
 
-	$return = [];
+        	if(!empty($dataSend['id_member'])){
+        		$listSpa = $modelSpas->find()->where(['id_member'=>(int) $dataSend['id_member']])->all()->toList();
 
-	if(!empty($session->read('infoUser'))){
-		$modelProducts = $controller->loadModel('Products');
+        		if(!empty($listSpa)){
+        			if(empty($dataSend['id_spa'])) $dataSend['id_spa'] = $listSpa[0]->id;
 
-		if(!empty($_GET['key'])){
-            $conditions = array('id_member'=>$session->read('infoUser')->id_member,'id_spa'=>$session->read('id_spa'));
-            $conditions['OR'] = [['name LIKE' => '%'.$_GET['key'].'%'], ['code' => $_GET['key']]];
-          
-            $order = array('name' => 'asc');
+		        	$conditions = ['phone'=>$dataSend['phone'],'id_member'=> (int) $dataSend['id_member']];
+		        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
 
-            $listData = $modelProducts->find()->where($conditions)->order($order)->all()->toList();
-            
-            if($listData){
-                foreach($listData as $data){
-                    $return[]= array('id'=>$data->id,
-                    				'label'=>$data->name.' '.$data->price,
-                    				'value'=>$data->id,
-                    				'name'=>$data->name,
-                    				'price'=>$data->price,
-                    				'quantity'=>$data->quantity,
-                    				'code'=>$data->code,
-                    				'price'=>$data->price,
-                    			);
-                }
-            }
-        }
-	}
+		        	if(empty($checkPhone)){
+				        // tạo dữ liệu save
+				        $data = $modelCustomer->newEmptyEntity();
+						
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->point = 0;
+				        $data->name = $dataSend['name'];
+				        $data->id_member =(int) $dataSend['id_member'];
+				        $data->id_spa = (int) $dataSend['id_spa'];
+				        $data->phone = $dataSend['phone'];
+				        $data->email = @$dataSend['email'];
+				        $data->address = @$dataSend['address'];
+				        $data->updated_at = date('Y-m-d H:i:s');
+				        $data->sex = (int) @$dataSend['sex'];
+				        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+				        $data->birthday = @$dataSend['birthday'];
+				        $data->cmnd = @$dataSend['cmnd'];
+				        $data->link_facebook = @$dataSend['link_facebook'];
+				        $data->id_staff = (int) $dataSend['id_member'];
+				        $data->source = (int) @$dataSend['source'];
+				        $data->id_group = (int) @$dataSend['id_group'];
+				        $data->id_service =(int) @$dataSend['id_service'];
+				        $data->medical_history = @$dataSend['medical_history'];
+				        $data->drug_allergy_history = @$dataSend['drug_allergy_history'];
+				        $data->request_current = @$dataSend['request_current'];
+				        $data->advisory = @$dataSend['advisory'];
+				        $data->advise_towards = @$dataSend['advise_towards'];
+				        $data->note = '';
+				        $data->job = @$dataSend['job'];
+				        $data->id_product =(int) @$dataSend['id_product'];
 
-	return $return;
-}
+						
+						if(!empty($dataSend['referral_code'])){
+							$dataSend['referral_code'] = trim(str_replace(array(' ','.','-'), '', $dataSend['referral_code']));
+	        				$dataSend['referral_code'] = str_replace('+84','0',$dataSend['referral_code']);
 
-function searchServicesApi($input)
-{
-	global $controller;
-	global $session;
-	
+							$checkAff = $modelCustomer->find()->where(['phone'=>$dataSend['referral_code'], 'id_member'=> (int) $dataSend['id_member']])->first();
 
-	$return = [];
+							if(!empty($checkAff)){
+								$data->referral_code = $checkAff->phone;
+								$data->id_customer_aff = $checkAff->id;
+							}
+						}
+						
 
-	if(!empty($session->read('infoUser'))){
-		$modelServices = $controller->loadModel('Services');
+				        $modelCustomer->save($data);
 
-		if(!empty($_GET['key'])){
-            $conditions = array('id_member'=>$session->read('infoUser')->id_member, 'id_spa'=>$session->read('id_spa'));
-            $conditions['OR'] = [['name LIKE' => '%'.$_GET['key'].'%'], ['code' => $_GET['key']]];
-          
-            $order = array('name' => 'asc');
+				        $checkPhone = $data;
+				        
+				        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+				    }
 
-            $listData = $modelServices->find()->where($conditions)->order($order)->all()->toList();
-            
-            if($listData){
-                foreach($listData as $data){
-                    $return[]= array('id'=>$data->id,
-                    				'label'=>$data->name.' '.$data->price,
-                    				'value'=>$data->id,
-                    				'name'=>$data->name,
-                    				'price'=>$data->price,
-                    				'duration'=>$data->duration,
-                    				'code'=>$data->code,
-                    				'price'=>$data->price,
-                    			);
-                }
-            }
-        }
-	}
+				    if(!empty($checkPhone)){
+				    	$checkCustomerReg = $modelCampainCustomers->find()->where(['id_campain'=>(int) $dataSend['id_campain'], 'id_customer'=> $checkPhone->id])->first();
 
-	return $return;
-}
+				    	if(empty($checkCustomerReg)){
+				    		$infoCampain->codeUser ++;
+				    		$modelCampains->save($infoCampain);
 
-function searchComboApi($input)
-{
-	global $controller;
-	global $session;
-	
+				    		$dataCampainCustomers = $modelCampainCustomers->newEmptyEntity();
 
-	$return = [];
+				    		$dataCampainCustomers->id_campain = (int) $dataSend['id_campain'];
+				    		$dataCampainCustomers->id_customer = $checkPhone->id;
+				    		$dataCampainCustomers->created_at = time();
+				    		$dataCampainCustomers->code = $infoCampain->codeUser;
+				    		$dataCampainCustomers->note = (int) $dataSend['note'];
 
-	if(!empty($session->read('infoUser'))){
-		$modelCombo = $controller->loadModel('Combos');
+				    		$modelCampainCustomers->save($dataCampainCustomers);
 
-		if(!empty($_GET['key'])){
-            $conditions = array('id_member'=>$session->read('infoUser')->id_member, 'id_spa'=>$session->read('id_spa'));
-            $conditions['name LIKE'] =  '%'.$_GET['key'].'%';
-          
-            $order = array('name' => 'asc');
+				    		if(empty($dataSend['hiddenMessages']) || $dataSend['hiddenMessages']!=1){
+		                        $return['messages']= array(array('text'=>'Mã số đăng ký của bạn là '.$dataCampainCustomers->code));
+		                    }else{
+		                        unset($return['messages']);
+		                    }
 
-            $listData = $modelCombo->find()->where($conditions)->order($order)->all()->toList();
-            
-            if($listData){
-                foreach($listData as $data){
-                    $return[]= array('id'=>$data->id,
-                    				'label'=>$data->name.' '.$data->price,
-                    				'value'=>$data->id,
-                    				'name'=>$data->name,
-                    				'price'=>$data->price,
-                    			);
-                }
-            }
-        }
-	}
+		                    $return['set_attributes']['codeQT']= $dataCampainCustomers->code;
+				    	}else{
+				    		if(empty($dataSend['hiddenMessages']) || $dataSend['hiddenMessages']!=1){
+		                        $return['messages']= array(array('text'=>'Mã số đăng ký của bạn là '.$checkCustomerReg->code));
+		                    }else{
+		                        unset($return['messages']);
+		                    }
 
-	return $return;
+		                    $return['set_attributes']['codeQT']= $checkCustomerReg->code;
+				    	}
+				    }else{
+				    	$return['messages']= array(array('text'=>'Hệ thống không xác định được người dùng số điện thoại '.$dataSend['phone']));
+				    }
+
+				}else{
+					$return['messages']= array(array('text'=>'Tài khoản này chưa có SPA'));
+				}
+			}else{
+				$return['messages']= array(array('text'=>'Gửi sai id_campain'));
+			}
+	    }else{
+	    	$return['messages']= array(array('text'=>'Gửi thiếu name, phone hoặc id_campain'));
+	    }
+    }
 }
 ?>

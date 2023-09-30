@@ -507,8 +507,8 @@ function memberBuyProAPI($input){
 						$data->deadline_at = $user->deadline_pro;
 						$modelWarehouseUsers->save($data);
 					}else{
-						$data->deadline_at = $user->deadline_pro;
-						$modelWarehouseUsers->save($data);
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
 					}
 
 					if(!empty($discountCode->number_user)){
@@ -566,6 +566,7 @@ function memberExtendProAPI($input){
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>0);
 	
@@ -621,11 +622,11 @@ function memberExtendProAPI($input){
 				if($user->account_balance >=$price_pro){
 					$user->account_balance -= $price_pro;
 					$user->member_pro = 1;
-					if($user->deadline_pro->format('Y-m-d H:i:s') <= date('Y-m-d H:i:s')){
+					if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
 						$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
 					}else{
 						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
-						    }
+					}
 					
 					$modelMember->save($user);
 
@@ -646,6 +647,26 @@ function memberExtendProAPI($input){
 						$discountCode->number_user -= 1;
 						$modelDiscountCode->save($discountCode);
 					}
+
+					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+					if(empty($WarehouseUser)){
+						$data = $modelWarehouseUsers->newEmptyEntity();
+
+			            // tạo dữ liệu save
+						$data->warehouse_id = (int) 1;
+						$data->user_id = $user->id;
+						$data->designer_id = 343;
+						$data->price = $price_pro;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->note ='';
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}else{
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
+					}
+
+					// cộng hao hồng mã giảm giá 
 					if(!empty($discountCode->user) && $pricepro > $price_pro){
 						$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
 						if(!empty($checkPhone)){
@@ -751,8 +772,8 @@ function memberTrialProAPI($input){
 						$data->deadline_at = $user->deadline_pro;
 						$modelWarehouseUsers->save($data);
 					}else{
-						$data->deadline_at = $user->deadline_pro;
-						$modelWarehouseUsers->save($data);
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
 					}
 					if(!empty($discountCode->number_user)){
 						$discountCode->number_user -= 1;
@@ -839,5 +860,45 @@ function checkDeadlineProAllMember($input){
 
 	return $return;
 
+}
+
+function fixProWarehouse($input){
+	global $controller;
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	$listData = $modelMember->find()->where(array('deadline_pro >=' => date('Y-m-d H:i:s'),"member_pro" => 1 ))->all()->toList();	
+	foreach($listData as $key => $user){
+
+		$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+					if(empty($WarehouseUser)){
+						$data = $modelWarehouseUsers->newEmptyEntity();
+				            // tạo dữ liệu save
+						$data->warehouse_id = (int) 1;
+						$data->user_id = $user->id;
+						$data->designer_id = 343;
+						$data->price = 0;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->note ='';
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}else{
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
+					}
+	}
+	debug('ok em ');
+	die;
+
+}
+
+function showDiscountCodeAPI($input){
+	global $controller;
+
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+	$listData = $modelDiscountCode->find()->where(array('user IS NULL','deadline_at >='=>date('Y-m-d H:i:s'),'number_user >='=>1))->all()->toList();
+
+	return array('data'=>$listData);
 }
 ?>

@@ -503,3 +503,42 @@ function addMoneyTPBankApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function createWithdrawRequestApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if ($dataSend['amount']) {
+            if ($dataSend['amount'] > $currentUser->total_coin) {
+                return apiResponse(4, 'Số tiền trong ví không đủ');
+            }
+
+            $newRequest = $withdrawRequestModel->newEmptyEntity();
+            $newRequest->user_id = $currentUser->id;
+            $newRequest->amount = $dataSend['amount'];
+            $withdrawRequestModel->save($newRequest);
+
+            return apiResponse(0, 'Gửi yêu cầu thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}

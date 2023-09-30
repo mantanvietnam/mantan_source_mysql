@@ -100,7 +100,7 @@
                                                      
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
-                                                            <td><?php echo $value->quantity ?></td>
+                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
                                                             <td><?php echo $type ?></td>
 
                                                       </tr>

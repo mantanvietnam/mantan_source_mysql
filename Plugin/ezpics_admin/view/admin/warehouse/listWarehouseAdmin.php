@@ -60,6 +60,7 @@
               <th>Giá bán</th>
               <th>Hết hạn</th>
               <th>Sửa</th>
+              <th>Xóa</th>
               <th>Trạng thái</th>
              
             </tr>
@@ -94,6 +95,9 @@
                       <td><?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></td>
                       <td><a class="dropdown-item"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a></td>
+                      <td><a  class="dropdown-item"  title="Xóa kho" data-bs-toggle="modal" data-bs-target="#deteleWarehouses<?php echo $item->id ?>">
+                              <i class="bx bx-trash" style="font-size: 22px;"></i>
                             </a></td>
                       <td align="center"><?php echo $status ?></td>
                     </tr>
@@ -213,6 +217,27 @@
                                 <input type="text" value="" class="form-control"  required="" name="note">
                                 
                                 <button type="submit" class="btn btn-primary">Từ chối</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+
+                         <div class="modal fade" id="deteleWarehouses<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Bạn xác nhận xóa kho của Kho ID: <?php echo $items->id; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                             <form action="/plugins/admin/ezpics_admin-view-admin-warehouse-deteleWarehouses.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                
+                                
+                                <button type="submit" class="btn btn-primary">xác nhận</button>
                               </div>
                              </form>
                               

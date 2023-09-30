@@ -4,7 +4,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light">
-      <a href="/plugins/admin/product-view-admin-product-listProduct.php">Chiến dịch</a> /
+      <a href="/listCampain">Chiến dịch</a> /
     </span>
     Thông tin chiến dịch
   </h4>
@@ -48,6 +48,11 @@
                           Trạng thái chăm sóc
                         </button>
                       </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-checkin" aria-controls="navs-top-checkin" aria-selected="false">
+                          Checkin
+                        </button>
+                      </li>
                     </ul>
 
                     <div class="tab-content">
@@ -60,23 +65,27 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Mô tả chiến dịch</label>
-                              <textarea maxlength="160" rows="5" class="form-control" name="note" id="note"><?php echo @$data->note;?></textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="mb-3">
                               <label class="form-label">Tự động gửi SMS khi đăng ký sự kiện</label>
-                              <input type="radio" class="" name="sendSMS" value="0" /> Không gửi
-                              <input type="radio" class="" name="sendSMS" value="1" /> Có gửi
+                              <br/>
+                              <input type="radio" class="" name="sendSMS" value="0" <?php if(empty($data->sendSMS)) echo 'checked';?> /> Không gửi
+                              &nbsp;&nbsp;&nbsp;
+                              <input type="radio" class="" name="sendSMS" value="1" <?php if(!empty($data->sendSMS) && $data->sendSMS==1) echo 'checked';?> /> Có gửi
                             </div>
 
                             <div class="mb-3">
                               <label class="form-label">Tin nhắn gửi khi đăng ký</label>
                               <input type="text" class="form-control phone-mask" name="smsRegister" id="smsRegister" value="<?php echo @$data->smsRegister;?>" />
                             </div>
+                          </div>
 
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Mô tả chiến dịch</label>
+                              <textarea rows="5" class="form-control" name="note" id="note"><?php echo @$data->note;?></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
                             <div class="mb-3">
                               <b>Chú ý:</b>
                               <p>- Chỉ nhắn tin chăm sóc khách hàng, không nhắn tin spam, vi phạm sẽ bị khóa tài khoản vĩnh viễn. Hệ thống chỉ cho phép gửi tin nhắn tiếng việt không dấu.</p>
@@ -156,53 +165,91 @@
                             </div>
                           </div>
 
-                          <div class="col-md-6 row">
-                            <div class="col-md-12 form-group">
-                                <label class="col-sm-3 control-label">Loại vé 1:</label>
-                                <div class="col-sm-6">
-                                    <input name="nameTicket[1]" class="form-control" placeholder="Tên loại vé" value="<?php echo @$data->nameTicket[1];?>">
-                                </div>
-                                <div class="col-sm-3">
-                                    <input name="priceTicket[1]" class="form-control" placeholder="Giá vé" value="<?php echo @$data->priceTicket[1];?>">
-                                </div>
-                            </div>
-
-                            
-                          </div>
+                          
+                          <?php
+                          for ($i=1; $i <= 10; $i++) { 
+                            echo '<div class="mb-3 col-md-6">
+                                      <label class="col-sm-3 control-label">Loại vé '.$i.':</label>
+                                      <div class="row">
+                                        <div class="col-sm-8">
+                                            <input name="nameTicket['.$i.']" class="form-control" placeholder="Tên loại vé" value="'.@$data->nameTicket[$i].'">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input name="priceTicket['.$i.']" class="form-control" placeholder="Giá vé" value="'.@$data->priceTicket[$i].'">
+                                        </div>
+                                      </div>
+                                  </div>';
+                          }
+                          ?> 
+                          
                         </div>
                       </div>
                       
                       <div class="tab-pane fade" id="navs-top-address" role="tabpanel">
                         <div class="row">
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                              <label class="form-label">Khu vực 1</label>
-                              <input type="text" class="form-control phone-mask" name="nameLocation[1]" value="<?php echo @$data->nameLocation[1];?>" />
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                              <label class="form-label">Khu vực 2</label>
-                              <input type="text" class="form-control phone-mask" name="nameLocation[2]" value="<?php echo @$data->nameLocation[2];?>" />
-                            </div>
-                          </div>
+                          <?php
+                          for ($i=1; $i <= 10; $i++) { 
+                            echo '<div class="col-md-6 mb-3">
+                                      <label class="form-label">Khu vực '.$i.'</label>
+                                      <input type="text" class="form-control phone-mask" name="nameLocation['.$i.']" value="'.@$data->nameLocation[$i].'" />
+                                  </div>';
+                          }
+                          ?> 
                         </div>
                       </div>
 
                       <div class="tab-pane fade" id="navs-top-status" role="tabpanel">
                         <div class="row">
-                          <div class="col-md-6">
+                          <?php
+                          for ($i=1; $i <= 10; $i++) { 
+                            echo '<div class="col-md-6 mb-3">
+                                      <label class="form-label">Trạng thái '.$i.'</label>
+                                      <input type="text" class="form-control phone-mask" name="status['.$i.']" value="'.@$data->status[$i].'" />
+                                  </div>';
+                          }
+                          ?> 
+                        </div>
+                      </div>
+
+                      <div class="tab-pane fade" id="navs-top-checkin" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label">Trạng thái 0</label>
-                              <input type="text" class="form-control phone-mask" name="status[0]" value="<?php echo @$data->status[0];?>" />
+                              <label class="form-label">Nội dung hiển thị khi checkin</label>
+                              <textarea rows="5" class="form-control" name="noteCheckin" id="noteCheckin"><?php echo @$data->noteCheckin;?></textarea>
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label">Trạng thái 1</label>
-                              <input type="text" class="form-control phone-mask" name="status[1]" value="<?php echo @$data->status[1];?>" />
+                              <b>Mã thay thế:</b>
+                              <br/>
+                              %fullName% : Họ tên
+                              <br/>
+                              %email% : Email
+                              <br/>
+                              %phone% : Số điện thoại
+                              <br/>
+                              %job% : Công việc
+                              <br/>
+                              %note% : Ghi chú
+                              <br/>
+                              %avatar% : Link ảnh đại diện
+                              <br/>
+                              %status% : Trạng thái
+                              <br/>
+                              %campain% : Tên chiến dịch
+                              <br/>
+                              %codeQT% : Mã đăng ký
+                              <br/>
+                              %nameTicket% : Loại vé
+                              <br/>
+                              %priceTicket% : Giá vé
+                              <br/>
+                              %statusBanking% : Trạng thái mua vé
+                              <br/>
+                              %affiliate% : Người giới thiệu
+
                             </div>
                           </div>
                         </div>

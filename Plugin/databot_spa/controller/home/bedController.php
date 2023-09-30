@@ -353,6 +353,8 @@ function checkoutBed($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelDebts = $controller->loadModel('Debts');
         $modelBill = $controller->loadModel('Bills');
+        $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
+        $modelPrepayCard = $controller->loadModel('PrepayCards');
 
         $user = $session->read('infoUser');
 
@@ -389,19 +391,30 @@ function checkoutBed($input){
                 $data->service = $service;
             }
 
-
             if(!empty($data->id_customer)){
                 $data->customer = $modelCustomer->find()->where(array('id'=>$data->id_customer))->first();
+                $conditionPrepaycard = array('id_member'=>$user->id_member, 'total >' => 0);
+
+                $conditionPrepaycard['id_customer'] = $data->id_customer;
+                $conditionPrepaycard['total >='] = $data->total_pay;
+                   
+                $Prepaycard = $modelCustomerPrepaycard->find()->where($conditionPrepaycard)->all()->toList();
+
+                if(!empty($Prepaycard)){
+                    foreach($Prepaycard as $key => $item){
+
+                        $item->infoPrepayCard = $modelPrepayCard->find()->where(array('id'=>$item->id_prepaycard))->first();
+                        $Prepaycard[$key] = $item;
+                        
+                    }
+                }
             }
 
         }
 
-
-
         if(@$_GET['mess']=='done'){
             $mess = '<p class="text-success">Cập nhập thành công</p>';
         }
-
       
         if($isRequestPost){
             $dataSend = $input['request']->getData();
@@ -438,8 +451,18 @@ function checkoutBed($input){
                 $bill->type_collection_bill = @$dataSend['type_collection_bill'];
                 $bill->id_customer = (int)@$data->id_customer;
                 $bill->full_name = @$data->full_name;
+                if(empty($dataSend['card'])){
+                        $bill->type_card = 0;
+                    }else{
+                        $bill->type_card = 1;
+                    }
 
-               
+                if(!empty($dataSend['card'])){
+                    $Prepaycards = $modelCustomerPrepaycard->get($dataSend['card']);
+                    $Prepaycards->total -= $bill->total;
+                    $modelCustomerPrepaycard->save($Prepaycards);
+                }
+
                 $bill->time = time();
                
                 $modelBill->save($bill);
@@ -481,6 +504,16 @@ function checkoutBed($input){
 
                             }
                         }
+                        $value->number_uses +=1;
+                        $modelOrderDetails->save($value);
+                    }
+
+                }
+                if(!empty($data->service)){
+                    foreach($data->service as $key => $value){
+                        // sử lý trử số lương trong kho ở sản phẩm trong combo
+                        $value->number_uses +=1;
+                        $modelOrderDetails->save($value);
                     }
 
                 }
@@ -498,10 +531,9 @@ function checkoutBed($input){
             return $controller->redirect('/printInfoOrder?id='.$order->id);
         }
 
-
-
         setVariable('data', $data);
         setVariable('mess', @$mess);
+        setVariable('Prepaycard', @$Prepaycard);
 
     }else{
         return $controller->redirect('/login');

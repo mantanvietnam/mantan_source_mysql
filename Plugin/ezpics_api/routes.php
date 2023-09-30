@@ -184,4 +184,5 @@
 	$routesPlugin['addNotificationDeadlineTrialProAPI']= 'ezpics_api/view/addNotificationDeadlineTrialProAPI.php';	
 	$routesPlugin['checkDeadline']= 'ezpics_api/view/checkDeadline.php';	
 	$routesPlugin['checkDeadlineProAllMember']= 'ezpics_api/view/checkDeadlineProAllMember.php';	
+	$routesPlugin['showDiscountCodeAPI']= 'ezpics_api/view/showDiscountCodeAPI.php';	
 ?>

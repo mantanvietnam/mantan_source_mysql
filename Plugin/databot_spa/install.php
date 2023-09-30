@@ -86,7 +86,8 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `job` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `id_product` INT NULL,
-  `point` INT NOT NULL DEFAULT '0'
+  `point` INT NOT NULL DEFAULT '0',
+  `id_customer_aff` INT NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `members` (
@@ -316,9 +317,14 @@ $sqlInstallDatabase .="CREATE TABLE `order_details` (
   `quantity` INT NULL DEFAULT NULL , 
 ) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `campain_customers` ( `id` INT NOT NULL AUTO_INCREMENT , `id_campain` INT NOT NULL , `id_customer` INT NOT NULL , `create_at` INT NOT NULL , `code` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
+
 $sqlInstallDatabase .="CREATE TABLE `campains` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `codeSecurity` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `numberPersonWinSpin` INT NOT NULL , `typeUserWin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `noteCheckin` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `nameTicket` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `priceTicket` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `nameLocation` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `smsRegister` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `sendSMS` INT NOT NULL , `idMember` INT NOT NULL , `idBotBanking` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `tokenBotBanking` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `idBlockSuccessfulTransaction` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `codeUser` INT NOT NULL DEFAULT '999' , `backgroundSpin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `logoSpin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `colorTextSpin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `idSpa` INT NOT NULL, `created_at` INT NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
 
-$sqlInstallDatabase .="CREATE TABLE `quayso_spa`.`customer_prepaycards` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `id_member` INT NOT NULL , `id_spa` INT NULL DEFAULT NULL ,`id_bill` INT NULL DEFAULT NULL, `total` INT NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , `id_prepaycard` INT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `updated_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sqlInstallDatabase .="CREATE TABLE `customer_prepaycards` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `id_member` INT NOT NULL , `id_spa` INT NULL DEFAULT NULL ,`id_bill` INT NULL DEFAULT NULL, `total` INT NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , `id_prepaycard` INT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `updated_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+$sqlInstallDatabase ."CREATE TABLE `treatment_historys` ( `id` INT NOT NULL AUTO_INCREMENT , `id_orders` INT NOT NULL , `id_customer` INT NULL DEFAULT NULL , `id_services` INT NULL DEFAULT NULL , `status` VARCHAR(255) NULL DEFAULT NULL , `quantity` INT NOT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `id_spa` INT NOT NULL , `id_member` INT NOT NULL , `id_bed` INT NOT NULL , `note` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -342,6 +348,11 @@ $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE order_details; ";
 $sqlDeleteDatabase .= "DROP TABLE campains; ";
 $sqlDeleteDatabase .= "DROP TABLE customer_prepaycards; ";
+<<<<<<< Updated upstream
+$sqlDeleteDatabase .= "DROP TABLE campain_customers; ";
+=======
+$sqlDeleteDatabase .= "DROP TABLE treatment_historys; ";
+>>>>>>> Stashed changes
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_source_customer'; ";

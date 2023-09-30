@@ -25,4 +25,8 @@ include_once('controller/home/statisticalController.php'); // thống kê
 
 // api
 include_once('controller/api/customerController.php'); // api khách hàng
+include_once('controller/api/comboController.php'); // api khách hàng
+include_once('controller/api/partnerController.php'); // api khách hàng
+include_once('controller/api/productController.php'); // api khách hàng
+include_once('controller/api/servicesController.php'); // api khách hàng
 ?>

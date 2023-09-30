@@ -96,6 +96,23 @@
                                             </select>
                         </div>
                     </div> 
+                    <?php if(!empty($Prepaycard)){ ?>
+                        <br>
+                    <div class="form-group row">
+                        <label class="col-md-6"><strong>Dùng thẻ trả trước</strong></label>
+                         <div class="col-md-6" id="totalPay">
+                        <select name="card" class="form-select color-dropdown" required>
+                                              <option value="">Chọn thẻ trả trước</option>
+                                              <?php
+                                                foreach ($Prepaycard as $key => $value) {
+                                                    echo '<option  value="'.$value->id.'">'.$value->infoPrepayCard->name.'</option>';
+                                                  
+                                                }
+                                              ?>
+                                            </select>
+                        </div>
+                    </div>
+                <?php } ?>
                 </div>
                 <div class="col-md-12">
                     <br> 

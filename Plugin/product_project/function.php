@@ -27,5 +27,24 @@ $menus[0]['sub'][1]= array('title'=>'Cài đặt',
 
 addMenuAdminMantan($menus);
 
+global $modelCategories;
+
+$conditions = array('type' => 'category_kind');
+$productCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
+if(isset($productCategory)){
+	$category[0]['title'] = 'Danh mục dự án';
+	$category[0]['sub'] = [];
+
+    foreach ($productCategory as $key => $value) {
+    	$category[0]['sub'][] = [	'url' => '/category-project/'.$value->slug.'.html',
+                                  	'name' => $value->name
+                              	];
+    }
+}
+
+
+addMenusAppearance($category);
+
 
 ?>

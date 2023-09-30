@@ -11,6 +11,7 @@
 	$routesPlugin['upgradeToDriverApi']= 'excgo/view/upgradeToDriverApi.php';
 	$routesPlugin['addMoneyTPBankApi']= 'excgo/view/addMoneyTPBankApi.php';
 	$routesPlugin['generateQRCodeApi']= 'excgo/view/generateQRCodeApi.php';
+	$routesPlugin['createWithdrawRequestApi']= 'excgo/view/createWithdrawRequestApi.php';
 
 	// Province
     $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
@@ -24,3 +25,5 @@
     $routesPlugin['getBookingListApi'] = 'excgo/view/getBookingListApi.php';
     $routesPlugin['receiveBookingApi'] = 'excgo/view/receiveBookingApi.php';
     $routesPlugin['cancelReceiveBookingApi'] = 'excgo/view/cancelReceiveBookingApi.php';
+    $routesPlugin['completeBookingApi'] = 'excgo/view/completeBookingApi.php';
+    $routesPlugin['checkFinishedBookingApi'] = 'excgo/view/checkFinishedBookingApi.php';

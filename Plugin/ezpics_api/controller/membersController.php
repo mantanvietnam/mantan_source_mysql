@@ -6,6 +6,7 @@ function saveRegisterMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>1,
 					'set_attributes'=>array('id_customer'=>0),
@@ -42,6 +43,34 @@ function saveRegisterMemberAPI($input)
 						
 						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
+
+							if(!empty($affsource->deadline_pro) && $affsource->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime($affsource->deadline_pro . ' + 7   days'));
+							}else{
+								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
+							}
+							$affsource->member_pro = 1;
+
+							$modelMember->save($affsource);
+
+							$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$affsource->id))->first();
+
+							
+							if(empty($WarehouseUser)){
+								$Warehouse = $modelWarehouseUsers->newEmptyEntity();
+						            // tạo dữ liệu saves
+								$Warehouse->warehouse_id = (int) 1;
+								$Warehouse->user_id = $affsource->id;
+								$Warehouse->designer_id = 343;
+								$Warehouse->price = 0;
+								$Warehouse->created_at = date('Y-m-d H:i:s');
+								$Warehouse->note ='';
+								$Warehouse->deadline_at = $affsource->deadline_pro;
+								$modelWarehouseUsers->save($Warehouse);
+							}else{
+								$WarehouseUser->deadline_at = $affsource->deadline_pro;
+								$modelWarehouseUsers->save($WarehouseUser);
+							}
 						}
 							
 					}
@@ -51,12 +80,12 @@ function saveRegisterMemberAPI($input)
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
-					$data->token = createToken();
+					$data->token = rand(100000,999999);
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];
 
-					 // tạo link deep
+					// tạo link deep
 			        $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
 		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
 		                                                'link'=>'https://ezpics.page.link/register?affsource='.$data->aff,
@@ -75,18 +104,41 @@ function saveRegisterMemberAPI($input)
 					$modelMember->save($data);
 					sendNotificationAdmin('64a247e5c939b1e3d37ead0b');
 					
-					if(!empty($affsource)){
 					// gửi thông báo về app cho người giới thiệu
-	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn.','action'=>'adminSendNotification');
+					if(!empty($affsource)){
+	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.', người dùng '.$dataSend['name'].' ('.@$dataSend['phone'].') đã đăng ký bằng mã giới thiệu của bạn, và bạn được cộng thêm 7 ngày sử dụng bản EZPICS PRO','action'=>'adminSendNotification');
 	                    if(!empty($affsource->token_device)){
 	                        sendNotification($dataSendNotification, $affsource->token_device);
 	                    }
 					}
 
+					// gửi mã xác thực về Zalo người đăng ký
+					$url_zns = 'http://rest.esms.vn/MainService.svc/json/SendZaloMessage_V4_post_json/';
+		            $data_send_zns = [
+										"ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
+										"SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
+										"Phone" => $dataSend['phone'],
+										"Params" => [$data->token],
+										"TempID" => "205644",
+										"OAID" => "4097311281936189049",
+										"SendDate" => "",
+										"Sandbox" => "0",
+										"RequestId" => time(),
+										"campaignid" => "EZPICS OTP",
+										"CallbackUrl" => "https://apis.ezpics.vn/calbackZalo"
+									];
+		            $header_zns = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
+		            $return_zns = json_decode($return_zns);
+
+
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
-			    						'info_member'=>$data
+			    						'info_member'=>$data,
+			    						'code_otp' => $data->token,
+			    						'return_zns' => $return_zns
 			    					);
 				}else{
 					$return = array('code'=>4,
@@ -555,7 +607,7 @@ function getTopDesignerAPI($input){
 	}elseif($dataSend['orderBy'] == 'bestCreate'){
 		// tạo nhiều mẫu bán trong tuần
 		$conditions = array('created_at >=' => date('Y-m-d H:i:s', strtotime("-7 day")), 'status'=>1);
-		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:12;
+		$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:100;
 		$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
 		$order = array();
 
@@ -585,8 +637,6 @@ function getTopDesignerAPI($input){
 			}
 		}
 	}
-	
-
 	return 	array('listData'=>$listDesign);
 }
 
@@ -1147,15 +1197,15 @@ function statisticalAPI($input){
 	$conditionOrder['payment_kind'] = 1;
 
     $totalDataOrder = $modelOrder->find()->where($conditionOrder)->all()->toList();
-   $Order = 0;
+   	$Order = 0;
 
-     if(!empty($totalDataOrder)){
+    if(!empty($totalDataOrder)){
             foreach ($totalDataOrder as $item) {
              
                @$Order += $item->total;
     
             }
-        }
+    }
 
     $conditionProduct['approval_date >='] = date('Y-m-d').' 00:00:00';
 	$conditionProduct['approval_date <='] = date('Y-m-d H:i:s');
@@ -1165,13 +1215,17 @@ function statisticalAPI($input){
 	$totalDataProduct = $modelProduct->find()->where($conditionProduct)->all()->toList();
     $totalDataProduct = count($totalDataProduct);
 
+    $totalDataMember = $modelMember->find()->where()->all()->toList();
+    $totalDataMember = count($totalDataMember);
+
 
     $return = [	'static_code'=>1,
 				'static_luong_dang_ky' => (int) @$totalDatatoday,
 				'static_luong_dang_nhap' => (int) @$totalDatalastlogin,
 				'static_doanh_thu' => (int) @$Order,
 				'static_mau_duyet' => (int) @$totalDataProduct,
-				'static_today' => date('H:i d/m/Y')
+				'static_today' => date('H:i d/m/Y'),
+				'static_member' => $totalDataMember
 			];
 
 	if(function_exists('sendNotificationAdmin')){

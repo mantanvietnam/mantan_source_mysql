@@ -591,4 +591,58 @@ function searchMemberApi($input)
 	return $return;
 }
 
+function deteleWarehouses($input){
+	global $controller;
+
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	if(!empty($_GET['id'])){
+			$data = $modelWarehouses->get($_GET['id']);
+			if(!empty($data)){
+	         	// xóa mẫu thiết kế
+				
+
+				// xóa layer
+				$conditions = ['warehouse_id'=>$data->id];
+				$modelWarehouseProducts->deleteAll($conditions);
+
+				$WarehouseUsers = $modelWarehouseUsers->find()->where($conditions)->all()->toList();
+				if(!empty($WarehouseUsers)){
+					$token_device = array();
+					foreach($WarehouseUsers as $key => $item){
+						$user = $modelMember->get($item->user_id);
+						if(!empty($user->token_device)){
+							$token_device[] = $user->token_device;
+						}
+					}
+					$dataSendNotification= array('id'=>$data->user_id,'title'=>'Xóa bộ sưu tập'.$data->name,'time'=>date('H:i d/m/Y'),'content'=>'Bộ sưu tập mẫu thiết kế '.$data->name.' của bạn đã bị xóa khỏi hệ thống, vui lòng liên hệ với chủ Bộ sưu tập để được hỗ trợ','action'=>'adminSendNotificationInfoDesigner');
+
+					if(!empty($token_device)){
+		        		$return = sendNotification($dataSendNotification, $token_device);
+		        	}
+
+
+		        	$designer = $modelMember->get($data->user_id);;
+		        	$dataSendNotifications= array('id'=>$data->user_id,'title'=>'Xóa bộ sưu tập'.$data->name,'time'=>date('H:i d/m/Y'),'content'=>'Bộ sưu tập mẫu thiết kế '.$data->name.' của bạn đã bị xóa khỏi hệ thống, vui lòng liên hệ với admin để được hỗ trợ','action'=>'adminSendNotificationInfoDesigner');
+
+					if(!empty($designer->token_device)){
+		        		$return = sendNotification($dataSendNotifications, $designer->token_device);
+		        	}
+				}
+
+				// xóa yêu thích
+				$conditions = ['warehouse_id'=>$data->id];
+				$modelWarehouseUsers->deleteAll($conditions);
+				$modelWarehouses->delete($data);
+	        }
+		}
+
+
+
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php?mess=delete');
+	
+}
 ?>
