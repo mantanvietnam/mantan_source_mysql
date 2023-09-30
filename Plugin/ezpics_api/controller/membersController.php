@@ -62,7 +62,7 @@ function saveRegisterMemberAPI($input)
 								$Warehouse->warehouse_id = (int) 1;
 								$Warehouse->user_id = $affsource->id;
 								$Warehouse->designer_id = 343;
-								$Warehouse->price = $price_pro;
+								$Warehouse->price = 0;
 								$Warehouse->created_at = date('Y-m-d H:i:s');
 								$Warehouse->note ='';
 								$Warehouse->deadline_at = $affsource->deadline_pro;
@@ -106,7 +106,7 @@ function saveRegisterMemberAPI($input)
 					
 					if(!empty($affsource)){
 					// gửi thông báo về app cho người giới thiệu
-	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn.','action'=>'adminSendNotification');
+	                    $dataSendNotification= array('title'=>'Có người đăng ký dưới mã của bạn','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng '.$affsource->name.' có người dùng '.$dataSend['name'].' đã đăng ký bằng mã giới thiệu của bạn. và bạn được thêm 7 sữ dụng bản Pro nữa','action'=>'adminSendNotification');
 	                    if(!empty($affsource->token_device)){
 	                        sendNotification($dataSendNotification, $affsource->token_device);
 	                    }
