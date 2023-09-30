@@ -49,7 +49,7 @@
                                             <div class="col-lg-8 col-md-8 col-sm-12 col-12 news-right">
                                                 <div class="news-right-inner">
                                                     <div class="news-right-content">
-                                                        '.$value->description.'
+                                                        '.nl2br($value->description).'
                                                     </div>
                                                     <div class="news-right-button">
                                                         <a href="'.$value->slug.'.html">Read more </a>

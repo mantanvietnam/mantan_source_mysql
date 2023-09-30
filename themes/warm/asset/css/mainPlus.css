@@ -678,10 +678,21 @@
     color: #4d4d4d;
 }
 
+.news-view{
+    margin-top: 32px;
+}
+
+.news-view p{
+    font-size: 20px;
+    font-weight: bold;
+    color:#12427d;
+}
+
 .news-details-title h2{
     color: #12427d;
     font-weight: bold;
     font-size: 43px;
+    background: linear-gradient(to top, rgb(183 189 185 / 50%), rgba(255,255,255, 0.4));
 }
 
 .news-introduction{

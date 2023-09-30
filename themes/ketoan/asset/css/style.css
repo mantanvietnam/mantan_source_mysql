@@ -1,0 +1,1129 @@
+@font-face {
+	font-family: "SanFranciscoDisplayBold" ;
+	src: url(../font/SanFranciscoDisplay-Bold.otf);
+}
+@font-face {
+	font-family: "SanFranciscoDisplay" ;
+	src: url(../font/SanFranciscoDisplay-Regular.otf);
+}
+@font-face {
+	font-family: "SanText" ;
+	src: url(../font/SanFranciscoText-RegularG1.otf);
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family: "SanFranciscoDisplay" ;
+	line-height: 1.3;
+}
+
+a{
+	text-decoration: none;
+}
+img{
+	width: 100%;
+}
+
+p{
+	margin-bottom: 0px;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* CSS Trang Chủ */
+.search-mobile{
+	display: none !important;
+}
+.list-header{
+	display: flex;
+	gap: 15px;
+}
+.nav-header-item{
+	padding: 8px 16px;
+	display: flex;
+	align-items: center;
+}
+.nav-header-item a{
+	color: #9d9d9d;
+	text-decoration: none;
+	font-weight: bold;
+    font-size: 20px;
+	
+}
+.nav-logo-header{
+	display: flex;
+	align-items: center;
+}
+.icon-text-nav-logo{
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+.icon-text-nav-logo svg{
+	width: 28px;
+}
+#nav-bar-logo{
+	border-bottom: 1px solid #9d9d9d;
+	padding-top: 30px;
+    padding-bottom: 10px;
+	margin-bottom: 30px;
+}
+.carousel-caption{
+	color: aliceblue !important;
+	bottom: 6.25rem;
+}
+.carousel-caption h5{
+	font-size: 60px;
+}
+#carouselExampleDark{
+	height: 300px;
+}
+.carousel-inner{
+	height: 100%;
+}
+.carousel-item{
+	height: 100%;
+}
+.carousel-caption{
+	text-align: start;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon{
+	width: 3rem;
+	height: 3rem;
+	background-color: #9d9d9d;
+	border-radius: 30px;
+}
+.carousel-indicators{
+	position: relative;
+}
+.carousel-indicators [data-bs-target]{
+	width: 15px;
+    height: 15px;
+	border-radius: 64%;
+}
+.mg-auto{
+	margin: auto;
+}
+.title-my-service{
+	display: flex;
+	justify-content: space-between;
+	width: 90%;
+	margin: auto;
+}
+.title-my-service .border-bottom{
+	width: 150px;
+	border-bottom: 3px solid #00c0eb !important;
+}
+.title-my-service h3{
+	font-size: 30px;
+}
+#my-service{
+	margin-top: 70px;
+}
+.setting-border{
+	display: flex;
+	align-items: center;
+}
+.text-my-service .title-text-my-service{
+	margin-bottom: 20px;
+	font-size: 18px;
+}
+.backgroud-intro-my-service{
+	padding: 25px;
+}
+
+.title-my-service .description-my-service{
+	font-size: 18px;
+}
+.intro-my-service{
+	margin-top: 60px;
+}
+.relative{
+	position: relative;
+}
+.backgroud-intro-my-service:nth-child(odd) .text-my-service{
+	text-align: center;
+	padding: 80px 20px 50px 20px;
+
+	border-radius: 20px;
+
+}
+.backgroud-intro-my-service:nth-child(odd) .setting-icon{
+	width: 30%;
+    padding: 15px;
+    border-radius: 53%;
+    border: 10px solid #01c4be;
+    margin: auto;
+	position: absolute;
+	top: -29px !important;
+    right: 102px
+}
+.backgroud-intro-my-service:nth-child(even) .text-my-service{
+	text-align: center;
+	padding: 50px 20px 80px 20px;
+	border-radius: 20px;
+
+}
+.backgroud-intro-my-service:nth-child(even) .setting-icon{
+	width: 30%;
+    padding: 15px;
+    border-radius: 53%;
+    border: 10px solid #01c4be;
+    margin: auto;
+	position: absolute;
+	bottom: -29px;
+    right: 102px
+}
+.backgroud-intro-my-service:nth-child(1){
+	background-image: url(../image/Asset\ 2.png);
+}
+.backgroud-intro-my-service:nth-child(2){
+	background-image: url(../image/Asset\ 3.png);
+}
+.backgroud-intro-my-service:nth-child(3){
+	background-image: url(../image/Asset\ 4.png);
+}
+.backgroud-intro-my-service:nth-child(4){
+	background-image: url(../image/Asset\ 5.png);
+}
+.backgroud-intro-my-service{
+	    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#why-my-service{
+	margin-top: 80px;
+}
+.title-why-my{
+	margin-bottom: 15px;
+}
+.img-why-my{
+	margin-bottom: 25px;
+}
+.justify-center{
+	justify-content: center;
+}
+.img-why-my svg{
+	width: 100px;
+	color: #00C0EB;
+	height: 100px;
+}
+.font-san-bold{
+	font-family: "SanFranciscoDisplayBold";
+}
+.title-text-my-service{
+	font-family: "SanFranciscoDisplayBold" ;
+	color: #858488;
+}
+.description-my-service{
+	font-family: "SanText";
+	color: #858488;
+}
+.title-why-my{
+	color: #0A3581;
+	font-size: 18px;
+	font-family: "SanFranciscoDisplayBold";
+}
+.description-why-my{
+	font-family: "SanText";
+	color: #858488;
+}
+.text-center{
+	text-align: center;
+}
+.icon-why-my-service{
+	margin-top: 60px;
+}
+.button-why-my a{
+	text-decoration: none;
+	color: #fff;
+	display: flex;
+    align-items: center;
+}
+.button-why-my{
+	margin-top: 40px;
+	padding: 16px 24px;
+	border-radius: 30px;
+	background-color: #00C0EB;
+	border: none;
+}
+.button-why-my a svg{
+	width: 23px;
+}
+.title-banner-dang-ki{
+	color: #0A3581;
+	font-size: 25px;
+	margin-bottom: 15px;
+}
+#banner-dang-ki{
+	display: flex;
+    align-items: center;
+	margin: 40px 0px;
+	height: 225px;
+	background-image: url(../image/375987963_280584834735105_8306556939059781547_n.jpg)
+}
+.ds-flex{
+	display: flex;
+}
+.align-center{
+	align-items: center;
+}
+#banner-dang-ki .mb-3{
+	margin-bottom: 0 !important;
+}
+.gap-30{
+	gap: 30px;
+}
+.border-radius-30{
+	border-radius: 30px;
+}
+.pd-8-16{
+	padding: 8px 16px;
+}
+.btn-dang-ki{
+	background-color: #00C0EB;
+}
+.title-news{
+	text-transform: uppercase;
+	color: #1363A7;
+	font-family:"SanFranciscoDisplayBold" ;
+	margin-top: 20px;
+	font-size: 23px;
+}
+.btn-news svg{
+	width: 20px;
+}
+#tax-accounting .link-news{
+	text-decoration: none;
+}
+.link-news .author span:nth-child(1){
+	color: #8C8C8C;
+}
+.link-news .name-author
+{
+	color:#8C8C8C ;
+	font-family: "SanFranciscoDisplayBold";
+}
+.description-news{
+	margin-top: 20px;
+	color: #8C8C8C;
+}
+.author{
+	margin-top: 20px;
+}
+.btn-news{
+	color: #6EBF05;
+	margin-top: 15px;
+}
+.intro-news-small .link-news{
+	display: grid;
+    grid-template-columns: 1fr 2fr;
+	gap: 24px;
+}
+.info-news-small .author{
+	margin-top: 0;
+}
+.info-news-small .title-news{
+	font-size: 18px;
+	margin-top: 10px;
+}
+.info-news-small .description-news{
+	margin-top: 10px;
+}
+.ellipsis {
+	text-overflow: ellipsis;
+	overflow: hidden;
+   }
+   
+   .block-ellipsis {
+	display: block;
+	display: -webkit-box;
+	max-height: 30px;
+	margin: 0 auto;
+	font-size: 14px;
+	line-height: 1;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+   }
+   .intro-news-small img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+   }
+.intro-news-small{
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.block-ellipsis-title-news{
+	display: block;
+	display: -webkit-box;
+	max-height: 40px;
+	margin: 0 auto;
+	font-size: 14px;
+	line-height: 1;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.text-uppcase{
+	text-transform: uppercase;
+}
+.title-main-home{
+	display: grid;
+	grid-template-columns: auto 70%;
+}
+.text-title-main-home{
+	font-family:"SanFranciscoDisplayBold" ;
+	font-size: 20px;
+	padding: 8px 12px;
+	background-image: url("../image/Asset.png");
+	background-position: right;
+    background-size: cover;
+	color: #fff;
+}
+.title-main-home{
+	margin-bottom: 30px;
+	gap: 20px;
+}
+.border-title-main-home{
+	border-bottom: 3px solid #00C0EB;
+}
+.text-contact svg{
+	width: 20px;
+	color: #133C85;
+}
+.contact h3{
+	text-align: center;
+	padding: 20px;
+	background-color: #00C0EB;
+	font-family: "SanFranciscoDisplayBold";
+	color: #fff;
+}
+.contact{
+	border: 1px solid #00C0EB;
+	margin: 30px 0px;
+}
+.text-contact{
+	padding: 20px;
+}
+.text-contact p:nth-child(1){
+	border-bottom: 3px solid #8C8C8C;
+}
+.text-contact p{
+	padding: 15px 0px;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+.title-small-right h4{
+	padding: 8px 12px;
+	background-color: #00C0EB;
+	color: #fff;
+	width: 60%;
+	text-align: center;
+	font-family: "SanFranciscoDisplayBold";
+}
+.title-small-right{
+	border-bottom: 1px solid #00C0EB;
+}
+.nav-small-right .nav-item a{
+	text-transform: uppercase;
+	transition: all 0.3s;
+	color: #1363A7;
+	font-weight: bold;
+}
+.nav-small-right .nav-item{
+	transition: all 0.2s;
+	margin: 10px 0px;
+	padding: 8px 12px;
+	background-image: linear-gradient(to left, rgba(255,0,0,0), rgb(212, 241, 255));
+	/* background-image: linear-gradient(to left, rgba(255,0,0,0), rgb(148, 203, 235)); */
+}
+.nav-small-right .nav-item:hover{
+	background-image: linear-gradient(to left, rgba(255,0,0,0), rgb(53, 171, 240));
+}
+.nav-small-right .nav-item:hover a{
+	color: #fff;
+}
+.nav-small-right{
+	margin: 25px 0px;
+}
+.list-news-right .title-news{
+	font-size: 13px;
+	margin-top: 7px;
+}
+.list-news-right .description-news{
+	font-size: 13px;
+	margin-top: 7px;
+}
+.list-news-right .intro-news-small{
+	gap: 0px;
+}
+.list-news-right .link-news{
+	gap: 10px;
+	padding: 23px 0px;
+    border-bottom: 2px solid #3333;
+}
+.list-news-right .link-news:last-child{
+	border-bottom: none;
+}
+.list-news-right .btn-news{
+	margin-top: 7px;
+}
+.list-news-right{
+	margin: 25px 0px;
+}
+#main-body-text .mg-24{
+	margin: 40px 0px;
+}
+#main-body-text .mg-24:first-child{
+	margin-top: 0px;
+}
+.icon-footer i{
+	font-size: 30px;
+}
+.icon-footer i::before{
+	color: #7490A8;
+}
+.logo-footer{
+	object-fit: none;
+}
+.icon-footer{
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+}
+.intro-cong-ty p{
+	margin-bottom: 40px;
+	font-family: "SanText";
+}
+.intro-cong-ty h4{
+	margin-bottom: 40px;
+	font-size: 25px;
+	color: #133C85;
+	font-family: "SanFranciscoDisplayBold" ;
+	text-transform: uppercase;
+}
+.intro-cong-ty span{
+	color: #4F4F4F;
+	font-family: "SanFranciscoDisplayBold";
+}
+.dich-vu-footer a{
+	text-decoration: none;
+	color: #858488;
+	font-family: "SanText";
+
+}
+.dich-vu-footer  p{
+	margin-bottom: 10px;
+}
+.dich-vu-footer h4{
+	margin-bottom: 40px;
+	font-size: 25px;
+	color: #133C85;
+	font-family: "SanFranciscoDisplayBold" ;
+	text-transform: uppercase;
+}
+.logo-header img{
+	object-fit: none;
+}
+article{
+	border-bottom: 5px solid #133C85;
+    padding-bottom: 60px;
+}
+footer{
+	padding: 60px 0px;
+}
+.nav-header-mobile{
+display: none;
+}
+.nav-header-mobile .list-header{
+	flex-direction: column;
+}
+.nav-header-mobile .list-header .nav-header-item{
+	justify-content: center;
+}
+.nav-header-mobile button svg{
+	width: 35px;
+	color:#333;
+}
+.nav-header-mobile button{
+	background-color: transparent;
+	border: none;
+}
+.nav-logo-header{
+	justify-content: end;
+}
+.setting-footer{
+	margin-bottom: 40px;
+}
+
+/* CSS News Detail */
+.titel-news-detail h1{
+	font-size: 40px;
+	font-family: "SanFranciscoDisplayBold";
+	margin-bottom: 20px;
+}
+.related-news h4{
+	font-family: "SanFranciscoDisplayBold";
+	font-size: 18px;
+	color: #00C0EB;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #00C0EB;
+}
+.titel-news-detail{
+	margin-bottom: 20px;
+}
+.titel-news-detail p{
+	font-size: 22px;
+	font-family: "SanText";
+}
+.titel-news-detail p span{
+	font-family: "SanFranciscoDisplayBold";
+	color: #858488;
+}
+.intro-news-detail p{
+	margin-bottom: 20px;
+	font-family: "SanText";
+	color: #4F4F4F;
+}
+.intro-news-detail img{
+	margin-bottom: 20px;
+}
+
+.related-news p{
+	color: #0A3581;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.titel-news-detail img{
+	margin-bottom: 20px;
+}
+.intro-news-detail{
+	margin-bottom: 30px;
+}
+.intro-news-small img{
+	height: 141px;
+}
+.banner-news .col-8 .link-news{
+	position: relative;
+}
+.banner-news .col-8 .info-news-small{
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+	text-align: center;
+}
+.banner-news{
+	margin-bottom: 40px;
+}
+.banner-news .intro-news-small .link-news{
+	display: block;
+	position: relative;
+    height: 193px;
+}
+.banner-news .title-news{
+	padding: 20px;
+	color: #fff;
+	background: linear-gradient(0, rgba(0,0,0,0.6), rgba(255,255,255,0));;
+}
+.banner-news .intro-news-small img{
+	height: 100%;
+}
+.banner-news .intro-news-small .link-news .info-news-small{
+	position: absolute;
+	bottom: 0px;
+}
+.post-now a {
+	color: #0A3581;
+	font-weight: bold;
+}
+.color-post a{
+	color: #4F4F4F;
+	font-weight: bold;
+}
+.breadcrumb-news-detail .breadcrumb{
+	padding-bottom: 10px;
+	border-bottom: 3px solid #00C0EB;
+}
+.setting-grid-contact{
+	display: grid;
+	grid-template-columns:2fr 1fr;
+	gap: 50px;
+}
+.mg-bt-24{
+	margin-bottom: 24px;
+}
+.setting-page-contact .contact-me p{
+	margin-bottom: 20px;
+}
+
+.image-page-contact{
+	height: 500px;
+}
+.image-page-contact img{
+	height: 100%;
+	object-fit: cover;
+	border-radius: 20px;
+}
+.breadcrumb-news-detail{
+	margin-bottom: 30px;
+}
+.breadcrumb-news-detail .breadcrumb-item a{
+	font-size: 18px;
+}
+.breadcrumb-item + .breadcrumb-item::before{
+	color: #1363A7;
+}
+.info-contact-right{
+	padding: 30px;
+	border-radius: 30px;
+
+	background-image: url(../image/375987963_280584834735105_8306556939059781547_n.jpg);
+}
+.icon-address-contact svg{
+	width: 25px;
+	color: #00c0eb;
+}
+.text-page-contact p{
+	margin-top: 10px;
+	font-family: "SanText";
+	color: #4F4F4F;
+	font-weight: bold;
+}
+.text-page-contact span{
+	font-weight: normal;
+}
+.info-contact-right h3{
+	font-size: 50px;
+	color: #fff;
+	font-family: "SanFranciscoDisplayBold" ;
+	margin-bottom: 40px;
+}
+.info-contact-right .btn-primary{
+	background-color: #00c0eb;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.setting-page-contact .title-main-home{
+	grid-template-columns: auto 65%;
+}
+.contact-me .title-main-home{
+	grid-template-columns: auto 50%;
+}
+.google-map iframe{
+	width: 100%;
+}
+.setting-page-contact .google-map{
+	margin-bottom: 50px;
+}
+.title-main-home h3{
+	font-size:30px;
+	font-family: "SanFranciscoDisplayBold" ;
+	line-height: 1;
+	color: #133C85;
+}
+
+.item-list-contact{
+	display: flex;
+	gap: 30px;
+	margin: 24px 0px;
+	padding-bottom: 15px;
+	border-bottom: 2px solid #00C0EB;
+}
+
+/* Css News-Product */
+.list-product-item a{
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	border-radius: 20px;
+	transition: all 0.3s;
+
+}
+.list-product-item a:hover{
+	box-shadow: 4px 7px 17px #888888;
+}
+.list-product-item .intro-product-item h4{
+	font-size: 30px;
+	font-family: "SanFranciscoDisplayBold" ;
+	color: #133C85;
+	display: -webkit-box;
+    max-height: 73px;
+    margin: 0 auto;
+    line-height: 1.2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	margin-bottom: 20px;
+}
+.list-product-item .intro-product-item p{
+	font-family: "SanText";
+	color: #4F4F4F;
+	display: -webkit-box;
+    max-height: 40px;
+    margin: 0 auto;
+    line-height: 1.2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	margin-bottom: 20px;
+}
+.setting-news-product{
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 40px;
+}
+.navigation-news-product{
+	margin-top: 20px;
+	gap: 10px;
+}
+.navigation-news-product .page-link{
+	border-radius: 30px;
+	font-weight: bold;
+	color: #4F4F4F;
+}
+.navigation-news-product .page-link:hover{
+	background-color: #0A3581;
+	color: #fff;
+}
+.page-link-btn{
+	border: none;
+}
+.navigation-news-product .page-link svg{
+	width: 20px;
+}
+.justify-center{
+	justify-content: center;
+}
+.list-product-item .intro-product-item .btn-news{
+	color: #00c0eb;
+	margin-bottom: 0;
+}
+.list-product-item .intro-product-item{
+	padding: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border:1px solid rgba(51, 51, 51, 0.2)
+}
+.list-product-item .imgage-product-item{
+	height: 241px;
+}
+.list-product-item .imgage-product-item img{
+	height: 100%;
+	object-fit: cover;
+	border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+#main-body-text	.title-main-home h3{
+	color: #fff;
+}
+#main-body-text .title-main-home{
+	grid-template-columns: auto 60%;
+}
+#main-body-text #tax-accounting .col-6{
+	margin-bottom: 20px;
+}
+
+/* Reponsive */
+@media (max-width:1400px){
+	.setting-page-contact .title-main-home {
+		grid-template-columns: auto 52%;
+	}
+	.contact-me .title-main-home {
+		grid-template-columns: auto 43%;
+	}
+}
+
+@media (max-width:1199px){
+	.backgroud-intro-my-service{
+		padding: 0px;
+	}
+	.backgroud-intro-my-service .setting-icon{
+		display: none;
+	}
+	.title-my-service h3{
+		font-size: 25px;
+	}
+	.text-contact p{
+		flex-direction: column;
+	}
+	.info-news-small .title-news{
+		font-size: 16px;
+	}
+	.nav-header-item a{
+		font-size: 16px;
+	}
+	.icon-text-nav-logo{
+		gap: 5px;
+	}
+	.nav-header-item {
+		padding: 6px 14px;
+	}
+	.list-product-item .intro-product-item h4{
+		font-size: 25px;
+	}
+	.list-product-item .imgage-product-item{
+
+	}
+}
+@media (max-width:1024px){
+	.intro-cong-ty h4 {
+		margin-bottom: 14px;
+	}
+	.intro-cong-ty p {
+		margin-bottom: 14px;
+	}
+	.dich-vu-footer h4{
+		margin-bottom: 14px;
+	}
+}
+@media (max-width:1023px){
+
+}
+
+
+@media(max-width:991px){
+	#nav-bar-logo .logo-header{
+		width: 30%;
+	}
+	.setting-grid-contact{
+		grid-template-columns: 1fr;
+	}
+	#nav-bar-logo .nav-logo-header{
+		width: 70%;
+	}
+	.nav-header-mobile{
+		display: block;
+		}
+		.nav-header{
+			display:none;
+		}
+
+		.intro-my-service .backgroud-intro-my-service{
+			width: 50%;
+			height: 330px;
+			padding: 20px;
+		}
+		.tab-intro-left .col-6{
+			width: 100%;
+		}
+		#main-body-text .tab-intro-left{
+			width: 65%;
+		}
+		#main-body-text .tab-intro-right{
+			width: 35%;
+		}
+		#main-body-text .title-main-home{
+			grid-template-columns: auto 40%;
+		}
+		#main-body-text .title-main-home h3{
+			font-size: 22px;
+		}
+		.search-mobile{
+			display: flex !important;
+			margin-bottom: 40px;
+		}
+		.search-desktop{
+			display: none !important;
+		}
+		.setting-news-detail .col-9{
+			width: 100%;
+		}
+		.setting-news-detail .col-3{
+			width: 100%;
+		} 
+		.banner-news .swiper-slide #tax-accounting .col-8,		.banner-news .swiper-slide #tax-accounting .col-4{
+			width: 100%;
+		}
+		.setting-news-product .col-9, .setting-news-product .col-3{
+			width: 100%;
+		}
+		.setting-news-product .col-9{
+			margin-bottom: 40px;
+		}
+}
+
+@media (max-width:767px){
+	#main-body-text .tab-intro-left, #main-body-text .tab-intro-right{
+		width: 100%;
+	}
+	.logo-header img{
+		object-fit: cover;
+	}
+	.title-my-service .border-bottom {
+		width: 70px;
+	}
+	.icon-why-my-service .col-3{
+		width: 100%;
+	}
+	.icon-why-my-service .row{
+		flex-direction: column;
+		gap: 30px;
+	}
+	.intro-my-service .backgroud-intro-my-service{
+		height: 270px;
+	}
+	.setting-footer .col-4{
+		width: 100%;
+	}
+	.setting-footer{
+		gap: 30px;
+	}
+	#banner-dang-ki .col-5 , #banner-dang-ki .col-7{
+		width: 100%;
+	}
+	.title-my-service h3{
+		text-align: center;
+	}
+	#banner-dang-ki .col-7{
+		margin-bottom: 20px;
+	}
+	#nav-bar-logo .nav-logo-header{
+		width: 60%;
+	}
+	#nav-bar-logo .logo-header {
+		width: 40%;
+	}
+	.title-main-home h3{
+		font-size: 25px;
+	}
+	.list-product-item .intro-product-item h4 {
+		font-size: 20px;
+	}
+	.list-product-item .intro-product-item p{
+		font-size: 14px;
+	}
+	.list-product-item .imgage-product-item{
+		height: 184px;
+	}
+	.list-product-item a{
+		grid-template-columns: 1fr 2fr;
+	}
+}
+@media (max-width:538px){
+.intro-my-service .backgroud-intro-my-service{
+/* background-image: none;
+height: auto; */
+}
+.backgroud-intro-my-service:nth-child(odd) .text-my-service{
+	padding: 40px 20px 50px 20px;
+}
+.backgroud-intro-my-service:nth-child(even) .text-my-service{
+	padding: 40px 20px 50px 20px;
+}
+.backgroud-intro-my-service{
+	background-position: top;
+    background-size: contain;
+}
+.text-my-service .title-text-my-service{
+	font-size: 16px;
+}
+.description-my-service{
+	font-size: 13px;
+}
+.title-main-home h3{
+	font-size: 20px;
+}
+.info-contact-right h3{
+	font-size: 35px;
+	text-align: center;
+}
+.list-product-item .intro-product-item h4{
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+.list-product-item .intro-product-item p {
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+}
+@media (max-width:425px){
+	.title-why-my{
+		font-size: 16px;
+		margin-bottom: 7px;
+
+	}
+	.icon-why-my-service .row {
+		gap: 15px;
+	}
+	.img-why-my svg{
+		width: 70px;
+	}
+	.img-why-my {
+		margin-bottom: 5px;
+	}
+	.intro-my-service .backgroud-intro-my-service{
+		background-image: none;		
+
+		}
+		.backgroud-intro-my-service .text-my-service{
+			box-shadow: 0px 0px 5px 5px #999999;
+		}
+		.intro-my-service .backgroud-intro-my-service{
+			height: auto;
+		}
+
+		.setting-page-contact .title-main-home {
+			grid-template-columns: auto 40%;
+		}
+		.contact-me .title-main-home {
+			grid-template-columns: auto 30%;
+		}
+		.google-map iframe{
+			height: 300px;
+		}
+		.list-product-item .imgage-product-item{
+			height: 137px;
+		}
+		.list-product-item .intro-product-item {
+			padding: 10px;
+		}
+
+
+
+}

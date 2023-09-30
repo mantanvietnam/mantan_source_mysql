@@ -49,14 +49,13 @@
                     </div>
                 </div>
             </div>
-
             <div class="news-detail-content">
                 <div class="news-img" style="background-image: url(<?php echo $post->image; ?>);">
                     <div class="news-introduction">
                         <div class="container">
                             <div class="news-introduction-inner">
                                 <div class="news-detail-date">
-                                    <span><?php echo date('d/m/Y', $post->time);?></span>
+                                    <span><?php echo date('d F Y', $post->time);?></span>
                                 </div>
 
                                 <div class="news-details-title">
@@ -84,6 +83,10 @@
 
                         <div class="news-detail-border">
                             <p>The content of this publication falls under the sole responsibility of the AFD and does not necessarily reflect the opinions of the European Union.</p>
+                        </div>
+
+                        <div class="news-view">
+                            <p> <i class="fa-solid fa-eye"></i> <?php echo $post->view;?> views</p>
                         </div>
                     </div>
                 </div>

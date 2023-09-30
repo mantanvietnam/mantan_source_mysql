@@ -30,6 +30,10 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
+em{
+	font-style: italic;
+}
+
 a{
 	text-decoration: none;
 }
