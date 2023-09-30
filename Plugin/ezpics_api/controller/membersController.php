@@ -44,7 +44,7 @@ function saveRegisterMemberAPI($input)
 						if(!empty($affsource)){
 							$data->affsource = $affsource->id;
 
-							if($affsource->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+							if(!empty($affsource->deadline_pro) && $affsource->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
 								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime($affsource->deadline_pro . ' + 7   days'));
 							}else{
 								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
