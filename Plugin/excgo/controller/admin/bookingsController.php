@@ -128,66 +128,7 @@ function viewBookingDetailAdmin($input)
         ->toList();
 
     if (!empty($_GET['id'])) {
-        $data = $bookingModel->find()
-            ->join([
-                [
-                    'table' => 'users',
-                    'alias' => 'PostedUsers',
-                    'type' => 'LEFT',
-                    'conditions' => [
-                        'Bookings.posted_by = PostedUsers.id',
-                    ],
-                ],
-                [
-                    'table' => 'users',
-                    'alias' => 'ReceivedUsers',
-                    'type' => 'LEFT',
-                    'conditions' => [
-                        'Bookings.received_by = ReceivedUsers.id',
-                    ],
-                ],
-                [
-                    'table' => 'provinces',
-                    'alias' => 'DepartureProvinces',
-                    'type' => 'LEFT',
-                    'conditions' => [
-                        'Bookings.departure_province_id = DepartureProvinces.id',
-                    ],
-                ],
-                [
-                    'table' => 'provinces',
-                    'alias' => 'DestinationProvinces',
-                    'type' => 'LEFT',
-                    'conditions' => [
-                        'Bookings.destination_province_id = DestinationProvinces.id',
-                    ],
-                ]
-            ])->select([
-                'Bookings.id',
-                'Bookings.name',
-                'Bookings.status',
-                'Bookings.start_time',
-                'Bookings.finish_time',
-                'Bookings.departure',
-                'Bookings.destination',
-                'Bookings.description',
-                'Bookings.introduce_fee',
-                'Bookings.price',
-                'Bookings.created_at',
-                'Bookings.updated_at',
-                'Bookings.received_at',
-                'Bookings.canceled_at',
-                'PostedUsers.id',
-                'PostedUsers.name',
-                'ReceivedUsers.id',
-                'ReceivedUsers.name',
-                'DepartureProvinces.id',
-                'DepartureProvinces.name',
-                'DestinationProvinces.id',
-                'DestinationProvinces.name',
-            ])->where([
-                'Bookings.id' => $_GET['id']
-            ])->first();
+        $data = getDetailBooking($_GET['id']);
     } else {
         $data = $bookingModel->newEmptyEntity();
     }

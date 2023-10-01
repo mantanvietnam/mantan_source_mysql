@@ -22,6 +22,12 @@ function listOrderZoomAdmin($input)
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
     }
+
+    if(!empty($_GET['phone'])){
+        $infoManagerSearch = $modelManagers->find()->where(['phone'=>$_GET['phone']])->first();
+
+        $conditions['idManager'] = (int) @$infoManagerSearch->id;
+    }
     
     $listData = $modelOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     if(!empty($listData)){
