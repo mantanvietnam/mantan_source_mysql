@@ -1,36 +1,74 @@
-<footer>
-        <div class="container">
-            <div class="row setting-footer">
-                <div class="col-4">
-                    <a href="">
-                        <img class="logo-footer" src="../asset/image/logo.png">
-                    </a>
+<?php global $settingThemes; ?>
 
-                    <div class="icon-footer">
-                        <a href=""><i class="fa-brands fa-facebook"></i></a></span>
-                        <a href=""><i class="fa-brands fa-twitter"></i></a>
-                        <a href=""><i class="fa-brands fa-youtube"></i></a>
-                        <a href=""><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="col-4 intro-cong-ty">
-                    <h4>CT TNHH ACCOUNTING</h4>
-                    <p><span>VP2: </span>Phòng 6.1-1, Tầng 6, Tòa nhà Comatce, 61, Ngụy Như Kon Tum, Thanh
-                        Xuân, Hà Nộ</p>
-                    <p><span>Tel: </span>0936119526</p>
-                    <p><span>Email: </span>prohoadon1113@gmail.com</p>
-                </div>
-                <div class="col-4 dich-vu-footer">
-                    <h4>Dịch vụ cung cấp</h4>
-                    <p><a href="">Dịch vụ thiết kế trọn gói</a></p>
-                    <p><a href="">Dịch vụ quyết toán thuế</a></p>
-                    <p><a href="">Dịch vụ báo cáo tài chính</a></p>
-                    <p><a href="">Dịch vụ khai thuế hàng tháng</a></p>
-                    <p><a href="">Dịch vụ đào tạo kế toán</a></p>
+<footer>
+    <div class="container">
+        <div class="row setting-footer">
+            <div class="col-4">
+                <a href="">
+                    <img class="logo-footer" src="<?php echo $infoSite['logo'];?>">
+                </a>
+
+                <div class="icon-footer">
+                    <?php 
+                        if(!empty($settingThemes['youtube'])){
+                            echo '  <a target=”_blank” href="'.$settingThemes['youtube'].'">
+                                        <i class="fa-brands fa-youtube"></i>
+                                    </a>';
+                        }
+
+                        if(!empty($settingThemes['facebook'])){
+                            echo '  <a href="'.$settingThemes['facebook'].'">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>';
+                        }
+
+                        if(!empty($settingThemes['instagram'])){
+                            echo '  <a href="'.$settingThemes['instagram'].'">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>';
+                        }
+
+                        if(!empty($settingThemes['tiktok'])){
+                            echo '  <a href="'.$settingThemes['tiktok'].'">
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </a>';
+                        }
+
+                        if(!empty($settingThemes['twitter'])){
+                            echo '  <a href="'.$settingThemes['twitter'].'">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </a>';
+                        }
+
+                        if(!empty($settingThemes['linkedIn'])){
+                            echo '  <a href="'.$settingThemes['linkedIn'].'">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>';
+                        }
+                    ?>
                 </div>
             </div>
-            <p style="text-align: center; color:#858488 ; font-family: SanText; ">@ 2021 - Bản quyền của Công ty TNHH Công Nghệ A Plus. Giấy chứng nhận Đăng ký doanh nghiệp số: 0109675459, cấp bởi Sở kế hoạch và đầu tư TP. Hà Nội</p>
+            <div class="col-4 intro-cong-ty">
+                <h4><?php echo @$settingThemes['title1_footer']; ?></h4>
+                <p><span>Địa chỉ: </span><?php echo $contactSite['address']?></p>
+                <p><span>Tel: </span><?php echo $contactSite['phone']?></p>
+                <p><span>Email: </span><?php echo $contactSite['email']?></p>
+            </div>
+            <div class="col-4 dich-vu-footer">
+                <h4><?php echo @$settingThemes['title2_footer']; ?></h4>
+                <?php 
+                    if(!empty($settingThemes['menu_footer'])){
+                        foreach ($settingThemes['menu_footer'] as $key => $value) {
+                            echo 
+                            '<p><a href="'.$value->link.'">'.$value->name.'</a></p>';
+                             
+                        }
+                    }
+                ?>
+            </div>
         </div>
-    </footer>
+        <p style="text-align: center; color:#858488 ; font-family: SanText; "><?php echo @$settingThemes['copyright_footer']; ?></p>
+    </div>
+</footer>
 </body>
 </html>

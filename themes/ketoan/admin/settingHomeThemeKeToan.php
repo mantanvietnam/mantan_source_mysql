@@ -199,11 +199,6 @@
                   <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
                   <input type="text" class="form-control" name="title1_footer" value="<?php echo @$setting['title1_footer'];?>" />
                 </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Nội dung mục 1</label>
-                  <textarea class="form-control" rows="3" name="content1_footer"><?php echo @$setting['content1_footer'];?></textarea>
-                </div>
               </div>
 
               <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -213,8 +208,15 @@
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">ID menu liên kết mục 2</label>
-                  <input type="text" class="form-control" name="idMenu2_footer" value="<?php echo @$setting['idMenu2_footer'];?>" />
+                  <label class="form-label" for="basic-default-fullname">ID menu</label>
+                  <input type="text" class="form-control" name="idMenu_footer" value="<?php echo @$setting['idMenu_footer'];?>" />
+                </div>
+              </div>
+
+              <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Copyright</label>
+                  <input type="text" class="form-control" name="copyright_footer" value="<?php echo @$setting['copyright_footer'];?>" />
                 </div>
               </div>
                 
