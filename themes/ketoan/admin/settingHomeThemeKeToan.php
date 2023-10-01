@@ -6,21 +6,6 @@
     <p><?php echo @$mess;?></p>
     <?= $this->Form->create(); ?>
       <div class="row">
-        <!-- Khối banner -->
-        <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối banner</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">ID album slide</label>
-                  <input type="text" class="form-control" name="id_slide" value="<?php echo @$setting['id_slide'];?>" />
-                </div>
-                <button type="submit" class="btn btn-primary">Lưu</button>
-            </div>
-          </div>
-        </div>
 
         <!-- Tài khoản mạng xã hội -->
         <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -78,313 +63,63 @@
           </div>
         </div>
 
-        <!-- Khối lý do chọn -->
+        <!-- Khối mục 1 -->
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối lý do chọn</h5>
+              <h5 class="mb-0">Khối mục 1</h5>
             </div>
             <div class="card-body row">
                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
-                    <input type="text" class="form-control" name="title_why_choose" value="<?php echo @$setting['title_why_choose'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 1</label>
-                    <?php showUploadFile('image1_why_choose','image1_why_choose', @$setting['image1_why_choose'],1);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
-                    <input type="text" class="form-control" name="title1_why_choose" value="<?php echo @$setting['title1_why_choose'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1</label>
-                    <input type="text" class="form-control" name="content1_why_choose" value="<?php echo @$setting['content1_why_choose'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 2</label>
-                    <?php showUploadFile('image2_why_choose','image2_why_choose', @$setting['image2_why_choose'],2);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2</label>
-                    <input type="text" class="form-control" name="title2_why_choose" value="<?php echo @$setting['title2_why_choose'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2</label>
-                    <input type="text" class="form-control" name="content2_why_choose" value="<?php echo @$setting['content2_why_choose'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 3</label>
-                    <?php showUploadFile('image3_why_choose','image3_why_choose', @$setting['image3_why_choose'],3);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 3</label>
-                    <input type="text" class="form-control" name="title3_why_choose" value="<?php echo @$setting['title3_why_choose'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 3</label>
-                    <input type="text" class="form-control" name="content3_why_choose" value="<?php echo @$setting['content3_why_choose'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 4</label>
-                    <?php showUploadFile('image4_why_choose','image4_why_choose', @$setting['image4_why_choose'],4);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 4</label>
-                    <input type="text" class="form-control" name="title4_why_choose" value="<?php echo @$setting['title4_why_choose'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 4</label>
-                    <input type="text" class="form-control" name="content4_why_choose" value="<?php echo @$setting['content4_why_choose'];?>" />
-                  </div>
-                </div>
-                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <button type="submit" class="btn btn-primary">Lưu</button>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Khối sản phẩm tiêu biểu -->
-        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối sản phẩm tiêu biểu</h5>
-            </div>
-            <div class="card-body row">
-                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
-                    <input type="text" class="form-control" name="title_product_best" value="<?php echo @$setting['title_product_best'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Khối mục 1</label>
+                    <input type="text" class="form-control" name="title_section1" value="<?php echo @$setting['title_section1'];?>" />
                   </div>
                 </div>
 
                 <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh sản phẩm tiêu biểu</label>
-                    <?php showUploadFile('image_product_best','image_product_best', @$setting['image_product_best'],13);?>
-                  </div>
-                </div>
 
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 1</b></label>
-                    <?php showUploadFile('image1_product_best','image1_product_best', @$setting['image1_product_best'],5);?>
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1-1</label>
+                    <input type="text" class="form-control" name="content_title_section1_1" value="<?php echo @$setting['content_title_section1_1'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
-                    <input type="text" class="form-control" name="title1_product_best" value="<?php echo @$setting['title1_product_best'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1-2</label>
+                    <input type="text" class="form-control" name="content_title_section1_2" value="<?php echo @$setting['content_title_section1_2'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1</label>
-                    <input type="text" class="form-control" name="content1_product_best" value="<?php echo @$setting['content1_product_best'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 2</b></label>
-                    <?php showUploadFile('image2_product_best','image2_product_best', @$setting['image2_product_best'],6);?>
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1-3</label>
+                    <input type="text" class="form-control" name="content_title_section1_3" value="<?php echo @$setting['content_title_section1_3'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2</label>
-                    <input type="text" class="form-control" name="title2_product_best" value="<?php echo @$setting['title2_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2</label>
-                    <input type="text" class="form-control" name="content2_product_best" value="<?php echo @$setting['content2_product_best'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 3</b></label>
-                    <?php showUploadFile('image3_product_best','image3_product_best', @$setting['image3_product_best'],7);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 3</label>
-                    <input type="text" class="form-control" name="title3_product_best" value="<?php echo @$setting['title3_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 3</label>
-                    <input type="text" class="form-control" name="content3_product_best" value="<?php echo @$setting['content3_product_best'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 4</b></label>
-                    <?php showUploadFile('image4_product_best','image4_product_best', @$setting['image4_product_best'],8);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 4</label>
-                    <input type="text" class="form-control" name="title4_product_best" value="<?php echo @$setting['title4_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 4</label>
-                    <input type="text" class="form-control" name="content4_product_best" value="<?php echo @$setting['content4_product_best'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 5</b></label>
-                    <?php showUploadFile('image5_product_best','image5_product_best', @$setting['image5_product_best'],9);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 5</label>
-                    <input type="text" class="form-control" name="title5_product_best" value="<?php echo @$setting['title5_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 5</label>
-                    <input type="text" class="form-control" name="content5_product_best" value="<?php echo @$setting['content5_product_best'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 6</b></label>
-                    <?php showUploadFile('image6_product_best','image6_product_best', @$setting['image6_product_best'],10);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 6</label>
-                    <input type="text" class="form-control" name="title6_product_best" value="<?php echo @$setting['title6_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 6</label>
-                    <input type="text" class="form-control" name="content6_product_best" value="<?php echo @$setting['content6_product_best'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 7</b></label>
-                    <?php showUploadFile('image7_product_best','image7_product_best', @$setting['image7_product_best'],11);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 7</label>
-                    <input type="text" class="form-control" name="title7_product_best" value="<?php echo @$setting['title7_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 7</label>
-                    <input type="text" class="form-control" name="content7_product_best" value="<?php echo @$setting['content7_product_best'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname"><b>Ảnh mục 8</b></label>
-                    <?php showUploadFile('image8_product_best','image8_product_best', @$setting['image8_product_best'],12);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 8</label>
-                    <input type="text" class="form-control" name="title8_product_best" value="<?php echo @$setting['title8_product_best'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 8</label>
-                    <input type="text" class="form-control" name="content8_product_best" value="<?php echo @$setting['content8_product_best'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <button type="submit" class="btn btn-primary">Lưu</button>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Khối tin khuyến mại -->
-        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối tin khuyến mại</h5>
-            </div>
-            <div class="card-body row">
-                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
-                    <input type="text" class="form-control" name="title_news_hot" value="<?php echo @$setting['title_news_hot'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1-4</label>
+                    <input type="text" class="form-control" name="content_title_section1_4" value="<?php echo @$setting['content_title_section1_4'];?>" />
                   </div>
                 </div>
 
                 <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 1</label>
-                    <?php showUploadFile('image1_news_hot','image1_news_hot', @$setting['image1_news_hot'],14);?>
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1-1</label>
+                    <input type="text" class="form-control" name="content_detail_section1_1" value="<?php echo @$setting['content_detail_section1_1'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
-                    <input type="text" class="form-control" name="title1_news_hot" value="<?php echo @$setting['title1_news_hot'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1-2</label>
+                    <input type="text" class="form-control" name="content_detail_section1_2" value="<?php echo @$setting['content_detail_section1_2'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1</label>
-                    <input type="text" class="form-control" name="content1_news_hot" value="<?php echo @$setting['content1_news_hot'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1-3</label>
+                    <input type="text" class="form-control" name="content_detail_section1_3" value="<?php echo @$setting['content_detail_section1_3'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Link liên kết mục 1</label>
-                    <input type="text" class="form-control" name="link1_news_hot" value="<?php echo @$setting['link1_news_hot'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 2</label>
-                    <?php showUploadFile('image2_news_hot','image2_news_hot', @$setting['image2_news_hot'],15);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2</label>
-                    <input type="text" class="form-control" name="title2_news_hot" value="<?php echo @$setting['title2_news_hot'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2</label>
-                    <input type="text" class="form-control" name="content2_news_hot" value="<?php echo @$setting['content2_news_hot'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Link liên kết mục 2</label>
-                    <input type="text" class="form-control" name="link2_news_hot" value="<?php echo @$setting['link2_news_hot'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1-4</label>
+                    <input type="text" class="form-control" name="content_detail_section1_4" value="<?php echo @$setting['content_detail_section1_4'];?>" />
                   </div>
                 </div>
                 
@@ -395,92 +130,53 @@
           </div>
         </div>
 
-        <!-- Khối tiêu chí làm việc -->
+        <!-- Khối mục 1 -->
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối tiêu chí làm việc</h5>
+              <h5 class="mb-0">Khối mục 2</h5>
             </div>
             <div class="card-body row">
-                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề khối</label>
-                    <input type="text" class="form-control" name="title_working" value="<?php echo @$setting['title_working'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Khối mục 2</label>
+                    <input type="text" class="form-control" name="title_section2" value="<?php echo @$setting['title_section2'];?>" />
                   </div>
                 </div>
 
                 <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh minh họa khối</label>
-                    <?php showUploadFile('image_working','image_working', @$setting['image_working'],16);?>
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2-1</label>
+                    <input type="text" class="form-control" name="content_title_section2_1" value="<?php echo @$setting['content_title_section2_1'];?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2-2</label>
+                    <input type="text" class="form-control" name="content_title_section2_2" value="<?php echo @$setting['content_title_section2_2'];?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2-3</label>
+                    <input type="text" class="form-control" name="content_title_section2_3" value="<?php echo @$setting['content_title_section2_3'];?>" />
                   </div>
                 </div>
 
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 1</label>
-                    <?php showUploadFile('image1_working','image1_working', @$setting['image1_working'],17);?>
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2-1</label>
+                    <input type="text" class="form-control" name="content_detail_section2_1" value="<?php echo @$setting['content_detail_section2_1'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
-                    <input type="text" class="form-control" name="title1_working" value="<?php echo @$setting['title1_working'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2-2</label>
+                    <input type="text" class="form-control" name="content_detail_section2_2" value="<?php echo @$setting['content_detail_section2_2'];?>" />
                   </div>
 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 1</label>
-                    <input type="text" class="form-control" name="content1_working" value="<?php echo @$setting['content1_working'];?>" />
-                  </div>
-                </div>
-                
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 2</label>
-                    <?php showUploadFile('image2_working','image2_working', @$setting['image2_working'],18);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 2</label>
-                    <input type="text" class="form-control" name="title2_working" value="<?php echo @$setting['title2_working'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2</label>
-                    <input type="text" class="form-control" name="content2_working" value="<?php echo @$setting['content2_working'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 3</label>
-                    <?php showUploadFile('image3_working','image3_working', @$setting['image3_working'],19);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 3</label>
-                    <input type="text" class="form-control" name="title3_working" value="<?php echo @$setting['title3_working'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 3</label>
-                    <input type="text" class="form-control" name="content3_working" value="<?php echo @$setting['content3_working'];?>" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ảnh mục 4</label>
-                    <?php showUploadFile('image4_working','image4_working', @$setting['image4_working'],20);?>
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Tiêu đề mục 4</label>
-                    <input type="text" class="form-control" name="title4_working" value="<?php echo @$setting['title4_working'];?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nội dung mục 4</label>
-                    <input type="text" class="form-control" name="content4_working" value="<?php echo @$setting['content4_working'];?>" />
+                    <label class="form-label" for="basic-default-fullname">Nội dung mục 2-3</label>
+                    <input type="text" class="form-control" name="content_detail_section2_3" value="<?php echo @$setting['content_detail_section2_3'];?>" />
                   </div>
                 </div>
                 

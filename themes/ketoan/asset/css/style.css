@@ -1127,3 +1127,30 @@ height: auto; */
 
 
 }
+
+/* Bổ sung */
+.nav-link-button{
+	border: none;
+	background-color: transparent;
+}
+
+.dropdown-menu{
+	transform: translate(23px, 54px) !important;
+}
+
+.dropdown-item{
+	font-size: 18px !important;
+}
+
+
+.page-item .page-link{
+	border-radius: 50% !important;
+}
+
+.arrow-page{
+	padding: 6px
+}
+
+.page-item.active .page-link{
+	background-color: #0A3581;
+}

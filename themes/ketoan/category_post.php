@@ -20,31 +20,30 @@
                                 foreach($listPosts as $key => $value){
                                     echo'
                                     <div class="list-product-item">
-                                        <a href="">
+                                        <a href="'.$value->slug.'.html">
                                             <div class="imgage-product-item">
-                                                <img src="./asset/image/375987963_280584834735105_8306556939059781547_n.jpg" alt="">
+                                                <img src="'.$value->image.'" alt="">
                                             </div>
                                             <div class="intro-product-item">
                                                 <h4>'.$value->title.'</h4>
-                                                <p class="desciption-intro-product">
-                                                    '.$value->desciption.'
-                                                </p>
-                                                <a href=" '.$value->slug.'.html" class="btn-news">Chi tiết 
-                                                    <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                                        </svg>
+
+                                                <p class="desciption-intro-product">'.$value->desciption.'</p>
+                                                    <p class="btn-news">Chi tiết <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                    </svg>
                                                     </span>
-                                                </a>
+                                                </p>
                                             </div>                                
                                         </a>
                                     </div>';
+
+                               
                                 }
                             }
                                
                         ?>
                     </div>
-                    <nav aria-label="Page navigation example">
+                    <!-- <nav aria-label="Page navigation example">
                         <ul class="pagination justify-center navigation-news-product">
                             <li class="page-item">
                             <a class="page-link page-link-btn" href="#" aria-label="Previous">
@@ -66,7 +65,51 @@
                             </a>
                             </li>
                         </ul>
-                        </nav>
+                    </nav> -->
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-center navigation-news-product">
+                            <?php
+                            if($totalPage>0){
+                                if ($page > 5) {
+                                    $startPage = $page - 5;
+                                } else {
+                                    $startPage = 1;
+                                }
+
+                                if ($totalPage > $page + 5) {
+                                    $endPage = $page + 5;
+                                } else {
+                                    $endPage = $totalPage;
+                                }
+                                
+                                echo '<li class="page-item">
+                                            <a class="page-link page-link-btn arrow-page" href="'.$urlPage.'1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                                </svg>
+                                            </a>
+                                        </li>';
+                                
+                                for ($i = $startPage; $i <= $endPage; $i++) {
+                                    $active= ($page==$i)?'active':'';
+
+                                    echo '<li class="page-item '.$active.'">
+                                            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                                            </li>';
+                                }
+
+                                echo '<li class="page-item">
+                                            <a class="page-link page-link-btn arrow-page" href="'.$urlPage.$totalPage.'"> 
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                </svg>
+                                            </a>
+                                        </li>';
+                            }
+                            ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

@@ -1,4 +1,8 @@
-<?php getHeader();?>
+<?php 
+    getHeader();
+    global $settingThemes;
+
+?>
 
 <article>
     <div class="container-fluid">
@@ -6,15 +10,20 @@
             <div class="carousel-inner">
                 <?php
                     if(!empty($slide_home)){
-                        foreach($slide_home as $key => $value)
-                        echo'
-                        <div class="carousel-item active">
-                            <img src="'.$value->image.'" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block container">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>';
+                        foreach($slide_home as $key => $value){
+                            $active ="";
+                            if($key = 0){
+                                $active = "active";
+                            }
+                            echo'
+                            <div class="carousel-item active">
+                                <img src="'.$value->image.'" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block container">
+                                    <h5>First slide label</h5>
+                                    <p>Some representative placeholder content for the first slide.</p>
+                                </div>
+                            </div>';
+                        }
                     }
                 ?>
           
@@ -44,7 +53,7 @@
                         <div class="setting-border">
                             <div class="border-bottom"></div>
                         </div>
-                        <h3>DỊCH VỤ CỦA CHÚNG TÔI</h3>
+                        <h3><?php echo @$settingThemes['title_section1'];?></h3>
                         <div class="setting-border">
                             <div class="border-bottom"></div>
                         </div>
@@ -57,14 +66,14 @@
                                     <img src="<?php echo $urlThemeActive;?>/asset/image/svg1.svg" alt="">
                                 </div>
                                     <div class="text-my-service">
-                                        <p class="title-text-my-service ">DỊCH VỤ KẾ TOÁN THUẾ TRỌN GÓI</p>
-                                        <P class="description-my-service">Hỗ trợ doanh nghiệp cân đối và tối ưu số thuế và chi phí phải nộp</P>
+                                        <p class="title-text-my-service "><?php echo $settingThemes['content_title_section1_1'];?></p>
+                                        <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_1'];?></P>
                                     </div>
                             </div>
                             <div class="col-3 backgroud-intro-my-service relative">
                                 <div class="text-my-service">
-                                    <p class="title-text-my-service">DỊCH VỤ KẾ TOÁN THUẾ TRỌN GÓI</p>
-                                    <P class="description-my-service">Hỗ trợ doanh nghiệp cân đối và tối ưu số thuế và chi phí phải nộp</P>
+                                    <p class="title-text-my-service"><?php echo @$settingThemes['content_title_section1_2'];?></p>
+                                    <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_2'];?></P>
                                 </div>
                                 <div class="setting-icon">
                                     <img src="<?php echo $urlThemeActive;?>/asset/image/svg1.svg" alt="">
@@ -75,8 +84,8 @@
                                     <img src="<?php echo $urlThemeActive;?>/asset/image/svg1.svg" alt="">
                                 </div>
                                     <div class="text-my-service">
-                                        <p class="title-text-my-service">DỊCH VỤ KẾ TOÁN THUẾ TRỌN GÓI</p>
-                                        <P class="description-my-service">Hỗ trợ doanh nghiệp cân đối và tối ưu số thuế và chi phí phải nộp</P>
+                                        <p class="title-text-my-service"><?php echo @$settingThemes['content_title_section1_3'];?></p>
+                                        <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_3'];?></P>
                                     </div>
                             </div>
                             <div class="col-3 backgroud-intro-my-service relative">
@@ -84,8 +93,8 @@
                                     <img src="<?php echo $urlThemeActive;?>/asset/image/svg1.svg" alt="">
                                 </div>
                                     <div class="text-my-service">
-                                        <p class="title-text-my-service">DỊCH VỤ KẾ TOÁN THUẾ TRỌN GÓI</p>
-                                        <P class="description-my-service">Hỗ trợ doanh nghiệp cân đối và tối ưu số thuế và chi phí phải nộp</P>
+                                        <p class="title-text-my-service"><?php echo @$settingThemes['content_title_section1_4'];?></p>
+                                        <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_4'];?></P>
                                     </div>
                             </div>
                         </div>
@@ -104,7 +113,7 @@
                             <div class="setting-border">
                                 <div class="border-bottom"></div>
                             </div>
-                            <h3>LÝ DO KHÁCH HÀNG CHỌN CHÚNG TÔI</h3>
+                            <h3><?php echo @$settingThemes['title_section2'];?></h3>
                             <div class="setting-border">
                                 <div class="border-bottom"></div>
                             </div>
@@ -162,8 +171,8 @@
                                             
                                             
                                     </div>
-                                    <p class="title-why-my font-san-bold">SÁNG TẠO VÀ TRÁCH NGHIỆM</p> 
-                                    <p class="description-why-my">Đây là slogan của Công Ty </p>
+                                    <p class="title-why-my font-san-bold"><?php echo @$settingThemes['content_title_section2_1'];?></p> 
+                                    <p class="description-why-my"><?php echo @$settingThemes['content_detail_section2_1'];?></p>
                                 </div>
                                 <div class="col-3 text-center">
                                     <div class="img-why-my">
@@ -210,8 +219,8 @@
                                             
                                             
                                     </div>
-                                    <p class="title-why-my font-san-bold">THỜI GIAN NHANH CHÓNG</p>
-                                    <p class="description-why-my">Thời gian giải quyết công việc của chúng tôi luôn nhanh nhất có thể để khách hàng hài lòng</p>
+                                    <p class="title-why-my font-san-bold"><?php echo @$settingThemes['content_title_section2_2'];?></p> 
+                                    <p class="description-why-my"><?php echo @$settingThemes['content_detail_section2_2'];?></p>
                                 </div>
                                 <div class="col-3 text-center">
                                     <div class="img-why-my">
@@ -255,8 +264,8 @@
 
                                             
                                     </div>
-                                    <p class="title-why-my font-san-bold">THỜI GIAN NHANH CHÓNG</p>
-                                    <p class="description-why-my">Thời gian giải quyết công việc của chúng tôi luôn nhanh nhất có thể để khách hàng hài lòng</p>
+                                    <p class="title-why-my font-san-bold"><?php echo @$settingThemes['content_title_section2_3'];?></p> 
+                                    <p class="description-why-my"><?php echo @$settingThemes['content_detail_section2_3'];?></p>
                                 </div>
                             </div>
                             <button class="button-why-my    "><a class="font-san-bold" href="">Nhận tư vấn miễn phí <span>

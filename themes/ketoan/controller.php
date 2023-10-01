@@ -8,7 +8,7 @@ function settingHomeThemeKeToan($input)
     $metaTitleMantan = 'Cài đặt giao diện trang chủ';
     $mess= '';
 
-    $conditions = array('key_word' => 'settingHomeThemeThanhgia');
+    $conditions = array('key_word' => 'settingHomeThemeKeToan');
     $data = $modelOptions->find()->where($conditions)->first();
     if(empty($data)){
         $data = $modelOptions->newEmptyEntity();
@@ -18,9 +18,28 @@ function settingHomeThemeKeToan($input)
     	$dataSend = $input['request']->getData();
 
     	$value = array( 
+                   // Section 1
+                   'title_section1' => $dataSend['title_section1'], 
+                   'content_title_section1_1' => $dataSend['content_title_section1_1'], 
+                   'content_title_section1_2' => $dataSend['content_title_section1_2'], 
+                   'content_title_section1_3' => $dataSend['content_title_section1_3'], 
+                   'content_title_section1_4' => $dataSend['content_title_section1_4'], 
+                   'content_detail_section1_1' => $dataSend['content_detail_section1_1'], 
+                   'content_detail_section1_2' => $dataSend['content_detail_section1_2'], 
+                   'content_detail_section1_3' => $dataSend['content_detail_section1_3'], 
+                   'content_detail_section1_4' => $dataSend['content_detail_section1_4'], 
+
+                   // Section 2
+                   'title_section2' => $dataSend['title_section2'], 
+                   'content_title_section2_1' => $dataSend['content_title_section2_1'], 
+                   'content_title_section2_2' => $dataSend['content_title_section2_2'], 
+                   'content_title_section2_3' => $dataSend['content_title_section2_3'], 
+                   'content_detail_section2_1' => $dataSend['content_detail_section2_1'], 
+                   'content_detail_section2_2' => $dataSend['content_detail_section2_2'], 
+                   'content_detail_section2_3' => $dataSend['content_detail_section2_3'], 
                     );
 
-        $data->key_word = 'settingHomeThemeThanhgia';
+        $data->key_word = 'settingHomeThemeKeToan';
         $data->value = json_encode($value);
 
         $modelOptions->save($data);
@@ -67,7 +86,6 @@ function postTheme($input)
     $conditions = array('type' => 'post');
     $category_post = $modelCategories->find()->where($conditions)->all()->toList();
 
-    setVariable('new_product', $new_product);
     setVariable('category_post', $category_post);
 }
 
@@ -81,22 +99,19 @@ function categoryPostTheme($input)
     global $controller;
     global $modelCategories;
 
-    $modelProduct = $controller->loadModel('Products');
-
-    // // SẢN PHẨM MỚI
+    // SẢN PHẨM MỚI
     // $conditions = array();
     // $limit = 6;
     // $page = 1;
     // $order = array('id'=>'desc');
 
-    // $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    // $listPost = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
-    // DANH MỤC TIN TỨC
-    $conditions = array('type' => 'post');
-    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+    // // DANH MỤC TIN TỨC
+    // $conditions = array('type' => 'post');
+    // $category_post = $modelCategories->find()->where($conditions)->all()->toList();
 
-    setVariable('new_product', $new_product);
-    setVariable('category_post', $category_post);
+    // setVariable('category_post', $category_post);
 }
 
 function categoryAlbumTheme($input)

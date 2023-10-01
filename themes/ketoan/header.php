@@ -30,14 +30,13 @@
                 <div class="col-9 nav-logo-header">
                     <nav class="nav-header">
                         <ul class="list-header">
-                            <li class="nav-header-item">
+                            <!-- <li class="nav-header-item">
                                 <a href="" class="icon-text-nav-logo">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                             <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
                                             <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
                                           </svg>
-                                          
                                     </span>
                                     <p>Trang chủ</p>
                                 </a>
@@ -61,16 +60,51 @@
                                 <a href="">
                                     <p>Liên hệ</p>
                                 </a>
-                            </li>
+                            </li> -->
+                            <?php 
+                                $menu = getMenusDefault();
+                                if(!empty($menu)){
+                                    foreach($menu as $key => $value){
+                                        if(!empty($value->sub)){
+                                        echo
+                                        '<li class="nav-header-item btn-group dropdown">
+                                            <button class="nav-link nav-link-button">
+                                                <a class="" href="'.$value->link.'">
+                                                    '.$value->name.'
+                                                </a>
+                                            </button>
+                                            <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="visually-hidden">Toggle Dropdown</span>
+                                            </span>
+                                            <ul class="dropdown-menu">';
+                                                foreach($value->sub as $sub){
+                                                    echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                }; 
+                                        echo'
+                                            </ul>
+                                        </li>';
+                                        }
+                                        else{
+                                        echo'  
+                                        <li class="nav-header-item">
+                                            <a class="nav-link active" aria-current="page" href="'.$value->link.'">
+                                                <p>'.$value->name.'</p>
+                                            </a>
+                                        </li>';       
+                                        }
+                                    }
+                                }
+                            ?>
                         </ul>
                     </nav>
+
+                  
 
                     <div class="nav-header-mobile">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                               </svg>
-                              
                           </button>
                           
                           <!-- Modal -->
@@ -83,38 +117,40 @@
                                 </div> -->
                                 <div class="modal-body">
                                     <ul class="list-header">
-                                        <li class="nav-header-item">
-                                            <a href="" class="icon-text-nav-logo">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                                        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-                                                        <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-                                                      </svg>
-                                                      
-                                                </span>
-                                                <p>Trang chủ</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-header-item">
-                                            <a href="">
-                                                <p>Tin tức</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-header-item">
-                                            <a href="">
-                                                <p>Dịch vụ</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-header-item">
-                                            <a href="">
-                                                <p>Về chúng tôi</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-header-item">
-                                            <a href="">
-                                                <p>Liên hệ</p>
-                                            </a>
-                                        </li>
+                                    <?php 
+                                        $menu = getMenusDefault();
+                                        if(!empty($menu)){
+                                            foreach($menu as $key => $value){
+                                                if(!empty($value->sub)){
+                                                echo
+                                                '<li class="nav-header-item btn-group dropdown">
+                                                    <button class="nav-link nav-link-button">
+                                                        <a class="" href="'.$value->link.'">
+                                                            '.$value->name.'
+                                                        </a>
+                                                    </button>
+                                                    <span class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                                    </span>
+                                                    <ul class="dropdown-menu">';
+                                                        foreach($value->sub as $sub){
+                                                            echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                        }; 
+                                                echo'
+                                                    </ul>
+                                                </li>';
+                                                }
+                                                else{
+                                                echo'  
+                                                <li class="nav-header-item">
+                                                    <a class="nav-link active" aria-current="page" href="'.$value->link.'">
+                                                        <p>'.$value->name.'</p>
+                                                    </a>
+                                                </li>';       
+                                                }
+                                            }
+                                        }
+                                    ?>
                                     </ul>
                                 </div>
                               </div>
