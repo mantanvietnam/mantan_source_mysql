@@ -382,3 +382,295 @@ function checkFinishedBookingApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function getMyBookingListApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelBooking = $controller->loadModel('Bookings');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type == 0) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            $conditions = [];
+            $order = ['Bookings.created_at' => 'DESC'];
+            $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
+            $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
+
+            $query = $modelBooking->find()
+                ->join([
+                    [
+                        'table' => 'users',
+                        'alias' => 'PostedUsers',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Bookings.posted_by = PostedUsers.id',
+                        ],
+                    ],
+                    [
+                        'table' => 'users',
+                        'alias' => 'ReceivedUsers',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Bookings.received_by = ReceivedUsers.id',
+                        ],
+                    ],
+                    [
+                        'table' => 'provinces',
+                        'alias' => 'DepartureProvinces',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Bookings.departure_province_id = DepartureProvinces.id',
+                        ],
+                    ],
+                    [
+                        'table' => 'provinces',
+                        'alias' => 'DestinationProvinces',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Bookings.destination_province_id = DestinationProvinces.id',
+                        ],
+                    ]
+                ]);
+
+            // Filter by type: post or receive
+            if (!empty($dataSend['type']) && $dataSend['type'] === 'receive') {
+                $conditions['Bookings.received_by'] = $currentUser->id;
+            } else {
+                $conditions['Bookings.posted_by'] = $currentUser->id;
+            }
+
+            // Filter by date
+            if (!empty($dataSend['from_date']) || !empty($dataSend['to_date'])) {
+                if (!empty($dataSend['from_date'])) {
+                    $startTime = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
+                    $conditions[] = ['OR' => [
+                        ['Bookings.start_time >=' => $startTime->format('Y-m-d H:i:s')],
+                        ['Bookings.finish_time >=' => $startTime->format('Y-m-d H:i:s')],
+                    ]];
+                }
+
+                if (!empty($dataSend['to_date'])) {
+                    $finishTime = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
+                    $conditions[] = ['OR' => [
+                        ['Bookings.start_time <=' => $finishTime->format('Y-m-d H:i:s')],
+                        ['Bookings.finish_time <=' => $finishTime->format('Y-m-d H:i:s')],
+                    ]];
+                }
+            } else {
+                $date = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                $conditions[] = ['OR' => [
+                    ['Bookings.start_time >=' => $date->sub(new DateInterval('P30D'))->format('Y-m-d H:i:s')],
+                    ['Bookings.finish_time >=' => $date->sub(new DateInterval('P30D'))->format('Y-m-d H:i:s')],
+                ]];
+            }
+
+            if (!empty($dataSend['keyword'])) {
+                if ((int) $dataSend['keyword']) {
+                    $conditions[] = ['OR' => [
+                        'Bookings.id' => (int) $dataSend['keyword'],
+                        'Bookings.name LIKE' => '%' . $dataSend['keyword'] . '%',
+                    ]];
+                } else {
+                    $conditions['Bookings.name LIKE'] = '%' . $dataSend['keyword'] . '%';
+                }
+            }
+
+            $listData = $query->select([
+                    'Bookings.id',
+                    'Bookings.name',
+                    'Bookings.price',
+                    'Bookings.start_time',
+                    'Bookings.finish_time',
+                    'Bookings.status',
+                    'Bookings.created_at',
+                    'PostedUsers.id',
+                    'PostedUsers.name',
+                    'ReceivedUsers.id',
+                    'ReceivedUsers.name',
+                    'DepartureProvinces.name',
+                    'DestinationProvinces.name',
+                ])->limit($limit)
+                ->page($page)
+                ->where($conditions)
+                ->order($order)
+                ->all()
+                ->toList();
+            $totalBookings = $query->where($conditions)->count();
+            $paginationMeta = createPaginationMetaData($totalBookings, $limit, $page);
+
+            return apiResponse(0, 'Lấy danh sách cuốc xe thành công', $listData, $paginationMeta);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function viewBookingDetailApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelBooking = $controller->loadModel('Bookings');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id'])) {
+            $booking = getDetailBooking($dataSend['id']);
+
+            return apiResponse(0, 'Lấy dữ liệu thành công', $booking);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function updateBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $bookingStatus;
+
+    $modelBooking = $controller->loadModel('Bookings');
+    $modelProvince = $controller->loadModel('Provinces');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if (!empty($dataSend['id'])) {
+            $booking = $modelBooking->find()
+                ->where(['id' => $dataSend['id']])
+                ->first();
+
+            if (!$booking) {
+                return apiResponse(4, 'Cuốc xe không tồn tại');
+            }
+
+            if ($booking->posted_by !== $currentUser->id) {
+                return apiResponse(5, 'Bạn không phải người tạo cuốc xe này nên không có quyền chỉnh sửa');
+            }
+
+            $now = date('Y-m-d H:i:s');
+            $listProvince = $modelProvince->find()->where([
+                'status' => 1
+            ])->all();
+            $listProvinceIds = $listProvince->map(function ($item) {
+                return $item->id;
+            })->toArray();
+
+            // Validate data
+            if (!empty($dataSend['name'])) {
+                $booking->name = $dataSend['name'];
+            }
+
+            if (isset($dataSend['price'])) {
+                if (!is_numeric($dataSend['price']) || $dataSend['price'] < 0) {
+                    return apiResponse(2, 'Số tiền không hợp lệ');
+                }
+
+                $booking->price = $dataSend['price'];
+            }
+
+            if (!empty($dataSend['departure_province_id'])) {
+                if (!in_array($dataSend['departure_province_id'], $listProvinceIds)) {
+                    return apiResponse(2, 'Tỉnh khởi hành không hợp lệ');
+                }
+
+                $booking->departure_province_id = $dataSend['departure_province_id'];
+            }
+
+
+            if (!empty($dataSend['destination_province_id'])) {
+                if (!in_array($dataSend['destination_province_id'], $listProvinceIds)) {
+                    return apiResponse(2, 'Tỉnh đến không hợp lệ');
+                }
+
+                $booking->destination_province_id = $dataSend['destination_province_id'];
+            }
+
+            if (isset($dataSend['introduce_fee'])) {
+                if (!is_numeric($dataSend['introduce_fee']) || $dataSend['introduce_fee'] < 0 || $dataSend['introduce_fee'] > 100) {
+                    return apiResponse(2, 'Tỉ lệ chiết khấu không hợp lệ');
+                }
+
+                $booking->introduce_fee = $dataSend['introduce_fee'];
+            }
+
+            if (!empty($dataSend['start_time'])) {
+                $startTime = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
+                if ($startTime <= $now) {
+                    return apiResponse(2, 'Thời gian khởi hành phải lớn hơn hiện tại');
+                }
+
+                $booking->start_time = $startTime;
+            }
+
+            if (!empty($dataSend['finish_time'])) {
+                $finishTime = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
+                if ($finishTime <= $booking->start_time) {
+                    return apiResponse(2, 'Thời gian đến phải lớn hơn thời gian khởi hành');
+                }
+
+                $booking->finish_time = $finishTime;
+            }
+
+            if (!empty($dataSend['departure'])) {
+                $booking->departure = $dataSend['departure'];
+            }
+
+            if (!empty($dataSend['destination'])) {
+                $booking->destination = $dataSend['destination'];
+            }
+
+            if (!empty($dataSend['description'])) {
+                $booking->description = $dataSend['description'];
+            }
+
+            if (!empty($dataSend['status'])) {
+                if (!in_array($dataSend['status'], $bookingStatus)) {
+                    return apiResponse(2, 'Trạng thái không hợp lệ');
+                }
+
+                $booking->status = $dataSend['status'];
+            }
+
+            $booking->updated_at = $now;
+            $modelBooking->save($booking);
+
+            $result = getDetailBooking($dataSend['id']);
+
+            return apiResponse(0, 'Lưu thông tin thành công', $result);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
