@@ -72,7 +72,11 @@
                     <label class="form-label">Mô tả về mẫu thiết kế</label>
                     <textarea class="form-control" name="description" rows="5"><?php echo @$data->description; ?></textarea>
                   </div>
-                <?php } ?>
+                  <?php } ?>
+
+                  <div class="mb-3">
+                    <input type="checkbox" name="free_pro" value="1" <?php if(!empty($data->free_pro)) echo 'checked';?>> Miễn phí cho tài khoản EZPICS PRO
+                  </div>
                 </div>
 
                 <div class="col-md-6">

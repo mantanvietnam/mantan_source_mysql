@@ -13,6 +13,11 @@
           </div>
 
           <div class="col-md-2">
+            <label class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+          </div>
+
+          <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>

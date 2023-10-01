@@ -504,6 +504,7 @@ function addProduct($input)
 		        $data->thumbnail = $thumbnailUser;
 		        $data->keyword = $dataSend['keyword'];
 		        $data->description = $dataSend['description'];
+		        $data->free_pro = (int) @$dataSend['free_pro'];
 
 		        if(empty($dataSend['size'])){
 		        	$sizeThumb = getimagesize($thumb);
