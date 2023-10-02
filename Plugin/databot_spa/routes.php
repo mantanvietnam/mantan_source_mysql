@@ -121,5 +121,10 @@
 
 	// thống kê 
 	$routesPlugin['revenueStatistical']= 'databot_spa/view/home/statistical/revenueStatistical.php';
+
+	// giao dịch
+	$routesPlugin['transactionHistories']= 'databot_spa/view/home/transaction/transactionHistories.php';
+	$routesPlugin['createRequestAddMoney']= 'databot_spa/view/home/transaction/createRequestAddMoney.php';
+	$routesPlugin['updateBankingAPI']= 'databot_spa/view/home/transaction/updateBankingAPI.php';
 	
 ?>

@@ -260,7 +260,7 @@
             </li> 
 
             <li class="menu-item">
-              <a href="/addMoney" class="menu-link">
+              <a href="/transactionHistories" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-credit-card"></i>
                 <div>Nạp tiền</div>
               </a>

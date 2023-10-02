@@ -267,4 +267,134 @@ function convert_number_to_words($number) {
 
         return $string;
 }
+
+function process_add_money($number=0, $phone=0)
+{
+    global $modelOption;
+    global $controller;
+    global $recommenders;
+
+    $number = (int) $number;
+    $order_id = (int) $order_id;
+
+    if($number>=1000){
+        $modelTransactionHistories = $controller->loadModel('TransactionHistories');
+        $modelMember = $controller->loadModel('Members');
+
+        if(!empty($phone)){
+            $data = $modelMember->find()->where(array('phone'=> $phone))->first();
+            
+            if(!empty($data)){
+                // cập nhập số dư tài khoản
+                $data->coin += $number;
+                $modelMember->save($data);
+                
+                // tạo lịch sử giao dịch
+                $histories = $modelTransactionHistories->newEmptyEntity();
+
+                $histories->id_member = $data->id;
+                $histories->coin = $number;
+                $histories->type = 'plus';
+                $histories->note = 'Chuyển khoản ngân hàng, số dư tài khoản sau giao dịch là '.number_format($data->coin).'đ';
+                $histories->create_at = time();
+                
+                $modelTransactionHistories->save($histories);
+
+                // gửi email
+                if(!empty($data->email) && !empty($data->name)){
+                    sendEmailAddMoney($data->email, $data->name, $number);
+                }
+
+                return 'Nạp tiền thành công cho tài khoản '.$data->phone;
+            
+            }else{
+                return 'Tài khoản '.$data->phone.' không tồn tại';
+            }
+        }else{
+            return 'Nội dung sai cú pháp';
+        }
+    }else{
+        return 'Số tiền nạp phải lớn hơn 1.000đ';
+    }
+}
+
+function sendEmailAddMoney($email='', $fullName='', $coin= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = '[DATASPA] ' . 'Nạp thành công '.number_format($coin).'đ vào tài khoản';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Thông tin nạp tiền Ezpics</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>NẠP TIỀN '.number_format($coin).'Đ</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        Bạn đã nạp thành công '.number_format($coin).'đ vào tài khoản của bạn trên hệ thống Data SPA
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
+                            <span>Phần mềm quản lý SPA</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Trần Ngọc Mạnh</li>
+                            <li>Mobile: 0816560000</li>
+                            <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
 ?>
