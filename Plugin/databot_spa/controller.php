@@ -21,6 +21,7 @@ include_once('controller/home/debtController.php'); // công nợ
 include_once('controller/home/partnerController.php'); // đối tác
 include_once('controller/home/orderController.php'); // đối tác
 include_once('controller/home/campainsController.php'); // chiến dịch
+include_once('controller/home/campainCustomersController.php'); // người dùng tham gia chiến dịch
 include_once('controller/home/statisticalController.php'); // thống kê 
 
 // api

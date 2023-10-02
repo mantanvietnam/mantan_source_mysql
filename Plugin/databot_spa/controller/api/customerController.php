@@ -143,9 +143,9 @@ function addCustomerCampainApi($input)
 
 				    		$dataCampainCustomers->id_campain = (int) $dataSend['id_campain'];
 				    		$dataCampainCustomers->id_customer = $checkPhone->id;
-				    		$dataCampainCustomers->created_at = time();
+				    		$dataCampainCustomers->create_at = time();
 				    		$dataCampainCustomers->code = $infoCampain->codeUser;
-				    		$dataCampainCustomers->note = (int) $dataSend['note'];
+				    		$dataCampainCustomers->note = $dataSend['note'];
 
 				    		$modelCampainCustomers->save($dataCampainCustomers);
 

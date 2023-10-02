@@ -59,7 +59,7 @@
                           <td>'.$item->name.'</td>
 
                           <td>
-                            '.number_format($item->number_reg).'
+                            <a href="/listCustomerCampaign/?idCampaign='.$item->id.'">'.number_format($item->number_reg).'</a>
                           </td>
 
                           <td>

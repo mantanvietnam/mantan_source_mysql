@@ -246,13 +246,6 @@
             </li> 
 
             <li class="menu-item">
-              <a href="/listUserCampain" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-voice"></i>
-                <div>Người đăng ký</div>
-              </a>
-            </li> 
-
-            <li class="menu-item">
               <a href="/listSMSMarketing" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div>Gửi SMS</div>
@@ -265,6 +258,13 @@
                 <div>Gửi Email</div>
               </a>
             </li> 
+
+            <li class="menu-item">
+              <a href="/addMoney" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div>Nạp tiền</div>
+              </a>
+            </li>
 
             <li class="menu-item">
               <a href="/guideAddCustomerCampainApi" class="menu-link">

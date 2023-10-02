@@ -113,6 +113,9 @@
 	$routesPlugin['addCampain']= 'databot_spa/view/home/campain/addCampain.php';
 	$routesPlugin['deleteCampain']= 'databot_spa/view/home/campain/deleteCampain.php';
 
+	$routesPlugin['listCustomerCampaign']= 'databot_spa/view/home/campain_customer/listCustomerCampaign.php';
+	$routesPlugin['deleteCustomerCampain']= 'databot_spa/view/home/campain_customer/deleteCustomerCampain.php';
+
 	// hướng dẫn tích hợp api
 	$routesPlugin['guideAddCustomerCampainApi']= 'databot_spa/view/home/guide/guideAddCustomerCampainApi.php';
 
