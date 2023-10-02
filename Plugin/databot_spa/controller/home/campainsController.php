@@ -15,6 +15,7 @@ function listCampain(){
 
         $modelMembers = $controller->loadModel('Members');
         $modelCampains = $controller->loadModel('Campains');
+        $modelCampainCustomers = $controller->loadModel('CampainCustomers');
         
         $user = $session->read('infoUser');
 
@@ -40,6 +41,9 @@ function listCampain(){
                 $listData[$key]->number_reg = 0;
                 $listData[$key]->number_checkin = 0;
                 $listData[$key]->number_banking = 0;
+
+                $user_reg = $modelCampainCustomers->find()->where(['id_campain'=>$value->id])->all()->toList();
+                $listData[$key]->number_reg = count($user_reg);
             }
         }
 
@@ -182,7 +186,8 @@ function addCampain($input){
     }
 }
 
-function deleteCampain($input){
+function deleteCampain($input)
+{
     global $controller;
     global $session;
     
@@ -204,5 +209,4 @@ function deleteCampain($input){
         return $controller->redirect('/login');
     }
 }
-
 ?>

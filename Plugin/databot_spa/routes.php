@@ -113,10 +113,18 @@
 	$routesPlugin['addCampain']= 'databot_spa/view/home/campain/addCampain.php';
 	$routesPlugin['deleteCampain']= 'databot_spa/view/home/campain/deleteCampain.php';
 
+	$routesPlugin['listCustomerCampaign']= 'databot_spa/view/home/campain_customer/listCustomerCampaign.php';
+	$routesPlugin['deleteCustomerCampain']= 'databot_spa/view/home/campain_customer/deleteCustomerCampain.php';
+
 	// hướng dẫn tích hợp api
 	$routesPlugin['guideAddCustomerCampainApi']= 'databot_spa/view/home/guide/guideAddCustomerCampainApi.php';
 
 	// thống kê 
 	$routesPlugin['revenueStatistical']= 'databot_spa/view/home/statistical/revenueStatistical.php';
+
+	// giao dịch
+	$routesPlugin['transactionHistories']= 'databot_spa/view/home/transaction/transactionHistories.php';
+	$routesPlugin['createRequestAddMoney']= 'databot_spa/view/home/transaction/createRequestAddMoney.php';
+	$routesPlugin['updateBankingAPI']= 'databot_spa/view/home/transaction/updateBankingAPI.php';
 	
 ?>
