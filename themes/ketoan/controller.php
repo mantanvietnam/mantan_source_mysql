@@ -107,7 +107,7 @@ function indexTheme($input)
 
     $news_home = [];
     foreach ($category_post as $key => $value) {
-        $news_home[$key] = $modelPosts->find()->limit($limit)->where(['idCategory'=>$value->id])->page($page)->order($order)->all()->toList();
+        $news_home[$value->id] = $modelPosts->find()->limit($limit)->where(['idCategory'=>$value->id])->page($page)->order($order)->all()->toList();
         
     }
     setVariable('slide_home', $slide_home);

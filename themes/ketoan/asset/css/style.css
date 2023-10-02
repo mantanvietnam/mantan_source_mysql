@@ -693,6 +693,7 @@ display: none;
 	display: grid;
 	grid-template-columns:2fr 1fr;
 	gap: 50px;
+	margin-top: 30px;
 }
 .mg-bt-24{
 	margin-bottom: 24px;
@@ -1154,3 +1155,4 @@ height: auto; */
 .page-item.active .page-link{
 	background-color: #0A3581;
 }
+

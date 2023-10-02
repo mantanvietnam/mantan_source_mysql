@@ -8,9 +8,7 @@
             </form>
 
             <div class="google-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14879.006670724006!2d105.84212726396657!3d21.2020217931825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313503dd7d6d4531%3A0x22b0b829f7b1d657!2zUGjhu6cgTOG7lywgU8OzYyBTxqFuLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1695280959658!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="setting-grid-contact">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d465.60342595455273!2d105.80066917249044!3d20.99955445627723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135acbcb952af37%3A0x347e82aad1e7ffaf!2sVincem%20Comatce%20Tower!5e0!3m2!1svi!2s!4v1696242857253!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            <div class="setting-grid-contact">
                 <div class="intro-contact-left">
                     <div class="contact-me">
                         <div class="title-main-home mg-bt-24">
@@ -47,7 +45,7 @@
                                       </svg>
                                 </span>
                                 <div class="text-page-contact">
-                                    <p>VP1: <span><?php echo $contactSite['phone']; ?></span></p>
+                                    <p>Số điện thoại: <span><?php echo $contactSite['phone']; ?></span></p>
                                 </div>
         
                             </li>
@@ -62,7 +60,6 @@
                                 <div class="text-page-contact">
                                     <p>Email: <span><?php echo $contactSite['email']; ?></span></p>
                                 </div>
-        
                             </li>
                         </ul>
                     </div>                    
@@ -70,21 +67,31 @@
                 <div class="intro-contact-right">
                     <div class="info-contact-right">
                         <h3 style="font-size: 33px;">HỖ TRỢ GIẢI PHÁP</h3>
-                        <form>
+                        <form action="" method="post">
+                            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
                             <div class="mb-3">
-                                <input type="full_name" class="form-control" id="exampleFormControlInput1" placeholder="Họ và tên">
+                                <input value="" name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Họ và tên" required>
                             </div>
                             <div class="mb-3">
-                            
-                                <input type="phone" class="form-control" id="exampleFormControlInput1" placeholder="Số điện thoại">
+                                <input type="phone" value="" name="phone_number" class="form-control" id="exampleFormControlInput1" placeholder="Số điện thoại" required>
                             </div>
-                              <div class="mb-3">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Nội dung cần hỗ trợ.."></textarea>
-                              </div>
-                              <div class="text-center">
+                            <div class="mb-3">
+                                <input class="form-control" type="email" placeholder="Email của bạn" value="" name="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input class="form-control" type="text" placeholder="Tiêu đề" required value="" name="subject">
+                            </div>
+
+                            <div class="mb-3">
+                                <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3" placeholder="Nội dung cần hỗ trợ.." required></textarea>
+                            </div>
+                            <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Hoàn thành</button>
-                              </div>
+                            </div>
                         </form>
+                        <?php echo $mess;?>
+
                     </div>
                 </div>
             </div>
