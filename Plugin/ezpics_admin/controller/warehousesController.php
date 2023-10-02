@@ -420,6 +420,7 @@ function addWarehouseAdmin($input)
 
 		if ($isRequestPost){
 	        $dataSend = $input['request']->getData();
+
 	        if(empty($_GET['id'])){
 				$user = $modelMember->find()->where(array('phone'=>$dataSend['user']))->first();
 				if(!empty($user)){
@@ -430,7 +431,7 @@ function addWarehouseAdmin($input)
 	        
 
 	        if(!empty($user)){
-	        	if ($user->account_balance>$dataSend['price_creates']){
+	        	if ($user->account_balance>=$dataSend['price_creates']){
 			        if(!empty($dataSend['name'])){
 			        	
 			        	if(!empty($data->thumbnail)){
@@ -438,9 +439,11 @@ function addWarehouseAdmin($input)
 			        	}else{
 			        		$thumbnail = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
 			        	}
+ 
 		        		
 			        	if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
 				            $thumbnail = uploadImageFTP($user->id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
 
 				            if(!empty($thumbnail['linkOnline'])){
 				                $thumbnail = $thumbnail['linkOnline'];
@@ -454,6 +457,7 @@ function addWarehouseAdmin($input)
 				                $dataFile->created_at = date('Y-m-d H:i:s');
 
 				                $modelManagerFile->save($dataFile);
+				                
 				            }
 				        }
 
