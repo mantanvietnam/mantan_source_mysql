@@ -80,7 +80,8 @@ function saveRegisterMemberAPI($input)
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
-					$data->token = rand(100000,999999);
+					$data->otp = rand(100000,999999);
+					$data->token = createToken();
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];
@@ -118,7 +119,7 @@ function saveRegisterMemberAPI($input)
 										"ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
 										"SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
 										"Phone" => $dataSend['phone'],
-										"Params" => [$data->token],
+										"Params" => [$data->otp],
 										"TempID" => "205644",
 										"OAID" => "4097311281936189049",
 										"SendDate" => "",
@@ -137,7 +138,7 @@ function saveRegisterMemberAPI($input)
 			    						'set_attributes'=>array('id_member'=>$data->id),
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
 			    						'info_member'=>$data,
-			    						'code_otp' => $data->token,
+			    						'code_otp' => $data->otp,
 			    						'return_zns' => $return_zns
 			    					);
 				}else{
