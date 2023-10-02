@@ -3,7 +3,7 @@
     <h4 class="fw-bold py-3 mb-4">Danh danh đơn hàng</h4>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
-        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
+            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
             <div class=" card mb-4">
                 <h5 class="card-header">Tìm kiếm dữ liệu</h5>
                 <div class="card-body">

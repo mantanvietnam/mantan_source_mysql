@@ -46,7 +46,7 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách đối tác</h5>
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>

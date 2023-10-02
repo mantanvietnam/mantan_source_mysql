@@ -44,7 +44,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách loại thẻ trả trước</h5>
     
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>

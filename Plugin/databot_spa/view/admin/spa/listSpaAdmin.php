@@ -32,97 +32,100 @@
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
-  <div class="card row">
-    <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
-     <p><?php echo @$mess;?></p>
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="">
-              <th>ID</th>
-              <th>Tên cơ sở</th>
-              <th>member</th> 
-              <th>Ngày tạo</th> 
-              <!-- <th>Khóa</th> -->
-              <th>sửa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php 
-              if(!empty($listData)){
-                foreach ($listData as $item) {
-                   
+  <div class="card">
+      <h5 class="card-header">Danh sách mẫu thiết kế - <b class="text-danger"><?php echo number_format($totalData);?></b> mẫu</h5>
 
+      <div class="card-body row">
+        <p><?php echo @$mess;?></p>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="">
+                <th>ID</th>
+                <th>Tên cơ sở</th>
+                <th>member</th> 
+                <th>Ngày tạo</th> 
+                <!-- <th>Khóa</th> -->
+                <th>sửa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                if(!empty($listData)){
+                  foreach ($listData as $item) {
+                     
+
+                    echo '<tr>
+                            <td>'.$item->id.'</td>
+                            <td>'.$item->name.'</td>
+                            <td>
+                               '.$item->member->name.'<br/>
+                              '.$item->member->phone.'<br/>
+                              '.$item->member->email.'
+                              
+                            </td>
+                            <td>'.$item->created_at.'</td>
+                            <td align="center">
+                              <a class="dropdown-item"  href="/plugins/admin/databot_spa-view-admin-spa-addSpaAdmin.php/?id='.$item->id.'">
+                                <i class="bx bx-edit-alt me-1"></i>
+                              </a>
+                            </td>
+                          </tr>';
+                  }
+                }else{
                   echo '<tr>
-                          <td>'.$item->id.'</td>
-                          <td>'.$item->name.'</td>
-                          <td>
-                             '.$item->member->name.'<br/>
-                            '.$item->member->phone.'<br/>
-                            '.$item->member->email.'
-                            
-                          </td>
-                          <td>'.$item->created_at.'</td>
-                          <td align="center">
-                            <a class="dropdown-item"  href="/plugins/admin/databot_spa-view-admin-spa-addSpaAdmin.php/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
+                          <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
                         </tr>';
                 }
-              }else{
-                echo '<tr>
-                        <td colspan="10" align="center">Chưa có mẫu thiết kế</td>
-                      </tr>';
-              }
-            ?>
-          </tbody>
-        </table>
-      </div>
-   
-    <!-- Phân trang -->
-    <div class="demo-inline-spacing">
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <?php
-            if($totalPage>0){
-                if ($page > 5) {
-                    $startPage = $page - 5;
-                } else {
-                    $startPage = 1;
-                }
+              ?>
+            </tbody>
+          </table>
+        </div>
+     
+        <!-- Phân trang -->
+        <div class="demo-inline-spacing">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <?php
+                if($totalPage>0){
+                    if ($page > 5) {
+                        $startPage = $page - 5;
+                    } else {
+                        $startPage = 1;
+                    }
 
-                if ($totalPage > $page + 5) {
-                    $endPage = $page + 5;
-                } else {
-                    $endPage = $totalPage;
-                }
-                
-                echo '<li class="page-item first">
-                        <a class="page-link" href="'.$urlPage.'1"
-                          ><i class="tf-icon bx bx-chevrons-left"></i
-                        ></a>
-                      </li>';
-                
-                for ($i = $startPage; $i <= $endPage; $i++) {
-                    $active= ($page==$i)?'active':'';
+                    if ($totalPage > $page + 5) {
+                        $endPage = $page + 5;
+                    } else {
+                        $endPage = $totalPage;
+                    }
+                    
+                    echo '<li class="page-item first">
+                            <a class="page-link" href="'.$urlPage.'1"
+                              ><i class="tf-icon bx bx-chevrons-left"></i
+                            ></a>
+                          </li>';
+                    
+                    for ($i = $startPage; $i <= $endPage; $i++) {
+                        $active= ($page==$i)?'active':'';
 
-                    echo '<li class="page-item '.$active.'">
-                            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                        echo '<li class="page-item '.$active.'">
+                                <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                              </li>';
+                    }
+
+                    echo '<li class="page-item last">
+                            <a class="page-link" href="'.$urlPage.$totalPage.'"
+                              ><i class="tf-icon bx bx-chevrons-right"></i
+                            ></a>
                           </li>';
                 }
-
-                echo '<li class="page-item last">
-                        <a class="page-link" href="'.$urlPage.$totalPage.'"
-                          ><i class="tf-icon bx bx-chevrons-right"></i
-                        ></a>
-                      </li>';
-            }
-          ?>
-        </ul>
-      </nav>
-    </div>
-    <!--/ Basic Pagination -->
+              ?>
+            </ul>
+          </nav>
+        </div>
+        <!--/ Basic Pagination -->
+      </div>
   </div>
  
   <!--/ Responsive Table -->

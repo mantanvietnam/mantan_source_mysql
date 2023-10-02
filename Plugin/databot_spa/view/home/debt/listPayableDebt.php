@@ -73,7 +73,7 @@ global $type_collection_bill;
   <div class="card">
     <h5 class="card-header">Danh sách công nợ phải trả</h5>
     <?php echo @$mess; ?>
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
