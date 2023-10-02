@@ -1016,7 +1016,7 @@ function requestCodeForgotPasswordAPI($input)
 			if(!empty($checkPhone->email)){
 				$code = rand(1000,9999);
 
-				$checkPhone->token = $code;
+				$checkPhone->otp = $code;
 				$modelMember->save($checkPhone);
 
 				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
@@ -1065,10 +1065,11 @@ function saveNewPassAPI($input)
 			$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
 
 			if(!empty($checkPhone)){
-				if($checkPhone->token == $dataSend['code'] ){
+				if($checkPhone->otp == $dataSend['code'] ){
 					if($dataSend['passNew'] == $dataSend['passAgain']){
 						$checkPhone->password = md5($dataSend['passNew']);
-						$checkPhone->token = '';
+						$checkPhone->otp = null;
+						$checkPhone->token = createToken();
 
 						$modelMember->save($checkPhone);
 
