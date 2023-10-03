@@ -142,8 +142,7 @@ function saveRegisterMemberAPI($input)
 			    						'set_attributes'=>array('id_member'=>$data->id),
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
 			    						'info_member'=>$data,
-			    						'code_otp' => $data->otp,
-			    						'return_zns' => $return_zns
+			    						'code_otp' => $data->otp
 			    					);
 				}else{
 					$return = array('code'=>4,
