@@ -1389,4 +1389,19 @@ function cropAutoImagePNG($sourcePath='', $destinationPath='')
         }
     }
 }
+
+function sendOTPZalo($phone='', $otp='')
+{
+    if(!empty($phone) && !empty($otp)){
+        $id_oa = '256174165105937998';
+        $id_app = '4065313055620230836';
+
+        $template_id = 285905;
+        $params = ['otp'=>$otp];
+
+        if(function_exists('sendZNSZalo')){
+            $return_zns = sendZNSZalo($template_id, $params, $phone, $id_oa, $id_app);
+        }
+    }
+}
 ?>

@@ -114,6 +114,8 @@ function saveRegisterMemberAPI($input)
 					}
 
 					// gửi mã xác thực về Zalo người đăng ký
+					sendOTPZalo($dataSend['phone'], $data->otp);
+					/*
 					$url_zns = 'http://rest.esms.vn/MainService.svc/json/SendZaloMessage_V4_post_json/';
 		            $data_send_zns = [
 										"ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
@@ -132,7 +134,7 @@ function saveRegisterMemberAPI($input)
 		            $typeData='raw';
 		            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
 		            $return_zns = json_decode($return_zns);
-
+					*/
 
 
 
