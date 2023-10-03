@@ -1,6 +1,6 @@
 <div class="col-3 tab-intro-right">
-    <form class="d-flex form-search">
-        <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+    <form action="/search" method="get" class="d-flex form-search">
+        <input name="key" class="form-control me-2" type="search" placeholder="Tìm kiếm..." value="<?php echo @$_GET['key'];?>" aria-label="Search">
         <button class="btn btn-outline-success" pac type="submit">Search</button>
     </form>
 

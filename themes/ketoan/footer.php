@@ -68,6 +68,7 @@
             </div>
         </div>
         <p style="text-align: center; color:#858488 ; font-family: SanText; "><?php echo @$settingThemes['copyright_footer']; ?></p>
+        <script src="<?php echo $urlThemeActive;?>/asset/js/slick.js"></script>
     </div>
 </footer>
 </body>
