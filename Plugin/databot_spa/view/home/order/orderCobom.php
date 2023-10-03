@@ -138,7 +138,7 @@
 	               </div>
 	           </div>
 		 	</div>
-		 	<div class="card mb-4">
+		 	<!-- <div class="card mb-4">
 		 		<a class="tableService" data-bs-toggle="collapse" href="#collapseService" role="button" aria-expanded="false" aria-controls="collapseExample">Dịch vụ <i class='bx bx-plus' style="float: right;"></i></a>
 		 		<?php if(!empty($listService)){ ?>
 				<div class="collapse" id="collapseService">
@@ -160,37 +160,24 @@
 				 <?php   } ?>
 		 	</div>
 
-		 	<div class="card mb-4">
-		 		<a class="tableService" data-bs-toggle="collapse" href="#collapseCombo" role="button" aria-expanded="false" aria-controls="collapseExample">ComBo<i class='bx bx-plus' style="float: right;"></i></a>
-				<?php if(!empty($listCombo)){ ?>
-				<div class="collapse" id="collapseCombo">
-				  <div class="card card-body">
-				  	<div class="row diagram">
-				    <?php	foreach($listCombo as $key => $combo){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $combo->image ?>');" onclick="addProduct('<?php echo $combo->id; ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $combo->id ?>'>
-                                    <div class="item_produc">
-                                        <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
-                                        <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
-                                    </div>
-                                 </div> 
-				  <?php   } ?>
-				</div>
-				  </div>
-				</div>
-				 <?php   } ?>
-		 	</div>
+		 	-->
 
 		 	<div class="card mb-4">
-		 		<a class="tableService" data-bs-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseExample">Sản phẩn<i class='bx bx-plus' style="float: right;"></i></a>
-		 		<?php if(!empty($listProduct)){ ?>
-				<div class="collapse" id="collapseProduct">
+		 		<h4 class="fw-bold m-2">Cobom liệu trình</h4>
+		 		<?php if(!empty($listCombo)){ ?>
+                    <div class="m-3 col-md-10">
+                       
+                        <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                   </div>
+				<div >
 				  <div class="card card-body">
 				  	<div class="row diagram">
-				     <?php foreach($listProduct as $key => $Product){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->name ?>',<?php echo $Product->price ?>,'product');" id='product_<?php echo $Product->id ?>' >
+
+				     <?php foreach($listCombo as $key => $combo){ ?>
+				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $combo->image ?>');" onclick="addProduct('<?php echo $combo->id ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'cobom');" id='combo<?php echo $combo->id ?>' >
                                     <div class="item_produc">
-                                       <div class="customer-name"><span class="service_name"><?php echo $Product->name ?></span></div>
-                                            <div class="customer-name"><span class="service_price"><?php echo number_format($Product->price) ?>đ</span></div>
+                                       <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
+                                            <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
                                         </div>
                                  </div> 
 				   <?php   } ?>
@@ -280,7 +267,7 @@
                                         <li id="sotentralaikhach"><span>Số tiền trả lại</span><span id="moneyCustomerReturn">0</span></li> 
 
                                         
-                                        <li class="total-bh">
+                                        <!-- <li class="total-bh">
                                             <p>Giường & phòng</p>
                                             <p>
                                                 <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
@@ -302,7 +289,7 @@
                                                 </select>
 
                                             </p>
-                                        </li>
+                                        </li> -->
                                         <li class="total-bh">
                                             <p>Nhân viên phụ trách</p>
                                             <p>
@@ -344,7 +331,7 @@
                                         <li><a href="/order" class="btn  btn-secondary">Nhập lại</a></li>
                                         <?php if(empty($_GET['idBed'])){ ?>
 
-                                        <li><a  href="javascript:void(0);" class="btn btn-primary" onclick="saveOrder();">Tạo đơn</a></li>
+                                       <!--  <li><a  href="javascript:void(0);" class="btn btn-primary" onclick="saveOrder();">Tạo đơn</a></li> -->
                                         <li><a href="javascript:void(0);" class="btn btn-danger" onclick="createOrder();">Thanh toán</a></li>
                                     <?php }else{ ?>
 
@@ -638,6 +625,56 @@ function addProduct(id, name, priceProduct,type){
             }
         });
     });
+</script>
+<script type="text/javascript">
+     $(function() {
+         function split( val ) {
+          return val.split( /,\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+        $( "#searchProduct" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
+
+            $('#id_product-'+number).val(0);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchComboApi", {
+                    key: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+
+                addProduct(ui.item.id,ui.item.name,ui.item.price,'cobom')
+          
+                return false;
+            }
+        });
+        });
 </script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">

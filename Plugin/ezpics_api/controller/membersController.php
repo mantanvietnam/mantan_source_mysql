@@ -134,6 +134,8 @@ function saveRegisterMemberAPI($input)
 		            $return_zns = json_decode($return_zns);
 
 
+
+
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
 			    						'messages'=>array(array('text'=>'Lưu thông tin thành công')),
@@ -1343,6 +1345,38 @@ function staticNumberUserAPI($input)
 	$user = $modelMember->find()->where(['status'=>1])->all()->toList();
 
 	return ['number'=>count($user)];
+}
+
+function acceptMemberAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$checkPhone = $modelMember->find()->where(array('otp'=>(int)$dataSend['otp'],'token'=>$dataSend['token']))->first();
+		if(!empty($checkPhone)){
+			$checkPhone->otp = null;
+
+			$checkPhone->status = 1; //1: kích hoạt, 0: khóa
+			$modelMember->save($checkPhone);
+
+				$return = array('code'=>1, 
+			    				'mess'=>'kích hoạt tài khoản thành công',
+			    				'info_member'=>$checkPhone
+			    			);
+		}else{
+			$return = array('code'=>2,
+					'mess'=>'Gửi sai mã OTP'
+				);
+		}
+	}
+	return $return;
 }
 
 ?>

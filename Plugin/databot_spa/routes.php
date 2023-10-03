@@ -104,7 +104,9 @@
 	$routesPlugin['deletePartner']= 'databot_spa/view/home/partner/deletePartner.php';
 
 	// khách hàng 
-	$routesPlugin['order']= 'databot_spa/view/home/order/order.php';
+	$routesPlugin['orderProduct']= 'databot_spa/view/home/order/orderProduct.php';
+	$routesPlugin['orderCobom']= 'databot_spa/view/home/order/orderCobom.php';
+	$routesPlugin['orderService']= 'databot_spa/view/home/order/orderService.php';
 	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
 	$routesPlugin['printInfoOrder']= 'databot_spa/view/home/order/printInfoOrder.php';
 

@@ -1,5 +1,48 @@
 <?php include(__DIR__.'/../header.php'); ?>
+<style type="text/css">
+  
+.filter-color .checkbox-list li {
+  margin: 0 14px 15px 0;
+  line-height: normal;
+  float: left;
+  padding: 0; }
 
+.filter-color .checkbox-list li label {
+  border: 1px solid #eaeaea;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  float: left;
+  position: relative;
+  font-size: 0;
+  margin-left: 0;
+  margin-bottom: 0; }
+
+  .filter-color .checkbox-list{
+    list-style-type: none;
+  }
+
+.filter-color .checkbox-list input[type="radio"] {
+  display: none; }
+
+.filter-color .checkbox-list input[type="radio"]:checked + label:before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  height: 6px;
+  width: 12px;
+  z-index: 99;
+  border: 2px solid #dead35;
+  border-top-style: none;
+  border-right-style: none;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg); }
+
+.filter-color .checkbox-list input[type="radio"]:checked + label {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 4px var(--shop-color-border); }
+
+</style>
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
@@ -76,6 +119,17 @@
 
                   <div class="mb-3">
                     <input type="checkbox" name="free_pro" value="1" <?php if(!empty($data->free_pro)) echo 'checked';?>> Miễn phí cho tài khoản EZPICS PRO
+                  </div>
+                  <div class="mb-3 filter-color">
+                    <label class="form-label">Màu chủ đạo (*)</label>
+                    <ul class="checkbox-list clearfix">
+                      <?php foreach(getColor() as $key => $value){  ?>
+                        <li>
+                          <input type="radio" id="data-color-<?php echo $key; ?>" value="<?php echo $value['code']; ?>" <?php if(@$data->color==$value['code']){ echo 'checked'; }; ?> name="color" >
+                          <label for="data-color-<?php echo $key; ?>" style="background-color: <?php echo $value['code']; ?>"><?php echo $value['name']; ?></label>  
+                        </li> 
+                        <?php } ?>   
+                    </ul> 
                   </div>
                 </div>
 

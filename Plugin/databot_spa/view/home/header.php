@@ -161,8 +161,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/order" class="menu-link">
-                    <div>Tạo đơn hàng</div> 
+                  <a href="/orderProduct" class="menu-link">
+                    <div>Bán sản phầm </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/orderCobom" class="menu-link">
+                    <div>Bán cobom liệu trình </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/orderService" class="menu-link">
+                    <div>Bán dịch vụ  </div> 
                   </a>
                 </li>
                 <li class="menu-item">
