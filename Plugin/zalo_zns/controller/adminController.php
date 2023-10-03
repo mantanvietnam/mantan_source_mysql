@@ -1,9 +1,4 @@
 <?php 
-function settingZaloZNSAdmin($input)
-{
-	
-}
-
 function listZaloOAAdmin($input)
 {
 	global $controller;

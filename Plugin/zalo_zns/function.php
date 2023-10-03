@@ -6,11 +6,7 @@ $menus[0]['sub'][1]= array('title'=>'Zalo OA',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listZaloOAAdmin',
                         );
-$menus[0]['sub'][2]= array('title'=>'Cài đặt ZNS',
-                            'url'=>'/plugins/admin/zalo_zns-view-admin-settingZaloZNSAdmin.php',
-                            'classIcon'=>'bx bx-cog',
-                            'permission'=>'settingZaloZNSAdmin',
-                        );
+
 addMenuAdminMantan($menus);
 
 function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id='')
