@@ -175,7 +175,7 @@
 
 }
 
-#section-publications .button-publications a{
+.button-publications a{
     display: block;
     margin-top: auto;
     color: #fff;
@@ -192,10 +192,33 @@
 
 }
 
-#section-publications .button-publications a:hover{
+.button-publications a:hover{
     background-color: #ff4c00;
 	transition: all 0.3s linear;
 }
+
+.media-press-button button{
+    color: #12427d;
+    border: 1px solid #12427d ;
+    border-radius: 5px;
+    padding: 10px 16px;
+    background-color: transparent;
+    margin-right: 17px;
+}
+
+.media-press-button{
+    display: flex;
+    align-items: center;
+    margin-top: 38px;
+}
+
+
+.media-press-item{
+    background-color: #EDF0E8;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
 
 /* revese */
 
@@ -765,6 +788,23 @@
     padding-top: 44px;
     padding-bottom: 50px;
 }
+
+.media-press-title h2{
+    font-size: 30px;
+    color: #12427d;
+    font-weight: bold;
+    margin-bottom: 36px;
+    line-height: 30px;
+}
+
+.media-press-description p{
+    font-size: 16px;
+    color: #000;
+    line-height: 24px;
+}
+
+/* Media Press */
+
 
 @media (max-width: 1440px){
     .news-slide {
