@@ -1401,6 +1401,29 @@ function sendOTPZalo($phone='', $otp='')
 
         if(function_exists('sendZNSZalo')){
             $return_zns = sendZNSZalo($template_id, $params, $phone, $id_oa, $id_app);
+
+            if(!empty($return_zns['error'])){
+                $url_zns = 'http://rest.esms.vn/MainService.svc/json/SendZaloMessage_V4_post_json/';
+                $data_send_zns = [
+                                    "ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
+                                    "SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
+                                    "Phone" => $phone,
+                                    "Params" => [$otp],
+                                    "TempID" => "205644",
+                                    "OAID" => "4097311281936189049",
+                                    "SendDate" => "",
+                                    "Sandbox" => "0",
+                                    "RequestId" => time(),
+                                    "campaignid" => "EZPICS OTP",
+                                    "CallbackUrl" => "https://apis.ezpics.vn/callbackZalo"
+                                ];
+                $header_zns = ['Content-Type: application/json'];
+                $typeData='raw';
+                $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
+                return json_decode($return_zns, true);
+            }
+
+            return $return_zns;
         }
     }
 }
