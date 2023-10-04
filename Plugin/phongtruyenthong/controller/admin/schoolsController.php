@@ -26,6 +26,7 @@ function infoSchoolAdmin($input)
     					'phone' => $dataSend['phone'],
     					'email' => $dataSend['email'],
     					'info' => $dataSend['info'],
+                        'image_donate' => $dataSend['image_donate'],
                     );
 
         $data->key_word = 'infoSchoolAdmin';

@@ -53,6 +53,11 @@
                     <label class="form-label" for="basic-default-fullname">Email</label>
                     <input type="email" class="form-control" placeholder="" name="email" id="email" value="<?php echo @$data['email'];?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Ảnh danh sách đóng góp quỹ</label>
+                    <?php showUploadFile('image_donate','image_donate',@$data['image_donate'],3);?>
+                  </div>
                 </div>
 
                 <div class="col-md-12">
