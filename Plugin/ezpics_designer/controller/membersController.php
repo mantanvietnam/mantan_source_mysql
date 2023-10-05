@@ -690,4 +690,43 @@ function detailDesigner($input)
 		return $controller->redirect('https://ezpics.page.link/vn1s');
 	}
 }
+function loginAdmin(){
+	global $session;
+	global $controller;
+
+	$session->destroy();
+
+	$modelMembers = $controller->loadModel('Members');
+    	$mess = '';
+	    $conditions = array('phone'=>$_GET['phone'], 'token'=>$_GET['token']);
+	    $info_customer = $modelMembers->find()->where($conditions)->first();
+
+	    if($info_customer){
+	    			// nếu là desiger
+	    	if($info_customer->type == 1){
+
+	    	// nếu tài khoản không bị khóa
+	    	if($info_customer->status == 1){
+
+		    	// nếu chưa có token
+				if(empty($info_customer->token)){
+					$info_customer->token = createToken(25);
+				}
+	   			$info_customer->last_login = date('Y-m-d H:i:s');
+	   			$modelMembers->save($info_customer);
+	   			$session->write('CheckAuthentication', true);
+	            $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
+	   			$session->write('infoUser', $info_customer);
+				
+				return $controller->redirect('/dashboard');
+			}else{
+				return $controller->redirect('/login');
+			}
+		}else{
+			return $controller->redirect('/login');
+		}
+	}else{
+	   	return $controller->redirect('/login');
+	}
+}
 ?>

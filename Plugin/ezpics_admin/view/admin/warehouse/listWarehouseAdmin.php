@@ -137,7 +137,11 @@
                         <?php echo  $item->designer->phone ?><br/>
                         <?php echo  $item->designer->email ?>
                       </p>
+
                       <p><b>Giá:  </b><?php echo number_format($item->price); ?></p>
+                      <p><a class="btn btn-danger"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
+                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                            </a></p>
                     </div>
              <?php   }
         }else{

@@ -78,7 +78,11 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
+<<<<<<< Updated upstream
 					$data->status = (int) @$dataSend['status']; //1: kích hoạt, 0: khóa
+=======
+					$data->status = (int) 0; //1: kích hoạt, 0: khóa
+>>>>>>> Stashed changes
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
@@ -360,7 +364,7 @@ function checkLoginGoogleAPI($input)
 				$data->email = @$dataSend['email'];
 				$data->password = md5(@$dataSend['phone']);
 				$data->account_balance = 0; // tặng 0k cho tài khoản mới
-				$data->status = 1; //1: kích hoạt, 0: khóa
+				$data->status =0; //1: kích hoạt, 0: khóa
 				$data->type = 0; // 0: người dùng, 1: designer
 				$data->token = createToken();
 				$data->created_at = date('Y-m-d H:i:s');

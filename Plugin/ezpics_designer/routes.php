@@ -10,6 +10,7 @@
 	$routesPlugin['forgotPass']= 'ezpics_designer/view/home/member/forgotPass.php';
 	$routesPlugin['confirm']= 'ezpics_designer/view/home/member/confirm.php';
 	$routesPlugin['register']= 'ezpics_designer/view/home/member/register.php';
+	$routesPlugin['loginAdmin']= 'ezpics_designer/view/home/member/loginAdmin.php';
 
 	// product
 	$routesPlugin['listProduct']= 'ezpics_designer/view/home/product/listProduct.php';

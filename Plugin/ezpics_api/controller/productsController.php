@@ -1410,7 +1410,7 @@ function updateInfoProductAPI($input)
     } 
 }
 
-function getMainColor(){
+function getMainColorAPI(){
 
  
 
