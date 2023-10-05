@@ -62,9 +62,9 @@
                                     <h2><?php echo $post->title;?></h2>
                                 </div>
 
-                                <div class="news-details-description">
+                                <!-- <div class="news-details-description">
                                     <?php echo $post->description; ?>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

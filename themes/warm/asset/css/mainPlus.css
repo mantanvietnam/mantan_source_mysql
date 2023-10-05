@@ -693,6 +693,7 @@
     font-weight: bold;
     font-size: 43px;
     background: linear-gradient(to top, rgb(183 189 185 / 50%), rgba(255,255,255, 0.4));
+    text-transform: uppercase;
 }
 
 .news-introduction{

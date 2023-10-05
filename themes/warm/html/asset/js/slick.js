@@ -6,6 +6,8 @@ $(document).ready(function(){
         arrows:false,
     });
 
+   
+
     $('.news-highligh-slide').slick({
       infinite: true,
       slidesToShow: 1,
@@ -185,5 +187,21 @@ $(document).ready(function(){
           }
         ]
   });
+
+  // media
+  $('.photo-slide-top').slick({
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows:false,
+  });
+
+  $('.photo-slide-bottom').slick({
+    infinite: true,
+    slidesToShow: 9,
+    slidesToScroll: 1,
+    arrows:false,
+  });
+
 });
 
