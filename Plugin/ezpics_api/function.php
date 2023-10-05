@@ -1389,6 +1389,7 @@ function cropAutoImagePNG($sourcePath='', $destinationPath='')
         }
     }
 }
+<<<<<<< Updated upstream
 
 function sendOTPZalo($phone='', $otp='')
 {
@@ -1426,5 +1427,20 @@ function sendOTPZalo($phone='', $otp='')
             return $return_zns;
         }
     }
+=======
+function getColor(){
+    return array(
+         ['name'=>'Black','code'=>'#000000'],
+         ['name'=>'White','code'=>'#FFFFFF'],
+         ['name'=>'Red','code'=>'#FF0000'],
+         ['name'=>'Lime','code'=>'#00FF00'],
+         ['name'=>'Blue','code'=>'#0000FF'],
+         ['name'=>'Yellow','code'=>'#FFFF00'],
+         ['name'=>'Cyan / Aqua','code'=>'#00FFFF'],
+         ['name'=>'Magenta / Fuchsia','code'=>'#FF00FF'],
+         ['name'=>'Silver','code'=>'#C0C0C0'],
+         ['name'=>'Orange','code'=>'#FF6D01'],
+    );
+>>>>>>> Stashed changes
 }
 ?>

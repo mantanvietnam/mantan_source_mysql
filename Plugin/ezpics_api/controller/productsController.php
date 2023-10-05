@@ -34,6 +34,7 @@ function searchProductAPI($input)
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
+	$modelSearchKeys = $controller->loadModel('SearchKeys');
 
 	$dataSend = $input['request']->getData();
 
@@ -58,10 +59,15 @@ function searchProductAPI($input)
 								['name LIKE'=>'%'.$dataSend['name'].'%'],
 								['keyword LIKE'=>'%'.$dataSend['name'].'%']
 							];
+
 	}
 
 	if(!empty($dataSend['category_id'])){
 		$conditions['category_id'] = (int) $dataSend['category_id'];
+	}
+
+	if(!empty($dataSend['color'])){
+		$conditions['color'] = $dataSend['color'];
 	}
 
 	if(!empty($dataSend['nameDesigner'])){
@@ -83,12 +89,34 @@ function searchProductAPI($input)
 
 	$listProduct = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+
+
 	if(!empty($listProduct)){
 		foreach ($listProduct as $key => $value) {
 			if(empty($value->thumbnail)){
 				$listProduct[$key]->thumbnail = $value->image;
 			}
 		}
+		if(!empty($dataSend['name'])){
+			$SearchKey = $modelSearchKeys->find()->where(array('keyword'=> strtolower($dataSend['name'])))->first();
+	
+			if(!empty($SearchKey)){
+				$SearchKey->number_search += 1;
+				$modelSearchKeys->save($SearchKey);
+
+			}else{
+				$Search =  $modelSearchKeys->newEmptyEntity();
+				$Search->keyword = strtolower($dataSend['name']);
+				$Search->slug = createSlugMantan($dataSend['name']);
+				$Search->number_search = 1;
+				$Search->created_at = date('Y-m-d H:i:s');
+				$Search->status = 1;
+
+				$modelSearchKeys->save($Search);
+			}
+		}
+
+
 	}
 
 	return 	array('listData'=>$listProduct);
@@ -1382,5 +1410,10 @@ function updateInfoProductAPI($input)
     } 
 }
 
+function getMainColor(){
 
+ 
+
+	return getColor();
+}
 ?>
