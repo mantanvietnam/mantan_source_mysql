@@ -199,6 +199,11 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                             'classIcon'=>'bx bx-category',
                                             'permission'=>'listCategoryIngredientEzpics',
                                         ),
+                                        array('title'=>'Lịch sử key tìm kiếm',
+                                            'url'=>'/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics.php',
+                                            'classIcon'=>'bx bx-category',
+                                            'permission'=>'listSearchKeyEzpics',
+                                        ),
                                     )
                         );
 $menus[0]['sub'][8]= array( 'title'=>'Thống kê',

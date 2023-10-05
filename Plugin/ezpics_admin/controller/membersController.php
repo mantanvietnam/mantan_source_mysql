@@ -551,7 +551,7 @@ function memberBuyProAdmin($input){
 					$WarehouseUser->deadline_at = $user->deadline_pro;
 					$modelWarehouseUsers->save($WarehouseUser);
 				}
-				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản Pro ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản Pro!','action'=>'memberBuyPro',);
+				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản EZPICS PRO ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản EZPICS PRO, thời gian sử dụng đến ngày '. date('d/m/Y', strtotime($user->deadline_pro)).'!','action'=>'memberBuyPro',);
 				if(!empty($user->token_device)){
                     sendNotification($dataSendNotification, $user->token_device);
                             
@@ -636,7 +636,7 @@ function memberExtendProAdmin($input){
 					$WarehouseUser->deadline_at = $user->deadline_pro;
 					$modelWarehouseUsers->save($WarehouseUser);
 				}
-				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản Pro ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản Pro!','action'=>'memberBuyPro',);
+				$dataSendNotification= array('title'=>'Tài khoản của bạn đã lên bản EZPICS PRO! ','time'=>date('H:i d/m/Y'),'content'=>'Chúc mừng bạn, tài khoản của bạn đã được nâng cấp lên bản EZPICS PRO, thời gian sử dụng đến ngày '. date('d/m/Y', strtotime($user->deadline_pro)).'!','action'=>'memberBuyPro',);
 				if(!empty($user->token_device)){
                     sendNotification($dataSendNotification, $user->token_device);
                             

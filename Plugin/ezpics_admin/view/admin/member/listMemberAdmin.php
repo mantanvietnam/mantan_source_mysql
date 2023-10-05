@@ -100,6 +100,7 @@
               <th>Loại tài khoản</th>
               <th>Sửa</th>
               <th>Khóa</th>
+              <th>Đăng nhập</th>
             </tr>
           </thead>
           <tbody>
@@ -168,14 +169,15 @@
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'
                           </td>
                           <td>'.$type.'</td>
-                         
-                          
                            <td align="center">
                             <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                             </a>
                           </td>
                           <td align="center">'.$status.'</td>
+                          <td><a class="dropdown-item"  title="Đăng nhập tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn đăng nhập vào người dùng không?\');" target="_blank" href="https://designer.ezpics.vn/loginAdmin/?phone='.$item->phone.'&token='.$item->token.'">
+                              Đăng nhập
+                            </a></td>
                         </tr>';
                 }
               }else{

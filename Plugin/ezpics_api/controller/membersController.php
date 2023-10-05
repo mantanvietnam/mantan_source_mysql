@@ -78,7 +78,11 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
+<<<<<<< Updated upstream
+					$data->status = (int) @$dataSend['status']; //1: kích hoạt, 0: khóa
+=======
+					$data->status = (int) 0; //1: kích hoạt, 0: khóa
+>>>>>>> Stashed changes
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
@@ -115,28 +119,6 @@ function saveRegisterMemberAPI($input)
 
 					// gửi mã xác thực về Zalo người đăng ký
 					sendOTPZalo($dataSend['phone'], $data->otp);
-					/*
-					$url_zns = 'http://rest.esms.vn/MainService.svc/json/SendZaloMessage_V4_post_json/';
-		            $data_send_zns = [
-										"ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
-										"SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
-										"Phone" => $dataSend['phone'],
-										"Params" => [$data->otp],
-										"TempID" => "205644",
-										"OAID" => "4097311281936189049",
-										"SendDate" => "",
-										"Sandbox" => "0",
-										"RequestId" => time(),
-										"campaignid" => "EZPICS OTP",
-										"CallbackUrl" => "https://apis.ezpics.vn/calbackZalo"
-									];
-		            $header_zns = ['Content-Type: application/json'];
-		            $typeData='raw';
-		            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
-		            $return_zns = json_decode($return_zns);
-					*/
-
-
 
 					$return = array(	'code'=>0, 
 			    						'set_attributes'=>array('id_member'=>$data->id),
@@ -382,7 +364,7 @@ function checkLoginGoogleAPI($input)
 				$data->email = @$dataSend['email'];
 				$data->password = md5(@$dataSend['phone']);
 				$data->account_balance = 0; // tặng 0k cho tài khoản mới
-				$data->status = 1; //1: kích hoạt, 0: khóa
+				$data->status =0; //1: kích hoạt, 0: khóa
 				$data->type = 0; // 0: người dùng, 1: designer
 				$data->token = createToken();
 				$data->created_at = date('Y-m-d H:i:s');
