@@ -1389,7 +1389,7 @@ function cropAutoImagePNG($sourcePath='', $destinationPath='')
         }
     }
 }
-<<<<<<< Updated upstream
+
 
 function sendOTPZalo($phone='', $otp='')
 {
@@ -1427,7 +1427,8 @@ function sendOTPZalo($phone='', $otp='')
             return $return_zns;
         }
     }
-=======
+}
+
 function getColor(){
     return array(
          ['name'=>'Black','code'=>'#000000'],
@@ -1441,6 +1442,6 @@ function getColor(){
          ['name'=>'Silver','code'=>'#C0C0C0'],
          ['name'=>'Orange','code'=>'#FF6D01'],
     );
->>>>>>> Stashed changes
+
 }
 ?>
