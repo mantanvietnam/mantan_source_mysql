@@ -10,3 +10,4 @@ include_once('controller/api/provincesController.php'); // Tỉnh thành
 include_once('controller/api/usersController.php'); // Tài xế
 include_once('controller/api/bookingsController.php'); // Cuốc xe
 include_once('controller/api/pinnedProvincesController.php'); // Ghim tỉnh
+include_once('controller/api/transactionsController.php'); // Giao dịch

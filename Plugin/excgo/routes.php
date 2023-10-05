@@ -30,3 +30,6 @@
     $routesPlugin['getMyBookingListApi'] = 'excgo/view/getMyBookingListApi.php';
     $routesPlugin['viewBookingDetailApi'] = 'excgo/view/viewBookingDetailApi.php';
     $routesPlugin['updateBookingApi'] = 'excgo/view/updateBookingApi.php';
+
+    // Transaction
+    $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';

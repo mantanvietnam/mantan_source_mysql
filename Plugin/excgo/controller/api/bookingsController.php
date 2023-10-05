@@ -173,6 +173,7 @@ function getBookingListApi($input): array
 function receiveBookingApi($input): array
 {
     global $controller;
+    global $transactionType;
     global $isRequestPost;
     global $serviceFee;
     global $bookingStatus;
@@ -180,6 +181,7 @@ function receiveBookingApi($input): array
     $modelBooking = $controller->loadModel('Bookings');
     $modelBookingFee = $controller->loadModel('BookingFees');
     $modelUser = $controller->loadModel('Users');
+    $modelTransaction = $controller->loadModel('Transactions');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -208,20 +210,43 @@ function receiveBookingApi($input): array
                     return apiResponse(4, 'Tổng số dư tài khoản không đủ để nhận cuốc xe');
                 }
 
+                // Tạm giữ phí nhận cuốc xe và thu phí sàn
                 $bookingFee = $modelBookingFee->newEmptyEntity();
                 $bookingFee->received_fee = $receivedFee;
                 $bookingFee->service_fee = $serviceFee;
                 $bookingFee->booking_id = $booking->id;
+                $modelBookingFee->save($bookingFee);
 
+                // Trừ xu của user nhận cuốc xe
                 $currentUser->total_coin = $currentUser->total_coin - $receivedFee - $serviceFee;
+                $modelUser->save($currentUser);
 
+                // Update cuốc xe
                 $booking->received_by = $currentUser->id;
                 $booking->status = $bookingStatus['received'];
                 $booking->received_at = date('Y-m-d H:i:s');
-
-                $modelUser->save($currentUser);
-                $modelBookingFee->save($bookingFee);
                 $modelBooking->save($booking);
+
+                // Save transaction
+                // Giao dịch trừ phí nhận cuốc xe
+                $receiveTransaction = $modelTransaction->newEmptyEntity();
+                $receiveTransaction->user_id = $currentUser->id;
+                $receiveTransaction->amount = $receivedFee;
+                $receiveTransaction->type = $transactionType['subtract'];
+                $receiveTransaction->name = "Thanh toán cuốc xe #$booking->id thành công";
+                $receiveTransaction->description = '-' . number_format($receivedFee) . ' EXC-xu';
+                $modelTransaction->save($receiveTransaction);
+
+                // Giao dịch trừ phí sàn
+                if ($serviceFee) {
+                    $serviceTransaction = $modelTransaction->newEmptyEntity();
+                    $serviceTransaction->user_id = $currentUser->id;
+                    $serviceTransaction->amount = $serviceFee;
+                    $serviceTransaction->type = $transactionType['subtract'];
+                    $serviceTransaction->name = "Thanh toán phí sàn khi nhận cuốc xe #$booking->id thành công";
+                    $serviceTransaction->description = '-' . number_format($serviceFee) . ' EXC-xu';
+                    $modelTransaction->save($serviceTransaction);
+                }
 
                 return apiResponse(0, 'Nhận cuốc xe thành công');
             }
@@ -346,6 +371,7 @@ function completeBookingApi($input): array
 function checkFinishedBookingApi($input): array
 {
     global $controller;
+    global $transactionType;
     global $isRequestPost;
     global $bookingStatus;
     global $bookingFeeStatus;
@@ -353,6 +379,7 @@ function checkFinishedBookingApi($input): array
     $modelBooking = $controller->loadModel('Bookings');
     $modelUser = $controller->loadModel('Users');
     $modelBookingFee = $controller->loadModel('BookingFees');
+    $modelTransaction = $controller->loadModel('Transactions');
 
     if ($isRequestPost) {
         $now = DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
@@ -375,6 +402,15 @@ function checkFinishedBookingApi($input): array
 
             $modelUser->save($user);
             $modelBooking->save($booking);
+
+            // Save transaction
+            $newTransaction = $modelTransaction->newEmptyEntity();
+            $newTransaction->user_id = $user->id;
+            $newTransaction->amount = $bookingFee->received_fee;
+            $newTransaction->type = $transactionType['add'];
+            $newTransaction->name = "Nhận thanh toán cuốc xe #$booking->id thành công";
+            $newTransaction->description = '+' . number_format($bookingFee->received_fee) . ' EXC-xu';
+            $modelTransaction->save($newTransaction);
         }
 
         return apiResponse(0, 'Thanh toán phí thành công', $bookingList->toList());
