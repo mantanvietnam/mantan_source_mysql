@@ -1,5 +1,5 @@
 <?php 
-function listSearchKeyAdmin($input)
+function listSearchKeyEzpics($input)
 {
     global $controller;
     global $urlCurrent;
@@ -22,14 +22,6 @@ function listSearchKeyAdmin($input)
     $order = array('id'=>'desc');
     
     $listData = $modelSearchKey->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-    if(!empty($listData)){
-        foreach ($listData as $key => $value) {
-            $conditions_scan = array('id'=>$value->id);
-            $static = $modelSearchKey->find()->where($conditions_scan)->all()->toList();
-            $listData[$key]->number_scan = count($static);
-        }
-    }
 
     // phân trang
     $totalData = $modelSearchKey->find()->where($conditions)->all()->toList();
@@ -98,47 +90,21 @@ function addSearchKeyAdmin($input)
     $modelSearchKey = $controller->loadModel('SearchKeys');
     $modelMember = $controller->loadModel('Members');
     $mess= '';
-
     // lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelSearchKey->get( (int) $_GET['id']);
-
-    }else{
-        $data = $modelSearchKey->newEmptyEntity();
-        $data->created_at = date('Y-m-d H:i:s');
-    }
-
-
-    if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
-
-        if(!empty($dataSend['keyword'])){
             // tạo dữ liệu save
-            $data->keyword = @$dataSend['keyword'];
-            $data->slug = strtoupper(@$dataSend['keyword']);
-            $data->status = @$dataSend['status'];
+            $data->keyword = mb_strtolower(@$_GET['keyword'], 'UTF-8');
+            $data->slug = createSlugMantan(@$_GET['keyword']);
 
             $modelSearchKey->save($data);
-
-            $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
-
-             if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyAdmin.php?status=2');
-            }else{
-              
-                return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyAdmin.php?status=1');
-            }
+        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics.php?status=1');
             
-        }else{
-            $mess= '<p class="text-danger">Bạn chưa nhập tên</p>';
-        }
+            
     }
-
-
-
-    setVariable('data', $data);
-    setVariable('mess', $mess);
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics.php?status=1');
 }
+
 
 function deleteSearchKeyAdmin($input){
     global $controller;

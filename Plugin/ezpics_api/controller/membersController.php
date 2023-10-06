@@ -78,11 +78,7 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-<<<<<<< Updated upstream
-					$data->status = (int) @$dataSend['status']; //1: kích hoạt, 0: khóa
-=======
 					$data->status = (int) 0; //1: kích hoạt, 0: khóa
->>>>>>> Stashed changes
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
@@ -1362,4 +1358,44 @@ function acceptMemberAPI($input){
 	return $return;
 }
 
+
+function resendOtpAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+		if(!empty($checkPhone)){
+			$checkPhone->otp = rand(100000,999999);
+			$modelMember->save($checkPhone);
+			
+			if(!empty($checkPhone->otp)){
+				sendOTPZalo($checkPhone->phone, $checkPhone->otp);
+
+				$return = array('code'=>0, 
+				    			'messages'=>array(array('text'=>'gửi Mã OTP thành công ')),
+				    			'code_otp' => $checkPhone->otp,
+				    			'info_member'=>$checkPhone
+				    			
+				    	);
+			}else{
+				$return = array('code'=>3,
+					'mess'=>'Gửi OPT không thàng công'
+				);
+			}
+		}else{
+			$return = array('code'=>2,
+					'mess'=>'Gửi sai số điên thoại'
+				);
+		}
+	}
+	return $return;
+}
 ?>

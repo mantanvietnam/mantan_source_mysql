@@ -106,7 +106,7 @@ function searchProductAPI($input)
 
 			}else{
 				$Search =  $modelSearchKeys->newEmptyEntity();
-				$Search->keyword = strtolower($dataSend['name']);
+				$Search->keyword =mb_strtolower($dataSend['name'], 'UTF-8');
 				$Search->slug = createSlugMantan($dataSend['name']);
 				$Search->number_search = 1;
 				$Search->created_at = date('Y-m-d H:i:s');
