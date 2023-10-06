@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin lịch sử key tìm kiếm </h4>
- <p><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin lịch sử  tìm kiếm </h4>
+ <!-- <p><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
            <!-- table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -33,7 +33,7 @@
         </tbody></table> -->
     </form>
   <div class="card row">
-    <h5 class="card-header">Thông tin lịch sử key tìm kiếm </h5>
+    <h5 class="card-header">Thông tin lịch sử  tìm kiếm </h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -42,7 +42,7 @@
             <th>ID</th>
             <th>Tên </th>
             <th>số   </th>
-            <th>sữa</th>
+            <!-- <th>sữa</th> -->
             <th>Xóa</th>
           </tr>
         </thead>
@@ -64,12 +64,6 @@
                         <td>'.$item->id.'</td>
                         <td>'.@$item->keyword.'</td>
                         <td>'.@$item->number_search.'</td>
-                        <td align="center">
-                          <a class="dropdown-item" title="Từ chối" data-bs-toggle="modal"
-                            data-bs-target="#basicModal'.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-searchKey-deleteSearchKeyAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>

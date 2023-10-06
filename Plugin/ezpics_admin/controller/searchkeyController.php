@@ -6,7 +6,7 @@ function listSearchKeyEzpics($input)
     global $modelCategories;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách mã giảm giá';
+    $metaTitleMantan = 'Danh sách Lịch sử tìm kiếm';
 
     $modelSearchKey = $controller->loadModel('SearchKeys');
     

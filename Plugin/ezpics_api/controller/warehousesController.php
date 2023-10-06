@@ -110,6 +110,10 @@ function getProductsWarehousesAPI($input){
 		$conditions['wp.warehouse_id'] = $dataSend['idWarehouse'];
 		$conditions['Products.type'] = 'user_create';
 
+		if(!empty($dataSend['color'])){
+		$conditions['Products.color'] = $dataSend['color'];
+	}
+
 		if(!empty($dataSend['orderBy'])){
 			if(empty($dataSend['orderType'])) $dataSend['orderType'] = 'desc';
 			

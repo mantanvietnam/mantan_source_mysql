@@ -109,7 +109,10 @@
 	$routesPlugin['orderService']= 'databot_spa/view/home/order/orderService.php';
 	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
 	$routesPlugin['printInfoOrder']= 'databot_spa/view/home/order/printInfoOrder.php';
-
+	$routesPlugin['listOrderProduct']= 'databot_spa/view/home/order/listOrderProduct.php';
+	$routesPlugin['listOrderCobom']= 'databot_spa/view/home/order/listOrderCobom.php';
+	$routesPlugin['listOrderService']= 'databot_spa/view/home/order/listOrderService.php';
+	
 	// chiến dịch 
 	$routesPlugin['listCampain']= 'databot_spa/view/home/campain/listCampain.php';
 	$routesPlugin['addCampain']= 'databot_spa/view/home/campain/addCampain.php';
@@ -129,4 +132,5 @@
 	$routesPlugin['createRequestAddMoney']= 'databot_spa/view/home/transaction/createRequestAddMoney.php';
 	$routesPlugin['updateBankingAPI']= 'databot_spa/view/home/transaction/updateBankingAPI.php';
 	
+
 ?>
