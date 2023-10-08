@@ -1002,7 +1002,7 @@ function zipImage($urlLocalFile='')
     }
 }
 
-function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color)
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='')
 {
     global $controller;
 

@@ -99,7 +99,7 @@ function searchProductAPI($input)
 		}
 		if(!empty($dataSend['name'])){
 			$SearchKey = $modelSearchKeys->find()->where(array('keyword'=> strtolower($dataSend['name'])))->first();
-	
+
 			if(!empty($SearchKey)){
 				$SearchKey->number_search += 1;
 				$modelSearchKeys->save($SearchKey);
@@ -111,7 +111,6 @@ function searchProductAPI($input)
 				$Search->number_search = 1;
 				$Search->created_at = date('Y-m-d H:i:s');
 				$Search->status = 1;
-
 				$modelSearchKeys->save($Search);
 			}
 		}

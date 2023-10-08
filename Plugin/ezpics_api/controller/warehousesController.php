@@ -111,8 +111,8 @@ function getProductsWarehousesAPI($input){
 		$conditions['Products.type'] = 'user_create';
 
 		if(!empty($dataSend['color'])){
-		$conditions['Products.color'] = $dataSend['color'];
-	}
+			$conditions['Products.color'] = $dataSend['color'];
+		}
 
 		if(!empty($dataSend['orderBy'])){
 			if(empty($dataSend['orderType'])) $dataSend['orderType'] = 'desc';
