@@ -33,3 +33,7 @@
 
     // Transaction
     $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';
+
+    // Complaint
+    $routesPlugin['createComplaintApi'] = 'excgo/view/createComplaintApi.php';
+    $routesPlugin['getComplaintListApi'] = 'excgo/view/getComplaintListApi.php';

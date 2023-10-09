@@ -631,6 +631,12 @@ $transactionType = [
     'subtract' => 2,
 ];
 
+global $complaintType;
+$complaintType = [
+    'active' => 1,
+    'passive' => 2,
+];
+
 global $transactionKey;
 $transactionKey = 'excgo';
 

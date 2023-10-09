@@ -120,6 +120,31 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`withdraw_requests` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`transactions` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `booking_id` int DEFAULT NULL,
+    `name` varchar(255) NOT NULL,
+    `amount` int NOT NULL DEFAULT 0,
+    `description` text DEFAULT NULL,
+    `status` tinyint(4) NOT NULL DEFAULT 1,
+    `type` tinyint(4) NOT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`complaints` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `posted_by` int NOT NULL,
+    `booking_id` int NOT NULL,
+    `complained_driver_id` int NOT NULL,
+    `content` text NOT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
@@ -129,5 +154,6 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `pinned_provinces`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `booking_fees`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `driver_requests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `withdraw_requests`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `complaints`;';
 ?>
-

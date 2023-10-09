@@ -48,8 +48,8 @@ function getListTransactionApi($input): array
             $conditions[] = ['Transactions.created_at <=' => $finishTime];
         }
 
-        if (!empty($dataSend['type']) && in_array($dataSend['type'], $transactionType)) {
-            $conditions[] = ['Transactions.created_at' => $dataSend['type']];
+        if (!empty($dataSend['type']) && in_array((int) $dataSend['type'], $transactionType)) {
+            $conditions[] = ['Transactions.type' => (int) $dataSend['type']];
         }
 
         $data = $query->select([
