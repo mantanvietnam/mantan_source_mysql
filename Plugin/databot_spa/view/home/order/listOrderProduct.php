@@ -89,19 +89,12 @@
                                                     </td>
                                                             <?php  if(!empty($item->product)){ 
                                                                       foreach($item->product as $k => $value){
-                                                                        if($value->type=='product'){
-                                                                            $type ='Sản phẩm';
-                                                                        }elseif($value->type=='service') {
-                                                                           $type ='Dịch vụ';
-                                                                        }elseif($value->type=='combo'){
-                                                                            $type ='Combo';
-                                                                        }
+                                                                        
                                                                 ?>
                                                      
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
-                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
-                                                            <td><?php echo $type ?></td>
+                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>s
 
                                                       </tr>
                                                         <?php }} 

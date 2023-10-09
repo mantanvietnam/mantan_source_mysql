@@ -642,4 +642,23 @@ function updateProductAdmin($input)
 	    setVariable('listWarehouseCheck', $listWarehouseCheck);
 	}
 }
+/*
+function fixPrice($input){
+	global $controller;
+	
+
+	$modelProduct = $controller->loadModel('Products');
+
+	$listData = $modelProduct->find()->where(array('type'=>'user_create'))->all()->toList();
+
+	foreach($listData as $Key => $item){
+		$item->sale_price = 50000;
+		$item->price = 250000;
+
+		$modelProduct->save($item);
+
+	}
+	debug('ok');
+	die();
+}*/
 ?>

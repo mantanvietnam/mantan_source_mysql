@@ -50,7 +50,6 @@
                                                 <th >Sản phẩn</th>
                                                 <th >Giá bán</th>
                                                 <th >Số lượng </th>
-                                                <th >loại </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -84,25 +83,17 @@
                                                     Giảm giá: <?php echo $promotion ?><br/>
                                                     Tổng cộng: <?php echo number_format(@$item->total_pay) ?>đ<br/>
                                                     Trạng thái: <?php echo $type ?></td>
-                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo @$item->bed->name ?><br/>
-                                                        <?php echo $checkin ?>
+                                                    <td rowspan='<?php echo count($item->product); ?>'><a class="btn rounded-pill btn-icon btn-outline-secondary" title="Từ chối" data-bs-toggle="modal"
+                            data-bs-target="#basicModal<?php echo $item->id; ?>" ><i class="bx  bx bxs-show"></i></a>
                                                     </td>
                                                             <?php  if(!empty($item->product)){ 
                                                                       foreach($item->product as $k => $value){
-                                                                        if($value->type=='product'){
-                                                                            $type ='Sản phẩm';
-                                                                        }elseif($value->type=='service') {
-                                                                           $type ='Dịch vụ';
-                                                                        }elseif($value->type=='combo'){
-                                                                            $type ='Combo';
-                                                                        }
+                                                                       
                                                                 ?>
                                                      
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
                                                             <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
-                                                            <td><?php echo $type ?></td>
-
                                                       </tr>
                                                         <?php }} 
                                             }}else{
@@ -120,6 +111,64 @@
         </form>
     </div>
 </div>          
+<?php   if(!empty($listData)){
+           foreach($listData as $key => $items){
+            if($items->promotion>101){
+              $promotion = number_format($items->promotion).'đ';
+            }else{
+               $promotion = $items->promotion.'%';
+            }
+
+             ?>      
+            <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin Combo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                               <div class="modal-footer" style="display: block;">
+                                <p><label>ID:</label> <?php echo $items->id ?></p>
+                                <p><label>Tiên khách hàng:</label> <?php echo $items->full_name ?></p>
+                                <p><label>Điện thoại:</label> <?php echo $items->customer->phone ?></p>
+                                <p><label>Email:</label> <?php echo $items->customer->email ?></p>
+                                <p> Chưa giảm giá: <?php echo number_format(@$item->total) ?>đ <br/>
+                                Giảm giá: <?php echo $promotion ?><br/>
+                                Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
+                                Trạng thái: <?php echo $type ?></td></p>
+
+                                <table class="table table-bordered" style=" text-align: center; ">
+                                        <thead>
+                                            <tr>
+                                                <th >Sản phẩn</th>
+                                                <th >Giá bán</th>
+                                                <th >Số lượng </th>                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php  if(!empty($items->product)){ 
+                                                                      foreach($items->product as $k => $value){
+                                                                        
+                                                                ?>
+                                                     <tr>
+                                                            <td><?php echo $value->prod->name ?></td>
+                                                            <td><?php echo number_format($value->price) ?>đ</td>
+                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
+
+                                                      </tr>
+                                                        <?php }} ?>
+                                        </tbody>
+                                    </table>
+
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+
+
+<?php }} ?>
 
 <script type="text/javascript">
 

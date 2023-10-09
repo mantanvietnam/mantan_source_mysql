@@ -1411,9 +1411,6 @@ function updateInfoProductAPI($input)
 }
 
 function getMainColorAPI(){
-
- 
-
 	return getColor();
 }
 ?>

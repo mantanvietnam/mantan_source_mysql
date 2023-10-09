@@ -1156,6 +1156,7 @@ function getColor(){
          ['name'=>'Magenta / Fuchsia','code'=>'#FF00FF'],
          ['name'=>'Silver','code'=>'#C0C0C0'],
          ['name'=>'Orange','code'=>'#FF6D01'],
+         ['name'=>'Pink','code'=>'#FFC0CB'],
     );
 }
 
