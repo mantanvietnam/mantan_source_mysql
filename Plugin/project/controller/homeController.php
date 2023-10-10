@@ -76,4 +76,46 @@ function listLibrary($input)
     setVariable('listData', $listData);
 
 }
+
+function listAlbum($input){
+    global $controller;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+
+
+    $conditions = array();
+    $limit = 2;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'asc');
+
+    if(!empty($_GET['id'])){
+        $conditions['id'] = (int) $_GET['id'];
+    }
+
+    //$conditions['id_category'] = 41;
+
+    if(!empty($input['request']->getAttribute('params')['pass'][1])){
+        $slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+        $slug = explode('-', $slug);
+        $count = count($slug)-1;
+        $id = (int) $slug[$count];
+
+        $data = $modelAlbums->find()->where(['id'=>$id])->first();
+
+        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->first();
+
+
+        $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        
+        setVariable('data', $data);
+        setVariable('listData', $listData);
+    }else{
+        return $controller->redirect('/');
+    }
+
+}
  ?>

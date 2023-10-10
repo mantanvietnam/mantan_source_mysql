@@ -920,7 +920,7 @@ function memberBuyProMonthAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token'] ))->first();
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 		$pricepro = $price_pro;
 
