@@ -144,6 +144,7 @@
                                                 <th >Sản phẩn</th>
                                                 <th >Giá bán</th>
                                                 <th >Số lượng </th>                                                
+                                                <th >Hành động </th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -155,6 +156,8 @@
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
                                                             <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
+                                                            <td><a class="" title="Từ chối" data-bs-toggle="modal"
+                            data-bs-target="#sudung<?php echo $value->id; ?>">sử dụng</a></td>
 
                                                       </tr>
                                                         <?php }} ?>
@@ -167,6 +170,50 @@
                           </div>
                         </div>
 
+<?php  if(!empty($items->product)){ 
+        foreach($items->product as $k => $value){?>
+<div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Dịch vụ <?php echo $value->prod->name ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                                <form id="" action="" class="form-horizontal" method="get" enctype=""> 
+                                     <div class="modal-footer" style="display: block;">
+                                        <div class="card-body">
+                                            <div class="row gx-3 gy-2 align-items-center">
+                                            <div class="col-md-12">
+                                             <label class="form-label">Chọn gường </label>
+                                            <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
+                                                <option value="">Chọn giường</option>
+                                                <?php if(!empty($listRoom))
+                                                    foreach ($listRoom as $room) { 
+                                                        echo '<optgroup label="'.$room->name.'">';
+                                                        if(!empty($room->bed)){
+                                                            foreach($room->bed as $bed){
+                                                                $selected = '';
+                                                                if(!empty($_GET['idBed']==$bed->id)){
+                                                                    $selected = 'selected';
+                                                                }
+                                                                echo '<option data-unit="'.@$bed->id.'" '.@$selected.' value="'.$bed->id.'">'.$bed->name.'</option>';
+                                                               }
+                                                            }
+                                                echo '</optgroup>';
+                                                }?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    </div>
+                                     <button type="submit" class="btn btn-primary">Sử dụng</button>
+                                 </div>
+                                </form>
+                            
+                          </div>
+                      </div>
+                  </div>
+<?php }} ?>
 
 <?php }} ?>
 
