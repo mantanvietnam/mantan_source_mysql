@@ -187,4 +187,5 @@
 	$routesPlugin['showDiscountCodeAPI']= 'ezpics_api/view/showDiscountCodeAPI.php';	
 	$routesPlugin['getMainColorAPI']= 'ezpics_api/view/getMainColorAPI.php';	
 	$routesPlugin['resendOtpAPI']= 'ezpics_api/view/resendOtpAPI.php';	
+	$routesPlugin['memberBuyProMonthAPI']= 'ezpics_api/view/memberBuyProMonthAPI.php';	
 ?>
