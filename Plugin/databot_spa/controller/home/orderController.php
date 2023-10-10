@@ -1205,6 +1205,16 @@ function listOrderService($input){
             $mess = '<p style="color: #00f83a;">Phòng vẫn có khách không check in được</p>';
         }
 
+        $conditionsRoom = array( 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        
+        $listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
+        
+        if(!empty($listRoom)){
+            foreach($listRoom as $key => $item){
+                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'), 'status'=>1))->all()->toList();
+            }
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -1213,6 +1223,7 @@ function listOrderService($input){
         setVariable('totalData', $totalData);
         
         setVariable('listData', $listData);
+        setVariable('listRoom', $listRoom);
         setVariable('listWarehouse', $listWarehouse);
         setVariable('mess', @$mess);
 
