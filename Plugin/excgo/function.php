@@ -642,3 +642,6 @@ $transactionKey = 'excgo';
 
 global $urlTransaction;
 $urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';
+
+global $defaultAvatar;
+$defaultAvatar = 'https://apis.exc-go.vn/plugins/excgo/view/image/default-avatar.png';

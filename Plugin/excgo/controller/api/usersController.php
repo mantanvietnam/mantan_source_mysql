@@ -542,3 +542,264 @@ function createWithdrawRequestApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function checkLoginFacebookApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultAvatar;
+
+    $userModel = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['facebook_id'])) {
+            $user = $userModel->find()->where(['facebook_id' => $dataSend['facebook_id']])->first();
+
+            if ($user) {
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->access_token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->name = $dataSend['name'] ?? $user->name;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
+            } else {
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone_number'])) {
+                    $checkPhone = $userModel->find()->where(['phone_number' => $dataSend['phone_number']])->first();
+
+                    if (!empty($checkPhone)) {
+                        $checkPhone->facebook_id = $dataSend['facebook_id'];
+                        $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
+                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
+                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->access_token = createToken();
+                        $userModel->save($checkPhone);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
+                    }
+                }
+
+                // Kiểm tra user email đã tồn tại chưa
+                if (!empty($dataSend['email'])) {
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
+
+                    if (!empty($checkEmail)) {
+                        $checkEmail->facebook_id = $dataSend['facebook_id'];
+                        $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
+                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
+                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->access_token = createToken();
+                        $userModel->save($checkEmail);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
+                    }
+                }
+
+                // Tạo user mới
+
+                if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser->phone_number = $dataSend['phone_number'] ?? 'FB' . $dataSend['facebook_id'];
+                    $newUser->is_verified = 1;
+                    $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->address = $dataSend['address'] ?? null;
+                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->access_token = createToken();
+                    $newUser->device_token = $dataSend['device_token'] ?? null;
+                    $userModel->save($newUser);
+
+                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                }
+
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function checkLoginGoogleApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultAvatar;
+
+    $userModel = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['google_id'])) {
+            $user = $userModel->find()->where(['google_id' => $dataSend['google_id']])->first();
+
+            if ($user) {
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->access_token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->name = $dataSend['name'] ?? $user->name;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
+            } else {
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone_number'])) {
+                    $checkPhone = $userModel->find()->where(['phone_number' => $dataSend['phone_number']])->first();
+
+                    if (!empty($checkPhone)) {
+                        $checkPhone->google_id = $dataSend['google_id'];
+                        $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
+                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
+                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->access_token = createToken();
+                        $userModel->save($checkPhone);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
+                    }
+                }
+
+                // Kiểm tra user email đã tồn tại chưa
+                if (!empty($dataSend['email'])) {
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
+
+                    if (!empty($checkEmail)) {
+                        $checkEmail->google_id = $dataSend['google_id'];
+                        $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
+                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
+                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->access_token = createToken();
+                        $userModel->save($checkEmail);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
+                    }
+                }
+
+                // Tạo user mới
+
+                if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser->phone_number = $dataSend['phone_number'] ?? 'GG' . $dataSend['google_id'];
+                    $newUser->is_verified = 1;
+                    $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->address = $dataSend['address'] ?? null;
+                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->access_token = createToken();
+                    $newUser->device_token = $dataSend['device_token'] ?? null;
+                    $userModel->save($newUser);
+
+                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                }
+
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function checkLoginAppleApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultAvatar;
+
+    $userModel = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['apple_id'])) {
+            $user = $userModel->find()->where(['apple_id' => $dataSend['apple_id']])->first();
+
+            if ($user) {
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->access_token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->name = $dataSend['name'] ?? $user->name;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
+            } else {
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone_number'])) {
+                    $checkPhone = $userModel->find()->where(['phone_number' => $dataSend['phone_number']])->first();
+
+                    if (!empty($checkPhone)) {
+                        $checkPhone->apple_id = $dataSend['apple_id'];
+                        $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
+                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
+                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->access_token = createToken();
+                        $userModel->save($checkPhone);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
+                    }
+                }
+
+                // Kiểm tra user email đã tồn tại chưa
+                if (!empty($dataSend['email'])) {
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
+
+                    if (!empty($checkEmail)) {
+                        $checkEmail->apple_id = $dataSend['apple_id'];
+                        $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
+                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
+                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->access_token = createToken();
+                        $userModel->save($checkEmail);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
+                    }
+                }
+
+                // Tạo user mới
+
+                if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser->phone_number = $dataSend['phone_number'] ?? 'AP' . $dataSend['apple_id'];
+                    $newUser->is_verified = 1;
+                    $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->address = $dataSend['address'] ?? null;
+                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->access_token = createToken();
+                    $newUser->device_token = $dataSend['device_token'] ?? null;
+                    $userModel->save($newUser);
+
+                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                }
+
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
