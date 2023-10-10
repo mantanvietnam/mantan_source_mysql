@@ -403,10 +403,10 @@ function createProductAPI($input)
 				$price = (int) @$dataSend['price'];
 				$sale_price = (int) @$dataSend['sale_price'];
 				$category_id = (int) @$dataSend['category_id'];
-				$color = (int) @$dataSend['color'];
+				$color = @$dataSend['color'];
 				$warehouse =  explode(',', @$dataSend['warehouse_id']);
 
-	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id,@$warehouse,@$color);
+	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color);
 	        }else{
 	        	$return = array('code'=>3,
 							'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))
