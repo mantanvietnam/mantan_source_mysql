@@ -96,7 +96,9 @@ function listAlbum($input){
         $conditions['id'] = (int) $_GET['id'];
     }
 
-    //$conditions['id_category'] = 41;
+    $conditions['id_category'] = 8;
+
+    $category = $modelCategories->find()->where(['id'=>8,'type'=>'album'])->first();
 
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
@@ -106,16 +108,24 @@ function listAlbum($input){
 
         $data = $modelAlbums->find()->where(['id'=>$id])->first();
 
-        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->first();
+        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
 
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
-        setVariable('data', $data);
-        setVariable('listData', $listData);
+       
     }else{
-        return $controller->redirect('/');
+        $data = $modelAlbums->find()->where($conditions['id_category'])->first();
+
+        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+
+
+        $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }
+
+     setVariable('data', $data);
+     setVariable('category', $category);
+        setVariable('listData', $listData);
 
 }
  ?>

@@ -43,7 +43,7 @@
                                                 <th rowspan='2'>thời gian</th>
                                                 <th rowspan='2'>khách hàng</th>
                                                 <th rowspan="2">Thành tiền </th>
-                                                <th rowspan="2">Giường </th>
+                                                <th rowspan="2">Chi tiết </th>
                                                 <th colspan="4">thông tin sản phẩn </th>                                                
                                             </tr>
                                             <tr>
@@ -125,7 +125,7 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin Combo</h5>
+                                <h5 class="modal-title" id="exampleModalLabel1">Thông tin Dịch vụ</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                                <div class="modal-footer" style="display: block;">
@@ -141,7 +141,7 @@
                                 <table class="table table-bordered" style=" text-align: center; ">
                                         <thead>
                                             <tr>
-                                                <th >Sản phẩn</th>
+                                                <th >Dịch vụ</th>
                                                 <th >Giá bán</th>
                                                 <th >Số lượng </th>                                                
                                                 <th >Hành động </th>                                                
@@ -156,8 +156,12 @@
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
                                                             <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
-                                                            <td><a class="" title="Từ chối" data-bs-toggle="modal"
-                            data-bs-target="#sudung<?php echo $value->id; ?>">sử dụng</a></td>
+                                                            <td><?php if ($value->number_uses<=$value->quantity){ ?>
+                                                                <a class="" title="sử dụng" data-bs-toggle="modal" data-bs-target="#sudung<?php echo $value->id; ?>">sử dụng</a>
+                                                            <?php } ?>
+                                                                
+
+                                                            </td>
 
                                                       </tr>
                                                         <?php }} ?>
@@ -180,11 +184,12 @@
                                 <h5 class="modal-title" id="exampleModalLabel1">Dịch vụ <?php echo $value->prod->name ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                                <form id="" action="" class="form-horizontal" method="get" enctype=""> 
+                                <form id="" action="/addUserService" class="form-horizontal" method="get" enctype=""> 
                                      <div class="modal-footer" style="display: block;">
                                         <div class="card-body">
                                             <div class="row gx-3 gy-2 align-items-center">
                                             <div class="col-md-12">
+                                            <input type="hidden" value="<?php echo $value->id; ?>"  name="id">
                                              <label class="form-label">Chọn gường </label>
                                             <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
                                                 <option value="">Chọn giường</option>

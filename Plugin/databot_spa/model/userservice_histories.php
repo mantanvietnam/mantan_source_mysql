@@ -2,7 +2,7 @@
 namespace App\Model\Table;
 use Cake\ORM\Table;
 
-class TreatmentHistorysTable extends Table
+class UserserviceHistoriesTable extends Table
 {
 	/*
 	public function initialize(array $config): void

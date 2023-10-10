@@ -25,7 +25,6 @@ function orderProduct($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-        $modelTreatmentHistorys = $controller->loadModel('TreatmentHistorys');
 
 		$conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
 		$listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -105,11 +104,6 @@ function orderProduct($input){
 
                 $modelOrderDetails->save($detail);
             }
-
-            // thạo lịch trình cho khách hàng,
-            $tTreatment = $modelTreatmentHistorys->newEmptyEntity();
-
-
 
             //sử lý phần thanh toán 
             if($dataSend['typeOrder']==1){
@@ -283,7 +277,6 @@ function orderCobom($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-        $modelTreatmentHistorys = $controller->loadModel('TreatmentHistorys');
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
         $listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -363,10 +356,6 @@ function orderCobom($input){
 
                 $modelOrderDetails->save($detail);
             }
-
-            // thạo lịch trình cho khách hàng,
-            $tTreatment = $modelTreatmentHistorys->newEmptyEntity();
-
 
 
             //sử lý phần thanh toán 
@@ -541,7 +530,6 @@ function orderService($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-        $modelTreatmentHistorys = $controller->loadModel('TreatmentHistorys');
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
         $listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -621,11 +609,6 @@ function orderService($input){
 
                 $modelOrderDetails->save($detail);
             }
-
-            // thạo lịch trình cho khách hàng,
-            $tTreatment = $modelTreatmentHistorys->newEmptyEntity();
-
-
 
             //sử lý phần thanh toán 
             if($dataSend['typeOrder']==1){
@@ -1347,4 +1330,78 @@ function printInfoOrder($input){
     }
 }
 
- ?>
+function addUserService($input){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'in đơn hàng';
+
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+
+        $modelCombo = $controller->loadModel('Combos');
+        $modelProduct = $controller->loadModel('Products');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelBill = $controller->loadModel('Bills');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+
+        if(!empty($_GET['id'])){
+            
+
+            $OrderDetails = $modelOrderDetails->get($_GET['id']);
+            $Order = $modelOrder->get($OrderDetails->id_order);
+
+            if(empty($_GET['id_bed'])){
+                $OrderDetails->number_uses +=1;
+
+                $modelOrderDetails->save($OrderDetails);
+
+                $UserService = $modelUserserviceHistories->newEmptyEntity();
+                $UserService->id_member = $user->id_member;
+                $UserService->id_staff = $user->id;
+                $UserService->id_order_details = $_GET['id'];
+                $UserService->id_spa =$session->read('id_spa');
+                $UserService->id_services =$OrderDetails->id_product;
+                $UserService->created_at =date('Y-m-d H:i:s');
+                $UserService->note =@$_GET['note'];
+                $UserService->id_customer = $Order->id_customer;
+                $UserService->status = 0;
+
+                 $modelUserserviceHistories->save($UserService);
+            }else{
+                $OrderDetails->number_uses +=1;
+
+                $modelOrderDetails->save($OrderDetails);
+
+                $UserService = $modelUserserviceHistories->newEmptyEntity();
+                $UserService->id_member = $user->id_member;
+                $UserService->id_order_details = $_GET['id'];
+                $UserService->id_staff = $user->id;
+                $UserService->id_spa =$session->read('id_spa');
+                $UserService->id_services =$OrderDetails->id_product;
+                $UserService->created_at =date('Y-m-d H:i:s');
+                $UserService->note =@$_GET['note'];
+                $UserService->id_customer = $Order->id_customer;
+                $UserService->status = 1;
+                $modelUserserviceHistories->save($UserService);
+
+            }
+             return $controller->redirect('/listOrderService');
+         }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+?>
