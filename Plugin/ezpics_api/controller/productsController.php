@@ -463,6 +463,10 @@ function updateProductAPI($input)
 						$product->category_id = (int) @$dataSend['category_id'];
 					}
 
+					if(!empty($dataSend['color'])){
+						$product->color = @$dataSend['color'];
+					}
+
 					if(isset($dataSend['status']) && @$dataSend['status']<2){
 
 						$product->status = (int) @$dataSend['status'];
