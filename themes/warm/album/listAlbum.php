@@ -3,14 +3,17 @@
     global $modelAlbums;
     global $modelAlbuminfos;
 ?>
-<?php getHeader();?>
+<?php getHeader();
+    // debug($listData);
+    // debug($data);
+?>
 <main>
     <section id="section-home-banner" class="section-logo-header">
       <div class="home-banner">
           <div class="logo-banner-box">
               <div class="container">
                   <div class="logo-warm">
-                      <img src="../asset/img/WARM-horz-EN-_1_.jpg" alt="">
+                      <img src="<?php echo $urlThemeActive;?>/asset/img/WARM-horz-EN-_1_.jpg" alt="">
                   </div>
               </div>
           </div>
@@ -26,76 +29,24 @@
         <div class="setting-banner-warm-video">
           <div class="swiper galleryToptwo">
             <div class="swiper-wrapper">
+               
+                <?php
+                if($data->imageinfo){
+                 foreach($data->imageinfo as $key => $value){ ?>
                 <div class="swiper-slide" id="swiper-1">
 
                   <div class="row">
                     <div class="col-4 text-banner-warm-video">
-                        <h2>THEMATIC PHOTOS</h2>
-                        <P>Fertile field along Nam Rom river, Dien Bien Phu city, where often adversely affected by
-                            the river floods.</P>
+                        <h2><?php echo $category->name; ?></h2>
+                        <P><?php echo $value->description; ?>.</P>
                     </div>
                     <div class="col-8 image-banner-warm-video-one">
-                      <img src="https://swiperjs.com/demos/images/nature-1.jpg"/>
+                      <img src="<?php echo $value->image; ?>"/>
                     </div>
                       
                   </div>
                 </div>
-                <div class="swiper-slide" id="swiper-2">
-
-                  <div class="row">
-                    <div class="col-4 text-banner-warm-video">
-                        <h2>THEMATIC PHOTOS</h2>
-                        <P>Fertile field along Nam Rom river, Dien Bien Phu city, where often adversely affected by
-                            the river floods.</P>
-                    </div>
-                    <div class="col-8 image-banner-warm-video-one">
-                      <img src="https://swiperjs.com/demos/images/nature-2.jpg"/>
-                    </div>
-                      
-                  </div>
-                </div>
-                <div class="swiper-slide" id="swiper-3">
-
-                  <div class="row">
-                    <div class="col-4 text-banner-warm-video">
-                        <h2>THEMATIC PHOTOS</h2>
-                        <P>Fertile field along Nam Rom river, Dien Bien Phu city, where often adversely affected by
-                            the river floods.</P>
-                    </div>
-                    <div class="col-8 image-banner-warm-video-one">
-                      <img src="https://swiperjs.com/demos/images/nature-3.jpg"/>
-                    </div>
-                      
-                  </div>
-                </div>
-                <div class="swiper-slide" id="swiper-4">
-
-                  <div class="row">
-                    <div class="col-4 text-banner-warm-video">
-                        <h2>THEMATIC PHOTOS</h2>
-                        <P>Fertile field along Nam Rom river, Dien Bien Phu city, where often adversely affected by
-                            the river floods.</P>
-                    </div>
-                    <div class="col-8 image-banner-warm-video-one">
-                      <img src="https://swiperjs.com/demos/images/nature-4.jpg"/>
-                    </div>
-                      
-                  </div>
-                </div>
-                <div class="swiper-slide" id="swiper-5">
-
-                  <div class="row">
-                    <div class="col-4 text-banner-warm-video">
-                        <h2>THEMATIC PHOTOS</h2>
-                        <P>Fertile field along Nam Rom river, Dien Bien Phu city, where often adversely affected by
-                            the river floods.</P>
-                    </div>
-                    <div class="col-8 image-banner-warm-video-one">
-                      <img src="https://swiperjs.com/demos/images/nature-5.jpg"/>
-                    </div>
-                      
-                  </div>
-                </div>
+               <?php }} ?>
             </div>
           </div>
         </div>
@@ -106,38 +57,21 @@
           <div class="setting-nav-tab-warm-video">
               <div class="setting-column-warm-video">
                   <div class="btn-tab-warm-video nav flex-column nav-pills">
-                    <a href="" class="">(i) Resilience of cities and territories to climate change and natural hazards</a>
-                    <a href="" class="">(ii) Integrated coastal zone management</a>
-                    <a href="" class="">(iii) Water resource management</a>
+                    <?php foreach($listData as $key => $item){ ?>
+                    <a href="/listAlbum/<?php echo $item->slug.'-'.$item->id.'html'; ?>" class=""><?php echo $item->title; ?></a>
+                    <?php } ?>
                   </div>               
                   <div class="list-img-warm-video tab-content" id="v-pills-tabContent">
                       <div class="tab-pane fade show active bac-kan" role="tabpanel" aria-labelledby="bac-kan-tab">
                           <div class="swiper galleryThumbstwo">
                               <div class="swiper-wrapper">
+                                <?php
+                                if($data->imageinfo){
+                                 foreach($data->imageinfo as $key => $value){ ?>
                                 <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                                  <img src="<?php echo $value->image; ?>" />
                                 </div>
-                                <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                                </div>
-                                <div class="swiper-slide">
-                                  <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                                </div>
+                                <?php }} ?>
                               </div>
                           </div>
                 
