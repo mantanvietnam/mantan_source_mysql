@@ -58,7 +58,7 @@
               <div class="setting-column-warm-video">
                   <div class="btn-tab-warm-video nav flex-column nav-pills">
                     <?php foreach($listData as $key => $item){ ?>
-                    <a href="/listAlbum/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
+                    <a href="/projectPhoto/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
                     <?php } ?>
                   </div>               
                   <div class="list-img-warm-video tab-content" id="v-pills-tabContent">
@@ -78,7 +78,7 @@
                       </div>
 
                       <!-- pagination -->
-                      <section id="section-pagination-transparent">
+                      <!-- <section id="section-pagination-transparent">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                               <li class="page-item page-control">
@@ -96,7 +96,7 @@
                               </li>
                             </ul>
                         </nav>
-                      </section>
+                      </section> -->
                   </div>                  
               </div>
 
