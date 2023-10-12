@@ -9,8 +9,7 @@
         <!-- Section 1 -->
         <div class="col-12 col-xs-12 col-sm-12 ">
           <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Khối mục 1</h5>
+            <div class="card-header d-flex justify-content-between align-items-center">s
             </div>
             <div class="card-body row">
                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -27,12 +26,12 @@
                 </div>
               </div>
 
-              <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <!-- <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Tiêu đề phụ nội dung</label>
                   <input type="text" class="form-control" name="title_sub_section_1" value="<?php echo @$setting['title_sub_section_1'];?>" />
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="mb-3">
