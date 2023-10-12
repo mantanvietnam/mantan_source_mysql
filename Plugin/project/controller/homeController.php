@@ -87,10 +87,10 @@ function listAlbum($input){
 
 
     $conditions = array();
-    $limit = 2;
+    $limit = 10;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'asc');
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
@@ -139,10 +139,10 @@ function projectPhoto($input){
 
 
     $conditions = array();
-    $limit = 2;
+    $limit = 10;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'asc');
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
@@ -190,10 +190,10 @@ function thematicVideo($input){
 
 
     $conditions = array();
-    $limit = 2;
+    $limit = 10;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'asc');
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
@@ -241,10 +241,10 @@ function projectVideo($input){
 
 
     $conditions = array();
-    $limit = 2;
+    $limit = 10;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'asc');
+    $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
@@ -294,7 +294,7 @@ function mediapres($input)
 
     $modelMediapre = $controller->loadModel('mediapres');
 
-    $conditions = array();
+    $conditions = array('status'=>1);
     $limit = 10;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
@@ -358,6 +358,39 @@ function mediapres($input)
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);
     setVariable('listData', $listData);
+
+}
+
+function media($input)
+{
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    global $modelOptions;
+
+    $modelMediapre = $controller->loadModel('mediapres');
+
+    $conditions = array('key_word' => 'settingMediaAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $media = $modelMediapre->find()->where(['status'=>1])->all()->toList();
+
+
+    $data_value = json_decode($data->value, true);
+
+    $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_album']])->first();
+
+    
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$data_value['id_album']])->all()->toList();
+    }
+
+
+    setVariable('slide_home', $slide_home);
+    setVariable('data_value', $data_value);
+    setVariable('media', $media);
 
 }
  ?>

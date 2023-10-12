@@ -189,4 +189,5 @@
 	$routesPlugin['resendOtpAPI']= 'ezpics_api/view/resendOtpAPI.php';	
 	$routesPlugin['memberBuyProMonthAPI']= 'ezpics_api/view/memberBuyProMonthAPI.php';	
 	$routesPlugin['memberExtendProMonthAPI']= 'ezpics_api/view/memberExtendProMonthAPI.php';	
+	$routesPlugin['buyProductEcoinAPI']= 'ezpics_api/view/buyProductEcoinAPI.php';	
 ?>

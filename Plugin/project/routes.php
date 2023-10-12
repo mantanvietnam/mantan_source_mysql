@@ -6,7 +6,8 @@
 	$routesPlugin['projectPhoto']= 'project/view/home/projectPhoto.php';
 	$routesPlugin['thematicVideo']= 'project/view/home/thematicVideo.php';
 	$routesPlugin['projectVideo']= 'project/view/home/projectVideo.php';
-	$routesPlugin['mediapres']= 'project/view/home/mediapres.php';
+	$routesPlugin['mediapress']= 'project/view/home/mediapres.php';
+	$routesPlugin['media']= 'project/view/home/media.php';
 
 
 ?>

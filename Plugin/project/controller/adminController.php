@@ -423,5 +423,46 @@ function deleteMediapreAdmin($input){
 
     return $controller->redirect('/plugins/admin/project-view-admin-mediapre-listMediapreAdmin.php');
 }
+
+function settingMediaAdmin($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang chủ';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingMediaAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'content' => $dataSend['content'],
+                        'title' => $dataSend['title'],
+                        'description' => $dataSend['description'],
+                        'video' => $dataSend['video'],
+                        'id_album' => $dataSend['id_album'],
+);
+
+        $data->key_word = 'settingMediaAdmin';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
 ?>
 
