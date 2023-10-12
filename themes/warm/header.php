@@ -138,8 +138,21 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                                         </span>
                                         <ul class="dropdown-menu">';
                                             foreach($value->sub as $sub){
-                                                echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a>';
+                                                if(!empty($sub->sub)){
+                                                    echo'<ul class="submenu dropdown-menu">';
+                                                    foreach($sub->sub as $sub_child){
+                                                        echo'
+                                                        <li><a class="dropdown-item" href="'.$sub_child->link.'">'.$sub_child->name.'</a></li>';
+                                                        
+                                                    }
+                                                    echo'</ul>';
+                                                }
+
+                                                echo'
+                                                </li>';
                                             }; 
+                                            
                                     echo'
                                         </ul>
                                     </li>';

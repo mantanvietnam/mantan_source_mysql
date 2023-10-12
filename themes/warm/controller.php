@@ -97,12 +97,10 @@ function indexTheme($input)
     }
 
     // Slide photo ảnh
-    $conditions = array('id_category'=>3);
-    $limit = 8;
-    $page = 1;
+    $conditions = array('id_album'=>3);
     $order = array('id'=>'desc');
  
-    $album_photo = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $album_photo = $modelAlbuminfos->find()->where($conditions)->order($order)->all()->toList();
 
      // Slide photo ảnh
      $modelProjects = $controller->loadModel('Projects');

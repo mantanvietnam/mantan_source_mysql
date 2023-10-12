@@ -43,7 +43,7 @@
                                 </div>
 
                                 <div class="media-press-button">
-                                    <button><?php echo date('d/m/Y', $item->time_create) ?></button>
+                                    <button>PUBLISHED ON <?php echo date('d F Y', $item->time_create)?></button>
 
                                     <div class="button-publications">
                                         <a href="<?php echo $item->link ?>" target="_blank">Download</a>
@@ -73,7 +73,7 @@
                                 </div>
 
                                 <div class="media-press-button">
-                                    <button><?php echo date('d/m/Y', $item->time_create) ?></button>
+                                    <button>PUBLISHED ON <?php echo date('d F Y', $item->time_create) ?></button>
 
                                     <div class="button-publications">
                                         <a href="<?php echo $item->link ?> " target="_blank">Download</a>
@@ -93,7 +93,7 @@
                
             </div>
         </section>
-
+<!-- 
         <section id="section-pagination">
             <div class="demo-inline-spacing">
               <nav aria-label="Page navigation">
@@ -136,6 +136,6 @@
                 </ul>
               </nav>
             </div>
-        </section>
+        </section> -->
     </main>
 <?php getFooter();?>
