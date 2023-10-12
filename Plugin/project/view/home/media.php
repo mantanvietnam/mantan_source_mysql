@@ -1,0 +1,1 @@
+<?php getFileTheme('mediapre/media.php'); ?>

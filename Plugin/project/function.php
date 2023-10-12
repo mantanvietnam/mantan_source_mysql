@@ -19,6 +19,11 @@ $menus[0]['sub'][2]= array('title'=>'Thông tin Mediapre',
                             'permission'=>'listMediapreAdmin',
                         );
 
+$menus[0]['sub'][3]= array('title'=>'Cài đặt trang Media ',
+                            'url'=>'/plugins/admin/project-view-admin-mediapre-settingMediaAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'settingMediaAdmin',
+                        );
 addMenuAdminMantan($menus);
 
 

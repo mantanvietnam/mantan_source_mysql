@@ -21,4 +21,5 @@ include('model/product_contents.php'); // nội dung sản phẩm
 include('model/discount_code.php'); // nội dung sản phẩm 
 include('model/ingredients.php'); // nội dung sản phẩm 
 include('model/search_keys.php'); // nội dung sản phẩm 
+include('model/transaction_ecoin.php'); // nội dung sản phẩm 
 ?>

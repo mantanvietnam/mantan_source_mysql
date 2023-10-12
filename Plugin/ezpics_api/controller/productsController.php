@@ -821,6 +821,374 @@ function buyProductAPI($input)
 	return 	$return;
 }
 
+function buyProductEcoinAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+
+	$dataSend = $input['request']->getData();
+
+	$return = array('code'=>1,
+					'messages'=>array(array('text'=>''))
+					);
+	
+	if($isRequestPost){
+		if(!empty($dataSend['id']) && !empty($dataSend['token'])){
+			$product = $modelProduct->find()->where(['id'=>(int) $dataSend['id']])->first();
+
+			if(!empty($product)){
+				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUserSell = $modelMember->find()->where(array('id'=>$product->user_id))->first();
+
+				if($product->free_pro == 1 && $infoUser->member_pro == 1){
+						// cập nhập số lần bán sản phẩm
+						$product->sold ++;
+
+						$modelProduct->save($product);
+
+						// tạo đơn mua hàng của người mua (lịch sử giao dịch)
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'B'.time().$infoUser->id.rand(0,10000);
+	                    $order->member_id = $infoUser->id;
+	                    $order->product_id = $product->id;
+	                    $order->total = 0;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 0; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+	                    $order->meta_payment = 'Mua mẫu thiết kế ID '.$product->id;
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    $modelOrder->save($order);
+
+	                    // tạo đơn bán hàng của người bán (lịch sử giao dịch)
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
+	                    $order->member_id = $infoUserSell->id;
+	                    $order->product_id = $product->id;
+	                    $order->total = 0;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 3; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+	                    $order->meta_payment = 'Bán mẫu thiết kế ID '.$product->id;
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    $modelOrder->save($order);
+
+	                    // gửi thông báo về app cho người bán
+	                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là 0đ','action'=>'addMoneySuccess');
+
+	                    if(!empty($data->token_device)){
+	                        sendNotification($dataSendNotification, $data->token_device);
+	                    }
+
+	                    // tạo mẫu thiết kế mới
+	                    $newproduct = $modelProduct->newEmptyEntity();
+
+	                    $newproduct->name = $product->name;
+	                    $newproduct->slug = $product->slug.'-'.time();
+	                    $newproduct->price = 0;
+	                    $newproduct->sale_price = 0;
+	                    $newproduct->content = $product->content;
+	                    //$newproduct->desc = $product->desc;
+	                    $newproduct->sale = $product->sale;
+	                    $newproduct->related_packages = $product->related_packages;
+	                    $newproduct->status = 0;
+	                    $newproduct->type = 'user_edit';
+	                    $newproduct->sold = 0;
+	                    $newproduct->image = $product->image;
+	                    $newproduct->thumn = $product->thumn;
+	                    $newproduct->thumbnail = '';
+	                    $newproduct->user_id = $infoUser->id;
+	                    $newproduct->product_id = $product->id;
+	                    $newproduct->note_admin = '';
+	                    $newproduct->created_at = date('Y-m-d H:i:s');
+	                    $newproduct->views = 0;
+	                    $newproduct->favorites = 0;
+	                    $newproduct->category_id = $product->category_id;
+	                    $newproduct->width = $product->width;
+	                    $newproduct->height = $product->height;
+
+	                    $modelProduct->save($newproduct);
+
+	                    // sao chép layer
+	                    $detail = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+	                    if(!empty($detail)){
+		                    foreach($detail as $d){
+		                    	$newLayer = $modelProductDetail->newEmptyEntity();	
+
+		                    	$newLayer->products_id = $newproduct->id;
+		                    	$newLayer->name = $d->name;
+		                    	$newLayer->content = $d->content;
+		                    	$newLayer->sort = $d->sort;
+		                    	
+		                    	$newLayer->created_at = date('Y-m-d H:i:s');
+		                        
+		                        $modelProductDetail->save($newLayer);
+		                    }
+		                }
+
+	                    $return = array('code'=>0,
+	                    				'product_id'=>$newproduct->id,
+										'messages'=>array(array('text'=>'Mua thành công'))
+										);
+				}else{
+					if($dataSend['type']=='ecoin'){
+						if($infoUser->ecoin>=$product->sale_price/1000){
+						
+							// trừ tiền tài khoản mua
+							$infoUser->ecoin -= $product->sale_price/1000;
+							$modelMember->save($infoUser);
+
+							// cập nhập số lần bán sản phẩm
+							$product->sold ++;
+
+							$modelProduct->save($product);
+
+							// tạo đơn mua hàng của người mua (lịch sử giao dịch)
+							$ecoin = $modelTransactionEcoins->newEmptyEntity();
+							$ecoin->member_id = $infoUser->id;
+							$ecoin->product_id = $product->id;
+							$ecoin->ecoin = $product->sale_price/1000;
+							$ecoin->note = 'trừ Ecoin mua mẫu thiết kế có ID là:'.$product->id;
+							$ecoin->status = 1;
+							$ecoin->type =0;
+							$ecoin->created_at =date('Y-m-d 00:00:00');
+							$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+							$modelTransactionEcoins->save($ecoin);
+
+		                    // tạo đơn bán hàng của người bán (lịch sử giao dịch)
+							$ecoin = $modelTransactionEcoins->newEmptyEntity();
+							$ecoin->member_id = $infoUserSell->id;
+							$ecoin->product_id = $product->id;
+							$ecoin->ecoin = $product->sale_price/1000;
+							$ecoin->note = 'Công Ecoin bán mẫu thiết kế có ID là:'.$product->id ;
+							$ecoin->status = 1;
+							$ecoin->type =1;
+							$ecoin->created_at =date('Y-m-d 00:00:00');
+							$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+							$modelTransactionEcoins->save($ecoin);
+
+		                    // cộng tiền tài khoản bán
+					        $infoUserSell->ecoin += $product->sale_price/1000;
+					        $modelMember->save($infoUserSell);
+
+		                   
+
+		                    // gửi thông báo về app cho người bán
+		                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là '.number_format($product->sale_price).'đ','action'=>'addMoneySuccess');
+
+		                    if(!empty($data->token_device)){
+		                        sendNotification($dataSendNotification, $data->token_device);
+		                    }
+
+		                    // tạo mẫu thiết kế mới
+		                    $newproduct = $modelProduct->newEmptyEntity();
+
+		                    $newproduct->name = $product->name;
+		                    $newproduct->slug = $product->slug.'-'.time();
+		                    $newproduct->price = 0;
+		                    $newproduct->sale_price = 0;
+		                    $newproduct->content = $product->content;
+		                    //$newproduct->desc = $product->desc;
+		                    $newproduct->sale = $product->sale;
+		                    $newproduct->related_packages = $product->related_packages;
+		                    $newproduct->status = 0;
+		                    $newproduct->type = 'user_edit';
+		                    $newproduct->sold = 0;
+		                    $newproduct->image = $product->image;
+		                    $newproduct->thumn = $product->thumn;
+		                    $newproduct->thumbnail = '';
+		                    $newproduct->user_id = $infoUser->id;
+		                    $newproduct->product_id = $product->id;
+		                    $newproduct->note_admin = '';
+		                    $newproduct->created_at = date('Y-m-d H:i:s');
+		                    $newproduct->views = 0;
+		                    $newproduct->favorites = 0;
+		                    $newproduct->category_id = $product->category_id;
+		                    $newproduct->width = $product->width;
+		                    $newproduct->height = $product->height;
+
+		                    $modelProduct->save($newproduct);
+
+		                    // sao chép layer
+		                    $detail = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+		                    if(!empty($detail)){
+			                    foreach($detail as $d){
+			                    	$newLayer = $modelProductDetail->newEmptyEntity();	
+
+			                    	$newLayer->products_id = $newproduct->id;
+			                    	$newLayer->name = $d->name;
+			                    	$newLayer->content = $d->content;
+			                    	$newLayer->sort = $d->sort;
+			                    	
+			                    	$newLayer->created_at = date('Y-m-d H:i:s');
+			                        
+			                        $modelProductDetail->save($newLayer);
+			                    }
+			                }
+
+		                    $return = array('code'=>0,
+		                    				'product_id'=>$newproduct->id,
+											'messages'=>array(array('text'=>'Mua thành công'))
+											);
+			                
+						}else{
+							$return = array('code'=>4,
+											'messages'=>array(array('text'=>'Tài khoản không đủ tiền'))
+											);
+						}
+
+					}else{
+						if($infoUser->account_balance>=$product->sale_price){
+						
+							// trừ tiền tài khoản mua
+							$infoUser->account_balance -= $product->sale_price;
+							$modelMember->save($infoUser);
+
+							// cập nhập số lần bán sản phẩm
+							$product->sold ++;
+
+							$modelProduct->save($product);
+
+							// tạo đơn mua hàng của người mua (lịch sử giao dịch)
+							$order = $modelOrder->newEmptyEntity();
+							$order->code = 'B'.time().$infoUser->id.rand(0,10000);
+		                    $order->member_id = $infoUser->id;
+		                    $order->product_id = $product->id;
+		                    $order->total = $product->sale_price;
+		                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                    $order->type = 0; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+		                    $order->meta_payment = 'Mua mẫu thiết kế ID '.$product->id;
+		                    $order->created_at = date('Y-m-d H:i:s');
+		                    $modelOrder->save($order);
+
+		                    // tạo đơn bán hàng của người bán (lịch sử giao dịch)
+							$order = $modelOrder->newEmptyEntity();
+							$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
+		                    $order->member_id = $infoUserSell->id;
+		                    $order->product_id = $product->id;
+		                    if(isset($infoUserSell->commission)){
+		                    	$order->total = ((int) @$infoUserSell->commission / 100) * $product->sale_price;
+		                	}else{
+
+		                		$order->total = (70 / 100) * $product->sale_price;
+		                	}
+		                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                    $order->type = 3; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền
+		                    $order->meta_payment = 'Bán mẫu thiết kế ID '.$product->id;
+		                    $order->created_at = date('Y-m-d H:i:s');
+		                    $modelOrder->save($order);
+
+		                    // cộng tiền tài khoản bán
+					        $infoUserSell->account_balance += $order->total;
+					        $infoUserSell->sellingMoney += $order->total;
+					        $modelMember->save($infoUserSell);
+
+		                    // tạo đơn chiết khấu cho Admin (lịch sử giao dịch)
+		                    if($product->sale_price > 0){
+								$order = $modelOrder->newEmptyEntity();
+								$order->code = 'B'.time().$infoUserSell->id.rand(0,10000);
+			                    $order->member_id = 0;
+			                    $order->product_id = $product->id;
+			                    if(isset($infoUserSell->commission)){
+			                    	$order->total = ((100 - (int) @$infoUserSell->commission) / 100) * $product->sale_price;
+			                	}else{
+			                		$order->total = (30 / 100) * $product->sale_price;
+			                	}
+			                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+			                    $order->type = 5; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu
+			                    $order->meta_payment = 'Chiết khấu mẫu thiết kế ID '.$product->id;
+			                    $order->created_at = date('Y-m-d H:i:s');
+			                    $modelOrder->save($order);
+		                	}
+
+		                    // gửi thông báo về app cho người bán
+		                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là '.number_format($product->sale_price).'đ','action'=>'addMoneySuccess');
+
+		                    if(!empty($data->token_device)){
+		                        sendNotification($dataSendNotification, $data->token_device);
+		                    }
+
+		                    // tạo mẫu thiết kế mới
+		                    $newproduct = $modelProduct->newEmptyEntity();
+
+		                    $newproduct->name = $product->name;
+		                    $newproduct->slug = $product->slug.'-'.time();
+		                    $newproduct->price = 0;
+		                    $newproduct->sale_price = 0;
+		                    $newproduct->content = $product->content;
+		                    //$newproduct->desc = $product->desc;
+		                    $newproduct->sale = $product->sale;
+		                    $newproduct->related_packages = $product->related_packages;
+		                    $newproduct->status = 0;
+		                    $newproduct->type = 'user_edit';
+		                    $newproduct->sold = 0;
+		                    $newproduct->image = $product->image;
+		                    $newproduct->thumn = $product->thumn;
+		                    $newproduct->thumbnail = '';
+		                    $newproduct->user_id = $infoUser->id;
+		                    $newproduct->product_id = $product->id;
+		                    $newproduct->note_admin = '';
+		                    $newproduct->created_at = date('Y-m-d H:i:s');
+		                    $newproduct->views = 0;
+		                    $newproduct->favorites = 0;
+		                    $newproduct->category_id = $product->category_id;
+		                    $newproduct->width = $product->width;
+		                    $newproduct->height = $product->height;
+
+		                    $modelProduct->save($newproduct);
+
+		                    // sao chép layer
+		                    $detail = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+		                    if(!empty($detail)){
+			                    foreach($detail as $d){
+			                    	$newLayer = $modelProductDetail->newEmptyEntity();	
+
+			                    	$newLayer->products_id = $newproduct->id;
+			                    	$newLayer->name = $d->name;
+			                    	$newLayer->content = $d->content;
+			                    	$newLayer->sort = $d->sort;
+			                    	
+			                    	$newLayer->created_at = date('Y-m-d H:i:s');
+			                        
+			                        $modelProductDetail->save($newLayer);
+			                    }
+			                }
+
+		                    $return = array('code'=>0,
+		                    				'product_id'=>$newproduct->id,
+											'messages'=>array(array('text'=>'Mua thành công'))
+											);
+			                
+						}else{
+							$return = array('code'=>4,
+											'messages'=>array(array('text'=>'Tài khoản không đủ tiền'))
+											);
+						}
+					}
+				}
+			}else{
+				$return = array('code'=>3,
+								'messages'=>array(array('text'=>'Mẫu thiết kế bán không tồn tại'))
+								);
+			}
+		}else{
+			$return = array('code'=>2,
+							'messages'=>array(array('text'=>'Gửi thiếu dữ liệu'))
+							);
+		}
+	}
+
+	return 	$return;
+}
+
 function getMyProductAPI($input)
 {
 	global $isRequestPost;

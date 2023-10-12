@@ -119,13 +119,13 @@
                 foreach ($listData as $item) {
                   $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
                   $status = 'Kích hoạt <br/>
-                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
-                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                   <a class="btn btn-danger"  title="Khóa kho" style="color: #fff;" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
+                              Khóa
                             </a>';
                   if($item->status==0){
                     $status = 'Khóa <br/>
-                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
-                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                   <a class="btn btn-success"  title="Kích hoạt kho" style="color: #fff;" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
+                             Kích hoạt
                             </a>';
                   }
                   ?>
@@ -139,8 +139,10 @@
                       </p>
 
                       <p><b>Giá:  </b><?php echo number_format($item->price); ?></p>
-                      <p><a class="btn btn-danger"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
-                              <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                      <p><b>trạng thái: <?php echo $status; ?> &nbsp; &nbsp; &nbsp;  <a class="btn btn-success"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
+                             sửa
+                            </a>  &nbsp; &nbsp; &nbsp;  <a  class="btn btn-danger" style="color: #fff;"  title="Xóa kho" data-bs-toggle="modal" data-bs-target="#deteleWarehouses<?php echo $item->id ?>">
+                              Xóa
                             </a></p>
                     </div>
              <?php   }
