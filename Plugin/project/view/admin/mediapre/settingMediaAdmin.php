@@ -9,19 +9,19 @@
         <!-- Section 1 -->
         <div class="col-12 col-xs-12 col-sm-12 ">
           <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">s
+            <div class="card-header d-flex justify-content-between align-items-center">
             </div>
             <div class="card-body row">
                <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Tiêu đề mục 1</label>
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề video</label>
                   <input type="text" class="form-control" name="title" value="<?php echo @$setting['title'];?>" />
                 </div>
               </div>
 
               <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">MÔ TẢ NGẮN</label>
+                  <label class="form-label" for="basic-default-fullname">MÔ TẢ NGẮN video</label>
                   <input type="text" class="form-control" name="description" value="<?php echo @$setting['description'];?>" />
                 </div>
               </div>
@@ -49,7 +49,7 @@
               
               <div class="col-12 col-xs-12 col-sm-12">
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Nội dung</label>
+                  <label class="form-label" for="basic-default-fullname">Nội dung video</label>
                   <?php showEditorInput('content', 'content', @$setting['content']);?>
                 </div>
               </div>

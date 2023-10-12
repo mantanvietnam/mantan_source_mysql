@@ -107,18 +107,18 @@ function listAlbum($input){
         $id = (int) $slug[$count];
 
         $data = $modelAlbums->find()->where(['id'=>$id])->first();
-
-        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        if(!empty($data)){
+            $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
        
     }else{
         $data = $modelAlbums->find()->where($conditions)->first();
-
+        if(!empty($data)){
         $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }
@@ -159,9 +159,9 @@ function projectPhoto($input){
         $id = (int) $slug[$count];
 
         $data = $modelAlbums->find()->where(['id'=>$id])->first();
-
+        if(!empty($data)){
         $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
@@ -169,8 +169,9 @@ function projectPhoto($input){
     }else{
         $data = $modelAlbums->find()->where($conditions)->first();
 
+        if(!empty($data)){
         $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }
@@ -211,7 +212,10 @@ function thematicVideo($input){
 
         $data = $modelAlbums->find()->where(['id'=>$id])->first();
 
-        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        if(!empty($data)){
+           $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList(); 
+        }
+        
 
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -220,8 +224,9 @@ function thematicVideo($input){
     }else{
         $data = $modelAlbums->find()->where($conditions)->first();
 
-        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        if(!empty($data)){
+            $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }
@@ -262,8 +267,9 @@ function projectVideo($input){
 
         $data = $modelAlbums->find()->where(['id'=>$id])->first();
 
-        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        if(!empty($data)){
+            $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         
@@ -271,8 +277,9 @@ function projectVideo($input){
     }else{
         $data = $modelAlbums->find()->where($conditions)->first();
 
-        $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
-
+        if(!empty($data)){
+            $data->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>$data->id])->all()->toList();
+        }
 
         $listData = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }

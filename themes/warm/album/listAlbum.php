@@ -58,7 +58,7 @@
               <div class="setting-column-warm-video">
                   <div class="btn-tab-warm-video nav flex-column nav-pills">
                     <?php foreach($listData as $key => $item){ ?>
-                    <a href="/listAlbum/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
+                    <a href="/thematicPhoto/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
                     <?php } ?>
                   </div>               
                   <div class="list-img-warm-video tab-content" id="v-pills-tabContent">
