@@ -90,7 +90,7 @@ function listAlbum($input){
     $limit = 10;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+    $order = array('id'=>'asc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
