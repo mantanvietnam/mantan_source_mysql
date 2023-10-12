@@ -13,7 +13,7 @@
                 <div class="logo-banner-box">
                     <div class="container">
                         <div class="logo-warm">
-                            <img src="../asset/img/WARM-horz-EN-_1_.jpg" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/WARM-horz-EN-_1_.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="title-divide-section"></div>
             </div>
 
-            <div style="background-image: url(../asset/img/facility-background.png)" class="facility-content-background">
+            <div style="background-image: url(<?php echo $urlThemeActive;?>/asset/img/facility-background.png)" class="facility-content-background">
                 <div class="container facility-content">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-sm-12 col-12 facility-content-left">
@@ -69,7 +69,7 @@
                     <div class="photo-slide-top">
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news-1.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news-1.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -78,7 +78,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news-2.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news-2.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -87,7 +87,7 @@
                         
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news3.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news3.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -96,7 +96,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news4.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -105,7 +105,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news-1.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news-1.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -114,7 +114,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news-2.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news-2.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -123,7 +123,7 @@
                         
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news3.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news3.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -132,7 +132,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news4.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -141,7 +141,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news4.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -150,7 +150,7 @@
 
                         <div class="photo-slide-top-item">
                             <div class="photo-slide-top-item-image">
-                                <img src="../asset/img/news4.png" alt="">
+                                <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                             </div>
                             <div class="photo-slide-top-item-description">
                                 <p>Lorem ipsum dolor sit amet. Qui quidem adipisci et dolores corrupti qui voluptatibus rerum a explicabo soluta.Eum ullam reprehenderit quo consequatur</p>
@@ -164,43 +164,43 @@
                 <div class="container">
                     <div class="photo-slide-bottom">
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news-1.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news-1.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news-2.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news-2.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news3.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news3.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news4.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news-1.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news-1.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news-2.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news-2.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news3.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news3.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news4.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news4.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                         </div>
 
                         <div class="photo-slide-bottom-item">
-                            <img src="../asset/img/news4.png" alt="">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/news4.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                         <div class="news-press-item">
                             <div class="news-press-item-inner">
                                 <div class="news-item-img">
-                                    <img src="../asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
                                 </div>
         
                                 <div class="news-item-content">
@@ -235,7 +235,7 @@
                         <div class="news-press-item">
                             <div class="news-press-item-inner">
                                 <div class="news-item-img">
-                                    <img src="../asset/img/Vinh Long meeting_080923_1.jpeg" alt="">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/img/Vinh Long meeting_080923_1.jpeg" alt="">
                                 </div>
         
                                 <div class="news-item-content">
@@ -247,7 +247,7 @@
                         <div class="news-press-item">
                             <div class="news-press-item-inner">
                                 <div class="news-item-img">
-                                    <img src="../asset/img/news1.png" alt="">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/img/news1.png" alt="">
                                 </div>
         
                                 <div class="news-item-content">
@@ -259,7 +259,7 @@
                         <div class="news-press-item">
                             <div class="news-press-item-inner">
                                 <div class="news-item-img">
-                                    <img src="../asset/img/news-2.png" alt="">
+                                    <img src="<?php echo $urlThemeActive;?>/asset/img/news-2.png" alt="">
                                 </div>
         
                                 <div class="news-item-content">
@@ -302,13 +302,13 @@
 
                                         <div class="news-right-button-news">
                                             <a href="">Read more </a> 
-                                            <img src="../asset/img/arow.png" alt="">
+                                            <img src="<?php echo $urlThemeActive;?>/asset/img/arow.png" alt="">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="news-item-img">
-                                            <img src="../asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
+                                            <img src="<?php echo $urlThemeActive;?>/asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +323,7 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="news-item-img">
-                                                    <img src="../asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
+                                                    <img src="<?php echo $urlThemeActive;?>/asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
                                                 </div>
                                             </div>
 
@@ -338,7 +338,7 @@
         
                                                 <div class="news-right-button-news">
                                                     <a href="">Read more </a> 
-                                                    <img src="../asset/img/arow.png" alt="">
+                                                    <img src="<?php echo $urlThemeActive;?>/asset/img/arow.png" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +349,7 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="news-item-img">
-                                                    <img src="../asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
+                                                    <img src="<?php echo $urlThemeActive;?>/asset/img/Workshop Quang Nam_090923 (C)-17.jpg" alt="">
                                                 </div>
                                             </div>
 
@@ -364,7 +364,7 @@
         
                                                 <div class="news-right-button-news">
                                                     <a href="">Read more </a> 
-                                                    <img src="../asset/img/arow.png" alt="">
+                                                    <img src="<?php echo $urlThemeActive;?>/asset/img/arow.png" alt="">
                                                 </div>
                                             </div>
                                         </div>

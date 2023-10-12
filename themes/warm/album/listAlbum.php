@@ -38,7 +38,7 @@
                   <div class="row">
                     <div class="col-4 text-banner-warm-video">
                         <h2><?php echo $category->name; ?></h2>
-                        <P><?php echo $value->description; ?>.</P>
+                        <P><?php echo $value->description; ?></P>
                     </div>
                     <div class="col-8 image-banner-warm-video-one">
                       <img src="<?php echo $value->image; ?>"/>
