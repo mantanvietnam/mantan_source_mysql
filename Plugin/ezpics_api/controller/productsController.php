@@ -564,7 +564,7 @@ function updateProductAPI($input)
 }
 
 
-function buyProductAPI($input)
+/*function buyProductAPI($input)
 {
 	global $isRequestPost;
 	global $controller;
@@ -819,9 +819,9 @@ function buyProductAPI($input)
 	}
 
 	return 	$return;
-}
+}*/
 
-function buyProductEcoinAPI($input)
+function buyProductAPI($input)
 {
 	global $isRequestPost;
 	global $controller;
@@ -832,6 +832,7 @@ function buyProductEcoinAPI($input)
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');
 
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 	$dataSend = $input['request']->getData();
 
 	$return = array('code'=>1,
@@ -952,7 +953,7 @@ function buyProductEcoinAPI($input)
 							$ecoin->member_id = $infoUser->id;
 							$ecoin->product_id = $product->id;
 							$ecoin->ecoin = $product->sale_price/1000;
-							$ecoin->note = 'trừ Ecoin mua mẫu thiết kế có ID là:'.$product->id;
+							$ecoin->note = 'Trừ Ecoin mua mẫu thiết kế có ID là:'.$product->id;
 							$ecoin->status = 1;
 							$ecoin->type =0;
 							$ecoin->created_at =date('Y-m-d 00:00:00');
@@ -965,7 +966,7 @@ function buyProductEcoinAPI($input)
 							$ecoin->member_id = $infoUserSell->id;
 							$ecoin->product_id = $product->id;
 							$ecoin->ecoin = $product->sale_price/1000;
-							$ecoin->note = 'Công Ecoin bán mẫu thiết kế có ID là:'.$product->id ;
+							$ecoin->note = 'Cộng Ecoin bán mẫu thiết kế có ID là:'.$product->id ;
 							$ecoin->status = 1;
 							$ecoin->type =1;
 							$ecoin->created_at =date('Y-m-d 00:00:00');
