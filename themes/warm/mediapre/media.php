@@ -44,7 +44,7 @@
 
                         <div class="col-lg-7 col-md-7 col-sm-12 col-12 facility-content-right">
                             <iframe src="https://www.youtube.com/embed/<?php echo $data_value['video'] ?>?si=ASZfY3b7spvtYlPy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                            <div class="media-link-iframe">
-                                <a href="">GO TO <strong>VIDEO GALERY</strong></a>
+                                <p>GO TO <a href="http://warm.creatio.vn/thematicVideo/i-resilience-of-cities-and-territories-to-climate-change-and-natural-hazards-36.html"><strong>thematic video gallery</strong></a> and <a href="http://warm.creatio.vn/projectVideo/dien-bien-1-33.html"><strong>project video gallery</strong></a> </p>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
             </div>
 
             <div class="blue-link-media">
-                <a href="">GO TO <strong>PHOTO GALERY</strong></a>
+            <p>GO TO <a href="http://warm.creatio.vn/thematicPhoto/i-resilience-of-cities-and-territories-to-climate-change-and-natural-hazards-1-16.html"><strong>thematic photo gallery</strong></a> and <a href="http://warm.creatio.vn/projectPhoto/dien-bien-21.html"><strong>project photo gallery</strong></a> </p>
             </div>
         </section>
 
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="blue-link-media">
-                    <a href="">GO TO <strong>PRESS RELEASES</strong></a>
+                    <a href="/mediapress">GO TO <strong>PRESS RELEASES</strong></a>
                 </div>
             </div>
         </section>

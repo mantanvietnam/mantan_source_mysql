@@ -1383,3 +1383,18 @@
 .image-banner-warm-video-one{
     height: 500px;
 }
+
+.media-link-iframe p{
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.blue-link-media p{
+    text-transform: uppercase;
+}
+
+.btn-tab-nopadding a{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+
+}

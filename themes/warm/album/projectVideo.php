@@ -85,7 +85,7 @@
         <div class="container">
             <div class="setting-nav-tab-warm-video">
                 <div class="setting-column-warm-video">
-                    <div class="btn-tab-warm-video nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                    <div class="btn-tab-warm-video nav flex-column nav-pills btn-tab-nopadding" id="v-pills-tab" role="tablist"
                         aria-orientation="vertical">
     
                         <?php foreach($listData as $key => $item){ ?>

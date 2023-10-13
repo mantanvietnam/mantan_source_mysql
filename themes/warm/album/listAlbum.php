@@ -78,7 +78,7 @@
                       </div>
 
                       <!-- pagination -->
-                      <section id="section-pagination-transparent">
+                      <!-- <section id="section-pagination-transparent">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                               <li class="page-item page-control">
@@ -96,7 +96,7 @@
                               </li>
                             </ul>
                         </nav>
-                      </section>
+                      </section> -->
                   </div>                  
               </div>
 

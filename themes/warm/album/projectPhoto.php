@@ -56,7 +56,7 @@
       <div class="container">
           <div class="setting-nav-tab-warm-video">
               <div class="setting-column-warm-video">
-                  <div class="btn-tab-warm-video nav flex-column nav-pills">
+                  <div class="btn-tab-warm-video nav flex-column nav-pills btn-tab-nopadding">
                     <?php foreach($listData as $key => $item){ ?>
                     <a href="/projectPhoto/<?php echo $item->slug.'-'.$item->id.'.html'; ?>" class=""><?php echo $item->title; ?></a>
                     <?php } ?>
