@@ -255,9 +255,9 @@ function projectVideo($input){
         $conditions['id'] = (int) $_GET['id'];
     }
 
-    $conditions['id_category'] = 12;
+    $conditions['id_category'] = 13;
 
-    $category = $modelCategories->find()->where(['id'=>12,'type'=>'album'])->first();
+    $category = $modelCategories->find()->where(['id'=>13,'type'=>'album'])->first();
 
     if(!empty($input['request']->getAttribute('params')['pass'][1])){
         $slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
