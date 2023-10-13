@@ -381,7 +381,6 @@ function media($input)
 
     $conditions = array('key_word' => 'settingMediaAdmin');
     $data = $modelOptions->find()->where($conditions)->first();
-
     $media = $modelMediapre->find()->where(['status'=>1])->all()->toList();
 
 
@@ -400,4 +399,36 @@ function media($input)
     setVariable('media', $media);
 
 }
- ?>
+
+function aboutus($input){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    global $modelOptions;
+
+    $modelProjects = $controller->loadModel('Projects');
+
+    $conditions = array('key_word' => 'settingAboutusAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $Project = $modelProjects->find()->where(['status'=>'active'])->all()->toList();
+
+
+    $data_value = json_decode($data->value, true);
+
+    $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_album']])->first();
+
+    
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$data_value['id_album']])->all()->toList();
+    }
+
+
+    setVariable('slide_home', $slide_home);
+    setVariable('data_value', $data_value);
+    setVariable('Project', $Project);
+}
+?>
+

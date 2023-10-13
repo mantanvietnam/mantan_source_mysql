@@ -106,6 +106,12 @@ function addProjectAdmin($input)
             $data->slug_drive = $dataSend['slug_drive'];
             $data->status = $dataSend['status'];
             $data->description= $dataSend['description'];
+            $data->name_project= $dataSend['name_project'];
+            $data->duration= $dataSend['duration'];
+            $data->lead_agency= $dataSend['lead_agency'];
+            $data->implementing_agency= $dataSend['implementing_agency'];
+            $data->donor= $dataSend['donor'];
+            $data->investment= $dataSend['investment'];
             $modelProjects->save($data);     
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -438,6 +444,7 @@ function settingMediaAdmin($input){
         $data = $modelOptions->newEmptyEntity();
     }
 
+
     if($isRequestPost){
         $dataSend = $input['request']->getData();
 
@@ -446,9 +453,49 @@ function settingMediaAdmin($input){
                         'description' => $dataSend['description'],
                         'video' => $dataSend['video'],
                         'id_album' => $dataSend['id_album'],
-);
+                );
 
         $data->key_word = 'settingMediaAdmin';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
+function settingAboutusAdmin($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện trang chủ';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingAboutusAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'content' => $dataSend['content'],
+                        'title' => $dataSend['title'],
+                        'video' => $dataSend['video'],
+                        'id_album' => $dataSend['id_album'],
+                );
+
+        $data->key_word = 'settingAboutusAdmin';
         $data->value = json_encode($value);
 
         $modelOptions->save($data);

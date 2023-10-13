@@ -24,6 +24,12 @@ $menus[0]['sub'][3]= array('title'=>'Cài đặt trang Media ',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'settingMediaAdmin',
                         );
+
+$menus[0]['sub'][4]= array('title'=>'Cài đặt trang Aboutus ',
+                            'url'=>'/plugins/admin/project-view-admin-project-settingAboutusAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'settingAboutusAdmin',
+                        );
 addMenuAdminMantan($menus);
 
 
