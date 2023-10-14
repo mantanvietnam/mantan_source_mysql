@@ -66,6 +66,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` tinyint(1) NOT NULL DEFAULT 0,
   `bank_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,

@@ -77,3 +77,152 @@ function getListTransactionApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function generateQRCodeApi($input): array
+{
+    global $isRequestPost;
+    global $urlTransaction;
+    global $transactionKey;
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if (isset($dataSend['amount'])) {
+            $amount = $dataSend['amount'];
+            $addInfo = "$currentUser->phone_number $transactionKey";
+            $url = $urlTransaction . "amount=$amount&addInfo=$addInfo&accountName=Tran Ngoc Manh";
+            $data = [
+                'url' => $url,
+                'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
+                'account_number' => '06931228668',
+                'account_name' => 'Trần Ngọc Mạnh',
+                'content' => $addInfo
+            ];
+
+            return apiResponse(0, 'Gửi yêu cầu nạp tiền thành công', $data);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function addMoneyTPBankApi($input): array
+{
+    global $transactionKey;
+    global $isRequestPost;
+
+    if ($isRequestPost) {
+        if (!empty($_POST['message'])) {
+            $keyApp = strtoupper($transactionKey);
+            $message = strtoupper($_POST['message']);
+
+            $description = explode('ND: ', $message);
+            $description = trim($description[1]);
+            $description = str_replace(array('IBFT ', 'THANH TOAN QR ', 'QR - '), '', $description);
+
+            $money = explode('PS:+', $message);
+            $money = explode('SD:', $money[1]);
+            $money = (int)str_replace(array('.', 'VND'), '', $money[0]);
+
+            if ($money > 0 && strlen(strstr($description, $keyApp)) > 0) {
+                // xóa dấu chấm
+                $removeDot = explode('.', $description);
+                if (count($removeDot) > 1) {
+                    for ($i = 0; $i < count($removeDot); $i++) {
+                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
+                            $description = $removeDot[$i];
+                            break;
+                        }
+                    }
+                }
+
+                // xóa dấu chấm phẩy
+                $removeDot = explode(';', $description);
+                if (count($removeDot) > 1) {
+                    for ($i = 0; $i < count($removeDot); $i++) {
+                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
+                            $description = $removeDot[$i];
+                            break;
+                        }
+                    }
+                }
+
+                // xóa dấu gạch ngang
+                $removeDot = explode('-', $description);
+                if (count($removeDot) > 1) {
+                    for ($i = 0; $i < count($removeDot); $i++) {
+                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
+                            $description = $removeDot[$i];
+                            break;
+                        }
+                    }
+                }
+
+
+                $removeSpace = explode(' ', trim($description));
+                $phoneNumber = $removeSpace[0];
+
+                $mess = processAddMoney($money, $phoneNumber);
+
+                return apiResponse(0, $mess);
+            } else {
+                return apiResponse(3, 'Sai cú pháp hoặc số tiền không đủ');
+            }
+        } else {
+            return apiResponse(2, 'Gửi thiếu nội dung SMS');
+        }
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function createWithdrawRequestApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        if ($dataSend['amount']) {
+            if ($dataSend['amount'] > $currentUser->total_coin) {
+                return apiResponse(4, 'Số tiền trong ví không đủ');
+            }
+
+            $newRequest = $withdrawRequestModel->newEmptyEntity();
+            $newRequest->user_id = $currentUser->id;
+            $newRequest->amount = $dataSend['amount'];
+            $withdrawRequestModel->save($newRequest);
+
+            return apiResponse(0, 'Gửi yêu cầu thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
