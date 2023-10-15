@@ -640,6 +640,8 @@
 
 .news-view p{
     font-size: 14px;
+    font-weight: bold;
+    color:#12427d;
 }
 
 .detail-share a img{
