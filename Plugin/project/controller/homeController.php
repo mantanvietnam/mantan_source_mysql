@@ -378,10 +378,10 @@ function media($input)
     global $modelOptions;
 
     $modelMediapre = $controller->loadModel('mediapres');
-
+    $order = array('id'=>'desc');
     $conditions = array('key_word' => 'settingMediaAdmin');
     $data = $modelOptions->find()->where($conditions)->first();
-    $media = $modelMediapre->find()->where(['status'=>1])->all()->toList();
+    $media = $modelMediapre->find()->where(['status'=>1])->order($order)->all()->toList();
 
 
     $data_value = json_decode($data->value, true);

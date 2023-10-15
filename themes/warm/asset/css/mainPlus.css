@@ -1394,6 +1394,8 @@
 
 .image-banner-warm-video-one{
     height: 500px;
+    /* height: 520px; */
+
 }
 
 .media-link-iframe p{
@@ -1409,4 +1411,23 @@
     padding-top: 10px !important;
     padding-bottom: 10px !important;
 
+}
+
+/* Bo sung */
+
+@media (min-width: 1300px){
+    #section-facility .container{
+        max-width: 1386px;
+    }
+}
+
+/* Bo sung */
+#section-home-banner{
+    position: relative;
+    z-index: -1;
+}
+
+.submenu{
+    top: 0;
+    right: -160px;
 }

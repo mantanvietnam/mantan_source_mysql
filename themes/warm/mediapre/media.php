@@ -44,7 +44,7 @@
 
                         <div class="col-lg-7 col-md-7 col-sm-12 col-12 facility-content-right">
                             <iframe src="https://www.youtube.com/embed/<?php echo $data_value['video'] ?>?si=ASZfY3b7spvtYlPy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                            <div class="media-link-iframe">
-                                <p>GO TO <a href="http://warm.creatio.vn/thematicVideo/i-resilience-of-cities-and-territories-to-climate-change-and-natural-hazards-36.html"><strong>thematic video gallery</strong></a> and <a href="http://warm.creatio.vn/projectVideo/dien-bien-1-33.html"><strong>project video gallery</strong></a> </p>
+                                <p>GO TO <a href="http://warm.creatio.vn/thematicVideo/i-resilience-of-cities-and-territories-to-climate-change-and-natural-hazards-36.html"><strong>thematic video gallery</strong></a> and <a href="http://warm.creatio.vn/projectVideo/dien-bien-1-33.html"><strong>projects video gallery</strong></a> </p>
                             </div>
                         </div>
                     </div>

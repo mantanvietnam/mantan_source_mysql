@@ -487,6 +487,7 @@ strong{
 	font-size: 16px;
 	color: #fff;
 	line-height: 1.4;
+	padding-right: 73px;
 }
 
 #section-facility .facility-content .text-facility-link a{
@@ -520,12 +521,12 @@ strong{
 }
 
 #section-facility .facility-content .facility-content-left{
-	padding-right: 100px;
+	padding-right: 20px;
 }
 
 #section-facility .facility-content-right iframe{
 	width: 100%;
-	height: 100%;
+	height: 485px;
 }
 
 /* Our projects */
@@ -1543,7 +1544,7 @@ strong{
 	}
 
 	#section-facility .facility-content .facility-content-left {
-		padding-right: 60px;
+		padding-right: 20px;
 	}
 
 	
@@ -1852,6 +1853,12 @@ strong{
 	}
 
 	/* facility */
+
+	#section-facility .facility-content .text-facility-content{
+		padding-right: 12px;
+	}
+	
+
 	#facility-project-box .project-box-item .project-box-item-title{
 		margin-bottom: 0;
 	}
@@ -1928,6 +1935,23 @@ strong{
 
 	#section-home-banner .banner-home-slide .banner-img{
 		height: 215px !important;
+	}
+
+	/* Bo sung */
+	.media-link-iframe p{
+		font-size: 13px;
+	}
+
+	.media-link-iframe a{
+		font-size: 13px;
+	}
+
+	.blue-link-media a{
+		font-size: 13px;
+	}
+
+	.blue-link-media p{
+		font-size: 13px;
 	}
 	
 

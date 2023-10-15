@@ -38,7 +38,7 @@
     
                               <div class="row">
                                 <div class="col-4 text-banner-warm-video">
-                                    <h2><?php echo $category->name; ?></h2>
+                                    <h2>Thematic <br>videos</h2>
                                 </div>
                                 <div class="col-8 image-banner-warm-video-one">
                                   <iframe width="1257" height="707" src="https://www.youtube.com/embed/<?php echo $value->link; ?>" title="Reducing inequality, a question of survival" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
