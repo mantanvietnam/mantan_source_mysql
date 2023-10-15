@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin mã giảm giá </h4>
- <p><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4">Thông tin lịch sử  tìm kiếm </h4>
+ <!-- <p><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
            <!-- table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -33,7 +33,7 @@
         </tbody></table> -->
     </form>
   <div class="card row">
-    <h5 class="card-header">Thông tin mã giảm giá</h5>
+    <h5 class="card-header">Thông tin lịch sử  tìm kiếm </h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -41,12 +41,8 @@
           <tr class="">
             <th>ID</th>
             <th>Tên </th>
-            <th>Mã</th>
-            <th>Giảm giá</th>
-            <th>số lần</th>
-            <th>Ngày Hết hạn</th>
-            <th>nội dung</th>
-            <th>sữa</th>
+            <th>số   </th>
+            <!-- <th>sữa</th> -->
             <th>Xóa</th>
           </tr>
         </thead>
@@ -66,19 +62,10 @@
 
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td>'.@$item->name.'</td>
-                        <td>'.@$item->code.'</td>
-                        <td>'.@$discount.'</td>
-                        <td>'.@$item->number_user.'</td>
-                        <td>'.$data.'</td>
-                        <td>'.@$item->note.'</td>
-                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php/?id='.$item->id.'">
-                            <i class="bx bx-edit-alt me-1"></i>
-                          </a>
-                        </td>
+                        <td>'.@$item->keyword.'</td>
+                        <td>'.@$item->number_search.'</td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-discountCode-deleteDiscountCodeAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-searchKey-deleteSearchKeyAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -94,6 +81,41 @@
         </tbody>
       </table>
     </div>
+
+       <?php  if(!empty($listData)){
+              foreach ($listData as $items) { ?>
+                        
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Sửa keyword: <?php echo $items->id; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                              </div>
+                             <form action="/plugins/admin/ezpics_admin-view-admin-searchKey-addSearchKeyAdmin.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <input type="hidden" value="0"  name="status">
+                                <div class="card-body">
+                                  <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-12">
+                                      <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <label class="form-label" for="basic-default-phone">keyword</label>
+                                      <input type="text" value="<?php echo $items->keyword; ?>" class="form-control" name="keyword">
+                                    </div>
+                                  </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
 
     <!-- Phân trang -->
     <div class="demo-inline-spacing">

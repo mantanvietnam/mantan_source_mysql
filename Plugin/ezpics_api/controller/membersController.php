@@ -7,6 +7,7 @@ function saveRegisterMemberAPI($input)
 
 	$modelMember = $controller->loadModel('Members');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 
 	$return = array('code'=>1,
 					'set_attributes'=>array('id_customer'=>0),
@@ -50,8 +51,23 @@ function saveRegisterMemberAPI($input)
 								$affsource->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 7 days'));
 							}
 							$affsource->member_pro = 1;
+							$affsource->ecoin += 20;
 
 							$modelMember->save($affsource);
+
+							$ecoin = $modelTransactionEcoins->newEmptyEntity();
+
+							$ecoin->member_id = $affsource->id;
+							$ecoin->ecoin = 20;
+							$ecoin->note = 'Cộng Ecoin người đăng ký dưới mã của bạn';
+							$ecoin->status = 1;
+							$ecoin->type =1;
+							$ecoin->created_at =date('Y-m-d 00:00:00');
+							$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+							$modelTransactionEcoins->save($ecoin);
+
+							
 
 							$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$affsource->id))->first();
 
@@ -78,14 +94,13 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-<<<<<<< Updated upstream
-					$data->status = (int) @$dataSend['status']; //1: kích hoạt, 0: khóa
-=======
-					$data->status = (int) 0; //1: kích hoạt, 0: khóa
->>>>>>> Stashed changes
+					$data->account_balance = 0; // tặng 0k cho tài khoản mới
+					$data->account_balance = 0; // tặng 0k cho tài khoản mới
+					$data->status = (int) 0; //1: kích hoạt, 0: khóa Ecoin
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
+					$data->ecoin = 0;
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];
@@ -157,6 +172,7 @@ function checkLoginMemberAPI($input)
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 
 	$return = array('code'=>1);
 	
@@ -177,8 +193,25 @@ function checkLoginMemberAPI($input)
                     sendNotification($dataSendNotification, $checkPhone->token_device);
 				}
 
-				$checkPhone->token = createToken();
+				$objectTime =$checkPhone->last_login->toDateTimeString();
+				if($objectTime <= date('Y-m-d 00:00:00')){
+					$checkPhone->ecoin += 5;
+
+					$ecoin = $modelTransactionEcoins->newEmptyEntity();
+
+					$ecoin->member_id = $checkPhone->id;
+					$ecoin->ecoin = 5;
+					$ecoin->note = 'Cộng Ecoin đăng nhận';
+					$ecoin->status = 1;
+					$ecoin->type =1;
+					$ecoin->created_at =date('Y-m-d 00:00:00');
+					$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+					$modelTransactionEcoins->save($ecoin);
+
+				}
 				$checkPhone->last_login = date('Y-m-d H:i:s');
+				$checkPhone->number_login += 1;
 				$checkPhone->token_device = @$dataSend['token_device'];
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
 				if(!empty($checkdeadlinepro)){
@@ -1120,6 +1153,7 @@ function updateLastLoginAPI($input){
 	global $session;
 
 	$modelMember = $controller->loadModel('Members');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 
 	$return = array('code'=>0);
 	
@@ -1129,6 +1163,23 @@ function updateLastLoginAPI($input){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
+
+				$objectTime =$checkPhone->last_login->toDateTimeString();
+				if($objectTime <= date('Y-m-d 00:00:00')){
+					$checkPhone->ecoin += 5;
+
+					$ecoin = $modelTransactionEcoins->newEmptyEntity();
+
+					$ecoin->member_id = $checkPhone->id;
+					$ecoin->ecoin = 5;
+					$ecoin->note = 'Cộng Ecoin đăng nhận';
+					$ecoin->status = 1;
+					$ecoin->type =1;
+					$ecoin->created_at =date('Y-m-d 00:00:00');
+					$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+					$modelTransactionEcoins->save($ecoin);
+				}
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
@@ -1362,4 +1413,44 @@ function acceptMemberAPI($input){
 	return $return;
 }
 
+
+function resendOtpAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		$checkPhone = $modelMember->find()->where(array('phone'=>$dataSend['phone']))->first();
+		if(!empty($checkPhone)){
+			$checkPhone->otp = rand(100000,999999);
+			$modelMember->save($checkPhone);
+			
+			if(!empty($checkPhone->otp)){
+				sendOTPZalo($checkPhone->phone, $checkPhone->otp);
+
+				$return = array('code'=>0, 
+				    			'messages'=>array(array('text'=>'gửi Mã OTP thành công ')),
+				    			'code_otp' => $checkPhone->otp,
+				    			'info_member'=>$checkPhone
+				    			
+				    	);
+			}else{
+				$return = array('code'=>3,
+					'mess'=>'Gửi OPT không thàng công'
+				);
+			}
+		}else{
+			$return = array('code'=>2,
+					'mess'=>'Gửi sai số điên thoại'
+				);
+		}
+	}
+	return $return;
+}
 ?>

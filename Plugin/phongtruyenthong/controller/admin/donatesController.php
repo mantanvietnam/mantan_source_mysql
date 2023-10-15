@@ -53,7 +53,7 @@ function listDonateAdmin($input)
             }
     		
     		$listData[$key]->name_year = (!empty($years[$value->id_year]->name))?$years[$value->id_year]->name:'';
-            $listData[$key]->name_class = (!empty($classes[$value->id_year]->name))?$classes[$value->id_year]->name:'';
+            $listData[$key]->name_class = (!empty($classes[$value->id_class]->name))?$classes[$value->id_class]->name:'';
     	}
     }
 
@@ -151,9 +151,21 @@ function addDonateAdmin($input)
     $conditions = array('type' => 'school_year');
     $years = $modelCategories->find()->where($conditions)->all()->toList();
 
+    $all_class = $modelClasses->find()->where(['status'=>'active'])->all()->toList();
+    $year_class = [];
+
+    if(!empty($all_class)){
+        foreach ($all_class as $key => $value) {
+            if(empty($year_class[$value->id_year])) $year_class[$value->id_year] = [];
+
+            $year_class[$value->id_year][] = ['id'=>$value->id, 'name'=>$value->name];
+        }
+    }
+
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('years', $years);
+    setVariable('year_class', $year_class);
 }
 
 function deleteDonateAdmin($input){

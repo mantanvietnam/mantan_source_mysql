@@ -12,6 +12,7 @@ function getInfoSchoolAPI($input)
     $data_value = array();
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
+        $data_value['info'] = nl2br($data_value['info']);
     }
 
     $conditions = array('type' => 'school_year');

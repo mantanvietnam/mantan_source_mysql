@@ -88,8 +88,3 @@ $sqlInstallDatabase .= "CREATE TABLE `artifacts` (
 $sqlDeleteDatabase .= "DROP TABLE historicalsites; ";
 $sqlDeleteDatabase .= "DROP TABLE wards; ";
 $sqlDeleteDatabase .= "DROP TABLE artifacts; ";
-
- $data->environmentimage = @$dataSend['environmentimage'];
-            $data->backgroundcolor = @$dataSend['backgroundcolor'];
-            $data->fileusdz = @$dataSend['fileusdz'];
-            $data->filegle = @$dataSend['filegle'];

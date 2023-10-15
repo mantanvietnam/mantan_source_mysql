@@ -152,7 +152,7 @@
                             '.$item->phone.'<br/>
                             '.$item->email.'<br/>
                             Đăng ký: '.date('H:i d/m/Y', strtotime($item->created_at)).'<br/>
-                            Đăng nhập lần cuối lúc: '.date('H:i d/m/Y', strtotime($item->last_login)).'<br/>
+                            Đăng nhập lần cuối lúc: '.date('H:i d/m/Y', strtotime(@$item->last_login)).'<br/>
                             '.$pro.'<br/><br/>
                             <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=plus&id='.$item->id.'">
                              Cộng tiền 

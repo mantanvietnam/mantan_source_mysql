@@ -33,8 +33,7 @@ class ApisController extends AppController{
 
         $this->response = $this->response->withStringBody(json_encode($content));
 		$this->response = $this->response->withType('json');
-
-		header("Access-Control-Allow-Origin: *");
+		$this->response = $this->response->withHeader('Access-Control-Allow-Origin', '*');
 
 		return $this->response;
 	}

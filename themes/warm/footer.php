@@ -103,6 +103,8 @@
         <!-- <script src="<?php echo $urlThemeActive;?>/asset/js/odometer.js"></script> -->
         <script src="<?php echo $urlThemeActive;?>/asset/js/slick.js"></script>
         <script src="<?php echo $urlThemeActive;?>/asset/js/main.js"></script>
+        <script src="<?php echo $urlThemeActive;?>/asset/js/swiper.js"></script>
+
         
     </footer>
 </body>

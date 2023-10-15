@@ -199,7 +199,7 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                             'classIcon'=>'bx bx-category',
                                             'permission'=>'listCategoryIngredientEzpics',
                                         ),
-                                        array('title'=>'Lịch sử key tìm kiếm',
+                                        array('title'=>'Lịch sử tìm kiếm',
                                             'url'=>'/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics.php',
                                             'classIcon'=>'bx bx-category',
                                             'permission'=>'listSearchKeyEzpics',
@@ -1156,6 +1156,7 @@ function getColor(){
          ['name'=>'Magenta / Fuchsia','code'=>'#FF00FF'],
          ['name'=>'Silver','code'=>'#C0C0C0'],
          ['name'=>'Orange','code'=>'#FF6D01'],
+         ['name'=>'Pink','code'=>'#FFC0CB'],
     );
 }
 

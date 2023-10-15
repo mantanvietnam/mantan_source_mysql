@@ -120,7 +120,15 @@ function addClassAdmin($input)
         $dataSend = $input['request']->getData();
 
         if(!empty($dataSend['name'])){
-           if(empty($dataSend['image'])) $dataSend['image'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/default-thumbnail.jpg';
+            if(empty($dataSend['image'])) $dataSend['image'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/default-thumbnail.jpg';
+
+            if(!empty($dataSend['des_image'])){
+                foreach ($dataSend['des_image'] as $key => $value) {
+                    if(!empty($dataSend['des_image'][$key])){
+                        $dataSend['des_image'][$key] = str_replace(array('"', "'"), '’', $dataSend['des_image'][$key]);
+                    }
+                }
+            }
 
 	        // tạo dữ liệu save
 	        $data->name = str_replace(array('"', "'"), '’', $dataSend['name']);
@@ -141,6 +149,8 @@ function addClassAdmin($input)
 	        $modelClasses->save($data);
 
             $data->images = json_decode($data->images, true);
+            $data->des_image = json_decode($data->des_image, true);
+            $data->audio_image = json_decode($data->audio_image, true);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{

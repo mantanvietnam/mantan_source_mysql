@@ -31,8 +31,6 @@
                             </div>   
                         </div>
                     </div>
-
-                    
                 ';
                 }
                 echo'
@@ -169,9 +167,7 @@
                                 echo'
                                 <div class="photo-item">
                                     <div class="photo-item-img">
-                                        <a href="'.$value->slug.'">
-                                            <img src="'.$value->image.'" alt="">
-                                        </a>
+                                        <img src="'.$value->image.'" alt="">
                                     </div>
                                 </div>';
                             }

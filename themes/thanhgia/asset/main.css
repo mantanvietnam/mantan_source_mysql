@@ -949,6 +949,8 @@ strong{
 
 #section-detailPack .home-detailPack-img img{
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #section-detailPack .detailPack-content .detailPack-content-title h4{ 
@@ -987,6 +989,7 @@ strong{
 #section-detailPack .home-detailPack-img {
   overflow: hidden;
   position: relative;
+  height: 472px;
 }
 
 #section-detailPack .home-detailPack-img:after{

@@ -166,8 +166,18 @@
                   </a>
                 </li>
                 <li class="menu-item">
+                  <a href="/listOrderProduct" class="menu-link">
+                    <div>Danh sách đơn sản phẩm </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
                   <a href="/orderCobom" class="menu-link">
                     <div>Bán cobom liệu trình </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listOrderCobom" class="menu-link">
+                    <div>Danh sách đơn Cobom liệu trình</div> 
                   </a>
                 </li>
                 <li class="menu-item">
@@ -176,8 +186,8 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listOrder" class="menu-link">
-                    <div>Danh sách đơn hàng</div> 
+                  <a href="/listOrderService" class="menu-link">
+                    <div>Danh sách đơn Dịch vụ</div> 
                   </a>
                 </li>
                 <li class="menu-item">

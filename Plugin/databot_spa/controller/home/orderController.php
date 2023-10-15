@@ -25,7 +25,6 @@ function orderProduct($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-        $modelTreatmentHistorys = $controller->loadModel('TreatmentHistorys');
 
 		$conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
 		$listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -105,11 +104,6 @@ function orderProduct($input){
 
                 $modelOrderDetails->save($detail);
             }
-
-            // thạo lịch trình cho khách hàng,
-            $tTreatment = $modelTreatmentHistorys->newEmptyEntity();
-
-
 
             //sử lý phần thanh toán 
             if($dataSend['typeOrder']==1){
@@ -283,7 +277,6 @@ function orderCobom($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-        $modelTreatmentHistorys = $controller->loadModel('TreatmentHistorys');
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
         $listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -363,10 +356,6 @@ function orderCobom($input){
 
                 $modelOrderDetails->save($detail);
             }
-
-            // thạo lịch trình cho khách hàng,
-            $tTreatment = $modelTreatmentHistorys->newEmptyEntity();
-
 
 
             //sử lý phần thanh toán 
@@ -541,7 +530,6 @@ function orderService($input){
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
-        $modelTreatmentHistorys = $controller->loadModel('TreatmentHistorys');
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
         $listService = $modelService->find()->where($conditionsService)->all()->toList();
@@ -621,11 +609,6 @@ function orderService($input){
 
                 $modelOrderDetails->save($detail);
             }
-
-            // thạo lịch trình cho khách hàng,
-            $tTreatment = $modelTreatmentHistorys->newEmptyEntity();
-
-
 
             //sử lý phần thanh toán 
             if($dataSend['typeOrder']==1){
@@ -773,7 +756,7 @@ function orderService($input){
     }
 }
 
-function listOrder($input){
+function listOrderProduct($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -798,7 +781,7 @@ function listOrder($input){
 
         $user = $session->read('infoUser');
 
-        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
+        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'type' =>'product' );
         $limit = 20;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -924,6 +907,314 @@ function listOrder($input){
     }
 }
 
+function listOrderCobom($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Danh sách đơn hàng';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelCombo = $controller->loadModel('Combos');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelProduct = $controller->loadModel('Products');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+
+        $user = $session->read('infoUser');
+
+        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'),'type' =>'combo' );
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = $_GET['id'];
+        }
+
+        if(!empty($_GET['id_Warehouse'])){
+            $conditions['id_warehouse'] = $_GET['id_Warehouse'];
+        }
+
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+            $conditions['time >='] = $date_start;
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $date_end = mktime(0,0,0,$date_end[1],$date_end[0],$date_end[2]);
+            $conditions['time <='] = $date_end;
+        }
+
+        if(!empty($_GET['idBed'])){
+            $conditions['id_bed'] = $_GET['idBed'];
+        }
+
+        if(isset($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
+
+        if(empty($_GET['searchProduct'])){
+            $_GET['id_product'] = '';
+        }
+        
+        $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                if(!empty($item->id_customer)){
+                    $listData[$key]->customer = $modelCustomer->find()->where(array('id'=>$item->id_customer))->first();
+                }
+
+                $product = $modelOrderDetails->find()->where(array('id_order'=>$item->id))->all()->toList();
+                if(!empty($product)){
+
+                    foreach($product as $k => $value){
+                        $product[$k]->prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                
+
+                    }
+                    $listData[$key]->product = $product;
+                    if(!empty($item->id_bed)){
+                        $listData[$key]->bed = $modelBed->find()->where(array('id'=>$item->id_bed))->first();
+                    }
+                }
+            }
+        }
+
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $order = array('name'=>'asc');
+
+        $conditionsWarehouse = array('id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
+
+        $mess = '';
+        if(@$_GET['mess']=='conkhach'){
+            $mess = '<p style="color: #00f83a;">Phòng vẫn có khách không check in được</p>';
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+        setVariable('listWarehouse', $listWarehouse);
+        setVariable('mess', @$mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+function listOrderService($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Danh sách đơn hàng';
+    
+    if(!empty($session->read('infoUser'))){
+        $modelCombo = $controller->loadModel('Combos');
+        $modelWarehouses = $controller->loadModel('Warehouses');
+        $modelProduct = $controller->loadModel('Products');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+
+        $user = $session->read('infoUser');
+
+        $conditions = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'),'type' =>'service' );
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+        $order = array('id'=>'desc');
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = $_GET['id'];
+        }
+
+        if(!empty($_GET['id_Warehouse'])){
+            $conditions['id_warehouse'] = $_GET['id_Warehouse'];
+        }
+
+        if(!empty($_GET['date_start'])){
+            $date_start = explode('/', $_GET['date_start']);
+            $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+            $conditions['time >='] = $date_start;
+        }
+
+        if(!empty($_GET['date_end'])){
+            $date_end = explode('/', $_GET['date_end']);
+            $date_end = mktime(0,0,0,$date_end[1],$date_end[0],$date_end[2]);
+            $conditions['time <='] = $date_end;
+        }
+
+        if(!empty($_GET['idBed'])){
+            $conditions['id_bed'] = $_GET['idBed'];
+        }
+
+        if(isset($_GET['status'])){
+            $conditions['status'] = $_GET['status'];
+        }
+
+        if(empty($_GET['searchProduct'])){
+            $_GET['id_product'] = '';
+        }
+        
+        $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+        $totalData = $modelOrder->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                if(!empty($item->id_customer)){
+                    $listData[$key]->customer = $modelCustomer->find()->where(array('id'=>$item->id_customer))->first();
+                }
+
+                $product = $modelOrderDetails->find()->where(array('id_order'=>$item->id))->all()->toList();
+                if(!empty($product)){
+
+                    foreach($product as $k => $value){
+                        if($value->type=='product'){
+                            $product[$k]->prod = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
+                        }elseif($value->type=='service') {
+                            $product[$k]->prod = $modelService->find()->where(array('id'=>$value->id_product))->first();
+                        }elseif($value->type=='combo'){
+                            $product[$k]->prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                        }
+
+                    }
+                    $listData[$key]->product = $product;
+                    if(!empty($item->id_bed)){
+                        $listData[$key]->bed = $modelBed->find()->where(array('id'=>$item->id_bed))->first();
+                    }
+                }
+            }
+        }
+
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $order = array('name'=>'asc');
+
+        $conditionsWarehouse = array('id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
+
+        $mess = '';
+        if(@$_GET['mess']=='conkhach'){
+            $mess = '<p style="color: #00f83a;">Phòng vẫn có khách không check in được</p>';
+        }
+
+        $conditionsRoom = array( 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        
+        $listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
+        
+        if(!empty($listRoom)){
+            foreach($listRoom as $key => $item){
+                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'), 'status'=>1))->all()->toList();
+            }
+        }
+
+        setVariable('page', $page);
+        setVariable('totalPage', $totalPage);
+        setVariable('back', $back);
+        setVariable('next', $next);
+        setVariable('urlPage', $urlPage);
+        setVariable('totalData', $totalData);
+        
+        setVariable('listData', $listData);
+        setVariable('listRoom', $listRoom);
+        setVariable('listWarehouse', $listWarehouse);
+        setVariable('mess', @$mess);
+
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
 function checkinbed($input){
     global $isRequestPost;
     global $modelCategories;
@@ -1039,4 +1330,78 @@ function printInfoOrder($input){
     }
 }
 
- ?>
+function addUserService($input){
+    global $controller;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $isRequestPost;
+    global $session;
+
+    $metaTitleMantan = 'in đơn hàng';
+
+    if(!empty($session->read('infoUser'))){
+        $user = $session->read('infoUser');
+
+        $modelCombo = $controller->loadModel('Combos');
+        $modelProduct = $controller->loadModel('Products');
+        $modelService = $controller->loadModel('Services');
+        $modelRoom = $controller->loadModel('Rooms');
+        $modelBed = $controller->loadModel('Beds');
+        $modelMembers = $controller->loadModel('Members');
+        $modelOrder = $controller->loadModel('Orders');
+        $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelBill = $controller->loadModel('Bills');
+        $modelCustomer = $controller->loadModel('Customers');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+
+
+        if(!empty($_GET['id'])){
+            
+
+            $OrderDetails = $modelOrderDetails->get($_GET['id']);
+            $Order = $modelOrder->get($OrderDetails->id_order);
+
+            if(empty($_GET['id_bed'])){
+                $OrderDetails->number_uses +=1;
+
+                $modelOrderDetails->save($OrderDetails);
+
+                $UserService = $modelUserserviceHistories->newEmptyEntity();
+                $UserService->id_member = $user->id_member;
+                $UserService->id_staff = $user->id;
+                $UserService->id_order_details = $_GET['id'];
+                $UserService->id_spa =$session->read('id_spa');
+                $UserService->id_services =$OrderDetails->id_product;
+                $UserService->created_at =date('Y-m-d H:i:s');
+                $UserService->note =@$_GET['note'];
+                $UserService->id_customer = $Order->id_customer;
+                $UserService->status = 0;
+
+                 $modelUserserviceHistories->save($UserService);
+            }else{
+                $OrderDetails->number_uses +=1;
+
+                $modelOrderDetails->save($OrderDetails);
+
+                $UserService = $modelUserserviceHistories->newEmptyEntity();
+                $UserService->id_member = $user->id_member;
+                $UserService->id_order_details = $_GET['id'];
+                $UserService->id_staff = $user->id;
+                $UserService->id_spa =$session->read('id_spa');
+                $UserService->id_services =$OrderDetails->id_product;
+                $UserService->created_at =date('Y-m-d H:i:s');
+                $UserService->note =@$_GET['note'];
+                $UserService->id_customer = $Order->id_customer;
+                $UserService->status = 1;
+                $modelUserserviceHistories->save($UserService);
+
+            }
+             return $controller->redirect('/listOrderService');
+         }
+    }else{
+        return $controller->redirect('/login');
+    }
+}
+
+?>

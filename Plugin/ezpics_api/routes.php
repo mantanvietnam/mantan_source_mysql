@@ -186,4 +186,9 @@
 	$routesPlugin['checkDeadlineProAllMember']= 'ezpics_api/view/checkDeadlineProAllMember.php';	
 	$routesPlugin['showDiscountCodeAPI']= 'ezpics_api/view/showDiscountCodeAPI.php';	
 	$routesPlugin['getMainColorAPI']= 'ezpics_api/view/getMainColorAPI.php';	
+	$routesPlugin['resendOtpAPI']= 'ezpics_api/view/resendOtpAPI.php';	
+	$routesPlugin['memberBuyProMonthAPI']= 'ezpics_api/view/memberBuyProMonthAPI.php';	
+	$routesPlugin['memberExtendProMonthAPI']= 'ezpics_api/view/memberExtendProMonthAPI.php';	
+	$routesPlugin['buyProductEcoinAPI']= 'ezpics_api/view/buyProductEcoinAPI.php';	
+	$routesPlugin['saveImageProductAPI']= 'ezpics_api/view/saveImageProductAPI.php';	
 ?>
