@@ -513,7 +513,7 @@ function memberBuyProAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -711,38 +711,9 @@ function memberExtendProAPI($input){
 							$modelWarehouseUsers->save($WarehouseUser);
 						}
 
-						// cộng hao hồng mã giảm giá 
-						if(!empty($discountCode->user) && $pricepro > $price_pro){
-							$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
-							if(!empty($checkPhone)){
-								$checkPhone->account_balance += (20 / 100) * $price_pro;
-								$modelMember->save($checkPhone);
-
-								$save = $modelOrder->newEmptyEntity();
-		                        $save->code = 'W'.time().$checkPhone->id.rand(0,10000);
-		                        $save->member_id = $checkPhone->id;
-		                        $save->total = (20 / 100) * $price_pro;
-		                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
-		                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
-		                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
-		                        $save->created_at = date('Y-m-d H:i:s');
-
-		                        $modelOrder->save($save);
-
-								// gửi thông báo về app
-		                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
-
-		                        if(!empty($checkPhone->token_device)){
-		                            sendNotification($dataSendNotification, $checkPhone->token_device);
-		                        }
-
-							}
-						}
-
-
 						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -1134,7 +1105,7 @@ function memberBuyProMonthAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -1367,7 +1338,7 @@ function memberExtendProMonthAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){

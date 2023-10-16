@@ -1041,7 +1041,7 @@ function buyProductAPI($input)
 			                
 						}else{
 							$return = array('code'=>4,
-											'messages'=>array(array('text'=>'Tài khoản không đủ tiền'))
+											'messages'=>array(array('text'=>'Tài khoản không đủ Ecoin'))
 											);
 						}
 
