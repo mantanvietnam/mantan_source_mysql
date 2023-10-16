@@ -1,0 +1,1 @@
+<?php getFileTheme('opportunities/opportunities.php'); ?>
