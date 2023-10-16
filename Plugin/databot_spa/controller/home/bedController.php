@@ -103,6 +103,8 @@ function listRoomBed($input){
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
+        $modelCustomer = $controller->loadModel('Customers');
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         $conditions = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
         
@@ -121,7 +123,12 @@ function listRoomBed($input){
             foreach($listData as $key => $item){
                 $databed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
                 foreach($databed as $k => $value){
-                    $databed[$k]->order = $modelOrder->find()->where(array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>2))->first();
+                    $Userservice = $modelUserserviceHistories->find()->where(array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>1))->first();
+                    if(!empty($Userservice)){
+                    $Userservice->customer = $modelCustomer->find()->where(array('id'=>$Userservice->id_customer))->first();
+                        }
+                    $databed[$k]->Userservice = $Userservice;
+
                     $conditionsOrder = array('id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'),'id_bed'=>$value->id,'status'=>0);
                     $conditionsOrder['time >='] = $startOfDayTimestamp;
                     $conditionsOrder['time <='] = $endOfDayTimestamp;
@@ -167,35 +174,18 @@ function infoRoomBed($input){
         $modelMembers = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 
         $user = $session->read('infoUser');
 
         $mess = '';
 
         if(!empty($_GET['idBed'])){
-            $data = $modelOrder->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>2))->first();
+            $data = $modelUserserviceHistories->find()->where(array('id_bed'=>$_GET['idBed'], 'status'=>1))->first();
 
             $data->bed = $modelBed->get($data->id_bed);
           
-
-            $product = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'product'))->all()->toList();
-            $service = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'service'))->all()->toList();
-            $combo = $modelOrderDetails->find()->where(array('id_order'=>$data->id,'type'=>'combo'))->all()->toList();
-
-            if(!empty($product)){
-                foreach($product as $k => $value){
-                    $product[$k]->product = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
-                }
-                $data->product = $product;
-            }
-
-            if(!empty($combo)){
-                foreach($combo as $k => $value){
-                    $combo[$k]->combo = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
-                }
-                $data->combo = $combo;
-            }
-
+            $service = $modelOrderDetails->find()->where(array('id'=>$data->id_order_details,'type'=>'service'))->all()->toList();
             if(!empty($service)){
                 foreach($service as $k => $value){
                     $service[$k]->service = $modelService->find()->where(array('id'=>$value->id_product))->first();
@@ -213,7 +203,7 @@ function infoRoomBed($input){
         if(@$_GET['mess']=='done'){
             $mess = '<p class="text-success">Cập nhập thành công</p>';
         }
-        if($isRequestPost){
+        /*if($isRequestPost){
             $dataSend = $input['request']->getData();
 
             $order = $modelOrder->find()->where(array('id'=>$data->id))->first();
@@ -279,7 +269,7 @@ function infoRoomBed($input){
 
             return $controller->redirect('/infoRoomBed?mess=done&idBed='.$_GET['idBed']);
             
-        }
+        }*/
 
         setVariable('data', $data);
         setVariable('mess', @$mess);

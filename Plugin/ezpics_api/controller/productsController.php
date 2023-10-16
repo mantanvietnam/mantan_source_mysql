@@ -936,7 +936,7 @@ function buyProductAPI($input)
 										'messages'=>array(array('text'=>'Mua thành công'))
 										);
 				}else{
-					if($dataSend['type']=='ecoin'){
+					if(@$dataSend['type']=='ecoin'){
 						if($infoUser->ecoin>=$product->sale_price/1000){
 						
 							// trừ tiền tài khoản mua

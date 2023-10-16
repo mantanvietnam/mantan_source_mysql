@@ -32,8 +32,8 @@ rel='stylesheet' type='text/css'>
                                             <div class="col-xs-6 col-sm-4 col-md-2 clear-room <?php echo @$background.' '.$context_menu  ?> " idBed="<?php echo $bed->id ?>" nameBed="<?php echo $bed->name ?>">
                                                 <div class="customer-name">
                                                     <span class="room-number"><?php echo $bed->name ?></span><br/>
-                                                <?php if(!empty($bed->order)){ ?>
-                                                       <span class="full-name"><?php echo $bed->order->full_name ?></span>
+                                                <?php if(!empty($bed->Userservice)){ ?>
+                                                       <span class="full-name"><?php echo $bed->Userservice->customer->name ?></span>
                                                 <?php } ?>
                                                 </div> 
                                             </div>               

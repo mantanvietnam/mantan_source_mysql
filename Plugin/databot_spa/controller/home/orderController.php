@@ -795,6 +795,10 @@ function listOrderProduct($input){
             $conditions['id_warehouse'] = $_GET['id_Warehouse'];
         }
 
+        if(!empty($_GET['id_customer'])){
+            $conditions['id_customer'] = $_GET['id_customer'];
+        }
+
         if(!empty($_GET['date_start'])){
             $date_start = explode('/', $_GET['date_start']);
             $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
@@ -946,6 +950,10 @@ function listOrderCobom($input){
             $conditions['id_warehouse'] = $_GET['id_Warehouse'];
         }
 
+        if(!empty($_GET['id_customer'])){
+            $conditions['id_customer'] = $_GET['id_customer'];
+        }
+
         if(!empty($_GET['date_start'])){
             $date_start = explode('/', $_GET['date_start']);
             $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
@@ -1090,6 +1098,10 @@ function listOrderService($input){
 
         if(!empty($_GET['id_Warehouse'])){
             $conditions['id_warehouse'] = $_GET['id_Warehouse'];
+        }
+
+        if(!empty($_GET['id_customer'])){
+            $conditions['id_customer'] = $_GET['id_customer'];
         }
 
         if(!empty($_GET['date_start'])){
@@ -1376,6 +1388,7 @@ function addUserService($input){
                 $UserService->created_at =date('Y-m-d H:i:s');
                 $UserService->note =@$_GET['note'];
                 $UserService->id_customer = $Order->id_customer;
+                $UserService->id_customer = $Order->id_customer;
                 $UserService->status = 0;
 
                  $modelUserserviceHistories->save($UserService);
@@ -1392,9 +1405,22 @@ function addUserService($input){
                 $UserService->id_services =$OrderDetails->id_product;
                 $UserService->created_at =date('Y-m-d H:i:s');
                 $UserService->note =@$_GET['note'];
+                $UserService->id_bed = $_GET['id_bed'];
                 $UserService->id_customer = $Order->id_customer;
                 $UserService->status = 1;
                 $modelUserserviceHistories->save($UserService);
+
+                $bed = $modelBed->find()->where(array('id'=>$_GET['id_bed'], 'status'=>2))->first();
+                if(empty($bed)){
+                    $dataBed = $modelBed->get($_GET['id_bed']);
+                    $dataBed->status = 2;
+
+                    $modelBed->save($dataBed);
+
+                    return $controller->redirect('/listRoomBed');
+                }else{
+                    return $controller->redirect('/listOrder?mess=conkhach');
+                }
 
             }
              return $controller->redirect('/listOrderService');
