@@ -981,7 +981,7 @@ function buyProductAPI($input)
 		                   
 
 		                    // gửi thông báo về app cho người bán
-		                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là '.number_format($product->sale_price).'đ','action'=>'addMoneySuccess');
+		                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>$infoUserSell->name.' ơi. Bạn được cộng '.number_format($ecoin->ecoin).' ecoin vào ecoin do thành viên '.$infoUser->name.' đã đăng ký mua mẫu thiết kế '.@$product->name.' Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 
 		                    if(!empty($data->token_device)){
 		                        sendNotification($dataSendNotification, $data->token_device);

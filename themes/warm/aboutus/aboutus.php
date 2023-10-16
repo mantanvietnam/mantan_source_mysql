@@ -60,16 +60,17 @@
                     <div class="row row-project-accordior-box">
                         <div class="col-lg-10 col-sm-10 col-md-10 col-12 d-flex align-items-start project-accordior">
                             <div class="col-lg-4 col-md-4 col-12 project-nav nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            	 <?php foreach($Project as $key => $item){ ?>
-                                <button class="nav-link active" id="v-pills-place<?php echo $item->id; ?>-tab" data-bs-toggle="pill" data-bs-target="#v-pills-place1" type="button" role="tab" aria-controls="#v-pills-place<?php echo $item->id; ?>" aria-selected="true"><?php echo $item->title; ?></button>
+                            	 <?php
+                                  foreach($Project as $key => $item){ ?>
+                                <button class="nav-link <?php if($key==0){echo 'active';} ?>" id="v-pills-place<?php echo $item->id; ?>-tab" data-bs-toggle="pill" data-bs-target="#v-pills-place<?php echo $item->id; ?>" type="button" role="tab" aria-controls="#v-pills-place<?php echo $item->id; ?>" aria-selected="true"><?php echo $item->title; ?></button>
                                <?php } ?>
                             </div>
                             <div class="col-lg-8 col-md-8 col-12 project-tab-content tab-content" id="v-pills-tabContent">
                                 <!-- Dien Bien -->
                                  <?php foreach($Project as $key => $item){ ?>
-                                <div class="tab-pane fade show active" id="v-pills-place<?php echo $item->id; ?>" role="tabpanel" aria-labelledby="v-pills-place<?php echo $item->id; ?>-tab">
+                                <div class="tab-pane fade  <?php if($key==0){echo 'show active';} ?>" id="v-pills-place<?php echo $item->id; ?>" role="tabpanel" aria-labelledby="v-pills-place<?php echo $item->id; ?>-tab">
                                     <div class="project-accordior-image">
-                                        <img src="http://warm.creatio.vn/upload/admin/files/template%20(6).png" alt="">
+                                        <img src="<?php echo $item->image ?>" alt="">
                                     </div>
                                     <div class="project-accordior-detail">
                                         <div class="project-detail project-name">
@@ -78,7 +79,7 @@
                                             </div>
 
                                             <div class="project-detail-right">
-                                                <p>Multi-disaster management in the Nam Rom river basin, Dien Bien province</p>                
+                                                <p><?php echo $item->name_project ?></p>                
                                             </div>
                                         </div>
 
@@ -88,7 +89,7 @@
                                             </div>
 
                                             <div class="project-detail-right">
-                                                <p>2021-2028</p>
+                                                <p><?php echo $item->duration ?></p>
                                             </div>
                                         </div>
 
@@ -98,7 +99,7 @@
                                             </div>
 
                                             <div class="project-detail-right">
-                                                <p>People’s Committee of Dien Bien Province</p>
+                                                <p><?php echo $item->lead_agency ?></p>
                                             </div>
                                         </div>
 
@@ -108,7 +109,7 @@
                                             </div>
 
                                             <div class="project-detail-right">
-                                                <p>Project Management Unit of Agriculture and Rural Development projects, Dien Bien province</p>
+                                                <p><?php echo $item->implementing_agency ?></p>
                                             </div>
                                         </div>
 
@@ -118,7 +119,7 @@
                                             </div>
 
                                             <div class="project-detail-right">
-                                                <p>French Development Agency (AFD) and European Union (EU)</p>
+                                                <p><?php echo $item->donor ?></p>
                                             </div>
                                         </div>
 
@@ -128,11 +129,11 @@
                                             </div>
 
                                             <div class="project-detail-right">
-                                                <p>EUR 36,334 million equivalent to VND 981,028 million (Exchange rate EUR 1 = VND 27,000)</p>
+                                                <p><?php echo $item->investment ?></p>
                                             </div>
                                         </div>
                                         <div class="opportunity-button">
-                                            <a href="https://drive.google.com/file/d/1vPm7sOcw3JKUbW7D502HxFdiCBRFuMsK/view"><img src="<?php echo $urlThemeActive;?>/asset/img/down-arrow_2989995.svg" alt=""></a>
+                                            <a href="<?php echo $item->slug_drive ?>"><img src="<?php echo $urlThemeActive;?>/asset/img/down-arrow_2989995.svg" alt=""></a>
                                         </div>
                                     </div>
                                 </div>

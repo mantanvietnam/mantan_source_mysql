@@ -30,6 +30,11 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt trang Aboutus ',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'settingAboutusAdmin',
                         );
+$menus[0]['sub'][5]= array('title'=>'Thông tin Opportunities ',
+                            'url'=>'/plugins/admin/project-view-admin-opportunities-listOpportunitiesAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'settingOpportunitiesAdmin',
+                        );
 addMenuAdminMantan($menus);
 
 
