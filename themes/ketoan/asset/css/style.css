@@ -528,7 +528,9 @@ table {
 	color: #7490A8;
 }
 .logo-footer{
-	object-fit: none;
+	width: auto;
+	height: 100px;
+	object-fit: cover;
 }
 .icon-footer{
 	display: flex;
@@ -567,7 +569,9 @@ table {
 	text-transform: uppercase;
 }
 .logo-header img{
-	object-fit: none;
+	width: auto;
+	height: 100px;
+	object-fit: cover;
 }
 article{
 	border-bottom: 5px solid #133C85;
