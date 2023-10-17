@@ -3,7 +3,7 @@
 $menus = array();
 $menus[0]['title'] = 'Sản phẩm';
 $menus[0]['sub'][0] = array('title' => 'Sản phẩm',
-    'url' => '/plugins/admin/product-view-admin-product-listProduct.php',
+    'url' => '/plugins/admin/go_draw-view-admin-product-listProductAdmin.php',
     'classIcon' => 'bx bxs-data',
     'permission' => 'listProduct'
 );
@@ -18,11 +18,12 @@ $menus[0]['sub'][10] = array('title' => 'Cài đặt',
     'url' => '/',
     'classIcon' => 'bx bx-cog',
     'permission' => 'settingsProducts',
-    'sub' => array(array('title' => 'Danh mục sản phẩm',
-        'url' => '/plugins/admin/product-view-admin-category-listCategoryProduct.php',
+    'sub' => array(
+        array('title' => 'Danh mục sản phẩm',
+        'url' => '/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php',
         'classIcon' => 'bx bx-category',
-        'permission' => 'listCategoryProduct',
-    ),
+        'permission' => 'listCategoryAdmin',
+        ),
         array('title' => 'Nhà sản xuất',
             'url' => '/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct.php',
             'classIcon' => 'bx bx-category',
@@ -37,6 +38,8 @@ $menus[0]['sub'][10] = array('title' => 'Cài đặt',
     )
 );
 
+global $domain;
+$domain = 'https://godraw.2top.vn/';
 
 addMenuAdminMantan($menus);
 
@@ -75,3 +78,59 @@ $category[1]['sub'] = array(array('url' => '/products',
 
 
 addMenusAppearance($category);
+
+function createPaginationMetaData($totalItem, $itemPerPage, $currentPage): array
+{
+    global $urlCurrent;
+
+    $balance = $totalItem % $itemPerPage;
+    $totalPage = ($totalItem - $balance) / $itemPerPage;
+    if ($balance > 0)
+        $totalPage += 1;
+
+    $back = $currentPage - 1;
+    $next = $currentPage + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    return [
+        'page' => $currentPage,
+        'totalPage' => $totalPage,
+        'back' => $back,
+        'next' => $next,
+        'urlPage' => $urlPage
+    ];
+}
+
+function apiResponse(int $code = 0, $messages = '', $data = [], array $meta = []): array
+{
+    return [
+        'data' => $data ?? [],
+        'code' => $code ?? '',
+        'messages' => $messages ?? '',
+        'meta' => $meta ?? []
+    ];
+}
+
+function previewImage()
+{
+
+}
