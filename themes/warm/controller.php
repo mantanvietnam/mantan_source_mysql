@@ -105,7 +105,7 @@ function indexTheme($input)
      // Slide photo ảnh
      $modelProjects = $controller->loadModel('Projects');
      $conditions = array();
-     $order = array('id'=>'desc');
+     $order = array('id'=>'asc');
  
      $home_projects = $modelProjects->find()->where($conditions)->order($order)->all()->toList();
 

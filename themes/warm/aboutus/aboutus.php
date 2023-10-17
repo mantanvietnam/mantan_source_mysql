@@ -149,7 +149,7 @@
         </section>
         
         <!-- Our partner -->
-        <section id="section-our-partner">
+        <!-- <section id="section-our-partner">
             <div class="title-section">
                 <h1>Our partners </h1>
                 <div class="title-divide-section"></div>
@@ -168,7 +168,31 @@
                         </div>
                     </div>
     				 <?php } ?>
-                   <!--  <div class="partner-item partner-item2">
+    
+                    
+                </div>
+            </div>
+        </section> -->
+
+        <section id="section-our-partner">
+            <div class="title-section">
+                <h1>Our partners </h1>
+                <div class="title-divide-section"></div>
+            </div>
+
+            <div class="container">
+                <div class="list-partner">
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>MINISTRY OF CONSTRUCTION</p>
+                        </div>
+                    </div>
+    
+                    <div class="partner-item partner-item2">
                         <div class="partner-logo">
                             <img src="<?php echo $urlThemeActive;?>/asset/img/logo2.png" alt="">
                         </div>
@@ -186,9 +210,106 @@
                         <div class="partner-name">
                             <p>MINISTRY OF AGRICULTURE AND RURAL DEVELOPMENT</p>
                         </div>
-                    </div> -->
+                    </div>
     
-                    
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Bac Kan PROVINCE</p>
+                        </div>
+                    </div>
+    
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Dien Bien PROVINCE</p>
+                        </div>
+                    </div>
+    
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Son La PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Lang Son PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Quang Tri PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Quang Nam PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Ninh Thuan PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Vinh Long PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Hau Giang PROVINCE</p>
+                        </div>
+                    </div>
+
+                    <div class="partner-item">
+                        <div class="partner-logo">
+                            <img src="<?php echo $urlThemeActive;?>/asset/img/logopartner.png" alt="">
+                        </div>
+    
+                        <div class="partner-name">
+                            <p>PEOPLE'S COMMITTEE OF Ca Mau PROVINCE</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

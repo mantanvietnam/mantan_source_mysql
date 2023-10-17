@@ -177,7 +177,7 @@
                 </div>
 
                 <div class="photo-link">
-                    <a href="">GO TO PHOTO <strong>GALLERY</strong></a>
+                    <a href="/thematicPhoto/i-resilience-of-cities-and-territories-to-climate-change-and-natural-hazards-1-16.html">GO TO PHOTO <strong>GALLERY</strong></a>
                 </div>
             </div>
         </section>

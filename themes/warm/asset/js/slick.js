@@ -162,29 +162,29 @@ $('.news-slide').slick({
 
 
 $('.list-partner').slick({
-    infinite: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    arrows:false,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 2,
-          }
-        },
-        
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
+  infinite: true,
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  arrows:false,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
         }
-      ]
+      },
+      
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
 });
 
     // MEDIA
