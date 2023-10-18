@@ -17,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="/assets_admin/"
+  data-assets-path="/webroot/assets_admin/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets_admin/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/webroot/assets_admin/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,39 +46,39 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/assets_admin/css/demo.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/css/demo.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="/assets_admin/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="/webroot/css/jquery.datetimepicker.min.css" />
 
     <!-- Page CSS -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="/assets_admin/vendor/libs/jquery/jquery.js"></script>
-    <script src="/assets_admin/vendor/libs/popper/popper.js"></script>
-    <script src="/assets_admin/vendor/js/bootstrap.js"></script>
-    <script src="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/jquery/jquery.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/popper/popper.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/bootstrap.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="/assets_admin/vendor/js/menu.js"></script>
-    <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
-    <script language="javascript" src="/ckeditor/ckeditor.js" type="text/javascript"></script>
-    <script language="javascript" src="/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+    <script src="/webroot/assets_admin/vendor/js/menu.js"></script>
+    <script type="text/javascript" src="/webroot/ckfinder/ckfinder.js"></script>
+    <script language="javascript" src="/webroot/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script language="javascript" src="/webroot/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 
     <!-- endbuild -->
 
     <!-- Helpers -->
-    <script src="/assets_admin/vendor/js/helpers.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/assets_admin/js/config.js"></script>
+    <script src="/webroot/assets_admin/js/config.js"></script>
   </head>
 
   <body>
@@ -345,7 +345,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="/assets_admin/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="/webroot/assets_admin/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -354,7 +354,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="/assets_admin/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="/webroot/assets_admin/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -480,13 +480,13 @@
     </script>
 
     <!-- Vendors JS -->
-    <script src="/assets_admin/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="/assets_admin/js/main.js"></script>
+    <script src="/webroot/assets_admin/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="/assets_admin/js/dashboards-analytics.js"></script>
+    <script src="/webroot/assets_admin/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

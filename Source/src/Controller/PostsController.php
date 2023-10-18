@@ -26,11 +26,24 @@ class PostsController extends AppController{
 		global $urlCurrent;
 
 		$modelPosts = $this->Posts;
+		$modelCategories = $this->loadModel('Categories');
 
         $conditions = array('type'=>'post');
         $limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
+
+		if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['title'])){
+            $conditions['title LIKE'] = '%'.$_GET['title'].'%';
+        }
+
+        if(!empty($_GET['idCategory'])){
+            $conditions['idCategory'] = (int) $_GET['idCategory'];
+        }
 
         $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
@@ -65,6 +78,9 @@ class PostsController extends AppController{
 	        $urlPage = $urlPage . '?page=';
 	    }
 
+	    $conditions = array('type' => 'post');
+    	$listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
 	    $this->set('page', $page);
 	    $this->set('totalPage', $totalPage);
 	    $this->set('back', $back);
@@ -72,6 +88,7 @@ class PostsController extends AppController{
 	    $this->set('urlPage', $urlPage);
 
         $this->set('listData', $listData);
+        $this->set('listCategory', $listCategory);
 	}
 
 	public function add(){
@@ -184,6 +201,14 @@ class PostsController extends AppController{
         $limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
+
+		if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['title'])){
+            $conditions['title LIKE'] = '%'.$_GET['title'].'%';
+        }
 		
         $listData = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
 
