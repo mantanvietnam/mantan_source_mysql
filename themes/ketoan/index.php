@@ -321,7 +321,7 @@ global $settingThemes;
                                             </a>
                                         </div>
                                         ';
-                                        
+
                                 echo '<div class="col-6 sub-news-home">';
                                 foreach ($news_home[$value->id] as $keyNews => $valueNews) {
                                     if ($keyNews > 0) {
