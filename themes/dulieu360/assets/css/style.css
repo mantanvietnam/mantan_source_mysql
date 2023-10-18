@@ -383,7 +383,7 @@ table {
     position: absolute;
     top: 0;
     height: 100%;
-    width: 51%;
+    width: 49% !important;
     background: rgb(255, 255, 255);
     margin: 2px 0;
     /* animation: move 1s ease-in-out infinite; */
