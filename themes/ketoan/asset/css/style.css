@@ -1293,3 +1293,12 @@ height: auto; */
 	background-color: #0A3581;
 }
 
+/* Bỏ sung */
+.sub-news-home .intro-news-small{
+	margin-bottom: 24px;
+}
+
+#tax-accounting .intro-news-big img{
+	height: 306px;
+	object-fit: cover;
+}
