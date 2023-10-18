@@ -96,6 +96,16 @@ strong{
 	margin: auto;
 }
 
+.title-sub-section{
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.title-sub-section h2{
+	font-size: 32px;
+	font-weight: bold;
+}
+
 /* slick */
 
 
@@ -1009,7 +1019,7 @@ strong{
 
 /* Opportunities */
 #section-opportunities .container .row{
-	flex-direction: row-reverse;
+	/* flex-direction: row-reverse; */
 }
 
 #section-opportunities .title-section{
@@ -2089,6 +2099,34 @@ strong{
 	.blue-link-media p{
 		font-size: 13px;
 	}
+
+	/* Bo sung */
+	.facility-background-box{
+		padding-right: 12px;
+	}
+
+	.facility-background-box{
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	#section-menu {
+		margin-bottom: 100px;
+	}
 	
+	#section-menu .button-down-menu{
+		padding-right: 20px;
+	}
+
+	#section-menu .button-down-menu {
+		padding-top: 19px;
+		padding-left: 20px !important;
+		padding-bottom: 30px;
+		padding-right: 20px;
+	}
+
+	#section-menu .nav-item:last-child .nav-link{
+		margin-top: 20px;
+	}
 
 }
