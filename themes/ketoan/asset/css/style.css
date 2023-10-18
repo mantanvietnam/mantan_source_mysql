@@ -27,7 +27,6 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 	font-family: "SanFranciscoDisplay" ;
 	line-height: 1.3;
@@ -146,6 +145,7 @@ table {
 }
 .intro-news-detail h2 {
 margin-bottom: 15px;
+text-align: justify;
 }
 .intro-news-detail h2 span{
 	font-family: "SanText";
@@ -237,7 +237,7 @@ margin-bottom: 15px;
     margin: auto;
 	position: absolute;
 	top: -29px !important;
-    right: 102px
+    right: 93px
 }
 .backgroud-intro-my-service:nth-child(even) .text-my-service{
     text-align: center;
@@ -251,7 +251,7 @@ margin-bottom: 15px;
     margin: auto;
 	position: absolute;
 	bottom: -29px;
-    right: 102px
+    right: 93px
 }
 .title-my-service h3{
 	text-align: center;
@@ -673,6 +673,9 @@ display: none;
 	font-family: "SanText";
 	color: #4F4F4F;
 }
+.time-news-detail p{
+	font-size: 20px;
+}
 .titel-news-detail p span{
 	font-family: "SanFranciscoDisplayBold";
 	color: #4F4F4F;
@@ -681,6 +684,7 @@ display: none;
 	margin-bottom: 20px;
 	font-family: "SanText";
 	color: #4F4F4F;
+	text-align: justify;
 }
 .intro-news-detail ol{
 	margin-bottom: 20px;
@@ -695,6 +699,7 @@ display: none;
 }
 .intro-news-detail ol li{
 	margin-bottom: 10px;
+	text-align: justify;
 }
 .intro-news-detail img{
 	margin-bottom: 20px;
@@ -723,6 +728,20 @@ display: none;
     bottom: 0;
     width: 100%;
 	text-align: center;
+}
+.intro-news-big .description-news{
+    display: -webkit-box;
+    max-height: 64px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.intro-news-big .title-news{
+	margin-bottom: 15px;
 }
 .banner-news{
 	margin-bottom: 40px;
@@ -1300,6 +1319,10 @@ height: auto; */
 	}
 	#main-body-text .title-main-home h3 {
 		font-size: 18px;
+		line-height: 1.3;
+	}
+	.intro-news-small img {
+		height: 100px;
 	}
 	.icon-why-my-service .row {
 		gap: 15px;
