@@ -1360,7 +1360,7 @@ table {
 }
 
 .ifr-map .container-fluid {
-    padding: 0 !important;
+    padding: 0 12px !important;
 }
 
 #footer {

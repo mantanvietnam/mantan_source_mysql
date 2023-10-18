@@ -192,6 +192,9 @@ header .top .search-input .button-outline-primary-custom {
     font-weight: 400;
     font-size: 22px;
     line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .tour-du-lich-card:hover {
@@ -442,7 +445,10 @@ header .top .search-input .button-outline-primary-custom {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #188181;
+}
+
+.button-form-contain button {
+    background-color: #188181 !important;
 }
 
 @media screen and (max-width: 767.98px) {

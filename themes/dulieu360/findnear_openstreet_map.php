@@ -18,7 +18,7 @@
     position: absolute;
     left: 70px;
     background-color: #4E9D90;
-    padding: 50px 60px;
+    padding: 20px 60px;
     width: 350px;
     height:auto;
     z-index: 1;
@@ -32,13 +32,13 @@
   .box-menu-map .title-menu-map p {
     font-size: 24px;
     color: #ffffff;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .box-menu-map ul {
     color: #ffffff;
   }
   .box-menu-map ul li {
-    margin: 15px 0;
+    margin: 10px 0;
   }
   #map_HS {
     height: 80vh !important;
@@ -65,7 +65,7 @@
     }
     .box-menu-map .title-menu-map p {
       font-size: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .box-menu-map ul li {
       font-size: 14px;
