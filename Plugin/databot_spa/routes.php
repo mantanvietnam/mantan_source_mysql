@@ -105,12 +105,12 @@
 
 	// khách hàng 
 	$routesPlugin['orderProduct']= 'databot_spa/view/home/order/orderProduct.php';
-	$routesPlugin['orderCobom']= 'databot_spa/view/home/order/orderCobom.php';
+	$routesPlugin['orderCombo']= 'databot_spa/view/home/order/orderCombo.php';
 	$routesPlugin['orderService']= 'databot_spa/view/home/order/orderService.php';
 	$routesPlugin['listOrder']= 'databot_spa/view/home/order/listOrder.php';
 	$routesPlugin['printInfoOrder']= 'databot_spa/view/home/order/printInfoOrder.php';
 	$routesPlugin['listOrderProduct']= 'databot_spa/view/home/order/listOrderProduct.php';
-	$routesPlugin['listOrderCobom']= 'databot_spa/view/home/order/listOrderCobom.php';
+	$routesPlugin['listOrderCombo']= 'databot_spa/view/home/order/listOrderCombo.php';
 	$routesPlugin['listOrderService']= 'databot_spa/view/home/order/listOrderService.php';
 	
 	// chiến dịch 

@@ -998,8 +998,8 @@ function memberBuyProMonthAPI($input){
 	global $isRequestPost;
 	global $controller;
 
-	$price_pro = 299000;
-	$ecoin = 299000/1000;
+	$price_pro = 200000;
+	$ecoin = 200;
 
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');
@@ -1192,8 +1192,8 @@ function memberExtendProMonthAPI($input){
 	global $controller;
 	global $price_pro;
 
-	$price_pro = 299000;
-	$ecoin = 299000/1000;
+	$price_pro = 200000;
+	$ecoin = 200;
 
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');

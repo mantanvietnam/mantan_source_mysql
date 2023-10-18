@@ -38,7 +38,7 @@ addMenuAdminMantan($menus);
 
 $price_remove_background = 0;
 $price_create_content = 1000;
-$price_pro = 1999000;
+$price_pro = 2000000;
 $price_warehouses = 999000;
 $recommenders = 5;
 $price_min_create_warehouses = 300000;

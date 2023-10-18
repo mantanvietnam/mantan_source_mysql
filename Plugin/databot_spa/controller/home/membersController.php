@@ -42,7 +42,7 @@ function login($input)
 				    }
 
 	    			// còn hạn sử dụng
-	    			if($info_customer->dateline_at >= date('Y-m-d H:i:s')){
+	    			if($info_customer->dateline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 
 	    				// nếu tài khoản không bị khóa
 	    				if($info_customer->status == 1){
