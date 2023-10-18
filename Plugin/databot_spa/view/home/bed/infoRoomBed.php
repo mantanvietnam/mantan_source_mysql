@@ -134,26 +134,16 @@
                                     <thead>
                                         <tr>
                                             <th>dịch vụ</th>
-                                            <th>Giá bán</th>
                                             <th>lần thừ </th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
-                                        <?php 
-                                        if(!empty($data->service)){ 
-                                          foreach($data->service as $k => $value){
-                                    ?>
-                                    
-                                    <tr class="gradeX">
-                                        <td><?php echo $value->service->name ?></td>
-                                        <td><?php echo $value->price ?></td>
-                                        <td><?php echo $value->number_uses ?></td>
+                                    <?php $quantity = 0;
+                                        $quantity = count($modelUserserviceHistories->find()->where(array('id_order_details'=>$data->id_order_details, 'id_services'=>$data->service->id))->all()->toList()); ?>
+                                    <tr>
+                                        <td><?php echo $data->service->name ?></td>
+                                        <td><?php echo number_format($quantity); ?></td>
                                     </tr>
-                                            <?php }}else{
-                                                echo '<tr id="trservice-0">
-                                                        <td colspan="5" align="center">Chưa có dịch vụ nào</td>
-                                                      </tr>';
-                                              } ?>
                                         </tbody>
                                     </table>
                                </div>

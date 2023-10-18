@@ -44,12 +44,12 @@
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Mô tả ngắn</label>
-                    <textarea maxlength="160" rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
+                    <textarea rows="5" class="form-control" name="description" id="description"><?php echo @$data->description;?></textarea>
                   </div>
 
                   <div class="mb-3 col-md-6">
                     <label class="form-label">nội dung</label>
-                    <textarea maxlength="160" rows="5" class="form-control" name="content" id="content"><?php echo @$data->content;?></textarea>
+                    <textarea rows="5" class="form-control" name="content" id="content"><?php echo @$data->content;?></textarea>
                   </div>
 
                 </div>

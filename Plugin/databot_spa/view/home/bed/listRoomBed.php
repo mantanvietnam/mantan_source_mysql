@@ -200,7 +200,7 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Trả phòng", icon: "checkout"},
+                "paid": {name: "Check out", icon: "checkout"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
                 "sep1": "---------",
@@ -288,7 +288,7 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Trả phòng", icon: "checkout"},
+                "paid": {name: "Check out", icon: "checkout"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
                 "sep1": "---------",

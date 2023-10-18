@@ -18,7 +18,7 @@ $categoryMenu[0]['sub'] = array(array ( 'url' => '/contact',
 
 addMenusAppearance($categoryMenu);
 
-function sendEmailContact($email='', $fullName='', $contacht= '')
+function sendEmailContact($email='',$fullName='',$phone='',$subject='', $content='')
 {
     $to = array();
 
@@ -68,13 +68,8 @@ function sendEmailContact($email='', $fullName='', $contacht= '')
                         Full name: '.$fullName.'<br/> 
                         Address: '.$address.'<br/> 
                         Email: '.$email.'<br/> 
-                        Phone: '.$fone.'<br/>
-                        Facebook: '.$facebook.'<br/>
-                        Link file: '.$file.'<br/>
-                        Content: '.nl2br($content).'<br/>
-                        Description: '.$description'.
-                        <br/>
-                        bạn có người liên hệ mới nôi dung liên hệ: '.$contacht.'<br>
+                        Phone: '.$phone.'<br/>
+                        contacht: '.$contacht.'<br>
                         <br/>
                         <a href="http://warm.creatio.vn">http://warm.creatio.vn</a>
                         

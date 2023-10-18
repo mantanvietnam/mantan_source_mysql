@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Danh sách đơn cobom liệu trình</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh sách đơn Combo liệu trình</h4>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
@@ -49,7 +49,7 @@
                                                 <th rowspan='2'>khách hàng</th>
                                                 <th rowspan="2">Thành tiền </th>
                                                 <th rowspan="2">Chi tiết </th>
-                                                <th colspan="4">thông tin Cobom </th>                                                
+                                                <th colspan="4">thông tin Combo </th>                                                
                                             </tr>
                                             <tr>
                                                 <th >Sản phẩn</th>
@@ -95,9 +95,9 @@
                                                                         
                                                                 ?>
                                                      
-                                                            <td><?php echo $value->prod->name ?></td>
+                                                            <td><?php echo $value->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
-                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
+                                                            <td><?php echo $value->quantity ?></td>
 
                                                       </tr>
                                                         <?php }} 
@@ -128,7 +128,7 @@
              ?>      
             <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
                                 
-                          <div class="modal-dialog" role="document">
+                          <div class="modal-dialog" style="max-width: 70%;" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel1">Thông tin Combo</h5>
@@ -147,22 +147,54 @@
                                 <table class="table table-bordered" style=" text-align: center; ">
                                         <thead>
                                             <tr>
+                                                <th rowspan='2'>Sản Combo</th>
+                                                <th rowspan='2'>Giá bán</th>
+                                                <th rowspan='2'>Số lượng </th> 
+                                                <th colspan="4">thông tin Combo </th>
+                                            </tr>
+                                            <tr>
                                                 <th >Sản phẩn</th>
-                                                <th >Giá bán</th>
-                                                <th >Số lượng </th>                                                
+                                                <th >Loại</th>
+                                                <th >Số lượng</th>
+                                                <th >Sử dụng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php  if(!empty($items->product)){ 
-                                                                      foreach($items->product as $k => $value){
+                                            <?php if(!empty($items->product)){ 
+                                                    foreach($items->product as $k => $value){
                                                                         
                                                                 ?>
-                                                     <tr>
-                                                            <td><?php echo $value->prod->name ?></td>
-                                                            <td><?php echo number_format($value->price) ?>đ</td>
-                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
+                                                    <tr>
+                                                            <td rowspan='<?php echo count($value->combo_product)+count($value->combo_service    ); ?>'><?php echo $value->name ?></td>
+                                                            <td rowspan='<?php echo count($value->combo_product)+count($value->combo_service); ?>'><?php echo number_format($value->price) ?>đ</td>
+                                                            <td rowspan='<?php echo count($value->combo_product)+count($value->combo_service); ?>'><?php echo $value->quantity ?></td>
+                                                            <?php foreach($value->combo_product as $key => $item){ ?>
+                                                                <td><?php echo $item->name ?></td>
+                                                                <td>Sản phẩn </td>
+                                                                <td><?php echo $item->quantity_Combo*$value->quantity ?></td>
+                                                                <td></td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php foreach($value->combo_service as $key => $item){ 
+                                                                $quantity = 0;
+                                                                $quantity = count($modelUserserviceHistories->find()->where(array('id_order_details'=>$value->id, 'id_services'=>$item->id))->all()->toList());
 
-                                                      </tr>
+
+
+                                                                ?>
+                                                                <td><?php echo $item->name ?></td>
+                                                                <td>Dịch vụ </td>
+                                                                <td><?php echo $quantity.'/'.$item->quantity_Combo*$value->quantity ?></td>
+                                                                <td>
+                                                                    <?php if($quantity < $item->quantity_Combo*$value->quantity){ ?>
+                                                                    <a class="btn btn-primary d-block" title="sử dụng" data-bs-toggle="modal" data-bs-target="#sudung<?php echo $value->id; ?>" style=" color: white; ">Sử dụng</a>
+                                                                    <?php }else{ ?>
+                                                                Đã hết
+                                                            <?php } ?>
+                                                                </td>
+
+                                                            <?php } ?>
+                                                    
                                                         <?php }} ?>
                                         </tbody>
                                     </table>
@@ -175,6 +207,55 @@
 
 
 <?php }} ?>
+
+<?php  if(!empty($items->product)){ 
+        foreach($items->product as $k => $value){
+    foreach($value->combo_service as $key => $item){ ?>
+       
+<div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Dịch vụ <?php echo $item->name ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                                <form id="" action="/addUserService" class="form-horizontal" method="get" enctype=""> 
+                                     <div class="modal-footer" style="display: block;">
+                                        <div class="card-body">
+                                            <div class="row gx-3 gy-2 align-items-center">
+                                            <div class="col-md-12">
+                                            <input type="hidden" value="<?php echo $value->id; ?>"  name="id">
+                                            <input type="hidden" value="<?php echo $item->id ?>"  name="id_service">
+                                             <label class="form-label">Chọn gường </label>
+                                            <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
+                                                <option value="">Chọn giường</option>
+                                                <?php if(!empty($listRoom))
+                                                    foreach ($listRoom as $room) { 
+                                                        echo '<optgroup label="'.$room->name.'">';
+                                                        if(!empty($room->bed)){
+                                                            foreach($room->bed as $bed){
+                                                                $selected = '';
+                                                                if(!empty($_GET['idBed']==$bed->id)){
+                                                                    $selected = 'selected';
+                                                                }
+                                                                echo '<option data-unit="'.@$bed->id.'" '.@$selected.' value="'.$bed->id.'">'.$bed->name.'</option>';
+                                                               }
+                                                            }
+                                                echo '</optgroup>';
+                                                }?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    </div>
+                                     <button type="submit" class="btn btn-primary">Sử dụng</button>
+                                 </div>
+                                </form>
+                            
+                          </div>
+                      </div>
+                  </div>
+<?php }}} ?>
 
 <script type="text/javascript">
     // tìm khách hàng 

@@ -161,11 +161,12 @@
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
                                                             <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
-                                                            <td><?php if ($value->number_uses<=$value->quantity){ ?>
-                                                                <a class="" title="sử dụng" data-bs-toggle="modal" data-bs-target="#sudung<?php echo $value->id; ?>">sử dụng</a>
+                                                            <td>
+                                                                <?php if($value->number_uses < $value->quantity){ ?>
+                                                                <a class="btn btn-primary d-block" title="sử dụng" data-bs-toggle="modal" data-bs-target="#sudung<?php echo $value->id; ?>" style=" color: white; ">Sử dụng</a>
+                                                            <?php }else{ ?>
+                                                                Đã hết
                                                             <?php } ?>
-                                                                
-
                                                             </td>
 
                                                       </tr>
@@ -195,6 +196,7 @@
                                             <div class="row gx-3 gy-2 align-items-center">
                                             <div class="col-md-12">
                                             <input type="hidden" value="<?php echo $value->id; ?>"  name="id">
+                                            <input type="hidden" value="<?php echo $value->id_product; ?>"  name="id_service">
                                              <label class="form-label">Chọn gường </label>
                                             <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
                                                 <option value="">Chọn giường</option>

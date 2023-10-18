@@ -678,7 +678,7 @@ function updateListLayerAPI($input){
 				 	}
 				}
 
-				$returnExport = exportImageThumb($dataSend['idProduct']);
+				//$returnExport = exportImageThumb($dataSend['idProduct']);
 					
 				$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
 			}else{

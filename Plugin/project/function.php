@@ -33,7 +33,12 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt trang Aboutus ',
 $menus[0]['sub'][5]= array('title'=>'Thông tin Opportunities ',
                             'url'=>'/plugins/admin/project-view-admin-opportunities-listOpportunitiesAdmin.php',
                             'classIcon'=>'bx bxs-data',
-                            'permission'=>'settingOpportunitiesAdmin',
+                            'permission'=>'listOpportunitiesAdmin',
+                        );
+$menus[0]['sub'][6]= array('title'=>'Thông tin Warm Team ',
+                            'url'=>'/plugins/admin/project-view-admin-mediapre-sttingWarmteamAdmin.php',
+                            'classIcon'=>'bx bxs-data',
+                            'permission'=>'sttingWarmteamAdmin',
                         );
 addMenuAdminMantan($menus);
 
