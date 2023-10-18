@@ -119,7 +119,29 @@ function indexTheme($input)
 
 function postTheme($input)
 {
- 
+    global $modelPosts;
+   
+    $slug= $_SERVER['REQUEST_URI'];
+       
+    if(!empty($slug)){
+        $slug = str_replace('.html', '', $slug);
+        $slug = str_replace('/', '', $slug);
+
+        $conditions = array('slug'=>$slug);
+
+        $data = $modelPosts->find()->where($conditions)->first();
+    
+        if($data){
+            // lấy danh sách tin tức khác
+            $conditions = array('id !='=>$data->id, 'type'=>$data->type);
+            $limit = 10;
+            $page = 1;
+            $order = array('id'=>'desc');
+            
+            $otherNews = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            setVariable('otherNews', $otherNews);
+        }
+    }
 
 }
 
