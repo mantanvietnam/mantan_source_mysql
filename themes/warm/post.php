@@ -1,4 +1,3 @@
-
 <?php getHeader();?>  
     <main>
         <section id="section-home-banner" class="section-logo-header">
@@ -103,8 +102,8 @@
         <section id="section-page-further">
             <div class="news-slide">
                 <?php 
-                    if(!empty($otherPosts)){
-                        foreach($otherPosts as $key => $value){
+                    if(!empty($otherNews)){
+                        foreach($otherNews as $key => $value){
                             echo' 
                             <div class="news-slide-item">
                                 <div class="news-slide-item-inner">

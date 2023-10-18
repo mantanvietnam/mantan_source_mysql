@@ -28,7 +28,7 @@ function contact($input)
             
             $modelContacts->save($data);
 
-            sendEmailContact($email='', @$dataSend['name'],@$dataSend['phone_number']; ,@$dataSend['subject'], @$dataSend['content'])
+            sendEmailContact($email='', @$dataSend['name'],@$dataSend['phone_number'],@$dataSend['subject'], @$dataSend['content']);
 
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }else{

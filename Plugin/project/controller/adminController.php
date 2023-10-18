@@ -661,5 +661,43 @@ function deleteOpportunitiesAdmin($input){
 
     return $controller->redirect('/plugins/admin/project-view-admin-Opportunities-listOpportunitiesAdmin.php');
 }
+
+function sttingWarmteamAdmin($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện Warm team';
+    $mess= '';
+
+    $conditions = array('key_word' => 'sttingWarmteamAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        $value = array( 'content' => $dataSend['content'],
+                        'title' => $dataSend['title'],
+                );
+
+        $data->key_word = 'sttingWarmteamAdmin';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
 ?>
 

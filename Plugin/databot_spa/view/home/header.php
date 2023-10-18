@@ -172,12 +172,12 @@
                 </li>
                 <li class="menu-item">
                   <a href="/orderCobom" class="menu-link">
-                    <div>Bán cobom liệu trình </div> 
+                    <div>Bán Combo liệu trình </div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listOrderCobom" class="menu-link">
-                    <div>Danh sách đơn Cobom liệu trình</div> 
+                  <a href="/listOrderCombo" class="menu-link">
+                    <div>Danh sách đơn Combo liệu trình</div> 
                   </a>
                 </li>
                 <li class="menu-item">

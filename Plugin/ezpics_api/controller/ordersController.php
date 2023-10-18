@@ -437,7 +437,7 @@ function memberBuyProAPI($input){
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
 
-			if(!empty($discountCode)){
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
@@ -610,6 +610,7 @@ function memberExtendProAPI($input){
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 
 	$return = array('code'=>0);
 	
@@ -625,7 +626,7 @@ function memberExtendProAPI($input){
 
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
-			if(!empty($discountCode)){
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
@@ -664,8 +665,8 @@ function memberExtendProAPI($input){
 		if(!empty($user)){
 			if($user->member_pro==1){
 				if(@$dataSend['type']=='ecoin'){
-					if($user->account_balance >=$price_pro){
-						$user->account_balance -= $price_pro;
+					if($user->ecoin >=$ecoin){
+						$user->ecoin -= $ecoin;
 						$user->member_pro = 1;
 						if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
 							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
@@ -675,23 +676,16 @@ function memberExtendProAPI($input){
 						
 						$modelMember->save($user);
 
-						$order = $modelOrder->newEmptyEntity();
-						$order->code = 'P'.time().$user->id.rand(0,10000);
-						$order->member_id = $user->id;
-						$order->total = $price_pro;
-						if(!empty($discountCode)){
-							$order->discount_id = $discountCode->id;
-						}
-						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-						$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
-						$order->meta_payment = 'Mua phiêu bản Pro';
-						$order->created_at = date('Y-m-d H:i:s');
-						$modelOrder->save($order);
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin->member_id = $user->id;
+						$ecoin->ecoin = $ecoin;
+						$ecoin->note = 'trừ Ecoin Nâng cấm bản EZPICS PRO';
+						$ecoin->status = 1;
+						$ecoin->type =0;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
 
-						if(!empty($discountCode->number_user)){
-							$discountCode->number_user -= 1;
-							$modelDiscountCode->save($discountCode);
-						}
+						$modelTransactionEcoins->save($ecoin);
 
 						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
 						if(empty($WarehouseUser)){
@@ -1029,7 +1023,7 @@ function memberBuyProMonthAPI($input){
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
 
-			if(!empty($discountCode)){
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
@@ -1205,7 +1199,6 @@ function memberExtendProMonthAPI($input){
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
-
 	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 
 	$return = array('code'=>0);
@@ -1221,7 +1214,7 @@ function memberExtendProMonthAPI($input){
 
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
-			if(!empty($discountCode)){
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
@@ -1260,34 +1253,27 @@ function memberExtendProMonthAPI($input){
 		if(!empty($user)){
 			if($user->member_pro==1){
 				if(@$dataSend['type']=='ecoin'){
-					if($user->account_balance >=$price_pro){
-						$user->account_balance -= $price_pro;
+					if($user->ecoin >=$ecoin){
+						$user->ecoin -= $ecoin;
 						$user->member_pro = 1;
 						if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
-							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 30   days'));
 						}else{
-							$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 30 days'));
 						}
 						
 						$modelMember->save($user);
 
-						$order = $modelOrder->newEmptyEntity();
-						$order->code = 'P'.time().$user->id.rand(0,10000);
-						$order->member_id = $user->id;
-						$order->total = $price_pro;
-						if(!empty($discountCode)){
-							$order->discount_id = $discountCode->id;
-						}
-						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-						$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
-						$order->meta_payment = 'Mua phiêu bản Pro';
-						$order->created_at = date('Y-m-d H:i:s');
-						$modelOrder->save($order);
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin->member_id = $user->id;
+						$ecoin->ecoin = $ecoin;
+						$ecoin->note = 'trừ Ecoin Nâng cấm bản EZPICS PRO';
+						$ecoin->status = 1;
+						$ecoin->type =0;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
 
-						if(!empty($discountCode->number_user)){
-							$discountCode->number_user -= 1;
-							$modelDiscountCode->save($discountCode);
-						}
+						$modelTransactionEcoins->save($ecoin);
 
 						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
 						if(empty($WarehouseUser)){

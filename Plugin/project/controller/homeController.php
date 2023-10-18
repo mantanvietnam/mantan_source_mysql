@@ -447,7 +447,7 @@ function opportunities($input)
     $limit = 70;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+    $order = array('id'=>'asc');
 
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
@@ -508,6 +508,23 @@ function opportunities($input)
     setVariable('totalData', $totalData);
     setVariable('listData', $listData);
 
+}
+
+function warmteam($input){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    global $modelOptions;
+
+
+    $conditions = array('key_word' => 'sttingWarmteamAdmin');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data = json_decode($data->value, true);
+
+    setVariable('data', $data);
 }
 
 

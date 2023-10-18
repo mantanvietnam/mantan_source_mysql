@@ -10,6 +10,8 @@
 	$routesPlugin['media']= 'project/view/home/media.php';
 	$routesPlugin['aboutus']= 'project/view/home/aboutus.php';
 	$routesPlugin['opportunities']= 'project/view/home/opportunities.php';
+	$routesPlugin['warmteam']= 'project/view/home/warmteam.php';
+	$routesPlugin['warmfacility']= 'project/view/home/warmfacility.php';
 
 
 ?>

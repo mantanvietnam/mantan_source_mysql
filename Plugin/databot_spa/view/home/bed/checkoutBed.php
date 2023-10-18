@@ -51,7 +51,7 @@
                             </div>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <h5 class="mb-0">Tổng cộng (VNĐ)</h5>
                     <br>
                     <div class="form-group row">
@@ -150,8 +150,8 @@
                                     </table>
                                </div>
                             </div>
-                </div>
-                <div class="col-md-12">
+                </div> -->
+                <div class="col-md-6">
                    <br> 
                   <h5 class="mb-0">thông tin dịch vụ </h5>
                   <br>
@@ -161,33 +161,22 @@
                                     <thead>
                                         <tr>
                                             <th >dịch vụ</th>
-                                            <th >Giá bán</th>
-                                            <th >Số lượng </th>
-                                            <th>Thành tiền</th>
+                                            <th>LẦN THỪ</th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
-                                        <?php 
-                                        if(!empty($data->service)){ 
-                                           
-                                          foreach($data->service as $k => $value){?>
+                                    <?php $quantity = 0;
+                                        $quantity = count($modelUserserviceHistories->find()->where(array('id_order_details'=>$data->id_order_details, 'id_services'=>$data->service->id))->all()->toList()); ?>
                                     <tr>
-                                        <td><?php echo $value->service->name ?></td>
-                                        <td><?php echo number_format($value->price) ?></td>
-                                        <td><?php echo number_format($value->quantity); ?></td>
-                                        <td><?php echo number_format($value->quantity*$value->price) ?>VNĐ</td>
+                                        <td><?php echo $data->service->name ?></td>
+                                        <td><?php echo number_format($quantity); ?></td>
                                     </tr>
-                                            <?php }}else{
-                                                echo '<tr id="trservice-0">
-                                                        <td colspan="5" align="center">Chưa có dịch vụ nào</td>
-                                                      </tr>';
-                                              } ?>
                                         </tbody>
                                     </table>
                                </div>
                             </div>
                 </div>
-                <div class="col-md-12">
+               <!--  <div class="col-md-12">
                    <br> 
                   <h5 class="mb-0">thông tin combo</h5>
                   <br>
@@ -221,10 +210,9 @@
                                     </table>
                                </div>
                             </div>
-                </div>
+                </div> -->
               </div>
-                <button type="submit" class="btn btn-primary">Thanh toán</button> 
-                <a href="infoRoomBed?idBed=<?php echo @$data->bed->id ?>" class="btn btn-primary">sửa</a> 
+                <button type="submit" class="btn btn-primary">Check out</button> 
           </div>
         </div>
       </div>
