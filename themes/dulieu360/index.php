@@ -498,7 +498,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         <a href="/chi_tiet_tour/<?php echo $item->urlSlug; ?>.html"><?php echo $item->name; ?></a>
                                     </div>
                                     <div class="icon-tour">
-                                        <!-- <div class="star-tour">
+                                        <div class="star-tour">
                                             <i class="fa-solid fa-star"></i>
                                             <i class="fa-solid fa-star"></i>
                                             <i class="fa-solid fa-star"></i>
@@ -509,10 +509,10 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                             <div class="number-view">2230
                                                 <i class="fa-solid fa-eye"></i>
                                             </div>
-                                            <div class="number-tym">0
+                                            <div class="number-tym">315
                                                 <i class="fa-solid fa-heart"></i>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

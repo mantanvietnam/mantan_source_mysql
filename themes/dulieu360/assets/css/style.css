@@ -1079,6 +1079,7 @@ table {
     position: absolute;
     bottom: 24px;
     z-index: 1;
+    text-align: start;
 }
 
 .content-event .name {
@@ -1090,6 +1091,10 @@ table {
     font-size: 12px;
     margin-top: 8px;
     font-weight: bold;
+}
+
+.content-event i {
+    margin: 5px;
 }
 
 .content-event .addr-event {
@@ -1160,6 +1165,7 @@ table {
 
 #event-m1 {
     display: flex;
+    text-align: center;
 }
 
 #event-m2 {
@@ -1169,6 +1175,7 @@ table {
 
 #event-m3 {
     display: none;
+    text-align: center;
 }
 
 #event-m4 {
@@ -1178,14 +1185,17 @@ table {
 
 #event-m5 {
     display: none;
+    text-align: center;
 }
 
 #event-m6 {
     display: none;
+    text-align: center;
 }
 
 #event-m7 {
     display: none;
+    text-align: center;
 }
 
 #event-m8 {
