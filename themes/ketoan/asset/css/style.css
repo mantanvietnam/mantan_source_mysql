@@ -86,6 +86,7 @@ table {
 	font-weight: bold;
     font-size: 20px;
 	display: flex;
+	align-items: center;
 }
 .nav-logo-header{
 	display: flex;
@@ -492,6 +493,7 @@ table {
 .list-news-right .description-news{
 	font-size: 13px;
 	margin-top: 7px;
+	text-align: justify;
 }
 .list-news-right .intro-news-small{
 	gap: 0px;
@@ -934,13 +936,17 @@ display: none;
 }
 .nav-header-item:first-child a::before{
 	content: "";
-    background-image: url(https://dailythuelaocai.vn/themes/ketoan//asset/image/house-solid.png);
-    width: 18px;
-    height: 23px;
+    background-image: url(https://dailythuelaocai.vn/themes/ketoan//asset/image/homeicon.png);
+    width: 32px;
+    height: 29px;
     z-index: 99;
     /* position: absolute; */
-    background-size: cover;
-    margin-right: 5px;
+	background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 8px;
+}
+.description-news{
+	text-align: justify;
 }
 
 /* Reponsive */
@@ -956,6 +962,9 @@ display: none;
 	.tab-intro-right .intro-news-small img {
 		height: 83.66px;
 	}
+	#main-body-text .title-main-home {
+		grid-template-columns: auto 55%;
+	}
 	.backgroud-intro-my-service:nth-child(odd) .text-my-service {
 		padding: 62px 20px 40px 20px;
 	}
@@ -970,6 +979,9 @@ display: none;
 	}
 	.backgroud-intro-my-service .setting-icon{
 		right: 83px !important;
+	}
+	.title-small-right h4{
+		width: 70%;
 	}
 }
 
@@ -1204,6 +1216,9 @@ height: auto; */
 		font-size: 16px;
 		margin-bottom: 7px;
 
+	}
+	#main-body-text .title-main-home h3 {
+		font-size: 18px;
 	}
 	.icon-why-my-service .row {
 		gap: 15px;
