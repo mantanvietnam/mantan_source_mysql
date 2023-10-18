@@ -302,50 +302,54 @@ global $settingThemes;
                                     <div id="tax-accounting">
                                         <div class="row">';
                             if (!empty($news_home[$value->id])) {
+                                $valueNews = $news_home[$value->id][0];
+
+                                echo '    
+                                        <div class="col-6 intro-news-big">
+                                            <a href="' . $valueNews->slug . '.html" class="link-news">
+                                                <img src="' . $valueNews->image . '" alt="">
+                                                <div class="author">
+                                                    <span>Đăng bởi:</span>
+                                                    <span class="name-author">' . $valueNews->author . '</span>
+                                                </div>
+                                                <p class="title-news">' . $valueNews->title . '</p>
+                                                <p class="description-news">' . $valueNews->description . '</p>
+                                                <p class="btn-news">Chi tiết <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                </svg>
+                                                </span></p>
+                                            </a>
+                                        </div>
+                                        ';
+                                        
+                                echo '<div class="col-6 sub-news-home">';
                                 foreach ($news_home[$value->id] as $keyNews => $valueNews) {
-                                    if ($keyNews == 0) {
-                                        echo '    
-                                                    <div class="col-6">
-                                                        <a href="' . $valueNews->slug . '.html" class="link-news">
-                                                            <img src="' . $valueNews->image . '" alt="">
+                                    if ($keyNews > 0) {
+                                        echo '
+                                                    
+                                            <div class="list-news-small">
+                                                <div class="intro-news-small">
+                                                    <a href="' . $valueNews->slug . '.html" class="link-news">
+                                                        <img src="' . $valueNews->image . '" alt="">
+                                                        <div class="info-news-small">
                                                             <div class="author">
                                                                 <span>Đăng bởi:</span>
                                                                 <span class="name-author">' . $valueNews->author . '</span>
                                                             </div>
-                                                            <p class="title-news">' . $valueNews->title . '</p>
-                                                            <p class="description-news">' . $valueNews->description . '</p>
+                                                            <p class="title-news ellipsis block-ellipsis-title-news">' . $valueNews->title . '</p>
+                                                            <p class="description-news ellipsis block-ellipsis">' . $valueNews->description . '</p>
                                                             <p class="btn-news">Chi tiết <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                                             </svg>
                                                             </span></p>
-                                                        </a>
-                                                    </div>
-                                                    ';
-                                    } else {
-                                        echo '
-                                                    <div class="col-6">
-                                                        <div class="list-news-small">
-                                                            <div class="intro-news-small">
-                                                                <a href="' . $valueNews->slug . '.html" class="link-news">
-                                                                    <img src="' . $valueNews->image . '" alt="">
-                                                                    <div class="info-news-small">
-                                                                        <div class="author">
-                                                                            <span>Đăng bởi:</span>
-                                                                            <span class="name-author">' . $valueNews->author . '</span>
-                                                                        </div>
-                                                                        <p class="title-news ellipsis block-ellipsis-title-news">' . $valueNews->title . '</p>
-                                                                        <p class="description-news ellipsis block-ellipsis">' . $valueNews->description . '</p>
-                                                                        <p class="btn-news">Chi tiết <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                                                        </svg>
-                                                                        </span></p>
-                                                                    </div>
-                                                                </a>                                     
-                                                            </div>
                                                         </div>
-                                                    </div>';
+                                                    </a>                                     
+                                                </div>
+                                            </div>
+                                        ';
                                     }
                                 }
+                                echo '</div>';
                             }
                             echo '
                                         </div>
