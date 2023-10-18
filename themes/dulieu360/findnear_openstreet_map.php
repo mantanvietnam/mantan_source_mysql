@@ -20,10 +20,11 @@
     background-color: #4E9D90;
     padding: 50px 60px;
     width: 350px;
-    height:450px;
-    z-index: 99999;
+    height:auto;
+    z-index: 1;
     border-radius: 0 20px 20px 0;
     transition: 1s;
+    text-align: start;
   }
   #bando .col-md-12 {
     padding: 0;

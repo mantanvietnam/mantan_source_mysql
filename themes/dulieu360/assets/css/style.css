@@ -480,11 +480,12 @@ table {
     text-align: center;
 }
 
-.form-group {
+
+/* .form-group {
     top: 28%;
     position: absolute;
     left: 32%;
-}
+} */
 
 .input-form i {
     color: #393e419e;
@@ -512,7 +513,7 @@ table {
     margin-bottom: 33px;
     margin-top: 60px;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 600 !important;
     font-size: 30px;
 }
 
@@ -535,7 +536,7 @@ table {
     font-size: 20px;
     margin-bottom: 16px;
     text-transform: capitalize;
-    font-weight: 550;
+    font-weight: 600;
 }
 
 .infor-content {
@@ -1356,6 +1357,10 @@ table {
     width: 100%;
     height: 100vh;
     margin-bottom: -7px;
+}
+
+.ifr-map .container-fluid {
+    padding: 0 !important;
 }
 
 #footer {
