@@ -207,6 +207,9 @@ table {
 	bottom: -29px;
     right: 102px
 }
+.title-my-service h3{
+	text-align: center;
+}
 /* .backgroud-intro-my-service:nth-child(1){
 	background-image: url(../image/Asset\ 2.png);
 }
