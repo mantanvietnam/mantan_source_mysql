@@ -296,285 +296,285 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             </div>
         </div>
 
-    <div id="profile">
-        <img class="bg-profile" src="<?php echo $urlThemeActive ?>assets/img/bg-dot.png">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 text-center">
-                    <div class="infor-profile">
-                        <div class="title-profile">
-                            <h2>
-                                Tìm hiểu quận đống đa<br> qua profile hình ảnh
-                            </h2>
-                        </div>
-                        <div>
-                            <button class="btn_profile">Xem profile</button>
-                        </div>
-                    </div>
-                    <div id="pdf">
-                        <button class="close_pdf">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        <iframe src="<?php echo @$setting['profile']; ?>" frameborder="0"></iframe>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 img-profile">
-                    <img src="<?php echo @$setting['imge_profile']; ?>">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="destination">
-        <div class="bg-des">
-            <div class="container">
-                <div class="title-des">Điểm đến</div>
-                <div class="list-des">
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
-                        <p>Di tích & danh lam</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/lehoi.svg" alt="">
-                        <p>Lễ hội</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/coquan.svg" alt="">
-                        <p>Cơ Quan Hành Chính</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/khachsan.svg" alt="">
-                        <p>Khách sạn</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/nhahang.svg" alt="">
-                        <p>Nhà hàng quán ăn</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/tttm.svg" alt="">
-                        <p>Trung tâm thương mại</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/giaitri.svg" alt="">
-                        <p>Thư giãn giải trí</p>
-                    </div>
-                    <div class="items-des">
-                        <img src="<?php echo $urlThemeActive ?>assets/img/dv.svg" alt="">
-                        <p>Dịch vụ hỗ trợ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="places">
-        <img class="bg-places" src="<?php echo $urlThemeActive ?>assets/img/bg-dot.png">
-        <div class="container-fluid">
-            <div class="title-places">Cảm hứng du lịch</div>
-            <div class="slider">
-                <div class="list-places">
-                    <?php 
-                   
-                    foreach($tmpVariable['listDataPost'] as $key => $item){ ?>
-                    <div class="item-places">
-                        <div class="box-place">
-                            <div class="img-place">
-                                <img src="https://dongda360.vn/storage/posts/comga.jpg">
-                            </div>
-                            <div class="infor-places">
-                                <a href="/<?php echo @$item['slug'];?>.html"><?php echo @$item['title'];?></a>
-                                <div class="address">
-                                    <!-- <i class="fa-solid fa-location-dot"></i> -->
-                                    <!-- <p>Quận đống đa - Hà nội</p> -->
-                                </div>
-                                <p><?php echo @$item['description'];?></p>
-                                <a href="/<?php echo @$item['slug'];?>.html" class="btn-place">Xem thêm</a>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="event">
-        <div class="container-fluid">
-            <div class="title-event">Sự kiện</div>
-
-            <div class="change-month">
-                <select id="event-selector" onchange="showEvent()">
-                    <?php foreach($tmpVariable['listDataEvent'] as $key => $item){ ?>
-                    <option value="event-m<?php echo $key ?>"><?php echo $item['name'] ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div class="event-12-month">
-                
-                <?php foreach($tmpVariable['listDataEvent'] as $key => $item){
-
-                    if(!empty($item['event'])){
-                        if($key%2 != 0){
-                 ?>
-                <div id="event-m<?php echo $key ?>" class="slide-event row">
-                    <?php foreach($item['event'] as $k => $value){ ?>
-                    <div class="item-event col">
-                        <div class="item-event-5">
-                            <div class="content-event">
-                                <div class="name">
-                                    <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
-                                <div class="cerlender-event">
-                                    <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
-                                </div>
-                                <div class="addr-event">
-                                    <i class="fa-solid fa-location-dot"></i> <?php echo $value->address ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-                </div>
-                <?php }else{ ?>
-                <div id="event-m<?php echo $key ?>" class="slide-event row">
-                     <?php foreach($item['event'] as $k => $value){ ?>
-                    <div class="item-event col">
-                        <div class="item-event-6-1">
-                            <div class="content-event">
-                                <div class="name">
-                                    <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
-                                <div class="cerlender-event">
-                                    <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
-                                </div>
-                                <div class="addr-event">
-                                    <i class="fa-solid fa-location-dot"></i><?php echo $value->address ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <?php } ?>
-                </div>
-
-
-            <?php }}else{ ?>
-                
-                <div id="event-m<?php echo $key ?>" class="slide-event row">
-                    <h4>Không có sự kiện nào trong tháng này</h4>
-                </div>
-
-                <?php }} ?>
-            </div>
-
-            <div class="line-event"></div>
-            <div class="month">
-                <?php foreach($tmpVariable['listDataEvent'] as $key => $item){ ?>
-                <button class="btn-event" onclick="openEvent('event-m<?php echo $key ?>')"><?php echo $item['name']; ?>
-                </button>
-                <?php if($key!=12){ ?>
-                <div class="dot"></div>
-                <?php }} ?>
-            </div>
-        </div>
-    </div>
-
-    <div id="tour">
-        <div class="title-tour">Tour nổi bật</div>
-        <div class="container-fluid">
-            <div class="card-tour card-tour-1">
+        <div id="profile">
+            <img class="bg-profile" src="<?php echo $urlThemeActive ?>assets/img/bg-dot.png">
+            <div class="container-fluid">
                 <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                        <div class="infor-profile">
+                            <div class="title-profile">
+                                <h2>
+                                    Tìm hiểu quận đống đa<br> qua profile hình ảnh
+                                </h2>
+                            </div>
+                            <div>
+                                <button class="btn_profile">Xem profile</button>
+                            </div>
+                        </div>
+                        <div id="pdf">
+                            <button class="close_pdf">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                            <iframe src="<?php echo @$setting['profile']; ?>" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 img-profile">
+                        <img src="<?php echo @$setting['imge_profile']; ?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="destination">
+            <div class="bg-des">
+                <div class="container">
+                    <div class="title-des">Điểm đến</div>
+                    <div class="list-des">
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
+                            <p>Di tích & danh lam</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/lehoi.svg" alt="">
+                            <p>Lễ hội</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/coquan.svg" alt="">
+                            <p>Cơ Quan Hành Chính</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/khachsan.svg" alt="">
+                            <p>Khách sạn</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/nhahang.svg" alt="">
+                            <p>Nhà hàng quán ăn</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/tttm.svg" alt="">
+                            <p>Trung tâm thương mại</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/giaitri.svg" alt="">
+                            <p>Thư giãn giải trí</p>
+                        </div>
+                        <div class="items-des">
+                            <img src="<?php echo $urlThemeActive ?>assets/img/dv.svg" alt="">
+                            <p>Dịch vụ hỗ trợ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="places">
+            <img class="bg-places" src="<?php echo $urlThemeActive ?>assets/img/bg-dot.png">
+            <div class="container-fluid">
+                <div class="title-places">Cảm hứng du lịch</div>
+                <div class="slider">
+                    <div class="list-places">
+                        <?php 
                     
-                <?php foreach($tmpVariable['listDataTour'] as $key => $item){ ?>
-                    <div class="col col-lg-4 col-sm-12">
-                        <div class="box-tour">
-                            <div class="icon-360">
-                                <img src="https://dongda360.vn/img/home/360.svg" alt="">
-                            </div>
-                            <div class="img-tour">
-                                <img src="<?php echo $item->image; ?>">
-                            </div>
-                            <div class="infor-tour">
-                                <div class="name-tour">
-                                    <a href="/chi_tiet_tour/<?php echo $item->urlSlug; ?>.html"><?php echo $item->name; ?></a>
+                        foreach($tmpVariable['listDataPost'] as $key => $item){ ?>
+                        <div class="item-places">
+                            <div class="box-place">
+                                <div class="img-place">
+                                    <img src="https://dongda360.vn/storage/posts/comga.jpg">
                                 </div>
-                                <div class="icon-tour">
-                                    <!-- <div class="star-tour">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
+                                <div class="infor-places">
+                                    <a href="/<?php echo @$item['slug'];?>.html"><?php echo @$item['title'];?></a>
+                                    <div class="address">
+                                        <!-- <i class="fa-solid fa-location-dot"></i> -->
+                                        <!-- <p>Quận đống đa - Hà nội</p> -->
                                     </div>
-                                    <div class="view-tour">
-                                        <div class="number-view">2230
-                                            <i class="fa-solid fa-eye"></i>
-                                        </div>
-                                        <div class="number-tym">0
-                                            <i class="fa-solid fa-heart"></i>
-                                        </div>
-                                    </div> -->
+                                    <p><?php echo @$item['description'];?></p>
+                                    <a href="/<?php echo @$item['slug'];?>.html" class="btn-place">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
-                   <?php } ?>
                 </div>
             </div>
 
-            <!-- <div class="card-tour card-tour-2">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="box-tour">
-                            <div class="icon-360">
-                                <img src="https://dongda360.vn/img/home/360.svg" alt="">
-                            </div>
-                            <div class="img-tour">
-                                <img src="<?php echo $urlThemeActive ?>assets/img/vanmieu.jpg">
-                            </div>
-                            <div class="infor-tour">
-                                <div class="name-tour">
-                                    <a href="">Tour du lịch văn miếu</a>
-                                </div>
-                                <div class="icon-tour">
-                                    <div class="star-tour">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
+        </div>
+
+        <div id="event">
+            <div class="container-fluid">
+                <div class="title-event">Sự kiện</div>
+
+                <div class="change-month">
+                    <select id="event-selector" onchange="showEvent()">
+                        <?php foreach($tmpVariable['listDataEvent'] as $key => $item){ ?>
+                        <option value="event-m<?php echo $key ?>"><?php echo $item['name'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
+                <div class="event-12-month">
+                    
+                    <?php foreach($tmpVariable['listDataEvent'] as $key => $item){
+
+                        if(!empty($item['event'])){
+                            if($key%2 != 0){
+                    ?>
+                    <div id="event-m<?php echo $key ?>" class="slide-event row">
+                        <?php foreach($item['event'] as $k => $value){ ?>
+                        <div class="item-event col">
+                            <div class="item-event-5">
+                                <div class="content-event">
+                                    <div class="name">
+                                        <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
+                                    <div class="cerlender-event">
+                                        <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
                                     </div>
-                                    <div class="view-tour">
-                                        <div class="number-view">2452
-                                            <i class="fa-solid fa-eye"></i>
+                                    <div class="addr-event">
+                                        <i class="fa-solid fa-location-dot"></i> <?php echo $value->address ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    </div>
+                    <?php }else{ ?>
+                    <div id="event-m<?php echo $key ?>" class="slide-event row">
+                        <?php foreach($item['event'] as $k => $value){ ?>
+                        <div class="item-event col">
+                            <div class="item-event-6-1">
+                                <div class="content-event">
+                                    <div class="name">
+                                        <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
+                                    <div class="cerlender-event">
+                                        <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
+                                    </div>
+                                    <div class="addr-event">
+                                        <i class="fa-solid fa-location-dot"></i><?php echo $value->address ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    </div>
+
+
+                <?php }}else{ ?>
+                    
+                    <div id="event-m<?php echo $key ?>" class="slide-event row">
+                        <h4>Không có sự kiện nào trong tháng này</h4>
+                    </div>
+
+                    <?php }} ?>
+                </div>
+
+                <div class="line-event"></div>
+                <div class="month">
+                    <?php foreach($tmpVariable['listDataEvent'] as $key => $item){ ?>
+                    <button class="btn-event" onclick="openEvent('event-m<?php echo $key ?>')"><?php echo $item['name']; ?>
+                    </button>
+                    <?php if($key!=12){ ?>
+                    <div class="dot"></div>
+                    <?php }} ?>
+                </div>
+            </div>
+        </div>
+
+        <div id="tour">
+            <div class="title-tour">Tour nổi bật</div>
+            <div class="container-fluid">
+                <div class="card-tour card-tour-1">
+                    <div class="row">
+                        
+                    <?php foreach($tmpVariable['listDataTour'] as $key => $item){ ?>
+                        <div class="col col-lg-4 col-sm-12">
+                            <div class="box-tour">
+                                <div class="icon-360">
+                                    <img src="https://dongda360.vn/img/home/360.svg" alt="">
+                                </div>
+                                <div class="img-tour">
+                                    <img src="<?php echo $item->image; ?>">
+                                </div>
+                                <div class="infor-tour">
+                                    <div class="name-tour">
+                                        <a href="/chi_tiet_tour/<?php echo $item->urlSlug; ?>.html"><?php echo $item->name; ?></a>
+                                    </div>
+                                    <div class="icon-tour">
+                                        <!-- <div class="star-tour">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
                                         </div>
-                                        <div class="number-tym">3
-                                            <i class="fa-solid fa-heart"></i>
+                                        <div class="view-tour">
+                                            <div class="number-view">2230
+                                                <i class="fa-solid fa-eye"></i>
+                                            </div>
+                                            <div class="number-tym">0
+                                                <i class="fa-solid fa-heart"></i>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    </div>
+                </div>
+
+                <!-- <div class="card-tour card-tour-2">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="box-tour">
+                                <div class="icon-360">
+                                    <img src="https://dongda360.vn/img/home/360.svg" alt="">
+                                </div>
+                                <div class="img-tour">
+                                    <img src="<?php echo $urlThemeActive ?>assets/img/vanmieu.jpg">
+                                </div>
+                                <div class="infor-tour">
+                                    <div class="name-tour">
+                                        <a href="">Tour du lịch văn miếu</a>
+                                    </div>
+                                    <div class="icon-tour">
+                                        <div class="star-tour">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <div class="view-tour">
+                                            <div class="number-view">2452
+                                                <i class="fa-solid fa-eye"></i>
+                                            </div>
+                                            <div class="number-tym">3
+                                                <i class="fa-solid fa-heart"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> -->
+                </div> -->
 
-          
+            
+            </div>
         </div>
-    </div>
 
-    <div id="map">
-        <div class="title-map">
-            <p>Bản đồ</p>
+        <div id="map">
+            <div class="title-map">
+                <p>Bản đồ</p>
+            </div>
+            <div class="ifr-map">
+            <!--  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29795.593359825012!2d105.79992337910909!3d21.014706260363894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab82178be9eb%3A0x429104feae49bd75!2zxJDhu5FuZyDEkGEsIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1696844162998!5m2!1svi!2s"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                    <?php 
+                    //include("findnear_google_map.php"); 
+                    include("findnear_openstreet_map.php"); 
+                ?>
+            </div>
         </div>
-        <div class="ifr-map">
-           <!--  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29795.593359825012!2d105.79992337910909!3d21.014706260363894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab82178be9eb%3A0x429104feae49bd75!2zxJDhu5FuZyDEkGEsIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1696844162998!5m2!1svi!2s"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                 <?php 
-                //include("findnear_google_map.php"); 
-                include("findnear_openstreet_map.php"); 
-            ?>
-        </div>
-    </div>
 
 
     </main>
