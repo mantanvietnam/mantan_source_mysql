@@ -172,6 +172,7 @@ table {
 
 #map-section #map_HS {
     height: 600px !important;
+    z-index: 0;
 }
 
 #section-convenient .title-h2 {

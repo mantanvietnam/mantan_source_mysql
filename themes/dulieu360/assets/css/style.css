@@ -383,7 +383,7 @@ table {
     position: absolute;
     top: 0;
     height: 100%;
-    width: 49% !important;
+    width: 49%;
     background: rgb(255, 255, 255);
     margin: 2px 0;
     /* animation: move 1s ease-in-out infinite; */
@@ -773,6 +773,7 @@ table {
     padding-left: 24px;
     padding-right: 24px;
     padding-top: 24px;
+    width: 100%;
 }
 
 
@@ -782,16 +783,13 @@ table {
 
 .item-places .infor-places p {
     font-size: 8px;
-    width: 300px;
 }
 
 .item-places .infor-places a {
-    font-size: 12px;
     color: #fff;
     text-decoration: none;
     text-transform: capitalize;
-    padding-bottom: 15px;
-    width: 300px;
+    width: 105px;
 }
 
 .item-places .address {
