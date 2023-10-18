@@ -17,7 +17,7 @@
     padding: 50px 60px;
     width: 350px;
     height:450px;
-    z-index: 1;
+    z-index: 1 !important;
     border-radius: 0 20px 20px 0;
     transition: 1s;
   }
