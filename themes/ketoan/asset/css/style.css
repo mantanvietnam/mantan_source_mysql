@@ -85,7 +85,7 @@ table {
 	text-decoration: none;
 	font-weight: bold;
     font-size: 20px;
-	
+	display: flex;
 }
 .nav-logo-header{
 	display: flex;
@@ -166,7 +166,7 @@ table {
 	font-size: 18px;
 }
 .backgroud-intro-my-service{
-	padding: 25px;
+	padding: 20px;
 }
 
 .title-my-service .description-my-service{
@@ -179,33 +179,28 @@ table {
 	position: relative;
 }
 .backgroud-intro-my-service:nth-child(odd) .text-my-service{
-	text-align: center;
-	padding: 80px 20px 50px 20px;
-
-	border-radius: 20px;
+    text-align: center;
+    padding: 82px 20px 40px 20px;
+    box-shadow: -1px 0px 32px -11px;
+    border-radius: 20px;
 
 }
 .backgroud-intro-my-service:nth-child(odd) .setting-icon{
-	width: 30%;
-    padding: 15px;
-    border-radius: 53%;
-    border: 10px solid #01c4be;
+	width: 35%;
     margin: auto;
 	position: absolute;
 	top: -29px !important;
     right: 102px
 }
 .backgroud-intro-my-service:nth-child(even) .text-my-service{
-	text-align: center;
-	padding: 50px 20px 80px 20px;
-	border-radius: 20px;
+    text-align: center;
+    padding: 50px 20px 70px 20px;
+    border-radius: 20px;
+    box-shadow: -1px 0px 32px -11px;
 
 }
 .backgroud-intro-my-service:nth-child(even) .setting-icon{
-	width: 30%;
-    padding: 15px;
-    border-radius: 53%;
-    border: 10px solid #01c4be;
+	width: 35%;
     margin: auto;
 	position: absolute;
 	bottom: -29px;
@@ -226,7 +221,7 @@ table {
 .backgroud-intro-my-service{
 	    background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
 }
 #why-my-service{
 	margin-top: 80px;
@@ -538,11 +533,11 @@ table {
 	justify-content: center;
 }
 .intro-cong-ty p{
-	margin-bottom: 40px;
+	margin-bottom: 15px;
 	font-family: "SanText";
 }
 .intro-cong-ty h4{
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 	font-size: 25px;
 	color: #133C85;
 	font-family: "SanFranciscoDisplayBold" ;
@@ -562,7 +557,7 @@ table {
 	margin-bottom: 10px;
 }
 .dich-vu-footer h4{
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 	font-size: 25px;
 	color: #133C85;
 	font-family: "SanFranciscoDisplayBold" ;
@@ -929,6 +924,24 @@ display: none;
 	bottom: 74px;
 }
 
+.tab-intro-right .intro-news-small img{
+	height: 98.66px;
+}
+.setting-image-footer{
+	text-align: center;
+	display: block;
+	margin-bottom: 10px;
+}
+.nav-header-item:first-child a::before{
+	content: "";
+    background-image: url(https://dailythuelaocai.vn/themes/ketoan//asset/image/house-solid.png);
+    width: 18px;
+    height: 23px;
+    z-index: 99;
+    /* position: absolute; */
+    background-size: cover;
+    margin-right: 5px;
+}
 
 /* Reponsive */
 @media (max-width:1400px){
@@ -937,6 +950,26 @@ display: none;
 	}
 	.contact-me .title-main-home {
 		grid-template-columns: auto 43%;
+	}
+}
+@media (max-width:1399px){
+	.tab-intro-right .intro-news-small img {
+		height: 83.66px;
+	}
+	.backgroud-intro-my-service:nth-child(odd) .text-my-service {
+		padding: 62px 20px 40px 20px;
+	}
+	.backgroud-intro-my-service:nth-child(even) .text-my-service {
+		padding: 50px 20px 53px 20px;
+	}
+	.backgroud-intro-my-service:nth-child(odd){
+		background-position: bottom;
+	}
+	.backgroud-intro-my-service:nth-child(even){
+		background-position: top;
+	}
+	.backgroud-intro-my-service .setting-icon{
+		right: 83px !important;
 	}
 }
 
@@ -1007,8 +1040,11 @@ display: none;
 
 		.intro-my-service .backgroud-intro-my-service{
 			width: 50%;
-			height: 330px;
+			height: 309px;
 			padding: 20px;
+		}
+		.backgroud-intro-my-service .text-my-service{
+			height: 100%;
 		}
 		.tab-intro-left .col-6{
 			width: 100%;
@@ -1105,6 +1141,12 @@ display: none;
 	.list-product-item a{
 		grid-template-columns: 1fr 2fr;
 	}
+	.backgroud-intro-my-service:nth-child(odd) .text-my-service {
+		padding: 25px 20px 25px 20px;
+	}
+	.backgroud-intro-my-service:nth-child(even) .text-my-service {
+		padding: 25px 20px 25px 20px;
+	}
 }
 @media (max-width:538px){
 .intro-my-service .backgroud-intro-my-service{
@@ -1112,17 +1154,27 @@ display: none;
 height: auto; */
 }
 .backgroud-intro-my-service:nth-child(odd) .text-my-service{
-	padding: 40px 20px 50px 20px;
+	padding: 40px 20px 40px 20px;
 }
 .backgroud-intro-my-service:nth-child(even) .text-my-service{
-	padding: 40px 20px 50px 20px;
+	padding: 40px 20px 40px 20px;
 }
 .backgroud-intro-my-service{
 	background-position: top;
-    background-size: contain;
+    background-size: cover;
 }
 .text-my-service .title-text-my-service{
 	font-size: 16px;
+}
+.title-my-service h3 {
+    font-size: 18px;
+}
+#main-body-text .title-main-home {
+    grid-template-columns: auto 34%;
+}
+
+.title-main-home h3{
+	font-size: 20px;
 }
 .description-my-service{
 	font-size: 13px;
@@ -1141,6 +1193,10 @@ height: auto; */
 .list-product-item .intro-product-item p {
 	font-size: 13px;
 	margin-bottom: 10px;
+}
+.intro-my-service .backgroud-intro-my-service {
+    height: auto;
+	width: 100% !important;
 }
 }
 @media (max-width:425px){

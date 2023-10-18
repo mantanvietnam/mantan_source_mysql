@@ -1,4 +1,4 @@
-<?php 
+f<?php 
 function orderProduct($input){
 	global $controller;
 	global $modelCategories;
@@ -251,7 +251,7 @@ function orderProduct($input){
 	}
 }
 
-function orderCobom($input){
+function orderCombo($input){
     global $controller;
     global $modelCategories;
     global $urlCurrent;
@@ -911,7 +911,7 @@ function listOrderProduct($input){
     }
 }
 
-function listOrderCobom($input){
+function listOrderCombo($input){
     global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
@@ -933,6 +933,7 @@ function listOrderCobom($input){
         $modelMembers = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
+        $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 
         $user = $session->read('infoUser');
 
@@ -994,10 +995,36 @@ function listOrderCobom($input){
                 if(!empty($product)){
 
                     foreach($product as $k => $value){
-                        $product[$k]->prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
-                
+                        $prod = $modelCombo->find()->where(array('id'=>$value->id_product))->first();
+                        $products = array();
+                        $service = array();
+                        if(!empty($prod)){
+                            $combo_product = json_decode($prod->product);
+                            foreach($combo_product as $idProduct => $quantityPro){
+                                $pr =  $modelProduct->find()->where(array('id'=>$idProduct))->first();
+                                $pr->quantity_Combo =  $quantityPro;
+                                $products[] = $pr;
+                            }
+                            $combo_service = json_decode($prod->service);
+                            foreach($combo_service as $idservice => $quantityPro){
+                                $pr =  $modelService->find()->where(array('id'=>$idservice))->first();
+                                $pr->quantity_Combo =  $quantityPro;
+                                $service[] = $pr;
 
+
+                            }
+                            
+                        }
+                  
+                        $prod->combo_product = $products;
+                        $prod->combo_service = $service;
+
+                         
+                        $product[$k] = $prod;
                     }
+
+
+                        
                     $listData[$key]->product = $product;
                     if(!empty($item->id_bed)){
                         $listData[$key]->bed = $modelBed->find()->where(array('id'=>$item->id_bed))->first();
@@ -1005,7 +1032,6 @@ function listOrderCobom($input){
                 }
             }
         }
-
 
         $balance = $totalData % $limit;
         $totalPage = ($totalData - $balance) / $limit;
@@ -1045,6 +1071,16 @@ function listOrderCobom($input){
             $mess = '<p style="color: #00f83a;">Phòng vẫn có khách không check in được</p>';
         }
 
+        $conditionsRoom = array( 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'));
+        
+        $listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
+        
+        if(!empty($listRoom)){
+            foreach($listRoom as $key => $item){
+                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa'), 'status'=>1))->all()->toList();
+            }
+        }
+
         setVariable('page', $page);
         setVariable('totalPage', $totalPage);
         setVariable('back', $back);
@@ -1053,7 +1089,9 @@ function listOrderCobom($input){
         setVariable('totalData', $totalData);
         
         setVariable('listData', $listData);
+        setVariable('modelUserserviceHistories', $modelUserserviceHistories);
         setVariable('listWarehouse', $listWarehouse);
+        setVariable('listRoom', $listRoom);
         setVariable('mess', @$mess);
 
     }else{
@@ -1384,7 +1422,7 @@ function addUserService($input){
                 $UserService->id_staff = $user->id;
                 $UserService->id_order_details = $_GET['id'];
                 $UserService->id_spa =$session->read('id_spa');
-                $UserService->id_services =$OrderDetails->id_product;
+                $UserService->id_services =$_GET['id_service'];
                 $UserService->created_at =date('Y-m-d H:i:s');
                 $UserService->note =@$_GET['note'];
                 $UserService->id_customer = $Order->id_customer;
@@ -1402,7 +1440,7 @@ function addUserService($input){
                 $UserService->id_order_details = $_GET['id'];
                 $UserService->id_staff = $user->id;
                 $UserService->id_spa =$session->read('id_spa');
-                $UserService->id_services =$OrderDetails->id_product;
+                $UserService->id_services =$_GET['id_service'];
                 $UserService->created_at =date('Y-m-d H:i:s');
                 $UserService->note =@$_GET['note'];
                 $UserService->id_bed = $_GET['id_bed'];

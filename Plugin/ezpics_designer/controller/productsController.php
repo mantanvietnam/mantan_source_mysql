@@ -644,7 +644,7 @@ function detailProduct($input)
 		$count = count($slug)-1;
 		$id = (int) $slug[$count];
 
-		$product = $modelProduct->find()->where(['id'=>$id])->first();
+		$product = $modelProduct->find()->where(['id'=>$id ,'status'=>2])->first();
 
 		if(!empty($product)){
 			$user = $modelMembers->get($product->user_id);
@@ -669,10 +669,10 @@ function detailProduct($input)
 			setVariable('dataOther', $dataOther);
 			setVariable('user', $user);
 		}else{
-			$link_open_app =  'https://ezpics.page.link/vn1s';
+			return $controller->redirect('https://ezpics.vn');
 		}
 	}else{
-		$link_open_app =  'https://ezpics.page.link/vn1s';
+		return $controller->redirect('https://ezpics.vn');
 	}
 
 	setVariable('link_open_app', $link_open_app);
