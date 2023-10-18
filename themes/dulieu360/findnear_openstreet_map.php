@@ -41,6 +41,7 @@
   }
   #map_HS {
     height: 80vh !important;
+    z-index: 0;
   }
   @media (max-width: 600px) {
     .img-calendar img {
@@ -54,7 +55,7 @@
       padding: 25px 30px;
       width: 250px;
       height: 380px;
-      z-index: 99999;
+      z-index: 1;
       border-radius: 0 20px 20px 0;
       transition: 1s;
     }
