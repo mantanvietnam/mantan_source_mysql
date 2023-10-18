@@ -40,7 +40,7 @@ global $settingThemes;
 
                     <div class="intro-my-service">
                         <div class="row">
-                            <div class="col-3 backgroud-intro-my-service relative">
+                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset14.png) ;">
                                 <div class="setting-icon">
                                     <img src="<?php echo $urlThemeActive; ?>/asset/image/Asset9.png" alt="">
                                 </div>
@@ -49,7 +49,7 @@ global $settingThemes;
                                     <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_1']; ?></P>
                                 </div>
                             </div>
-                            <div class="col-3 backgroud-intro-my-service relative">
+                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset13.png) ;">
                                 <div class="text-my-service">
                                     <p class="title-text-my-service"><?php echo @$settingThemes['content_title_section1_2']; ?></p>
                                     <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_2']; ?></P>
@@ -58,7 +58,7 @@ global $settingThemes;
                                     <img src="<?php echo $urlThemeActive; ?>/asset/image/Asset6.png" alt="">
                                 </div>
                             </div>
-                            <div class="col-3 backgroud-intro-my-service relative">
+                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset12.png) ;">
                                 <div class="setting-icon">
                                     <img src="<?php echo $urlThemeActive; ?>/asset/image/Asset7.png" alt="">
                                 </div>
@@ -67,7 +67,7 @@ global $settingThemes;
                                     <P class="description-my-service"><?php echo @$settingThemes['content_detail_section1_3']; ?></P>
                                 </div>
                             </div>
-                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset11.png) ;">
+                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset12.png) ;">
                                 <div class="setting-icon">
                                     <img src="<?php echo $urlThemeActive; ?>/asset/image/Asset8.png" alt="">
                                 </div>
