@@ -276,7 +276,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
         <div id="about">
             <div class="container-fluid">
                 <div class="title-about">
-                    <h2>Giới thiệu â</h2>
+                    <h2>Giới thiệu</h2>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-12">
