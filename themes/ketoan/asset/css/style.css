@@ -989,6 +989,12 @@ display: none;
 	.backgroud-intro-my-service{
 		padding: 0px;
 	}
+	.title-small-right h4{
+		width: 80%;
+	}
+	#main-body-text .title-main-home {
+		grid-template-columns: auto 51%;
+	}
 	.backgroud-intro-my-service .setting-icon{
 		display: none;
 	}
