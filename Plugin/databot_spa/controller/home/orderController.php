@@ -1,4 +1,4 @@
-f<?php 
+<?php 
 function orderProduct($input){
 	global $controller;
 	global $modelCategories;
