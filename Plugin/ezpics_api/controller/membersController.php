@@ -212,6 +212,7 @@ function checkLoginMemberAPI($input)
 				}
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->number_login += 1;
+				$checkPhone->token = createToken();
 				$checkPhone->token_device = @$dataSend['token_device'];
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
 				if(!empty($checkdeadlinepro)){
