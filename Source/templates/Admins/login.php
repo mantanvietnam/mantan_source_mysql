@@ -17,7 +17,7 @@
   class="light-style customizer-hide"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="/assets_admin/"
+  data-assets-path="/webroot/assets_admin/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets_admin/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/webroot/assets_admin/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,25 +43,25 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/assets_admin/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/assets_admin/css/demo.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="/assets_admin/vendor/css/pages/page-auth.css" />
+    <link rel="stylesheet" href="/webroot/assets_admin/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
-    <script src="/assets_admin/vendor/js/helpers.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/assets_admin/js/config.js"></script>
+    <script src="/webroot/assets_admin/js/config.js"></script>
   </head>
 
   <body>
@@ -193,18 +193,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="/assets_admin/vendor/libs/jquery/jquery.js"></script>
-    <script src="/assets_admin/vendor/libs/popper/popper.js"></script>
-    <script src="/assets_admin/vendor/js/bootstrap.js"></script>
-    <script src="/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/jquery/jquery.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/popper/popper.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/bootstrap.js"></script>
+    <script src="/webroot/assets_admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="/assets_admin/vendor/js/menu.js"></script>
+    <script src="/webroot/assets_admin/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="/assets_admin/js/main.js"></script>
+    <script src="/webroot/assets_admin/js/main.js"></script>
 
     <!-- Page JS -->
 
