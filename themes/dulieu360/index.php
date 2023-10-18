@@ -287,7 +287,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <div class="content-about">
                             <div class="list-content">
                                 <?php echo @$setting['content']; ?>
-
+                            </div>
                             <button class="btn_about_1">Xem thêm</button>
                             <button class="btn_about_2">Ẩn bớt</button>
                         </div>

@@ -50,7 +50,7 @@
       padding: 25px 30px;
       width: 250px;
       height: 380px;
-      z-index: 99999;
+      z-index: 1;
       border-radius: 0 20px 20px 0;
       transition: 1s;
     }
