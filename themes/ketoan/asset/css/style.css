@@ -207,7 +207,7 @@ table {
 	bottom: -29px;
     right: 102px
 }
-.backgroud-intro-my-service:nth-child(1){
+/* .backgroud-intro-my-service:nth-child(1){
 	background-image: url(../image/Asset\ 2.png);
 }
 .backgroud-intro-my-service:nth-child(2){
@@ -218,7 +218,7 @@ table {
 }
 .backgroud-intro-my-service:nth-child(4){
 	background-image: url(../image/Asset\ 5.png);
-}
+} */
 .backgroud-intro-my-service{
 	    background-repeat: no-repeat;
     background-position: center;
