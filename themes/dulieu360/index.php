@@ -331,36 +331,52 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <div class="title-des">Điểm đến</div>
                     <div class="list-des">
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
-                            <p>Di tích & danh lam</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
+                                <p>Di tích & danh lam</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/lehoi.svg" alt="">
-                            <p>Lễ hội</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/lehoi.svg" alt="">
+                                <p>Lễ hội</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/coquan.svg" alt="">
-                            <p>Cơ Quan Hành Chính</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/coquan.svg" alt="">
+                                <p>Cơ Quan Hành Chính</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/khachsan.svg" alt="">
-                            <p>Khách sạn</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/khachsan.svg" alt="">
+                                <p>Khách sạn</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/nhahang.svg" alt="">
-                            <p>Nhà hàng quán ăn</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/nhahang.svg" alt="">
+                                <p>Nhà hàng quán ăn</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/tttm.svg" alt="">
-                            <p>Trung tâm thương mại</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/tttm.svg" alt="">
+                                <p>Trung tâm thương mại</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/giaitri.svg" alt="">
-                            <p>Thư giãn giải trí</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/giaitri.svg" alt="">
+                                <p>Thư giãn giải trí</p>
+                            </a>
                         </div>
                         <div class="items-des">
-                            <img src="<?php echo $urlThemeActive ?>assets/img/dv.svg" alt="">
-                            <p>Dịch vụ hỗ trợ</p>
+                            <a href="">
+                                <img src="<?php echo $urlThemeActive ?>assets/img/dv.svg" alt="">
+                                <p>Dịch vụ hỗ trợ</p>
+                            </a>
                         </div>
                     </div>
                 </div>
