@@ -58,7 +58,7 @@ global $settingThemes;
                                     <img src="<?php echo $urlThemeActive; ?>/asset/image/Asset6.png" alt="">
                                 </div>
                             </div>
-                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset12.png) ;">
+                            <div class="col-3 backgroud-intro-my-service relative" style="background-image: url(<?php echo $urlThemeActive; ?>/asset/image/Asset11.png) ;">
                                 <div class="setting-icon">
                                     <img src="<?php echo $urlThemeActive; ?>/asset/image/Asset7.png" alt="">
                                 </div>
@@ -321,7 +321,7 @@ global $settingThemes;
                                             </a>
                                         </div>
                                         ';
-                                        
+
                                 echo '<div class="col-6 sub-news-home">';
                                 foreach ($news_home[$value->id] as $keyNews => $valueNews) {
                                     if ($keyNews > 0) {
