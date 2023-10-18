@@ -5,12 +5,11 @@
   <?php if ($infoUser->number_spa > $totalData){ ?>
      <p><a href="/addSpa" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <?php } ?>
- 
 
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <h5 class="card-header">Tìm kiếm cơ sở SPA</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">

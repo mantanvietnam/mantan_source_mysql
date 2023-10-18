@@ -5,7 +5,7 @@
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
             <div class=" card mb-4">
-                <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+                <h5 class="card-header">Tìm kiếm combo liệu trình</h5>
                 <div class="card-body">
                     <div class=" row">
                         <div class="col-md-1">

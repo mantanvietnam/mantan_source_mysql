@@ -8,7 +8,7 @@ global $type_collection_bill;
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <h5 class="card-header">Tìm kiếm công nợ phải thu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">

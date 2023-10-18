@@ -15,9 +15,6 @@ function listStaff($input)
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
-
-		$mess ='';
-
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
 		$order = ['status'=>'desc','id' => 'DESC'];
@@ -87,7 +84,6 @@ function listStaff($input)
 	    setVariable('back', $back);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
-	    setVariable('mess', $mess);
 	    
 	    setVariable('listData', $listData);
 	}else{

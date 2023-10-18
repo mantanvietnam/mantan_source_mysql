@@ -3,7 +3,7 @@
   <h4 class="fw-bold py-3 mb-4">Thống kê doanh thu</h4>
     <form method="get" action="">
         <div class="card mb-4">
-            <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+            <h5 class="card-header">Tìm kiếm dữ liệu thống kê</h5>
             <div class="card-body">
                 <div class="row gx-3 gy-2 align-items-center">
                     <div class="col-md-2">

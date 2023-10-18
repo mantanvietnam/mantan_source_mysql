@@ -6,14 +6,13 @@
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
+      <h5 class="card-header">Tìm kiếm lịch sử giao dịch</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-2">
             <label class="form-label">ID giao dịch</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
-
           <div class="col-md-2">
             <label class="form-label">Tạo từ ngày</label>
             <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
