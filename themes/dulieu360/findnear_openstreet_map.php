@@ -55,7 +55,7 @@
       background-color: #4E9D90;
       padding: 25px 30px;
       width: 250px;
-      height: 380px;
+      height: auto;
       z-index: 1 !important;
       border-radius: 0 20px 20px 0;
       transition: 1s;

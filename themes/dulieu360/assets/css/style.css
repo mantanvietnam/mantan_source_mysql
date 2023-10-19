@@ -1488,6 +1488,10 @@ table {
     #header {
         height: 90vh;
     }
+    .item-search {
+        display: block;
+        padding: 0 18px;
+    }
     #top-bar {
         padding: 0;
     }
@@ -1843,12 +1847,10 @@ table {
     .img-place::before {
         height: 300px;
     }
-    .item-places .infor-places {
-        left: 80px;
-        width: 430px;
-    }
+    .item-places .infor-places {}
     .item-places .infor-places a {
         font-size: 18px;
+        width: 162px;
     }
     .item-places .infor-places p {
         font-size: 12px;
