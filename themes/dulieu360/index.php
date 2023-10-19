@@ -194,7 +194,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
         <div id="foot_bar">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" style="width: 20%;" href="#">
+                    <a class="navbar-brand" href="#">
                         <img src="<?php echo @$setting['image_logo']; ?>" style="   max-width: 100%;" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

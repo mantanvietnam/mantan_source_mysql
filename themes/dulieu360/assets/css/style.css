@@ -1477,6 +1477,10 @@ table {
     transition: all linear 0.3s;
 }
 
+.navbar-brand img {
+    width: 255px;
+}
+
 
 /* Dành cho điện thoại */
 

@@ -267,8 +267,7 @@ input:-internal-autofill-selected {
 
 #place-around-section .place-around-slide .slick-arrow {
     position: absolute;
-    /* bottom: -800px; */
-    z-index: 10;
+    z-index: 1;
     font-size: 30px;
     background: none;
     color: #ffffff;
@@ -276,20 +275,22 @@ input:-internal-autofill-selected {
     border-radius: 50%;
     width: 76px;
     height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 35%;
 }
 
 #place-around-section .place-around-slide .slick-prev {
-    right: 940px;
-    top: 160px;
     transition: .8s;
     background-color: rgba(85, 143, 124, 0.9);
+    left: -30px;
 }
 
 #place-around-section .place-around-slide .slick-next {
-    right: -38px;
     transition: .8s;
-    top: 160px;
     background-color: rgba(85, 143, 124, 0.9);
+    right: -30px;
 }
 
 #place-around-section .place-around-slide .slick-prev::before {
@@ -536,6 +537,10 @@ input:-internal-autofill-selected {
     margin: auto 0;
     padding: 10px;
     border-radius: 10px;
+}
+
+.place-around-slide-item .place-around-size p {
+    margin-bottom: 0;
 }
 
 
@@ -2046,6 +2051,7 @@ input:-internal-autofill-selected {
     #section-sign .nav-link-sign {
         font-size: 25px
     }
+    /* VHieu bo sung sua logo */
 }
 
 @media (max-width: 576px) {
