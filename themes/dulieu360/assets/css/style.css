@@ -1481,12 +1481,20 @@ table {
     width: 255px;
 }
 
+.navbar-brand {
+    width: 50% !important;
+}
+
 
 /* Dành cho điện thoại */
 
 @media all and (max-width: 480px) {
     #header {
-        height: 90vh;
+        height: 95px !important;
+    }
+    .banner-top-style-1 {
+        transform: translate(0, -2px);
+        z-index: -1;
     }
     .item-search {
         display: block;
@@ -1740,8 +1748,11 @@ table {
         padding: 15px 15px;
         height: auto;
     }
+    #header {
+        height: 115px !important;
+    }
     #foot_bar img {
-        width: 135px;
+        width: 200px;
         margin-left: 15px;
     }
     .navbar-toggler {

@@ -1135,7 +1135,7 @@ footer .bottom-footer span {
 }
 
 .time-line .main-menu .nav-item button.active {
-    border-bottom: 1px solid #188181;
+    border-bottom: 2px solid #188181;
 }
 
 .time-line .main-menu .tab-timeline {
@@ -1211,13 +1211,23 @@ footer .bottom-footer span {
 .tour-chi-tiet-map .tour-chi-tiet-body {
     background: #ffffff;
     border-top: 1px solid rgba(63, 64, 66, 0.5);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .tour-chi-tiet-map .tour-chi-tiet-body img {
     margin-right: 10px;
+}
+
+.tour-chi-tiet-body .btn {
+    color: #fff;
+    border: 1px solid #019680;
+    padding: 11px 27px;
+    background-color: #019680;
+    border-radius: 9px;
+}
+
+.tour-chi-tiet-body .btn:hover {
+    color: #019680 !important;
+    background-color: #ffffff !important;
 }
 
 .tour-chi-tiet-map .tour-chi-tiet-body .card-detail {
@@ -1226,6 +1236,28 @@ footer .bottom-footer span {
     font-weight: 400;
     font-size: 20px;
     color: #3f4042;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    */
+}
+
+.tour-chi-tiet-body .card-detail span {
+    overflow: hidden;
+    white-space: nowrap;
+    /* display: -webkit-box; */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+}
+
+.cake-error a {
+    overflow: hidden;
+    white-space: nowrap;
+    /* display: -webkit-box; */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 }
 
 .tour-chi-tiet-map .tour-chi-tiet-body .button-group .button-outline-primary-custom {

@@ -1938,12 +1938,12 @@ input:-internal-autofill-selected {
     }
     /* ddai */
     #place-around-section .place-around-slide .slick-next {
-        right: -7px;
-        top: 107px;
+        right: -20px;
+        top: 35%;
     }
     #place-around-section .place-around-slide .slick-prev {
-        left: -7px;
-        top: 107px;
+        left: -20px;
+        top: 35%;
     }
     #place-around-section .place-around-slide .slick-arrow {
         font-size: 30px;
