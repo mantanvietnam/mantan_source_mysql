@@ -220,10 +220,6 @@ input:-internal-autofill-selected {
     padding-left: 20px;
 }
 
-#place-detail .place-content i {
-    color: #126B66;
-}
-
 #place-detail .place-img-slide .slick-arrow {
     position: absolute;
     z-index: 10;
@@ -308,7 +304,6 @@ input:-internal-autofill-selected {
 
 #place-around-section .place-around-slide .slick-next:hover {
     transition: .8s;
-    background-color: #558F7C;
 }
 
 
@@ -402,17 +397,26 @@ input:-internal-autofill-selected {
 #place-detail .button-content button {
     width: 162px;
     height: 45px;
-    background-color: transparent;
-    border: 2px solid #188181;
+    background-color: #019680;
+    border: 2px solid #019680;
     margin-right: 17px;
-    color: #3F4042;
+    color: #ffffff;
     font-size: 22px;
     border-radius: 10px;
     transition: .5s;
 }
 
+#place-detail .button-content button:hover {
+    color: #019680;
+    background-color: transparent;
+}
+
+#place-detail .button-content button:hover i {
+    color: #019680;
+}
+
 .button-content i {
-    color: #126B66;
+    color: #ffffff;
     margin-right: 12px;
     font-size: 18px;
     transition: .5s;
@@ -533,7 +537,7 @@ input:-internal-autofill-selected {
 
 .place-around-slide-item .place-around-size {
     font-size: 22px;
-    background-color: #8BBEB5;
+    background-color: #019680;
     margin: auto 0;
     padding: 10px;
     border-radius: 10px;
@@ -541,6 +545,7 @@ input:-internal-autofill-selected {
 
 .place-around-slide-item .place-around-size p {
     margin-bottom: 0;
+    color: #fff;
 }
 
 

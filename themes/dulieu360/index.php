@@ -400,8 +400,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <div class="infor-places">
                                     <a href="/<?php echo @$item['slug'];?>.html"><?php echo @$item['title'];?></a>
                                     <div class="address">
-                                        <!-- <i class="fa-solid fa-location-dot"></i> -->
-                                        <!-- <p>Quận đống đa - Hà nội</p> -->
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <p>Quận đống đa - Hà nội</p>
                                     </div>
                                     <p><?php echo @$item['description'];?></p>
                                     <a href="/<?php echo @$item['slug'];?>.html" class="btn-place">Xem thêm</a>

@@ -1215,6 +1215,7 @@ footer .bottom-footer span {
 
 .tour-chi-tiet-map .tour-chi-tiet-body img {
     margin-right: 10px;
+    width: 32px;
 }
 
 .tour-chi-tiet-body .btn {
@@ -1270,7 +1271,7 @@ footer .bottom-footer span {
 }
 
 .tour-chi-tiet-map {
-    box-shadow: 0 0 3px 0 #b8b8b8;
+    box-shadow: 0 0 10px 0 #b8b8b8;
 }
 
 @media screen and (max-width: 991.98px) {
