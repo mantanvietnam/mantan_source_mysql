@@ -112,9 +112,9 @@ function listService($input){
 		if($page<1) $page = 1;
 		$order = array('id'=>'desc');
 
-		if(!empty($_GET['id'])){
-			$conditions['id'] = (int) $_GET['id'];
-		}
+		if(!empty($_GET['code'])){
+            $conditions['code'] =  $_GET['code'];
+        }
 
 		if(isset($_GET['status'])){
             if($_GET['status']!=''){

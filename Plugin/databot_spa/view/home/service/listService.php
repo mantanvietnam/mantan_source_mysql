@@ -7,10 +7,10 @@
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm dịch vụ</h5>
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
+          <div class="col-md-2">
             <label class="form-label">Mã dịch vụ</label>
             <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
@@ -104,7 +104,7 @@
 
                   echo '<tr>
                           <td>
-                            '.$item->id.'
+                            '.$item->code.'
                           </td>
                           <td>
                             <img src="'.$item->image.'" width="100" />

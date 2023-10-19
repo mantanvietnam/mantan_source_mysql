@@ -196,7 +196,7 @@ function listProduct(){
         $order = array('id'=>'desc');
 
         if(!empty($_GET['code'])){
-            $conditions['code'] = (int) $_GET['code'];
+            $conditions['code'] =  $_GET['code'];
         }
 
         if(!empty($_GET['id_category'])){

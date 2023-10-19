@@ -59,7 +59,6 @@ function listCustomer($input)
 		// xử lý xuất excel
 	    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
     		$listData = $modelCustomer->find()->where($conditions)->order($order)->all()->toList();
-
     		$titleExcel = 	[
 								['name'=>'ID', 'type'=>'text', 'width'=>10],
 								['name'=>'Họ tên', 'type'=>'text', 'width'=>25],
@@ -202,7 +201,6 @@ function listCustomer($input)
 	    setVariable('back', $back);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
-	    
 	    setVariable('listData', $listData);
 	    setVariable('listStaff', $listStaff);
 	}else{
@@ -302,7 +300,6 @@ function addCustomer($input)
 		    	$mess= '<p class="text-danger">Bạn chưa nhập dữ liệu bắt buộc</p>';
 		    }
 	    }
-
 	    // danh sách nhân viên
 	    $conditionsStaff['OR'] = [ 
 									['id'=>$infoUser->id_member],
