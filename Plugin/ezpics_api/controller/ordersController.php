@@ -513,7 +513,7 @@ function memberBuyProAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -707,7 +707,7 @@ function memberExtendProAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -1099,7 +1099,7 @@ function memberBuyProMonthAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -1324,7 +1324,7 @@ function memberExtendProMonthAPI($input){
 
 						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 					}else{
-						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
 				}else{
 					if($user->account_balance >=$price_pro){
@@ -1420,4 +1420,62 @@ function memberExtendProMonthAPI($input){
 	return $return;
 }
 
+
+function getHistoryTransactionEcoinAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+	$modelProduct = $controller->loadModel('Products');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+
+	$return = array('listData'=>[]);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($infoUser)){
+				$conditions = array('member_id'=>$infoUser->id);
+				$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+				if($page<1) $page = 1;
+				$order = array('id'=>'desc');
+
+				if(isset($dataSend['type'])){
+					$conditions['type']=$dataSend['type'];
+				}
+
+				$listData = $modelTransactionEcoins->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+				if(!empty($listData)){
+					foreach ($listData as $key => $value) {
+						$listData[$key]->image = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+						if($value->type == 0){
+							if(!empty($value->product_id)){
+								$product = $modelProduct->find()->where(['id'=>$value->product_id])->first();
+								if(!empty($product)){
+									$listData[$key]->image = $product->image;
+								}
+							}elseif(!empty($value->file_id)){
+								$file = $modelManagerFile->find()->where(['id'=>$value->file_id])->first();
+								if(!empty($file)){
+									$listData[$key]->image = $file->link;
+								}
+							}
+						}
+					}
+				}
+				$return = array('listData'=>$listData);
+			}
+		}
+	}
+
+	return 	$return;
+}
 ?>

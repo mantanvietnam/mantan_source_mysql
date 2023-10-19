@@ -249,7 +249,7 @@ function buyWarehousesAPI($input)
 		                        sendNotification($dataSendNotification, $infoUserSell->token_device);
 		                    }
 							}else{
-								$return = array('code'=>4,
+								$return = array('code'=>6,
 												'mess'=>'Tài khoản không đủ Ecoin'
 												);
 							}

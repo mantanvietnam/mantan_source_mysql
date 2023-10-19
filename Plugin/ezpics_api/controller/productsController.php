@@ -1040,7 +1040,7 @@ function buyProductAPI($input)
 											);
 			                
 						}else{
-							$return = array('code'=>4,
+							$return = array('code'=>6,
 											'messages'=>array(array('text'=>'Tài khoản không đủ Ecoin'))
 											);
 						}
