@@ -105,6 +105,16 @@ $menus[0]['sub'][3]= array('title'=>'Giao dịch',
                                                 'classIcon'=>'bx bx-history',
                                                 'permission'=>'listTransactionHistoryCreateWarehousesEzpics',
                                             ),
+                                            array('title'=>'Cộng Ecoin',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryPlusEcoinEzpics.php',
+                                                'classIcon'=>'bx bx-history',
+                                                'permission'=>'listTransactionHistoryPlusEcoinEzpics',
+                                            ),
+                                            array('title'=>'Từ Ecoin',
+                                                'url'=>'/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryMinusEcoinEzpics.php',
+                                                'classIcon'=>'bx bx-history',
+                                                'permission'=>'listTransactionHistoryMinusEcoinEzpics',
+                                            ),
                                         
                                     )
                         );
