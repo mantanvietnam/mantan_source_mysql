@@ -283,14 +283,14 @@ input:-internal-autofill-selected {
 
 #place-around-section .place-around-slide .slick-prev {
     transition: .8s;
-    background-color: rgba(85, 143, 124, 0.9);
+    background-color: #019680;
     left: -30px;
 }
 
 #place-around-section .place-around-slide .slick-next {
     transition: .8s;
-    background-color: rgba(85, 143, 124, 0.9);
     right: -30px;
+    background-color: #019680;
 }
 
 #place-around-section .place-around-slide .slick-prev::before {
@@ -2759,4 +2759,9 @@ input:-internal-autofill-selected {
 .button-book a:hover {
     background-color: #0f5656;
     color: #fff;
+}
+
+.tour-chi-tiet-map #map_HS {
+    z-index: 1;
+    height: 350px !important;
 }
