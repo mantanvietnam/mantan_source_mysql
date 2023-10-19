@@ -164,7 +164,7 @@
                           <td style="width: 16%;">Số dư: '.number_format(@$item->account_balance).'đ <br/>
                               số tiền bán: '. number_format(@$sellingMoney).'đ<br/>
                               Số tiền nạp: '.number_format(@$buyingMoney).'đ<br/>
-                              Số Ecoin: '.number_format(@$item->ecoin).'ecoin<br/>
+                              Số Ecoin: '.number_format(@$item->ecoin).' Ecoin<br/>
                               SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
                               SL kho: '.number_format($item->totaWarehouse).'<br/>
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'
@@ -247,6 +247,7 @@
                           Số dư: '.number_format($item->account_balance).'đ <br/>
                               số tiền bán: '.number_format(@$sellingMoney).'đ<br/>
                               Số tiền nạp: '.number_format(@$buyingMoney).'đ<br/>
+                              Số Ecoin: '.number_format(@$item->ecoin).' Ecoin<br/>
                               SL mẫu được duyệt: '.number_format($item->totaProducts).'<br/>
                               SL kho: '.number_format($item->totaWarehouse).'<br/>
                               SL theo dõi : '.number_format($item->totaFollowDesigner).'
