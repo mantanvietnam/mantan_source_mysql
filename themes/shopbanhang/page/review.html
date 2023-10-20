@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../asset/css/main.css">
+    <link rel="stylesheet" href="../asset/css/mainplus.css">
+    <link rel="stylesheet" href="../asset/css/review.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- boostrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- slick -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+
+
+</head>
+
+
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="topbar">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-phone">
+                            <img src="../asset/image/headphone.png" alt="">&nbsp;
+                            <span>0963.514.244</span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
+                            <a href="/"><img src="../asset/image/logo.png" alt=""></a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-group-button">
+                            <div class="topbar-button">
+                                <img src="../asset/image/user.png" alt="">
+                                <a href="">Tài khoản của tôi</a>
+                            </div>
+
+                            <div class="topbar-button">
+                                <img src="../asset/image/cart.png" alt="">
+                                <a href="">Giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="navbar-header navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sản phẩm</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Combo quà tặng
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Combo quà tặng
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+
+                            <!--  -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sản phẩm</a>
+                            </li>
+                        </ul>
+                        <form class="menu-form-search d-flex" role="search">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success button-search" type="submit"><img src="../asset/image/iconsearch.png" alt=""></button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="section-breadcrumb">
+            <div class="breadcrumb-center">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                    <li class="breadcrumb-item active">Data</li>
+                </ul>
+            </div>
+        </section>
+
+        <div id="review">
+            <div class="container">
+
+                <div class="tab-menu">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-bs-toggle="tab" href="#video-review">Nhận xét từ các KOL, KOC</a></li>
+                        <li><a data-bs-toggle="tab" href="#unboxing">Khách hàng đập hộp</a></li>
+                        <li><a data-bs-toggle="tab" href="#review-product">Review sản phẩm</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div id="video-review" class="tab-pane fade">
+                        <div class="carousel-slick">
+                            <div class="slide-slick">
+                                <div class="item-slick">
+                                    <div class="item">
+                                        <img src="../asset/image/quangcao1.png">
+                                    </div>
+                                </div>
+
+                                <div class="item-slick">
+                                    <div class="item">
+                                        <img src="../asset/image/quangcao1.png">
+                                    </div>
+                                </div>
+
+                                <div class="item-slick">
+                                    <div class="item">
+                                        <img src="../asset/image/quangcao1.png">
+                                    </div>
+                                </div>
+
+                                <div class="item-slick">
+                                    <div class="item">
+                                        <img src="../asset/image/quangcao1.png">
+                                    </div>
+                                </div>
+
+                                <div class="item-slick">
+                                    <div class="item">
+                                        <img src="../asset/image/quangcao1.png">
+                                    </div>
+                                </div>
+
+                                <div class="item-slick">
+                                    <div class="item">
+                                        <img src="../asset/image/quangcao1.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-video">
+                            <div class="detail-text">
+                                <p>Quà tặng mẹ Bumas M3 Pro</p>
+                                <p>#LearnOnTikTok #dcgr #longkhoahoc #thanhcongnghe #learnontiktok</p>
+                            </div>
+                            <div class="icon-video">
+                                <div class="time">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <p>1 tháng trước</p>
+                                </div>
+                                <div class="view">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <p>50tr lượt xem</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-video">
+                            <div class="container-fluid">
+                                <div class="row row-video-1">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-1">
+                                        <div class="title-review-product">
+                                            <p>Máy Massage cổ vai gáy</p>
+                                            <div class="double-line-1"></div>
+                                        </div>
+                                        <div class="video-review-product">
+                                            <div class="video-1">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-1')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 1">
+                                                </div>
+                                                <div id="video-modal-1" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-1')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@saradenday/video/7264094351922416897" data-video-id="7264094351922416897" style="max-width: 605px;min-width: 325px;">
+                                                        <section>
+                                                            <a target="_blank" title="@saradenday" href="https://www.tiktok.com/@saradenday?refer=embed">@saradenday</a> <a title="gaixinh" target="_blank" href="https://www.tiktok.com/tag/gaixinh?refer=embed">#gaixinh</a>
+                                                            <a title="beautiful" target="_blank" href="https://www.tiktok.com/tag/beautiful?refer=embed">#beautiful</a> <a title="gaixinhtiktok" target="_blank" href="https://www.tiktok.com/tag/gaixinhtiktok?refer=embed">#gaixinhtiktok</a>
+                                                            <a title="xuhuong2023" target="_blank" href="https://www.tiktok.com/tag/xuhuong2023?refer=embed">#xuhuong2023</a> <a title="trending" target="_blank" href="https://www.tiktok.com/tag/trending?refer=embed">#trending</a>
+                                                            <a title="douyin" target="_blank" href="https://www.tiktok.com/tag/douyin?refer=embed">#douyin</a> <a title="gaixinhchina" target="_blank" href="https://www.tiktok.com/tag/gaixinhchina?refer=embed">#gaixinhchina</a>
+                                                            <a title="fyp" target="_blank" href="https://www.tiktok.com/tag/fyp?refer=embed">#fyp</a> <a title="viral" target="_blank" href="https://www.tiktok.com/tag/viral?refer=embed">#viral</a> <a title="foryou"
+                                                                target="_blank" href="https://www.tiktok.com/tag/foryou?refer=embed">#foryou</a> <a target="_blank" title="♬ Aesthetic - Tollan Kim" href="https://www.tiktok.com/music/Aesthetic-7072513628145977346?refer=embed">♬ Aesthetic - Tollan Kim</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="video-2">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-2')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 2">
+                                                </div>
+                                                <div id="video-modal-2" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-2')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@bang.thuu17/video/7264912106577841415" data-video-id="7264912106577841415" style="max-width: 605px;min-width: 325px;">
+                                                        <section>
+                                                            <a target="_blank" title="@bang.thuu17" href="https://www.tiktok.com/@bang.thuu17?refer=embed">@bang.thuu17</a>
+                                                            <a title="capcut" target="_blank" href="https://www.tiktok.com/tag/capcut?refer=embed">#CapCut</a>
+                                                            <a target="_blank" title="♬ nhạc nền - Cà Rốt 🥕 - Trương AnThư 🥕" href="https://www.tiktok.com/music/nhạc-nền-Cà-Rốt-🥕-7264912122658704130?refer=embed">♬ nhạc nền - Cà Rốt 🥕 - Trương AnThư 🥕</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-2">
+                                        <div class="title-review-product">
+                                            <p>Lược điện ion âm </p>
+                                            <div class="double-line-2"></div>
+                                        </div>
+                                        <div class="video-review-product">
+                                            <div class="video-1">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-3')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 1">
+                                                </div>
+                                                <div id="video-modal-3" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-3')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gaixinh_hottiktok/video/7234066354851024129" data-video-id="7234066354851024129" style="max-width: 605px;min-width: 325px;">
+                                                        <section> <a target="_blank" title="@gaixinh_hottiktok" href="https://www.tiktok.com/@gaixinh_hottiktok?refer=embed">@gaixinh_hottiktok</a> cute to tròn 😆😆
+                                                            <a title="gaidep" target="_blank" href="https://www.tiktok.com/tag/gaidep?refer=embed">#gaidep</a>
+                                                            <a title="gái_đẹp" target="_blank" href="https://www.tiktok.com/tag/g%C3%A1i_%C4%91%E1%BA%B9p?refer=embed">#gái_đẹp</a> <a title="nvk" target="_blank" href="https://www.tiktok.com/tag/nvk?refer=embed">#nvk</a>
+                                                            <a title="iuiu" target="_blank" href="https://www.tiktok.com/tag/iuiu?refer=embed">#iuiu</a> <a title="dễthương" target="_blank" href="https://www.tiktok.com/tag/d%E1%BB%85th%C6%B0%C6%A1ng?refer=embed">#dễthương</a>
+                                                            <a title="dễ" target="_blank" href="https://www.tiktok.com/tag/d%E1%BB%85?refer=embed">#dễ</a> <a title="thương" target="_blank" href="https://www.tiktok.com/tag/th%C6%B0%C6%A1ng?refer=embed">#thương</a>                                                            <a title="thịnhhành" target="_blank" href="https://www.tiktok.com/tag/th%E1%BB%8Bnhh%C3%A0nh?refer=embed">#thịnhhành</a> <a title="gaixinhvn123" target="_blank" href="https://www.tiktok.com/tag/gaixinhvn123?refer=embed">#gaixinhvn123</a>                                                            <a title="gaixinhtiktok" target="_blank" href="https://www.tiktok.com/tag/gaixinhtiktok?refer=embed">#gaixinhtiktok</a> <a title="nhạcthinhhanh2023" target="_blank" href="https://www.tiktok.com/tag/nh%E1%BA%A1cthinhhanh2023?refer=embed">#nhạcthinhhanh2023</a>                                                            <a title="nvkmusic" target="_blank" href="https://www.tiktok.com/tag/nvkmusic?refer=embed">#nvkmusic</a>
+                                                            <a target="_blank" title="♬ Chill Vibes - Tollan Kim" href="https://www.tiktok.com/music/Chill-Vibes-7084465663108089857?refer=embed">♬ Chill Vibes - Tollan Kim</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="video-2">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-4')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 2">
+                                                </div>
+                                                <div id="video-modal-4" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-4')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@amelia241186/video/7273377492252101889" data-video-id="7273377492252101889" style="max-width: 605px;min-width: 325px;">
+                                                        <section>
+                                                            <a target="_blank" title="@amelia241186" href="https://www.tiktok.com/@amelia241186?refer=embed">@amelia241186</a> To mà tròn nữa nha<a title="xuhuong" target="_blank" href="https://www.tiktok.com/tag/xuhuong?refer=embed">#xuhuong</a>
+                                                            <a title="gaixinh" target="_blank" href="https://www.tiktok.com/tag/gaixinh?refer=embed">#gaixinh</a>
+                                                            <a title="vitamingirl" target="_blank" href="https://www.tiktok.com/tag/vitamingirl?refer=embed">#vitamingirl</a>
+                                                            <a target="_blank" title="♬ iu là đây - speed up - Sean &#38; Muộii &#38; Anfang" href="https://www.tiktok.com/music/iu-là-đây-speed-up-7221677014775990273?refer=embed">♬ iu là đây - speed up - Sean &#38; Muộii &#38; Anfang</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row row-video-2">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-1">
+                                        <div class="title-review-product">
+                                            <p>Máy Massage cổ vai gáy</p>
+                                            <div class="double-line-1"></div>
+                                        </div>
+                                        <div class="video-review-product">
+                                            <div class="video-1">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-5')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 1">
+                                                </div>
+                                                <div id="video-modal-5" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-5')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@saradenday/video/7264094351922416897" data-video-id="7264094351922416897" style="max-width: 605px;min-width: 325px;">
+                                                        <section>
+                                                            <a target="_blank" title="@saradenday" href="https://www.tiktok.com/@saradenday?refer=embed">@saradenday</a> <a title="gaixinh" target="_blank" href="https://www.tiktok.com/tag/gaixinh?refer=embed">#gaixinh</a>
+                                                            <a title="beautiful" target="_blank" href="https://www.tiktok.com/tag/beautiful?refer=embed">#beautiful</a> <a title="gaixinhtiktok" target="_blank" href="https://www.tiktok.com/tag/gaixinhtiktok?refer=embed">#gaixinhtiktok</a>
+                                                            <a title="xuhuong2023" target="_blank" href="https://www.tiktok.com/tag/xuhuong2023?refer=embed">#xuhuong2023</a> <a title="trending" target="_blank" href="https://www.tiktok.com/tag/trending?refer=embed">#trending</a>
+                                                            <a title="douyin" target="_blank" href="https://www.tiktok.com/tag/douyin?refer=embed">#douyin</a> <a title="gaixinhchina" target="_blank" href="https://www.tiktok.com/tag/gaixinhchina?refer=embed">#gaixinhchina</a>
+                                                            <a title="fyp" target="_blank" href="https://www.tiktok.com/tag/fyp?refer=embed">#fyp</a> <a title="viral" target="_blank" href="https://www.tiktok.com/tag/viral?refer=embed">#viral</a> <a title="foryou"
+                                                                target="_blank" href="https://www.tiktok.com/tag/foryou?refer=embed">#foryou</a> <a target="_blank" title="♬ Aesthetic - Tollan Kim" href="https://www.tiktok.com/music/Aesthetic-7072513628145977346?refer=embed">♬ Aesthetic - Tollan Kim</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="video-2">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-6')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 2">
+                                                </div>
+                                                <div id="video-modal-6" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-6')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@bang.thuu17/video/7264912106577841415" data-video-id="7264912106577841415" style="max-width: 605px;min-width: 325px;">
+                                                        <section>
+                                                            <a target="_blank" title="@bang.thuu17" href="https://www.tiktok.com/@bang.thuu17?refer=embed">@bang.thuu17</a>
+                                                            <a title="capcut" target="_blank" href="https://www.tiktok.com/tag/capcut?refer=embed">#CapCut</a>
+                                                            <a target="_blank" title="♬ nhạc nền - Cà Rốt 🥕 - Trương AnThư 🥕" href="https://www.tiktok.com/music/nhạc-nền-Cà-Rốt-🥕-7264912122658704130?refer=embed">♬ nhạc nền - Cà Rốt 🥕 - Trương AnThư 🥕</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-2">
+                                        <div class="title-review-product">
+                                            <p>Lược điện ion âm </p>
+                                            <div class="double-line-2"></div>
+                                        </div>
+                                        <div class="video-review-product">
+                                            <div class="video-1">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-7')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 1">
+                                                </div>
+                                                <div id="video-modal-7" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-7')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gaixinh_hottiktok/video/7234066354851024129" data-video-id="7234066354851024129" style="max-width: 605px;min-width: 325px;">
+                                                        <section> <a target="_blank" title="@gaixinh_hottiktok" href="https://www.tiktok.com/@gaixinh_hottiktok?refer=embed">@gaixinh_hottiktok</a> cute to tròn 😆😆
+                                                            <a title="gaidep" target="_blank" href="https://www.tiktok.com/tag/gaidep?refer=embed">#gaidep</a>
+                                                            <a title="gái_đẹp" target="_blank" href="https://www.tiktok.com/tag/g%C3%A1i_%C4%91%E1%BA%B9p?refer=embed">#gái_đẹp</a> <a title="nvk" target="_blank" href="https://www.tiktok.com/tag/nvk?refer=embed">#nvk</a>
+                                                            <a title="iuiu" target="_blank" href="https://www.tiktok.com/tag/iuiu?refer=embed">#iuiu</a> <a title="dễthương" target="_blank" href="https://www.tiktok.com/tag/d%E1%BB%85th%C6%B0%C6%A1ng?refer=embed">#dễthương</a>
+                                                            <a title="dễ" target="_blank" href="https://www.tiktok.com/tag/d%E1%BB%85?refer=embed">#dễ</a> <a title="thương" target="_blank" href="https://www.tiktok.com/tag/th%C6%B0%C6%A1ng?refer=embed">#thương</a>                                                            <a title="thịnhhành" target="_blank" href="https://www.tiktok.com/tag/th%E1%BB%8Bnhh%C3%A0nh?refer=embed">#thịnhhành</a> <a title="gaixinhvn123" target="_blank" href="https://www.tiktok.com/tag/gaixinhvn123?refer=embed">#gaixinhvn123</a>                                                            <a title="gaixinhtiktok" target="_blank" href="https://www.tiktok.com/tag/gaixinhtiktok?refer=embed">#gaixinhtiktok</a> <a title="nhạcthinhhanh2023" target="_blank" href="https://www.tiktok.com/tag/nh%E1%BA%A1cthinhhanh2023?refer=embed">#nhạcthinhhanh2023</a>                                                            <a title="nvkmusic" target="_blank" href="https://www.tiktok.com/tag/nvkmusic?refer=embed">#nvkmusic</a>
+                                                            <a target="_blank" title="♬ Chill Vibes - Tollan Kim" href="https://www.tiktok.com/music/Chill-Vibes-7084465663108089857?refer=embed">♬ Chill Vibes - Tollan Kim</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="video-2">
+                                                <div class="image-modal" onclick="openVideoModal('video-modal-4')">
+                                                    <img src="../asset/image/demo-video.jpg" alt="Hình ảnh 8">
+                                                </div>
+                                                <div id="video-modal-8" class="video-modal">
+                                                    <button id="button-close" onclick="closeVideoModal('video-modal-8')">
+                                                        <i class="fa-solid fa-xmark fa-2xl"></i>    
+                                                    </button>
+                                                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@amelia241186/video/7273377492252101889" data-video-id="7273377492252101889" style="max-width: 605px;min-width: 325px;">
+                                                        <section>
+                                                            <a target="_blank" title="@amelia241186" href="https://www.tiktok.com/@amelia241186?refer=embed">@amelia241186</a> To mà tròn nữa nha<a title="xuhuong" target="_blank" href="https://www.tiktok.com/tag/xuhuong?refer=embed">#xuhuong</a>
+                                                            <a title="gaixinh" target="_blank" href="https://www.tiktok.com/tag/gaixinh?refer=embed">#gaixinh</a>
+                                                            <a title="vitamingirl" target="_blank" href="https://www.tiktok.com/tag/vitamingirl?refer=embed">#vitamingirl</a>
+                                                            <a target="_blank" title="♬ iu là đây - speed up - Sean &#38; Muộii &#38; Anfang" href="https://www.tiktok.com/music/iu-là-đây-speed-up-7221677014775990273?refer=embed">♬ iu là đây - speed up - Sean &#38; Muộii &#38; Anfang</a>
+                                                        </section>
+                                                    </blockquote>
+                                                </div>
+                                                <div class="detail-review-video">
+                                                    <p>
+                                                        Cứ tưởng có bàn tay thật không á #bumas #Learn-OnTikTok #diyvoichang
+                                                    </p>
+                                                </div>
+
+                                                <div class="icon-video">
+                                                    <div class="time">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                        <p>1 tháng trước</p>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <p>50tr lượt xem</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="unboxing" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-12 col-sm-12">
+                                <div class="title-unbox">
+                                    <p>Tìm kiếm theo sản phẩm</p>
+                                </div>
+                                <div class="list-product">
+                                    <ul>
+                                        <li class="product-start">
+                                            <img src="../asset/image/product.png">
+                                            <p>Máy massage cổ vai gáy</p>
+                                        </li>
+                                        <li>
+                                            <img src="../asset/image/product.png">
+                                            <p>Máy massage cổ vai gáy</p>
+                                        </li>
+                                        <li>
+                                            <img src="../asset/image/product.png">
+                                            <p>Máy massage cổ vai gáy</p>
+                                        </li>
+                                        <li>
+                                            <img src="../asset/image/product.png">
+                                            <p>Máy massage cổ vai gáy</p>
+                                        </li>
+                                        <li class="product-end">
+                                            <img src="../asset/image/product.png">
+                                            <p>Máy massage cổ vai gáy</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="content-unbox">
+                                    <div class="detail-unbox">
+                                        <div class="avt-user">
+                                            <img src="../asset/image/icon-avt.png">
+                                        </div>
+                                        <div class="text-detail">
+                                            <h4>
+                                                <span>Thùy Dương</span> chia sẻ hình ảnh đập hộp trên Tiktok về
+                                                <span>Máy Massage Cổ Vai Gáy Bumas M3 pro</span> và
+                                                <span>nhận được voucher 50k</span> ( cho đơn từ 0đ )
+                                            </h4>
+                                            <p>2 ngày trước</p>
+                                        </div>
+                                        <div class="icon-product">
+                                            <img src="../asset/image/mini-product.png">
+                                        </div>
+                                    </div>
+                                    <div class="image-unbox">
+                                        <p>Đập hộp #Unboxing#Bumas</p>
+                                        <img src="../asset/image/img-unbox.png">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <div class="share-link">
+                                    <div class="title-share-link">
+                                        <h4>Chia sẻ link đập hộp</h4>
+                                        <p>Để được nhận
+                                            <span>voucher 50K cho đơn từ 0đ</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="content-share-link">
+                                        <div class="infor-user">
+                                            <img src="../asset/image/icon-avt.png">
+                                            <p>Thùy Dương</p>
+                                        </div>
+                                        <div class="input-link">
+                                            <input type="text" placeholder="Chia sẻ link đập hộp tại đây">
+                                            <div class="btn-submit">
+                                                <button>Chia sẻ</button>
+                                            </div>
+                                        </div>
+                                        <div class="detail-share-link">
+                                            <p>Những lưu ý cần biết để nhận thưởng 50.000đ + 150 Lixicoin:</p>
+                                            <ul>
+                                                <li>Video hợp lệ là video được đăng tải ở chế độ công khai trên ứng dụng TikTok hoặc bất cứ ứng dụng nào với nội dung: Unboxing đơn hàng Bumas, hoặc review sản phẩm bạn mua tại Bumas.</li>
+                                                <li>Chỉ ghi nhận 1 video đập hộp cho mỗi đơn hàng .</li>
+                                                <li>Caption cần đính kèm đầy đủ hashtag #Unboxing #Bumas</li>
+                                                <li>Sau khi đăng tải Video và thực hiện đúng yêu cầu trên, dán link video vào mục "chia sẻ link video đập hộp".</li>
+                                                <li>Đội ngũ Bumas sẽ
+                                                    <span>ểm duyệt video trong vòng 48 giờ</span> làm việc (không tính Chủ nhật). Nếu đạt yêu cầu, bạn sẽ được
+                                                    <span>nhận ngay voucher 50k</span> vào kho voucher của bạn.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="review-product" class="tab-pane fade">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <section id="section-footer">
+            <div class="container">
+                <div class="logo-footer">
+                    <img src="../asset/image/logophong.png" alt="">
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-left">
+                        <div class="footer-info">
+                            <div class="copyright">
+                                <strong>© 2022 Công Ty Trách Nhiệm Hữu Hạn Bumas</strong>
+                            </div>
+                            <div class="footer-info-list">
+                                <div class="footer-info-item">
+                                    <p>171C4 Khu đô thị Đại Kim, Đại Từ, Lĩnh Nam, Hoàng Mai, Hà Nội</p>
+                                    <p>ĐT:<span class="blue-text">028 39951703</span>-Fax:<span class="blue-text">028 3995 1702</span></p>
+                                </div>
+
+                                <div class="footer-info-item">
+                                    <p><span class="blue-text">Giấy chứng nhận đăng ký doanh nghiệp: 0300521758 </span></p>
+                                    <p>do Sở Kế hoạch & Đầu tư TP.HCM cấp lần đầu ngày 02/01/2004. Ngành, nghề kinh doanh</p>
+                                </div>
+
+                                <div class="footer-info-item">
+                                    <p>Tổng đài hỗ trợ (08:00-21:00, miễn phí gọi)</p>
+                                    <p>Gọi mua: <span class="blue-text">1800545457 (phím 1)</span></p>
+                                    <p>Khiếu nại: <span class="blue-text">1800545457 (phím 2)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-center">
+                        <div class="menu-footer">
+                            <div class="footer-menu-name">
+                                <p>Danh mục</p>
+                            </div>
+                            <ul>
+                                <li><a href="">Bumas Care</a></li>
+                                <li><a href="">Bumas Home</a></li>
+                                <li><a href="">Bumas Beauty</a></li>
+                                <li><a href="">Combo tặng bố mẹ</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="menu-footer">
+                            <div class="footer-menu-name">
+                                <p>Dịch vụ khách hàng</p>
+                            </div>
+                            <ul>
+                                <li><a href="">Bumas Care</a></li>
+                                <li><a href="">Bumas Home</a></li>
+                                <li><a href="">Bumas Beauty</a></li>
+                                <li><a href="">Combo tặng bố mẹ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-right">
+                        <div class="footer-social">
+                            <div class="footer-menu-name">
+                                <p>KẾT NỐI VỚI CHÚNG TÔI</p>
+                            </div>
+                            <div class="group-social">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../asset/image/face.png" alt=""></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../asset/image/youtube.png" alt=""></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../asset/image/insta.png" alt=""></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../asset/image/mail.png" alt=""></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="footer-contact">
+                            <div class="footer-menu-name">
+                                <p>Đăng ký với chúng tôi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+
+    <script src="../asset/js/slick.js"></script>
+    <script src="../asset/js/review.js"></script>
+</body>
+
+</html>

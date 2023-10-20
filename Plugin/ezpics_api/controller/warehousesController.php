@@ -218,7 +218,7 @@ function buyWarehousesAPI($input)
 							$ecoin = $modelTransactionEcoins->newEmptyEntity();
 							$ecoin->member_id = $infoUserSell->id;
 							$ecoin->product_id = $Warehouse->id;
-							$ecoin->ecoin = $Warehouse->price/1000;
+							$ecoin->ecoin = (10 / 100) *($Warehouse->price/1000);
 							$ecoin->note = 'Cộng Ecoin bán mẫu thiết kế có ID là:'.$Warehouse->id ;
 							$ecoin->status = 1;
 							$ecoin->type =1;
@@ -228,7 +228,7 @@ function buyWarehousesAPI($input)
 							$modelTransactionEcoins->save($ecoin);
 
 		                    // cộng tiền tài khoản bán
-					        $infoUserSell->ecoin += $Warehouse->price/1000;
+					        $infoUserSell->ecoin += (10 / 100) *($Warehouse->price/1000);
 					        $modelMember->save($infoUserSell);
 
 		                	$data = $modelWarehouseUsers->newEmptyEntity();
