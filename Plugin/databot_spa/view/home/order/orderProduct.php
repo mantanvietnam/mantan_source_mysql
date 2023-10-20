@@ -182,7 +182,10 @@
 
 		 	<div class="card mb-4">
 		 		<h4 class="fw-bold m-2">Sản phẩm</h4>
-		 		<?php if(!empty($listProduct)){ ?>
+
+		 		<?php
+                    echo @$mess;
+                 if(!empty($listProduct)){ ?>
                     <div class="m-3 col-md-10">
                        
                         <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
