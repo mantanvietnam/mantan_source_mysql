@@ -82,7 +82,6 @@ function deleteCategoryService($input){
 }
 
 function listService($input){
-	global $isRequestPost;
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
@@ -90,7 +89,6 @@ function listService($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách dịch vụ';
-    
     if(!empty($session->read('infoUser'))){
         $mess= '';
         
@@ -114,6 +112,10 @@ function listService($input){
 
 		if(!empty($_GET['code'])){
             $conditions['code'] =  $_GET['code'];
+        }
+        
+        if(!empty($_GET['id_category'])){
+            $conditions['id_category'] = $_GET['id_category'];
         }
 
 		if(isset($_GET['status'])){
