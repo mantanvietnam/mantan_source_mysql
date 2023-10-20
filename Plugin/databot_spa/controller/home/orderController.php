@@ -1122,13 +1122,10 @@ function listOrderCombo($input){
 }
 
 function listOrderService($input){
-    global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
     global $urlCurrent;
-    global $urlHomes;
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
@@ -1155,38 +1152,20 @@ function listOrderService($input){
         if(!empty($_GET['id'])){
             $conditions['id'] = $_GET['id'];
         }
-
-        if(!empty($_GET['id_Warehouse'])){
-            $conditions['id_warehouse'] = $_GET['id_Warehouse'];
-        }
-
-        if(!empty($_GET['id_customer'])){
-            $conditions['id_customer'] = $_GET['id_customer'];
-        }
-
         if(!empty($_GET['date_start'])){
             $date_start = explode('/', $_GET['date_start']);
             $date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
             $conditions['time >='] = $date_start;
         }
-
         if(!empty($_GET['date_end'])){
             $date_end = explode('/', $_GET['date_end']);
             $date_end = mktime(0,0,0,$date_end[1],$date_end[0],$date_end[2]);
             $conditions['time <='] = $date_end;
         }
+        if(!empty($_GET['name'])){
+			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
+		}
 
-        if(!empty($_GET['idBed'])){
-            $conditions['id_bed'] = $_GET['idBed'];
-        }
-
-        if(isset($_GET['status'])){
-            $conditions['status'] = $_GET['status'];
-        }
-
-        if(empty($_GET['searchProduct'])){
-            $_GET['id_product'] = '';
-        }
         
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
