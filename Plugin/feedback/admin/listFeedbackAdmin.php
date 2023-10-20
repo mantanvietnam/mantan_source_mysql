@@ -1,9 +1,9 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin link liên kết</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin Feedback</h4>
   <p><a href="/plugins/admin/feedback-admin-addFeedbackAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách Thông tin link liên kết</h5>
+    <h5 class="card-header">Danh sách Thông tin Feedback</h5>
       <p><?php echo $mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
