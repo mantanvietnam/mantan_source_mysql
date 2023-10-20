@@ -6,7 +6,7 @@
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm đối tác</h5>
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
@@ -16,7 +16,7 @@
 
           <div class="col-md-3">
             <label class="form-label">Họ tên đối tác</label>
-            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
           <div class="col-md-2">
@@ -54,6 +54,7 @@
               <th>ID</th>
               <th>Đối tác</th>
               <th>Điện thoại</th>
+              <th>Email</th>
               <th>Địa chỉ</th>
               <th>Sửa</th>
               <th>Xóa</th>
@@ -68,6 +69,7 @@
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
                           <td>'.$item->phone.'</td>
+                          <td>'.$item->email.'</td>
                           <td>'.$item->address.'</td>
                           <td align="center">
                             <a class="dropdown-item" href="/addPartner/?id='.$item->id.'">

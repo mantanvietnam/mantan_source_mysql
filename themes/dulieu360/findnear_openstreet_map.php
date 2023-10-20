@@ -18,12 +18,13 @@
     position: absolute;
     left: 70px;
     background-color: #4E9D90;
-    padding: 50px 60px;
+    padding: 20px 60px;
     width: 350px;
-    height:450px;
-    z-index: 99999;
+    height:auto;
+    z-index: 1;
     border-radius: 0 20px 20px 0;
     transition: 1s;
+    text-align: start;
   }
   #bando .col-md-12 {
     padding: 0;
@@ -31,13 +32,13 @@
   .box-menu-map .title-menu-map p {
     font-size: 24px;
     color: #ffffff;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .box-menu-map ul {
     color: #ffffff;
   }
   .box-menu-map ul li {
-    margin: 15px 0;
+    margin: 10px 0;
   }
   #map_HS {
     height: 80vh !important;
@@ -54,7 +55,7 @@
       background-color: #4E9D90;
       padding: 25px 30px;
       width: 250px;
-      height: 380px;
+      height: auto;
       z-index: 1 !important;
       border-radius: 0 20px 20px 0;
       transition: 1s;
@@ -64,7 +65,7 @@
     }
     .box-menu-map .title-menu-map p {
       font-size: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .box-menu-map ul li {
       font-size: 14px;

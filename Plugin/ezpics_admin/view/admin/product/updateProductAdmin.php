@@ -124,7 +124,7 @@
                     <ul class="checkbox-list clearfix">
                       <?php foreach(getColor() as $key => $value){  ?>
                         <li>
-                          <input type="radio" id="data-color-<?php echo $key; ?>" value="<?php echo $value['code']; ?>" <?php if(@$data->color==$value['code']){ echo 'checked'; }; ?> name="color" >
+                          <input type="radio" required="" id="data-color-<?php echo $key; ?>" value="<?php echo $value['code']; ?>" <?php if(@$data->color==$value['code']){ echo 'checked'; }; ?> name="color" >
                           <label for="data-color-<?php echo $key; ?>" style="background-color: <?php echo $value['code']; ?>"><?php echo $value['name']; ?></label>  
                         </li> 
                         <?php } ?>   

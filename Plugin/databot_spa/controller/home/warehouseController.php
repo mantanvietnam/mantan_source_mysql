@@ -26,7 +26,7 @@ function listWarehouse($input){
 		}
 
 		if(!empty($_GET['name'])){
-			$conditions['name'] = '%'.$_GET['warehouse_id'].'%';
+			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
 		}
 
 	    $listData = $modelWarehouses->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();

@@ -667,20 +667,25 @@ function updateListLayerAPI($input){
 				$data = str_replace(array("\r", "\n"), '', $dataSend['listLayer']);
 				$data = str_replace('\"', '"', $data);
 				$listData = json_decode($data, true);
-				
-				foreach($listData as $key => $item){
-				 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
-				 	if(!empty($datalayer)){
-					 	$datalayer->content = json_encode($item['content']);
-					 	$datalayer->updated_at = date('Y-m-d H:i:s');
-					 	$datalayer->sort = @$item['sort'];
-					 	$modelProductDetail->save($datalayer);
-				 	}
-				}
 
-				//$returnExport = exportImageThumb($dataSend['idProduct']);
-					
-				$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
+				if(!empty($listData)){
+				
+					foreach($listData as $key => $item){
+					 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
+					 	if(!empty($datalayer)){
+						 	$datalayer->content = json_encode($item['content']);
+						 	$datalayer->updated_at = date('Y-m-d H:i:s');
+						 	$datalayer->sort = @$item['sort'];
+						 	$modelProductDetail->save($datalayer);
+					 	}
+					}
+
+					//$returnExport = exportImageThumb($dataSend['idProduct']);
+						
+					$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
+				}else{
+					$return = array('code'=>4, 'mess'=>'Bạn không lưu được');
+				}
 			}else{
 				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
 			}

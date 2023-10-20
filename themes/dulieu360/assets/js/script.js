@@ -7,6 +7,43 @@
 //         foot_bar.classList.remove('fixed');
 //     }
 // });
+//slick center mode
+$(document).ready(function() {
+    $('.list-places').slick({
+        centerMode: true,
+        centerPadding: '100px',
+        slidesToShow: 3,
+        focusOnSelect: true,
+        infinite: true,
+        arrows: true,
+        prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'></button>`,
+        nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'></button>`,
+
+        responsive: [{
+                breakpoint: 769,
+                settings: {
+                    arrows: true,
+                    centerMode: false,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: true,
+                    centerMode: false,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            }
+        ]
+    });
+    console.log('a');
+
+});
+
+
 
 const fixedElement = document.getElementById('foot_bar');
 
@@ -56,40 +93,6 @@ $('.close_pdf').click(function() {
     $('#pdf').hide();
 });
 
-//slick center mode
-$(document).ready(function() {
-
-    $('.list-places').slick({
-        centerMode: true,
-        centerPadding: '100px',
-        slidesToShow: 3,
-        focusOnSelect: true,
-        infinite: true,
-        arrows: true,
-        prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'></button>`,
-        nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'></button>`,
-
-        responsive: [{
-                breakpoint: 769,
-                settings: {
-                    arrows: true,
-                    centerMode: false,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    arrows: true,
-                    centerMode: false,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            }
-        ]
-    });
-});
 
 // Event 12 month -- Nav Tab
 function openEvent(eventName) {

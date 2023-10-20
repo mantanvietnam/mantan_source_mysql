@@ -53,10 +53,25 @@ function orderProduct($input){
                 $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$user->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
             }
         }
+        $mess = '';
+        if(@$_GET['mess']=='kho'){
+            $mess  = '<p style="color: #00f83a;">&emsp; Sản phẩm trong kho không đủ</p>';
+        }
 
         // sử lý đơn hàng
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
+
+            foreach($dataSend['idHangHoa'] as $key => $value){
+                        // sản phẩm 
+                if($dataSend['type'][$key] == 'product'){
+                     $WarehouseProduct =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$value, 'inventory_quantity >='=>$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
+
+                     if(empty($WarehouseProduct)){
+                         return $controller->redirect('/orderProduct?mess=kho');
+                     }
+                }
+            }
 			 
 			// tạo đơn hàng 
 			$order = $modelOrder->newEmptyEntity();
@@ -244,7 +259,8 @@ function orderProduct($input){
 	    setVariable('listRoom', $listRoom);
 	    setVariable('listStaffs', $listStaffs);
 	    setVariable('listWarehouse', $listWarehouse);
-	    setVariable('user', $user);
+        setVariable('user', $user);
+	    setVariable('mess', $mess);
 
 	}else{
 		return $controller->redirect('/login');
@@ -306,9 +322,31 @@ function orderCombo($input){
             }
         }
 
+        $mess = '';
+        if(@$_GET['mess']=='kho'){
+            $mess  = '<p style="color: #00f83a;">&emsp; Sản phẩm trong kho không đủ</p>';
+        }
+
         // sử lý đơn hàng
         if($isRequestPost){
             $dataSend = $input['request']->getData();
+
+            foreach($dataSend['idHangHoa'] as $key => $value){
+                        // sản phẩm 
+                if($dataSend['type'][$key] == 'combo'){
+                            // sử lý trử số lương trong kho ở sản phẩm trong combo
+                    $combo = $modelCombo->get($value);
+                    if(!empty($combo->product)){
+                        $combo_product = json_decode($combo->product);
+                        foreach($combo_product as $idProduct => $quantityPro){
+                            $WarehouseProduct =   $modelWarehouseProductDetails->find()->where(array('id_product'=>$idProduct, 'inventory_quantity >='=>$quantityPro*$dataSend['soluong'][$key],'id_warehouse'=>$dataSend['id_warehouse'] ))->first();
+                            if(empty($WarehouseProduct)){
+                                return $controller->redirect('/orderCombo?mess=kho');
+                            }
+                        }
+                    }
+                }
+            }
              
             // tạo đơn hàng 
             $order = $modelOrder->newEmptyEntity();
@@ -498,6 +536,7 @@ function orderCombo($input){
         setVariable('listStaffs', $listStaffs);
         setVariable('listWarehouse', $listWarehouse);
         setVariable('user', $user);
+        setVariable('mess', $mess);
 
     }else{
         return $controller->redirect('/login');

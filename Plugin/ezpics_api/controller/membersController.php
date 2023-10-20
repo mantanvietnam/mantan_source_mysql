@@ -94,8 +94,6 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-					$data->account_balance = 0; // tặng 0k cho tài khoản mới
 					$data->status = (int) 0; //1: kích hoạt, 0: khóa Ecoin
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
@@ -212,6 +210,7 @@ function checkLoginMemberAPI($input)
 				}
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->number_login += 1;
+				$checkPhone->token = createToken();
 				$checkPhone->token_device = @$dataSend['token_device'];
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
 				if(!empty($checkdeadlinepro)){
