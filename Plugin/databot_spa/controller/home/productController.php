@@ -46,6 +46,7 @@ function listCategoryProduct($input){
         $listData = $modelCategories->find()->where($conditions)->all()->toList();
 
         setVariable('listData', $listData);
+        setVariable('modelCategories', $modelCategories);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
