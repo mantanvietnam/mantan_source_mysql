@@ -80,7 +80,7 @@ global $type_collection_bill;
             <tr class="">
               <th>ID</th>
               <th>Thời gian</th>
-              <th>Người nợ</th>
+              <th>Người nợ </th>
               <th>Nhân viên</th>
               <th>Số tiền </th>
               <th>Số lần trả</th>

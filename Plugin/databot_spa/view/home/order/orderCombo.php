@@ -130,7 +130,7 @@
 		 		<div class="row">
 	               <div class="mb-3 col-md-10">
 	                   <label class="form-label" for="basic-default-phone">Khách hàng (*)</label>
-	                   <input required type="text" required="" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
+	                   <input required type="text" required="" placeholder="Nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
 	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
 	               <div class="mb-3 col-md-2">

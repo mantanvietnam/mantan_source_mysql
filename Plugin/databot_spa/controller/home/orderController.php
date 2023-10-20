@@ -797,12 +797,10 @@ function orderService($input){
 
 function listOrderProduct($input){
     global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
     global $urlCurrent;
-    global $urlHomes;
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
@@ -812,7 +810,6 @@ function listOrderProduct($input){
 		$modelProduct = $controller->loadModel('Products');
 		$modelCustomer = $controller->loadModel('Customers');
 		$modelService = $controller->loadModel('Services');
-		$modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
         $modelMembers = $controller->loadModel('Members');
         $modelOrder = $controller->loadModel('Orders');
@@ -830,9 +827,6 @@ function listOrderProduct($input){
             $conditions['id'] = $_GET['id'];
         }
 
-        if(!empty($_GET['id_Warehouse'])){
-            $conditions['id_warehouse'] = $_GET['id_Warehouse'];
-        }
 
         if(!empty($_GET['id_customer'])){
             $conditions['id_customer'] = $_GET['id_customer'];
@@ -850,17 +844,6 @@ function listOrderProduct($input){
             $conditions['time <='] = $date_end;
         }
 
-        if(!empty($_GET['idBed'])){
-            $conditions['id_bed'] = $_GET['idBed'];
-        }
-
-        if(isset($_GET['status'])){
-            $conditions['status'] = $_GET['status'];
-        }
-
-        if(empty($_GET['searchProduct'])){
-            $_GET['id_product'] = '';
-        }
         
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 

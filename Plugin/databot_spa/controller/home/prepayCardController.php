@@ -121,7 +121,7 @@ function addPrepayCard($input){
                 $data->id_member = $infoUser->id_member;
                 $data->id_spa = (int) $session->read('id_spa');
                 $data->status = @$dataSend['status'];
-                $data->price = @$dataSend['price'];
+                $data->price =  @$dataSend['price'];
                 $data->price_sell = @$dataSend['price_sell'];
                 $data->note = @$dataSend['note'];
                 $data->use_time = (int) $dataSend['use_time'];                

@@ -23,11 +23,6 @@
             <label class="form-label">Điện thoại</label>
             <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
           </div>
-
-          <div class="col-md-2">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
-          </div>
           
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>

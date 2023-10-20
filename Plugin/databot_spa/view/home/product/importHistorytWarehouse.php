@@ -83,7 +83,7 @@
                                                   <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
                                                   <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->created_at->format('Y-m-d H:i:s'); ?></td>
                                                   <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->Warehouse->name ?></td>
-                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->parent->name ?></td>
+                                                  <td rowspan='<?php echo count($item->product); ?>'><?php echo @$item->parent->name ?></td>
                                                  
                                                             <?php  if(!empty($item->product)){ 
                                                                       foreach($item->product as $k => $value){
