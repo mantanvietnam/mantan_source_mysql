@@ -668,13 +668,13 @@ function loadEventNextPrev(e) {
 }
 
 // menu scroll 
-$(document).ready(function() {
-    const button = document.querySelector(".mon-pull-right");
-    button.setAttribute("onclick", "loadEventNextPrev(1)");
+// $(document).ready(function() {
+//     const button = document.querySelector(".mon-pull-right");
+//     button.setAttribute("onclick", "loadEventNextPrev(1)");
 
-   const butt = document.querySelector(".mon-pull-left");
-   butt.setAttribute("onclick", "loadEventNextPrev(2)");
-});
+//    const butt = document.querySelector(".mon-pull-left");
+//    butt.setAttribute("onclick", "loadEventNextPrev(2)");
+// });
 
 </script> 
 

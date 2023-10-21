@@ -1,4 +1,3 @@
-console.log('a');
 $(document).ready(function() {
     $('.place-img-slide').slick({
         infinite: true,
