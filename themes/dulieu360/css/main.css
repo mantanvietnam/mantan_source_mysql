@@ -800,8 +800,9 @@ footer .bottom-footer span {
 }
 
 #skct-article article .body .content img {
-    width: 90% !important;
+    width: 100% !important;
     height: auto !important;
+    padding: 10px 0;
 }
 
 
@@ -1437,11 +1438,6 @@ header .main-nav nav>.container-fluid {
 
 .lien-he-heading h3 {
     margin-top: 50px !important;
-}
-
-#skct-article article .body .content img {
-    width: 90% !important;
-    height: auto !important;
 }
 
 #skct-article article .body .content input {
