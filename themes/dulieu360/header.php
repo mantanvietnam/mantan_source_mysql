@@ -87,17 +87,19 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 </style>
 </head>
 <body>
-
-<!-- <header>
-    <div class="top bg-primary-cus py-2">
-        <div class="container">
-            <div class="d-flex justify-content-end align-items-center">
-                <form class="search-input d-none d-md-block" action="/search" method="get">
-                    <img src="<?= $urlThemeActive ?>/assets/lou_icon/icon-search.svg" class="me-2" alt="">
-                    <input type="text" name="key" placeholder="Tìm kiếm">
-                </form>
-                <li class="nav-item dropdown user-login">
-                    <?php if (!empty($infoUser)) { ?>
+<div id="header">
+        <div id="top-bar">
+            <div class="container-fluid">
+                <ul class="nav nav-pills">
+                    <div class="date">Thứ Ba, 03/10/2023</div>
+                    <div class="box-search">
+                        <button class="nav-link" onclick="showSearchModal()">
+                            <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
+                            Tìm kiếm
+                        </button>
+                    </div>
+                    <div class="items">
+                         <?php if (!empty($infoUser)) { ?>
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                            data-bs-toggle="dropdown">
                             <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
@@ -114,79 +116,6 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
                            href="/login">Đăng nhập</a>
                     <?php } ?>
-                </li>
-                <a href="https://tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
-                </a>
-                <a href="https://en.tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-en.svg" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="main-nav">
-        <div class="container-xxl">
-            <nav class="navbar navbar-expand-xl">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-block" href="/">
-                        <img src="<?php echo @$setting['image_logo']; ?>" style=" width: 55px; " alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            
-                             <?php 
-                            $menu = getMenusDefault();
-                          
-                            if(!empty($menu)){
-                            foreach($menu as $key => $value){
-                              if(empty($value['sub'])){
-                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
-                            </li>
-                        <?php   }else{  ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <?php echo $value['name']  ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                            <?php }}} ?>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-</header> -->
-<div id="header">
-        <div id="top-bar">
-            <div class="container-fluid">
-                <ul class="nav nav-pills">
-                    <div class="date">Thứ Ba, 03/10/2023</div>
-                    <div class="box-search">
-                        <button class="nav-link" onclick="showSearchModal()">
-                            <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
-                            Tìm kiếm
-                        </button>
-                    </div>
-                    <div class="items">
-                        <li class="nav-item register">
-                            <a href="">Đăng ký</a>
-                        </li>
-                        <li class="nav-item log-in">
-                            <a href="">Đăng nhập</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-earth-asia"></i>
@@ -201,35 +130,40 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                 </ul>
             </div>
         </div>
-        <div id="foot_bar">
+         <div id="foot_bar">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">
-                        <img src="./asset/img/logo.svg" alt="">
+                    <a class="navbar-brand" href="/">
+                        <img src="<?php echo @$setting['image_logo']; ?>" style="max-width: 100%;" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
+                      <span><i class="fa-solid fa-bars" style="color: #f7f7f7;"></i></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="">Giới thiệu</a>
-                            </li>
+                              <?php 
+                            $menu = getMenusDefault();
+                         
+                            if(!empty($menu)){
+                            foreach($menu as $key => $value){
+                              if(empty($value->sub)){
+                         ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Điểm đến</a>
+                                <a class="nav-link active" aria-current="page" href="<?php echo $value->links ?>"><?php echo $value->name; ?></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Cảm hứng du lịch</a>
+                        <?php   }else{  ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="<?php echo $value->link;  ?>" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <?php echo $value->name  ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
+                                    <li><a class="dropdown-item" href="<?php echo $values->link; ?>"><?php echo $values->name;  ?></a></li>
+                                    <?php } ?>
+                                </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Sự kiện</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Tour nổi bật</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Bản đồ</a>
-                            </li>
+                            <?php }}} ?>
                             <li class="nav-item item-search">
                                 <button class="nav-link" onclick="showSearchModal()">
                                     <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>

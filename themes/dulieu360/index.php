@@ -87,23 +87,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <input type="text" name="key" placeholder="Tìm kiếm">
                 </form>
                 <li class="nav-item dropdown user-login">
-                    <?php if (!empty($infoUser)) { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                           data-bs-toggle="dropdown">
-                            <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
-                                 alt="">
-                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
-                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
-                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
-                            <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
-                        </ul>
-                    <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
-                           href="/login">Đăng nhập</a>
-                    <?php } ?>
+                    
                 </li>
                 <a href="https://tayho360.vn/" class="lang d-block">
                     <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
@@ -171,12 +155,29 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         </button>
                     </div>
                     <div class="items">
+                        <?php if (!empty($infoUser)) { ?>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
+                                 alt="">
+                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
+                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
+                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
+                            <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
+                        </ul>
+                    <?php } else { ?>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
+                           href="/login">Đăng nhập</a>
+                    <?php } ?>
                         <li class="nav-item register">
-                            <a href="">Đăng ký</a>
+                        <!--     <a href="">Đăng ký</a>
                         </li>
                         <li class="nav-item log-in">
                             <a href="">Đăng nhập</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-earth-asia"></i>
@@ -337,43 +338,43 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/le_hoi">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/lehoi.svg" alt="">
                                 <p>Lễ hội</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/co_quan_hanh_chinh">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/coquan.svg" alt="">
                                 <p>Cơ Quan Hành Chính</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/khach_san">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/khachsan.svg" alt="">
                                 <p>Khách sạn</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/nha_hang">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/nhahang.svg" alt="">
                                 <p>Nhà hàng quán ăn</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/trung_tam_hoi_nghi_su_kien">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/tttm.svg" alt="">
                                 <p>Trung tâm thương mại</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/thu_gian_giai_tri">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/giaitri.svg" alt="">
                                 <p>Thư giãn giải trí</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/dich_vu_ho_tro_du_lich">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/dv.svg" alt="">
                                 <p>Dịch vụ hỗ trợ</p>
                             </a>

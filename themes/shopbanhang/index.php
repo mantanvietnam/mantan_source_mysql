@@ -5,34 +5,30 @@ global $urlThemeActive;
  <main>
         <section id="section-banner-home">
             <div class="banner-home-slide">
+               <?php if(!empty($slide_home->imageinfo)){
+                        foreach($slide_home->imageinfo as $key => $item){ ?>
                 <div class="banner-home-item">
-                    <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
+                    <img src="<?php echo $item->image ?>" alt="">
                 </div>
-
-                <div class="banner-home-item">
-                    <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
-                </div>
-
-                <div class="banner-home-item">
-                    <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
-                </div>
+            <?php }} ?>
+               
             </div>
         </section>
-
+        
         <section id="section-advertisement-home">
             <div class="advertisement-home-inner">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/quangcao1.png" alt="">
+                            <img src="<?php echo $setting['image1'] ?>" alt="">
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/quangcao2.png" alt="">
+                            <img src="<?php echo $setting['image2'] ?>" alt="">
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/quangcao3.png" alt="">
+                            <img src="<?php echo $setting['image3'] ?>" alt="">
                         </div>
                     </div>
                 </div>

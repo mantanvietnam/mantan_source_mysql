@@ -46,8 +46,8 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>LÀNG NGHỀ</h1>
-                <p>Hãy khám phá những điểm đến làng nghề ở Tây Hồ</p>
+                <h1>THƯ GIÃN GIẢI TRÍ</h1>
+                <p>Hãy khám phá những điểm đến Thư giãn giải trí Đống Đa</p>
             </div>
 
             <div class="container">
@@ -58,9 +58,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_lang_nghe/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
+                            <a href="/chi_tiet_thu_gian_giai_tri/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_lang_nghe/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
+                                <a href="/chi_tiet_thu_gian_giai_tri/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>
