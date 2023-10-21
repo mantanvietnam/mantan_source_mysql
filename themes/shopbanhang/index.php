@@ -527,124 +527,38 @@ global $urlThemeActive;
                 <div class="title-section-sub">
                     <p>Những đánh giá và cảm nhận từ khách hàng sau khi sử dụng sản phẩm của Bumas</p>
                 </div>
+                 <?php if(!empty(showFeedback())){ ?>
                 <div class="container">
                     <div class="comment-customer-slide slick">
+                       <?php foreach(showFeedback() as $key => $item){ ?>
                         <div class="comment-customer-item" >
                             <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
+                                <img src="<?php echo @$item->avatar ?>" alt="">
                             </div>
                         </div>
-
-                        <div class="comment-customer-item" >
-                            <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="comment-customer-item" >
-                            <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="comment-customer-item" >
-                            <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="comment-customer-item" >
-                            <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="comment-customer-item" >
-                            <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="comment-customer-item" >
-                            <div class="comment-customer-img" >
-                                <img src="<?php echo $urlThemeActive ?>asset/image/comment.png" alt="">
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
 
                     <div class="comment-text-slide">
+                        <?php foreach(showFeedback() as $key => $item){ ?>
                         <div class="comment-text-item">
                             <div class="comment-text-description">
-                                Máy massage cổ SKG G7 pro vừa xung điện, vừa chườm nóng, vừa hồng ngoại, vừa mát xa vật lý, với 9 đầu điện cực như 9 ngón tay massage bấm cổ, mô phỏng phương pháp massage Shiatsu của Nhật Bản, với cực kì nhiều chế độ khác nhau: nóng ít, nóng nhiều, cường độ mạnh, nhẹ tạo cảm giác vô cùng dễ chịu, thoải mái, thích thú khi sử dụng.</p>
+                               <?php echo @$item->content ?>
                             </div>
 
                             <div class="comment-text-name">
-                                Thanh Ngọc
+                                <?php echo @$item->full_name ?>
                             </div>
 
                             <div class="comment-text-position">
-                                KOC
+                                <?php echo @$item->position ?>
                             </div>
                         </div>
-
-                        <div class="comment-text-item">
-                            <div class="comment-text-description">
-                                Máy1 massage cổ SKG G7 pro vừa xung điện, vừa chườm nóng, vừa hồng ngoại, vừa mát xa vật lý, với 9 đầu điện cực như 9 ngón tay massage bấm cổ, mô phỏng phương pháp massage Shiatsu của Nhật Bản, với cực kì nhiều chế độ khác nhau: nóng ít, nóng nhiều, cường độ mạnh, nhẹ tạo cảm giác vô cùng dễ chịu, thoải mái, thích thú khi sử dụng.</p>
-                            </div>
-
-                            <div class="comment-text-name">
-                                Thanh Ngọc
-                            </div>
-
-                            <div class="comment-text-position">
-                                KOC
-                            </div>
-                        </div>
-
-                        <div class="comment-text-item">
-                            <div class="comment-text-description">
-                                M1áy massage cổ SKG G7 pro vừa xung điện, vừa chườm nóng, vừa hồng ngoại, vừa mát xa vật lý, với 9 đầu điện cực như 9 ngón tay massage bấm cổ, mô phỏng phương pháp massage Shiatsu của Nhật Bản, với cực kì nhiều chế độ khác nhau: nóng ít, nóng nhiều, cường độ mạnh, nhẹ tạo cảm giác vô cùng dễ chịu, thoải mái, thích thú khi sử dụng.</p>
-                            </div>
-
-                            <div class="comment-text-name">
-                                Thanh Ngọc
-                            </div>
-
-                            <div class="comment-text-position">
-                                KOC
-                            </div>
-                        </div>
-
-                        <div class="comment-text-item">
-                            <div class="comment-text-description">
-                                Máy massage cổ SKG G7 pro vừa xung điện, vừa chườm nóng, vừa hồng ngoại, vừa mát xa vật lý, với 9 đầu điện cực như 9 ngón tay massage bấm cổ, mô phỏng phương pháp massage Shiatsu của Nhật Bản, với cực kì nhiều chế độ khác nhau: nóng ít, nóng nhiều, cường độ mạnh, nhẹ tạo cảm giác vô cùng dễ chịu, thoải mái, thích thú khi sử dụng.</p>
-                            </div>
-
-                            <div class="comment-text-name">
-                                Thanh Ngọc
-                            </div>
-
-                            <div class="comment-text-position">
-                                KOC
-                            </div>
-                        </div>
-
-                        <div class="comment-text-item">
-                            <div class="comment-text-description">
-                                Máy1 massage cổ SKG G7 pro vừa xung điện, vừa chườm nóng, vừa hồng ngoại, vừa mát xa vật lý, với 9 đầu điện cực như 9 ngón tay massage bấm cổ, mô phỏng phương pháp massage Shiatsu của Nhật Bản, với cực kì nhiều chế độ khác nhau: nóng ít, nóng nhiều, cường độ mạnh, nhẹ tạo cảm giác vô cùng dễ chịu, thoải mái, thích thú khi sử dụng.</p>
-                            </div>
-
-                            <div class="comment-text-name">
-                                Thanh Ngọc
-                            </div>
-
-                            <div class="comment-text-position">
-                                KOC
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
 
                 </div>
+            <?php } ?>
             </div>
         </section>
 
