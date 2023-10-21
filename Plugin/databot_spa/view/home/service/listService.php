@@ -72,6 +72,7 @@
               <th>Dịch vụ</th>
               <th>Giá bán</th>
               <th>Hoa hồng</th>
+              <th>Danh mục</th>
               <th>Trạng thái</th>
               <th>Sửa</th>
               <th>Xóa</th>
@@ -81,7 +82,7 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  
+                  $category = $modelCategories->get($item->id_category);
                  
                   if($item->status==1){
                    $status = 'Kích hoạt';
@@ -118,6 +119,7 @@
                             '.$staff.'
                             '.$affiliate.'
                           </td>
+                          <td>' . $category->name. '</td>
                           <td>'.$status.'</td>
                           
                           <td align="center">
