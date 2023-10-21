@@ -72,6 +72,7 @@ $setting = setting();
     <!-- <script src="./asset/js/script.js"></script> -->
 
 
+    <script src="<?= $urlThemeActive ?>/js/slick.js"></script>
 
 
     <div class="scripts">
@@ -82,6 +83,9 @@ $setting = setting();
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0&appId=148758212437688&autoLogAppEvents=1" nonce="WKsjsJLh"></script>
 
          <script src="<?= $urlThemeActive ?>assets/js/script.js"></script>
+
+
+
     </div>
 </body>
 
