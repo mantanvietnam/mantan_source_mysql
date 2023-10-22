@@ -525,6 +525,16 @@ table {
     color: rgba(0, 0, 0, 0.6);
 }
 
+.list-content ul {
+    padding-left: 15px;
+}
+
+.list-content p {
+    line-height: 22px;
+    padding: 15px 0;
+    color: rgba(0, 0, 0, 0.6);
+}
+
 .content-about li::marker {
     content: "\25CF ";
     color: #4ac1bb;
@@ -733,6 +743,9 @@ table {
     padding-top: 100px;
     padding-bottom: 100px;
     /* overflow: hidden; */
+    height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
 }
 
 .bg-places {
@@ -753,7 +766,7 @@ table {
 }
 
 .item-places .box-place img {
-    height: 350px;
+    height: 300px;
     width: 100%;
     border-radius: 10px;
     object-fit: cover;
@@ -845,6 +858,7 @@ table {
 
 .item-places .infor-places p {
     font-size: 12px;
+    line-height: 16px;
 }
 
 .item-places .infor-places a {
@@ -1003,7 +1017,7 @@ table {
 }
 
 .item-places.slick-center {
-    scale: 1.2;
+    scale: 1.3;
     z-index: 5;
     overflow: visible;
 }
@@ -1012,12 +1026,15 @@ table {
     position: relative;
     padding-top: 50px;
     padding-bottom: 20px;
+    height: 100vh;
+    align-items: center;
+    display: flex;
 }
 
 #event::before {
     content: '';
     position: absolute;
-    background-image: url('/asset/img/bg-event.png');
+    background-image: url('../img/bg-event.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right;
@@ -1766,6 +1783,7 @@ table {
         margin: 0 17px;
     }
     #places {
+        height: auto;
         padding: 50px 0;
     }
     #places .bg-places {
@@ -1782,6 +1800,9 @@ table {
     .slick-prev::before {
         font-size: 50px;
         top: -53%;
+    }
+    #event {
+        height: auto;
     }
     #event .container-fluid {
         padding: 0 15px;
