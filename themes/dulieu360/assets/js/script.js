@@ -8,16 +8,20 @@
 //     }
 // });
 //slick center mode
+console.log('test');
+
+
 $(document).ready(function() {
+    console.log('test');
     $('.list-places').slick({
         centerMode: true,
-        centerPadding: '100px',
+        centerPadding: '20px',
         slidesToShow: 3,
         focusOnSelect: true,
         infinite: true,
         arrows: true,
-        prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'></button>`,
-        nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'></button>`,
+        prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
+        nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`,
 
         responsive: [{
                 breakpoint: 769,

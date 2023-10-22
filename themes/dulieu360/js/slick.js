@@ -1,4 +1,3 @@
-console.log('a');
 $(document).ready(function() {
     $('.place-img-slide').slick({
         infinite: true,
@@ -173,36 +172,36 @@ $(document).ready(function() {
 
 // Em hiu
 //slick center mode
-$(document).ready(function() {
+// $(document).ready(function() {
 
-    $('.slider').slick({
-        centerMode: true,
-        centerPadding: '100px',
-        slidesToShow: 3,
-        focusOnSelect: true,
-        infinite: true,
-        arrows: true,
-        prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'></button>`,
-        nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'></button>`,
+//     $('.slider').slick({
+//         centerMode: true,
+//         centerPadding: '100px',
+//         slidesToShow: 3,
+//         focusOnSelect: true,
+//         infinite: true,
+//         arrows: true,
+//         prevArrow: `<button type='button' class='slick-arrow slick-prev pull-left'></button>`,
+//         nextArrow: `<button type='button' class='slick-arrow slick-next pull-right'></button>`,
 
-        responsive: [{
-                breakpoint: 769,
-                settings: {
-                    arrows: true,
-                    centerMode: false,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    arrows: true,
-                    centerMode: false,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            }
-        ]
-    });
-});
+//         responsive: [{
+//                 breakpoint: 769,
+//                 settings: {
+//                     arrows: true,
+//                     centerMode: false,
+//                     centerPadding: '40px',
+//                     slidesToShow: 1
+//                 }
+//             },
+//             {
+//                 breakpoint: 480,
+//                 settings: {
+//                     arrows: true,
+//                     centerMode: false,
+//                     centerPadding: '40px',
+//                     slidesToShow: 1
+//                 }
+//             }
+//         ]
+//     });
+// });

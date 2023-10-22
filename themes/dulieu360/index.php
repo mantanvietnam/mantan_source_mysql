@@ -67,12 +67,12 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 
  <link rel="stylesheet" href="<?= $urlThemeActive ?>assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 
 
 </head>
@@ -87,23 +87,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <input type="text" name="key" placeholder="Tìm kiếm">
                 </form>
                 <li class="nav-item dropdown user-login">
-                    <?php if (!empty($infoUser)) { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                           data-bs-toggle="dropdown">
-                            <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
-                                 alt="">
-                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
-                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
-                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
-                            <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
-                        </ul>
-                    <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
-                           href="/login">Đăng nhập</a>
-                    <?php } ?>
+                    
                 </li>
                 <a href="https://tayho360.vn/" class="lang d-block">
                     <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
@@ -171,12 +155,29 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         </button>
                     </div>
                     <div class="items">
+                        <?php if (!empty($infoUser)) { ?>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
+                                 alt="">
+                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
+                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
+                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
+                            <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
+                        </ul>
+                    <?php } else { ?>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
+                           href="/login">Đăng nhập</a>
+                    <?php } ?>
                         <li class="nav-item register">
-                            <a href="">Đăng ký</a>
+                        <!--     <a href="">Đăng ký</a>
                         </li>
                         <li class="nav-item log-in">
                             <a href="">Đăng nhập</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-earth-asia"></i>
@@ -337,43 +338,43 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/le_hoi">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/lehoi.svg" alt="">
                                 <p>Lễ hội</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/co_quan_hanh_chinh">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/coquan.svg" alt="">
                                 <p>Cơ Quan Hành Chính</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/khach_san">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/khachsan.svg" alt="">
                                 <p>Khách sạn</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/nha_hang">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/nhahang.svg" alt="">
                                 <p>Nhà hàng quán ăn</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/trung_tam_hoi_nghi_su_kien">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/tttm.svg" alt="">
                                 <p>Trung tâm thương mại</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/thu_gian_giai_tri">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/giaitri.svg" alt="">
                                 <p>Thư giãn giải trí</p>
                             </a>
                         </div>
                         <div class="items-des">
-                            <a href="">
+                            <a href="/dich_vu_ho_tro_du_lich">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/dv.svg" alt="">
                                 <p>Dịch vụ hỗ trợ</p>
                             </a>
@@ -667,13 +668,13 @@ function loadEventNextPrev(e) {
 }
 
 // menu scroll 
-$(document).ready(function() {
-    const button = document.querySelector(".mon-pull-right");
-    button.setAttribute("onclick", "loadEventNextPrev(1)");
+// $(document).ready(function() {
+//     const button = document.querySelector(".mon-pull-right");
+//     button.setAttribute("onclick", "loadEventNextPrev(1)");
 
-   const butt = document.querySelector(".mon-pull-left");
-   butt.setAttribute("onclick", "loadEventNextPrev(2)");
-});
+//    const butt = document.querySelector(".mon-pull-left");
+//    butt.setAttribute("onclick", "loadEventNextPrev(2)");
+// });
 
 </script> 
 

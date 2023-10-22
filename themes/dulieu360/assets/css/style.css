@@ -660,7 +660,7 @@ table {
     right: 0;
     left: 0;
     z-index: -1;
-    background-image: url(/asset/img/bg.png);
+    background-image: url(../img/bg.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-color: rgba(246, 245, 245, 0.7);
@@ -753,9 +753,10 @@ table {
 }
 
 .item-places .box-place img {
-    height: 222px;
+    height: 350px;
     width: 100%;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .item-places {
@@ -770,7 +771,7 @@ table {
     position: absolute;
     background-color: transparent;
     color: #fff;
-    bottom: 18%;
+    bottom: 15%;
     left: 0;
     right: 0;
     text-align: left;
@@ -780,20 +781,79 @@ table {
     width: 100%;
 }
 
+.list-places {
+    padding: 0 70px;
+}
+
+
+/* arrow */
+
+.list-places .slick-prev::before {
+    content: "";
+    font-size: 60px;
+    line-height: inherit;
+    color: #735C0D;
+    top: -50%;
+    position: relative;
+}
+
+.list-places .slick-prev {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 80px;
+    justify-content: center;
+}
+
+.list-places .slick-next {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 80px;
+    justify-content: center;
+}
+
+.list-places .slick-arrow i {
+    font-size: 40px;
+    color: #735C0D;
+    position: absolute;
+    top: 16%;
+}
+
+.list-places .slick-next::before {
+    content: "";
+    font-size: 60px;
+    line-height: inherit;
+    color: #735C0D;
+    top: -50%;
+    position: relative;
+}
+
+.list-places .slick-arrow {
+    z-index: 1;
+    background: #FEC600 !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+}
+
 
 /* .slider {
     padding: 0 100px;
 } */
 
 .item-places .infor-places p {
-    font-size: 8px;
+    font-size: 12px;
 }
 
 .item-places .infor-places a {
     color: #fff;
     text-decoration: none;
     text-transform: capitalize;
-    width: 105px;
+    font-size: 17px;
+    line-height: 22px;
+    /* width: 105px; */
 }
 
 .item-places .address {
@@ -823,6 +883,8 @@ table {
 
 .img-place {
     position: relative;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .img-place::before {
@@ -836,7 +898,7 @@ table {
     mix-blend-mode: normal;
     opacity: 0.9;
     border-radius: 10px;
-    height: 222px;
+    /* height: 222px; */
 }
 
 .item-places .box-place {
@@ -854,20 +916,42 @@ table {
     color: #019680;
 }
 
-.btn-place {
+.item-places.slick-active {
+    filter: grayscale(1);
+}
+
+.item-places.slick-current.slick-active.slick-center {
+    filter: none;
+}
+
+.item-places.slick-current.slick-active.slick-center .infor-places {
     display: block;
+}
+
+.item-places.slick-active .infor-places {
+    display: none;
+}
+
+.btn-place {
+    display: inline-block;
     text-align: center;
-    background: #FEC600;
+    background-color: #FEC600;
+    border: 0.5px solid #FEC600 !important;
     border-radius: 4px;
     border: none;
     text-transform: uppercase;
-    color: #735C0D;
-    font-size: 9px;
+    color: #735C0D !important;
+    font-size: 14px !important;
     font-weight: bold;
-    padding: 0 20px;
+    padding: 5px 30px;
     transition: all 0.5s ease;
     margin-bottom: 10px;
     line-height: 24px;
+}
+
+.btn-place:hover {
+    color: #FEC600 !important;
+    background-color: transparent;
 }
 
 .item-places .slick-prev::before {
@@ -918,8 +1002,8 @@ table {
     flex-wrap: wrap;
 }
 
-.item-places .slick-center {
-    scale: 1.4;
+.item-places.slick-center {
+    scale: 1.2;
     z-index: 5;
     overflow: visible;
 }
@@ -1488,10 +1572,36 @@ table {
 /* Dành cho điện thoại */
 
 @media all and (max-width: 480px) {
-    #header {}
+    .icon-scroll-down {
+        left: 47%;
+        margin-bottom: 56px;
+    }
     .banner-top-style-1 {
         transform: translate(0, -2px);
         z-index: -1;
+    }
+    .item-places.slick-active {
+        filter: none;
+    }
+    .item-places.slick-active .infor-places {
+        display: block;
+    }
+    .list-places {
+        padding: 0 20px;
+    }
+    .list-places .slick-arrow i {
+        top: 20%;
+        font-size: 30px;
+    }
+    .list-places .slick-arrow {
+        width: 50px;
+        height: 50px;
+    }
+    .list-places .slick-prev {
+        left: -10px;
+    }
+    .list-places .slick-next {
+        right: -10px;
     }
     .item-search {
         display: block;

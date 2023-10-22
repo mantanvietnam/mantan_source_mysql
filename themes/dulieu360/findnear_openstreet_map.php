@@ -178,7 +178,7 @@
 
   const pointLayer = L.layerGroup().addTo(map);
 
-  function initMap() {
+  function initMap(){
     L.tileLayer('https://maps.vnpost.vn/api/tm/{z}/{x}/{y}@@2x.png?apikey='+keyMap, {
       attribution: 'Map data &copy; <a href="https://vmap.vn">Vmap</a>, <a href="http://openstreetmap.org">OSM Contributors</a>',
       maxZoom: 18,

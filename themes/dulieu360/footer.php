@@ -69,19 +69,23 @@ $setting = setting();
 
 
 
-    <script src="./asset/js/script.js"></script>
+    <!-- <script src="./asset/js/script.js"></script> -->
 
 
+    <script src="<?= $urlThemeActive ?>/js/slick.js"></script>
 
 
     <div class="scripts">
         <!-- ✅ load jQuery ✅ -->
         <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <!-- ✅ load Slick ✅ -->
+         ✅ load Slick ✅ -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0&appId=148758212437688&autoLogAppEvents=1" nonce="WKsjsJLh"></script>
 
          <script src="<?= $urlThemeActive ?>assets/js/script.js"></script>
+
+
+
     </div>
 </body>
 

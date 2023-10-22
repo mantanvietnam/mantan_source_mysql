@@ -800,8 +800,9 @@ footer .bottom-footer span {
 }
 
 #skct-article article .body .content img {
-    width: 90% !important;
+    width: 100% !important;
     height: auto !important;
+    padding: 10px 0;
 }
 
 
@@ -1439,11 +1440,6 @@ header .main-nav nav>.container-fluid {
     margin-top: 50px !important;
 }
 
-#skct-article article .body .content img {
-    width: 90% !important;
-    height: auto !important;
-}
-
 #skct-article article .body .content input {
     width: 90% !important;
     height: auto !important;
@@ -1493,8 +1489,8 @@ header .main-nav nav>.container-fluid {
     border: 1px solid rgba(0, 0, 0, 0.36);
 }
 
-#tour-chi-tiet-intro h3 {
-    /* font-size: 29px; */
+#tour-chi-tiet-intro img {
+    width: 100%;
 }
 
 #tour-chi-tiet-intro .intro-content {
