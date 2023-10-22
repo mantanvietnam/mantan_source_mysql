@@ -15,4 +15,3 @@ class FeedbacksTable extends Table
 
 
 ?>
-
