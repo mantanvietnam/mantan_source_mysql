@@ -93,6 +93,7 @@ header .top .search-input .button-outline-primary-custom {
 .card-event {
     background-color: transparent;
     border: none;
+    box-shadow: 0 0px 10px 0 rgb(172, 172, 172);
 }
 
 .card-event .card-img-top {
@@ -104,7 +105,7 @@ header .top .search-input .button-outline-primary-custom {
 .card-event h5 {
     font-style: normal;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 20px;
     line-height: 30px;
     /* Neural-1 */
     color: #3f4042;
@@ -846,7 +847,7 @@ footer .bottom-footer span {
         font-size: 29px;
     }
     #skct-article article .body .content p {
-        font-size: 20px;
+        font-size: 18px;
     }
     #skct-article aside iframe {
         height: 300px !important;
@@ -1447,6 +1448,7 @@ header .main-nav nav>.container-fluid {
 
 .card-event .card-body {
     padding: 10px 0px !important;
+    margin: 0 20px;
 }
 
 
