@@ -17,6 +17,7 @@ $routesPlugin['upgradeToDriverApi'] = 'excgo/view/upgradeToDriverApi.php';
 $routesPlugin['addMoneyTPBankApi'] = 'excgo/view/addMoneyTPBankApi.php';
 $routesPlugin['generateQRCodeApi'] = 'excgo/view/generateQRCodeApi.php';
 $routesPlugin['createWithdrawRequestApi'] = 'excgo/view/createWithdrawRequestApi.php';
+$routesPlugin['deleteUserApi'] = 'excgo/view/deleteUserApi.php';
 
 // Province
 $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';

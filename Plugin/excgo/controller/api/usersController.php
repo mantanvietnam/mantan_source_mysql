@@ -82,7 +82,8 @@ function loginUserApi($input): array
             $user = $modelUser->find()->where([
                 'phone_number' => $dataSend['phone_number'],
                 'password' => md5($dataSend['password']),
-                'status' => 1
+                'status' => 1,
+                'deleted_at IS' => null
             ])->first();
 
             if (!empty($user)) {
@@ -689,6 +690,7 @@ function getUserDetailApi($input): array
                     'Users.account_number',
                     'Users.avatar',
                     'Users.address',
+                    'Users.type',
                     'Users.birthday',
                     'Users.total_coin',
                     'IdCardFront.id',
@@ -905,6 +907,36 @@ function updateUserApi($input): array
         }
 
         return apiResponse(0, 'Cập nhật thông tin thành công');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function deleteUserApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        $currentUser->deleted_at = date('Y-m-d H:i:s');
+        $currentUser->access_token = null;
+        $modelUser->save($currentUser);
+
+        return apiResponse(0, 'Xóa tài khoản thành công');
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');

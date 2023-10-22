@@ -423,6 +423,7 @@ function getMyBookingListApi($input): array
 {
     global $controller;
     global $isRequestPost;
+    global $bookingStatus;
 
     $modelBooking = $controller->loadModel('Bookings');
 
@@ -489,27 +490,28 @@ function getMyBookingListApi($input): array
             }
 
             // Filter by date
-            if (!empty($dataSend['from_date']) || !empty($dataSend['to_date'])) {
-                if (!empty($dataSend['from_date'])) {
-                    $startTime = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
-                    $conditions[] = ['OR' => [
-                        ['Bookings.start_time >=' => $startTime->format('Y-m-d H:i:s')],
-                        ['Bookings.finish_time >=' => $startTime->format('Y-m-d H:i:s')],
-                    ]];
-                }
+            $numberOfDays = 30;
+            if (!empty($dataSend['from_date']) && !empty($dataSend['to_date'])) {
+                $fromDate = DateTime::createFromFormat('d/m/Y', $dataSend['from_date']);
+                $conditions[] = ['OR' => [
+                    ['Bookings.start_time >=' => $fromDate->format('Y-m-d H:i:s')],
+                    ['Bookings.finish_time >=' => $fromDate->format('Y-m-d H:i:s')],
+                ]];
 
-                if (!empty($dataSend['to_date'])) {
-                    $finishTime = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
-                    $conditions[] = ['OR' => [
-                        ['Bookings.start_time <=' => $finishTime->format('Y-m-d H:i:s')],
-                        ['Bookings.finish_time <=' => $finishTime->format('Y-m-d H:i:s')],
-                    ]];
-                }
+                $toDate = DateTime::createFromFormat('d/m/Y', $dataSend['to_date']);
+                $conditions[] = ['OR' => [
+                    ['Bookings.start_time <=' => $toDate->format('Y-m-d H:i:s')],
+                    ['Bookings.finish_time <=' => $toDate->format('Y-m-d H:i:s')],
+                ]];
+
+                $interval = $fromDate->diff($toDate);
+                $numberOfDays = $interval->days;
             } else {
                 $date = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                $fromDate = $date->sub(new DateInterval('P30D'))->format('Y-m-d H:i:s');
                 $conditions[] = ['OR' => [
-                    ['Bookings.start_time >=' => $date->sub(new DateInterval('P30D'))->format('Y-m-d H:i:s')],
-                    ['Bookings.finish_time >=' => $date->sub(new DateInterval('P30D'))->format('Y-m-d H:i:s')],
+                    ['Bookings.start_time >=' => $fromDate],
+                    ['Bookings.finish_time >=' => $fromDate],
                 ]];
             }
 
@@ -547,7 +549,41 @@ function getMyBookingListApi($input): array
             $totalBookings = $query->where($conditions)->count();
             $paginationMeta = createPaginationMetaData($totalBookings, $limit, $page);
 
-            return apiResponse(0, 'Lấy danh sách cuốc xe thành công', $listData, $paginationMeta);
+            if (isset($conditions['keyword'])) {
+                unset($conditions['keyword']);
+            }
+            $statsData = $modelBooking->find()
+                ->where($conditions)
+                ->all();
+            $total = count($statsData);
+            $count = $statsData->countBy(function ($item) use ($bookingStatus) {
+                if ($item->status === $bookingStatus['completed'] || $item->status === $bookingStatus['paid']) {
+                    return 'finished';
+                } elseif ($item->status === $bookingStatus['canceled']) {
+                    return 'canceled';
+                }
+            })->toArray();
+            $finishRate = isset($count['finished']) ? round($count['finished'] / $total, 1) : 0;
+            $cancelRate = isset($count['canceled']) ? round($count['canceled'] / $total, 1) : 0;
+            $bookingsPerDay = round($total / $numberOfDays, 1);
+
+            $data = [
+                'stats' => [
+                  'total' => $total,
+                  'finished' => [
+                      'count' => $count['finished'] ?? 0,
+                      'rate' => $finishRate,
+                  ],
+                  'canceled' => [
+                      'count' => $count['canceled'] ?? 0,
+                      'rate' => $cancelRate,
+                  ],
+                  'average' => $bookingsPerDay
+                ],
+                'listData' => $listData,
+            ];
+
+            return apiResponse(0, 'Lấy danh sách cuốc xe thành công', $data, $paginationMeta);
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
