@@ -250,7 +250,10 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 
             <div id="hide-2" class="container-fluid">
                 <div class="content-title">
-                    <h1><?php echo @$setting['welcome1']; ?>
+                    <h1 style="line-height: 1.3"><?php echo @$setting['welcome1']; ?>
+                    <br> ĐẾN VỚI QUẬN ĐỐNG ĐA
+
+
                     </h1>
                 </div>
                 <div id="btn-360" class="btn-play-360">

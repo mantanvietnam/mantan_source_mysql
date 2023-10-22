@@ -26,8 +26,8 @@ $setting = setting();
                             <br> Chỉ đạo thực hiện: <?php echo $setting['title_footer']; ?>
                             <br> Chịu trách nhiệm thực hiện: <?php echo $setting['responsibility']; ?>
                             <br> Địa chỉ: <?php echo $setting['address']; ?>
-                            <br> Điện thoại: <?php echo $setting['phone']; ?>
-                            <br> Email: <?php echo $setting['email']; ?>
+                            <br> Điện thoại: <?php echo $contactSite['phone']; ?>
+                            <br> Email: <?php echo $contactSite['email']; ?>
                         </p>
                     </div>
                     <div class="link-footer">
