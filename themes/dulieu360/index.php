@@ -169,7 +169,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
                         </ul>
                     <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
+                        <a class="nav-link d-flex align-items-center" style=" color: white; "
                            href="/login">Đăng nhập</a>
                     <?php } ?>
                         <li class="nav-item register">
@@ -289,8 +289,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="list-content">
                                 <?php echo @$setting['content']; ?>
                             </div>
-                            <button class="btn_about_1">Xem thêm</button>
-                            <button class="btn_about_2">Ẩn bớt</button>
+                            <!-- <button class="btn_about_1">Xem thêm</button>
+                            <button class="btn_about_2">Ẩn bớt</button> -->
                         </div>
                     </div>
                 </div>
@@ -332,7 +332,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <div class="title-des">Điểm đến</div>
                     <div class="list-des">
                         <div class="items-des">
-                            <a href="">
+                            <a href="/danh_lam">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
                                 <p>Di tích & danh lam</p>
                             </a>

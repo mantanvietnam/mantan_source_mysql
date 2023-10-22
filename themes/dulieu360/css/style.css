@@ -1669,6 +1669,7 @@ input:-internal-autofill-selected {
 #section-change-password .background-right-sign .background-right-sign-scene img {
     width: 800px;
     height: 1000px;
+    object-fit: cover;
 }
 
 #section-change-password .background-right-sign .background-right-sign-circle img {
@@ -2466,6 +2467,10 @@ input:-internal-autofill-selected {
 #modal-book-tour .modal-body .card-body label {
     font-size: 20px;
     margin-bottom: 10px;
+}
+
+.card-body .btn{
+     border: 1px solid #019680;
 }
 
 

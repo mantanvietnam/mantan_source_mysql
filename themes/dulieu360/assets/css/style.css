@@ -1592,13 +1592,14 @@ table {
 .dropdown-menu.show {
     background-color: #019680;
     border: 0.5px solid #019680;
-    top: 180%;
+    top: 100%;
+    border-radius: 3px;
 }
 
-.dropdown-menu.show:hover {
+/* .dropdown-menu.show:hover {
     background-color: #fff;
     color: #019680;
-}
+} */
 
 .dropdown-menu.show .dropdown-item:hover {
     background-color: #fff !important;
