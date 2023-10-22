@@ -24,6 +24,7 @@ $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
 // Pinned Province
 $routesPlugin['addPinnedProvinceApi'] = 'excgo/view/addPinnedProvinceApi.php';
 $routesPlugin['removePinnedProvinceApi'] = 'excgo/view/removePinnedProvinceApi.php';
+$routesPlugin['checkPinnedProvinceApi'] = 'excgo/view/checkPinnedProvinceApi.php';
 
 // Booking
 $routesPlugin['createBookingApi'] = 'excgo/view/createBookingApi.php';
