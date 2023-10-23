@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-place-listPlaceAdmin.php">  Danh lam</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-place-listPlaceAdmin.php">Di tích và danh lam</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";
@@ -18,7 +18,7 @@
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin danh lam</h5>
+            <h5 class="mb-0">Thông tin di tích và danh lam</h5>
           </div>
           <div class="card-body">
             <p><?php echo @$mess;
@@ -30,7 +30,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                           <li class="nav-item">
                             <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="navs-top-home" aria-selected="true">
-                             Thông tin danh lam
+                             Thông tin di tích và danh lam
                             </button>
                           </li>
                           <li class="nav-item">

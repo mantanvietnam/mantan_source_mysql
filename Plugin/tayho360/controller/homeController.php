@@ -1556,7 +1556,7 @@ function listPlace($input){
         $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Danh lam thắng cảnh');
+        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Di tích và danh lam');
         $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
         $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
                     
