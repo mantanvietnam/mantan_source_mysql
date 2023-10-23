@@ -250,16 +250,19 @@ function process_add_money($number=0, $order_id=0)
     if($number>=1000){
         $modelOrder = $controller->loadModel('Orders');
         $modelMember = $controller->loadModel('Members');
+        $modelDiscountCode = $controller->loadModel('DiscountCodes');
 
         if(!empty($order_id)){
             $checkOrder = $modelOrder->find()->where(array('id'=> $order_id))->first();
+
+            $discountCode = $modelDiscountCode->find()->where(array('id'=>$checkOrder->discount_id))->first();
             
             if(!empty($checkOrder)){
                 $data = $modelMember->find()->where(array('id'=>$checkOrder->member_id))->first();
 
                 if(!empty($data)){
                     // cập nhập số dư tài khoản
-                    $data->account_balance += $number;
+                    $data->account_balance += $number + (((int) $discountCode->discount / 100) * $number);
                     $modelMember->save($data);
                     
                     // cập nhập lại trạng thái đơn hàng

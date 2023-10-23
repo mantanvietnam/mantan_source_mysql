@@ -66,6 +66,7 @@ function saveRequestBankingAPI($input)
 
 	$modelOrder = $controller->loadModel('Orders');
 	$modelMember = $controller->loadModel('Members');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$return = array('code'=>1);
 
 	if($isRequestPost){
@@ -74,18 +75,48 @@ function saveRequestBankingAPI($input)
 		if(!empty($dataSend['token']) && !empty($dataSend['money'])){
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
+			if(!empty($dataSend['discountCode'])){
+
+				$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode'],'type'=>2))->first();
+
+				$discount_id = '';
+
+				if(!empty($discountCode) && @$discountCode->discount<100){
+					if(!empty($discountCode->deadline_at)){
+						if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
+							if(isset($discountCode->number_user)){
+								if($discountCode->number_user>0){
+									$discount_id = $discountCode->id;
+								}else{
+									return array('code'=>7, 'mess'=>'Mã này số lượng đã hết ');
+								}	
+							}else{
+									$discount_id = $discountCode->id;
+							}
+						}else{
+							return array('code'=>6, 'mess'=>'Mã này đã hết hạn ');
+						}
+					}else{
+						$discount_id = $discountCode->id;
+					}
+				}else{
+					return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
+				}
+			}
+
 			if(!empty($infoUser)){
 				$order = $modelOrder->newEmptyEntity();
 				
 				$order->code = 'AM'.time().$infoUser->id.rand(0,10000);
                 $order->member_id = $infoUser->id;
                 $order->product_id = '';
-                $order->meta_payment = 'Nạp tiền qua chuyển khoản ngân hàng';
+                $order->meta_payment = 'Nạp tiền qua chuyển khoản ngân hàng ';
                 $order->payment_type = 1; // 1:Banking, 2:Apple
                 $order->total = (int) $dataSend['money'];
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế 
                 $order->created_at = date('Y-m-d H:i:s');
+                $order->discount_id = $discount_id; // id mã khuyến mại
                 $order->payment_kind = 1; //0: tiền thưởng, 1 tiền thật 
                 
                 $modelOrder->save($order);
