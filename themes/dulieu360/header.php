@@ -113,7 +113,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
                         </ul>
                     <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
+                        <a class="nav-link d-flex align-items-center" style=" color: white; "
                            href="/login">Đăng nhập</a>
                     <?php } ?>
                         <li class="nav-item dropdown">
