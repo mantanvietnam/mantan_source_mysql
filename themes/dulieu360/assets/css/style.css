@@ -858,6 +858,12 @@ table {
 .item-places .infor-places p {
     font-size: 12px;
     line-height: 16px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
 }
 
 .item-places .infor-places a {
@@ -867,6 +873,12 @@ table {
     font-size: 17px;
     line-height: 22px;
     /* width: 105px; */
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
 }
 
 .item-places .address {
@@ -1186,9 +1198,19 @@ table {
     text-align: start;
 }
 
-.content-event .name {
+.content-event .name a {
     font-size: 20px;
     font-weight: bold;
+    color: #fff;
+}
+
+.content-event .name {
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
 }
 
 .content-event .cerlender-event {
@@ -1205,6 +1227,12 @@ table {
     font-size: 12px;
     margin-top: 4px;
     font-weight: bold;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 }
 
 #event .line-event {
@@ -2005,9 +2033,6 @@ table {
     }
     .item-places .infor-places p {
         font-size: 12px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
     btn-place .item-places .address {
         font-size: 12px;

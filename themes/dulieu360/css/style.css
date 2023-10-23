@@ -2488,6 +2488,12 @@ input:-internal-autofill-selected {
     -webkit-line-clamp: 2;
     line-height: 34px !important;
     font-weight: bold;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 }
 
 #su-kien-list-event .section-heading {
