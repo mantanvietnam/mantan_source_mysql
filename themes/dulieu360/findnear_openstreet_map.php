@@ -39,6 +39,7 @@
   }
   .box-menu-map ul li {
     margin: 10px 0;
+    line-height: 30px;
   }
   #map_HS {
     height: 80vh !important;

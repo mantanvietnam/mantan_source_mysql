@@ -1976,6 +1976,10 @@ input:-internal-autofill-selected {
     .background-right-sign .background-right-sign-scene {
         width: 289%;
     }
+    /*  */
+    .img-profile img {
+        width: 480px;
+    }
 }
 
 @media (max-width:768px) {
@@ -2057,7 +2061,6 @@ input:-internal-autofill-selected {
     #section-sign .nav-link-sign {
         font-size: 25px
     }
-    /* VHieu bo sung sua logo */
 }
 
 @media (max-width: 576px) {
@@ -2469,8 +2472,8 @@ input:-internal-autofill-selected {
     margin-bottom: 10px;
 }
 
-.card-body .btn{
-     border: 1px solid #019680;
+.card-body .btn {
+    border: 1px solid #019680;
 }
 
 
