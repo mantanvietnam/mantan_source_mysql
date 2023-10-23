@@ -78,6 +78,9 @@ $(function() {
 // btn about
 $(document).ready(function() {
     $(".infor-content").hide();
+    $(".btn_about_1").show();
+    $(".btn_about_2").hide();
+
 
     $(".btn_about_1").click(function() {
         $(".infor-content").css('display', 'block');
