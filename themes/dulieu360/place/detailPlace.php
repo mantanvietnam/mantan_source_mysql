@@ -175,12 +175,12 @@ global $urlThemeActive;
                     if(@$data->id != @$value->id){ ?>
                     <div class="place-around-slide-item">
                         <div class="place-around-img">
-                            <a href="/chi_tiet_danh_lam/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                            <a href="/chi_tiet_di_tich_danh_lam/<?php echo $value->urlSlug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
                         </div>
 
 
                         <div class="place-around-title">
-                            <a href="/chi_tiet_danh_lam/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
+                            <a href="/chi_tiet_di_tich_danh_lam/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a>
                         </div>
 
                         <div class="place-around-box-address">
