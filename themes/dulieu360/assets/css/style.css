@@ -958,7 +958,7 @@ table {
 }
 
 .btn-place {
-    display: inline-block;
+    display: inline-block !important;
     text-align: center;
     background-color: #FEC600;
     border: 0.5px solid #FEC600 !important;
@@ -1514,7 +1514,7 @@ table {
 }
 
 #footer .logo img {
-    width: 200px;
+    width: 100%;
 }
 
 #footer .bg-footer {
@@ -1617,7 +1617,7 @@ table {
 }
 
 .dropdown-menu.show {
-    background-color: #019680;
+    background-color: #155A50;
     border: 0.5px solid #019680;
     top: 100%;
     border-radius: 3px;
@@ -2027,20 +2027,21 @@ table {
         height: 300px;
     }
     .item-places .infor-places a {
-        font-size: 12px;
+        font-size: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .item-places .infor-places p {
-        font-size: 12px;
+        font-size: 16px;
+        line-height: 20px;
     }
     btn-place .item-places .address {
-        font-size: 12px;
+        font-size: 14px !important;
     }
     .btn-place {
-        padding: 4px 0;
+        padding: 8px 45px;
         border-radius: 6px;
-        width: 100%;
+        display: inline-block !important;
     }
     .title-places {
         padding-bottom: 0;
@@ -2048,6 +2049,9 @@ table {
     #places {
         padding-top: 50px;
         padding-bottom: 50px;
+    }
+    #places .container-fluid {
+        padding: 0 60px !important;
     }
     #event .container-fluid {
         padding: 0 15px !important;
@@ -2121,10 +2125,18 @@ table {
         padding: 0;
     }
     .list-places .slick-prev {
-        left: 10px;
+        left: -10px;
     }
     .list-places .slick-next {
-        right: 10px;
+        right: -10px;
+    }
+    .item-places.slick-active {
+        filter: none;
+    }
+    .item-places.slick-active .infor-places {
+        display: block;
+        padding-left: 35px;
+        padding-right: 35px;
     }
 }
 
@@ -2133,4 +2145,41 @@ table {
         top: 28%;
         left: 21% !important;
     }
+}
+
+
+/* ảnh trang đăng nhập */
+
+.background-right-sign .background-right-sign-scene img {
+    object-fit: cover;
+}
+
+.dropdown-menu.show .dropdown-item:hover {
+    background-color: #019680 !important;
+    color: #fff !important;
+}
+
+
+/* map trang sự kiện */
+
+.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+    z-index: 1;
+    height: 500px !important;
+}
+
+
+/* #skct-article>div>div>div.col-12.col-lg-4>aside {
+    box-shadow: 0 0px 10px 0 rgb(202, 202, 202);
+} */
+
+.nav-link.dropdown-toggle.d-flex.align-items-center {
+    color: #fff !important;
+}
+
+#top-bar>div>ul>div.items>ul {
+    transform: translate(54px, 41px) !important;
+}
+
+.content-event .name a:hover {
+    color: #019680;
 }

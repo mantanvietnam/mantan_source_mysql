@@ -1552,7 +1552,8 @@ header .main-nav nav>.container-fluid {
 }
 
 #skct-article aside {
-    padding-top: 65px;
+    margin-top: 65px;
+    margin-bottom: 65px;
 }
 
 #skct-lien-quan-bottom {
