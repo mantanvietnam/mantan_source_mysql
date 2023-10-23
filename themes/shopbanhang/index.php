@@ -45,61 +45,39 @@ global $urlThemeActive;
                     <div class="flash-sale-link">
                         <a href="">Xem chi tiết</a>
                     </div>
-                    <div class="time-flash-sale">
-                        <div class="time-flash-item">
-                            <div class="time-flash-number">
-                                <p>0</p>
-                            </div>
-                            <div class="time-flash-text">
-                                <p>Giờ</p>
-                            </div>
-                        </div>
-
-                        <div class="time-flash-item time-flash-item-center">
-                            <div class="time-flash-number">
-                                <p>0</p>
-                            </div>
-                            <div class="time-flash-text">
-                                <p>Phút</p>
-                            </div>
-                        </div>
-
-                        <div class="time-flash-item">
-                            <div class="time-flash-number">
-                                <p>0</p>
-                            </div>
-                            <div class="time-flash-text">
-                                <p>Giây</p>
-                            </div>
-                        </div>
+                    <div class="time-flash-sale" id="countdown">
+                        
                     </div>
 
                     <div class="list-product">
                         <div class="row">
+                            <?php if(!empty($product_flasl)){ 
+                                foreach($product_flasl as $key => $item){
+                                ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
                                 <div class="best-sale-item-inner">
                                     <div class="ribbon ribbon-top-right"><span>33%</span></div>
                                     <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
+                                        <a href="product/<?php echo $item->slug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                                     </div>
         
                                     <div class="best-sale-info">
                                         <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
+                                            <a href="product/<?php echo $item->slug ?>.html"><?php  echo $item->title ?></a>
                                         </div>
         
                                         <div class="best-sale-price">
-                                            <p>1.0000.000</p>
+                                            <p><?php  echo number_format($item->price); ?>đ</p>
                                         </div>
 
                                         <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
+                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
                                         </div>
                                     </div>
 
                                     <div class="progress-box">
                                         <div class="best-sale-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
+                                            <div class="text-progress">Sản phẩm <?php  echo @$item->sold; ?> Đã bán</div>
                                             <div class="sale-progress-val" style="width: 32%"></div>
                                         </div>
                                     </div>
@@ -111,141 +89,14 @@ global $urlThemeActive;
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
+                                            <p><?php  echo @$item->sold; ?> Đã bán</p>
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php }} ?>
                             
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
-                                <div class="best-sale-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-
-                                    <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="best-sale-info">
-                                        <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="best-sale-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-
-                                        <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="progress-box">
-                                        <div class="best-sale-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="best-sale-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
-                                <div class="best-sale-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-
-                                    <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="best-sale-info">
-                                        <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="best-sale-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-
-                                        <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="progress-box">
-                                        <div class="best-sale-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="best-sale-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
-                                <div class="best-sale-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-
-                                    <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="best-sale-info">
-                                        <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="best-sale-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-
-                                        <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="progress-box">
-                                        <div class="best-sale-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="best-sale-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -260,68 +111,20 @@ global $urlThemeActive;
                 </div>
 
                 <div class="top-search-slide">
+                     <?php if(!empty($product_search)){ 
+                                foreach($product_search as $key => $item){
+                                ?>
                     <div class="top-serach-item">
                         <div class="top-serach-item-inner">
                             <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
+                                <img src="<?php echo $item->image ?>" alt="">
                             </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
+                            <a href="product/<?php echo $item->slug ?>.html" class="name-top-search"><?php echo $item->title ?></a>
                         </div>
                     </div>
 
-                    <div class="top-serach-item">
-                        <div class="top-serach-item-inner">
-                            <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
-                            </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
-                        </div>
-                    </div>
+                    <?php }} ?>
 
-                    <div class="top-serach-item">
-                        <div class="top-serach-item-inner">
-                            <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
-                            </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
-                        </div>
-                    </div>
-
-                    <div class="top-serach-item">
-                        <div class="top-serach-item-inner">
-                            <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
-                            </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
-                        </div>
-                    </div>
-
-                    <div class="top-serach-item">
-                        <div class="top-serach-item-inner">
-                            <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
-                            </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
-                        </div>
-                    </div>
-
-                    <div class="top-serach-item">
-                        <div class="top-serach-item-inner">
-                            <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
-                            </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
-                        </div>
-                    </div>
-
-                    <div class="top-serach-item">
-                        <div class="top-serach-item-inner">
-                            <div class="top-search-item-image">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt="">
-                            </div>
-                            <a href="" class="name-top-search">Túi chườm nóng giảm đau bụng</a>
-                        </div>
-                    </div>
                 </div>
             </div>
  
@@ -338,23 +141,26 @@ global $urlThemeActive;
                 <div class="best-sale-list">
                     <div class="best-sale-list-inner">
                         <div class="row">
+                            <?php if(!empty($product_sold)){ 
+                                foreach($product_sold as $key => $item){
+                                ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
                                 <div class="best-sale-item-inner">
                                     <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
+                                        <a href="product/<?php echo $item->slug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                                     </div>
         
                                     <div class="best-sale-info">
                                         <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
+                                            <a href="product/<?php echo $item->slug ?>.html"><?php echo $item->title ?></a>
                                         </div>
         
                                         <div class="best-sale-price">
-                                            <p>1.0000.000</p>
+                                            <p><?php  echo number_format($item->price); ?>đ</p>
                                         </div>
         
                                         <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
+                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
                                         </div>
                                     </div>
         
@@ -365,114 +171,13 @@ global $urlThemeActive;
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
+                                            <p><?php  echo @$item->sold; ?>  Đã bán</p>
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
-                                <div class="best-sale-item-inner">
-                                    <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="best-sale-info">
-                                        <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="best-sale-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="best-sale-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
-                                <div class="best-sale-item-inner">
-                                    <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="best-sale-info">
-                                        <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="best-sale-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="best-sale-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
-                                <div class="best-sale-item-inner">
-                                    <div class="best-sale-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="best-sale-info">
-                                        <div class="best-sale-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="best-sale-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="best-sale-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="best-sale-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                              <?php }} ?>
                         </div>
                     </div>
                 </div>
@@ -485,19 +190,19 @@ global $urlThemeActive;
                 <div class="row">
                     <div class="home-category-big col-12 ">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/backgroundbig.png" alt=""></a>
+                            <a href=""><img src="<?php echo $setting['image4'] ?>" alt=""></a>
                         </div>
                     </div>
 
                     <div class="home-category-small col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/backgroundsmaillhome.png" alt=""></a>
+                            <a href=""><img src="<?php echo $setting['image5'] ?>" alt=""></a>
                         </div>
                     </div>
 
                     <div class="home-category-small col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/backgroundsmaillhome.png" alt=""></a>
+                            <a href=""><img src="<?php echo $setting['image6'] ?>" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -508,7 +213,7 @@ global $urlThemeActive;
         <section id="section-banner-policy">
             <div class="container-fluid">
                 <div class="banner-policy">
-                    <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
+                    <img src="<?php echo $setting['image7'] ?>" alt="">
                 </div>
             </div>
         </section>
@@ -567,38 +272,118 @@ global $urlThemeActive;
                     </div>
 
                     <div class="news-tell">
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/dantri.png" alt="">
+                         <?php if(!empty($news->imageinfo)){
+                        foreach($news->imageinfo as $key => $item){ ?>
+                         <div class="news-tell-item">
+                            <img src="<?php echo $item->image; ?>" alt="">
                         </div>
-
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/vietnamnet.png" alt="">
-                        </div>
-
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/dantri.png" alt="">
-                        </div>
-
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/vietnamnet.png" alt="">
-                        </div>
-
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/vietnamnet.png" alt="">
-                        </div>
-
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/dantri.png" alt="">
-                        </div>
-
-                        <div class="news-tell-item">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/vietnamnet.png" alt="">
-                        </div>
+                    <?php }} ?>
+                        
                     </div>
                 </div>
             </div>
         </section>
     </main>
+<script>
+    function updateCountdown() {
+      // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
+      const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , $setting['targetTime']) ?>").getTime();
 
+      // Lấy thời gian hiện tại
+      const currentTime = new Date().getTime();
+
+      // Tính thời gian còn lại
+      const timeLeft = targetTime - currentTime;
+
+      if (timeLeft <= 0) {
+         var html = '';
+         html +='        <div class="time-flash-item">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>0</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Ngày</p>'
+        html +='                    </div>'
+        html +='                </div>'
+
+        html +='        <div class="time-flash-item">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>0</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Giờ</p>'
+        html +='                    </div>'
+        html +='                </div>'
+
+        html +='                <div class="time-flash-item time-flash-item-center">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>0</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Phút</p>'
+        html +='                    </div>'
+        html +='                </div>'
+
+        html +='                <div class="time-flash-item">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>0</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Giây</p>'
+        html +='                    </div>'
+        html +='                </div>'
+        document.getElementById("countdown").innerHTML = html;
+      } else {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        var html = '';
+         html +='        <div class="time-flash-item">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>'+days+'</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Ngày</p>'
+        html +='                    </div>'
+        html +='                </div>'
+
+        html +='        <div class="time-flash-item">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>'+hours+'</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Giờ</p>'
+        html +='                    </div>'
+        html +='                </div>'
+
+        html +='                <div class="time-flash-item time-flash-item-center">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>'+minutes+'</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Phút</p>'
+        html +='                    </div>'
+        html +='                </div>'
+
+        html +='                <div class="time-flash-item">'
+        html +='                    <div class="time-flash-number">'
+        html +='                        <p>'+seconds+'</p>'
+        html +='                    </div>'
+        html +='                    <div class="time-flash-text">'
+        html +='                        <p>Giây</p>'
+        html +='                    </div>'
+        html +='                </div>'
+        document.getElementById("countdown").innerHTML = html;
+        //document.getElementById("countdown").innerHTML = `Còn lại:  ngày, ${hours} giờ, ${minutes} phút, ${seconds} giây`;
+      }
+    }
+
+    // Cập nhật thời gian còn lại mỗi giây
+    setInterval(updateCountdown, 1000);
+
+    // Gọi hàm cập nhật ngay khi trang được tải
+    updateCountdown();
+  </script>
 <?php
 getFooter();?>

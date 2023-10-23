@@ -55,7 +55,7 @@ rel='stylesheet' type='text/css'>
             <div class="modal-body">
                 <div class="showMess" id="">
                     <p>Lý do hủy Giường</p>
-                    <input type="text" name="noteCancelRoom" id="noteCancelRoom" value="" class="form-control">
+                    <input type="text" name="noteCancelRoom"  id="noteCancelRoom" value="" class="form-control">
                     <br/>
                     <input type="hidden" name="idBedCancel" value="" id="idBedCancel">
                 </div>

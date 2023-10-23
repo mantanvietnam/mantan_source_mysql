@@ -113,7 +113,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
                         </ul>
                     <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
+                        <a class="nav-link d-flex align-items-center" style=" color: white; "
                            href="/login">Đăng nhập</a>
                     <?php } ?>
                         <li class="nav-item dropdown">
@@ -149,7 +149,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                               if(empty($value->sub)){
                          ?>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value->links ?>"><?php echo $value->name; ?></a>
+                                <a class="nav-link active" aria-current="page" href="<?php echo $value->link ?>"><?php echo $value->name; ?></a>
                             </li>
                         <?php   }else{  ?>
                             <li class="nav-item dropdown">
@@ -178,6 +178,21 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 
                     </div>
                 </nav>
+            </div>
+        </div>
+        <div id="screen-search">
+            <button class="btn-close-search" onclick="closeSearchModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="form-group">
+                <label>Nhập từ khóa: </label>
+                <form action="/search" method="get">
+                    <label>Nhập từ khóa: </label>
+                    <div class="input-form">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="input-keyword" name="key" placeholder="Nhập từ khóa và ấn enter">
+                    </div>
+                </form>
             </div>
         </div>
         

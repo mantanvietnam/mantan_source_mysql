@@ -78,201 +78,155 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 </head>
 <body>
 
-<!-- <header>
-    <div class="top bg-primary-cus py-2">
-        <div class="container">
-            <div class="d-flex justify-content-end align-items-center">
-                <form class="search-input d-none d-md-block" action="/search" method="get">
-                    <img src="<?= $urlThemeActive ?>/assets/lou_icon/icon-search.svg" class="me-2" alt="">
-                    <input type="text" name="key" placeholder="Tìm kiếm">
-                </form>
-                <li class="nav-item dropdown user-login">
-                    
-                </li>
-                <a href="https://tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
-                </a>
-                <a href="https://en.tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-en.svg" alt="">
-                </a>
-            </div>
+
+<div id="header">
+    <div id="top-bar">
+        <div class="container-fluid">
+            <ul class="nav nav-pills">
+                <div class="date"><?php echo sw_get_current_weekday() ?></div>
+                <div class="box-search">
+                    <button class="nav-link" onclick="showSearchModal()">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
+                        Tìm kiếm
+                    </button>
+                </div>
+                <div class="items">
+                    <?php if (!empty($infoUser)) { ?>
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                        data-bs-toggle="dropdown">
+                        <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
+                                alt="">
+                        <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
+                        <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
+                        <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
+                        <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
+                    </ul>
+                <?php } else { ?>
+                    <a class="nav-link d-flex align-items-center" style=" color: white; "
+                        href="/login">Đăng nhập</a>
+                <?php } ?>
+                    <li class="nav-item register">
+                    <!--     <a href="">Đăng ký</a>
+                    </li>
+                    <li class="nav-item log-in">
+                        <a href="">Đăng nhập</a>
+                    </li> -->
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-earth-asia"></i>
+                            <span class="lang-text">Language:</span> Tiếng Việt
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </ul>
         </div>
     </div>
-    <div class="main-nav">
-        <div class="container-xxl">
-            <nav class="navbar navbar-expand-xl">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-block" href="/">
-                        <img src="" style=" width: 55px; " alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            
-                             <?php 
-                            $menu = getMenusDefault();
-                          
-                            if(!empty($menu)){
-                            foreach($menu as $key => $value){
-                              if(empty($value['sub'])){
-                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
-                            </li>
-                        <?php   }else{  ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <?php echo $value['name']  ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                            <?php }}} ?>
-                        </ul>
-                    </div>
+    <div id="foot_bar">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#">
+                    <img src="<?php echo @$setting['image_logo']; ?>" style="max-width: 100%;" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span><i class="fa-solid fa-bars" style="color: #f7f7f7;"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                            <?php 
+                        $menu = getMenusDefault();
+                        
+                        if(!empty($menu)){
+                        foreach($menu as $key => $value){
+                            if(empty($value->sub)){
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="<?php echo $value->link ?>"><?php echo $value->name; ?></a>
+                        </li>
+                    <?php   }else{  ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="<?php echo $value->link;  ?>" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <?php echo $value->name  ?>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php  foreach($value['sub'] as $keys => $values) { ?>
+                                <li><a class="dropdown-item" href="<?php echo $values->link; ?>"><?php echo $values->name;  ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                        <?php }}} ?>
+                        <li class="nav-item item-search">
+                            <button class="nav-link" onclick="showSearchModal()">
+                                <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <div class="line-nav"></div>
+                        </li>
+
+                    </ul>
+
+
                 </div>
             </nav>
         </div>
     </div>
-</header> -->
-<div id="header">
-        <div id="top-bar">
-            <div class="container-fluid">
-                <ul class="nav nav-pills">
-                    <div class="date"><?php echo sw_get_current_weekday() ?></div>
-                    <div class="box-search">
-                        <button class="nav-link" onclick="showSearchModal()">
-                            <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
-                            Tìm kiếm
-                        </button>
+    <div id="screen-search">
+            <button class="btn-close-search" onclick="closeSearchModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="form-group">
+                <form action="/search" method="get">
+                    <label>Nhập từ khóa: </label>
+                    <div class="input-form">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="input-keyword" name="key" placeholder="Nhập từ khóa và ấn enter">
                     </div>
-                    <div class="items">
-                        <?php if (!empty($infoUser)) { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                           data-bs-toggle="dropdown">
-                            <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
-                                 alt="">
-                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
-                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
-                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
-                            <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
-                        </ul>
-                    <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
-                           href="/login">Đăng nhập</a>
-                    <?php } ?>
-                        <li class="nav-item register">
-                        <!--     <a href="">Đăng ký</a>
-                        </li>
-                        <li class="nav-item log-in">
-                            <a href="">Đăng nhập</a>
-                        </li> -->
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-earth-asia"></i>
-                                <span class="lang-text">Language:</span> Tiếng Việt
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
-                                <li><a class="dropdown-item" href="#">English</a></li>
-                            </ul>
-                        </li>
-                    </div>
-                </ul>
+                </form>
             </div>
         </div>
-        <div id="foot_bar">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">
-                        <img src="<?php echo @$setting['image_logo']; ?>" style="max-width: 100%;" alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span><i class="fa-solid fa-bars" style="color: #f7f7f7;"></i></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                              <?php 
-                            $menu = getMenusDefault();
-                         
-                            if(!empty($menu)){
-                            foreach($menu as $key => $value){
-                              if(empty($value->sub)){
-                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value->links ?>"><?php echo $value->name; ?></a>
-                            </li>
-                        <?php   }else{  ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="<?php echo $value->link;  ?>" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <?php echo $value->name  ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $values->link; ?>"><?php echo $values->name;  ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                            <?php }}} ?>
-                            <li class="nav-item item-search">
-                                <button class="nav-link" onclick="showSearchModal()">
-                                    <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <div class="line-nav"></div>
-                            </li>
+    <div id="banner-360">
+        <div class="videoWrapper">
+            <iframe src="<?php echo @$setting['link_image360']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div id="hide-1" class="fake-banner"></div>
 
-                        </ul>
+        <div id="hide-2" class="container-fluid">
+            <div class="content-title">
+                <h1 style="line-height: 1.3"><?php echo @$setting['welcome1']; ?>
+                <br> ĐẾN VỚI QUẬN ĐỐNG ĐA
 
 
-                    </div>
-                </nav>
+                </h1>
+            </div>
+            <div id="btn-360" class="btn-play-360">
+                <button onClick="hideDiv()">
+                    <i class="fa-solid fa-circle-play"></i>
+                    <p>Khám phá</p>
+                </button>
             </div>
         </div>
-        <div id="banner-360">
-            <div class="videoWrapper">
-                <iframe src="<?php echo @$setting['link_image360']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div id="hide-1" class="fake-banner"></div>
 
-            <div id="hide-2" class="container-fluid">
-                <div class="content-title">
-                    <h1><?php echo @$setting['welcome1']; ?>
-                    </h1>
-                </div>
-                <div id="btn-360" class="btn-play-360">
-                    <button onClick="hideDiv()">
-                        <i class="fa-solid fa-circle-play"></i>
-                        <p>Khám phá</p>
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="icon-scroll-down bar-1">
-                <div class="chevron"></div>
-            </div>
-            <div class="icon-scroll-down bar-2">
-                <div class="chevron"></div>
-            </div>
-            <div class="icon-scroll-down bar-3">
-                <div class="chevron"></div>
-            </div>
+        <div class="icon-scroll-down bar-1">
+            <div class="chevron"></div>
+        </div>
+        <div class="icon-scroll-down bar-2">
+            <div class="chevron"></div>
+        </div>
+        <div class="icon-scroll-down bar-3">
+            <div class="chevron"></div>
         </div>
     </div>
+</div>
+
+
     <main>
         <div id="about">
             <div class="container-fluid">
@@ -289,8 +243,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="list-content">
                                 <?php echo @$setting['content']; ?>
                             </div>
-                            <button class="btn_about_1">Xem thêm</button>
                             <button class="btn_about_2">Ẩn bớt</button>
+                            <button class="btn_about_1">Xem thêm</button>
                         </div>
                     </div>
                 </div>
@@ -332,7 +286,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <div class="title-des">Điểm đến</div>
                     <div class="list-des">
                         <div class="items-des">
-                            <a href="">
+                            <a href="/chi_tiet_di_tich_danh_lam">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
                                 <p>Di tích & danh lam</p>
                             </a>
@@ -441,7 +395,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="item-event-5">
                                 <div class="content-event">
                                     <div class="name">
-                                        <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
+                                        <a href="/chi_tiet_su_kien/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a></div>
                                     <div class="cerlender-event">
                                         <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
                                     </div>
@@ -460,7 +414,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="item-event-6-1">
                                 <div class="content-event">
                                     <div class="name">
-                                        <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
+                                        <a href="/chi_tiet_su_kien/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a></div>
                                     <div class="cerlender-event">
                                         <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
                                     </div>

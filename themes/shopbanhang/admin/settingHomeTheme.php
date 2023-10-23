@@ -12,24 +12,53 @@
               <h5 class="mb-0 form-label">Khối banner</h5>
             </div>
             <div class="card-body row ">
-                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Logo</label>
                    <?php showUploadFile('image_logo','image_logo', @$setting['image_logo'],1);?>
                 </div>
 
-                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                  <label class="form-label" for="basic-default-fullname">id slide</label>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">id ảnh slide</label>
                   <input type="text" class="form-control" name="id_slide" value="<?php echo @$setting['id_slide'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">Logo</label>
+                  <label class="form-label" for="basic-default-fullname">Thời gian Flash Sale </label>
+                  <input type="text" name="targetTime" class="form-control hasDatepicker datetimepicker" id="targetTime" value="<?php echo (!empty($setting['targetTime']))?  date("H:i d/m/Y", @$setting['targetTime']) : " " ?>">
+                </div>
+                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <label class="form-label" for="basic-default-fullname">khối ảnh 1</label>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
                    <?php showUploadFile('image1','image1', @$setting['image1'],2);?>
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">Logo</label>
+                  <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
                    <?php showUploadFile('image2','image2', @$setting['image2'],3);?>
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">Logo</label>
+                  <label class="form-label" for="basic-default-fullname">ảnh 3</label>
                    <?php showUploadFile('image3','image3', @$setting['image3'],4);?>
+                </div>
+
+                <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <label class="form-label" for="basic-default-fullname">khối ảnh 2</label>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
+                   <?php showUploadFile('image4','image4', @$setting['image4'],5);?>
+                </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
+                   <?php showUploadFile('image5','image5', @$setting['image5'],6);?>
+                </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">ảnh 3</label>
+                   <?php showUploadFile('image6','image6', @$setting['image6'],7);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">ảnh 4</label>
+                   <?php showUploadFile('image7','image7', @$setting['image7'],8);?>
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">id ảnh báo chí</label>
+                  <input type="text" class="form-control" name="id_bc" value="<?php echo @$setting['id_bc'];?>" />
                 </div>
                  
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

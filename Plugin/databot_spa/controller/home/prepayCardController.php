@@ -148,7 +148,6 @@ function addPrepayCard($input){
         return $controller->redirect('/login');
     }
 }
-
 function deletePrepayCard($input){
     global $controller;
     global $session;
@@ -171,7 +170,6 @@ function deletePrepayCard($input){
         return $controller->redirect('/login');
     }
 }
-
 function buyPrepayCard($input){
 	global $controller;
 	global $isRequestPost;
@@ -255,7 +253,6 @@ function buyPrepayCard($input){
 		return $controller->redirect('/login');
 	}
 }
-
 function printInfoBillCard($input){
 	global $controller;
     global $modelCategories;
@@ -307,10 +304,7 @@ function printInfoBillCard($input){
 
 function listCustomerPrepayCard($input){
     global $controller;
-    global $modelCategories;
-    global $urlCurrent;
     global $metaTitleMantan;
-    global $isRequestPost;
     global $session;
 
     $metaTitleMantan = 'Danh sách thẻ trước';
@@ -324,6 +318,10 @@ function listCustomerPrepayCard($input){
         $modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 
         $conditions = array('id_member'=>$user->id_member);
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = $_GET['id'];
+        }
 
         if(!empty($_GET['id_customer'])){
            $conditions['id_customer'] = $_GET['id_customer'];
@@ -340,6 +338,7 @@ function listCustomerPrepayCard($input){
             $date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
             $conditions['created_at <='] = date('Y-m-d H:i:s', $date_end);
         } 
+
            
         $listData = $modelCustomerPrepaycard->find()->where($conditions)->all()->toList();
 

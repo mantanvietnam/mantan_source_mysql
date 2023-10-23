@@ -14,6 +14,7 @@
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
 
+
           <div class="col-md-2">
             <label class="form-label">Thông tin khách hàng</label>
             <input type="text" class="form-control" id="full_name" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
@@ -50,6 +51,7 @@
           <thead>
             <tr class="">
               <th>ID</th>
+              <th>Ngày tạo</th>
               <th>Tên thẻ</th>
               <th>Thông tin khách hàng</th>
               <th>Số tiền khách được tiêu</th>
@@ -75,9 +77,8 @@
                   }
 
                   echo '<tr>
-                          <td>'.$item->id.'</br>
-                            '.date('H:i d/m/Y', strtotime($item->created_at)).'
-                          </td>
+                          <td>'.$item->id.'</td>
+                          <td>'.date('H:i d/m/Y', strtotime($item->created_at)).'</td>
                           <td>'.$item->infoPrepayCard->name.'</td>
                           <td> '.$item->infoCustomer->name.'<br/>
                             '.$item->infoCustomer->phone.'<br/>

@@ -77,15 +77,20 @@ $(function() {
 
 // btn about
 $(document).ready(function() {
-    $(".btn_about_2").click(function() {
-        $(".infor-content").hide();
-        $(".btn_about_1").css('display', 'block');
-        $(".btn_about_2").css('display', 'none');
-    });
+    $(".infor-content").hide();
+    $(".btn_about_1").show();
+    $(".btn_about_2").hide();
+
+
     $(".btn_about_1").click(function() {
         $(".infor-content").css('display', 'block');
         $(".btn_about_2").css('display', 'block');
         $(".btn_about_1").css('display', 'none');
+    });
+    $(".btn_about_2").click(function() {
+        $(".infor-content").hide();
+        $(".btn_about_1").css('display', 'block');
+        $(".btn_about_2").css('display', 'none');
     });
 });
 

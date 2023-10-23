@@ -1669,6 +1669,7 @@ input:-internal-autofill-selected {
 #section-change-password .background-right-sign .background-right-sign-scene img {
     width: 800px;
     height: 1000px;
+    object-fit: cover;
 }
 
 #section-change-password .background-right-sign .background-right-sign-circle img {
@@ -1975,6 +1976,10 @@ input:-internal-autofill-selected {
     .background-right-sign .background-right-sign-scene {
         width: 289%;
     }
+    /*  */
+    .img-profile img {
+        width: 480px;
+    }
 }
 
 @media (max-width:768px) {
@@ -2056,7 +2061,6 @@ input:-internal-autofill-selected {
     #section-sign .nav-link-sign {
         font-size: 25px
     }
-    /* VHieu bo sung sua logo */
 }
 
 @media (max-width: 576px) {
@@ -2468,6 +2472,10 @@ input:-internal-autofill-selected {
     margin-bottom: 10px;
 }
 
+.card-body .btn {
+    border: 1px solid #019680;
+}
+
 
 /* chi tiết tin tức */
 
@@ -2480,6 +2488,12 @@ input:-internal-autofill-selected {
     -webkit-line-clamp: 2;
     line-height: 34px !important;
     font-weight: bold;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 }
 
 #su-kien-list-event .section-heading {

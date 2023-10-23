@@ -234,10 +234,12 @@ $infoUser = $session->read('infoUser');
                                 <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-location-dat-tour.svg" alt="">
                                 <span> <?php echo @$data->address ?></span>
                             </div>
+                            <?php if(!empty($data->price)){ ?>
                             <div class="card-detail d-flex align-items-center">
                                 <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-promote-dat-tour.svg" alt="">
-                                <span><?php echo number_format(@$data['price']); ?> VNĐ</span>
+                                <span><?php echo number_format(@$data->price); ?> VNĐ</span>
                             </div>
+                        <?php } ?>
                             <div class="d-flex align-items-center mt-3">
 
 
