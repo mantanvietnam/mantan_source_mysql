@@ -63,7 +63,7 @@
               <?= $this->Form->create(); ?>
                 <input type="hidden" name="idEdit" id="idEdit" value="" />
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Tên chủ đề</label>
+                  <label class="form-label" for="basic-default-phone">Tên nhãn hiệu</label>
                   <input type="text" class="form-control phone-mask" name="name" id="name" value="" />
                 </div>
                 <div class="mb-3">

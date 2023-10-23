@@ -403,7 +403,6 @@ function addProduct(id, name, priceProduct,type){
         }
 
         tinhtien();
-        
     }
 
     // xóa sản phẩm trong đơn 

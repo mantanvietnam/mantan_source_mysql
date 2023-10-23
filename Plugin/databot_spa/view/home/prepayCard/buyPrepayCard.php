@@ -133,6 +133,7 @@
 	                   <input required type="text" required="" placeholder="Nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$data->full_name;?>" />
 	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
+
 	               <div class="mb-3 col-md-2">
 	                   <p><a href="/addCustomer" class="btn btn-primary" target="_blank" type="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a></p>
 	               </div>
@@ -289,8 +290,8 @@
     var checkProduct= true;
 
 // all sản phầm vào đơn hàng 
-function addProduct(id, name, priceProduct, price){
-        id_customer = parseFloat($('#id_customer').val());
+    function addProduct(id, name, priceProduct, price){
+        // id_customer = parseFloat($('#id_customer').val());
    
     if(listProductAdd.hasOwnProperty(id)){
         // thêm số lượng vào mặt hàng đã có
@@ -399,6 +400,7 @@ function addProduct(id, name, priceProduct, price){
     // tạo đơn hàng 
     function saveOrder(){
         tinhtien();
+        
         var moneyCustomerPay= $('#moneyCustomerPay').val();
         var congno= $('#typeCollectionBill').val();
         var r= true;
@@ -423,6 +425,7 @@ function addProduct(id, name, priceProduct, price){
     // thanh toán 
     function createOrder(){
         tinhtien();
+        id_customer = parseFloat($('#id_customer').val());
         var moneyCustomerPay= $('#moneyCustomerPay').val();
         var congno= $('#typeCollectionBill').val();
         var r= true;

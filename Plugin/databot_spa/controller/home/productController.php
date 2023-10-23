@@ -391,12 +391,9 @@ function deleteProduct($input){
 
 function addProductWarehouse($input){
     global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
-    global $urlCurrent;
-    global $urlHomes;
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
@@ -414,8 +411,6 @@ function addProductWarehouse($input){
 
         $conditionsWarehouse = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
         $listWarehouse = $modelWarehouses->find()->where($conditionsWarehouse)->all()->toList();
-
-
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -530,13 +525,10 @@ function addProductWarehouse($input){
 }
 
 function importHistorytWarehouse($input){
-    global $isRequestPost;
-    global $modelCategories;
     global $metaTitleMantan;
     global $session;
     global $controller;
     global $urlCurrent;
-    global $urlHomes;
 
     $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
     

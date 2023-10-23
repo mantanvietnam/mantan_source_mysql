@@ -100,7 +100,6 @@
               <th>Tên sản phẩm</th>
               <th>Số lượng</th>
               <th>Giá bán</th>
-              <th>Hoa hồng</th>
               <th>Danh mục</th>
               <th>Trạng thái</th>
               <th>Sửa</th>
@@ -147,10 +146,6 @@
 
                           <td>
                             ' . number_format($item->price) . 'đ
-                          </td>
-                          <td>
-                            ' . $staff . '
-                            ' . $affiliate . '
                           </td>
                           <td>' . $category->name. '</td>
                           <td>' . $status . '</td>
