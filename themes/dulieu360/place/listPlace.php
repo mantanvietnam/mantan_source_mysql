@@ -23,12 +23,7 @@ global $urlThemeActive;
                         <p>Danh mục</p>
                     </div>
 
-                    <!-- <div class="filter-option">
-                        <select class="form-select-filter">
-                            <option selected>Di tích văn hoá, lịch sử</option>
-                        
-                        </select>
-                    </div> -->
+                   
                      <?php include __DIR__.'/../select.php' ;?>
                 </div>
 
@@ -46,8 +41,8 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>DANH LAM THẮNG CẢNH</h1>
-                <p>Hãy khám phá những điểm đến Danh lam thắng cảnh ở Đống Đa</p>
+                <h1>DI TÍCH VÀ DANH LAM</h1>
+                <p>Hãy khám phá những điểm đế Di tích và Danh lam ở Đống Đa</p>
             </div>
 
             <div class="container">
@@ -58,9 +53,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_danh_lam/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
+                            <a href="/chi_tiet_di_tich_danh_lam/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_danh_lam/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
+                                <a href="/chi_tiet_di_tich_danh_lam/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>

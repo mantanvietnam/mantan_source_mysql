@@ -284,7 +284,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <div class="title-des">Điểm đến</div>
                     <div class="list-des">
                         <div class="items-des">
-                            <a href="/danh_lam">
+                            <a href="/chi_tiet_di_tich_danh_lam">
                                 <img src="<?php echo $urlThemeActive ?>assets/img/danhlam.svg" alt="">
                                 <p>Di tích & danh lam</p>
                             </a>

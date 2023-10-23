@@ -19,11 +19,11 @@
    $routesPlugin['chi_tiet_dich_vu_ho_tro_du_lich'] = 'tayho360/view/detailService.php';
    $routesPlugin['lang_nghe'] = 'tayho360/view/listCraftvillage.php';
    $routesPlugin['chi_tiet_lang_nghe'] = 'tayho360/view/detailCraftvillage.php';
-   $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
-   $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
-   $routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
+   $routesPlugin['di_tich_danh_lam'] = 'tayho360/view/listPlace.php';
+   $routesPlugin['chi_tiet_di_tich_danh_lam'] = 'tayho360/view/detailPlace.php';
+   //$routesPlugin['danh_lam'] = 'tayho360/view/listPlace.php';
    $routesPlugin['viet_nam_360'] = 'tayho360/view/vietnam360.php';
-   $routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
+   //$routesPlugin['chi_tiet_danh_lam'] = 'tayho360/view/detailPlace.php';
    $routesPlugin['khach_san'] = 'tayho360/view/listHotel.php';
    $routesPlugin['chi_tiet_khach_san'] = 'tayho360/view/detailHotel.php';
    $routesPlugin['le_hoi'] = 'tayho360/view/listFestival.php';
