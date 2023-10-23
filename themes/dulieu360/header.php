@@ -186,10 +186,13 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             </button>
             <div class="form-group">
                 <label>Nhập từ khóa: </label>
-                <div class="input-form">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" class="input-keyword" placeholder="Nhập từ khóa và ấn enter">
-                </div>
+                <form action="/search" method="get">
+                    <label>Nhập từ khóa: </label>
+                    <div class="input-form">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="input-keyword" name="key" placeholder="Nhập từ khóa và ấn enter">
+                    </div>
+                </form>
             </div>
         </div>
         

@@ -183,11 +183,13 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="form-group">
-                <label>Nhập từ khóa: </label>
-                <div class="input-form">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" class="input-keyword" placeholder="Nhập từ khóa và ấn enter">
-                </div>
+                <form action="/search" method="get">
+                    <label>Nhập từ khóa: </label>
+                    <div class="input-form">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="input-keyword" name="key" placeholder="Nhập từ khóa và ấn enter">
+                    </div>
+                </form>
             </div>
         </div>
     <div id="banner-360">
@@ -393,7 +395,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="item-event-5">
                                 <div class="content-event">
                                     <div class="name">
-                                        <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
+                                        <a href="/chi_tiet_su_kien/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a></div>
                                     <div class="cerlender-event">
                                         <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
                                     </div>
@@ -412,7 +414,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="item-event-6-1">
                                 <div class="content-event">
                                     <div class="name">
-                                        <a href="/chi_tiet_su_kien/<?php echo $value->name ?>.html"></a><?php echo $value->name ?></div>
+                                        <a href="/chi_tiet_su_kien/<?php echo $value->urlSlug ?>.html"><?php echo $value->name ?></a></div>
                                     <div class="cerlender-event">
                                         <i class="fa-solid fa-calendar-days"></i><?php echo date('d-m-Y',$value->datestart); ?>
                                     </div>
