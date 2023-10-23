@@ -520,12 +520,10 @@ table {
 }
 
 .list-content ul li {
-    line-height: 24px;
+    line-height: 30px;
     color: rgba(0, 0, 0, 0.6);
-}
-
-.list-content ul {
-    padding-left: 15px;
+    display: flex;
+    align-items: baseline;
 }
 
 .list-content p {
@@ -534,10 +532,9 @@ table {
     color: rgba(0, 0, 0, 0.6);
 }
 
-.content-about li::marker {
-    content: "\25CF ";
-    color: #4ac1bb;
-    font-size: 30px;
+.content-about li i {
+    color: #019680;
+    margin-right: 6px;
 }
 
 .list-content h4 {
@@ -551,15 +548,18 @@ table {
     color: rgba(0, 0, 0, 0.6);
 }
 
-.content-about button {
-    color: #0D3F38;
+.content-about .btn_about_1 {
+    color: #155A50;
     font-weight: 600;
     border: none;
     background-color: transparent;
 }
 
-.content-about .btn_about_1 {
-    display: none;
+.content-about .btn_about_2 {
+    color: #ac0000;
+    font-weight: 600;
+    border: none;
+    background-color: transparent;
 }
 
 #profile {
