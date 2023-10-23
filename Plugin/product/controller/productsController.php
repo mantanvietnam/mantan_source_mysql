@@ -210,4 +210,23 @@ function deleteProduct($input){
 
 	return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct.php');
 }
+
+function addFlashSale($input){
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    
+    if(!empty($_GET['id'])){
+        $data = $modelProduct->get($_GET['id']);
+            
+        $data->flash_sale = $_GET['flash_sale'];
+      
+        $modelProduct->save($data);
+        
+    }
+
+
+
+    return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct.php');
+}
 ?>

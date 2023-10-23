@@ -147,7 +147,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             if(empty($value->sub)){
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo $value->links ?>"><?php echo $value->name; ?></a>
+                            <a class="nav-link active" aria-current="page" href="<?php echo $value->link ?>"><?php echo $value->name; ?></a>
                         </li>
                     <?php   }else{  ?>
                         <li class="nav-item dropdown">

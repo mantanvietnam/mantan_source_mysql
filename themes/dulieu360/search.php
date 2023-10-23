@@ -4,7 +4,7 @@ global $urlThemeActive;
 
 ?>
 <main class="">
-    <section id="su-kien-banner">
+   <!--  <section id="su-kien-banner">
          <?php
          $order = array('id'=>'desc');
           $listDataPost= $modelPosts->find()->limit(1)->page(1)->where()->order($order)->all()->toList();
@@ -32,12 +32,12 @@ global $urlThemeActive;
         </div>
          <?php } }
                 } ?>
-    </section>
+    </section> -->
     <section id="su-kien-list-event">
         <div class="background" style="background-image: url('<?= $urlThemeActive ?>assets/lou_img/su-kien-list-event.png')">
             <section class="section-heading mt-4">
-                <h3 class="text-uppercase text-center">TIN TỨC</h3>
-                <p class="text-center">Những sự tin tức ở Đống Đa</p> 
+                <h3 class="text-uppercase text-center">KẾT QUẢ TÌM KIẾM</h3>
+                <!-- <p class="text-center">Những sự tin tức ở Đống Đa</p>  -->
             </section>
             <div class="container">
                 <div class="row g-3">

@@ -99,6 +99,7 @@
             <th>Danh mục</th>
             <th>Tên sản phẩm</th>
             <th>Trạng thái</th>
+            <th>Flash sale</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -107,12 +108,19 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $flash_sale = '';
+                if(@$item->flash_sale==1){
+                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc bỏ Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=0"><i class="bx bx-check-square"></i></a>';
+                }else{
+                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc áp Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=1"><i class="bx bxs-check-square"></i></a>';
+                }
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_category.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.$item->status.'</td>
+                        <td align="center">'.$flash_sale.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
