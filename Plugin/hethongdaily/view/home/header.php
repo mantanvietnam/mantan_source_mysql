@@ -90,11 +90,11 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="/listMember" class="app-brand-link">
+            <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png" width="50">
+                <img src="<?php echo $session->read('infoUser')->info_system->image;?>" width="50">
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">ĐẠI LÝ</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2"><?php echo strtoupper($session->read('infoUser')->info_system->name);?></span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -105,14 +105,17 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
+            
+            <?php if($session->read('infoUser')->create_agency == 'active'){ ?>
             <!-- Dashboard -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Đại lý tuyến dưới</span></li>
             <li class="menu-item active">
               <a href="/listMember" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-bar-chart-alt'></i> 
-                <div data-i18n="Analytics">Hệ thống đại lý</div>
+                <div data-i18n="Analytics">Hệ thống <?php echo strtoupper($session->read('infoUser')->info_system->name);?></div>
               </a>
             </li>
+            <?php }?>
 
             <?php if(empty($session->read('infoUser')->id_father)){ ?>
             <!-- Template -->
@@ -131,7 +134,6 @@
                 <div data-i18n="Tempaltes">Chức danh</div>
               </a>
             </li>
-            
             <?php }?>
 
             <!-- Template -->

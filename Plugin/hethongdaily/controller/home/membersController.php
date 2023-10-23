@@ -5,6 +5,7 @@ function login($input)
 	global $isRequestPost;
 	global $controller;
 	global $session;
+	global $modelCategories;
 
     $metaTitleMantan = 'Đăng nhập phần mềm quản lý đại lý';
 
@@ -34,6 +35,8 @@ function login($input)
 	    		if($info_customer){
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 'active'){
+    					$info_customer->info_system = $modelCategories->get($info_customer->id_system);
+
 		    			$session->write('CheckAuthentication', true);
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id.'/');
 
@@ -141,6 +144,8 @@ function account($input)
 				$user->avatar = $dataSend['avatar'];
 				$user->email = $dataSend['email'];
 				$user->address = $dataSend['address'];
+				$user->birthday = $dataSend['birthday'];
+				$user->facebook = $dataSend['facebook'];
 
 				$modelMembers->save($user);
 
@@ -242,6 +247,10 @@ function listMember($input)
 	$modelMembers = $controller->loadModel('Members');
 
 	if(!empty($session->read('infoUser'))){
+		if($session->read('infoUser')->create_agency == 'lock'){
+			return $controller->redirect('/account');
+		}
+
 		$mess = '';
 		if(!empty($_GET['status'])){
 			switch($_GET['status']){
@@ -350,6 +359,7 @@ function addMember($input)
 					$data->email = $dataSend['email'];
 					$data->birthday = $dataSend['birthday'];
 					$data->facebook = $dataSend['facebook'];
+					$data->create_agency = $dataSend['create_agency'];
 					$data->id_position = (int) $dataSend['id_position'];
 					
 

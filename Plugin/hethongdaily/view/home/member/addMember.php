@@ -3,15 +3,15 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listMember">Đại lý tuyến dưới</a> /</span>
-    Thông tin đại lý
+    <span class="text-muted fw-light"><a href="/listMember">Hệ thống tuyến dưới</a> /</span>
+    Thông tin tuyến dưới
   </h4>
   <!-- Basic Layout -->
     <div class="row">
       <div class="col-xl">
         <div class="card mb-12">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Thông tin đại lý</h5>
+            <h5 class="mb-0">Thông tin tuyến dưới</h5>
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Tên đại lý (*)</label>
+                    <label class="form-label" for="basic-default-phone">Họ tên (*)</label>
                     <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                   </div>
 
@@ -77,6 +77,14 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Trang Facebook</label>
                     <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$data->facebook;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Quyền tạo dữ liệu đại lý cấp dưới</label>
+                    <select name="create_agency" class="form-select color-dropdown">
+                      <option value="active">Được tạo</option>
+                      <option value="lock" <?php if(!empty($data->create_agency) && $data->create_agency=='lock') echo 'selected';?> >Không được tạo</option>
+                    </select>
                   </div>
                 </div>
               </div>

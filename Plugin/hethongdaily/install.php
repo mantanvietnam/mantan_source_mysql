@@ -23,6 +23,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `birthday` varchar(255) DEFAULT NULL,
   `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_position` int(11) NOT NULL DEFAULT 0,
+  `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 

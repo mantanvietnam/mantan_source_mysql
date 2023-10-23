@@ -1,287 +1,340 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+  getHeader(); 
+  global $themeSettings;
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tra cứu thông tin đại lý chính hãng</title>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<main id="main">
+  <!-- ======= KHỐI ĐẦU TRANG ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up"><?php echo @$themeSettings['title1']; ?></h1>
+          <span data-aos="fade-up" data-aos-delay="400"><?php echo @$themeSettings['content1']; ?></span>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a href="<?php echo @$themeSettings['linkgetstarted']; ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <span><?php echo @$themeSettings['submit1']; ?></span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="<?php echo @$themeSettings['imagetop1']; ?>" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/assert/css/style.css">
-    <?php mantan_header();?>
-</head>
+  <!-- ======= KHỐI DỊCH VỤ ======= -->
+  <section id="features" class="features">
+    <div class="container" data-aos="fade-up">
+      <header class="section-header">
+        <p><?php echo @$themeSettings['title5']; ?></p>
+        <span><?php echo @$themeSettings['minuscule5']; ?></span>
+      </header>
 
-<body>
-    <div class="wrapper">
-        <header class="header">
-            <nav class="header-top navbar navbar-expand-lg">
-                <div class="container-fluid">
-                        <div class="header-logo">
-                            <a href="#">
-                                <img class="header-logo-img" src="<?php echo $urlThemeActive;?>/assert/img/logo.svg" alt="">
-                            </a>
-                        </div>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="header-navbar collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class=" navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">GIỚI THIỆU</a>
-                                </li>
+      <div class="row">
+        <div class="col-lg-12 mt-12 mt-lg-0 d-flex">
+            <div class="row align-self-center gy-4">
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">CƠ HỘI KINH DOANH</a>
-                                </li>
+              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="200">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <p class="h3"><?php echo @$themeSettings['checkbox1']; ?></p>
+                </div>
+              </div>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">SỰ KIÊN-ĐÀO TẠO</a>
-                                </li>
+              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="300">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <p class="h3"><?php echo @$themeSettings['checkbox2']; ?></p>
+                </div>
+              </div>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">CƠ HỘI VIỆC LÀM</a>
-                                </li>
-                            </ul>
-                            <button onclick="window.location = '/login';" class="btn-login"><span>ĐĂNG NHẬP </span><i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-            </nav>
+              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="400">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <p class="h3"><?php echo @$themeSettings['checkbox3']; ?></p>
+                </div>
+              </div>
+
+                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="500">
+                  <div class="feature-box d-flex align-items-center">
+                    <i class="bi bi-check"></i>
+                    <p class="h3"><?php echo @$themeSettings['checkbox4']; ?></p>
+                  </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="600">
+                  <div class="feature-box d-flex align-items-center">
+                    <i class="bi bi-check"></i>
+                    <p class="h3"><?php echo @$themeSettings['checkbox5']; ?></p>
+                  </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="700">
+                  <div class="feature-box d-flex align-items-center">
+                    <i class="bi bi-check"></i>
+                    <p class="h3"><?php echo @$themeSettings['checkbox6']; ?></p>
+                  </div>
+              </div>
+              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="500">
+                  <div class="feature-box d-flex align-items-center">
+                    <i class="bi bi-check"></i>
+                    <p class="h3"><?php echo @$themeSettings['checkbox7']; ?></p>
+                  </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="600">
+                  <div class="feature-box d-flex align-items-center">
+                    <i class="bi bi-check"></i>
+                    <p class="h3"><?php echo @$themeSettings['checkbox8']; ?></p>
+                  </div>
+                </div>
+
+                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="700">
+                  <div class="feature-box d-flex align-items-center">
+                    <i class="bi bi-check"></i>
+                    <p class="h3"><?php echo @$themeSettings['checkbox9']; ?></p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- ======= KHỐI CHỨC NĂNG ======= -->
+  <section id="services" class="services">
+    <div class="container" data-aos="fade-up">
+
+      <header class="section-header">
+        <p><?php echo @$themeSettings['title8']; ?></p>
+        <span><?php echo @$themeSettings['tminuscule8']; ?></span>
+      </header>
+
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-box blue">
+            <i class="ri-home-gear-line icon"></i>
+            <h3><?php echo @$themeSettings['title801']; ?></h3>
+            <p><?php echo @$themeSettings['content801']; ?></p>
+            <a href="<?php echo @$themeSettings['link801']; ?>" class="read-more"><span>XEM THÊM</span> <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-box orange">
+            <i class="ri-store-2-line icon"></i>
+            <h3><?php echo @$themeSettings['title802']; ?></h3>
+            <p><?php echo @$themeSettings['content802']; ?></p>
+            <a href="<?php echo @$themeSettings['link802']; ?>" class="read-more"><span>XEM THÊM</span> <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="service-box green">
+            <i class="ri-basketball-line icon"></i>
+            <h3><?php echo @$themeSettings['title803']; ?></h3>
+            <p><?php echo @$themeSettings['content803']; ?></p>
+            <a href="<?php echo @$themeSettings['link803']; ?>" class="read-more"><span>XEM THÊM</span> <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="service-box red">
+            <i class=" ri-vidicon-2-line icon"></i>
+           <h3><?php echo @$themeSettings['title804']; ?></h3>
+            <p><?php echo @$themeSettings['content804']; ?></p>
+            <a href="<?php echo @$themeSettings['link804']; ?>" class="read-more"><span>XEM THÊM</span> <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+          <div class="service-box purple">
+            <i class=" ri-home-heart-line icon"></i>
+            <h3><?php echo @$themeSettings['title805']; ?></h3>
+            <p><?php echo @$themeSettings['content805']; ?></p>
+            <a href="<?php echo @$themeSettings['link805']; ?>" class="read-more"><span>XEM THÊM</span> <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+          <div class="service-box pink">
+            <i class="ri-map-pin-line icon"></i>
+            <h3><?php echo @$themeSettings['title806']; ?></h3>
+            <p><?php echo @$themeSettings['content806']; ?></p>
+            <a href="<?php echo @$themeSettings['link806']; ?>" class="read-more"><span>XEM THÊM</span> <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+         
+  <!-- ======= KHỐI SLIDE ĐỐI TÁC ======= -->
+  <secction id="clients" class="clients">
+    <div class="container" data-aos="fade-up">
+      <header class="section-header">
+        <p><?php echo @$themeSettings['titletaitro']; ?></p>
+        <span><?php echo @$themeSettings['nametaitro']; ?></span>
+      </header>
+
+      <div class="clients-slider swiper-container">
+        <div class="swiper-wrapper align-items-center">
+            <?php 
+            if(!empty($infoAlbum->images)){
+              foreach($infoAlbum->images as $key=>$items){ 
+                echo '<div class="swiper-slide"><img src="'.$items['src'].'" class="img-fluid" alt=""></div>';
+              }
+            }
+            ?>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FEEDBACK OF CUSTOMERS ======= -->
+  <section id="testimonials" class="testimonials services">
+    <div class="container" data-aos="fade-up">
+
+      <header class="section-header">
+        <p>  <?php echo @$themeSettings['title11']; ?></p>
+        <span>  <?php echo @$themeSettings['tminuscule11']; ?></span>
+      </header>
+
+      <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
+        <div class="swiper-wrapper">
+            <?php
+              $feedBack = getListFeedback();
+              
+              if(!empty($feedBack)){
+                foreach ($feedBack as $item) { 
+                  echo '<div class="swiper-slide">
+                          <div class="testimonial-item">
+                            <div class="stars">
+                              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p>'.$item['Feedback']['content'].'</p>
+                            <div class="profile mt-auto">
+                              <img src="'.$item['Feedback']['avatar'].'" class="testimonial-img" alt="">
+                              <p class="h3">'.$item['Feedback']['fullName'].'</p>
+                              <p class="h4">'.$item['Feedback']['positions'].'</p>
+                            </div>
+                          </div>
+                        </div>';
+                }  
+              }
+            ?>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= ĐỘI NGŨ NHÂN SỰ ======= -->
+  <section id="team" class="team">
+    <div class="container" data-aos="fade-up">
+
+      <header class="section-header">
+        <p> <?php echo @$themeSettings['title12']; ?></p>
+        <span> <?php echo @$themeSettings['tminuscule12']; ?></span>
+      </header>
+
+      <div class="row gy-4">
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="member">
+            <div class="member-img">
+              <img src="<?php echo @$themeSettings['avatar121']; ?>" class="img-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <p class="h4"><?php echo @$themeSettings['fullName121']; ?><p>
+              <span> <?php echo @$themeSettings['positions121']; ?></span>
+              <p> <?php echo @$themeSettings['content121']; ?></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+           <div class="member">
+            <div class="member-img">
+              <img src=" <?php echo @$themeSettings['avatar122']; ?>" class="img-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <p class="h4"> <?php echo @$themeSettings['fullName122']; ?><p>
+              <span> <?php echo @$themeSettings['positions122']; ?></span>
+              <p> <?php echo @$themeSettings['content122']; ?></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+          <div class="member">
+            <div class="member-img">
+              <img src=" <?php echo @$themeSettings['avatar123']; ?>" class="img-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <p class="h4"> <?php echo @$themeSettings['fullName123']; ?><p>
+              <span> <?php echo @$themeSettings['positions123']; ?></span>
+              <p> <?php echo @$themeSettings['content123']; ?></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+           <div class="member">
+            <div class="member-img">
+              <img src=" <?php echo @$themeSettings['avatar124']; ?>" class="img-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <p class="h4"> <?php echo @$themeSettings['fullName124']; ?><p>
+              <span> <?php echo @$themeSettings['positions124']; ?></span>
+              <p> <?php echo @$themeSettings['content124']; ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TIN TỨC MỚI ======= -->
+  <section id="news" class="team">
+    <div class="container" data-aos="fade-up">
+      <div class="container">
+        <header class="section-header">
+          <p> <?php echo @$themeSettings['title14']; ?></p>
+          <span> <?php echo @$themeSettings['tminuscule14']; ?></span>
         </header>
 
-
-
-        <div class="main">
-            <div class="container">
-                <div class="main-nav">
-                    <a href="#">Trang chủ</a>   
-                    <span> > </span>
-                    <span>Tra cứu đại lý</span>
-                </div>
-                <div class="main-below">
-                    <div class="row">
-                        <div class="main-below-left col-lg-6 col-md-6">
-                            <p class="main-below-search">TRA CỨU ĐẠI LÝ CHÍNH HÃNG</p>
-                            <h1 class="main-below-title">Đại lý chính hãng của <br /> Phạm Kim Group</h1>
-                            <input type="text" class="main-below-input" name="" id="phone_member"
-                                placeholder="Nhập số điện thoại viết liền không dấu, ví dụ 0816560000">
-                            <br />
-                            <button type="button" class="main-below-btn" onclick="seachAgency();">Tra cứu thông tin</button>
-                            <p class="main-below-text-end">*HÃY MUA HÀNG TỪ ĐẠI LÝ CHÍNH THỨC CỦA CHÚNG TÔI ĐỂ ĐƯỢC ĐẢM BẢO CÁC QUYỀN LỢI CAM KẾT VÀ BẢO HÀNH</p>
-
-                        </div>
-                        <div class="main-below-right col-lg-6 col-md-6">
-                            <div class="row flex">
-                                <div class="col-6">
-                                    <div class="main-below-right-image">
-                                        <div class="main-below-right-image-slide" style="margin: 50px 0 20px 0;" >
-                                            <img src="<?php echo $urlThemeActive;?>/assert/img/ylabcos.png" alt="">
-                                        </div>
-                                        <div class="main-below-right-image-slide">
-                                            <img src="<?php echo $urlThemeActive;?>/assert/img/pkphamra.png" alt="">
-                                        </div>                   
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="main-below-right-image1" >
-                                        <div class="main-below-right-image-slide" style="margin: 0 0 20px 0;">
-                                            <img src="<?php echo $urlThemeActive;?>/assert/img/laluxxy.png" alt="">
-                                        </div>
-                                        <div class="main-below-right-image-slide">
-                                            <img src="<?php echo $urlThemeActive;?>/assert/img/drlacir.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
+          <div class="swiper-wrapper">
+            <?php 
+              if(!empty($tmpVariable['listNoticeNew'])) { 
+                foreach ($tmpVariable['listNoticeNew'] as $key => $value) {
+                  echo '<div class="swiper-slide">
+                          <div class="testimonial-item">
+                            <div class="carousel-cell my-carousel-cell-notice" style=" padding: 20px;">
+                              <a href="'.getUrlNotice($value['Notice']['id']).'">
+                                <img src="'.@$value['Notice']['image'].'" style=" width: 100%;height: 190px;" alt="">
+                                <div class="time-notice">'.date('d/m/Y',$value['Notice']['time']).'</div>
+                                <p class="title-notice">'.$value['Notice']['title'].'</p>
+                              </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- <div class="main-right">
-                <div class="main-group-button">
-                    <div class="main-button-item">
-                        <a href=""><img src="<?php echo $urlThemeActive;?>/assert/img/youtube.png" alt=""></a>
-                    </div>
-
-                    <div class="main-button-item">
-                        <a href=""><img src="<?php echo $urlThemeActive;?>/assert/img/facebook-1.png" alt=""></a>
-                    </div>
-
-                    <div class="main-button-item">
-                        <a href=""><img src="<?php echo $urlThemeActive;?>/assert/img/linkedin.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="main-left">
-
-            </div> -->
+                          </div>
+                        </div>';
+                }  
+              }
+            ?>
+          </div>
+          <br>
+          <div class="swiper-pagination"></div>
         </div>
-
-        <div class="register">
-            <div class="container">
-                <div class="register-main">
-                    <h1>ĐĂNG KÝ TRỞ THÀNH ĐẠI LÝ CỦA PHẠM KIM GROUP</h1>
-                    <p>Nếu bạn chưa từng kinh doanh, phân phối sản phẩm mỹ phẩm, đang quan tâm tới chính sách đại lý của
-                        Phạm Kim Group , hãy để lại thông tin theo mẫu đăng ký dưới đây để nhận được sự hỗ trợ sớm nhất
-                        từ
-                        chúng tôi.</p>
-                    <div class="register-btn">
-                        <button class="btn-logup"><span>ĐĂNG KÝ NGAY </span><i
-                                class="fa-solid fa-arrow-right"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="policy">
-            <div class="container ">
-                <div class="policy-main">
-                    <h1>Chính sách đại lý</h1>
-                    <div class="policy-btn">
-                        <button class="btn-news"><span>XEM TẤT CẢ BẢN TIN</span><i
-                                class="fa-solid fa-arrow-right"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-head">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                            <div class="header-logo">
-                                <a href="#">
-                                    <img class="header-logo-img" src="<?php echo $urlThemeActive;?>/assert/img/logo.svg" alt="">
-                                </a>
-                            </div>
-                            <div class="footer-head-description">
-                                <p>Tập đoàn Phạm Kim là đơn vị đi đầu trong lĩnh vực sản xuất, phân phối và kinh doanh
-                                    hệ thống mỹ phẩm, thực phẩm chức năng. Đồng thời là đơn vị cung cấp các giải pháp,
-                                    quy trình và đào tạo về bán hàng, xây dựng hệ thống bán hàng hiệu quả.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12" style="margin-top: 40px;">
-                            <p class="footer-address-title">PHẠM KIM GROUP</p>
-                            <div class="footer-head-address">
-                                <span class="footer-head-address-k">Địa chỉ</span>
-                                <p>Số 33, Lô TT02 ngõ 4 Hàm Nghi, HD Mon, Mỹ Đình, Hà Nội</p>
-                            </div>
-                            <div class="footer-head-address">
-                                <span class="footer-head-address-k">Hotline</span>
-                                <p>1900.88.66.88</p>
-                            </div>
-                            <div class="footer-head-address">
-                                <span class="footer-head-address-k">Email</span>
-                                <p>Phamkimgroupinfor@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 menu-about-us" style="margin-top: 40px;">
-                            <p class="footer-address-title">Về chúng tôi</p>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">GIỚI THIỆU</a>
-                            </div>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">CƠ HỘI KINH DOANH</a>
-                             
-                            </div>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">CƠ HỘI VIỆC LÀM</a>
-                            </div>
-                            <div class="footer-head-address">
-                                <a class="footer-head-address-key2">SỰ KIỆN-ĐÀO TẠO</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="footer-social">
-                    <span>
-                        <a href="#" class="footer-socical-link">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                    </span>
-                    <span>
-                        <a href="#" class="footer-socical-link">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                    </span>
-                    <span>
-                        <a href="#" class="footer-socical-link">
-                            <img src="<?php echo $urlThemeActive;?>/assert/img/download.jpg" alt="">
-                        </a>
-                    </span>
-                </div>
-                
-                <div class="footer-end">
-                    PHAMKIMGROUP 2023. All rights reserved.
-                    <p></p>
-                </div>
-        </footer>
+      </div>
     </div>
+  </section>
+   
+</main>
 
-    <!-- modal -->
-    <div class="modal-info modal fade" id="popupInfoAgency" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Thông tin đại lý chính hãng</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-note">
-                    LƯU Ý: CÁC KHÁCH HÀNG CẦN GỌI ĐÚNG SỐ ĐIỆN THOẠI TRA CỨU XÁC MINH NGƯỜI BÁN, HOẶC XÁC NHẬN ĐÚNG MẶT ĐẠI LÝ ĐỂ TRÁNH MUA PHẢI CÁC TRƯỜNG HỢP MẠO DANH ĐẠI LÝ CHÍNH HÃNG.
-                </div>
-
-                <div class="row" id="infoAgency"></div>
-            </div>
-        </div>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        function seachAgency()
-        {
-            var phone = $('#phone_member').val();
-            var infoAgency;
-            var imageCheck = "<?php echo $urlThemeActive;?>/assert/img/check.png";
-
-            if(phone!=''){
-                $.ajax({
-                    method: "POST",
-                    url: "/apis/getInfoMemberAPI",
-                    data: { phone: phone }
-                })
-                .done(function( msg ) {
-                    if(msg.hasOwnProperty('data')){
-                        dataAgency = msg.data;
-
-                        infoAgency = '<div class="col-lg-5 col-12 modal-image"><div class="image-character"><img src="'+dataAgency.avatar+'" alt=""></div><div class="image-bottom"><img src="'+imageCheck+'" alt=""></div></div><div class="col-lg-7 col-12 modal-info"><div class="modal-name"><p>'+dataAgency.name+'</p></div><div class="modal-detail"><p><strong>Chức vụ:</strong> '+dataAgency.name_position+'</p><p><strong>Điện thoại:</strong> '+dataAgency.phone+'</p><p><strong>Email:</strong> '+dataAgency.email+'</p></p><p><strong>Địa chỉ:</strong> '+dataAgency.address+'</p><p><button type="button" class="main-below-btn" onclick="window.open(\''+dataAgency.facebook+'\' , \'_blank\')">XEM FACEBOOK</button></p></div></div>';
-
-                    }else{
-                        infoAgency = '<p class="text-danger">Không tìm thấy thông tin đại lý trong hệ thống</p>';
-                    }
-
-                    $('#infoAgency').html(infoAgency);
-
-                    $('#popupInfoAgency').modal('show');
-                });
-            }
-        }
-    </script>
-</body>
-
-</html>
+<?php getFooter();?>

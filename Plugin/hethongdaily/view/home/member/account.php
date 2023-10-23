@@ -30,14 +30,15 @@
                     <?php showUploadFile('avatar','avatar',@$user->avatar,0);?>
                   </div>
 
-                  
-
                   <div class="mb-3">
                     <label class="form-label">Email (*)</label>
                     <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$user->email;?>"/>
                   </div>
 
-                  
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Ngày sinh</label>
+                    <input autocomplete="off" type="text" class="form-control datepicker" name="birthday" id="name" value="<?php echo @$user->birthday;?>" />
+                  </div>
                 </div>
                 
                 <div class="col-md-6">
@@ -51,7 +52,10 @@
                     <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$user->address;?>"/>
                   </div>
 
-                  
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Trang Facebook</label>
+                    <input type="text" class="form-control phone-mask" name="facebook" id="facebook" value="<?php echo @$user->facebook;?>" />
+                  </div>
                 </div>
               </div>
 

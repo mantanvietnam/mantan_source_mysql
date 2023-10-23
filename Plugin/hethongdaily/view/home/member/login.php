@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập hệ thống quản lý đại lý chính hãng</title>
+    <title>Đăng nhập hệ thống quản lý hệ thống</title>
 
     <meta name="description" content="" />
 
@@ -79,7 +79,7 @@
                   <span class="app-brand-logo demo">
                     <img src="/plugins/hethongdaily/view/home/assets/img/avatar-ezpics.png" width="50">
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">ĐẠI LÝ CHÍNH HÃNG</span>
+                  <span class="app-brand-text demo text-body fw-bolder">ĐĂNG NHẬP</span>
                 </a>
               </div>
               <!-- /Logo -->
