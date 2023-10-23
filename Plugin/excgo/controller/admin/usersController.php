@@ -334,9 +334,11 @@ function updateStatusWithdrawRequestAdmin($input)
 {
     global $controller;
     global $withdrawRequestStatus;
+    global $transactionType;
 
     $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
     $userModel = $controller->loadModel('Users');
+    $transactionModel = $controller->loadModel('Transactions');
 
     if (!empty($_GET['id'])) {
         $request = $withdrawRequestModel->find()
@@ -350,6 +352,18 @@ function updateStatusWithdrawRequestAdmin($input)
             ])->first();
 
         if ($request && isset($_GET['status'])) {
+            $request->status = $_GET['status'];
+            $withdrawRequestModel->save($request);
+
+            // Save transaction
+            $newTransaction = $transactionModel->newEmptyEntity();
+            $newTransaction->user_id = $user->id;
+            $newTransaction->amount = $request->amount;
+            $newTransaction->type = $transactionType['subtract'];
+            $newTransaction->name = 'Rút tiền EXC-xu thành công';
+            $newTransaction->description = '-' . number_format($request->amount) . ' EXC-xu';
+            $transactionModel->save($newTransaction);
+
             if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
                 $dataSendNotification= array(
                     'title' => 'Rút tiền thành công EXC-GO',
@@ -360,9 +374,6 @@ function updateStatusWithdrawRequestAdmin($input)
 
                 sendNotification($dataSendNotification, $user->device_token);
             }
-
-            $request->status = $_GET['status'];
-            $withdrawRequestModel->save($request);
         }
     }
 

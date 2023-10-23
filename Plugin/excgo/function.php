@@ -457,7 +457,10 @@ function getUserByToken($accessToken, $checkActive = true)
 function processAddMoney($money, $phoneNumber): string
 {
     global $controller;
+    global $transactionType;
+
     $modelUser = $controller->loadModel('Users');
+    $modelTransaction = $controller->loadModel('Transactions');
 
     if ($money >= 1000) {
         if($phoneNumber) {
@@ -468,6 +471,15 @@ function processAddMoney($money, $phoneNumber): string
             if ($user) {
                 $user->totalcoin += $money;
                 $modelUser->save($user);
+
+                // Save transaction
+                $newTransaction = $modelTransaction->newEmptyEntity();
+                $newTransaction->user_id = $user->id;
+                $newTransaction->amount = $money;
+                $newTransaction->type = $transactionType['add'];
+                $newTransaction->name = 'Nạp EXC-xu thành công';
+                $newTransaction->description = '+' . number_format($money) . ' EXC-xu';
+                $modelTransaction->save($newTransaction);
 
                 if ($user->email && $user->name) {
                     sendEmailAddMoney($user->email, $user->name, $money);
@@ -613,8 +625,23 @@ $withdrawRequestStatus = [
     'done' => 1,
 ];
 
+global $transactionType;
+$transactionType = [
+    'add' => 1,
+    'subtract' => 2,
+];
+
+global $complaintType;
+$complaintType = [
+    'active' => 1,
+    'passive' => 2,
+];
+
 global $transactionKey;
 $transactionKey = 'excgo';
 
 global $urlTransaction;
 $urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';
+
+global $defaultAvatar;
+$defaultAvatar = 'https://apis.exc-go.vn/plugins/excgo/view/image/default-avatar.png';
