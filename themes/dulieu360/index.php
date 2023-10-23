@@ -78,71 +78,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 </head>
 <body>
 
-<!-- <header>
-    <div class="top bg-primary-cus py-2">
-        <div class="container">
-            <div class="d-flex justify-content-end align-items-center">
-                <form class="search-input d-none d-md-block" action="/search" method="get">
-                    <img src="<?= $urlThemeActive ?>/assets/lou_icon/icon-search.svg" class="me-2" alt="">
-                    <input type="text" name="key" placeholder="Tìm kiếm">
-                </form>
-                <li class="nav-item dropdown user-login">
-                    
-                </li>
-                <a href="https://tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
-                </a>
-                <a href="https://en.tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-en.svg" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="main-nav">
-        <div class="container-xxl">
-            <nav class="navbar navbar-expand-xl">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-block" href="/">
-                        <img src="" style=" width: 55px; " alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            
-                             <?php 
-                            $menu = getMenusDefault();
-                          
-                            if(!empty($menu)){
-                            foreach($menu as $key => $value){
-                              if(empty($value['sub'])){
-                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
-                            </li>
-                        <?php   }else{  ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <?php echo $value['name']  ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                            <?php }}} ?>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-</header> -->
+
 <div id="header">
         <div id="top-bar">
             <div class="container-fluid">
