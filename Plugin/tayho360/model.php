@@ -15,4 +15,5 @@ include('model/booktable.php');
 include('model/booktour.php');
 include('model/bookhotel.php');
 include('model/report.php');
+include('model/historicalsite.php');
 ?> 
