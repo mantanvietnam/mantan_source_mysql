@@ -461,6 +461,7 @@ function processAddMoney($money, $phoneNumber): string
 
     $modelUser = $controller->loadModel('Users');
     $modelTransaction = $controller->loadModel('Transactions');
+    $modelNotification = $controller->loadModel('Notifications');
 
     if ($money >= 1000) {
         if($phoneNumber) {
@@ -492,7 +493,11 @@ function processAddMoney($money, $phoneNumber): string
                     'action' => 'addMoneySuccess'
                 );
 
-                if(!empty($user->device_token)){
+                if (!empty($user->device_token)) {
+                    $newNotification = $modelNotification->newEmptyEntity();
+                    $newNotification->user_id = $user->id;
+                    $newNotification->content = 'Nạp thành công '.number_format($money).'đ vào tài khoản ' . $user->phone_number;
+                    $modelNotification->save($newNotification);
                     sendNotification($dataSendNotification, $user->device_token);
                 }
 

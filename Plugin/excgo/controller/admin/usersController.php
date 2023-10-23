@@ -339,6 +339,7 @@ function updateStatusWithdrawRequestAdmin($input)
     $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
     $userModel = $controller->loadModel('Users');
     $transactionModel = $controller->loadModel('Transactions');
+    $notificationModel = $controller->loadModel('Notifications');
 
     if (!empty($_GET['id'])) {
         $request = $withdrawRequestModel->find()
@@ -372,6 +373,10 @@ function updateStatusWithdrawRequestAdmin($input)
                     'action' => 'withdrawMoneySuccess'
                 );
 
+                $newNotification = $notificationModel->newEmptyEntity();
+                $newNotification->user_id = $user->id;
+                $newNotification->content = 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number;
+                $notificationModel->save($newNotification);
                 sendNotification($dataSendNotification, $user->device_token);
             }
         }
