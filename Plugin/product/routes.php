@@ -5,7 +5,7 @@
 	$routesPlugin['searchProductAPI']= 'product/searchProductAPI.php';
 
 	// frontend
-	$routesPlugin['products']= 'product/view/home/products.php';
+	$routesPlugin['allProduct']= 'product/view/home/allProduct.php';
 	$routesPlugin['category']= 'product/view/home/category.php';
 	$routesPlugin['manufacturer']= 'product/view/home/manufacturer.php';
 	$routesPlugin['product']= 'product/view/home/product.php';

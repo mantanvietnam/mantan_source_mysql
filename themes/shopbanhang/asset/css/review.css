@@ -1,8 +1,3 @@
-#review .container {
-    width: 760px;
-    padding-bottom: 89px;
-}
-
 #review .tab-menu {
     width: 100%;
     justify-content: center;
@@ -61,9 +56,10 @@
     height: 440px;
 }
 
-#review .container {
+
+/* #review .container {
     width: 1150px;
-}
+} */
 
 .slick-slide {
     opacity: 0.6;
@@ -300,7 +296,7 @@
 .infor-user {
     display: flex;
     align-items: center;
-    padding: 16px 0;
+    padding-top: 16px;
 }
 
 .infor-user img {
@@ -318,6 +314,10 @@
     margin-top: 20px;
     background-color: #F1F2F2;
     padding: 0 17px;
+}
+
+.input-link {
+    padding-top: 16px;
 }
 
 .input-link input {
@@ -429,7 +429,7 @@
 }
 
 .avt-user {
-    margin-left: 18px;
+    /* margin-left: 18px; */
     margin-right: 12px;
 }
 
@@ -449,4 +449,146 @@
 .text-detail p {
     font-size: 12px;
     line-height: 14px;
+    padding-top: 5px;
+}
+
+.icon-product img {
+    width: 31px;
+    height: 31px;
+}
+
+.content-unbox {
+    margin-top: 31px;
+    background-color: #F1F2F2;
+}
+
+.content-unbox .detail-unbox {
+    padding-top: 26px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.image-unbox img {
+    width: 100%;
+}
+
+.image-unbox p {
+    font-size: 14px;
+    line-height: 17px;
+    padding-left: 20px;
+    padding-bottom: 18px;
+}
+
+.icon-interact {
+    padding-top: 17px;
+    padding-bottom: 22px;
+    padding-left: 20px;
+}
+
+.icon-interact .like {
+    margin-right: 15px;
+}
+
+.icon-interact a {
+    color: black;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.icon-interact a i {
+    margin-right: 2px;
+}
+
+.icon-loading {
+    text-align: center;
+}
+
+.icon-loading i {
+    width: 31px;
+    height: 31px;
+}
+
+.unbox-2 {
+    margin-bottom: 62px;
+}
+
+
+/* Khách hàng đập hộp - Có đăng nhập */
+
+.log-in {
+    display: flex;
+}
+
+
+/* Khách hàng đập hộp - Không đăng nhập */
+
+.no-log-in {
+    display: none;
+    padding: 0 330px;
+}
+
+#review-product .star-rating {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item-star-rating button {
+    font-size: 12px;
+    padding: 4px 20px;
+    border: .5px solid;
+    background-color: #fff;
+}
+
+.item-star-rating {
+    margin-right: 6px;
+    margin-bottom: 8px;
+}
+
+.title-rating p {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.title-rating {
+    margin-bottom: 18px;
+}
+
+#review-product {
+    padding-top: 33px;
+}
+
+.five-star {
+    display: flex;
+    align-items: baseline;
+}
+
+.five-star ul {
+    display: flex;
+    margin-right: 15px;
+}
+
+.five-star p {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.five-star i {
+    font-size: 13px;
+}
+
+.posts .icon-interact {
+    padding-top: 7px;
+    border-top: .5px solid;
+    margin: 0 20px;
+}
+
+.posts .icon-product {
+    right: 20px;
+    position: absolute;
+}
+
+.posts {
+    position: relative;
 }

@@ -1,3 +1,9 @@
+<?php
+global $urlThemeActive;
+$setting = setting();
+global $session;
+$infoUser = $session->read('infoUser');
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -33,7 +39,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-phone">
                             <img src="<?php echo $urlThemeActive ?>asset/image/headphone.png" alt="">&nbsp;
-                            <span>0963.514.244</span>
+                            <span><?php echo @$setting['phone'] ?></span>
                         </div>
             
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
@@ -63,36 +69,29 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <?php 
+                            $menu = getMenusDefault();
+                          
+                            if(!empty($menu)){
+                            foreach($menu as $key => $value){
+                              if(empty($value['sub'])){
+                         ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sản phẩm</a>
+                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
                             </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sản phẩm</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sản phẩm</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sản phẩm</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sản phẩm</a>
-                            </li>
-    
+                        <?php   }else{  ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Combo quà tặng
+                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <?php echo $value['name']  ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
+                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
+                                    <?php } ?>
                                 </ul>
                             </li>
+                            <?php }}} ?>
     
                             <li class="nav-item nav-item-image  dropdown ">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,56 +100,56 @@
                                 <ul class="dropdown-menu dropdown-image">
                                     <div class="row">
                                         <div class="col-6 dropdown-image-item">
-                                            <a href="">
+                                            <a href="<?php echo @$setting['menu_link1'] ?>">
                                                 <div class="dropdown-image-item-inner">
                                                     <div class="dropdown-image-item-main">
-                                                        <img src="<?php echo $urlThemeActive ?>asset/image/dropdownmenu.png" alt="">
+                                                        <img src="<?php echo @$setting['menu_image1'] ?>" alt="">
                                                     </div>
             
                                                     <div class="dropdown-image-item-title">
-                                                        <p>Quà tặng dành cho cha mẹ</p>
+                                                        <p><?php echo @$setting['menu_title1']?></p>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
     
                                         <div class="col-6 dropdown-image-item">
-                                            <a href="">
+                                            <a href="<?php echo @$setting['menu_link2'] ?>">
                                                 <div class="dropdown-image-item-inner">
                                                     <div class="dropdown-image-item-main">
-                                                        <img src="<?php echo $urlThemeActive ?>asset/image/dropdownmenu.png" alt="">
+                                                        <img src="<?php echo @$setting['menu_image2'] ?>" alt="">
                                                     </div>
             
                                                     <div class="dropdown-image-item-title">
-                                                        <p>Quà tặng dành cho cha mẹ</p>
+                                                        <p><?php echo @$setting['menu_title2'] ?></p>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
     
                                         <div class="col-6 dropdown-image-item">
-                                            <a href="">
+                                            <a href="<?php echo @$setting['menu_link3'] ?>">
                                                 <div class="dropdown-image-item-inner">
                                                     <div class="dropdown-image-item-main">
-                                                        <img src="<?php echo $urlThemeActive ?>asset/image/dropdownmenu.png" alt="">
+                                                        <img src="<?php echo @$setting['menu_image3'] ?>" alt="">
                                                     </div>
             
                                                     <div class="dropdown-image-item-title">
-                                                        <p>Quà tặng dành cho cha mẹ</p>
+                                                        <p><?php echo @$setting['menu_title3'] ?></p>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
     
                                         <div class="col-6 dropdown-image-item">
-                                            <a href="">
+                                           <a href="<?php echo @$setting['menu_link4'] ?>">
                                                 <div class="dropdown-image-item-inner">
                                                     <div class="dropdown-image-item-main">
-                                                        <img src="<?php echo $urlThemeActive ?>asset/image/dropdownmenu.png" alt="">
+                                                        <img src="<?php echo @$setting['menu_image4'] ?>" alt="">
                                                     </div>
             
                                                     <div class="dropdown-image-item-title">
-                                                        <p>Quà tặng dành cho cha mẹ</p>
+                                                        <p><?php echo @$setting['menu_title4'] ?></p>
                                                     </div>
                                                 </div>
                                             </a>

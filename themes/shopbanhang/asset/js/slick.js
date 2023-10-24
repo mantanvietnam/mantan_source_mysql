@@ -97,6 +97,35 @@ $(document).ready(function(){
     }
   });
 
+  // Chi tiết sản phẩm
+
+  $('.product-slide-left').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    asNavFor: '.product-slide-right',
+    centerMode: true,
+    vertical: true,
+    centerMode: true,
+    focusOnSelect: true,
+
+
+  });
+  $('.product-slide-right').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    asNavFor: '.product-slide-left',
+    arrows: false,
+    fade: true
+  });
+
+  // chi tiết sản phẩm
+  $('.pro-review-slide').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+    prevArrow:"<button type='button' class='slick-prev pull-left slick-arrow'><</button>",
+    nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'>></button>",
+  });
 
 });
 

@@ -1,3 +1,5 @@
+/* --- Trang Guarantee --- */
+
 #policy .container {
     width: 760px;
     padding-bottom: 89px;
@@ -178,4 +180,264 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+/* --- Trang Profile --- */
+
+#profile {
+    padding-top: 43px;
+}
+
+#profile>.container {
+    padding: 0 125px;
+}
+
+.my-account .nav-tabs {
+    display: block;
+    width: 100%;
+}
+
+.my-account .nav-item a {
+    border: none;
+    font-size: 14px;
+    line-height: 34px;
+    border-top: 1px solid rgb(221, 221, 221);
+    border-radius: 0%;
+    color: #000;
+    font-weight: 600;
+}
+
+.my-account .dropdown-menu.show {
+    border: none !important;
+    font-weight: 400 !important;
+    width: 100%;
+    padding-left: 35px;
+}
+
+.my-account .dropdown-menu.show .dropdown-item {
+    border: none !important;
+}
+
+#profile-user .title-profile h3 {
+    font-size: 29px;
+    line-height: 49px;
+}
+
+#profile-user .title-profile h2 {
+    font-size: 40px;
+    line-height: 49px;
+    text-transform: capitalize;
+}
+
+#profile-user .title-profile a {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    line-height: 34px;
+}
+
+#profile-user .title-profile {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+#profile-user {
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+.my-account .nav-item.sp-sale a {
+    color: red;
+}
+
+.my-account .dropdown-item {
+    font-weight: 400 !important;
+}
+
+.my-account .navbar {
+    --bs-navbar-padding-y: 0rem;
+}
+
+.title-file p {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 17px;
+    border-bottom: 0.5px solid rgb(192, 192, 192);
+}
+
+.title-file {
+    padding-top: 34px;
+    padding-left: 33px;
+    padding-right: 50px;
+}
+
+.detail-file {
+    padding-left: 83px;
+    padding-right: 67px;
+    padding-bottom: 39px;
+}
+
+.detail-file label {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.detail-file .item-detail {
+    padding-top: 24px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-file .item-detail input {
+    font-size: 14px;
+    padding: 4px 10px;
+    right: 0;
+    /* position: absolute; */
+    width: 377px;
+    top: 24px;
+}
+
+.detail-file .item-detail.sex {
+    display: flex;
+    justify-content: normal;
+}
+
+.detail-file .item-detail.sex input {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.detail-file .item-detail.sex .radio-check {
+    margin-left: 55px;
+    display: flex;
+    align-items: center;
+}
+
+.radio-check label {
+    margin-right: 15px;
+}
+
+.item-detail.btn-submit input {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 55px;
+    padding-right: 43px;
+    background-color: #011436;
+    color: #fff;
+    width: auto;
+}
+
+.item-detail.btn-submit {
+    justify-content: end;
+    display: flex;
+}
+
+.choose-date select {
+    width: 120px;
+    margin-left: 5px;
+    font-size: 14px;
+    padding: 7px 10px;
+    color: #949494;
+}
+
+#my-file {
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+#my-address {
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+#my-address .title-addr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 31px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid rgb(192, 192, 192);
+}
+
+#my-address .title-addr p {
+    font-size: 18px;
+    line-height: 22px;
+    margin-left: 35px;
+}
+
+#my-address .title-addr .add-adress {
+    font-size: 14px;
+    color: #fff;
+    background-color: #008BCF;
+    border: 0.5px solid #008BCF;
+    padding: 7px 16px;
+    align-items: center;
+    display: flex;
+    font-weight: 200;
+    margin-right: 35px;
+}
+
+#my-address .title-addr .add-adress i {
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+#my-address .address {
+    margin: 0 34px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    padding: 20px 10px;
+}
+
+.content-addr .infor-addr span {
+    font-size: 14px;
+    padding-right: 5px;
+    border-right: 1px solid rgb(192, 192, 192);
+    line-height: 25px;
+    margin-bottom: 5px;
+}
+
+.content-addr .infor-addr {
+    display: flex;
+    align-items: baseline;
+}
+
+.content-addr .infor-addr p {
+    padding-left: 5px;
+}
+
+.content-addr p {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 300;
+}
+
+.content-addr button {
+    font-size: 12px;
+    background-color: #fff;
+    border: 0.5px solid rgb(192, 192, 192);
+    line-height: 18px;
+    font-weight: 300;
+}
+
+.address .btn-group button {
+    font-size: 12px;
+    background-color: transparent;
+    border: none;
+    color: #008BCF;
+    font-weight: 300;
+    line-height: 16px;
+}
+
+.up-address {
+    justify-content: end;
+    display: flex;
+    align-items: flex-start;
+}
+
+.default button {
+    font-size: 12px;
+}
+
+.btn-address {
+    margin-top: 5px;
 }

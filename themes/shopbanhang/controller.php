@@ -45,6 +45,18 @@ function settingHomeTheme($input){
                         'instagram' => @$dataSend['instagram'],
                         'email' => @$dataSend['email'],
                         'fax' => @$dataSend['fax'],
+                        'menu_image1' => @$dataSend['menu_image1'],
+                        'menu_title1' => @$dataSend['menu_title1'],
+                        'menu_link1' => @$dataSend['menu_link1'],
+                        'menu_image2' => @$dataSend['menu_image2'],
+                        'menu_title2' => @$dataSend['menu_title2'],
+                        'menu_link2' => @$dataSend['menu_link2'],
+                        'menu_image3' => @$dataSend['menu_image3'],
+                        'menu_title3' => @$dataSend['menu_title3'],
+                        'menu_link3' => @$dataSend['menu_link3'],
+                        'menu_image4' => @$dataSend['menu_image4'],
+                        'menu_title4' => @$dataSend['menu_title4'],
+                        'menu_link4' => @$dataSend['menu_link4'],
                        'targetTime' => $targetTime,
                     );
 
@@ -118,14 +130,21 @@ function news(){
 
     $order = array('id'=>'desc');
 
-    $listDataPost= $modelPosts->find()->where(array())->order($order)->all()->toList();
-    $listDataPost= $modelPosts->find()->where(array())->order($order)->all()->toList();
-    $listDataPost= $modelPosts->find()->where(array())->order($order)->all()->toList();
-
+    $listDatatop= $modelPosts->find()->limit(1)->where(array('pin'=>1))->order($order)->all()->toList();
+    $listDataView= $modelPosts->find()->where(array('view >'=>1))->order(array('view'=>'desc'))->all()->toList();
+    $listDataNew= $modelPosts->find()->where(array())->order($order)->all()->toList();
+    $listDataCategory1= $modelPosts->find()->where(array('idCategory'=>4))->order($order)->all()->toList();
+    $listDataCategory2= $modelPosts->find()->where(array('idCategory'=>3))->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->limit(12)->where(array())->order($order)->all()->toList();
 
 
 
     setVariable('listDataPost', $listDataPost);
+    setVariable('listDatatop', $listDatatop);
+    setVariable('listDataNew', $listDataNew);
+    setVariable('listDataCategory1', $listDataCategory1);
+    setVariable('listDataCategory2', $listDataCategory2);
+    setVariable('listDataView', $listDataView);
 
 }
 

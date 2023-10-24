@@ -78,7 +78,7 @@ function product($input)
     }
 }
 
-function products($input)
+function allProduct($input)
 {
     global $controller;
     global $isRequestPost;

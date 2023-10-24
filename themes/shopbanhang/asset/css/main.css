@@ -89,6 +89,10 @@ a{
     text-decoration: none;
 }
 
+a:hover{
+    color: #008ACE !important;
+}
+
 strong{
     font-weight: bold;
 }
@@ -645,10 +649,11 @@ strong{
     background-color: #E84136;
 }
 
-.ribbon-top-right {
-    top: -3px;
-    right: -3px;
+  .ribbon-top-right {
+    top: 0px;
+    right: 0;
   }
+
   .ribbon-top-right::before,
   .ribbon-top-right::after {
     border-top-color: transparent;
@@ -685,7 +690,7 @@ strong{
     margin-top: 26px;
 }
 
-/* Chuyên muc anh= */
+/* Chuyên muc anh */
 #section-home-category{
     margin-top: 50px;
 }
@@ -723,6 +728,9 @@ strong{
     height: 100%;
     object-fit: cover;
 }
+
+
+
 
 /* Banner chinh sach cong ty */
 #section-banner-policy{
@@ -955,6 +963,11 @@ transform:scale(.85);
 
 .logo-footer{
     margin-bottom: 25px;
+    width: 300px;
+}
+
+.logo-footer img{
+    width: 100%;
 }
 
 /* Liên hệ */
@@ -967,6 +980,10 @@ transform:scale(.85);
 
 #section-contact .contact-description{
 
+}
+
+.footer-info{
+    margin-right: 25px;
 }
 
 .contact-description{
@@ -1439,10 +1456,421 @@ transform:scale(.85);
     line-height: 1.2;
     font-weight: 200;
 }
+
+/* chuyên mục sản phẩm  */
+#section-cateogry-product{
+    margin-top: 70px;
+}
+
+.product-name a{
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    color: #000;
+    text-decoration: none;
+    font-weight: 200;
+    white-space: initial;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.product-price{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.product-discount{
+    font-style: italic;
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 300;
+}
+
+.product-img{
+    height: 221px;
+    padding-top: 37px
+}
+
+.product-img img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.rate-best-item img{
+    width: 12px;
+    height: 12px;
+}
+
+
+.rate-best-item{
+    display: flex;
+    align-items: center;
+}
+
+.product-rate{
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-info{
+    padding: 0 12px;
+    text-align: center;
+}
+
+.product-progress{
+    margin: 0 10px;
+    position: relative;
+    height: 19px;
+    background: #FFBBA4;
+    border-radius: 2vw;
+    margin-bottom: 24px;
+}
+
+.text-progress{
+    position: absolute;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #fff;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    z-index: 9;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.sale-progress-val{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    color: #fff;
+    padding-left: 1.6vw;
+    background: #E84136;
+    border-radius: 2vw;
+   
+   
+}
+
+
+#section-cateogry-product .rate-star p{
+    margin-left: 8px;
+    font-weight: 200;
+    font-size: 10px;
+}
+
+#section-cateogry-product .rate-sold p{
+    margin-right: 8px;
+    font-weight: 200;
+    font-size: 10px;
+
+}
+
+.product-item-inner{
+    padding: 10px;
+    transition: all 0.3s linear;
+    background-color: #fff;
+    position: relative;
+}
+
+  /*  */
+
+.product-item-inner:hover{
+    box-shadow: 0px 4px 10px #888888;
+    transition: all 0.3s linear;
+}
+
+.product-item-inner{
+    border: 1px solid #F0F1F1;
+}
+
+.product-list-inner{
+    margin-top: 26px;
+}
+
+.product-item{
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+
+.search-category-product{
+    position: relative;
+}
+
+.search-category-product img{
+    position: absolute;
+    bottom: 0;
+    top: 16px;
+    left: 21px;
+    width: 11px;
+    height: auto;
+}
+
+.search-category-product input{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border: 1px solid #0B3380;
+    padding-left: 20px;
+    margin-bottom: 21px;
+    border-radius: 4px;
+    padding-left: 40px;
+}
+
+
+.search-category-product input::placeholder{
+    font-size: 14px;
+    font-weight: 200;
+    font-style: italic;
+}
+
+.category-product-menu-title{
+    margin-bottom: 17px;
+    font-size: 16px;
+}
+
+.category-product-item{
+    margin-bottom: 25px;
+    margin-left: 22px;
+}
+
+.category-product-item li{
+    margin-bottom: 17px;
+    margin-left: 24px;
+}
+
+.category-product-item li a{
+    color: #000;
+    font-size:14px;
+    font-weight: 200;
+}
+
+.category-product-item li a:hover{
+
+}
+
+.category-product-menu .banner-category-image img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-select-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-select-box .product-select-item{
+    display: flex;
+    align-items: center;
+
+}
+
+.product-select-box .product-select-left .heading-check{
+    margin-right: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 300;
+
+}
+
+.product-select-box .product-select-right .heading-check{
+    margin-right: 12px;
+    font-size: 14px;
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+.product-select-box{
+    margin-bottom: 41px;
+}
+
+/* .product-select-box .form-check-input:checked{
+    background-color: #fff;
+    color: #7a7777;
+    border: 1px solid #7a7777;
+} */
+
+.product-select-box .form-check-input {
+    padding: 10px
+}
+
+/* Chi tiết sản phẩm */
+.product-detail-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-slide-left-img img{ 
+    width: 73px;
+    height: 73px;
+}
+
+.product-slide-right-img img{
+    height: 485px;
+    width: 485px;
+}
+
+.product-slide-left-item{
+    border: 0.5px solid #6D6E71 !important;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    padding: 2px 0;
+}
+
+.product-slide-right-img{
+    background: linear-gradient(to top, rgba(197, 197, 199, 0.5), rgba(255, 255, 255, 0.7));
+}
+
+.pro-review-item .pro-review-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pro-review-img{
+    height: 562px;
+}
+
+.pro-review-img{
+    padding: 0 9px
+}
+
+#section-pro-review{
+    
+}
+
+#section-info-col{
+    margin-bottom: 41px;
+}
+
+.info-col-left .info-col-description{
+    background-color: #DBF7FE;
+}
+
+.info-col-right .info-col-description{
+    background-color: #B8DAE9;
+}
+
+.info-col .title-info-col{
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.info-col-description{
+    min-height: 328px;
+    padding-left: 24px;
+    padding-top: 20px;
+    padding-right: 21px;
+}
+
+.info-col-description tr td:first-child{
+    width: 143px;
+}
+
+.info-col-description tr{
+    display: block;
+    margin-bottom: 18px;
+}
+
+.info-col{
+    padding: 0;
+}
+
+.title-info-col{
+    margin-bottom: 13px;
+}
+
+.describe-inner .title-section h2{
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+#section-describe .describe-description img{
+    width: 100%;
+}
+
+#section-describe .describe-more button{
+    background-color: #fff;
+    color: #00A9DC;
+    border: 1px solid #00A9DC;
+    width: 217px;
+    border-radius: 30px;
+    padding: 8px 0;
+    transition: all 0.3s linear;
+}
+
+#section-describe .describe-more button:hover{
+    color: #fff;
+    transition: all 0.3s linear;
+    background-color: #00A9DC;
+
+
+}
+
+#section-describe{
+    text-align: center;
+}
+
+.describe-more {
+
+}
+
+/* rate */
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
 /* Chung */
 
+
+
+
+
 @media (min-width: 1400px){
-.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1211px;
+    }
+
+    #section-pro-review .container{
+        max-width: 987px;
     }
 }
