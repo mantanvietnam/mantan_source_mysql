@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-product-listProduct.php">Sản phẩm</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-product-listProductAdmin.php">Sản phẩm</a> /</span>
         Thông tin sản phẩm
     </h4>
 
@@ -132,7 +132,9 @@
                                                   </div>
                                               </div>
                                               <div class="col-md-6">
-                                                  <img id="show-image" src="<?php echo @$data->image; ?>" alt="" width="200px" height="200px"/>
+                                                  <img id="show-image" src="<?php echo @$data->image ?: 'https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg'; ?>"
+                                                       alt="" style="max-width: 400px; max-height: 400px"
+                                                  />
                                               </div>
                                         </div>
                                     </div>
@@ -148,26 +150,19 @@
         </div>
     </div>
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
-    <script type="text/javascript">
-      let active = 0;
-      function BrowseServerImage(number = 0)
-      {
-        let finder = new CKFinder();
-        finder.basePath = "../";
-        finder.selectActionFunction = SetFileFieldImage;
-        finder.popup();
-        active = number;
-      }
+  <script type="text/javascript">
+    function BrowseServerImage(number = 0)
+    {
+      let finder = new CKFinder();
+      finder.basePath = "../";
+      finder.selectActionFunction = SetFileFieldImage;
+      finder.popup();
+    }
 
-      function SetFileFieldImage(fileUrl)
-      {
-        if (!active) {
-          $("#image").val(fileUrl);
-          $("#show-image").attr('src', fileUrl);
-        } else {
-          $(`#image-${number}`).val(fileUrl);
-          $(`#show-image-${number}`).attr('src', fileUrl);
-        }
-      }
-    </script>
+    function SetFileFieldImage(fileUrl)
+    {
+      $("#image").val(fileUrl);
+      $("#show-image").attr('src', fileUrl);
+    }
+  </script>
 </div>

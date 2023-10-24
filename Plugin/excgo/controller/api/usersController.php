@@ -21,7 +21,13 @@ function registerUserApi($input): array
                 'phone_number' => $dataSend['phone_number']
             ])->first();
 
-            if (empty($checkDuplicatePhone)) {
+            if (isset($dataSend['email'])) {
+                $checkDuplicateEmail = $modelUser->find()->where([
+                    'email' => $dataSend['email']
+                ])->first();
+            }
+
+            if (empty($checkDuplicatePhone) && empty($checkDuplicateEmail)) {
                 if ($dataSend['password'] !== $dataSend['password_confirmation']) {
                     return apiResponse(4, 'Mật khẩu nhập lại không chính xác');
                 }
@@ -271,11 +277,11 @@ function resetPasswordApi($input): array
 function upgradeToDriverApi($input): array
 {
     global $controller;
-    global $isRequestPost;
-    global $imageType;
     global $ownerType;
+    global $imageType;
+    global $isRequestPost;
+    global $memberType;
 
-    $modelUser = $controller->loadModel('Users');
     $modelImage = $controller->loadModel('Images');
     $modelDriverRequest = $controller->loadModel('DriverRequests');
 
@@ -292,100 +298,154 @@ function upgradeToDriverApi($input): array
             }
         }
 
+        if ($currentUser->type === $memberType['driver']) {
+            return apiResponse(4, 'Bạn đã là tài xế rồi');
+        }
 
-        if (isset($_FILES['id_card_front'])
-            && isset($_FILES['id_card_back'])
-            && isset($_FILES['avatar'])
-            && isset($_FILES['car_image_1'])
-            && isset($dataSend['bank_account'])
-            && isset($dataSend['account_number'])
-            && isset($dataSend['email'])
-            && isset($dataSend['address'])
+        $currentRequest = $modelDriverRequest->find()
+            ->where(['user_id' => $currentUser->id])
+            ->first();
+
+        if (!empty($currentRequest) && !$currentRequest->status) {
+            return apiResponse(4, 'Yêu cầu của bạn đang chờ duyệt');
+        }
+
+        $checkAvatar = $modelImage->find()
+            ->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['avatar']
+            ])->first();
+
+        if (empty($checkAvatar)) {
+            return apiResponse(4, 'Bạn cần cập nhật ảnh đại diện');
+        }
+
+        $checkIdCardFront = $modelImage->find()
+            ->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['id-card-front']
+            ])->first();
+        $checkIdCardBack = $modelImage->find()
+            ->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['id-card-back']
+            ])->first();
+
+        if (empty($checkIdCardFront) || empty($checkIdCardBack)) {
+            return apiResponse(4, 'Bạn cần cập nhật ảnh CCCD');
+        }
+
+        $checkCarImage = $modelImage->find()
+            ->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['car']
+            ])->all();
+
+        if (empty($checkCarImage)) {
+            return apiResponse(4, 'Bạn cần cập nhật ảnh phương tiện');
+        }
+
+        if (empty($currentUser->email)
+            || empty($currentUser->bank_account)
+            || empty($currentUser->account_number)
+            || empty($currentUser->birthday)
         ) {
-            $currentUser->bank_account = $dataSend['bank_account'];
-            $currentUser->account_number = $dataSend['account_number'];
-            $currentUser->email = $dataSend['email'];
-            $currentUser->address = $dataSend['address'];
-            $modelUser->save($currentUser);
+            return apiResponse(4, 'Bạn cần nhập đủ thông tin tài khoản trước khi gửi yêu cầu');
+        }
 
-            $imageData = [];
-            $idCardFront = uploadImage($currentUser->id, 'id_card_front', 'id_card_front_' . $currentUser->id);
-            if ($idCardFront['code']) {
-                return apiResponse(4, $idCardFront['mess']);
-            }
-            $imageData[] = [
-                'path' => $idCardFront['linkOnline'],
-                'type' => $imageType['id-card-front'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
+        $request = $modelDriverRequest->newEmptyEntity();
+        $request->user_id = $currentUser->id;
+        $modelDriverRequest->save($request);
 
-            $idCardBack = uploadImage($currentUser->id, 'id_card_back', 'id_card_back_' . $currentUser->id);
-            if ($idCardBack['code']) {
-                return apiResponse(4, $idCardBack['mess']);
-            }
-            $imageData[] = [
-                'path' => $idCardBack['linkOnline'],
-                'type' => $imageType['id-card-back'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
+        return apiResponse(0, 'Gửi yêu cầu thành công');
+    }
 
-            $carImage = uploadImage($currentUser->id, 'car_image_1', 'car_1_' . $currentUser->id);
-            if ($carImage['code']) {
-                return apiResponse(4, $carImage['mess']);
-            }
-            $imageData[] = [
-                'path' => $carImage['linkOnline'],
-                'type' => $imageType['car'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
 
-            for ($i = 2; $i <= 10; $i++) {
-                if (isset($_FILES["car_image_$i"])) {
-                    $carImage = uploadImage($currentUser->id, 'car_image_' . $i, 'car_' . $i . '_' . $currentUser->id);
-                    if ($carImage['code']) {
-                        return apiResponse(4, $carImage['mess']);
-                    }
-                    $imageData[] = [
-                        'path' => $carImage['linkOnline'],
-                        'type' => $imageType['car'],
-                        'owner_id' => $currentUser->id,
-                        'owner_type' => $ownerType['users']
-                    ];
-                } else {
-                    break;
-                }
-            }
+function checkLoginFacebookApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultAvatar;
 
-            $avatar = uploadImage($currentUser->id, 'avatar', 'avatar' . $currentUser->id);
-            if ($avatar['code']) {
-                return apiResponse(4, $avatar['mess']);
-            }
-            $imageData[] = [
-                'path' => $avatar['linkOnline'],
-                'type' => $imageType['car'],
-                'owner_id' => $currentUser->id,
-                'owner_type' => $ownerType['users']
-            ];
+    $userModel = $controller->loadModel('Users');
 
-            $images = $modelImage->newEntities($imageData);
-            $modelImage->saveMany($images);
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['facebook_id'])) {
+            $user = $userModel->find()->where(['facebook_id' => $dataSend['facebook_id']])->first();
 
-            $currentRequest = $modelDriverRequest->find()
-                ->where(['user_id' => $currentUser->id])
-                ->first();
-            if (!$currentRequest) {
-                $request = $modelDriverRequest->newEmptyEntity();
-                $request->user_id = $currentUser->id;
-                $modelDriverRequest->save($request);
+            if ($user) {
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->access_token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->name = $dataSend['name'] ?? $user->name;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
             } else {
-                $currentRequest->updated_at = date('Y-m-d H:i:s');
-                $modelDriverRequest->save($currentRequest);
-            }
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone_number'])) {
+                    $checkPhone = $userModel->find()->where(['phone_number' => $dataSend['phone_number']])->first();
 
-            return apiResponse(0, 'Gửi yêu cầu thành công');
+                    if (!empty($checkPhone)) {
+                        $checkPhone->facebook_id = $dataSend['facebook_id'];
+                        $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
+                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
+                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->access_token = createToken();
+                        $userModel->save($checkPhone);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
+                    }
+                }
+
+                // Kiểm tra user email đã tồn tại chưa
+                if (!empty($dataSend['email'])) {
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
+
+                    if (!empty($checkEmail)) {
+                        $checkEmail->facebook_id = $dataSend['facebook_id'];
+                        $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
+                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
+                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->access_token = createToken();
+                        $userModel->save($checkEmail);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
+                    }
+                }
+
+                // Tạo user mới
+
+                if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser->phone_number = $dataSend['phone_number'] ?? 'FB' . $dataSend['facebook_id'];
+                    $newUser->is_verified = 1;
+                    $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->address = $dataSend['address'] ?? null;
+                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->access_token = createToken();
+                    $newUser->device_token = $dataSend['device_token'] ?? null;
+                    $userModel->save($newUser);
+
+                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                }
+
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
         }
 
         return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -394,11 +454,189 @@ function upgradeToDriverApi($input): array
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-function generateQRCodeApi($input): array
+function checkLoginGoogleApi($input): array
 {
+    global $controller;
     global $isRequestPost;
-    global $urlTransaction;
-    global $transactionKey;
+    global $defaultAvatar;
+
+    $userModel = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['google_id'])) {
+            $user = $userModel->find()->where(['google_id' => $dataSend['google_id']])->first();
+
+            if ($user) {
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->access_token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->name = $dataSend['name'] ?? $user->name;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
+            } else {
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone_number'])) {
+                    $checkPhone = $userModel->find()->where(['phone_number' => $dataSend['phone_number']])->first();
+
+                    if (!empty($checkPhone)) {
+                        $checkPhone->google_id = $dataSend['google_id'];
+                        $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
+                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
+                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->access_token = createToken();
+                        $userModel->save($checkPhone);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
+                    }
+                }
+
+                // Kiểm tra user email đã tồn tại chưa
+                if (!empty($dataSend['email'])) {
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
+
+                    if (!empty($checkEmail)) {
+                        $checkEmail->google_id = $dataSend['google_id'];
+                        $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
+                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
+                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->access_token = createToken();
+                        $userModel->save($checkEmail);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
+                    }
+                }
+
+                // Tạo user mới
+
+                if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser->phone_number = $dataSend['phone_number'] ?? 'GG' . $dataSend['google_id'];
+                    $newUser->is_verified = 1;
+                    $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->address = $dataSend['address'] ?? null;
+                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->access_token = createToken();
+                    $newUser->device_token = $dataSend['device_token'] ?? null;
+                    $userModel->save($newUser);
+
+                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                }
+
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function checkLoginAppleApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultAvatar;
+
+    $userModel = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['apple_id'])) {
+            $user = $userModel->find()->where(['apple_id' => $dataSend['apple_id']])->first();
+
+            if ($user) {
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->access_token = createToken();
+                $user->avatar = $dataSend['avatar'] ?? $user->avatar;
+                $user->name = $dataSend['name'] ?? $user->name;
+                $userModel->save($user);
+
+                return apiResponse(0, 'Đăng nhập thành công', $user);
+            } else {
+                // Kiểm tra user phone đã tồn tại chưa
+                if (!empty($dataSend['phone_number'])) {
+                    $checkPhone = $userModel->find()->where(['phone_number' => $dataSend['phone_number']])->first();
+
+                    if (!empty($checkPhone)) {
+                        $checkPhone->apple_id = $dataSend['apple_id'];
+                        $checkPhone->avatar = $dataSend['avatar'] ?? $checkPhone->avatar;
+                        $checkPhone->name = $dataSend['name'] ?? $checkPhone->name;
+                        $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
+                        $checkPhone->last_login = date('Y-m-d H:i:s');
+                        $checkPhone->access_token = createToken();
+                        $userModel->save($checkPhone);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
+                    }
+                }
+
+                // Kiểm tra user email đã tồn tại chưa
+                if (!empty($dataSend['email'])) {
+                    $checkEmail = $userModel->find()->where(['email' => $dataSend['email']])->first();
+
+                    if (!empty($checkEmail)) {
+                        $checkEmail->apple_id = $dataSend['apple_id'];
+                        $checkEmail->avatar = $dataSend['avatar'] ?? $checkEmail->avatar;
+                        $checkEmail->name = $dataSend['name'] ?? $checkEmail->name;
+                        $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
+                        $checkEmail->last_login = date('Y-m-d H:i:s');
+                        $checkEmail->access_token = createToken();
+                        $userModel->save($checkEmail);
+
+                        return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
+                    }
+                }
+
+                // Tạo user mới
+
+                if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
+                    $newUser = $userModel->newEmptyEntity();
+                    $newUser->name = $dataSend['name'] ?? 'Người dùng';
+                    $newUser->avatar = $dataSend['avatar'] ?? $defaultAvatar;
+                    $newUser->phone_number = $dataSend['phone_number'] ?? 'AP' . $dataSend['apple_id'];
+                    $newUser->is_verified = 1;
+                    $newUser->email = $dataSend['email'] ?? null;
+                    $newUser->address = $dataSend['address'] ?? null;
+                    $newUser->status = isset($dataSend['status']) ? (int) $dataSend['status'] : 1;
+                    $newUser->created_at = date('Y-m-d H:i:s');
+                    $newUser->updated_at = date('Y-m-d H:i:s');
+                    $newUser->last_login = date('Y-m-d H:i:s');
+                    $newUser->access_token = createToken();
+                    $newUser->device_token = $dataSend['device_token'] ?? null;
+                    $userModel->save($newUser);
+
+                    return apiResponse(0, 'Đăng nhập thành công', $newUser);
+                }
+
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function getUserDetailApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelImage = $controller->loadModel('Images');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -406,99 +644,267 @@ function generateQRCodeApi($input): array
         if (!isset($dataSend['access_token'])) {
             return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         } else {
-            $currentUser = getUserByToken($dataSend['access_token']);
+            $idCardFront = $imageType['id-card-front'];
+            $idCardBack = $imageType['id-card-back'];
+            $carImage = $imageType['car'];
+            $type = $ownerType['users'];
+            $user = $modelUser->find()
+                ->join([
+                    [
+                        'table' => 'images',
+                        'alias' => 'IdCardFront',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'IdCardFront.owner_id = Users.id',
+                            "IdCardFront.owner_type = '$type'",
+                            "IdCardFront.type = '$idCardFront'"
+                        ],
+                    ],
+                    [
+                        'table' => 'images',
+                        'alias' => 'IdCardBack',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'IdCardBack.owner_id = Users.id',
+                            "IdCardBack.owner_type = '$type'",
+                            "IdCardBack.type = '$idCardBack'"
+                        ],
+                    ],
+                    [
+                        'table' => 'images',
+                        'alias' => 'CarImages',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'CarImages.owner_id = Users.id',
+                            "CarImages.owner_type = '$type'",
+                            "CarImages.type = '$carImage'"
+                        ],
+                    ]
+                ])->select([
+                    'Users.id',
+                    'Users.name',
+                    'Users.email',
+                    'Users.phone_number',
+                    'Users.bank_account',
+                    'Users.account_number',
+                    'Users.avatar',
+                    'Users.address',
+                    'Users.birthday',
+                    'Users.total_coin',
+                    'IdCardFront.id',
+                    'IdCardFront.path',
+                    'IdCardBack.id',
+                    'IdCardBack.path',
+                ])->where([
+                    'access_token' => $dataSend['access_token'],
+                    'status' => 1
+                ])->first();
 
-            if (empty($currentUser)) {
+            if (empty($user)) {
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
+
+            $carImage = $modelImage->find()
+                ->select(['id', 'path'])
+                ->where([
+                    'owner_id' => $user->id,
+                    'owner_type' => 'users',
+                    'type' => 'car'
+                ])->all()->toArray();
+            $user->carImages = $carImage;
+
+            return apiResponse(0, 'Láy thông tin người dùng thành công', $user);
         }
-
-        if (isset($dataSend['amount'])) {
-            $amount = $dataSend['amount'];
-            $addInfo = "$currentUser->phone_number $transactionKey";
-            $url = $urlTransaction . "amount=$amount&addInfo=$addInfo&accountName=Tran Ngoc Manh";
-            $data = [
-                'url' => $url,
-                'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
-                'account_number' => '06931228668',
-                'account_name' => 'Trần Ngọc Mạnh',
-                'content' => $addInfo
-            ];
-
-            return apiResponse(0, 'Gửi yêu cầu nạp tiền thành công', $data);
-        }
-
-        return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
 
-function addMoneyTPBankApi($input): array
+function updateUserApi($input): array
 {
-    global $transactionKey;
+    global $controller;
     global $isRequestPost;
+    global $imageType;
+    global $ownerType;
+
+    $modelUser = $controller->loadModel('Users');
+    $modelImage = $controller->loadModel('Images');
 
     if ($isRequestPost) {
-        if (!empty($_POST['message'])) {
-            $keyApp = strtoupper($transactionKey);
-            $message = strtoupper($_POST['message']);
+        $dataSend = $input['request']->getData();
+        $currentUser = getUserByToken($dataSend['access_token']);
 
-            $description = explode('ND: ', $message);
-            $description = trim($description[1]);
-            $description = str_replace(array('IBFT ', 'THANH TOAN QR ', 'QR - '), '', $description);
-
-            $money = explode('PS:+', $message);
-            $money = explode('SD:', $money[1]);
-            $money = (int)str_replace(array('.', 'VND'), '', $money[0]);
-
-            if ($money > 0 && strlen(strstr($description, $keyApp)) > 0) {
-                // xóa dấu chấm
-                $removeDot = explode('.', $description);
-                if (count($removeDot) > 1) {
-                    for ($i = 0; $i < count($removeDot); $i++) {
-                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
-                            $description = $removeDot[$i];
-                            break;
-                        }
-                    }
-                }
-
-                // xóa dấu chấm phẩy
-                $removeDot = explode(';', $description);
-                if (count($removeDot) > 1) {
-                    for ($i = 0; $i < count($removeDot); $i++) {
-                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
-                            $description = $removeDot[$i];
-                            break;
-                        }
-                    }
-                }
-
-                // xóa dấu gạch ngang
-                $removeDot = explode('-', $description);
-                if (count($removeDot) > 1) {
-                    for ($i = 0; $i < count($removeDot); $i++) {
-                        if (strlen(strstr($removeDot[$i], $keyApp)) > 0) {
-                            $description = $removeDot[$i];
-                            break;
-                        }
-                    }
-                }
-
-
-                $removeSpace = explode(' ', trim($description));
-                $phoneNumber = $removeSpace[0];
-
-                $mess = processAddMoney($money, $phoneNumber);
-
-                return apiResponse(0, $mess);
-            } else {
-                return apiResponse(3, 'Sai cú pháp hoặc số tiền không đủ');
-            }
-        } else {
-            return apiResponse(2, 'Gửi thiếu nội dung SMS');
+        if (empty($currentUser)) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
         }
+
+        if ($currentUser->type == 0) {
+            return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+        }
+
+        if (isset($dataSend['name'])) {
+            $currentUser->name = $dataSend['name'];
+        }
+
+        if (isset($dataSend['email'])) {
+            $checkEmail = $modelUser->find()
+                ->where([
+                    'email' => $dataSend['email'],
+                    'id <>' => $currentUser->id,
+                ])->first();
+
+            if (!empty($checkEmail)) {
+                return apiResponse(4, 'Email đã được sử dụng');
+            }
+            $currentUser->email = $dataSend['email'];
+        }
+
+        if (isset($dataSend['phone_number'])) {
+            $checkPhone = $modelUser->find()
+                ->where([
+                    'email' => $dataSend['phone_number'],
+                    'id <>' => $currentUser->id,
+                ])->first();
+
+            if (!empty($checkPhone)) {
+                return apiResponse(4, 'Số điện thoại đã được sử dụng');
+            }
+            $currentUser->phone_number = $dataSend['phone_number'];
+        }
+
+        if (isset($dataSend['birthday'])) {
+            $currentUser->birthday = date('Y-m-d H:i:s', strtotime($dataSend['birthday']));
+        }
+
+        if (isset($dataSend['address'])) {
+            $currentUser->address = $dataSend['address'];
+        }
+
+        if (isset($dataSend['bank_account'])) {
+            $currentUser->bank_account = $dataSend['bank_account'];
+        }
+
+        if (isset($dataSend['account_number'])) {
+            $currentUser->account_number = $dataSend['account_number'];
+        }
+
+        $newImages = [];
+        $oldImages = [];
+
+        // avatar
+        if (isset($_FILES['avatar'])) {
+            // Old image
+            $oldAvatar = $modelImage->find()->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['avatar']
+            ])->first();
+            $oldImages[] = $oldAvatar;
+
+            // New image
+            $newAvatar = uploadImage($currentUser->id, 'avatar', "avatar_$currentUser->id" . '_' . time());
+            $currentUser->avatar = $newAvatar['linkOnline'];
+            $newImages[] = [
+                'path' => $newAvatar['linkOnline'],
+                'local_path' => $newAvatar['linkLocal'],
+                'type' => $imageType['avatar'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+        }
+
+        // Id card front
+        if (isset($_FILES['id_card_front'])) {
+            $oldCardFront = $modelImage->find()->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['id-card-front']
+            ])->first();
+
+            if (!empty($oldCardFront)) {
+                $oldImages[] = $oldCardFront;
+            }
+
+            $newCardFront = uploadImage($currentUser->id, 'id_card_front', "id_card_front_$currentUser->id" . '_' . time());
+            $newImages[] = [
+                'path' => $newCardFront['linkOnline'],
+                'local_path' => $newCardFront['linkLocal'],
+                'type' => $imageType['id-card-front'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+        }
+
+        // Id card back
+        if (isset($_FILES['id_card_back'])) {
+            $oldCardBack = $modelImage->find()->where([
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users'],
+                'type' => $imageType['id-card-back']
+            ])->first();
+
+            if (!empty($oldCardBack)) {
+                $oldImages[] = $oldCardBack;
+            }
+
+            $newCardFront = uploadImage($currentUser->id, 'id_card_back', "id_card_back_$currentUser->id" . '_' . time());
+            $newImages[] = [
+                'path' => $newCardFront['linkOnline'],
+                'local_path' => $newCardFront['linkLocal'],
+                'type' => $imageType['id-card-back'],
+                'owner_id' => $currentUser->id,
+                'owner_type' => $ownerType['users']
+            ];
+        }
+
+        // new car image
+        for ($i = 1; $i <= 10; $i++) {
+            if (isset($_FILES["car_image_$i"])) {
+                $carImage = uploadImage($currentUser->id, "car_image_$i", "car_$i" . "_$currentUser->id" . '_' . time());
+                if ($carImage['code']) {
+                    return apiResponse(4, $carImage['mess']);
+                }
+                $newImages[] = [
+                    'path' => $carImage['linkOnline'],
+                    'local_path' => $carImage['linkLocal'],
+                    'type' => $imageType['car'],
+                    'owner_id' => $currentUser->id,
+                    'owner_type' => $ownerType['users']
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // old car image
+        if (!empty($dataSend['delete_car_images']) && is_array($dataSend['delete_car_images'])) {
+            $oldCarImages = $modelImage->find()
+                ->where([
+                    'id IN' => $dataSend['delete_car_images'],
+                    'owner_id' => $currentUser->id,
+                    'owner_type' => $ownerType['users']
+                ])->all();
+            $oldImages = array_merge($oldImages, $oldCarImages->toList());
+        }
+
+        // Insert new image
+        $modelImage->saveMany($modelImage->newEntities($newImages));
+        $modelUser->save($currentUser);
+
+        // Delete old image
+        if (count(array_filter($oldImages))) {
+            $deleteImageIds = array_map(function ($item) {
+                return $item->id;
+            }, $oldImages);
+
+            $modelImage->deleteAll(['id IN' => $deleteImageIds]);
+
+            foreach ($oldImages as $item) {
+                removeFile($item->local_path);
+            }
+        }
+
+        return apiResponse(0, 'Cập nhật thông tin thành công');
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');

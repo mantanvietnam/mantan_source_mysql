@@ -169,54 +169,56 @@ function listUpgradeRequestToDriverAdmin($input)
     $listUserRequest = $modelDriverRequest->find()
         ->where(['status' => 0])
         ->all();
-    $listUserId = $listUserRequest->map(function ($item) {
-        return $item->user_id;
-    })->toList();
 
-    $conditions = ['id IN' => $listUserId];
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
 
-    if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
-        $conditions['id'] = $_GET['id'];
+    if (count($listUserRequest->toList())) {
+        $listUserId = $listUserRequest->map(function ($item) {
+            return $item->user_id;
+        })->toList();
+        $conditions = ['id IN' => $listUserId];
+
+        if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
+            $conditions['id'] = $_GET['id'];
+        }
+
+        if (!empty($_GET['name'])) {
+            $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
+        }
+
+        if (!empty($_GET['phone_number'])) {
+            $conditions['phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
+        }
+
+        if (!empty($_GET['email'])) {
+            $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
+        }
+
+        if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
+            $conditions['type'] = $_GET['type'];
+        }
+
+        if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
+            $conditions['status'] = $_GET['status'];
+        }
+
+        $listData = $modelUser->find()
+            ->limit($limit)
+            ->page($page)
+            ->where($conditions)
+            ->all()
+            ->toList();
+        $totalUser = $modelUser->find()
+            ->where($conditions)
+            ->count();
+    } else {
+        $listData = [];
+        $totalUser = 0;
     }
 
-    if (!empty($_GET['name'])) {
-        $conditions['name LIKE'] = '%' . $_GET['name'] . '%';
-    }
-
-    if (!empty($_GET['phone_number'])) {
-        $conditions['phone_number LIKE'] = '%' . $_GET['phone_number'] . '%';
-    }
-
-    if (!empty($_GET['email'])) {
-        $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
-    }
-
-    if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
-        $conditions['type'] = $_GET['type'];
-    }
-
-    if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
-        $conditions['status'] = $_GET['status'];
-    }
-
-    $listData = $modelUser->find()
-        ->limit($limit)
-        ->page($page)
-        ->where($conditions)
-        ->all()
-        ->toList();
-    $totalUser = $modelUser->find()
-        ->where($conditions)
-        ->all()
-        ->toList();
-    $paginationMeta = createPaginationMetaData(
-        count($totalUser),
-        $limit,
-        $page
-    );
+    $paginationMeta = createPaginationMetaData($totalUser, $limit, $page);
 
     setVariable('page', $page);
     setVariable('totalPage', $paginationMeta['totalPage']);
@@ -253,4 +255,127 @@ function acceptUpgradeToDriverAdmin($input)
 
         return $controller->redirect("/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=$user->id");
     }
+}
+
+function listWithdrawRequestAdmin($input)
+{
+    global $controller;
+    global $withdrawRequestStatus;
+
+    $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
+    $conditions = [];
+    $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
+    $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
+    if ($page < 1) $page = 1;
+    $query = $withdrawRequestModel->find()
+        ->join([
+            [
+                'table' => 'users',
+                'alias' => 'Users',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'WithdrawRequests.user_id = Users.id',
+                ],
+            ],
+        ]);
+
+    if (!empty($_GET['user_id'])) {
+        $conditions['Users.id'] = $_GET['user_id'];
+    }
+
+    if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
+        $conditions['WithdrawRequests.status'] = $_GET['status'];
+    } else {
+        $conditions['WithdrawRequests.status'] = $withdrawRequestStatus['pending'];
+    }
+
+    if (!empty($_GET['name'])) {
+        $conditions['Users.name LIKE'] =  '%' . $_GET['name'] . '%';
+    }
+
+    if (!empty($_GET['phone_number'])) {
+        $conditions['Users.phone_number'] = $_GET['phone_number'];
+    }
+
+    if (!empty($_GET['email'])) {
+        $conditions['Users.email'] = $_GET['email'];
+    }
+
+    $requestList = $query->select([
+            'Users.id',
+            'Users.name',
+            'Users.avatar',
+            'Users.total_coin',
+            'Users.phone_number',
+            'Users.bank_account',
+            'Users.account_number',
+            'Users.email',
+            'WithdrawRequests.id',
+            'WithdrawRequests.amount',
+            'WithdrawRequests.status',
+            'WithdrawRequests.created_at',
+        ])->limit($limit)
+        ->page($page)
+        ->where($conditions)
+        ->all()
+        ->toList();
+    $totalRequest = $query->where($conditions)->count();
+    $paginationMeta = createPaginationMetaData($totalRequest, $limit, $page);
+
+    setVariable('page', $page);
+    setVariable('totalPage', $paginationMeta['totalPage']);
+    setVariable('back', $paginationMeta['back']);
+    setVariable('next', $paginationMeta['next']);
+    setVariable('urlPage', $paginationMeta['urlPage']);
+    setVariable('listData', $requestList);
+}
+
+function updateStatusWithdrawRequestAdmin($input)
+{
+    global $controller;
+    global $withdrawRequestStatus;
+    global $transactionType;
+
+    $withdrawRequestModel = $controller->loadModel('WithdrawRequests');
+    $userModel = $controller->loadModel('Users');
+    $transactionModel = $controller->loadModel('Transactions');
+
+    if (!empty($_GET['id'])) {
+        $request = $withdrawRequestModel->find()
+            ->where([
+                'id' => $_GET['id']
+            ])->first();
+
+        $user = $userModel->find()
+            ->where([
+                'id' => $request->user_id
+            ])->first();
+
+        if ($request && isset($_GET['status'])) {
+            $request->status = $_GET['status'];
+            $withdrawRequestModel->save($request);
+
+            // Save transaction
+            $newTransaction = $transactionModel->newEmptyEntity();
+            $newTransaction->user_id = $user->id;
+            $newTransaction->amount = $request->amount;
+            $newTransaction->type = $transactionType['subtract'];
+            $newTransaction->name = 'Rút tiền EXC-xu thành công';
+            $newTransaction->description = '-' . number_format($request->amount) . ' EXC-xu';
+            $transactionModel->save($newTransaction);
+
+            if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
+                $dataSendNotification= array(
+                    'title' => 'Rút tiền thành công EXC-GO',
+                    'time' => date('H:i d/m/Y'),
+                    'content' => 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number,
+                    'action' => 'withdrawMoneySuccess'
+                );
+
+                sendNotification($dataSendNotification, $user->device_token);
+            }
+        }
+    }
+
+    return $controller->redirect('/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php');
 }

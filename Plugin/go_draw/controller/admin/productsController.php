@@ -69,13 +69,8 @@ function listProductAdmin($input)
             'Categories.id',
             'Categories.name',
         ])->where($conditions)
-        ->limit($limit)
-        ->page($page)
         ->all()
-        ->map(function ($item) use ($domain) {
-            $item->image = $domain . $item->image;
-            return $item;
-        });
+        ->toList();
     $total = $productModel->find()->count();
     $paginationMeta = createPaginationMetaData($total, $limit, $page);
 

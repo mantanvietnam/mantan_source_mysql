@@ -14,6 +14,12 @@ $menus[0]['sub'][1] = array('title' => 'Đơn hàng',
     'permission' => 'listOrderAdmin'
 );
 
+$menus[0]['sub'][2] = array('title' => 'Đơn hàng',
+    'url' => '/plugins/admin/go_draw-view-admin-user-listUserAdmin.php',
+    'classIcon' => 'bx bx-user',
+    'permission' => 'listUserAdmin'
+);
+
 $menus[0]['sub'][10] = array('title' => 'Cài đặt',
     'url' => '/',
     'classIcon' => 'bx bx-cog',
@@ -40,6 +46,12 @@ $menus[0]['sub'][10] = array('title' => 'Cài đặt',
 
 global $domain;
 $domain = 'https://godraw.2top.vn/';
+
+global $defaultImage;
+$defaultImage = 'plugins/go_draw/view/image/default-image.jpg';
+
+global $defaultAvatar;
+$defaultAvatar = 'plugins/go_draw/view/image/default-avatar.png';
 
 addMenuAdminMantan($menus);
 
@@ -128,9 +140,4 @@ function apiResponse(int $code = 0, $messages = '', $data = [], array $meta = []
         'messages' => $messages ?? '',
         'meta' => $meta ?? []
     ];
-}
-
-function previewImage()
-{
-
 }

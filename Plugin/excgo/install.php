@@ -66,16 +66,21 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
   `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` tinyint(1) NOT NULL DEFAULT 0,
   `bank_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_coin` int(11) NOT NULL DEFAULT 0,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
   `last_login` timestamp NULL DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `device_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `google_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apple_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reset_password_code` VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -110,10 +115,50 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`driver_requests` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`withdraw_requests` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `amount` int NOT NULL,
+    `status` tinyint(4) NOT NULL DEFAULT 0,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`transactions` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `booking_id` int DEFAULT NULL,
+    `name` varchar(255) NOT NULL,
+    `amount` int NOT NULL DEFAULT 0,
+    `description` text DEFAULT NULL,
+    `status` tinyint(4) NOT NULL DEFAULT 1,
+    `type` tinyint(4) NOT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`complaints` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `posted_by` int NOT NULL,
+    `booking_id` int NOT NULL,
+    `complained_driver_id` int NOT NULL,
+    `content` text NOT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp on update current_timestamp() NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `users`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `pinned_provinces`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `booking_fees`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `driver_requests`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `withdraw_requests`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `complaints`;';
 ?>
-

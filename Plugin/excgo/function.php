@@ -28,6 +28,12 @@ $menus[4]['sub'][0] = array('title' => 'Yêu cầu nâng cấp tài khoản',
     'permission' => 'listUpgradeRequestToDriverAdmin',
 );
 
+$menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
+    'url' => '/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listWithdrawRequestAdmin',
+);
+
 addMenuAdminMantan($menus);
 
 $keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
@@ -451,7 +457,10 @@ function getUserByToken($accessToken, $checkActive = true)
 function processAddMoney($money, $phoneNumber): string
 {
     global $controller;
+    global $transactionType;
+
     $modelUser = $controller->loadModel('Users');
+    $modelTransaction = $controller->loadModel('Transactions');
 
     if ($money >= 1000) {
         if($phoneNumber) {
@@ -462,6 +471,15 @@ function processAddMoney($money, $phoneNumber): string
             if ($user) {
                 $user->totalcoin += $money;
                 $modelUser->save($user);
+
+                // Save transaction
+                $newTransaction = $modelTransaction->newEmptyEntity();
+                $newTransaction->user_id = $user->id;
+                $newTransaction->amount = $money;
+                $newTransaction->type = $transactionType['add'];
+                $newTransaction->name = 'Nạp EXC-xu thành công';
+                $newTransaction->description = '+' . number_format($money) . ' EXC-xu';
+                $modelTransaction->save($newTransaction);
 
                 if ($user->email && $user->name) {
                     sendEmailAddMoney($user->email, $user->name, $money);
@@ -490,12 +508,92 @@ function processAddMoney($money, $phoneNumber): string
     return 'Số tiền nạp phải lớn hơn 1.000đ';
 }
 
+function getDetailBooking($id)
+{
+    global $controller;
+
+    $modelBooking = $controller->loadModel('Bookings');
+
+    if (empty($id)) {
+        return null;
+    }
+
+    $booking = $modelBooking->find()
+        ->join([
+            [
+                'table' => 'users',
+                'alias' => 'PostedUsers',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Bookings.posted_by = PostedUsers.id',
+                ],
+            ],
+            [
+                'table' => 'users',
+                'alias' => 'ReceivedUsers',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Bookings.received_by = ReceivedUsers.id',
+                ],
+            ],
+            [
+                'table' => 'provinces',
+                'alias' => 'DepartureProvinces',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Bookings.departure_province_id = DepartureProvinces.id',
+                ],
+            ],
+            [
+                'table' => 'provinces',
+                'alias' => 'DestinationProvinces',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'Bookings.destination_province_id = DestinationProvinces.id',
+                ],
+            ]
+        ])->select([
+            'Bookings.id',
+            'Bookings.name',
+            'Bookings.price',
+            'Bookings.start_time',
+            'Bookings.finish_time',
+            'Bookings.departure',
+            'Bookings.destination',
+            'Bookings.description',
+            'Bookings.introduce_fee',
+            'Bookings.status',
+            'Bookings.created_at',
+            'Bookings.updated_at',
+            'Bookings.received_at',
+            'Bookings.canceled_at',
+            'PostedUsers.id',
+            'PostedUsers.name',
+            'ReceivedUsers.id',
+            'ReceivedUsers.name',
+            'DepartureProvinces.id',
+            'DepartureProvinces.name',
+            'DestinationProvinces.id',
+            'DestinationProvinces.name',
+        ])->where(['Bookings.id' => $id])
+        ->first();
+
+    return $booking;
+}
+
 global $bookingStatus;
 $bookingStatus = [
     'unreceived' => 0,
     'received' => 1,
     'canceled' => 2,
     'completed' => 3,
+    'paid' => 4,
+];
+
+global $bookingFeeStatus;
+$bookingFeeStatus = [
+    'unpaid' => 0,
+    'paid' => 1,
 ];
 
 global $serviceFee;
@@ -521,8 +619,29 @@ $memberType = [
     'driver' => 2,
 ];
 
+global $withdrawRequestStatus;
+$withdrawRequestStatus = [
+    'pending' => 0,
+    'done' => 1,
+];
+
+global $transactionType;
+$transactionType = [
+    'add' => 1,
+    'subtract' => 2,
+];
+
+global $complaintType;
+$complaintType = [
+    'active' => 1,
+    'passive' => 2,
+];
+
 global $transactionKey;
 $transactionKey = 'excgo';
 
 global $urlTransaction;
 $urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';
+
+global $defaultAvatar;
+$defaultAvatar = 'https://apis.exc-go.vn/plugins/excgo/view/image/default-avatar.png';
