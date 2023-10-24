@@ -270,7 +270,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <button class="close_pdf">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
-                            <iframe src="<?php echo @$setting['profile']; ?>" frameborder="0"></iframe>
+                            <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" src="<?php echo @$setting['profile']; ?>" frameborder="0"></iframe>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 img-profile">

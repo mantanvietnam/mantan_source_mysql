@@ -8,7 +8,7 @@ global $session;
 
         <section class="page-banner">
             <div class="iframe-banner">
-                <iframe src="<?php echo $data->image360 ?>"
+                <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" src="<?php echo $data->image360 ?>"
                         frameborder="0"></iframe>
             </div>
         </section>

@@ -7,7 +7,7 @@ global $urlThemeActive;
     <main>
         <section id="banner-home-360" class="page-banner">
             <div class="box-iframe">
-                <iframe src="<?php echo @$setting['link_image360'];?>"
+                <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" src="<?php echo @$setting['link_image360'];?>"
                         frameborder="0"></iframe>
             </div>
         </section>

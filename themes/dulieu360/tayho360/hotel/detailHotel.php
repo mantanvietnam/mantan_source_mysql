@@ -7,7 +7,7 @@
   			<?php if(!empty($data['HotelManmo']['data']['Hotel']['link360'])){ ?>
         <section class="page-banner">
             <div class="iframe-banner">
-                <iframe src="<?php echo @$data['HotelManmo']['data']['Hotel']['link360'];?>"
+                <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" src="<?php echo @$data['HotelManmo']['data']['Hotel']['link360'];?>"
                     frameborder="0"></iframe>
             </div>
         </section>

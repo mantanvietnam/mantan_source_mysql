@@ -14,7 +14,7 @@
   			<?php if(!empty($data->image360)){ ?>
         <section class="page-banner">
             <div class="iframe-banner">
-                <iframe allowfullscreen="true" src="<?php echo @$data->image360;?>"
+                <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" src="<?php echo @$data->image360;?>"
                     frameborder="0"></iframe>
             </div>
         </section>
