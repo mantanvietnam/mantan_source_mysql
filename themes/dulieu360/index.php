@@ -114,7 +114,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <li class="nav-item log-in">
                         <a href="">Đăng nhập</a>
                     </li> -->
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-earth-asia"></i>
                             <span class="lang-text">Language:</span> Tiếng Việt
@@ -123,7 +123,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
                             <li><a class="dropdown-item" href="#">English</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </div>
             </ul>
         </div>

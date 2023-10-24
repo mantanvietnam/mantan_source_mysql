@@ -89,7 +89,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
         <div id="top-bar">
             <div class="container-fluid">
                 <ul class="nav nav-pills">
-                    <div class="date">Thứ Ba, 03/10/2023</div>
+                <div class="date"><?php echo sw_get_current_weekday() ?></div>
                     <div class="box-search">
                         <button class="nav-link" onclick="showSearchModal()">
                             <i class="fa-solid fa-magnifying-glass" style="color: #fcfcfc;"></i>
@@ -114,7 +114,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <a class="nav-link d-flex align-items-center" style=" color: white; "
                            href="/login">Đăng nhập</a>
                     <?php } ?>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-earth-asia"></i>
                                 <span class="lang-text">Language:</span> Tiếng Việt
@@ -123,7 +123,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
                                 <li><a class="dropdown-item" href="#">English</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </div>
                 </ul>
             </div>

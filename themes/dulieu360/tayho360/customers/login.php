@@ -49,12 +49,12 @@ global $urlThemeActive;
                                         <a href="/register">Đăng ký</a>
                                     </div>
                                 </form>
-                                <div class="sign-in-other">
+                                <!-- <div class="sign-in-other">
                                     <p>Hoặc Đăng nhập với</p>
                                     <a class="sign-in-mobile" href=""><i class="fa-solid fa-mobile-screen"></i></a>
                                     <a class="sign-in-google" href=""><i class="fa-brands fa-google"></i></a>
                                     <a class="sign-in-facebook" href=""><i class="fa-brands fa-facebook"></i></a>
-                                </div>
+                                </div> -->
 
 
                             </div>

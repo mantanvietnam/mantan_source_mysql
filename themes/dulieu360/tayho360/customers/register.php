@@ -62,12 +62,12 @@ global $urlThemeActive;
                                     </div>
                                     <button class="button-sign-in button-register" type="submit">Đăng ký</button>
                                </form>
-                                <div class="sign-in-other register-other">
+                                <!-- <div class="sign-in-other register-other">
                                     <p>Hoặc Đăng ký với</p>
                                     <a class="sign-in-mobile" href=""><i class="fa-solid fa-mobile-screen"></i></a>
                                     <a class="sign-in-google" href=""><i class="fa-brands fa-google"></i></a>
                                     <a class="sign-in-facebook" href=""><i class="fa-brands fa-facebook"></i></a>
-                                </div>
+                                </div> -->
                                 <div class="register-text">
                                     <p>Đã có tài khoản? <a href="/login">Đăng nhập ngay</a></p>
                                 </div>
