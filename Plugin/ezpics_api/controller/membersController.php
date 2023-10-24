@@ -396,7 +396,7 @@ function checkLoginGoogleAPI($input)
 				$data->email = @$dataSend['email'];
 				$data->password = md5(@$dataSend['phone']);
 				$data->account_balance = 0; // tặng 0k cho tài khoản mới
-				$data->status =0; //1: kích hoạt, 0: khóa
+				$data->status = 1; //1: kích hoạt, 0: khóa
 				$data->type = 0; // 0: người dùng, 1: designer
 				$data->token = createToken();
 				$data->created_at = date('Y-m-d H:i:s');
