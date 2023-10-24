@@ -1,11 +1,12 @@
 <?php
-function listUserAdmin($input)
+
+function listAgencyAdmin($input)
 {
     global $controller;
     global $metaTitleMantan;
 
-    $metaTitleMantan = 'Danh sách thành viên';
-    $modelUser = $controller->loadModel('Users');
+    $metaTitleMantan = 'Danh sách đại lý';
+    $agencyModel = $controller->loadModel('Agencies');
 
     $conditions = array();
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -24,21 +25,21 @@ function listUserAdmin($input)
         $conditions['phone LIKE'] = '%' . $_GET['phone'] . '%';
     }
 
-    if (!empty($_GET['email'])) {
-        $conditions['email LIKE'] = '%' . $_GET['email'] . '%';
+    if (!empty($_GET['address'])) {
+        $conditions['address LIKE'] = '%' . $_GET['address'] . '%';
     }
 
     if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
         $conditions['status'] = $_GET['status'];
     }
 
-    $listData = $modelUser->find()
+    $listData = $agencyModel->find()
         ->limit($limit)
         ->page($page)
         ->where($conditions)
         ->all()
         ->toList();
-    $totalUser = $modelUser->find()
+    $totalUser = $agencyModel->find()
         ->where($conditions)
         ->all()
         ->toList();
@@ -56,63 +57,61 @@ function listUserAdmin($input)
     setVariable('listData', $listData);
 }
 
-function updateStatusUserAdmin($input)
+function updateStatusAgencyAdmin($input)
 {
     global $controller;
 
-    $modelUser = $controller->loadModel('Users');
+    $agencyModel = $controller->loadModel('Agencies');
 
     if (!empty($_GET['id'])) {
-        $data = $modelUser->find()->where([
+        $data = $agencyModel->find()->where([
             'id' => $_GET['id']
         ])->first();
 
         if ($data && isset($_GET['status'])) {
             $data->status = $_GET['status'];
-            $modelUser->save($data);
+            $agencyModel->save($data);
         }
     }
 
-    return $controller->redirect('/plugins/admin/go_draw-view-admin-user-listUserAdmin.php');
+    return $controller->redirect('/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin.php');
 }
 
-function viewUserDetailAdmin($input)
+function viewDetailAgencyAdmin($input)
 {
     global $controller;
     global $isRequestPost;
 
-    $userModel = $controller->loadModel('Users');
+    $agencyModel = $controller->loadModel('Agencies');
     $mess = '';
 
     if (!empty($_GET['id'])) {
-        $user = $userModel->find()
-            ->where([
-                'id' => (int)$_GET['id']
-            ])->first();
+        $data = $agencyModel->find()->where([
+            'id' => $_GET['id']
+        ])->first();
     } else {
-        $user = $userModel->newEmptyEntity();
+        $data = $agencyModel->newEmptyEntity();
     }
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['name'])
-            || !empty($dataSend['email'])
+            || !empty($dataSend['address'])
             || !empty($dataSend['phone'])
         ) {
-            $user->name = $dataSend['name'];
-            $user->email = $dataSend['email'];
-            $user->phone = $dataSend['phone'];
-            $user->total_coin = $dataSend['total_coin'];
-            $user->status = $dataSend['status'];
+            $data->name = $dataSend['name'];
+            $data->address = $dataSend['address'];
+            $data->phone = $dataSend['phone'];
+            $data->status = $dataSend['status'];
 
-            $userModel->save($user);
+            $agencyModel->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         } else {
             $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
         }
     }
 
-    setVariable('data', $user);
+    setVariable('data', $data);
     setVariable('mess', $mess);
 }

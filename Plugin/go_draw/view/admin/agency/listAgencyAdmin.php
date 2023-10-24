@@ -1,5 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Thành viên</h4>
+    <h4 class="fw-bold py-3 mb-4">Đại lý</h4>
+    <p><a href="/plugins/admin/go_draw-view-admin-agency-viewDetailAgencyAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
     <!-- Form Search -->
     <form method="get" action="">
         <div class="card mb-4">
@@ -13,7 +15,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <label class="form-label">Tên thành viên</label>
+                        <label class="form-label">Tên đại lý</label>
                         <input type="text" class="form-control" name="name"
                                value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
                     </div>
@@ -25,9 +27,9 @@
                     </div>
 
                     <div class="col-md-3">
-                        <label class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email"
-                               value="<?php if (!empty($_GET['email'])) echo $_GET['email']; ?>">
+                        <label class="form-label">Địa chỉ</label>
+                        <input type="text" class="form-control" name="address"
+                               value="<?php if (!empty($_GET['address'])) echo $_GET['address']; ?>">
                     </div>
 
                     <div class="col-md-2">
@@ -59,9 +61,8 @@
                 <thead>
                 <tr class="">
                     <th>ID</th>
-                    <th>Avatar</th>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
+                    <th>Tên đại lý</th>
+                    <th>Địa chỉ</th>
                     <th>Số điện thoại</th>
                     <th>Sửa</th>
                     <th>Trạng thái</th>
@@ -74,16 +75,16 @@
                         if ($item->status == 1) {
                             $status = '
                   <a class="btn btn-success"  title="Khóa tài khoản" 
-                    onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
-                    href="/plugins/admin/go_draw-view-admin-user-updateStatusUserAdmin.php/?id=' . $item->id . '&status=0"
+                    onclick="return confirm(\'Bạn có chắc chắn muốn khóa đại lý không?\');"
+                    href="/plugins/admin/go_draw-view-admin-agency-updateStatusAgencyAdmin.php/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã kích hoạt ';
                         } else {
                             $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
-                    onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
-                    href="/plugins/admin/go_draw-view-admin-user-updateStatusUserAdmin.php/?id=' . $item->id . '&status=1"
+                    onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt đại lý không?\');" 
+                    href="/plugins/admin/go_draw-view-admin-agency-updateStatusAgencyAdmin.php/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -91,10 +92,9 @@
 
                         echo '<tr>
                         <td align="center">' . $item->id . '</td>
-                        <td align="center"><img src="' . $item->avatar . '" width="100" /></td>
-                        <td>' . $item->name . ' </td>
+                        <td>' . $item->name . '</td>
                         <td>
-                          ' . $item->email . '
+                          ' . $item->address . '
                         </td>
                         <td>
                           ' . $item->phone . '
@@ -102,7 +102,7 @@
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/go_draw-view-admin-user-viewUserDetailAdmin.php/?id=' . $item->id . '"
+                          href="/plugins/admin/go_draw-view-admin-agency-viewDetailAgencyAdmin.php/?id=' . $item->id . '"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>
