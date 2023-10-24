@@ -77,7 +77,10 @@ function listStaff($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 	    
-	    
+	    // $conditionsCategories = array('type' => 'category_member');
+        // $order = array('name'=>'asc');
+        // $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('totalData', $totalData);
@@ -85,6 +88,7 @@ function listStaff($input)
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    
+	    // setVariable('listCategory', $listCategory);
 	    setVariable('listData', $listData);
 	}else{
 		return $controller->redirect('/login');

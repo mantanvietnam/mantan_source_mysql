@@ -410,7 +410,7 @@
             <li class="menu-item">
               <a href="/listSpa" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>
-                <div>Thông tin spa</div>
+                <div>Cơ sở Spa</div>
               </a>
             </li>
           </ul>

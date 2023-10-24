@@ -23,7 +23,7 @@
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
               <option value="" >Tất cả</option>
-              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Hiển thị </option>
+              <option value="active" <?php if(!empty($_GET['status']) && $_GET['status']=='active') echo 'selected';?> >Kích hoạt</option>
               <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
           </div>
@@ -53,6 +53,7 @@
               <th>Số lượng</th>
               <th>Giá bán</th>
               <th>Hoa hồng</th>
+              <th>Trạng thái</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -81,17 +82,25 @@
                           if(!empty($item->service)){
                             echo '<b>Dịch vụ:</b><br/>';
                             foreach($item->service as $service){
-                               echo '&nbsp; '.$service->name.' số lần '.$service->quantityCombo.'<br/>';
+                               echo '&nbsp; '.@$service->name.' số lần '.$service->quantityCombo.'<br/> ';
                             }
                           }
 
-
-
+                          
                     echo      '</td>
 
                           <td>'.number_format($item->quantity).'</td>
                           <td>'.number_format($item->price).'</td>
                           <td>'.$staff.'</td>
+                          ';
+                          if($item->status == "active"){
+                            echo '<td>Kích hoạt</td>';
+                          }
+                          if($item->status == "lock"){
+                            echo '<td>Khóa</td>';
+                          }
+                    echo
+                          '  
                           <td align="center">
                             <a class="dropdown-item" href="/addCombo/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

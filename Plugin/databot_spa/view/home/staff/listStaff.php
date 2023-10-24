@@ -79,6 +79,7 @@
               <th>Tên nhân viên</th>
               <th>Số điện thoại</th>
               <th>Email</th>
+              <th>Nhóm</th>
               <th>Trạng thái</th>
               <th>Đổi mật khẩu</th>
               <th>Sửa</th>
@@ -89,7 +90,7 @@
             <?php
             if (!empty($listData)) {
               foreach ($listData as $item) {
-
+                $group = $modelCategories->get($item->id_group);
                 $status = 'Kích hoạt <br/>';
                 $button = '<a class="dropdown-item" title="Khóa"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockStaff?id=' . $item->id . '&status=0">
                               <i class="bx bx-lock-open"></i> </a>';
@@ -105,6 +106,7 @@
                           <td>' . $item->name . ' </td>
                           <td>' . $item->phone . '</td>
                           <td>' . $item->email . '</td>
+                          <td>' . $group->name . '</td>
                           <td>' . $status . '</td>
                          
                           <td align="center">
