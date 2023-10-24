@@ -76,3 +76,66 @@ function updateNotificationStatusApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
+
+function markAllNotificationAsReadApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $notificationModel = $controller->loadModel('Notifications');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            $result = $notificationModel->updateAll([
+                    'is_viewed' => 1,
+                ], [
+                    'user_id' => $currentUser->id,
+                    'is_viewed' => 0
+                ]);
+
+            return apiResponse(0, 'Cập nhật thành công', $result);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function deleteAllNotificationsApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $notificationModel = $controller->loadModel('Notifications');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            $result = $notificationModel->deleteAll([
+                'user_id' => $currentUser->id
+            ]);
+
+            return apiResponse(0, 'Xóa thông báo thành công', $result);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}

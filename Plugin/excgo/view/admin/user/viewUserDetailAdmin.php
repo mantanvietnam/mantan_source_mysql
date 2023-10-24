@@ -92,11 +92,6 @@
                           <label class="form-label" for="basic-default-phone">Số dư tài khoản (*)</label>
                           <input required type="text" class="form-control phone-mask" name="total_coin" id="total_coin" value="<?php echo @$data->total_coin;?>" />
                         </div>
-
-                        <div class="col-md-6 mb-3">
-                          <label class="form-label" for="basic-default-phone">Số dư khả dụng (*)</label>
-                          <input required type="text" class="form-control phone-mask" name="available_coin" id="available_coin" value="<?php echo @$data->available_coin;?>" />
-                        </div>
                     </div>
 
                     <div class="row">
