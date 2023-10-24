@@ -1,0 +1,121 @@
+<?php
+getHeader();
+global $urlThemeActive;
+
+$setting = setting();
+
+$slide_home= slide_home($setting['id_slide']);
+?>
+<main>
+        <section id="section-breadcrumb">
+            <div class="breadcrumb-center">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Library</a></li>
+                  <li class="breadcrumb-item active">Data</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="section-contact">
+            <div class="container">
+                <div class="contact-title">
+                    <h1>Liên hệ với Bumas</h1>
+                </div>
+
+                <div class="contact-description">
+                    <p>Bất kỳ thắc mắc hay cần sự hỗ trợ, bạn có thể liên hệ với BUMAS bằng một trong các phương thức dưới đây mà bạn cảm thấy phù hợp nhất:</p>
+                </div>
+
+                <div class="group-icon">
+                    <div class="group-icon-item">
+                        <div class="icon-item">
+                            <img src="../asset/image/place.png" alt="">
+                        </div>
+
+                        <div class="text-item">
+                            <p>333 Trịnh Đình Cửu</p>
+                        </div>
+                    </div>
+
+                    <div class="group-icon-item">
+                        <div class="icon-item">
+                            <img src="../asset/image/email.png" alt="">
+                        </div>
+
+                        <div class="text-item">
+                            <p>info@bumas.vn</p>
+                        </div>
+                    </div>
+
+                    <div class="group-icon-item">
+                        <div class="icon-item">
+                            <img src="../asset/image/phone.png" alt="">
+                        </div>
+
+                        <div class="text-item">
+                            <p>090.7174.789</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="contact-form">
+                    <div class="contact-text">
+                        <p>Điền thông tin liên hệ để chúng tôi có thể gọi trực tiếp hỗ trợ các bạn</p>
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="mb-3 col-lg-6 col-12">
+                                <input placeholder="Họ và tên" type="text" class="form-control" id="name" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-6 col-12">
+                                <input placeholder="Số điện thoại" type="text" class="form-control" id="phone" required>
+                            </div>
+    
+                            <div class="mb-3 col-12">
+                                <input placeholder="Email" type="email" class="form-control" id="email" required>
+                            </div>
+
+                            <div class="mb-3 col-12 form-radius">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Tư vấn
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Hợp tác
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        Góp ý sản phẩm
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                      Khác
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="mb-3 col-12">
+                                <textarea class="form-control" placeholder="Nội dung" name="content" rows="7"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+<?php
+getFooter();?>

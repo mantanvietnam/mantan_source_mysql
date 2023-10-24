@@ -1,15 +1,19 @@
 <?php
 getHeader();
 global $urlThemeActive;
+
+$setting = setting();
+
+$slide_home= slide_home($setting['id_slide']);
 ?>
 
 <main>
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">Library</a></li>
-                  <li class="breadcrumb-item active">Data</li>
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/allProduct">Sảnh Phẩm	</a></li>
+                  <!-- <li class="breadcrumb-item active">Data</li> -->
                 </ul>
             </div>
         </section>
@@ -17,17 +21,12 @@ global $urlThemeActive;
         <section id="section-banner-home">
             <div class="container">
                 <div class="banner-home-slide">
-                    <div class="banner-home-item">
-                        <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
-                    </div>
-    
-                    <div class="banner-home-item">
-                        <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
-                    </div>
-    
-                    <div class="banner-home-item">
-                        <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
-                    </div>
+                    <?php if(!empty($slide_home->imageinfo)){
+                        foreach($slide_home->imageinfo as $key => $item){ ?>
+                <div class="banner-home-item">
+                    <img src="<?php echo $item->image ?>" alt="">
+                </div>
+            <?php }} ?>
                 </div>
             </div>
         </section>
@@ -49,13 +48,19 @@ global $urlThemeActive;
                                     <div class="category-product-menu-title">
                                         <p>Danh mục sản phẩm </p>
                                     </div>
-                                    <li><a href="">Tất cả sản phẩm</a></li>
-                                    <li><a href="">Bumas Care</a></li>
-                                    <li><a href="">Bumas Home</a></li>
+                                    <?php 
+                                        if(!empty($category_all)){
+                                            foreach ($category_all as $key => $value) {
+                                                
+
+                                                echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                            }
+                                        }
+                                        ?>
                                 </ul>
                             </div>
                             
-                            <div class="category-product-item">
+                            <!-- <div class="category-product-item">
                                 <ul>
                                     <div class="category-product-menu-title">
                                         <p>Combo quà tặng</p>
@@ -64,7 +69,7 @@ global $urlThemeActive;
                                     <li><a href="">Bumas Care</a></li>
                                     <li><a href="">Bumas Home</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
 
                             <div class="banner-category">
                                 <div class="banner-category-image">
@@ -105,199 +110,44 @@ global $urlThemeActive;
                             </div>
 
                             <!-- sản phẩm -->
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
-                                <div class="product-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-                                    <div class="product-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="product-info">
-                                        <div class="product-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="product-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="product-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="progress-box">
-                                        <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="product-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
-                                <div class="product-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-                                    <div class="product-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="product-info">
-                                        <div class="product-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="product-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="product-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="progress-box">
-                                        <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="product-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
-                                <div class="product-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-                                    <div class="product-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="product-info">
-                                        <div class="product-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="product-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="product-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="progress-box">
-                                        <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="product-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
-                                <div class="product-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
-                                    <div class="product-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
-                                    </div>
-        
-                                    <div class="product-info">
-                                        <div class="product-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
-                                        </div>
-        
-                                        <div class="product-price">
-                                            <p>1.0000.000</p>
-                                        </div>
-        
-                                        <div class="product-discount">
-                                            <del>500.000</del><span> (50%)</span>
-                                        </div>
-                                    </div>
-        
-                                    <div class="progress-box">
-                                        <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="product-rate">
-                                        <div class="rate-best-item rate-star">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
-                                        </div>
-        
-                                        <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php  if(!empty($list_product)){
+                                foreach ($list_product as $product) {
+                                	$link = '/product/'.$product->slug.'.html';
+                                	 $giam = 0;
+                                    if(!empty($product->price_old) && !empty($product->price)){
+                                        $giam = 100 - 100*$product->price/$product->price_old;
+                                    }
 
+                                    $ban = 0;
+                                    if(!empty($product->quantity) && !empty($product->sold)){
+                                        $ban = 100 - 100*$product->sold/$product->quantity;
+                                    }
+                                 ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
                                 <div class="product-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
+                                    <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
                                     <div class="product-img">
-                                        <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/topsearch.png" alt=""></a>
+                                        <a href="<?php echo $link ?>"><img src="<?php echo $product->image ?>" alt=""></a>
                                     </div>
         
                                     <div class="product-info">
                                         <div class="product-name">
-                                            <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
+                                            <a href="<?php echo $link ?>"><?php echo $product->title ?></a>
                                         </div>
         
                                         <div class="product-price">
-                                            <p>1.0000.000</p>
+                                            <p><?php echo number_format($product->price) ?>đ</p>
                                         </div>
         
                                         <div class="product-discount">
-                                            <del>500.000</del><span> (50%)</span>
+                                            <del><?php echo number_format($product->price_old) ?>đ</del>
                                         </div>
                                     </div>
         
                                     <div class="progress-box">
                                         <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm 30 Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
+                                            <div class="text-progress">Sản phẩm <?php echo $product->sold ?> Đã bán</div>
+                                            <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
         
@@ -308,12 +158,54 @@ global $urlThemeActive;
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p>2.6k Đã bán</p>
+                                            <p><?php echo $product->sold ?>  Đã bán</p>
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
+        					<?php }} ?>
+                             <div class="col-12 col-md-12 col-lg-12">
+                                <div class="demo-inline-spacing">
+                                  <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                      <?php
+                                        if($totalPage>0){
+                                            if ($page > 5) {
+                                                $startPage = $page - 5;
+                                            } else {
+                                                $startPage = 1;
+                                            }
+
+                                            if ($totalPage > $page + 5) {
+                                                $endPage = $page + 5;
+                                            } else {
+                                                $endPage = $totalPage;
+                                            }
+                                            
+                                            echo '<li class="page-item first">
+                                                    <a class="page-link" href="'.$urlPage.'1"
+                                                      ><i class="fa-solid fa-chevron-left"></i></a>
+                                                  </li>';
+                                            
+                                            for ($i = $startPage; $i <= $endPage; $i++) {
+                                                $active= ($page==$i)?'active':'';
+
+                                                echo '<li class="page-item '.$active.'">
+                                                        <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                                                      </li>';
+                                            }
+
+                                            echo '<li class="page-item last">
+                                                    <a class="page-link" href="'.$urlPage.$totalPage.'"
+                                                      ><i class="fa-solid fa-chevron-right"></i></a>
+                                                  </li>';
+                                        }
+                                      ?>
+                                    </ul>
+                                  </nav>
+                                </div>
+                            </div>
                         </div>  
                     </div>
                 </div>

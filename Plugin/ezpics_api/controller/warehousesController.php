@@ -191,8 +191,10 @@ function buyWarehousesAPI($input)
 			if(!empty($Warehouse)){
 				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 				$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
-				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id))->first();
 				if(!empty($infoUser)){
+				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id))->first();
+
+				
 					if(empty($WarehouseUser)){
 						if(@$dataSend['type']=='ecoin'){
 							if($infoUser->ecoin>=$Warehouse->price/1000){
@@ -215,7 +217,7 @@ function buyWarehousesAPI($input)
 							$modelTransactionEcoins->save($ecoin);
 
 		                    // tạo đơn bán hàng của người bán (lịch sử giao dịch)
-							$ecoin = $modelTransactionEcoins->newEmptyEntity();
+							/*$ecoin = $modelTransactionEcoins->newEmptyEntity();
 							$ecoin->member_id = $infoUserSell->id;
 							$ecoin->product_id = $Warehouse->id;
 							$ecoin->ecoin = (10 / 100) *($Warehouse->price/1000);
@@ -229,7 +231,7 @@ function buyWarehousesAPI($input)
 
 		                    // cộng tiền tài khoản bán
 					        $infoUserSell->ecoin += (10 / 100) *($Warehouse->price/1000);
-					        $modelMember->save($infoUserSell);
+					        $modelMember->save($infoUserSell);*/
 
 		                	$data = $modelWarehouseUsers->newEmptyEntity();
 		                	// tạo dữ liệu save
@@ -244,10 +246,10 @@ function buyWarehousesAPI($input)
 						    $modelWarehouseUsers->save($data);
 						    $return = array('code'=>1, 'mess'=>'Bạn đã mua kho thành công');
 
-						    $dataSendNotification= array('title'=>'Có người đăng ký mua Bộ Sưu Tập của bạn','time'=>date('H:i d/m/Y'),'content'=>$infoUserSell->name.' ơi. Bạn được cộng '.number_format( $Warehouse->price/1000).' ecoin vào ecoin do thành viên '.$infoUser->name.' đã đăng ký mua Bộ Sưu Tập '.@$Warehouse->name.' Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+						    /*$dataSendNotification= array('title'=>'Có người đăng ký mua Bộ Sưu Tập của bạn','time'=>date('H:i d/m/Y'),'content'=>$infoUserSell->name.' ơi. Bạn được cộng '.number_format( $Warehouse->price/1000).' ecoin vào ecoin do thành viên '.$infoUser->name.' đã đăng ký mua Bộ Sưu Tập '.@$Warehouse->name.' Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
 		                    if(!empty($infoUserSell->token_device)){
 		                        sendNotification($dataSendNotification, $infoUserSell->token_device);
-		                    }
+		                    }*/
 							}else{
 								$return = array('code'=>6,
 												'mess'=>'Tài khoản không đủ Ecoin'
@@ -257,6 +259,7 @@ function buyWarehousesAPI($input)
 							if($infoUser->account_balance>=$Warehouse->price){
 
 								// trừ tiền tài khoản người mua
+								$infoUser->ecoin += (10 / 100) *($Warehouse->price/1000);
 								$infoUser->account_balance -= $Warehouse->price;
 								$modelMember->save($infoUser);
 
@@ -317,7 +320,7 @@ function buyWarehousesAPI($input)
 			                	$data = $modelWarehouseUsers->newEmptyEntity();
 			                	// tạo dữ liệu save
 							    $data->warehouse_id = (int) $Warehouse->id;
-							    $data->user_id = $infoUser->id;
+							    $data->user_id = @$infoUser->id;
 							    $data->designer_id = $infoUserSell->id;
 							    $data->price = $Warehouse->price;
 							    $data->created_at = date('Y-m-d H:i:s');
@@ -603,7 +606,7 @@ function  getInfoWarehouseAPI($input){
 			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'status'=>1))->first();
 			if(!empty($data)){
 					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
-				
+					$data->ecoin = $data->price/1000;
 				$return = array('code'=>1,
 								'data'=> $data,
 					 			'mess'=>'Bạn lấy data thành công',

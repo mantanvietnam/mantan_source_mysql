@@ -24,5 +24,16 @@ function setting(){
     return $data_value;
 }
 
+function slide_home($id){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    
+    $slide_home = $modelAlbums->find()->where(['id'=>(int)$id])->first();
 
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+    }
+
+    return $slide_home;
+}
 ?>
