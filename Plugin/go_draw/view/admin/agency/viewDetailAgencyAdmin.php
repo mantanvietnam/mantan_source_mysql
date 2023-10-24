@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 ">
                             <label class="form-label" for="basic-default-phone">Đại chỉ (*)</label>
-                            <input required type="text" class="form-control phone-mask" name="email" id="email" value="<?php echo @$data->email;?>" />
+                            <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
                         </div>
 
                         <div class="col-md-6 mb-3 ">

@@ -20,7 +20,13 @@ $menus[0]['sub'][2] = array('title' => 'Đại lý',
     'permission' => 'listAgencyAdmin'
 );
 
-$menus[0]['sub'][3] = array('title' => 'Thành viên',
+$menus[0]['sub'][3] = array('title' => 'Combo sản phẩm',
+    'url' => '/plugins/admin/go_draw-view-admin-combo-listComboAdmin.php',
+    'classIcon' => 'bx bx-collection',
+    'permission' => 'listComboAdmin'
+);
+
+$menus[0]['sub'][4] = array('title' => 'Thành viên',
     'url' => '/plugins/admin/go_draw-view-admin-user-listUserAdmin.php',
     'classIcon' => 'bx bx-user',
     'permission' => 'listUserAdmin'

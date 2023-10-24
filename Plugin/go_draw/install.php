@@ -60,6 +60,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`combos` (
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `price` INT NOT NULL , 
+    `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NULL DEFAULT NULL , 
     `status` TINYINT NOT NULL DEFAULT 1 ,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
@@ -154,3 +155,13 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`user_order_details` (
 $sqlInstallDatabase .= 'ALTER TABLE `categories` ADD `deleted_at` TIMESTAMP NULL DEFAULT NULL AFTER `slug`;';
 
 $sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`users`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_accounts`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`combos`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`combo_products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_combos`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_orders`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_order_details`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`user_orders`;';
+$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`user_order_details`;';
