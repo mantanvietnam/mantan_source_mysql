@@ -9,7 +9,20 @@ $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
 
 addMenuAdminMantan($menus);
 
+function setting(){
+    global $controller;
+    global $modelOptions;
+     $conditions = array('key_word' => 'settingHomeTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
 
+   
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+    return $data_value;
+}
 
 
 ?>

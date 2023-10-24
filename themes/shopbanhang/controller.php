@@ -31,12 +31,21 @@ function settingHomeTheme($input){
                         'image5' => @$dataSend['image5'],
                         'image6' => @$dataSend['image6'],
                         'image7' => @$dataSend['image7'],
+                        'company' => @$dataSend['company'],
+                        'address' => @$dataSend['address'],
+                        'phone' => @$dataSend['phone'],
+                        'business' => @$dataSend['business'],
+                        'side_plan' => @$dataSend['side_plan'],
+                        'call_buy' => @$dataSend['call_buy'],
+                        'complain' => @$dataSend['complain'],
+                        'id_category' => @$dataSend['id_category'],
+                        'id_service' => @$dataSend['id_service'],
+                        'facebook' => @$dataSend['facebook'],
+                        'youtube' => @$dataSend['youtube'],
+                        'instagram' => @$dataSend['instagram'],
+                        'email' => @$dataSend['email'],
+                        'fax' => @$dataSend['fax'],
                        'targetTime' => $targetTime,
-                        
-
-
-
-                        
                     );
 
     
@@ -102,4 +111,23 @@ function indexTheme($input){
     setVariable('news', $news);
 
 }
+
+function news(){
+    global $modelPosts;
+    global $controller;
+
+    $order = array('id'=>'desc');
+
+    $listDataPost= $modelPosts->find()->where(array())->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->where(array())->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->where(array())->order($order)->all()->toList();
+
+
+
+
+    setVariable('listDataPost', $listDataPost);
+
+}
+
+
  ?>

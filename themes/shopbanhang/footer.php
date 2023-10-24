@@ -1,3 +1,11 @@
+<?php
+global $urlThemeActive;
+$setting = setting();
+global $session;
+$infoUser = $session->read('infoUser');
+
+?>
+
    <footer>
         <section id="section-footer">
             <div class="container">
@@ -11,23 +19,23 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-left">
                         <div class="footer-info">
                             <div class="copyright">
-                                <strong>© 2022 Công Ty Trách Nhiệm Hữu Hạn Bumas</strong>
+                                <strong><?php echo $setting['company'] ?></strong>
                             </div>
                             <div class="footer-info-list">
                                 <div class="footer-info-item">
-                                    <p>171C4 Khu đô thị Đại Kim, Đại Từ, Lĩnh Nam, Hoàng Mai, Hà Nội</p>
-                                    <p>ĐT:<span class="blue-text">028 39951703</span>-Fax:<span class="blue-text">028 3995 1702</span></p>
+                                    <p><?php echo $setting['address'] ?>i</p>
+                                    <p>ĐT:<span class="blue-text"><?php echo $setting['phone'] ?></span>-Fax:<span class="blue-text"><?php echo $setting['fax'] ?></span></p>
                                 </div>
 
                                 <div class="footer-info-item">
-                                    <p><span class="blue-text">Giấy chứng nhận đăng ký doanh nghiệp: 0300521758 </span></p>
-                                    <p>do Sở Kế hoạch & Đầu tư TP.HCM cấp lần đầu ngày 02/01/2004. Ngành, nghề kinh doanh</p>
+                                    <p><span class="blue-text">Giấy chứng nhận đăng ký doanh nghiệp: <?php echo $setting['business'] ?></span></p>
+                                    <p><?php echo $setting['side_plan'] ?></p>
                                 </div>
 
                                 <div class="footer-info-item">
                                     <p>Tổng đài hỗ trợ (08:00-21:00, miễn phí gọi)</p>  
-                                    <p>Gọi mua: <span class="blue-text">1800545457 (phím 1)</span></p>  
-                                    <p>Khiếu nại: <span class="blue-text">1800545457 (phím 2)</span></p>
+                                    <p>Gọi mua: <span class="blue-text"><?php echo $setting['call_buy'] ?></span></p>  
+                                    <p>Khiếu nại: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
                                 </div>
                             </div>
                         </div>
@@ -39,10 +47,14 @@
                                 <p>Danh mục</p>
                             </div>
                             <ul>
-                                <li><a href="">Bumas Care</a></li>
-                                <li><a href="">Bumas Home</a></li>
-                                <li><a href="">Bumas Beauty</a></li>
-                                <li><a href="">Combo tặng bố mẹ</a></li>
+                                 <?php
+                                if (!empty(getListLinkWeb(@$setting['id_category']))) {
+                                    foreach (getListLinkWeb(@$setting['id_category']) as $key => $ListLink) { ?>
+                                        <li>
+                                            <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
+                                        </li>
+                                <?php }
+                                } ?>
                             </ul>
                         </div>
 
@@ -51,10 +63,14 @@
                                 <p>Dịch vụ khách hàng</p>
                             </div>
                             <ul>
-                                <li><a href="">Bumas Care</a></li>
-                                <li><a href="">Bumas Home</a></li>
-                                <li><a href="">Bumas Beauty</a></li>
-                                <li><a href="">Combo tặng bố mẹ</a></li>
+                                 <?php
+                                if (!empty(getListLinkWeb(@$setting['id_service']))) {
+                                    foreach (getListLinkWeb(@$setting['id_service']) as $key => $ListLink) { ?>
+                                        <li>
+                                            <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
+                                        </li>
+                                <?php }
+                                } ?>
                             </ul>
                         </div>
                     </div>
@@ -66,10 +82,10 @@
                             </div>
                             <div class="group-social">
                                 <ul>
-                                    <li><a href=""><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
-                                    <li><a href=""><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
-                                    <li><a href=""><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
-                                    <li><a href=""><img src="<?php echo $urlThemeActive ?>asset/image/mail.png" alt=""></a></li>
+                                    <li><a href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
+                                    <li><a href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
+                                    <li><a href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
+                                    <li><a href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/mail.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>
