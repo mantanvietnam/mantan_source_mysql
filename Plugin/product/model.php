@@ -3,4 +3,5 @@ include('model/products.php');
 include('model/orders.php');
 include('model/order_details.php');
 include('model/discount_code.php');
+include('model/question.php');
 ?>

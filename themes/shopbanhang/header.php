@@ -203,5 +203,138 @@ $infoUser = $session->read('infoUser');
                     </div>
                 </div>
             </div> -->
+
+
+        </div>
+        <!-- Đăng nhập -->
+        <div class="modal-login">
+           <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch static backdrop modal
+            </button> -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-12 modal-left">
+                                    <div class="modal-left-heading">
+                                        <p>Xin chào!</p>
+                                    </div>
+
+                                    <div class="modal-left-sub">
+                                        <p>Đăng nhập hoặc Tạo tài khoản</p>
+                                    </div>
+
+                                    <div class="modal-left-login-social">
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
+                                        </div>
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
+                                        </div>
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-left-bottom">
+                                        <p>Chưa có tài khoản ? <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Tạo tài khoản</button></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12 modal-right">
+                                    <div class="or-login">
+                                        <span>Hoặc tiếp tục bằng</span>
+                                    </div>
+
+                                    <form action="">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" id="exampleCheck1" placeholder="Số điện thoại">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" id="exampleCheck1" placeholder="Mật khẩu">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Đăng ký -->
+        <div class="modal-login">
+          <!--   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                Launch static backdrop modal
+            </button> -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-12 modal-left">
+                                <div class="modal-left-heading">
+                                    <p>Xin chào!</p>
+                                </div>
+
+                                <div class="modal-left-sub">
+                                    <p>Đăng nhập hoặc Tạo tài khoản</p>
+                                </div>
+
+                                <div class="modal-left-login-social">
+                                    <div class="login-social-item">
+                                        <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
+                                    </div>
+                                    <div class="login-social-item">
+                                        <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
+                                    </div>
+                                    <div class="login-social-item">
+                                        <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
+                                    </div>
+                                </div>
+
+                                <div class="modal-left-bottom">
+                                    <p>Đã có tài khoản ? <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</button></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Đăng ký tài khoản</span>
+                                </div>
+
+                                <form action="">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="exampleCheck1" placeholder="Họ và tên">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="exampleCheck1" placeholder="Số điện thoại">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" id="exampleCheck1" placeholder="Mật khẩu">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                </form>
+                                
+
+                                <!-- <div class="email-login">
+                                    <span>Đăng nhập bằng email?</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
     </header>

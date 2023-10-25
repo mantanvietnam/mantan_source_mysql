@@ -1,21 +1,36 @@
 <?php
 getHeader();
 global $urlThemeActive;
+$setting = setting();
+
+$slide_home= slide_home($setting['id_slide']);
 ?>
   <main>
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">Library</a></li>
-                  <li class="breadcrumb-item active">Data</li>
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
                 </ul>
             </div>
         </section>
 
-        <section id="section-banner-blog">
+        <!-- <section id="section-banner-blog">
             <div class="banner-blog">
                 <img src="<?php echo $urlThemeActive ?>asset/image/background-home.png" alt="">
+            </div>
+        </section> -->
+
+        <section id="section-banner-home">
+            <div class="container">
+                <div class="banner-home-slide">
+                    <?php if(!empty($slide_home->imageinfo)){
+                        foreach($slide_home->imageinfo as $key => $item){ ?>
+                <div class="banner-home-item">
+                    <img src="<?php echo $item->image ?>" alt="">
+                </div>
+            <?php }} ?>
+                </div>
             </div>
         </section>
 
@@ -32,6 +47,7 @@ global $urlThemeActive;
                         <div class="col-lg-8 col-md-8 col-sm-8 col-12 main-blog-left">
                         	<?php if(!empty($listDatatop)){ 
                         		foreach($listDatatop as $key => $item){
+                                    $Category = getByIdCategory($item->idCategory);
                         		?>
                             <div class="main-blog-left-item">
                                 <div class="main-blog-left-item-img">
@@ -44,7 +60,7 @@ global $urlThemeActive;
                                     </div>
     
                                     <div class="meata-category">
-                                        <span><?php echo @$item->author ?></span>
+                                        <span><?php echo @$Category->name ?></span>
                                     </div>
                                 </div>
     
@@ -66,6 +82,7 @@ global $urlThemeActive;
                                 </div>
     							<?php if(!empty($listDataView)){ 
                         		foreach($listDataView as $key => $item){
+                                    $Category = getByIdCategory($item->idCategory);
                         		?>
                                 <div class="main-blog-right-item">
                                     <div class="row">
@@ -75,7 +92,7 @@ global $urlThemeActive;
     
                                         <div class="main-blog-right-text col-7">
                                             <div class="main-blog-right-category">
-                                                <span><?php echo @$item->author ?></span>
+                                                <span><?php echo @$Category->name ?></span>
                                             </div>
                                             <div class="main-blog-right-title">
                                                 <a href="/<?php echo @$item->slug ?>.html"><?php echo @$item->title ?></a>
@@ -104,6 +121,7 @@ global $urlThemeActive;
                     <div class="blog-new-slide">
                         <?php if(!empty($listDataNew)){ 
                         		foreach($listDataNew as $key => $item){
+                                    $Category = getByIdCategory($item->idCategory);
                         		?>
                         <div class="blog-slide-item">
                             <div class="blog-slide-title">
@@ -112,7 +130,7 @@ global $urlThemeActive;
     
                             <div class="blog-slide-meta">
                                 <p class="blog-slide-date"><?php echo date('H:i d/m/Y', $item->time); ?>	</p>
-                                <p class="blog-slide-category"><?php echo @$item->author ?></p>
+                                <p class="blog-slide-category"><?php echo @$Category->name ?></p>
                             </div>
     
                             <div class="blog-slide-image">
@@ -137,6 +155,7 @@ global $urlThemeActive;
                         <div class="list-blog-col">
                             <?php if(!empty($listDataCategory1)){ 
                         		foreach($listDataCategory1 as $key => $item){
+                                    $Category = getByIdCategory($item->idCategory);
                         		?>
                             <div class="list-blog-item">
                                 <div class="row">
@@ -148,7 +167,7 @@ global $urlThemeActive;
         
                                     <div class="list-blog-col-text col-6">
                                         <div class="list-blog-col-category">
-                                            <span><?php echo @$item->author ?></span>
+                                            <span><?php echo @$Category->name ?></span>
                                         </div>
                                         <div class="list-blog-col-title">
                                             <a href="/<?php echo @$item->slug ?>.html"><?php echo @$item->title ?></a>
@@ -171,6 +190,7 @@ global $urlThemeActive;
                         <div class="list-blog-col">
                             <?php if(!empty($listDataCategory2)){ 
                         		foreach($listDataCategory2 as $key => $item){
+                                    $Category = getByIdCategory($item->idCategory);
                         		?>
                             <div class="list-blog-item">
                                 <div class="row">
@@ -182,7 +202,7 @@ global $urlThemeActive;
         
                                     <div class="list-blog-col-text col-6">
                                         <div class="list-blog-col-category">
-                                            <span><?php echo @$item->author ?></span>
+                                            <span><?php echo @$Category->name ?></span>
                                         </div>
                                         <div class="list-blog-col-title">
                                             <a href="/<?php echo @$item->slug ?>.html"><?php echo @$item->title ?></a>
@@ -207,6 +227,7 @@ global $urlThemeActive;
                     <div class="row">
                          <?php if(!empty($listDataPost)){ 
                         		foreach($listDataPost as $key => $item){
+                                    $Category = getByIdCategory($item->idCategory);
                         		?>
                         <div class="blog-last-item col-lg-4 col-md-4 col-sm-4 col-12">
                             <div class="blog-last-title">

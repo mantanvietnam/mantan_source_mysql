@@ -13,10 +13,16 @@ $sqlInstallDatabase .= "CREATE TABLE `order_details` ( `id` INT NOT NULL AUTO_IN
 
 $sqlInstallDatabase .="CREATE TABLE `discount_codes` ( `id`  INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , `code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , `discount` NULL DEFAULT NULL , `note` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `deadline_at` TIMESTAMP NULL DEFAULT NULL , `number_user` INT NULL DEFAULT NULL , `applicable_price` INT NULL DEFAULT NULL , `status` INT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .="CREATE TABLE `questions` (`id` int(11) NOT NULL AUTO_INCREMENT,`question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,`answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,`id_product` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB ",
+
 $sqlDeleteDatabase .= "DROP TABLE products; ";
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE order_details; ";
+$sqlDeleteDatabase .= "DROP TABLE questions; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
 ?>
+
+
+DEFAULT CHARSET=latin1

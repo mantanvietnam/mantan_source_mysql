@@ -116,7 +116,9 @@ function saveRequestBankingAPI($input)
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế 
                 $order->created_at = date('Y-m-d H:i:s');
-                $order->discount_id = $discount_id; // id mã khuyến mại
+                if(!empty($discount_id)){
+                	$order->discount_id = $discount_id; // id mã khuyến mại
+            	}
                 $order->payment_kind = 1; //0: tiền thưởng, 1 tiền thật 
                 
                 $modelOrder->save($order);
@@ -461,6 +463,9 @@ function memberBuyProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token'], ))->first();
 
 		$pricepro = $price_pro;
@@ -541,7 +546,7 @@ function memberBuyProAPI($input){
 							$data->deadline_at = $user->deadline_pro;
 							$modelWarehouseUsers->save($data);
 						}else{
-							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$WarehouseUser->deadline_at = date('Y-m-d H:i:s', strtotime($WarehouseUser->deadline_at . ' + 356   days'));;
 							$modelWarehouseUsers->save($WarehouseUser);
 						}
 
@@ -583,7 +588,7 @@ function memberBuyProAPI($input){
 							$data->deadline_at = $user->deadline_pro;
 							$modelWarehouseUsers->save($data);
 						}else{
-							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$WarehouseUser->deadline_at = date('Y-m-d H:i:s', strtotime($WarehouseUser->deadline_at . ' + 365  days'));;
 							$modelWarehouseUsers->save($WarehouseUser);
 						}
 
@@ -652,6 +657,9 @@ function memberExtendProAPI($input){
 		$dataSend = $input['request']->getData();	
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
 		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		$pricepro = $price_pro;
@@ -874,6 +882,9 @@ function memberTrialProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		
 
@@ -1048,6 +1059,9 @@ function memberBuyProMonthAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 		$pricepro = $price_pro;
@@ -1061,7 +1075,7 @@ function memberBuyProMonthAPI($input){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
-							if($discountCode->number_user>0){
+							if(@$discountCode->number_user>0){
 
 								if($discountCode->discount<= 100){
 									$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
@@ -1095,7 +1109,7 @@ function memberBuyProMonthAPI($input){
 
 		if(!empty($user)){
 			if($user->member_pro!=1){
-				if($dataSend['type']=='ecoin'){
+				if(@$dataSend['type']=='ecoin'){
 					if($user->ecoin >=$ecoin){
 						$user->ecoin -= $ecoin;
 						$user->member_pro = 1;
@@ -1241,6 +1255,9 @@ function memberExtendProMonthAPI($input){
 		$dataSend = $input['request']->getData();	
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
 		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		$pricepro = $price_pro;
@@ -1404,7 +1421,7 @@ function memberExtendProMonthAPI($input){
 							$data->deadline_at = $user->deadline_pro;
 							$modelWarehouseUsers->save($data);
 						}else{
-							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$WarehouseUser->deadline_at =  date('Y-m-d H:i:s', strtotime($WarehouseUser->deadline_at . ' + 30   days'));
 							$modelWarehouseUsers->save($WarehouseUser);
 						}
 

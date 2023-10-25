@@ -1,9 +1,9 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
-  <p><a href="/plugins/admin/product-view-admin-product-addProduct.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-product-listProduct.php">Sản phẩm</a></span> / Câu hỏi của sản phẩm thường gặp</h4>
+  <p><a href="/plugins/admin/product-view-admin-product-addQuestion.php?id_product=<?php echo $_GET['id_product']; ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
-  <form method="get" action="">
+ <!--  <form method="get" action="">
     <div class="card mb-4">
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
@@ -84,23 +84,19 @@
         </div>
       </div>
     </div>
-  </form>
+  </form> -->
   <!--/ Form Search -->
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách sản phẩm</h5>
+    <h5 class="card-header">Danh sách câu hỏi của sản phẩm thường gặp</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>Hình minh họa</th>
-            <th>Danh mục</th>
-            <th>Tên sản phẩm</th>
-            <th>Trạng thái</th>
             <th>câu hỏi</th>
-            <th>Flash sale</th>
+            <th>câu trả lời</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
@@ -109,27 +105,18 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
-                $flash_sale = '';
-                if(@$item->flash_sale==1){
-                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc bỏ Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=0"><i class="bx bx-check-square"></i></a>';
-                }else{
-                  $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc áp Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=1"><i class="bx bxs-check-square"></i></a>';
-                }
+                
                 echo '<tr>
                         <td>'.$item->id.'</td>
-                        <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.$item->name_category.'</td>
-                        <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
-                        <td>'.$item->status.'</td>
-                        <td align="center"><a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion.php/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a></td>
-                        <td align="center">'.$flash_sale.'</td>
+                        <td>'.$item->question.'</td>
+                        <td>'.$item->answer.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addQuestion.php/?id='.$item->id.'&id_product='.$item->id_product.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-product-deleteProduct.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-product-deleteQuestion.php/?id='.$item->id.'&id_product='.$item->id_product.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -150,7 +137,7 @@
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <?php
-            if($totalPage>0){
+            if(@$totalPage>0){
                 if ($page > 5) {
                     $startPage = $page - 5;
                 } else {
