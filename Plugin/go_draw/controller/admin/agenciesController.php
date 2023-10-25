@@ -83,35 +83,81 @@ function viewDetailAgencyAdmin($input)
     global $isRequestPost;
 
     $agencyModel = $controller->loadModel('Agencies');
+    $accountModel = $controller->loadModel('AgencyAccounts');
     $mess = '';
+    $isCreateNewAgency = false;
 
     if (!empty($_GET['id'])) {
-        $data = $agencyModel->find()->where([
+        $agency = $agencyModel->find()->where([
             'id' => $_GET['id']
         ])->first();
+
+        $masterAccount = $accountModel->find()
+            ->where([
+                'agency_id' => $_GET['id'],
+                'type' => 1,
+            ])->first();
     } else {
-        $data = $agencyModel->newEmptyEntity();
+        $isCreateNewAgency = true;
+        $agency = $agencyModel->newEmptyEntity();
+        $masterAccount = $accountModel->newEmptyEntity();
     }
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
+        if ($isCreateNewAgency) {
+            if (!empty($dataSend['master_account_name'])
+                && !empty($dataSend['master_account_password'])
+                && !empty($dataSend['master_account_password_confirmation'])
+                && !empty($dataSend['name'])
+                && !empty($dataSend['address'])
+                && !empty($dataSend['phone'])
+            ) {
+                $checkUsername = $accountModel->find()
+                    ->where(['name' => $dataSend['master_account_name']])
+                    ->first();
 
-        if (!empty($dataSend['name'])
-            || !empty($dataSend['address'])
-            || !empty($dataSend['phone'])
-        ) {
-            $data->name = $dataSend['name'];
-            $data->address = $dataSend['address'];
-            $data->phone = $dataSend['phone'];
-            $data->status = $dataSend['status'];
+                if ($dataSend['master_account_password'] !== $dataSend['master_account_password_confirmation']) {
+                    $mess = '<p class="text-danger">Mật khẩu nhập lại chưa trùng khớp</p>';
+                } elseif ($checkUsername) {
+                    $mess = '<p class="text-danger">Tên tài khoản đã tồn tại</p>';
+                } else {
+                    $agency->name = $dataSend['name'];
+                    $agency->address = $dataSend['address'];
+                    $agency->phone = $dataSend['phone'];
+                    $agency->status = $dataSend['status'];
+                    $agencyModel->save($agency);
 
-            $agencyModel->save($data);
-            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+                    $masterAccount->agency_id = $agency->id;
+                    $masterAccount->name = $dataSend['master_account_name'];
+                    $masterAccount->password = md5($dataSend['master_account_password']);
+                    $masterAccount->type = $dataSend['type'] ?? 1;
+                    $accountModel->save($masterAccount);
+
+                    $mess = '<p class="text-success">Tạo mới đại lý thành công</p>';
+                }
+            } else {
+                $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            }
         } else {
-            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            if (!empty($dataSend['name'])
+                || !empty($dataSend['address'])
+                || !empty($dataSend['phone'])
+            ) {
+                $agency->name = $dataSend['name'];
+                $agency->address = $dataSend['address'];
+                $agency->phone = $dataSend['phone'];
+                $agency->status = $dataSend['status'] ?? 1;
+                $agencyModel->save($agency);
+
+                $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+            } else {
+                $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            }
         }
     }
 
-    setVariable('data', $data);
+    setVariable('data', $agency);
+    setVariable('masterAccount', $masterAccount);
     setVariable('mess', $mess);
 }
