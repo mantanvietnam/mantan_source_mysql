@@ -48,3 +48,42 @@ function listComboAdmin($input)
     setVariable('urlPage', $paginationMeta['urlPage']);
     setVariable('listData', $listData);
 }
+
+function viewComboDetailAdmin($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+    $comboModel = $controller->loadModel('Combos');
+    $mess = '';
+
+    if (!empty($_GET['id'])) {
+        $data = $comboModel->find()->where([
+            'id' => $_GET['id']
+        ])->first();
+    } else {
+        $data = $comboModel->newEmptyEntity();
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['name'])
+            || !empty($dataSend['address'])
+            || !empty($dataSend['phone'])
+        ) {
+            $data->name = $dataSend['name'];
+            $data->address = $dataSend['address'];
+            $data->phone = $dataSend['phone'];
+            $data->status = $dataSend['status'];
+
+            $agencyModel->save($data);
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        } else {
+            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+        }
+    }
+
+    setVariable('data', $data);
+    setVariable('mess', $mess);
+}
