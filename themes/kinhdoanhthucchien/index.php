@@ -87,11 +87,8 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-7 col-md-7">
+                        <div class="col-lg-7 col-md-7" style="padding-left: 37px;">
                             <div class="banner-content-text">
-                                <div class="content-text-title content-text-title1">
-                                    <h1>Chương trình đào tạo</h1>
-                                </div>
 
                                 <div class="content-text-title content-text-title2">
                                     <h1><?php echo @$settingThemes['name_project'];?></h1>
@@ -186,7 +183,7 @@
                     </div>
         
                     <div class="title-content">
-                        <h2>NỘI DUNG KHÓA HỌC</h2>   
+                        <h2>CÁC VẤN ĐỀ SẼ ĐƯỢC GIẢI QUYẾT</h2>   
                     </div>
     
                     <div class="content-list">
@@ -216,7 +213,7 @@
             <div class="learn-box">
                 <div class="container">
                     <div class="learn-title">
-                        <p>NHỮNG ĐIỀU BẠN SẼ HỌC</p>
+                        <p>NHỮNG ĐIỀU BẠN SẼ CÓ ĐƯỢC</p>
                     </div>
 
                     <div class="row">

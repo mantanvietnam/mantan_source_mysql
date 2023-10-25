@@ -256,7 +256,7 @@
 		}
 
 		echo '	<title>'.$metaTitleMantan.'</title>
-				<link rel="icon" href="'.$infoSite['favicon'].'" type="image/x-icon" />
+				<link rel="icon" href="'.@$infoSite['favicon'].'" type="image/x-icon" />
 
 			  	<meta name="description" content="'.$metaDescriptionMantan.'" />
 			  	<meta name="keywords" content="'.$metaKeywordsMantan.'" />
