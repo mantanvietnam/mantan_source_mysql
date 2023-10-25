@@ -38,7 +38,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_accounts` (
     `agency_id` INT NOT NULL ,
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
-    `type` TINYINT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `type` TINYINT(4) NOT NULL COMMENT "1 là chủ, 2 là nhân viên" , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';

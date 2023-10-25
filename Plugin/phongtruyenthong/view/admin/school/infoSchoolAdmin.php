@@ -100,7 +100,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh dòng thời gian</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh dòng thời gian (7000 x 2700)</label>
                               <?php showUploadFile('image_timeline','image_timeline',@$data['image_timeline'],5);?>
                             </div>
 
@@ -116,7 +116,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh 1 (790 x 1150)</label>
                               <?php showUploadFile('image_achievement_1','image_achievement_1',@$data['image_achievement_1'],6);?>
                             </div>
                           </div>
@@ -131,7 +131,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh 2 (790 x 1150)</label>
                               <?php showUploadFile('image_achievement_2','image_achievement_2',@$data['image_achievement_2'],7);?>
                             </div>
                           </div>
@@ -146,7 +146,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh 3</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh 3 (790 x 1150)</label>
                               <?php showUploadFile('image_achievement_3','image_achievement_3',@$data['image_achievement_3'],8);?>
                             </div>
                           </div>
@@ -163,7 +163,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh 1 (1500 x 2000)</label>
                               <?php showUploadFile('image_principal_1','image_principal_1',@$data['image_principal_1'],9);?>
                             </div>
                           </div>
@@ -178,7 +178,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh 2 (1500 x 2000)</label>
                               <?php showUploadFile('image_principal_2','image_principal_2',@$data['image_principal_2'],10);?>
                             </div>
                           </div>
@@ -200,13 +200,13 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh backdrop</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh backdrop (7000 x 3500)</label>
                               <?php showUploadFile('image_backdrop','image_backdrop',@$data['image_backdrop'],3);?>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label" for="basic-default-fullname">Ảnh danh sách đóng góp quỹ</label>
+                              <label class="form-label" for="basic-default-fullname">Ảnh danh sách đóng góp quỹ (1500 x 2000)</label>
                               <?php showUploadFile('image_donate','image_donate',@$data['image_donate'],4);?>
                             </div>
 
