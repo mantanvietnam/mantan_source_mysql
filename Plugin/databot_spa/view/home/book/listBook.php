@@ -166,7 +166,7 @@
                           <td>'.$item->name.'<br/>
                               '.$item->phone.'
                             </td>
-                          <td>'.$item->service->name.'</td>
+                          <td>'.@$item->service->name.'</td>
                           <td>'.implode('<br/>', $type).'</td>
                           <td>'.$status.'</td>
 

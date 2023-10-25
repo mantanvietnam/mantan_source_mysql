@@ -24,7 +24,7 @@
                   <div class="row">
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-phone">Tên khách hàng (*)</label>
-                      <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" >
+                      <input required type="text" placeholder="Vui lòng nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" >
                       <input type="hidden" name="id_customer" id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
                     </div>
                     <div class="mb-3 form-group col-md-6">
@@ -54,7 +54,7 @@
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-fullname">Dịch vụ (*)</label>
                       <select class="form-select" name="id_service" id="id_service" required>
-                        <option value="">Chọn dịch vụ</option>
+                        <option value="" >Chọn dịch vụ</option>
                         <?php foreach($dataService as $key => $item){ ?>
                           <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
                         <?php } ?>
@@ -117,7 +117,7 @@
                        <label class="form-label" for="basic-default-fullname">Kiểu đặt</label>
                       <div class="form-group d-flex justify-content-around">
                           <label class="i-checks i-checks-sm">
-                              <input type="checkbox" name="type1" class="staffcheck"  <?php if(!empty($data->type1)) echo 'checked ';  ?> value="1">
+                              <input type="checkbox" name="type1"  class="staffcheck"  <?php if(!empty($data->type1)) echo 'checked ';  ?> value="1">
                               
                               <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch tư vấn</span>
                           </label>
