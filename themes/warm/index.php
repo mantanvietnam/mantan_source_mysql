@@ -31,8 +31,6 @@
                             </div>   
                         </div>
                     </div>
-
-                    
                 ';
                 }
                 echo'
@@ -169,9 +167,7 @@
                                 echo'
                                 <div class="photo-item">
                                     <div class="photo-item-img">
-                                        <a href="'.$value->slug.'">
-                                            <img src="'.$value->image.'" alt="">
-                                        </a>
+                                        <img src="'.$value->image.'" alt="">
                                     </div>
                                 </div>';
                             }
@@ -181,11 +177,13 @@
                 </div>
 
                 <div class="photo-link">
-                    <a href="">GO TO PHOTO <strong>GALLERY</strong></a>
+                    <a href="/thematicPhoto/i-resilience-of-cities-and-territories-to-climate-change-and-natural-hazards-1-16.html">GO TO PHOTO <strong>GALLERY</strong></a>
                 </div>
             </div>
         </section>
         
     </main>
 
-<?php getFooter();?>
+<section id="footer-home">
+    <?php getFooter();?>
+</section>

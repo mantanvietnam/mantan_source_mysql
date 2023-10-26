@@ -13,12 +13,15 @@ global $price_warehouses;
 global $price_min_create_warehouses;
 global $recommenders;
 
-/*
-$urlsCreateImage = ['http://14.225.238.137:3000/convert','http://171.244.16.76:3000/convert'];
+$urlsCreateImage = [
+                    'http://171.244.16.76:3000/convert',
+                    'http://14.225.53.136:3000/convert',
+                    'http://14.225.53.107:3000/convert',
+                    ];
 $randIndex = array_rand($urlsCreateImage);
 $urlCreateImage = $urlsCreateImage[$randIndex];
-*/
-$urlCreateImage = 'http://171.244.16.76:3000/convert';
+
+//$urlCreateImage = 'http://171.244.16.76:3000/convert';
 
 $number_bank = '06931228668';
 $name_bank = 'Tiên Phong Bank (TPB)';
@@ -38,7 +41,7 @@ addMenuAdminMantan($menus);
 
 $price_remove_background = 0;
 $price_create_content = 1000;
-$price_pro = 1999000;
+$price_pro = 2000000;
 $price_warehouses = 999000;
 $recommenders = 5;
 $price_min_create_warehouses = 300000;
@@ -247,16 +250,19 @@ function process_add_money($number=0, $order_id=0)
     if($number>=1000){
         $modelOrder = $controller->loadModel('Orders');
         $modelMember = $controller->loadModel('Members');
+        $modelDiscountCode = $controller->loadModel('DiscountCodes');
 
         if(!empty($order_id)){
             $checkOrder = $modelOrder->find()->where(array('id'=> $order_id))->first();
+
+            $discountCode = $modelDiscountCode->find()->where(array('id'=>$checkOrder->discount_id))->first();
             
             if(!empty($checkOrder)){
                 $data = $modelMember->find()->where(array('id'=>$checkOrder->member_id))->first();
 
                 if(!empty($data)){
                     // cập nhập số dư tài khoản
-                    $data->account_balance += $number;
+                    $data->account_balance += $number + (((int) $discountCode->discount / 100) * $number);
                     $modelMember->save($data);
                     
                     // cập nhập lại trạng thái đơn hàng
@@ -1002,7 +1008,7 @@ function zipImage($urlLocalFile='')
     }
 }
 
-function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='')
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='')
 {
     global $controller;
 
@@ -1076,6 +1082,7 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
         $newproduct->created_at = date('Y-m-d H:i:s');
         $newproduct->views = 0;
         $newproduct->favorites = 0;
+        $newproduct->color = $color;
         $newproduct->category_id = (int) $category_id;
 
         $sizeThumb = getimagesize($thumb);
@@ -1388,5 +1395,61 @@ function cropAutoImagePNG($sourcePath='', $destinationPath='')
             return ['linkOnline'=>$urlHomes.'/'.$sourcePath, 'linkLocal'=>$sourcePath];
         }
     }
+}
+
+
+function sendOTPZalo($phone='', $otp='')
+{
+    if(!empty($phone) && !empty($otp)){
+        $id_oa = '256174165105937998';
+        $id_app = '4065313055620230836';
+
+        $template_id = 285905;
+        $params = ['otp'=>$otp];
+
+        if(function_exists('sendZNSZalo')){
+            $return_zns = sendZNSZalo($template_id, $params, $phone, $id_oa, $id_app);
+
+            if(!empty($return_zns['error'])){
+                $url_zns = 'http://rest.esms.vn/MainService.svc/json/SendZaloMessage_V4_post_json/';
+                $data_send_zns = [
+                                    "ApiKey" => "E69EBCCCBD92CC5E403D68E78F605E",
+                                    "SecretKey" => "262DC6F859F9EC69B9F6F46388B71E",
+                                    "Phone" => $phone,
+                                    "Params" => [$otp],
+                                    "TempID" => "205644",
+                                    "OAID" => "4097311281936189049",
+                                    "SendDate" => "",
+                                    "Sandbox" => "0",
+                                    "RequestId" => time(),
+                                    "campaignid" => "EZPICS OTP",
+                                    "CallbackUrl" => "https://apis.ezpics.vn/callbackZalo"
+                                ];
+                $header_zns = ['Content-Type: application/json'];
+                $typeData='raw';
+                $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
+                return json_decode($return_zns, true);
+            }
+
+            return $return_zns;
+        }
+    }
+}
+
+function getColor(){
+    return array(
+         ['name'=>'Black','code'=>'#000000'],
+         ['name'=>'White','code'=>'#FFFFFF'],
+         ['name'=>'Red','code'=>'#FF0000'],
+         ['name'=>'Lime','code'=>'#00FF00'],
+         ['name'=>'Blue','code'=>'#0000FF'],
+         ['name'=>'Yellow','code'=>'#FFFF00'],
+         ['name'=>'Cyan / Aqua','code'=>'#00FFFF'],
+         ['name'=>'Magenta / Fuchsia','code'=>'#FF00FF'],
+         ['name'=>'Silver','code'=>'#C0C0C0'],
+         ['name'=>'Orange','code'=>'#FF6D01'],
+         ['name'=>'Pink','code'=>'#FFC0CB'],
+    );
+
 }
 ?>

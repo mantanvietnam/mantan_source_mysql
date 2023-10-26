@@ -60,6 +60,7 @@
               <th>Giá bán</th>
               <th>Hết hạn</th>
               <th>Sửa</th>
+              <th>Xóa</th>
               <th>Trạng thái</th>
              
             </tr>
@@ -95,6 +96,9 @@
                       <td><a class="dropdown-item"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
                               <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                             </a></td>
+                      <td><a  class="dropdown-item"  title="Xóa kho" data-bs-toggle="modal" data-bs-target="#deteleWarehouses<?php echo $item->id ?>">
+                              <i class="bx bx-trash" style="font-size: 22px;"></i>
+                            </a></td>
                       <td align="center"><?php echo $status ?></td>
                     </tr>
              <?php   }
@@ -115,13 +119,13 @@
                 foreach ($listData as $item) {
                   $link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
                   $status = 'Kích hoạt <br/>
-                   <a class="dropdown-item"  title="Khóa kho" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
-                              <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
+                   <a class="btn btn-danger"  title="Khóa kho" style="color: #fff;" onclick="return confirm(\'Bạn có chắc chắn muốn khóa kho không?\');" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
+                              Khóa
                             </a>';
                   if($item->status==0){
                     $status = 'Khóa <br/>
-                   <a class="dropdown-item"  title="Kích hoạt kho" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
-                              <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
+                   <a class="btn btn-success"  title="Kích hoạt kho" style="color: #fff;" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockWarehouse.php/?id='.$item->id.'&status=1">
+                             Kích hoạt
                             </a>';
                   }
                   ?>
@@ -133,7 +137,13 @@
                         <?php echo  $item->designer->phone ?><br/>
                         <?php echo  $item->designer->email ?>
                       </p>
+
                       <p><b>Giá:  </b><?php echo number_format($item->price); ?></p>
+                      <p><b>trạng thái: <?php echo $status; ?> &nbsp; &nbsp; &nbsp;  <a class="btn btn-success"  title="Sửa" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt kho không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addWarehouseAdmin.php/?id=<?php echo $item->id ?>">
+                             sửa
+                            </a>  &nbsp; &nbsp; &nbsp;  <a  class="btn btn-danger" style="color: #fff;"  title="Xóa kho" data-bs-toggle="modal" data-bs-target="#deteleWarehouses<?php echo $item->id ?>">
+                              Xóa
+                            </a></p>
                     </div>
              <?php   }
         }else{
@@ -213,6 +223,27 @@
                                 <input type="text" value="" class="form-control"  required="" name="note">
                                 
                                 <button type="submit" class="btn btn-primary">Từ chối</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+
+                         <div class="modal fade" id="deteleWarehouses<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Bạn xác nhận xóa kho của Kho ID: <?php echo $items->id; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                             <form action="/plugins/admin/ezpics_admin-view-admin-warehouse-deteleWarehouses.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                
+                                
+                                <button type="submit" class="btn btn-primary">xác nhận</button>
                               </div>
                              </form>
                               

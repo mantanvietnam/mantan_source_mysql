@@ -8,7 +8,7 @@
         <div class="col-md-7">
           <div class="card mb-6">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Nguồn khách hàng</h5>
+              <h5 class="mb-0">Danh sách nguồn khách hàng</h5>
             </div>
             <div class="card-body row">
                 <?php echo $mess;?>

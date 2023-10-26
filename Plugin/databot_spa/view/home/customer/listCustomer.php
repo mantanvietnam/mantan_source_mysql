@@ -16,7 +16,7 @@
 
           <div class="col-md-3">
             <label class="form-label">Họ tên</label>
-            <input type="text" class="form-control" name="full_name" value="<?php if(!empty($_GET['full_name'])) echo $_GET['full_name'];?>">
+            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
           <div class="col-md-2">
@@ -64,7 +64,7 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách khách hàng</h5>
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -72,10 +72,10 @@
               <th>ID</th>
               <th>Khách hàng</th>
               <th>Điện thoại</th>
+              <th>Email</th>
               <th>Điểm</th>
               <th>Địa chỉ</th>
               <th>NV phụ trách</th>
-              <th>dùng thẻ trả trước</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -89,10 +89,11 @@
                           <td>'.$item->id.'</td>
                           <td>'.$item->name.'</td>
                           <td>'.$item->phone.'</td>
+                          <td>'.$item->email.'</td>
                           <td>'.number_format($item->point).'</td>
                           <td>'.$item->address.'</td>
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
-                          <td><a href="/listCustomerPrepayCard?id_customer='.$item->id.'">'.$item->Prepaycard.'</a></td>
+                          
                           <td align="center">
                             <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

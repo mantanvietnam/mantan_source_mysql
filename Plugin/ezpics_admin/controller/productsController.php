@@ -124,6 +124,8 @@ function listProductAdmin($input)
     setVariable('next', $next);
     setVariable('urlPage', $urlPage);
     setVariable('totalData', $totalData);
+
+    
     
     setVariable('listData', $listData);
     setVariable('listCategory', $listCategory);
@@ -430,50 +432,233 @@ function addTrendProductAdmin($input)
 function updateProductAdmin($input)
 {
 	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $ftp_server_upload_image;
+	global $ftp_username_upload_image;
+	global $ftp_password_upload_image;
 
-	$modelProducts = $controller->loadModel('Products');
-	$modelmember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelMember = $controller->loadModel('Members');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+	$modelWarehouses = $controller->loadModel('Warehouses');
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 	
 	if(!empty($_GET['id'])){
-		$data = $modelProducts->get($_GET['id']);
-		if($data){
-			$data->name = $_GET['name'];
-			$data->keyword = $_GET['keyword'];
+		 $mess = '';
+		$data = $modelProduct->get($_GET['id']);
+		if ($isRequestPost) {
+	        $dataSend = $input['request']->getData();
 
-         	$modelProducts->save($data);
-        }
-	}
-	$user ="?";
-	if(!empty($_GET['page'])){
-		$user .="&page=".$_GET['page'];
-	}
-	if(!empty($_GET['id_product'])){
-		$user .="&id=".$_GET['id_product'];
-	}
-	if(!empty($_GET['phone'])){
-		$user .="&phone=".$_GET['phone'];
-	}
-	if(!empty($_GET['category_id'])){
-		$user .="&category_id=".$_GET['category_id'];
-	}
-	if(!empty($_GET['status'])){
-		$user .="&status=".$_GET['status'];
-	}
-	if(!empty($_GET['type'])){
-		$user .="&type=".$_GET['type'];
-	}
-	if(!empty($_GET['date_start'])){
-		$user .="&date_start=".$_GET['date_start'];
-	}
-	if(!empty($_GET['date_end'])){
-		$user .="&date_end=".$_GET['date_end'];
-	}
+	        if(!empty($dataSend['name'])){
+	        	
+        		if(!empty($data->thumn)){
+        			$thumb = $data->thumn;
+        		}else{
+        			$thumb = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+        		}
 
-	if(!empty($_GET['names'])){
-		$user .="&name=".$_GET['names'];
-	}
+	        	if(!empty($_FILES['background']['name']) && empty($_FILES['background']["error"])){
+		            $background = uploadImageFTP($data->user_id, 'background', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php'.$user);
-	
+		            if(!empty($background['linkOnline'])){
+		                $thumb = $background['linkOnline'];
+
+		                // lưu vào database file
+		                $dataFile = $modelManagerFile->newEmptyEntity();
+
+		                $dataFile->link = $background['linkOnline'];
+		                $dataFile->user_id = $data->user_id;
+		                $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+		                $dataFile->created_at = date('Y-m-d H:i:s');
+
+		                $modelManagerFile->save($dataFile);
+		            }
+		        }
+
+		        if(!empty($data->thumbnail)){
+        			$thumbnailUser = $data->thumbnail;
+        		}else{
+        			$thumbnailUser = '';
+        		}
+
+		        if(!empty($_FILES['thumbnail']['name']) && empty($_FILES['thumbnail']["error"])){
+		            $thumbnail = uploadImageFTP($data->user_id, 'thumbnail', $ftp_server_upload_image, $ftp_username_upload_image, $ftp_password_upload_image, 'https://apis.ezpics.vn/');
+
+		            if(!empty($thumbnail['linkOnline'])){
+		                $thumbnailUser = $thumbnail['linkOnline'];
+
+		                // lưu vào database file
+		                $dataFile = $modelManagerFile->newEmptyEntity();
+
+		                $dataFile->link = $thumbnail['linkOnline'];
+		                $dataFile->user_id = $data->user_id;
+		                $dataFile->type = 1; // 0 là user up, 1 là cap, 2 là payment
+		                $dataFile->created_at = date('Y-m-d H:i:s');
+
+		                $modelManagerFile->save($dataFile);
+		            }
+		        }
+
+		        // tạo dữ liệu save
+		        $data->name = $dataSend['name'];
+		        $data->price = (int) @$dataSend['price'];
+		        $data->sale_price = (int) @$dataSend['sale_price'];
+		       // $data->content = @$dataSend['content'];
+		        $data->sale = null;
+		        $data->related_packages = null;
+				
+		        $data->sold = 0;
+		        if(empty($data->image)) $data->image = $thumb;
+		        $data->thumn = $thumb;
+		        $data->product_id = 0;
+		        $data->note_admin = '';
+		        $data->created_at = date('Y-m-d H:i:s');
+		        $data->views = 0;
+		        $data->favorites = 0;
+		        $data->category_id = $dataSend['category_id'];
+		        $data->thumbnail = $thumbnailUser;
+		        $data->keyword = $dataSend['keyword'];
+		        $data->description = $dataSend['description'];
+		        $data->free_pro = (int) @$dataSend['free_pro'];
+		        $data->color = @$dataSend['color'];
+		        
+		        if(empty($dataSend['size'])){
+		        	$sizeThumb = getimagesize($thumb);
+
+			        $data->width = $sizeThumb[0];
+			        $data->height = $sizeThumb[1];
+		        }else{
+		        	$size = explode('-', $dataSend['size']);
+		        	$data->width = $size[0];
+			        $data->height = $size[1];
+		        }
+
+		        // tạo slug
+	            $slug = createSlugMantan($dataSend['name']);
+	            $slugNew = $slug;
+	            $number = 0;
+
+	            if(empty($data->slug) || $data->slug!=$slugNew){
+	                do{
+	                	$conditions = array('slug'=>$slugNew);
+	        			$listData = $modelProduct->find()->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+	        			if(!empty($listData)){
+	        				$number++;
+	        				$slugNew = $slug.'-'.$number;
+	        			}
+	                }while (!empty($listData));
+	            }
+
+	            $data->slug = $slugNew;
+
+		        $modelProduct->save($data);
+
+		        if(empty($_GET['id'])){
+			        // tạo link deep
+		            $url_deep = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyC2G5JcjKx1Mw5ZndV4cfn2RzF1SmQZ_O0';
+		            $data_deep = ['dynamicLinkInfo'=>[  'domainUriPrefix'=>'https://ezpics.page.link',
+		                                                'link'=>'https://ezpics.page.link/detailProduct?id='.$data->id.'&type='.$data->type,
+		                                                'androidInfo'=>['androidPackageName'=>'vn.ezpics'],
+		                                                'iosInfo'=>['iosBundleId'=>'vn.ezpics.ezpics']
+		                                        ]
+		                        ];
+		            $header_deep = ['Content-Type: application/json'];
+		            $typeData='raw';
+		            $deep_link = sendDataConnectMantan($url_deep,$data_deep,$header_deep,$typeData);
+		            $deep_link = json_decode($deep_link);
+
+		            $data->link_open_app = @$deep_link->shortLink;
+		            $modelProduct->save($data);
+
+		            // tạo layer mặc định đầu tiên
+			        $sizeBackground = getimagesize($thumb);
+			        $newLayer = $modelProductDetail->newEmptyEntity();  
+
+			        $newLayer->products_id = $data->id;
+			        $newLayer->name = 'Layer 1';
+			        $newLayer->sort = 1;
+			        
+			        $content = getLayer(1,'text','',80,0,'Layer 1');
+			        $newLayer->content = json_encode($content);
+
+			        $newLayer->created_at = date('Y-m-d H:i:s');
+			        
+			        $modelProductDetail->save($newLayer);
+	        	}
+
+		        // lưu mẫu vào kho
+		        if(!empty($dataSend['warehouse'])){
+		        	$conditions = ['product_id'=>$data->id];
+		        	$modelWarehouseProducts->deleteAll($conditions);
+
+		        	foreach ($dataSend['warehouse'] as $warehouse_id) {
+		        		$warehouse_products = $modelWarehouseProducts->newEmptyEntity();
+
+		        		$warehouse_products->warehouse_id = $warehouse_id;
+		        		$warehouse_products->product_id = $data->id;
+		        		$warehouse_products->user_id = $data->user_id;
+
+		        		$modelWarehouseProducts->save($warehouse_products);
+
+		        		$totalProducts = count($modelWarehouseProducts->find()->where(['warehouse_id'=>$warehouse_id])->all()->toList());
+		        		$listWarehouse = $modelWarehouses->get($warehouse_id);
+		        		$listWarehouse->number_product = $totalProducts;
+		        		$modelWarehouses->save($listWarehouse);
+		        	}
+		        }
+
+		        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php');
+		    }else{
+		    	$mess= '<p class="text-danger">Bạn chưa nhập tên mẫu thiết kế</p>';
+		    }
+	    }
+
+	    $conditions = array('type' => 'product_categories');
+	    $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
+
+	    $conditions = array('user_id'=>$data->user_id);
+	    $listWarehouse = $modelWarehouses->find()->where($conditions)->all()->toList();
+
+	    $listWarehouseCheck = [];
+	    if(!empty($data->id)){
+			$listCheck = $modelWarehouseProducts->find()->where(['product_id'=>$data->id])->all()->toList();
+
+			if(!empty($listCheck)){
+				foreach ($listCheck as $check) {
+					$listWarehouseCheck[] = $check->warehouse_id;
+				}
+			}
+		}	
+
+	    setVariable('data', $data);
+	    setVariable('mess', $mess);
+	    setVariable('listCategory', $listCategory);
+	    setVariable('listWarehouse', $listWarehouse);
+	    setVariable('listWarehouseCheck', $listWarehouseCheck);
+	}
 }
+/*
+function fixPrice($input){
+	global $controller;
+	
+
+	$modelProduct = $controller->loadModel('Products');
+
+	$listData = $modelProduct->find()->where(array('type'=>'user_create'))->all()->toList();
+
+	foreach($listData as $Key => $item){
+		$item->sale_price = 50000;
+		$item->price = 250000;
+
+		$modelProduct->save($item);
+
+	}
+	debug('ok');
+	die();
+}*/
 ?>

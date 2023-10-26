@@ -10,7 +10,7 @@
       <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
-          <div class="col-md-1">
+          <div class="col-md-2">
             <label class="form-label">Mã dịch vụ</label>
             <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
@@ -62,7 +62,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách dịch vụ</h5>
 
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -72,6 +72,7 @@
               <th>Dịch vụ</th>
               <th>Giá bán</th>
               <th>Hoa hồng</th>
+              <th>Danh mục</th>
               <th>Trạng thái</th>
               <th>Sửa</th>
               <th>Xóa</th>
@@ -81,7 +82,7 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  
+                  $category = $modelCategories->get($item->id_category);
                  
                   if($item->status==1){
                    $status = 'Kích hoạt';
@@ -104,7 +105,7 @@
 
                   echo '<tr>
                           <td>
-                            '.$item->id.'
+                            '.$item->code.'
                           </td>
                           <td>
                             <img src="'.$item->image.'" width="100" />
@@ -118,6 +119,7 @@
                             '.$staff.'
                             '.$affiliate.'
                           </td>
+                          <td>' . $category->name. '</td>
                           <td>'.$status.'</td>
                           
                           <td align="center">

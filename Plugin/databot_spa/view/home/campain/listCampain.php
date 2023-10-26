@@ -34,7 +34,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách chiến dịch</h5>
 
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -59,7 +59,7 @@
                           <td>'.$item->name.'</td>
 
                           <td>
-                            '.number_format($item->number_reg).'
+                            <a href="/listCustomerCampaign/?idCampaign='.$item->id.'">'.number_format($item->number_reg).'</a>
                           </td>
 
                           <td>

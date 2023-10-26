@@ -36,7 +36,7 @@
                             <label class="col-sm-12 control-label">Nhà cung cấp:</label>
                             <div class="col-sm-12">
                                 <input type="hidden" name="idPartner" id="idPartner" value="<?php echo @$_GET['idPartner'] ?>">  
-                                <input type="text"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
+                                <input type="text" placeholder="Tìm kiếm nhà cung cấp theo tên đối tác"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
                             </div>
                         </div>
                     </div> 

@@ -88,7 +88,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="/dashboard" class="app-brand-link">
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">MY SPA</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">DATA SPA</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block">
@@ -161,13 +161,33 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/order" class="menu-link">
-                    <div>Tạo đơn hàng</div> 
+                  <a href="/orderProduct" class="menu-link">
+                    <div>Bán sản phầm </div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listOrder" class="menu-link">
-                    <div>Danh sách đơn hàng</div> 
+                  <a href="/listOrderProduct" class="menu-link">
+                    <div>Danh sách đơn sản phẩm </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/orderCombo" class="menu-link">
+                    <div>Bán Combo liệu trình </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listOrderCombo" class="menu-link">
+                    <div>Danh sách đơn Combo liệu trình</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/orderService" class="menu-link">
+                    <div>Bán dịch vụ  </div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listOrderService" class="menu-link">
+                    <div>Danh sách đơn Dịch vụ</div> 
                   </a>
                 </li>
                 <li class="menu-item">
@@ -177,7 +197,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="/listCustomerPrepayCard" class="menu-link">
-                    <div>Danh sách thẻ trả trước</div> 
+                    <div>Danh sách đơn thẻ trả trước</div> 
                   </a>
                 </li>
               </ul>
@@ -246,13 +266,6 @@
             </li> 
 
             <li class="menu-item">
-              <a href="/listUserCampain" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-voice"></i>
-                <div>Người đăng ký</div>
-              </a>
-            </li> 
-
-            <li class="menu-item">
               <a href="/listSMSMarketing" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div>Gửi SMS</div>
@@ -263,6 +276,20 @@
               <a href="/listEmailMarketing" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div>Gửi Email</div>
+              </a>
+            </li> 
+
+            <li class="menu-item">
+              <a href="/transactionHistories" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div>Nạp tiền</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/guideAddCustomerCampainApi" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div>Tích hợp Chatbot</div>
               </a>
             </li>   
 
@@ -383,7 +410,7 @@
             <li class="menu-item">
               <a href="/listSpa" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>
-                <div>Thông tin spa</div>
+                <div>Cơ sở Spa</div>
               </a>
             </li>
           </ul>

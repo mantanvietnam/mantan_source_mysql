@@ -1,9 +1,9 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Danh danh đơn hàng</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh sách đơn hàng</h4>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
-        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
+            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
             <div class=" card mb-4">
                 <h5 class="card-header">Tìm kiếm dữ liệu</h5>
                 <div class="card-body">
@@ -100,7 +100,7 @@
                                                      
                                                             <td><?php echo $value->prod->name ?></td>
                                                             <td><?php echo number_format($value->price) ?>đ</td>
-                                                            <td><?php echo $value->quantity ?></td>
+                                                            <td><?php echo $value->number_uses.'/'.$value->quantity ?></td>
                                                             <td><?php echo $type ?></td>
 
                                                       </tr>

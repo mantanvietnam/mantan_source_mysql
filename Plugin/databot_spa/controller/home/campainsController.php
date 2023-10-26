@@ -15,6 +15,7 @@ function listCampain(){
 
         $modelMembers = $controller->loadModel('Members');
         $modelCampains = $controller->loadModel('Campains');
+        $modelCampainCustomers = $controller->loadModel('CampainCustomers');
         
         $user = $session->read('infoUser');
 
@@ -40,6 +41,9 @@ function listCampain(){
                 $listData[$key]->number_reg = 0;
                 $listData[$key]->number_checkin = 0;
                 $listData[$key]->number_banking = 0;
+
+                $user_reg = $modelCampainCustomers->find()->where(['id_campain'=>$value->id])->all()->toList();
+                $listData[$key]->number_reg = count($user_reg);
             }
         }
 
@@ -111,9 +115,14 @@ function addCampain($input){
         if(!empty($_GET['id'])){
             $data = $modelCampains->get( (int) $_GET['id']);
 
+            if(!empty($data->status)) $data->status = json_decode($data->status, true);
+            if(!empty($data->nameTicket)) $data->nameTicket = json_decode($data->nameTicket, true);
+            if(!empty($data->priceTicket)) $data->priceTicket = json_decode($data->priceTicket, true);
+            if(!empty($data->nameLocation)) $data->nameLocation = json_decode($data->nameLocation, true);
+
         }else{
             $data = $modelCampains->newEmptyEntity();
-            $data->created_at = date('Y-m-d H:i:s');
+            $data->created_at = time();
             $data->codeUser = 999;
         }
 
@@ -124,6 +133,10 @@ function addCampain($input){
                 if(empty($dataSend['backgroundSpin'])) $dataSend['backgroundSpin'] = $urlHomes.'/plugins/databot_spa/view/home/assets/img/background-spin.png';
                 if(empty($dataSend['logoSpin'])) $dataSend['logoSpin'] = $urlHomes.'/plugins/databot_spa/view/home/assets/img/logo-spin.png';
                 if(empty($dataSend['colorTextSpin'])) $dataSend['colorTextSpin'] = '#000';
+                if(empty($dataSend['status'])) $dataSend['status'] = [];
+                if(empty($dataSend['nameTicket'])) $dataSend['nameTicket'] = [];
+                if(empty($dataSend['priceTicket'])) $dataSend['priceTicket'] = [];
+                if(empty($dataSend['nameLocation'])) $dataSend['nameLocation'] = [];
 
                 // tạo dữ liệu save
                 $data->name = $dataSend['name'];
@@ -141,7 +154,7 @@ function addCampain($input){
 
                 $data->smsRegister = $dataSend['smsRegister'];
                 $data->sendSMS =(int) $dataSend['sendSMS'];
-                $data->idMember = $infoUser->id_member;
+                $data->idMember = (int) $infoUser->id_member;
                 $data->idSpa = (int) $session->read('id_spa');
 
                 $data->idBotBanking = $dataSend['idBotBanking'];
@@ -155,6 +168,11 @@ function addCampain($input){
                 $modelCampains->save($data);
 
                 $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+                $data->status = json_decode($data->status, true);
+                $data->nameTicket = json_decode($data->nameTicket, true);
+                $data->priceTicket = json_decode($data->priceTicket, true);
+                $data->nameLocation = json_decode($data->nameLocation, true);
                 
             }else{
                 $mess= '<p class="text-danger">Bạn chưa nhập tên chiến dịch</p>';
@@ -162,12 +180,14 @@ function addCampain($input){
         }
 
         setVariable('data', $data);
+        setVariable('mess', $mess);
     }else{
         return $controller->redirect('/login');
     }
 }
 
-function deleteCampain($input){
+function deleteCampain($input)
+{
     global $controller;
     global $session;
     
@@ -189,5 +209,4 @@ function deleteCampain($input){
         return $controller->redirect('/login');
     }
 }
-
 ?>

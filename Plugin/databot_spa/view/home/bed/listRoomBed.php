@@ -32,8 +32,8 @@ rel='stylesheet' type='text/css'>
                                             <div class="col-xs-6 col-sm-4 col-md-2 clear-room <?php echo @$background.' '.$context_menu  ?> " idBed="<?php echo $bed->id ?>" nameBed="<?php echo $bed->name ?>">
                                                 <div class="customer-name">
                                                     <span class="room-number"><?php echo $bed->name ?></span><br/>
-                                                <?php if(!empty($bed->order)){ ?>
-                                                       <span class="full-name"><?php echo $bed->order->full_name ?></span>
+                                                <?php if(!empty($bed->Userservice)){ ?>
+                                                       <span class="full-name"><?php echo $bed->Userservice->customer->name ?></span>
                                                 <?php } ?>
                                                 </div> 
                                             </div>               
@@ -55,7 +55,7 @@ rel='stylesheet' type='text/css'>
             <div class="modal-body">
                 <div class="showMess" id="">
                     <p>Lý do hủy Giường</p>
-                    <input type="text" name="noteCancelRoom" id="noteCancelRoom" value="" class="form-control">
+                    <input type="text" name="noteCancelRoom"  id="noteCancelRoom" value="" class="form-control">
                     <br/>
                     <input type="hidden" name="idBedCancel" value="" id="idBedCancel">
                 </div>
@@ -200,7 +200,7 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Trả phòng", icon: "checkout"},
+                "paid": {name: "Check out", icon: "checkout"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
                 "sep1": "---------",
@@ -288,7 +288,7 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Trả phòng", icon: "checkout"},
+                "paid": {name: "Check out", icon: "checkout"},
                 "cancel": {name: "Hủy checkin", icon: "delete"},
                 "view": {name: "Xem thông tin phòng", icon: "view"},
                 "sep1": "---------",

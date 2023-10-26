@@ -41,6 +41,15 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-12 footer-box-right">
+                            <div class="footer-logo">
+                                <div class="logo-home-img logo-home-1">
+                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/logofooter1.png" alt="">
+                                </div>
+
+                                <div class="logo-home-img logo-home-2">
+                                    <img src="<?php echo $urlThemeActive; ?>/asset/img/logo-afd.png" alt="">
+                                </div>
+                            </div>
                             <p class="follow-us">
                                 <span>Follow us:
                                 <?php 
@@ -94,6 +103,8 @@
         <!-- <script src="<?php echo $urlThemeActive;?>/asset/js/odometer.js"></script> -->
         <script src="<?php echo $urlThemeActive;?>/asset/js/slick.js"></script>
         <script src="<?php echo $urlThemeActive;?>/asset/js/main.js"></script>
+        <script src="<?php echo $urlThemeActive;?>/asset/js/swiper.js"></script>
+
         
     </footer>
 </body>

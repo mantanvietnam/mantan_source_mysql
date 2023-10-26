@@ -71,7 +71,7 @@
   <div class="card">
     <h5 class="card-header">Danh sách phiếu thu</h5>
     <?php echo @$mess; ?>
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>

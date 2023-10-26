@@ -65,16 +65,16 @@ function listOrder($input)
 	    }
 
 	    // thống kê tài khoản trống
-	    $numberAcc100 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>100])->all()->toList();
+	    $numberAcc100 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>100, 'status'=>'active'])->all()->toList();
 	    $numberAcc100 = count($numberAcc100);
 
-	    $numberAcc300 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>300])->all()->toList();
+	    $numberAcc300 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>300, 'status'=>'active'])->all()->toList();
 	    $numberAcc300 = count($numberAcc300);
 
-	    $numberAcc500 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>500])->all()->toList();
+	    $numberAcc500 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>500, 'status'=>'active'])->all()->toList();
 	    $numberAcc500 = count($numberAcc500);
 
-	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000])->all()->toList();
+	    $numberAcc1000 = $modelZooms->find()->where(['idOrder'=>0, 'type'=>1000, 'status'=>'active'])->all()->toList();
 	    $numberAcc1000 = count($numberAcc1000);
 
 	    setVariable('page', $page);

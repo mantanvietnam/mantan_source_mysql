@@ -49,6 +49,7 @@ function settingHomeThemeBOB($input)
                         'email_footer' => $dataSend['email_footer'], 
                         'link_email_footer' => $dataSend['link_email_footer'], 
 
+                        'title2_footer' => $dataSend['title2_footer'], 
 
                         'title1_footer' => $dataSend['title1_footer'], 
                         'id1_menu_footer' => $dataSend['id1_menu_footer'], 

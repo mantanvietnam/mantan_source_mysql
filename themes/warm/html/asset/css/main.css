@@ -31,7 +31,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 a{
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 body {
@@ -744,6 +744,10 @@ strong{
 	background-color: #2460a9;
 	transition: all 0.3s linear;
 
+}
+
+#footer-home .footer-logo{
+	display: none !important;
 }
 
 .footer-logo{

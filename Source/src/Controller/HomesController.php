@@ -46,6 +46,9 @@ class HomesController extends AppController{
             $data = $modelPosts->find()->where($conditions)->first();
         
             if($data){
+                $data->view ++;
+                $modelPosts->save($data);
+
                 if(function_exists('postTheme')){
                     $url= '/themes/'.$themeActive.'/post.php';
 

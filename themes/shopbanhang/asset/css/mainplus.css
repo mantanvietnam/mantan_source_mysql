@@ -1,0 +1,806 @@
+/* --- Trang Guarantee --- */
+
+#policy .container {
+    width: 760px;
+    padding-bottom: 89px;
+}
+
+#policy .nav-tabs {
+    justify-content: space-around;
+    padding-top: 20px;
+}
+
+#policy .nav-tabs li {
+    font-size: 20px;
+    line-height: 27px;
+}
+
+#policy .nav-tabs li a {
+    padding: 2px 19px;
+}
+
+#policy .nav-tabs li a:focus {
+    border-bottom: 2px solid;
+}
+
+#policy .nav-tabs li a {
+    color: #000;
+}
+
+#policy .tab-content {
+    margin: auto;
+}
+
+#policy .title-content-policy {
+    text-align: center;
+}
+
+#policy .title-content-policy {
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 50px;
+    padding-bottom: 23px;
+}
+
+#content-policy h4 {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 16px;
+    padding-top: 16px;
+}
+
+.active-policy h4 {
+    padding-top: 0px !important;
+}
+
+.active-policy p {
+    padding-left: 17px;
+    line-height: 21px;
+    font-size: 14px;
+}
+
+.active-policy,
+.regulations-policy,
+.procedure-policy,
+.end-text {
+    padding: 0 23px;
+}
+
+.detail-policy {
+    padding: 33px 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.list-regulations {
+    padding-left: 17px;
+    line-height: 21px;
+    font-size: 14px;
+}
+
+.list-procerdure {
+    padding-left: 17px;
+    line-height: 21px;
+    font-size: 14px;
+}
+
+.detail-policy .end-text {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+.list-regul-7 li {
+    padding-left: 14px;
+    justify-content: start;
+    display: flex;
+    align-items: baseline;
+}
+
+.list-regul-7 li i {
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+.list-procerdure li {
+    display: flex;
+}
+
+.list-procerdure li span {}
+
+#video-policy {
+    text-align: center;
+}
+
+.detail-video h3 {
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 50px;
+}
+
+.detail-video p {
+    padding-top: 10px;
+    padding-bottom: 35px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.box-video iframe {
+    width: 100%;
+    height: 400px;
+}
+
+#search-polity {
+    text-align: center;
+}
+
+.detail-search h3 {
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 50px;
+    padding-bottom: 23px;
+}
+
+.check-box label {
+    font-size: 20px;
+    line-height: 24px;
+    align-items: center;
+    display: flex;
+}
+
+.check-box input {
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+.check-box form {
+    justify-content: space-between;
+    display: flex;
+    padding: 0 100px;
+}
+
+.check-box {
+    padding-bottom: 25px;
+}
+
+.input-box input {
+    font-size: 14px;
+    line-height: 20px;
+    font-style: italic;
+    padding: 12px 14px;
+    width: 375px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.input-box button {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 11px 21px;
+    border: none;
+    background-color: #008BCF;
+    transform: translateX(-1px);
+    border: 1px solid #008BCF;
+}
+
+.input-box button:hover {
+    background-color: rgb(116, 190, 255);
+}
+
+.input-box form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* --- Trang Profile --- */
+
+#profile {
+    padding-top: 43px;
+}
+
+#profile>.container {
+    padding: 0 125px;
+}
+
+.my-account .nav-tabs {
+    display: block;
+    width: 100%;
+}
+
+.my-account .nav-item a {
+    border: none;
+    font-size: 14px;
+    line-height: 34px;
+    border-radius: 0%;
+    color: #000;
+    font-weight: 600;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.my-account .accordion-collapse {
+    padding-left: 50px;
+}
+
+.my-account .accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+.my-account .accordion-button:not(.collapsed) {
+    background-color: transparent;
+}
+
+.my-account .accordion-button:focus {
+    box-shadow: none;
+}
+
+.my-account .nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border-color: rgb(221, 221, 221);
+}
+
+.my-account .navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.my-account .dropdown-item {
+    border: none !important;
+}
+
+.my-account .accordion-button {
+    padding: 8px 16px;
+}
+
+#profile-user .title-profile h3 {
+    font-size: 29px;
+    line-height: 49px;
+}
+
+#profile-user .title-profile h2 {
+    font-size: 40px;
+    line-height: 49px;
+    text-transform: capitalize;
+}
+
+#profile-user .title-profile a {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    line-height: 34px;
+}
+
+#profile-user .title-profile {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+#profile-user {
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+.my-account .nav-item.sp-sale a {
+    color: red;
+}
+
+.my-account .dropdown-item {
+    font-weight: 400 !important;
+}
+
+.my-account .navbar {
+    --bs-navbar-padding-y: 0rem;
+}
+
+.title-file p {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 17px;
+    border-bottom: 0.5px solid rgb(192, 192, 192);
+}
+
+.title-file {
+    padding-top: 34px;
+    padding-left: 33px;
+    padding-right: 50px;
+}
+
+.detail-file {
+    padding-left: 83px;
+    padding-right: 67px;
+    padding-bottom: 39px;
+}
+
+.detail-file label {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 300;
+}
+
+.detail-file .item-detail {
+    padding-top: 24px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-file .item-detail input {
+    font-size: 14px;
+    padding: 4px 10px;
+    right: 0;
+    /* position: absolute; */
+    width: 377px;
+    top: 24px;
+}
+
+.detail-file .item-detail.sex {
+    display: flex;
+    justify-content: normal;
+}
+
+.detail-file .item-detail.sex input {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.detail-file .item-detail.sex .radio-check {
+    margin-left: 55px;
+    display: flex;
+    align-items: center;
+}
+
+.radio-check label {
+    margin-right: 15px;
+}
+
+.item-detail.btn-submit input {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 55px;
+    padding-right: 43px;
+    background-color: #011436;
+    color: #fff;
+    width: auto !important;
+}
+
+.item-detail.btn-submit {
+    justify-content: end;
+    display: flex;
+}
+
+.choose-date select {
+    width: 120px;
+    margin-left: 5px;
+    font-size: 14px;
+    padding: 7px 10px;
+    color: #949494;
+    font-weight: 200;
+    border: 0.5px solid rgb(221, 221, 221);
+}
+
+#my-file {
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+#my-address {
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+#my-address .title-addr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 31px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid rgb(192, 192, 192);
+}
+
+#my-address .title-addr p {
+    font-size: 18px;
+    line-height: 22px;
+    margin-left: 35px;
+}
+
+#my-address .title-addr .add-adress {
+    font-size: 14px;
+    color: #fff;
+    background-color: #008BCF;
+    border: 0.5px solid #008BCF;
+    padding: 7px 16px;
+    align-items: center;
+    display: flex;
+    font-weight: 200;
+    margin-right: 35px;
+}
+
+#my-address .title-addr .add-adress i {
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+#my-address .address {
+    margin: 0 34px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    padding: 20px 10px;
+}
+
+.content-addr .infor-addr span {
+    font-size: 14px;
+    padding-right: 5px;
+    border-right: 1px solid rgb(192, 192, 192);
+    line-height: 25px;
+    margin-bottom: 5px;
+}
+
+.content-addr .infor-addr {
+    display: flex;
+    align-items: baseline;
+}
+
+.content-addr .infor-addr p {
+    padding-left: 5px;
+}
+
+.content-addr p {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 300;
+}
+
+.content-addr button {
+    font-size: 12px;
+    background-color: #fff;
+    border: 0.5px solid rgb(192, 192, 192);
+    line-height: 18px;
+    font-weight: 300;
+}
+
+.address .btn-group button {
+    font-size: 12px;
+    background-color: transparent;
+    border: none;
+    color: #008BCF;
+    font-weight: 300;
+    line-height: 16px;
+}
+
+.up-address {
+    justify-content: end;
+    display: flex;
+    align-items: flex-start;
+}
+
+.default button {
+    font-size: 12px;
+}
+
+.btn-address {
+    margin-top: 5px;
+}
+
+.tab-voucher .nav-tabs {
+    justify-content: space-around;
+}
+
+.tab-voucher .nav-link.active {
+    border-bottom: 1px solid;
+}
+
+.tab-voucher .nav-link {
+    border: none;
+    color: #000;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.tab-voucher .nav-link:hover {
+    color: #000 !important;
+}
+
+.tab-voucher .nav-item {
+    width: 50%;
+    text-align: center;
+}
+
+#my-voucher {
+    border: 0.5px solid rgb(192, 192, 192);
+    min-height: 400px;
+}
+
+.voucher .detail-voucher {
+    position: absolute;
+    top: 15%;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.voucher .bg-voucher img {
+    width: 100%;
+    height: 60px;
+}
+
+.voucher {
+    position: relative;
+    margin-top: 20px;
+}
+
+.logo-voucher h3 {
+    font-size: 14px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #008BCF;
+    padding-right: 5px;
+    border-right: 0.5px solid black;
+}
+
+.infor-voucher {
+    padding-left: 8px;
+}
+
+.infor-voucher p {
+    font-size: 10px;
+    line-height: 15px;
+}
+
+.infor-voucher h4 {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.content-voucher {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.btn-voucher {
+    border: none;
+    background-color: transparent;
+}
+
+
+/*  TRANG SALE 9-9  */
+
+#sale99 .banner-sale img {
+    width: 100%;
+}
+
+#sale99 .endow {
+    text-align: center;
+    padding-bottom: 25px;
+    padding-top: 45px;
+}
+
+#sale99 .endow h3 {
+    font-size: 30px;
+    line-height: 36px;
+    text-transform: uppercase;
+    color: #0B2A66;
+    padding-bottom: 10px;
+}
+
+#sale99 .endow p {
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: #0B2A66;
+}
+
+#sale99 .endow span {
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+    padding-left: 40px;
+    margin-left: 40px;
+    border-left: 1px solid #0B2A66;
+    ;
+    color: #0B2A66;
+}
+
+#sale99 .combo-voucher {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.combo-voucher .item-voucher img {
+    width: 100%;
+}
+
+.combo-voucher .item-voucher {
+    width: 350px;
+    height: 70px;
+    position: relative;
+}
+
+.combo-voucher .detail-voucher-sale {
+    position: absolute;
+    top: 15%;
+    align-items: center;
+    display: flex;
+}
+
+.combo-voucher .detail-voucher-sale p {
+    font-size: 20px;
+    line-height: 24px;
+    color: #008BCF;
+    border-right: 1px solid rgb(107, 107, 107);
+    padding-left: 25px;
+    padding-right: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-weight: 400;
+}
+
+.combo-voucher .detail-voucher-sale span {
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 20px;
+}
+
+.top-deal {
+    position: relative;
+    border-radius: 17px;
+    overflow: hidden;
+}
+
+.top-deal .group-deal {
+    position: absolute;
+    top: 155px;
+    margin: 0 30px;
+}
+
+.top-deal .group-deal .list-product-1 {
+    margin-bottom: 60px;
+}
+
+.top-deal>img {
+    width: 100%;
+}
+
+.top-deal .group-deal .list-product .best-sale-item {
+    padding: 0 7.5px;
+}
+
+.top-deal .group-deal .list-product .best-sale-price {
+    margin-bottom: 8px;
+}
+
+.top-deal .group-deal .list-product .best-sale-discount {
+    margin-bottom: 8px;
+}
+
+.top-deal .group-deal .list-product .best-sale-name a {
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    margin-bottom: 14px;
+}
+
+@media (max-width: 1025px) {
+    /*  TRANG PORFILE  */
+    #profile>.container {
+        padding: 0 15px;
+    }
+    /* thong tin tai khoan trang profile */
+    .detail-file .item-detail input {
+        width: 290px;
+    }
+    .detail-file {
+        padding-left: 33px;
+        padding-right: 33px;
+    }
+    .title-file {
+        padding-top: 34px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .detail-file .item-detail.sex .radio-check {
+        margin-left: 60px;
+    }
+    .choose-date select {
+        width: 91px;
+    }
+    /* dia chi giao hang trang profile */
+    .up-address {
+        padding: 0;
+    }
+    /* voucher trang profile */
+    .content-voucher .col-lg-6.col-md-6.col-sm-12 {
+        padding: 0;
+    }
+    /*  TRANG REVIEW  */
+}
+
+@media (max-width: 769px) {
+    /*  TRANG PORFILE  */
+    /*  TRANG GUARANTEE  */
+    #policy .nav-tabs li a {
+        padding: 2px 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    /*  TRANG PORFILE  */
+    #profile>.container {
+        padding: 0 15px;
+    }
+    #profile-user .title-profile {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    #profile-user {
+        margin-bottom: 20px;
+    }
+    .content-voucher .col-lg-6.col-md-6.col-sm-12 {
+        justify-content: center;
+        display: grid;
+    }
+    .detail-file {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    #my-address .address {
+        margin: 0px 15px;
+    }
+    .detail-file .item-detail input {
+        width: 200px;
+    }
+    .choose-date select {
+        padding: 7px 3px;
+        width: auto;
+    }
+    .detail-file .item-detail.sex {
+        justify-content: space-between;
+    }
+    .radio-check label {
+        margin-right: 14px;
+    }
+    .tab-voucher .nav-link {
+        padding: 12px 0;
+    }
+    /*  TRANG GUARANTEE  */
+    #policy .container {
+        width: auto;
+    }
+    #policy .nav-tabs li {
+        padding-top: 5px;
+    }
+    .check-box form {
+        justify-content: space-around;
+        padding: 0;
+    }
+    .check-box label {
+        font-size: 16px;
+    }
+    .input-box input {
+        width: auto;
+        font-size: 14px;
+    }
+    #policy .nav-tabs li a {
+        font-size: 16px;
+    }
+    .input-box button {
+        font-size: 14px;
+    }
+    #policy .title-content-policy,
+    .detail-video h3,
+    .detail-search h3 {
+        font-size: 22px;
+        padding-top: 35px;
+        padding-bottom: 23px;
+    }
+    #policy .nav-tabs li a {
+        padding: 2px 15px;
+    }
+}

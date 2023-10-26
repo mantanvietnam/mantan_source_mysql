@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin danh lam</h4>
+  <h4 class="fw-bold py-3 mb-4">Thông tin di tích danh lam</h4>
   <p><a href="/plugins/admin/tayho360-admin-place-addPlaceAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <form action="" method="GET">
@@ -21,14 +21,14 @@
         </tbody></table>
     </form>
   <div class="card row">
-    <h5 class="card-header">Danh sách Thông tin danh lam</h5>
+    <h5 class="card-header">Danh sách Thông tin di tích và danh lam</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr class="">
             <th>Hình ảnh</th>
-            <th>Tên danh lam</th>
+            <th>Tên di tích và danh lam</th>
             <th>Số điện thoại</th>
             <th>địa chỉ </th>
             <th>Sửa</th>

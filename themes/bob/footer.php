@@ -26,7 +26,7 @@
                         <div class="col-lg-9 col-md-9 col-12 menu-footer">
                             <div class="menu-footer-item">
                                 <div class="menu-footer-title">
-                                    <p>Sản phẩm</p>
+                                    <p><?php echo $settingThemes['title1_footer']; ?></p>
                                 </div>
 
                                 <div class="menu-footer-box">
@@ -45,7 +45,7 @@
 
                             <div class="menu-footer-item">
                                 <div class="menu-footer-title">
-                                    <p>Doanh nghiệp</p>
+                                    <p><?php echo $settingThemes['title2_footer']; ?></p>
                                 </div>
 
                                 <div class="menu-footer-box">
@@ -124,7 +124,7 @@
 
         <section id="footer-bottom">
             <div class="container">
-                <p>© Copyright 2023 Yên Lâm. All Rights Reserved.</p>
+                <p>© Copyright 2023 BOB. All Rights Reserved.</p>
             </div>
         </section>
         

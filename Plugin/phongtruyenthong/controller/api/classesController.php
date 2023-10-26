@@ -15,6 +15,12 @@ function getClassInYearAPI($input)
 
 		$listData = $modelClasses->find()->where($conditions)->all()->toList();
 
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$listData[$key]->info = nl2br($listData[$key]->info);
+			}
+		}
+
 		return ['code'=>0, 'listData'=>$listData];
 	}else{
     	return ['code'=>1, 'mess'=>'Chưa gửi dữ liệu'];

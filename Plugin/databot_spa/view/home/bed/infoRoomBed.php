@@ -51,7 +51,7 @@
                             </div>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <h5 class="mb-0">Tổng cộng (VNĐ)</h5>
                   <br>
                   <div class="form-group row">
@@ -70,8 +70,8 @@
                           <div class="col-md-6" id="totalPay"><?php echo number_format(@$data->total_pay); ?> VNĐ</div>
                            <input type="hidden" name="totalPays" id="totalPays" value="<?php echo @$data->total_pay; ?>">
                   </div>
-                </div>
-                <div class="col-md-12">
+                </div> -->
+                <!-- <div class="col-md-12">
                    <br> 
                   <h5 class="mb-0">Thông tin sản phẩm <button type="button" class="btn btn-danger" onclick="return addRowProduct();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm sản phẩm</button></h5>
                   <br>
@@ -123,60 +123,33 @@
                                     </table>
                                </div>
                             </div>
-                </div>
-                <div class="col-md-12">
+                </div> -->
+                <div class="col-md-6">
                    <br> 
-                  <h5 class="mb-0">Thông tin dịch vụ <button type="button" class="btn btn-danger" onclick="return addRowService();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm dịch vụ</button></h5>
+                  <h5 class="mb-0">Thông tin dịch vụ </h5>
                   <br>
                         <div class="scroll-table mb-3">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style=" text-align: center; ">
                                     <thead>
                                         <tr>
-                                            <th >dịch vụ</th>
-                                            <th >Giá bán</th>
-                                            <th >Số lượng </th>
-                                            <th>Thành tiền</th>
-                                            <th >Xóa</th>
+                                            <th>dịch vụ</th>
+                                            <th>lần thừ </th>
                                         </tr>
                                     </thead>
                                    <tbody id="tbodyservice">
-                                        <?php $s = 0;
-                                        if(!empty($data->service)){ 
-                                           
-                                          foreach($data->service as $k => $value){
-                                                $s++;
-                                    $delete= '';
-                                    if($s > 1){
-                                        $delete= '<a onclick="deleteService('.$s.')" href="javascript:void(0);"><i class="bx bx-trash"></i></a>';
-                                    }?>
-                                    <tr class="gradeX" id="trservice-<?php echo $s ?>">
-                                        <td>
-                                            <input value="<?php echo $value->service->id ?>" type="hidden" required="" name="id_service[<?php echo $s ?>]" id="id_service-<?php echo $s ?>" class="form-control input_money"  />
-                                            <input value="<?php echo $value->service->name ?>" type="text" required="" onclick="return name_service(<?php echo $s ?>);" name="name_service[<?php echo $s ?>]" id="name_service-<?php echo $s ?>" class="form-control input_money"  placeholder="Số lượng"/>
-                                        </td>
-                                        <td>
-                                            <input value="<?php echo $value->price ?>" type="number" required="" onchange="tinhtien();" name="price_service[<?php echo $s ?>]" id="price_service-<?php echo $s ?>" class="form-control input_money" /></td>
-                                        <td>
-                                            <input value="<?php echo $value->quantity ?>" type="number" required="" name="quantity_service[<?php echo $s ?>]" id="quantity_service-<?php echo $s ?>" class="form-control input_money" onchange="tinhtien();" placeholder="Số lượng"/>
-                                        </td>
-                                        <td id='total_service-<?php echo $s ?>'>
-                                            <?php echo number_format($value->quantity*$value->price) ?>VNĐ
-                                            
-                                        </td>
-                                        <td><?php echo $delete ?></td>
+                                    <?php $quantity = 0;
+                                        $quantity = count($modelUserserviceHistories->find()->where(array('id_order_details'=>$data->id_order_details, 'id_services'=>$data->service->id))->all()->toList()); ?>
+                                    <tr>
+                                        <td><?php echo $data->service->name ?></td>
+                                        <td><?php echo number_format($quantity); ?></td>
                                     </tr>
-                                            <?php }}else{
-                                                echo '<tr id="trservice-0">
-                                                        <td colspan="5" align="center">Chưa có dịch vụ nào</td>
-                                                      </tr>';
-                                              } ?>
                                         </tbody>
                                     </table>
                                </div>
                             </div>
                 </div>
-                <div class="col-md-12">
+               <!--  <div class="col-md-12">
                    <br> 
                   <h5 class="mb-0">Thông tin combo <button type="button" class="btn btn-danger" onclick="return addRowCombo();"><i class="bx bx-plus" aria-hidden="true"></i> Thêm Combo</button></h5>
                   <br>
@@ -226,9 +199,9 @@
                                     </table>
                                </div>
                             </div>
-                </div>
+                </div> -->
               </div>
-                <button type="submit" class="btn btn-primary">Cập nhập</button> 
+                <a href="/listRoomBed" class="btn btn-primary">Quay lại</a> 
           </div>
         </div>
       </div>
@@ -237,7 +210,7 @@
   <?= $this->Form->end() ?>
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
      var p= <?php echo $p; ?>;
     function addRowProduct()
     {
@@ -568,7 +541,7 @@
         $('#moneyCustomerReturn').html(moneyCustomerReturn+'đ');
     }
 
-</script>
+</script> -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 

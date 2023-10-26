@@ -46,6 +46,14 @@
                     <label class="form-label" for="basic-default-fullname">Số lượng (*)</label>
                     <input type="number"  class="form-control" placeholder="" name="number_user" id="number_user" value="<?php echo @$data->number_user;?>" />
                   </div> 
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">áp dụng khiểu (*)</label>
+                    <select name="type"  class="form-select" required >
+                      <option value="">chọn khiểu</option>
+                      <option value="1"<?php if(!empty($data->type) && $data->type=='1') echo 'selected';?>>PRO</option>
+                      <option value="2"<?php if(!empty($data->type) && $data->type=='2') echo 'selected';?>>Khuyến mại nạp tiền</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>

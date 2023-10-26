@@ -15,9 +15,6 @@ function listStaff($input)
 	
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
-
-		$mess ='';
-
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
 		$order = ['status'=>'desc','id' => 'DESC'];
@@ -80,15 +77,18 @@ function listStaff($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 	    
-	    
+	    // $conditionsCategories = array('type' => 'category_member');
+        // $order = array('name'=>'asc');
+        // $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('totalData', $totalData);
 	    setVariable('back', $back);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
-	    setVariable('mess', $mess);
 	    
+	    // setVariable('listCategory', $listCategory);
 	    setVariable('listData', $listData);
 	}else{
 		return $controller->redirect('/login');

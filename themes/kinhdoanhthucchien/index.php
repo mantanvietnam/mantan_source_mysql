@@ -63,6 +63,7 @@
     </header>
     
     <main>
+        <?php if(!empty($settingThemes['name_project'])){ ?>
         <section id="banner" >
             <div class="banner-image" style="background-image: url(<?php echo @$settingThemes['image_bg_1'];?>);"></div>
             <div class="banner-overlay"></div>
@@ -74,7 +75,7 @@
                                 <img src="<?php echo @$settingThemes['image_speaker'];?>" alt="">
                                 <div class="banner-content-calendar">
                                     <div class="title-calendar">
-                                        <p>Lịch học</p>
+                                        <p>LỊCH SỰ KIỆN</p>
                                     </div>
                                     <div class="detail-calendar">
                                         <p><?php echo @$settingThemes['time_learning'];?></p>
@@ -87,11 +88,8 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-7 col-md-7">
+                        <div class="col-lg-7 col-md-7" style="padding-left: 37px;">
                             <div class="banner-content-text">
-                                <div class="content-text-title content-text-title1">
-                                    <h1>Chương trình đào tạo</h1>
-                                </div>
 
                                 <div class="content-text-title content-text-title2">
                                     <h1><?php echo @$settingThemes['name_project'];?></h1>
@@ -122,8 +120,10 @@
                 </div>
             </div>
         </section>
+        <?php }?>
 
         <!-- Video -->
+        <?php if(!empty($settingThemes['call_registration'])){ ?>
         <section id="section-video">
             <div class="container">
                 <div class="title-video">
@@ -139,8 +139,10 @@
                 </div>
             </div> 
         </section>
+        <?php }?>
 
         <!-- NẾU BẠN ĐANG MONG MUỐN -->
+        <?php if(!empty($settingThemes['title_demand'])){ ?>
         <section id="section-hope">
             <div class="hope-box">
                 <div class="hope-title">
@@ -155,6 +157,9 @@
                             </div>
 
                             <div class="hope-list-content">
+                                <p class="text-center">
+                                    <img width="150" src="<?php echo @$infoSite['logo'];?>" />
+                                </p>
                                 <ul>
                                     <?php 
                                         if(!empty($settingThemes['content_demand'])){
@@ -173,10 +178,11 @@
                     
                 </div>
             </div>
-            
         </section>
+        <?php }?>
 
         <!-- NỘI DUNG KHÓA HỌC -->
+        <?php if(!empty($settingThemes['content_training'])){ ?>
         <section id="section-content">
             <div class="content-background" style="background-image: url(<?php echo @$settingThemes['image_bg_1'];?>)"></div>
             <div class="content-box">
@@ -186,7 +192,7 @@
                     </div>
         
                     <div class="title-content">
-                        <h2>NỘI DUNG KHÓA HỌC</h2>   
+                        <h2>CÁC VẤN ĐỀ SẼ ĐƯỢC GIẢI QUYẾT</h2>   
                     </div>
     
                     <div class="content-list">
@@ -210,13 +216,15 @@
                 </div>
             </div>  
         </section>
+        <?php }?>
 
         <!-- NHỮNG ĐIỀU BẠN SẼ HỌC -->
+        <?php if(!empty($settingThemes['learn1'])){ ?>
         <section id="section-learn">
             <div class="learn-box">
                 <div class="container">
                     <div class="learn-title">
-                        <p>NHỮNG ĐIỀU BẠN SẼ HỌC</p>
+                        <p>NHỮNG ĐIỀU BẠN SẼ CÓ ĐƯỢC</p>
                     </div>
 
                     <div class="row">
@@ -271,8 +279,10 @@
                 </div>
             </div>
         </section>
+        <?php }?>
 
         <!-- Bí quetes -->
+        <?php if(!empty($settingThemes['title_return'])){ ?>
         <section id="section-secret">
             <div class="secret-box">
                 <div class="container">  
@@ -369,8 +379,10 @@
                 </div>
             </div>
         </section>
+        <?php }?>
 
         <!-- Ai là người chia sẻ -->
+        <?php if(!empty($settingThemes['name_speaker'])){ ?>
         <section id="section-who" >
             <div style="background-image: url(<?php echo @$settingThemes['image_bg_2'];?>);" class="who-background"></div>
             <div class="who-overlay"></div>
@@ -403,15 +415,17 @@
                             </div>
 
                             <div class="who-content-right">
-                                <?php echo @$settingThemes['info_speaker_introduce'];?>
+                                <?php echo nl2br(@$settingThemes['info_speaker_introduce']);?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <?php }?>
 
         <!-- LÝ DO BẠN NÊN THAM GIA CHƯƠNG TRÌNH-->
+        <?php if(!empty($settingThemes['title_reason_join'])){ ?>
         <section id="section-reason" style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/reasonbackground.svg)">
             <div class="reason-box">
                 <div class="container">
@@ -420,22 +434,24 @@
                         <div class="reason-divide"></div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-7 col-md-7 col-12 reason-left">
+                        <div class="col-lg-7 col-md-7 col-12">
                             <div class="reason-content">
-                                <?php echo @$settingThemes['info_reason_join'];?>
+                                <?php echo nl2br(@$settingThemes['info_reason_join']);?>
                             </div>
                         </div>
     
-                        <div class="col-lg-5 col-md-5 col-12 reason-right" style="background-image: url(<?php echo @$settingThemes['image_speaker3'];?>)">
-    
+                        <div class="col-lg-5 col-md-5 col-12">
+                            <img src="<?php echo @$settingThemes['image_speaker3'];?>">
                         </div>
                     </div>
                  
                 </div>
             </div>
         </section>
+        <?php }?>
 
         <!-- Chương trình phù hợp với ai -->
+        <?php if(!empty($settingThemes['should_join'])){ ?>
         <section id="section-should">
             <div class="should-background" style="background-image: url(<?php echo @$settingThemes['image_bg_3'];?>);" ></div>
             <div class="should-overlay"></div>
@@ -492,8 +508,10 @@
                 </div>
             </div>
         </section>
+        <?php }?>
 
         <!-- Một số hình ảnh -->
+        <?php if(!empty($albums)){ ?>
         <section id="section-photo">
             <div class="photo-content">
                 <div class="photo-content-detail">
@@ -522,8 +540,10 @@
 
             </div>
         </section>
+        <?php }?>
 
         <!-- Quà tặng -->
+        <?php if(!empty($settingThemes['title_gift'])){ ?>
         <section id="section-present">
             <div class="present-background" style="background-image: url(<?php echo @$settingThemes['image_bg_4'];?>);" ></div>
             <div class="present-overlay"></div>
@@ -556,7 +576,10 @@
               
             </div>
         </section>
+        <?php }?>
 
+        <!-- Mua vé -->
+        <?php if(!empty($settingThemes['title_price_1'])){ ?>
         <section id="section-register">
             <div class="register-background" style="background-image: url(<?php echo $urlThemeActive;?>/asset/image/register-background.jpg);" ></div>
             <div class="register-overlay"></div>
@@ -573,15 +596,21 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12 register-item">
                             <div class="register-item-box" style="background-image:url(<?php echo $urlThemeActive;?>/asset/image/gold.png) ;">
-                                <div class="register-price">
-                                    <del><?php echo @$settingThemes['price_old_1'];?></del>
+                                <div class="register-name">
+                                    <?php echo @$settingThemes['title_price_1'];?>
                                 </div>
 
                                 <div class="register-price-sale">
                                     <p><?php echo @$settingThemes['price_sell_1'];?></p>     
                                 </div>
 
-                                <div class="register-item-content">
+                                <div class="register-price">
+                                    <del><?php echo @$settingThemes['price_old_1'];?></del>
+                                </div>
+
+                                
+
+                                <div class="register-item-content text-center">
                                     <ul>
                                         <?php 
                                             if(!empty($settingThemes['benefit_1'])){
@@ -603,15 +632,20 @@
 
                         <div class="col-lg-6 col-md-6 col-12 register-item">
                             <div class="register-item-box" style="background-image:url(<?php echo $urlThemeActive;?>/asset/image/vip.png) ;">
+                                <div class="register-name">
+                                    <?php echo @$settingThemes['title_price_2'];?>
+                                </div>
+                                
+
+                                <div class="register-price-sale">
+                                    <p class="title-vip"><?php echo @$settingThemes['price_sell_2'];?></p>     
+                                </div>
+
                                 <div class="register-price">
                                     <del><?php echo @$settingThemes['price_old_2'];?></del>
                                 </div>
 
-                                <div class="register-price-sale">
-                                    <p><?php echo @$settingThemes['price_sell_2'];?></p>     
-                                </div>
-
-                                <div class="register-item-content-sale">
+                                <div class="register-item-content-sale text-center">
                                     <ul>
                                         <?php 
                                             if(!empty($settingThemes['benefit_2'])){
@@ -626,7 +660,7 @@
                                 </div>      
                                 
                                 <div class="register-item-button">
-                                    <a href="<?php echo @$settingThemes['link_reg_2'];?>">Đăng ký ngay</a>
+                                    <a class="vip" href="<?php echo @$settingThemes['link_reg_2'];?>">Đăng ký ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -635,6 +669,7 @@
                 </div>
             </div>
         </section>
+        <?php }?>
 
     </main>
 

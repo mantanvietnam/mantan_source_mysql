@@ -27,7 +27,7 @@
                           foreach ($listData as $item) {
                             echo '<tr>
                                     <td>'.$item->name.'</td>
-                                    <td>'.$item->room->name.'</td>
+                                    <td>'.@$item->room->name.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->id_room.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>

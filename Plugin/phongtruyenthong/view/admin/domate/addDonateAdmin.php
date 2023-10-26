@@ -35,7 +35,7 @@
 
                   <div class="mb-3">
                     <label class="form-label">Niên khóa</label>
-                    <select class="form-select" name="id_year" id="id_year">
+                    <select class="form-select" name="id_year" id="id_year" onchange="selectYear();">
                       <option value="">Chọn niên khóa</option>
                       <?php 
                       if(!empty($years)){
@@ -88,3 +88,46 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+  var year_class = [];
+
+  var year_select = '<?php echo @$data->id_year?>';
+  var class_select = '<?php echo @$data->id_class?>';
+
+  <?php 
+  if(!empty($year_class)){
+    foreach ($year_class as $year => $clases) {
+      echo 'year_class['.$year.'] = {};';
+
+      if(!empty($clases)){
+        foreach($clases as $class){
+          echo 'year_class['.$year.']['.$class['id'].'] = "'.$class['name'].'";';
+        }
+      }
+    }
+  }
+  ?>
+
+  function selectYear()
+  {
+    var year = $('#id_year').val();
+    var choose_class = '<option value="">Chọn lớp học</option>';
+
+    if(year!=''){
+      if(Object.keys(year_class[year]).length > 0){
+        Object.keys(year_class[year]).forEach(key => {
+          if(class_select!='' && class_select==key){
+            choose_class += '<option selected value="'+key+'">'+year_class[year][key]+'</option>';
+          }else{
+            choose_class += '<option value="'+key+'">'+year_class[year][key]+'</option>';
+          }
+        });
+      }
+    }
+
+    $('#id_class').html(choose_class);
+  }
+
+  selectYear();
+</script>

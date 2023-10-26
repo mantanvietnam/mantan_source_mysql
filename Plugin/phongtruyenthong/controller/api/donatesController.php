@@ -27,7 +27,7 @@ function getListDonateAPI($input)
             }
     		
     		$listData[$key]->name_year = (!empty($years[$value->id_year]->name))?$years[$value->id_year]->name:'';
-            $listData[$key]->name_class = (!empty($classes[$value->id_year]->name))?$classes[$value->id_year]->name:'';
+            $listData[$key]->name_class = (!empty($classes[$value->id_class]->name))?$classes[$value->id_class]->name:'';
     	}
     }
 

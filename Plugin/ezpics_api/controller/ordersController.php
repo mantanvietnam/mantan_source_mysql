@@ -66,6 +66,7 @@ function saveRequestBankingAPI($input)
 
 	$modelOrder = $controller->loadModel('Orders');
 	$modelMember = $controller->loadModel('Members');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$return = array('code'=>1);
 
 	if($isRequestPost){
@@ -74,18 +75,50 @@ function saveRequestBankingAPI($input)
 		if(!empty($dataSend['token']) && !empty($dataSend['money'])){
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
+			if(!empty($dataSend['discountCode'])){
+
+				$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode'],'type'=>2))->first();
+
+				$discount_id = '';
+
+				if(!empty($discountCode) && @$discountCode->discount<100){
+					if(!empty($discountCode->deadline_at)){
+						if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
+							if(isset($discountCode->number_user)){
+								if($discountCode->number_user>0){
+									$discount_id = $discountCode->id;
+								}else{
+									return array('code'=>7, 'mess'=>'Mã này số lượng đã hết ');
+								}	
+							}else{
+									$discount_id = $discountCode->id;
+							}
+						}else{
+							return array('code'=>6, 'mess'=>'Mã này đã hết hạn ');
+						}
+					}else{
+						$discount_id = $discountCode->id;
+					}
+				}else{
+					return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
+				}
+			}
+
 			if(!empty($infoUser)){
 				$order = $modelOrder->newEmptyEntity();
 				
 				$order->code = 'AM'.time().$infoUser->id.rand(0,10000);
                 $order->member_id = $infoUser->id;
                 $order->product_id = '';
-                $order->meta_payment = 'Nạp tiền qua chuyển khoản ngân hàng';
+                $order->meta_payment = 'Nạp tiền qua chuyển khoản ngân hàng ';
                 $order->payment_type = 1; // 1:Banking, 2:Apple
                 $order->total = (int) $dataSend['money'];
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế 
                 $order->created_at = date('Y-m-d H:i:s');
+                if(!empty($discount_id)){
+                	$order->discount_id = $discount_id; // id mã khuyến mại
+            	}
                 $order->payment_kind = 1; //0: tiền thưởng, 1 tiền thật 
                 
                 $modelOrder->save($order);
@@ -376,30 +409,33 @@ function orderCreateContentAPI($input){
 		$dataSend = $input['request']->getData();
 		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		if(!empty($infoUser)){
-			if($infoUser->account_balance >= $price_create_content){
-				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
-				if(!empty($dataProduct)){
-
-
-					$order = $modelOrder->newEmptyEntity();
-					$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
-                    $order->member_id = $infoUser->id;
-                    $order->product_id = $dataProduct->id;
-                    $order->total = $price_create_content;
-                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-                    $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
-                    $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
-                    $order->created_at = date('Y-m-d H:i:s');
-                    $modelOrder->save($order);
-
-                    $infoUser->account_balance -= $price_create_content;
-					$modelMember->save($infoUser);
+			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
+			if(!empty($dataProduct)){
+				if($infoUser->pro==1 && $infoUser->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s') ){
 					$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
 				}else{
-					$return = array('code'=>0, 'mess'=>'Mẫu này không đúng');
+					if($infoUser->account_balance >= $price_create_content){
+
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
+	                    $order->member_id = $infoUser->id;
+	                    $order->product_id = $dataProduct->id;
+	                    $order->total = $price_create_content;
+	                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+	                    $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
+	                    $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
+	                    $order->created_at = date('Y-m-d H:i:s');
+	                    $modelOrder->save($order);
+
+	                    $infoUser->account_balance -= $price_create_content;
+						$modelMember->save($infoUser);
+						$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
+					}else{
+						$return = array('code'=>0, 'mess'=>'Bạn không đủ tiền');
+					}
 				}
 			}else{
-				$return = array('code'=>0, 'mess'=>'Bạn không đủ tiền');
+				$return = array('code'=>0, 'mess'=>'Mẫu này không đúng');
 			}
 		}else{
 			$return = array('code'=>0, 'mess'=>'Bạn chưa đăng nhập');
@@ -419,7 +455,7 @@ function memberBuyProAPI($input){
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
-
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 	$return = array('code'=>0);
 	
 	if($isRequestPost){
@@ -427,16 +463,20 @@ function memberBuyProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token'], ))->first();
 
 		$pricepro = $price_pro;
+		$ecoin = $price_pro/1000;
 
 		if(!empty($dataSend['discountCode'])){
 
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
 
-			if(!empty($discountCode)){
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
@@ -474,77 +514,119 @@ function memberBuyProAPI($input){
 
 		if(!empty($user)){
 			if($user->member_pro!=1){
-				if($user->account_balance >=$price_pro){
-					$user->account_balance -= $price_pro;
-					$user->member_pro = 1;
-					$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
-					$modelMember->save($user);
+				if(@$dataSend['type']=='ecoin'){
+					if($user->ecoin >=$ecoin){
+						$user->ecoin -= $ecoin;
+						$user->member_pro = 1;
+						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
+						$modelMember->save($user);
 
-					$order = $modelOrder->newEmptyEntity();
-					$order->code = 'W'.time().$user->id.rand(0,10000);
-					$order->member_id = $user->id;
-					$order->total = $price_pro;
-					if(!empty($discountCode)){
-						$order->discount_id = $discountCode->id;
-					}
-					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý 
-					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
-					$order->meta_payment = 'Mua phiêu bản Pro';
-					$order->created_at = date('Y-m-d H:i:s');
-					$modelOrder->save($order);
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin->member_id = $user->id;
+						$ecoin->ecoin = $ecoin;
+						$ecoin->note = 'trừ Ecoin Nâng cấm bản EZPICS PRO';
+						$ecoin->status = 1;
+						$ecoin->type =0;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
 
-					$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
-					if(empty($WarehouseUser)){
-						$data = $modelWarehouseUsers->newEmptyEntity();
+						$modelTransactionEcoins->save($ecoin);
 
-			            // tạo dữ liệu save
-						$data->warehouse_id = (int) 1;
-						$data->user_id = $user->id;
-						$data->designer_id = 343;
-						$data->price = $price_pro;
-						$data->created_at = date('Y-m-d H:i:s');
-						$data->note ='';
-						$data->deadline_at = $user->deadline_pro;
-						$modelWarehouseUsers->save($data);
-					}else{
-						$data->deadline_at = $user->deadline_pro;
-						$modelWarehouseUsers->save($data);
-					}
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
 
-					if(!empty($discountCode->number_user)){
-						$discountCode->number_user -= 1;
-						$modelDiscountCode->save($discountCode);
-					}
-					if(!empty($discountCode->user) && $pricepro > $price_pro){
-						$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
-						if(!empty($checkPhone)){
-							$checkPhone->account_balance += (20 / 100) * $price_pro;
-							$modelMember->save($checkPhone);
-
-							$save = $modelOrder->newEmptyEntity();
-	                        $save->code = 'P'.time().$checkPhone->id.rand(0,10000);
-	                        $save->member_id = $checkPhone->id;
-	                        $save->total = (20 / 100) * $price_pro;
-	                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
-	                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
-	                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
-	                        $save->created_at = date('Y-m-d H:i:s');
-
-	                        $modelOrder->save($save);
-
-							// gửi thông báo về app
-	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
-
-	                        if(!empty($checkPhone->token_device)){
-	                            sendNotification($dataSendNotification, $checkPhone->token_device);
-	                        }
-
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $ecoin;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = date('Y-m-d H:i:s', strtotime($WarehouseUser->deadline_at . ' + 356   days'));;
+							$modelWarehouseUsers->save($WarehouseUser);
 						}
-					}
 
-					$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+					}else{
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+					}
 				}else{
-					$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+					if($user->account_balance >=$price_pro){
+						$user->account_balance -= $price_pro;
+						$user->member_pro = 1;
+						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
+						$modelMember->save($user);
+
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'W'.time().$user->id.rand(0,10000);
+						$order->member_id = $user->id;
+						$order->total = $price_pro;
+						if(!empty($discountCode)){
+							$order->discount_id = $discountCode->id;
+						}
+						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý 
+						$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
+						$order->meta_payment = 'Mua phiêu bản Pro';
+						$order->created_at = date('Y-m-d H:i:s');
+						$modelOrder->save($order);
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $price_pro;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = date('Y-m-d H:i:s', strtotime($WarehouseUser->deadline_at . ' + 365  days'));;
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						if(!empty($discountCode->number_user)){
+							$discountCode->number_user -= 1;
+							$modelDiscountCode->save($discountCode);
+						}
+						if(!empty($discountCode->user) && $pricepro > $price_pro){
+							$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+							if(!empty($checkPhone)){
+								$checkPhone->account_balance += (20 / 100) * $price_pro;
+								$modelMember->save($checkPhone);
+
+								$save = $modelOrder->newEmptyEntity();
+		                        $save->code = 'P'.time().$checkPhone->id.rand(0,10000);
+		                        $save->member_id = $checkPhone->id;
+		                        $save->total = (20 / 100) * $price_pro;
+		                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+		                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+		                        $save->created_at = date('Y-m-d H:i:s');
+
+		                        $modelOrder->save($save);
+
+								// gửi thông báo về app
+		                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+
+		                        if(!empty($checkPhone->token_device)){
+		                            sendNotification($dataSendNotification, $checkPhone->token_device);
+		                        }
+
+							}
+						}
+
+						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+					}else{
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+					}
 				}
 			}else{
 				$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
@@ -566,6 +648,8 @@ function memberExtendProAPI($input){
 	$modelMember = $controller->loadModel('Members');
 	$modelOrder = $controller->loadModel('Orders');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
 
 	$return = array('code'=>0);
 	
@@ -574,13 +658,17 @@ function memberExtendProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		$pricepro = $price_pro;
+		$ecoin = $price_pro/1000;
 		if(!empty($dataSend['discountCode'])){
 
 			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
 
-			if(!empty($discountCode)){
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
 				if(!empty($discountCode->deadline_at)){
 					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
 						if(isset($discountCode->number_user)){
@@ -618,65 +706,132 @@ function memberExtendProAPI($input){
 
 		if(!empty($user)){
 			if($user->member_pro==1){
-				if($user->account_balance >=$price_pro){
-					$user->account_balance -= $price_pro;
-					$user->member_pro = 1;
-					if($user->deadline_pro->format('Y-m-d H:i:s') <= date('Y-m-d H:i:s')){
-						$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
-					}else{
-						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
-						    }
-					
-					$modelMember->save($user);
-
-					$order = $modelOrder->newEmptyEntity();
-					$order->code = 'P'.time().$user->id.rand(0,10000);
-					$order->member_id = $user->id;
-					$order->total = $price_pro;
-					if(!empty($discountCode)){
-						$order->discount_id = $discountCode->id;
-					}
-					$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-					$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
-					$order->meta_payment = 'Mua phiêu bản Pro';
-					$order->created_at = date('Y-m-d H:i:s');
-					$modelOrder->save($order);
-
-					if(!empty($discountCode->number_user)){
-						$discountCode->number_user -= 1;
-						$modelDiscountCode->save($discountCode);
-					}
-					if(!empty($discountCode->user) && $pricepro > $price_pro){
-						$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
-						if(!empty($checkPhone)){
-							$checkPhone->account_balance += (20 / 100) * $price_pro;
-							$modelMember->save($checkPhone);
-
-							$save = $modelOrder->newEmptyEntity();
-	                        $save->code = 'W'.time().$checkPhone->id.rand(0,10000);
-	                        $save->member_id = $checkPhone->id;
-	                        $save->total = (20 / 100) * $price_pro;
-	                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
-	                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
-	                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
-	                        $save->created_at = date('Y-m-d H:i:s');
-
-	                        $modelOrder->save($save);
-
-							// gửi thông báo về app
-	                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
-
-	                        if(!empty($checkPhone->token_device)){
-	                            sendNotification($dataSendNotification, $checkPhone->token_device);
-	                        }
-
+				if(@$dataSend['type']=='ecoin'){
+					if($user->ecoin >=$ecoin){
+						$user->ecoin -= $ecoin;
+						$user->member_pro = 1;
+						if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
+						}else{
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
 						}
+						
+						$modelMember->save($user);
+
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin->member_id = $user->id;
+						$ecoin->ecoin = $ecoin;
+						$ecoin->note = 'trừ Ecoin Nâng cấm bản EZPICS PRO';
+						$ecoin->status = 1;
+						$ecoin->type =0;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+						$modelTransactionEcoins->save($ecoin);
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $price_pro;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
+					}else{
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
 					}
-
-
-					$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
 				}else{
-					$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+					if($user->account_balance >=$price_pro){
+						$user->account_balance -= $price_pro;
+						$user->member_pro = 1;
+						if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 365   days'));
+						}else{
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 365 days'));
+						}
+						
+						$modelMember->save($user);
+
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'P'.time().$user->id.rand(0,10000);
+						$order->member_id = $user->id;
+						$order->total = $price_pro;
+						if(!empty($discountCode)){
+							$order->discount_id = $discountCode->id;
+						}
+						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+						$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
+						$order->meta_payment = 'Mua phiêu bản Pro';
+						$order->created_at = date('Y-m-d H:i:s');
+						$modelOrder->save($order);
+
+						if(!empty($discountCode->number_user)){
+							$discountCode->number_user -= 1;
+							$modelDiscountCode->save($discountCode);
+						}
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $price_pro;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						// cộng hao hồng mã giảm giá 
+						if(!empty($discountCode->user) && $pricepro > $price_pro){
+							$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+							if(!empty($checkPhone)){
+								$checkPhone->account_balance += (20 / 100) * $price_pro;
+								$modelMember->save($checkPhone);
+
+								$save = $modelOrder->newEmptyEntity();
+		                        $save->code = 'W'.time().$checkPhone->id.rand(0,10000);
+		                        $save->member_id = $checkPhone->id;
+		                        $save->total = (20 / 100) * $price_pro;
+		                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+		                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+		                        $save->created_at = date('Y-m-d H:i:s');
+
+		                        $modelOrder->save($save);
+
+								// gửi thông báo về app
+		                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+
+		                        if(!empty($checkPhone->token_device)){
+		                            sendNotification($dataSendNotification, $checkPhone->token_device);
+		                        }
+
+							}
+						}
+
+
+						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
+					}else{
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+					}
 				}
 			}else{
 				$return = array('code'=>4, 'mess'=>'Tài khoản chưa lên cấp Pro');
@@ -703,8 +858,11 @@ function getPriceAPI(){
 	$price['price_remove_background'] = $price_remove_background;
 	$price['price_create_content'] = $price_create_content;
 	$price['price_pro'] = $price_pro;
+	$price['price_pro_month'] = 200000;
 	$price['price_warehouses'] = $price_warehouses;
 	$price['price_min_create_warehouses'] = $price_min_create_warehouses;
+	$price['ecoin_pro_year'] = 2000;
+	$price['ecoin_pro_month'] = 200;
 
 	return array('price'=>$price);
 
@@ -726,6 +884,9 @@ function memberTrialProAPI($input){
 		$dataSend = $input['request']->getData();	
 		if(empty($dataSend['token'])){
 			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
 		}
 		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 		
@@ -751,8 +912,8 @@ function memberTrialProAPI($input){
 						$data->deadline_at = $user->deadline_pro;
 						$modelWarehouseUsers->save($data);
 					}else{
-						$data->deadline_at = $user->deadline_pro;
-						$modelWarehouseUsers->save($data);
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
 					}
 					if(!empty($discountCode->number_user)){
 						$discountCode->number_user -= 1;
@@ -815,7 +976,6 @@ function checkDeadlineProAllMember($input){
 	global $controller;
 
 	$modelMember = $controller->loadModel('Members');
-	$WarehouseUser = $controller->loadModel('WarehouseUsers');
 
 	$return = array('code'=>0);	
 		$listData = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1 ))->all()->toList();
@@ -825,10 +985,7 @@ function checkDeadlineProAllMember($input){
 				$user->member_pro = 0;
 				$modelMember->save($user);
 
-				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
-				if(!empty($WarehouseUser)){
-					$modelWarehouseUsers->delete($WarehouseUser);
-				}
+				
 				
 				// gửi thông báo về app
 	            $dataSendNotification= array('title'=>'Tài khoản của bạn dã hiết hạn Pro','time'=>date('H:i d/m/Y'),'content'=> 'Tài khoản của bạn đã hiết hạn Pro','action'=>'addMoneySuccess');
@@ -843,5 +1000,536 @@ function checkDeadlineProAllMember($input){
 
 	return $return;
 
+}
+
+function fixProWarehouse($input){
+	global $controller;
+	$modelMember = $controller->loadModel('Members');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+
+	$listData = $modelMember->find()->where(array('deadline_pro >=' => date('Y-m-d H:i:s'),"member_pro" => 1 ))->all()->toList();	
+	foreach($listData as $key => $user){
+
+		$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+					if(empty($WarehouseUser)){
+						$data = $modelWarehouseUsers->newEmptyEntity();
+				            // tạo dữ liệu save
+						$data->warehouse_id = (int) 1;
+						$data->user_id = $user->id;
+						$data->designer_id = 343;
+						$data->price = 0;
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->note ='';
+						$data->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($data);
+					}else{
+						$WarehouseUser->deadline_at = $user->deadline_pro;
+						$modelWarehouseUsers->save($WarehouseUser);
+					}
+	}
+	debug('ok em ');
+	die;
+
+}
+
+function showDiscountCodeAPI($input){
+	global $controller;
+
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+	$listData = $modelDiscountCode->find()->where(array('user IS NULL','deadline_at >='=>date('Y-m-d H:i:s'),'number_user >='=>1))->all()->toList();
+
+	return array('data'=>$listData);
+}
+
+function memberBuyProMonthAPI($input){
+	global $isRequestPost;
+	global $controller;
+
+	$price_pro = 200000;
+	$ecoin = 200;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token'])){
+			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+		$pricepro = $price_pro;
+
+		if(!empty($dataSend['discountCode'])){
+
+			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
+
+
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
+				if(!empty($discountCode->deadline_at)){
+					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
+						if(isset($discountCode->number_user)){
+							if(@$discountCode->number_user>0){
+
+								if($discountCode->discount<= 100){
+									$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+								}else{
+									$price_pro = $price_pro - $discountCode->discount;
+								}
+							}else{
+								return array('code'=>7, 'mess'=>'Mã này số lượng đã hết ');
+							}	
+						}else{
+							if($discountCode->discount<= 100){
+								$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+							}else{
+								$price_pro = $price_pro - $discountCode->discount;
+							}
+						}
+					}else{
+						return array('code'=>6, 'mess'=>'Mã này đã hết hạn ');
+					}
+				}else{
+					if($discountCode->discount<= 100){
+						$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+					}else{
+						$price_pro = $price_pro - $discountCode->discount;
+					}
+				}
+			}else{
+				return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
+			}
+		}
+
+		if(!empty($user)){
+			if($user->member_pro!=1){
+				if(@$dataSend['type']=='ecoin'){
+					if($user->ecoin >=$ecoin){
+						$user->ecoin -= $ecoin;
+						$user->member_pro = 1;
+						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 30 days'));
+						$modelMember->save($user);
+
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin->member_id = $user->id;
+						$ecoin->ecoin = $ecoin;
+						$ecoin->note = 'trừ Ecoin Nâng cấm bản EZPICS PRO';
+						$ecoin->status = 1;
+						$ecoin->type =0;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+						$modelTransactionEcoins->save($ecoin);
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $ecoin;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+					}else{
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+					}
+				}else{
+					if($user->account_balance >=$price_pro){
+						$user->account_balance -= $price_pro;
+						$user->member_pro = 1;
+						$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 30 days'));
+						$modelMember->save($user);
+
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'W'.time().$user->id.rand(0,10000);
+						$order->member_id = $user->id;
+						$order->total = $price_pro;
+						if(!empty($discountCode)){
+							$order->discount_id = $discountCode->id;
+						}
+						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý 
+						$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho
+						$order->meta_payment = 'Mua phiêu bản Pro';
+						$order->created_at = date('Y-m-d H:i:s');
+						$modelOrder->save($order);
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $price_pro;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						if(!empty($discountCode->number_user)){
+							$discountCode->number_user -= 1;
+							$modelDiscountCode->save($discountCode);
+						}
+						if(!empty($discountCode->user) && $pricepro > $price_pro){
+							$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+							if(!empty($checkPhone)){
+								$checkPhone->account_balance += (20 / 100) * $price_pro;
+								$modelMember->save($checkPhone);
+
+								$save = $modelOrder->newEmptyEntity();
+		                        $save->code = 'P'.time().$checkPhone->id.rand(0,10000);
+		                        $save->member_id = $checkPhone->id;
+		                        $save->total = (20 / 100) * $price_pro;
+		                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+		                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+		                        $save->created_at = date('Y-m-d H:i:s');
+
+		                        $modelOrder->save($save);
+
+								// gửi thông báo về app
+		                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+
+		                        if(!empty($checkPhone->token_device)){
+		                            sendNotification($dataSendNotification, $checkPhone->token_device);
+		                        }
+
+							}
+						}
+
+						$return = array('code'=>1, 'mess'=>'bạn nâng lên câp Pro thành công');
+					}else{
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+					}
+				}
+			}else{
+				$return = array('code'=>4, 'mess'=>'Tài khoản đã lên cấp Pro rồi');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+		
+	}
+
+	return $return;
+}
+
+function memberExtendProMonthAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $price_pro;
+
+	$price_pro = 200000;
+	$ecoin = 200;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelWarehouseUsers = $controller->loadModel('WarehouseUsers');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+
+	$return = array('code'=>0);
+	
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();	
+		if(empty($dataSend['token'])){
+			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
+		}
+		if(empty($dataSend['type'])){
+			$dataSend['type'] = 'money';
+		}
+		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$pricepro = $price_pro;
+		if(!empty($dataSend['discountCode'])){
+
+			$discountCode = $modelDiscountCode->find()->where(array('code'=>$dataSend['discountCode']))->first();
+
+			if(!empty($discountCode) && @$discountCode->discount<$price_pro){
+				if(!empty($discountCode->deadline_at)){
+					if($discountCode->deadline_at->format('Y-m-d H:i:s') >= date('Y-m-d H:i:s')){
+						if(isset($discountCode->number_user)){
+							if($discountCode->number_user>0){
+								if($discountCode->discount<= 100){
+									$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+								}else{
+									$price_pro = $price_pro - $discountCode->discount;
+								}
+								
+							}else{
+								return array('code'=>7, 'mess'=>'Mã này số lượng đã hết ');
+							}	
+						}else{
+							if($discountCode->discount<= 100){
+								$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+							}else{
+								$price_pro = $price_pro - $discountCode->discount;
+							}
+						}
+					}else{
+						return array('code'=>6, 'mess'=>'Mã này đã hết hạn ');
+					}
+				}else{
+					if($discountCode->discount<= 100){
+						$price_pro = ((100 - (int) @$discountCode->discount) / 100) * $price_pro;
+					}else{
+						$price_pro = $price_pro - $discountCode->discount;
+					}
+				}
+			}else{
+				return array('code'=>5, 'mess'=>'Bạn nhập mã không dùng');
+			}
+		}
+
+		if(!empty($user)){
+			if($user->member_pro==1){
+				if(@$dataSend['type']=='ecoin'){
+					if($user->ecoin >=$ecoin){
+						$user->ecoin -= $ecoin;
+						$user->member_pro = 1;
+						if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 30   days'));
+						}else{
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 30 days'));
+						}
+						
+						$modelMember->save($user);
+
+						$ecoin = $modelTransactionEcoins->newEmptyEntity();
+						$ecoin->member_id = $user->id;
+						$ecoin->ecoin = $ecoin;
+						$ecoin->note = 'trừ Ecoin Nâng cấm bản EZPICS PRO';
+						$ecoin->status = 1;
+						$ecoin->type =0;
+						$ecoin->created_at =date('Y-m-d 00:00:00');
+						$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+						$modelTransactionEcoins->save($ecoin);
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $price_pro;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						// cộng hao hồng mã giảm giá 
+						if(!empty($discountCode->user) && $pricepro > $price_pro){
+							$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+							if(!empty($checkPhone)){
+								$checkPhone->account_balance += (20 / 100) * $price_pro;
+								$modelMember->save($checkPhone);
+
+								$save = $modelOrder->newEmptyEntity();
+		                        $save->code = 'W'.time().$checkPhone->id.rand(0,10000);
+		                        $save->member_id = $checkPhone->id;
+		                        $save->total = (20 / 100) * $price_pro;
+		                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+		                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+		                        $save->created_at = date('Y-m-d H:i:s');
+
+		                        $modelOrder->save($save);
+
+								// gửi thông báo về app
+		                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+
+		                        if(!empty($checkPhone->token_device)){
+		                            sendNotification($dataSendNotification, $checkPhone->token_device);
+		                        }
+
+							}
+						}
+
+
+						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
+					}else{
+						$return = array('code'=>7, 'mess'=>'Tài khoản của bạn chưa đủ Ecoin để thực hiện chức năng này.');
+					}
+				}else{
+					if($user->account_balance >=$price_pro){
+						$user->account_balance -= $price_pro;
+						$user->member_pro = 1;
+						if($user->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')){
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime($user->deadline_pro . ' + 30   days'));
+						}else{
+							$user->deadline_pro = date('Y-m-d H:i:s', strtotime(date('Y-m-d 23:59:59') . ' + 30 days'));
+						}
+						
+						$modelMember->save($user);
+
+						$order = $modelOrder->newEmptyEntity();
+						$order->code = 'P'.time().$user->id.rand(0,10000);
+						$order->member_id = $user->id;
+						$order->total = $price_pro;
+						if(!empty($discountCode)){
+							$order->discount_id = $discountCode->id;
+						}
+						$order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+						$order->type = 9; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro
+						$order->meta_payment = 'Mua phiêu bản Pro';
+						$order->created_at = date('Y-m-d H:i:s');
+						$modelOrder->save($order);
+
+						if(!empty($discountCode->number_user)){
+							$discountCode->number_user -= 1;
+							$modelDiscountCode->save($discountCode);
+						}
+
+						$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>1, 'user_id'=>@$user->id))->first();
+						if(empty($WarehouseUser)){
+							$data = $modelWarehouseUsers->newEmptyEntity();
+
+				            // tạo dữ liệu save
+							$data->warehouse_id = (int) 1;
+							$data->user_id = $user->id;
+							$data->designer_id = 343;
+							$data->price = $price_pro;
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->note ='';
+							$data->deadline_at = $user->deadline_pro;
+							$modelWarehouseUsers->save($data);
+						}else{
+							$WarehouseUser->deadline_at =  date('Y-m-d H:i:s', strtotime($WarehouseUser->deadline_at . ' + 30   days'));
+							$modelWarehouseUsers->save($WarehouseUser);
+						}
+
+						// cộng hao hồng mã giảm giá 
+						if(!empty($discountCode->user) && $pricepro > $price_pro){
+							$checkPhone = $modelMember->find()->where(array('phone'=>$discountCode->user))->first();
+							if(!empty($checkPhone)){
+								$checkPhone->account_balance += (20 / 100) * $price_pro;
+								$modelMember->save($checkPhone);
+
+								$save = $modelOrder->newEmptyEntity();
+		                        $save->code = 'W'.time().$checkPhone->id.rand(0,10000);
+		                        $save->member_id = $checkPhone->id;
+		                        $save->total = (20 / 100) * $price_pro;
+		                        $save->status = 2; // 1: chưa xử lý, 2 đã xử lý
+		                        $save->type = 11; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 9: nâng cấp bản pro, 10 tạo kho, 11 hoa hông người giới thiệu
+		                        $save->meta_payment = 'Bạn được cộng tiền hoa hồng mã giảm giá là "'.$dataSend['discountCode'].'"';
+		                        $save->created_at = date('Y-m-d H:i:s');
+
+		                        $modelOrder->save($save);
+
+								// gửi thông báo về app
+		                        $dataSendNotification= array('title'=>'Bạn được cộng tiền hoa hồng từ mã giảm giá là "'.$dataSend['discountCode'].'"','time'=>date('H:i d/m/Y'),'content'=> $checkPhone->name.' ơi. Bạn được cộng '.number_format((20/100)*$price_pro).' VND do thành viên '.$user->name.' đã nâng cấp tài khoản PRO. Bấm vào đây để kiểm tra ngay nhé.','action'=>'addMoneySuccess');
+
+		                        if(!empty($checkPhone->token_device)){
+		                            sendNotification($dataSendNotification, $checkPhone->token_device);
+		                        }
+
+							}
+						}
+
+
+						$return = array('code'=>1, 'mess'=>'bạn ra hạn Pro thành Công');
+					}else{
+						$return = array('code'=>3, 'mess'=>'Tài khoản của bạn chưa đủ tiền để thực hiện chức năng này. Vui lòng nạp thêm tiền để hoàn thành thao tác.');
+					}
+				}
+			}else{
+				$return = array('code'=>4, 'mess'=>'Tài khoản chưa lên cấp Pro');
+			}
+		}else{
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+		
+	}
+
+	return $return;
+}
+
+
+function getHistoryTransactionEcoinAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+	$modelProduct = $controller->loadModel('Products');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
+
+	$return = array('listData'=>[]);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['token'])){
+			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+
+			if(!empty($infoUser)){
+				$conditions = array('member_id'=>$infoUser->id);
+				$limit = (!empty($dataSend['limit']))?(int) $dataSend['limit']:24;
+				$page = (!empty($dataSend['page']))?(int)$dataSend['page']:1;
+				if($page<1) $page = 1;
+				$order = array('id'=>'desc');
+
+				if(isset($dataSend['type'])){
+					$conditions['type']=$dataSend['type'];
+				}
+
+				$listData = $modelTransactionEcoins->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+				if(!empty($listData)){
+					foreach ($listData as $key => $value) {
+						$listData[$key]->image = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/default-thumbnail.jpg';
+						if($value->type == 0){
+							if(!empty($value->product_id)){
+								$product = $modelProduct->find()->where(['id'=>$value->product_id])->first();
+								if(!empty($product)){
+									$listData[$key]->image = $product->image;
+								}
+							}elseif(!empty($value->file_id)){
+								$file = $modelManagerFile->find()->where(['id'=>$value->file_id])->first();
+								if(!empty($file)){
+									$listData[$key]->image = $file->link;
+								}
+							}
+						}
+					}
+				}
+				$return = array('listData'=>$listData);
+			}
+		}
+	}
+
+	return 	$return;
 }
 ?>

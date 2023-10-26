@@ -17,6 +17,9 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
 " rel="stylesheet">    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/main.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/mainPlus.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/asset/css/style.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -41,6 +44,10 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- chay so -->    
+    <!-- swipper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 </head>
 <body>
     <header>
@@ -131,8 +138,21 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                                         </span>
                                         <ul class="dropdown-menu">';
                                             foreach($value->sub as $sub){
-                                                echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                echo'<li><a class="dropdown-item" href="'.$sub->link.'">'.$sub->name.'</a>';
+                                                if(!empty($sub->sub)){
+                                                    echo'<ul class="submenu dropdown-menu">';
+                                                    foreach($sub->sub as $sub_child){
+                                                        echo'
+                                                        <li><a class="dropdown-item" href="'.$sub_child->link.'">'.$sub_child->name.'</a></li>';
+                                                        
+                                                    }
+                                                    echo'</ul>';
+                                                }
+
+                                                echo'
+                                                </li>';
                                             }; 
+                                            
                                     echo'
                                         </ul>
                                     </li>';

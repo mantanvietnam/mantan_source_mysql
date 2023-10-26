@@ -78,7 +78,7 @@ function product($input)
     }
 }
 
-function products($input)
+function allProduct($input)
 {
     global $controller;
     global $isRequestPost;
@@ -99,6 +99,7 @@ function products($input)
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'desc');
+
     
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
@@ -172,13 +173,27 @@ function search($input)
     $limit = 20;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+    
+    if(!empty($_GET['order'])){
+       switch ($_GET['order']) {
+            case '1':$order = array('sold'=>'desc');break;
+            case '2':$order = array('price'=>'desc');break;
+            case '3':$order = array('price'=>'asc');break;
+            case '4':$order = array('id'=>'desc');break;
+        }
+    }else{
+        $order = array('id'=>'desc'); 
+    }
 
     if(!empty($_GET['key'])){
         $conditions['OR'] = [
                                 ['title LIKE'=>'%'.$_GET['key'].'%'],
                                 ['keyword LIKE'=>'%'.$_GET['key'].'%']
                             ];
+    }
+
+    if(!empty($_GET['sela'])){
+        $conditions['price_old >'] = 0;
     }
 
     if(!empty($_GET['category'])){
@@ -196,7 +211,6 @@ function search($input)
     if(!empty($_GET['max-value'])){
         $conditions['price <='] = (int) $_GET['max-value'];
     }
-    
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
     // phân trang

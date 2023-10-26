@@ -60,90 +60,93 @@
   <!-- Responsive Table -->
   <div class="card">
     <h5 class="card-header">Danh sách khách hàng</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Ảnh đại diện</th>
-            <th>Tên khách hàng</th>
-            <th>Số điện thoại</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-            if(!empty($listData)){
-              foreach ($listData as $item) {
-                $type = 'Người dùng';
-                if($item->type==1){
-                  $type = 'Designer';
-                }
+    
+    <div class="card-body row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="">
+              <th>ID</th>
+              <th>Ảnh đại diện</th>
+              <th>Tên khách hàng</th>
+              <th>Số điện thoại</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              if(!empty($listData)){
+                foreach ($listData as $item) {
+                  $type = 'Người dùng';
+                  if($item->type==1){
+                    $type = 'Designer';
+                  }
 
-                $status = 'Kích hoạt';
-                if($item->status==0){
-                  $status = 'Khóa';
-                }
+                  $status = 'Kích hoạt';
+                  if($item->status==0){
+                    $status = 'Khóa';
+                  }
 
+                  echo '<tr>
+                          <td>'.$item->id.'</td>
+                          <td><img src="'.$item->avatar.'" width="100" /></td>
+                          <td>'.$item->name.'</td>
+                          <td>'.substr($item->phone,0,5).'*****</td>
+                        </tr>';
+                }
+              }else{
                 echo '<tr>
-                        <td>'.$item->id.'</td>
-                        <td><img src="'.$item->avatar.'" width="100" /></td>
-                        <td>'.$item->name.'</td>
-                        <td>'.substr($item->phone,0,5).'*****</td>
+                        <td colspan="10" align="center">Chưa có người dùng</td>
                       </tr>';
               }
-            }else{
-              echo '<tr>
-                      <td colspan="10" align="center">Chưa có người dùng</td>
-                    </tr>';
-            }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Phân trang -->
+      <div class="demo-inline-spacing">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <?php
+              if(@$totalPage>0){
+                  if ($page > 5) {
+                      $startPage = $page - 5;
+                  } else {
+                      $startPage = 1;
+                  }
+
+                  if ($totalPage > $page + 5) {
+                      $endPage = $page + 5;
+                  } else {
+                      $endPage = $totalPage;
+                  }
+                  
+                  echo '<li class="page-item first">
+                          <a class="page-link" href="'.$urlPage.'1"
+                            ><i class="tf-icon bx bx-chevrons-left"></i
+                          ></a>
+                        </li>';
+                  
+                  for ($i = $startPage; $i <= $endPage; $i++) {
+                      $active= ($page==$i)?'active':'';
+
+                      echo '<li class="page-item '.$active.'">
+                              <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
+                            </li>';
+                  }
+
+                  echo '<li class="page-item last">
+                          <a class="page-link" href="'.$urlPage.$totalPage.'"
+                            ><i class="tf-icon bx bx-chevrons-right"></i
+                          ></a>
+                        </li>';
+              }
+            ?>
+          </ul>
+        </nav>
+      </div>
+      <!--/ Basic Pagination -->
     </div>
-
-    <!-- Phân trang -->
-    <div class="demo-inline-spacing">
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <?php
-            if(@$totalPage>0){
-                if ($page > 5) {
-                    $startPage = $page - 5;
-                } else {
-                    $startPage = 1;
-                }
-
-                if ($totalPage > $page + 5) {
-                    $endPage = $page + 5;
-                } else {
-                    $endPage = $totalPage;
-                }
-                
-                echo '<li class="page-item first">
-                        <a class="page-link" href="'.$urlPage.'1"
-                          ><i class="tf-icon bx bx-chevrons-left"></i
-                        ></a>
-                      </li>';
-                
-                for ($i = $startPage; $i <= $endPage; $i++) {
-                    $active= ($page==$i)?'active':'';
-
-                    echo '<li class="page-item '.$active.'">
-                            <a class="page-link" href="'.$urlPage.$i.'">'.$i.'</a>
-                          </li>';
-                }
-
-                echo '<li class="page-item last">
-                        <a class="page-link" href="'.$urlPage.$totalPage.'"
-                          ><i class="tf-icon bx bx-chevrons-right"></i
-                        ></a>
-                      </li>';
-            }
-          ?>
-        </ul>
-      </nav>
-    </div>
-    <!--/ Basic Pagination -->
   </div>
   <!--/ Responsive Table -->
 </div>

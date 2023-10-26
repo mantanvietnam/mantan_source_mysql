@@ -97,17 +97,15 @@ function indexTheme($input)
     }
 
     // Slide photo ảnh
-    $conditions = array('id_category'=>3);
-    $limit = 8;
-    $page = 1;
+    $conditions = array('id_album'=>3);
     $order = array('id'=>'desc');
  
-    $album_photo = $modelAlbums->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    $album_photo = $modelAlbuminfos->find()->where($conditions)->order($order)->all()->toList();
 
      // Slide photo ảnh
      $modelProjects = $controller->loadModel('Projects');
      $conditions = array();
-     $order = array('id'=>'desc');
+     $order = array('id'=>'asc');
  
      $home_projects = $modelProjects->find()->where($conditions)->order($order)->all()->toList();
 
@@ -121,7 +119,30 @@ function indexTheme($input)
 
 function postTheme($input)
 {
+    global $modelPosts;
+   
+    $slug= $_SERVER['REQUEST_URI'];
+       
+    if(!empty($slug)){
+        $slug = str_replace('.html', '', $slug);
+        $slug = str_replace('/', '', $slug);
+
+        $conditions = array('slug'=>$slug);
+
+        $data = $modelPosts->find()->where($conditions)->first();
     
+        if($data){
+            // lấy danh sách tin tức khác
+            $conditions = array('id !='=>$data->id, 'type'=>$data->type);
+            $limit = 10;
+            $page = 1;
+            $order = array('id'=>'desc');
+            
+            $otherNews = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            setVariable('otherNews', $otherNews);
+        }
+    }
+
 }
 
 function searchTheme($input)
@@ -131,6 +152,49 @@ function searchTheme($input)
 
 function categoryPostTheme($input)
 {
+    global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $modelPosts;
+    global $controller;
+    global $settingThemes;
+    $modelPosts = $controller->loadModel('Posts');
+    // TIN TỨC MỚI
+    $conditions = array('type'=>'post');
+    $limit = 6;
+    $page = 1;
+    $order = array('id'=>'desc');
+    $news = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+  
+
+    // Tin tức nổi bật
+    $conditions = array('idCategory'=>"1");
+    $order = array('id'=>'desc');
+
+    $highligh_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+    // WARM Facility News 
+    $conditions = array('idCategory'=>"4");
+    $order = array('id'=>'desc');
+
+    $facility_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+
+    // Projects News 
+    $conditions = array('idCategory'=>"7");
+    $order = array('id'=>'desc');
+    $project_post = $modelPosts->find()->where($conditions)->order($order)->all()->toList();
+
+    // DANH MỤC TIN TỨC
+    $conditions = array('type' => 'post');
+    $category_post = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('category_post', $category_post);
+    setVariable('highligh_post', $highligh_post);
+    setVariable('facility_post', $facility_post);
+    setVariable('project_post', $project_post);
+
 }
 
 function categoryAlbumTheme($input)

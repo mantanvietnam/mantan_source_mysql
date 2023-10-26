@@ -157,7 +157,7 @@
                             
                           </td>
                           <td>'.$thumbnail.'</td>
-                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#edittext'.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a></td>
+                          <td>'.$item->name.'<br/>'.$type.'<br/>'.@$linkopenapp.'&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn rounded-pill btn-icon btn-outline-secondary" href="/plugins/admin/ezpics_admin-view-admin-product-updateProductAdmin.php?id='.$item->id.'" ><i class="bx bx-edit-alt me-1"></i></a></td>
                           <td>
                             Sell: '.number_format($item->sold).'<br/>
                             View: '.number_format($item->views).'<br/>
@@ -369,6 +369,9 @@
                                     <div class="col-md-12">
                                       <label class="form-label" for="basic-default-phone">keyword</label>
                                       <input type="text" value="<?php echo $items->keyword; ?>" class="form-control" name="keyword">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <input type="checkbox" name="free_pro" value="1" <?php if(!empty($items->free_pro)) echo 'checked';?>> Miễn phí cho tài khoản EZPICS PRO
                                     </div>
                                   </div>
                                 </div>

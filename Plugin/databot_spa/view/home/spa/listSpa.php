@@ -5,7 +5,6 @@
   <?php if ($infoUser->number_spa > $totalData){ ?>
      <p><a href="/addSpa" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <?php } ?>
- 
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -48,7 +47,7 @@
     <h5 class="card-header">Danh sách SPA  </h5>
     <p><?php echo @$mess;?></p>
 
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>

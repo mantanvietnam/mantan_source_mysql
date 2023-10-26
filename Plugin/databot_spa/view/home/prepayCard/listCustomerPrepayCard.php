@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Loại thẻ trả trước</h4>
-  <p><a href="/addPrepayCard" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/buyPrepayCard" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -13,6 +13,7 @@
             <label class="form-label">ID</label>
             <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
           </div>
+
 
           <div class="col-md-2">
             <label class="form-label">Thông tin khách hàng</label>
@@ -42,14 +43,15 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách loại thẻ trả trước</h5>
+    <h5 class="card-header">Danh sách đơn thẻ trả trước</h5>
     
-    <div class="row">
+    <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr class="">
               <th>ID</th>
+              <th>Ngày tạo</th>
               <th>Tên thẻ</th>
               <th>Thông tin khách hàng</th>
               <th>Số tiền khách được tiêu</th>
@@ -75,9 +77,8 @@
                   }
 
                   echo '<tr>
-                          <td>'.$item->id.'</br>
-                            '.date('H:i d/m/Y', strtotime($item->created_at)).'
-                          </td>
+                          <td>'.$item->id.'</td>
+                          <td>'.date('H:i d/m/Y', strtotime($item->created_at)).'</td>
                           <td>'.$item->infoPrepayCard->name.'</td>
                           <td> '.$item->infoCustomer->name.'<br/>
                             '.$item->infoCustomer->phone.'<br/>

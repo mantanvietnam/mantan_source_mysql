@@ -667,20 +667,25 @@ function updateListLayerAPI($input){
 				$data = str_replace(array("\r", "\n"), '', $dataSend['listLayer']);
 				$data = str_replace('\"', '"', $data);
 				$listData = json_decode($data, true);
-				
-				foreach($listData as $key => $item){
-				 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
-				 	if(!empty($datalayer)){
-					 	$datalayer->content = json_encode($item['content']);
-					 	$datalayer->updated_at = date('Y-m-d H:i:s');
-					 	$datalayer->sort = @$item['sort'];
-					 	$modelProductDetail->save($datalayer);
-				 	}
-				}
 
-				$returnExport = exportImageThumb($dataSend['idProduct']);
-					
-				$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
+				if(!empty($listData)){
+				
+					foreach($listData as $key => $item){
+					 	$datalayer = $modelProductDetail->find()->where(array('id'=>$item['id'], 'products_id'=>$dataSend['idProduct']))->first();
+					 	if(!empty($datalayer)){
+						 	$datalayer->content = json_encode($item['content']);
+						 	$datalayer->updated_at = date('Y-m-d H:i:s');
+						 	$datalayer->sort = @$item['sort'];
+						 	$modelProductDetail->save($datalayer);
+					 	}
+					}
+
+					//$returnExport = exportImageThumb($dataSend['idProduct']);
+						
+					$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công', 'link'=>@$returnExport['link']);
+				}else{
+					$return = array('code'=>4, 'mess'=>'Bạn không lưu được');
+				}
 			}else{
 				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
 			}
@@ -691,6 +696,75 @@ function updateListLayerAPI($input){
 
 	}
 	return $return;
+}
+
+function saveImageProductAPI($input){
+	global $session;
+    global $isRequestPost;
+    global $controller;
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelProductDetail = $controller->loadModel('ProductDetails');
+
+	$modelMember = $controller->loadModel('Members');
+	$return = array('code'=>0);
+
+    if($isRequestPost){
+        
+        $dataSend = $input['request']->getData();
+
+        $user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+        if(!empty($user)){
+	        $dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct'],'user_id'=>$user->id))->first();
+	        if(!empty($dataProduct)){
+	        	if(!empty($_FILES["file"]["name"])){
+	                $file = '';	                
+
+	                if(isset($_FILES["file"]) && empty($_FILES["file"]["error"])){
+		                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+		                $filename = $_FILES["file"]["name"];
+		                $filetype = $_FILES["file"]["type"];
+		                $filesize = $_FILES["file"]["size"];
+		                
+		                // Verify file extension
+		                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+		                if(!array_key_exists($ext, $allowed)) $mess= '<h3 class="color_red">File upload không đúng định dạng ảnh</h3>';
+		                
+		                // Verify file size - 1MB maximum
+		                $maxsize = 1024 * 1024;
+		                if($filesize > $maxsize) $mess= '<h3 class="color_red">File ảnh vượt quá giới hạn cho phép 1Mb</h3>';
+		                
+		                // Verify MYME type of the file
+		                if(in_array($filetype, $allowed)){
+		                    // Check whether file exists before uploading it
+		                    move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__.'/../../../upload/admin/images/'.$dataProduct->user_id.'/thumb_product_'.$dataProduct->id.'.png');
+
+		                    $image = 'https://apis.ezpics.vn/upload/admin/images/'.$dataProduct->user_id.'/thumb_product_'.$dataProduct->id.'.png?time='.time();
+		                    
+		                } else{
+		                    $mess= '<h3 class="color_red">Upload dữ liệu bị lỗi</h3>';
+		                }
+		            }
+	               	$dataProduct->image = $image;
+                	$dataProduct->zipThumb = 0;
+            
+	                $modelProduct->save($dataProduct);
+	                $return = array('code'=>1, 'mess'=>'Lưu ảnh thành công', 'link'=>@$image);
+	            }
+
+	    	
+	    	}else{
+				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
+			}
+
+	    }else{
+	        $return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+	    }
+
+
+    }
+    return $return;
+
 }
 ?>
 
