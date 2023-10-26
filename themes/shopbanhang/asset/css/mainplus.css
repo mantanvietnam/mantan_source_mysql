@@ -16,10 +16,8 @@
 }
 
 #policy .nav-tabs li a {
-    padding: 2px 20px;
+    padding: 2px 19px;
 }
-
-#policy .nav-tabs .active {}
 
 #policy .nav-tabs li a:focus {
     border-bottom: 2px solid;
@@ -33,11 +31,11 @@
     margin: auto;
 }
 
-.title-content-policy {
+#policy .title-content-policy {
     text-align: center;
 }
 
-.title-content-policy {
+#policy .title-content-policy {
     font-size: 30px;
     font-weight: bold;
     padding-top: 50px;
@@ -95,7 +93,21 @@
 
 .list-regul-7 li {
     padding-left: 14px;
+    justify-content: start;
+    display: flex;
+    align-items: baseline;
 }
+
+.list-regul-7 li i {
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+.list-procerdure li {
+    display: flex;
+}
+
+.list-procerdure li span {}
 
 #video-policy {
     text-align: center;
@@ -159,6 +171,9 @@
     font-style: italic;
     padding: 12px 14px;
     width: 375px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .input-box button {
@@ -202,21 +217,44 @@
     border: none;
     font-size: 14px;
     line-height: 34px;
-    border-top: 1px solid rgb(221, 221, 221);
     border-radius: 0%;
     color: #000;
     font-weight: 600;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    border-top: 1px solid rgb(221, 221, 221);
 }
 
-.my-account .dropdown-menu.show {
-    border: none !important;
-    font-weight: 400 !important;
-    width: 100%;
-    padding-left: 35px;
+.my-account .accordion-collapse {
+    padding-left: 50px;
 }
 
-.my-account .dropdown-menu.show .dropdown-item {
+.my-account .accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+.my-account .accordion-button:not(.collapsed) {
+    background-color: transparent;
+}
+
+.my-account .accordion-button:focus {
+    box-shadow: none;
+}
+
+.my-account .nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border-color: rgb(221, 221, 221);
+}
+
+.my-account .navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.my-account .dropdown-item {
     border: none !important;
+}
+
+.my-account .accordion-button {
+    padding: 8px 16px;
 }
 
 #profile-user .title-profile h3 {
@@ -280,6 +318,7 @@
 .detail-file label {
     font-size: 14px;
     line-height: 17px;
+    font-weight: 300;
 }
 
 .detail-file .item-detail {
@@ -326,7 +365,7 @@
     padding-right: 43px;
     background-color: #011436;
     color: #fff;
-    width: auto;
+    width: auto !important;
 }
 
 .item-detail.btn-submit {
@@ -340,6 +379,8 @@
     font-size: 14px;
     padding: 7px 10px;
     color: #949494;
+    font-weight: 200;
+    border: 0.5px solid rgb(221, 221, 221);
 }
 
 #my-file {
@@ -440,4 +481,326 @@
 
 .btn-address {
     margin-top: 5px;
+}
+
+.tab-voucher .nav-tabs {
+    justify-content: space-around;
+}
+
+.tab-voucher .nav-link.active {
+    border-bottom: 1px solid;
+}
+
+.tab-voucher .nav-link {
+    border: none;
+    color: #000;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.tab-voucher .nav-link:hover {
+    color: #000 !important;
+}
+
+.tab-voucher .nav-item {
+    width: 50%;
+    text-align: center;
+}
+
+#my-voucher {
+    border: 0.5px solid rgb(192, 192, 192);
+    min-height: 400px;
+}
+
+.voucher .detail-voucher {
+    position: absolute;
+    top: 15%;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.voucher .bg-voucher img {
+    width: 100%;
+    height: 60px;
+}
+
+.voucher {
+    position: relative;
+    margin-top: 20px;
+}
+
+.logo-voucher h3 {
+    font-size: 14px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #008BCF;
+    padding-right: 5px;
+    border-right: 0.5px solid black;
+}
+
+.infor-voucher {
+    padding-left: 8px;
+}
+
+.infor-voucher p {
+    font-size: 10px;
+    line-height: 15px;
+}
+
+.infor-voucher h4 {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.content-voucher {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.btn-voucher {
+    border: none;
+    background-color: transparent;
+}
+
+
+/*  TRANG SALE 9-9  */
+
+#sale99 .banner-sale img {
+    width: 100%;
+}
+
+#sale99 .endow {
+    text-align: center;
+    padding-bottom: 25px;
+    padding-top: 45px;
+}
+
+#sale99 .endow h3 {
+    font-size: 30px;
+    line-height: 36px;
+    text-transform: uppercase;
+    color: #0B2A66;
+    padding-bottom: 10px;
+}
+
+#sale99 .endow p {
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: #0B2A66;
+}
+
+#sale99 .endow span {
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+    padding-left: 40px;
+    margin-left: 40px;
+    border-left: 1px solid #0B2A66;
+    ;
+    color: #0B2A66;
+}
+
+#sale99 .combo-voucher {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.combo-voucher .item-voucher img {
+    width: 100%;
+}
+
+.combo-voucher .item-voucher {
+    width: 350px;
+    height: 70px;
+    position: relative;
+}
+
+.combo-voucher .detail-voucher-sale {
+    position: absolute;
+    top: 15%;
+    align-items: center;
+    display: flex;
+}
+
+.combo-voucher .detail-voucher-sale p {
+    font-size: 20px;
+    line-height: 24px;
+    color: #008BCF;
+    border-right: 1px solid rgb(107, 107, 107);
+    padding-left: 25px;
+    padding-right: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-weight: 400;
+}
+
+.combo-voucher .detail-voucher-sale span {
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 20px;
+}
+
+.top-deal {
+    position: relative;
+    border-radius: 17px;
+    overflow: hidden;
+}
+
+.top-deal .group-deal {
+    position: absolute;
+    top: 155px;
+    margin: 0 30px;
+}
+
+.top-deal .group-deal .list-product-1 {
+    margin-bottom: 60px;
+}
+
+.top-deal>img {
+    width: 100%;
+}
+
+.top-deal .group-deal .list-product .best-sale-item {
+    padding: 0 7.5px;
+}
+
+.top-deal .group-deal .list-product .best-sale-price {
+    margin-bottom: 8px;
+}
+
+.top-deal .group-deal .list-product .best-sale-discount {
+    margin-bottom: 8px;
+}
+
+.top-deal .group-deal .list-product .best-sale-name a {
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    margin-bottom: 14px;
+}
+
+@media (max-width: 1025px) {
+    /*  TRANG PORFILE  */
+    #profile>.container {
+        padding: 0 15px;
+    }
+    /* thong tin tai khoan trang profile */
+    .detail-file .item-detail input {
+        width: 290px;
+    }
+    .detail-file {
+        padding-left: 33px;
+        padding-right: 33px;
+    }
+    .title-file {
+        padding-top: 34px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .detail-file .item-detail.sex .radio-check {
+        margin-left: 60px;
+    }
+    .choose-date select {
+        width: 91px;
+    }
+    /* dia chi giao hang trang profile */
+    .up-address {
+        padding: 0;
+    }
+    /* voucher trang profile */
+    .content-voucher .col-lg-6.col-md-6.col-sm-12 {
+        padding: 0;
+    }
+    /*  TRANG REVIEW  */
+}
+
+@media (max-width: 769px) {
+    /*  TRANG PORFILE  */
+    /*  TRANG GUARANTEE  */
+    #policy .nav-tabs li a {
+        padding: 2px 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    /*  TRANG PORFILE  */
+    #profile>.container {
+        padding: 0 15px;
+    }
+    #profile-user .title-profile {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    #profile-user {
+        margin-bottom: 20px;
+    }
+    .content-voucher .col-lg-6.col-md-6.col-sm-12 {
+        justify-content: center;
+        display: grid;
+    }
+    .detail-file {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    #my-address .address {
+        margin: 0px 15px;
+    }
+    .detail-file .item-detail input {
+        width: 200px;
+    }
+    .choose-date select {
+        padding: 7px 3px;
+        width: auto;
+    }
+    .detail-file .item-detail.sex {
+        justify-content: space-between;
+    }
+    .radio-check label {
+        margin-right: 14px;
+    }
+    .tab-voucher .nav-link {
+        padding: 12px 0;
+    }
+    /*  TRANG GUARANTEE  */
+    #policy .container {
+        width: auto;
+    }
+    #policy .nav-tabs li {
+        padding-top: 5px;
+    }
+    .check-box form {
+        justify-content: space-around;
+        padding: 0;
+    }
+    .check-box label {
+        font-size: 16px;
+    }
+    .input-box input {
+        width: auto;
+        font-size: 14px;
+    }
+    #policy .nav-tabs li a {
+        font-size: 16px;
+    }
+    .input-box button {
+        font-size: 14px;
+    }
+    #policy .title-content-policy,
+    .detail-video h3,
+    .detail-search h3 {
+        font-size: 22px;
+        padding-top: 35px;
+        padding-bottom: 23px;
+    }
+    #policy .nav-tabs li a {
+        padding: 2px 15px;
+    }
 }
