@@ -97,6 +97,13 @@ function viewDetailAgencyAdmin($input)
                 'agency_id' => $_GET['id'],
                 'type' => 1,
             ])->first();
+
+        $listStaffAccount = $accountModel->find()
+            ->where([
+                'agency_id' => $_GET['id'],
+                'type' => 2
+            ])->all()
+            ->toList();
     } else {
         $isCreateNewAgency = true;
         $agency = $agencyModel->newEmptyEntity();
@@ -160,4 +167,107 @@ function viewDetailAgencyAdmin($input)
     setVariable('data', $agency);
     setVariable('masterAccount', $masterAccount);
     setVariable('mess', $mess);
+    if (isset($listStaffAccount)) {
+        setVariable('listStaffAccount', $listStaffAccount);
+    }
+}
+
+function adminDeleteAccountApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $accountModel = $controller->loadModel('AgencyAccounts');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['id'])) {
+            $account = $accountModel->find()->where([
+                'id' => $dataSend['id']
+            ])->first();
+
+            if ($account) {
+                $accountModel->delete($account);
+            } else {
+                return apiResponse(3, 'Tài khoản không tồn tại');
+            }
+
+            return apiResponse(0, 'Xóa thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng method POST');
+}
+
+function adminUpdateStaffAccountApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $accountModel = $controller->loadModel('AgencyAccounts');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id'])) {
+            $account = $accountModel->find()->where([
+                'id' => $dataSend['id']
+            ])->first();
+            $checkUsername = $accountModel->find()
+                ->where([
+                    'name' => $dataSend['name'],
+                    'id <>' => $dataSend['id']
+                ])->first();
+
+            if ($checkUsername) {
+                return apiResponse(3, 'Tên tài khoản đã tồn tại');
+            }
+            if (isset($dataSend['password']) && isset($dataSend['password_confirmation'])) {
+                if ($dataSend['password'] !== $dataSend['password_confirmation']) {
+                    return apiResponse(3, 'Mật khẩu nhập lại không chính xác');
+                }
+
+                $account->password = md5($dataSend['password']);
+            } else {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $account->name = $dataSend['name'] ?: $account->name;
+            $account->type = 2;
+            $accountModel->save($account);
+
+            return apiResponse(0, 'Cập nhật thành công');
+        } else {
+            if (isset($dataSend['name'])
+                && isset($dataSend['agency_id'])
+                && isset($dataSend['password'])
+                && isset($dataSend['password_confirmation'])
+            ) {
+                $account = $accountModel->newEmptyEntity();
+                $checkUsername = $accountModel->find()
+                    ->where(['name' => $dataSend['name']])
+                    ->first();
+
+                if ($dataSend['password'] !== $dataSend['password_confirmation']) {
+                    return apiResponse(3, 'Mật khẩu nhập lại không chính xác');
+                } elseif ($checkUsername) {
+                    return apiResponse(3, 'Tên tài khoản đã tồn tại');
+                }
+                $account->name = $dataSend['name'];
+                $account->agency_id = (int)$dataSend['agency_id'];
+                $account->password = md5($dataSend['password']);
+                $account->type = 2;
+                $accountModel->save($account);
+
+                return apiResponse(0, 'Cập nhật thành công');
+            }
+
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng method POST');
 }

@@ -75,7 +75,7 @@
 
                                                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
                                                     <div>
-                                                        <label class="form-label">Hình ảnh minh họa</label>
+                                                        <label class="form-label d-block">Hình ảnh minh họa</label>
                                                         <img id="show-image" src="https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg" alt=""
                                                              style="max-width: 200px; max-height: 200px"
                                                         />
