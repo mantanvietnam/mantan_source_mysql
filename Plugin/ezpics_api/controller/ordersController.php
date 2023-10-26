@@ -858,8 +858,11 @@ function getPriceAPI(){
 	$price['price_remove_background'] = $price_remove_background;
 	$price['price_create_content'] = $price_create_content;
 	$price['price_pro'] = $price_pro;
+	$price['price_pro_month'] = 200000;
 	$price['price_warehouses'] = $price_warehouses;
 	$price['price_min_create_warehouses'] = $price_min_create_warehouses;
+	$price['ecoin_pro_year'] = 2000;
+	$price['ecoin_pro_month'] = 200;
 
 	return array('price'=>$price);
 

@@ -37,7 +37,8 @@ $slide_home= slide_home($setting['id_slide']);
                     <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom-1 py-3">
                         <div class="search-category-product">
                             <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
-                            <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" name="key" aria-describedby="">
+                            <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" value="<?php echo @$_GET['key'] ?>" name="key" aria-describedby="">
+                             <input class="form-check-input" type="hidden" name="category_id" id="inlineCheckbox1" value="<?php echo @$_GET['category_id']; ?>">
                         </div>
                         <div class="product-select">
                             <div class="product-select-box">
@@ -46,8 +47,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         <span>Khuyễn mãi</span>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" value="sela">
-                                        <input class="form-check-input" type="hidden" name="category_id" id="inlineCheckbox1" value="<?php echo @$category->id; ?>">
+                                        <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" <?php  if(!empty($_GET['sela'])){ echo 'checked'; } ?> value="sela">
                                     </div>
                                 </div>
 
@@ -56,11 +56,11 @@ $slide_home= slide_home($setting['id_slide']);
                                         <span>Sắp xếp</span>
                                     </div>
                                     <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">Sản phẩm bán chạy nhất</option>
-                                        <option value="2">Giá từ cao đến thấp</option>
-                                        <option value="3">Giá từ thấp đến cao</option>
-                                        <option value="4">Sản phẩm mới nhất</option>
+                                        <option value="">Open this select menu</option>
+                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==1){ echo 'selected'; } ?> value="1">Sản phẩm bán chạy nhất</option>
+                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==2){ echo 'selected'; } ?> value="2">Giá từ cao đến thấp</option>
+                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==3){ echo 'selected'; } ?> value="3">Giá từ thấp đến cao</option>
+                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==4){ echo 'selected'; } ?> value="4">Sản phẩm mới nhất</option>
                                     </select>
                                     <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
                                 </div>

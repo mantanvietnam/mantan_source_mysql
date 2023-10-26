@@ -34,10 +34,10 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-group-by">
             <div class="container">
                 <div class="search-form-category">
-                    <form onsubmit="" action="/allProduct" method="get" class="form-custom-1 py-3">
+                    <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom-1 py-3">
                         <div class="search-category-product">
                             <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
-                            <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" name="name" aria-describedby="">
+                            <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" name="key" aria-describedby="">
                         </div>
                         <div class="product-select">
                             <div class="product-select-box">
