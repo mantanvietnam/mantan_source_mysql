@@ -382,8 +382,13 @@ function removeBackgroundLayer($input)
     $modelMember = $controller->loadModel('Members');
     $modelOrder = $controller->loadModel('Orders');
 
-    if(!empty($session->read('infoUser')) && $isRequestPost){
+    if((!empty($session->read('infoUser')) || !empty($_POST['token'])) && $isRequestPost){
         $dataSend = $input['request']->getData();
+
+        if(!empty($_POST['token'])){
+            $infoUser = $modelMember->find()->where(array('token'=>$_POST['token']))->first();
+            $session->write('infoUser', $infoUser);
+        }
 
         $infoLayer = $modelProductDetail->find()->where(array('id'=>$dataSend['id'],'products_id'=>$dataSend['idproduct']))->first();
 
