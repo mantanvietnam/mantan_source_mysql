@@ -244,8 +244,8 @@ function listQuestion($input){
 
     $modelQuestion = $controller->loadModel('Questions');
 
-    if(empty($_GET['id_product'])){
-        return $controller->redirect('/plugins/admin/product-admin-product-listProduct.php');
+    if(!isset($_GET['id_product'])){
+        return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct.php');
     }
     
     $conditions = array();

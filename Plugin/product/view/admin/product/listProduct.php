@@ -1,6 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Sản phẩm</h4>
-  <p><a href="/plugins/admin/product-view-admin-product-addProduct.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/product-view-admin-product-addProduct.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
+  &ensp;&ensp; <a href="/plugins/admin/product-view-admin-product-ListQuestion.php?id_product=0" class="btn btn-primary"><i class='bx bx-plus'></i> câu hỏi chung</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -121,7 +122,11 @@
                         <td>'.$item->name_category.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.$item->status.'</td>
-                        <td align="center"><a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion.php/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a></td>
+                        <td align="center">
+                        câ  u hỏi<br/>
+                        <a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion.php/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a><br/>
+                        đánh giá <br/>
+                        <a class="dropdown-item"  href="/plugins/admin/product-view-admin-evaluate-listEvaluate.php/?id_product='.$item->id.'"><i class="bx bxs-comment-detail"></i></a></td>
                         <td align="center">'.$flash_sale.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct.php/?id='.$item->id.'">

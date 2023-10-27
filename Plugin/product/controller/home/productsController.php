@@ -16,6 +16,7 @@ function product($input)
 
     $modelProduct = $controller->loadModel('Products');
     $modelQuestion = $controller->loadModel('Questions');
+    $modelEvaluate = $controller->loadModel('Evaluates');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -45,7 +46,32 @@ function product($input)
 		    $order = array('id'=>'desc');
 
             $product->question = $modelQuestion->find()->where(['id_product'=>$product->id])->all()->toList();
-		    
+            $product->evaluate = $modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList();
+            $product->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList());
+
+            $point = 0;
+            if(!empty($product->evaluate)){
+                foreach($product->evaluate as $key => $item){
+                    $point = $item->point;
+                }
+            }
+            $product->point = $point/$product->evaluatecount;
+            $product->question0 = $modelQuestion->find()->where(['id_product'=>0])->all()->toList();
+		     $present = array();
+
+            if(!empty($product->id_product)){
+                $id_product = explode(',', @$product->id_product);
+               
+                foreach($id_product as $item){
+                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    if(!empty($presentf)){
+                        $present[] = $presentf;
+                    }
+                }
+            }
+
+            $product->present = $present;
+
 		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
             
             // NHÀ SẢN XUẤT

@@ -15,10 +15,13 @@ $sqlInstallDatabase .="CREATE TABLE `discount_codes` ( `id`  INT NOT NULL AUTO_I
 
 $sqlInstallDatabase .="CREATE TABLE `questions` (`id` int(11) NOT NULL AUTO_INCREMENT,`question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,`answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,`id_product` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB ",
 
+$sqlInstallDatabase .="CREATE TABLE `evaluates` ( `id` INT NOT NULL AUTO_INCREMENT , `full_name` VARCHAR(155) NULL DEFAULT NULL , `avatar` VARCHAR NULL DEFAULT NULL , `id_product` INT NOT NULL , `content` TEXT NULL DEFAULT NULL , `image` TEXT NULL DEFAULT NULL , `point` FLOAT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
 $sqlDeleteDatabase .= "DROP TABLE products; ";
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
 $sqlDeleteDatabase .= "DROP TABLE order_details; ";
 $sqlDeleteDatabase .= "DROP TABLE questions; ";
+$sqlDeleteDatabase .= "DROP TABLE evaluates; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";

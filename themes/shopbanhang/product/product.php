@@ -5,7 +5,7 @@ global $urlThemeActive;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
-// debug($product);
+
 	
 ?>
 
@@ -97,11 +97,12 @@ $slide_home= slide_home($setting['id_slide']);
                                     <svg width="100" height="100" viewBox="0 0 940.688 940.688">
                                         <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
                                     </svg>
-                                    <div class="overlay" style="width: 0%"></div>
+                                    <?php $point = 100 - ($product->point/5) / 1 * 100 ?>
+                                    <div class="overlay" style="width: <?php echo $point ?>%"></div>
                                 </div>   
 
                                 <div class="rate-left-text">
-                                    <span>4.5 (23 đánh giá) | 560 đã bán</span>
+                                    <span><?php echo $product->point ?> (<?php echo $product->evaluatecount ?> đánh giá) | <?php echo $product->sold ?> đã bán</span>
                                 </div>
                             </div>
                               
@@ -119,20 +120,8 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="product-detail-info-flash-number">
                                 <p>Kết thúc trong</p>
-                                <div class="time-flash-sale">
-                                    <div class="time-flash-number">
-                                        <p>0</p>
-                                    </div>
-                                
-        
-                                    <div class="time-flash-number">
-                                        <p>0</p>
-                                    </div>
-                                
-        
-                                    <div class="time-flash-number">
-                                        <p>0</p>
-                                    </div>
+                                <div class="time-flash-sale" id="countdown">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -144,12 +133,12 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
 
                                 <div class="price-left-sale">
-                                    <del><?php echo number_format($product->price); ?>đ</del>
+                                    <del><?php echo number_format($product->price_old); ?>đ</del>
                                 </div>
                             </div>
 
                             <div class="product-detail-info-price-right">
-                                <span>(Bạn đã tích kiệm  300.000đ)</span>
+                                <span>(Bạn đã tích kiệm  <?php echo number_format($product->price_old-$product->price); ?>đ)</span>
                             </div>
                         </div>
 
@@ -183,31 +172,22 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-detail-gift-list">
+                                <?php if(!empty($product->present)){
+                                    foreach($product->present as $item){
+                                 ?>
                                 <div class="product-detail-gift-item">
-                                    <a href="">
+                                    <a href="product/<?php echo $item->slug ?>.html">
                                         <div class="gift-item-inner">
                                             <div class="gift-item-img">
-                                                <img src="<?php echo $urlThemeActive;?>asset/image/baggift.png" alt="">
+                                                <img src="<?php echo $item->image ?>" alt="">
                                             </div>
                                             <div class="gift-item-name">
-                                                <span>Túi vải canvas</span>
+                                                <span><?php echo $item->title ?></span>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-
-                                <div class="product-detail-gift-item">
-                                    <a href="">
-                                        <div class="gift-item-inner">
-                                            <div class="gift-item-img">
-                                                <img src="<?php echo $urlThemeActive;?>asset/image/baggift.png" alt="">
-                                            </div>
-                                            <div class="gift-item-name">
-                                                <span>Túi vải canvas</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                            <?php }} ?>
                             </div>
                         </div>
 
@@ -453,8 +433,8 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="list-product-question">
                                 <div class="accordion accordion-questionBottom" id="accordionquestionBottomExample">
-                                     <?php if(!empty($product->question)){
-                                        foreach($product->question as $key => $item){
+                                     <?php if(!empty($product->question0)){
+                                        foreach($product->question0 as $key => $item){
                                      ?>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="questionBottom<?php echo $key ?>">
@@ -474,26 +454,24 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
         </section>
-
         <section id="section-product-like">
             <div class="container"> 
                 <div class="section-product-like-inner">
                     <div class="title-section">
                         <h2>Các sản phẩm bạn có thể thích</h2>
                     </div>
-    
                     <div class="product-like-slide">
                        <?php if(!empty($other_product)) { 
-                            foreach($other_product as $product) {
-                                    $link = '/product/'.$product->slug.'.html';
+                            foreach($other_product as $item) {
+                                    $link = '/product/'.$item->slug.'.html';
                                      $giam = 0;
-                                    if(!empty($product->price_old) && !empty($product->price)){
-                                        $giam = 100 - 100*$product->price/$product->price_old;
+                                    if(!empty($product->price_old) && !empty($item->price)){
+                                        $giam = 100 - 100*$item->price/$item->price_old;
                                     }
 
                                     $ban = 0;
-                                    if(!empty($product->quantity) && !empty($product->sold)){
-                                        $ban = 100 - 100*$product->sold/$product->quantity;
+                                    if(!empty($item->quantity) && !empty($item->sold)){
+                                        $ban = 100 - 100*$item->sold/$item->quantity;
                                     }
                             ?>
                         <div class="product-item">
@@ -502,26 +480,26 @@ $slide_home= slide_home($setting['id_slide']);
                                         <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
                                     <?php } ?>
                                 <div class="product-img">
-                                    <a href="<?php echo $link ?>"><img src="<?php echo $product->image ?>" alt=""></a>
+                                    <a href="<?php echo $link ?>"><img src="<?php echo $item->image ?>" alt=""></a>
                                 </div>
     
                                 <div class="product-info">
                                     <div class="product-name">
-                                        <a href="<?php echo $link ?>"><?php echo $product->image ?></a>
+                                        <a href="<?php echo $link ?>"><?php echo $item->image ?></a>
                                     </div>
     
                                     <div class="product-price">
-                                        <p><?php echo number_format($product->price) ?></p>
+                                        <p><?php echo number_format($item->price) ?></p>
                                     </div>
     
                                     <div class="product-discount">
-                                        <del><?php echo number_format($product->price_old) ?></del>
+                                        <del><?php echo number_format($item->price_old) ?></del>
                                     </div>
                                 </div>
     
                                 <div class="progress-box">
                                     <div class="product-progress">
-                                        <div class="text-progress">Sản phẩm <?php echo $product->sold; ?> Đã bán</div>
+                                        <div class="text-progress">Sản phẩm <?php echo $item->sold; ?> Đã bán</div>
                                         <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                     </div>
                                 </div>
@@ -533,7 +511,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
     
                                     <div class="rate-best-item rate-sold">
-                                        <p><?php echo $product->sold; ?> Đã bán</p>
+                                        <p><?php echo $item->sold; ?> Đã bán</p>
                                         <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
                                     </div>
                                 </div>
@@ -556,19 +534,23 @@ $slide_home= slide_home($setting['id_slide']);
                     
                     <div class="row">
                         <div class="product-detail-rate-list col-6">
+                           <?php if(!empty($product->evaluate)){
+                                foreach($product->evaluate as $key => $item){ 
+                                     $item->image = json_decode($item->image, true);
+                                    ?>
                             <div class="product-detail-rate-item">
                                 <div class="product-detail-rate-avata">
-                                    <img src="<?php echo $urlThemeActive;?>asset/image/cute-1-300x300.png" alt="">
+                                    <img src="<?php echo @$item->avatar ?>" alt="">
                                 </div>
             
                                 <div class="product-detail-rate-right">
                                     <div class="product-detail-rate-heading">
                                         <div class="product-detail-rate-name">
-                                            Nguyễn Thùy Trang
+                                           <?php echo @$item->full_name ?>
                                         </div>
             
                                         <div class="product-detail-rate-date">
-                                            23/03/2023 lúc 19:01
+                                            <?php echo date('H:i d/m/Y', strtotime(@$item->created_at)); ?>
                                         </div>
                                     </div>
             
@@ -597,80 +579,27 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>  
             
                                     <div class="product-detail-rate-comment">
-                                        Sản phẩm dùng ok, dáng đẹp nhé
+                                        <?php echo @$item->content ?>
                                     </div>  
             
                                     <div class="product-detail-rate-image">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/quangcao3.png" alt="">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/quangcao3.png" alt="">
-
+                                        <?php if(!empty($item->image)){
+                                            foreach($item->image as $image) {
+                                            if(!empty($image)){
+                                        ?>
+                                        <img src="<?php echo $image;?>" alt="">
+                                    <?php }}} ?>
                                     </div> 
 
-                                    <div class="product-detail-rate-like" >
-                                        <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
+                                    <!-- <div class="product-detail-rate-like" >
+                                        <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --<path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
                                         <span>Hữu ích</span>
-                                    </div> 
+                                    </div>  -->
 
                                 </div>
                             </div>
-
-                            <div class="product-detail-rate-item">
-                                <div class="product-detail-rate-avata">
-                                    <img src="<?php echo $urlThemeActive;?>asset/image/cute-1-300x300.png" alt="">
-                                </div>
-            
-                                <div class="product-detail-rate-right">
-                                    <div class="product-detail-rate-heading">
-                                        <div class="product-detail-rate-name">
-                                            Nguyễn Thùy Trang
-                                        </div>
-            
-                                        <div class="product-detail-rate-date">
-                                            23/03/2023 lúc 19:01
-                                        </div>
-                                    </div>
-            
-                                    <div class="product-detail-rate-star">
-                                        <div class="stars">
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg class="checked" width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-                                        </div> 
-                                    </div>  
-            
-                                    <div class="product-detail-rate-comment">
-                                        Sản phẩm dùng ok, dáng đẹp nhé
-                                    </div>  
-            
-                                    <div class="product-detail-rate-image">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/quangcao3.png" alt="">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/quangcao3.png" alt="">
-
-                                    </div> 
-
-                                    <div class="product-detail-rate-like" >
-                                        <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
-                                        <span>Hữu ích</span>
-                                    </div> 
-
-                                </div>
-                            </div>
+                        <?php }} ?>
+                           
                         </div>
 
                         <div class="product-detail-rate-right col-6">
@@ -997,5 +926,70 @@ $slide_home= slide_home($setting['id_slide']);
         
     </main>
 
+<script>
+    function updateCountdown() {
+      // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
+     
+      <?php if(!empty(@$setting['targetTime'])){?>
+        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @$setting['targetTime']) ?>").getTime();
+
+    <?php }else{?>
+     const targetTime = 0;
+     <?php } ?>
+
+      // Lấy thời gian hiện tại
+      const currentTime = new Date().getTime();
+
+      // Tính thời gian còn lại
+      const timeLeft = targetTime - currentTime;
+
+      if (timeLeft <= 0) {
+         var html = '';
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>0</p>'
+        html +='                       </div>'
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>0</p>'
+        html +='                       </div>'
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>0</p>'
+        html +='                       </div>'
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>0</p>'
+        html +='                       </div>'
+        document.getElementById("countdown").innerHTML = html;
+      } else {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        var html = '';
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>'+days+'</p>'
+        html +='                       </div>'
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>'+hours+'</p>'
+        html +='                       </div>'
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>'+minutes+'</p>'
+        html +='                       </div>'
+        html +='                       <div class="time-flash-number">'
+        html +='                           <p>'+seconds+'</p>'
+        html +='                       </div>'
+
+
+        document.getElementById("countdown").innerHTML = html;
+        //document.getElementById("countdown").innerHTML = `Còn lại:  ngày, ${hours} giờ, ${minutes} phút, ${seconds} giây`;
+      }
+    }
+
+
+
+    // Cập nhật thời gian còn lại mỗi giây
+    setInterval(updateCountdown, 1000);
+
+    // Gọi hàm cập nhật ngay khi trang được tải
+    updateCountdown();
+</script>
 <?php
 getFooter();?>
