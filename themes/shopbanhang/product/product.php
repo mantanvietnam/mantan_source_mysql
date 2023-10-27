@@ -295,7 +295,28 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-detail-button-like">
-                                <button onclick="changeColor()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                                  <?php  
+                                     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                if(empty(getLike($infoUser['id'],$data->id,'khach_san'))){?>
+                            <div class="button-like">
+                                <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                            </div>
+                                <?php }else{
+                                  
+                                 ?>
+                                    <div class="button-like">
+
+                                <button type="button" onclick="delelelike()" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                            </div>
+                           
+                                <?php }  }else{ ?>
+                                     <div class="button-like">
+                                        <a  class="like" href="/" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></a>
+                                        </div>
+                                <?php   } ?>
+                                <button onclick="changeColor()"></button>
                             </div>
                         </div>
                     </div>
@@ -991,5 +1012,80 @@ $slide_home= slide_home($setting['id_slide']);
     // Gọi hàm cập nhật ngay khi trang được tải
     updateCountdown();
 </script>
+<script  type="text/javascript">
+    
+    function addlike(){
+         
+
+       $.ajax({
+            method: 'POST',
+            url: '/apis/addlike',
+            data: { idobject: '<?php echo @$data->id; ?>',
+                type: 'product',
+                idcustomer: <?php echo @$infoUser['id'] ?>,
+            },
+            success:function(res){
+              console.log('res');
+                $('#like_save').load(location.href + ' #like_save>*');
+                $('#place-detail .button-like button').css('background-color', '#188181');
+                $('#place-detail .button-like button').css('color', '#fff')
+                $('.button-like i').css('color', '#fff');
+            }
+        })
+            
+    };
+ function delelelike(){
+
+          $.ajax({
+                method: 'POST',
+                url: '/apis/delelelike',
+                data: { idobject: '<?php echo @$data->id; ?>',
+                    type: 'product',
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log('res');
+                    $('#like_save').load(location.href + ' #like_save>*');
+                    $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
+                    $('#place-detail .button-like button').css('color', '#3F4042')
+                    $('.button-like i').css('color', '#126B66');
+                }
+            })
+               
+        };  
+
+        function addComment(){
+    var comment= $('#comment').val();
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/addComment',
+                data: { idobject: '<?php echo @$data->id; ?>',
+                    type: 'product',
+                    comment: comment,
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log(res);
+                   location.reload();
+                }
+            })
+               
+        }; 
+
+   function deteleComment($id){
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/deleleComment',
+                data: { id: $id },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+        }; 
+</script
 <?php
 getFooter();?>
