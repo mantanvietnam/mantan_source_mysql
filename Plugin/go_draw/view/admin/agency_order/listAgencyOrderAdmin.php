@@ -37,9 +37,9 @@
                         <label class="form-label">Trạng thái</label>
                         <select name="status" class="form-select color-dropdown">
                             <option value="">Tất cả</option>
-                            <option value="1" <?php if(isset($_GET['status']) && $_GET['status'] == 1) echo 'selected';?> >Chờ xử lý</option>
-                            <option value="2" <?php if(isset($_GET['status']) && $_GET['status'] == 2) echo 'selected';?> >Đã xử lý</option>
-                            <option value="3" <?php if(isset($_GET['status']) && $_GET['status'] == 3) echo 'selected';?> >Đã thanh toán</option>
+                            <option value="0" <?php if(isset($_GET['status']) && $_GET['status'] == 0) echo 'selected';?> >Chờ xử lý</option>
+                            <option value="1" <?php if(isset($_GET['status']) && $_GET['status'] == 1) echo 'selected';?> >Đã xử lý</option>
+                            <option value="2" <?php if(isset($_GET['status']) && $_GET['status'] == 2) echo 'selected';?> >Đã thanh toán</option>
                         </select>
                     </div>
                 </div>
@@ -82,14 +82,14 @@
                                     <td>'.date_format($item->created_at, "H:i:s d/m/Y").'</td>
                                     <td align="center">
                                       <a class="btn btn-primary" 
-                                        href="/plugins/admin/go_draw-view-admin-order-addAgencyOrderAdmin.php/?id='.$item->id .'"
+                                        href="/plugins/admin/go_draw-view-admin-agency_order-addAgencyOrderAdmin.php/?id='.$item->id .'"
                                       >
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
                                     <td align="center">
                                       <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" 
-                                        href="href=/plugins/admin/go_draw-view-admin-order-deleteAgencyOrderAdmin.php/?id='.$item->id.'"
+                                        href="href=/plugins/admin/go_draw-view-admin-agency_order-deleteAgencyOrderAdmin.php/?id='.$item->id.'"
                                       >
                                         <i class="bx bx-trash me-1"></i>
                                       </a>

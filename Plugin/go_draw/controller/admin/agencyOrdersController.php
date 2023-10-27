@@ -81,3 +81,53 @@ function listAgencyOrderAdmin($input)
     setVariable('listData', $listData);
     setVariable('listAgency', $listAgency);
 }
+
+function addAgencyOrderAdmin($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+    $orderModel = $controller->loadModel('AgencyOrders');
+    $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
+    $comboModel = $controller->loadModel('Combos');
+    $agencyModel = $controller->loadModel('Agencies');
+    $mess = '';
+
+    if (!empty($_GET['id'])) {
+        $order = $orderModel->find()
+            ->where(['id' => $_GET['id']])
+            ->first();
+    } else {
+        $order = $orderModel->newEmptyEntity();
+    }
+
+    if (!empty($order)) {
+        $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
+        setVariable('listItem', $listItem);
+        $agency = $agencyModel->find()->where(['id' => $order->agency_id])->first();
+        setVariable('agency', $agency);
+        $listAgency = $agencyModel->find()->all();
+        setVariable('listAgency', $listAgency);
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['agency_id'])
+            && !empty($dataSend['total_price'])
+            && !empty($dataSend['status'])
+        ) {
+            $order->agency_id = $dataSend['agency_id'];
+            $order->total_price = $dataSend['total_price'];
+            $order->status = (int)$dataSend['status'];
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        } else {
+            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+        }
+    }
+    $listCombo = $comboModel->find()->where(['status' => 1])->all();
+
+    setVariable('data', $order);
+    setVariable('listCombo', $listCombo);
+    setVariable('mess', $mess);
+}
