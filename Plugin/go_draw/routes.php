@@ -11,3 +11,7 @@
 
 	$routesPlugin['listCombo']= 'go_draw/view/agency/combos/listCombo.php';
 	$routesPlugin['viewCombo']= 'go_draw/view/agency/combos/viewCombo.php';
+
+	$routesPlugin['addToCart']= 'go_draw/view/agency/agency_orders/addToCart.php';
+	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
+	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';

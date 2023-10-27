@@ -48,18 +48,26 @@
 											    </tr>
 											  </thead>
 											  <tbody>
-											    <tr>
-											      <th scope="row">1</th>
-											      <td>Mark</td>
-											      <td>Otto</td>
-											    </tr>
+											  	<?php 
+											  	if(!empty($list_product)){
+											  		foreach ($list_product as $key => $value) {
+											  			$number = $key +1;
+											  			echo '	<tr>
+															      <th scope="row">'.$number.'</th>
+															      <td>'.$value->name.'</td>
+															      <td>'.number_format($value->amount_combo).'</td>
+															    </tr>';
+											  		}
+											  	}
+											  	?>
+											    
 											  </tbody>
 											</table>
 										</div>
 									</div>
 									<div class="social text-right">
 										<div class="btn-main">
-											<a href="">ĐẶT MUA</a>
+											<a href="/addToCart/?idCombo=<?php echo $infoCombo->id;?>">ĐẶT MUA</a>
 										</div>
 									</div>
 								</div>

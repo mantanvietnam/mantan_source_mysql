@@ -7,7 +7,7 @@ function listCombo($input)
 	global $modelCategories;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';
 
 		$modelCombos = $controller->loadModel('Combos');
@@ -91,9 +91,10 @@ function viewCombo($input)
 	global $modelCategories;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 	    $modelCombos = $controller->loadModel('Combos');
 	    $modelComboProducts = $controller->loadModel('ComboProducts');
+	    $modelProducts = $controller->loadModel('Products');
 
 		if(!empty($input['request']->getAttribute('params')['pass'][1])){
 			$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
@@ -103,17 +104,21 @@ function viewCombo($input)
 			if(!empty($infoCombo)){
 				$metaTitleMantan = $infoCombo->name;
 
-				$list_product = $modelComboProducts->find()->join([
-							        'table' => 'products',
-							        'alias' => 'wp',
-							        'type' => 'INNER',
-							        'conditions' => 'wp.id = ComboProducts.product_id',
-							    ])->where(['combo_id'=>$infoCombo->id])->all()->toList();
+				$list_products = $modelComboProducts->find()->where(['combo_id'=>$infoCombo->id])->all()->toList();
+
+				$list_product = [];
+
+				foreach ($list_products as $key => $value) {
+					$infoProduct = $modelProducts->find()->where(['id'=>$value->product_id, 'status'=>1])->first();
+
+					if(!empty($infoProduct)){
+						$infoProduct->amount_combo = $value->amount;
+						$list_product[] = $infoProduct;
+					}
+				}
 
 				setVariable('infoCombo', $infoCombo);
 				setVariable('list_product', $list_product);
-
-				debug($list_product);die;
 			}else{
 				return $controller->redirect('/listCombo');
 			}
