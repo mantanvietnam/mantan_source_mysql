@@ -9,7 +9,7 @@ $menus[0]['sub'][0] = array('title' => 'Sản phẩm',
 );
 
 $menus[0]['sub'][1] = array('title' => 'Đơn hàng',
-    'url' => '/plugins/admin/product-view-admin-order-listOrderAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listOrderAdmin'
 );
