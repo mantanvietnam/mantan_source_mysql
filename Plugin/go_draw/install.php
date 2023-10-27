@@ -3,7 +3,7 @@
 global $sqlInstallDatabase;
 global $sqlDeleteDatabase;
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`products` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `products` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL ,
     `category_id` INT NOT NULL , `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NULL DEFAULT NULL , 
@@ -18,7 +18,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`products` (
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`users` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `users` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `username` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
@@ -33,17 +33,19 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`users` (
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_accounts` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `agency_accounts` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `agency_id` INT NOT NULL ,
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `type` TINYINT(4) NOT NULL COMMENT "1 là chủ, 2 là nhân viên" , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `status` VARCHAR(255) NOT NULL DEFAULT "active",
+    `last_login` TIMESTAMP NULL,
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agencies` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `agencies` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `address` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
@@ -55,7 +57,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agencies` (
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`combos` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `combos` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
@@ -64,10 +66,11 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`combos` (
     `status` TINYINT NOT NULL DEFAULT 1 ,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`combo_products` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `combo_products` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `combo_id` INT NOT NULL , 
     `product_id` INT NOT NULL , 
@@ -79,7 +82,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`combo_products` (
     INDEX `product_id_index` (`product_id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_combos` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `agency_combos` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `agency_id` INT NOT NULL , 
     `combo_id` INT NOT NULL , 
@@ -91,7 +94,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_combos` (
     INDEX `combo_id_index` (`combo_id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_products` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `agency_products` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `agency_id` INT NOT NULL , 
     `product_id` INT NOT NULL , 
@@ -103,7 +106,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_products` (
     INDEX `combo_id_index` (`product_id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_orders` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `agency_orders` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `agency_id` INT NOT NULL , 
     `total_price` INT NOT NULL , 
@@ -114,7 +117,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_orders` (
     INDEX `agency_id_index` (`agency_id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_order_details` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `agency_order_details` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `order_id` INT NOT NULL , 
     `combo_id` INT NOT NULL , 
@@ -126,7 +129,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_order_details` (
     INDEX `order_id_index` (`order_id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`user_orders` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `user_orders` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `user_id` INT NOT NULL , 
     `agency_id` INT NOT NULL , 
@@ -139,7 +142,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`user_orders` (
     INDEX `agency_id_index` (`agency_id`)
 ) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`user_order_details` ( 
+$sqlInstallDatabase .= 'CREATE TABLE `user_order_details` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
     `order_id` INT NOT NULL , 
     `product_id` INT NOT NULL , 
@@ -154,14 +157,14 @@ $sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`user_order_details` (
 
 $sqlInstallDatabase .= 'ALTER TABLE `categories` ADD `deleted_at` TIMESTAMP NULL DEFAULT NULL AFTER `slug`;';
 
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`products`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`users`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_accounts`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`combos`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`combo_products`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_combos`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_products`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_orders`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`agency_order_details`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`user_orders`;';
-$sqlDeleteDatabase .= 'DROP TABLE `godraw_home`.`user_order_details`;';
+$sqlDeleteDatabase .= 'DROP TABLE `products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `users`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_accounts`;';
+$sqlDeleteDatabase .= 'DROP TABLE `combos`;';
+$sqlDeleteDatabase .= 'DROP TABLE `combo_products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_combos`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_orders`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_order_details`;';
+$sqlDeleteDatabase .= 'DROP TABLE `user_orders`;';
+$sqlDeleteDatabase .= 'DROP TABLE `user_order_details`;';
