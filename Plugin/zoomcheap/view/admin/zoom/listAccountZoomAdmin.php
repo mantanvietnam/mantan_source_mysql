@@ -64,8 +64,8 @@
                           '.$item->key_host.'
                         </td>
                         <td>'.@$item->infoRoom->info['id'].'</td>
-                        <td>'.@$item->infoRoom->info['password'].'</td>;
-                      <td align="center">
+                        <td>'.@$item->infoRoom->info['password'].'</td>
+                        <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>

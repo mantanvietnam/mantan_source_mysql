@@ -1,5 +1,8 @@
 <?php
-	global $routesPlugin;
+    global $routesPlugin;
+    // Admin
+    $routesPlugin['adminDeleteAccountApi']= 'excgo/view/adminDeleteAccountApi.php';
+    $routesPlugin['adminUpdateStaffAccountApi']= 'excgo/view/adminUpdateStaffAccountApi.php';
 
 	// agency
 	$routesPlugin['login']= 'go_draw/view/agency/agency_accounts/login.php';

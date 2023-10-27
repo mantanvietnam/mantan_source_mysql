@@ -1,5 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Thành viên</h4>
+    <h4 class="fw-bold py-3 mb-4">Combo</h4>
+    <p><a href="/plugins/admin/go_draw-view-admin-combo-viewDetailComboAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+
     <!-- Form Search -->
     <form method="get" action="">
         <div class="card mb-4">
@@ -12,22 +14,10 @@
                                value="<?php if (!empty($_GET['id'])) echo $_GET['id']; ?>">
                     </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label">Tên thành viên</label>
+                    <div class="col-md-4">
+                        <label class="form-label">Tên combo</label>
                         <input type="text" class="form-control" name="name"
                                value="<?php if (!empty($_GET['name'])) echo $_GET['name']; ?>">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">Số điện thoại</label>
-                        <input type="text" class="form-control" name="phone"
-                               value="<?php if (!empty($_GET['phone'])) echo $_GET['phone']; ?>">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email"
-                               value="<?php if (!empty($_GET['email'])) echo $_GET['email']; ?>">
                     </div>
 
                     <div class="col-md-2">
@@ -59,10 +49,9 @@
                 <thead>
                 <tr class="">
                     <th>ID</th>
-                    <th>Avatar</th>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên combo</th>
+                    <th>Gía</th>
                     <th>Sửa</th>
                     <th>Trạng thái</th>
                 </tr>
@@ -73,17 +62,17 @@
                     foreach ($listData as $item) {
                         if ($item->status == 1) {
                             $status = '
-                  <a class="btn btn-success"  title="Khóa tài khoản" 
-                    onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
-                    href="/plugins/admin/go_draw-view-admin-user-updateStatusUserAdmin.php/?id=' . $item->id . '&status=0"
+                  <a class="btn btn-success"  title="" 
+                    onclick="return confirm(\'Bạn có chắc chắn muốn khóa combo này không?\');"
+                    href="/plugins/admin/go_draw-view-admin-combo-updateStatusComboAdmin.php/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã kích hoạt ';
                         } else {
                             $status = '
-                  <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
-                    onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
-                    href="/plugins/admin/go_draw-view-admin-user-updateStatusUserAdmin.php/?id=' . $item->id . '&status=1"
+                  <a class=" btn btn-danger"  title="" 
+                    onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt combo này không?\');" 
+                    href="/plugins/admin/go_draw-view-admin-combo-updateStatusComboAdmin.php/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -91,18 +80,15 @@
 
                         echo '<tr>
                         <td align="center">' . $item->id . '</td>
-                        <td align="center"><img src="' . $item->avatar . '" width="100" /></td>
-                        <td>' . $item->name . ' </td>
+                        <td align="center"><img src="' . $item->image . '" width="100" /></td>
+                        <td>' . $item->name . 'đ</td>
                         <td>
-                          ' . $item->email . '
-                        </td>
-                        <td>
-                          ' . $item->phone . '
+                          ' . $item->price . '
                         </td>
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/go_draw-view-admin-user-viewUserDetailAdmin.php/?id=' . $item->id . '"
+                          href="/plugins/admin/go_draw-view-admin-combo-viewDetailComboAdmin.php/?id=' . $item->id . '"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>

@@ -190,7 +190,8 @@ a{
     min-height: 173px;
     left: 19px;
     right: 19px;
-    bottom: 32px;
+    bottom: 7px;
+    background: rgba(0, 0, 0, .5);
 }
 
 .banner-content-image .banner-content-calendar p{
@@ -274,7 +275,7 @@ a{
     position: absolute;
     width: 27px;
     height: 27px;
-    top: 4px;
+    top: 7px !important;
     background-image: url(../image/Layer\ 0.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -306,8 +307,6 @@ a{
 
 /* video */
 #section-video{
-    margin-top: 50px; 
-    padding-bottom:33px;
 }
 
 #section-video .video-content span{
@@ -320,6 +319,7 @@ a{
 
 #section-video .title-video{
     margin-bottom: 25px;
+    margin-top: 10px;
 }
 
 #section-video .title-video h2{
@@ -1202,17 +1202,25 @@ a{
     background-size: contain;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    padding-top: 200px;
+    padding-top: 70px;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
 }
 
+.register-item-box .register-name{
+    font-weight: bold;
+    color: #481F03;
+    font-size: 65px;
+    margin-bottom: 50px;
+}
+
 .register-item-box .register-price{
     font-weight: bold;
     color: #fff;
-    font-size: 30px;
+    font-size: 20px;
+    margin-bottom: 30px;
 }
 
 .register-item-box .register-price-sale{
@@ -1222,18 +1230,28 @@ a{
     text-align: center;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 28px;
-    margin-bottom: 30px;
+    font-size: 35px;
+    
+}
+
+.register-item-box .register-price-sale .title-vip{
+    background-image: linear-gradient(#BE302F, rgb(255, 255, 255)) !important;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 35px;
 }
 
 .register-item-content li{
     font-size: 24px;
     margin-bottom: 19px;
-    color: #fff;
+    color: #FFBE28;
 }
 
 .register-item-content-sale li{
-    color: rgb(186, 159, 92);
+    color: #BE302F;
     font-size: 20px;
     margin-bottom: 19px;
 }
@@ -1246,6 +1264,10 @@ a{
     padding: 22px 74px;
     border-radius: 15px;
     font-size: 20px;
+}
+
+.register-item-button .vip{
+    background-color: #BE302F !important;
 }
 
 .register-item-content{
