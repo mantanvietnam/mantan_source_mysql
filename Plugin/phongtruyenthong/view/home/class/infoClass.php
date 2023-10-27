@@ -15,6 +15,7 @@
           </div>
           <div class="card-body">
             <p><?php echo $mess;?></p>
+            <p class="text-danger">Chú ý: mọi dữ liệu hình ảnh, video, thông tin được nhập lên đồng nghĩa với việc bạn đã cho phép nhà trường được sử dụng cho mục đích truyền thông của trường. Link xem phòng truyền thống: <a href="<?php global $urlHomes; echo $urlHomes;?>" target="_blank"><?php echo $urlHomes;?></a></p>
             <?= $this->Form->create(); ?>
               <div class="row">
                 <div class="col-12">
@@ -116,6 +117,7 @@
                       <div class="tab-pane fade" id="navs-top-image" role="tabpanel">
                         <div class="row">
                           <div class="col-md-12">
+
                             <div class="mb-3">
                               <label class="form-label">Hình minh họa</label>
                               <?php 

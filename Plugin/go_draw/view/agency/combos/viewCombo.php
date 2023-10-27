@@ -24,13 +24,12 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="avar-detail">
-								<div class="avr"><img src="/plugins/go_draw/view/agency/images/gall.jpg" class="img-fluid w-100" alt=""></div>
+								<div class="avr"><img src="<?php echo $infoCombo->image;?>" class="img-fluid w-100" alt=""></div>
 							</div>
 							<div class="title-detail">
 								<div class="content-head-title">
 									<h1><?php echo $infoCombo->name;?></h1>
 									<div class="price"><?php echo number_format($infoCombo->price);?>đ</div>
-									<div class="bt-cart"><a href=""><img src="/plugins/go_draw/view/agency/images/cart.svg" class="img-fluid" alt=""></a></div>
 								</div>
 							</div>
 						</div>
@@ -38,25 +37,35 @@
 							<div class="txt-detail-gallery">
 								<div class="detail">
 									<div class="top-detail">
-										<h2>Autumn in a town in Austria</h2>
+										<h2>Combo gồm có:</h2>
 										<div class="desc">
-											<p>Dokazano je, da razumljiva vsebina, med pregledovanjem oblikovne rešitve določene strani, neželeno preusmeri pozornost bralca. Ker ima Lorem Ipsum relativno enakomerno razporeditev znakov uspešno nadomesti začasna vsebinsko pomenska besedila. Veliko namizno založniških programov in spletnih urejevalnikov uporablja Lorem Ipsum kot privzeti slepi tekst.</p>
+											<table class="table table-bordered">
+											  <thead>
+											    <tr>
+											      <th scope="col">STT</th>
+											      <th scope="col">Sản phẩm</th>
+											      <th scope="col">Số lượng</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											    <tr>
+											      <th scope="row">1</th>
+											      <td>Mark</td>
+											      <td>Otto</td>
+											    </tr>
+											  </tbody>
+											</table>
 										</div>
 									</div>
 									<div class="social text-right">
 										<div class="btn-main">
-											<a href="">Order now</a>
+											<a href="">ĐẶT MUA</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="view-all">
-					<a href="">
-						<img src="/plugins/go_draw/view/agency/images/serch.svg" class="img-fluid" alt=""><span>VIEW ALL</span>
-					</a>
 				</div>
 			</div>
 		</div>

@@ -31,6 +31,10 @@ function login($input)
 	    				$year = createSlugMantan($infoCategory->name);
 	    				$class = createSlugMantan($info_customer->name);
 
+	    				if (!file_exists(__DIR__.'/../../../../upload/admin/images/'.$year.'/'.$class )) {
+					        mkdir(__DIR__.'/../../../../upload/admin/images/'.$year.'/'.$class, 0755, true);
+					    }
+
 		    			$session->write('CheckAuthentication', true);
 	                    $session->write('urlBaseUpload', '/upload/admin/images/'.$year.'/'.$class.'/');
 
@@ -116,6 +120,7 @@ function infoClass($input)
 	global $controller;
 	global $isRequestPost;
 	global $urlHomes;
+	global $modelCategories;
 
 	$modelClasses = $controller->loadModel('Classes');
 
@@ -154,8 +159,12 @@ function infoClass($input)
         $infoClass->des_image = json_decode($infoClass->des_image, true);
         $infoClass->audio_image = json_decode($infoClass->audio_image, true);
 
+        $conditions = array('type' => 'school_year');
+    	$years = $modelCategories->find()->where($conditions)->all()->toList();
+
 		setVariable('infoClass', $infoClass);
 		setVariable('mess', $mess);
+		setVariable('years', $years);
 	}else{
 		return $controller->redirect('/login');
 	}

@@ -93,6 +93,7 @@ function viewCombo($input)
 
 	if(!empty($session->read('infoUser'))){
 	    $modelCombos = $controller->loadModel('Combos');
+	    $modelComboProducts = $controller->loadModel('ComboProducts');
 
 		if(!empty($input['request']->getAttribute('params')['pass'][1])){
 			$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
@@ -102,7 +103,17 @@ function viewCombo($input)
 			if(!empty($infoCombo)){
 				$metaTitleMantan = $infoCombo->name;
 
+				$list_product = $modelComboProducts->find()->join([
+							        'table' => 'products',
+							        'alias' => 'wp',
+							        'type' => 'INNER',
+							        'conditions' => 'wp.id = ComboProducts.product_id',
+							    ])->where(['combo_id'=>$infoCombo->id])->all()->toList();
+
 				setVariable('infoCombo', $infoCombo);
+				setVariable('list_product', $list_product);
+
+				debug($list_product);die;
 			}else{
 				return $controller->redirect('/listCombo');
 			}

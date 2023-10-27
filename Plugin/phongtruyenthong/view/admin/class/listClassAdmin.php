@@ -67,6 +67,7 @@
             <th>Hình minh họa</th>
             <th>Niên khóa</th>
             <th>Tên lớp</th>
+            <th>Tài khoản</th>
             <th>Trạng thái</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -81,6 +82,7 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_year.'</td>
                         <td>'.$item->name.'</td>
+                        <td>'.$item->user.'</td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-class-addClassAdmin.php/?id='.$item->id.'">
