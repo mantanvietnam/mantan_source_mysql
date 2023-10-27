@@ -92,12 +92,8 @@ function addWarehouse($input)
 {
 	global $controller;
 	global $isRequestPost;
-	global $modelCategories;
     global $metaTitleMantan;
     global $session;
-    global $ftp_server_upload_image;
-	global $ftp_username_upload_image;
-	global $ftp_password_upload_image;
 
 	$metaTitleMantan = 'Thông tin kho';
 

@@ -43,6 +43,12 @@ function listStaff($input)
 				$conditions['status'] = (int) $_GET['status'];
 			}
 		}
+
+		if(isset($_GET['id_group'])){
+			if($_GET['id_group']!=''){
+				$conditions['id_group'] = (int) $_GET['id_group'];
+			}
+		}
 	    
 	    $listData = $modelMember->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
@@ -77,9 +83,9 @@ function listStaff($input)
 	        $urlPage = $urlPage . '?page=';
 	    }
 	    
-	    // $conditionsCategories = array('type' => 'category_member');
-        // $order = array('name'=>'asc');
-        // $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
+	    $conditionsCategories = array('type' => 'category_member', 'id_member' => $infoUser->id_member);
+        $order = array('name'=>'asc');
+        $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
 
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
@@ -88,7 +94,7 @@ function listStaff($input)
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    
-	    // setVariable('listCategory', $listCategory);
+	    setVariable('listCategory', $listCategory);
 	    setVariable('listData', $listData);
 	}else{
 		return $controller->redirect('/login');

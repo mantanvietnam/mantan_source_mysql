@@ -124,8 +124,8 @@
                                                                     <?php echo number_format($value->price) ?>đ
                                                                 </td>
                                                                 <td>
-                                                                    <?php echo $value->number_uses . '/' . $value->quantity ?>
-                                                                </td>s
+                                                                    <?php echo $value->quantity ?>
+                                                                </td>
 
                                                             </tr>
                                                         <?php }
