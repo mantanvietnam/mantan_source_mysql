@@ -42,14 +42,17 @@
                                 </div>
                                 <br>
                                 <div class="product-button">
-                                    <!--
-                                    <a href="<?php echo $product->link_open_app ?>" class="btn btn-warning mt-3" >
-                                    -->
                                     
+                                    <a href="<?php echo $product->link_open_app ?>" class="btn btn-warning mt-3" >
+                                        <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
+                                    </a>
+                                    
+                                    <!--
                                     <a href="javascript:void(0);" onclick="showPopup();" class="btn btn-warning mt-3" >
 
                                         <i class="fa-solid fa-pen-to-square"></i> Nhập thông tin
                                     </a>
+                                    -->
 
                                     <a type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                         <i class="fa-solid fa-book"></i> 

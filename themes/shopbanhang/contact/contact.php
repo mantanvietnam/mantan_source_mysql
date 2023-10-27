@@ -10,9 +10,8 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">Library</a></li>
-                  <li class="breadcrumb-item active">Data</li>
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Liên Hệ</a></li>
                 </ul>
             </div>
         </section>
@@ -34,7 +33,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
 
                         <div class="text-item">
-                            <p>333 Trịnh Đình Cửu</p>
+                            <p><?php echo $setting['phone'] ?></p>
                         </div>
                     </div>
 
@@ -44,7 +43,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
 
                         <div class="text-item">
-                            <p>info@bumas.vn</p>
+                            <p><?php echo $setting['email'] ?></p>
                         </div>
                     </div>
 
@@ -54,7 +53,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
 
                         <div class="text-item">
-                            <p>090.7174.789</p>
+                            <p><?php echo $setting['phone'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -64,42 +63,43 @@ $slide_home= slide_home($setting['id_slide']);
                     <div class="contact-text">
                         <p>Điền thông tin liên hệ để chúng tôi có thể gọi trực tiếp hỗ trợ các bạn</p>
                     </div>
-                    <form>
+                    <form id="formContact" onsubmit="" action="<?= $routesPlugin["contact"] ?>" method="post" class="form-custom-1 py-3">
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-12">
-                                <input placeholder="Họ và tên" type="text" class="form-control" id="name" required>
+                                <input placeholder="Họ và tên" type="text" class="form-control" name="name" id="name" required>
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                             </div>
 
                             <div class="mb-3 col-lg-6 col-12">
-                                <input placeholder="Số điện thoại" type="text" class="form-control" id="phone" required>
+                                <input placeholder="Số điện thoại" type="text" class="form-control"name="phone"  id="phone" required>
                             </div>
     
                             <div class="mb-3 col-12">
-                                <input placeholder="Email" type="email" class="form-control" id="email" required>
+                                <input placeholder="Email" type="email" class="form-control" name="email"  id="email" required>
                             </div>
 
                             <div class="mb-3 col-12 form-radius">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <label class="form-check-label" value="Tư vấn" for="flexRadioDefault1">
                                         Tư vấn
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
+                                    <label class="form-check-label" value="Hợp tác" for="flexRadioDefault2">
                                         Hợp tác
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                    <label class="form-check-label" for="flexRadioDefault3">
+                                    <label class="form-check-label" value="Góp ý sản phẩm" for="flexRadioDefault3">
                                         Góp ý sản phẩm
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
-                                    <label class="form-check-label" for="flexRadioDefault4">
+                                    <label class="form-check-label" value="Khác" for="flexRadioDefault4">
                                       Khác
                                     </label>
                                 </div>

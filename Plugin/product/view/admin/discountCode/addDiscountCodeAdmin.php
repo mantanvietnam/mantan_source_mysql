@@ -45,6 +45,10 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số lượng (*)</label>
                     <input type="number"  class="form-control" placeholder="" name="number_user" id="number_user" value="<?php echo @$data->number_user;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">id sản phẩm(*)</label>
+                    <input type="text"  class="form-control" placeholder="mỗi id sản phẩm cách nhau dấu phẩy " name="id_product" id="id_product" value="<?php echo @$data->id_product;?>" />
                   </div> 
                 </div>
               </div>

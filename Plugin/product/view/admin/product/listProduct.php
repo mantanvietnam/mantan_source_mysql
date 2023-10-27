@@ -99,6 +99,7 @@
             <th>Danh mục</th>
             <th>Tên sản phẩm</th>
             <th>Trạng thái</th>
+            <th>câu hỏi</th>
             <th>Flash sale</th>
             <th>Sửa</th>
             <th>Xóa</th>
@@ -120,6 +121,7 @@
                         <td>'.$item->name_category.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.$item->status.'</td>
+                        <td align="center"><a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion.php/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a></td>
                         <td align="center">'.$flash_sale.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/product-view-admin-product-addProduct.php/?id='.$item->id.'">

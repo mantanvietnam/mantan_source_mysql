@@ -6,6 +6,11 @@ $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );
+$menus[0]['sub'][1]= array( 'title'=>'Cài đặt chich sách bảo mật',
+                            'url'=>'/plugins/admin/shopbanhang-admin-sttingGuaranteeTheme.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'sttingGuaranteeTheme'
+                        );
 
 addMenuAdminMantan($menus);
 
@@ -36,4 +41,16 @@ function slide_home($id){
 
     return $slide_home;
 }
+
+function getByIdCategory($id){
+    global $modelCategories;
+
+    $Categories = $modelCategories->find()->where(['id'=>(int)$id])->first();
+
+
+
+    return $Categories;
+}
+
+
 ?>

@@ -53,10 +53,19 @@ global $urlThemeActive;
                         <div class="row">
                             <?php if(!empty($product_flasl)){ 
                                 foreach($product_flasl as $key => $item){
+                                     $giam = 0;
+                                    if(!empty($item->price_old) && !empty($item->price)){
+                                        $giam = 100 - 100*$item->price/$item->price_old;
+                                    }
+
+                                    $ban = 0;
+                                    if(!empty($item->quantity) && !empty($item->sold)){
+                                        $ban = 100 - 100*$item->sold/$item->quantity;
+                                    }
                                 ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
                                 <div class="best-sale-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span>33%</span></div>
+                                    <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
                                     <div class="best-sale-img">
                                         <a href="product/<?php echo $item->slug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                                     </div>
@@ -78,7 +87,7 @@ global $urlThemeActive;
                                     <div class="progress-box">
                                         <div class="best-sale-progress">
                                             <div class="text-progress">Sản phẩm <?php  echo @$item->sold; ?> Đã bán</div>
-                                            <div class="sale-progress-val" style="width: 32%"></div>
+                                            <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
         
@@ -143,6 +152,10 @@ global $urlThemeActive;
                         <div class="row">
                             <?php if(!empty($product_sold)){ 
                                 foreach($product_sold as $key => $item){
+                                    $ban = 0;
+                                    if(!empty($item->quantity) && !empty($item->sold)){
+                                        $ban = 100 - 100*$item->sold/$item->quantity;
+                                    }
                                 ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
                                 <div class="best-sale-item-inner">
@@ -287,7 +300,13 @@ global $urlThemeActive;
 <script>
     function updateCountdown() {
       // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
-      const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , $setting['targetTime']) ?>").getTime();
+     
+      <?php if(!empty(@$setting['targetTime'])){?>
+        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @$setting['targetTime']) ?>").getTime();
+
+    <?php }else{?>
+     const targetTime = 0;
+     <?php } ?>
 
       // Lấy thời gian hiện tại
       const currentTime = new Date().getTime();
