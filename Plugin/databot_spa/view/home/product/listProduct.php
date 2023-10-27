@@ -26,7 +26,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Danh mục</label>
+            <label class="form-label">Danh mục sản phẩm</label>
             <select name="id_category" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <?php
@@ -43,6 +43,24 @@
             </select>
           </div>
 
+          <!-- <div class="col-md-2">
+            <label class="form-label">Nhãn hiệu</label>
+            <select name="id_trademark" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+               <?php
+              if (!empty($listTrademar)) {
+                foreach ($listTrademar as $key => $value) {
+                  if (empty($_GET['id_trademark']) || $_GET['id_trademark'] != $value->id) {
+                    echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+                  } else {
+                    echo '<option selected value="' . $value->id . '">' . $value->name . '</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div> -->
+
           <div class="col-md-2">
             <label class="form-label">Trạng thái</label>
             <select name="status" class="form-select color-dropdown">
@@ -58,23 +76,7 @@
 
 
 
-          <div class="col-md-2">
-            <label class="form-label">Nhãn hiệu</label>
-            <select name="id_trademark" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php
-              if (!empty($listTrademar)) {
-                foreach ($listTrademar as $key => $value) {
-                  if (empty($_GET['id_trademark']) || $_GET['id_trademark'] != $value->id) {
-                    echo '<option value="' . $value->id . '">' . $value->name . '</option>';
-                  } else {
-                    echo '<option selected value="' . $value->id . '">' . $value->name . '</option>';
-                  }
-                }
-              }
-              ?>
-            </select>
-          </div>
+          
 
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>

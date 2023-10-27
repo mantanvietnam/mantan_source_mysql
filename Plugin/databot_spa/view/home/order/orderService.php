@@ -176,21 +176,6 @@
                             <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
                         </div>
                     </div>      
-                    <div class="right col-md-7">
-                        <p >Kho hàng (*)</p>
-                        <div class="input-Warehouses">
-                            <select  name="id_warehouse" required="" id="id_bed"  class="form-select color-dropdown">
-                                                        <option value="">Chọn Kho</option>
-                                                     <?php if(!empty($listWarehouse)){
-                                                        foreach ($listWarehouse as $warehouse) { 
-                                                            echo '<option  value="'.$warehouse->id.'">'.$warehouse->name.'</option>';
-                                                            }
-                                                            
-                                                        }?>
-                                                </select>
-                        </div>
-                        
-                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class=" table-bordered">

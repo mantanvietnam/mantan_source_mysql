@@ -17,23 +17,38 @@
 
           <div class="col-md-2">
             <label class="form-label">Họ tên</label>
-            <input type="text" class="form-control" name="name"
-              value="<?php if (!empty($_GET['name']))
-                echo $_GET['name']; ?>">
+            <input type="text" class="form-control" name="name" value="<?php if (!empty($_GET['name']))
+              echo $_GET['name']; ?>">
           </div>
 
           <div class="col-md-2">
             <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone"
-              value="<?php if (!empty($_GET['phone']))
-                echo $_GET['phone']; ?>">
+            <input type="text" class="form-control" name="phone" value="<?php if (!empty($_GET['phone']))
+              echo $_GET['phone']; ?>">
           </div>
 
           <div class="col-md-2">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email"
-              value="<?php if (!empty($_GET['email']))
-                echo $_GET['email']; ?>">
+            <input type="email" class="form-control" name="email" value="<?php if (!empty($_GET['email']))
+              echo $_GET['email']; ?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Nhóm nhân viên</label>
+            <select name="id_group" class="form-select color-dropdown">
+              <option value="">Tất cả</option>
+              <?php
+              if (!empty($listCategory)) {
+                foreach ($listCategory as $key => $value) {
+                  if (empty($_GET['id_group']) || $_GET['id_group'] != $value->id) {
+                    echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+                  } else {
+                    echo '<option selected value="' . $value->id . '">' . $value->name . '</option>';
+                  }
+                }
+              }
+              ?>
+            </select>
           </div>
 
           <div class="col-md-2">
@@ -48,6 +63,8 @@
               </option>
             </select>
           </div>
+
+          
 
           <div class="col-md-1">
             <label class="form-label">&nbsp;</label>
@@ -79,7 +96,7 @@
               <th>Tên nhân viên</th>
               <th>Số điện thoại</th>
               <th>Email</th>
-              <th>Nhóm</th>
+              <th>Nhóm nhân viên</th>
               <th>Trạng thái</th>
               <th>Đổi mật khẩu</th>
               <th>Sửa</th>
@@ -106,7 +123,7 @@
                           <td>' . $item->name . ' </td>
                           <td>' . $item->phone . '</td>
                           <td>' . $item->email . '</td>
-                          <td>' . $group->name . '</td>
+                          <td>' . @$group->name . '</td>
                           <td>' . $status . '</td>
                          
                           <td align="center">

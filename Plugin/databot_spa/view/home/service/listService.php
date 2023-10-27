@@ -72,7 +72,7 @@
               <th>Dịch vụ</th>
               <th>Giá bán</th>
               <th>Hoa hồng</th>
-              <th>Danh mục</th>
+              <th>Nhóm dịch vụ</th>
               <th>Trạng thái</th>
               <th>Sửa</th>
               <th>Xóa</th>
