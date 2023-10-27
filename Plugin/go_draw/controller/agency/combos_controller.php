@@ -7,7 +7,7 @@ function listCombo($input)
 	global $modelCategories;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';
 
 		$modelCombos = $controller->loadModel('Combos');
@@ -91,7 +91,7 @@ function viewCombo($input)
 	global $modelCategories;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 	    $modelCombos = $controller->loadModel('Combos');
 	    $modelComboProducts = $controller->loadModel('ComboProducts');
 	    $modelProducts = $controller->loadModel('Products');

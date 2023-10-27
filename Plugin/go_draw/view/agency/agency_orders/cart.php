@@ -21,26 +21,31 @@
 				<div class="content-cart">
 					<div class="table-cart">
 						<?php
-							foreach ($infoCart as $key => $value) {
-								echo '	<div class="item-cart">
-											<div class="prd-cart">
-												<div class="avarta">
-													<div class="avr"><a href="/viewCombo/'.$value->slug.'.html"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a></div>
+							echo $mess;
+							if(!empty($infoCart)){
+								foreach ($infoCart as $key => $value) {
+									echo '	<div class="item-cart">
+												<div class="prd-cart">
+													<div class="avarta">
+														<div class="avr"><a href="/viewCombo/'.$value->slug.'.html"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a></div>
+													</div>
+													<div class="info">
+														<h3><a href="/viewCombo/'.$value->slug.'.html">'.$value->name.'</a></h3>
+													</div>
 												</div>
-												<div class="info">
-													<h3><a href="/viewCombo/'.$value->slug.'.html">'.$value->name.'</a></h3>
+												<div class="price text-center">'.number_format($value->price).'đ</div>
+												<div class="checkbox-cart text-center">
+													x '.$value->amount.'
 												</div>
-											</div>
-											<div class="price text-center">'.number_format($value->price).'đ</div>
-											<div class="checkbox-cart text-center">
-												x '.$value->amount.'
-											</div>
-										</div>';
+											</div>';
 
+								}
 							}
 						?>
 					</div>
-					<div class="btn-main text-center"><a href="">ĐẶT HÀNG</a></div>
+
+					<?php if(!empty($infoCart)) echo '<div class="btn-main text-center"><a href="/createOrder">ĐẶT HÀNG</a></div>';?>
+					
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ function addToCart($input)
 	global $modelCategories;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 	    $metaTitleMantan = 'Thêm vào giỏ hàng';
 
 	    $modelCombos = $controller->loadModel('Combos');
@@ -66,12 +66,74 @@ function cart($input)
 	global $modelCategories;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 	    $metaTitleMantan = 'Giỏ hàng';
+	    $mess = '';
+
+	    if(!empty($_GET['status'])){
+	    	if($_GET['status'] == 'create_order_done'){
+	    		$mess= '<p class="text-success">Đặt hàng thành công</p>';
+	    	}
+	    }
 
 	    $infoCart = $session->read('infoCart');
 
 	    setVariable('infoCart', $infoCart);
+	    setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function createOrder($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
+	    $metaTitleMantan = 'Giỏ hàng';
+
+	    $infoCart = $session->read('infoCart');
+
+	    if(!empty($infoCart)){
+	    	$modelAgencyOrders = $controller->loadModel('AgencyOrders');
+	    	$modelAgencyOrderDetails = $controller->loadModel('AgencyOrderDetails');
+
+	    	$total_price = 0;
+	    	foreach ($infoCart as $key => $value) {
+	    		$total_price += $value->price * $value->amount;
+	    	}
+
+	    	$order = $modelAgencyOrders->newEmptyEntity();
+
+	    	$order->agency_id = $session->read('infoUser')->id;
+	    	$order->status = 0; // 0: đơn hàng mới, 1: đã thanh toán, 2: hủy bỏ 
+	    	$order->created_at  = date('Y-m-d H:i:s');
+	    	$order->updated_at  = date('Y-m-d H:i:s');
+	    	$order->total_price  = $total_price;
+
+	    	$modelAgencyOrders->save($order);
+
+	    	foreach ($infoCart as $key => $value) {
+	    		$orderDetail = $modelAgencyOrderDetails->newEmptyEntity();
+
+	    		$orderDetail->order_id = $order->id;
+	    		$orderDetail->combo_id = $value->id;
+	    		$orderDetail->amount = $value->amount;
+	    		$orderDetail->unit_price = $value->price;
+	    		$orderDetail->created_at = date('Y-m-d H:i:s');
+	    		$orderDetail->updated_at = date('Y-m-d H:i:s');
+
+	    		$modelAgencyOrderDetails->save($orderDetail);
+	    	}
+	    }
+
+	    $session->write('infoCart', []);
+
+	    return $controller->redirect('/cart/?status=create_order_done');
 	}else{
 		return $controller->redirect('/login');
 	}
