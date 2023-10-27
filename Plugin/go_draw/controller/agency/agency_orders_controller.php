@@ -110,7 +110,7 @@ function createOrder($input)
 	    	$order = $modelAgencyOrders->newEmptyEntity();
 
 	    	$order->agency_id = $session->read('infoUser')->id;
-	    	$order->status = 0; // 0: đơn hàng mới, 1: đã thanh toán, 2: hủy bỏ 
+	    	$order->status = 0; // 0: đơn hàng mới, 1: đã duyệt, 2: đã thanh toán, 3: hủy bỏ
 	    	$order->created_at  = date('Y-m-d H:i:s');
 	    	$order->updated_at  = date('Y-m-d H:i:s');
 	    	$order->total_price  = $total_price;

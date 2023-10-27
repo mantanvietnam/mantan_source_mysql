@@ -99,6 +99,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_products` (
     `agency_id` INT NOT NULL , 
     `product_id` INT NOT NULL , 
     `price` INT NOT NULL , 
+    `amount` INT NOT NULL DEFAULT '0',
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     PRIMARY KEY (`id`), 
