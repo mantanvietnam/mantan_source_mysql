@@ -2,7 +2,7 @@
 global $urlThemeActive;
 $setting = setting();
 global $session;
-$infoUser = $session->read('infoUser');
+$infoUser = $session->read('infoUser');       
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -49,7 +49,12 @@ $infoUser = $session->read('infoUser');
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-group-button">
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt="">
-                                <a href="">Tài khoản của tôi</a>
+                                <?php if(!empty($infoUser)){ ?>
+                                    <a href="" >Tài khoản của tôi</a>
+                                    <a href="/logout" >Đăng xuất</a>
+                                <?php }else{ ?>
+                                <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Dăng nhập</a>
+                            <?php } ?>
                             </div>
 
                             <div class="topbar-button">
@@ -209,7 +214,7 @@ $infoUser = $session->read('infoUser');
         <!-- Đăng nhập -->
         <div class="modal-login">
            <!-- Button trigger modal -->
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <!-- <button type="button" class="btn btn-primary">
                 Launch static backdrop modal
             </button> -->
             
@@ -238,6 +243,30 @@ $infoUser = $session->read('infoUser');
                                         <div class="login-social-item">
                                             <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
                                         </div>
+                                         <div class="row">
+              <div class="col-sm-12 text-center mb-2">
+                  <div class="login_f gg">
+                      <?php
+                      global $google_clientId;
+                      global $google_clientSecret;
+                      global $google_redirectURL;
+
+                      $client = new Google_Client();
+                      $client->setClientId($google_clientId);
+                      $client->setClientSecret($google_clientSecret);
+                      $client->setRedirectUri($google_redirectURL);
+                      $client->setApplicationName('Đăng nhập Ezpics');
+                      //$client->setApprovalPrompt('force');
+
+                      $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
+
+                      $authUrl = $client->createAuthUrl();
+                   
+                      echo '<a class="btn btn-danger" href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="bx bxl-google"></i> Đăng nhập với Google</a>';
+                      ?>
+                  </div>
+              </div> 
+            </div>
                                     </div>
 
                                     <div class="modal-left-bottom">
@@ -249,15 +278,17 @@ $infoUser = $session->read('infoUser');
                                         <span>Hoặc tiếp tục bằng</span>
                                     </div>
 
-                                    <form action="">
+                                    <form  action="/login" method="post">
+                                        <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" id="exampleCheck1" placeholder="Số điện thoại">
+                                            <input type="text" class="form-control" name="email" id="" placeholder="Số điện thoại">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" id="exampleCheck1" placeholder="Mật khẩu">
+                                            <input type="password" class="form-control" name="pass" id="" placeholder="Mật khẩu">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal3">quên mật khẩu </a>
                                     </form>
                                 </div>
                             </div>
@@ -311,17 +342,27 @@ $infoUser = $session->read('infoUser');
                                     <span>Đăng ký tài khoản</span>
                                 </div>
 
-                                <form action="">
+                                <form action="/register" method="post">
+                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" id="exampleCheck1" placeholder="Họ và tên">
+                                        <input type="text" class="form-control" name="full_name" id="exampleCheck1" placeholder="Họ và tên">
                                     </div>
 
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" id="exampleCheck1" placeholder="Số điện thoại">
+                                        <input type="text" class="form-control" name="phone" id="exampleCheck1" placeholder="Số điện thoại">
                                     </div>
 
                                     <div class="mb-3">
-                                        <input type="password" class="form-control" id="exampleCheck1" placeholder="Mật khẩu">
+                                        <input type="text" class="form-control" name="email" id="email" placeholder="email">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Tiếp tục</button>
                                 </form>
@@ -337,4 +378,35 @@ $infoUser = $session->read('infoUser');
                 </div>
             </div>
         </div>
+
+        <!-- quên mật khẩu -->
+        <!-- Quên mật khẩu -->
+        <div class="modal-login">
+ 
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Quên mật khẩu</span>
+                                </div>
+
+                                <form action="">
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="exampleCheck1" placeholder="Nhập email">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
     </header>

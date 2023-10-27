@@ -15,6 +15,7 @@ function product($input)
     $metaTitleMantan = 'Chi tiết sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
+    $modelQuestion = $controller->loadModel('Questions');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -42,6 +43,8 @@ function product($input)
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
 		    $order = array('id'=>'desc');
+
+            $product->question = $modelQuestion->find()->where(['id_product'=>$product->id])->all()->toList();
 		    
 		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
             
@@ -95,7 +98,7 @@ function allProduct($input)
     $modelProduct = $controller->loadModel('Products');
 
     $conditions = ['status'=>'active'];
-    $limit = 20;
+    $limit = 12;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     $order = array('id'=>'desc');
@@ -170,7 +173,7 @@ function search($input)
     $modelProduct = $controller->loadModel('Products');
 
     $conditions = ['status'=>'active'];
-    $limit = 20;
+    $limit = 12;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
     
@@ -261,5 +264,83 @@ function search($input)
     setVariable('list_product', $list_product);
     setVariable('category_all', $category_all);
     setVariable('manufacturer_all', $manufacturer_all);
+}
+
+function sela($input)
+{
+    global $controller;
+    global $isRequestPost;
+    global $modelOptions;
+    global $modelCategories;
+    global $urlCurrent;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+    global $metaImageMantan;
+
+    $metaTitleMantan = 'Tất cả sản phẩm';
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+    $conditions = ['status'=>'active', 'flash_sale'=>1];
+    $limit = 12;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
+    $order = array('id'=>'desc');
+
+    
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+    $DiscountCode = $modelDiscountCode->find()->limit(3)->where(array())->order($order)->all()->toList();
+
+    // phân trang
+    $totalData = $modelProduct->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
+
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
+
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
+
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
+
+    $conditions = array('type' => 'category_product');
+    $category_all = $modelCategories->find()->where($conditions)->all()->toList();
+
+    $conditions = array('type' => 'manufacturer_product');
+    $manufacturer_all = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('page', $page);
+    setVariable('totalPage', $totalPage);
+    setVariable('back', $back);
+    setVariable('next', $next);
+    setVariable('urlPage', $urlPage);
+    setVariable('totalData', $totalData);
+    
+    setVariable('list_product', $list_product);
+    setVariable('category_all', $category_all);
+    setVariable('manufacturer_all', $manufacturer_all);
+    setVariable('DiscountCode', $DiscountCode);
 }
 ?>

@@ -164,7 +164,10 @@ $slide_home= slide_home($setting['id_slide']);
                                  ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
                                 <div class="product-item-inner">
-                                    <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
+                                    <?php if($giam>0){ ?>
+                                        <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
+                                    <?php } ?>
+                                    
                                     <div class="product-img">
                                         <a href="<?php echo $link ?>"><img src="<?php echo $product->image ?>" alt=""></a>
                                     </div>

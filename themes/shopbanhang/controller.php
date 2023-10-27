@@ -58,6 +58,14 @@ function settingHomeTheme($input){
                         'menu_image4' => @$dataSend['menu_image4'],
                         'menu_title4' => @$dataSend['menu_title4'],
                         'menu_link4' => @$dataSend['menu_link4'],
+                       
+                        'sela_title1' => @$dataSend['sela_title1'],
+                        'baner_sele' => @$dataSend['baner_sele'],
+                        'sela_title2' => @$dataSend['sela_title2'],
+                        'sela_title3' => @$dataSend['sela_title3'],
+                        'background_sele' => @$dataSend['background_sele'],
+                        'baner_product' => @$dataSend['baner_product'],
+
                        'targetTime' => @$targetTime,
                     );
 

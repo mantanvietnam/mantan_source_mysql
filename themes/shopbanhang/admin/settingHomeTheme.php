@@ -156,6 +156,32 @@
                   <input type="text" class="form-control" name="menu_link4" value="<?php echo @$setting['menu_link4'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <label class="form-label" for="basic-default-fullname">Trang sela </label>
+                </div>
+                
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu để 1</label>
+                  <input type="text" class="form-control" name="sela_title1" value="<?php echo @$setting['sela_title1'];?>" />
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Tiêu đề 2 </label>
+                  <input type="text" class="form-control" name="sela_title2" value="<?php echo @$setting['sela_title2'];?>" />
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                   <label class="form-label" for="basic-default-fullname">Tiêu đề 3 </label>
+                  <input type="text" class="form-control" name="sela_title3" value="<?php echo @$setting['sela_title3'];?>" />
+                  </div>
+                  <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Baner sela</label>
+                   <?php showUploadFile('baner_sele','baner_sele', @$setting['baner_sele'],14);?></div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname" >background sele</label>
+                   <?php showUploadFile('background_sele','background_sele', @$setting['background_sele'],15);?>
+                </div>
+                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Baner tranh sản phẩn</label>
+                   <?php showUploadFile('baner_product','baner_product', @$setting['baner_product'],15);?></div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <button type="submit" class="btn btn-primary" style="width:75px; height: 35px;">Lưu</button>
               </div>
             </div>

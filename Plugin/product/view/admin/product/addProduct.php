@@ -31,7 +31,12 @@
                       </li>
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-rule" aria-controls="navs-top-info" aria-selected="false">
-                          Chính sách - Quy định
+                          Đặc điểm nổi bật
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-specifications" aria-controls="navs-top-info" aria-selected="false">
+                         Thông số kỹ thuật
                         </button>
                       </li>
                       <li class="nav-item">
@@ -146,6 +151,10 @@
                               <label class="form-label">Số lượng</label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
+                            <div class="mb-3">
+                              <label class="form-label">Id sản phẩn quà tặng </label>
+                              <input type="text" class="form-control" name="id_product" id="id_product" value="<?php echo @$data->id_product; ?>" />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -163,8 +172,18 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
-                              <label class="form-label">Chính sách - Quy định áp dụng với sản phẩm</label>
+                              <label class="form-label">Đặc điểm nổi bật</label>
                               <?php showEditorInput('rule', 'rule', @$data->rule);?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                       <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label">Thông số kỹ thuật</label>
+                              <?php showEditorInput('specification', 'specification', @$data->specification);?>
                             </div>
                           </div>
                         </div>

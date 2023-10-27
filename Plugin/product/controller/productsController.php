@@ -150,6 +150,8 @@ function addProduct($input)
             $data->id_manufacturer = (int) $dataSend['id_manufacturer'];
 	        $data->status = $dataSend['status'];
             $data->rule = $dataSend['rule'];
+            $data->specification = $dataSend['specification'];
+            $data->id_product = $dataSend['id_product'];
 	        
             
 	        // tạo slug
