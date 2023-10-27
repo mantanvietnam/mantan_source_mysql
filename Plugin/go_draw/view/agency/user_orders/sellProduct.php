@@ -31,18 +31,19 @@
 												<div class="info">
 													<h3><a href="javascript:void(0);" class="name-sale">'.$listProduct[$value->product_id]->name.'</a></h3>
 													<ul>
-														<li><a href="">Date of sale</a></li>
+														<li><a href="javascript:void(0);">Tồn kho: '.number_format($value->amount).'</a></li>
 													</ul>
 												</div>
 											</div>
 											<div class="btn-order">
 												<ul>
-													<li><div class="btn-order"><a href="" class="c-red">Not received</a></div></li>
-													<li><div class="btn-order"><a href="">Received</a></div></li>
+													<li><div class="btn-order"><a href="javascript:void(0); onclick="addToCartUser('.$value->product_id.');">Thêm giỏ hàng</a></div></li>
 												</ul>
 											</div>
 										</div>';
 							}
+
+							echo '<div class="btn-main text-center"><a href="/userOrder">XEM GIỎ HÀNG</a></div>';
 						}else{
 							echo '<p class="text-danger">Trong kho đã hết hàng</p>';
 						}
@@ -53,5 +54,18 @@
 		</div>
 	</section>
 </main>
+
+<script type="text/javascript">
+	function addToCartUser(product_id) {
+		$.ajax({
+		  	method: "POST",
+		  	url: "/addToCartUser",
+		  	data: { product_id: product_id }
+		})
+		.done(function( msg ) {
+		    
+		});
+	}
+</script>
 
 <?php include __DIR__.'/../footer.php';?>
