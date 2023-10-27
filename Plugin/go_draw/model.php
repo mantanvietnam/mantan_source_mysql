@@ -10,3 +10,4 @@ include('model/agency_order_details.php');
 include('model/agency_orders.php');
 include('model/user_orders.php');
 include('model/user_order_details.php');
+include('model/agency_products.php');
