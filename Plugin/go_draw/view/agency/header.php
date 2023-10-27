@@ -30,46 +30,13 @@
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>
-                        <li><a href="" class="active">Home</a></li>
-                        <li><a href="">Products</a></li>
-                        <li><a href="">Gallery</a></li>
-                        <li>
-                            <a href="">List of Distributors</a>
-                            <div class="submenu">
-                                <ul>
-                                    <li><a href="">Sales report</a></li>
-                                    <li><a href="">Order management</a></li>
-                                    <li><a href="">Inventory report</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href=""><img src="/plugins/go_draw/view/agency/images/new.svg" class="img-fluid" alt=""></a></li>
+                        <li><a href="/sellProduct">Bán hàng</a></li>
+                        <li><a href="/listCombo">Mua hàng</a></li>
+                        <li><a href="/changePass">Đổi mật khẩu</a></li>
+                        <li><a href="/logout">Đăng xuất</a></li>
                     </ul>
                 </div>
-                <div class="h-user text-uppercase">
-                    <ul>
-                        <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modal-register">Register</a></li>
-                        <li><a href="javascript:void(0)" class="login" data-toggle="modal" data-target="#modal-login">Login</a></li>
-                    </ul>
-                </div> 
-                <div class="h-translate">
-                    <div class="lang-main">
-                        <a href="javascript:void(0)">
-                            <span><img src="/plugins/go_draw/view/agency/images/lang1.svg" class="img-fluid" alt=""></span>
-                            <span class="icon">
-                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.84814 10.0701L0.257812 0.77002H13.4482L6.84814 10.0701Z" fill="white"/>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="sub-lang">
-                        <ul>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/lang1.svg" class="img-fluid" alt=""></a></li></li>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/lang1.svg" class="img-fluid" alt=""></a></li></li>
-                        </ul>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
