@@ -2,7 +2,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php">Đơn hàng</a> /</span>
-        Thông tin danh mục
+        Thông tin đơn hàng
     </h4>
 
     <!-- Basic Layout -->
@@ -51,8 +51,8 @@
                                         <div class="col-md-6 mb-3">
                                           <label class="form-label">Trạng thái</label>
                                           <select name="status" class="form-select color-dropdown">
-                                            <option value="0" <?php if(@$data->status == 0) echo 'selected';?> >Chờ xử lý</option>
-                                            <option value="1" <?php if(@$data->status == 1) echo 'selected';?> >Đã xử lý</option>
+                                            <option value="0" <?php if(@$data->status == 0) echo 'selected';?> >Đơn hàng mới</option>
+                                            <option value="1" <?php if(@$data->status == 1) echo 'selected';?> >Đã duyệt</option>
                                             <option value="2" <?php if(@$data->status == 2) echo 'selected';?> >Đã thanh toán</option>
                                           </select>
                                         </div>

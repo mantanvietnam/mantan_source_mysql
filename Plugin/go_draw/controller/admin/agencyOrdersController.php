@@ -120,6 +120,8 @@ function addAgencyOrderAdmin($input)
             $order->agency_id = $dataSend['agency_id'];
             $order->total_price = $dataSend['total_price'];
             $order->status = (int)$dataSend['status'];
+            $orderModel->save($order);
+
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         } else {
             $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';

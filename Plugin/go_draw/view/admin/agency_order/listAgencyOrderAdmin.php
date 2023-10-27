@@ -37,8 +37,8 @@
                         <label class="form-label">Trạng thái</label>
                         <select name="status" class="form-select color-dropdown">
                             <option value="">Tất cả</option>
-                            <option value="0" <?php if(isset($_GET['status']) && $_GET['status'] == 0) echo 'selected';?> >Chờ xử lý</option>
-                            <option value="1" <?php if(isset($_GET['status']) && $_GET['status'] == 1) echo 'selected';?> >Đã xử lý</option>
+                            <option value="0" <?php if(isset($_GET['status']) && $_GET['status'] == 0) echo 'selected';?> >Đơn hàng mới</option>
+                            <option value="1" <?php if(isset($_GET['status']) && $_GET['status'] == 1) echo 'selected';?> >Đã duyệt</option>
                             <option value="2" <?php if(isset($_GET['status']) && $_GET['status'] == 2) echo 'selected';?> >Đã thanh toán</option>
                         </select>
                     </div>
@@ -67,19 +67,32 @@
                                 <th class="col-md-3">Đại lý</th>
                                 <th class="col-md-2"> Tổng giá</th>
                                 <th class="col-md-2"> Ngày tạo</th>
-                                <th class="text-center col-md-2">Sửa</th>
-                                <th class="text-center col-md-2">Xóa</th>
+                                <th class="col-md-2"> Trạng thái</th>
+                                <th class="text-center col-md-1">Sửa</th>
+                                <th class="text-center col-md-1">Xóa</th>
                             </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                             <?php
                             if(!empty($listData)){
                                 foreach ($listData as $item) {
+                                  switch ($item->status) {
+                                      case 1:
+                                          $status = 'Đã duyệt';
+                                          break;
+                                      case 2:
+                                          $status = 'Đã thanh toán';
+                                          break;
+                                      default:
+                                          $status = 'Đơn hàng mới';
+                                          break;
+                                  }
                                     echo '<tr>
                                     <td align="center">'.$item->id.'</td>
                                     <td>'.$item->Agencies["name"].'</td>
                                     <td align="center">'.$item->total_price.'đ</td>
-                                    <td>'.date_format($item->created_at, "H:i:s d/m/Y").'</td>
+                                    <td align="center">'.date_format($item->created_at, "H:i:s d/m/Y").'</td>
+                                    <td align="center">'.$status.'</td>
                                     <td align="center">
                                       <a class="btn btn-primary" 
                                         href="/plugins/admin/go_draw-view-admin-agency_order-addAgencyOrderAdmin.php/?id='.$item->id .'"
@@ -98,7 +111,7 @@
                                 }
                             }else{
                                 echo '<tr>
-                                  <td colspan="6" align="center">Chưa có dữ liệu</td>
+                                  <td colspan="7" align="center">Chưa có dữ liệu</td>
                                 </tr>';
                             }
                             ?>
