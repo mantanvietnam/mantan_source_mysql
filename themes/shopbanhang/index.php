@@ -63,7 +63,7 @@ global $urlThemeActive;
                                         $ban = 100 - 100*$item->sold/$item->quantity;
                                     }
                                 ?>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-6 best-sale-item">
                                 <div class="best-sale-item-inner">
                                     <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
                                     <div class="best-sale-img">
@@ -113,7 +113,7 @@ global $urlThemeActive;
         </section>
 
         <!-- Xu hướng tìm kiếm -->
-        <section id="section-top-search">
+        <!-- <section id="section-top-search">
             <div class="container">
                 <div class="title-section">
                     <h2>Xu hướng tìm kiếm</h2>
@@ -138,7 +138,7 @@ global $urlThemeActive;
             </div>
  
 
-        </section>
+        </section> -->
 
         <!-- Bán chạy nhất -->
         <div id="section-best-sale">
@@ -157,7 +157,7 @@ global $urlThemeActive;
                                         $ban = 100 - 100*$item->sold/$item->quantity;
                                     }
                                 ?>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 best-sale-item">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-6 best-sale-item">
                                 <div class="best-sale-item-inner">
                                     <div class="best-sale-img">
                                         <a href="product/<?php echo $item->slug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
