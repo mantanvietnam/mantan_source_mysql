@@ -269,7 +269,7 @@ $slide_home= slide_home($setting['id_slide']);
                         <!-- Button cuối -->
                         <div class="product-detail-group-button">
                             <div class="product-detail-button-cart">
-                                <a href=""><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
+                                <a onclick="addProductCart(<?php echo $product->id;?>)"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
                             </div>
 
                             <div class="product-detail-button-buy">
@@ -1127,6 +1127,35 @@ $slide_home= slide_home($setting['id_slide']);
             })
                
         };
-</script
+</script>
+<script type="text/javascript">
+    function plusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity++;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function minusQuantity()
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+        quantity--;
+        if(quantity<1) quantity=1;
+        $('#quantity_buy').val(quantity);
+    }
+
+    function addProductCart(idProduct)
+    {
+        let quantity = parseInt($('#quantity_buy').val());
+
+        $.ajax({
+            method: "GET",
+            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity
+        })
+        .done(function( msg ) {
+            window.location = '/cart';
+        });
+    }
+</script>
 <?php
 getFooter();?>

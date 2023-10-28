@@ -71,7 +71,10 @@ function product($input)
                     $point = $item->point;
                 }
             }
-            $product->point = $point/$product->evaluatecount;
+            if(!empty($product->evaluatecount)){
+                $product->point = $point/$product->evaluatecount;
+            }
+            
             $product->question0 = $modelQuestion->find()->where(['id_product'=>0])->all()->toList();
 		     $present = array();
 

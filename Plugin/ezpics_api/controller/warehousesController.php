@@ -335,7 +335,7 @@ function buyWarehousesAPI($input)
 			                        sendNotification($dataSendNotification, $infoUserSell->token_device);
 			                    }
 
-			                    // gửi thông báo về app cho người bán
+			                   // gửi thông báo công ecoin
 			                    $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được cộng Ecoin khi  mua Bộ Sưu Tập '.$Warehouse->name.'của bạn với số ecoin là '.round((10 / 100) *($Warehouse->sale_price/1000)).'ecoin','action'=>'addMoneySuccess');
 
 			                    if(!empty($infoUser->token_device)){
