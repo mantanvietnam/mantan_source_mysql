@@ -43,15 +43,18 @@ function addToCartUser($input)
 	    $metaTitleMantan = 'Bán hàng';
 
 	    $modelProducts = $controller->loadModel('Products');
+	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
 
 	    	if(!empty($dataSend['product_id'])){
+	    		$infoProductAgency = $modelAgencyProducts->find()->where(['product_id'=>(int) $dataSend['product_id'], 'agency_id'=>$session->read('infoUser')->id])->first();
 	    		$infoProduct = $modelProducts->find()->where(['id'=>(int) $dataSend['product_id']])->first();
 
-	    		if(!empty($infoProduct)){
+	    		if(!empty($infoProduct) && !empty($infoProductAgency)){
 	    			$cartUser = $session->read('cartUser');
+	    			$infoProduct->price = $infoProductAgency->price;
 
 	    			if(empty($cartUser)) $cartUser = [];
 
@@ -102,5 +105,55 @@ function userCart($input)
 
 function createOrderUser($input)
 {
-	
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+		$metaTitleMantan = 'Giỏ hàng';
+
+	    $infoCart = $session->read('cartUser');
+
+	    if(!empty($infoCart)){
+	    	$modelUserOrders = $controller->loadModel('UserOrders');
+	    	$modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
+
+	    	$total_price = 0;
+	    	foreach ($infoCart as $key => $value) {
+	    		$total_price += $value->price * $value->amount_sell;
+	    	}
+
+	    	$order = $modelUserOrders->newEmptyEntity();
+
+	    	$order->user_id = 0;
+	    	$order->agency_id = $session->read('infoUser')->id;
+	    	$order->total_price  = $total_price;
+	    	$order->status = 0; // 0: đơn hàng mới, 2: đã thanh toán, 3: hủy bỏ
+	    	$order->created_at  = date('Y-m-d H:i:s');
+	    	$order->updated_at  = date('Y-m-d H:i:s');
+	    	
+	    	$modelUserOrders->save($order);
+
+	    	foreach ($infoCart as $key => $value) {
+	    		$orderDetail = $modelUserOrderDetails->newEmptyEntity();
+
+	    		$orderDetail->order_id = $order->id;
+	    		$orderDetail->product_id = $value->id;
+	    		$orderDetail->amount = $value->amount_sell;
+	    		$orderDetail->unit_price = $value->price;
+	    		$orderDetail->created_at = date('Y-m-d H:i:s');
+	    		$orderDetail->updated_at = date('Y-m-d H:i:s');
+
+	    		$modelUserOrderDetails->save($orderDetail);
+	    	}
+	    }
+
+	    $session->write('cartUser', []);
+
+	    return $controller->redirect('/userCart/?status=create_order_done');
+	}else{
+		return $controller->redirect('/login');
+	}
 }

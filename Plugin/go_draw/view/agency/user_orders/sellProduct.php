@@ -40,7 +40,7 @@
 													<li>
 														<div class="btn-order">
 															<a href="javascript:void(0);" onclick="addToCartUser('.$value->product_id.');">Thêm giỏ hàng</a>
-															<p class="text-danger" id="mess-'.$value->product_id.'"></p>
+															<p class="text-danger text-center mt-2" id="mess-'.$value->product_id.'">'.number_format($value->price).'đ</p>
 														</div>
 													</li>
 												</ul>
