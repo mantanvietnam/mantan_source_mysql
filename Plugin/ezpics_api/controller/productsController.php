@@ -801,7 +801,7 @@ function buyProductAPI($input)
 							if($infoUser->account_balance>=$product->sale_price){
 							
 								// trừ tiền tài khoản mua
-								$infoUser->ecoin += (10 / 100) *($product->sale_price/1000);
+								$infoUser->ecoin += round((10 / 100) *($product->sale_price/1000));
 								$infoUser->account_balance -= $product->sale_price;
 								$modelMember->save($infoUser);
 
@@ -865,8 +865,15 @@ function buyProductAPI($input)
 			                    // gửi thông báo về app cho người bán
 			                    $dataSendNotification= array('title'=>'Bán mẫu thiết kế trên Ezpics','time'=>date('H:i d/m/Y'),'content'=>'Có khách hàng mua mẫu thiết kế '.$product->name.'của bạn với số tiền là '.number_format($product->sale_price).'đ','action'=>'addMoneySuccess');
 
-			                    if(!empty($data->token_device)){
-			                        sendNotification($dataSendNotification, $data->token_device);
+			                    if(!empty($infoUserSell->token_device)){
+			                        sendNotification($dataSendNotification, $infoUserSell->token_device);
+			                    }
+
+			                    // gửi thông báo công ecoin
+			                    $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được cộng Ecoin khi  mua mẫu thiết kế '.$product->name.'của bạn với số ecoin là '.round((10 / 100) *($product->sale_price/1000)).'ecoin','action'=>'addMoneySuccess');
+
+			                    if(!empty($infoUser->token_device)){
+			                        sendNotification($dataSendNotificationEcoin, $infoUser->token_device);
 			                    }
 
 			                    // tạo mẫu thiết kế mới

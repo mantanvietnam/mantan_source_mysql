@@ -259,7 +259,7 @@ function buyWarehousesAPI($input)
 							if($infoUser->account_balance>=$Warehouse->price){
 
 								// trừ tiền tài khoản người mua
-								$infoUser->ecoin += (10 / 100) *($Warehouse->price/1000);
+								$infoUser->ecoin +=  round((10 / 100) *($Warehouse->price/1000));
 								$infoUser->account_balance -= $Warehouse->price;
 								$modelMember->save($infoUser);
 
@@ -334,6 +334,14 @@ function buyWarehousesAPI($input)
 			                    if(!empty($infoUserSell->token_device)){
 			                        sendNotification($dataSendNotification, $infoUserSell->token_device);
 			                    }
+
+			                    // gửi thông báo về app cho người bán
+			                    $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được cộng Ecoin khi  mua Bộ Sưu Tập '.$Warehouse->name.'của bạn với số ecoin là '.round((10 / 100) *($Warehouse->sale_price/1000)).'ecoin','action'=>'addMoneySuccess');
+
+			                    if(!empty($infoUser->token_device)){
+			                        sendNotification($dataSendNotificationEcoin, $infoUser->token_device);
+			                    }
+
 							}else{
 								$return = array('code'=>4,
 												'mess'=>'Tài khoản không đủ tiền'
