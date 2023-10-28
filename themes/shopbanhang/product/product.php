@@ -6,9 +6,8 @@ $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
 
-	
 ?>
-
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
         
 <main>
         <section id="section-breadcrumb">
@@ -77,29 +76,15 @@ $slide_home= slide_home($setting['id_slide']);
 
                         <div class="product-detail-info-rate">
                             <div class="detail-info-rate-left">
-                                <div class="stars">
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                        <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-    
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                        <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-    
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                        <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-    
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                        <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-    
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                        <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-                                    <?php $point = 100 - ($product->point/5) / 1 * 100 ?>
-                                    <div class="overlay" style="width: <?php echo $point ?>%"></div>
-                                </div>   
+                                <?php $point = 100 - ($product->point/5) / 1 * 100 ?>
+                                <div class="stars" style="color: gold;">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <div class="overlay" style="width: <?php echo $point ?>%"></div>
+
+                                    </div>   
 
                                 <div class="rate-left-text">
                                     <span><?php echo $product->point ?> (<?php echo $product->evaluatecount ?> đánh giá) | <?php echo $product->sold ?> đã bán</span>
@@ -108,7 +93,7 @@ $slide_home= slide_home($setting['id_slide']);
                               
                             <div class="detail-info-rate-right">
                                 <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
-                                <span>4000 + loves</span>
+                                <span><?php echo $product->number_like ?> + loves</span>
                             </div>
                             
                         </div>
@@ -149,17 +134,14 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-code-discount-list">
+                                <?php if(!empty($product->discountCode)){
+                                   foreach($product->discountCode as $key => $item){
+                                 ?>
                                 <div class="product-code-discount-item">
-                                    Giảm 200K
+                                    <?php echo $item->code; ?>
                                 </div>
-    
-                                <div class="product-code-discount-item">
-                                    Giảm 100K
-                                </div>
-    
-                                <div class="product-code-discount-item">
-                                    Giảm 50K
-                                </div>
+                                <?php }} ?>
+                               
                             </div>
 
                             
@@ -299,7 +281,7 @@ $slide_home= slide_home($setting['id_slide']);
                                      global $session;
                                  $infoUser = $session->read('infoUser');
                                     if(!empty($infoUser)){
-                                if(empty(getLike($infoUser['id'],$data->id,'khach_san'))){?>
+                                if(empty(getLike($infoUser['id'],$product->id,'product'))){?>
                             <div class="button-like">
                                 <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
                             </div>
@@ -316,7 +298,6 @@ $slide_home= slide_home($setting['id_slide']);
                                         <a  class="like" href="/" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></a>
                                         </div>
                                 <?php   } ?>
-                                <button onclick="changeColor()"></button>
                             </div>
                         </div>
                     </div>
@@ -554,7 +535,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-6">
+                        <div class="product-detail-rate-list col-6" id="evaluate">
                            <?php if(!empty($product->evaluate)){
                                 foreach($product->evaluate as $key => $item){ 
                                      $item->image = json_decode($item->image, true);
@@ -576,27 +557,15 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
             
                                     <div class="product-detail-rate-star">
-                                        <div class="stars">
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-            
-                                            <svg class="checked" width="100" height="100" viewBox="0 0 940.688 940.688">
-                                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                            </svg>
-                                        </div> 
+                                        <?php $itempoint =100- ($item->point/5) / 1 * 100 ?>
+                                        <div class="stars" style="color: gold; width: 95px;">
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <div class="overlay" style="width: <?php echo $itempoint ?>%"></div>
+                                        </div>  
                                     </div>  
             
                                     <div class="product-detail-rate-comment">
@@ -612,11 +581,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <?php }}} ?>
                                     </div> 
 
-                                    <!-- <div class="product-detail-rate-like" >
-                                        <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --<path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
-                                        <span>Hữu ích</span>
-                                    </div>  -->
-
+                                    
                                 </div>
                             </div>
                         <?php }} ?>
@@ -630,68 +595,52 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="product-detail-rate-right-point">
                                 <div class="product-detail-rate-right-number">
-                                    4.7
+                                   <?php echo $product->point ?>
                                 </div>
 
                                 <div class="product-detail-rate-right-star">
-                                    <div class="stars">
-                                        <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                            <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                        </svg>
-        
-                                        <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                            <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                        </svg>
-        
-                                        <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                            <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                        </svg>
-        
-                                        <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                            <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                        </svg>
-        
-                                        <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                            <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                        </svg>
-
-                                        <div class="overlay" style="width: 35%"></div>
+                                    <div class="stars" style="color: gold;">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <div class="overlay" style="width: <?php echo $point ?>%"></div>
 
                                     </div> 
 
                                     <div class="product-detail-rate-count">
-                                        6 Đánh giá
+                                       <?php echo $product->evaluatecount ?> Đánh giá
                                     </div>
                                 </div>
                             </div>
 
                             <div class="list-filter-rate-list">
                                 <div class="list-filter-rate-item">
-                                    <a href="">Tất cả</a>
+                                    <a onclick="searchEvaluate()">Tất cả</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a href="">5 sao</a>
+                                    <a onclick=" searchEvaluate(5)">5 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a href="">4 sao</a>
+                                    <a onclick=" searchEvaluate(4)">4 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a href="">3 sao</a>
+                                    <a onclick=" searchEvaluate(3)">3 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a href="">2 sao</a>
+                                    <a onclick=" searchEvaluate(2)">2 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a href="">1 sao</a>
+                                    <a onclick=" searchEvaluate(1)">1 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a href="">Có hình ảnh/video</a>
+                                    <a onclick=" searchEvaluate()">Có hình ảnh/video</a>
                                 </div>
                             </div>
 
@@ -734,6 +683,101 @@ $slide_home= slide_home($setting['id_slide']);
                         <div class="product-detail-rate-list col-8">
                             <div class="product-detail-rate-inner">
                                 <!-- comment chính -->
+                                <?php  $comment= getComment($product->id,'product'); 
+        if(!empty($comment)){ 
+                    foreach($comment as $key => $value){
+                   //     debug($value);
+                    $custom =  getCustomer($value->idcustomer);
+                
+                     if(!empty($custom)){
+                ?>
+                                <div class="comment-main">
+                                    <div class="product-detail-rate-item">
+                                        <div class="product-detail-rate-avata">
+                                            <img src="<?php echo $custom->avatar ?>" alt="">
+                                        </div>
+                    
+                                        <div class="product-detail-rate-right">
+                                            <div class="product-detail-rate-heading">
+                                                <div class="product-detail-rate-name">
+                                                    <?php echo $custom->full_name ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="product-detail-rate-comment">
+                                                <?php echo $value->comment ?>
+                                            </div>  
+
+                                            <div class="product-detail-rate-like" >
+                                                <div class="people-comment">
+                                                    <span>Trả lời</span>
+                                                </div>
+
+                                                <div class="people-like">
+                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
+                                                    <span>Thích</span>
+                                                </div>
+
+                                                <div class="people-time">
+                                                    <?php echo date("d/m/Y H:i:s",$value->created); ?>
+                                                </div>
+                                            </div> 
+
+                                        </div>
+                                    </div>
+                                </div>
+                <?php if(!empty($value->reply)){ ?>
+                                <!-- Comment phụ -->
+                                <div class="comment-extra">
+                                    <div class="product-detail-rate-item">
+                                        <div class="product-detail-rate-avata">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/logo.png" alt="">
+                                        </div>
+                    
+                                        <div class="product-detail-rate-right">
+                                            <div class="product-detail-rate-heading">
+                                                <div class="product-detail-rate-name">
+                                                    Bumas
+                                                </div>
+                                            </div>
+
+                                            <div class="product-detail-rate-comment">
+                                                <?php echo @$value->reply ?>
+                                            </div>  
+
+                                            <div class="product-detail-rate-like" >
+                                                <div class="people-comment">
+                                                    <span>Trả lời</span>
+                                                </div>
+
+                                                <div class="people-like">
+                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
+                                                    <span>Thích</span>
+                                                </div>
+                                                
+                                                <div class="people-time">
+                                                   <?php echo date("d/m/Y H:i:s",$value->updated_at); ?>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div> 
+<?php }}}}  ?>
+                                <!-- Khung bình luận -->
+                                <!-- <div class="box-comment">
+                                    <form action="">
+                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Họ và tên" required>
+                                            <input type="text" class="form-control" placeholder="Số điện thoại" required>
+                                            <button type="submit">Gửi</button>
+                                        </div>
+                                    </form>
+                                </div> -->
+                            </div>
+
+                           <!--  <div class="product-detail-rate-inner">
+                              
                                 <div class="comment-main">
                                     <div class="product-detail-rate-item">
                                         <div class="product-detail-rate-avata">
@@ -757,7 +801,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                 </div>
 
                                                 <div class="people-like">
-                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
+                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
                                                     <span>Thích</span>
                                                 </div>
 
@@ -770,7 +814,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
                                 </div>
 
-                                <!-- Comment phụ -->
+                                
                                 <div class="comment-extra">
                                     <div class="product-detail-rate-item">
                                         <div class="product-detail-rate-avata">
@@ -794,7 +838,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                 </div>
 
                                                 <div class="people-like">
-                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
+                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!-! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
                                                     <span>Thích</span>
                                                 </div>
                                                 
@@ -806,7 +850,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
                                 </div>
 
-                                <!-- Khung bình luận -->
+                                <!- Khung bình luận ->
                                 <div class="box-comment">
                                     <form action="">
                                         <textarea name="" id="" cols="30" rows="10"></textarea>
@@ -817,96 +861,11 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-
-                            <div class="product-detail-rate-inner">
-                                <!-- comment chính -->
-                                <div class="comment-main">
-                                    <div class="product-detail-rate-item">
-                                        <div class="product-detail-rate-avata">
-                                            <img src="<?php echo $urlThemeActive;?>asset/image/cute-1-300x300.png" alt="">
-                                        </div>
-                    
-                                        <div class="product-detail-rate-right">
-                                            <div class="product-detail-rate-heading">
-                                                <div class="product-detail-rate-name">
-                                                    Nguyễn Thùy Trang
-                                                </div>
-                                            </div>
-
-                                            <div class="product-detail-rate-comment">
-                                                Sản phẩm dùng ok, dáng đẹp nhé
-                                            </div>  
-
-                                            <div class="product-detail-rate-like" >
-                                                <div class="people-comment">
-                                                    <span>Trả lời</span>
-                                                </div>
-
-                                                <div class="people-like">
-                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
-                                                    <span>Thích</span>
-                                                </div>
-
-                                                <div class="people-time">
-                                                    10 phút trước
-                                                </div>
-                                            </div> 
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Comment phụ -->
-                                <div class="comment-extra">
-                                    <div class="product-detail-rate-item">
-                                        <div class="product-detail-rate-avata">
-                                            <img src="<?php echo $urlThemeActive;?>asset/image/cute-1-300x300.png" alt="">
-                                        </div>
-                    
-                                        <div class="product-detail-rate-right">
-                                            <div class="product-detail-rate-heading">
-                                                <div class="product-detail-rate-name">
-                                                    Nguyễn Thùy Trang
-                                                </div>
-                                            </div>
-
-                                            <div class="product-detail-rate-comment">
-                                                Sản phẩm dùng ok, dáng đẹp nhé
-                                            </div>  
-
-                                            <div class="product-detail-rate-like" >
-                                                <div class="people-comment">
-                                                    <span>Trả lời</span>
-                                                </div>
-
-                                                <div class="people-like">
-                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
-                                                    <span>Thích</span>
-                                                </div>
-                                                
-                                                <div class="people-time">
-                                                    10 phút trước
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Khung bình luận -->
-                                <div class="box-comment">
-                                    <form action="">
-                                        <textarea name="" id="" cols="30" rows="10"></textarea>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Họ và tên" required>
-                                            <input type="text" class="form-control" placeholder="Số điện thoại" required>
-                                            <button type="submit">Gửi</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
-
+                           <?php  
+                                    if(!empty($infoUser)){
+                                        ?>
                         <div class="product-detail-comment-right col-4">
                             <div class="product-detail-comment-right-title">
                                 <p>Gửi thảo luận</p>
@@ -919,17 +878,11 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="product-detail-rate-comment">
                                 <form action="">
                                     <div class="product-detail-rate-comment-avata">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/cute-1-300x300.png" alt="">
-                                        <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+                                        <img src="<?php echo $infoUser['avatar'] ?>" alt="">
+                                        <input type="text" class="form-control"name="comment" id="comment"  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
                                     </div>
 
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="" placeholder="Họ và tên">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="" placeholder="Số điện thoại">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Gửi</button>
+                                    <button type="submit" class="btn btn-primary"  onclick="addComment()">Gửi</button>
 
 
 
@@ -939,7 +892,8 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
                             
 
-                        </div>
+                        </div> 
+                    <?php } ?>
                     </div>
                 </div>
             </div>
@@ -1020,12 +974,12 @@ $slide_home= slide_home($setting['id_slide']);
        $.ajax({
             method: 'POST',
             url: '/apis/addlike',
-            data: { idobject: '<?php echo @$data->id; ?>',
+            data: { idobject: '<?php echo @$product->id; ?>',
                 type: 'product',
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
-              console.log('res');
+              console.log(res);
                 $('#like_save').load(location.href + ' #like_save>*');
                 $('#place-detail .button-like button').css('background-color', '#188181');
                 $('#place-detail .button-like button').css('color', '#fff')
@@ -1039,7 +993,7 @@ $slide_home= slide_home($setting['id_slide']);
           $.ajax({
                 method: 'POST',
                 url: '/apis/delelelike',
-                data: { idobject: '<?php echo @$data->id; ?>',
+                data: { idobject: '<?php echo @$product->id; ?>',
                     type: 'product',
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
@@ -1060,7 +1014,7 @@ $slide_home= slide_home($setting['id_slide']);
     $.ajax({
                 method: 'POST',
                 url: '/apis/addComment',
-                data: { idobject: '<?php echo @$data->id; ?>',
+                data: { idobject: '<?php echo @$product->id; ?>',
                     type: 'product',
                     comment: comment,
                     idcustomer: <?php echo @$infoUser['id'] ?>,
@@ -1086,6 +1040,93 @@ $slide_home= slide_home($setting['id_slide']);
             })
                
         }; 
+
+    function deteleComment($id){
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/deleleComment',
+                data: { id: $id },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+        };
+
+    function searchEvaluate($point){
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/searchEvaluateAPI',
+                data: { id_product: <?php echo $product->id ?>, point: $point },
+                success:function(res){
+                    console.log(res);
+                    if(res.code==1){
+                         var html = '';
+                        for (i = 0; i < res.data.length; i++) {
+                            var image = '';
+                           var point = 100 - (res.data[i].point/5) / 1 * 100;
+                           var originalDate = new Date(res.data[i].created_at);
+
+                            // Lấy thông tin về ngày, tháng, năm và giờ, phút
+                            var day = originalDate.getDate();
+                            var month = originalDate.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần cộng thêm 1
+                            var year = originalDate.getFullYear();
+                            var hour = originalDate.getHours();
+                            var minute = originalDate.getMinutes();
+
+                            // Tạo chuỗi mới với định dạng mong muốn
+                            var date = `${hour}:${minute} ${day}/${month}/${year}`;
+
+                            image = JSON.parse(res.data[i].image); 
+                            html +=' <div class="product-detail-rate-item">'
+                            html +='    <div class="product-detail-rate-avata">'
+                            html +='        <img src="'+res.data[i].avatar+'" alt="">'
+                            html +='    </div>'
+            
+                            html +='    <div class="product-detail-rate-right">'
+                            html +='        <div class="product-detail-rate-heading">'
+                            html +='            <div class="product-detail-rate-name">'+res.data[i].full_name+'</div>'
+            
+                            html +='            <div class="product-detail-rate-date">'+date+'</div>'
+                            html +='        </div>'
+            
+                            html +='        <div class="product-detail-rate-star"><div class="stars" style="color: gold; width: 95px;">'
+                            html +='                <i class="bx bxs-star"></i>'
+                            html +='                 <i class="bx bxs-star"></i>'
+                            html +='                <i class="bx bxs-star"></i>'
+                            html +='                <i class="bx bxs-star"></i>'
+                            html +='                <i class="bx bxs-star"></i>'
+                            html +='                <div class="overlay" style="width: '+point+'%"></div>'
+                            html +='            </div>  '
+                            html +='        </div>  '
+            
+                            html +='        <div class="product-details-rate-comment">'+res.data[i].content+'</div>'  
+            
+                            html +='        <div class="product-detail-rate-image">'
+                             for(var key in image) {
+                                if (image.hasOwnProperty(key)) {
+                                    if (image[key] != '') {
+                                console.log(image[key]);
+                           html +='            <img src="'+image[key]+'" alt="">'
+                        }}}
+                            html +='        </div> '
+
+                                    
+                            html +='    </div>'
+                            html +='</div>'
+
+                        }
+                        document.getElementById("evaluate").innerHTML = html;
+                    }else{
+                         document.getElementById("evaluate").innerHTML = '';
+                    }
+                }
+            })
+               
+        };
 </script
 <?php
 getFooter();?>

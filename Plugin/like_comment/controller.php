@@ -1,4 +1,4 @@
-<?php
+    <?php
 	/*Link*/
 function addlike ($input){
 
@@ -10,18 +10,10 @@ function addlike ($input){
     global $session;
     $infoUser = $session->read('infoUser');
     $modelLike = $controller->loadModel('Likes');
+    $modelProduct = $controller->loadModel('Products');
     $data = $modelLike->newEmptyEntity();
 
-    $modelGovernanceAgency = $controller->loadModel('Governanceagencys');
-    $modelFestival = $controller->loadModel('Festivals');
-    $modelRestaurant = $controller->loadModel('Restaurants');
-    $modelTour = $controller->loadModel('Tours');
-    $modelHotel = $controller->loadModel('Hotels');
-    $modelHistoricalsite = $controller->loadModel('Historicalsites');
-    $modelPlace = $controller->loadModel('Places');
-    $modelService = $controller->loadModel('Services');
-    $modelEventcenter = $controller->loadModel('Eventcenters');
-    $modelCraftvillage = $controller->loadModel('Craftvillages');
+   
        
 
     if(!empty($_POST)){
@@ -30,55 +22,13 @@ function addlike ($input){
         $data->type=$_POST['type'];
         $data->idcustomer=$_POST['idcustomer'];
         $conditions = array('id'=>$data->idobject);
-        if($data->type=="co_quan_hanh_chinh"){
-            $bject = $modelGovernanceAgency->find()->where($conditions)->first();
+        if($data->type=="product"){
+            $bject = $modelProduct->find()->where($conditions)->first();
             if(!empty($bject)){
                 $bject->number_like += 1;
-                $modelGovernanceAgency->save($bject);
+                $modelProduct->save($bject);
             }
             
-        }elseif($data->type=="dich_vu_ho_tro_du_lich"){
-            $bject = $modelService->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelServices->save($bject);
-            }
-        }elseif($data->type=="danh_lam"){
-            $bject = $modelPlace->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelPlace->save($bject);
-            }
-        }elseif($data->type=="le_hoi"){
-            $bject = $modelFestival->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelFestival->save($bject);
-            }
-        }elseif($data->type=="nha_hang"){
-            $bject = $modelRestaurant->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelRestaurant->save($bject);
-            } 
-        }elseif($data->type=="tung_tam_hoi_nghi_su_kien"){
-            $bject = $modelEventcenter->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelEventcenter->save($bject);
-            } 
-        }elseif($data->type=="di_tich_lich_su"){
-            $bject = $modelHistoricalsite->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelHistoricalsite->save($bject);
-            }
-        }elseif($data->type=="khach_san"){
-            $bject = $modelHotel->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelHotel->save($bject);
-            } 
         }
 
         $modelLike->save($data);
@@ -126,48 +76,6 @@ function delelelike ($input){
                 $modelGovernanceAgency->save($bject);
             }
             
-        }elseif($data->type=="dich_vu_ho_tro_du_lich"){
-            $bject = $modelService->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelServices->save($bject);
-            }
-        }elseif($data->type=="danh_lam"){
-            $bject = $modelPlace->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelPlace->save($bject);
-            }
-        }elseif($data->type=="le_hoi"){
-            $bject = $modelFestival->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelFestival->save($bject);
-            }
-        }elseif($data->type=="nha_hang"){
-            $bject = $modelRestaurant->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelRestaurant->save($bject);
-            } 
-        }elseif($data->type=="tung_tam_hoi_nghi_su_kien"){
-            $bject = $modelEventcenter->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelEventcenter->save($bject);
-            } 
-        }elseif($data->type=="di_tich_lich_su"){
-            $bject = $modelHistoricalsite->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelHistoricalsite->save($bject);
-            }
-        }elseif($data->type=="khach_san"){
-            $bject = $modelHotel->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like -= 1;
-                $modelHotel->save($bject);
-            } 
         }
 
         if(!empty($data)){
@@ -242,8 +150,9 @@ function listCommentAdmin(){
     $metaTitleMantan = 'Danh sách Danh sách bình luận';
 
     $modelComment = $controller->loadModel('Comments');
+    $modelProduct = $controller->loadModel('Products');
     
-    $conditions = array();
+    $conditions = array('type'=>'product');
      if(!empty($_GET['name'])){
         $key=createSlugMantan($_GET['name']);
 
@@ -266,7 +175,10 @@ function listCommentAdmin(){
         foreach ($listData as $key => $value) {
             $conditions_scan = array('id'=>$value->id);
             $static = $modelComment->find()->where($conditions_scan)->all()->toList();
+
             $listData[$key]->number_scan = count($static);
+            $listData[$key]->product = $modelProduct->find()->where(['id'=>$value->idobject])->first();
+
         }
     }
 
@@ -470,8 +382,6 @@ function listlikegetcustom($input){
 }
 
 function Listcommentgetobject($input){
-
-
     global $controller;
 
     $modelComment = $controller->loadModel('Comments');
@@ -510,12 +420,9 @@ function Listcommentgetobject($input){
             );
    }
    return $return;
-
-
-
 }
 
-  function getLikeobjectAPI($input){
+function getLikeobjectAPI($input){
         global $modelOption;
         global $controller;
         $modelLike = $controller->loadModel('Likes');
@@ -534,6 +441,28 @@ function Listcommentgetobject($input){
         }
         
         return $return;
+}
+
+function replyCommentAdmin($input){
+     global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Danh sách Danh sách bình luận';
+
+    $modelComment = $controller->loadModel('Comments');
+
+    if(!empty($_GET['id'])){
+        $data = $modelComment->get($_GET['id']);
+        $data->reply = $_GET['reply'];
+        $data->updated_at = time();
+        $modelComment->save($data);
+
+         return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=2');
+    }else{
+        return $controller->redirect('/plugins/admin/like_comment-admin-listCommentAdmin.php?status=4');
     }
+}
 
 ?>

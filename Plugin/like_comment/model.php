@@ -2,7 +2,7 @@
 namespace App\Model\Table;
 use Cake\ORM\Table;
 
-class LikessTable extends Table
+class LikesTable extends Table
 {
 	/*
 	public function initialize(array $config): void
@@ -25,3 +25,4 @@ class CommentsTable extends Table
 
 ?>
 
+    

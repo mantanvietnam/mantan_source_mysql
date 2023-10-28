@@ -22,7 +22,7 @@
     }
     
 
-    function getLike($idcustomer,$idobject, $type){
+    function getLike($idcustomer='',$idobject='', $type=''){
     	global $modelOption;
     	global $controller;
     	$modelLike = $controller->loadModel('Likes');

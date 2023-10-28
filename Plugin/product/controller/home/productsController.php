@@ -16,6 +16,7 @@ function product($input)
 
     $modelProduct = $controller->loadModel('Products');
     $modelQuestion = $controller->loadModel('Questions');
+    $modelDiscountCodes = $controller->loadModel('DiscountCodes');
     $modelEvaluate = $controller->loadModel('Evaluates');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
@@ -48,6 +49,21 @@ function product($input)
             $product->question = $modelQuestion->find()->where(['id_product'=>$product->id])->all()->toList();
             $product->evaluate = $modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList();
             $product->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList());
+
+
+            $DiscountCode = $modelDiscountCodes->find()->where([])->all()->toList();
+            $CodeDiscount = array();
+            foreach($DiscountCode as $key => $item){
+                if(!empty($item->id_product)){
+                    $discount = explode(',', $item->id_product);
+                   
+                    if(in_array($product->id, $discount)){
+                        $CodeDiscount[] = $item; 
+                    }
+                }
+            }
+           
+            $product->discountCode = $DiscountCode;
 
             $point = 0;
             if(!empty($product->evaluate)){

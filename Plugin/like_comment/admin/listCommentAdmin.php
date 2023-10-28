@@ -25,10 +25,11 @@
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th>Điểm đến</th>
+            <th>Sản phẩm</th>
             <th>Khách hàng </th>
             <th>Nội dung</th>
-            <th>Khiểu</th>
+            <th>Nội dung trả lời</th>
+            <th>Trả lời</th>
             <th>Xóa</th>
 
           </tr>
@@ -36,59 +37,22 @@
         <tbody>
           <?php 
             if(!empty($listData)){
+              
               foreach ($listData as $item) {
                  $custom =  getCustomer($item->idcustomer);
-                  if($item->type=="co_quan_hanh_chinh"){
-                    $title = getGovernanceAgency($item->idobject);
-                    $type= 'Cơ quan hành chính';
-                    $url= 'chi_tiet_co_quan_hanh_chinh/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-
-                  }elseif($item->type=="dich_vu_ho_tro_du_lich"){
-                    $title = getService($item->idobject);
-                    $type= 'Dịch vụ hỗ trợ du lịch';
-                    $url= 'chi_tiet_dich_vu_ho_tro_du_lich/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-                  }elseif($item->type=="danh_lam"){
-                    $title = getPlace($item->idobject);
-                    $type= 'Danh lam thắng cảnh';
-                    $url= 'chi_tiet_danh_lam/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-                  }elseif($item->type=="le_hoi"){
-                    $title = getFestival($item->idobject);
-                    $type= 'Lễ hội';
-                    $url= 'chi_tiet_le_hoi/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-                  }elseif($item->type=="nha_hang"){
-                    $title = getRestaurant($item->idobject);
-                    $type= 'Nhà hàng';
-                    $url= 'chi_tiet_nha_hang/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-                  }elseif($item->type=="tung_tam_hoi_nghi_su_kien"){
-                    $title = getEventcenter($item->idobject);
-                    $type= 'trung tâm hội nghị sự kiện';
-                    $url= 'chi_tiet_tung_tam_hoi_nghi_su_kien/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-                  }elseif($item->type=="di_tich_lich_su"){
-                    $title = getHistoricalSite($item->idobject);
-                    $type= 'Di tích lịch sử';
-                    $url= 'di_tich_lich_su/'.$title->urlSlug.'.html';
-                    $name = $title->name;
-                  }elseif($item->type=="khach_san"){
-                    $title = getHotel($item->idobject);
-                    $type= 'Khách sạn';
-                    $url= 'chi_tiet_khach_san/'.$title['data']['Hotel']['slug'].'.html';
-                    $name = $title['data']['Hotel']['name'];
-                  }
+                    $url = 'product/'.$item->product->slug.'.html';
+                  
 
                 echo '<tr>
-                        <td><a href="/../../'.@$url.'" target="_blank">'.@$name.'</a></td>
+                        <td><a href="/../../'.@$url.'" target="_blank">'.@$item->product->title.'</a></td>
                         <td>'.$custom->full_name.'</td>
                         <td>'.$item->comment.'</td>
-                        <td>'.$type.'</td>
-                       
-                        
-                       
+                        <td>'.$item->reply.'</td>
+                       <td align="center">
+                          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'" >
+                            <i class="bx bx-message-rounded-dots"></i>
+                          </a>
+                        </td>
                         <td align="center">
                           <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/like_comment-deleleCommentAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
@@ -150,5 +114,48 @@
     </div>
     <!--/ Basic Pagination -->
   </div>
+
+     <div class="col-lg-4 col-md-6">
+                      <!-- <small class="text-light fw-semibold">Default</small> -->
+                      <div class="mt-3">
+                        <!-- Button trigger modal -->
+                        
+                        <!-- Modal -->
+                      <?php  if(!empty($listData)){
+              foreach ($listData as $items) {
+                 $custom =  getCustomer($item->idcustomer);
+               ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Trả lời bính luận  </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
+                              </div>
+
+                            <div style=" padding: 20px; ">
+                              <p><label>Sản phẩn :</label> <?php echo $item->product->title ?></p>
+                              <p><label>Khách hàng :</label> <?php echo $custom->full_name ?></p>
+                              <p><label>bình luận:</label> <?php echo $items->comment ?></p>
+                               <p><label>Trả lời:</label></p>
+                             
+                              <form action="/plugins/admin/like_comment-admin-replyCommentAdmin.php" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <input type="text" class="form-control"  required="" value="<?php echo @$item->reply; ?>" name="reply">
+                                
+                                <button type="submit" class="btn btn-primary">Từ chối</button>
+                              </div>
+                             </form>
+                            </div>
+                             
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <?php }} ?>
+                      </div>
+                    </div>
   <!--/ Responsive Table -->
 </div>

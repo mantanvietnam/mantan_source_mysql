@@ -32,4 +32,34 @@ function searchProductAPI($input)
 
 	return $return;
 }
+
+function searchEvaluateAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+
+	$return= array();
+	$modelEvaluate = $controller->loadModel('Evaluates');
+
+	$dataSend = $_REQUEST;
+
+	if(!empty($dataSend['id_product'])){
+		
+        $conditions = ['id_product'=>$dataSend['id_product']];
+        if(!empty($dataSend['point'])){
+        	$conditions['point'] = $dataSend['point'];
+        }
+
+        $listData= $modelEvaluate->find()->where($conditions)->all()->toList();
+        
+        if(!empty($listData)){
+            $return = array('code'=>1, 'data'=>$listData);
+        }else{
+        	$return= array('code'=>0, 'label'=>'Không tìm được sản phẩm', 'value'=>'', 'title'=>'');
+        }
+    }
+	
+
+	return $return;
+}
 ?>
