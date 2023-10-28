@@ -10,3 +10,4 @@ include('model/driver_requests.php');
 include('model/withdraw_requests.php');
 include('model/transactions.php');
 include('model/complaints.php');
+include('model/notifications.php');
