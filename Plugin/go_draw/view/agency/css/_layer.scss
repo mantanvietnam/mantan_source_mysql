@@ -1,4 +1,4 @@
-
+header-mobile
 /*======================================== config =================================*/
 *,
 *:before,
@@ -75,8 +75,10 @@ time, mark, audio, video {
 
 /*======================================== end config =================================*/
 header {
+  position: relative;
+  z-index: 1111 ;
   @media (max-width: 1023px) {
-    overflow: hidden;
+    //overflow: hidden;
     height: 60px;
   }
 }
@@ -294,7 +296,7 @@ header {
 
 main { 
   position: relative;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 81px);
   overflow: auto;
   @media (max-width: 1440px) {
     height: calc(100vh - 70px);
@@ -731,10 +733,13 @@ footer {
 
 .header-mobile {
   height: 60px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background: #1A3A89;
+  @media (max-width: 1023px) {
+    display: flex;
+  }
   .logo {
     img {
       height: 28px;
@@ -835,6 +840,54 @@ footer {
     border-radius: 20px;
     &.login {
       background: #0065F7;
+    }
+  }
+}
+
+.icon-user-head {
+  position: relative;
+  padding: 12px 0;
+  @media (max-width: 1023px) {
+    padding: 0;
+  }
+  &:hover {
+    .sub-user {
+      opacity: 1;
+      pointer-events: unset;
+    }
+  }
+  img {
+    height: 45px;
+  }
+  .sub-user {
+    border-radius: 16px;
+    padding: 32px 25px;
+    background: #052D49;
+    width: 211px;
+    position: absolute;
+    top: 70px;
+    right: -100px;
+    transition: .4s all !important;
+    opacity: 0;
+    pointer-events: none;
+    @media (max-width: 1023px) {
+      right: 0;
+      top: 44px;
+      font-size: 12px;
+      border-radius: 10px;
+      padding: 16px;
+      width: 130px;
+    }
+    a {
+      color: #fff;
+      display: block;
+      text-transform: none;
+    }
+    p {
+      margin-bottom: 14px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
