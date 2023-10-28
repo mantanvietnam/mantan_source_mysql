@@ -37,13 +37,18 @@
 											</div>
 											<div class="btn-order">
 												<ul>
-													<li><div class="btn-order"><a href="javascript:void(0); onclick="addToCartUser('.$value->product_id.');">Thêm giỏ hàng</a></div></li>
+													<li>
+														<div class="btn-order">
+															<a href="javascript:void(0);" onclick="addToCartUser('.$value->product_id.');">Thêm giỏ hàng</a>
+															<p class="text-danger" id="mess-'.$value->product_id.'"></p>
+														</div>
+													</li>
 												</ul>
 											</div>
 										</div>';
 							}
 
-							echo '<div class="btn-main text-center"><a href="/userOrder">XEM GIỎ HÀNG</a></div>';
+							echo '<div class="btn-main text-center"><a href="/userCart">XEM GIỎ HÀNG</a></div>';
 						}else{
 							echo '<p class="text-danger">Trong kho đã hết hàng</p>';
 						}
@@ -59,11 +64,13 @@
 	function addToCartUser(product_id) {
 		$.ajax({
 		  	method: "POST",
-		  	url: "/addToCartUser",
+		  	url: "/apis/addToCartUser",
 		  	data: { product_id: product_id }
 		})
 		.done(function( msg ) {
-		    
+			if(msg.code == 1){
+				$('#mess-'+product_id).html('Đã thêm giỏ hàng');
+			}
 		});
 	}
 </script>

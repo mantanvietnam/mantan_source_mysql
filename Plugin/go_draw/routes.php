@@ -18,3 +18,4 @@
 	
 	$routesPlugin['sellProduct']= 'go_draw/view/agency/user_orders/sellProduct.php';
 	$routesPlugin['addToCartUser']= 'go_draw/view/agency/user_orders/addToCartUser.php';
+	$routesPlugin['userCart']= 'go_draw/view/agency/user_orders/userCart.php';
