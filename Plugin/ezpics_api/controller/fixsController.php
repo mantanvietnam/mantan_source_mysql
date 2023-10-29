@@ -30,28 +30,43 @@ function fixWidthText($input)
 	$modelProducts = $controller->loadModel('Products');
 	$modelProductDetails = $controller->loadModel('ProductDetails');
 
-	$listData = $modelProductDetails->find()->limit(100)->page(1)->all()->toList();
+	$conditions = ['content NOT LIKE'=>'%naturalWidth%'];
+
+	$listData = $modelProductDetails->find()->where($conditions)->limit(1000)->page(1)->all()->toList();
+	//$listData = $modelProductDetails->find('all')->where($conditions);
+	//$count = $listData->count();
+
+	//debug(getimagesize('https:\/\/apis.ezpics.vn\/\/upload\/admin\/images\/177\/177_2023_10_29_17_05_21_4254.png'));
+	
 	$number = 0;
 	foreach ($listData as $key => $value) {
 		$content = json_decode($value->content, true);
 
 		if(!empty($content['type'])){
 			if($content['type'] == 'image' && !isset($content['naturalWidth']) && !empty($content['banner'])){
-				$sizeImage = @getimagesize($content['banner']);
+				$content['banner'] = str_replace(' ', '%20', $content['banner']);
+				$sizeImage = getimagesize($content['banner']);
 
 				if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
 					$content['naturalWidth'] = (int) $sizeImage[0];
 					$content['naturalHeight'] = (int) $sizeImage[1];
 
-					$value->content = json_encode($content);
-
-					$modelProductDetails->save($value);
-
 					$number++;
+
+					//debug($value->id);
                 }
+			}elseif($content['type'] == 'text'){
+				$content['naturalWidth'] = 0;
+				$content['naturalHeight'] = 0;
 			}
+
+			$value->content = json_encode($content);
+
+			$modelProductDetails->save($value);
+
+			
 		}else{
-			debug($value);
+			debug($value->id);
 		}
 
 		

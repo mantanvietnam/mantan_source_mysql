@@ -767,6 +767,27 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->banner = 'https://apis.ezpics.vn/plugins/ezpics_api/view/image/avatar-ezpics.png'; 
                     }
 
+                    if(!isset($layer->naturalWidth)){
+                        $layer->naturalWidth = 0;
+                        $layer->naturalHeight = 0;
+                    }
+
+                    /*
+                    if(!isset($layer->naturalWidth)){
+                        if($layer->type=='image'){
+                            $sizeImage = @getimagesize($layer->banner);
+
+                            if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+                                $layer->naturalWidth = (int) $sizeImage[0];
+                                $layer->naturalHeight = (int) $sizeImage[1];
+                            }
+                        }else{
+                            $layer->naturalWidth = 0;
+                            $layer->naturalHeight = 0;
+                        }
+                    }
+                    */
+
                     // độ dãn chữ
                     if(!isset($layer->gianchu)) $layer->gianchu = 'normal'; 
                     if($layer->gianchu=='1px' || $layer->gianchu=='0') $layer->gianchu = 'normal';
@@ -955,21 +976,21 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
-    $naturalWidth = 0;
-    $naturalHeight = 0;
-
     if($type == 'image'){
         if(!empty($link)){
-            $sizeImage = @getimagesize($link);
+            $sizeImage = getimagesize($link);
 
             if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
                 $naturalWidth = (int) $sizeImage[0];
                 $naturalHeight = (int) $sizeImage[1];
             }
         }
+    }else{
+        $naturalWidth = 0;
+        $naturalHeight = 0;
     }
 
-    return [
+    $return = [
         'type' => $type,
         'text' => $text,
         'color' => $code,
@@ -1001,9 +1022,14 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'variableLabel' => $variableLabel,
         'typeShowTextVariable' => $typeShowTextVariable,
         'removeBackgroundAuto' => (int) $removeBackgroundAuto,
-        'naturalWidth' => $naturalWidth,
-        'naturalHeight' => $naturalHeight
     ];
+
+    if(isset($naturalWidth)){
+        $return['naturalWidth'] = $naturalWidth;
+        $return['naturalHeight'] = $naturalHeight;
+    }
+
+    return $return;
 }
 
 function zipImage($urlLocalFile='')
