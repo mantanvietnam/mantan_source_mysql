@@ -17,6 +17,7 @@ $routesPlugin['upgradeToDriverApi'] = 'excgo/view/upgradeToDriverApi.php';
 $routesPlugin['addMoneyTPBankApi'] = 'excgo/view/addMoneyTPBankApi.php';
 $routesPlugin['generateQRCodeApi'] = 'excgo/view/generateQRCodeApi.php';
 $routesPlugin['createWithdrawRequestApi'] = 'excgo/view/createWithdrawRequestApi.php';
+$routesPlugin['deleteUserApi'] = 'excgo/view/deleteUserApi.php';
 
 // Province
 $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
@@ -24,6 +25,7 @@ $routesPlugin['getListProvinceApi'] = 'excgo/view/getListProvinceApi.php';
 // Pinned Province
 $routesPlugin['addPinnedProvinceApi'] = 'excgo/view/addPinnedProvinceApi.php';
 $routesPlugin['removePinnedProvinceApi'] = 'excgo/view/removePinnedProvinceApi.php';
+$routesPlugin['checkPinnedProvinceApi'] = 'excgo/view/checkPinnedProvinceApi.php';
 
 // Booking
 $routesPlugin['createBookingApi'] = 'excgo/view/createBookingApi.php';
@@ -35,6 +37,8 @@ $routesPlugin['checkFinishedBookingApi'] = 'excgo/view/checkFinishedBookingApi.p
 $routesPlugin['getMyBookingListApi'] = 'excgo/view/getMyBookingListApi.php';
 $routesPlugin['viewBookingDetailApi'] = 'excgo/view/viewBookingDetailApi.php';
 $routesPlugin['updateBookingApi'] = 'excgo/view/updateBookingApi.php';
+$routesPlugin['cancelBookingApi'] = 'excgo/view/cancelBookingApi.php';
+$routesPlugin['getAvailableBookingListApi'] = 'excgo/view/getAvailableBookingListApi.php';
 
 // Transaction
 $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';
@@ -42,3 +46,9 @@ $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';
 // Complaint
 $routesPlugin['createComplaintApi'] = 'excgo/view/createComplaintApi.php';
 $routesPlugin['getComplaintListApi'] = 'excgo/view/getComplaintListApi.php';
+
+// Notifications
+$routesPlugin['getListNotificationApi'] = 'excgo/view/getListNotificationApi.php';
+$routesPlugin['updateNotificationStatusApi'] = 'excgo/view/updateNotificationStatusApi.php';
+$routesPlugin['markAllNotificationAsReadApi'] = 'excgo/view/markAllNotificationAsReadApi.php';
+$routesPlugin['deleteAllNotificationsApi'] = 'excgo/view/deleteAllNotificationsApi.php';

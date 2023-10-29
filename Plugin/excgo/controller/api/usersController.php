@@ -14,6 +14,7 @@ function registerUserApi($input): array
             && isset($dataSend['phone_number'])
             && isset($dataSend['password'])
             && isset($dataSend['password_confirmation'])
+            && isset($dataSend['device_token'])
         ) {
             $dataSend['phone_number'] = str_replace([' ', '.', '-'], '', $dataSend['phone_number']);
             $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
@@ -44,7 +45,7 @@ function registerUserApi($input): array
                 $user->created_at = date('Y-m-d H:i:s');
                 $user->last_login = date('Y-m-d H:i:s');
                 $user->access_token = createToken();
-                $user->device_token = @$dataSend['device_token'];
+                $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
                 $loginUser = $modelUser->find()->where([
@@ -75,20 +76,21 @@ function loginUserApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['phone_number']) && isset($dataSend['password'])) {
+        if (isset($dataSend['phone_number']) && isset($dataSend['password']) && isset($dataSend['device_token'])) {
             $dataSend['phone_number'] = str_replace([' ', '.', '-'], '', $dataSend['phone_number']);
             $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
 
             $user = $modelUser->find()->where([
                 'phone_number' => $dataSend['phone_number'],
                 'password' => md5($dataSend['password']),
-                'status' => 1
+                'status' => 1,
+                'deleted_at IS' => null
             ])->first();
 
             if (!empty($user)) {
                 $user->access_token = createToken();
                 $user->last_login = date('Y-m-d H:i:s');
-                $user->device_token = @$dataSend['device_token'];
+                $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
                 return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -689,6 +691,7 @@ function getUserDetailApi($input): array
                     'Users.account_number',
                     'Users.avatar',
                     'Users.address',
+                    'Users.type',
                     'Users.birthday',
                     'Users.total_coin',
                     'IdCardFront.id',
@@ -773,7 +776,7 @@ function updateUserApi($input): array
         }
 
         if (isset($dataSend['birthday'])) {
-            $currentUser->birthday = date('Y-m-d H:i:s', strtotime($dataSend['birthday']));
+            $currentUser->birthday = DateTime::createFromFormat('d/m/Y', $dataSend['birthday']);
         }
 
         if (isset($dataSend['address'])) {
@@ -905,6 +908,36 @@ function updateUserApi($input): array
         }
 
         return apiResponse(0, 'Cập nhật thông tin thành công');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function deleteUserApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelUser = $controller->loadModel('Users');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!isset($dataSend['access_token'])) {
+            return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+        } else {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+        }
+
+        $currentUser->deleted_at = date('Y-m-d H:i:s');
+        $currentUser->access_token = null;
+        $modelUser->save($currentUser);
+
+        return apiResponse(0, 'Xóa tài khoản thành công');
     }
 
     return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
