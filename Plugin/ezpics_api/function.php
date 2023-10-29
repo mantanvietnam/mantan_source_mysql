@@ -955,6 +955,20 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
+    $naturalWidth = 0;
+    $naturalHeight = 0;
+
+    if($type == 'image'){
+        if(!empty($link)){
+            $sizeImage = @getimagesize($link);
+
+            if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+                $naturalWidth = (int) $sizeImage[0];
+                $naturalHeight = (int) $sizeImage[1];
+            }
+        }
+    }
+
     return [
         'type' => $type,
         'text' => $text,
@@ -987,6 +1001,8 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'variableLabel' => $variableLabel,
         'typeShowTextVariable' => $typeShowTextVariable,
         'removeBackgroundAuto' => (int) $removeBackgroundAuto,
+        'naturalWidth' => $naturalWidth,
+        'naturalHeight' => $naturalHeight
     ];
 }
 

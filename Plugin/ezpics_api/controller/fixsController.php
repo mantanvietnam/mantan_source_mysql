@@ -25,24 +25,30 @@ function fixPass($input)
 
 function fixWidthText($input)
 {
-	/*
+	
 	global $controller;
 	$modelProducts = $controller->loadModel('Products');
 	$modelProductDetails = $controller->loadModel('ProductDetails');
 
-	$listData = $modelProductDetails->find()->all()->toList();
+	$listData = $modelProductDetails->find()->limit(100)->page(1)->all()->toList();
 	$number = 0;
 	foreach ($listData as $key => $value) {
 		$content = json_decode($value->content, true);
 
 		if(!empty($content['type'])){
-			if($content['type'] == 'text' && $content['width']!='100vw'){
-				$content['width'] = '100vw';
-				$number++;
+			if($content['type'] == 'image' && !isset($content['naturalWidth']) && !empty($content['banner'])){
+				$sizeImage = @getimagesize($content['banner']);
 
-				$value->content = json_encode($content);
+				if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+					$content['naturalWidth'] = (int) $sizeImage[0];
+					$content['naturalHeight'] = (int) $sizeImage[1];
 
-				$modelProductDetails->save($value);
+					$value->content = json_encode($content);
+
+					$modelProductDetails->save($value);
+
+					$number++;
+                }
 			}
 		}else{
 			debug($value);
@@ -52,7 +58,7 @@ function fixWidthText($input)
 	}
 
 	echo $number;
-	*/
+	
 }
 
 function fixUrlImage($input)

@@ -407,6 +407,13 @@ function removeBackgroundLayer($input)
 
                         $content->banner = $banner;
 
+                        $sizeImage = @getimagesize($content->banner);
+
+                        if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+                            $content->naturalWidth = (int) $sizeImage[0];
+                            $content->naturalHeight = (int) $sizeImage[1];
+                        }
+
                         $infoLayer->content = json_encode($content);
 
                         $modelProductDetail->save($infoLayer);
@@ -811,6 +818,14 @@ function replace($input)
 
             $replace = json_decode($new->content);
             $replace->banner = $return['linkOnline'];
+
+            $sizeImage = @getimagesize($return['linkOnline']);
+
+            if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+                $replace->naturalWidth = (int) $sizeImage[0];
+                $replace->naturalHeight = (int) $sizeImage[1];
+            }
+
             $new->content = json_encode($replace);
             $modelProductDetail->save($new);
                 

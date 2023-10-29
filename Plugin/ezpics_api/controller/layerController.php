@@ -73,6 +73,15 @@ function updateLayerAPI($input){
 					$content = json_decode($datalayer->content, true);
 	            	$content[$dataSend['field']] = str_replace(array('"', "'"), '’', $dataSend['value']);
 
+	            	if($dataSend['field'] == 'banner'){
+	            		$sizeImage = @getimagesize($dataSend['value']);
+
+						if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+							$content['naturalWidth'] = (int) $sizeImage[0];
+							$content['naturalHeight'] = (int) $sizeImage[1];
+		                }
+	            	}
+
 	            	$datalayer->content = json_encode($content);
 					$datalayer->updated_at = date('Y-m-d H:i:s');
 
@@ -330,6 +339,15 @@ function changeLayerImageAPI($input){
 			    if(!empty($datalayer)){
 				    $replace = json_decode($datalayer->content);
             		$replace->banner = $thumbnail['link'];
+
+            		$sizeImage = @getimagesize($thumbnail['link']);
+
+					if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+						$replace->naturalWidth = (int) $sizeImage[0];
+						$replace->naturalHeight = (int) $sizeImage[1];
+	                }
+
+
             		$datalayer->content = json_encode($replace);
             		$datalayer->updated_at = date('Y-m-d H:i:s');
 
@@ -396,6 +414,14 @@ function changeLayerImageNew($input){
 			            if(!empty($new)){
 				            $replace = json_decode($new->content);
             				$replace->banner = $thumbnail['linkOnline'];
+
+            				$sizeImage = @getimagesize($thumbnail['linkOnline']);
+
+							if(!empty($sizeImage[1]) && !empty($sizeImage[0])){
+								$replace->naturalWidth = (int) $sizeImage[0];
+								$replace->naturalHeight = (int) $sizeImage[1];
+			                }
+
             				$new->content = json_encode($replace);
             				$new->updated_at = date('Y-m-d H:i:s');
 				            
