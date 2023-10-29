@@ -14,6 +14,7 @@ function registerUserApi($input): array
             && isset($dataSend['phone_number'])
             && isset($dataSend['password'])
             && isset($dataSend['password_confirmation'])
+            && isset($dataSend['device_token'])
         ) {
             $dataSend['phone_number'] = str_replace([' ', '.', '-'], '', $dataSend['phone_number']);
             $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
@@ -44,7 +45,7 @@ function registerUserApi($input): array
                 $user->created_at = date('Y-m-d H:i:s');
                 $user->last_login = date('Y-m-d H:i:s');
                 $user->access_token = createToken();
-                $user->device_token = @$dataSend['device_token'];
+                $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
                 $loginUser = $modelUser->find()->where([
@@ -75,7 +76,7 @@ function loginUserApi($input): array
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (isset($dataSend['phone_number']) && isset($dataSend['password'])) {
+        if (isset($dataSend['phone_number']) && isset($dataSend['password']) && isset($dataSend['device_token'])) {
             $dataSend['phone_number'] = str_replace([' ', '.', '-'], '', $dataSend['phone_number']);
             $dataSend['phone_number'] = str_replace('+84', '0', $dataSend['phone_number']);
 
@@ -89,7 +90,7 @@ function loginUserApi($input): array
             if (!empty($user)) {
                 $user->access_token = createToken();
                 $user->last_login = date('Y-m-d H:i:s');
-                $user->device_token = @$dataSend['device_token'];
+                $user->device_token = $dataSend['device_token'];
                 $modelUser->save($user);
 
                 return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -775,7 +776,7 @@ function updateUserApi($input): array
         }
 
         if (isset($dataSend['birthday'])) {
-            $currentUser->birthday = date('Y-m-d H:i:s', strtotime($dataSend['birthday']));
+            $currentUser->birthday = DateTime::createFromFormat('d/m/Y', $dataSend['birthday']);
         }
 
         if (isset($dataSend['address'])) {

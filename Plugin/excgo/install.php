@@ -161,6 +161,20 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`notifications` (
     INDEX `user_id_index` (`user_id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`user_bookings` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `user_id` INT NOT NULL , 
+    `booking_id` INT NOT NULL , 
+    `type` TINYINT(4) NOT NULL COMMENT "1: Cuốc đăng, 2: Cuốc nhận",
+    `status` TINYINT(4) NOT NULL COMMENT "	0: Chưa được nhận, 1: Đã nhận, 2: Hủy, 3: Hoàn thành, 4: Đã thanh toán", 
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `canceled_at` TIMESTAMP NULL DEFAULT NULL , 
+    `received_at` TIMESTAMP NULL DEFAULT NULL , 
+    PRIMARY KEY (`id`), 
+    INDEX `user_id_index` (`user_id`), 
+    INDEX `booking_id_index` (`booking_id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
@@ -173,4 +187,5 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `withdraw_requests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `complaints`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `notifications`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_bookings`;';
 ?>

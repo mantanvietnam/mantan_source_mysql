@@ -36,7 +36,7 @@ $menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
 
 addMenuAdminMantan($menus);
 
-$keyFirebase = 'AAAAlFXHK5c:APA91bGHAy5l3EfnEkWqG5GppbxbPEhs8WH-JRkiUu2YNqrUEExLJSZ8FouSG9XCCSTOns3wcNAxS42YQ1GPL5iRB1hKVstExY2J5_z9k1eIVZEsnPm3XNXTaJwwqfUol9ujxCLoB5_8';
+$keyFirebase = 'AAAAo-cvWGs:APA91bGtlvHuQ-Dj2bW6KdWNfWkp3fmYZDLv13HfEzevZJ-rSWNs9Ut0wCy6iGF4DKvqNTleRdFYFg4Xx1ry_2x5uQcCOJ8phOxKOVZIDZ1KIJ3ZMafVkGcSELTUEPAd6taLHk27dbBw';
 
 global $typeCar;
 
@@ -574,14 +574,20 @@ function getDetailBooking($id)
             'Bookings.canceled_at',
             'PostedUsers.id',
             'PostedUsers.name',
+            'PostedUsers.avatar',
             'ReceivedUsers.id',
             'ReceivedUsers.name',
+            'ReceivedUsers.avatar',
             'DepartureProvinces.id',
             'DepartureProvinces.name',
             'DestinationProvinces.id',
             'DestinationProvinces.name',
         ])->where(['Bookings.id' => $id])
         ->first();
+    $booking->PostedUsers['id'] = (int)$booking->PostedUsers['id'];
+    $booking->ReceivedUsers['id'] = (int)$booking->ReceivedUsers['id'];
+    $booking->DepartureProvinces['id'] = (int)$booking->DepartureProvinces['id'];
+    $booking->DestinationProvinces['id'] = (int)$booking->DestinationProvinces['id'];
 
     return $booking;
 }
@@ -593,6 +599,12 @@ $bookingStatus = [
     'canceled' => 2,
     'completed' => 3,
     'paid' => 4,
+];
+
+global $bookingType;
+$bookingType = [
+    'post' => 1,
+    'receive' => 2
 ];
 
 global $bookingFeeStatus;

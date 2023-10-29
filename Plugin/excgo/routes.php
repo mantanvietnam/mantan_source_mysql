@@ -37,6 +37,8 @@ $routesPlugin['checkFinishedBookingApi'] = 'excgo/view/checkFinishedBookingApi.p
 $routesPlugin['getMyBookingListApi'] = 'excgo/view/getMyBookingListApi.php';
 $routesPlugin['viewBookingDetailApi'] = 'excgo/view/viewBookingDetailApi.php';
 $routesPlugin['updateBookingApi'] = 'excgo/view/updateBookingApi.php';
+$routesPlugin['cancelBookingApi'] = 'excgo/view/cancelBookingApi.php';
+$routesPlugin['getAvailableBookingListApi'] = 'excgo/view/getAvailableBookingListApi.php';
 
 // Transaction
 $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';
