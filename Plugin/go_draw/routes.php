@@ -12,10 +12,14 @@
 	$routesPlugin['listCombo']= 'go_draw/view/agency/combos/listCombo.php';
 	$routesPlugin['viewCombo']= 'go_draw/view/agency/combos/viewCombo.php';
 
+	// đơn hàng với hệ thống
 	$routesPlugin['addToCart']= 'go_draw/view/agency/agency_orders/addToCart.php';
 	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
 	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';
 	
+	// đơn hàng với khách hàng
 	$routesPlugin['sellProduct']= 'go_draw/view/agency/user_orders/sellProduct.php';
 	$routesPlugin['addToCartUser']= 'go_draw/view/agency/user_orders/addToCartUser.php';
 	$routesPlugin['userCart']= 'go_draw/view/agency/user_orders/userCart.php';
+	
+	$routesPlugin['orderUserProcess']= 'go_draw/view/agency/user_orders/orderUserProcess.php';

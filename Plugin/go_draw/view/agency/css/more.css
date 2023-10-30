@@ -9,3 +9,7 @@
 .h-menu a{
 	color: #fff;
 }
+
+.h-menu .submenu{
+	right: -190px !important;
+}

@@ -30,10 +30,33 @@
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>
-                        <li><a href="/sellProduct">Bán hàng</a></li>
-                        <li><a href="/listCombo">Mua hàng</a></li>
+                        <?php if(!empty($session->read('infoUser'))){ ?>
+                        <li>
+                            <a href="javascript:void(0);">Bán hàng</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="/sellProduct">Tạo đơn hàng</a></li>
+                                    <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
+                                    <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);">Mua hàng</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="/listCombo">Tạo đơn mua</a></li>
+                                    <li><a href="">Đơn đã mua</a></li>
+                                    <li><a href="">Đơn đã thanh toán</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        
                         <li><a href="/changePass">Đổi mật khẩu</a></li>
                         <li><a href="/logout">Đăng xuất</a></li>
+                        <?php }?>
                     </ul>
                 </div>
                 
@@ -46,7 +69,7 @@
                 <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div>
                 <div class="right-mb">
                     <ul>
-                        <li><a href=""><img src="/plugins/go_draw/view/agency/images/new.svg" class="img-fluid" alt=""></a></li>
+                        
                         <li><a href="javascript:void(0)" class="mm-bar"><img src="/plugins/go_draw/view/agency/images/bar.svg" class="img-fluid" alt=""></a></li>
                     </ul>
                 </div>
@@ -57,19 +80,36 @@
             <div class="logo-mm"><img src="/plugins/go_draw/view/agency/images/logo-menu.svg" class="img-fluid" alt=""></div>
             <div class="menu-mm-mobie">
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About us</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">List of Distributors</a></li>
+                    <?php if(!empty($session->read('infoUser'))){ ?>
+                    <li>
+                        <a href="javascript:void(0);">Bán hàng</a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="/sellProduct">Tạo đơn hàng</a></li>
+                                <li><a href="">Đơn hàng chờ</a></li>
+                                <li><a href="">Đơn hoàn thành</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);">Mua hàng</a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="/listCombo">Tạo đơn mua</a></li>
+                                <li><a href="">Đơn đã mua</a></li>
+                                <li><a href="">Đơn đã thanh toán</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    
+                    <li><a href="/changePass">Đổi mật khẩu</a></li>
+                    <li><a href="/logout">Đăng xuất</a></li>
+                    <?php }?>
                 </ul>
             </div>
-            <div class="btn-mm-mobile">
-                <ul>
-                    <li><a href="">REGISTER</a></li>
-                    <li><a href="" class="login">LOGIN</a></li>
-                </ul>
-            </div>
+            
         </div>
     </div>
 
