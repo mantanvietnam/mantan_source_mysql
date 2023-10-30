@@ -804,3 +804,25 @@
         padding: 2px 15px;
     }
 }
+
+
+
+/* 
+    show more content
+*/
+
+
+.hideContent {
+overflow: hidden;
+line-height: 1em;
+height: 2em;
+}
+
+.showContent {
+line-height: 1em;
+height: auto;
+}
+.showContent{
+height: auto;
+}
+
