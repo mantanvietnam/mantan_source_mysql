@@ -4,71 +4,435 @@ $info = $session->read('infoUser');
 getHeader();
 ?>
 
-
-<main class="bg-pt" style="background-image: url('/themes/tayho360/assets/lou_img/background-pattern.png')">
-    <div class="container py-5">
-        <section id="user-page" class="bg-white">
-            <div class="row g-0">
-                <div class="col-12 col-lg-3">
-                    <section class="side-bar h-100">
-                        <div class="background h-100">
-                            <a href="/infoUser" class="active">Cá nhân</a>
-                            <a href="/changepassword">Đổi mật khẩu</a>
-                            <a href="/editInfoUser">Sửa thông tin </a>
+<main>
+    <div id="profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div id="profile-user">
+                        <div class="title-profile">
+                            <h3>Xin chào!</h3>
+                            <h4>
+                                <?= $info->full_name ?>
+                            </h4>
                         </div>
-                    </section>
+                        <div class="my-account">
+                            <nav class="navbar navbar-expand-lg">
+                                <div class="container">
+                                    <div class="collapse navbar-collapse show" id="navbarNav">
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item sp-sale">
+                                                <a class="nav-link active" data-bs-toggle="tab" href="#super-sale">Siêu
+                                                    sale 9.9</a>
+                                            </li>
+
+                                            <li class="nav-item accordion" id="accordionExample">
+                                                <a class="nav-link accordion-button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne" href="#" role="button">Tài khoản của
+                                                    tôi</a>
+                                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                                    data-bs-parent="#accordionExample">
+                                                    <a class="dropdown-item" data-bs-toggle="tab" href="#my-file">Hồ
+                                                        sơ</a>
+                                                    <a class="dropdown-item" data-bs-toggle="tab" href="#my-address">Địa
+                                                        chỉ giao hàng</a>
+                                                    <a class="dropdown-item" data-bs-toggle="tab"
+                                                        href="#change-my-pass">Đổi mật khẩu</a>
+                                                </div>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="tab" href="#my-order">Đơn mua</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="tab" href="#my-product">Sản phẩm</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="tab" href="#my-voucher">Voucher</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 col-lg-9">
-                    <section class="content p-2 p-md-4">
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <div class="user-image px-4">
-                                    <img id="img1" src="<?= $info->avatar ?>" style="width: 110px" class="img-responsive">
+
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="tab-content" style="height:100%">
+                        <div id="super-sale" class="tab-pane">
+                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                        <div id="my-file" class="tab-pane fade show active">
+                            <div class="title-file">
+                                <p>Thông tin tài khoản</p>
+                            </div>
+                            <div class="detail-file">
+                                <form>
+                                    <div class="item-detail">
+                                        <label for="hoTen">Họ và tên</label>
+                                        <input type="text" id="hoTen" value="<?= $info->full_name ?>" name="hoTen"
+                                            required>
+                                    </div>
+                                    <div class="item-detail">
+                                        <label for="soDienThoai">Số điện thoại</label>
+                                        <input type="tel" id="soDienThoai" value="<?= $info->phone ?>"
+                                            name="soDienThoai" required>
+                                    </div>
+                                    <div class="item-detail">
+                                        <label for="email">Email</label>
+                                        <input type="tel" id="email" value="<?= $info->email ?>" name="email" required>
+                                    </div>
+                                    <!-- <div class="item-detail sex">
+                                        <label>Giới tính</label>
+                                        <div class="radio-check">
+                                            <input type="radio" id="nam" name="gioiTinh" value="Nam">
+                                            <label for="nam">Nam</label>
+                                            <input type="radio" id="nu" name="gioiTinh" value="Nữ">
+                                            <label for="nu">Nữ</label>
+                                            <input type="radio" id="khac" name="gioiTinh" value="Khác">
+                                            <label for="khac">Khác</label>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="item-detail date">
+                                        <label>Ngày Sinh</label>
+                                        <div class="choose-date">
+                                            <select name="ngay" id="ngay">
+                                                <option value="">Ngày</option>
+                                            </select>
+                                            <select name="thang" id="thang">
+                                                <option value="">Tháng</option>
+                                            </select>
+                                            <select name="nam" id="nam">
+                                                <option value="">Năm</option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+                                    <div class="item-detail btn-submit">
+                                        <input type="submit" value="Lưu">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="my-address" class="tab-pane">
+                            <div class="title-addr">
+                                <p>Địa chỉ của tôi</p>
+                                <button class="add-adress">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Thêm địa chỉ mới
+                                </button>
+                            </div>
+                            <div class="address">
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="content-addr">
+                                            <div class="infor-addr">
+                                                <span>Lê Viết Hiếu</span>
+                                                <p>0912345678</p>
+                                            </div>
+                                            <div class="detail-addr">
+                                                <p>
+                                                    Thôn Bộ La
+                                                    <br>Xã Vũ Vinh, Huyện Vũ Thư, Tỉnh Thái Bình
+                                                </p>
+                                            </div>
+                                            <div class="btn-address">
+                                                <button class="lay">Địa chỉ lấy hàng</button>
+                                                <button class="tra">Địa chỉ trả hàng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 up-address">
+                                        <div class="btn-group">
+                                            <button class="update-addr">Cập nhật</button>
+                                            <button class="delete-addr">Xóa</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-8">
-                                <div class="user-info">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h1 class="user-name mb-0"><?= $info->full_name ?></h1>
-                                    </div>
-                                    <div class="info-detail">
-                                        <div class="cate-contain mb-4">
-                                            <p class="label">Thông tin</p>
-                                            <div class="d-flex item">
-                                                <span>Số điện thoại</span>
-                                                <span><?= $info->phone ?></span>
-                                            </div>
-                                            <div class="d-flex item">
-                                                <span>Email</span>
-                                                <span><?= $info->email ?></span>
-                                            </div>
-                                            <div class="d-flex item">
-                                                <span>Địa chỉ</span>
-                                                <span><?= $info->address ?></span>
-                                            </div>
-                                          
-                                        </div>
-                                        
-                                    </div>
 
+                            <div class="address">
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="content-addr">
+                                            <div class="infor-addr">
+                                                <span>Lê Viết Hiếu</span>
+                                                <p>0912345678</p>
+                                            </div>
+                                            <div class="detail-addr">
+                                                <p>
+                                                    Thôn Bộ La
+                                                    <br>Xã Vũ Vinh, Huyện Vũ Thư, Tỉnh Thái Bình
+                                                </p>
+                                            </div>
+                                            <div class="btn-address">
+                                                <button class="lay">Địa chỉ lấy hàng</button>
+                                                <button class="tra">Địa chỉ trả hàng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 up-address">
+                                        <div class="btn-group">
+                                            <button class="update-addr">Cập nhật</button>
+                                            <button class="delete-addr">Xóa</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="address">
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="content-addr">
+                                            <div class="infor-addr">
+                                                <span>Lê Viết Hiếu</span>
+                                                <p>0912345678</p>
+                                            </div>
+                                            <div class="detail-addr">
+                                                <p>
+                                                    Thôn Bộ La
+                                                    <br>Xã Vũ Vinh, Huyện Vũ Thư, Tỉnh Thái Bình
+                                                </p>
+                                            </div>
+                                            <div class="btn-address">
+                                                <button class="lay">Địa chỉ lấy hàng</button>
+                                                <button class="tra">Địa chỉ trả hàng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 up-address">
+                                        <div class="btn-group">
+                                            <button class="update-addr">Cập nhật</button>
+                                            <button class="delete-addr">Xóa</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="change-my-pass" class="tab-pane"
+                            style="border: 0.5px solid rgb(192, 192, 192);height:100%">
+                            <div class="detail-file">
+                                <div class="title-file" style="padding: 34px 0 0 0">
+                                    <p>Thay đổi mật khẩu</p>
+                                </div>
+                                <div class="change-password-info">
+                                    <form action="" method="post">
+                                        <div class="item-detail">
+                                            <label for="oldPassword" style="width: 200px;">Mật khẩu cũ</label>
+                                            <input type="text" id="oldPassword" name="oldPassword"
+                                                placeholder="Vui lòng nhập mật khẩu cũ" required>
+                                        </div>
+                                        <div class="item-detail">
+                                            <label for="oldPassword" style="width: 200px;">Mật khẩu mới</label>
+                                            <input type="text" id="newPassword" name="newPassword"
+                                                placeholder="Vui lòng nhập mật khẩu mới" required>
+                                        </div>
+                                        <div class="item-detail">
+                                            <label for="oldPassword" style="width: 200px;">Nhập lại mật khẩu mới</label>
+                                            <input type="text" id="oldPassword" name="oldPassword"
+                                                placeholder="Vui lòng nhập lại mật khẩu mới" required>
+                                        </div>
+                                        <div class="item-detail btn-submit">
+                                            <input type="submit" value="Xác nhận">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                        <div id="my-order" class="tab-pane">
+                            <p>52651</p>
+                        </div>
+                        <div id="my-product" class="tab-pane">
+                            <p>52651</p>
+                        </div>
+                        <div id="my-voucher" class="tab-pane">
+                            <div class="tab-voucher">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#vouchers"
+                                            role="tab" aria-controls="tab1" aria-selected="true">Mã giảm giá</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#for-you"
+                                            role="tab" aria-controls="tab2" aria-selected="false">Dành cho bạn</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content content-voucher" id="myTabContent">
+                                <div class="tab-pane fade show active" id="vouchers" role="tabpanel"
+                                    aria-labelledby="tab1-tab">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="for-you" role="tabpanel" aria-labelledby="tab2-tab">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                            <div class="voucher">
+                                                <button class="btn-voucher">
+                                                    <div class="bg-voucher">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3>Freeship</h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4>Giảm tối đa 30k</h4>
+                                                            <p>Đơn tối thiểu 1 triệu</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </main>
-<style>
-    #img1 {
-        height: 110px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
 
-    
-</style>
+
 <?php
 getFooter();
 ?>

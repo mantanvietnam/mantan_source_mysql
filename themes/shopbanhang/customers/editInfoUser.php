@@ -21,56 +21,62 @@ $info = $session->read('infoUser');
                 <div class="col-12 col-lg-9 bg-white">
                     <section class="content p-2 p-md-4 pe-md-5">
                         <div class="user-edit pe-md-5">
-                            <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
+                            <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data"
+                                onsubmit="functions.submitForgot(); return false;">
                                 <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                 <div class="top">
                                     <div class="d-flex">
                                         <div class="edit-user-photo me-3">
-                                            <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại diện</label>
+                                            <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
+                                                diện</label>
 
                                             <div class="m_bg_img" style="">
                                                 <input type="file" onchange="readURL1(this);" name="avatar">
 
-                                                <img id="img1" src="<?php echo @$info['avatar'] ?>" style="width: 110px" class="img-responsive">
+                                                <img id="img1" src="<?php echo @$info['avatar'] ?>" style="width: 110px"
+                                                    class="img-responsive">
                                             </div>
                                         </div>
                                         <div>
-                                          
+
                                         </div>
                                     </div>
                                 </div>
-                               
-                        <div class="body mt-3">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <div class="form-group-user">
-                                        <label for="">Họ và tên</label>
-                                        <input type="text" placeholder="" name="full_name" value="<?php echo @$info['full_name'] ?>" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group-user">
-                                        <label for="">Địa chỉ</label>
-<input type="text" value="<?php echo @$info['address'] ?>" name="address" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12">
-                                    <div class="form-group-user">
-                                        <label for="">Số điện thoại</label>
-                                        <input type="text" name="phone" value="<?php echo @$info['phone'] ?>" class="form-control" >
-                                    </div>
-                                </div>
-                                
-                                <button type="submit" class="mt-3 btn button-submit-custom">Lưu</button>
 
-                            </div>
+                                <div class="body mt-3">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <div class="form-group-user">
+                                                <label for="">Họ và tên</label>
+                                                <input type="text" placeholder="" name="full_name"
+                                                    value="<?php echo @$info['full_name'] ?>" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group-user">
+                                                <label for="">Địa chỉ</label>
+                                                <input type="text" value="<?php echo @$info['address'] ?>"
+                                                    name="address" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12">
+                                            <div class="form-group-user">
+                                                <label for="">Số điện thoại</label>
+                                                <input type="text" name="phone" value="<?php echo @$info['phone'] ?>"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="mt-3 btn button-submit-custom">Lưu</button>
+
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        </form>
+                    </section>
                 </div>
+            </div>
         </section>
-    </div>
-    </div>
-    </section>
     </div>
 </main>
 
@@ -79,7 +85,7 @@ $info = $session->read('infoUser');
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 $('#img1')
                     .attr('src', e.target.result);
             };
@@ -129,6 +135,8 @@ $info = $session->read('infoUser');
     .button-submit-custom {
         width: 200px;
     }
+
+    
 </style>
 
 <?php

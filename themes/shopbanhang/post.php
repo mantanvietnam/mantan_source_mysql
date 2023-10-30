@@ -6,9 +6,9 @@ global $urlThemeActive;
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">Library</a></li>
-                  <li class="breadcrumb-item active">Data</li>
+                  <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                  <li class="breadcrumb-item"><a href="#">Bài viết</a></li>
+                  <li class="breadcrumb-item active">Chi tiết bài viết</li>
                 </ul>
             </div>
         </section>
@@ -26,6 +26,9 @@ global $urlThemeActive;
     
                     <div class="blog-detail-time">
                         <p><?php echo @$item->author ?></p>
+                    </div>
+                    <div class="blog-detail-time">
+                        <p><?php echo @$item->description ?></p>
                     </div>
                 </div>
 
