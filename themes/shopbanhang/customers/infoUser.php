@@ -33,12 +33,13 @@ getHeader();
                                                     tôi</a>
                                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                                     data-bs-parent="#accordionExample">
-                                                    <a class="dropdown-item" data-bs-toggle="tab" href="#my-file">Hồ
+                                                    <a class="dropdown-item" data-bs-toggle="tab" href="#super-sale">Hồ
                                                         sơ</a>
-                                                    <a class="dropdown-item" data-bs-toggle="tab" href="#my-address">Địa
+                                                    <a class="dropdown-item"  href="/editInfoUser">Chỉnh sửa thông tin</a>
+                                                    <a class="dropdown-item"  href="">Địa
                                                         chỉ giao hàng</a>
-                                                    <a class="dropdown-item" data-bs-toggle="tab"
-                                                        href="#change-my-pass">Đổi mật khẩu</a>
+                                                    <a class="dropdown-item" 
+                                                        href="/changepassword">Đổi mật khẩu</a>
                                                 </div>
                                             </li>
 
@@ -63,10 +64,7 @@ getHeader();
 
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="tab-content" style="height:100%">
-                        <div id="super-sale" class="tab-pane">
-                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        </div>
-                        <div id="my-file" class="tab-pane fade show active">
+                        <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
                             <div class="title-file">
                                 <p>Thông tin tài khoản</p>
                             </div>
@@ -75,16 +73,16 @@ getHeader();
                                     <div class="item-detail">
                                         <label for="hoTen">Họ và tên</label>
                                         <input type="text" id="hoTen" value="<?= $info->full_name ?>" name="hoTen"
-                                            required>
+                                            readonly>
                                     </div>
                                     <div class="item-detail">
                                         <label for="soDienThoai">Số điện thoại</label>
                                         <input type="tel" id="soDienThoai" value="<?= $info->phone ?>"
-                                            name="soDienThoai" required>
+                                            name="soDienThoai" readonly>
                                     </div>
                                     <div class="item-detail">
                                         <label for="email">Email</label>
-                                        <input type="tel" id="email" value="<?= $info->email ?>" name="email" required>
+                                        <input type="tel" id="email" value="<?= $info->email ?>" name="email" readonly>
                                     </div>
                                     <!-- <div class="item-detail sex">
                                         <label>Giới tính</label>
@@ -221,19 +219,20 @@ getHeader();
                                 </div>
                                 <div class="change-password-info">
                                     <form action="" method="post">
+                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                         <div class="item-detail">
                                             <label for="oldPassword" style="width: 200px;">Mật khẩu cũ</label>
-                                            <input type="text" id="oldPassword" name="oldPassword"
+                                            <input type="text" id="oldpass" name="oldpass"
                                                 placeholder="Vui lòng nhập mật khẩu cũ" required>
                                         </div>
                                         <div class="item-detail">
                                             <label for="oldPassword" style="width: 200px;">Mật khẩu mới</label>
-                                            <input type="text" id="newPassword" name="newPassword"
+                                            <input type="text" id="pass" name="pass"
                                                 placeholder="Vui lòng nhập mật khẩu mới" required>
                                         </div>
                                         <div class="item-detail">
                                             <label for="oldPassword" style="width: 200px;">Nhập lại mật khẩu mới</label>
-                                            <input type="text" id="oldPassword" name="oldPassword"
+                                            <input type="text" id="passAgain" name="passAgain"
                                                 placeholder="Vui lòng nhập lại mật khẩu mới" required>
                                         </div>
                                         <div class="item-detail btn-submit">

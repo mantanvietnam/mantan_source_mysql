@@ -53,7 +53,7 @@ $infoUser = $session->read('infoUser');
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
-                                    <a href="" >Tài khoản của tôi</a>
+                                    <a href="/infoUser" >Tài khoản của tôi</a>
                                     <a href="/logout" >Đăng xuất</a>
                                 <?php }else{ ?>
                                 <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Dăng nhập</a>
