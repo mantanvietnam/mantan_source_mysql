@@ -616,31 +616,31 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="list-filter-rate-list">
                                 <div class="list-filter-rate-item">
-                                    <a onclick="searchEvaluate()">Tất cả</a>
+                                    <a onclick="searchEvaluates()">Tất cả</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluate(5)">5 sao</a>
+                                    <a onclick=" searchEvaluates(5)">5 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluate(4)">4 sao</a>
+                                    <a onclick=" searchEvaluates(4)">4 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluate(3)">3 sao</a>
+                                    <a onclick=" searchEvaluates(3)">3 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluate(2)">2 sao</a>
+                                    <a onclick=" searchEvaluates(2)">2 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluate(1)">1 sao</a>
+                                    <a onclick=" searchEvaluates(1)">1 sao</a>
                                 </div>
 
                                 <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluate()">Có hình ảnh/video</a>
+                                    <a onclick=" searchEvaluates()">Có hình ảnh/video</a>
                                 </div>
                             </div>
 
@@ -891,7 +891,7 @@ $slide_home= slide_home($setting['id_slide']);
             }
         })
             
-    };
+    }
  function delelelike(){
 
           $.ajax({
@@ -910,7 +910,7 @@ $slide_home= slide_home($setting['id_slide']);
                 }
             })
                
-        };  
+        } 
 
         function addComment(){
     var comment= $('#comment').val();
@@ -929,7 +929,7 @@ $slide_home= slide_home($setting['id_slide']);
                 }
             })
                
-        }; 
+        } 
 
    function deteleComment($id){
 
@@ -943,7 +943,7 @@ $slide_home= slide_home($setting['id_slide']);
                 }
             })
                
-        }; 
+        }
 
     function deteleComment($id){
 
@@ -957,14 +957,15 @@ $slide_home= slide_home($setting['id_slide']);
                 }
             })
                
-        };
-
-    function searchEvaluate($point){
-
-    $.ajax({
+        }
+</script>
+<script type="text/javascript">
+    function searchEvaluates(point){
+        console.log(point);
+         $.ajax({
                 method: 'POST',
                 url: '/apis/searchEvaluateAPI',
-                data: { id_product: <?php echo $product->id ?>, point: $point },
+                data: { id_product: <?php echo $product->id ?>, point: point },
                 success:function(res){
                     console.log(res);
                     if(res.code==1){
@@ -1028,9 +1029,9 @@ $slide_home= slide_home($setting['id_slide']);
                          document.getElementById("evaluate").innerHTML = '';
                     }
                 }
-            })
+            });
                
-        };
+        }
 </script>
 <script type="text/javascript">
     function plusQuantity()

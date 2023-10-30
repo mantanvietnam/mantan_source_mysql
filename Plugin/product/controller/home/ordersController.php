@@ -252,4 +252,71 @@ function searchDiscountCodeAPI($input){
 		
 	return $return;
 }
+
+function addDiscountCode($input){
+	global $session;
+	global $controller;
+
+	$pay = array();
+
+	$pay['discountCode'] = @$_GET['discountCode'];
+	$pay['code'] = @$_GET['code'];
+	$pay['totalPays'] = @$_GET['totalPays'];
+	$pay['discount_price'] = @$_GET['discount_price'];
+	$pay['total'] = @$_GET['total'];
+
+	$session->write('pay', $pay);
+	return $controller->redirect('/pay');
+}
+
+function pay(){
+	global $session;
+	global $controller;
+
+	$modelProduct = $controller->loadModel('Products');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
+
+	$pay = (!empty($session->read('pay')))?$session->read('pay'):[];
+
+	if(!empty($list_product)){
+
+		foreach($list_product as $key => $product){
+	 		$present = array();
+
+            if(!empty($product->id_product)){
+                $id_product = explode(',', @$product->id_product);
+               
+                foreach($id_product as $item){
+                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    if(!empty($presentf)){
+                        $present[] = $presentf;
+                    }
+                }
+            }
+            $list_product[$key]->present = $present;
+        }
+    }else{
+    	return $controller->redirect('/cart');
+    }
+
+
+    $discountCode = $modelDiscountCode->find()->where(array('code'=>$pay['discountCode']))->first(); 
+
+
+	// SẢN PHẨM NGẪU NHIÊN
+    $conditions = array();
+    $limit = 4;
+    $page = 1;
+    $order = array('id'=>'desc');
+
+    $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+   
+
+	setVariable('list_product', $list_product);
+	setVariable('pay', $pay);
+	setVariable('discountCode', $discountCode);
+}
 ?>

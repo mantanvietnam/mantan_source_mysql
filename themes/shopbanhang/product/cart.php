@@ -5,7 +5,7 @@ global $urlThemeActive;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
-debug($new_product);
+
 ?>
 <main>
         <section id="section-cart">
@@ -171,29 +171,27 @@ debug($new_product);
                                                 <div class="cart-product-gift-item">
                                                     <div class="product-item-inner">
                                                         <div class="product-img">
-                                                            <a href=""><img src="<?php echo $urlThemeActive;?>asset/image/topsearch.png" alt=""></a>
+                                                            <a href="/product/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
                                                         </div>
                             
                                                         <div class="product-info">
                                                             <div class="product-name">
-                                                                <a href="">Đai Chườm Nóng Massage Giảm Đau Bụng Kinh BUMAS BU01</a>
+                                                                <a href=""><?php echo  $value->title ?></a>
                                                             </div>
                             
                                                             <div class="product-price">
-                                                                <p>650.000đ</p>
+                                                                <p><?php echo $value->price ?>đ</p>
                                                             </div>
 
                                                             <div class="product-discount">
-                                                                <del>500.000</del><span> (50%)</span>
+                                                                <del><?php echo $value->price_old ?>đ</del><span> 
                                                             </div>
                                                             
-                                                            <div class="product-cart-bonus">
-                                                                Khi mua kèm Lược điện ion âm
-                                                            </div>
+                                                            
                                                         </div>
 
                                                         <div class="product-button-cart product-button-cart-add">
-                                                            <a href="">Thêm vào giỏ hàng</a>
+                                                            <a href="/product/<?php echo  $value->slug ?>.html">Thêm vào giỏ hàng</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -208,6 +206,8 @@ debug($new_product);
                         
                         <!-- Mã giảm giá và tổng tiền -->
                         <div class="col-lg-3 col-lg-3 col-sm-3 col-12 table-cart-right">
+                            <form action="/addDiscountCode"  method="get">
+                                <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="cart-code-discount-right">
                                 <div class="title-code-enter">
                                     Mã giảm giá
@@ -215,7 +215,7 @@ debug($new_product);
 
                                 <div class="enter-code-discount">
                                     <input type="text" name="discountCode" id="discountCode" placeholder="Nhập mã giảm giá tại đây">
-                                    <button onclick="searchDiscountCodeAPI()">Áp dụng</button>
+                                    <a onclick="searchDiscountCodeAPI()">Áp dụng</a>
                                 </div>
 
                               
@@ -259,71 +259,7 @@ debug($new_product);
                                         </div>
                                     </div>
                                     <div class="list-code-item">
-                                       <!--  <div class="title-code-discount">
-                                            Mã giảm giá
-                                        </div> -->
-                                        
-                                        <!-- Mã giảm giá không tích được -->
-                                       <!--  <div class="voucher voucher-disabled">
-                                            <div class="btn-voucher">
-                                                <div class="bg-voucher">
-                                                    <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
-                                                </div>
-                                                <div class="detail-voucher">
-                                                    <div class="logo-voucher">
-                                                        <h3>Freeship</h3>
-                                                    </div>
-                                                    <div class="infor-voucher">
-                                                        <h4>Giảm tối đa 30k</h4>
-                                                        <p>Đơn tối thiểu 1 triệu</p>
-                                                    </div>
-                                                    <div class="check-voucher">
-                                                        <input class="form-check-input" type="checkbox" value="" id="checkcode2" disabled>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-                                      <!--   <!- Mã giảm giá tích sẵn ->
-                                        <div class="voucher">
-                                            <div class="btn-voucher">
-                                                <div class="bg-voucher">
-                                                    <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
-                                                </div>
-                                                <div class="detail-voucher">
-                                                    <div class="logo-voucher">
-                                                        <h3>Freeship</h3>
-                                                    </div>
-                                                    <div class="infor-voucher">
-                                                        <h4>Giảm tối đa 30k</h4>
-                                                        <p>Đơn tối thiểu 1 triệu</p>
-                                                    </div>
-                                                    <div class="check-voucher">
-                                                        <input class="form-check-input" type="checkbox" value="" id="checkcode2" checked>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="voucher">
-                                            <div class="btn-voucher">
-                                                <div class="bg-voucher">
-                                                    <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
-                                                </div>
-                                                <div class="detail-voucher">
-                                                    <div class="logo-voucher">
-                                                        <h3>Freeship</h3>
-                                                    </div>
-                                                    <div class="infor-voucher">
-                                                        <h4>Giảm tối đa 30k</h4>
-                                                        <p>Đơn tối thiểu 1 triệu</p>
-                                                    </div>
-                                                    <div class="check-voucher">
-                                                        <input class="form-check-input" type="checkbox" value="" id="checkcode2" checked>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                      
                                     </div>
 
                                 </div>
@@ -352,18 +288,7 @@ debug($new_product);
                                     
                                 </div>
 
-                                <!-- Giá tổng chiết khẩu -->
-                               <!--  <div class="cart-price-sum-discount">
-                                    <div class="cart-price-sum-discount-item">
-                                        <div class="cart-price-sum-discount-title">
-                                            Tổng chiết khấu
-                                        </div>
-    
-                                        <div class="cart-price-sum-discount-price">
-                                            -130.000đ
-                                        </div>
-                                    </div>
-                                </div> -->
+                                
 
                                  <!-- Thành tiền -->
                                  <div class="cart-price-total">
@@ -375,14 +300,15 @@ debug($new_product);
                                         <div class="cart-price-total-price" id="totals">
                                            <?php echo number_format($price_total); ?>đ
                                         </div>
-                                         <input type="hidden" name="total" id=total>
+                                         <input type="hidden" value="<?php echo $price_total; ?>" name="total" id=total>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="cart-button-buy">
-                                <a href="">Đặt hàng</a>
+                                <input type="submit" value="Đặt hàng">
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
