@@ -103,6 +103,8 @@ $infoUser = $session->read('infoUser');
 
     <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
+    <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>
+
 
 </body>
 </html>
