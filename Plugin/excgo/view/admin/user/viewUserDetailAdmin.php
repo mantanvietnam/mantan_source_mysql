@@ -73,8 +73,8 @@
                           <label class="form-label">Loại tài khoản</label>
                           <div class="input-group input-group-merge">
                               <select class="form-select" name="type" id="type">
-                                  <option value="0" <?php if (!empty($data->type) && $data->type == '0') echo 'selected'; ?> >Người dùng</option>
-                                  <option value="1" <?php if (!empty($data->type) && $data->type == '1') echo 'selected'; ?> >Tài xế</option>
+                                  <option value="1" <?php if (!empty($data->type) && $data->type == '1') echo 'selected'; ?> >Người dùng</option>
+                                  <option value="2" <?php if (!empty($data->type) && $data->type == '2') echo 'selected'; ?> >Tài xế</option>
                               </select>
                           </div>
                         </div>

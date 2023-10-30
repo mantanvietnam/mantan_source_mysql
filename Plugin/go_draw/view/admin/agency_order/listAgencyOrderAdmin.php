@@ -1,7 +1,6 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Danh mục</h4>
-    <p><a href="/plugins/admin/go_draw-view-admin-order-addAgencyOrderAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
     <form method="get" action="">
         <div class="card mb-4">

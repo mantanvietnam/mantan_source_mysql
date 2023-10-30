@@ -234,6 +234,7 @@ function acceptUpgradeToDriverAdmin($input)
 
     $modelUser = $controller->loadModel('Users');
     $modelDriverRequest = $controller->loadModel('DriverRequests');
+    $notificationModel = $controller->loadModel('Notifications');
 
     if (!empty($_GET['id'])) {
         $user = $modelUser->find()->where([
@@ -250,6 +251,24 @@ function acceptUpgradeToDriverAdmin($input)
             $request->status = 1;
             $request->handled_by = 1;
             $modelDriverRequest->save($request);
+
+            if ($user->device_token) {
+                $title = 'Yêu cầu nâng cấp tài khoản được chấp nhận';
+                $content = 'Yêu cầu nâng cấp tài khoản thành tài xế của bạn đã được chấp nhận';
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'upgradeToDriverSuccess'
+                );
+
+                $newNotification = $notificationModel->newEmptyEntity();
+                $newNotification->user_id = $user->id;
+                $newNotification->title = $title;
+                $newNotification->content = $content;
+                $notificationModel->save($newNotification);
+                sendNotification($dataSendNotification, $user->device_token);
+            }
         }
 
         return $controller->redirect("/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=$user->id");
@@ -365,16 +384,19 @@ function updateStatusWithdrawRequestAdmin($input)
             $transactionModel->save($newTransaction);
 
             if ($user->device_token && (int)$_GET['status'] === $withdrawRequestStatus['done']) {
+                $title = 'Rút tiền thành công EXC-GO';
+                $content = 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number;
                 $dataSendNotification= array(
-                    'title' => 'Rút tiền thành công EXC-GO',
+                    'title' => $title,
                     'time' => date('H:i d/m/Y'),
-                    'content' => 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number,
+                    'content' => $content,
                     'action' => 'withdrawMoneySuccess'
                 );
 
                 $newNotification = $notificationModel->newEmptyEntity();
                 $newNotification->user_id = $user->id;
-                $newNotification->content = 'Rút tiền thành công '.number_format($request->amount).'đ từ tài khoản ' . $user->phone_number;
+                $newNotification->title = $title;
+                $newNotification->content = $content;
                 $notificationModel->save($newNotification);
                 sendNotification($dataSendNotification, $user->device_token);
             }
