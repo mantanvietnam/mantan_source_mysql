@@ -13,3 +13,11 @@
 .h-menu .submenu{
 	right: -190px !important;
 }
+
+.noborder{
+	width: 100%;
+}
+
+.noborder td{
+	border: 0 !important;
+}

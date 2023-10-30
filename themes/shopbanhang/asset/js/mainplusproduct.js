@@ -1,14 +1,17 @@
+var contentMain = document.querySelector('.describe-description');
+contentMain.classList.add('hideContent');
+
 document.querySelectorAll(".describe-more button").forEach(function(link) {
     link.addEventListener("click", function() {
       var content = this.parentElement.previousElementSibling;
       var linkText = this.textContent.toUpperCase();
   
-      if (linkText === "SHOW MORE") {
-        linkText = "Show less";
+      if (linkText === "XEM THÊM") {
+        linkText = "Rút gọn";
         content.classList.remove("hideContent");
         content.classList.add("showContent");
       } else {
-        linkText = "Show more";
+        linkText = "Xem thêm";
         content.classList.remove("showContent");
         content.classList.add("hideContent");
       }
