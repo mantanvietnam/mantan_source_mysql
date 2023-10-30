@@ -5,12 +5,36 @@ function cart($input)
 	global $controller;
 
 	$modelProduct = $controller->loadModel('Products');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
+	if(!empty($list_product)){
+
+		foreach($list_product as $key => $product){
+	 		$present = array();
+
+            if(!empty($product->id_product)){
+                $id_product = explode(',', @$product->id_product);
+               
+                foreach($id_product as $item){
+                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    if(!empty($presentf)){
+                        $present[] = $presentf;
+                    }
+                }
+            }
+            $list_product[$key]->present = $present;
+        }
+    }
+
+
+    $discountCode = $modelDiscountCode->find()->where(array())->all()->toList(); 
+
+
 	// SẢN PHẨM NGẪU NHIÊN
     $conditions = array();
-    $limit = 9;
+    $limit = 4;
     $page = 1;
     $order = array('id'=>'desc');
 
@@ -18,6 +42,7 @@ function cart($input)
 
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
+	setVariable('discountCode', $discountCode);
 }
 
 function addProductToCart($input)
@@ -36,6 +61,40 @@ function addProductToCart($input)
 		if(!empty($product)){
 			if(!empty($list_product[$product->id])){
 				$list_product[$product->id]->numberOrder += (int) $_REQUEST['quantity'];
+			}else{
+				$product->numberOrder = (int) $_REQUEST['quantity'];
+				$list_product[$product->id] = $product;
+			}
+
+			$session->write('product_order', $list_product);
+
+			return $controller->redirect('/cart/?error=addDone');
+		}else{
+			return $controller->redirect('/cart/?error=empty_product');
+		}
+	}else{
+		return $controller->redirect('/cart/?error=empty_data');
+	}
+
+	return $controller->redirect('/cart');
+}
+
+function updateProductToCart($input)
+{
+	global $session;
+	global $controller;
+
+	$modelProduct = $controller->loadModel('Products');
+
+	if(!empty($_REQUEST['id_product'])){
+		if(empty($_REQUEST['quantity'])) $_REQUEST['quantity'] = 1;
+		$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+
+		$list_product = $session->read('product_order');
+
+		if(!empty($product)){
+			if(!empty($list_product[$product->id])){
+				$list_product[$product->id]->numberOrder = (int) $_REQUEST['quantity'];
 			}else{
 				$product->numberOrder = (int) $_REQUEST['quantity'];
 				$list_product[$product->id] = $product;
@@ -163,5 +222,34 @@ function createOrder($input)
 	}else{
 		return $controller->redirect('/cart/?error=empty_data');
 	}
+}
+
+function searchDiscountCodeAPI($input){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $return= array();
+    $return = array('code'=>0);
+
+    $modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+        $conditions = array();
+        if(!empty($_GET['code'])){
+        	$conditions['code'] = $_GET['code'];
+        
+
+		$data = $modelDiscountCode->find()->where($conditions)->first();
+		if(!empty($data)){
+			return array('code'=>1, 'data'=>$data);
+		}else{
+			$return = array('code'=>0);
+		}
+	}else{
+			$return = array('code'=>0);
+		}
+		
+	return $return;
 }
 ?>
