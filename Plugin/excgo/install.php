@@ -175,6 +175,17 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`user_bookings` (
     INDEX `booking_id_index` (`booking_id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`support_requests` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `user_id` INT NOT NULL , 
+    `content` TEXT NOT NULL , 
+    `status` TINYINT(4) NOT NULL DEFAULT 0 COMMENT "0: Chưa xử lý; 1: Đã xử lý" ,
+     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+     PRIMARY KEY (`id`), 
+     INDEX `user_id_index` (`user_id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
@@ -188,4 +199,5 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `transactions`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `complaints`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `notifications`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_bookings`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `support_requests`;';
 ?>

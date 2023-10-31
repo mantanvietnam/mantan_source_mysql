@@ -52,3 +52,7 @@ $routesPlugin['getListNotificationApi'] = 'excgo/view/getListNotificationApi.php
 $routesPlugin['updateNotificationStatusApi'] = 'excgo/view/updateNotificationStatusApi.php';
 $routesPlugin['markAllNotificationAsReadApi'] = 'excgo/view/markAllNotificationAsReadApi.php';
 $routesPlugin['deleteAllNotificationsApi'] = 'excgo/view/deleteAllNotificationsApi.php';
+
+// Support Request
+$routesPlugin['createSupportRequestApi'] = 'excgo/view/createSupportRequestApi.php';
+$routesPlugin['getListSupportRequestApi'] = 'excgo/view/getListSupportRequestApi.php';

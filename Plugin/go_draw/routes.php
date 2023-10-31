@@ -1,8 +1,10 @@
 <?php
     global $routesPlugin;
     // Admin
-    $routesPlugin['adminDeleteAccountApi']= 'excgo/view/adminDeleteAccountApi.php';
-    $routesPlugin['adminUpdateStaffAccountApi']= 'excgo/view/adminUpdateStaffAccountApi.php';
+    $routesPlugin['adminDeleteAccountApi']= 'go_draw/view/adminDeleteAccountApi.php';
+    $routesPlugin['adminUpdateStaffAccountApi']= 'go_draw/view/adminUpdateStaffAccountApi.php';
+    $routesPlugin['getProductDetailAdminApi']= 'go_draw/view/getProductDetailAdminApi.php';
+    $routesPlugin['deleteComboProductAdminApi']= 'go_draw/view/deleteComboProductAdminApi.php';
 
 	// agency
 	$routesPlugin['login']= 'go_draw/view/agency/agency_accounts/login.php';
@@ -16,10 +18,10 @@
 	$routesPlugin['addToCart']= 'go_draw/view/agency/agency_orders/addToCart.php';
 	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
 	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';
-	
+
 	// đơn hàng với khách hàng
 	$routesPlugin['sellProduct']= 'go_draw/view/agency/user_orders/sellProduct.php';
 	$routesPlugin['addToCartUser']= 'go_draw/view/agency/user_orders/addToCartUser.php';
 	$routesPlugin['userCart']= 'go_draw/view/agency/user_orders/userCart.php';
-	
+
 	$routesPlugin['orderUserProcess']= 'go_draw/view/agency/user_orders/orderUserProcess.php';
