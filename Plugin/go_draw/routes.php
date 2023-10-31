@@ -25,3 +25,8 @@
 	$routesPlugin['userCart']= 'go_draw/view/agency/user_orders/userCart.php';
 
 	$routesPlugin['orderUserProcess']= 'go_draw/view/agency/user_orders/orderUserProcess.php';
+	$routesPlugin['processUserOrder']= 'go_draw/view/agency/user_orders/processUserOrder.php';
+	$routesPlugin['checkoutOrderUser']= 'go_draw/view/agency/user_orders/checkoutOrderUser.php';
+	
+	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
+
