@@ -25,13 +25,33 @@ function cart($input)
                 }
             }
             $list_product[$key]->present = $present;
+
+            $idprodiscount =array();
+            if(!empty($product->idpro_discount)){
+                $idprodiscount = explode(',', @$product->idpro_discount);
+               
+                foreach($idprodiscount as $item){
+                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    if(!empty($presentf)){
+                        $idprodiscount[] = $presentf;
+                    }
+                }
+            }
+            $list_product[$key]->idprodiscount = $idprodiscount;
         }
     }
-
-
-    $discountCode = $modelDiscountCode->find()->where(array())->all()->toList(); 
-
-
+    $categoryDiscountCode = categoryDiscountCode();
+    $category = array();
+    foreach($categoryDiscountCode as $key => $item){
+    	$data = array();
+    	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+    	$data['name'] = $item;
+    	if(!empty($discountCode)){
+    		$data['discountCode'] = $discountCode;
+    	}
+    	 
+   		$category[$key]=$data;
+    }
 	// SẢN PHẨM NGẪU NHIÊN
     $conditions = array();
     $limit = 4;
@@ -42,7 +62,7 @@ function cart($input)
 
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
-	setVariable('discountCode', $discountCode);
+	setVariable('category', $category);
 }
 
 function addProductToCart($input)

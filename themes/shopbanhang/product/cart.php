@@ -222,14 +222,15 @@ $slide_home= slide_home($setting['id_slide']);
 
                                 <div class="list-code-discount">
                                     <!-- Mã giảm giá -->
+                                    <?php foreach($category as $key => $value){ ?>
                                     <div class="list-code-item">
                                         <div class="title-code-discount">
-                                            Miễn phí vẫn chuyển
+                                           <?php echo $value['name']; ?>
                                         </div>
     
                                         <div class="voucher">
-                                            <?php if(!empty($discountCode)){
-                                                foreach($discountCode as $key => $item){
+                                            <?php if(!empty($value['discountCode'])){
+                                                foreach($value['discountCode'] as $key => $item){
                                                      $voucher = "";
                                                     if($price_total < $item->applicable_price){
 
@@ -258,6 +259,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         <?php }}     ?>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                     <div class="list-code-item">
                                       
                                     </div>

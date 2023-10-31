@@ -119,10 +119,13 @@
                                 </select>
                               </div>
                             </div>
-
                             <div class="mb-3">
                               <label class="form-label">Số lượt xem</label>
                               <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Id sản phẩm quà tặng </label>
+                              <input type="text" class="form-control" name="id_product" id="id_product" value="<?php echo @$data->id_product; ?>" />
                             </div>
                           </div>
 
@@ -146,14 +149,17 @@
                               <label class="form-label">Giá bán cũ</label>
                               <input type="text" class="form-control phone-mask" name="price_old" id="price_old" value="<?php echo @$data->price_old;?>" />
                             </div>
-
+                            <div class="mb-3">
+                              <label class="form-label">Giá ưu đãi</label>
+                              <input type="text" class="form-control" name="pricepro_discount" id="pricepro_discount" value="<?php echo @$data->pricepro_discount; ?>" />
+                            </div>
                             <div class="mb-3">
                               <label class="form-label">Số lượng</label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Id sản phẩn quà tặng </label>
-                              <input type="text" class="form-control" name="id_product" id="id_product" value="<?php echo @$data->id_product; ?>" />
+                              <label class="form-label">Id sản phẩm ưu đãi</label>
+                              <input type="text" class="form-control" name="idpro_discount" id="idpro_discount" value="<?php echo @$data->idpro_discount; ?>" />
                             </div>
                           </div>
                         </div>

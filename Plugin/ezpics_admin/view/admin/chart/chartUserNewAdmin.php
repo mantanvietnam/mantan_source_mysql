@@ -117,7 +117,7 @@
         
     </script>
 
-    
+     <h5 class="card-header">Tổng người đăng ký trong tháng <?php echo @$total ?></h5>
     <div id="user_chart" style="width: 100%; height: 500px; background: white;"></div>
 
 </div>

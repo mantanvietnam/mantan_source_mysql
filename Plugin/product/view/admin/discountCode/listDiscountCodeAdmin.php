@@ -42,6 +42,7 @@
             <th>ID</th>
             <th>Tên </th>
             <th>Mã</th>
+            <th>Danh mục</th>
             <th>Giảm giá</th>
             <th>số lần</th>
             <th>Ngày Hết hạn</th>
@@ -68,6 +69,7 @@
                         <td>'.$item->id.'</td>
                         <td>'.@$item->name.'</td>
                         <td>'.@$item->code.'</td>
+                        <td>'.categoryDiscountCode()[@$item->category].'</td>
                         <td>'.@$discount.'</td>
                         <td>'.@$item->number_user.'</td>
                         <td>'.$data.'</td>

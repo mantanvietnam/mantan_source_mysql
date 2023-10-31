@@ -116,7 +116,9 @@ function saveRequestBankingAPI($input)
                 $order->status = 1; // 1: chưa xử lý, 2 đã xử lý
                 $order->type = 1; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền, 5: chiết khấu, 6: tạo nội dung, 7: mua kho mẫu thiết kế, 8: bán kho mẫu thiết kế 
                 $order->created_at = date('Y-m-d H:i:s');
-                $order->discount_id = $discount_id; // id mã khuyến mại
+                if(!empty($discount_id)){
+                	$order->discount_id = @$discount_id; // id mã khuyến mại
+                }
                 $order->payment_kind = 1; //0: tiền thưởng, 1 tiền thật 
                 
                 $modelOrder->save($order);
