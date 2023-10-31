@@ -18,6 +18,9 @@
 	$routesPlugin['addToCart']= 'go_draw/view/agency/agency_orders/addToCart.php';
 	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
 	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';
+	
+	$routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
+	$routesPlugin['orderAgencyDone']= 'go_draw/view/agency/agency_orders/orderAgencyDone.php';
 
 	// đơn hàng với khách hàng
 	$routesPlugin['sellProduct']= 'go_draw/view/agency/user_orders/sellProduct.php';
