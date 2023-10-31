@@ -96,7 +96,7 @@ getHeader();
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="mt-3 btn btn-primary button-submit-custom" style="width: 100px;">Lưu</button>
+                                            <button type="submit" class="mt-3 btn btn-primary button-submit-custom" style="width: 100px;margin-left:6px">Lưu</button>
                                         </div>
                                     </div>
                                 </form>
@@ -197,43 +197,6 @@ getHeader();
                                 </div>
                             </div>
 
-                        </div>
-                        <div id="change-my-pass" class="tab-pane"
-                            style="border: 0.5px solid rgb(192, 192, 192);height:100%">
-                            <div class="detail-file">
-                                <div class="title-file" style="padding: 34px 0 0 0">
-                                    <p>Thay đổi mật khẩu</p>
-                                </div>
-                                <div class="change-password-info">
-                                    <form action="" method="post">
-                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                                        <div class="item-detail">
-                                            <label for="oldPassword" style="width: 200px;">Mật khẩu cũ</label>
-                                            <input type="text" id="oldpass" name="oldpass"
-                                                placeholder="Vui lòng nhập mật khẩu cũ" required>
-                                        </div>
-                                        <div class="item-detail">
-                                            <label for="oldPassword" style="width: 200px;">Mật khẩu mới</label>
-                                            <input type="text" id="pass" name="pass"
-                                                placeholder="Vui lòng nhập mật khẩu mới" required>
-                                        </div>
-                                        <div class="item-detail">
-                                            <label for="oldPassword" style="width: 200px;">Nhập lại mật khẩu mới</label>
-                                            <input type="text" id="passAgain" name="passAgain"
-                                                placeholder="Vui lòng nhập lại mật khẩu mới" required>
-                                        </div>
-                                        <div class="item-detail btn-submit">
-                                            <input type="submit" value="Xác nhận">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="my-order" class="tab-pane">
-                            <p>52651</p>
-                        </div>
-                        <div id="my-product" class="tab-pane">
-                            <p>52651</p>
                         </div>
                         <div id="my-voucher" class="tab-pane">
                             <div class="tab-voucher">
