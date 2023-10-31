@@ -91,6 +91,8 @@ function addAgencyOrderAdmin($input)
     $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
     $comboModel = $controller->loadModel('Combos');
     $agencyModel = $controller->loadModel('Agencies');
+    $agencyProductModel = $controller->loadModel('AgencyProducts');
+    $productModel = $controller->loadModel('Products');
     $mess = '';
 
     if (!empty($_GET['id'])) {
@@ -108,24 +110,53 @@ function addAgencyOrderAdmin($input)
         setVariable('agency', $agency);
         $listAgency = $agencyModel->find()->all();
         setVariable('listAgency', $listAgency);
-    }
 
-    if ($isRequestPost) {
-        $dataSend = $input['request']->getData();
+        if ($isRequestPost) {
+            $dataSend = $input['request']->getData();
 
-        if (!empty($dataSend['agency_id'])
-            && !empty($dataSend['total_price'])
-            && !empty($dataSend['status'])
-        ) {
-            $order->agency_id = $dataSend['agency_id'];
-            $order->total_price = $dataSend['total_price'];
-            $order->status = (int)$dataSend['status'];
-            $orderModel->save($order);
+            if (isset($dataSend['agency_id'])
+                && isset($dataSend['total_price'])
+                && isset($dataSend['status'])
+            ) {
+                $order->agency_id = $dataSend['agency_id'];
+                $order->total_price = $dataSend['total_price'];
+                $order->status = (int)$dataSend['status'];
 
-            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
-        } else {
-            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+                if ((int)$dataSend['status'] === 1 && !empty($listItem) && !empty($agency)) {
+                    $listAgencyProduct = [];
+                    foreach ($listItem as $item) {
+                        $listProduct = $productModel->find()
+                            ->join([
+                                [
+                                    'table' => 'combo_products',
+                                    'alias' => 'ComboProducts',
+                                    'type' => 'LEFT',
+                                    'conditions' => [
+                                        'ComboProducts.product_id = Products.id',
+                                    ],
+                                ],
+                            ])->where(["ComboProducts.combo_id" => $item->combo_id])
+                            ->all();
+                        foreach ($listProduct as $product) {
+                            $newItem = $agencyProductModel->newEmptyEntity();
+                            $newItem->agency_id = $agency->id;
+                            $newItem->product_id = $product->id;
+                            $newItem->price = $item->unit_price;
+                            $newItem->amount = $item->amount;
+                            $listAgencyProduct[] = $newItem;
+                        }
+                    }
+                    $agencyProductModel->saveMany($listAgencyProduct);
+                }
+                $orderModel->save($order);
+
+                $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+            } else {
+                $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            }
         }
+    } else {
+        $mess = '<p class="text-danger">Không có đơn hàng hợp lệ</p>';
     }
     $listCombo = $comboModel->find()->where(['status' => 1])->all();
 

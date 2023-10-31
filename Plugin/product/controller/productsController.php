@@ -135,23 +135,25 @@ function addProduct($input)
 
         if(!empty($dataSend['title'])){
 	        // tạo dữ liệu save
-	        $data->title = str_replace(array('"', "'"), '’', $dataSend['title']);
-            $data->id_category = (int) $dataSend['id_category'];
-            $data->hot = (int) $dataSend['hot'];
-            $data->description = $dataSend['description'];
-            $data->keyword = $dataSend['keyword'];
-	        $data->info = $dataSend['info'];
-	        $data->image = $dataSend['image'];
-            $data->images = json_encode($dataSend['images']);
-            $data->code = $dataSend['code'];
-            $data->price = (int) $dataSend['price'];
-            $data->price_old = (int) $dataSend['price_old'];
-            $data->quantity = (int) $dataSend['quantity'];
-            $data->id_manufacturer = (int) $dataSend['id_manufacturer'];
-	        $data->status = $dataSend['status'];
-            $data->rule = $dataSend['rule'];
-            $data->specification = $dataSend['specification'];
-            $data->id_product = $dataSend['id_product'];
+	        $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
+            $data->id_category = (int) @$dataSend['id_category'];
+            $data->hot = (int) @$dataSend['hot'];
+            $data->description = @$dataSend['description'];
+            $data->keyword = @$dataSend['keyword'];
+	        $data->info = @$dataSend['info'];
+	        $data->image = @$dataSend['image'];
+            $data->images = json_encode(@$dataSend['images']);
+            $data->code = @$dataSend['code'];
+            $data->price = (int) @$dataSend['price'];
+            $data->price_old = (int) @$dataSend['price_old'];
+            $data->quantity = (int) @$dataSend['quantity'];
+            $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
+	        $data->status = @$dataSend['status'];
+            $data->rule = @$dataSend['rule'];
+            $data->specification = @$dataSend['specification'];
+            $data->id_product = @$dataSend['id_product'];
+            $data->idpro_discount = @$dataSend['idpro_discount'];
+            $data->pricepro_discount = @$dataSend['pricepro_discount'];
 	        
             
 	        // tạo slug

@@ -12,7 +12,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `products` (
     `status` INT NOT NULL , 
     `amount_in_stock` INT NOT NULL DEFAULT 0 , 
     `amount_sold` INT NOT NULL DEFAULT 0 , 
-    `type` TINYINT NOT NULL , 
+    `type` TINYINT(4) NOT NULL DEFAULT "2" COMMENT "1 là tái sử dụng, 2 là tiêu hao" , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)

@@ -3,6 +3,11 @@
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php">Combo</a> /</span>
         Thông tin combo
+        <?php
+            if (isset($mess)) {
+                print_r($mess);
+            }
+        ?>
     </h4>
 
     <!-- Basic Layout -->
@@ -14,6 +19,7 @@
                 </div>
                 <div class="card-body">
                     <p><?php echo $mess ?? '';?></p>
+                    <p id="alert-message"><?php echo $mess ?? '';?></p>
                     <?= $this->Form->create(); ?>
                     <div class="row">
                         <div class="col-12">
@@ -46,7 +52,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <img id="show-image" src="<?php echo @$data->image ?: 'https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg'; ?>" alt=""
                                                  style="max-width: 400px; max-height: 400px"
                                             />
@@ -56,33 +62,44 @@
                                     <div>
                                         <label class="form-label">Danh sách sản phẩm</label>
                                         <div id="product-list">
-                                            <div class="product-item row mb-3" id="product-item-1">
+                                            <?php foreach (@$comboProduct as $key => $item): ?>
+                                            <div class="product-item row mb-3" id="<?php echo 'product-item-'.$key; ?>">
                                                 <div class="col-md-6">
+                                                    <input type="hidden" id="<?php echo 'combo-product-id['.$key.']'; ?>" value="<?php echo $item->id; ?>">
                                                     <label class="form-label">Tên sản phẩm</label>
-                                                    <select name="product_item_id[1]" class="form-select color-dropdown">
-                                                        <option value="1" selected>SP 1
-                                                        </option>
-                                                        <option value="1" selected>SP 1
-                                                        </option>
+                                                    <select class="form-select color-dropdown select-product" data-target="<?php echo $key; ?>"
+                                                            name="<?php echo 'product-item-id['.$key.']'; ?>" id="<?php echo 'product-item-id['.$key.']'; ?>"
+                                                    >
+                                                        <?php foreach (@$productList as $product): ?>
+                                                            <option value="<?php echo $product->id; ?>" <?php if ($product->id === $item->id) echo 'selected'; ?>><?php echo $product->name; ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
 
                                                     <label class="form-label">Số lượng</label>
-                                                    <input required type="number" class="form-control" name="product_item_amount[1]" value="0" />
-
-                                                    <label class="form-label">Giá</label>
-                                                    <input required type="number" class="form-control" name="product_item_price[1]" value="0" />
+                                                    <input required type="number" class="form-control" value="<?php echo $item->ComboProducts['amount']; ?>"
+                                                           name="<?php echo 'product-item-amount['.$key.']'; ?>" id="<?php echo 'product-item-amount['.$key.']'; ?>"
+                                                    />
                                                 </div>
 
                                                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
                                                     <div>
                                                         <label class="form-label d-block">Hình ảnh minh họa</label>
-                                                        <img id="show-image" src="https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg" alt=""
-                                                             style="max-width: 200px; max-height: 200px"
+                                                        <img src="<?php echo !empty($item->image) ? $item->image : "https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg"; ?>"
+                                                             alt="" style="max-width: 200px; max-height: 200px" id="<?php echo 'product-item-image['.$key.']'; ?>"
                                                         />
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-2" style="align-items: center; display: flex; justify-content: center">
+                                                    <div style="margin-right: 2px"><button class="btn btn-primary btn-save-product" type="button" data-target="<?php echo $key; ?>">Lưu
+                                                    </button></div>
+                                                    <div style="margin-left: 2px"><button class="btn btn-danger btn-remove-product" type="button" data-target="<?php echo $key; ?>">Xóa
+                                                    </button></div>
+                                                </div>
                                             </div>
+                                            <?php endforeach; ?>
                                         </div>
+                                        <div id="product-ref"></div>
                                         <p><button class="btn btn-primary" id="btn-add-product" type="button"><i class='bx bx-plus'></i></button></p>
                                     </div>
                                 </div>
@@ -98,7 +115,9 @@
     </div>
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
 </div>
-
+<?php
+    global $csrfToken;
+?>
 <script type="text/javascript">
     function BrowseServerImage(number = 0)
     {
@@ -114,48 +133,101 @@
         $("#show-image").attr('src', fileUrl);
     }
 
-    let productCount = 1;
+    let productCount = Number('<?php echo isset($comboProduct) ? count($comboProduct) : 0;?>');
+    const productOption = `<?php foreach (@$productList as $product): ?>
+                                <option value="<?php echo $product->id; ?>" selected><?php echo $product->name; ?></option>
+                            <?php endforeach; ?>`;
+
     $('#btn-add-product').on('click', function () {
-        const nextProduct = productCount + 1;
-        $(`#product-item-${productCount}`).after(`
-            <div class="product-item row mb-3" id="product-item-${nextProduct}">
+        $('#product-ref').before(`
+            <div class="product-item row mb-3" id="product-item-${productCount}">
                 <div class="col-md-6">
+                <input type="hidden" id="combo-product-id[${productCount}]" value="">
                 <label class="form-label">Tên sản phẩm</label>
-                    <select name="product_item_id[${nextProduct}]" class="form-select color-dropdown">
-                        <option value="1" selected>SP 1
-                        </option>
-                        <option value="1" selected>SP 1
-                        </option>
+                    <select class="form-select color-dropdown select-product" data-target="${productCount}"
+                        name="product-item-id[${productCount}]" id="product-item-id[${productCount}]"
+                    >
+                        ${productOption}
                     </select>
 
                     <label class="form-label">Số lượng</label>
-                    <input required type="number" class="form-control" name="product_item_amount[${nextProduct}]" value="0" />
-
-                    <label class="form-label">Giá</label>
-                    <input required type="number" class="form-control" name="product_item_price[${nextProduct}]" value="0" />
+                    <input required type="number" class="form-control" name="product-item-amount[${productCount}]" id="product-item-amount[${productCount}]" />
                 </div>
 
                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
                     <div>
                         <label class="form-label">Hình ảnh minh họa</label>
-                        <img id="show-image" src="https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg" alt=""
-                             style="max-width: 200px; max-height: 200px"
+                        <img src="https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg" id="product-item-image[${productCount}]"
+                             style="max-width: 200px; max-height: 200px" alt=""
                         />
                     </div>
                 </div>
 
                 <div class="col-md-2" style="align-items: center; display: flex; justify-content: center">
-                    <p><button class="btn btn-primary btn-remove-product" type="button" data-remove="product-item-${nextProduct}"
-                        ><i class='bx bx-minus'></i>
-                    </button></p>
+                    <div style="margin-right: 2px"><button class="btn btn-primary btn-save-product" type="button" data-target="${productCount}">Lưu
+                    </button></div>
+                    <div style="margin-left: 2px"><button class="btn btn-danger btn-remove-product" type="button" data-target="${productCount}">Xóa
+                    </button></div>
                 </div>
             </div>`);
-        productCount = nextProduct;
+        productCount++;
     });
 
     $(document).on('click', '.btn-remove-product', function () {
-        const removeId = $(this).data('remove');
-        $(`#${removeId}`).remove();
+        const removeId = $(this).data('target');
+        const id = $(document.getElementById(`combo-product-id[${removeId}]`)).val();
+        const token = "<?php echo $csrfToken;?>";
+        if (id) {
+            $.ajax({
+                method: "POST",
+                url: '/apis/deleteComboProductAdminApi',
+                headers: {'X-CSRF-Token': token},
+                data: { id },
+                success: function (result) {
+                    let message = '';
+                    if (!result.code) {
+                        message = `<p class="text-success">${result.messages}</p>`;
+                    } else {
+                        message = `<p class="text-danger">${result.messages}</p>`;
+                    }
+                    $('#alert-message').empty();
+                    $('#alert-message').append(message);
+                    $(document.getElementById(remove)).remove();
+                },
+                error: function () {
+                    $('#alert-message').empty();
+                    $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $('#alert-message').empty();
+                    }, 3000);
+                }
+            });
+        }
+        $(document.getElementById(`product-item-${removeId}`)).remove();
         productCount--;
+    })
+
+    $(document).on('change', '.select-product', function () {
+        const productId = $(this).val();
+        const token = "<?php echo $csrfToken;?>";
+        const target = $(this).data('target');
+        if (productId) {
+            $.ajax({
+                method: "POST",
+                url: '/apis/getProductDetailAdminApi',
+                headers: {'X-CSRF-Token': token},
+                data: {
+                    id: productId
+                },
+                success: function (result) {
+                    const image = result.data.image ? result.data.image : "https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg";
+                    $(document.getElementById(`product-item-image[${target}]`)).attr('src', image);
+                },
+                error: function () {
+                },
+            });
+        }
     })
 </script>

@@ -77,3 +77,12 @@ $category[1]['sub'] = array(array (	'url' => '/products',
 
 
 addMenusAppearance($category);
+
+
+function categoryDiscountCode(){
+      return array(
+          1=>'voucher freeship',
+          2=>' Loại 1',
+          3=>' Loại 2',
+      );
+} 

@@ -590,6 +590,9 @@ function addProduct($input)
 		        		$listWarehouse->number_product = $totalProducts;
 		        		$modelWarehouses->save($listWarehouse);
 		        	}
+		        }else{
+		        	$conditions = ['product_id'=>$data->id];
+		        	$modelWarehouseProducts->deleteAll($conditions);
 		        }
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';

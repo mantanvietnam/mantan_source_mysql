@@ -169,3 +169,29 @@ function addProductAdmin($input)
     setVariable('categoryList', $categoryList);
     setVariable('mess', $mess);
 }
+
+function getProductDetailAdminApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $modelProduct = $controller->loadModel('Products');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (isset($dataSend['id'])) {
+            $product = $modelProduct->find()
+                ->where([
+                    'id' => $dataSend['id'],
+                    'status' => 1
+                ])->first();
+
+            return apiResponse(0, 'Lấy thông tin sản phẩm thành công', $product);
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng method POST');
+}

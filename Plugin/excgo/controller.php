@@ -13,3 +13,4 @@ include_once('controller/api/pinnedProvincesController.php'); // Ghim tỉnh
 include_once('controller/api/transactionsController.php'); // Giao dịch
 include_once('controller/api/complaintsController.php'); // Khiếu nại
 include_once('controller/api/notificationsController.php'); // Khiếu nại
+include_once('controller/api/supportRequestsController.php'); // Trợ giúp

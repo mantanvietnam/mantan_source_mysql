@@ -12,7 +12,7 @@
         <div class="container">
             <div class="content-detail-gallery detail-cart">
                 <div class="title text-center" style="display: flex;">
-                    <span>Đơn hàng chờ xử lý</span>
+                    <span>Đơn hàng hoàn thành</span>
                     <svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1181.45 57.9501H0.28125V46.8002C0.28125 21.1802 21.0513 0.410156 46.6713 0.410156H1135.05C1160.67 0.410156 1181.44 21.1802 1181.44 46.8002V57.9501H1181.45Z" fill="#1A3A89"/>
                     </svg>
@@ -27,7 +27,6 @@
                                               <th scope="col" width="50">ID</th>
                                               <th scope="col">Sản phẩm</th>
                                               <th scope="col" width="150">Thành tiền</th>
-                                              <th scope="col" width="100"></th>
                                             </tr>
                                         </thead>
                                         <tbody>';
@@ -51,9 +50,6 @@
 
                                                 echo      '</td>
                                                           <td>'.number_format($value->total_price).'</td>
-                                                          <td>
-                                                            <div class="btn-order text-center"><a href="/processUserOrder/?id='.$value->id.'">THANH TOÁN</a></div>
-                                                          </td>
                                                         </tr>';
                                             }
                                         }

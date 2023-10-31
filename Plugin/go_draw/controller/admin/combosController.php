@@ -49,26 +49,73 @@ function listComboAdmin($input)
     setVariable('listData', $listData);
 }
 
-function viewComboDetailAdmin($input)
+function viewDetailComboAdmin($input)
 {
     global $controller;
     global $isRequestPost;
 
     $comboModel = $controller->loadModel('Combos');
+    $productModel = $controller->loadModel('Products');
     $mess = '';
 
     if (!empty($_GET['id'])) {
-        $data = $comboModel->find()->where([
-            'id' => $_GET['id']
-        ])->first();
+        $combo = $comboModel->find()
+            ->select(['id', 'name'])
+            ->where(['id' => $_GET['id']])
+            ->first();
+        $comboProduct = $productModel->find()
+            ->join([
+                [
+                    'table' => 'combo_products',
+                    'alias' => 'ComboProducts',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'ComboProducts.product_id = Products.id',
+                    ],
+                ],
+            ])->where(['ComboProducts.combo_id' => $combo->id])
+            ->select([
+                'Products.id',
+                'Products.name',
+                'Products.price',
+                'Products.image',
+                'ComboProducts.amount',
+            ])->all();
     } else {
-        $data = $comboModel->newEmptyEntity();
+        $combo = $comboModel->newEmptyEntity();
     }
+
+    $productList = $productModel->find()
+        ->where(['status' => 1])
+        ->all();
+
+    setVariable('data', $combo);
+    setVariable('comboProduct', $comboProduct ?? []);
+    setVariable('productList', $productList);
+    setVariable('mess', $mess);
+}
+
+function deleteComboProductAdminApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $comboProductModel = $controller->loadModel('ComboProducts');
 
     if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
 
+        if (isset($dataSend['id'])) {
+            $data = $comboProductModel->find()
+                ->where(['id' => $dataSend['id']])
+                ->first();
+            $comboProductModel->delete($data);
+
+            return apiResponse(0, 'Xóa thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
     }
 
-    setVariable('data', $data);
-    setVariable('mess', $mess);
+    return apiResponse(1, 'Bắt buộc sử dụng method POST');
 }

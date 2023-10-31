@@ -318,7 +318,7 @@ global $urlThemeActive;
          var html = '';
          html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Ngày</p>'
@@ -327,7 +327,7 @@ global $urlThemeActive;
 
         html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giờ</p>'
@@ -336,7 +336,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item time-flash-item-center">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Phút</p>'
@@ -345,7 +345,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giây</p>'
@@ -360,7 +360,7 @@ global $urlThemeActive;
         var html = '';
          html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+days+'</p>'
+        html +='                        <p>'+String(days).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Ngày</p>'
@@ -369,7 +369,7 @@ global $urlThemeActive;
 
         html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+hours+'</p>'
+        html +='                        <p>'+String(hours).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giờ</p>'
@@ -378,7 +378,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item time-flash-item-center">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+minutes+'</p>'
+        html +='                        <p>'+String(minutes).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Phút</p>'
@@ -387,7 +387,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+seconds+'</p>'
+        html +='                        <p>'+String(seconds).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giây</p>'

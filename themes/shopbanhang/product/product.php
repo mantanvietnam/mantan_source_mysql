@@ -1,8 +1,11 @@
     <?php
 getHeader();
 global $urlThemeActive;
+global $session;
 
 $setting = setting();
+
+$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
 $slide_home= slide_home($setting['id_slide']);
 
@@ -303,7 +306,10 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                 </div>
             </div>
-
+            <?php if(!empty($list_product)){
+                foreach($list_product as $item){
+                    if($item->id==$product->id){
+             ?>
             <!-- Xác nhận thêm giỏ hàng -->
             <div class="box-confirm-cart">
                 <div class="box-confirm-cart-title">
@@ -316,31 +322,32 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="box-confirm-cart-detail">
                     <div class="box-confirm-cart-top">
                         <div class="box-confirm-cart-image">
-                            <img src="<?php echo $urlThemeActive;?>asset/image/product-detail.png" alt="">
+                            <img src="<?php echo $item->image;?>" alt="">
                         </div>
 
                         <div class="box-confirm-cart-detail-box">
                             <div class="box-confirm-cart-detail-name">
-                                Máy massage khớp gối Bumas M6
+                                <?php echo $item->title; ?>
                             </div>
 
                             <div class="box-confirm-cart-detail-price">
                                 <div class="box-confirm-cart-price-real">
-                                    <span>1.0000.000đ</span>
+                                    <span><?php echo number_format($item->price); ?>đ</span>
                                 </div>
 
                                 <div class="box-confirm-cart-price-discount">
-                                    <del>500.000đ</del>
+                                    <del><?php echo number_format($item->price_old); ?>đ</del>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="box-confirm-cart-bottom">
-                        <a href="">Xem giỏ hàng</a>
+                        <a href="/cart">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>
+        <?php }}} ?>
         </section>
 
         <section id="section-pro-review">
@@ -487,7 +494,7 @@ $slide_home= slide_home($setting['id_slide']);
     
                                 <div class="product-info">
                                     <div class="product-name">
-                                        <a href="<?php echo $link ?>"><?php echo $item->image ?></a>
+                                        <a href="<?php echo $link ?>"><?php echo $item->title ?></a>
                                     </div>
     
                                     <div class="product-price">
@@ -825,16 +832,16 @@ $slide_home= slide_home($setting['id_slide']);
       if (timeLeft <= 0) {
          var html = '';
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>0</p>'
+        html +='                           <p>00</p>'
         html +='                       </div>'
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>0</p>'
+        html +='                           <p>00</p>'
         html +='                       </div>'
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>0</p>'
+        html +='                           <p>00</p>'
         html +='                       </div>'
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>0</p>'
+        html +='                           <p>00</p>'
         html +='                       </div>'
         document.getElementById("countdown").innerHTML = html;
       } else {
@@ -844,16 +851,16 @@ $slide_home= slide_home($setting['id_slide']);
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
         var html = '';
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>'+days+'</p>'
+        html +='                           <p>'+String(days).padStart(2, '0')+'</p>'
         html +='                       </div>'
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>'+hours+'</p>'
+        html +='                           <p>'+String(hours).padStart(2, '0')+'</p>'
         html +='                       </div>'
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>'+minutes+'</p>'
+        html +='                           <p>'+String(minutes).padStart(2, '0')+'</p>'
         html +='                       </div>'
         html +='                       <div class="time-flash-number">'
-        html +='                           <p>'+seconds+'</p>'
+        html +='                           <p>'+String(seconds).padStart(2, '0')+'</p>'
         html +='                       </div>'
 
 
