@@ -196,38 +196,88 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                 </nav>
             </div>
 
-            <!-- mobile -->
-            <!-- <div class="menu-mobile">
+                <!-- mobile -->
+                <div class="menu-mobile">
                 <div class="menu-mobile-inner">
                     <div class="menu-mobile-box">
                         <ul>
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
-                            </li>
-                            
-                            <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href=""><img src="../asset/image/homebluemobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt=""></a>
+                                <a href=""><img src="../asset/image/percentmobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt=""></a>
+                                <a href=""><img src="../asset/image/peoplemobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href=""><img src="../asset/image/cartmobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href=""><img src="../asset/image/infomobile.png" alt=""></a>
+                            </li>
+
+                            <li>
+                                <nav class="nav-mobile">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                                        <img src="../asset/image/linemobile.png" alt="">
+                                    </button>
+                                    <div class="offcanvas" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                                        <div class="offcanvas-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                                        </div>
+                                        <div class="offcanvas-body">
+                                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">Link</a>
+                                                </li>
+
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Dropdown
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Dropdown
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">
+                                                        Dropdown
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="number-phone-mobile">
+                                                <p>Điện thoại tư vấn : 0963.514.244</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
 
         </div>
