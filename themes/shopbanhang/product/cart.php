@@ -230,7 +230,7 @@ $slide_home= slide_home($setting['id_slide']);
     
                                         <div class="voucher">
                                             <?php if(!empty($value['discountCode'])){
-                                                foreach($value['discountCode'] as $key => $item){
+                                                foreach($value['discountCode'] as $k => $item){
                                                      $voucher = "";
                                                     if($price_total < $item->applicable_price){
 
@@ -252,7 +252,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher">
-                                                        <input class="form-check-input" onclick="addDiscountCodeAPI('<?php echo @$item->code ?>')"  type="radio" name="code" value="<?php echo $item->code ?>" id="checkcode1">
+                                                        <input class="form-check-input" onclick="addDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>)"  type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -283,10 +283,26 @@ $slide_home= slide_home($setting['id_slide']);
                             
                                 <!-- Giá voucher-->
                                 <div class="cart-price-code-discount">
-                                    <div class="cart-price-item" id="discountPrice">
+                                    <div class="cart-price-item" id="discountPrice1">
                                         
                                     </div>
-                                    <input type="hidden"  name="discount_price" value="0" id="discount_price">
+                                    <input type="hidden"  name="discount_price1" value="0" id="discount_price1">
+                                    
+                                </div>
+
+                                <div class="cart-price-code-discount">
+                                    <div class="cart-price-item" id="discountPrice2">
+                                        
+                                    </div>
+                                    <input type="hidden"  name="discount_price2" value="0" id="discount_price2">
+                                    
+                                </div>
+
+                                <div class="cart-price-code-discount">
+                                    <div class="cart-price-item" id="discountPrice3">
+                                        
+                                    </div>
+                                    <input type="hidden"  name="discount_price3" value="0" id="discount_price3">
                                     
                                 </div>
 
@@ -405,14 +421,18 @@ $slide_home= slide_home($setting['id_slide']);
 
             document.getElementById("totalPays").value = price_total;
 
-            var discount = 0;
-            discount= parseInt($('#discount_price').val());
-            console.log(discount);
-            console.log(price_total);
+            var discount1 = 0;
+            var discount2 = 0;
+            var discount3 = 0;
+            discount1= parseInt($('#discount_price1').val());
+            discount2= parseInt($('#discount_price2').val());
+            discount3= parseInt($('#discount_price3').val());
+            // console.log(discount);
+             console.log(price_total);
 
-            price_total = price_total - discount;
+            price_total = price_total - discount1 - discount2 - discount3;
 
-            console.log(price_total);
+             console.log(price_total);
 
 
             var total = new Intl.NumberFormat().format(price_total);
@@ -424,17 +444,17 @@ $slide_home= slide_home($setting['id_slide']);
 
     }
 
-    function addDiscountCodeAPI(code){
+    function addDiscountCodeAPI(code, key){
          document.getElementById("discountCode").value = code;
-         searchDiscountCodeAPI(code);
+         searchDiscountCodeAPI(code, key);
     }
 
-    function searchDiscountCodeAPI(code)
+    function searchDiscountCodeAPI(code, key)
     {
         let totalPays = $('#totalPays').val();
         $.ajax({
             method: "GET",
-            url: "/apis/searchDiscountCodeAPI/?code="+code
+            url: "/apis/searchDiscountCodeAPI/?code="+code+"&category="+key,
         })
         .done(function(msg) {
             if(msg.code==1){
@@ -442,7 +462,7 @@ $slide_home= slide_home($setting['id_slide']);
                     const specifiedTime = new Date(msg.data.deadline_at);
                     const currentTime = new Date();
                     var html ='';
-                    
+                    console.log(msg.data);
                   if(specifiedTime > currentTime) {
                      
                         if(msg.data.discount>100){
@@ -450,11 +470,12 @@ $slide_home= slide_home($setting['id_slide']);
                         }else{
                            var discount =(msg.data.discount / 100) * totalPays;
                         }
-                       document.getElementById("discount_price").value = discount;
+
+                       document.getElementById("discount_price"+key).value = discount;
                         var discount = new Intl.NumberFormat().format(discount);
                         html +='<div class="cart-price-sum-discount-title">'+msg.data.code+'</div>'
                         html +='<div class="cart-price-sum-discount-price"> - '+discount+'</div>'
-                         $('#discountPrice').html(html);
+                         $('#discountPrice'+key).html(html);
 
                    }
                 }

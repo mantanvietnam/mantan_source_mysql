@@ -258,6 +258,9 @@ function searchDiscountCodeAPI($input){
         $conditions = array();
         if(!empty($_GET['code'])){
         	$conditions['code'] = $_GET['code'];
+        	$conditions['category'] = $_GET['category'];
+
+        	
         
 
 		$data = $modelDiscountCode->find()->where($conditions)->first();
