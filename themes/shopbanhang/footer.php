@@ -256,7 +256,7 @@ $infoUser = $session->read('infoUser');
                                     <div class="mb-3">
                                         <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
                                     </div>
-                                    <p id="messlogin"></p>
+                                    <p id="messReg"></p>
                                     <a class="btn btn-primary" onclick="register()">Tiếp tục</a>
                                 </form>
                                 
@@ -358,7 +358,7 @@ $infoUser = $session->read('infoUser');
                 location.reload();
             }else{
                 var html = '<p class="text-danger">'+msg.messages+'</p>';
-                document.getElementById("messlogin").innerHTML = html;
+                document.getElementById("messReg").innerHTML = html;
 
             }
            
