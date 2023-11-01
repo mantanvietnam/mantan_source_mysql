@@ -348,7 +348,7 @@ $infoUser = $session->read('infoUser');
                   phone: phone,  
                   email: email,
                   pass: passReg,  
-                  passAgin: passAgin,  
+                  passAgain: passAgin,  
                 },
             url: "/apis/register",
         })
