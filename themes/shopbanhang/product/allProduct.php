@@ -74,7 +74,6 @@ $slide_home= slide_home($setting['id_slide']);
                                         <option value="4">Sản phẩm mới nhất</option>
                                     </select> -->
                                     <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
-
                                 </div>
                             </div>
                         </div>
