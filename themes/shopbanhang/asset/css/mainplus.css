@@ -21,6 +21,7 @@
 
 #policy .nav-tabs li a:focus {
     border-bottom: 2px solid;
+    outline: none;
 }
 
 #policy .nav-tabs li a {
@@ -106,8 +107,6 @@
 .list-procerdure li {
     display: flex;
 }
-
-.list-procerdure li span {}
 
 #video-policy {
     text-align: center;
@@ -225,7 +224,7 @@
 }
 
 .my-account .accordion-collapse {
-    padding-left: 50px;
+    padding-left: 35px;
 }
 
 .my-account .accordion-button:not(.collapsed) {
@@ -566,6 +565,114 @@
 }
 
 
+/*viewed-products*/
+
+#viewed-products {
+    padding: 20px;
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+.title-viewed-product {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.group-viewed-product-img {
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.group-viewed-product-img img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.group-viewed-product-name {
+    font-size: 8px;
+    line-height: 11px;
+    text-align: center;
+}
+
+.group-viewed-product {
+    margin: 0 12px;
+}
+
+.group-viewed-product-cost {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.group-viewed-product-cost h4 {
+    font-size: 11px;
+    padding: 5px 0;
+    font-weight: 400;
+}
+
+.group-viewed-product-cost p {
+    font-size: 7px;
+    text-decoration: line-through;
+}
+
+.group-viewed-product-cost span {
+    font-size: 7px;
+    text-decoration: none !important;
+    margin-left: 2px;
+}
+
+.group-viewed-product-cost div {
+    display: flex;
+    justify-content: center;
+}
+
+.group-viewed-product-rating {
+    font-size: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.group-viewed-product-star,
+.group-viewed-product-heart {
+    display: flex;
+}
+
+.group-viewed-product-star i {
+    margin-right: 3px;
+    font-size: 5px;
+}
+
+.group-viewed-product-heart i {
+    margin-left: 3px;
+    font-size: 5px;
+}
+
+.item-viewd-product {
+    padding: 5px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 3px;
+    width: calc(25% - 6px);
+    margin: 3px;
+}
+
+.item-viewd-product:hover {
+    box-shadow: 0 0 5px 0 rgb(170, 170, 170);
+}
+
+.btn-name-viewd-product {
+    color: #000;
+}
+
+#favorite-product {
+    padding: 20px;
+    border: 0.5px solid rgb(192, 192, 192);
+}
+
+
 /*  TRANG SALE 9-9  */
 
 #sale99 .banner-sale img {
@@ -610,19 +717,20 @@
     margin-bottom: 35px;
 }
 
-.combo-voucher .item-voucher img {
-    width: 100%;
+.combo-voucher .item-voucher {
+    background-image: url("../image/voucher.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 10px;
 }
 
 .combo-voucher .item-voucher {
-    width: 350px;
-    height: 70px;
-    position: relative;
+    width: 355px;
+    height: 75px;
+    margin: 0 12px;
 }
 
 .combo-voucher .detail-voucher-sale {
-    position: absolute;
-    top: 15%;
     align-items: center;
     display: flex;
 }
@@ -643,18 +751,26 @@
     font-size: 13px;
     line-height: 16px;
     margin: 0 20px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
 }
 
 .top-deal {
-    position: relative;
     border-radius: 17px;
-    overflow: hidden;
+    background-image: url("../image/bg-sale.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 165px;
+    padding-bottom: 30px;
 }
 
 .top-deal .group-deal {
-    position: absolute;
-    top: 155px;
-    margin: 0 30px;
+    margin: 0 38px;
 }
 
 .top-deal .group-deal .list-product-1 {
@@ -685,6 +801,102 @@
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     margin-bottom: 14px;
+}
+
+
+/*  TRANG COMPLETE ORDER  */
+
+.complete-box .complete-heading {
+    text-align: center;
+    font-size: 31px;
+    margin-bottom: 18px;
+    font-weight: 300;
+}
+
+#section-complete .complete-box .icon-button-check {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 14px;
+}
+
+#section-complete {
+    margin-top: 60px;
+}
+
+#section-complete .icon-button-check img {
+    width: 62px;
+    height: 62px;
+}
+
+#section-complete .complete-box .complete-text {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    font-weight: 200;
+}
+
+#section-complete .complete-box .complete-info-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+#section-complete .complete-box .complete-info-box-detail {
+    width: 560px;
+}
+
+#section-complete .complete-box .complete-info-heading {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 13px;
+}
+
+#section-complete .complete-box .complete-info-box .complete-info-detail .container {
+    padding: 30px;
+}
+
+#section-complete .complete-box .complete-info-box .complete-info-detail {
+    border: 1px solid rgb(199, 199, 199);
+}
+
+#section-complete .complete-box .complete-info-box .complete-info-detail .item-complete-info-detail {
+    font-size: 14px;
+    font-weight: 300;
+    padding-bottom: 27px;
+}
+
+#section-complete .complete-box .complete-info-box .complete-info-detail .item-complete-info-detail .col-md-8 {
+    padding-left: 35px;
+}
+
+#section-complete .complete-box .complete-info-box .complete-info-detail .item-complete-info-detail span {
+    font-weight: 200 !important;
+}
+
+.item-complete-info-detail-end {
+    padding-bottom: 0 !important;
+}
+
+
+/* TRANG DATAIL PRODUCT */
+
+#section-describe .describe-description {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+#section-describe .describe-description-filter::before {
+    content: "";
+    position: absolute;
+    bottom: -37px;
+    left: -38px;
+    width: 119%;
+    height: 112px;
+    background: rgba(255, 255, 255, 1);
+    filter: blur(20px);
+    z-index: 1;
 }
 
 @media (max-width: 1025px) {
@@ -720,6 +932,48 @@
         padding: 0;
     }
     /*  TRANG REVIEW  */
+    /*  TRANG SALE99  */
+    .top-deal .group-deal .list-product .best-sale-img img {
+        height: auto;
+    }
+    .top-deal .group-deal .list-product .best-sale-img {
+        height: auto;
+    }
+    .top-deal .group-deal .list-product .rate-star p {
+        font-size: 12px;
+    }
+    .top-deal .group-deal .list-product .rate-sold p {
+        font-size: 12px;
+    }
+    .top-deal .group-deal .list-product .rate-best-item img {
+        width: 11px;
+        height: 11px;
+    }
+    .top-deal .group-deal .list-product .text-progress {
+        font-size: 11px;
+    }
+    .top-deal .group-deal .list-product .best-sale-info {
+        padding: 0 10px;
+    }
+    .top-deal .group-deal .list-product .best-sale-price {
+        font-size: 20px;
+    }
+    .top-deal .group-deal .list-product .best-sale-discount {
+        font-size: 13px;
+    }
+    .combo-voucher .detail-voucher-sale p {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    #sale99 .combo-voucher {
+        justify-content: center;
+    }
+    .combo-voucher .item-voucher {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        padding-top: 17px;
+    }
 }
 
 @media (max-width: 769px) {
@@ -727,6 +981,65 @@
     /*  TRANG GUARANTEE  */
     #policy .nav-tabs li a {
         padding: 2px 13px;
+    }
+    .item-viewd-product {
+        width: calc(33% - 5px);
+        margin: 3px;
+    }
+    .title-viewed-produc {
+        margin-bottom: 12px !important;
+    }
+    .group-viewed-product-img {
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 18px;
+        width: 118px;
+    }
+    .group-viewed-product-img img {
+        height: auto;
+    }
+    /* TRANG SALE 99 */
+    .top-deal {
+        padding-top: 120px;
+        background-position: 55% 0;
+    }
+    .top-deal .group-deal .list-product .best-sale-progress {
+        height: 16px;
+        margin-bottom: 15px;
+    }
+    .top-deal .group-deal .list-product .text-progress {
+        font-size: 8px;
+    }
+    .top-deal .group-deal .list-product .best-sale-price {
+        font-size: 17px;
+    }
+    .top-deal .group-deal .list-product .best-sale-discount {
+        font-size: 12px;
+    }
+    .top-deal .group-deal .list-product .rate-star p {
+        font-size: 10px;
+        margin-left: 3px;
+    }
+    .top-deal .group-deal .list-product .rate-sold p {
+        font-size: 10px;
+        margin-right: 3px;
+    }
+    .top-deal .group-deal {
+        margin: 0 27px;
+    }
+    .top-deal .group-deal .list-product .best-sale-info {
+        padding: 0;
+    }
+    .top-deal .group-deal .list-product .ribbon span {
+        font-size: 12px;
+    }
+    .top-deal .group-deal .list-product .best-sale-name a {
+        font-size: 12px;
+    }
+    #sale99 .endow span {
+        padding-left: 20px;
+        margin-left: 20px;
     }
 }
 
@@ -769,6 +1082,15 @@
     .tab-voucher .nav-link {
         padding: 12px 0;
     }
+    .group-viewed-product-img img {
+        width: 75%;
+    }
+    .group-viewed-product-img {
+        width: 100%;
+    }
+    .item-viewd-product {
+        width: calc(50% - 6px);
+    }
     /*  TRANG GUARANTEE  */
     #policy .container {
         width: auto;
@@ -803,26 +1125,98 @@
     #policy .nav-tabs li a {
         padding: 2px 15px;
     }
+    /*  TRANG SALE 99  */
+    .top-deal {
+        background-image: none;
+        background-color: #0E147B;
+        padding-bottom: 10px;
+        padding-top: 30px;
+    }
+    .top-deal .group-deal .list-product .best-sale-item {
+        margin-bottom: 20px;
+    }
+    .top-deal .group-deal .list-product-1 {
+        margin-bottom: 0;
+    }
+    #sale99 .combo-voucher {
+        justify-content: center;
+    }
+    #sale99 .endow p {
+        font-size: 16px;
+        padding: 0 55px;
+    }
+    #sale99 .endow h3 {
+        font-size: 24px;
+    }
+    #sale99 .endow span {
+        font-size: 16px;
+        padding-left: 0;
+        margin-left: 0;
+        border-left: none;
+    }
+    #sale99 .endow {
+        padding-top: 30px;
+    }
+    .combo-voucher .item-voucher {
+        width: 304px;
+        height: 64px;
+        padding-top: 12px;
+        margin-bottom: 15px;
+    }
+    .combo-voucher .detail-voucher-sale p {
+        font-size: 16px;
+    }
+    .combo-voucher .detail-voucher-sale span {
+        font-size: 12px;
+    }
+    /*  TRANG COMPLETE ORDER  */
+    #section-complete .complete-box .complete-info-box .complete-info-detail .item-complete-info-detail .col-md-4 {
+        width: 40%;
+    }
+    #section-complete .complete-box .complete-info-box .complete-info-detail .item-complete-info-detail .col-md-8 {
+        width: 60%;
+        padding-left: 12px;
+    }
+    /*  TRANG CATEGORY PRODUCT  */
+    #section-cateogry-product .product-item-inner .product-img {
+        height: auto;
+    }
+    /*  TRANG INDEX  */
+    #section-comment-customer .comment-customer-slide .slick-list.draggable {
+        padding: 0px 54px;
+    }
+    #section-comment-customer .comment-customer-slide .comment-customer-img {
+        height: 475px;
+    }
 }
 
-
-
-/* 
-    show more content
-*/
-
-
-.hideContent {
-overflow: hidden;
-line-height: 1em;
-height: 2em;
+@media (max-width: 375px) {
+    #sale99 .endow p {
+        padding: 0 44px;
+    }
+    #section-comment-customer .comment-customer-slide .comment-customer-img {
+        height: 390px;
+    }
+    #section-comment-customer .comment-customer-slide .slick-list.draggable {
+        padding: 0px 40px;
+    }
 }
 
-.showContent {
-line-height: 1em;
-height: auto;
+@media (max-width: 320px) {
+    /*  TRANG SALE 99  */
+    #sale99 .endow p {
+        padding: 0px 16px;
+    }
+    .top-deal .group-deal .list-product .best-sale-progress {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    /*  TRANG COMPLETE ORDER  */
+    #section-complete .complete-box .complete-info-box .complete-info-detail .container {
+        padding: 20px 15px;
+    }
+    #section-comment-customer .comment-customer-slide .comment-customer-img {
+        height: 300px;
+    }
 }
-.showContent{
-height: auto;
-}
-

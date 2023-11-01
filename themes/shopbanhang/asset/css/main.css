@@ -730,6 +730,7 @@ strong {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+    gap: 3px
 }
 
 #section-flash-sale .flash-sale-title {
@@ -769,7 +770,7 @@ strong {
 }
 
 #section-flash-sale .time-flash-item-center {
-    margin: 0 3px;
+    /* margin: 0 3px; */
 }
 
 
