@@ -106,6 +106,13 @@
                               <input type="text" class="form-control phone-mask" name="pass" id="pass" value="<?php echo @$data->pass;?>" />
                             </div>
                           </div>
+
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label">Ghi chú của admin</label>
+                              <textarea name="note_admin" rows="5" class="form-control phone-mask"><?php echo @$data->note_admin;?></textarea>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="tab-pane fade" id="navs-top-info" role="tabpanel">

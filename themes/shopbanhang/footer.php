@@ -171,7 +171,7 @@ $infoUser = $session->read('infoUser');
 
                                     <form  action="" method="post">
                                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                                        <p id="messlogin"></p>
+                                        
                                         <div class="mb-3">
                                             <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại">
                                         </div>
@@ -179,7 +179,8 @@ $infoUser = $session->read('infoUser');
                                         <div class="mb-3">
                                             <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
                                         </div>
-                                        <a type="submit" onclick="login()" class="btn btn-primary">Tiếp tục</a>
+                                        <p id="messlogin"></p>
+                                        <a type="submit" onclick="login()" class="btn btn-primary" >Tiếp tục</a>
                                         <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal3">quên mật khẩu </a>
                                     </form>
                                 </div>
@@ -234,29 +235,29 @@ $infoUser = $session->read('infoUser');
                                     <span>Đăng ký tài khoản</span>
                                 </div>
 
-                                <form action="/register" method="post">
+                                <form action="" method="post">
                                     <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="full_name" id="exampleCheck1" placeholder="Họ và tên">
+                                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Họ và tên">
                                     </div>
 
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="phone" id="exampleCheck1" placeholder="Số điện thoại">
+                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
                                     </div>
 
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="email" id="email" placeholder="email">
+                                        <input type="text" class="form-control" name="emailReg" id="emailReg" placeholder="email">
                                     </div>
 
                                     <div class="mb-3">
-                                        <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
+                                        <input type="password" class="form-control" name="passReg" id="passReg" placeholder="Mật khẩu">
                                     </div>
-
 
                                     <div class="mb-3">
                                         <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                    <p id="messReg"></p>
+                                    <a class="btn btn-primary" onclick="register()">Tiếp tục</a>
                                 </form>
                                 
 
@@ -323,6 +324,41 @@ $infoUser = $session->read('infoUser');
             }else{
                 var html = '<p class="text-danger">'+msg.messages+'</p>';
                 document.getElementById("messlogin").innerHTML = html;
+
+            }
+           
+        });
+    }
+
+    function register(){
+        var full_name = $('#full_name').val();
+        var phone = $('#phone').val();
+        var email = $('#emailReg').val();
+        var passReg = $('#passReg').val();
+        var passAgin = $('#passAgain').val();
+        console.log(full_name);
+        console.log(phone);
+        console.log(email);
+        console.log(passReg);
+        console.log(passAgin);  
+        $.ajax({
+            method: "POST",
+            data:{
+                  full_name: full_name,
+                  phone: phone,  
+                  email: email,
+                  pass: passReg,  
+                  passAgain: passAgin,  
+                },
+            url: "/apis/register",
+        })
+        .done(function(msg) {
+            console.log(msg);
+            if(msg.code==1){
+                location.reload();
+            }else{
+                var html = '<p class="text-danger">'+msg.messages+'</p>';
+                document.getElementById("messReg").innerHTML = html;
 
             }
            
