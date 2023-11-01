@@ -5,7 +5,7 @@ global $urlThemeActive;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
-
+//debug($list_product);
 ?>
 <main>
         <section id="section-cart">
@@ -56,7 +56,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         <tr>
                                             <!-- check -->
                                             <td class="td-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="checkproduct">
+                                                <input class="form-check-input" type="checkbox" onclick="checkupdatecart(<?php echo $value->id ?>)" value="1" id="checkproduct<?php echo $value->id ?>" <?php  if($value->statuscart=='true'){echo 'checked';} ?>>
                                             </td>
         
                                             <!-- Tên -->
@@ -367,6 +367,22 @@ $slide_home= slide_home($setting['id_slide']);
         </section>
     </main>
 <script type="text/javascript">
+    function checkupdatecart(id){
+         var checkBox = document.getElementById("checkproduct"+id);
+
+        console.log(checkBox.checked);
+
+        $.ajax({
+            method: "GET",
+            url: "/checkUpdateCart/?id_product="+id+"&status="+checkBox.checked
+        })
+        .done(function( msg ) {
+            location.reload();
+        });
+
+
+    }
+
     function plusQuantity(total, id)
     {
         let quantity = parseInt($('#quantity_buy'+total).val());

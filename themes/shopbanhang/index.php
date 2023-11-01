@@ -20,15 +20,15 @@ global $urlThemeActive;
                 <div class="container-fluid">
                     <div class="row">
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $setting['image1'] ?>" alt="">
+                            <img src="<?php echo @$setting['image1'] ?>" alt="">
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $setting['image2'] ?>" alt="">
+                            <img src="<?php echo @$setting['image2'] ?>" alt="">
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $setting['image3'] ?>" alt="">
+                            <img src="<?php echo @$setting['image3'] ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -203,19 +203,19 @@ global $urlThemeActive;
                 <div class="row">
                     <div class="home-category-big col-12 ">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $setting['image4'] ?>" alt=""></a>
+                            <a href="<?php echo @$setting['link_image1'] ?>"><img src="<?php echo @$setting['image4'] ?>" alt=""></a>
                         </div>
                     </div>
 
                     <div class="home-category-small col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $setting['image5'] ?>" alt=""></a>
+                            <a href="<?php echo @$setting['link_image2'] ?>"><img src="<?php echo @$setting['image5'] ?>" alt=""></a>
                         </div>
                     </div>
 
                     <div class="home-category-small col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $setting['image6'] ?>" alt=""></a>
+                            <a href="<?php echo @$setting['link_image3'] ?>"><img src="<?php echo @$setting['image6'] ?>" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ global $urlThemeActive;
         <section id="section-banner-policy">
             <div class="container-fluid">
                 <div class="banner-policy">
-                    <img src="<?php echo $setting['image7'] ?>" alt="">
+                    <img src="<?php echo @$setting['image7'] ?>" alt="">
                 </div>
             </div>
         </section>
@@ -301,8 +301,8 @@ global $urlThemeActive;
     function updateCountdown() {
       // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
      
-      <?php if(!empty(@$setting['targetTime'])){?>
-        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @$setting['targetTime']) ?>").getTime();
+      <?php if(!empty(@@$setting['targetTime'])){?>
+        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @@$setting['targetTime']) ?>").getTime();
 
     <?php }else{?>
      const targetTime = 0;

@@ -160,6 +160,9 @@
                             <a class="btn btn-danger" href="/plugins/admin/ezpics_admin-view-admin-member-addMoneyManager.php/?type=minus&id='.$item->id.'">
                              Trừ tiền 
                             </a>
+                            <a class="btn btn-success" href="/plugins/admin/ezpics_admin-view-admin-member-addEcoinManager.php/?type=plus&id='.$item->id.'">
+                             Cộng Ecoin 
+                            </a>
                           </td>
                           <td style="width: 16%;">Số dư: '.number_format(@$item->account_balance).'đ <br/>
                               số tiền bán: '. number_format(@$sellingMoney).'đ<br/>
