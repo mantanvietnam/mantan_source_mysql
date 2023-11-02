@@ -143,7 +143,7 @@ function indexTheme($input){
 
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
-
+    $modelEvaluate = $controller->loadModel('Evaluates');
     $modelProduct = $controller->loadModel('Products');
 
     
@@ -167,6 +167,25 @@ function indexTheme($input){
     }
 
     $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1])->all()->toList();
+
+    if(!empty($product_flasl)){
+        foreach($product_flasl as $key => $item){
+            $product_flasl[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+            $product_flasl[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+            $point = 0;
+            if(!empty($product_flasl[$key]->evaluate)){
+                foreach($product_flasl[$key]->evaluate as $k => $s){
+                    $point = $s->point;
+                }
+            }
+
+            if(!empty($product_flasl[$key]->evaluatecount)){
+
+                $product_flasl[$key]->point = $point/$product_flasl[$key]->evaluatecount;
+            }
+        }
+    }
     $product_sold = $modelProduct->find()->limit(4)->where(['sold >'=>1])->all()->toList();
     $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
 

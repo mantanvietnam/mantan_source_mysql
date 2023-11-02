@@ -141,6 +141,7 @@ function allProduct($input)
     $metaTitleMantan = 'Tất cả sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
 
     $conditions = ['status'=>'active'];
     $limit = 12;
@@ -150,6 +151,25 @@ function allProduct($input)
 
     
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+            $point = 0;
+            if(!empty($list_product[$key]->evaluate)){
+                foreach($list_product[$key]->evaluate as $k => $s){
+                    $point = $s->point;
+                }
+            }
+
+            if(!empty($list_product[$key]->evaluatecount)){
+
+                $list_product[$key]->point = $point/$list_product[$key]->evaluatecount;
+            }
+        }
+    }
 
     // phân trang
     $totalData = $modelProduct->find()->where($conditions)->all()->toList();
@@ -216,6 +236,7 @@ function search($input)
     $metaTitleMantan = 'Tìm kiếm sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
 
     $conditions = ['status'=>'active'];
     $limit = 12;
@@ -260,6 +281,25 @@ function search($input)
         $conditions['price <='] = (int) $_GET['max-value'];
     }
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+            $point = 0;
+            if(!empty($list_product[$key]->evaluate)){
+                foreach($list_product[$key]->evaluate as $k => $s){
+                    $point = $s->point;
+                }
+            }
+
+            if(!empty($list_product[$key]->evaluatecount)){
+
+                $list_product[$key]->point = $point/$list_product[$key]->evaluatecount;
+            }
+        }
+    }
 
     // phân trang
     $totalData = $modelProduct->find()->where($conditions)->all()->toList();
@@ -326,6 +366,7 @@ function sela($input)
     $metaTitleMantan = 'Tất cả sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
     $modelDiscountCode = $controller->loadModel('DiscountCodes');
 
     $conditions = ['status'=>'active', 'flash_sale'=>1];
@@ -336,6 +377,25 @@ function sela($input)
 
     
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+            $point = 0;
+            if(!empty($list_product[$key]->evaluate)){
+                foreach($list_product[$key]->evaluate as $k => $s){
+                    $point = $s->point;
+                }
+            }
+
+            if(!empty($list_product[$key]->evaluatecount)){
+
+                $list_product[$key]->point = $point/$list_product[$key]->evaluatecount;
+            }
+        }
+    }
     $DiscountCode = $modelDiscountCode->find()->limit(3)->where(array())->order($order)->all()->toList();
 
     // phân trang

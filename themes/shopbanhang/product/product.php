@@ -189,11 +189,11 @@ $slide_home= slide_home($setting['id_slide']);
                                      ?>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="questionTop-heading<?php echo $key; ?>">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionTop-collapseOne" aria-expanded="false" aria-controls="questionTop-collapseOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionTop-collapse<?php echo $key; ?>" aria-expanded="false" aria-controls="questionTop-collapse<?php echo $key; ?>">
                                             <?php echo $item->question; ?>                                    
                                             </button>
                                         </h2>
-                                        <div id="questionTop-collapseOne" class="accordion-collapse collapse" aria-labelledby="questionTop-heading<?php echo $key; ?>" data-bs-parent="#accordionquestionTopExample">
+                                        <div id="questionTop-collapse<?php echo $key; ?>" class="accordion-collapse collapse" aria-labelledby="questionTop-heading<?php echo $key; ?>" data-bs-parent="#accordionquestionTopExample">
                                             <div class="accordion-body"><?php echo $item->answer; ?></div>
                                         </div>
                                     </div>
@@ -276,11 +276,11 @@ $slide_home= slide_home($setting['id_slide']);
 
                                         ?>
                             <div class="product-detail-button-cart">
-                                <a onclick="addProductCart(<?php echo $product->id;?>)"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
+                                <a onclick="addProductCart(<?php echo $product->id;?>,'false')"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
                             </div>
 
                             <div class="product-detail-button-buy">
-                                <a onclick="addProductCart(<?php echo $product->id;?>)">Mua ngay</a>
+                                <a onclick="addProductCart(<?php echo $product->id;?>,'true')">Mua ngay</a>
                             </div>
                         <?php }else{ ?>
                             <div class="product-detail-button-cart">
@@ -457,18 +457,19 @@ $slide_home= slide_home($setting['id_slide']);
                                 <div class="accordion accordion-questionBottom" id="accordionquestionBottomExample">
                                      <?php if(!empty($product->question0)){
                                         foreach($product->question0 as $key => $item){
-                                     ?>
+                                     ?>  
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="questionBottom<?php echo $key ?>">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionBottom<?php echo $key ?>" aria-expanded="false" aria-controls="questionBottom<?php echo $key ?>">
-                                            <?php echo $item->question ?>                                   
+                                        <h2 class="accordion-header" id="questionBottom-heading<?php echo $key ?>">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionBottom-collapse<?php echo $key ?>" aria-expanded="false" aria-controls="questionBottom-collapse<?php echo $key ?>">
+                                            <?php echo $item->question ?>                              
                                             </button>
                                         </h2>
-                                        <div id="questionBottom<?php echo $key ?>" class="accordion-collapse collapse" aria-labelledby="questionBottom<?php echo $key ?>" data-bs-parent="#accordionquestionBottomExample">
+                                        <div id="questionBottom-collapse<?php echo $key ?>" class="accordion-collapse collapse" aria-labelledby="questionBottom-heading<?php echo $key ?>" data-bs-parent="#accordionquestionBottomExample">
                                             <div class="accordion-body"><?php echo $item->answer ?></div>
                                         </div>
                                     </div>
                                 <?php }} ?>
+
                                 </div>
                             </div>
                         </div>
@@ -1069,13 +1070,13 @@ $slide_home= slide_home($setting['id_slide']);
         $('#quantity_buy').val(quantity);
     }
 
-    function addProductCart(idProduct)
-    {
+    function addProductCart(idProduct, status){
         let quantity = parseInt($('#quantity_buy').val());
+        console.log(status);
 
         $.ajax({
             method: "GET",
-            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity
+            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status="+status
         })
         .done(function( msg ) {
             window.location = '/cart';

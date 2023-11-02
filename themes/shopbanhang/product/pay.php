@@ -5,10 +5,8 @@ global $session;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
-  // debug($list_product);
-     // debug($pay);
-     // debug($discountCode);
-
+global $session;
+$infoUser = $session->read('infoUser');
    	
 ?>
  <main>
@@ -22,7 +20,9 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-order-list">
-                                <?php foreach($list_product as $item){ ?>
+                                <?php foreach($list_product as $item){
+                                    if(@$item->statuscart=='true'){
+                                 ?>
                                 <div class="product-order-item">
                                     <div class="product-order-image">
                                         <div class="product-order-image-inner">
@@ -62,7 +62,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div> -->
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php }} ?>
                                 
                             </div>
 
@@ -99,15 +99,43 @@ $slide_home= slide_home($setting['id_slide']);
 
                             
                                 <!-- Giá voucher-->
-                                <?php if($pay['discountCode']){ ?>
+                                <?php if(!empty($pay['code1']) && !empty($pay['discount_price1'])){ ?>
                                 <div class="cart-price-code-discount">
                                     <div class="cart-price-item">
                                         <div class="cart-price-item-title">
-                                            <?php echo $pay['discountCode']; ?>	
+                                            <?php echo $pay['code1']; ?>	
                                         </div>
     
                                         <div class="cart-price-item-price">
-                                            -<?php echo number_format($pay['discount_price']); ?>đ
+                                            -<?php echo number_format($pay['discount_price1']); ?>đ
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                             <!-- Giá voucher-->
+                                <?php if(!empty($pay['code2']) && !empty($pay['discount_price2'])){ ?>
+                                <div class="cart-price-code-discount">
+                                    <div class="cart-price-item">
+                                        <div class="cart-price-item-title">
+                                            <?php echo $pay['code2']; ?>    
+                                        </div>
+    
+                                        <div class="cart-price-item-price">
+                                            -<?php echo number_format($pay['discount_price2']); ?>đ
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                             <!-- Giá voucher-->
+                                <?php if(!empty($pay['code3']) && !empty($pay['discount_price3'])){ ?>
+                                <div class="cart-price-code-discount">
+                                    <div class="cart-price-item">
+                                        <div class="cart-price-item-title">
+                                            <?php echo $pay['code3']; ?>    
+                                        </div>
+    
+                                        <div class="cart-price-item-price">
+                                            -<?php echo number_format($pay['discount_price3']); ?>đ
                                         </div>
                                     </div>
                                 </div>
@@ -131,7 +159,8 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
 
                     <div class="col-lg-8 co-md-8 col-sm-8 col-12 order-right">
-                        <form action="">
+                        <form action="" method="post">
+                            <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="order-right-info">
                                 <div class="order-right-title-input">
                                     <div class="number-form-input">1</div>
@@ -142,12 +171,12 @@ $slide_home= slide_home($setting['id_slide']);
 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                                        <input type="text" class="form-control" required="" name="full_name" value="<?php echo $infoUser->full_name ?>" placeholder="Họ và tên" aria-label="Username">
+                                        <input type="text" class="form-control" required="" name="phone" value="<?php echo $infoUser->phone ?>" placeholder="điện thoại" aria-label="Server">
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <input type="email" class="form-control"  required="" value="<?php echo $infoUser->email ?>" placeholder="Email">
                                     </div>
                                 </div>
                             </div>
@@ -162,19 +191,11 @@ $slide_home= slide_home($setting['id_slide']);
                                 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" id="address" name="address" class="form-control" placeholder="Nhập địa chỉ" aria-label="Amount (to the nearest dollar)">
-                                         <input type="hidden" id="id_customer" name="id_customer" class="form-control" placeholder="Username" aria-label="Username">
+                                        <input type="text" id="address" name="address"  required="" class="form-control" placeholder="Nhập địa chỉ" aria-label="Amount (to the nearest dollar)">
+                                         <input type="hidden" id="id_customer" name="id_address" class="form-control" placeholder="Username" aria-label="Username">
                                     </div>
 
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -187,18 +208,27 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
                                 
                                 <div class="order-right-group-input">
+                                   
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
+                                        <label>Thanh toán chuyển khoản</label>
+                                        <input type="radio" name="payment" value="2"  required="" placeholder="Server" aria-label="Server">
+                                        <label>nhận hàng rồi thanh toán </label>
                                     </div>
-
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                                </div>
+                            </div>
+                            <div class="order-right-info">
+                                <div class="order-right-title-input">
+                                    <div class="number-form-input">4</div>
+                                    <div class="title-form-input">
+                                        Nội dung chú ý
                                     </div>
-
+                                </div>
+                                
+                                <div class="order-right-group-input">
+                                   
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <textarea class="form-control" name="note_user"></textarea>
                                     </div>
                                 </div>
                             </div>
