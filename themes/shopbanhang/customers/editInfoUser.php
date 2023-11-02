@@ -69,9 +69,8 @@ getHeader();
                                 <p>Sửa thông tin tài khoản</p>
                             </div>
                                 <div class="detail-file">
-                                <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data"
-                                    onsubmit="functions.submitForgot(); return false;">
-                                    <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                 <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                     <div class="top">
                                         <div class="d-flex">
                                             <div class="edit-user-photo me-3">
@@ -411,6 +410,9 @@ getHeader();
     }
 </script>
 <style>
+    .edit-user-photo{
+        position: relative;
+    }
     .thaydoi {
         padding: 0 20px;
     }
