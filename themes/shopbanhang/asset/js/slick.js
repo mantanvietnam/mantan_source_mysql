@@ -165,4 +165,11 @@ $(document).ready(function() {
       nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-arrow-right-long'></i></button>",
   });
 
+  $('.cart-product-gift-right-inner').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+
+
+});
+
 });
