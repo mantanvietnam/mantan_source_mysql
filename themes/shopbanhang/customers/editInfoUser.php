@@ -69,9 +69,23 @@ getHeader();
                                 <p>Sửa thông tin tài khoản</p>
                             </div>
                                 <div class="detail-file">
-                                <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data"
-                                    onsubmit="functions.submitForgot(); return false;">
-                                    <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                 <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" onsubmit="functions.submitForgot(); return false;">
+                                <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                    <div class="top">
+                                        <div class="d-flex">
+                                            <div class="edit-user-photo me-3">
+                                                <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
+                                                    diện</label>
+
+                                                <div class="m_bg_img" style="">
+                                                    <input type="file" onchange="readURL1(this);" name="avatar">
+
+                                                    <img id="img1" src="<?php echo @$info['avatar'] ?>"
+                                                        style="width: 110px" class="img-responsive">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="body mt-3">
                                         <div class="row g-3">
                                             <div class="col-12">
@@ -381,6 +395,65 @@ getHeader();
     </div>
 </main>
 
+<script>
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#img1')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<style>
+    .edit-user-photo{
+        position: relative;
+    }
+    .thaydoi {
+        padding: 0 20px;
+    }
+
+    .m_bg_img {
+        width: 140px;
+        height: 140px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ddd;
+        max-width: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        background: white;
+    }
+
+    input[type=file] {
+        display: block;
+        filter: alpha(opacity=0);
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        top: 0;
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    .m_bg_img img {
+        max-width: 100% !important;
+    }
+
+
+    .button-submit-custom {
+        width: 200px;
+    }
+</style>
 
 <?php
 getFooter();

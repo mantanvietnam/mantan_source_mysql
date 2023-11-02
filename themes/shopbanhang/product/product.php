@@ -2,7 +2,7 @@
 getHeader();
 global $urlThemeActive;
 global $session;
-
+$infoUser = $session->read('infoUser');     
 $setting = setting();
 
 $list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
@@ -271,14 +271,27 @@ $slide_home= slide_home($setting['id_slide']);
 
                         <!-- Button cuối -->
                         <div class="product-detail-group-button">
+                            
+                                 <?php   if(!empty($infoUser)){
+
+                                        ?>
                             <div class="product-detail-button-cart">
                                 <a onclick="addProductCart(<?php echo $product->id;?>)"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
                             </div>
 
                             <div class="product-detail-button-buy">
-                                <a href="">Mua ngay</a>
+                                <a onclick="addProductCart(<?php echo $product->id;?>)">Mua ngay</a>
+                            </div>
+                        <?php }else{ ?>
+                            <div class="product-detail-button-cart">
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
                             </div>
 
+                            <div class="product-detail-button-buy">
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal">Mua ngay</a>
+                            </div>
+
+                        <?php } ?>
                             <div class="product-detail-button-like">
                                   <?php  
                                      global $session;

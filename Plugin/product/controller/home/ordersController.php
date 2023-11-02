@@ -14,7 +14,7 @@ function cart($input)
 		foreach($list_product as $key => $product){
 	 		$present = array();
 
-            if(!empty($product->id_product)){
+            if(!empty($product->id_product) && @$product->statuscart=='true'){
                 $id_product = explode(',', @$product->id_product);
                
                 foreach($id_product as $item){
@@ -27,7 +27,7 @@ function cart($input)
             $list_product[$key]->present = $present;
 
             $idprodiscount =array();
-            if(!empty($product->idpro_discount)){
+            if(!empty($product->idpro_discount) && @$product->statuscart=='true'){
                 $idprodiscount = explode(',', @$product->idpro_discount);
                
                 foreach($idprodiscount as $item){
@@ -341,5 +341,36 @@ function pay(){
 	setVariable('list_product', $list_product);
 	setVariable('pay', $pay);
 	setVariable('discountCode', $discountCode);
+}
+
+function checkUpdateCart(){
+	global $session;
+	global $controller;
+
+	$modelProduct = $controller->loadModel('Products');
+
+	if(!empty($_REQUEST['id_product'])){
+	
+		$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+
+		$list_product = $session->read('product_order');
+
+		if(!empty($product)){
+			if(!empty($list_product[$product->id])){
+				$list_product[$product->id]->statuscart =  $_REQUEST['status'];
+				 
+			}
+
+			$session->write('product_order', $list_product);
+
+			return $controller->redirect('/cart/?error=addDone');
+		}else{
+			return $controller->redirect('/cart/?error=empty_product');
+		}
+	}else{
+		return $controller->redirect('/cart/?error=empty_data');
+	}
+
+	return $controller->redirect('/cart');
 }
 ?>

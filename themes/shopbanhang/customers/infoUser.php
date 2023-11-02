@@ -35,11 +35,11 @@ getHeader();
                                                     data-bs-parent="#accordionExample">
                                                     <a class="dropdown-item" data-bs-toggle="tab" href="#super-sale">Hồ
                                                         sơ</a>
-                                                    <a class="dropdown-item"  href="/editInfoUser">Chỉnh sửa thông tin</a>
-                                                    <a class="dropdown-item"  href="">Địa
+                                                    <a class="dropdown-item" href="/editInfoUser">Chỉnh sửa thông
+                                                        tin</a>
+                                                    <a class="dropdown-item" href="">Địa
                                                         chỉ giao hàng</a>
-                                                    <a class="dropdown-item" 
-                                                        href="/changepassword">Đổi mật khẩu</a>
+                                                    <a class="dropdown-item" href="/changepassword">Đổi mật khẩu</a>
                                                 </div>
                                             </li>
 
@@ -70,19 +70,30 @@ getHeader();
                             </div>
                             <div class="detail-file">
                                 <form>
+                                    <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
+                                    <div class="top mt-4">
+                                        <div class="d-flex">
+                                            <div class="edit-user-photo me-3">
+                                                <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
+                                                    diện</label>
+                                                    <img id="img1" src="<?php echo @$info->avatar ?>"
+                                                        style="width: 110px" class="img-responsive">
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="item-detail">
                                         <label for="hoTen">Họ và tên</label>
-                                        <input type="text" id="hoTen" value="<?= $info->full_name ?>" name="hoTen"
-                                            readonly>
+                                        <label for="soDienThoai"><?php echo $info->full_name ?></label>
                                     </div>
                                     <div class="item-detail">
                                         <label for="soDienThoai">Số điện thoại</label>
-                                        <input type="tel" id="soDienThoai" value="<?= $info->phone ?>"
-                                            name="soDienThoai" readonly>
+                                        <label for="soDienThoai"><?php echo $info->phone ?></label>
+                                        
                                     </div>
                                     <div class="item-detail">
                                         <label for="email">Email</label>
-                                        <input type="tel" id="email" value="<?= $info->email ?>" name="email" readonly>
+                                        <label for="soDienThoai"><?php echo $info->email ?></label>
                                     </div>
                                     <!-- <div class="item-detail sex">
                                         <label>Giới tính</label>
@@ -313,7 +324,8 @@ getHeader();
                                             <div class="voucher">
                                                 <button class="btn-voucher">
                                                     <div class="bg-voucher">
-                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
                                                     </div>
                                                     <div class="detail-voucher">
                                                         <div class="logo-voucher">
@@ -334,7 +346,8 @@ getHeader();
                                             <div class="voucher">
                                                 <button class="btn-voucher">
                                                     <div class="bg-voucher">
-                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
                                                     </div>
                                                     <div class="detail-voucher">
                                                         <div class="logo-voucher">
@@ -351,7 +364,8 @@ getHeader();
                                             <div class="voucher">
                                                 <button class="btn-voucher">
                                                     <div class="bg-voucher">
-                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
+                                                        <img
+                                                            src="<?php echo $urlThemeActive ?>/asset/image/voucher.png">
                                                     </div>
                                                     <div class="detail-voucher">
                                                         <div class="logo-voucher">
@@ -393,6 +407,7 @@ getHeader();
         </div>
     </div>
 </main>
+
 
 
 <?php

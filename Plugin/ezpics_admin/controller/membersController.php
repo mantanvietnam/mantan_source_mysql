@@ -829,4 +829,92 @@ function NotificationDeadlineProAdmin(){
     }
     return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberDeadlineProAdmin.php?number='.$number);
 }
+
+function addEcoinManager($input){
+	global $controller;
+    global $recommenders;
+	global $isRequestPost;
+
+	
+	$modelTransactionEcoins = $controller->loadModel('TransactionEcoins');
+	$modelMembers = $controller->loadModel('Members');
+	
+	if(!empty($_GET['id'])){
+		$data = $modelMembers->get($_GET['id']);
+		if ($isRequestPost) {
+			$dataSend = $input['request']->getData();
+
+			if($_GET['type']=='plus'){
+				$data->ecoin +=  $dataSend['coin'];
+
+				$ecoin = $modelTransactionEcoins->newEmptyEntity();
+
+				$ecoin->member_id = $data->id;
+				$ecoin->ecoin = $dataSend['coin'];
+				$ecoin->note = 'bạn được cộng Ecoin trong admin lý do cộng là:  '.@$dataSend['note'];
+				$ecoin->status = 1;
+				$ecoin->type =1;
+				$ecoin->created_at =date('Y-m-d 00:00:00');
+				$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+				$modelTransactionEcoins->save($ecoin);
+
+
+			}elseif($_GET['type']=='minus'){
+				$data->ecoin -=  $dataSend['coin'];
+
+				$ecoin = $modelTransactionEcoins->newEmptyEntity();
+
+				$ecoin->member_id = $data->id;
+				$ecoin->ecoin = $dataSend['coin'];
+				$ecoin->note = 'bạn bị trù Ecoin trong admin lý do trù là:  '.@$dataSend['note'];
+				$ecoin->status = 1;
+				$ecoin->type =0;
+				$ecoin->created_at =date('Y-m-d 00:00:00');
+				$ecoin->updated_at =date('Y-m-d 00:00:00');
+
+				$modelTransactionEcoins->save($ecoin);
+
+			}
+
+				$modelMembers->save($data);
+				if($_GET['type']=='plus'){
+
+					 $dataSendNotification= array('title'=>'Bạn được công Ecoin '.number_format(@$dataSend['coin']).'ecoin thành công ','content'=>'Lý do bạn được cộng Ecoin là '.@$dataSend['note'].', vào trong tài khoản ạ','action'=>'addMoneySuccess');
+
+					if(!empty($data->token_device)){
+                        sendNotification($dataSendNotification, $data->token_device);
+                    }
+
+                    if(!empty($data->email)){
+                    	sendEmailAddMoney($data->email, $data->name, $dataSend['coin'], @$dataSend['note']);
+                    }
+
+
+
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=4');	
+				}elseif($_GET['type']=='minus'){
+
+					 $dataSendNotification= array('title'=>'Bạn bị trừ Ecoin'.number_format(@$dataSend['coin']).'ecoin vào trong tài khoản','time'=>date('H:i d/m/Y'),'content'=>'lý do bạn bị trừ là:  '.$dataSend['note'].' vào trong tài khoản ạ','action'=>'addMoneySuccess',);
+					  if(!empty($data->token_device)){
+                            sendNotification($dataSendNotification, $data->token_device);
+                            
+                        }
+
+                        if(!empty($data->email)){
+                    		sendEmailMinusMoney($data->email, $data->name, $dataSend['coin'], @$dataSend['note']);
+                    	}
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=5');
+				}
+
+		}
+
+		setVariable('data', $data);
+	}else{
+
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');																									
+	}
+
+
+}
 ?>

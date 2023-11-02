@@ -319,7 +319,7 @@ $infoUser = $session->read('infoUser');
         })
         .done(function(msg) {
             console.log(msg);
-            if(msg.code==1){
+            if(msg.code==1){    
                 location.reload();
             }else{
                 var html = '<p class="text-danger">'+msg.messages+'</p>';
