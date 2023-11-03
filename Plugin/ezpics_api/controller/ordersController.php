@@ -1549,4 +1549,11 @@ function getHistoryTransactionEcoinAPI($input)
 
 	return 	$return;
 }
+
+function test(){
+
+	$mess = process_add_money(1000, 498);
+	debug($mess);
+	die();
+}
 ?>

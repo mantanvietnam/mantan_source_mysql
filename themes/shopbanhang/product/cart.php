@@ -49,14 +49,17 @@ $slide_home= slide_home($setting['id_slide']);
                                                 $price_old = '';
                                             }
                                             $price_buy  = 0;
-                                            $price_buy = $value->price * $value->numberOrder;
-                                            $price_total += $price_buy;
-
+                                            $price_buy = @$value->price * @$value->numberOrder;
+                                            if($value->statuscart=="true"){
+                                                
+                                                $price_total += $price_buy;
+                                            }
                              ?>
                                         <tr>
                                             <!-- check -->
                                             <td class="td-check">
                                                 <input class="form-check-input" type="checkbox" onclick="checkupdatecart(<?php echo $value->id ?>)" value="1" id="checkproduct<?php echo $value->id ?>" <?php  if($value->statuscart=='true'){echo 'checked';} ?>>
+
                                             </td>
         
                                             <!-- Tên -->
@@ -76,8 +79,9 @@ $slide_home= slide_home($setting['id_slide']);
                                             <td class="td-price">
                                                 <div class="cart-product-price">
                                                     <div class="cart-product-price-real">
-                                                        <span><?php echo number_format($value->price).'₫ ' ?></span>
-                                                        <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo $value->price ?>">
+                                                        <span><?php echo number_format(@$value->price).'₫ ' ?></span>
+                                                        <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value->price ?>">
+
                                                     </div>
         
                                                     <div class="cart-product-price-discount">
@@ -93,6 +97,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                         <div class="qty-input">
                                                             <button onclick="minusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-minus" data-action="minus" type="button">-</button>
                                                             <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
+                                                            <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
                                                             <button onclick="plusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-add" data-action="add" type="button">+</button>
                                                         </div>
                                                     </div>
@@ -156,7 +161,57 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="cart-left-bottom">
                                 <div class="title-cart-left-bottom">
-                                  sản phẩn khách 
+                                  sản phẩn ưu đãi
+                                </div>
+
+                                <div class="row">
+
+                                    <!-- Sản phẩm đi kèm -->
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 cart-product-gift-right">
+                                        <div class="cart-product-gift-item-list">
+                                            <div class="cart-product-gift-right-inner">
+                                                 <?php   if(!empty($list_product)){
+                                                    foreach ($list_product as $key => $value) { 
+                                                         if(!empty($value->idprodiscount)){
+                                                        foreach($value->idprodiscount as $item){?>
+                                                <div class="cart-product-gift-item">
+                                                    <div class="product-item-inner">
+                                                        <div class="product-img">
+                                                            <a href="/product/<?php echo  $value->slug ?>.html"><img src="<?php echo $item->image ?>" alt="/product/<?php echo  $item->slug ?>.html"></a>
+                                                        </div>
+                            
+                                                        <div class="product-info">
+                                                            <div class="product-name">
+                                                                <a href="/product/<?php echo  $item->slug ?>.html"><?php echo  $item->title ?></a>
+                                                            </div>
+                            
+                                                            <div class="product-price">
+                                                                <p><?php echo $item->pricepro_discount ?>đ</p>
+                                                            </div>
+
+                                                            <div class="product-discount">
+                                                                <del><?php echo $item->price_old ?>đ</del><span> 
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+
+                                                        <div class="product-button-cart product-button-cart-add">
+                                                            <a onclick="addProductdiscountCart(<?php echo $item->id; ?>,'true')">Thêm vào giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php }}}} ?>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cart-left-bottom">
+                                <div class="title-cart-left-bottom">
+                                  sản phẩn khác
                                 </div>
 
                                 <div class="row">
@@ -171,12 +226,12 @@ $slide_home= slide_home($setting['id_slide']);
                                                 <div class="cart-product-gift-item">
                                                     <div class="product-item-inner">
                                                         <div class="product-img">
-                                                            <a href="/product/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt=""></a>
+                                                            <a href="/product/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt="/product/<?php echo  $value->slug ?>.html"></a>
                                                         </div>
                             
                                                         <div class="product-info">
                                                             <div class="product-name">
-                                                                <a href=""><?php echo  $value->title ?></a>
+                                                                <a href="/product/<?php echo  $value->slug ?>.html"><?php echo  $value->title ?></a>
                                                             </div>
                             
                                                             <div class="product-price">
@@ -228,7 +283,7 @@ $slide_home= slide_home($setting['id_slide']);
                                            <?php echo $value['name']; ?>
                                         </div>
     
-                                        <div class="voucher">
+                                        
                                             <?php if(!empty($value['discountCode'])){
                                                 foreach($value['discountCode'] as $k => $item){
                                                      $voucher = "";
@@ -237,6 +292,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                     $voucher= 'voucher-disabled';
                                                 }
                                              ?>
+                                             <div class="voucher">
                                             <div class="btn-voucher <?php echo $voucher ?>">
                                                 <div class="bg-voucher">
                                                     <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
@@ -256,14 +312,12 @@ $slide_home= slide_home($setting['id_slide']);
                                                     </div>
                                                 </div>
                                             </div>
+                                            </div>
                                         <?php }}     ?>
-                                        </div>
+                                        
                                     </div>
                                     <?php } ?>
-                                    <div class="list-code-item">
-                                      
-                                    </div>
-
+                                    
                                 </div>
                             </div>
 
@@ -423,12 +477,16 @@ $slide_home= slide_home($setting['id_slide']);
             for(i=1;i<=total;i++){
                 var quantity = parseInt($('#quantity_buy'+i).val());
                 var price = parseInt($('#price'+i).val());
+                var statuscart = $('#statuscart'+i).val();
+               
+
                 var price_buy  = quantity* price;
-               var money = new Intl.NumberFormat().format(price_buy);
+                var money = new Intl.NumberFormat().format(price_buy);
                 $('#price_buy'+i).html(money+'đ');
 
-
-                price_total += price_buy;
+                if(statuscart=='true'){
+                    price_total += price_buy;
+                }
 
             }
         }
@@ -499,6 +557,18 @@ $slide_home= slide_home($setting['id_slide']);
            
         });
         tinhtien();
+    }
+
+     function addProductdiscountCart(idProduct, status){
+        console.log(status);
+
+        $.ajax({
+            method: "GET",
+            url: "/addProductdiscountCart/?id_product="+idProduct+"&quantity=1&status="+status
+        })
+        .done(function( msg ) {
+            window.location = '/cart';
+        });
     }
 </script>
 

@@ -17,4 +17,5 @@
 	$routesPlugin['addProductToCart']= 'product/view/home/addProductToCart.php';
 	$routesPlugin['deleteProductCart']= 'product/view/home/deleteProductCart.php';
 	$routesPlugin['clearCart']= 'product/view/home/clearCart.php';
+	$routesPlugin['completeOrder']= 'product/view/home/completeOrder.php';
 ?>
