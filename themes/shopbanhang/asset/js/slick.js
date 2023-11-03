@@ -135,11 +135,30 @@ $(document).ready(function() {
 
   // chi tiết sản phẩm
   $('.pro-review-slide').slick({
-      slidesToShow: 3,
+      slidesToShow: 1,
       slidesToScroll: 1,
       arrows: true,
       prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><</button>",
       nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'>></button>",
+
+      responsive: [{
+        breakpoint: 768,
+        settings: {
+            arrows: false,
+            slidesToShow: 3
+        }
+    },
+    
+    {
+        breakpoint: 480,
+        settings: {
+            slidesToShow: 1,
+            arrows: false,
+            centerMode: false,
+            slidesToShow: 1
+        }
+    }
+]
   });
 
   $('.product-like-slide').slick({

@@ -8,3 +8,15 @@
 .search-form-category{
     margin-top: 63px;
 }
+
+/* .describe-more::before{
+    content: "";
+    position: absolute;
+    bottom: -37px;
+    left: -38px;
+    width: 119%;
+    height: 112px;
+    background: rgba(255, 255, 255, 1);
+    filter: blur(20px);
+    z-index: 1;
+} */

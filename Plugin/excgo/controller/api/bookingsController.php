@@ -259,7 +259,7 @@ function receiveBookingApi($input): array
                     'user_id' => $booking->posted_by,
                     'booking_id' => $booking->id,
                     'type' => $bookingType['post'],
-                ]);
+                ])->first();
                 if (!empty($postedUserBooking)) {
                     $postedUserBooking->status = $bookingStatus['received'];
                     $postedUserBooking->received_at = date('Y-m-d H:i:s');
@@ -391,7 +391,7 @@ function cancelReceiveBookingApi($input): array
                     'user_id' => $booking->posted_by,
                     'booking_id' => $booking->id,
                     'type' => $bookingType['post'],
-                ]);
+                ])->first();
                 if (!empty($postedUserBooking)) {
                     $postedUserBooking->status = $bookingStatus['unreceived'];
                     $postedUserBooking->received_at = null;
@@ -699,9 +699,11 @@ function getMyBookingListApi($input): array
                     'Bookings.created_at',
                     'PostedUsers.id',
                     'PostedUsers.name',
+                    'PostedUsers.phone_number',
                     'PostedUsers.avatar',
                     'ReceivedUsers.id',
                     'ReceivedUsers.name',
+                    'ReceivedUsers.phone_number',
                     'ReceivedUsers.avatar',
                     'DepartureProvinces.id',
                     'DepartureProvinces.name',
@@ -713,6 +715,15 @@ function getMyBookingListApi($input): array
                 ->order($order)
                 ->all()
                 ->toList();
+            foreach ($listData as $item) {
+                $item->Bookings['id'] = (int)$item->Bookings['id'];
+                $item->Bookings['status'] = (int)$item->Bookings['status'];
+                $item->Bookings['price'] = (int)$item->Bookings['price'];
+                $item->PostedUsers['id'] = (int)$item->PostedUsers['id'];
+                $item->ReceivedUsers['id'] = (int)$item->ReceivedUsers['id'];
+                $item->DepartureProvinces['id'] = (int)$item->DepartureProvinces['id'];
+                $item->DestinationProvinces['id'] = (int)$item->DestinationProvinces['id'];
+            }
             $totalBookings = $query->where($conditions)->count();
             $paginationMeta = createPaginationMetaData($totalBookings, $limit, $page);
 
@@ -967,7 +978,7 @@ function cancelBookingApi($input): array
                     'user_id' =>  $currentUser->id,
                     'booking_id' => $booking->id,
                     'type' => $bookingType['post'],
-                ]);
+                ])->first();
                 $postedUserBooking->status = $bookingStatus['canceled'];
                 $postedUserBooking->received_at = null;
                 $postedUserBooking->canceled_at = date('Y-m-d H:i:s');

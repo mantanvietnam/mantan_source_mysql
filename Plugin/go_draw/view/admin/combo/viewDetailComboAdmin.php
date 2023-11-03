@@ -1,13 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php">Combo</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-combo-listComboAdmin.php">Combo</a> /</span>
         Thông tin combo
-        <?php
-            if (isset($mess)) {
-                print_r($mess);
-            }
-        ?>
     </h4>
 
     <!-- Basic Layout -->
@@ -18,7 +13,6 @@
                     <h5 class="mb-0">Thông tin combo</h5>
                 </div>
                 <div class="card-body">
-                    <p><?php echo $mess ?? '';?></p>
                     <p id="alert-message"><?php echo $mess ?? '';?></p>
                     <?= $this->Form->create(); ?>
                     <div class="row">
@@ -27,6 +21,7 @@
 
                                 <div class="tab-content">
                                     <div class="row">
+                                      <input type="hidden" id="id" name="id" value="<?php echo @$data->id;?>"/>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Tên combo (*)</label>
                                             <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
@@ -34,7 +29,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Giá</label>
-                                            <input required type="number" class="form-control" name="price" id="price" value="<?php echo @$data->price;?>" />
+                                            <input required type="number" class="form-control" name="price" id="price" value="<?php echo (int)$data->price;?>" />
                                         </div>
                                     </div>
 
@@ -83,7 +78,6 @@
 
                                                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
                                                     <div>
-                                                        <label class="form-label d-block">Hình ảnh minh họa</label>
                                                         <img src="<?php echo !empty($item->image) ? $item->image : "https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg"; ?>"
                                                              alt="" style="max-width: 200px; max-height: 200px" id="<?php echo 'product-item-image['.$key.']'; ?>"
                                                         />
@@ -91,15 +85,13 @@
                                                 </div>
 
                                                 <div class="col-md-2" style="align-items: center; display: flex; justify-content: center">
-                                                    <div style="margin-right: 2px"><button class="btn btn-primary btn-save-product" type="button" data-target="<?php echo $key; ?>">Lưu
-                                                    </button></div>
                                                     <div style="margin-left: 2px"><button class="btn btn-danger btn-remove-product" type="button" data-target="<?php echo $key; ?>">Xóa
                                                     </button></div>
                                                 </div>
                                             </div>
                                             <?php endforeach; ?>
+                                          <div id="product-ref"></div>
                                         </div>
-                                        <div id="product-ref"></div>
                                         <p><button class="btn btn-primary" id="btn-add-product" type="button"><i class='bx bx-plus'></i></button></p>
                                     </div>
                                 </div>
@@ -107,7 +99,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-primary" id="btn-submit">Lưu</button>
                     <?= $this->Form->end() ?>
                 </div>
             </div>
@@ -135,7 +127,7 @@
 
     let productCount = Number('<?php echo isset($comboProduct) ? count($comboProduct) : 0;?>');
     const productOption = `<?php foreach (@$productList as $product): ?>
-                                <option value="<?php echo $product->id; ?>" selected><?php echo $product->name; ?></option>
+                                <option value="<?php echo $product->id; ?>"><?php echo $product->name; ?></option>
                             <?php endforeach; ?>`;
 
     $('#btn-add-product').on('click', function () {
@@ -156,7 +148,6 @@
 
                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
                     <div>
-                        <label class="form-label">Hình ảnh minh họa</label>
                         <img src="https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg" id="product-item-image[${productCount}]"
                              style="max-width: 200px; max-height: 200px" alt=""
                         />
@@ -164,8 +155,6 @@
                 </div>
 
                 <div class="col-md-2" style="align-items: center; display: flex; justify-content: center">
-                    <div style="margin-right: 2px"><button class="btn btn-primary btn-save-product" type="button" data-target="${productCount}">Lưu
-                    </button></div>
                     <div style="margin-left: 2px"><button class="btn btn-danger btn-remove-product" type="button" data-target="${productCount}">Xóa
                     </button></div>
                 </div>
@@ -206,7 +195,7 @@
             });
         }
         $(document.getElementById(`product-item-${removeId}`)).remove();
-        productCount--;
+        productCount--;h
     })
 
     $(document).on('change', '.select-product', function () {
@@ -229,5 +218,45 @@
                 },
             });
         }
+    });
+
+    $('#btn-submit').on('click', function () {
+      const productList = [];
+      for (let i = 0; i < productCount; i++) {
+        const element = $(document.getElementById(`product-item-${i}`));
+        if (element) {
+          const productId = $(document.getElementById(`product-item-id[${i}]`)).val();
+          const amount = $(document.getElementById(`product-item-amount[${i}]`)).val();
+          productList.push({productId, amount});
+        }
+      }
+      const name = $('#name').val();
+      const price = $('#price').val();
+      const image = $('#image').val();
+      const id = $('#id').val();
+      const data = {id, name, price, image, productList};
+      const token = "<?php echo $csrfToken;?>";
+
+      $.ajax({
+        method: "POST",
+        url: '/apis/updateComboAdminApi',
+        headers: {'X-CSRF-Token': token},
+        data: data,
+        success: function (result) {
+          if (result.code) {
+            $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
+          } else {
+            $('#alert-message').append('<p class="text-success">Lưu dữ liệu thành công</p>');
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        },
+        complete: function () {
+          setTimeout(function () {
+            $('#alert-message').empty();
+          }, 3000);
+        }
+      });
     })
 </script>

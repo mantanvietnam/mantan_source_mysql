@@ -81,9 +81,9 @@
                         echo '<tr>
                         <td align="center">' . $item->id . '</td>
                         <td align="center"><img src="' . $item->image . '" width="100" /></td>
-                        <td>' . $item->name . 'đ</td>
+                        <td>' . $item->name . '</td>
                         <td>
-                          ' . $item->price . '
+                          ' . $item->price . 'đ
                         </td>
                         <td> 
                         <p align="center">
