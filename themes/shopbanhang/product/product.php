@@ -425,7 +425,9 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
 
                 <div class="describe-description">
-                   <?php echo @$product->info; ?>
+                    <div class="describe-description-filter">
+                        <?php echo @$product->info; ?>
+                    </div>
                 </div>
 
                 <div class="describe-more">
