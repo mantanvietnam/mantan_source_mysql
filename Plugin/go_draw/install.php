@@ -12,7 +12,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `products` (
     `status` INT NOT NULL , 
     `amount_in_stock` INT NOT NULL DEFAULT 0 , 
     `amount_sold` INT NOT NULL DEFAULT 0 , 
-    `type` TINYINT NOT NULL , 
+    `type` TINYINT(4) NOT NULL DEFAULT 2 COMMENT "1 là tái sử dụng, 2 là tiêu hao" , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
@@ -99,7 +99,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_products` (
     `agency_id` INT NOT NULL , 
     `product_id` INT NOT NULL , 
     `price` INT NOT NULL , 
-    `amount` INT NOT NULL DEFAULT '0',
+    `amount` INT NOT NULL DEFAULT 0,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     PRIMARY KEY (`id`), 
@@ -157,6 +157,19 @@ $sqlInstallDatabase .= 'CREATE TABLE `user_order_details` (
 ) ENGINE = InnoDB;';
 
 $sqlInstallDatabase .= 'ALTER TABLE `categories` ADD `deleted_at` TIMESTAMP NULL DEFAULT NULL AFTER `slug`;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`user_pictures` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `name` VARCHAR(255) NULL , 
+    `description` VARCHAR(1000) NULL , 
+    `image` VARCHAR(255) NOT NULL , 
+    `vote` INT NOT NULL DEFAULT 0 , 
+    `user_id` INT NOT NULL , 
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    PRIMARY KEY (`id`), 
+    INDEX `user_id_index` (`user_id`)
+) ENGINE = InnoDB;';
 
 $sqlDeleteDatabase .= 'DROP TABLE `products`;';
 $sqlDeleteDatabase .= 'DROP TABLE `users`;';
