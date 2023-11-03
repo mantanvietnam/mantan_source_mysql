@@ -49,6 +49,7 @@ function chartUserNewAdmin() {
          $today = getdate();
         $listTime= array();
         if(!empty($listData)){
+            $total = count($listData);
             foreach ($listData as $item) {
                 $time= $item->created_at->toDateTimeString();
                 $time = strtotime($time);
@@ -121,9 +122,7 @@ function chartUserNewAdmin() {
 
           
         }
-
-       
-
+        setVariable('total',$total);
         setVariable('today', $today);
         setVariable('monthTotal', $monthTotal);
         setVariable('allDataMembers', $allDataMembers);

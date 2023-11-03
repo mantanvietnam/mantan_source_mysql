@@ -45,16 +45,24 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
                    <?php showUploadFile('image4','image4', @$setting['image4'],5);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 1</label>
+                  <input type="text" class="form-control" name="link_image1" value="<?php echo @$setting['link_image1'];?>" />
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
                    <?php showUploadFile('image5','image5', @$setting['image5'],6);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 2</label>
+                  <input type="text" class="form-control" name="link_image2" value="<?php echo @$setting['link_image2'];?>" />
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">ảnh 3</label>
                    <?php showUploadFile('image6','image6', @$setting['image6'],7);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 3</label>
+                  <input type="text" class="form-control" name="link_image3" value="<?php echo @$setting['link_image3'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">ảnh 4</label>
                    <?php showUploadFile('image7','image7', @$setting['image7'],8);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 4</label>
+                  <input type="text" class="form-control" name="link_image4" value="<?php echo @$setting['link_image4'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">id ảnh báo chí</label>

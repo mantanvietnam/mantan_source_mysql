@@ -20,15 +20,15 @@ global $urlThemeActive;
                 <div class="container-fluid">
                     <div class="row">
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $setting['image1'] ?>" alt="">
+                            <img src="<?php echo @$setting['image1'] ?>" alt="">
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $setting['image2'] ?>" alt="">
+                            <img src="<?php echo @$setting['image2'] ?>" alt="">
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo $setting['image3'] ?>" alt="">
+                            <img src="<?php echo @$setting['image3'] ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@ global $urlThemeActive;
                                     <div class="best-sale-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                            <p><?php echo @$item->point ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
@@ -203,19 +203,19 @@ global $urlThemeActive;
                 <div class="row">
                     <div class="home-category-big col-12 ">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $setting['image4'] ?>" alt=""></a>
+                            <a href="<?php echo @$setting['link_image1'] ?>"><img src="<?php echo @$setting['image4'] ?>" alt=""></a>
                         </div>
                     </div>
 
                     <div class="home-category-small col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $setting['image5'] ?>" alt=""></a>
+                            <a href="<?php echo @$setting['link_image2'] ?>"><img src="<?php echo @$setting['image5'] ?>" alt=""></a>
                         </div>
                     </div>
 
                     <div class="home-category-small col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="category-home-img">
-                            <a href=""><img src="<?php echo $setting['image6'] ?>" alt=""></a>
+                            <a href="<?php echo @$setting['link_image3'] ?>"><img src="<?php echo @$setting['image6'] ?>" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ global $urlThemeActive;
         <section id="section-banner-policy">
             <div class="container-fluid">
                 <div class="banner-policy">
-                    <img src="<?php echo $setting['image7'] ?>" alt="">
+                    <img src="<?php echo @$setting['image7'] ?>" alt="">
                 </div>
             </div>
         </section>
@@ -301,8 +301,8 @@ global $urlThemeActive;
     function updateCountdown() {
       // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
      
-      <?php if(!empty(@$setting['targetTime'])){?>
-        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @$setting['targetTime']) ?>").getTime();
+      <?php if(!empty(@@$setting['targetTime'])){?>
+        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @@$setting['targetTime']) ?>").getTime();
 
     <?php }else{?>
      const targetTime = 0;
@@ -318,7 +318,7 @@ global $urlThemeActive;
          var html = '';
          html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Ngày</p>'
@@ -327,7 +327,7 @@ global $urlThemeActive;
 
         html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giờ</p>'
@@ -336,7 +336,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item time-flash-item-center">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Phút</p>'
@@ -345,7 +345,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>0</p>'
+        html +='                        <p>00</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giây</p>'
@@ -360,7 +360,7 @@ global $urlThemeActive;
         var html = '';
          html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+days+'</p>'
+        html +='                        <p>'+String(days).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Ngày</p>'
@@ -369,7 +369,7 @@ global $urlThemeActive;
 
         html +='        <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+hours+'</p>'
+        html +='                        <p>'+String(hours).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giờ</p>'
@@ -378,7 +378,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item time-flash-item-center">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+minutes+'</p>'
+        html +='                        <p>'+String(minutes).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Phút</p>'
@@ -387,7 +387,7 @@ global $urlThemeActive;
 
         html +='                <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
-        html +='                        <p>'+seconds+'</p>'
+        html +='                        <p>'+String(seconds).padStart(2, '0')+'</p>'
         html +='                    </div>'
         html +='                    <div class="time-flash-text">'
         html +='                        <p>Giây</p>'

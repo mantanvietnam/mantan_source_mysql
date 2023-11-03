@@ -35,32 +35,44 @@ $slide_home= slide_home($setting['id_slide']);
             <div class="container">
                 <div class="search-form-category">
                     <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom-1 py-3">
-                        <div class="search-category-product">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
-                            <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" name="key" aria-describedby="">
-                        </div>
-                        <div class="product-select">
-                            <div class="product-select-box">
-                                <div class="product-select-item product-select-left">
-                                    <div class="heading-check">
-                                        <span>Khuyễn mãi</span>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" value="sela">
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="search-category-product col-lg-3 col-md-3 col-sm-3 col-12">
+                                <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
+                                <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" name="key" aria-describedby="">
+                            </div>
 
-                                <div class="product-select-item product-select-right">
-                                    <div class="heading-check">
-                                        <span>Sắp xếp</span>
+                            <div class="product-select col-lg-9 col-md-9 col-sm-9 col-12">
+                                <div class="product-select-box">
+                                    <div class="product-select-item product-select-left">
+                                        <div class="heading-check">
+                                            <span>Khuyễn mãi</span>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" value="sela">
+                                        </div>
                                     </div>
-                                    <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
-                                        <option selected>Open this select menu</option>
+
+                                    <div class="product-select-item product-select-right">
+                                        <div class="heading-check">
+                                            <span>Sắp xếp</span>
+                                        </div>
+                                        <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
+                                            <option selected value="">Open this select menu</option>
+                                            <option value="1">Sản phẩm bán chạy nhất</option>
+                                            <option value="2">Giá từ cao đến thấp</option>
+                                            <option value="3">Giá từ thấp đến cao</option>
+                                            <option value="4">Sản phẩm mới nhất</option>
+                                        </select>
+                                        <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
+                                    </div>
+
+                                    <!-- <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
+                                        <option selected value="">Open this select menu</option>
                                         <option value="1">Sản phẩm bán chạy nhất</option>
                                         <option value="2">Giá từ cao đến thấp</option>
                                         <option value="3">Giá từ thấp đến cao</option>
                                         <option value="4">Sản phẩm mới nhất</option>
-                                    </select>
+                                    </select> -->
                                     <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
                                 </div>
                             </div>
@@ -196,7 +208,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                            <p><?php echo @$product->point ?><span>(<?php echo @$product->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">

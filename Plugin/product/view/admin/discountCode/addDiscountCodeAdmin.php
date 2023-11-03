@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-listDiscountCodeAdmin.php">Mã giảm giá</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin.php">Mã giảm giá</a> /</span>
     Thông tin mã giảm giá
   </h4>
   <!-- Basic Layout -->
@@ -31,7 +31,16 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Giá tối thiểu được áp dụng </label>
                     <input  type="number" class="form-control phone-mask" name="applicable_price" id="applicable_price" value="<?php echo @$data->applicable_price;?>" />
-                  </div>         
+                  </div>
+                   <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Danh mục(*)</label>
+                    <select class="form-select form-select-sm" id="category" required  name="category" aria-label=".form-select-sm example">
+                       <option value="">Chọn danh mục</option>
+                        <?php  foreach(categoryDiscountCode() as $key => $item){ ?>
+                        <option <?php if($data['category']==$key){ echo 'selected'; } ?> value="<?php echo $key ?>"><?php echo $item ?></option>        
+                      <?php } ?>          
+                    </select>
+                  </div>          
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -49,7 +58,7 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">id sản phẩm(*)</label>
                     <input type="text"  class="form-control" placeholder="mỗi id sản phẩm cách nhau dấu phẩy " name="id_product" id="id_product" value="<?php echo @$data->id_product;?>" />
-                  </div> 
+                  </div>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
@@ -60,3 +69,5 @@
 
     </div>
 </div>
+
+categorydiscount

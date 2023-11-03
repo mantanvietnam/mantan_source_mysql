@@ -1032,8 +1032,6 @@ function listOrderCombo($input){
                                 $pr =  $modelService->find()->where(array('id'=>$idservice))->first();
                                 $pr->quantity_Combo =  $quantityPro;
                                 $service[] = $pr;
-
-
                             }
                             
                         }
@@ -1041,7 +1039,6 @@ function listOrderCombo($input){
                         $prod->combo_product = $products;
                         $prod->combo_service = $service;
 
-                         
                         $product[$k] = $prod;
                     }
 

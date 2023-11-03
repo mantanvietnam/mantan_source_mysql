@@ -36,4 +36,5 @@
 	// quên mật khẩu
 	$routesPlugin['requestCodeForgotPasswordAPI']= 'ezpics_api/view/requestCodeForgotPasswordAPI.php';
 	$routesPlugin['saveNewPassAPI']= 'ezpics_api/view/saveNewPassAPI.php';
+	$routesPlugin['searchAddress']= '2top_crm/view/searchAddress.php';
 ?>

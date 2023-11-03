@@ -24,10 +24,10 @@
                             echo '  <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                              <th scope="col">ID</th>
+                                              <th scope="col" width="50">ID</th>
                                               <th scope="col">Sản phẩm</th>
-                                              <th scope="col">Thành tiền</th>
-                                              <th scope="col"></th>
+                                              <th scope="col" width="150">Thành tiền</th>
+                                              <th scope="col" width="100"></th>
                                             </tr>
                                         </thead>
                                         <tbody>';
@@ -39,11 +39,11 @@
                                                           <td>';
                                                           
                                                           if(!empty($value->product)){
-                                                            echo '<table>';
+                                                            echo '<table class="noborder">';
                                                             foreach ($value->product as $keyProduct=>$product) {
                                                                 echo '  <tr>
                                                                             <td>'.$product->name.'</td>
-                                                                            <td>'.number_format($product->amount).'</td>
+                                                                            <td width="150">'.number_format($product->amount).' x '.number_format($product->unit_price).'đ</td>
                                                                         </tr>';
                                                             }
                                                             echo '</table>';
@@ -52,7 +52,7 @@
                                                 echo      '</td>
                                                           <td>'.number_format($value->total_price).'</td>
                                                           <td>
-                                                            <div class="btn-order"><a href="">THANH TOÁN</a></div>
+                                                            <div class="btn-order text-center"><a href="/processUserOrder/?id='.$value->id.'">THANH TOÁN</a></div>
                                                           </td>
                                                         </tr>';
                                             }

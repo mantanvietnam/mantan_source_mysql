@@ -9,11 +9,14 @@ $infoUser = $session->read('infoUser');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- <title>Document</title> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/main.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/cssplus.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/mainplus.css">
     <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/review.css">
+    <link rel="stylesheet" href="<?php echo $urlThemeActive ?>asset/css/editcss.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,7 +34,22 @@ $infoUser = $session->read('infoUser');
         type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
-     <?php mantan_header(); ?>
+      <?php mantan_header(); ?>
+     <script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1428203714597073');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
+/></noscript>
 </head>
 <body>
     <header>
@@ -52,7 +70,7 @@ $infoUser = $session->read('infoUser');
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
-                                    <a href="" >Tài khoản của tôi</a>
+                                    <a href="/infoUser" >Tài khoản của tôi</a>
                                     <a href="/logout" >Đăng xuất</a>
                                 <?php }else{ ?>
                                 <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Dăng nhập</a>
@@ -179,236 +197,89 @@ $infoUser = $session->read('infoUser');
             </div>
 
             <!-- mobile -->
-            <!-- <div class="menu-mobile">
+            <div class="menu-mobile">
                 <div class="menu-mobile-inner">
                     <div class="menu-mobile-box">
                         <ul>
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
-                            </li>
-                            
-                            <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt=""></a>
+                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt=""></a>
+                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
+                            </li>
+
+                            <li>
+                                <nav class="nav-mobile">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                                        <img src="<?php echo $urlThemeActive ?>/asset/image/linemobile.png" alt="">
+                                    </button>
+                                    <div class="offcanvas" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                                        <div class="offcanvas-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-x"></i></button>
+                                        </div>
+                                        <div class="offcanvas-body">
+                                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">Link</a>
+                                                </li>
+
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Dropdown
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Dropdown
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">
+                                                        Dropdown
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="number-phone-mobile">
+                                                <p>Điện thoại tư vấn : 0963.514.244</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div> -->
-
+            </div>
 
         </div>
-        <!-- Đăng nhập -->
-        <div class="modal-login">
-           <!-- Button trigger modal -->
-            <!-- <button type="button" class="btn btn-primary">
-                Launch static backdrop modal
-            </button> -->
-            
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-6 col-12 modal-left">
-                                    <div class="modal-left-heading">
-                                        <p>Xin chào!</p>
-                                    </div>
-
-                                    <div class="modal-left-sub">
-                                        <p>Đăng nhập hoặc Tạo tài khoản</p>
-                                    </div>
-
-                                    <div class="modal-left-login-social">
-                                        <div class="login-social-item">
-                                            <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
-                                        </div>
-                                        <div class="login-social-item">
-                                            <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
-                                        </div>
-                                        <div class="login-social-item">
-                                            <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
-                                        </div>
-                                         <div class="row">
-              <div class="col-sm-12 text-center mb-2">
-                  <div class="login_f gg">
-                      <?php
-                      global $google_clientId;
-                      global $google_clientSecret;
-                      global $google_redirectURL;
-
-                      $client = new Google_Client();
-                      $client->setClientId($google_clientId);
-                      $client->setClientSecret($google_clientSecret);
-                      $client->setRedirectUri($google_redirectURL);
-                      $client->setApplicationName('Đăng nhập Ezpics');
-                      //$client->setApprovalPrompt('force');
-
-                      $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
-
-                      $authUrl = $client->createAuthUrl();
-                   
-                      echo '<a class="btn btn-danger" href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="bx bxl-google"></i> Đăng nhập với Google</a>';
-                      ?>
-                  </div>
-              </div> 
-            </div>
-                                    </div>
-
-                                    <div class="modal-left-bottom">
-                                        <p>Chưa có tài khoản ? <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Tạo tài khoản</button></p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12 modal-right">
-                                    <div class="or-login">
-                                        <span>Hoặc tiếp tục bằng</span>
-                                    </div>
-
-                                    <form  action="/login" method="post">
-                                        <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control" name="email" id="" placeholder="Số điện thoại">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <input type="password" class="form-control" name="pass" id="" placeholder="Mật khẩu">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Tiếp tục</button>
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal3">quên mật khẩu </a>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Đăng ký -->
-        <div class="modal-login">
-          <!--   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                Launch static backdrop modal
-            </button> -->
-            
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-6 col-12 modal-left">
-                                <div class="modal-left-heading">
-                                    <p>Xin chào!</p>
-                                </div>
-
-                                <div class="modal-left-sub">
-                                    <p>Đăng nhập hoặc Tạo tài khoản</p>
-                                </div>
-
-                                <div class="modal-left-login-social">
-                                    <div class="login-social-item">
-                                        <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
-                                    </div>
-                                    <div class="login-social-item">
-                                        <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
-                                    </div>
-                                    <div class="login-social-item">
-                                        <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
-                                    </div>
-                                </div>
-
-                                <div class="modal-left-bottom">
-                                    <p>Đã có tài khoản ? <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</button></p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-12 modal-right">
-                                <div class="or-login">
-                                    <span>Đăng ký tài khoản</span>
-                                </div>
-
-                                <form action="/register" method="post">
-                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="full_name" id="exampleCheck1" placeholder="Họ và tên">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="phone" id="exampleCheck1" placeholder="Số điện thoại">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="email" id="email" placeholder="email">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
-                                    </div>
-
-
-                                    <div class="mb-3">
-                                        <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
-                                </form>
-                                
-
-                                <!-- <div class="email-login">
-                                    <span>Đăng nhập bằng email?</span>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- quên mật khẩu -->
-        <!-- Quên mật khẩu -->
-        <div class="modal-login">
- 
-            
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12 modal-right">
-                                <div class="or-login">
-                                    <span>Quên mật khẩu</span>
-                                </div>
-
-                                <form action="">
-                                    <div class="mb-3">
-                                        <input type="email" class="form-control" id="exampleCheck1" placeholder="Nhập email">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
+        
 
     </header>

@@ -118,6 +118,7 @@ function addDiscountCodeAdmin($input)
             $data->discount = @$dataSend['discount'];
             $data->id_product = @$dataSend['id_product'];
             $data->number_user = @$dataSend['number_user'];
+            $data->category = @$dataSend['category'];
             if(!empty($dataSend['deadline_at'])){
                 $data->deadline_at = DateTime::createFromFormat('d/m/Y', @$dataSend['deadline_at'])->format('Y-m-d 23:59:59');
             }

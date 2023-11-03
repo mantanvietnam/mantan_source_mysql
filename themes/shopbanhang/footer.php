@@ -101,8 +101,275 @@ $infoUser = $session->read('infoUser');
         </section>
     </footer>
 
+    <!-- Đăng nhập -->
+        <div class="modal-login">
+           <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-primary">
+                Launch static backdrop modal
+            </button> -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-12 modal-left">
+                                    <div class="modal-left-heading">
+                                        <p>Xin chào!</p>
+                                    </div>
+
+                                    <div class="modal-left-sub">
+                                        <p>Đăng nhập hoặc Tạo tài khoản</p>
+                                    </div>
+
+                                    <div class="modal-left-login-social">
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
+                                        </div>
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
+                                        </div>
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
+                                        </div>
+                                         <div class="row">
+              <div class="col-sm-12 text-center mb-2">
+                  <div class="login_f gg">
+                      <?php
+                      global $google_clientId;
+                      global $google_clientSecret;
+                      global $google_redirectURL;
+
+                      $client = new Google_Client();
+                      $client->setClientId($google_clientId);
+                      $client->setClientSecret($google_clientSecret);
+                      $client->setRedirectUri($google_redirectURL);
+                      $client->setApplicationName('Đăng nhập Ezpics');
+                      //$client->setApprovalPrompt('force');
+
+                      $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
+
+                      $authUrl = $client->createAuthUrl();
+                   
+                      echo '<a class="btn btn-danger" href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="bx bxl-google"></i> Đăng nhập với Google</a>';
+                      ?>
+                  </div>
+              </div> 
+            </div>
+                                    </div>
+
+                                    <div class="modal-left-bottom">
+                                        <p>Chưa có tài khoản ? <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Tạo tài khoản</button></p>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12 modal-right">
+                                    <div class="or-login">
+                                        <span>Hoặc tiếp tục bằng</span>
+                                    </div>
+
+                                    <form  action="" method="post">
+                                        <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                                        
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
+                                        </div>
+                                        <p id="messlogin"></p>
+                                        <a type="submit" onclick="login()" class="btn btn-primary" >Tiếp tục</a>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal3">quên mật khẩu </a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Đăng ký -->
+        <div class="modal-login">
+          <!--   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                Launch static backdrop modal
+            </button> -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-12 modal-left">
+                                <div class="modal-left-heading">
+                                    <p>Xin chào!</p>
+                                </div>
+
+                                <div class="modal-left-sub">
+                                    <p>Đăng nhập hoặc Tạo tài khoản</p>
+                                </div>
+
+                                <div class="modal-left-login-social">
+                                    <div class="login-social-item">
+                                        <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
+                                    </div>
+                                    <div class="login-social-item">
+                                        <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
+                                    </div>
+                                    <div class="login-social-item">
+                                        <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
+                                    </div>
+                                </div>
+
+                                <div class="modal-left-bottom">
+                                    <p>Đã có tài khoản ? <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</button></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Đăng ký tài khoản</span>
+                                </div>
+
+                                <form action="" method="post">
+                                    <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Họ và tên">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="emailReg" id="emailReg" placeholder="email">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" name="passReg" id="passReg" placeholder="Mật khẩu">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
+                                    </div>
+                                    <p id="messReg"></p>
+                                    <a class="btn btn-primary" onclick="register()">Tiếp tục</a>
+                                </form>
+                                
+
+                                <!-- <div class="email-login">
+                                    <span>Đăng nhập bằng email?</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- quên mật khẩu -->
+        <!-- Quên mật khẩu -->
+        <div class="modal-login">
+ 
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Quên mật khẩu</span>
+                                </div>
+
+                                <form action="">
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="exampleCheck1" placeholder="Nhập email">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    <script type="text/javascript">
+        
+
+    function login(){
+        var email = $('#email').val();
+        var pass = $('#pass').val();
+        console.log(email);
+        console.log(pass);
+        $.ajax({
+            method: "POST",
+            data:{email: email,
+                  pass:pass,  
+                },
+            url: "/apis/login",
+        })
+        .done(function(msg) {
+            console.log(msg);
+            if(msg.code==1){    
+                location.reload();
+            }else{
+                var html = '<p class="text-danger">'+msg.messages+'</p>';
+                document.getElementById("messlogin").innerHTML = html;
+
+            }
+           
+        });
+    }
+
+    function register(){
+        var full_name = $('#full_name').val();
+        var phone = $('#phone').val();
+        var email = $('#emailReg').val();
+        var passReg = $('#passReg').val();
+        var passAgin = $('#passAgain').val();
+        console.log(full_name);
+        console.log(phone);
+        console.log(email);
+        console.log(passReg);
+        console.log(passAgin);  
+        $.ajax({
+            method: "POST",
+            data:{
+                  full_name: full_name,
+                  phone: phone,  
+                  email: email,
+                  pass: passReg,  
+                  passAgain: passAgin,  
+                },
+            url: "/apis/register",
+        })
+        .done(function(msg) {
+            console.log(msg);
+            if(msg.code==1){
+                location.reload();
+            }else{
+                var html = '<p class="text-danger">'+msg.messages+'</p>';
+                document.getElementById("messReg").innerHTML = html;
+
+            }
+           
+        });
+    }
+    </script>
+
     <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
+    <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>
+
 
 </body>
 </html>

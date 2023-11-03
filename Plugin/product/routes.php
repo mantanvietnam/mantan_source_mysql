@@ -12,8 +12,10 @@
 	$routesPlugin['search-product']= 'product/view/home/search.php';
 	$routesPlugin['cart']= 'product/view/home/cart.php';
 	$routesPlugin['sela']= 'product/view/home/sela.php';
+	$routesPlugin['pay']= 'product/view/home/pay.php';
 
 	$routesPlugin['addProductToCart']= 'product/view/home/addProductToCart.php';
 	$routesPlugin['deleteProductCart']= 'product/view/home/deleteProductCart.php';
 	$routesPlugin['clearCart']= 'product/view/home/clearCart.php';
+	$routesPlugin['completeOrder']= 'product/view/home/completeOrder.php';
 ?>

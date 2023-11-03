@@ -936,4 +936,47 @@ function checkCodeAffiliateAPI($input)
 
 	return $return;
 }
+
+function searchAddress($input){
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+
+	
+	
+	$return = [];
+
+	if(!empty($session->read('infoUser'))){
+		$infoUser  = $session->read('infoUser');
+		$modelAddress = $controller->loadModel('address');
+
+		$dataSend = $_REQUEST;
+		
+	
+
+		if(!empty($_GET['key'])){
+			/*
+			$conditions['OR'] = [
+	        						['phone'=>$dataSend['term']], 
+	        						['full_name LIKE'=>'%'.$dataSend['term'].'%']
+	        					];
+			*/
+	        $conditions = ['address_name LIKE'=>'%'.$_GET['key'].'%', 'id_customer'=>$infoUser->id];
+
+	        $listData= $modelAddress->find()->where($conditions)->all()->toList();
+	        
+	        if($listData){
+	            foreach($listData as $data){
+	                $return[]= array('id'=>$data->id,'label'=>$data->address_name,'value'=>$data->id,'title'=>$data->address_name);
+	            }
+	        }else{
+	        	$return= array(array('id'=>0, 'label'=>'Không tìm được địa chỉ nào', 'value'=>'', 'title'=>''));
+	        }
+	    }
+	}
+	
+
+	return $return;
+}
 ?>

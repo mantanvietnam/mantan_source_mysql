@@ -56,7 +56,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         <span>Sắp xếp</span>
                                     </div>
                                     <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
-                                        <option selected>Open this select menu</option>
+                                        <option selected value="s">Open this select menu</option>
                                         <option value="1">Sản phẩm bán chạy nhất</option>
                                         <option value="2">Giá từ cao đến thấp</option>
                                         <option value="3">Giá từ thấp đến cao</option>
@@ -196,7 +196,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                            <p><?php echo @$product->point ?><span>(<?php echo @$product->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
