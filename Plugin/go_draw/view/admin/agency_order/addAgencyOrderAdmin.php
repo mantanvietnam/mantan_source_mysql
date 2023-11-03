@@ -13,7 +13,7 @@
                     <h5 class="mb-0">Thông tin sản phẩm</h5>
                 </div>
                 <div class="card-body">
-                    <p><?php echo $mess;?></p>
+                    <div id="alert-message"><?php echo $mess;?></div>
                     <?= $this->Form->create(); ?>
                     <div class="row">
                         <div class="col-12">
@@ -40,6 +40,20 @@
                                                 </a>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-6 d-flex mb-3 align-items-end">
+                                            <div>
+                                                <?php if (@$data->status === 0) : ?>
+                                                  <button class="btn btn-primary" id="btn-accept-order" data-target="<?php echo @$data->id; ?>">
+                                                    Phê duyệt
+                                                  </button>
+                                                <?php elseif (@$data->status === 1): ?>
+                                                  <button class="btn btn-primary" id="btn-pay-order" data-target="<?php echo @$data->id; ?>">
+                                                    Thanh toán
+                                                  </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -50,7 +64,7 @@
 
                                         <div class="col-md-6 mb-3">
                                           <label class="form-label">Trạng thái</label>
-                                          <select name="status" class="form-select color-dropdown">
+                                          <select name="status" class="form-select color-dropdown" disabled>
                                             <option value="0" <?php if(@$data->status == 0) echo 'selected';?> >Đơn hàng mới</option>
                                             <option value="1" <?php if(@$data->status == 1) echo 'selected';?> >Đã duyệt</option>
                                             <option value="2" <?php if(@$data->status == 2) echo 'selected';?> >Đã thanh toán</option>
@@ -107,6 +121,9 @@
             </div>
         </div>
     </div>
+    <?php
+      global $csrfToken;
+    ?>
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
     <script type="text/javascript">
       function BrowseServerImage(number = 0)
@@ -122,5 +139,59 @@
         $("#image").val(fileUrl);
         $("#show-image").attr('src', fileUrl);
       }
+
+      $('#btn-accept-order').on('click', function () {
+        confirm('Bạn có chắc chắn muốn duyệt đơn hàng này không?');
+        const id = $(this).data('target');
+        const token = "<?php echo $csrfToken;?>";
+        $.ajax({
+          method: "POST",
+          url: '/apis/acceptAgencyOrderAdminApi',
+          headers: {'X-CSRF-Token': token},
+          data: {id},
+          success: function (result) {
+            if (result.code) {
+              $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
+            } else {
+              window.location.reload();
+            }
+          },
+          error: function (error) {
+            $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
+          },
+          complete: function () {
+            setTimeout(function () {
+              $('#alert-message').empty();
+            }, 3000);
+          }
+        });
+      });
+
+      $('#btn-pay-order').on('click', function () {
+        confirm('Bạn có chắc chắn muốn thanh toán đơn hàng này không?');
+        const id = $(this).data('target');
+        const token = "<?php echo $csrfToken;?>";
+        $.ajax({
+          method: "POST",
+          url: '/apis/payAgencyOrderAdminApi',
+          headers: {'X-CSRF-Token': token},
+          data: {id},
+          success: function (result) {
+            if (result.code) {
+              $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
+            } else {
+              window.location.reload();
+            }
+          },
+          error: function (error) {
+            $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
+          },
+          complete: function () {
+            setTimeout(function () {
+              $('#alert-message').empty();
+            }, 3000);
+          }
+        });
+      });
     </script>
 </div>

@@ -11,7 +11,7 @@ function listProductAdmin($input)
     $categoryModel = $controller->loadModel('Categories');
     $comboModel = $controller->loadModel('Combos');
 
-    $metaTitleMantan = 'Danh sách cuốc xe';
+    $metaTitleMantan = 'Danh sách sản phẩm';
     $conditions = ['Products.deleted_at IS' => null];
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 10;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;

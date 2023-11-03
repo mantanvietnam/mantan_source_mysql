@@ -16,6 +16,7 @@
                     <div class="col-md-3">
                         <label class="form-label">Đại lý</label>
                         <select name="agency_id" class="form-select color-dropdown">
+                            <option value="">Tất cả đại lý</option>
                             <?php foreach (@$listAgency as $agency): ?>
                                 <option value="<?php echo $agency->id; ?>" <?php if (!empty($_GET['agency_id']) && $_GET['agency_id'] == $agency->id) echo 'selected'; ?>><?php echo $agency->name; ?></option>
                             <?php endforeach; ?>

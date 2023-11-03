@@ -52,7 +52,6 @@ function listComboAdmin($input)
 function viewDetailComboAdmin($input)
 {
     global $controller;
-    global $isRequestPost;
 
     $comboModel = $controller->loadModel('Combos');
     $productModel = $controller->loadModel('Products');
@@ -60,7 +59,6 @@ function viewDetailComboAdmin($input)
 
     if (!empty($_GET['id'])) {
         $combo = $comboModel->find()
-            ->select(['id', 'name'])
             ->where(['id' => $_GET['id']])
             ->first();
         $comboProduct = $productModel->find()
@@ -119,3 +117,63 @@ function deleteComboProductAdminApi($input): array
 
     return apiResponse(1, 'Bắt buộc sử dụng method POST');
 }
+
+function updateComboAdminApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+    global $defaultImage;
+
+    $comboModel = $controller->loadModel('Combos');
+    $comboProductModel = $controller->loadModel('ComboProducts');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (empty($dataSend['name']) || empty($dataSend['price'])) {
+            return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        $listProductId = [];
+        if (!empty($dataSend['id'])) {
+            $combo = $comboModel->find()->where(['id' => $dataSend['id']])->first();
+            $listProductId = $comboProductModel->find()->where(['combo_id' => $combo->id])->all()
+                ->map(function ($item) {
+                    return $item->product_id;
+                })->toArray();
+        } else {
+            $combo = $comboModel->newEmptyEntity();
+        }
+        $combo->name = $dataSend['name'];
+        $combo->price = $dataSend['price'];
+        $combo->image = $dataSend['image'] ?? $defaultImage;
+        $combo->slug = createSlugMantan($dataSend['name']);
+        $combo->status = 1;
+        $comboModel->save($combo);
+
+        if (!empty($dataSend['productList']) && is_array($dataSend['productList'])) {
+            foreach ($dataSend['productList'] as $item) {
+                if (in_array($item['productId'], $listProductId)) {
+                    $comboProduct = $comboProductModel->find()
+                        ->where([
+                            'combo_id' => $combo->id,
+                            'product_id' => $item['productId'],
+                        ])->first();
+                    $comboProduct->amount = $item['amount'] ?? 1;
+                } else {
+                    $newComboProduct = $comboProductModel->newEmptyEntity();
+                    $newComboProduct->combo_id = $combo->id;
+                    $newComboProduct->product_id = $item['productId'];
+                    $newComboProduct->amount = $item['amount'];
+                    $comboProductModel->save($newComboProduct);
+                }
+            }
+        }
+
+        return apiResponse(0, 'Cập nhật thành công', $combo);
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+

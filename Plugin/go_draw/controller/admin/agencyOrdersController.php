@@ -34,7 +34,7 @@ function listAgencyOrderAdmin($input)
         $conditions['AgencyOrders.agency_id'] = $_GET['agency_id'];
     }
 
-    if (!empty($_GET['status'])) {
+    if (isset($_GET['status']) && $_GET['status'] !== '') {
         $conditions['AgencyOrders.status'] = (int)$_GET['status'];
     }
 
@@ -91,8 +91,6 @@ function addAgencyOrderAdmin($input)
     $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
     $comboModel = $controller->loadModel('Combos');
     $agencyModel = $controller->loadModel('Agencies');
-    $agencyProductModel = $controller->loadModel('AgencyProducts');
-    $productModel = $controller->loadModel('Products');
     $mess = '';
 
     if (!empty($_GET['id'])) {
@@ -116,38 +114,9 @@ function addAgencyOrderAdmin($input)
 
             if (isset($dataSend['agency_id'])
                 && isset($dataSend['total_price'])
-                && isset($dataSend['status'])
             ) {
                 $order->agency_id = $dataSend['agency_id'];
                 $order->total_price = $dataSend['total_price'];
-                $order->status = (int)$dataSend['status'];
-
-                if ((int)$dataSend['status'] === 1 && !empty($listItem) && !empty($agency)) {
-                    $listAgencyProduct = [];
-                    foreach ($listItem as $item) {
-                        $listProduct = $productModel->find()
-                            ->join([
-                                [
-                                    'table' => 'combo_products',
-                                    'alias' => 'ComboProducts',
-                                    'type' => 'LEFT',
-                                    'conditions' => [
-                                        'ComboProducts.product_id = Products.id',
-                                    ],
-                                ],
-                            ])->where(["ComboProducts.combo_id" => $item->combo_id])
-                            ->all();
-                        foreach ($listProduct as $product) {
-                            $newItem = $agencyProductModel->newEmptyEntity();
-                            $newItem->agency_id = $agency->id;
-                            $newItem->product_id = $product->id;
-                            $newItem->price = $item->unit_price;
-                            $newItem->amount = $item->amount;
-                            $listAgencyProduct[] = $newItem;
-                        }
-                    }
-                    $agencyProductModel->saveMany($listAgencyProduct);
-                }
                 $orderModel->save($order);
 
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
@@ -163,4 +132,131 @@ function addAgencyOrderAdmin($input)
     setVariable('data', $order);
     setVariable('listCombo', $listCombo);
     setVariable('mess', $mess);
+}
+
+function acceptAgencyOrderAdminApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $orderModel = $controller->loadModel('AgencyOrders');
+    $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
+    $agencyProductModel = $controller->loadModel('AgencyProducts');
+    $productModel = $controller->loadModel('Products');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id'])) {
+
+            $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
+            $order->status = 1;
+            $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
+
+            if (!empty($listItem)) {
+                $listAgencyProduct = [];
+                foreach ($listItem as $item) {
+                    $listProduct = $productModel->find()
+                        ->join([
+                            [
+                                'table' => 'combo_products',
+                                'alias' => 'ComboProducts',
+                                'type' => 'LEFT',
+                                'conditions' => [
+                                    'ComboProducts.product_id = Products.id',
+                                ],
+                            ],
+                        ])->select([
+                            'Products.id',
+                            'Products.price',
+                            'ComboProducts.amount',
+                        ])->where(["ComboProducts.combo_id" => $item->combo_id])
+                        ->all();
+                    foreach ($listProduct as $product) {
+                        $newItem = $agencyProductModel->find()->where([
+                            'agency_id' => $order->agency_id,
+                            'product_id' => $product->id
+                        ])->first();
+                        if (empty($newItem)) {
+                            $newItem = $agencyProductModel->newEmptyEntity();
+                        }
+                        $newItem->agency_id = $order->agency_id;
+                        $newItem->product_id = $product->id;
+                        $newItem->price = $product->price;
+                        $newItem->amount = $item->amount * $product->ComboProducts['amount'];
+                        $listAgencyProduct[] = $newItem;
+                    }
+                }
+                $agencyProductModel->saveMany($listAgencyProduct);
+            }
+            $orderModel->save($order);
+            
+            return apiResponse(0, 'Cập nhật thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function payAgencyOrderAdminApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $orderModel = $controller->loadModel('AgencyOrders');
+    $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
+    $agencyProductModel = $controller->loadModel('AgencyProducts');
+    $productModel = $controller->loadModel('Products');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id'])) {
+
+            $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
+            $order->status = 2;
+            $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
+
+            if (!empty($listItem)) {
+                $listAgencyProduct = [];
+                foreach ($listItem as $item) {
+                    $listProduct = $productModel->find()
+                        ->join([
+                            [
+                                'table' => 'combo_products',
+                                'alias' => 'ComboProducts',
+                                'type' => 'LEFT',
+                                'conditions' => [
+                                    'ComboProducts.product_id = Products.id',
+                                ],
+                            ],
+                        ])->select([
+                            'Products.id',
+                            'Products.price',
+                            'ComboProducts.amount',
+                        ])->where(["ComboProducts.combo_id" => $item->combo_id])
+                        ->all();
+                    foreach ($listProduct as $product) {
+                        $newItem = $agencyProductModel->find()->where([
+                            'agency_id' => $order->agency_id,
+                            'product_id' => $product->id
+                        ])->first();
+                        $newAmount = $newItem->amount - ($item->amount * $product->ComboProducts['amount']);
+                        $newItem->amount = max($newAmount, 0);
+                        $listAgencyProduct[] = $newItem;
+                    }
+                }
+                $agencyProductModel->saveMany($listAgencyProduct);
+            }
+            $orderModel->save($order);
+
+            return apiResponse(0, 'Cập nhật thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
 }
