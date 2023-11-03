@@ -287,12 +287,103 @@ $infoUser = $session->read('infoUser');
                                 <div class="or-login">
                                     <span>Quên mật khẩu</span>
                                 </div>
-
+                                <p id="messforgotpassword"></p>
                                 <form action="">
                                     <div class="mb-3">
                                         <input type="email" class="form-control" id="exampleCheck1" placeholder="Nhập email">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                                    <a onclick="forgotpassword()" class="btn btn-primary">Tiếp tục</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- mã xác nhân  -->
+        <div class="modal-login">
+ 
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Mã xác nhận </span>
+                                </div>
+                                <p id="messforgotpassword"></p>
+                                <form action="">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
+                                    </div>
+                                    <a onclick="confirm()" class="btn btn-primary">Tiếp tục</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- mã xác nhân  -->
+        <div class="modal-login">
+ 
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Mã xác nhận </span>
+                                </div>
+                                <p id="messforgotpassword"></p>
+                                <form action="">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
+                                    </div>
+                                    <p >Bạn khiểm tra Emali lấy mã xác nhận </p>
+                                    <a onclick="forgotpassword()" class="btn btn-primary">Tiếp tục</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- mật khẩu   -->
+        <div class="modal-login">
+ 
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 modal-right">
+                                <div class="or-login">
+                                    <span>Mật khẩu mới</span>
+                                </div>
+                                <p id="newpass"></p>
+                                <form action="">
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" id="password1" placeholder="Mật khẩu mới">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="password" class="form-control" id="password2" placeholder="Xác nhận mật khẩu mới">
+                                    </div>
+                                    <a onclick="newpassword()" class="btn btn-primary">Tiếp tục</a>
                                 </form>
                             </div>
                         </div>
@@ -364,6 +455,93 @@ $infoUser = $session->read('infoUser');
            
         });
     }
+
+    function forgotpassword(){
+        var email = $('#exampleCheck1').val();
+
+        var exampleModal3 =  document.getElementById("exampleModal3");
+        var exampleModalcode =  document.getElementById("exampleModalcode");
+
+       
+        $.ajax({
+            method: "POST",
+            data:{email: email,
+                },
+            url: "/apis/forgotpassword",
+        })
+        .done(function(msg) {
+           if(msg.code==1){    
+                exampleModal3.style.display = 'none';
+                exampleModalcode.style.display = 'block';
+
+                exampleModal3.classList.remove("show");
+                exampleModalcode.classList.add("show");
+            }else{
+                var html = '<p class="text-danger">'+msg.messages+'</p>';
+                document.getElementById("messforgotpassword").innerHTML = html;
+
+            }
+           
+        });
+    }
+
+    function confirm(){
+        var code = $('#code').val();
+          console.log(code);
+        var exampleModalpassword =  document.getElementById("exampleModalpassword");
+        var exampleModalcode =  document.getElementById("exampleModalcode");
+
+       
+        $.ajax({
+            method: "POST",
+            data:{code: code,
+                },
+            url: "/apis/confirm",
+        })
+        .done(function(msg) {
+            console.log(msg);
+           if(msg.code==1){    
+                exampleModalpassword.style.display = 'block';
+                exampleModalcode.style.display = 'none';
+
+                exampleModalpassword.classList.add("show");
+                exampleModalcode.classList.remove("show");
+            }else{
+                var html = '<p class="text-danger">'+msg.messages+'</p>';
+                document.getElementById("confirm").innerHTML = html;
+
+            }
+           
+        });
+    }
+    function newpassword(){
+        var password1 = $('#password1').val();
+        var password2 = $('#password2').val();
+          console.log(code);
+        var exampleModalpassword =  document.getElementById("exampleModalpassword");
+        var exampleModalcode =  document.getElementById("exampleModalcode");
+
+       
+        $.ajax({
+            method: "POST",
+            data:{pass: password1,
+                passAgain: password2,
+                },
+            url: "/apis/newpassword",
+        })
+        .done(function(msg) {
+            console.log(msg);
+           if(msg.code==1){    
+               location.reload();
+            }else{
+                var html = '<p class="text-danger">'+msg.messages+'</p>';
+                document.getElementById("newpass").innerHTML = html;
+
+            }
+           
+        });
+    }
+    
     </script>
 
     <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>

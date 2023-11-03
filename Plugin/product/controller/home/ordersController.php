@@ -479,6 +479,7 @@ function pay($input){
 					$dataDetail->quantity = $product->numberOrder;
 					$dataDetail->present = $product->id_product;
 					$dataDetail->id_order = $data->id;
+					$dataDetail->price = $product->price;
 
 					$modelOrderDetail->save($dataDetail);
 
@@ -514,9 +515,14 @@ function completeOrder(){
 		$modelAddress = $controller->loadModel('Address');
 		$modelOrder = $controller->loadModel('Orders');
 
-		$data = $modelOrder->get($_GET['id']);
+		$data = $modelOrder->find()->where(['id'=>$_GET['id'], 'id_user'=>$infoUser->id])->first();
 
-		setVariable('data', $data);
+		if(!empty($data)){
+			
+			setVariable('data', $data);
+		}else{
+			return $controller->redirect('/');
+		}
 	}else{
 		return $controller->redirect('/');
 	}

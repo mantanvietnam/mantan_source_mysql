@@ -77,7 +77,7 @@ getHeader();
                                                 <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
                                                     diện</label>
 
-                                                <div class="m_bg_img" style="">
+                                                <div class="m_bg_img">
                                                     <input type="file" onchange="readURL1(this);" name="avatar">
 
                                                     <img id="img1" src="<?php echo @$info['avatar'] ?>"
