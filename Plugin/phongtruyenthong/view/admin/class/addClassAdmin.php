@@ -84,7 +84,16 @@
                           </div>
 
                           <div class="col-md-6">
-                            
+                            <div class="mb-3">
+                              <label class="form-label">Nhãn lớp</label>
+                              <?php 
+                                showUploadFile('image_label','image_label',@$data->image_label,1000);
+
+                                if(!empty($data->image_label)){
+                                  echo '<br/><img src="'.$data->image_label.'" width="150" />';
+                                }
+                              ?>
+                            </div>
 
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>
