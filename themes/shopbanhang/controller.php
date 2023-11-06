@@ -134,6 +134,72 @@ function sttingGuaranteeTheme($input){
     setVariable('mess', $mess);
 }
 
+function sttingReviewTheme($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện Review';
+    $mess= '';
+
+    $conditions = array('key_word' => 'sttingReviewTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+
+        
+        $value = array( 'id_album' => @$dataSend['id_album'],
+                        'name_product1' => @$dataSend['name_product1'],
+                        'name_video_11' => @$dataSend['name_video_11'],
+                        'imagevideo11' => @$dataSend['imagevideo11'],
+                        'embedded11' => @$dataSend['embedded11'],
+                        'name_video_12' => @$dataSend['name_video_12'],
+                        'imagevideo12' => @$dataSend['imagevideo12'],
+                        'embedded12' => @$dataSend['embedded12'],
+                        'name_product2' => @$dataSend['name_product2'],
+                        'name_video_21' => @$dataSend['name_video_21'],
+                        'imagevideo21' => @$dataSend['imagevideo21'],
+                        'embedded21' => @$dataSend['embedded21'],
+                        'name_video_22' => @$dataSend['name_video_22'],
+                        'imagevideo22' => @$dataSend['imagevideo22'],
+                        'embedded22' => @$dataSend['embedded22'],
+                        'name_product3' => @$dataSend['name_product3'],
+                        'name_video_31' => @$dataSend['name_video_31'],
+                        'imagevideo31' => @$dataSend['imagevideo31'],
+                        'embedded31' => @$dataSend['embedded31'],
+                        'name_video_32' => @$dataSend['name_video_32'],
+                        'imagevideo32' => @$dataSend['imagevideo32'],
+                        'embedded32' => @$dataSend['embedded32'],
+                        'name_product4' => @$dataSend['name_product4'],
+                        'name_video_41' => @$dataSend['name_video_41'],
+                        'imagevideo41' => @$dataSend['imagevideo41'],
+                        'embedded41' => @$dataSend['embedded41'],
+                        'name_video_42' => @$dataSend['name_video_42'],
+                        'imagevideo42' => @$dataSend['imagevideo42'],
+                        'embedded42' => @$dataSend['embedded42'],
+                    );
+
+        $data->key_word = 'sttingReviewTheme';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
 function indexTheme($input){
     global $modelAlbums;
     global $modelAlbuminfos;
@@ -188,7 +254,7 @@ function indexTheme($input){
     }
     $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->all()->toList();
 
-     if(!empty($product_sold)){
+    if(!empty($product_sold)){
         foreach($product_sold as $key => $item){
             $product_sold[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
             $product_sold[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
