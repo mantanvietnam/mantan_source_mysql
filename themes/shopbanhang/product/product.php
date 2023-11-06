@@ -26,7 +26,7 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-product-detail">
             <div class="container">
                 <div class="row">
-                    <div class="col-1 product-detail-slide-small">
+                    <div class="col-lg-1 col-3 product-detail-slide-small">
                         <div class="product-slide-left">
                             <div class="product-slide-left-item">
                                 <div class="product-slide-left-img">
@@ -47,7 +47,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
 
-                    <div class="col-6 product-detail-slide">
+                    <div class="col-lg-6 col-9 product-detail-slide">
                         <div class="product-slide-right">
                             <div class="product-slide-right-item">
                                 <div class="product-slide-right-img">
@@ -68,7 +68,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
 
-                    <div class="col-5 product-detail-info">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 product-detail-info">
                         <div class="product-detail-info-category">
                             <span><?php $category->name; ?></span>
                         </div>
@@ -81,6 +81,7 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="detail-info-rate-left">
                                 <?php $point = 100 - ($product->point/5) / 1 * 100 ?>
                                 <div class="stars" style="color: gold;">
+                                        <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
@@ -566,7 +567,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-6" id="evaluate">
+                        <div class="product-detail-rate-list col-lg-6 col-md-6 col-sm-6 col-12" id="evaluate">
                            <?php if(!empty($product->evaluate)){
                                 foreach($product->evaluate as $key => $item){ 
                                      $item->image = json_decode($item->image, true);
@@ -619,7 +620,7 @@ $slide_home= slide_home($setting['id_slide']);
                            
                         </div>
 
-                        <div class="product-detail-rate-right col-6">
+                        <div class="product-detail-rate-right col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="product-detail-rate-right-title">
                                 Đánh giá sản phẩm
                             </div>
@@ -631,6 +632,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                                 <div class="product-detail-rate-right-star">
                                     <div class="stars" style="color: gold;">
+                                        <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>

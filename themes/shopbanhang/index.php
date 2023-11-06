@@ -336,7 +336,7 @@ global $urlThemeActive;
         html +='                    </div>'
         html +='                </div>'
 
-        html +='                <div class="time-flash-item time-flash-item-center">'
+        html +='                <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
         html +='                        <p>00</p>'
         html +='                    </div>'
