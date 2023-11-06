@@ -1,0 +1,13 @@
+.hideContent {
+    overflow: hidden;
+    line-height: 1em;
+    height: 1400px;
+}
+    
+/* .showContent {
+    line-height: 1em;
+    height: auto;
+}
+.showContent{
+    height: auto;
+} */
