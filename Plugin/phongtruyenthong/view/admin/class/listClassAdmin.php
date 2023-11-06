@@ -81,7 +81,7 @@
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_year.'</td>
-                        <td>'.$item->name.'<br/>'.$item->status.'</td>
+                        <td>'.$item->name.'<br/>'.$item->status.'<br/><img src="'.$item->image_label.'" width="150" /></td>
                         <td>'.$item->user.'</td>
                         <td>'.@nl2br($item->note_admin).'</td>
                         <td align="center">

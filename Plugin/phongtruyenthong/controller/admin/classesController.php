@@ -143,6 +143,7 @@ function addClassAdmin($input)
             $data->user = trim($dataSend['user']);
             $data->pass = $dataSend['pass'];
             $data->note_admin = $dataSend['note_admin'];
+            $data->image_label = $dataSend['image_label'];
 
             $year = $modelCategories->get( (int) $dataSend['id_year']);
 	        $data->slug = createSlugMantan($dataSend['name'].' '.$year->name);

@@ -208,7 +208,7 @@ function checkLoginMemberAPI($input)
 					$modelTransactionEcoins->save($ecoin);
 
 					// gửi thông báo công ecoin
-			        $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được cộng Ecoin khi bạn đăng nhập đâu tiền trong ngày của bạn với số ecoin là 5 ecoin','action'=>'addMoneySuccess');
+			        $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng Ecoin khi bạn đăng nhập lần đâu tiên trong ngày với số ecoin là 5 ecoin','action'=>'addMoneySuccess');
 
 			        if(!empty($checkPhone->token_device)){
 			            sendNotification($dataSendNotificationEcoin, $checkPhone->token_device);
@@ -1187,7 +1187,7 @@ function updateLastLoginAPI($input){
 					$modelTransactionEcoins->save($ecoin);
 
 					// gửi thông báo công ecoin
-			        $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được cộng Ecoin khi bạn đăng nhập đâu tiền trong ngày của bạn với số ecoin là 5 ecoin','action'=>'addMoneySuccess');
+			        $dataSendNotificationEcoin= array('title'=>'Cộng thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'Bạn được cộng Ecoin khi bạn đăng nhập lần đâu tiên trong ngày với số ecoin là 5 ecoin','action'=>'addMoneySuccess');
 
 			        if(!empty($checkPhone->token_device)){
 			            sendNotification($dataSendNotificationEcoin, $checkPhone->token_device);

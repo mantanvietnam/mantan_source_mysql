@@ -132,8 +132,12 @@ function getComplaintListApi($input): array
             ->page($page)
             ->where($conditions)
             ->order($order)
-            ->all()
-            ->toList();
+            ->all();
+        foreach ($listData as $item) {
+            $item->PostedUsers['id'] = (int)$item->PostedUsers['id'];
+            $item->ComplainedUsers['id'] = (int)$item->ComplainedUsers['id'];
+        }
+
         $total = $query->where($conditions)->count();
         $paginationMeta = createPaginationMetaData($total, $limit, $page);
 
