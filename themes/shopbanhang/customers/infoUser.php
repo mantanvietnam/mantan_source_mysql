@@ -37,7 +37,7 @@ getHeader();
                                                         sơ</a>
                                                     <a class="dropdown-item" href="/editInfoUser">Chỉnh sửa thông
                                                         tin</a>
-                                                    <a class="dropdown-item" href="">Địa
+                                                    <a class="dropdown-item" href="/deliveryAddress">Địa
                                                         chỉ giao hàng</a>
                                                     <a class="dropdown-item" href="/changepassword">Đổi mật khẩu</a>
                                                 </div>

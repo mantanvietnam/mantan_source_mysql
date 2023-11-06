@@ -123,7 +123,7 @@
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
                         <td>'.$item->status.'</td>
                         <td align="center">
-                        câ  u hỏi<br/>
+                        câu hỏi<br/>
                         <a class="dropdown-item"  href="/plugins/admin/product-view-admin-product-ListQuestion.php/?id_product='.$item->id.'"><i class="bx bxs-message-dots"></i></a><br/>
                         đánh giá <br/>
                         <a class="dropdown-item"  href="/plugins/admin/product-view-admin-evaluate-listEvaluate.php/?id_product='.$item->id.'"><i class="bx bxs-comment-detail"></i></a></td>

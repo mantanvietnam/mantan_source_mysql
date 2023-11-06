@@ -92,6 +92,25 @@ function product($input)
             $product->present = $present;
 
 		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($other_product)){
+                foreach($other_product as $key => $item){
+                    $other_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+                    $other_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+                    $point = 0;
+                    if(!empty($other_product[$key]->evaluate)){
+                        foreach($other_product[$key]->evaluate as $k => $s){
+                            $point = $s->point;
+                        }
+                    }
+
+                    if(!empty($other_product[$key]->evaluatecount)){
+
+                        $other_product[$key]->point = $point/$other_product[$key]->evaluatecount;
+                    }
+                }
+            }
             
             // NHÀ SẢN XUẤT
             $manufacturer = $modelCategories->find()->where(['id'=>$product->id_manufacturer])->first();

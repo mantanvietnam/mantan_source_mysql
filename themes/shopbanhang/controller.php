@@ -186,7 +186,26 @@ function indexTheme($input){
             }
         }
     }
-    $product_sold = $modelProduct->find()->limit(4)->where(['sold >'=>1])->all()->toList();
+    $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->all()->toList();
+
+     if(!empty($product_sold)){
+        foreach($product_sold as $key => $item){
+            $product_sold[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+            $product_sold[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+            $point = 0;
+            if(!empty($product_sold[$key]->evaluate)){
+                foreach($product_sold[$key]->evaluate as $k => $s){
+                    $point = $s->point;
+                }
+            }
+
+            if(!empty($product_sold[$key]->evaluatecount)){
+
+                $product_sold[$key]->point = $point/$product_sold[$key]->evaluatecount;
+            }
+        }
+    }
     $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
 
     setVariable('setting', $data_value);

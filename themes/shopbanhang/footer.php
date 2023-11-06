@@ -127,15 +127,7 @@ $infoUser = $session->read('infoUser');
                                         <div class="login-social-item">
                                             <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
                                         </div>
-                                        <div class="login-social-item">
-                                            <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
-                                        </div>
-                                        <div class="login-social-item">
-                                            <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
-                                        </div>
-                                         <div class="row">
-              <div class="col-sm-12 text-center mb-2">
-                  <div class="login_f gg">
+                                        <div class="login_f gg">
                       <?php
                       global $google_clientId;
                       global $google_clientSecret;
@@ -151,10 +143,17 @@ $infoUser = $session->read('infoUser');
                       $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
 
                       $authUrl = $client->createAuthUrl();
-                   
-                      echo '<a class="btn btn-danger" href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><i class="bx bxl-google"></i> Đăng nhập với Google</a>';
                       ?>
                   </div>
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-google" style="color: red"></i><a href="<?php echo filter_var($authUrl, FILTER_SANITIZE_URL) ?>">Tiếp tục với Google</a>
+                                        </div>
+                                        <div class="login-social-item">
+                                            <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
+                                        </div>
+                                         <div class="row">
+              <div class="col-sm-12 text-center mb-2">
+                  
               </div> 
             </div>
                                     </div>
