@@ -12,16 +12,17 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/lib/slick-theme.min.css"> 
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/jquery.mmenu.all.css">
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
+    <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css">
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-    <?php mantan_header();?>
+    <?php mantan_header();global $settingThemes;?>
 </head>
 <body>
 
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href=""><img src="<?php echo $urlThemeActive;?>/images/logo.svg" class="img-fluid" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo.svg" class="img-fluid" alt=""></a></div>
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>
@@ -65,13 +66,15 @@
                     <div class="icon-user-head">
                         <a href="javascript:void(0)"><img src="<?php echo $urlThemeActive;?>/images/user_head.svg" class="img-fluid" alt=""></a>
                         <div class="sub-user">
-                            <p><a href="">My Gallery</a></p>
-                            <p><a href="">My Account</a></p>
-                            <p><a href="">Đăng xuất</a></p>
+                            <p><a href="/myGallery">Ảnh của bạn</a></p>
+                            <p><a href="/changePassUser">Đổi mật khẩu</a></p>
+                            <p><a href="/logoutUser">Đăng xuất</a></p>
                         </div>
                     </div>
                     <?php }?>
                 </div> 
+
+                <!--
                 <div class="h-translate">
                     <div class="lang-main">
                         <a href="javascript:void(0)">
@@ -90,6 +93,7 @@
                         </ul>
                     </div>
                 </div>
+                -->
             </div>
         </div>
     </div>
@@ -99,17 +103,18 @@
                 <div class="logo"><a href=""><img src="<?php echo $urlThemeActive;?>/images/logo.svg" class="img-fluid" alt=""></a></div>
                 <div class="right-mb">
                     <ul>
-<!--                        <li><a href=""><img src="<?php echo $urlThemeActive;?>/images/new.svg" class="img-fluid" alt=""></a></li>-->
+                        <?php if(!empty($session->read('infoMember'))){ ?>
                         <li>
                             <div class="icon-user-head">
                                 <a href="javascript:void(0)"><img src="<?php echo $urlThemeActive;?>/images/user_head.svg" class="img-fluid" alt=""></a>
                                 <div class="sub-user">
-                                    <p><a href="">My Gallery</a></p>
-                                    <p><a href="">My Account</a></p>
-                                    <p><a href="">Log out</a></p>
+                                    <p><a href="/myGallery">Ảnh của bạn</a></p>
+                                    <p><a href="/changePassUser">Đổi mật khẩu</a></p>
+                                    <p><a href="/logoutUser">Đăng xuất</a></p>
                                 </div>
                             </div>
                         </li>
+                        <?php }?>
                         <li><a href="javascript:void(0)" class="mm-bar"><img src="<?php echo $urlThemeActive;?>/images/bar.svg" class="img-fluid" alt=""></a></li>
                     </ul>
                 </div>
@@ -120,18 +125,41 @@
             <div class="logo-mm"><img src="<?php echo $urlThemeActive;?>/images/logo-menu.svg" class="img-fluid" alt=""></div>
             <div class="menu-mm-mobie">
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About us</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">List of Distributors</a></li>
+                    <?php 
+                        if(!empty($menu)){
+                            foreach($menu as $key => $value){
+                                if(!empty($value->sub)){
+                                    echo '  <li>
+                                                <a href="javascript:void(0);">
+                                                    '.$value->name.'
+                                                </a>
+                                                <div class="submenu">
+                                                    <ul>';
+
+                                                    foreach ($value->sub as $sub) {
+                                                        echo '<li><a href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                    }
+                                    echo        '
+                                                    </ul>
+                                                </div>
+                                            </li>';
+                                }else{
+                                    echo '  <li>
+                                                <a href="'.$value->link.'">'.$value->name.'</a>
+                                            </li>';
+                                }
+                            }
+                        }
+                    ?>
                 </ul>
             </div>
             <div class="btn-mm-mobile">
+                <?php if(empty($session->read('infoMember'))){ ?>
                 <ul>
-                    <li><a href="">REGISTER</a></li>
-                    <li><a href="" class="login">LOGIN</a></li>
+                    <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modal-register">ĐĂNG KÝ</a></li>
+                    <li><a href="javascript:void(0)" class="login" data-toggle="modal" data-target="#modal-login">ĐĂNG NHẬP</a></li>
                 </ul>
+                <?php }?>
             </div>
         </div>
     </div>
@@ -147,19 +175,34 @@
                         <button type="button" class="close" data-dismiss="modal"><img src="<?php echo $urlThemeActive;?>/images/close.svg" class="img-fluid" alt=""></button>
                         <div class="modal-form">
                             <div class="head-form">
-                                <h3>LOGIN <span>Sign in to your account</span></h3>
+                                <h3>ĐĂNG NHẬP <span>Đăng nhập tài khoản người dùng</span></h3>
                             </div>
                             <div class="list-form-item">
-                                <div class="item">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/login-1.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="text" class="txt_inp" placeholder="Username"></div>
-                                </div>
-                                <div class="item mb-0">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/login-2.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="password" class="txt_inp" placeholder="Password"></div>
-                                </div>
-                                <div class="item item-forgot text-right"><a href="">forgot password?</a></div>
-                                <div class="item item-submit text-center"><input type="submit" class="btn_field" value="SIGN IN"></div>
+                                <form action="/loginUser" method="POST">
+                                    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+
+                                    <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/login-1.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="text" name="username" required class="txt_inp" placeholder="Tài khoản"></div>
+                                    </div>
+                                    
+                                    <div class="item mb-0">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/login-2.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="password" name="password" required class="txt_inp" placeholder="Mật khẩu"></div>
+                                    </div>
+                                    
+                                    <div class="item item-forgot text-right">
+                                        <a href="">Quên mật khẩu?</a>
+                                    </div>
+                                    
+                                    <div class="item item-submit text-center">
+                                        <input type="submit" class="btn_field" value="ĐĂNG NHẬP">
+                                    </div>
+
+                                    <p class="text-center">
+                                        <a href="/login" class="text-white">Đại lý đăng nhập</a>
+                                    </p>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -176,36 +219,42 @@
                         <button type="button" class="close" data-dismiss="modal"><img src="<?php echo $urlThemeActive;?>/images/close.svg" class="img-fluid" alt=""></button>
                         <div class="modal-form">
                             <div class="head-form">
-                                <h3>REGISTER <span>Create your account. It’s free and only takes a minute</span></h3>
+                                <h3>ĐĂNG KÝ <span>Tạo tài khoản miễn phí</span></h3>
                             </div>
                             <div class="list-form-item">
-                                <div class="item">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-1.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="text" class="txt_inp" placeholder="First and Last Name"></div>
-                                </div>
-                                <div class="item">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-2.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="text" class="txt_inp" placeholder="Email"></div>
-                                </div>
-                                <div class="item">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-3.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="text" class="txt_inp" placeholder="Phone number (Used to receive points messages)"></div>
-                                </div>
-                                <div class="item">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-4.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="password" class="txt_inp" placeholder="Password"></div>
-                                </div>
-                                <div class="item">
-                                    <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-5.svg" class="img-fluid" alt=""></div>
-                                    <div class="txt_field"><input type="password" class="txt_inp" placeholder="Confirm Password"></div>
-                                </div>
-                                <div class="item item-policy">
-                                    <div class="check-policy">
-                                        <input type="checkbox" class="inp_check" id="1001">
-                                        <label for="1001">accept the Terms of Use and Privacy Policy</label>
+                                <form action="/register" method="POST">
+                                    <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+
+                                    <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-1.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="text" name="name" required class="txt_inp" placeholder="Họ tên"></div>
                                     </div>
-                                </div>
-                                <div class="item item-submit text-center"><input type="submit" class="btn_field" value="SIGN UP"></div>
+                                    <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-2.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="text" name="email" required class="txt_inp" placeholder="Email"></div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-3.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="text" name="phone" required class="txt_inp" placeholder="Số điện thoại"></div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-4.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="password" name="password" required class="txt_inp" placeholder="Mật khẩu"></div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-5.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="password" name="password_again" required class="txt_inp" placeholder="Nhập lại mật khẩu"></div>
+                                    </div>
+                                    <div class="item item-policy">
+                                        <div class="check-policy">
+                                            <input type="checkbox" class="inp_check" id="1001" required value="1">
+                                            <label for="1001">Chấp nhận Điều khoản sử dụng và Chính sách quyền riêng tư</label>
+                                        </div>
+                                    </div>
+                                    <div class="item item-submit text-center">
+                                        <input type="submit" class="btn_field" value="ĐĂNG KÝ">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

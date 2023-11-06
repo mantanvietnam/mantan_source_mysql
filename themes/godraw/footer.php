@@ -1,12 +1,14 @@
+<?php global $settingThemes;?>
 <footer>
 	<div class="content-footer">
 		<div class="logo-foter">
 			<div class="logo"><img src="<?php echo $urlThemeActive;?>/images/logo-footer.svg" class="img-fluid" alt=""></div>
 			<div class="txt-logo">
-				<h4>CÔNG TY CỔ PHẦN NGHỆ THUẬT THÔNG MiNH</h4>
+				<h4><?php echo @$settingThemes['company_name'];?></h4>
 				<ul>
-					<li>Addres : So. 34A Tran Phu - Q. Ba Dinh - Tp. Ha Noi</li>
-					<li>Hotline: 09.8888.9999 - 09.6666.8888</li>
+					<li>Địa chỉ : <?php echo @$contactSite['address'];?></li>
+					<li>Điện thoại: </span> <?php echo @$contactSite['phone'];?></li>
+					<li>Email: </span> </span><?php echo @$contactSite['email'];?></li>
 				</ul>
 			</div>
 		</div>

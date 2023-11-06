@@ -98,9 +98,19 @@ $(document).ready(function(){
 	  slidesToShow: 1,
 	  slidesToScroll: 1,
 	  arrows: false,
-	  infinite: false,
+	  // infinite: false, 
 	  nextArrow: '',
       prevArrow: '',
 	});
+
+	$('.full-home-slider').on('wheel', (function(e) {
+	  e.preventDefault();
+
+	  if (e.originalEvent.deltaY < 0) {
+	    $(this).slick('slickPrev');
+	  } else {
+	    $(this).slick('slickNext');
+	  }
+	}));
 
 })

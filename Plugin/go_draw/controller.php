@@ -13,3 +13,6 @@ include('controller/agency/agency_accounts_controller.php'); // tài khoản đ�
 include('controller/agency/combos_controller.php'); // combo sản phẩm nhà cung cấp
 include('controller/agency/agency_orders_controller.php'); // đơn hàng của đại lý
 include('controller/agency/user_orders_controller.php'); // đơn hàng của người dùng tại cửa hàng
+
+// home
+include('controller/home/user_controller.php'); // tài khoản người dùng

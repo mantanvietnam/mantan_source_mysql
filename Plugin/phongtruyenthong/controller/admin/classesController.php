@@ -121,6 +121,7 @@ function addClassAdmin($input)
 
         if(!empty($dataSend['name'])){
             if(empty($dataSend['image'])) $dataSend['image'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/default-thumbnail.jpg';
+            if(empty($dataSend['image_label'])) $dataSend['image_label'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/class.jpg';
 
             if(!empty($dataSend['des_image'])){
                 foreach ($dataSend['des_image'] as $key => $value) {

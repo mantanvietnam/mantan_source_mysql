@@ -18,6 +18,22 @@ function getClassInYearAPI($input)
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
 				$listData[$key]->info = nl2br($listData[$key]->info);
+
+				$codeYoutube = '';
+
+				if(!empty($value->video)){
+					$codeYoutube = explode('v=', $value->video);
+
+					if(!empty($codeYoutube[1])){
+						$codeYoutube = explode('&', $codeYoutube[1]);
+
+						$codeYoutube = $codeYoutube[0];
+					}else{
+						$codeYoutube = '';
+					}
+				}
+
+				$listData[$key]->video = 'https://www.youtube.com/embed/'.$codeYoutube;
 			}
 		}
 

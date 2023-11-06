@@ -82,7 +82,7 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$item->name_year.'</td>
                         <td>'.$item->name.'<br/>'.$item->status.'<br/><img src="'.$item->image_label.'" width="150" /></td>
-                        <td>'.$item->user.'</td>
+                        <td>'.$item->user.'<br/>'.$item->video.'</td>
                         <td>'.@nl2br($item->note_admin).'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-class-addClassAdmin.php/?id='.$item->id.'">

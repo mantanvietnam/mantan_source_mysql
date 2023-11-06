@@ -36,3 +36,8 @@ global $routesPlugin;
 
 	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
 
+    // người dùng lẻ
+    $routesPlugin['register']= 'go_draw/view/home/user/register.php';
+    $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
+    $routesPlugin['loginUser']= 'go_draw/view/home/user/loginUser.php';
+

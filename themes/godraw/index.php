@@ -1,4 +1,4 @@
-<?php getHeader();?>
+<?php getHeader();global $settingThemes;?>
 
 <style>
 	footer {
@@ -11,20 +11,24 @@
             <section class="box-banner-home">
                 <div class="video-banner">
                     <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
-                        <source src="https://zhizhibo.vn/demo/kallisto/video/Us_Hero_Banner_Compress.mp4" type="video/mp4">
+                        <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="social-home">
                     <ul>
-                        <li><a href="" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-1.svg" class="img-fluid" alt=""></a></li>
-                        <li><a href="" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-2.svg" class="img-fluid" alt=""></a></li>
-                        <li><a href="" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-3.svg" class="img-fluid" alt=""></a></li>
-                        <li><a href="" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-4.svg" class="img-fluid" alt=""></a></li>
-                        <li><a href="" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-5.svg" class="img-fluid" alt=""></a></li>
+                        <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-1.svg" class="img-fluid" alt=""></a></li>
+                        
+                        <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-2.svg" class="img-fluid" alt=""></a></li>
+                        
+                        <li><a href="<?php echo @$settingThemes['tiktok'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-3.svg" class="img-fluid" alt=""></a></li>
+                        
+                        <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-4.svg" class="img-fluid" alt=""></a></li>
+                        
+                        <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/sc-5.svg" class="img-fluid" alt=""></a></li>
                     </ul>
                 </div>
-                <div class="btn-main text-center text-uppercase"><a href="">GALLERY</a></div>
+                <div class="btn-main text-center text-uppercase"><a href="">THƯ VIỆN ẢNH</a></div>
             </section>
         </div>
         <div class="item-slide">
