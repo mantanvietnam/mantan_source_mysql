@@ -59,7 +59,7 @@ $setting = setting();
                 </div>
 
                 <div class="col-lg-6 col-md-12 count-view">
-                    Lượt truy cập: <?php echo number_format(toVisits()); ?>
+                    Lượt truy cập: <?php echo number_format(getStatic()['total']); ?>
                 </div>
             </div>
         </div>
