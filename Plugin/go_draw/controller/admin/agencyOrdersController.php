@@ -17,11 +17,19 @@ function listAgencyOrderAdmin($input)
     $query = $orderModel->find()
         ->join([
             [
+                'table' => 'agency_accounts',
+                'alias' => 'AgencyAccounts',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'AgencyOrders.agency_id = AgencyAccounts.id',
+                ],
+            ],
+            [
                 'table' => 'agencies',
                 'alias' => 'Agencies',
                 'type' => 'LEFT',
                 'conditions' => [
-                    'AgencyOrders.agency_id = Agencies.id',
+                    'AgencyAccounts.agency_id = Agencies.id',
                 ],
             ],
         ]);
@@ -148,7 +156,6 @@ function acceptAgencyOrderAdminApi($input): array
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['id'])) {
-
             $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
             $order->status = 1;
             $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
