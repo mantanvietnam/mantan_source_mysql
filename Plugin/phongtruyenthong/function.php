@@ -19,7 +19,13 @@ $menus[0]['sub'][2]= array(	'title'=>'Thông tin trường',
 							'permission'=>'infoSchoolAdmin'
 						);
 
-$menus[0]['sub'][3]= array(	'title'=>'Quyên góp',
+$menus[0]['sub'][3]= array(	'title'=>'Giáo viên',
+							'url'=>'/plugins/admin/phongtruyenthong-view-admin-teacher-listTeacherAdmin.php',
+							'classIcon'=>'bx bx-user-voice',
+							'permission'=>'listTeacherAdmin'
+						);
+
+$menus[0]['sub'][4]= array(	'title'=>'Quyên góp',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin.php',
 							'classIcon'=>'bx bx-dollar',
 							'permission'=>'listDonateAdmin'

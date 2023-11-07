@@ -28,8 +28,11 @@ function infoSchoolAdmin($input)
     					'info' => $dataSend['info'],
                         'image_donate' => $dataSend['image_donate'],
                         'image_backdrop' => $dataSend['image_backdrop'],
+                        
+                        // dòng thời gian
                         'image_timeline' => $dataSend['image_timeline'],
                         'info_timeline' => $dataSend['info_timeline'],
+                        'id_album_event' => $dataSend['id_album_event'],
 
                         // thành tích nhà trường
                         'image_achievement_1' => $dataSend['image_achievement_1'],

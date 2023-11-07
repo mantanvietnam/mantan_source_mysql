@@ -108,6 +108,11 @@
                               <label class="form-label" for="basic-default-fullname">Các cột mốc thời gian</label>
                               <textarea name="info_timeline" rows="10" class="form-control"><?php echo @$data['info_timeline'];?></textarea>
                             </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">ID album ảnh sự kiện lịch sử</label>
+                              <input type="text" class="form-control" placeholder="" name="id_album_event" id="id_album_event" value="<?php echo @$data['id_album_event'];?>" />
+                            </div>
                           </div>
                         </div>
                       </div>
