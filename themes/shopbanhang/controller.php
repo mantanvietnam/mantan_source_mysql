@@ -322,4 +322,29 @@ function guarantee(){
 
 }
 
+function review(){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $controller; 
+    global $modelCategories;
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'sttingReviewTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+     $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_album']])->first();
+
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('slide_home', $slide_home);
+}
+
  ?>

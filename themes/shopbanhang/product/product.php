@@ -616,8 +616,9 @@ $slide_home= slide_home($setting['id_slide']);
                                     
                                 </div>
                             </div>
-                        <?php }} ?>
-                           
+                        <?php }}else{ ?>
+                           <div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>
+                           <?php } ?>
                         </div>
 
                         <div class="product-detail-rate-right col-lg-6 col-md-6 col-sm-6 col-12">
@@ -1114,7 +1115,7 @@ function deteleComment($id){
                         }
                         document.getElementById("evaluate").innerHTML = html;
                     }else{
-                         document.getElementById("evaluate").innerHTML = '';
+                         document.getElementById("evaluate").innerHTML = '<div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>';
                     }
                 }
             });

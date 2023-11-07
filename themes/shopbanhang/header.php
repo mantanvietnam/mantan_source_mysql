@@ -76,12 +76,11 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</a>
                             <?php } ?>
                             </div>
-                              <?php if(!empty($infoUser)){ ?>
+                             
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
                                 <a href="/cart">Giỏ hàng</a>
                             </div>
-                            <?php } ?>
                         </div>
                     </div>
                 </div>
