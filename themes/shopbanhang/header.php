@@ -73,7 +73,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <a href="/infoUser" >Tài khoản của tôi</a>
                                     <a href="/logout" >Đăng xuất</a>
                                 <?php }else{ ?>
-                                <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Dăng nhập</a>
+                                <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</a>
                             <?php } ?>
                             </div>
                               <?php if(!empty($infoUser)){ ?>

@@ -18,7 +18,7 @@
             <div class="container">
 
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-bs-toggle="tab" href="#content-policy">Chính sách bảo hành</a></li>
+                    <li class="active"><a aria-selected="true" data-bs-toggle="tab" href="#content-policy" class="active">Chính sách bảo hành</a></li>
                     <li><a data-bs-toggle="tab" href="#video-policy">Hướng dẫn kích hoạt bảo hành</a></li>
                     <li><a data-bs-toggle="tab" href="#search-polity">Tra cứu bảo hành</a></li>
                 </ul>

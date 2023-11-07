@@ -3,7 +3,68 @@
     line-height: 1em;
     height: 1400px;
 }
+
+.group-button-login .btn{
+    margin-top: 44px;
+    width: 100%;
+    font-size: 21px;
+    background-color: #011436;
+    border-radius: 3px;
+    border-color: transparent;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-bottom: 21px;
+}
     
+.group-button-login{
+    text-align: center;
+}
+
+.forgotpassword{
+    color: #000;
+}
+
+.modal-right .btn{
+    margin-top: 44px;
+    width: 100%;
+    font-size: 21px;
+    background-color: #011436;
+    border-radius: 3px;
+    border-color: transparent;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-bottom: 21px;
+}
+
+.modal-forgotpass .modal-dialog{
+    max-width: 26%;
+}
+
+.forgot-bottom{
+    text-align: center;
+}
+
+.forgot-bottom a{
+    color:rgb(25, 117, 169);
+}
+
+.forgot-text-title{
+    font-size: 30px;
+    margin-bottom: 19px;
+}
+
+.forgot-text{
+    font-weight: 200;
+}
+
+.modal-forgotpass .modal-right {
+    margin-top: 85px !important;
+}
+
+.modal-forgotpass .or-login {
+    margin-bottom: 40px
+}
+
 /* .showContent {
     line-height: 1em;
     height: auto;
