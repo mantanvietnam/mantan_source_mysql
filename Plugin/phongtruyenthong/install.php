@@ -9,8 +9,11 @@ $sqlInstallDatabase .= "CREATE TABLE `classes` ( `id` INT NOT NULL AUTO_INCREMEN
 
 $sqlInstallDatabase .= "CREATE TABLE `donates` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `id_class` INT NULL , `id_year` INT NULL , `phone` VARCHAR(255) NULL , `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , `avatar` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `job` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , `donate` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+$sqlInstallDatabase .= "CREATE TABLE `teachers` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `position` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `introduce` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `avatar` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
 
 $sqlDeleteDatabase .= "DROP TABLE classes; ";
 $sqlDeleteDatabase .= "DROP TABLE donates; ";
+$sqlDeleteDatabase .= "DROP TABLE teachers; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='school_year'; ";
