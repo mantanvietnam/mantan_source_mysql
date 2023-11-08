@@ -182,6 +182,31 @@ $(document).ready(function() {
         }]
     });
 
+    $('.cart-product-gift-right-inner').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        // prevArrow:"<button type='button' class='slick-prev pull-left slick-arrow'><</button>",
+        // nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'>></button>",
+
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                arrows: false,
+                slidesToShow: 3
+            }
+        },
+        
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2
+            }
+        }]
+    });
+
 
     // Cart
     $('.cart-product-gift-right-slide').slick({
