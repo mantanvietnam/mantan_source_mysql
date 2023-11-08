@@ -331,6 +331,9 @@ function review(){
 
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
+    $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
+
 
     $data_value = array();
     if(!empty($data->value)){
@@ -343,7 +346,21 @@ function review(){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
     }
 
+    $conditions = array();
+    $conditions['status'] = 'active';
+
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+        }
+    }
+
     setVariable('setting', $data_value);
+    setVariable('list_product', $list_product);
     setVariable('slide_home', $slide_home);
 }
 

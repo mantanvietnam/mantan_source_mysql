@@ -527,4 +527,26 @@ function completeOrder(){
 		return $controller->redirect('/');
 	}
 }
+
+function listOrder($input){
+    global $controller;
+    global $session;
+ 
+
+    $metaTitleMantan = 'đơn hàng';
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelLike = $controller->loadModel('Likes');
+
+	$modelOrder = $controller->loadModel('Orders');
+
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        $listData = $modelOrder->find()->where(['id_user'=>$infoUser->id])->all()->toList();
+        
+        setVariable('listData', $listData);
+    }else{
+        $controller->redirect('/');
+    }
+}
 ?>

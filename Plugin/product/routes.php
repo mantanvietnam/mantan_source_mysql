@@ -9,6 +9,7 @@
 	$routesPlugin['category']= 'product/view/home/category.php';
 	$routesPlugin['manufacturer']= 'product/view/home/manufacturer.php';
 	$routesPlugin['product']= 'product/view/home/product.php';
+	$routesPlugin['viewProduct']= 'product/view/home/viewProduct.php';
 	$routesPlugin['search-product']= 'product/view/home/search.php';
 	$routesPlugin['cart']= 'product/view/home/cart.php';
 	$routesPlugin['sela']= 'product/view/home/sela.php';
@@ -18,4 +19,5 @@
 	$routesPlugin['deleteProductCart']= 'product/view/home/deleteProductCart.php';
 	$routesPlugin['clearCart']= 'product/view/home/clearCart.php';
 	$routesPlugin['completeOrder']= 'product/view/home/completeOrder.php';
+	$routesPlugin['likeProduct']= 'product/view/home/likeProduct.php';
 ?>
