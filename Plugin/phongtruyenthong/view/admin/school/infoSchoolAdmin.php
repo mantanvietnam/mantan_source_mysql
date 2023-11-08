@@ -121,6 +121,16 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">ID album ảnh thành tích nhà trường</label>
+                              <input type="text" class="form-control" placeholder="" name="id_album_achievement" id="id_album_achievement" value="<?php echo @$data['id_album_achievement'];?>" />
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Ảnh 1 (790 x 1150)</label>
                               <?php showUploadFile('image_achievement_1','image_achievement_1',@$data['image_achievement_1'],6);?>
                             </div>

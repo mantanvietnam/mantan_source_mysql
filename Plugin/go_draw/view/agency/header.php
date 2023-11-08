@@ -32,7 +32,18 @@
                     <ul>
                         <?php if(!empty($session->read('infoUser'))){ ?>
                         <li>
-                            <a href="javascript:void(0);">Bán hàng</a>
+                            <a href="javascript:void(0);">Bán combo</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="/sellComboProduct">Tạo đơn hàng</a></li>
+                                    <li><a href="/orderUserComboProcess">Đơn hàng chờ</a></li>
+                                    <li><a href="/orderUserComboDone">Đơn hoàn thành</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);">Bán lẻ</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="/sellProduct">Tạo đơn hàng</a></li>

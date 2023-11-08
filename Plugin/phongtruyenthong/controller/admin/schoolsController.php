@@ -35,6 +35,8 @@ function infoSchoolAdmin($input)
                         'id_album_event' => $dataSend['id_album_event'],
 
                         // thành tích nhà trường
+                        'id_album_achievement' => $dataSend['id_album_achievement'],
+                        
                         'image_achievement_1' => $dataSend['image_achievement_1'],
                         'des_achievement_1' => $dataSend['des_achievement_1'],
 
