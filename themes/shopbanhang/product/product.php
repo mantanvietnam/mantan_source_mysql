@@ -16,8 +16,8 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="/allProduct">sản phẩn </a></li>
+                  <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                  <li class="breadcrumb-item"><a href="/allProduct">Sản phẩm </a></li>
                   <li class="breadcrumb-item active"><?php echo $product->title; ?></li>
                		</ul>
             </div>
