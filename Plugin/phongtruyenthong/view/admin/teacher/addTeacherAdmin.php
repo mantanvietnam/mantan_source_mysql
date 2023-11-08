@@ -15,24 +15,38 @@
           <div class="card-body row">
             <p><?php echo $mess;?></p>
             <?= $this->Form->create(); ?>
-              <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">Tên giáo viên (*)</label>
                   <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
                 </div>
               </div>
 
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="mb-3">
-                  <label class="form-label">Chức danh</label>
-                  <input required type="text" class="form-control phone-mask" name="position" id="position" value="<?php echo @$data->position;?>" />
+                  <label class="form-label">Chức danh (*)</label>
+                  <select name="position" required class="form-control">
+                    <option value="">Chọn chức danh</option>
+                    <?php 
+                    if(!empty($listPositionTeacher)){
+                      foreach ($listPositionTeacher as $key => $value) {
+                        if(empty($data->position) || $data->position!=$value->id){
+                          echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+                        }else{
+                          echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
+                        }
+                      }
+                    }
+                    ?>
+                  </select>
                 </div>
               </div>
 
               <div class="col-md-12">
                 <div class="mb-3">
                   <label class="form-label">Thông tin giáo viên</label>
-                  <textarea name="introduce" rows="20" class="form-control"><?php echo @$data->introduce;?></textarea>
+                  <textarea name="introduce" rows="10" class="form-control"><?php echo @$data->introduce;?></textarea>
                 </div>
               </div>
 
@@ -52,6 +66,7 @@
               <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">Lưu</button>
               </div>
+            </div>
             <?= $this->Form->end() ?>
           </div>
         </div>

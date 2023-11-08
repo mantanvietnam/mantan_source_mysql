@@ -7,28 +7,41 @@ $menus[0]['sub'][0]= array(	'title'=>'Lớp học',
 							'permission'=>'listClassAdmin'
 						);
 
-$menus[0]['sub'][1]= array(	'title'=>'Niên khóa',
-							'url'=>'/plugins/admin/phongtruyenthong-view-admin-year-listSchoolYearAdmin.php',
-							'classIcon'=>'bx bx-timer',
-							'permission'=>'listSchoolYearAdmin'
-						);
 
-$menus[0]['sub'][2]= array(	'title'=>'Thông tin trường',
+$menus[0]['sub'][1]= array(	'title'=>'Thông tin trường',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-school-infoSchoolAdmin.php',
 							'classIcon'=>'bx bxs-school',
 							'permission'=>'infoSchoolAdmin'
 						);
 
-$menus[0]['sub'][3]= array(	'title'=>'Giáo viên',
+$menus[0]['sub'][2]= array(	'title'=>'Giáo viên',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-teacher-listTeacherAdmin.php',
 							'classIcon'=>'bx bx-user-voice',
 							'permission'=>'listTeacherAdmin'
 						);
 
-$menus[0]['sub'][4]= array(	'title'=>'Quyên góp',
+$menus[0]['sub'][3]= array(	'title'=>'Quyên góp',
 							'url'=>'/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin.php',
 							'classIcon'=>'bx bx-dollar',
 							'permission'=>'listDonateAdmin'
+						);
+
+$menus[0]['sub'][4]= array('title'=>'Cài đặt',
+							'url'=>'/',
+							'classIcon'=>'bx bx-cog',
+							'permission'=>'settingsPhongtruyenthong',
+							'sub'=> array(  array('title'=>'Niên khóa',
+												'url'=>'/plugins/admin/phongtruyenthong-view-admin-year-listSchoolYearAdmin.php',
+												'classIcon'=>'bx bx-timer',
+												'permission'=>'listSchoolYearAdmin'
+											),
+
+					                        array('title'=>'Chức danh',
+					                          	'url'=>'/plugins/admin/phongtruyenthong-view-admin-teacher-listPositionAdmin.php',
+					                          	'classIcon'=>'bx bx-category',
+					                          	'permission'=>'listPositionAdmin',
+					                        ),
+									)
 						);
 
 addMenuAdminMantan($menus);

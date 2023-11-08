@@ -43,10 +43,35 @@ function getInfoSchoolAPI($input)
                 }
             }
         }
+
+        // album ảnh thành tích nhà trường
+        $data_value['list_image_achievement'] = [];
+        if(!empty($data_value['id_album_achievement'])){
+            $album_achievement = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['id_album_achievement']])->all()->toList();
+
+            if(!empty($album_achievement)){
+                foreach ($album_achievement as $item) {
+                    $data_value['list_image_achievement'][] = [
+                                                                'title'=>$item->title,
+                                                                'image'=>$item->image,
+                                                                'description'=> @nl2br($item->description),
+                                                            ];
+                }
+            }
+        }
     }
 
     $conditions = array('type' => 'school_year');
     $listYear = $modelCategories->find()->where($conditions)->all()->toList();
+
+    $conditions = array('type' => 'positionTeacher');
+    $listPositionTeacher = $modelCategories->find()->where($conditions)->all()->toList();
+    $listPositionTeacherShow = [];
+    if(!empty($listPositionTeacher)){
+        foreach ($listPositionTeacher as $key => $value) {
+            $listPositionTeacherShow[$value->id] = $value->name;
+        }
+    }
 
     $data_value['listYear'] = [];
     if(!empty($listYear)){
@@ -56,6 +81,12 @@ function getInfoSchoolAPI($input)
     }
 
     $data_value['listTeacher'] = $modelTeachers->find()->where()->all()->toList();
+
+    if(!empty($data_value['listTeacher'])){
+        foreach ($data_value['listTeacher'] as $key => $value) {
+            $data_value['listTeacher'][$key]->position = @$listPositionTeacherShow[$value->position];
+        }
+    }
 
     return $data_value;
 }

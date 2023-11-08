@@ -109,8 +109,12 @@ function addTeacherAdmin($input)
 	    }
     }
 
+    $conditions = array('type' => 'positionTeacher');
+    $listPositionTeacher = $modelCategories->find()->where($conditions)->all()->toList();
+
     setVariable('data', $data);
     setVariable('mess', $mess);
+    setVariable('listPositionTeacher', $listPositionTeacher);
 }
 
 function deleteTeacherAdmin($input){
@@ -127,5 +131,43 @@ function deleteTeacherAdmin($input){
 	}
 
 	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-teacher-listTeacherAdmin.php');
+}
+
+function listPositionAdmin($input)
+{
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Chức danh';
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        
+        // tính ID category
+        if(!empty($dataSend['idCategoryEdit'])){
+            $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
+        }else{
+            $infoCategory = $modelCategories->newEmptyEntity();
+        }
+
+        // tạo dữ liệu save
+        $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
+        $infoCategory->parent = 0;
+        $infoCategory->image = $dataSend['image'];
+        $infoCategory->keyword = str_replace(array('"', "'"), '’', $dataSend['keyword']);
+        $infoCategory->description = str_replace(array('"', "'"), '’', $dataSend['description']);
+        $infoCategory->type = 'positionTeacher';
+        $infoCategory->slug = createSlugMantan($infoCategory->name);
+
+        $modelCategories->save($infoCategory);
+
+    }
+
+    $conditions = array('type' => 'positionTeacher');
+    $listData = $modelCategories->find()->where($conditions)->all()->toList();
+
+    setVariable('listData', $listData);
 }
 ?>

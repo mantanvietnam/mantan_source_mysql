@@ -321,7 +321,7 @@ $infoUser = $session->read('infoUser');
                                 <div class="or-login">
                                     <span>Mã xác nhận </span>
                                 </div>
-                                <p id="messforgotpassword"></p>
+                                <p id="confirm"></p>
                                 <form action="">
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
@@ -513,7 +513,7 @@ $infoUser = $session->read('infoUser');
                 exampleModalcode.classList.remove("show");
             }else{
                 var html = '<p class="text-danger">'+msg.messages+'</p>';
-                document.getElementById("confirm").innerHTML = html;
+                document.getElementById("c").innerHTML = html;
 
             }
            
