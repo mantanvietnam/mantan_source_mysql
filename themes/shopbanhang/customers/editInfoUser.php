@@ -74,14 +74,13 @@ getHeader();
                                     <div class="top">
                                         <div class="d-flex">
                                             <div class="edit-user-photo me-3">
-                                                <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
-                                                    diện</label>
+                                                <!-- <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
+                                                    diện</label> -->
 
                                                 <div class="m_bg_img">
                                                     <input type="file" onchange="readURL1(this);" name="avatar">
 
-                                                    <img id="img1" src="<?php echo @$info['avatar'] ?>"
-                                                        style="width: 110px" class="img-responsive">
+                                                    <img id="img1" src="<?php echo @$info['avatar'] ?>" class="img-responsive">
                                                 </div>
                                             </div>
                                         </div>
@@ -110,7 +109,7 @@ getHeader();
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="mt-3 btn btn-primary button-submit-custom" style="width: 100px;margin-left:6px">Lưu</button>
+                                            <button type="submit" class="mt-3 btn btn-primary button-submit-custom" style="width: 100px">Lưu</button>
                                         </div>
                                     </div>
                                 </form>

@@ -67,7 +67,7 @@ getHeader();
                     <div class="tab-content" style="height:100%">
                         <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
                             <div class="title-file">
-                                <p>địa chỉ giao hàng </p>
+                                <p>Địa chỉ giao hàng </p>
                             </div>
                             <div class="detail-file">
                                 <form>

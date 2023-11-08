@@ -65,6 +65,55 @@
     margin-bottom: 40px
 }
 
+#img1{
+    width: 100%;
+}
+
+.edit-user-photo .d-flex{
+    overflow: hidden;
+}
+
+.m_bg_img{
+    margin-top: 15px;
+}
+
+.form-group-user{
+    display: flex;
+    align-items: center;
+}
+
+.detail-file label{
+    width: 144px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.form-group-user .form-control{
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.detail-file .button-submit-custom {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 55px;
+    padding-right: 55px;
+    background-color: #011436;
+    color: #fff;
+    width: auto !important;
+    border: none;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.input-password{
+    width: 70%;
+}
+
+.detail-change-password{
+    margin-top: 24px;
+}
+
 /* .showContent {
     line-height: 1em;
     height: auto;

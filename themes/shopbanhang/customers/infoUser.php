@@ -74,11 +74,11 @@ getHeader();
                                     <div class="top mt-4">
                                         <div class="d-flex">
                                             <div class="edit-user-photo me-3">
-                                                <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
-                                                    diện</label>
+                                                <!-- <label for="" style="font-size: 23px; margin-bottom: 10px;">Ảnh đại
+                                                    diện</label> -->
                                                     <div class="d-flex" style="height:150px;width:150px;border-radius:50%;border:1px solid #ccc;justify-content:center;align-items:center">
                                                         <img id="img1" src="<?php echo @$info->avatar ?>"
-                                                            style="width: 110px; height: 50px" class="img-responsive">
+                                                             class="img-responsive">
                                                     </div>
                                              
                                             </div>
