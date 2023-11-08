@@ -172,6 +172,35 @@
 .search-category-product input{
     font-weight: 200;
 }
+
+#section-cateogry-product .product-name a{
+    margin-top: 5px;
+}
+
+.form-select-sm{
+    font-weight: 300;
+}
+
+#section-cateogry-product .product-img{
+    height: 221px;
+    padding-top: 10px;
+}
+
+.top-deal{
+    min-height: 1155px;
+}
+
+.product-progress{
+    overflow: hidden;
+}
+
+@media(max-width: 445px) {
+    .product-select-box .product-select-left .heading-check {
+        font-size: 12px
+    }
+
+   
+}
 /* .showContent {
     line-height: 1em;
     height: auto;
