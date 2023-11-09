@@ -35,7 +35,7 @@ function login($input)
 
 		    			$session->write('infoUser', $info_customer);
 		    			
-						return $controller->redirect('/sellProduct');
+						return $controller->redirect('/sellComboProduct');
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}
@@ -49,7 +49,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/sellProduct');
+		return $controller->redirect('/sellComboProduct');
 	}
 }
 
