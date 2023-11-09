@@ -6,6 +6,7 @@ function listAgencyOrderAdmin($input)
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách đơn hàng';
+    
     $orderModel = $controller->loadModel('AgencyOrders');
     $agencyModel = $controller->loadModel('Agencies');
 
@@ -13,25 +14,37 @@ function listAgencyOrderAdmin($input)
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
     $page = (!empty($_GET['page'])) ? (int)$_GET['page'] : 1;
     if ($page < 1) $page = 1;
+    $order = ['AgencyOrders.id'=>'desc'];
 
     $query = $orderModel->find()
+        ->join([
+            [
+                'table' => 'agency_accounts',
+                'alias' => 'AgencyAccounts',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'AgencyOrders.agency_id = AgencyAccounts.id',
+                ],
+            ],
+        ])
         ->join([
             [
                 'table' => 'agencies',
                 'alias' => 'Agencies',
                 'type' => 'LEFT',
                 'conditions' => [
-                    'AgencyOrders.agency_id = Agencies.id',
+                    'AgencyAccounts.agency_id = Agencies.id',
                 ],
             ],
-        ]);
+        ])
+        ;
 
     if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
         $conditions['AgencyOrders.id'] = $_GET['id'];
     }
 
     if (!empty($_GET['agency_id'])) {
-        $conditions['AgencyOrders.agency_id'] = $_GET['agency_id'];
+        $conditions['Agencies.id'] = $_GET['agency_id'];
     }
 
     if (isset($_GET['status']) && $_GET['status'] !== '') {
@@ -55,20 +68,25 @@ function listAgencyOrderAdmin($input)
             'AgencyOrders.status',
             'AgencyOrders.created_at',
             'Agencies.name',
+            'AgencyAccounts.name',
         ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order($order)
         ->all()
         ->toList();
+
     $totalUser = $orderModel->find()
         ->where($conditions)
         ->all()
         ->toList();
+
     $paginationMeta = createPaginationMetaData(
         count($totalUser),
         $limit,
         $page
     );
+    
     $listAgency = $agencyModel->find()
         ->where(['status' => 1])
         ->all();
@@ -97,41 +115,45 @@ function addAgencyOrderAdmin($input)
         $order = $orderModel->find()
             ->where(['id' => $_GET['id']])
             ->first();
-    } else {
-        $order = $orderModel->newEmptyEntity();
-    }
+    
 
-    if (!empty($order)) {
-        $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
-        setVariable('listItem', $listItem);
-        $agency = $agencyModel->find()->where(['id' => $order->agency_id])->first();
-        setVariable('agency', $agency);
-        $listAgency = $agencyModel->find()->all();
-        setVariable('listAgency', $listAgency);
+        if (!empty($order)) {
+            $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
+            setVariable('listItem', $listItem);
+            
+            $agency = $agencyModel->find()->where(['id' => $order->agency_id])->first();
+            setVariable('agency', $agency);
+            
+            $listAgency = $agencyModel->find()->all();
+            setVariable('listAgency', $listAgency);
 
-        if ($isRequestPost) {
-            $dataSend = $input['request']->getData();
+            if ($isRequestPost) {
+                $dataSend = $input['request']->getData();
 
-            if (isset($dataSend['agency_id'])
-                && isset($dataSend['total_price'])
-            ) {
-                $order->agency_id = $dataSend['agency_id'];
-                $order->total_price = $dataSend['total_price'];
-                $orderModel->save($order);
+                if (isset($dataSend['agency_id'])
+                    && isset($dataSend['total_price'])
+                ) {
+                    //$order->agency_id = $dataSend['agency_id'];
+                    $order->total_price = $dataSend['total_price'];
+                    $orderModel->save($order);
 
-                $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
-            } else {
-                $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+                    $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+                } else {
+                    $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+                }
             }
+        } else {
+            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php');
         }
-    } else {
-        $mess = '<p class="text-danger">Không có đơn hàng hợp lệ</p>';
-    }
-    $listCombo = $comboModel->find()->where(['status' => 1])->all();
 
-    setVariable('data', $order);
-    setVariable('listCombo', $listCombo);
-    setVariable('mess', $mess);
+        $listCombo = $comboModel->find()->where(['status' => 1])->all();
+
+        setVariable('data', $order);
+        setVariable('listCombo', $listCombo);
+        setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php');
+    }
 }
 
 function acceptAgencyOrderAdminApi($input): array
@@ -151,6 +173,8 @@ function acceptAgencyOrderAdminApi($input): array
 
             $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
             $order->status = 1;
+            $order->updated_at = date('Y-m-d H:i:s');
+            
             $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
 
             if (!empty($listItem)) {
@@ -172,25 +196,31 @@ function acceptAgencyOrderAdminApi($input): array
                             'ComboProducts.amount',
                         ])->where(["ComboProducts.combo_id" => $item->combo_id])
                         ->all();
+
                     foreach ($listProduct as $product) {
                         $newItem = $agencyProductModel->find()->where([
                             'agency_id' => $order->agency_id,
                             'product_id' => $product->id
                         ])->first();
+
                         if (empty($newItem)) {
                             $newItem = $agencyProductModel->newEmptyEntity();
                         }
+
                         $newItem->agency_id = $order->agency_id;
                         $newItem->product_id = $product->id;
                         $newItem->price = $product->price;
                         $newItem->amount = $item->amount * $product->ComboProducts['amount'];
+                        
                         $listAgencyProduct[] = $newItem;
                     }
                 }
+
                 $agencyProductModel->saveMany($listAgencyProduct);
             }
+
             $orderModel->save($order);
-            
+
             return apiResponse(0, 'Cập nhật thành công');
         }
 
