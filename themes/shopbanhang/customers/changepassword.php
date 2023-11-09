@@ -67,6 +67,7 @@ getHeader();
                         <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
                             <div class="title-file">
                                 <p>Đổi mật khẩu</p>
+                                <?php echo @$mess; ?>
                             </div>
                                 <div class="detail-file detail-change-password">
                                 <form action="" method="post">

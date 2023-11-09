@@ -3,8 +3,8 @@ getHeader();
 global $urlThemeActive;
 $settinghom = setting();
 
-debug($slide_home);
-debug($setting);
+// debug($slide_home);
+// debug($list_product);
 ?>
 <main>
     <section id="section-breadcrumb">
@@ -401,67 +401,16 @@ debug($setting);
                                     <p>Tìm kiếm theo sản phẩm</p>
                                 </div>
                                 <div class="list-product-review">
-
+                                    <?php if(!empty($list_product)){
+                                        foreach($list_product as $key => $item){
+                                     ?>
                                     <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
+                                        <a href="/product/<?php echo $item->slug ?>">
+                                            <img src="<?php echo $item->image; ?>">
+                                            <p><?php echo $item->title; ?></p>
                                         </a>
                                     </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
-                                    <div class="item-slick-product">
-                                        <a href="">
-                                            <img src="../asset/image/product.png">
-                                            <p>Máy massage cổ vai gáy</p>
-                                        </a>
-                                    </div>
+                                    <?php }} ?>
 
                                 </div>
                                 <div class="content-unbox unbox-1">
@@ -605,230 +554,67 @@ debug($setting);
                                     </div>
                                     <div class="list-product-review">
 
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
-                                        <div class="item-slick-product">
-                                            <a href="">
-                                                <img src="../asset/image/product.png">
-                                                <p>Máy massage cổ vai gáy</p>
-                                            </a>
-                                        </div>
+                                    <?php if(!empty($list_product)){
+                                        foreach($list_product as $key => $item){
+                                            if(!empty($item->evaluate)){
+                                     ?>
+                                    <div class="item-slick-product">
+                                        <a href="/product/<?php echo $item->slug ?>">
+                                            <img src="<?php echo $item->image; ?>">
+                                            <p><?php echo $item->title; ?></p>
+                                        </a>
+                                    </div>
+                                    <?php }}} ?>
 
                                     </div>
-
-                                    <div class="content-unbox posts">
-                                        <div class="detail-unbox">
-                                            <div class="avt-user">
-                                                <img src="../asset/image/icon-avt.png">
-                                            </div>
-                                            <div class="text-detail">
-                                                <h4>
-                                                    <span>Thùy Dương</span> đã viết đánh giá sản phẩm
-                                                    <span>Máy Massage Cổ Vai Gáy Bumas M3 pro</span>
-                                                </h4>
-                                                <div class="five-star">
-                                                    <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-regular fa-star"></i></li>
-                                                    </ul>
-                                                    <p>2 ngày trước</p>
+                                    <?php if(!empty($list_product)){
+                                        foreach($list_product as $key => $item){
+                                            if(!empty($item->evaluate)){
+                                              foreach($item->evaluate as $k => $value){  
+                                                    $value->image = json_decode($value->image, true);
+                                     ?>
+                                        <div class="content-unbox posts">
+                                            <div class="detail-unbox">
+                                                <div class="avt-user">
+                                                    <img src="<?php echo $value->avatar ?>">
                                                 </div>
+                                                <div class="text-detail">
+                                                    <h4>
+                                                        <span><?php echo $value->full_name ?></span> đã viết đánh giá sản phẩm
+                                                        <span><?php echo $item->title ?></span>
+                                                    </h4>
+                                                    <div class="five-star">
+                                                        <ul>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-regular fa-star"></i></li>
+                                                        </ul>
+                                                        <p>2 ngày trước</p>
+                                                    </div>
 
-                                            </div>
-                                            <div class="icon-product">
-                                                <img src="../asset/image/mini-product.png">
-                                            </div>
-                                        </div>
-                                        <div class="image-unbox">
-                                            <p>Săn được sale giá hời quá so với chất lượng sản phẩm.</p>
-                                            <!-- <img src="../asset/image/img-unbox.png"> -->
-                                        </div>
-                                        <div class="icon-interact">
-                                            <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                            <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="content-unbox ">
-                                        <div class="detail-unbox">
-                                            <div class="avt-user">
-                                                <img src="../asset/image/icon-avt.png">
-                                            </div>
-                                            <div class="text-detail">
-                                                <h4>
-                                                    <span>Thùy Dương</span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                    <span>Máy Massage Cổ Vai Gáy Bumas M3 pro</span> và
-                                                    <span>nhận được voucher 50k</span> ( cho đơn từ 0đ )
-                                                </h4>
-                                                <p>2 ngày trước</p>
-                                            </div>
-                                            <div class="icon-product">
-                                                <img src="../asset/image/mini-product.png">
-                                            </div>
-                                        </div>
-                                        <div class="image-unbox">
-                                            <p>Đập hộp #Unboxing#Bumas</p>
-                                            <img src="../asset/image/img-unbox.png">
-                                        </div>
-                                        <div class="icon-interact">
-                                            <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                            <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="content-unbox posts">
-                                        <div class="detail-unbox">
-                                            <div class="avt-user">
-                                                <img src="../asset/image/icon-avt.png">
-                                            </div>
-                                            <div class="text-detail">
-                                                <h4>
-                                                    <span>Thùy Dương</span> đã viết đánh giá sản phẩm
-                                                    <span>Máy Massage Cổ Vai Gáy Bumas M3 pro</span>
-                                                </h4>
-                                                <div class="five-star">
-                                                    <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-regular fa-star"></i></li>
-                                                        <li><i class="fa-regular fa-star"></i></li>
-                                                    </ul>
-                                                    <p>2 ngày trước</p>
                                                 </div>
-
-                                            </div>
-                                            <div class="icon-product">
-                                                <img src="../asset/image/mini-product.png">
-                                            </div>
-                                        </div>
-                                        <div class="image-unbox">
-                                            <p>Săn được sale giá hời quá so với chất lượng sản phẩm.</p>
-                                            <!-- <img src="../asset/image/img-unbox.png"> -->
-                                        </div>
-                                        <div class="icon-interact">
-                                            <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                            <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="content-unbox posts">
-                                        <div class="detail-unbox">
-                                            <div class="avt-user">
-                                                <img src="../asset/image/icon-avt.png">
-                                            </div>
-                                            <div class="text-detail">
-                                                <h4>
-                                                    <span>Thùy Dương</span> đã viết đánh giá sản phẩm
-                                                    <span>Máy Massage Cổ Vai Gáy Bumas M3 pro</span>
-                                                </h4>
-                                                <div class="five-star">
-                                                    <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-regular fa-star"></i></li>
-                                                    </ul>
-                                                    <p>2 ngày trước</p>
+                                                <div class="icon-product">
+                                                    <img src="<?= $urlThemeActive ?>/asset/image/mini-product.png">
                                                 </div>
-
                                             </div>
-                                            <div class="icon-product">
-                                                <img src="../asset/image/mini-product.png">
+                                            <div class="image-unbox">
+                                                <p><?php echo $value->content ?></p>
+                                                 <?php if(!empty($value->image)){
+                                                        foreach($value->image as $image) {
+                                                        if(!empty($image)){
+                                                    ?>
+                                                    <img src="<?php echo $image;?>" alt="">
+                                                <?php }}} ?>
                                             </div>
+                                            <!-- <div class="icon-interact">
+                                                <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
+                                                <a class="share"><i class="fa-solid fa-share"></i>214</a>
+                                            </div> -->
                                         </div>
-                                        <div class="image-unbox">
-                                            <p>Săn được sale giá hời quá so với chất lượng sản phẩm.</p>
-                                            <!-- <img src="../asset/image/img-unbox.png"> -->
-                                        </div>
-                                        <div class="icon-interact">
-                                            <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                            <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="content-unbox unbox-2">
-                                        <div class="detail-unbox">
-                                            <div class="avt-user">
-                                                <img src="../asset/image/icon-avt.png">
-                                            </div>
-                                            <div class="text-detail">
-                                                <h4>
-                                                    <span>Thùy Dương</span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                    <span>Máy Massage Cổ Vai Gáy Bumas M3 pro</span> và
-                                                    <span>nhận được voucher 50k</span> ( cho đơn từ 0đ )
-                                                </h4>
-                                                <p>2 ngày trước</p>
-                                            </div>
-                                            <div class="icon-product">
-                                                <img src="../asset/image/mini-product.png">
-                                            </div>
-                                        </div>
-                                        <div class="image-unbox">
-                                            <p>Đập hộp #Unboxing#Bumas</p>
-                                            <img src="../asset/image/img-unbox.png">
-                                        </div>
-                                        <div class="icon-interact">
-                                            <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                            <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                        </div>
-                                    </div>
+                                    <?php }}}} ?>
+                                    
 
                                     <div class="icon-loading">
                                         <i class="fa-solid fa-spinner"></i>
