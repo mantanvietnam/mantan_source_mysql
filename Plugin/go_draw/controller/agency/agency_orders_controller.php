@@ -102,12 +102,14 @@ function createOrder($input)
 	    if(!empty($infoCart)){
 	    	$modelAgencyOrders = $controller->loadModel('AgencyOrders');
 	    	$modelAgencyOrderDetails = $controller->loadModel('AgencyOrderDetails');
+	    	$modelAgencyOrderHistories = $controller->loadModel('AgencyOrderHistories');
 
 	    	$total_price = 0;
 	    	foreach ($infoCart as $key => $value) {
 	    		$total_price += $value->price * $value->amount;
 	    	}
 
+	    	// tạo đơn hàng mới
 	    	$order = $modelAgencyOrders->newEmptyEntity();
 
 	    	$order->agency_id = $session->read('infoUser')->id;
@@ -118,6 +120,7 @@ function createOrder($input)
 
 	    	$modelAgencyOrders->save($order);
 
+	    	// chi tiết đơn hàng mới
 	    	foreach ($infoCart as $key => $value) {
 	    		$orderDetail = $modelAgencyOrderDetails->newEmptyEntity();
 
@@ -130,6 +133,18 @@ function createOrder($input)
 
 	    		$modelAgencyOrderDetails->save($orderDetail);
 	    	}
+
+	    	// lịch sử mua hàng
+	    	$orderHistory = $modelAgencyOrderHistories->newEmptyEntity();
+
+	    	$orderHistory->agency_id = (int) $session->read('infoUser')->id;
+	    	$orderHistory->order_id = (int) $order->id;
+	    	$orderHistory->note = 'Tài khoản đại lý đặt mua đơn hàng mới';
+	    	$orderHistory->created_at = date('Y-m-d H:i:s');
+	    	$orderHistory->status = (int) $order->status;
+
+	    	$modelAgencyOrderHistories->save($orderHistory);
+
 	    }
 
 	    $session->write('infoCart', []);

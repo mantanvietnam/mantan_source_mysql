@@ -166,6 +166,7 @@ function acceptAgencyOrderAdminApi($input): array
     $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
     $agencyProductModel = $controller->loadModel('AgencyProducts');
     $productModel = $controller->loadModel('Products');
+    $agencyOrderHistoriesModel = $controller->loadModel('AgencyOrderHistories');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -186,6 +187,7 @@ function acceptAgencyOrderAdminApi($input): array
 
                     if(!empty($checkComboAgency)){
                         $checkComboAgency->amount += $item->amount;
+                        $checkComboAgency->price = $item->unit_price;
                     }else{
                         $checkComboAgency = $agencyCombosModel->newEmptyEntity();
 
@@ -194,6 +196,7 @@ function acceptAgencyOrderAdminApi($input): array
                         $checkComboAgency->amount = $item->amount;
                         $checkComboAgency->created_at = date('Y-m-d H:i:s');
                         $checkComboAgency->updated_at = date('Y-m-d H:i:s');
+                        $checkComboAgency->price = $item->unit_price;
                     }
 
                     $agencyCombosModel->save($checkComboAgency);
@@ -239,6 +242,17 @@ function acceptAgencyOrderAdminApi($input): array
             }
 
             $orderModel->save($order);
+
+            // lưu lịch sử thay đổi trạng thái đơn hàng
+            $orderHistory = $agencyOrderHistoriesModel->newEmptyEntity();
+
+            $orderHistory->agency_id = $order->agency_id;
+            $orderHistory->order_id = $order->id;
+            $orderHistory->note = 'Admin duyệt đơn hàng của đại lý';
+            $orderHistory->created_at = date('Y-m-d H:i:s');
+            $orderHistory->status = $order->status;
+
+            $agencyOrderHistoriesModel->save($orderHistory);
 
             return apiResponse(0, 'Cập nhật thành công');
         }
