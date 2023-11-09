@@ -38,6 +38,14 @@ global $routesPlugin;
 
 	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
 
+    // đơn hàng combo
+    $routesPlugin['sellComboProduct']= 'go_draw/view/agency/user_combo_orders/sellComboProduct.php';
+    $routesPlugin['viewOrderCombo']= 'go_draw/view/agency/user_combo_orders/viewOrderCombo.php';
+    $routesPlugin['userComboCart']= 'go_draw/view/agency/user_combo_orders/userComboCart.php';
+    $routesPlugin['createOrderComboUser']= 'go_draw/view/agency/user_combo_orders/createOrderComboUser.php';
+    $routesPlugin['orderUserComboProcess']= 'go_draw/view/agency/user_combo_orders/orderUserComboProcess.php';
+    $routesPlugin['processUserComboOrder']= 'go_draw/view/agency/user_combo_orders/processUserComboOrder.php';
+
     // người dùng lẻ
     $routesPlugin['register']= 'go_draw/view/home/user/register.php';
     $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
