@@ -1,0 +1,28 @@
+.content-header{
+	padding-top: 10px;
+}
+
+.content-form-modal{
+	padding-bottom: 15px !important;
+}
+
+.list-form-item .item{
+	margin-bottom: 20px;
+}
+
+.icon-user-head img{
+	height: 45px !important;
+	padding: 5px;
+}
+
+.icon-user-head .sub-user{
+	top: 45px !important;
+}
+
+.content-header a{
+	color: #fff !important;
+}
+
+.content-header a:hover{
+	color: #4A7DCE !important;
+}

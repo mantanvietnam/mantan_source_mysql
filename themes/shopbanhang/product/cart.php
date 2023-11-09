@@ -18,21 +18,22 @@ $slide_home= slide_home($setting['id_slide']);
                     <div class="row">
                         <!-- Bảng -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-12 table-cart-left">
-                            <table class="table table-top">
-                                <thead>
-                                    <tr>
-                                        <th scope="col col-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="allcheck">
-                                        </th>
-                                        <th scope="col col-name">Tên sản phẩm</th>
-                                        <th scope="col col-price">Đơn giá</th>
-                                        <th scope="col col-number">Số lượng</th>
-                                        <th scope="col col-total">Thành tiền</th>
-                                        <th scope="col col-delete"><a href=""><i class="fa-regular fa-trash-can"></i></a></th>
-                                    </tr>
-                                </thead>
-                            </table>
-
+                            <div class="table-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col col-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="allcheck">
+                                            </th>
+                                            <th scope="col col-name">Tên sản phẩm</th>
+                                            <th scope="col col-price">Đơn giá</th>
+                                            <th scope="col col-number">Số lượng</th>
+                                            <th scope="col col-total">Thành tiền</th>
+                                            <th scope="col col-delete"><a href=""><i class="fa-regular fa-trash-can"></i></a></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                             <div class="table-border">
                                 <table class="table table-center">
                                     <tbody>
@@ -161,7 +162,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="cart-left-bottom">
                                 <div class="title-cart-left-bottom">
-                                  sản phẩn ưu đãi
+                                        Ưu đãi dành cho bạn
                                 </div>
 
                                 <div class="row">
@@ -211,7 +212,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="cart-left-bottom">
                                 <div class="title-cart-left-bottom">
-                                  sản phẩn khác
+                                  Sản phẩm khác
                                 </div>
 
                                 <div class="row">

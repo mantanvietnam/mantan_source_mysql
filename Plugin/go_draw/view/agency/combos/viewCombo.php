@@ -63,11 +63,18 @@
 											    
 											  </tbody>
 											</table>
+
+											<div class="row">
+												<div class="col-md-12">
+													<label>Số lượng</label>
+													<input onchange="updateAmount();" class="text-center" type="number" name="amount" id="amount" value="1" style="width: 50px;" />
+												</div>
+											</div>
 										</div>
 									</div>
 									<div class="social text-right">
 										<div class="btn-main">
-											<a href="/addToCart/?idCombo=<?php echo $infoCombo->id;?>">ĐẶT MUA</a>
+											<a id="orderButton" href="/addToCart/?idCombo=<?php echo $infoCombo->id;?>&amount=1">ĐẶT MUA</a>
 										</div>
 									</div>
 								</div>
@@ -79,5 +86,15 @@
 		</div>
 	</section>
 </main>
+
+<script type="text/javascript">
+	function updateAmount()
+	{
+		var amount = parseInt($('#amount').val());
+		var idCombo = '<?php echo $infoCombo->id;?>';
+
+		$('#orderButton').attr('href', '/addToCart/?idCombo='+idCombo+'&amount='+amount)
+	}
+</script>
 
 <?php include __DIR__.'/../footer.php';?>

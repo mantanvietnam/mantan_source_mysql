@@ -1,4 +1,4 @@
-var contentMain = document.querySelector('.describe-description');
+var contentMain = document.querySelector('.describe-description-filter');
 contentMain.classList.add('hideContent');
 
 document.querySelectorAll(".describe-more button").forEach(function(link) {

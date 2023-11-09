@@ -61,16 +61,29 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $status= '';
+               if($item->status=='new'){ 
+                 $status= 'Đơm mới';
+                }elseif($item->status=='browser'){
+                   $status= 'Đã duyệt';
+                }elseif($item->status=='deilvery'){
+                     $status= 'Đang giao';
+                }elseif($item->status=='done'){
+                   $status= 'Đã xong';
+                }else{
+                   $status= 'Đã hủy';
+                }
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>
                           '.$item->full_name.'<br/>
                           '.$item->phone.'<br/>
-                          '.$item->email.'
+                          '.$item->email.'<br/>
+                          '.$item->address.'<br/>
                         </td>
-                        <td>'.number_format($item->money).'đ</td>
+                        <td>'.number_format($item->total).'đ</td>
                         <td>'.date('H:i d/m/Y', $item->create_at).'</td>
-                        <td>'.$item->status.'</td>
+                        <td align="center">'.$status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/product-view-admin-order-viewOrderAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

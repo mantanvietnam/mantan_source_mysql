@@ -23,8 +23,13 @@
                       <?php 
                         if(!empty($listData)){
                           foreach ($listData as $item) {
+                            $image = '';
+                            if(!empty($item->image)){
+                              $image = '<br/><img src="'.$item->image.'" width="100" />';
+                            }
+
                             echo '<tr>
-                                    <td>'.$item->name.'</td>
+                                    <td>'.$item->name.$image.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>

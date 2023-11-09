@@ -479,6 +479,7 @@ function pay($input){
 					$dataDetail->quantity = $product->numberOrder;
 					$dataDetail->present = $product->id_product;
 					$dataDetail->id_order = $data->id;
+					$dataDetail->price = $product->price;
 
 					$modelOrderDetail->save($dataDetail);
 
@@ -514,11 +515,38 @@ function completeOrder(){
 		$modelAddress = $controller->loadModel('Address');
 		$modelOrder = $controller->loadModel('Orders');
 
-		$data = $modelOrder->get($_GET['id']);
+		$data = $modelOrder->find()->where(['id'=>$_GET['id'], 'id_user'=>$infoUser->id])->first();
 
-		setVariable('data', $data);
+		if(!empty($data)){
+			
+			setVariable('data', $data);
+		}else{
+			return $controller->redirect('/');
+		}
 	}else{
 		return $controller->redirect('/');
 	}
+}
+
+function listOrder($input){
+    global $controller;
+    global $session;
+ 
+
+    $metaTitleMantan = 'đơn hàng';
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelLike = $controller->loadModel('Likes');
+
+	$modelOrder = $controller->loadModel('Orders');
+
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        $listData = $modelOrder->find()->where(['id_user'=>$infoUser->id])->all()->toList();
+        
+        setVariable('listData', $listData);
+    }else{
+        $controller->redirect('/');
+    }
 }
 ?>

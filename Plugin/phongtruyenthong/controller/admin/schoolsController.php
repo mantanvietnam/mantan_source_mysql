@@ -28,10 +28,16 @@ function infoSchoolAdmin($input)
     					'info' => $dataSend['info'],
                         'image_donate' => $dataSend['image_donate'],
                         'image_backdrop' => $dataSend['image_backdrop'],
+                        'audio_background' => $dataSend['audio_background'],
+                        
+                        // dòng thời gian
                         'image_timeline' => $dataSend['image_timeline'],
                         'info_timeline' => $dataSend['info_timeline'],
+                        'id_album_event' => $dataSend['id_album_event'],
 
                         // thành tích nhà trường
+                        'id_album_achievement' => $dataSend['id_album_achievement'],
+                        
                         'image_achievement_1' => $dataSend['image_achievement_1'],
                         'des_achievement_1' => $dataSend['des_achievement_1'],
 
@@ -46,6 +52,9 @@ function infoSchoolAdmin($input)
                         'des_principal_1' => $dataSend['des_principal_1'],
                         'image_principal_2' => $dataSend['image_principal_2'],
                         'des_principal_2' => $dataSend['des_principal_2'],
+
+
+                        
                     );
 
         $data->key_word = 'infoSchoolAdmin';

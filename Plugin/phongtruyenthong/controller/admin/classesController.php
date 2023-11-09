@@ -121,6 +121,7 @@ function addClassAdmin($input)
 
         if(!empty($dataSend['name'])){
             if(empty($dataSend['image'])) $dataSend['image'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/default-thumbnail.jpg';
+            if(empty($dataSend['image_label'])) $dataSend['image_label'] = $urlHomes.'/plugins/phongtruyenthong/view/home/assets/img/class.jpg';
 
             if(!empty($dataSend['des_image'])){
                 foreach ($dataSend['des_image'] as $key => $value) {
@@ -143,6 +144,7 @@ function addClassAdmin($input)
             $data->user = trim($dataSend['user']);
             $data->pass = $dataSend['pass'];
             $data->note_admin = $dataSend['note_admin'];
+            $data->image_label = $dataSend['image_label'];
 
             $year = $modelCategories->get( (int) $dataSend['id_year']);
 	        $data->slug = createSlugMantan($dataSend['name'].' '.$year->name);

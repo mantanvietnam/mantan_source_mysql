@@ -73,13 +73,13 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <a href="/infoUser" >Tài khoản của tôi</a>
                                     <a href="/logout" >Đăng xuất</a>
                                 <?php }else{ ?>
-                                <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Dăng nhập</a>
+                                <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</a>
                             <?php } ?>
                             </div>
-
+                             
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
-                                <a href="">Giỏ hàng</a>
+                                <a href="/cart">Giỏ hàng</a>
                             </div>
                         </div>
                     </div>
@@ -232,40 +232,29 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         </div>
                                         <div class="offcanvas-body">
                                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Link</a>
-                                                </li>
-
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Dropdown
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Dropdown
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">
-                                                        Dropdown
-                                                    </a>
-                                                </li>
+                                                 <?php 
+                                                    $menu = getMenusDefault();
+                                                  
+                                                    if(!empty($menu)){
+                                                    foreach($menu as $key => $value){
+                                                      if(empty($value['sub'])){
+                                                 ?>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
+                                                    </li>
+                                                <?php   }else{  ?>
+                                                    <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
+                                                           aria-expanded="false">
+                                                            <?php echo $value['name']  ?>
+                                                        </a>
+                                                        <ul class="dropdown-menu">
+                                                            <?php  foreach($value['sub'] as $keys => $values) { ?>
+                                                            <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
+                                                            <?php } ?>
+                                                        </ul>
+                                                    </li>
+                                                    <?php }}} ?>
                                             </ul>
                                             <div class="number-phone-mobile">
                                                 <p>Điện thoại tư vấn : 0963.514.244</p>

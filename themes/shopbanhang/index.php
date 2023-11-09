@@ -60,7 +60,9 @@ global $urlThemeActive;
 
                                     $ban = 0;
                                     if(!empty($item->quantity) && !empty($item->sold)){
-                                        $ban = 100 - 100*$item->sold/$item->quantity;
+                                        if($item->quantity>$item->sold){
+                                            $ban = 100 - 100*$item->sold/$item->quantity;
+                                        }
                                     }
                                 ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-6 best-sale-item">
@@ -180,7 +182,7 @@ global $urlThemeActive;
                                     <div class="best-sale-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                            <p><?php echo @$item->point ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
@@ -334,7 +336,7 @@ global $urlThemeActive;
         html +='                    </div>'
         html +='                </div>'
 
-        html +='                <div class="time-flash-item time-flash-item-center">'
+        html +='                <div class="time-flash-item">'
         html +='                    <div class="time-flash-number">'
         html +='                        <p>00</p>'
         html +='                    </div>'

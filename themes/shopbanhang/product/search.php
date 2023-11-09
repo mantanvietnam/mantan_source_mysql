@@ -35,34 +35,36 @@ $slide_home= slide_home($setting['id_slide']);
             <div class="container">
                 <div class="search-form-category">
                     <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom-1 py-3">
-                        <div class="search-category-product">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
-                            <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" value="<?php echo @$_GET['key'] ?>" name="key" aria-describedby="">
-                             <input class="form-check-input" type="hidden" name="category_id" id="inlineCheckbox1" value="<?php echo @$_GET['category_id']; ?>">
-                        </div>
-                        <div class="product-select">
-                            <div class="product-select-box">
-                                <div class="product-select-item product-select-left">
-                                    <div class="heading-check">
-                                        <span>Khuyễn mãi</span>
+                        <div class="row">
+                            <div class="search-category-product col-lg-3 col-md-3 col-sm-3 col-12">
+                                <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
+                                <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" value="<?php echo @$_GET['key'] ?>" name="key" aria-describedby="">
+                                <input class="form-check-input" type="hidden" name="category_id" id="inlineCheckbox1" value="<?php echo @$_GET['category_id']; ?>">
+                            </div>
+                            <div class="product-select col-lg-9 col-md-9 col-sm-9 col-12">
+                                <div class="product-select-box">
+                                    <div class="product-select-item product-select-left">
+                                        <div class="heading-check">
+                                            <span>Khuyễn mãi</span>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" <?php  if(!empty($_GET['sela'])){ echo 'checked'; } ?> value="sela">
+                                        </div>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" <?php  if(!empty($_GET['sela'])){ echo 'checked'; } ?> value="sela">
-                                    </div>
-                                </div>
 
-                                <div class="product-select-item product-select-right">
-                                    <div class="heading-check">
-                                        <span>Sắp xếp</span>
+                                    <div class="product-select-item product-select-right">
+                                        <div class="heading-check">
+                                            <span>Sắp xếp</span>
+                                        </div>
+                                        <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
+                                            <option value="">Sắp xếp theo</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==1){ echo 'selected'; } ?> value="1">Sản phẩm bán chạy nhất</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==2){ echo 'selected'; } ?> value="2">Giá từ cao đến thấp</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==3){ echo 'selected'; } ?> value="3">Giá từ thấp đến cao</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==4){ echo 'selected'; } ?> value="4">Sản phẩm mới nhất</option>
+                                        </select>
+                                        <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
                                     </div>
-                                    <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
-                                        <option value="">Open this select menu</option>
-                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==1){ echo 'selected'; } ?> value="1">Sản phẩm bán chạy nhất</option>
-                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==2){ echo 'selected'; } ?> value="2">Giá từ cao đến thấp</option>
-                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==3){ echo 'selected'; } ?> value="3">Giá từ thấp đến cao</option>
-                                        <option <?php  if(!empty($_GET['order']) && @$_GET['order']==4){ echo 'selected'; } ?> value="4">Sản phẩm mới nhất</option>
-                                    </select>
-                                    <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
                                 </div>
                             </div>
                         </div>
@@ -160,10 +162,12 @@ $slide_home= slide_home($setting['id_slide']);
 
                                     $ban = 0;
                                     if(!empty($product->quantity) && !empty($product->sold)){
-                                        $ban = 100 - 100*$product->sold/$product->quantity;
+                                        if($item->quantity>$item->sold){
+                                            $ban = 100 - 100*$item->sold/$item->quantity;
+                                        }
                                     }
                                  ?>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-6 product-item">
                                 <div class="product-item-inner">
                                     <?php if($giam>0){ ?>
                                         <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>

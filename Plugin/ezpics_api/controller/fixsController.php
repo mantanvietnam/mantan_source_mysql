@@ -21,6 +21,9 @@ function fixPass($input)
 		$modelMember->save($value);
 	}
 	*/
+
+	//$a = sendOTPZalo('0816560000', 123);
+	//debug($a);
 }
 
 function fixWidthText($input)

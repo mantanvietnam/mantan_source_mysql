@@ -108,11 +108,26 @@
                               <label class="form-label" for="basic-default-fullname">Các cột mốc thời gian</label>
                               <textarea name="info_timeline" rows="10" class="form-control"><?php echo @$data['info_timeline'];?></textarea>
                             </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">ID album ảnh sự kiện lịch sử</label>
+                              <input type="text" class="form-control" placeholder="" name="id_album_event" id="id_album_event" value="<?php echo @$data['id_album_event'];?>" />
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="tab-pane fade" id="navs-top-achievement" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">ID album ảnh thành tích nhà trường</label>
+                              <input type="text" class="form-control" placeholder="" name="id_album_achievement" id="id_album_achievement" value="<?php echo @$data['id_album_achievement'];?>" />
+                            </div>
+                          </div>
+                        </div>
+
+
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
@@ -208,6 +223,11 @@
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Ảnh danh sách đóng góp quỹ (1500 x 2000)</label>
                               <?php showUploadFile('image_donate','image_donate',@$data['image_donate'],4);?>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Nhạc nền</label>
+                              <?php showUploadFile('audio_background','audio_background',@$data['audio_background'],11);?>
                             </div>
 
                           </div>

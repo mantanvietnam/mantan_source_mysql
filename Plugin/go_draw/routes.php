@@ -5,6 +5,7 @@ global $routesPlugin;
     $routesPlugin['adminUpdateStaffAccountApi']= 'go_draw/view/adminUpdateStaffAccountApi.php';
     $routesPlugin['getProductDetailAdminApi']= 'go_draw/view/getProductDetailAdminApi.php';
     $routesPlugin['deleteComboProductAdminApi']= 'go_draw/view/deleteComboProductAdminApi.php';
+    $routesPlugin['acceptAgencyOrderAdminApi']= 'go_draw/view/acceptAgencyOrderAdminApi.php';
 
     // agency
     $routesPlugin['login']= 'go_draw/view/agency/agency_accounts/login.php';
@@ -19,7 +20,8 @@ global $routesPlugin;
 	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
 	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';
 
-	$routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
+	$routesPlugin['orderAgencyWait']= 'go_draw/view/agency/agency_orders/orderAgencyWait.php';
+    $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
 	$routesPlugin['orderAgencyDone']= 'go_draw/view/agency/agency_orders/orderAgencyDone.php';
 
     $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
@@ -35,4 +37,17 @@ global $routesPlugin;
 	$routesPlugin['checkoutOrderUser']= 'go_draw/view/agency/user_orders/checkoutOrderUser.php';
 
 	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
+
+    // đơn hàng combo
+    $routesPlugin['sellComboProduct']= 'go_draw/view/agency/user_combo_orders/sellComboProduct.php';
+    $routesPlugin['viewOrderCombo']= 'go_draw/view/agency/user_combo_orders/viewOrderCombo.php';
+    $routesPlugin['userComboCart']= 'go_draw/view/agency/user_combo_orders/userComboCart.php';
+    $routesPlugin['createOrderComboUser']= 'go_draw/view/agency/user_combo_orders/createOrderComboUser.php';
+    $routesPlugin['orderUserComboProcess']= 'go_draw/view/agency/user_combo_orders/orderUserComboProcess.php';
+    $routesPlugin['processUserComboOrder']= 'go_draw/view/agency/user_combo_orders/processUserComboOrder.php';
+
+    // người dùng lẻ
+    $routesPlugin['register']= 'go_draw/view/home/user/register.php';
+    $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
+    $routesPlugin['loginUser']= 'go_draw/view/home/user/loginUser.php';
 

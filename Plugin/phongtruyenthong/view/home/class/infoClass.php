@@ -83,17 +83,27 @@
 
                           <div class="col-md-6">
                             <div class="mb-3">
-                              <label class="form-label">Video giới thiệu lớp</label>
-                              <?php 
-                                showUploadFile('video','video',@$infoClass->video,100);
+                              <label class="form-label">Link youtube video giới thiệu lớp</label>
+                              <input type="text" class="form-control phone-mask" name="video" id="video" value="<?php echo @$infoClass->video;?>" />
 
+                              <?php 
                                 if(!empty($infoClass->video)){
+                                  $codeYoutube = '';
+
+                                  if(!empty($infoClass->video)){
+                                    $codeYoutube = explode('v=', $infoClass->video);
+
+                                    if(!empty($codeYoutube[1])){
+                                      $codeYoutube = explode('&', $codeYoutube[1]);
+
+                                      $codeYoutube = $codeYoutube[0];
+                                    }else{
+                                      $codeYoutube = '';
+                                    }
+                                  }
+
                                   echo '  <br/>
-                                          <video controls width="100%">
-                                            <source src="'.$infoClass->video.'" type="video/mp4">
-                                            <source src="'.$infoClass->video.'" type="video/ogg">
-                                            Your browser does not support the video tag.
-                                          </video> ';
+                                          <iframe width="360" height="215" src="https://www.youtube.com/embed/'.$codeYoutube.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> ';
                                 }
                               ?>
                             </div>

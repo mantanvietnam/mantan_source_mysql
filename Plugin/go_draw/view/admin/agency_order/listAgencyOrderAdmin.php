@@ -76,38 +76,39 @@
                             <?php
                             if(!empty($listData)){
                                 foreach ($listData as $item) {
-                                  switch ($item->status) {
-                                      case 1:
-                                          $status = 'Đã duyệt';
-                                          break;
-                                      case 2:
-                                          $status = 'Đã thanh toán';
-                                          break;
-                                      default:
-                                          $status = 'Đơn hàng mới';
-                                          break;
-                                  }
+                                    switch ($item->status) {
+                                          case 1:
+                                              $status = 'Đã duyệt';
+                                              break;
+                                          case 2:
+                                              $status = 'Đã thanh toán';
+                                              break;
+                                          default:
+                                              $status = 'Đơn hàng mới';
+                                              break;
+                                    }
+
                                     echo '<tr>
-                                    <td align="center">'.$item->id.'</td>
-                                    <td>'.$item->Agencies["name"].'</td>
-                                    <td align="center">'.$item->total_price.'đ</td>
-                                    <td align="center">'.date_format($item->created_at, "H:i:s d/m/Y").'</td>
-                                    <td align="center">'.$status.'</td>
-                                    <td align="center">
-                                      <a class="btn btn-primary" 
-                                        href="/plugins/admin/go_draw-view-admin-agency_order-addAgencyOrderAdmin.php/?id='.$item->id .'"
-                                      >
-                                        <i class="bx bx-edit-alt me-1"></i>
-                                      </a>
-                                    </td>
-                                    <td align="center">
-                                      <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" 
-                                        href="href=/plugins/admin/go_draw-view-admin-agency_order-deleteAgencyOrderAdmin.php/?id='.$item->id.'"
-                                      >
-                                        <i class="bx bx-trash me-1"></i>
-                                      </a>
-                                    </td>
-                                  </tr>';
+                                            <td align="center">'.$item->id.'</td>
+                                            <td>'.$item->Agencies["name"].'</td>
+                                            <td align="center">'.number_format($item->total_price).'đ</td>
+                                            <td align="center">'.date_format($item->created_at, "H:i:s d/m/Y").'</td>
+                                            <td align="center">'.$status.'</td>
+                                            <td align="center">
+                                              <a class="btn btn-primary" 
+                                                href="/plugins/admin/go_draw-view-admin-agency_order-addAgencyOrderAdmin.php/?id='.$item->id .'"
+                                              >
+                                                <i class="bx bx-edit-alt me-1"></i>
+                                              </a>
+                                            </td>
+                                            <td align="center">
+                                              <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" 
+                                                href="href=/plugins/admin/go_draw-view-admin-agency_order-deleteAgencyOrderAdmin.php/?id='.$item->id.'"
+                                              >
+                                                <i class="bx bx-trash me-1"></i>
+                                              </a>
+                                            </td>
+                                          </tr>';
                                 }
                             }else{
                                 echo '<tr>

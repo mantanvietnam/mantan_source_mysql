@@ -36,7 +36,7 @@ getHeader();
                                                     <a class="dropdown-item" href="/infoUser">Hồ
                                                         sơ</a>
                                                     <a class="dropdown-item"  href="/editInfoUser">Chỉnh sửa thông tin</a>
-                                                    <a class="dropdown-item"  href="">Địa
+                                                    <a class="dropdown-item"  href="/deliveryAddress">Địa
                                                         chỉ giao hàng</a>
                                                     <a class="dropdown-item" 
                                                         href="/changepassword">Đổi mật khẩu</a>
@@ -66,9 +66,10 @@ getHeader();
                     <div class="tab-content" style="height:100%">
                         <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
                             <div class="title-file">
-                                <p>Sửa thông tin tài khoản</p>
+                                <p>Đổi mật khẩu</p>
+                                <?php echo @$mess; ?>
                             </div>
-                                <div class="detail-file">
+                                <div class="detail-file detail-change-password">
                                 <form action="" method="post">
                                         <input type="hidden" value="<?php echo $csrfToken; ?>" name="_csrfToken">
                                         <div class="col-12">

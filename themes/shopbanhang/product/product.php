@@ -16,8 +16,8 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="/allProduct">sản phẩn </a></li>
+                  <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                  <li class="breadcrumb-item"><a href="/allProduct">Sản phẩm </a></li>
                   <li class="breadcrumb-item active"><?php echo $product->title; ?></li>
                		</ul>
             </div>
@@ -26,7 +26,7 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-product-detail">
             <div class="container">
                 <div class="row">
-                    <div class="col-1 product-detail-slide-small">
+                    <div class="col-lg-1 col-3 product-detail-slide-small">
                         <div class="product-slide-left">
                             <div class="product-slide-left-item">
                                 <div class="product-slide-left-img">
@@ -47,7 +47,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
 
-                    <div class="col-6 product-detail-slide">
+                    <div class="col-lg-6 col-9 product-detail-slide">
                         <div class="product-slide-right">
                             <div class="product-slide-right-item">
                                 <div class="product-slide-right-img">
@@ -68,7 +68,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
 
-                    <div class="col-5 product-detail-info">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 product-detail-info">
                         <div class="product-detail-info-category">
                             <span><?php $category->name; ?></span>
                         </div>
@@ -81,6 +81,7 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="detail-info-rate-left">
                                 <?php $point = 100 - ($product->point/5) / 1 * 100 ?>
                                 <div class="stars" style="color: gold;">
+                                        <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
@@ -272,7 +273,9 @@ $slide_home= slide_home($setting['id_slide']);
                         <!-- Button cuối -->
                         <div class="product-detail-group-button">
                             
-                                 <?php   if(!empty($infoUser)){
+                                 <?php
+                                 if(@$product->quantity>0){
+                                    if(!empty($infoUser)){
 
                                         ?>
                             <div class="product-detail-button-cart">
@@ -291,8 +294,12 @@ $slide_home= slide_home($setting['id_slide']);
                                 <a data-bs-toggle="modal" data-bs-target="#exampleModal">Mua ngay</a>
                             </div>
 
-                        <?php } ?>
-                            <div class="product-detail-button-like">
+                        <?php }}else{?>
+                             <div class="product-detail-button-cart">
+                                <a data-bs-toggle="modal" data-bs-target="#">Hết hàng</a>
+                            </div>
+                      <?php  } ?>
+                            <div class="product-detail-button-like" id="place-detail" >
                                   <?php  
                                      global $session;
                                  $infoUser = $session->read('infoUser');
@@ -425,7 +432,9 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
 
                 <div class="describe-description">
-                   <?php echo @$product->info; ?>
+                    <div class="describe-description-filter">
+                        <?php echo @$product->info; ?>
+                    </div>
                 </div>
 
                 <div class="describe-more">
@@ -494,7 +503,9 @@ $slide_home= slide_home($setting['id_slide']);
 
                                     $ban = 0;
                                     if(!empty($item->quantity) && !empty($item->sold)){
-                                        $ban = 100 - 100*$item->sold/$item->quantity;
+                                        if($item->quantity>$item->sold){
+                                            $ban = 100 - 100*$item->sold/$item->quantity;
+                                        }
                                     }
                             ?>
                         <div class="product-item">
@@ -530,7 +541,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <div class="product-rate">
                                     <div class="rate-best-item rate-star">
                                         <img src="<?php echo $urlThemeActive;?>asset/image/star.png" alt="">
-                                        <p>4.8 <span>(34)</span></p>
+                                         <p><?php echo @$item->point ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
                                     </div>
     
                                     <div class="rate-best-item rate-sold">
@@ -556,7 +567,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-6" id="evaluate">
+                        <div class="product-detail-rate-list col-lg-6 col-md-6 col-sm-6 col-12" id="evaluate">
                            <?php if(!empty($product->evaluate)){
                                 foreach($product->evaluate as $key => $item){ 
                                      $item->image = json_decode($item->image, true);
@@ -605,11 +616,12 @@ $slide_home= slide_home($setting['id_slide']);
                                     
                                 </div>
                             </div>
-                        <?php }} ?>
-                           
+                        <?php }}else{ ?>
+                           <div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>
+                           <?php } ?>
                         </div>
 
-                        <div class="product-detail-rate-right col-6">
+                        <div class="product-detail-rate-right col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="product-detail-rate-right-title">
                                 Đánh giá sản phẩm
                             </div>
@@ -621,6 +633,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                                 <div class="product-detail-rate-right-star">
                                     <div class="stars" style="color: gold;">
+                                        <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
@@ -734,9 +747,32 @@ $slide_home= slide_home($setting['id_slide']);
                                                     <span>Trả lời</span>
                                                 </div>
 
-                                                <div class="people-like">
-                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
-                                                    <span>Thích</span>
+                                                <div class="people-like" id="like_comment">
+                                                    
+                                                    <?php  
+                                     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                if(empty(getLike($infoUser['id'],$value->id,'comment'))){?>
+                            <div class="button-like<?php echo $value->id ?>">
+                                <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i>                                     
+                                                    <span>Thích</span></button>
+                            </div>
+                                <?php }else{
+                                  
+                                 ?>
+                                    <div class="button-like<?php echo $value->id ?>">
+
+                                <button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i>                                     
+                                                    <span>Thích</span></button><?php echo $value->number_like ?>
+                            </div>
+                           
+                                <?php }  }else{ ?>
+                                     <div class="button-like<?php echo $value->id ?>">
+                                        <a  class="like" href="/" ><button type="button" ><i class='bx bxs-like'></i>                                     
+                                                    <span>Thích</span></a>
+                                        </div>
+                                <?php   } ?>
                                                 </div>
 
                                                 <div class="people-time">
@@ -771,10 +807,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                     <span>Trả lời</span>
                                                 </div>
 
-                                                <div class="people-like">
-                                                    <svg onclick="changeColorRate()" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.1s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16H286.5c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8H384c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32V448c0 17.7 14.3 32 32 32H96c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32H32z"/></svg>                                     
-                                                    <span>Thích</span>
-                                                </div>
+                                             
                                                 
                                                 <div class="people-time">
                                                    <?php echo date("d/m/Y H:i:s",$value->updated_at); ?>
@@ -892,11 +925,8 @@ $slide_home= slide_home($setting['id_slide']);
     updateCountdown();
 </script>
 <script  type="text/javascript">
-    
-    function addlike(){
-         
-
-       $.ajax({
+function addlike(){
+    $.ajax({
             method: 'POST',
             url: '/apis/addlike',
             data: { idobject: '<?php echo @$product->id; ?>',
@@ -912,8 +942,8 @@ $slide_home= slide_home($setting['id_slide']);
             }
         })
             
-    }
- function delelelike(){
+}
+function delelelike(){
 
           $.ajax({
                 method: 'POST',
@@ -931,9 +961,47 @@ $slide_home= slide_home($setting['id_slide']);
                 }
             })
                
-        } 
+} 
 
-        function addComment(){
+function addlikecomment(idobject, comment){
+    $.ajax({
+            method: 'POST',
+            url: '/apis/addlike',
+            data: { idobject: idobject,
+                type: comment,
+                idcustomer: <?php echo @$infoUser['id'] ?>,
+            },
+            success:function(res){
+              console.log(res);
+                $('#like_save').load(location.href + ' #like_save>*');
+                $('#like_comment .button-like'+idobject+' button').css('background-color', '#188181');
+                $('#like_comment .button-like'+idobject+' button').css('color', '#fff')
+                $('.button-like i').css('color', '#fff');
+            }
+        })
+            
+}
+function  delelelikecomment(idobject, comment){
+
+          $.ajax({
+                method: 'POST',
+                url: '/apis/delelelike',
+                data: { idobject: idobject,
+                    type: comment,
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log(res);
+                    $('#like_save').load(location.href + ' #like_save>*');
+                    $('#like_comment .button-like'+idobject+' button').css('background-color', 'rgb(24 129 129 / 0%)');
+                    $('#like_comment .button-like'+idobject+' button').css('color', '#3F4042')
+                    $('.button-like i').css('color', '#126B66');
+                }
+            })
+               
+} 
+
+function addComment(){
     var comment= $('#comment').val();
 
     $.ajax({
@@ -950,23 +1018,9 @@ $slide_home= slide_home($setting['id_slide']);
                 }
             })
                
-        } 
+} 
 
-   function deteleComment($id){
-
-    $.ajax({
-                method: 'POST',
-                url: '/apis/deleleComment',
-                data: { id: $id },
-                success:function(res){
-                  console.log(res);
-                  location.reload();
-                }
-            })
-               
-        }
-
-    function deteleComment($id){
+function deteleComment($id){
 
     $.ajax({
                 method: 'POST',
@@ -979,6 +1033,20 @@ $slide_home= slide_home($setting['id_slide']);
             })
                
         }
+
+function deteleComment($id){
+
+    $.ajax({
+                method: 'POST',
+                url: '/apis/deleleComment',
+                data: { id: $id },
+                success:function(res){
+                  console.log(res);
+                  location.reload();
+                }
+            })
+               
+}
 </script>
 <script type="text/javascript">
     function searchEvaluates(point){
@@ -1047,7 +1115,7 @@ $slide_home= slide_home($setting['id_slide']);
                         }
                         document.getElementById("evaluate").innerHTML = html;
                     }else{
-                         document.getElementById("evaluate").innerHTML = '';
+                         document.getElementById("evaluate").innerHTML = '<div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>';
                     }
                 }
             });

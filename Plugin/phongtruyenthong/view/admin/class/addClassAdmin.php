@@ -66,17 +66,29 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Video giới thiệu lớp</label>
-                              <?php 
-                                showUploadFile('video','video',@$data->video,100);
+                              <label class="form-label">Link Youtube video giới thiệu lớp</label>
+                              
+                              <input type="text" class="form-control phone-mask" name="video" id="video" value="<?php echo @$data->video;?>" />
 
+                              <?php 
+                                
                                 if(!empty($data->video)){
+                                  $codeYoutube = '';
+
+                                  if(!empty($data->video)){
+                                    $codeYoutube = explode('v=', $data->video);
+
+                                    if(!empty($codeYoutube[1])){
+                                      $codeYoutube = explode('&', $codeYoutube[1]);
+
+                                      $codeYoutube = $codeYoutube[0];
+                                    }else{
+                                      $codeYoutube = '';
+                                    }
+                                  }
+
                                   echo '  <br/>
-                                          <video controls width="100%">
-                                            <source src="'.$data->video.'" type="video/mp4">
-                                            <source src="'.$data->video.'" type="video/ogg">
-                                            Your browser does not support the video tag.
-                                          </video> ';
+                                          <iframe width="360" height="215" src="https://www.youtube.com/embed/'.$codeYoutube.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> ';
                                 }
                               ?>
                             </div>
@@ -84,7 +96,16 @@
                           </div>
 
                           <div class="col-md-6">
-                            
+                            <div class="mb-3">
+                              <label class="form-label">Nhãn lớp</label>
+                              <?php 
+                                showUploadFile('image_label','image_label',@$data->image_label,1000);
+
+                                if(!empty($data->image_label)){
+                                  echo '<br/><img src="'.$data->image_label.'" width="150" />';
+                                }
+                              ?>
+                            </div>
 
                             <div class="mb-3">
                               <label class="form-label">Trạng thái</label>

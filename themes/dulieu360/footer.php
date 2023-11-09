@@ -1,6 +1,8 @@
 <?php
 global $urlThemeActive;
 
+
+
 $setting = setting();
 
 ?>
@@ -57,7 +59,7 @@ $setting = setting();
                 </div>
 
                 <div class="col-lg-6 col-md-12 count-view">
-                    Lượt truy cập: 2.985.340.615
+                    Lượt truy cập: <?php echo number_format(getStatic()['total']); ?>
                 </div>
             </div>
         </div>

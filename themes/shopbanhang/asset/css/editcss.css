@@ -1,0 +1,253 @@
+.hideContent {
+    overflow: hidden;
+    line-height: 1em;
+    height: 1400px;
+}
+
+.group-button-login .btn{
+    margin-top: 44px;
+    width: 100%;
+    font-size: 21px;
+    background-color: #011436;
+    border-radius: 3px;
+    border-color: transparent;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-bottom: 21px;
+}
+    
+.group-button-login{
+    text-align: center;
+}
+
+.forgotpassword{
+    color: #000;
+}
+
+.modal-right .btn{
+    margin-top: 44px;
+    width: 100%;
+    font-size: 21px;
+    background-color: #011436;
+    border-radius: 3px;
+    border-color: transparent;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-bottom: 21px;
+}
+
+.modal-forgotpass .modal-dialog{
+    max-width: 26%;
+}
+
+.forgot-bottom{
+    text-align: center;
+}
+
+.forgot-bottom a{
+    color:rgb(25, 117, 169);
+}
+
+.forgot-text-title{
+    font-size: 30px;
+    margin-bottom: 19px;
+}
+
+.forgot-text{
+    font-weight: 200;
+}
+
+.modal-forgotpass .modal-right {
+    margin-top: 85px !important;
+}
+
+.modal-forgotpass .or-login {
+    margin-bottom: 40px
+}
+
+#img1{
+    width: 100%;
+}
+
+.edit-user-photo .d-flex{
+    overflow: hidden;
+}
+
+.m_bg_img{
+    margin-top: 15px;
+}
+
+.form-group-user{
+    display: flex;
+    align-items: center;
+}
+
+.detail-file label{
+    width: 144px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.form-group-user .form-control{
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.detail-file .button-submit-custom {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 55px;
+    padding-right: 55px;
+    background-color: #011436;
+    color: #fff;
+    width: auto !important;
+    border: none;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.input-password{
+    width: 70%;
+}
+
+.detail-change-password{
+    margin-top: 24px;
+}
+
+.cart-button-buy input{
+    display: block;
+    color: #fff;
+    background-color: #008BCF;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 100%;
+    border: none;
+}
+
+.enter-code-discount a{
+    border-color: transparent;
+    font-size: 12px;
+    font-weight: 200;
+    background-color: #F1F2F2;
+    padding: 4px 16px;
+    display: block;
+    cursor: pointer;
+}
+
+.enter-code-discount{
+    display: flex;
+}
+
+.breadcrumb-item a{
+    color: #6D6E71;
+    font-weight: 200;
+    font-size: 14px;
+}
+
+.breadcrumb-item.active{
+    font-weight: 200;
+    font-size: 14px;
+}
+
+.demo-inline-spacing{
+    margin-top: 15px;
+
+}
+
+.demo-inline-spacing .page-item.active .page-link{
+    background-color: #011436;
+    border-color: transparent;
+}
+
+.demo-inline-spacing .page-item.first .page-link{
+    color: #011436;
+}
+
+.demo-inline-spacing .page-item.last .page-link{
+    color: #011436;
+}
+
+.search-category-product input{
+    font-weight: 200;
+}
+
+#section-cateogry-product .product-name a{
+    margin-top: 5px;
+}
+
+.form-select-sm{
+    font-weight: 300;
+}
+
+#section-cateogry-product .product-img{
+    height: 221px;
+    padding-top: 10px;
+}
+
+.top-deal{
+    min-height: 1155px;
+}
+
+.product-progress{
+    overflow: hidden;
+}
+
+.cart-product-gift-item .product-button-cart-add a{
+    font-size: 14px;
+    font-weight: 200;
+    display: block;
+    text-align: center;
+    color: #939598;
+    padding: 4px 0;
+    border: 1px solid #E6E7E8;
+    margin: 10px 20px;
+}
+
+.product-name a{
+    margin-top: 10px;
+}
+
+.cart-product-gift-item {
+    padding:0 6px;
+}
+
+.cart-left-bottom{
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.table-top{
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #EAEBEB;
+}
+
+.table-border{
+    border-radius: 10px;
+
+}
+
+.table-top .table{
+    margin-bottom: 0;
+}
+
+.table-border{
+    margin-top: 15px;
+}
+
+@media(max-width: 445px) {
+    .product-select-box .product-select-left .heading-check {
+        font-size: 12px
+    }
+
+   
+}
+/* .showContent {
+    line-height: 1em;
+    height: auto;
+}
+.showContent{
+    height: auto;
+} */

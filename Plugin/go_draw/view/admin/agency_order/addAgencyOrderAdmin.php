@@ -24,7 +24,7 @@
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Tên đại lý (*)</label>
                                             <div class="d-flex">
-                                                <select name="agency_id" class="form-select color-dropdown">
+                                                <select name="agency_id" class="form-select color-dropdown" disabled>
                                                     <?php
                                                     if (!empty($listAgency)):
                                                         foreach ($listAgency as $agency):
@@ -44,11 +44,11 @@
                                         <div class="col-md-6 d-flex mb-3 align-items-end">
                                             <div>
                                                 <?php if (@$data->status === 0) : ?>
-                                                  <button class="btn btn-primary" id="btn-accept-order" data-target="<?php echo @$data->id; ?>">
+                                                  <button type="button" class="btn btn-primary" onclick="acceptOrder(<?php echo @$data->id; ?>);">
                                                     Phê duyệt
                                                   </button>
                                                 <?php elseif (@$data->status === 1): ?>
-                                                  <button class="btn btn-primary" id="btn-pay-order" data-target="<?php echo @$data->id; ?>">
+                                                  <button type="button" class="btn btn-danger" onclick="payOrder(<?php echo @$data->id; ?>);" id="btn-pay-order">
                                                     Thanh toán
                                                   </button>
                                                 <?php endif; ?>
@@ -140,58 +140,65 @@
         $("#show-image").attr('src', fileUrl);
       }
 
-      $('#btn-accept-order').on('click', function () {
-        confirm('Bạn có chắc chắn muốn duyệt đơn hàng này không?');
-        const id = $(this).data('target');
+      function acceptOrder(id)
+      {
+        var r = confirm('Bạn có chắc chắn muốn duyệt đơn hàng này không?');
+        
         const token = "<?php echo $csrfToken;?>";
-        $.ajax({
-          method: "POST",
-          url: '/apis/acceptAgencyOrderAdminApi',
-          headers: {'X-CSRF-Token': token},
-          data: {id},
-          success: function (result) {
-            if (result.code) {
-              $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
-            } else {
-              window.location.reload();
-            }
-          },
-          error: function (error) {
-            $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
-          },
-          complete: function () {
-            setTimeout(function () {
-              $('#alert-message').empty();
-            }, 3000);
-          }
-        });
-      });
 
-      $('#btn-pay-order').on('click', function () {
-        confirm('Bạn có chắc chắn muốn thanh toán đơn hàng này không?');
-        const id = $(this).data('target');
+        if(r == true){
+            $.ajax({
+              method: "POST",
+              url: '/apis/acceptAgencyOrderAdminApi',
+              headers: {'X-CSRF-Token': token},
+              data: {id:id},
+              success: function (result) {
+                if (result.code) {
+                  $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
+                } else {
+                  window.location.reload();
+                }
+              },
+              error: function (error) {
+                $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
+              },
+              complete: function () {
+                setTimeout(function () {
+                  $('#alert-message').empty();
+                }, 3000);
+              }
+            });
+        }
+      }
+
+      function payOrder(id)
+      {
+        var r = confirm('Bạn có chắc chắn muốn thanh toán đơn hàng này không?');
         const token = "<?php echo $csrfToken;?>";
-        $.ajax({
-          method: "POST",
-          url: '/apis/payAgencyOrderAdminApi',
-          headers: {'X-CSRF-Token': token},
-          data: {id},
-          success: function (result) {
-            if (result.code) {
-              $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
-            } else {
-              window.location.reload();
-            }
-          },
-          error: function (error) {
-            $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
-          },
-          complete: function () {
-            setTimeout(function () {
-              $('#alert-message').empty();
-            }, 3000);
-          }
-        });
-      });
+
+        if(r == true){
+            $.ajax({
+              method: "POST",
+              url: '/apis/payAgencyOrderAdminApi',
+              headers: {'X-CSRF-Token': token},
+              data: {id:id},
+              success: function (result) {
+                if (result.code) {
+                  $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
+                } else {
+                  window.location.reload();
+                }
+              },
+              error: function (error) {
+                $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
+              },
+              complete: function () {
+                setTimeout(function () {
+                  $('#alert-message').empty();
+                }, 3000);
+              }
+            });
+        }
+      }
     </script>
 </div>

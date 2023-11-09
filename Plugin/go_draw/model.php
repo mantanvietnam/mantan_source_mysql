@@ -11,3 +11,8 @@ include('model/agency_order_details.php');
 include('model/user_orders.php');
 include('model/user_order_details.php');
 include('model/agency_products.php');
+include('model/agency_combos.php');
+include('model/agency_order_histories.php');
+include('model/user_combo_orders.php');
+include('model/user_combo_order_details.php');
+include('model/user_order_combo_histories.php');

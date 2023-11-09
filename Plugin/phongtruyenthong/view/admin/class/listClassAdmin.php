@@ -65,8 +65,7 @@
           <tr class="">
             <th>ID</th>
             <th>Hình minh họa</th>
-            <th>Niên khóa</th>
-            <th>Tên lớp</th>
+            <th>Thông tin lớp</th>
             <th>Tài khoản</th>
             <th>Ghi chú</th>
             <th>Sửa</th>
@@ -80,10 +79,10 @@
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.$item->name_year.'</td>
-                        <td>'.$item->name.'<br/>'.$item->status.'</td>
-                        <td>'.$item->user.'</td>
-                        <td>'.@nl2br($item->note_admin).'</td>
+                      
+                        <td>'.$item->name_year.'<br/>'.$item->name.'<br/><img src="'.$item->image_label.'" width="150" /></td>
+                        <td>'.$item->user.'<br/><br/><a target="_blank" href="'.$item->video.'">'.$item->video.'</a></td>
+                        <td>'.@nl2br($item->note_admin).'<br/>'.$item->status.'</td>
                         <td align="center">
                           <a class="dropdown-item" href="/plugins/admin/phongtruyenthong-view-admin-class-addClassAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

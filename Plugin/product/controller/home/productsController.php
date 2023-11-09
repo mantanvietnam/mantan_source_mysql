@@ -18,6 +18,7 @@ function product($input)
     $modelQuestion = $controller->loadModel('Questions');
     $modelDiscountCodes = $controller->loadModel('DiscountCodes');
     $modelEvaluate = $controller->loadModel('Evaluates');
+    $modelView = $controller->loadModel('Views');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -32,6 +33,18 @@ function product($input)
         $product = $modelProduct->find()->where($conditions)->first();
 
         if(!empty($product)){
+
+            if(!empty($session->read('infoUser'))){
+                $infoUser = $session->read('infoUser');
+
+                $checkview = $modelView->find()->where(['id_customer'=>$infoUser->id,'id_product'=>$product->id])->first();
+                if(empty($checkview)){
+                    $view = $modelView->newEmptyEntity();
+                    $view->id_customer = $infoUser->id;
+                    $view->id_product = $product->id;
+                    $modelView->save($view);
+                }
+            }
         	$metaTitleMantan = $product->title;
         	$metaImageMantan = $product->image;
         	$metaKeywordsMantan = $product->keyword;
@@ -92,6 +105,25 @@ function product($input)
             $product->present = $present;
 
 		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+            if(!empty($other_product)){
+                foreach($other_product as $key => $item){
+                    $other_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+                    $other_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+                    $point = 0;
+                    if(!empty($other_product[$key]->evaluate)){
+                        foreach($other_product[$key]->evaluate as $k => $s){
+                            $point = $s->point;
+                        }
+                    }
+
+                    if(!empty($other_product[$key]->evaluatecount)){
+
+                        $other_product[$key]->point = $point/$other_product[$key]->evaluatecount;
+                    }
+                }
+            }
             
             // NHÀ SẢN XUẤT
             $manufacturer = $modelCategories->find()->where(['id'=>$product->id_manufacturer])->first();
@@ -242,6 +274,7 @@ function search($input)
     $limit = 12;
     $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
     if($page<1) $page = 1;
+    $order = array('id'=>'desc'); 
     
     if(!empty($_GET['order'])){
        switch ($_GET['order']) {
@@ -448,4 +481,60 @@ function sela($input)
     setVariable('manufacturer_all', $manufacturer_all);
     setVariable('DiscountCode', $DiscountCode);
 }
+
+function viewProduct($input){
+    global $controller;
+    global $session;
+ 
+
+    $metaTitleMantan = 'Tất cả sản phẩm dã xem';
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelView = $controller->loadModel('Views');
+
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        $listData = $modelView->find()->where(['id_customer'=>$infoUser->id])->all()->toList();
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
+                if(!empty($product)){
+                    $listData[$key]->product = $product;
+                }
+            }   
+        }
+        setVariable('listData', $listData);
+    }else{
+        $controller->redirect('/');
+    }
+}
+
+function likeProduct($input){
+    global $controller;
+    global $session;
+ 
+
+    $metaTitleMantan = 'Tất cả sản phẩm yêu thích';
+
+    $modelProduct = $controller->loadModel('Products');
+    $modelLike = $controller->loadModel('Likes');
+
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        $listData = $modelLike->find()->where(['idcustomer'=>$infoUser->id, 'type'=> 'product'])->all()->toList();
+        if(!empty($listData)){
+            foreach($listData as $key => $item){
+                $product = $modelProduct->find()->where(['id'=>$item->idobject])->first();
+                if(!empty($product)){
+                    $listData[$key]->product = $product;
+                }
+            }   
+        }
+        setVariable('listData', $listData);
+    }else{
+        $controller->redirect('/');
+    }
+}
 ?>
+
+
