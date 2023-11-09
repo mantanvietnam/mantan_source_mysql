@@ -58,6 +58,7 @@
                             <div class="submenu">
                                 <ul>
                                     <li><a href="/listCombo">Tạo đơn mua</a></li>
+                                    <li><a href="/orderAgencyWait">Đơn chờ duyệt</a></li>
                                     <li><a href="/orderAgencyProcess">Đơn chưa thanh toán</a></li>
                                     <li><a href="/orderAgencyDone">Đơn đã thanh toán</a></li>
                                 </ul>

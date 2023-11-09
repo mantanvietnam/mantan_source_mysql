@@ -225,6 +225,11 @@
                               <?php showUploadFile('image_donate','image_donate',@$data['image_donate'],4);?>
                             </div>
 
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Nhạc nền</label>
+                              <?php showUploadFile('audio_background','audio_background',@$data['audio_background'],11);?>
+                            </div>
+
                           </div>
                         </div>
                       </div>

@@ -133,7 +133,7 @@ function addAgencyOrderAdmin($input)
                 if (isset($dataSend['agency_id'])
                     && isset($dataSend['total_price'])
                 ) {
-                    //$order->agency_id = $dataSend['agency_id'];
+                    
                     $order->total_price = $dataSend['total_price'];
                     $orderModel->save($order);
 
@@ -162,6 +162,7 @@ function acceptAgencyOrderAdminApi($input): array
     global $isRequestPost;
 
     $orderModel = $controller->loadModel('AgencyOrders');
+    $agencyCombosModel = $controller->loadModel('AgencyCombos');
     $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
     $agencyProductModel = $controller->loadModel('AgencyProducts');
     $productModel = $controller->loadModel('Products');
@@ -180,6 +181,24 @@ function acceptAgencyOrderAdminApi($input): array
             if (!empty($listItem)) {
                 $listAgencyProduct = [];
                 foreach ($listItem as $item) {
+                    // thêm combo vào kho của đại lý
+                    $checkComboAgency = $agencyCombosModel->find()->where(['combo_id'=>$item->combo_id, 'agency_id'=>$order->agency_id])->first();
+
+                    if(!empty($checkComboAgency)){
+                        $checkComboAgency->amount += $item->amount;
+                    }else{
+                        $checkComboAgency = $agencyCombosModel->newEmptyEntity();
+
+                        $checkComboAgency->agency_id = $order->agency_id;
+                        $checkComboAgency->combo_id = $item->combo_id;
+                        $checkComboAgency->amount = $item->amount;
+                        $checkComboAgency->created_at = date('Y-m-d H:i:s');
+                        $checkComboAgency->updated_at = date('Y-m-d H:i:s');
+                    }
+
+                    $agencyCombosModel->save($checkComboAgency);
+
+                    // thêm sản phẩm vào kho của đại lý
                     $listProduct = $productModel->find()
                         ->join([
                             [

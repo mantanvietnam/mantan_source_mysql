@@ -28,6 +28,7 @@ function infoSchoolAdmin($input)
     					'info' => $dataSend['info'],
                         'image_donate' => $dataSend['image_donate'],
                         'image_backdrop' => $dataSend['image_backdrop'],
+                        'audio_background' => $dataSend['audio_background'],
                         
                         // dòng thời gian
                         'image_timeline' => $dataSend['image_timeline'],
@@ -51,6 +52,9 @@ function infoSchoolAdmin($input)
                         'des_principal_1' => $dataSend['des_principal_1'],
                         'image_principal_2' => $dataSend['image_principal_2'],
                         'des_principal_2' => $dataSend['des_principal_2'],
+
+
+                        
                     );
 
         $data->key_word = 'infoSchoolAdmin';
