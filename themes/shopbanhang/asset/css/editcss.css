@@ -37,7 +37,19 @@
 }
 
 .modal-forgotpass .modal-dialog{
-    max-width: 26%;
+    max-width: 22%;
+}
+
+.modal-forgotpass .modal-right .form-control{
+    font-size: 20px;
+}
+
+.modal-forgotpass .modal-right .form-control::placeholder{
+    font-size: 20px;
+}
+
+.modal-forgotpass .modal-right .btn {
+    margin-top: 15px;
 }
 
 .forgot-bottom{
@@ -58,7 +70,8 @@
 }
 
 .modal-forgotpass .modal-right {
-    margin-top: 85px !important;
+    margin-top: 46px !important;
+    margin-bottom: 55px ;
 }
 
 .modal-forgotpass .or-login {
@@ -236,6 +249,8 @@
 .table-border{
     margin-top: 15px;
 }
+
+
 
 @media(max-width: 445px) {
     .product-select-box .product-select-left .heading-check {

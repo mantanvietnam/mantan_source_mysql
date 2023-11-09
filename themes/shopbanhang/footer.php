@@ -308,7 +308,7 @@ $infoUser = $session->read('infoUser');
         </div>
 
         <!-- mã xác nhân  -->
-        <div class="modal-login">
+        <div class="modal-login modal-forgotpass">
  
             
             <!-- Modal -->
@@ -319,7 +319,9 @@ $infoUser = $session->read('infoUser');
                         <div class="row">
                             <div class="col-12 modal-right">
                                 <div class="or-login">
-                                    <span>Mã xác nhận </span>
+                                    <div class="forgot-text-title">
+                                        Mã xác nhận 
+                                    </div>
                                 </div>
                                 <p id="confirm"></p>
                                 <form action="">
@@ -337,7 +339,7 @@ $infoUser = $session->read('infoUser');
         </div>
 
          <!-- mã xác nhân  -->
-        <div class="modal-login">
+        <div class="modal-login modal-forgotpass">
  
             
             <!-- Modal -->
@@ -355,7 +357,7 @@ $infoUser = $session->read('infoUser');
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
                                     </div>
-                                    <p >Bạn khiểm tra Emali lấy mã xác nhận </p>
+                                    <p >Bạn kieemr tra Email lấy mã xác nhận </p>
                                     <a onclick="forgotpassword()" class="btn btn-primary">Tiếp tục</a>
                                 </form>
                             </div>
@@ -367,7 +369,7 @@ $infoUser = $session->read('infoUser');
         </div>
 
          <!-- mật khẩu   -->
-        <div class="modal-login">
+        <div class="modal-login modal-forgotpass">
  
             
             <!-- Modal -->
@@ -378,7 +380,9 @@ $infoUser = $session->read('infoUser');
                         <div class="row">
                             <div class="col-12 modal-right">
                                 <div class="or-login">
-                                    <span>Mật khẩu mới</span>
+                                    <div class="forgot-text-title">
+                                        Mật khẩu mới
+                                    </div>
                                 </div>
                                 <p id="newpass"></p>
                                 <form action="">
