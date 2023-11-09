@@ -152,8 +152,8 @@ function addProductAdmin($input)
             $product->description = $dataSend['description'];
             $product->price = $dataSend['price'];
             $product->type = (int)$dataSend['type'];
-            $product->amount_in_stock = $dataSend['amount_in_stock'];
-            $product->amount_sold = $dataSend['amount_sold'];
+            $product->amount_in_stock = (int) $dataSend['amount_in_stock'];
+            $product->amount_sold = (int) $dataSend['amount_sold'];
             $product->image = $dataSend['image'] ?? 'https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg';
             $productModel->save($product);
 

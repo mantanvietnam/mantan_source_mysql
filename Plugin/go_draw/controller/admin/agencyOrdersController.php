@@ -6,7 +6,7 @@ function listAgencyOrderAdmin($input)
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách đơn hàng';
-    
+
     $orderModel = $controller->loadModel('AgencyOrders');
     $agencyModel = $controller->loadModel('Agencies');
 
@@ -28,6 +28,14 @@ function listAgencyOrderAdmin($input)
             ],
         ])
         ->join([
+            [
+                'table' => 'agency_accounts',
+                'alias' => 'AgencyAccounts',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'AgencyOrders.agency_id = AgencyAccounts.id',
+                ],
+            ],
             [
                 'table' => 'agencies',
                 'alias' => 'Agencies',
@@ -86,7 +94,7 @@ function listAgencyOrderAdmin($input)
         $limit,
         $page
     );
-    
+
     $listAgency = $agencyModel->find()
         ->where(['status' => 1])
         ->all();
@@ -115,15 +123,15 @@ function addAgencyOrderAdmin($input)
         $order = $orderModel->find()
             ->where(['id' => $_GET['id']])
             ->first();
-    
+
 
         if (!empty($order)) {
             $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
             setVariable('listItem', $listItem);
-            
+
             $agency = $agencyModel->find()->where(['id' => $order->agency_id])->first();
             setVariable('agency', $agency);
-            
+
             $listAgency = $agencyModel->find()->all();
             setVariable('listAgency', $listAgency);
 
@@ -133,7 +141,7 @@ function addAgencyOrderAdmin($input)
                 if (isset($dataSend['agency_id'])
                     && isset($dataSend['total_price'])
                 ) {
-                    
+
                     $order->total_price = $dataSend['total_price'];
                     $orderModel->save($order);
 
@@ -172,74 +180,73 @@ function acceptAgencyOrderAdminApi($input): array
         $dataSend = $input['request']->getData();
 
         if (!empty($dataSend['id'])) {
-
             $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
             $order->status = 1;
             $order->updated_at = date('Y-m-d H:i:s');
-            
-            $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
 
-            if (!empty($listItem)) {
-                $listAgencyProduct = [];
-                foreach ($listItem as $item) {
-                    // thêm combo vào kho của đại lý
-                    $checkComboAgency = $agencyCombosModel->find()->where(['combo_id'=>$item->combo_id, 'agency_id'=>$order->agency_id])->first();
+//            $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
 
-                    if(!empty($checkComboAgency)){
-                        $checkComboAgency->amount += $item->amount;
-                        $checkComboAgency->price = $item->unit_price;
-                    }else{
-                        $checkComboAgency = $agencyCombosModel->newEmptyEntity();
-
-                        $checkComboAgency->agency_id = $order->agency_id;
-                        $checkComboAgency->combo_id = $item->combo_id;
-                        $checkComboAgency->amount = $item->amount;
-                        $checkComboAgency->created_at = date('Y-m-d H:i:s');
-                        $checkComboAgency->updated_at = date('Y-m-d H:i:s');
-                        $checkComboAgency->price = $item->unit_price;
-                    }
-
-                    $agencyCombosModel->save($checkComboAgency);
-
-                    // thêm sản phẩm vào kho của đại lý
-                    $listProduct = $productModel->find()
-                        ->join([
-                            [
-                                'table' => 'combo_products',
-                                'alias' => 'ComboProducts',
-                                'type' => 'LEFT',
-                                'conditions' => [
-                                    'ComboProducts.product_id = Products.id',
-                                ],
-                            ],
-                        ])->select([
-                            'Products.id',
-                            'Products.price',
-                            'ComboProducts.amount',
-                        ])->where(["ComboProducts.combo_id" => $item->combo_id])
-                        ->all();
-
-                    foreach ($listProduct as $product) {
-                        $newItem = $agencyProductModel->find()->where([
-                            'agency_id' => $order->agency_id,
-                            'product_id' => $product->id
-                        ])->first();
-
-                        if (empty($newItem)) {
-                            $newItem = $agencyProductModel->newEmptyEntity();
-                        }
-
-                        $newItem->agency_id = $order->agency_id;
-                        $newItem->product_id = $product->id;
-                        $newItem->price = $product->price;
-                        $newItem->amount = $item->amount * $product->ComboProducts['amount'];
-                        
-                        $listAgencyProduct[] = $newItem;
-                    }
-                }
-
-                $agencyProductModel->saveMany($listAgencyProduct);
-            }
+//            if (!empty($listItem)) {
+//                $listAgencyProduct = [];
+//                foreach ($listItem as $item) {
+//                    // thêm combo vào kho của đại lý
+//                    $checkComboAgency = $agencyCombosModel->find()->where(['combo_id'=>$item->combo_id, 'agency_id'=>$order->agency_id])->first();
+//
+//                    if(!empty($checkComboAgency)){
+//                        $checkComboAgency->amount += $item->amount;
+//                        $checkComboAgency->price = $item->unit_price;
+//                    }else{
+//                        $checkComboAgency = $agencyCombosModel->newEmptyEntity();
+//
+//                        $checkComboAgency->agency_id = $order->agency_id;
+//                        $checkComboAgency->combo_id = $item->combo_id;
+//                        $checkComboAgency->amount = $item->amount;
+//                        $checkComboAgency->created_at = date('Y-m-d H:i:s');
+//                        $checkComboAgency->updated_at = date('Y-m-d H:i:s');
+//                        $checkComboAgency->price = $item->unit_price;
+//                    }
+//
+//                    $agencyCombosModel->save($checkComboAgency);
+//
+//                    // thêm sản phẩm vào kho của đại lý
+//                    $listProduct = $productModel->find()
+//                        ->join([
+//                            [
+//                                'table' => 'combo_products',
+//                                'alias' => 'ComboProducts',
+//                                'type' => 'LEFT',
+//                                'conditions' => [
+//                                    'ComboProducts.product_id = Products.id',
+//                                ],
+//                            ],
+//                        ])->select([
+//                            'Products.id',
+//                            'Products.price',
+//                            'ComboProducts.amount',
+//                        ])->where(["ComboProducts.combo_id" => $item->combo_id])
+//                        ->all();
+//
+//                    foreach ($listProduct as $product) {
+//                        $newItem = $agencyProductModel->find()->where([
+//                            'agency_id' => $order->agency_id,
+//                            'product_id' => $product->id
+//                        ])->first();
+//
+//                        if (empty($newItem)) {
+//                            $newItem = $agencyProductModel->newEmptyEntity();
+//                        }
+//
+//                        $newItem->agency_id = $order->agency_id;
+//                        $newItem->product_id = $product->id;
+//                        $newItem->price = $product->price;
+//                        $newItem->amount = $item->amount * $product->ComboProducts['amount'];
+//
+//                        $listAgencyProduct[] = $newItem;
+//                    }
+//                }
+//
+//                $agencyProductModel->saveMany($listAgencyProduct);
+//            }
 
             $orderModel->save($order);
 
