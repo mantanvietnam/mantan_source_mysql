@@ -2,7 +2,6 @@
 global $session;
 $info = $session->read('infoUser');
 getHeader();
-debug($listData);
 
 ?>
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
@@ -68,20 +67,18 @@ debug($listData);
                     <div class="tab-content" style="height:100%">
                         <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
                              <div class="title-viewed-product">
-                                    <p>Sản phẩm đã xem</p>
+                                    <p>Đơn hàng</p>
                                 </div>
                                 <div class="group-viewed-product">
                                     <div class="row list-viewed-product">
                                         <table class="table table-bordered">
                                             <thead>
                                               <tr class="">
-                                                <th>ID</th>
                                                 <th>địa chỉ nhận hàng </th>
                                                 <th>Số tiền</th>
                                                 <th>Thời gian tạo</th>
                                                 <th>Trạng thái</th>
                                                 <th>Xử lý</th>
-                                                <th>Xóa</th>
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -101,7 +98,6 @@ debug($listData);
                                                        $status= 'Đã hủy';
                                                     }
                                                     echo '<tr>
-                                                            <td>'.$item->id.'</td>
                                                             <td>
                                                               '.$item->address.'
                                                             </td>
@@ -109,15 +105,11 @@ debug($listData);
                                                             <td>'.date('H:i d/m/Y', $item->create_at).'</td>
                                                             <td align="center">'.$status.'</td>
                                                             <td align="center">
-                                                              <a class="dropdown-item" href="/plugins/admin/product-view-admin-order-viewOrderAdmin.php/?id='.$item->id.'">
+                                                              <a class="dropdown-item" href="/detailOrder?id='.$item->id.'">
                                                                 <i class="bx bx-edit-alt me-1"></i>
                                                               </a>
                                                             </td>
-                                                            <td align="center">
-                                                              <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-order-deleteOrderAdmin.php/?id='.$item->id.'">
-                                                                <i class="bx bx-trash me-1"></i>
-                                                              </a>
-                                                            </td>
+                                                            
                                                           </tr>';
                                                   }
                                                 }else{

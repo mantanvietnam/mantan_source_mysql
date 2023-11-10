@@ -37,8 +37,9 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-blog-content">
             <div class="container">
                 <div class="form-search-blog">
-                    <form action="">
-                        <input type="text" class="form-control" id="" placeholder="Tìm kiếm bài viết">
+                    <form action="/search">
+                        <input type="text" class="form-control" name="key" id="" placeholder="Tìm kiếm bài viết">
+                        <input type="submit" style="display:none" name="">
                     </form>
                 </div>
 

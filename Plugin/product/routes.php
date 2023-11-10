@@ -11,6 +11,7 @@
 	$routesPlugin['product']= 'product/view/home/product.php';
 	$routesPlugin['viewProduct']= 'product/view/home/viewProduct.php';
 	$routesPlugin['listOrder']= 'product/view/home/listOrder.php';
+	$routesPlugin['detailOrder']= 'product/view/home/detailOrder.php';
 	$routesPlugin['search-product']= 'product/view/home/search.php';
 	$routesPlugin['cart']= 'product/view/home/cart.php';
 	$routesPlugin['sela']= 'product/view/home/sela.php';

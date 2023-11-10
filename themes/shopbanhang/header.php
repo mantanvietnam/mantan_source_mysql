@@ -187,8 +187,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <a class="nav-link" href="#">Sản phẩm</a>
                             </li>
                         </ul>
-                        <form class="menu-form-search d-flex" role="search">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <form class="menu-form-search d-flex" role="search"  action="/search-product" method="get" id="myForm">
+                            <input class="form-control" type="text" name="key" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success button-search" type="submit"><img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""></button>
                         </form>
                         </div>

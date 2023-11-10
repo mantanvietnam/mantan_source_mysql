@@ -792,5 +792,63 @@ function saveImageProductAPI($input){
     return $return;
 
 }
+
+function addListLayerAPI($input){
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelFont = $controller->loadModel('Font');
+	$return = array('code'=>0);
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+		$user = $modelMember->find()->where(array('token'=> $dataSend['token']))->first();;
+		
+		if(!empty($user)){
+			// lấy tk người dùng 
+			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct'], 'user_id'=>$user->id))->first();
+
+			if (!empty($dataProduct)) {
+				$modelProductDetail->deleteAll(array('products_id'=>$dataSend['idProduct']));
+
+				$data = str_replace(array("\r", "\n"), '', $dataSend['listLayer']);
+				$data = str_replace('\"', '"', $data);
+				$listData = json_decode($data, true);
+
+				if(!empty($listData)){
+				
+					foreach($listData as $key => $item){
+					 	$new = $modelProductDetail->newEmptyEntity();
+			            $new->name = 'Layer '.$key+1;
+			            $new->products_id = $dataSend['idProduct'];
+			            $new->content = json_encode($item['content']);
+			            $new->sort = $key+1;
+			            
+			            $new->created_at = date('Y-m-d H:i:s');
+			            
+			            $modelProductDetail->save($new);
+					}
+
+					//$returnExport = exportImageThumb($dataSend['idProduct']);
+						
+					$return = array('code'=>1, 'mess'=>'Bạn sửa list layer thành công');
+				}else{
+					$return = array('code'=>4, 'mess'=>'Bạn không lưu được');
+				}
+			}else{
+				$return = array('code'=>3, 'mess'=>'Sản phẩm này không dùng');
+			}
+		}else{
+			
+			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+		}
+
+	}
+	return $return;
+}
 ?>
 

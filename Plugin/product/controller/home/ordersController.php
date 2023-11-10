@@ -549,4 +549,83 @@ function listOrder($input){
         $controller->redirect('/');
     }
 }
+
+
+function detailOrder(){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Chi tiết đơn hàng';
+    if(!empty($session->read('infoUser'))){
+    $modelProduct = $controller->loadModel('Products');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
+
+    if(!empty($_GET['id'])){
+        $order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
+
+        if(!empty($order)){
+            $detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
+
+            if(!empty($detail_order)){
+                foreach ($detail_order as $key => $value) {
+                    $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+                    
+
+                    $present = array();
+
+                    if(!empty($product->id_product) ){
+                    $id_product = explode(',', @$product->id_product);
+               
+                    foreach($id_product as $item){
+                        $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+
+                       ;
+                        if(!empty($presentf)){
+                            $present[] = $presentf;
+                        }
+                    }
+                    
+            }
+            $product->present = $present;
+                $detail_order[$key]->product = $product;
+                }
+            }
+            setVariable('order', $order);
+            setVariable('detail_order', $detail_order);
+        }else{
+            return $controller->redirect('/listOrder.php');
+        }
+    }else{
+        return $controller->redirect('/listOrder.php');
+    }
+    }else{
+        $controller->redirect('/');
+    }
+}
+
+function cancelOrder(){
+	global $controller;
+    global $urlCurrent;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+    $metaTitleMantan = 'Chi tiết đơn hàng';
+
+
+    $modelOrder = $controller->loadModel('Orders');
+
+    if(!empty($_GET['id'])){
+        $order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
+
+        $order->status = $_GET['status'];
+
+        $modelOrder->save($order);
+         return $controller->redirect('/listOrder');
+
+    }
+}
 ?>
