@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.navbar-header .nav-item .nav-link{
+    font-weight: 200;
+}
+
 .topbar-mobile-inner .topbar-button img{
     width: 21px;
     height: auto;
@@ -284,7 +288,16 @@ header{
     margin-top: 26px;
     background-color: #DBF7FE;
     height: 627px;
+    padding-top: 28px;
+    padding-left: 36px;
+    padding-right: 49px;
+    border-radius: 16px;
 }
+
+.blog-detail-description{
+    margin-top: 35px;
+}
+
 
 #table-of-contents h2{
     font-size: 20px;
@@ -300,6 +313,7 @@ header{
 
 #toc-list li a{
     color: #000;
+    line-height: 1.2;
 }
 
 #section-describe{
@@ -313,6 +327,50 @@ header{
 .product-slide-left-img img{
     width: 100%;
     object-fit: cover;
+}
+
+
+.group-viewed-product .table td{
+    vertical-align: middle;
+}
+/* blog */
+.form-search-blog{
+    margin-top: 21px;
+}
+
+.form-search-blog .form-control{
+    font-weight: 200;
+}
+
+.main-blog-left-title a{
+    line-height: 1.2;
+}
+
+/* blog chi tiết */
+.big-blog-detai{
+    padding-right: 43px
+}
+
+/* Cart */
+#section-cart{
+    margin-top: 43px;
+}
+
+.table-cart-right .logo-voucher{
+    width: 36%;
+}
+
+.table-cart-right .list-code-discount .check-voucher{
+    margin-left: 0 !important;
+}
+
+.table-cart-right .list-code-discount .voucher .detail-voucher {
+    left: 0;
+    right: 0;
+}
+
+.table-cart-right .infor-voucher {
+    width: 51%;
 }
 
 @media(min-width: 445px){
@@ -360,6 +418,15 @@ header{
 
     .logo-footer img {
         width: 50%;
+    }
+
+    .big-blog-detai{
+        padding-right: 12px
+    }
+    
+    .blog-detail-content img{
+        width: 100% !important;
+        height: auto !important;
     }
    
 }
