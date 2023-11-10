@@ -238,3 +238,22 @@
 </main>
 
 <?php getFooter();?>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    <?php 
+    if(!empty($_GET['view'])){
+        switch ($_GET['view']) {
+            case 'gallery':
+                echo "$('.full-home-slider').slick('slickGoTo', 1);";
+                break;
+            
+            case 'store':
+                echo "$('.full-home-slider').slick('slickGoTo', 2);";
+                break;
+        }
+    }
+    ?>
+    
+});
+</script>
