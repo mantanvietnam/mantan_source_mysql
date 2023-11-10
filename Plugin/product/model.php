@@ -6,4 +6,5 @@ include('model/discount_code.php');
 include('model/question.php');
 include('model/evaluates.php');
 include('model/views.php');
+include('model/reviews.php');
 ?>

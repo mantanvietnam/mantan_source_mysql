@@ -487,9 +487,9 @@ $settinghom = setting();
                                             <p>Thùy Dương</p>
                                         </div>
                                         <div class="input-link">
-                                            <input type="text" placeholder="Chia sẻ link đập hộp tại đây">
+                                            <input type="text" id="note" placeholder="Chia sẻ link đập hộp tại đây">
                                             <div class="btn-submit">
-                                                <button>Chia sẻ</button>
+                                                <button onclick="addReview()">Chia sẻ</button>
                                             </div>
                                         </div>
                                         <div class="detail-share-link">
@@ -659,5 +659,20 @@ $settinghom = setting();
         </div>
     </div>
 </main>
+<script type="text/javascript">
+    function addReview(){
+        var note = $('#note').val();
+ console.log(note);
+        $.ajax({
+                method: 'GET',
+                url: '/apis/addReview',
+                data: { note: note },
+                success:function(res){
+                  console.log(res);
+                  // location.reload();
+                }
+            })
+    }
+</script>
 <?php
 getFooter();?>
