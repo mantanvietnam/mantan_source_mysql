@@ -69,6 +69,8 @@ function listProductAdmin($input)
             'Categories.id',
             'Categories.name',
         ])->where($conditions)
+        ->limit($limit)
+        ->page($page)
         ->all()
         ->toList();
     $total = $productModel->find()->count();
