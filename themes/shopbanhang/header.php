@@ -54,6 +54,25 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 <body>
     <header>
         <div class="header-inner">
+            <div class="topbar-mobile">
+                <div class="container-fluid">
+                    <div class="topbar-mobile-inner">
+                        <div class="topbar-logo">
+                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logo_mobile.png" alt=""></a>
+                        </div>
+
+                        <form class="menu-form-search d-flex" role="search">
+                            <input class="form-control" type="search" placeholder="Tìm kiếm nhanh" aria-label="Search">
+                            <button class="btn btn-outline-success button-search" type="submit"><img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""></button>
+                        </form>
+
+                        <div class="topbar-button">
+                            <a href="/cart"><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="topbar">
                 <div class="container-fluid">
                     <div class="row">
@@ -89,9 +108,9 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             <div class="mneu-desktop">
                 <nav class="navbar-header navbar navbar-expand-lg ">
                     <div class="container-fluid">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
-                        </button>
+                        </button> -->
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <?php 
@@ -187,8 +206,13 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <a class="nav-link" href="#">Sản phẩm</a>
                             </li>
                         </ul>
+<<<<<<< HEAD
                         <form class="menu-form-search d-flex" role="search"  action="/search-product" method="get" id="myForm">
                             <input class="form-control" type="text" name="key" placeholder="Search" aria-label="Search">
+=======
+                        <form class="menu-form-search d-flex" role="search">
+                            <input class="form-control" type="search" placeholder="" aria-label="Search">
+>>>>>>> 682206719d543910669159e5ed029fe7631f5cc7
                             <button class="btn btn-outline-success button-search" type="submit"><img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""></button>
                         </form>
                         </div>
