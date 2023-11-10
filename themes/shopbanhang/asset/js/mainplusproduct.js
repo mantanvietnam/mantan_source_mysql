@@ -1,21 +1,46 @@
+var tocList = document.getElementById('toc-list');
+var headings = document.querySelectorAll('.blog-detail-content h1,.blog-detail-content h2,.blog-detail-content h3,.blog-detail-content h4,.blog-detail-content h5,.blog-detail-content h6');
+headings.forEach(function (heading, index) {
+    var link = document.createElement('a');
+    link.textContent = heading.textContent;
+    link.href = '#' + heading.textContent.replace(/ /g, '-');
+    link.addEventListener('click', function () {
+        heading.scrollIntoView();
+    });
+
+    var listItem = document.createElement('li');
+    listItem.appendChild(link);
+
+    // Đánh số mục lục
+    var tocNumber = document.createElement('span');
+    tocNumber.className = 'toc-number';
+    tocNumber.textContent = (index + 1) + '.';
+    listItem.insertBefore(tocNumber, listItem.firstChild);
+
+    tocList.appendChild(listItem);
+});
+
 var contentMain = document.querySelector('.describe-description-filter');
 contentMain.classList.add('hideContent');
 
 document.querySelectorAll(".describe-more button").forEach(function(link) {
     link.addEventListener("click", function() {
-      var content = this.parentElement.previousElementSibling;
+      // var content = this.parentElement.previousElementSibling;
       var linkText = this.textContent.toUpperCase();
   
       if (linkText === "XEM THÊM") {
         linkText = "Rút gọn";
-        content.classList.remove("hideContent");
-        content.classList.add("showContent");
+        contentMain.classList.remove("hideContent");
+        contentMain.classList.add("showContent");
       } else {
         linkText = "Xem thêm";
-        content.classList.remove("showContent");
-        content.classList.add("hideContent");
+        contentMain.classList.remove("showContent");
+        contentMain.classList.add("hideContent");
       }
   
       this.textContent = linkText;
     });
   });   
+
+
+ 
