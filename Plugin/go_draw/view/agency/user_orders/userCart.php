@@ -19,6 +19,14 @@
 					</svg>
 				</div>
 				<div class="content-cart">
+					<div class="info-form-user">
+						<div class="item-frm">
+							<div class="desc">
+								<input onchange="updatePhone();" type="text" placeholder="Số điện thoại khách hàng" name="phone" id="phone" class="txt_filed">
+							</div>
+						</div>
+					</div>
+
 					<div class="table-cart">
 						<?php
 							echo $mess;
@@ -44,12 +52,20 @@
 						?>
 					</div>
 
-					<?php if(!empty($infoCart)) echo '<div class="btn-main text-center"><a href="/createOrderUser">TẠO ĐƠN</a></div>';?>
+					<?php if(!empty($infoCart)) echo '<div class="btn-main text-center"><a id="buttonCreate" href="/createOrderUser">TẠO ĐƠN</a></div>';?>
 					
 				</div>
 			</div>
 		</div>
 	</section>
 </main>
+
+<script type="text/javascript">
+	function updatePhone()
+	{
+		var phone = $('#phone').val();
+		$('#buttonCreate').attr("href", "/createOrderUser/?phone="+phone);
+	}
+</script>
 
 <?php include __DIR__.'/../footer.php';?>
