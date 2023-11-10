@@ -28,6 +28,7 @@ function settingHomeThemeGodraw($input)
                         'telegram' => $dataSend['telegram'],
                         
                         'video_background_1' => $dataSend['video_background_1'],
+                        'video_trailer' => $dataSend['video_trailer'],
                         'company_name' => $dataSend['company_name'],
 
     					

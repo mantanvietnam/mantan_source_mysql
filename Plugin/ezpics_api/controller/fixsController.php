@@ -8,22 +8,26 @@ function fixPhotoroom($input)
 }
 function fixPass($input)
 {	
-	/*
 	global $controller;
 
-	$modelMember = $controller->loadModel('Members');
+	$modelManagerFile = $controller->loadModel('ManagerFile');
 
-	$listData = $modelMember->find()->all()->toList();
+	$listData = $modelManagerFile->find()->where(['width'=>0])->limit(5000)->page(1)->all()->toList();
 
 	foreach ($listData as $key => $value) {
-		$value->password = md5('123456');
-		$value->token = null;
-		$modelMember->save($value);
-	}
-	*/
+		if(!empty($value->link)){
+			$value->link = str_replace(' ', '%20', $value->link);
 
-	//$a = sendOTPZalo('0816560000', 123);
-	//debug($a);
+			$sizeImage = @getimagesize($value->link);
+
+			if(!empty($sizeImage[0])){
+				$value->width = (int) $sizeImage[0];
+				$value->height = (int) $sizeImage[1];
+
+				$modelManagerFile->save($value);
+			}
+		}
+	}
 }
 
 function fixWidthText($input)

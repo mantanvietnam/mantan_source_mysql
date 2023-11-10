@@ -112,7 +112,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_orders` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `agency_id` INT NOT NULL , 
     `total_price` INT NOT NULL , 
-    `status` TINYINT NOT NULL DEFAULT 0 , 
+    `status` TINYINT(4) NOT NULL DEFAULT "0" COMMENT "0: đơn hàng mới, 1: đã duyệt xuất kho, 2: đã nhập kho, 3: đã thanh toán, 4: hủy bỏ" , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     PRIMARY KEY (`id`), 
@@ -180,6 +180,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `user_combo_order_details` ( `id` INT NOT N
 
 $sqlInstallDatabase .= 'CREATE TABLE `user_order_combo_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_combo_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , `status` INT NULL DEFAULT '0' , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `user_order_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE `products`;';
 $sqlDeleteDatabase .= 'DROP TABLE `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_accounts`;';
@@ -195,3 +197,4 @@ $sqlDeleteDatabase .= 'DROP TABLE `agency_order_histories`;';
 $sqlDeleteDatabase .= 'DROP TABLE `user_combo_orders`;';
 $sqlDeleteDatabase .= 'DROP TABLE `user_combo_order_details`;';
 $sqlDeleteDatabase .= 'DROP TABLE `user_order_combo_histories`;';
+$sqlDeleteDatabase .= 'DROP TABLE `user_order_histories`;';

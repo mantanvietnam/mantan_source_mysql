@@ -12,7 +12,7 @@
         <div class="container">
             <div class="content-detail-gallery detail-cart">
                 <div class="title text-center" style="display: flex;">
-                    <span>Đơn hàng mua chưa thanh toán</span>
+                    <span>Đơn hàng đã hoàn thành</span>
                     <svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1181.45 57.9501H0.28125V46.8002C0.28125 21.1802 21.0513 0.410156 46.6713 0.410156H1135.05C1160.67 0.410156 1181.44 21.1802 1181.44 46.8002V57.9501H1181.45Z" fill="#1A3A89"/>
                     </svg>
@@ -33,39 +33,24 @@
                                         
                                         if(!empty($listData)){
                                             foreach ($listData as $key => $value) {
-                                                $status = '';
-                                                if($value->status == 1){
-                                                    $status = '<br/><a href="/addComboToStore/?id='.$value->id.'" type="button" class="btn btn-danger">Nhập kho</a>';
-                                                }
 
                                                 echo '  <tr>
                                                           <td scope="row">'.$value->id.'</td>
                                                           <td>';
                                                           
-                                                          if(!empty($value->combos)){
+                                                          if(!empty($value->combo)){
                                                             echo '<table class="noborder">';
-                                                            foreach ($value->combos as $keyCombo=>$combo) {
+                                                            foreach ($value->combo as $combo) {
                                                                 echo '  <tr>
-                                                                            <td>'.$combo->name;
-
-                                                                            if(!empty($combo->products)){
-                                                                                echo '<ul class="ml-4">';
-                                                                                foreach ($combo->products as $keyProduct => $product) {
-                                                                                    echo '<li>'.$product->name.' ('.$product->amount.')</li>';
-                                                                                }
-                                                                                echo '</ul>';
-                                                                            }
-
-
-                                                                echo        '</td>
-                                                                            <td width="150">'.number_format($combo->amount).' x '.number_format($combo->unit_price).'đ</td>
+                                                                            <td>'.$combo->name.'</td>
+                                                                            <td width="150">'.number_format($combo->amount).' x '.number_format($combo->price).'đ</td>
                                                                         </tr>';
                                                             }
                                                             echo '</table>';
                                                           }
 
                                                 echo      '</td>
-                                                          <td>'.number_format($value->total_price).$status.'</td>
+                                                          <td>'.number_format($value->total_price).'</td>
                                                           
                                                         </tr>';
                                             }

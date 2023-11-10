@@ -17,16 +17,7 @@ function listAgencyOrderAdmin($input)
     $order = ['AgencyOrders.id'=>'desc'];
 
     $query = $orderModel->find()
-        ->join([
-            [
-                'table' => 'agency_accounts',
-                'alias' => 'AgencyAccounts',
-                'type' => 'LEFT',
-                'conditions' => [
-                    'AgencyOrders.agency_id = AgencyAccounts.id',
-                ],
-            ],
-        ])
+        
         ->join([
             [
                 'table' => 'agency_accounts',
@@ -181,7 +172,7 @@ function acceptAgencyOrderAdminApi($input): array
 
         if (!empty($dataSend['id'])) {
             $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
-            $order->status = 1;
+            $order->status = 1; // 0: đơn hàng mới, 1: đã duyệt xuất kho, 2: đã nhập kho, 3: đã thanh toán, 4: hủy bỏ
             $order->updated_at = date('Y-m-d H:i:s');
 
 //            $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
@@ -255,7 +246,7 @@ function acceptAgencyOrderAdminApi($input): array
 
             $orderHistory->agency_id = $order->agency_id;
             $orderHistory->order_id = $order->id;
-            $orderHistory->note = 'Admin duyệt đơn hàng của đại lý';
+            $orderHistory->note = 'Admin duyệt xuất kho đơn hàng của đại lý';
             $orderHistory->created_at = date('Y-m-d H:i:s');
             $orderHistory->status = $order->status;
 
@@ -279,6 +270,7 @@ function payAgencyOrderAdminApi($input): array
     $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
     $agencyProductModel = $controller->loadModel('AgencyProducts');
     $productModel = $controller->loadModel('Products');
+    $agencyOrderHistoriesModel = $controller->loadModel('AgencyOrderHistories');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -286,7 +278,7 @@ function payAgencyOrderAdminApi($input): array
         if (!empty($dataSend['id'])) {
 
             $order = $orderModel->find()->where(['id' => $dataSend['id']])->first();
-            $order->status = 2;
+            $order->status = 3; // 0: đơn hàng mới, 1: đã duyệt xuất kho, 2: đã nhập kho, 3: đã thanh toán, 4: hủy bỏ
             $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
 
             if (!empty($listItem)) {
@@ -321,6 +313,17 @@ function payAgencyOrderAdminApi($input): array
                 $agencyProductModel->saveMany($listAgencyProduct);
             }
             $orderModel->save($order);
+
+            // lưu lịch sử thay đổi trạng thái đơn hàng
+            $orderHistory = $agencyOrderHistoriesModel->newEmptyEntity();
+
+            $orderHistory->agency_id = $order->agency_id;
+            $orderHistory->order_id = $order->id;
+            $orderHistory->note = 'Admin đã xử lý thanh toán đơn hàng của đại lý';
+            $orderHistory->created_at = date('Y-m-d H:i:s');
+            $orderHistory->status = $order->status;
+
+            $agencyOrderHistoriesModel->save($orderHistory);
 
             return apiResponse(0, 'Cập nhật thành công');
         }
