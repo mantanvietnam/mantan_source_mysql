@@ -47,7 +47,7 @@ function getInfoSchoolAPI($input)
         // album ảnh thành tích nhà trường
         $data_value['list_image_achievement'] = [];
         if(!empty($data_value['id_album_achievement'])){
-            $album_achievement = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['id_album_achievement']])->all()->toList();
+            $album_achievement = $modelAlbuminfos->find()->where(['id_album'=>(int) $data_value['id_album_achievement']])->order(['id'=>'desc'])->all()->toList();
 
             if(!empty($album_achievement)){
                 foreach ($album_achievement as $item) {

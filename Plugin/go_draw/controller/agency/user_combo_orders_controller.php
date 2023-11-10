@@ -612,11 +612,11 @@ function orderUserComboDone($input)
 	global $session;
 
 	if(!empty($session->read('infoUser'))){
-	    $metaTitleMantan = 'Đơn hàng hoàn thành';
+	    $metaTitleMantan = 'Đơn hàng đang xử lý';
 
-		$modelUserOrders = $controller->loadModel('UserOrders');
-	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
-	    $modelProducts = $controller->loadModel('Products');
+		$modelUserComboOrders = $controller->loadModel('UserComboOrders');
+		$modelUserComboOrderDetails = $controller->loadModel('UserComboOrderDetails');
+		$modelCombos = $controller->loadModel('Combos');
 		
 		$user = $session->read('infoUser');
 
@@ -626,23 +626,23 @@ function orderUserComboDone($input)
 		if($page<1) $page = 1;
 		$order = array('id'=>'desc');
 
-		$listData = $modelUserOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		$listData = $modelUserComboOrders->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 		
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
-				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
+				$listData[$key]->combo = $modelUserComboOrderDetails->find()->where(['order_combo_id'=>$value->id])->all()->toList();
 
-				if(!empty($listData[$key]->product)){
-					foreach ($listData[$key]->product as $keyProduct=>$product) {
-						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+				if(!empty($listData[$key]->combo)){
+					foreach ($listData[$key]->combo as $keyCombo=>$combo) {
+						$infoCombo = $modelCombos->find()->where(['id'=>$combo->combo_id])->first();
 
-						$listData[$key]->product[$keyProduct]->name = @$infoProduct->name;
+						$listData[$key]->combo[$keyCombo]->name = @$infoCombo->name;
 					}
 				}
 			}
 		}
 
-		$totalData = $modelUserOrders->find()->where($conditions)->all()->toList();
+		$totalData = $modelUserComboOrders->find()->where($conditions)->all()->toList();
 
 	    
 	    $totalData = count($totalData);

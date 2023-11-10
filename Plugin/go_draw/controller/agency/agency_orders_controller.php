@@ -113,7 +113,7 @@ function createOrder($input)
 	    	$order = $modelAgencyOrders->newEmptyEntity();
 
 	    	$order->agency_id = $session->read('infoUser')->id;
-	    	$order->status = 0; // 0: đơn hàng mới, 1: đã duyệt, 2: đã thanh toán, 3: hủy bỏ
+	    	$order->status = 0; // 0: đơn hàng mới, 1: đã duyệt xuất kho, 2: đã nhập kho, 3: đã thanh toán, 4: hủy bỏ
 	    	$order->created_at  = date('Y-m-d H:i:s');
 	    	$order->updated_at  = date('Y-m-d H:i:s');
 	    	$order->total_price  = $total_price;
@@ -275,7 +275,9 @@ function orderAgencyProcess($input)
 		
 		$user = $session->read('infoUser');
 
-		$conditions = array('status'=>1, 'agency_id'=>$user->id);
+		$conditions = array('agency_id'=>$user->id);
+		$conditions['OR'] = [['status' => 1], ['status' => 2]];
+
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;
@@ -453,6 +455,21 @@ function orderAgencyDone($input)
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function addComboToStore($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Nhập hàng vào kho';
 	}else{
 		return $controller->redirect('/login');
 	}

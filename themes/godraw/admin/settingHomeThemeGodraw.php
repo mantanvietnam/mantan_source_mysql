@@ -72,6 +72,13 @@
 
               <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-fullname">Video trailer</label>
+                  <?php showUploadFile('video_trailer','video_trailer', @$setting['video_trailer'],2);?>
+                </div>
+              </div>
+
+              <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="mb-3">
                   <label class="form-label" for="basic-default-fullname">Tên công ty</label>
                   <input type="text" class="form-control" name="company_name" value="<?php echo @$setting['company_name'];?>" />
                 </div>

@@ -120,12 +120,14 @@ function createOrderUser($input)
 	    	$modelUserOrders = $controller->loadModel('UserOrders');
 	    	$modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    	$modelAgencyProducts = $controller->loadModel('AgencyProducts');
+	    	$modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
 
 	    	$total_price = 0;
 	    	foreach ($infoCart as $key => $value) {
 	    		$total_price += $value->price * $value->amount_sell;
 	    	}
 
+	    	// tạo đơn hàng mới
 	    	$order = $modelUserOrders->newEmptyEntity();
 
 	    	$order->user_id = 0;
@@ -149,6 +151,7 @@ function createOrderUser($input)
 
 	    		$modelUserOrderDetails->save($orderDetail);
 
+	    		// trừ hàng hóa trong kho
 	    		$infoProduct = $modelAgencyProducts->find()->where(['agency_id'=>(int) $session->read('infoUser')->id, 'product_id'=>$value->id])->first();
 
 	    		if(!empty($infoProduct)){
@@ -157,6 +160,17 @@ function createOrderUser($input)
 		    		$modelAgencyProducts->save($infoProduct);
 		    	}
 	    	}
+
+	    	// lưu lịch sử tạo đơn
+	    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
+
+	    	$orderHistory->agency_id = $session->read('infoUser')->id;
+	    	$orderHistory->order_id = $order->id;
+	    	$orderHistory->note = 'Bán lẻ vật tư cho khách hàng';
+	    	$orderHistory->created_at = date('Y-m-d H:i:s');
+	    	$orderHistory->status = $order->status;
+
+	    	$modelUserOrderHistories->save($orderHistory);
 	    }
 
 	    $session->write('cartUser', []);
@@ -312,6 +326,7 @@ function checkoutOrderUser($input)
 	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    $modelProducts = $controller->loadModel('Products');
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
+	    $modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
 
 	    if(!empty($_GET['id'])){
 	    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $_GET['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
@@ -342,6 +357,17 @@ function checkoutOrderUser($input)
 						}
 					}
 				}
+
+				// lưu lịch sử cập nhập đơn
+		    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
+
+		    	$orderHistory->agency_id = $session->read('infoUser')->id;
+		    	$orderHistory->order_id = $infoOrder->id;
+		    	$orderHistory->note = 'Hoàn thành đơn bán lẻ vật tư cho khách hàng';
+		    	$orderHistory->created_at = date('Y-m-d H:i:s');
+		    	$orderHistory->status = $infoOrder->status;
+
+		    	$modelUserOrderHistories->save($orderHistory);
 
 				return $controller->redirect('/orderUserProcess/?status=checkoutOrderDone');
 	    	}else{

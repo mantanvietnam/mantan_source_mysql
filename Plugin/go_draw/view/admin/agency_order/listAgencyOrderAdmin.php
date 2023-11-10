@@ -38,8 +38,9 @@
                         <select name="status" class="form-select color-dropdown">
                             <option value="">Tất cả</option>
                             <option value="0" <?php if(isset($_GET['status']) && $_GET['status'] == 0) echo 'selected';?> >Đơn hàng mới</option>
-                            <option value="1" <?php if(isset($_GET['status']) && $_GET['status'] == 1) echo 'selected';?> >Đã duyệt</option>
-                            <option value="2" <?php if(isset($_GET['status']) && $_GET['status'] == 2) echo 'selected';?> >Đã thanh toán</option>
+                            <option value="1" <?php if(isset($_GET['status']) && $_GET['status'] == 1) echo 'selected';?> >Đã xuất kho</option>
+                            <option value="2" <?php if(isset($_GET['status']) && $_GET['status'] == 2) echo 'selected';?> >Đã nhập kho</option>
+                            <option value="3" <?php if(isset($_GET['status']) && $_GET['status'] == 3) echo 'selected';?> >Đã thanh toán</option>
                         </select>
                     </div>
                 </div>

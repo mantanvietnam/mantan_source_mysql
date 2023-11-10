@@ -535,6 +535,37 @@ function likeProduct($input){
         $controller->redirect('/');
     }
 }
+
+function addReview(){
+     global $controller;
+    global $session;
+ 
+
+    $metaTitleMantan = 'Tất cả sản phẩm yêu thích';
+
+    $modelReview = $controller->loadModel('Reviews');
+
+    if(!empty($session->read('infoUser'))){
+        if(!empty($_GET['note'])){
+            $infoUser = $session->read('infoUser');
+
+            $data = $modelReview->newEmptyEntity();
+
+            $data->id_user = $infoUser->id;
+            $data->note = @$_GET['note']; 
+            $data->status = 'lock';
+
+
+            $modelReview->save($data);
+
+            return array('code'=>1, 'mess'=>"Bạn gửi thành công");
+        }else{
+           return array('code'=>0, 'mess'=>"Bạn chưa nhập nội dung");
+        }
+    }else{
+       return array('code'=>0, 'mess'=>"Bạn chưa đăng nhập");
+    }
+}
 ?>
 
 

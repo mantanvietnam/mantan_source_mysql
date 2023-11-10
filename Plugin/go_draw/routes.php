@@ -19,6 +19,7 @@ global $routesPlugin;
 	$routesPlugin['addToCart']= 'go_draw/view/agency/agency_orders/addToCart.php';
 	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
 	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';
+    $routesPlugin['addComboToStore']= 'go_draw/view/agency/agency_orders/addComboToStore.php';
 
 	$routesPlugin['orderAgencyWait']= 'go_draw/view/agency/agency_orders/orderAgencyWait.php';
     $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
@@ -45,6 +46,7 @@ global $routesPlugin;
     $routesPlugin['createOrderComboUser']= 'go_draw/view/agency/user_combo_orders/createOrderComboUser.php';
     $routesPlugin['orderUserComboProcess']= 'go_draw/view/agency/user_combo_orders/orderUserComboProcess.php';
     $routesPlugin['processUserComboOrder']= 'go_draw/view/agency/user_combo_orders/processUserComboOrder.php';
+    $routesPlugin['orderUserComboDone']= 'go_draw/view/agency/user_combo_orders/orderUserComboDone.php';
 
     // người dùng lẻ
     $routesPlugin['register']= 'go_draw/view/home/user/register.php';
