@@ -59,6 +59,8 @@ function getInfoSchoolAPI($input)
                 }
             }
         }
+
+        shuffle($data_value['list_image_achievement']);
     }
 
     $conditions = array('type' => 'school_year');
