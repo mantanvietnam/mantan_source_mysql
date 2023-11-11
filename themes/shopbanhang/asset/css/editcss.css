@@ -373,6 +373,14 @@ header{
     width: 51%;
 }
 
+.dropdown-image-item-title{
+    color: #000;
+}
+
+#section-order{
+    margin-top: 36px;
+}
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;
@@ -428,7 +436,17 @@ header{
         width: 100% !important;
         height: auto !important;
     }
-   
+
+    #section-describe .describe-description img{
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .info-col-right{
+        margin-top: 80px;
+    }
+    
+
 }
 /* .showContent {
     line-height: 1em;
