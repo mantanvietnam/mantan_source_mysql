@@ -29,31 +29,31 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="group-icon">
                     <div class="group-icon-item">
                         <div class="icon-item">
-                            <img src="../asset/image/place.png" alt="">
+                            <img src="<?php echo $urlThemeActive ?>/asset/image/place.png" alt="">
                         </div>
 
                         <div class="text-item">
-                            <p><?php echo $setting['phone'] ?></p>
+                            <p><?php echo $contactSite['address'] ?></p>
                         </div>
                     </div>
 
                     <div class="group-icon-item">
                         <div class="icon-item">
-                            <img src="../asset/image/email.png" alt="">
+                            <img src="<?php echo $urlThemeActive ?>/asset/image/email.png" alt="">
                         </div>
 
                         <div class="text-item">
-                            <p><?php echo $setting['email'] ?></p>
+                            <p><?php echo $contactSite['email'] ?></p>
                         </div>
                     </div>
 
                     <div class="group-icon-item">
                         <div class="icon-item">
-                            <img src="../asset/image/phone.png" alt="">
+                            <img src="<?php echo $urlThemeActive ?>/asset/image/phone.png" alt="">
                         </div>
 
                         <div class="text-item">
-                            <p><?php echo $setting['phone'] ?></p>
+                            <p><?php echo $contactSite['phone'] ?></p>
                         </div>
                     </div>
                 </div>

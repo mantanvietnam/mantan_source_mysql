@@ -381,6 +381,66 @@ header{
     margin-top: 36px;
 }
 
+/* Chính sách bảo hành */
+#content-policy h4{
+    font-weight: 400;
+}
+
+#content-policy ol li{
+    font-size: 14px;
+    font-weight: 200 !important;
+}
+
+#content-policy ol{
+    line-height: 1.4;
+}
+
+#content-policy ul li{
+    font-size: 14px;
+    font-weight: 200 !important;
+}
+
+#content-policy ul{
+    line-height: 1.4;
+}
+
+.active-policy p{
+    font-weight: 200;
+}
+
+.detail-policy .end-text{
+    font-weight: 400;
+}
+
+#policy .nav-tabs li.active{
+    /* border-bottom: 2px solid #008ACE; */
+}
+
+#policy .nav-tabs a.active{
+    color: #008ACE !important;
+    border-bottom: 2px solid #008ACE;
+    display: block;
+
+}
+
+#policy .nav-tabs a{
+    display: block;
+}
+
+.menu-form-search .form-control{
+    font-weight: 200;
+    font-size: 14px;
+}
+
+/* #policy .nav-tabs li a:focus{
+    border-bottom: 2px solid #008ACE;
+} */
+
+#policy .nav-tabs li{
+    width: 50%;
+    text-align: center;
+}
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;

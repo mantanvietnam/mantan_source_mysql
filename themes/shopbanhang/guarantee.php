@@ -8,8 +8,8 @@
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">chính sách bảo mật </a></li>
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Bảo hành </a></li>
                 </ul>
             </div>
         </section>
@@ -20,7 +20,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a aria-selected="true" data-bs-toggle="tab" href="#content-policy" class="active">Chính sách bảo hành</a></li>
                     <li><a data-bs-toggle="tab" href="#video-policy">Hướng dẫn kích hoạt bảo hành</a></li>
-                    <li><a data-bs-toggle="tab" href="#search-polity">Tra cứu bảo hành</a></li>
+                    <!-- <li><a data-bs-toggle="tab" href="#search-polity">Tra cứu bảo hành</a></li> -->
                 </ul>
 
                 <div class="tab-content">
@@ -42,7 +42,7 @@
                                 allowfullscreen></iframe>
                         </div>
                     </div>
-                    <div id="search-polity" class="tab-pane fade">
+                    <!-- <div id="search-polity" class="tab-pane fade">
                         <div class="detail-search">
                             <h3>Tra cứu thông tin bảo hành</h3>
 
@@ -63,7 +63,7 @@
                                 <button>Tìm kiếm</button>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
