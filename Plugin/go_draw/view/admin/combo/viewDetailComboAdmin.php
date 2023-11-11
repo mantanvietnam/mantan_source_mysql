@@ -29,7 +29,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Giá</label>
-                                            <input required type="number" class="form-control" name="price" id="price" value="<?php echo (int)$data->price;?>" />
+                                            <input required type="number" class="form-control" name="price" id="price" value="<?php echo (int)$data->price;?>" disabled/>
                                         </div>
                                     </div>
 
@@ -231,10 +231,10 @@
         }
       }
       const name = $('#name').val();
-      const price = $('#price').val();
+      // const price = $('#price').val();
       const image = $('#image').val();
       const id = $('#id').val();
-      const data = {id, name, price, image, productList};
+      const data = {id, name, image, productList};
       const token = "<?php echo $csrfToken;?>";
 
       $.ajax({
@@ -246,6 +246,8 @@
           if (result.code) {
             $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
           } else {
+            const price = result.data.price;
+            $('#price').val(price);
             $('#alert-message').append('<p class="text-success">Lưu dữ liệu thành công</p>');
           }
         },

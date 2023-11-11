@@ -94,13 +94,14 @@ $(document).ready(function(){
       prevArrow: '<a href="javascript:void(0)" class="arr-left"><img src="images/slide-left.svg" class="img-fluid" alt=""></a>',
 	});
 
-	 $('.full-home-slider').slick({
+	$('.full-home-slider').slick({
 	  slidesToShow: 1,
 	  slidesToScroll: 1,
 	  arrows: false,
 	  // infinite: false, 
 	  nextArrow: '',
       prevArrow: '',
+      vertical: true,
 	});
 
 	$('.full-home-slider').on('wheel', (function(e) {
@@ -112,5 +113,4 @@ $(document).ready(function(){
 	    $(this).slick('slickNext');
 	  }
 	}));
-
 })

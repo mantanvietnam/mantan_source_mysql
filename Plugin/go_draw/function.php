@@ -32,6 +32,30 @@ $menus[0]['sub'][4] = array('title' => 'Thành viên',
     'permission' => 'listUserAdmin'
 );
 
+$menus[0]['sub'][5] = array('title' => 'Lịch sử đơn hàng',
+    'url' => '/',
+    'classIcon' => 'bx bx-cog',
+    'permission' => 'listOrderHistoryAdmin',
+    'sub' => array(
+        array('title' => 'Đơn hàng của đại lý',
+            'url' => '/plugins/admin/go_draw-view-admin-order_history-listAgencyOrderHistoryAdmin.php',
+            'classIcon' => 'bx bx-category',
+            'permission' => 'listAgencyOrderHistoryAdmin',
+        ),
+        array('title' => 'Đơn hàng của user',
+            'url' => '/plugins/admin/go_draw-view-admin-order_history-listUserOrderHistoryAdmin.php',
+            'classIcon' => 'bx bx-category',
+            'permission' => 'listUserOrderHistoryAdmin',
+        ),
+        array('title' => 'Đơn hàng combo của user',
+            'url' => '/plugins/admin/go_draw-view-admin-order_history-listUserOrderComboHistoryAdmin.php',
+            'classIcon' => 'bx bx-category',
+            'permission' => 'listUserOrderComboHistoryAdmin',
+        ),
+
+    )
+);
+
 $menus[0]['sub'][10] = array('title' => 'Cài đặt',
     'url' => '/',
     'classIcon' => 'bx bx-cog',

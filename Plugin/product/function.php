@@ -39,6 +39,11 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
                       ),
 									)
 						);
+$menus[0]['sub'][11]= array( 'title'=>'Review sản phẩm',
+              'url'=>'/plugins/admin/product-view-admin-product-listReview.php',
+              'classIcon'=>'bx bx-cart-add',
+              'permission'=>'listReview'
+            );
 
 
 addMenuAdminMantan($menus);

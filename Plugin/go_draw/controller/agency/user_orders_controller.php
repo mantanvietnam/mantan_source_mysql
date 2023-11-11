@@ -121,16 +121,29 @@ function createOrderUser($input)
 	    	$modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    	$modelAgencyProducts = $controller->loadModel('AgencyProducts');
 	    	$modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
+	    	$modelUsers = $controller->loadModel('Users');
 
 	    	$total_price = 0;
 	    	foreach ($infoCart as $key => $value) {
 	    		$total_price += $value->price * $value->amount_sell;
 	    	}
 
+	    	$user_id = 0;
+	    	if(!empty($_GET['phone'])){
+	    		$_GET['phone']= str_replace(array(' ','.','-'), '', @$_GET['phone']);
+				$_GET['phone'] = str_replace('+84','0',$_GET['phone']);
+
+				$checkPhone = $modelUsers->find()->where(array('username'=>$_GET['phone']))->first();
+
+				if(!empty($checkPhone)){
+					$user_id = $checkPhone->id;
+				}
+	    	}
+
 	    	// tạo đơn hàng mới
 	    	$order = $modelUserOrders->newEmptyEntity();
 
-	    	$order->user_id = 0;
+	    	$order->user_id = $user_id;
 	    	$order->agency_id = $session->read('infoUser')->id;
 	    	$order->total_price  = $total_price;
 	    	$order->status = 0; // 0: đơn hàng mới, 2: đã thanh toán, 3: hủy bỏ

@@ -66,7 +66,7 @@
                  $status= 'Đơm mới';
                 }elseif($item->status=='browser'){
                    $status= 'Đã duyệt';
-                }elseif($item->status=='deilvery'){
+                }elseif($item->status=='delivery'){
                      $status= 'Đang giao';
                 }elseif($item->status=='done'){
                    $status= 'Đã xong';

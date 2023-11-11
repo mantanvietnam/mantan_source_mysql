@@ -470,6 +470,114 @@ function addComboToStore($input)
 
 	if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Nhập hàng vào kho';
+
+	    $modelAgencyOrders = $controller->loadModel('AgencyOrders');
+	    $modelAgencyOrderDetails = $controller->loadModel('AgencyOrderDetails');
+	    $modelCombos = $controller->loadModel('Combos');
+	    $modelComboProducts = $controller->loadModel('ComboProducts');
+	    $modelProducts = $controller->loadModel('Products');
+	    $modelAgencyOrderHistories = $controller->loadModel('AgencyOrderHistories');
+	    $modelAgencyCombos = $controller->loadModel('AgencyCombos');
+	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
+		
+		$user = $session->read('infoUser');
+
+		if(!empty($_GET['id'])){
+			$order = $modelAgencyOrders->find()->where(['id' => $_GET['id'], 'agency_id'=>$user->id])->first();
+
+			if(!empty($order) && $order->status==1){
+	            $order->status = 2; // 0: đơn hàng mới, 1: đã duyệt xuất kho, 2: đã nhập kho, 3: đã thanh toán, 4: hủy bỏ
+	            $order->updated_at = date('Y-m-d H:i:s');
+
+	            $modelAgencyOrders->save($order);
+
+	            // lưu lịch sử thay đổi trạng thái đơn hàng
+	            $orderHistory = $modelAgencyOrderHistories->newEmptyEntity();
+
+	            $orderHistory->agency_id = $order->agency_id;
+	            $orderHistory->order_id = $order->id;
+	            $orderHistory->note = 'Đại lý đã xác nhận nhập hàng vào kho';
+	            $orderHistory->created_at = date('Y-m-d H:i:s');
+	            $orderHistory->status = $order->status;
+
+	            $modelAgencyOrderHistories->save($orderHistory);
+
+	            // cộng hàng vào kho
+				$listItem = $modelAgencyOrderDetails->find()->where(['order_id' => $order->id])->all();
+
+	           	if (!empty($listItem)) {
+	               	$listAgencyProduct = [];
+	               	
+	               	foreach ($listItem as $item) {
+	                   // thêm combo vào kho của đại lý
+	                   $checkComboAgency = $modelAgencyCombos->find()->where(['combo_id'=>$item->combo_id, 'agency_id'=>$order->agency_id])->first();
+
+	                   if(!empty($checkComboAgency)){
+	                       $checkComboAgency->amount += $item->amount;
+	                       $checkComboAgency->price = $item->unit_price;
+	                   }else{
+	                       $checkComboAgency = $modelAgencyCombos->newEmptyEntity();
+
+	                       $checkComboAgency->agency_id = $order->agency_id;
+	                       $checkComboAgency->combo_id = $item->combo_id;
+	                       $checkComboAgency->amount = $item->amount;
+	                       $checkComboAgency->created_at = date('Y-m-d H:i:s');
+	                       $checkComboAgency->updated_at = date('Y-m-d H:i:s');
+	                       $checkComboAgency->price = $item->unit_price;
+	                   }
+
+	                   $modelAgencyCombos->save($checkComboAgency);
+
+	                   // thêm sản phẩm vào kho của đại lý
+	                   $listProduct = $modelProducts->find()
+	                       ->join([
+	                           [
+	                               'table' => 'combo_products',
+	                               'alias' => 'ComboProducts',
+	                               'type' => 'LEFT',
+	                               'conditions' => [
+	                                   'ComboProducts.product_id = Products.id',
+	                               ],
+	                           ],
+
+	                       ])->select([
+	                           'Products.id',
+	                           'Products.price',
+	                           'ComboProducts.amount',
+	                       ])->where(["ComboProducts.combo_id" => $item->combo_id])
+	                       ->all();
+
+	                   foreach ($listProduct as $product) {
+	                       $newItem = $modelAgencyProducts->find()->where([
+	                           'agency_id' => $order->agency_id,
+	                           'product_id' => $product->id
+	                       ])->first();
+
+	                       if (empty($newItem)) {
+	                           $newItem = $modelAgencyProducts->newEmptyEntity();
+
+	                           $newItem->amount = 0;
+	                       }
+
+	                       $newItem->agency_id = $order->agency_id;
+	                       $newItem->product_id = $product->id;
+	                       $newItem->price = $product->price;
+	                       $newItem->amount += $item->amount * $product->ComboProducts['amount'];
+
+	                       $listAgencyProduct[] = $newItem;
+	                   }
+	               	}
+
+	               	$modelAgencyProducts->saveMany($listAgencyProduct);
+
+	               	return $controller->redirect('/orderAgencyProcess');
+	           	}
+	        }else{
+	        	return $controller->redirect('/orderAgencyProcess');
+	        }
+        }else{
+        	return $controller->redirect('/orderAgencyProcess');
+        }
 	}else{
 		return $controller->redirect('/login');
 	}

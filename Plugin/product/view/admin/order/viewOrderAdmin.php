@@ -103,7 +103,7 @@
           <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=delivery&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn giao hàng đơn hàng này không?');" class="btn btn-primary">giao hàng </a></div>
           <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
 
-        <?php }elseif($order->status=='deilvery'){ ?>
+        <?php }elseif($order->status=='delivery'){ ?>
           <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=done&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn hoàng thành đơn này?');" class="btn btn-primary">đã xong</a></div>
           <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
           <?php }elseif($order->status=='done'){
