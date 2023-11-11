@@ -16,10 +16,10 @@ $info = $session->read('infoUser');
                                 <div class="container">
                                     <div class="collapse navbar-collapse show" id="navbarNav">
                                         <ul class="nav nav-tabs">
-                                            <li class="nav-item sp-sale">
+                                            <!-- <li class="nav-item sp-sale">
                                                 <a class="nav-link active" data-bs-toggle="tab" href="#super-sale">Siêu
                                                     sale 9.9</a>
-                                            </li>
+                                            </li> -->
 
                                             <li class="nav-item accordion" id="accordionExample">
                                                 <a class="nav-link accordion-button" data-bs-toggle="collapse"
@@ -28,7 +28,7 @@ $info = $session->read('infoUser');
                                                     tôi</a>
                                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                                     data-bs-parent="#accordionExample">
-                                                    <a class="dropdown-item" data-bs-toggle="tab" href="#super-sale">Hồ
+                                                    <a class="dropdown-item" href="/infoUser">Hồ
                                                         sơ</a>
                                                     <a class="dropdown-item" href="/editInfoUser">Chỉnh sửa thông
                                                         tin</a>
@@ -42,8 +42,12 @@ $info = $session->read('infoUser');
                                                 <a class="nav-link" data-bs-toggle="tab" href="#my-order">Đơn mua</a>
                                             </li>
 
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#my-product">Sản phẩm</a>
+                                            <li class="nav-item accordion" id="accordionExample2">
+                                                <a class="nav-link accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" href="#" role="button">Sản phẩm</a>
+                                                <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample2">
+                                                    <a class="dropdown-item" href="/viewProduct">Sản phẩm đã xem</a>
+                                                    <a class="dropdown-item" href="/likeProduct">Sản phẩm đã yêu thích</a>
+                                                </div>
                                             </li>
 
                                             <li class="nav-item">

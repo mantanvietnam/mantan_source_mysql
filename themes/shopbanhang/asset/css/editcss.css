@@ -387,6 +387,12 @@ header{
     }
 }
 
+@media(min-width: 768px){
+    .menu-footer ul{
+        display: block !important;
+    }
+}
+
 @media(max-width: 445px) {
     .product-select-box .product-select-left .heading-check {
         font-size: 12px
@@ -449,10 +455,19 @@ header{
     /* footer */
     .footer-menu-name{
         margin-bottom: 13px;
+        position: relative;
     }
 
-    .footer-menu-name footer{
-        
+    .footer-menu-name.footer-menu-name1::before{
+        content: "+";
+        position: absolute;
+        right: 0;
+    }
+
+    .footer-menu-name.footer-menu-name2::before{
+        content: "+";
+        position: absolute;
+        right: 0;
     }
 }
 /* .showContent {

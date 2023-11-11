@@ -24,7 +24,7 @@ getHeader();
                                         <table class="table table-bordered">
                                             <thead>
                                               <tr class="">
-                                                <th>địa chỉ nhận hàng </th>
+                                                <th>Địa chỉ nhận hàng </th>
                                                 <th>Số tiền</th>
                                                 <th>Thời gian tạo</th>
                                                 <th>Trạng thái</th>
@@ -37,7 +37,7 @@ getHeader();
                                                   foreach ($listData as $item) {
                                                     $status= '';
                                                    if($item->status=='new'){ 
-                                                     $status= 'Đơm mới';
+                                                     $status= 'Đơns mới';
                                                     }elseif($item->status=='browser'){
                                                        $status= 'Đã duyệt';
                                                     }elseif($item->status=='delivery'){

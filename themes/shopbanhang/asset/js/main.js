@@ -11,17 +11,17 @@ $(document).ready(function() {
 
 $(document).ready(function(){
   
-  // $("#modal-cart").modal('show');
-  // // 
-  // $('.menu-footer ul').hide();
+  $("#modal-cart").modal('show');
+  // 
+  $('.menu-footer ul').hide();
 
-  // $('.footer-menu-name1').on("click", function(){
-  //   $('.menu-footer1 ul').slideToggle();
-  // });
+  $('.footer-menu-name1').on("click", function(){
+    $('.menu-footer1 ul').slideToggle();
+  });
 
-  // $('.footer-menu-name2').on("click", function(){
-  //   $('.menu-footer2 ul').slideToggle();
-  // });
+  $('.footer-menu-name2').on("click", function(){
+    $('.menu-footer2 ul').slideToggle();
+  });
 
   
 });
