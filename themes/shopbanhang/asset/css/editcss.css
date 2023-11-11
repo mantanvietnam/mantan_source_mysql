@@ -408,7 +408,7 @@ header{
     .menu-form-search input{
         font-size: 14px;
         font-weight: 200;
-        width: 59%;
+        width: 77%;
         border-radius: 18px;
     }
 
@@ -446,7 +446,14 @@ header{
         margin-top: 80px;
     }
     
+    /* footer */
+    .footer-menu-name{
+        margin-bottom: 13px;
+    }
 
+    .footer-menu-name footer{
+        
+    }
 }
 /* .showContent {
     line-height: 1em;

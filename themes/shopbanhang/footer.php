@@ -42,8 +42,8 @@ $infoUser = $session->read('infoUser');
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-center">
-                        <div class="menu-footer">
-                            <div class="footer-menu-name">
+                        <div class="menu-footer menu-footer1">
+                            <div class="footer-menu-name footer-menu-name1">
                                 <p>Danh mục</p>
                             </div>
                             <ul>
@@ -58,8 +58,8 @@ $infoUser = $session->read('infoUser');
                             </ul>
                         </div>
 
-                        <div class="menu-footer">
-                            <div class="footer-menu-name">
+                        <div class="menu-footer menu-footer2">
+                            <div class="footer-menu-name footer-menu-name2">
                                 <p>Dịch vụ khách hàng</p>
                             </div>
                             <ul>
