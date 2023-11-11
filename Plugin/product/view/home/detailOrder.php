@@ -1,1 +1,1 @@
-<?php getFileTheme('product/detailOrder.php');?>
+<?php getFileTheme('customers/detailOrder.php');?>

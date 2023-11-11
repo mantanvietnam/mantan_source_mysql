@@ -113,7 +113,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                             <div class="banner-category">
                                 <div class="banner-category-image">
-                                    <img src="<?php echo $urlThemeActive ?>asset/image/banner-cate.png" alt="">
+                                    <img src="<?php echo @$setting['baner_sele'] ?>" alt="">
                                 </div>
                             </div>
 
