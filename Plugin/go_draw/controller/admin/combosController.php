@@ -126,11 +126,12 @@ function updateComboAdminApi($input): array
 
     $comboModel = $controller->loadModel('Combos');
     $comboProductModel = $controller->loadModel('ComboProducts');
+    $productModel = $controller->loadModel('Products');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
 
-        if (empty($dataSend['name']) || empty($dataSend['price'])) {
+        if (empty($dataSend['name'])) {
             return apiResponse(2, 'Gửi thiếu dữ liệu');
         }
 
@@ -145,11 +146,12 @@ function updateComboAdminApi($input): array
             $combo = $comboModel->newEmptyEntity();
         }
         $combo->name = $dataSend['name'];
-        $combo->price = $dataSend['price'];
+        $combo->price = 0;
         $combo->image = $dataSend['image'] ?? $defaultImage;
         $combo->slug = createSlugMantan($dataSend['name']);
         $combo->status = 1;
         $comboModel->save($combo);
+        $totalPrice = 0;
 
         if (!empty($dataSend['productList']) && is_array($dataSend['productList'])) {
             foreach ($dataSend['productList'] as $item) {
@@ -167,8 +169,12 @@ function updateComboAdminApi($input): array
                     $newComboProduct->amount = $item['amount'];
                     $comboProductModel->save($newComboProduct);
                 }
+                $product = $productModel->find()->where(['id' => $item['productId']])->first();
+                $totalPrice += $product->price * $item['amount'];
             }
         }
+        $combo->price = $totalPrice;
+        $comboModel->save($combo);
 
         return apiResponse(0, 'Cập nhật thành công', $combo);
     }
