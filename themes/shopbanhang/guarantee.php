@@ -35,7 +35,8 @@
                     <div id="video-policy" class="tab-pane fade">
                         <div class="detail-video">
                             <h3>Video hướng dẫn kích hoạt bảo hành</h3>
-                            <p><?php echo $setting['title_video']; ?></p>
+                            <!-- <p><?php echo $setting['title_video']; ?></p> -->
+                            <p>Dưới đây là video hướng dẫn kích hoạt bảo hành, <br>khách hàng vui lòng làm đúng các bước được hướng dẫn trong video.</p>
                         </div>
                         <div class="box-video">
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $setting['title']; ?>?si=HyWfputq73ME4I7e&amp;start=23" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
