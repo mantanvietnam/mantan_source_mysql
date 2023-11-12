@@ -405,3 +405,60 @@ function updateStatusWithdrawRequestAdmin($input)
 
     return $controller->redirect('/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php');
 }
+
+function updateUserCoinAdmin($input)
+{
+    global $controller;
+    global $transactionType;
+    global $isRequestPost;
+    global $metaTitleMantan;
+
+    $userModel = $controller->loadModel('Users');
+    $transactionModel = $controller->loadModel('Transactions');
+    $metaTitleMantan = 'Thông tin người dùng';
+    $mess = '';
+
+    if (!empty($_GET['id']) && !empty($_GET['type'])) {
+        $user = $userModel->find()->where([
+            'id' => $_GET['id']
+        ])->first();
+
+        if ($isRequestPost && $user) {
+            $dataSend = $input['request']->getData();
+            if (!empty($dataSend['coin']) && !empty($dataSend['note'])) {
+                $newTransaction = $transactionModel->newEmptyEntity();
+
+                if ($_GET['type'] === 'plus') {
+                    $user->total_coin += $dataSend['coin'];
+                    $newTransaction->user_id = $user->id;
+                    $newTransaction->amount = $dataSend['coin'];
+                    $newTransaction->type = $transactionType['add'];
+                    $newTransaction->name = 'Admin cộng coin cho người dùng';
+                    $newTransaction->description = $dataSend['note'];
+
+                    $userModel->save($user);
+                    $transactionModel->save($newTransaction);
+                } else if ($_GET['type'] === 'minus') {
+                    $user->total_coin -= $dataSend['coin'];
+                    $newTransaction->user_id = $user->id;
+                    $newTransaction->amount = $dataSend['coin'];
+                    $newTransaction->type = $transactionType['subtract'];
+                    $newTransaction->name = 'Admin trừ coin của người dùng';
+                    $newTransaction->description = $dataSend['note'];
+
+                    $userModel->save($user);
+                    $transactionModel->save($newTransaction);
+                }
+
+                $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+            } else {
+                $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+            }
+        }
+    } else {
+        $user = $userModel->newEmptyEntity();
+    }
+
+    setVariable('data', $user);
+    setVariable('mess', $mess);
+}
