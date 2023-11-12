@@ -958,6 +958,7 @@ function delelelike(){
                     $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
                     $('#place-detail .button-like button').css('color', '#3F4042')
                     $('.button-like i').css('color', '#126B66');
+                     location.reload();
                 }
             })
                
@@ -977,6 +978,7 @@ function addlikecomment(idobject, comment){
                 $('#like_comment .button-like'+idobject+' button').css('background-color', '#188181');
                 $('#like_comment .button-like'+idobject+' button').css('color', '#fff')
                 $('.button-like i').css('color', '#fff');
+                 location.reload();
             }
         })
             
