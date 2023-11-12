@@ -56,10 +56,10 @@ getHeader();
                                                 <div class="detail-addr">
                                                     <p><?php echo $item->address_name ?></p>
                                                 </div>
-                                                <div class="btn-address">
+                                                <!-- <div class="btn-address">
                                                     <button class="lay">Địa chỉ lấy hàng</button>
                                                     <button class="tra">Địa chỉ trả hàng</button>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 up-address">
@@ -88,7 +88,7 @@ getHeader();
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel1">Cập nhập địa chỉ </h5>
+                        <h5 class="modal-title" id="exampleModalLabel1">Cập nhật địa chỉ </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                               </div>
                              <form action="/updateAddress" method="GET">
@@ -99,14 +99,14 @@ getHeader();
                                 <div class="card-body">
                                   <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-12">
-                                      <label class="form-label">Địa chỉ </label>
+                                      <!-- <label class="form-label">Địa chỉ </label> -->
                                       <input type="text" value="<?php echo $items->address_name ?>" class="form-control"  name="address_name">
                                     </div>
                                     
                                   </div>
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary">Cập nhập</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                               </div>
                              </form>
                               
@@ -129,14 +129,14 @@ getHeader();
                                 <div class="card-body">
                                   <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-12">
-                                      <label class="form-label">Địa chỉ </label>
+                                      <!-- <label class="form-label">Địa chỉ </label> -->
                                       <input type="text" value="" required="" class="form-control"  name="address_name">
                                     </div>
                                     
                                   </div>
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary">Cập nhập</button>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
                               </div>
                              </form>
                               

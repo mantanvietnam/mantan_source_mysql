@@ -213,7 +213,7 @@ $infoUser = $session->read('infoUser');
                                         <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
                                         <label>Thanh toán chuyển khoản</label>
                                         <input type="radio" name="payment" value="2"  required="" placeholder="Server" aria-label="Server">
-                                        <label>nhận hàng rồi thanh toán </label>
+                                        <label>Nhận hàng rồi thanh toán </label>
                                     </div>
                                 </div>
                             </div>

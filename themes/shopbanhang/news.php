@@ -9,8 +9,8 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
+                  <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                  <li class="breadcrumb-item"><a href="#">Blog</a></li>
                 </ul>
             </div>
         </section>

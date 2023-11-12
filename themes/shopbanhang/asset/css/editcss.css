@@ -1,4 +1,8 @@
 /* Header */
+.navbar-header .nav-item .nav-link{
+    color: #000;
+}
+
 .topbar-mobile-inner{
     display: flex;
     justify-content: space-between;
@@ -21,6 +25,16 @@
 
 .topbar-mobile{
 
+}
+
+.nav-item-last{
+    background-color: #EF5B36;
+ 
+}
+
+.nav-item-last a{
+    color: #fff !important;
+    font-weight: bold !important;
 }
 
 /* breadcrumb */
@@ -452,6 +466,16 @@ header{
     line-height: 17px;
 }
 
+#section-cart .list-code-discount > div:nth-child(1) .logo-voucher h3{
+    color: #000
+}
+#section-cart .list-code-discount > div:nth-child(2) .infor-voucher{
+    color: #008BCF !important
+}
+
+#section-cart .list-code-discount > div:nth-child(3) .logo-voucher h3, #section-cart .list-code-discount > div:nth-child(3) .infor-voucher {
+    color: #ED1C24 !important;
+}
 
 /* Chi tiết sản phẩm */
 .product-detail-group-button a{
@@ -467,6 +491,86 @@ header{
     border: none;
 }
 
+/* Profile */
+
+#my-address .address{
+    margin: 0;
+}
+
+.up-address .btn-group a{
+    font-size: 12px;
+    color: #008BCF;
+    font-weight: 300;
+    line-height: 16px;
+}
+
+.view-product{
+    padding: 20px;
+}
+
+#my-address .address{
+    padding-left: 0;
+}
+
+#basicModal .modal-footer button{
+    background-color: #008BCE;
+}
+
+/* review */
+.title-review-product p {
+    width: 43%;
+}
+
+.double-line-2 {
+    width: 308px;
+}
+
+.list-video .detail-review-video p{
+    font-weight: 400;
+}
+
+.image-unbox iframe{
+    width: 100%;
+    height: 600px;
+}
+
+.list-filter-rate-list {
+    width: 100%;
+}
+
+.flex-rate{
+    padding-left: 70px;
+}
+
+/* footer */
+.footer-blog-contact .input-blog-contact input{
+    width: 140px;
+    font-size: 11px;
+}
+
+.footer-blog-contact .input-blog-contact input::placeholder{
+    font-size: 11px;
+}
+
+.footer-blog-contact .input-blog-contact button{
+    font-size: 11px;
+    width: auto;
+}
+
+.footer-blog-contact .input-blog-contact{
+    justify-content: start;
+}
+
+.footer-blog-contact .title-section-sub{
+    text-align: left;
+    font-size: 11px;
+    margin-top: 0;
+    margin-bottom: 15px !important;
+    padding-right: 159px;
+}
+
+
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;
@@ -480,6 +584,11 @@ header{
 }
 
 @media(max-width: 445px) {
+
+    /* footer */
+    .footer-blog-contact{
+        display: none;
+    }
     .product-select-box .product-select-left .heading-check {
         font-size: 12px
     }

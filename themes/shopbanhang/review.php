@@ -204,7 +204,7 @@ $settinghom = setting();
                                                         <?php echo $setting['name_video_31'] ?>
                                                     </p>
                                                 </div>
-                                                <div class="icon-video">
+                                                <!-- <div class="icon-video">
                                                     <div class="time">
                                                         <i class="fa-regular fa-clock"></i>
                                                         <p>1 tháng trước</p>
@@ -213,7 +213,7 @@ $settinghom = setting();
                                                         <i class="fa-regular fa-eye"></i>
                                                         <p>50tr lượt xem</p>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="video-2">
                                                 <div class="image-modal">
@@ -224,7 +224,7 @@ $settinghom = setting();
                                                         <?php echo $setting['name_video_32'] ?>
                                                     </p>
                                                 </div>
-                                                <div class="icon-video">
+                                                <!-- <div class="icon-video">
                                                     <div class="time">
                                                         <i class="fa-regular fa-clock"></i>
                                                         <p>1 tháng trước</p>
@@ -233,7 +233,7 @@ $settinghom = setting();
                                                         <i class="fa-regular fa-eye"></i>
                                                         <p>50tr lượt xem</p>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -458,9 +458,9 @@ $settinghom = setting();
                                         </div>
                                     <?php }}}} ?>
 
-                                <div class="icon-loading">
+                                <!-- <div class="icon-loading">
                                     <i class="fa-solid fa-spinner"></i>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="col-lg-4 col-md-12 col-sm-12">

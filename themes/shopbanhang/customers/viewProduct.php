@@ -14,7 +14,7 @@ getHeader();
 
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="tab-content" style="height:100%">
-                        <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
+                        <div id="super-sale" class="view-product tab-pane active" style="border:1px solid #ccc">
                              <div class="title-viewed-product">
                                     <p>Sản phẩm đã xem</p>
                                 </div>
@@ -23,7 +23,7 @@ getHeader();
                                         <?php if(!empty($listData)){
                                                 foreach($listData as $key => $item){
                                                 if(!empty($item->product)){ ?>
-                                        `<div class="item-viewd-product">
+                                        <div class="item-viewd-product">
                                             <a href="/product/<?php echo $item->product->slug ?>.html" class="btn-img-viewd-product">
                                                 <div class="group-viewed-product-img">
                                                     <img src="<?php echo $item->product->image ?>" alt="">

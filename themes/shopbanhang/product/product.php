@@ -567,7 +567,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-lg-6 col-md-6 col-sm-6 col-12" id="evaluate">
+                        <div class="product-detail-rate-list col-lg-7 col-md-7 col-sm-7 col-12" id="evaluate">
                            <?php if(!empty($product->evaluate)){
                                 foreach($product->evaluate as $key => $item){ 
                                      $item->image = json_decode($item->image, true);
@@ -621,83 +621,84 @@ $slide_home= slide_home($setting['id_slide']);
                            <?php } ?>
                         </div>
 
-                        <div class="product-detail-rate-right col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="product-detail-rate-right-title">
-                                Đánh giá sản phẩm
-                            </div>
-
-                            <div class="product-detail-rate-right-point">
-                                <div class="product-detail-rate-right-number">
-                                   <?php echo $product->point ?>
+                        <div class="product-detail-rate-right col-lg-5 col-md-5 col-sm-5 col-12">
+                            <div class="flex-rate">
+                                <div class="product-detail-rate-right-title">
+                                    Đánh giá sản phẩm
                                 </div>
 
-                                <div class="product-detail-rate-right-star">
-                                    <div class="stars" style="color: gold;">
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <div class="overlay" style="width: <?php echo $point ?>%"></div>
+                                <div class="product-detail-rate-right-point">
+                                    <div class="product-detail-rate-right-number">
+                                    <?php echo $product->point ?>
+                                    </div>
 
-                                    </div> 
+                                    <div class="product-detail-rate-right-star">
+                                        <div class="stars" style="color: gold;">
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <i class='bx bxs-star'></i>
+                                            <div class="overlay" style="width: <?php echo $point ?>%"></div>
 
-                                    <div class="product-detail-rate-count">
-                                       <?php echo $product->evaluatecount ?> Đánh giá
+                                        </div> 
+
+                                        <div class="product-detail-rate-count">
+                                        <?php echo $product->evaluatecount ?> Đánh giá
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="list-filter-rate-list">
+                                    <div class="list-filter-rate-item">
+                                        <a onclick="searchEvaluates()">Tất cả</a>
+                                    </div>
+
+                                    <div class="list-filter-rate-item">
+                                        <a onclick=" searchEvaluates(5)">5 sao</a>
+                                    </div>
+
+                                    <div class="list-filter-rate-item">
+                                        <a onclick=" searchEvaluates(4)">4 sao</a>
+                                    </div>
+
+                                    <div class="list-filter-rate-item">
+                                        <a onclick=" searchEvaluates(3)">3 sao</a>
+                                    </div>
+
+                                    <div class="list-filter-rate-item">
+                                        <a onclick=" searchEvaluates(2)">2 sao</a>
+                                    </div>
+
+                                    <div class="list-filter-rate-item">
+                                        <a onclick=" searchEvaluates(1)">1 sao</a>
+                                    </div>
+
+                                    <div class="list-filter-rate-item">
+                                        <a onclick=" searchEvaluates()">Có hình ảnh/video</a>
+                                    </div>
+                                </div>
+
+                                <div class="rate-image-right">
+                                    <div class="rate-image-title">
+                                        Hình ảnh từ người dùng
+                                    </div>
+                                    <div class="list-rate-image">
+                                        <div class="rate-image-item">
+                                            <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
+                                        </div>
+        
+                                        <div class="rate-image-item">
+                                            <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
+        
+                                        </div>
+        
+                                        <div class="rate-image-item">
+                                            <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="list-filter-rate-list">
-                                <div class="list-filter-rate-item">
-                                    <a onclick="searchEvaluates()">Tất cả</a>
-                                </div>
-
-                                <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluates(5)">5 sao</a>
-                                </div>
-
-                                <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluates(4)">4 sao</a>
-                                </div>
-
-                                <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluates(3)">3 sao</a>
-                                </div>
-
-                                <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluates(2)">2 sao</a>
-                                </div>
-
-                                <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluates(1)">1 sao</a>
-                                </div>
-
-                                <div class="list-filter-rate-item">
-                                    <a onclick=" searchEvaluates()">Có hình ảnh/video</a>
-                                </div>
-                            </div>
-
-                            <div class="rate-image-right">
-                                <div class="rate-image-title">
-                                    Hình ảnh từ người dùng
-                                </div>
-                                <div class="list-rate-image">
-                                    <div class="rate-image-item">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
-                                    </div>
-    
-                                    <div class="rate-image-item">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
-    
-                                    </div>
-    
-                                    <div class="rate-image-item">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-
                             
                         </div>
                     </div>
@@ -714,7 +715,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-8">
+                        <div class="product-detail-rate-list col-lg-8 col-12">
                             <div class="product-detail-rate-inner">
                                 <!-- comment chính -->
                                 <?php  $comment= getComment($product->id,'product'); 
@@ -824,7 +825,7 @@ $slide_home= slide_home($setting['id_slide']);
                            <?php  
                                     if(!empty($infoUser)){
                                         ?>
-                        <div class="product-detail-comment-right col-4">
+                        <div class="product-detail-comment-right col-lg-4 col-12">
                             <div class="product-detail-comment-right-title">
                                 <p>Gửi thảo luận</p>
                             </div>
