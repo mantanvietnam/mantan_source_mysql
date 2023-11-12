@@ -27,19 +27,19 @@ $slide_home= slide_home($setting['id_slide']);
                         <span><?php echo @$setting['sela_title3'] ?></span>
                     </p>
                 </div>
-            
-                    <div class="row combo-voucher">
+             <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> -->
+                    <!-- <div class="row combo-voucher">
                         <?php if(!empty($DiscountCode)){
                             foreach($DiscountCode as $item){ ?>
                         <div class="item-voucher col-md-4 col-sm-6">
-                            <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> -->
+                           
                             <div class="detail-voucher-sale">
                                 <p><?php $item->code ?></p>
                                 <span><?php $item->note ?></span>
                             </div>
                         </div>
                     <?php }} ?>
-                        </div>
+                        </div> -->
              
                 <div class="top-deal" style="background-image: url(<?php echo @$setting['background_sele'] ?>)">
                     <!-- <img src=""> -->

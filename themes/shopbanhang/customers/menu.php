@@ -51,7 +51,7 @@ $info = $session->read('infoUser');
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/discount">Voucher</a>
+                                                <a class="nav-link" href="">Voucher</a>
                                             </li>
                                         </ul>
                                     </div>
