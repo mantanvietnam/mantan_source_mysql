@@ -16,6 +16,7 @@
 	$routesPlugin['confirmAPI']= '2top_crm/view/home/confirmAPI.php';
 	$routesPlugin['newpasswordAPI']= '2top_crm/view/home/newpasswordAPI.php';
 	$routesPlugin['confirm']= '2top_crm/view/home/confirm.php';
+	$routesPlugin['deliveryAddress']= '2top_crm/view/home/deliveryAddress.php';
 
 	// member
 	$routesPlugin['saveRegisterMemberAPI']= 'ezpics_api/view/saveRegisterMemberAPI.php';

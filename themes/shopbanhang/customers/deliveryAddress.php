@@ -59,8 +59,8 @@ getHeader();
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 up-address">
                                             <div class="btn-group">
-                                                <button class="update-addr">Cập nhật</button>
-                                                <button class="delete-addr">Xóa</button>
+                                                <a data-bs-toggle="modal" data-bs-target="#basicModal<?php echo $item->id ?>">Cập nhật</a>
+                                                <a href="/deleteAddress?id=<?php echo $item->id; ?>" class="delete-addr">Xóa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -76,6 +76,40 @@ getHeader();
             </div>
         </div>
     </div>
+
+     <?php if(!empty($data)){
+        foreach($data as $key => $items){?>
+        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">                    
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Cập nhập địa chỉ </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                              </div>
+                             <form action="/updateAddress" method="GET">
+                               <div class="modal-footer">
+                                <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                                <input type="hidden" value="0"  name="status">
+                                <input type="hidden"   name="page">
+                                <div class="card-body">
+                                  <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-12">
+                                      <label class="form-label">Địa chỉ </label>
+                                      <input type="text" value="<?php echo $items->address_name ?>" class="form-control"  name="address_name">
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Cập nhập</button>
+                              </div>
+                             </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+<?php }} ?>
+
 </main>
 
 
