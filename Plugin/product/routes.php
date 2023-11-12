@@ -16,6 +16,7 @@
 	$routesPlugin['cart']= 'product/view/home/cart.php';
 	$routesPlugin['sela']= 'product/view/home/sela.php';
 	$routesPlugin['pay']= 'product/view/home/pay.php';
+	$routesPlugin['discount']= 'product/view/home/discount.php';
 	$routesPlugin['addReview']= 'product/view/home/addReview.php';
 
 	$routesPlugin['addProductToCart']= 'product/view/home/addProductToCart.php';

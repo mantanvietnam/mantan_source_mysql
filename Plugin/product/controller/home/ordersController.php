@@ -628,4 +628,35 @@ function cancelOrder(){
 
     }
 }
+
+function discount($input){
+	global $controller;
+    global $urlCurrent;
+    global $session;
+    global $modelCategories;
+    global $metaTitleMantan;
+
+
+    if(!empty($session->read('infoUser'))){
+    $modelDiscountCode = $controller->loadModel('DiscountCodes');
+
+       $categoryDiscountCode = categoryDiscountCode();
+    $category = array();
+    foreach($categoryDiscountCode as $key => $item){
+    	$data = array();
+    	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+    	$data['name'] = $item;
+    	if(!empty($discountCode)){
+    		$data['discountCode'] = $discountCode;
+    	}
+    	 
+   		$category[$key]=$data;
+    }
+		setVariable('data', $category);
+	}else{
+			return $controller->redirect('/cart');
+		}
+		
+	
+}
 ?>
