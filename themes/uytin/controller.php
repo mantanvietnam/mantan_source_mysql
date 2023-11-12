@@ -131,6 +131,16 @@ function settingHomeTheme($input){
 }
 
 function indexTheme($input){
-    
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $themeSettings;
+
+    // SLIDE ĐỐI TÁC
+    $slide_tai_tro = [];
+    if(!empty($themeSettings['idslidetaitro'])){
+        $slide_tai_tro = $modelAlbuminfos->find()->where(['id_album'=>(int) $themeSettings['idslidetaitro']])->all()->toList();
+    }
+
+    setVariable('slide_tai_tro', $slide_tai_tro);
 }
 ?>

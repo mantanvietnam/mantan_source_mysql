@@ -1327,15 +1327,18 @@ function detailProductSeriesAPI($input)
 
 				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
 
-				$dataOther = $modelProduct->find()->where(array('category_id'=>$product->category_id,  $product->type == 'user_series', 'status'=>1))->all()->toList();
 				$urlChatBot = 'https://designer.ezpics.vn/create-image-series/?id='.$product->id;
 
                 if(!empty($listLayer)){
                     foreach ($listLayer as $key => $layer) {
                         $content = json_decode($layer->content, true);
+                        
                         if(!empty($content['variable']) && !empty($content['variableLabel'])){
                             $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
                         }
+
+                        $content->gradient = (int) @$content->gradient;
+
                         $listLayer[$key]['content'] = $content;
                     }
                 }
