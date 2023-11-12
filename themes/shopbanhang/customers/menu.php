@@ -32,14 +32,14 @@ $info = $session->read('infoUser');
                                                         sơ</a>
                                                     <a class="dropdown-item" href="/editInfoUser">Chỉnh sửa thông
                                                         tin</a>
-                                                    <a class="dropdown-item" href="deliveryAddress">Địa
+                                                    <a class="dropdown-item" href="/deliveryAddress">Địa
                                                         chỉ giao hàng</a>
                                                     <a class="dropdown-item" href="/changepassword">Đổi mật khẩu</a>
                                                 </div>
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#my-order">Đơn mua</a>
+                                                <a class="nav-link" data-bs-toggle="tab" href="/listOrder">Đơn mua</a>
                                             </li>
 
                                             <li class="nav-item accordion" id="accordionExample2">
@@ -51,7 +51,7 @@ $info = $session->read('infoUser');
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#my-voucher">Voucher</a>
+                                                <a class="nav-link" href="/discount">Voucher</a>
                                             </li>
                                         </ul>
                                     </div>
