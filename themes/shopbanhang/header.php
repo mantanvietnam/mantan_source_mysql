@@ -203,7 +203,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </li>
     
                             <li class="nav-item nav-item-last">
-                                <a class="nav-link" href="#">Sản phẩm</a>
+                                <a class="nav-link" href="/sela">Sale 11.11</a>
                             </li>
                         </ul>
                         <form class="menu-form-search d-flex" role="search"  action="/search-product" method="get" id="myForm">

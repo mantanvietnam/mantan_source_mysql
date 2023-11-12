@@ -11,9 +11,8 @@ $settinghom = setting();
     <section id="section-breadcrumb">
         <div class="breadcrumb-center">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active">Data</li>
+                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Review sản phẩm</li>
             </ul>
         </div>
     </section>

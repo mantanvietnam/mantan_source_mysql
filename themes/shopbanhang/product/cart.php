@@ -391,7 +391,7 @@ $slide_home= slide_home($setting['id_slide']);
 
         <section id="section-modal-cart">
             <!-- Modal -->
-            <div class="modal fade" id="modal-cart">
+            <!-- <div class="modal fade" id="modal-cart">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -418,7 +418,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </section>
     </main>
 <script type="text/javascript">

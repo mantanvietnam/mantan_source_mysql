@@ -441,6 +441,32 @@ header{
     text-align: center;
 }
 
+/* Liên hệ */
+#formContact button{
+    background: #235FD5;
+}
+
+/* cart */
+.enter-code-discount a{
+    margin-left: 5px;
+    line-height: 17px;
+}
+
+
+/* Chi tiết sản phẩm */
+.product-detail-group-button a{
+    cursor: pointer;
+}
+
+.table-cart-right .logo-voucher{
+    text-align: center;
+}
+
+.people-like button{
+    background-color: transparent;
+    border: none;
+}
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;
