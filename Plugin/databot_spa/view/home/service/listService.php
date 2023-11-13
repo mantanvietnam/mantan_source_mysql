@@ -80,9 +80,10 @@
           </thead>
           <tbody>
             <?php 
+            global $modelCategories;
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  $category = $modelCategories->get($item->id_category);
+                  $category = $modelCategories->get(@$item->id_category);
                  
                   if($item->status==1){
                    $status = 'Kích hoạt';

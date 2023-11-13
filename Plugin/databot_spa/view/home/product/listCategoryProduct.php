@@ -116,15 +116,17 @@
       if(check){
         $.ajax({
           method: "GET",
-          url: "/deleteCategoryProduct/?id="+id,
-          data: {}
-        })
-          .done(function( msg ) {
-            window.location = '/listCategoryProduct';
-          })
-          .fail(function() {
-            window.location = '/listCategoryProduct';
-          });
+          url: "/apis/deleteCategoryProduct/?id="+id,
+          data: {},
+          success:function(res){
+                  //console.log(res);
+                  if(res.code==1){
+                    window.location = '/listCategoryProduct?error=requestCategoryDeleteSuccess';
+                  }else{
+                    window.location = '/listCategoryProduct?error=requestCategoryDelete';
+                  }
+                }
+        });
       }
     }
   </script>
