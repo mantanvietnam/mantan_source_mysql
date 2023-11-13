@@ -17,3 +17,6 @@ include('model/user_combo_orders.php');
 include('model/user_combo_order_details.php');
 include('model/user_order_combo_histories.php');
 include('model/user_order_histories.php');
+include('model/agency_order_back_stores.php');
+include('model/agency_order_back_store_details.php');
+include('model/agency_order_back_store_histories.php');

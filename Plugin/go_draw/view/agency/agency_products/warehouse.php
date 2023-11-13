@@ -48,7 +48,7 @@
 										</div>';
 							}
 
-							echo '<div class="btn-main text-center"><a href="/userCartBackStore">XEM GIỎ HÀNG</a></div>';
+							echo '<div class="btn-main text-center"><a href="/agencyCartBackStore">XEM GIỎ HÀNG</a></div>';
 						}else{
 							echo '<p class="text-danger">Trong kho đã hết hàng</p>';
 						}

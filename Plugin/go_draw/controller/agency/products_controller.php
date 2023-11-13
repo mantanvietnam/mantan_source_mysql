@@ -1,5 +1,5 @@
 <?php 
-function listCombo($input)
+function listProduct($input)
 {
 	global $controller;
 	global $urlCurrent;
@@ -8,10 +8,9 @@ function listCombo($input)
 	global $session;
 
 	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
-	    $metaTitleMantan = 'Combo sản phẩm nhà cung cấp';
+	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';
 
-		$modelCombos = $controller->loadModel('Combos');
-		$modelComboProducts = $controller->loadModel('ComboProducts');
+		$modelProducts = $controller->loadModel('Products');
 		
 		$user = $session->read('infoUser');
 
@@ -27,17 +26,10 @@ function listCombo($input)
 
 		if(!empty($_GET['name'])){
 			$conditions['name LIKE'] = '%'.$_GET['name'].'%';
-			
-			/*
-			$conditions['OR'] = [
-									['name LIKE'=>'%'.$_GET['name'].'%'],
-									['keyword LIKE'=>'%'.$_GET['name'].'%']
-								];
-			*/
 		}
 
-		$listData = $modelCombos->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-		$totalData = $modelCombos->find()->where($conditions)->all()->toList();
+		$listData = $modelProducts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+		$totalData = $modelProducts->find()->where($conditions)->all()->toList();
 
 	    
 	    $totalData = count($totalData);
@@ -83,7 +75,7 @@ function listCombo($input)
 	}
 }
 
-function viewCombo($input)
+function viewProduct($input)
 {
 	global $controller;
 	global $urlCurrent;
@@ -92,38 +84,20 @@ function viewCombo($input)
 	global $session;
 
 	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
-	    $modelCombos = $controller->loadModel('Combos');
-	    $modelComboProducts = $controller->loadModel('ComboProducts');
 	    $modelProducts = $controller->loadModel('Products');
 
-		if(!empty($input['request']->getAttribute('params')['pass'][1])){
-			$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+		if(!empty($_GET['id'])){
+			$infoProduct = $modelProducts->find()->where(['id'=>(int) $_GET['id']])->first();
 
-			$infoCombo = $modelCombos->find()->where(['slug'=>$slug])->first();
+			if(!empty($infoProduct)){
+				$metaTitleMantan = $infoProduct->name;
 
-			if(!empty($infoCombo)){
-				$metaTitleMantan = $infoCombo->name;
-
-				$list_products = $modelComboProducts->find()->where(['combo_id'=>$infoCombo->id])->all()->toList();
-
-				$list_product = [];
-
-				foreach ($list_products as $key => $value) {
-					$infoProduct = $modelProducts->find()->where(['id'=>$value->product_id, 'status'=>1])->first();
-
-					if(!empty($infoProduct)){
-						$infoProduct->amount_combo = $value->amount;
-						$list_product[] = $infoProduct;
-					}
-				}
-
-				setVariable('infoCombo', $infoCombo);
-				setVariable('list_product', $list_product);
+				setVariable('infoProduct', $infoProduct);
 			}else{
-				return $controller->redirect('/listCombo');
+				return $controller->redirect('/listProduct');
 			}
 		}else{
-			return $controller->redirect('/listCombo');
+			return $controller->redirect('/listProduct');
 		}
 	}else{
 		return $controller->redirect('/login');

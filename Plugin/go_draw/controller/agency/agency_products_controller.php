@@ -29,3 +29,4 @@ function warehouse($input)
 		return $controller->redirect('/login');
 	}
 }
+
