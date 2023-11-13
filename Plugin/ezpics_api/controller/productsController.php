@@ -1337,7 +1337,7 @@ function detailProductSeriesAPI($input)
                             $urlChatBot .= '&'.$content['variable'].'={{'.$content['variable'].'}}';
                         }
 
-                        $content->gradient = (int) @$content->gradient;
+                        $content['gradient'] = (int) @$content['gradient'];
 
                         $listLayer[$key]['content'] = $content;
                     }
