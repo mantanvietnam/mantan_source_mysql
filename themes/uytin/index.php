@@ -5,6 +5,7 @@
 
 <main id="main">
   <!-- ======= KHỐI ĐẦU TRANG ======= -->
+  <?php if(!empty($themeSettings['title1'])){ ?>
   <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
       <div class="row">
@@ -26,8 +27,10 @@
       </div>
     </div>
   </section>
+  <?php }?>
 
   <!-- ======= KHỐI DỊCH VỤ ======= -->
+  <?php if(!empty($themeSettings['title5'])){ ?>
   <section id="features" class="features">
     <div class="container" data-aos="fade-up">
       <header class="section-header">
@@ -36,77 +39,32 @@
       </header>
 
       <div class="row">
-        <div class="col-lg-12 mt-12 mt-lg-0 d-flex">
+        <div class="col-lg-12 mt-12 mt-lg-0">
             <div class="row align-self-center gy-4">
-
-              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="200">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <p class="h3"><?php echo @$themeSettings['checkbox1']; ?></p>
-                </div>
-              </div>
-
-              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="300">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <p class="h3"><?php echo @$themeSettings['checkbox2']; ?></p>
-                </div>
-              </div>
-
-              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="400">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <p class="h3"><?php echo @$themeSettings['checkbox3']; ?></p>
-                </div>
-              </div>
-
-                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="500">
-                  <div class="feature-box d-flex align-items-center">
-                    <i class="bi bi-check"></i>
-                    <p class="h3"><?php echo @$themeSettings['checkbox4']; ?></p>
-                  </div>
-                </div>
-
-                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="600">
-                  <div class="feature-box d-flex align-items-center">
-                    <i class="bi bi-check"></i>
-                    <p class="h3"><?php echo @$themeSettings['checkbox5']; ?></p>
-                  </div>
-                </div>
-
-                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="700">
-                  <div class="feature-box d-flex align-items-center">
-                    <i class="bi bi-check"></i>
-                    <p class="h3"><?php echo @$themeSettings['checkbox6']; ?></p>
-                  </div>
-              </div>
-              <div class="col-md-4" data-aos="zoom-out" data-aos-delay="500">
-                  <div class="feature-box d-flex align-items-center">
-                    <i class="bi bi-check"></i>
-                    <p class="h3"><?php echo @$themeSettings['checkbox7']; ?></p>
-                  </div>
-                </div>
-
-                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="600">
-                  <div class="feature-box d-flex align-items-center">
-                    <i class="bi bi-check"></i>
-                    <p class="h3"><?php echo @$themeSettings['checkbox8']; ?></p>
-                  </div>
-                </div>
-
-                <div class="col-md-4" data-aos="zoom-out" data-aos-delay="700">
-                  <div class="feature-box d-flex align-items-center">
-                    <i class="bi bi-check"></i>
-                    <p class="h3"><?php echo @$themeSettings['checkbox9']; ?></p>
-                  </div>
-              </div>
+              <?php 
+              $delay = 100;
+              for($i=1;$i<=9;$i++){
+                if(!empty($themeSettings['checkbox'.$i])){
+                  $delay += 100;
+                  
+                  echo '<div class="col-md-4" data-aos="zoom-out" data-aos-delay="'.$delay.'">
+                          <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <p class="h3">'.$themeSettings['checkbox'.$i].'</p>
+                          </div>
+                        </div>';
+                }
+              }
+              ?>
             </div>
           </div>
         </div>
       </div>
   </section>
+  <?php }?>
 
   <!-- ======= KHỐI CHỨC NĂNG ======= -->
+  <?php if(!empty($themeSettings['title8'])){ ?>
   <section id="services" class="services">
     <div class="container" data-aos="fade-up">
 
@@ -173,8 +131,10 @@
       </div>
     </div>
   </section>
+  <?php }?>
          
   <!-- ======= KHỐI SLIDE ĐỐI TÁC ======= -->
+  <?php if(!empty($themeSettings['titletaitro'])){ ?>
   <secction id="clients" class="clients">
     <div class="container" data-aos="fade-up">
       <header class="section-header">
@@ -185,9 +145,9 @@
       <div class="clients-slider swiper-container">
         <div class="swiper-wrapper align-items-center">
             <?php 
-            if(!empty($infoAlbum->images)){
-              foreach($infoAlbum->images as $key=>$items){ 
-                echo '<div class="swiper-slide"><img src="'.$items['src'].'" class="img-fluid" alt=""></div>';
+            if(!empty($slide_tai_tro)){
+              foreach($slide_tai_tro as $key=>$items){ 
+                echo '<div class="swiper-slide"><img src="'.$items->image.'" class="img-fluid" alt=""></div>';
               }
             }
             ?>
@@ -195,8 +155,10 @@
       </div>
     </div>
   </section>
+  <?php }?>
 
   <!-- ======= FEEDBACK OF CUSTOMERS ======= -->
+  <?php if(!empty($themeSettings['title11'])){ ?>
   <section id="testimonials" class="testimonials services">
     <div class="container" data-aos="fade-up">
 
@@ -233,8 +195,10 @@
       </div>
     </div>
   </section>
+  <?php }?>
 
   <!-- ======= ĐỘI NGŨ NHÂN SỰ ======= -->
+  <?php if(!empty($themeSettings['title12'])){ ?>
   <section id="team" class="team">
     <div class="container" data-aos="fade-up">
 
@@ -298,8 +262,10 @@
       </div>
     </div>
   </section>
+  <?php }?>
 
   <!-- ======= TIN TỨC MỚI ======= -->
+  <?php if(!empty($themeSettings['title14'])){ ?>
   <section id="news" class="team">
     <div class="container" data-aos="fade-up">
       <div class="container">
@@ -334,6 +300,7 @@
       </div>
     </div>
   </section>
+  <?php }?>
    
 </main>
 
