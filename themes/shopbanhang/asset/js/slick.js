@@ -123,6 +123,22 @@ $(document).ready(function() {
         // centerMode: true,
         focusOnSelect: true,
         arrows: false,
+
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                arrows: false,
+                slidesToShow: 3
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                arrows: false,
+                slidesToShow: 3
+            }
+        }
+    ]
         
     });
     $('.product-slide-right').slick({
