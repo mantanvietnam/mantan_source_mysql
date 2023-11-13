@@ -14,9 +14,10 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="<?php echo $urlThemeActive;?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo $urlThemeActive;?>assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link href="<?php echo $urlThemeActive;?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
   <link href="<?php echo $urlThemeActive;?>assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
@@ -25,12 +26,14 @@
   <!-- Template Main CSS File -->
   <link href="<?php echo $urlThemeActive;?>assets/css/style.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/css/my_style.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" title="" href="https://viwacon.vn/app/Theme/ms30/accets/css/style.css">
+  
   <link href="<?php echo $urlThemeActive;?>assets/css/booking.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/css/plugins.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/css/owl.carousel.min.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/css/owl.theme.default.min.css" rel="stylesheet">
   <link href="<?php echo $urlThemeActive;?>assets/css/swiper.min.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <?php 
       mantan_header(); 
@@ -42,7 +45,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top ">
+  <header id="header" class="header">
     <div class="container">
       <div class="row">
         <div class="col-md-2 col-3">
@@ -53,16 +56,12 @@
         </div>
         <div class="col-md-10 col-9">
           <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <div  data-aos-delay="600">
+              <div class="text-center">
+                
+              </div>
+            </div>
 
-            
-               <div  data-aos-delay="600">
-                      <div class="text-center">
-                        <a href="" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          <span style="font-size: 11px;"><?php echo @$themeSettings['submit1']; ?></span>
-                         
-                        </a>
-                      </div>
-                    </div>
             <nav id="navbar" class="navbar">
               <ul>
                 <?php 

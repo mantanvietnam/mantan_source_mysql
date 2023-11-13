@@ -53,6 +53,8 @@
                             </div>
                         </li>
 
+                        <li><a href="/warehouse">Kho hàng</a></li>
+
                         <li>
                             <a href="javascript:void(0);">Mua hàng</a>
                             <div class="submenu">

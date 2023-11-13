@@ -179,11 +179,11 @@
                             <div class="stars">
                               <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
-                            <p>'.$item['Feedback']['content'].'</p>
+                            <p>'.$item->content.'</p>
                             <div class="profile mt-auto">
-                              <img src="'.$item['Feedback']['avatar'].'" class="testimonial-img" alt="">
-                              <p class="h3">'.$item['Feedback']['fullName'].'</p>
-                              <p class="h4">'.$item['Feedback']['positions'].'</p>
+                              <img src="'.$item->avatar.'" class="testimonial-img" alt="">
+                              <p class="h3">'.$item->fullName.'</p>
+                              <p class="h4">'.$item->position.'</p>
                             </div>
                           </div>
                         </div>';
@@ -277,15 +277,15 @@
         <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="200">
           <div class="swiper-wrapper">
             <?php 
-              if(!empty($tmpVariable['listNoticeNew'])) { 
-                foreach ($tmpVariable['listNoticeNew'] as $key => $value) {
+              if(!empty($news)) { 
+                foreach ($news as $key => $value) {
                   echo '<div class="swiper-slide">
                           <div class="testimonial-item">
                             <div class="carousel-cell my-carousel-cell-notice" style=" padding: 20px;">
-                              <a href="'.getUrlNotice($value['Notice']['id']).'">
-                                <img src="'.@$value['Notice']['image'].'" style=" width: 100%;height: 190px;" alt="">
-                                <div class="time-notice">'.date('d/m/Y',$value['Notice']['time']).'</div>
-                                <p class="title-notice">'.$value['Notice']['title'].'</p>
+                              <a href="/'.$value->slug.'.html">
+                                <img src="'.@$value->image.'" style=" width: 100%;height: 190px;" alt="">
+                                <div class="time-notice">'.date('d/m/Y',$value->time).'</div>
+                                <p class="title-notice">'.$value->title.'</p>
                               </a>
                             </div>
                           </div>

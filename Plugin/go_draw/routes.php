@@ -28,6 +28,9 @@ global $routesPlugin;
     $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
     $routesPlugin['orderAgencyDone']= 'go_draw/view/agency/agency_orders/orderAgencyDone.php';
 
+    // kho hàng
+    $routesPlugin['warehouse']= 'go_draw/view/agency/agency_products/warehouse.php';
+
     // đơn hàng với khách hàng
     $routesPlugin['sellProduct']= 'go_draw/view/agency/user_orders/sellProduct.php';
     $routesPlugin['addToCartUser']= 'go_draw/view/agency/user_orders/addToCartUser.php';

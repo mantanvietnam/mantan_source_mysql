@@ -15,6 +15,7 @@ include('controller/agency/combos_controller.php'); // combo sản phẩm nhà c
 include('controller/agency/agency_orders_controller.php'); // đơn hàng của đại lý
 include('controller/agency/user_orders_controller.php'); // đơn hàng của người dùng tại cửa hàng mua sản phẩm
 include('controller/agency/user_combo_orders_controller.php'); // đơn hàng của người dùng tại cửa hàng mua combo
+include('controller/agency/agency_products_controller.php'); // kho sản phẩm của đại lý
 
 // home
 include('controller/home/user_controller.php'); // tài khoản người dùng
