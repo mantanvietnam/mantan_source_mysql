@@ -12,6 +12,13 @@ function listBed($input){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestBed':
+                    $mess= '<p class="text-danger">Bạn cần tạo giường trước</p>';
+                    break;
+            }
+        }
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
@@ -145,6 +152,8 @@ function listRoomBed($input){
                 $listData[$key]->bed = $databed;
 
             }
+        }else{
+            return $controller->redirect('/listBed?error=requestBed');
         }
         
         setVariable('listData', $listData);

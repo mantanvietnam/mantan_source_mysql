@@ -11,6 +11,7 @@ rel='stylesheet' type='text/css'>
     <h4 class="fw-bold py-3 mb-4">Sơ đồ giường</h4>
     <div class="card">
         <?php if(!empty($listData)){ 
+            debug($listData);
                 foreach($listData as $key =>$item){ ?>
                     <div class="row diagram">
                         <div style="background-color: #000; color: #fff;" class="col-xs-6 col-md-1 col-sm-2 floors context-menu-three" idRoom="<?php echo $item->id ?>"><?php echo $item->name ?></div>
@@ -33,7 +34,7 @@ rel='stylesheet' type='text/css'>
                                                 <div class="customer-name">
                                                     <span class="room-number"><?php echo $bed->name ?></span><br/>
                                                 <?php if(!empty($bed->Userservice)){ ?>
-                                                       <span class="full-name"><?php echo $bed->Userservice->customer->name ?></span>
+                                                       <span class="full-name"><?php echo @$bed->Userservice->customer->name ?></span>
                                                 <?php } ?>
                                                 </div> 
                                             </div>               

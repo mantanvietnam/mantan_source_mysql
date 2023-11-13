@@ -13,7 +13,7 @@
             <h5 class="mb-0">Thông tin sản phẩm</h5>
           </div>
           <div class="card-body">
-            <p><?php echo $mess;?></p>
+            <p><?php echo $mess; ?></p>
             <?= $this->Form->create(); ?>
               <div class="row">
                 <div class="col-12">
@@ -42,6 +42,11 @@
                       <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-image" aria-controls="navs-top-image" aria-selected="false">
                           Hình ảnh
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-evaluate" aria-controls="navs-top-image" aria-selected="false">
+                          Hình ảnh dánh giá
                         </button>
                       </li>
                     </ul>
@@ -184,7 +189,7 @@
                           </div>
                         </div>
                       </div>
-                       <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
+                      <div class="tab-pane fade" id="navs-top-specifications" role="tabpanel">
                         <div class="row">
                           <div class="col-md-12">
                             <div class="mb-3">
@@ -320,6 +325,58 @@
                             <div class="mb-3">
                               <label class="form-label">Hình 20</label>
                               <?php showUploadFile('image20','images[20]',@$data->images[20],20);?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-top-evaluate" role="tabpanel">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 1</label>
+                              <?php showUploadFile('image21','evaluate[1][image]',@$data->evaluate[1]['image'],21);?>
+                               <label class="form-label">link đáng giá </label>
+                              <input type="text" class="form-control phone-mask" name="evaluate[1][link]" id="title" value="<?php echo @$data->evaluate[1]["link"];?>" />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 2</label>
+                              <?php showUploadFile('image22','evaluate[2][image]',@$data->evaluate[2]['image'],22);?>
+                               <label class="form-label">link đáng giá </label>
+                              <input type="text" class="form-control phone-mask" name="evaluate[2][link]" id="title" value="<?php echo @$data->evaluate[2]["link"];?>" />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 3</label>
+                              <?php showUploadFile('image23','evaluate[3][image]',@$data->evaluate[3]['image'],23);?>
+                               <label class="form-label">link đáng giá </label>
+                              <input type="text" class="form-control phone-mask" name="evaluate[3][link]" id="title" value="<?php echo @$data->evaluate[3]["link"];?>" />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 4</label>
+                              <?php showUploadFile('image24','evaluate[4][image]',@$data->evaluate[4]['image'],24);?>
+                               <label class="form-label">link đáng giá </label>
+                              <input type="text" class="form-control phone-mask" name="evaluate[4][link]" id="title" value="<?php echo @$data->evaluate[4]["link"];?>" />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 5</label>
+                              <?php showUploadFile('image25','evaluate[5][image]',@$data->evaluate[5]['image'],25);?>
+                               <label class="form-label">link đáng giá </label>
+                              <input type="text" class="form-control phone-mask" name="evaluate[5][link]" id="title" value="<?php echo @$data->evaluate[5]["link"];?>" />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="mb-3">
+                              <label class="form-label">Hình 6</label>
+                              <?php showUploadFile('image26','evaluate[6][image]',@$data->evaluate[6]['image'],26);?>
+                               <label class="form-label">link đáng giá </label>
+                              <input type="text" class="form-control phone-mask" name="evaluate[6][link]" id="title" value="<?php echo @$data->evaluate[6]["link"];?>" />
                             </div>
                           </div>
                         </div>

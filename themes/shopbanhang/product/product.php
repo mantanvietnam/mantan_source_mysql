@@ -9,6 +9,8 @@ $list_product = (!empty($session->read('product_order')))?$session->read('produc
 
 $slide_home= slide_home($setting['id_slide']);
 
+
+
 ?>
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
         
@@ -378,18 +380,14 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
 
                     <div class="pro-review-slide">
-                        <div class="pro-review-item">
-                            <div class="pro-review-img">
-                                <img src="<?php echo @$product->image; ?>" alt="">
-                            </div>
-                        </div>
-                         <?php if(!empty($product->images)){
-                             	foreach($product->images as $item) {
-                             	if(!empty($item)){
+                       
+                         <?php if(!empty($product->evaluate)){
+                             	foreach($product->evaluate as $item) {
+                             	if(!empty($item['image'])){
                             ?>
                         <div class="pro-review-item">
                             <div class="pro-review-img">
-                                <img src="<?php echo $item ?>" alt="">
+                               <a href="<?php echo $item['link'] ?>"><img src="<?php echo $item['image'] ?>" alt=""></a>
                             </div>
                         </div>
                     <?php }}} ?>
@@ -568,8 +566,8 @@ $slide_home= slide_home($setting['id_slide']);
                     
                     <div class="row">
                         <div class="product-detail-rate-list col-lg-7 col-md-7 col-sm-7 col-12" id="evaluate">
-                           <?php if(!empty($product->evaluate)){
-                                foreach($product->evaluate as $key => $item){ 
+                           <?php if(!empty($product->evaluates)){
+                                foreach($product->evaluates as $key => $item){ 
                                      $item->image = json_decode($item->image, true);
                                     ?>
                             <div class="product-detail-rate-item">
@@ -940,6 +938,7 @@ function addlike(){
                 $('#place-detail .button-like button').css('background-color', '#188181');
                 $('#place-detail .button-like button').css('color', '#fff')
                 $('.button-like i').css('color', '#fff');
+                 location.reload();
             }
         })
             

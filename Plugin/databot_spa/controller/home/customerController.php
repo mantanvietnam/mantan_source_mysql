@@ -314,9 +314,17 @@ function addCustomer($input)
 	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
 	    $dataGroup = $modelCategories->find()->where($category)->order(['name' => 'ASC'])->all()->toList();
 
+	    if(empty($dataGroup)){
+	    	return $controller->redirect('listCategoryCustomer?error=requestCategoryCustomer');
+	    }
+
 	    // danh sách dịch vụ
 	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
 	    $dataService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+
+	     if(empty($dataService)){
+	    	return $controller->redirect('listService?error=requestSourceCustomer');
+	    }
 
 	    // danh sách sản phẩm
 	    $product = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
@@ -326,7 +334,7 @@ function addCustomer($input)
 	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
 	    $dataSource = $modelCategories->find()->where($source)->order(['name' => 'ASC'])->all()->toList();
 	   	
-	   	/*
+	   	
 	    if(empty($dataGroup)){
 	    	return $controller->redirect('/listCategoryCustomer/?error=requestCategoryCustomer');
 	    }
@@ -342,7 +350,7 @@ function addCustomer($input)
 	    if(empty($dataProduct)){
 	    	return $controller->redirect('/listProduct/?error=requestProduct');
 	    }
-	    */
+	    
 
 	    setVariable('data', $data);
 	    setVariable('dataMember', $dataMember); 

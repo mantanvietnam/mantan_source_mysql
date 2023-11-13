@@ -51,6 +51,9 @@ function product($input)
         	$metaDescriptionMantan = $product->description;
             
             $product->images = json_decode($product->images, true);
+            if(!empty($product->evaluate)){
+                $product->evaluate = json_decode(@$product->evaluate, true);
+            }
 
             // SẢN PHẨM KHÁC
             $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category, 'status'=>'active');
@@ -60,7 +63,7 @@ function product($input)
 		    $order = array('id'=>'desc');
 
             $product->question = $modelQuestion->find()->where(['id_product'=>$product->id])->all()->toList();
-            $product->evaluate = $modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList();
+            $product->evaluates = $modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList();
             $product->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList());
 
 
@@ -79,8 +82,8 @@ function product($input)
             $product->discountCode = $DiscountCode;
 
             $point = 0;
-            if(!empty($product->evaluate)){
-                foreach($product->evaluate as $key => $item){
+            if(!empty($product->evaluates)){
+                foreach($product->evaluates as $key => $item){
                     $point = $item->point;
                 }
             }

@@ -143,6 +143,7 @@ function addProduct($input)
 	        $data->info = @$dataSend['info'];
 	        $data->image = @$dataSend['image'];
             $data->images = json_encode(@$dataSend['images']);
+            $data->evaluate = json_encode(@$dataSend['evaluate']);
             $data->code = @$dataSend['code'];
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
@@ -154,6 +155,8 @@ function addProduct($input)
             $data->id_product = @$dataSend['id_product'];
             $data->idpro_discount = @$dataSend['idpro_discount'];
             $data->pricepro_discount = @$dataSend['pricepro_discount'];
+
+
 	        
             
 	        // tạo slug
@@ -177,7 +180,9 @@ function addProduct($input)
 
 	        $modelProduct->save($data);
 
+
             $data->images = json_decode($data->images, true);
+            $data->evaluate = json_decode($data->evaluate, true);
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
