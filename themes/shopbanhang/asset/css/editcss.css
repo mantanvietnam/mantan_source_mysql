@@ -466,15 +466,77 @@ header{
     line-height: 17px;
 }
 
-#section-cart .list-code-discount > div:nth-child(1) .logo-voucher h3{
+/* #section-cart .list-code-discount > div:nth-child(1) .logo-voucher h3{
     color: #000
 }
+
 #section-cart .list-code-discount > div:nth-child(2) .infor-voucher{
     color: #008BCF !important
+} */
+
+/* #section-cart .list-code-discount > div:nth-child(3) .logo-voucher h3  {
+    color: #ED1C24 !important;
 }
 
-#section-cart .list-code-discount > div:nth-child(3) .logo-voucher h3, #section-cart .list-code-discount > div:nth-child(3) .infor-voucher {
+#section-cart .list-code-discount > div:nth-child(3) .infor-voucher h4{
     color: #ED1C24 !important;
+}
+
+#section-cart .list-code-discount > div:nth-child(3) .infor-voucher p{
+    color: #ED1C24 !important;
+} */
+
+/*  */
+
+.list-code-discount .list-code-item:nth-child(1) .btn-voucher .detail-voucher h3 {
+    color: #212529
+}
+
+.list-code-discount .list-code-item:nth-child(2) .btn-voucher .detail-voucher h4 {
+    color: #008BCF
+}
+
+.list-code-discount .list-code-item:nth-child(2) .btn-voucher .detail-voucher p {
+    color: #008BCF
+}
+
+.list-code-discount .list-code-item:nth-child(3) .btn-voucher .detail-voucher h3 {
+    color: #ED1C24
+}
+
+.list-code-discount .list-code-item:nth-child(3) .btn-voucher .detail-voucher h4 {
+    color: #ED1C24
+}
+
+.list-code-discount .list-code-item:nth-child(3) .btn-voucher .detail-voucher p {
+    color: #ED1C24
+}
+
+
+/*  */
+
+.list-code-discount .list-code-item:nth-child(1) .voucher-disabled .detail-voucher h3 {
+    color: #a7a7a7
+}
+
+.list-code-discount .list-code-item:nth-child(2) .voucher-disabled .detail-voucher h4 {
+    color: #c4cfe9
+}
+
+.list-code-discount .list-code-item:nth-child(2) .voucher-disabled .detail-voucher p {
+    color: #c4cfe9
+}
+
+.list-code-discount .list-code-item:nth-child(3) .voucher-disabled .detail-voucher h3 {
+    color: #dfa7a9
+}
+
+.list-code-discount .list-code-item:nth-child(3) .voucher-disabled .detail-voucher h4 {
+    color: #dfa7a9
+}
+
+.list-code-discount .list-code-item:nth-child(3) .voucher-disabled .detail-voucher p {
+    color: #dfa7a9
 }
 
 /* Chi tiết sản phẩm */
@@ -554,6 +616,19 @@ header{
     padding-left: 70px;
 }
 
+#super-sale .list-code-discount .voucher{
+    width: 50%;
+}
+
+#super-sale .voucher .detail-voucher{
+    left: 0;
+    right: 0;
+}
+
+#super-sale .voucher .logo-voucher{
+    width: 37%;
+}
+
 /* footer */
 .footer-blog-contact .input-blog-contact input{
     width: 140px;
@@ -615,7 +690,9 @@ header{
 }
 
 @media(max-width: 445px) {
-
+    #super-sale .list-code-discount .voucher{
+        width: 100%;
+    }
     /* footer */
     /* .footer-blog-contact{
         display: none;

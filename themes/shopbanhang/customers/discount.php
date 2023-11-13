@@ -14,7 +14,7 @@ getHeader();
 
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="tab-content" style="height:100%">
-                        <div id="super-sale" class="tab-pane active" style="border:1px solid #ccc">
+                        <div id="super-sale" class="view-product tab-pane active" style="border:1px solid #ccc">
                              <div class="title-viewed-product">
                                     <p>Voucher</p>
                                 </div>
