@@ -5,6 +5,7 @@ global $urlThemeActive;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
+
 ?>
 
 <main>
@@ -27,19 +28,19 @@ $slide_home= slide_home($setting['id_slide']);
                         <span><?php echo @$setting['sela_title3'] ?></span>
                     </p>
                 </div>
-             <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> -->
-                    <!-- <div class="row combo-voucher">
+             <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> --> 
+                     <div class="row combo-voucher">
                         <?php if(!empty($DiscountCode)){
                             foreach($DiscountCode as $item){ ?>
                         <div class="item-voucher col-md-4 col-sm-6">
                            
                             <div class="detail-voucher-sale">
-                                <p><?php $item->code ?></p>
-                                <span><?php $item->note ?></span>
+                                <p><?php echo $item->code ?></p>
+                                <span><?php echo $item->note ?></span>
                             </div>
                         </div>
                     <?php }} ?>
-                        </div> -->
+                        </div>
              
                 <div class="top-deal" style="background-image: url(<?php echo @$setting['background_sele'] ?>)">
                     <!-- <img src=""> -->
@@ -94,7 +95,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                            <p><?php echo $product->point ?> <span>(<?php echo $product->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">

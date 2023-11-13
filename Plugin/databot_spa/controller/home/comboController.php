@@ -202,6 +202,23 @@ function addCombo($input){
 	    	}
 	    }
 
+	     // danh sách dịch vụ
+	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $dataService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+
+	    // danh sách sản phẩm
+	    $product = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $dataProduct = $modelProducts->find()->where($product)->order(['name' => 'ASC'])->all()->toList();
+
+
+	    if(empty($dataService)){
+	    	return $controller->redirect('/listService/?error=requestService');
+	    }
+
+	    if(empty($dataProduct)){
+	    	return $controller->redirect('/listProduct/?error=requestProduct');
+	    }
+
         setVariable('data', $data);
         setVariable('categoryProduct', $categoryProduct);
         setVariable('CategoryService', $CategoryService);
