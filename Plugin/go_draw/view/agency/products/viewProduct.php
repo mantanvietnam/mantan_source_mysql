@@ -45,7 +45,7 @@
 												</div>
 												<div class="col-md-12">
 													<label>Số lượng</label>
-													<input onchange="updateAmount();" class="text-center" type="number" name="amount" id="amount" value="1" style="width: 50px;" />
+													<input min="1" onchange="updateAmount();" class="text-center" type="number" name="amount" id="amount" value="1" style="width: 50px;" />
 												</div>
 											</div>
 										</div>

@@ -188,6 +188,12 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_order_back_store_details` ( `id` IN
 
 $sqlInstallDatabase .= 'CREATE TABLE `agency_order_back_store_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `agency_order_products` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `total_price` INT NOT NULL , `status` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , `updated_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `agency_order_product_details` ( `id` INT NOT NULL AUTO_INCREMENT , `order_id` INT NOT NULL , `product_id` INT NOT NULL , `price` INT NOT NULL , `amount` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , `updated_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `agency_order_product_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE `products`;';
 $sqlDeleteDatabase .= 'DROP TABLE `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_accounts`;';
@@ -207,3 +213,7 @@ $sqlDeleteDatabase .= 'DROP TABLE `user_order_histories`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_stores`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_store_details`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_store_histories`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_order_products`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_order_product_details`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_order_product_histories`;';
+

@@ -31,6 +31,15 @@ global $routesPlugin;
     // đơn hàng mua sản phẩm với hệ thống listProduct
     $routesPlugin['listProduct']= 'go_draw/view/agency/products/listProduct.php';
     $routesPlugin['viewProduct']= 'go_draw/view/agency/products/viewProduct.php';
+    
+    $routesPlugin['addToCartProduct']= 'go_draw/view/agency/agency_order_products/addToCartProduct.php';
+    $routesPlugin['cartAgencyProduct']= 'go_draw/view/agency/agency_order_products/cartAgencyProduct.php';
+    $routesPlugin['createOrderAgencyProduct']= 'go_draw/view/agency/agency_order_products/createOrderAgencyProduct.php';
+    
+    $routesPlugin['orderProductWait']= 'go_draw/view/agency/agency_order_products/orderProductWait.php';
+    $routesPlugin['orderProductProcess']= 'go_draw/view/agency/agency_order_products/orderProductProcess.php';
+    $routesPlugin['orderProductDone']= 'go_draw/view/agency/agency_order_products/orderProductDone.php';
+    $routesPlugin['addProductToStore']= 'go_draw/view/agency/agency_order_products/addProductToStore.php';
 
     // kho hàng
     $routesPlugin['warehouse']= 'go_draw/view/agency/agency_products/warehouse.php';
