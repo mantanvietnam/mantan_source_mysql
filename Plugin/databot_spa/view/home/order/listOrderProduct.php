@@ -55,14 +55,12 @@
                                                 <th rowspan='2'>thời gian</th>
                                                 <th rowspan='2'>khách hàng</th>
                                                 <th rowspan="2">Thành tiền </th>
-                                                <th rowspan="2">Giường </th>
                                                 <th colspan="4">thông tin sản phẩn </th>
                                             </tr>
                                             <tr>
                                                 <th>Sản phẩn</th>
                                                 <th>Giá bán</th>
                                                 <th>Số lượng </th>
-                                                <th>loại </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -107,10 +105,6 @@
                                                             <?php echo number_format(@$item->total_pay) ?>đ<br />
                                                             Trạng thái:
                                                             <?php echo $type ?>
-                                                        </td>
-                                                        <td rowspan='<?php echo count($item->product); ?>'>
-                                                            <?php echo @$item->bed->name ?><br />
-                                                            <?php echo $checkin ?>
                                                         </td>
                                                         <?php if (!empty($item->product)) {
                                                             foreach ($item->product as $k => $value) {
