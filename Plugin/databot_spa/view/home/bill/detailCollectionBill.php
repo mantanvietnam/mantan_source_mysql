@@ -79,7 +79,7 @@
                     <br>  
                     <div class="form-group row">
                         <label class="col-md-6"><strong>Hình thức thanh toán</strong></label>
-                         <div class="col-md-6" id="totalPay"><?php  echo $type_collection_bill[@$data->type_collection_bill]; ?></div>
+                         <div class="col-md-6" id="totalPay"><?php  echo @$type_collection_bill[@$data->type_collection_bill]; ?></div>
                     </div> 
                 </div>
                 <div class="col-md-12">
