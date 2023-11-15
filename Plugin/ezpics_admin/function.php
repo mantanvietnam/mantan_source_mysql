@@ -13,40 +13,46 @@ $menus[0]['sub'][0]= array( 'title'=>'Người dùng',
                             'classIcon'=>'bx bx-user',
                             'permission'=>'listMemberAdmin'
                         );
-$menus[0]['sub'][14]= array( 'title'=>'Người dùng sắp hết hạn Pro',
+$menus[0]['sub'][]= array( 'title'=>'Người dùng sắp hết hạn Pro',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-member-listMemberDeadlineProAdmin.php',
                             'classIcon'=>'bx bx-user',
                             'permission'=>'listMemberDeadlineProAdmin'
                         );
 
-$menus[0]['sub'][1]= array( 'title'=>'Mẫu thiết kế',
+$menus[0]['sub'][]= array( 'title'=>'Mẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-product-listProductAdmin.php',
                             'classIcon'=>'bx bx-paint',
                             'permission'=>'listProductAdmin'
                         );
-$menus[0]['sub'][10]= array( 'title'=>'Mẫu thiết kế xu hướng',
+$menus[0]['sub'][]= array( 'title'=>'Mẫu thiết kế xu hướng',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-product-listProductTrendAdmin.php',
                             'classIcon'=>'bx bx-paint',
                             'permission'=>'listProductTrendAdmin'
                         );
-$menus[0]['sub'][12]= array( 'title'=>' Chuyển mẫu thiết kế cho Designer khác',
+$menus[0]['sub'][]= array( 'title'=>' Chuyển mẫu thiết kế cho Designer khác',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-member-transferManagerAdmin.php',
                             'classIcon'=>'bx bx-transfer',
                             'permission'=>'transferManagerAdmin'
                         );
 
-$menus[0]['sub'][2]= array( 'title'=>'Kho mẫu thiết kế',
+$menus[0]['sub'][]= array( 'title'=>'Mẫu chữ',
+                            'url'=>'/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin.php',
+                            'classIcon'=>'bx bxs-cylinder',
+                            'permission'=>'listStyleTextAdmin'
+                        );
+
+$menus[0]['sub'][]= array( 'title'=>'Kho mẫu thiết kế',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php',
                             'classIcon'=>'bx bxs-cylinder',
                             'permission'=>'listWarehouseAdmin'
                         );
-$menus[0]['sub'][11]= array( 'title'=>'Kho mẫu thiết kế xu hướng',
+$menus[0]['sub'][]= array( 'title'=>'Kho mẫu thiết kế xu hướng',
                             'url'=>'/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php',
                             'classIcon'=>'bx bxs-cylinder',
                             'permission'=>'listWarehouseTrendAdmin'
                         );
 
-$menus[0]['sub'][3]= array('title'=>'Giao dịch',
+$menus[0]['sub'][]= array('title'=>'Giao dịch',
                             'url'=>'/',
                             'classIcon'=>'bx bx-history',
                             'permission'=>'transactionHistoryEzpics',
@@ -119,7 +125,7 @@ $menus[0]['sub'][3]= array('title'=>'Giao dịch',
                                     )
                         );
 
-$menus[0]['sub'][4]= array( 'title'=>'Thông báo',
+$menus[0]['sub'][]= array( 'title'=>'Thông báo',
                             'url'=>'/',
                             'classIcon'=>'bx bx-bell',
                             'permission'=>'addNotificationAdmin',
@@ -141,7 +147,7 @@ $menus[0]['sub'][4]= array( 'title'=>'Thông báo',
                                 )
                         );
 
-$menus[0]['sub'][5]= array('title'=>'Liên hệ',
+$menus[0]['sub'][]= array('title'=>'Liên hệ',
                             'url'=>'/',
                             'classIcon'=>'bx bxs-contact',
                             'permission'=>'settingsEzpics',
@@ -163,7 +169,7 @@ $menus[0]['sub'][5]= array('title'=>'Liên hệ',
                                     )
                         );
 
-$menus[0]['sub'][6]= array('title'=>'Top designer',
+$menus[0]['sub'][]= array('title'=>'Top designer',
                             'url'=>'/',
                             'classIcon'=>'bx bx-filter-alt',
                             'permission'=>'topDesigner',
@@ -185,7 +191,7 @@ $menus[0]['sub'][6]= array('title'=>'Top designer',
                                     )
                         );
 
-$menus[0]['sub'][7]= array('title'=>'Cài đặt',
+$menus[0]['sub'][]= array('title'=>'Cài đặt',
                             'url'=>'/',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
@@ -216,7 +222,7 @@ $menus[0]['sub'][7]= array('title'=>'Cài đặt',
                                         ),
                                     )
                         );
-$menus[0]['sub'][8]= array( 'title'=>'Thống kê',
+$menus[0]['sub'][]= array( 'title'=>'Thống kê',
                             'url'=>'',
                             'classIcon'=>'bx bx-line-chart',
                             'permission'=>'homeAdmin',
@@ -252,7 +258,7 @@ $menus[0]['sub'][8]= array( 'title'=>'Thống kê',
                                             ),
                                     )
                         );
-$menus[0]['sub'][9]= array('title'=>'Mẫu câu hỏi',
+$menus[0]['sub'][]= array('title'=>'Mẫu câu hỏi',
                             'url'=>'/',
                             'classIcon'=>'bx bx-spreadsheet',
                             'permission'=>'settingsEzpics',
