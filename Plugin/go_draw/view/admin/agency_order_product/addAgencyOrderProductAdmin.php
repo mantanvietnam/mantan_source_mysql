@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php">Đơn hàng</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php">Đơn hàng</a> /</span>
         Thông tin đơn hàng
     </h4>
 
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
 
-                                    <h5>Các combo trong đơn hàng</h5>
+                                    <h5>Các sản phẩm trong đơn hàng</h5>
                                     <?php
                                       if (!empty($listItem)):
                                         foreach ($listItem as $key => $item):
@@ -81,13 +81,13 @@
                                         <div class="row">
                                             <input type="hidden" name="<?php echo 'order_detail_id['.$key.']'; ?>" value="<?php echo $item->id; ?>">
                                             <div class="col-md-4 mb-3">
-                                                <label class="form-label">Tên combo</label>
+                                                <label class="form-label">Tên sản phẩm</label>
                                                 <select name="<?php echo 'order_detail_combo_id['.$key.']'; ?>" class="form-select color-dropdown">
                                                     <?php
-                                                      if (!empty($listCombo)):
-                                                        foreach ($listCombo as $combo):
+                                                      if (!empty($listProduct)):
+                                                        foreach ($listProduct as $product):
                                                     ?>
-                                                        <option value="<?php echo $combo->id; ?>" <?php if ($item->combo_id == $combo->id) echo 'selected'; ?>><?php echo $combo->name; ?></option>
+                                                        <option value="<?php echo $product->id; ?>" <?php if ($item->combo_id == $product->id) echo 'selected'; ?>><?php echo $product->name; ?></option>
                                                     <?php
                                                         endforeach;
                                                       endif;
@@ -102,7 +102,7 @@
 
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label">Đơn giá</label>
-                                                <input type="number" name="<?php echo 'order_detail_unit_price['.$key.']'; ?>" class="form-control" value="<?php echo @$item->unit_price?>">
+                                                <input type="number" name="<?php echo 'order_detail_unit_price['.$key.']'; ?>" class="form-control" value="<?php echo @$item->price?>">
                                             </div>
                                         </div>
                                     <?php
@@ -150,7 +150,7 @@
         if(r == true){
             $.ajax({
               method: "POST",
-              url: '/apis/acceptAgencyOrderAdminApi',
+              url: '/apis/acceptAgencyOrderProductAdminApi',
               headers: {'X-CSRF-Token': token},
               data: {id:id},
               success: function (result) {

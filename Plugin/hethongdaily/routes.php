@@ -26,3 +26,6 @@
 
 	$routesPlugin['getInfoMemberAPI']= 'hethongdaily/view/api/getInfoMemberAPI.php';
 	$routesPlugin['resendOTPAPI']= 'hethongdaily/view/api/resendOTPAPI.php';
+
+	// thông tin đại lý
+	$routesPlugin['info']= 'hethongdaily/view/home/member/info.php';

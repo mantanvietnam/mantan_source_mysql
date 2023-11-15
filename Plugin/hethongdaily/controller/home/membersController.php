@@ -533,4 +533,32 @@ function verify($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function info($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    $modelMembers = $controller->loadModel('Members');
+
+	if(!empty($_GET['id'])){
+		$info = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active', 'verify'=>'active'])->first();
+
+		if(!empty($info)){
+			$position = $modelCategories->find()->where(array('id'=>$info->id_position))->first();
+				
+			$info->name_position = @$position->name;
+		
+			setVariable('info', $info);
+		}else{
+			return $controller->redirect('/');
+		}
+	}else{
+		return $controller->redirect('/');
+	}
+}
 ?>

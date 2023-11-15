@@ -108,6 +108,7 @@ function addAgencyOrderAdmin($input)
     $orderDetailModel = $controller->loadModel('AgencyOrderDetails');
     $comboModel = $controller->loadModel('Combos');
     $agencyModel = $controller->loadModel('Agencies');
+    $agencyAccountsModel = $controller->loadModel('AgencyAccounts');
     $mess = '';
 
     if (!empty($_GET['id'])) {
@@ -120,7 +121,7 @@ function addAgencyOrderAdmin($input)
             $listItem = $orderDetailModel->find()->where(['order_id' => $order->id])->all();
             setVariable('listItem', $listItem);
 
-            $agency = $agencyModel->find()->where(['id' => $order->agency_id])->first();
+            $agency = $agencyAccountsModel->find()->where(['id' => $order->agency_id])->first();
             setVariable('agency', $agency);
 
             $listAgency = $agencyModel->find()->all();

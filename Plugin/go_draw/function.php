@@ -2,37 +2,43 @@
 
 $menus = array();
 $menus[0]['title'] = 'Sản phẩm';
-$menus[0]['sub'][0] = array('title' => 'Sản phẩm',
+$menus[0]['sub'][0] = array('title' => 'Cài đặt sản phẩm',
     'url' => '/plugins/admin/go_draw-view-admin-product-listProductAdmin.php',
     'classIcon' => 'bx bxs-data',
     'permission' => 'listProduct'
 );
 
-$menus[0]['sub'][1] = array('title' => 'Đơn hàng',
+$menus[0]['sub'][] = array('title' => 'Đơn hàng combo',
     'url' => '/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listOrderAdmin'
 );
 
-$menus[0]['sub'][2] = array('title' => 'Đại lý',
+$menus[0]['sub'][] = array('title' => 'Đơn hàng sản phẩm',
+    'url' => '/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php',
+    'classIcon' => 'bx bx-cart-add',
+    'permission' => 'listAgencyOrderProductAdmin'
+);
+
+$menus[0]['sub'][] = array('title' => 'Đại lý',
     'url' => '/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin.php',
     'classIcon' => 'bx bx-home',
     'permission' => 'listAgencyAdmin'
 );
 
-$menus[0]['sub'][3] = array('title' => 'Combo sản phẩm',
+$menus[0]['sub'][] = array('title' => 'Combo sản phẩm',
     'url' => '/plugins/admin/go_draw-view-admin-combo-listComboAdmin.php',
     'classIcon' => 'bx bx-collection',
     'permission' => 'listComboAdmin'
 );
 
-$menus[0]['sub'][4] = array('title' => 'Thành viên',
+$menus[0]['sub'][] = array('title' => 'Thành viên',
     'url' => '/plugins/admin/go_draw-view-admin-user-listUserAdmin.php',
     'classIcon' => 'bx bx-user',
     'permission' => 'listUserAdmin'
 );
 
-$menus[0]['sub'][5] = array('title' => 'Lịch sử đơn hàng',
+$menus[0]['sub'][] = array('title' => 'Lịch sử đơn hàng',
     'url' => '/',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listOrderHistoryAdmin',
@@ -56,7 +62,7 @@ $menus[0]['sub'][5] = array('title' => 'Lịch sử đơn hàng',
     )
 );
 
-$menus[0]['sub'][10] = array('title' => 'Cài đặt',
+$menus[0]['sub'][] = array('title' => 'Cài đặt',
     'url' => '/',
     'classIcon' => 'bx bx-cog',
     'permission' => 'settingsProducts',

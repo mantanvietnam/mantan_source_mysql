@@ -6,6 +6,7 @@ global $routesPlugin;
     $routesPlugin['getProductDetailAdminApi']= 'go_draw/view/getProductDetailAdminApi.php';
     $routesPlugin['deleteComboProductAdminApi']= 'go_draw/view/deleteComboProductAdminApi.php';
     $routesPlugin['acceptAgencyOrderAdminApi']= 'go_draw/view/acceptAgencyOrderAdminApi.php';
+    $routesPlugin['acceptAgencyOrderProductAdminApi']= 'go_draw/view/acceptAgencyOrderProductAdminApi.php';
 
     // agency
     $routesPlugin['login']= 'go_draw/view/agency/agency_accounts/login.php';
