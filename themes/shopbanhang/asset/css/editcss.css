@@ -835,6 +835,12 @@ header{
     height: 43px;
 }
 
+.info-user-box #mess{
+    margin-top: 10px;
+    font-size: 14px;
+    
+}
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;

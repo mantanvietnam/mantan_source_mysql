@@ -109,11 +109,15 @@ $settinghom = setting();
                                     </div>
 
                                     <div class="content-share-link">
-                                        <div class="infor-user">
-                                            <img src="<?php echo $infoUser->avatar ?>">
-                                            <p><?php echo $infoUser->full_name ?></p>
+                                        <div class="info-user-box">
+
+                                            <div class="infor-user">
+                                                <img src="<?php echo $infoUser->avatar ?>">
+                                                <p><?php echo $infoUser->full_name ?></p>
+                                            </div>
                                             <p id="mess"></p>
                                         </div>
+                                       
                                         <div class="input-link">
                                             <input type="text" id="note" placeholder="Chia sẻ link đập hộp tại đây">
                                             <div class="btn-submit">
