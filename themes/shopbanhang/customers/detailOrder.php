@@ -44,8 +44,8 @@ getHeader();
                                                     $total += $price_buy;
 
                                                     echo '<tr>
-                                                            <td><img src="'.$item->product->image.'" width="80" /></td>
-                                                            <td>'.$item->product->title.'</td>
+                                                            <td><img src="'.@$item->product->image.'" width="80" /></td>
+                                                            <td>'.@$item->product->title.'</td>
                                                             <td>'.$item->quantity.'</td>
                                                             <td>'.number_format($item->price).'đ</td>
                                                             <td>'.number_format($price_buy).'đ</td>
