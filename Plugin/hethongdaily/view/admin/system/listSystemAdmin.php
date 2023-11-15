@@ -82,8 +82,11 @@
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-fullname">Từ khóa</label>
-                  <input type="text" class="form-control" placeholder="" name="keyword" id="keyword" value="" />
+                  <label class="form-label" for="basic-default-fullname">Yêu cầu xác thực OTP</label>
+                  <select class="form-select color-dropdown" name="keyword" id="keyword">
+                    <option value="">Cần xác thực</option>
+                    <option value="1">Không xác thực</option>
+                  </select>
                 </div>
 
                 <div class="mb-3">

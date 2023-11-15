@@ -322,7 +322,176 @@ function guarantee(){
 
 }
 
+function instruction(){
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'sttingGuaranteeTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+   
+    setVariable('setting', $data_value);
+}
+
 function review(){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $controller; 
+    global $modelCategories;
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'sttingReviewTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
+    $modelReview = $controller->loadModel('Reviews');
+    $modelCustomer = $controller->loadModel('Customers');
+    $order = array('id'=>'desc');
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+     $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_album']])->first();
+
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+    }
+
+    $conditions = array();
+    $conditions['status'] = 'active';
+
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
+            foreach($review as $k => $value){
+                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
+            }
+            $list_product[$key]->review = $review;
+        }
+    }
+
+    
+
+
+    setVariable('setting', $data_value);
+    setVariable('list_product', $list_product);
+    setVariable('slide_home', $slide_home);
+}
+
+function reviewkol(){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $controller; 
+    global $modelCategories;
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'sttingReviewTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
+    $modelReview = $controller->loadModel('Reviews');
+    $modelCustomer = $controller->loadModel('Customers');
+    $order = array('id'=>'desc');
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+     $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_album']])->first();
+
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+    }
+
+    $conditions = array();
+    $conditions['status'] = 'active';
+
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
+            foreach($review as $k => $value){
+                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
+            }
+            $list_product[$key]->review = $review;
+        }
+    }
+
+    
+
+
+    setVariable('setting', $data_value);
+    setVariable('list_product', $list_product);
+    setVariable('slide_home', $slide_home);
+}
+
+function reviewBeatbox(){
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $controller; 
+    global $modelCategories;
+    global $modelOptions;
+
+    $conditions = array('key_word' => 'sttingReviewTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
+    $modelReview = $controller->loadModel('Reviews');
+    $modelCustomer = $controller->loadModel('Customers');
+    $order = array('id'=>'desc');
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+     $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_album']])->first();
+
+    if(!empty($slide_home)){
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+    }
+
+    $conditions = array();
+    $conditions['status'] = 'active';
+
+    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+
+
+    if(!empty($list_product)){
+        foreach($list_product as $key => $item){
+            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
+            foreach($review as $k => $value){
+                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
+            }
+            $list_product[$key]->review = $review;
+        }
+    }
+
+    
+
+
+    setVariable('setting', $data_value);
+    setVariable('list_product', $list_product);
+    setVariable('slide_home', $slide_home);
+}
+
+function reviewProduct(){
     global $modelAlbums;
     global $modelAlbuminfos;
     global $controller; 

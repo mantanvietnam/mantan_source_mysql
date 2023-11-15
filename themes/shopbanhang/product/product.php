@@ -277,7 +277,6 @@ $slide_home= slide_home($setting['id_slide']);
                             
                                  <?php
                                  if(@$product->quantity>0){
-                                    if(!empty($infoUser)){
 
                                         ?>
                             <div class="product-detail-button-cart">
@@ -287,16 +286,7 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="product-detail-button-buy">
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'true')">Mua ngay</a>
                             </div>
-                        <?php }else{ ?>
-                            <div class="product-detail-button-cart">
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""> Thêm vào giỏ hàng</a>
-                            </div>
-
-                            <div class="product-detail-button-buy">
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal">Mua ngay</a>
-                            </div>
-
-                        <?php }}else{?>
+                        <?php }else{?>
                              <div class="product-detail-button-cart">
                                 <a data-bs-toggle="modal" data-bs-target="#">Hết hàng</a>
                             </div>
