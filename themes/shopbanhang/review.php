@@ -420,7 +420,6 @@ $settinghom = setting();
                                         foreach($list_product as $key => $item){
                                             if(!empty($item->review)){
                                               foreach($item->review as $k => $value){  
-                                                   
                                      ?>
                                         <div class="content-unbox posts">
                                             <div class="detail-unbox">
@@ -491,7 +490,7 @@ $settinghom = setting();
                                                 <li>Caption cần đính kèm đầy đủ hashtag #Unboxing #Bumas</li>
                                                 <li>Sau khi đăng tải Video và thực hiện đúng yêu cầu trên, dán link video vào mục "chia sẻ link video đập hộp".</li>
                                                 <li>Đội ngũ Bumas sẽ
-                                                    <span>ểm duyệt video trong vòng 48 giờ</span> làm việc (không tính Chủ nhật). Nếu đạt yêu cầu, bạn sẽ được
+                                                    <span>kiểm duyệt video trong vòng 48 giờ</span> làm việc (không tính Chủ nhật). Nếu đạt yêu cầu, bạn sẽ được
                                                     <span>nhận ngay voucher 50k</span> vào kho voucher của bạn.
                                                 </li>
                                             </ul>
@@ -659,12 +658,14 @@ $settinghom = setting();
                                             </div>
                                             <div class="image-unbox">
                                                 <p><?php echo $value->content ?></p>
+                                                <div class="slide-rate-image">
                                                  <?php if(!empty($value->image)){
                                                         foreach($value->image as $image) {
                                                         if(!empty($image)){
                                                     ?>
                                                     <img src="<?php echo $image;?>" alt="">
                                                 <?php }}} ?>
+                                                </div>
                                             </div>
                                             <!-- <div class="icon-interact">
                                                 <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
@@ -674,9 +675,9 @@ $settinghom = setting();
                                     <?php }}}} ?>
                                     
 
-                                    <div class="icon-loading">
+                                    <!-- <div class="icon-loading">
                                         <i class="fa-solid fa-spinner"></i>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="col-lg-4 col-md-12 col-sm-12">

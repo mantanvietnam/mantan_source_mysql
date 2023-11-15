@@ -13,7 +13,7 @@ $slide_home= slide_home($setting['id_slide']);
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Khuyên mãi</li>
+                    <li class="breadcrumb-item active">Khuyến mãi</li>
                 </ul>
             </div>
         </section>

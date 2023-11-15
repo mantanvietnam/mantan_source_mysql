@@ -225,13 +225,13 @@ global $urlThemeActive;
         </section>
 
         <!-- Banner chinh sách công ty -->
-        <section id="section-banner-policy">
+        <!-- <section id="section-banner-policy">
             <div class="container-fluid">
                 <div class="banner-policy">
                     <img src="<?php echo @$setting['image7'] ?>" alt="">
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Bình luận -->
         <section id="section-comment-customer">

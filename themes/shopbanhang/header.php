@@ -87,7 +87,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-group-button">
                             <div class="topbar-button">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt="">
+                                <img src="<?php echo $urlThemeActive ?>asset/image/account.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
                                     <a href="/infoUser" >Tài khoản của tôi</a>
                                     <a href="/logout" >Đăng xuất</a>

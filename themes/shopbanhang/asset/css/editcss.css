@@ -677,6 +677,99 @@ header{
     font-weight: 200;
 }
 
+.item-star-rating {
+    margin-right: 3px;
+}
+
+/* Sửa trang chủ */
+/* Tiêu đề */
+.title-section h2{
+    font-weight: 400;
+}
+
+.flash-sale-title{
+    font-weight: 400 !important;
+}
+
+#section-flash-sale .flash-sale-link a{
+    font-weight: 200;
+}
+
+
+.topbar-phone span{
+    font-weight: 200;
+}
+
+.topbar-button a{
+    font-weight: 200;
+}
+
+.navbar-header .nav-item .nav-link::after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 0;
+    height: 2px;
+    background-color: #008ACE ;
+    -webkit-transition: opacity .3s ease,width .3s ease;
+    -moz-transition: opacity .3s ease,width .3s ease;
+    -o-transition: opacity .3s ease,width .3s ease;
+    transition: opacity .3s ease,width .3s ease;
+    -ms-transition: opacity .3s ease,width .3s ease;
+}
+
+.navbar-header .nav-item .nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-header .nav-item .nav-link.show{
+    border: none;
+    color: #008ACE 
+}
+
+.dropdown-toggle::after{
+    border: none;
+}
+
+.navbar-header .nav-item .nav-link.show::after {
+    width: 100%;
+}
+
+.navbar-header .dropdown-item{
+    font-weight: 200;
+}
+
+.best-sale-name a{
+    font-weight: 200;
+}
+
+/* Sản phẩm trang chủ */
+.best-sale-name a{
+    font-weight: 200;
+}
+
+.best-sale-price{
+    font-weight: 300;
+}
+
+.best-sale-discount{
+    font-weight: 300;
+}
+
+.rate-sold p{
+    font-weight: 200;
+}
+
+.rate-star p{
+    font-weight: 200;
+}
+
+.topbar-button:first-child img{
+    height: 34px;
+}
+
+
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;
