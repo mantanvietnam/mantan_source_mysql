@@ -1,11 +1,19 @@
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
+  var myCheckbox = voucherDiv.querySelector('.form-check-input');
+  myCheckbox.disabled = true;
+});
+
+
 $('.slide-rate-image').slick({
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
   // autoplay: true,
   autoplaySpeed: 3000,
-  // arrows: false
+  arrows: false
 });
 
 
@@ -35,23 +43,26 @@ var contentMain = document.querySelector('.describe-description-filter');
 contentMain.classList.add('hideContent');
 
 document.querySelectorAll(".describe-more button").forEach(function(link) {
-    link.addEventListener("click", function() {
-      // var content = this.parentElement.previousElementSibling;
-      var linkText = this.textContent.toUpperCase();
-  
-      if (linkText === "XEM THÊM") {
-        linkText = "Rút gọn";
-        contentMain.classList.remove("hideContent");
-        contentMain.classList.add("showContent");
-      } else {
-        linkText = "Xem thêm";
-        contentMain.classList.remove("showContent");
-        contentMain.classList.add("hideContent");
-      }
-  
-      this.textContent = linkText;
-    });
-  });   
+  link.addEventListener("click", function() {
+    // var content = this.parentElement.previousElementSibling;
+    var linkText = this.textContent.toUpperCase();
+
+    if (linkText === "XEM THÊM") {
+      linkText = "Rút gọn";
+      contentMain.classList.remove("hideContent");
+      contentMain.classList.add("showContent");
+    } else {
+      linkText = "Xem thêm";
+      contentMain.classList.remove("showContent");
+      contentMain.classList.add("hideContent");
+    }
+
+    this.textContent = linkText;
+  });
+});   
+
+
+
 
 
 

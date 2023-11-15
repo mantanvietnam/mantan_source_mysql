@@ -185,7 +185,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 blog-col-item blog-col-item-right">
                         <div class="title-section">
-                            <p>Làm đẹp cùng Bumas</p>
+                            <p>Sức khỏe</p>
                         </div>
     
                         <div class="list-blog-col">

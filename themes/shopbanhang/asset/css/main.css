@@ -1191,7 +1191,8 @@ strong {
 
 .footer-center {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 75px;
 }
 
 .footer-menu-name {
