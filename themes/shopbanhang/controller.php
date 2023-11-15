@@ -291,9 +291,9 @@ function news(){
 
     $listDatatop= $modelPosts->find()->limit(1)->where(array('pin'=>1))->order($order)->all()->toList();
     $listDataView= $modelPosts->find()->limit(4)->where(array('view >'=>1))->order(array('view'=>'desc'))->all()->toList();
-    $listDataNew= $modelPosts->find()->limit(3)->where(array())->order($order)->all()->toList();
+    $listDataNew= $modelPosts->find()->limit(4)->where(array())->order($order)->all()->toList();
     $listDataCategory1= $modelPosts->find()->limit(3)->where(array('idCategory'=>4))->order($order)->all()->toList();
-    $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>3))->order($order)->all()->toList();
+    $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>9))->order($order)->all()->toList();
     $listDataPost= $modelPosts->find()->limit(12)->where(array())->order($order)->all()->toList();
 
 

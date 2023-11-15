@@ -831,6 +831,10 @@ header{
     height: 600px;
 }
 
+.blog-slide-item .blog-slide-title a{
+    height: 43px;
+}
+
 @media(min-width: 445px){
     .topbar-mobile{
         display: none;
