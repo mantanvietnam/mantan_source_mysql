@@ -98,7 +98,7 @@ function saveRegisterMemberAPI($input)
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
-					$data->ecoin = 0;
+					$data->ecoin = 99;
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->last_login = date('Y-m-d H:i:s');
 					$data->token_device = @$dataSend['token_device'];

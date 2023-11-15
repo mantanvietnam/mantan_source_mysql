@@ -109,15 +109,17 @@
       if(check){
         $.ajax({
           method: "GET",
-          url: "/deleteCategoryService/?id="+id,
-          data: {}
-        })
-          .done(function( msg ) {
-            window.location = '/listCategoryService';
-          })
-          .fail(function() {
-            window.location = '/listCategoryService';
-          });
+          url: "/apis/deleteCategoryService/?id="+id,
+          data: {},
+          success:function(res){
+                  //console.log(res);
+                  if(res.code==1){
+                    window.location = '/listCategoryService?error=requestCategoryDeleteSuccess';
+                  }else{
+                    window.location = '/listCategoryService?error=requestCategoryDelete';
+                  }
+                }
+        });
       }
     }
   </script>

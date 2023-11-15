@@ -11,7 +11,6 @@ rel='stylesheet' type='text/css'>
     <h4 class="fw-bold py-3 mb-4">Sơ đồ giường</h4>
     <div class="card">
         <?php if(!empty($listData)){ 
-            debug($listData);
                 foreach($listData as $key =>$item){ ?>
                     <div class="row diagram">
                         <div style="background-color: #000; color: #fff;" class="col-xs-6 col-md-1 col-sm-2 floors context-menu-three" idRoom="<?php echo $item->id ?>"><?php echo $item->name ?></div>
@@ -146,7 +145,7 @@ rel='stylesheet' type='text/css'>
         global $urlHomes;
         global $urlCurrent;
 
-        echo 'var urlCheckinBed = "'.$urlHomes.'order";';
+        echo 'var urlCheckinBed = "'.$urlHomes.'listOrderService";';
         echo 'var urlEditBed = "'.$urlHomes.'listBed";';
         echo 'var urlDeleteBed = "'.$urlHomes.'deleteBed";';
         echo 'var listOrder = "'.$urlHomes.'listOrder";';

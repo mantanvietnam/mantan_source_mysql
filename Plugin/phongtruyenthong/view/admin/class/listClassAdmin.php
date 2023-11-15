@@ -45,6 +45,14 @@
               <option value="lock" <?php if(!empty($_GET['status']) && $_GET['status']=='lock') echo 'selected';?> >Khóa</option>
             </select>
           </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Sắp xếp theo</label>
+            <select name="orderby" class="form-select color-dropdown">
+              <option value="">Thời gian tạo</option>
+              <option value="year" <?php if(!empty($_GET['orderby']) && $_GET['orderby']=='year') echo 'selected';?> >Niên khóa</option>
+            </select>
+          </div>
           
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>

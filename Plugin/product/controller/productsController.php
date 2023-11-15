@@ -158,7 +158,7 @@ function addProduct($input)
 
 
 	        
-            
+             $data->images = json_decode($data->images, true);
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
@@ -181,14 +181,21 @@ function addProduct($input)
 	        $modelProduct->save($data);
 
 
-            $data->images = json_decode($data->images, true);
-            $data->evaluate = json_decode($data->evaluate, true);
+
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
 	    }
     }
+
+            
+               
+           
+            if(!empty($data->evaluate)){
+                $data->evaluate = json_decode($data->evaluate, true);
+            }
+          
 
     $conditions = array('type' => 'category_product');
     $listCategory = $modelCategories->find()->where($conditions)->all()->toList();

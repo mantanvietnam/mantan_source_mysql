@@ -1,7 +1,9 @@
- <!-- ======= Footer ======= -->
- <?php global $themeSettings; ?>
+  <!-- ======= Footer ======= -->
+  <?php 
+    global $themeSettings; 
+  ?>
 
-  <footer style="background-image:url('<?php echo @$themeSettings['nenFooter'] ?>');">
+  <footer style="background-image:url('<?php echo @$themeSettings['nenFooter'] ?>');background-color: #000;">
 
     <div class="footer-top">
       <div class="abc">
@@ -10,7 +12,7 @@
             <div class="col-md-3 col-sm-6">
               <div class="item-ft">
                 <div class="title-ft"> <?php echo @$themeSettings['company']; ?></div>
-                <ul class="list-lh">
+                <ul class="list-lh mb-3">
                   <li>
                     <p>
                       <i class="bi bi-geo-alt-fill"></i>  <?php echo $contactSite['address']; ?>
@@ -27,43 +29,40 @@
                     </p>
                   </li>
                 </ul>
-                <div class="social">
-                  <ul class="list-inline">
-                    <li class="list-inline-item">
-                      <a href="<?php echo @$themeSettings['facebook']; ?>">
-                        <img src="<?php echo $urlThemeActive; ?>assets/img/in.png" class="img-fluid" alt="">
-                      </a>
-                    </li>
-
-                    <li class="list-inline-item">
-                      <a href="<?php echo @$themeSettings['youtube']; ?>">
-                        <img src="<?php echo $urlThemeActive; ?>assets/img/in.png" class="img-fluid" alt="">
-                      </a>
-                    </li>
-
-                    <li class="list-inline-item">
-                      <a href="<?php echo @$themeSettings['tiktok']; ?>">
-                        <img src="<?php echo $urlThemeActive; ?>assets/img/in.png" class="img-fluid" alt="">
-                      </a>
-                    </li>
-
-                    <li class="list-inline-item">
-                      <a href="<?php echo @$themeSettings['zalo']; ?>">
-                        <img src="<?php echo $urlThemeActive; ?>assets/img/in.png" class="img-fluid" alt="">
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                
               </div>
             </div>
             <div class="col-md-3 col-sm-6">
               <div class="item-ft">
                 <div class="title-ft">ĐĂNG KÍ NHẬN THÔNG TIN</div>
                 <div class="box-mail">
-                  <form method="post" action="add-subscribe">
+                  <form method="post" action="add-subscribe" class="mb-3">
                     <input type="text" name="email" placeholder="Nhập email">
                     <button type="submit" class="btn btn-primary">Gửi</button>
                   </form>
+
+                  <div class="social">
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <a href="<?php echo @$themeSettings['facebook']; ?>">
+                          <i class="bi bi-facebook"></i>
+                        </a>
+                      </li>
+
+                      <li class="list-inline-item">
+                        <a href="<?php echo @$themeSettings['youtube']; ?>">
+                          <i class="bi bi-youtube"></i>
+                        </a>
+                      </li>
+
+                      <li class="list-inline-item">
+                        <a href="<?php echo @$themeSettings['tiktok']; ?>">
+                          <i class="bi bi-tiktok"></i>
+                        </a>
+                      </li>
+
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,9 +73,12 @@
                   <?php 
                     if(function_exists('getStatic')){
                       $static= getStatic();
+                      
                       echo '<ul class="rs list-unstyled f_ul">
-                      <li class=""> Tổng lượt truy cập: '.number_format($static['total']).'</li>
-                      </ul>';
+                              <li class=""> Truy cập trong ngày: '.number_format($static['mday']).'</li>
+                              <li class=""> Truy cập trong tháng: '.number_format($static['mon']).'</li>
+                              <li class=""> Tổng lượt truy cập: '.number_format($static['total']).'</li>
+                            </ul>';
                     }
                     ?>
                 </div>

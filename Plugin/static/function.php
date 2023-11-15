@@ -20,7 +20,12 @@ function getStatic(){
 
     $conditions = array('key_word' => 'Static');
     $data = $modelOptions->find()->where($conditions)->first();
-        $static = json_decode($data->value, true);
+         if(!empty($data->value)){
+        $static = json_decode(@$data->value, true);
+    }else{
+         $data = $modelOptions->newEmptyEntity();
+    }
+        $static = json_decode(@$data->value, true);
         if(isset($static['oldMon']) && $today['mon']== $static['oldMon'])
         {
 

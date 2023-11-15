@@ -406,6 +406,13 @@ function listCategoryCustomer($input){
                 case 'requestCategoryCustomer':
                     $mess= '<p class="text-danger">Bạn cần tạo nhóm khách hàng trước</p>';
                     break;
+                case 'requestCategoryDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhóm khách hàng này</p>';
+                    break;
+
+                case 'requestCategoryDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
             }
         }
 
@@ -462,6 +469,13 @@ function listSourceCustomer($input){
                 case 'requestSourceCustomer':
                     $mess= '<p class="text-danger">Bạn cần tạo nguồn khách hàng trước</p>';
                     break;
+                case 'requestSourceDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhóm khách hàng này</p>';
+                    break;
+
+                case 'requestSourceDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
             }
         }
 
@@ -506,18 +520,45 @@ function deleteCategoryCustomer($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Xóa nhóm khách hàng';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $modelCustomer = $controller->loadModel('Customers');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             $data = $modelCategories->find()->where($conditions)->first();
-            
-            if(!empty($data)){
-                $modelCategories->delete($data);
+
+            if(!empty($_GET['type'])){
+            switch ($_GET['type']) {
+                case 'Source':
+                    $checkCustomer = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
+                    break;
+                case 'Category':
+                   	$checkCustomer = $modelCustomer->find()->where(array('id_group'=>$data->id))->all()->toList();
+                    break;
+
+          
             }
+        }
+            
+
+            if(empty($checkCustomer)){
+            	if(!empty($data)){
+                	$modelCategories->delete($data);
+                	return array('code'=>1);
+            	}else{
+            		return array('code'=>0);
+            	}
+            }else{
+            	return array('code'=>0);
+            }
+            
+            
+        }else{
+        	return array('code'=>0);
         }
     }else{
         return $controller->redirect('/login');

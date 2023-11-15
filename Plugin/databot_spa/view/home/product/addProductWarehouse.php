@@ -34,8 +34,8 @@
                         <div class="form-group col-md-3">
                             <label class="col-sm-12 control-label">Nhà cung cấp:</label>
                             <div class="col-sm-12">
-                                <input type="hidden" name="idPartner" id="idPartner" value="<?php echo @$_GET['idPartner'] ?>">  
-                                <input type="text" placeholder="Tìm kiếm nhà cung cấp theo tên đối tác"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
+                                <input type="hidden" required="" name="idPartner" id="idPartner" value="<?php echo @$_GET['idPartner'] ?>">  
+                                <input type="text" required="" placeholder="Tìm kiếm nhà cung cấp theo tên đối tác"  maxlength="100" name="partner_name" id="partner_name" class="ui-autocomplete-input form-control"  value="<?php echo @$_GET['partner_name'] ?>" /> 
                             </div>
                         </div>
                     </div> 
@@ -69,8 +69,8 @@
                                                 <?php if(empty($listMerchandiseOrder)){ ?>
                                                 <tr id="trProduct-1">
                                                     <td>
-                                                        <input type="hidden" name="idHangHoa[1]" id="idHangHoa-1" value="">
-                                                        <input type="text" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-1" value="" id="searchProduct-1">
+                                                        <input type="hidden" required="" name="idHangHoa[1]" id="idHangHoa-1" value="">
+                                                        <input type="text" required="" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-1" value="" id="searchProduct-1">
                                                     </td>
                                                     
                                                     <td>
@@ -94,8 +94,8 @@
 
                                                                         echo '<tr id="trProduct-'.$dem.'">
                                                                                 <td>
-                                                                                    <input type="hidden" name="idHangHoa['.$dem.']" id="idHangHoa-'.$dem.'" value="'.$item['Merchandise']['id'].'">
-                                                                                    <input type="text" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-'.$dem.'" value="'.$item['Merchandise']['name'].'" id="searchProduct-'.$dem.'">
+                                                                                    <input type="hidden" required="" name="idHangHoa['.$dem.']" id="idHangHoa-'.$dem.'" value="'.$item['Merchandise']['id'].'">
+                                                                                    <input type="text" required="" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-'.$dem.'" value="'.$item['Merchandise']['name'].'" id="searchProduct-'.$dem.'">
                                                                                 </td>
                                                                                 
                                                                                 <td>
@@ -149,7 +149,7 @@
         numberProduct++;
        
             // màn desktop
-        $('#tbody tr:last').after('<tr id="trProduct-'+row+'"><td><input type="hidden" name="idHangHoa['+row+']" id="idHangHoa-'+row+'" value=""><input type="text" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-'+row+'" id="searchProduct-'+row+'"></td><td><input required="" value="" onchange="tinhtien();" type="text" id="soluong-'+row+'" max="7" name="soluong['+row+']" class="form-control "  placeholder=""/></td><td><input required="" value="" onchange="tinhtien();" type="text" id="price-'+row+'" name="price['+row+']" class="form-control input_money"  placeholder=""/></td><td><input value="" disabled type="text" id="money-'+row+'" name="money['+row+']" class="form-control input_money"  placeholder=""/></td><td align="center"><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct('+row+');"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');
+        $('#tbody tr:last').after('<tr id="trProduct-'+row+'"><td><input type="hidden" required="" name="idHangHoa['+row+']" id="idHangHoa-'+row+'" value=""><input type="text" required="" placeholder="Tìm sản phẩm theo tên" class="form-control" name="searchProduct-'+row+'" id="searchProduct-'+row+'"></td><td><input required="" value="" onchange="tinhtien();" type="text" id="soluong-'+row+'" max="7" name="soluong['+row+']" class="form-control "  placeholder=""/></td><td><input required="" value="" onchange="tinhtien();" type="text" id="price-'+row+'" name="price['+row+']" class="form-control input_money"  placeholder=""/></td><td><input value="" disabled type="text" id="money-'+row+'" name="money['+row+']" class="form-control input_money"  placeholder=""/></td><td align="center"><a href="javascript:void(0);" class="dropdown-item" onclick="deleteProduct('+row+');"><i class="bx bx-trash me-1" aria-hidden="true"></i></a></td></tr>');
         
         $(".datepicker").datepicker({
             autoclose: true,

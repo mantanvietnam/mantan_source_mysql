@@ -97,15 +97,18 @@
       if(check){
         $.ajax({
           method: "GET",
-          url: "/deleteCategoryCustomer/?id="+id,
-          data: {}
-        })
-          .done(function( msg ) {
-            window.location = '/listCategoryCustomer';
-          })
-          .fail(function() {
-            window.location = '/listCategoryCustomer';
-          });
+          url: "/apis/deleteCategoryCustomer/?id="+id+"&type=Category",
+          data: {},
+          success:function(res){
+                  console.log(res);
+                  if(res.code==1){
+                    window.location = '/listCategoryCustomer?error=requestCategoryDeleteSuccess';
+                  }else{
+                    window.location = '/listCategoryCustomer?error=requestCategoryDelete';
+                  }
+                }
+
+        });
       }
     }
   </script>

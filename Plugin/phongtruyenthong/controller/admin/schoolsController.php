@@ -29,6 +29,7 @@ function infoSchoolAdmin($input)
                         'image_donate' => $dataSend['image_donate'],
                         'image_backdrop' => $dataSend['image_backdrop'],
                         'audio_background' => $dataSend['audio_background'],
+                        'link_image_360' => $dataSend['link_image_360'],
                         
                         // dòng thời gian
                         'image_timeline' => $dataSend['image_timeline'],

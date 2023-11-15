@@ -294,7 +294,7 @@ function getInfoProductAPI($input)
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelMember = $controller->loadModel('Members');
-
+	$modelWarehouseProducts = $controller->loadModel('WarehouseProducts');
 	
 	$data = $modelProduct->newEmptyEntity();
 	$otherData = [];
@@ -330,6 +330,19 @@ function getInfoProductAPI($input)
 				$page= 1;
 				$order = array();
 				$otherData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+				$listWarehouseCheck = [];
+			    if(!empty($data->id)){
+					$listCheck = $modelWarehouseProducts->find()->where(['product_id'=>$data->id])->all()->toList();
+
+					if(!empty($listCheck)){
+						foreach ($listCheck as $check) {
+							$listWarehouseCheck[] = $check->warehouse_id;
+						}
+					}
+				}
+
+				$data->listWarehouse = $listWarehouseCheck;
 
 				if(!empty($otherData)){
 					foreach ($otherData as $key => $value) {

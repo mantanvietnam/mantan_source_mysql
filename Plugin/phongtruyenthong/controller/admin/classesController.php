@@ -16,6 +16,12 @@ function listClassAdmin($input)
 	if($page<1) $page = 1;
     $order = array('id'=>'desc');
 
+    if(!empty($_GET['orderby'])){
+        if($_GET['orderby'] == 'year'){
+            $order = array('id_year'=>'desc');
+        }
+    }
+
     if(!empty($_GET['id'])){
         $conditions['id'] = (int) $_GET['id'];
     }

@@ -32,6 +32,10 @@ function orderProduct($input){
 		$conditionsProduct = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'active');
 		$listProduct = $modelProduct->find()->where($conditionsProduct)->all()->toList();
 
+        if(empty($listProduct)){
+            return $controller->redirect('/listProduct/?error=requestProduct');
+        }
+
 		$conditionsCombo = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
 		$listCombo = $modelCombo->find()->where($conditionsCombo)->all()->toList();
 
@@ -303,6 +307,11 @@ function orderCombo($input){
         $conditionsCombo = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'));
         $listCombo = $modelCombo->find()->where($conditionsCombo)->all()->toList();
 
+
+        if(empty($listCombo)){
+            return $controller->redirect('/listCombo/?error=requestProduct');
+        }
+
         $listWarehouse = $modelWarehouses->find()->where($conditionsCombo)->all()->toList();
         $today= getdate();
         $conditionsStaff['OR'] = [ 
@@ -572,6 +581,10 @@ function orderService($input){
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
         $listService = $modelService->find()->where($conditionsService)->all()->toList();
+
+         if(empty($listService)){
+           return $controller->redirect('/listService/?error=requestService');
+        }
 
         $conditionsProduct = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'active');
         $listProduct = $modelProduct->find()->where($conditionsProduct)->all()->toList();

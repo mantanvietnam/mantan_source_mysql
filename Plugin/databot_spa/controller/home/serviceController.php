@@ -15,6 +15,14 @@ function listCategoryService($input){
                 case 'requestCategoryService':
                     $mess= '<p class="text-danger">Bạn cần tạo nhóm dịch vụ trước</p>';
                     break;
+
+                case 'requestCategoryDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa danh mục này</p>';
+                    break;
+
+                case 'requestCategoryDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
             }
         }
 
@@ -61,19 +69,29 @@ function deleteCategoryService($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
     
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $modelService = $controller->loadModel('Services');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'type' => 'category_service', 'id_member'=>$infoUser->id_member);
             
             $data = $modelCategories->find()->where($conditions)->first();
-            
-            if(!empty($data)){
-                $modelCategories->delete($data);
+
+            $checkSevice = $modelService->find()->where(array('id_category'=>$data->id))->all()->toList();
+            if(empty($checkSevice)){
+                if(!empty($data)){
+                    $modelCategories->delete($data);
+                    return array('code'=>1);
+                }else{
+                    return array('code'=>0);
+                 }
+            }else{
+                return array('code'=>2);
             }
         }
     }else{
@@ -96,6 +114,12 @@ function listService($input){
             switch ($_GET['error']) {
                 case 'requestService':
                     $mess= '<p class="text-danger">Bạn cần tạo dịch vụ trước</p>';
+                    break;
+                case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa dịch vụ này</p>';
+                    break;
+                case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
                     break;
             }
         }
@@ -265,15 +289,42 @@ function deleteService($input){
     global $session;
 
     $modelService = $controller->loadModel('Services');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
 
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $modelCombo = $controller->loadModel('Combos');
+
+        
 
         if(!empty($_GET['id'])){
             $data = $modelService->get($_GET['id']);
+
+            $checkCombo = $modelCombo->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+
+            if(!empty($checkCombo)){
+                foreach($checkCombo as $key => $item){
+                    if(!empty($item->service)){
+                        $service = json_decode(@$item->service, true);
+                        foreach($service as $k => $value){
+                            if($k==$data->id){
+                                return $controller->redirect('/listService?error=requestDelete');
+                            }
+                        }
+                    }
+                }
+            }
+
+            $checkOrder = $modelOrderDetails->find()->where(array('id_product'=>$data->id,'type'=>'service','id_member'=>$infoUser->id_member))->all()->toList();
+
+            if(!empty($checkOrder)){
+                return $controller->redirect('/listService?error=requestDelete');
+
+            }
             
             if($data){
                 $modelService->delete($data);
+                return $controller->redirect('/listService?error=requestDeleteSuccess');
             }
         }
 

@@ -134,6 +134,7 @@ function indexTheme($input){
     global $modelAlbums;
     global $modelAlbuminfos;
     global $themeSettings;
+    global $modelPosts;
 
     // SLIDE ĐỐI TÁC
     $slide_tai_tro = [];
@@ -141,6 +142,10 @@ function indexTheme($input){
         $slide_tai_tro = $modelAlbuminfos->find()->where(['id_album'=>(int) $themeSettings['idslidetaitro']])->all()->toList();
     }
 
+    $news = $modelPosts->find()->where(['type'=>'post'])->all()->toList();
+
     setVariable('slide_tai_tro', $slide_tai_tro);
+    setVariable('news', $news);
+
 }
 ?>

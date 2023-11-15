@@ -15,7 +15,7 @@ global $routesPlugin;
     $routesPlugin['listCombo']= 'go_draw/view/agency/combos/listCombo.php';
     $routesPlugin['viewCombo']= 'go_draw/view/agency/combos/viewCombo.php';
 
-	// đơn hàng với hệ thống
+	// đơn hàng mua combo với hệ thống
 	$routesPlugin['addToCart']= 'go_draw/view/agency/agency_orders/addToCart.php';
 	$routesPlugin['cart']= 'go_draw/view/agency/agency_orders/cart.php';
 	$routesPlugin['createOrder']= 'go_draw/view/agency/agency_orders/createOrder.php';
@@ -27,6 +27,30 @@ global $routesPlugin;
 
     $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
     $routesPlugin['orderAgencyDone']= 'go_draw/view/agency/agency_orders/orderAgencyDone.php';
+
+    // đơn hàng mua sản phẩm với hệ thống listProduct
+    $routesPlugin['listProduct']= 'go_draw/view/agency/products/listProduct.php';
+    $routesPlugin['viewProduct']= 'go_draw/view/agency/products/viewProduct.php';
+    
+    $routesPlugin['addToCartProduct']= 'go_draw/view/agency/agency_order_products/addToCartProduct.php';
+    $routesPlugin['cartAgencyProduct']= 'go_draw/view/agency/agency_order_products/cartAgencyProduct.php';
+    $routesPlugin['createOrderAgencyProduct']= 'go_draw/view/agency/agency_order_products/createOrderAgencyProduct.php';
+    
+    $routesPlugin['orderProductWait']= 'go_draw/view/agency/agency_order_products/orderProductWait.php';
+    $routesPlugin['orderProductProcess']= 'go_draw/view/agency/agency_order_products/orderProductProcess.php';
+    $routesPlugin['orderProductDone']= 'go_draw/view/agency/agency_order_products/orderProductDone.php';
+    $routesPlugin['addProductToStore']= 'go_draw/view/agency/agency_order_products/addProductToStore.php';
+
+    // kho hàng
+    $routesPlugin['warehouse']= 'go_draw/view/agency/agency_products/warehouse.php';
+
+    // yêu cầu trả hàng
+    $routesPlugin['addToCartBackStore']= 'go_draw/view/agency/agency_order_back_stores/addToCartBackStore.php';
+    $routesPlugin['agencyCartBackStore']= 'go_draw/view/agency/agency_order_back_stores/agencyCartBackStore.php';
+    $routesPlugin['createOrderBackStore']= 'go_draw/view/agency/agency_order_back_stores/createOrderBackStore.php';
+    
+    $routesPlugin['orderBackStore']= 'go_draw/view/agency/agency_order_back_stores/orderBackStore.php';
+    $routesPlugin['orderBackStoreDone']= 'go_draw/view/agency/agency_order_back_stores/orderBackStoreDone.php';
 
     // đơn hàng với khách hàng
     $routesPlugin['sellProduct']= 'go_draw/view/agency/user_orders/sellProduct.php';
