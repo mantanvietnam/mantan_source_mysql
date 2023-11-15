@@ -147,7 +147,7 @@ function addMemberAdmin($input)
 				$data->status =  $dataSend['status'];
 				$data->birthday =  $dataSend['birthday'];
 				$data->facebook =  $dataSend['facebook'];
-				
+				$data->verify =  $dataSend['verify'];
 
 				if(empty($_GET['id'])){
 					if(empty($dataSend['password'])) $dataSend['password'] = $dataSend['phone'];
@@ -155,7 +155,6 @@ function addMemberAdmin($input)
 
 					$data->created_at = time();
 					$data->deadline = time() + 63072000; // 2 năm
-					$data->verify =  'active';
 				}else{
 					if(!empty($dataSend['password'])){
 			        	$data->password = md5($dataSend['password']);

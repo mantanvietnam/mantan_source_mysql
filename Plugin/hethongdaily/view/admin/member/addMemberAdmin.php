@@ -94,6 +94,16 @@
                     </div>
                   </div>
 
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Xác thực OTP</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="verify" id="verify">
+                        <option value="lock" <?php if(isset($data->verify) && $data->verify=='lock') echo 'selected'; ?> >Chưa xác thực</option>
+                        <option value="active" <?php if(!empty($data->verify) && $data->verify=='active') echo 'selected'; ?> >Đã xác thực</option>
+                      </select>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
