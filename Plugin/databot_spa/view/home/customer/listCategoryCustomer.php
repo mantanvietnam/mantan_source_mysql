@@ -30,7 +30,7 @@
                                     <td>'.$item->id.'</td>
                                     <td>'.$item->name.'</td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->parent.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -66,13 +66,23 @@
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Tên nhóm</label>
-                  <input
-                    type="text"
-                    class="form-control phone-mask"
-                    name="name"
-                    id="name"
-                    value=""
-                  />
+                  <input type="text" class="form-control phone-mask" name="name" id="name" value=""/>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Id ảnh in hàng hoạt</label>
+                  <input type="text" class="form-control phone-mask" name="id_product" id="id_product" value=""/>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">giá trị họ và tên khách hàng</label>
+                  <input type="text" class="form-control phone-mask" name="value_name" id="value_name" value=""/>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">giá trị avatar khách hàng</label>
+                  <input type="text" class="form-control phone-mask" name="value_avatar" id="value_avatar" value=""/>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">giá trị id khách hàng</label>
+                  <input type="text" class="form-control phone-mask" name="value_id" id="value_id" value=""/>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu</button>
@@ -86,9 +96,13 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name){
+    function editData(id, name,id_product,value_avatar,value_name,value_id){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
+      $('#id_product').val(id_product);
+      $('#value_name').val(value_name);
+      $('#value_avatar').val(value_avatar);
+      $('#value_id').val(value_id);
     }
 
     function deleteCategory(id){

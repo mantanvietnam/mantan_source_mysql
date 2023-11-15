@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
-  <p><a href="/addCustomer" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -70,12 +70,12 @@
           <thead>
             <tr class="">
               <th>ID</th>
+              <th>Ảnh đại điện</th>
               <th>Khách hàng</th>
-              <th>Điện thoại</th>
               <th>Email</th>
               <th>Điểm</th>
-              <th>Địa chỉ</th>
               <th>NV phụ trách</th>
+              <th>thẻ in hàng hoạt</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -84,16 +84,39 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  $link = "https://designer.ezpics.vn/create-image-series/?id=";
+                  if(!empty($item->category->parent)){
+                    $link .= $item->category->parent;
+                  }
+                  if(!empty($item->category->image)){
+                    $link .= '&'.$item->category->image.'='.$item->avatar;
+                  }
+
+                  if(!empty($item->category->keyword)){
+                    $link .= '&'.$item->category->keyword.'='.$item->name;
+                  }
+
+                  if(!empty($item->category->description)){
+                    $link .= '&'.$item->category->description.'='.$item->id;
+                  }
+                  
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>'.$item->name.'</td>
-                          <td>'.$item->phone.'</td>
+                          <td>
+                            <img src="' . $item->avatar . '" width="100" />
+                          </td>
+                          <td>'.$item->name.'</br>
+                         '.$item->phone.'</td>
                           <td>'.$item->email.'</td>
                           <td>'.number_format($item->point).'</td>
-                          <td>'.$item->address.'</td>
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
                           
+                          <td align="center">
+                            <a class="dropdown-item" href="'.$link.'" target="_blank">
+                              <i class="bx bx-image" ></i>
+                            </a>
+                          </td>
                           <td align="center">
                             <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
@@ -116,7 +139,6 @@
         </table>
       </div>
     </div>
-
     <!-- Phân trang -->
     <div class="demo-inline-spacing">
       <nav aria-label="Page navigation">
