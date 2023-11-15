@@ -201,7 +201,7 @@ global $urlThemeActive;
 
         <!-- Chuyên mục -->
         <section id="section-home-category">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="home-category-big col-12 ">
                         <div class="category-home-img">
