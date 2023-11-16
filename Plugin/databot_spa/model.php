@@ -24,4 +24,5 @@ include('model/campain_customers.php'); // người dùng đăng ký tham gia ch
 include('model/customer_prepaycards.php'); // khách hàng dùng thẻ trả trước
 include('model/userservice_histories.php'); // khách hàng dùng thẻ trả trước
 include('model/transaction_histories.php'); // lịch sử giao dịch nạp tiền
+include('model/agency.php'); // lịch sử giao dịch nạp tiền
 ?>
