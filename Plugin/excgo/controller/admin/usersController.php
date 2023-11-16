@@ -135,7 +135,6 @@ function viewUserDetailAdmin($input)
             $data->status = $dataSend['status'];
             $data->type = $dataSend['type'];
             $data->email = $dataSend['email'];
-            $data->total_coin = $dataSend['total_coin'];
 
             $modelUser->save($data);
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
