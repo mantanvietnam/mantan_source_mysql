@@ -8,6 +8,10 @@ function listProduct($input)
 	global $session;
 
 	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
+		if(empty($session->read('isAgencyBoss'))){
+			return $controller->redirect('/checkBoos');
+		}
+
 	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';
 
 		$modelProducts = $controller->loadModel('Products');

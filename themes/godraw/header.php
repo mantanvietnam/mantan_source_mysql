@@ -25,7 +25,7 @@
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo.svg" class="img-fluid" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo-godraw.png" class="img-fluid" alt=""></a></div>
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>

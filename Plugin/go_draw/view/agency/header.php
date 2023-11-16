@@ -65,6 +65,8 @@
                             </div>
                         </li>
 
+                        <?php if(!empty($session->read('isAgencyBoss'))){ ?>
+                        <!--
                         <li>
                             <a href="javascript:void(0);">Mua combo</a>
                             <div class="submenu">
@@ -76,6 +78,7 @@
                                 </ul>
                             </div>
                         </li>
+                        -->
 
                         <li>
                             <a href="javascript:void(0);">Mua lẻ</a>
@@ -88,7 +91,7 @@
                                 </ul>
                             </div>
                         </li>
-
+                        <?php }?>
                         
                         <li><a href="/changePass">Đổi mật khẩu</a></li>
                         <li><a href="/logout">Đăng xuất</a></li>

@@ -8,7 +8,7 @@
     <section class="box-banner-home avarta-intro">
         <div class="logo text-center">
             <a href="/home">
-                <img src="<?php echo $urlThemeActive;?>/images/logo-trailer.png" class="img-fluid" alt="">
+                <img style="max-width: 400px;" src="<?php echo $urlThemeActive;?>/images/logo-godraw.png" class="img-fluid" alt="">
             </a>
         </div>
         <div class="video-banner">

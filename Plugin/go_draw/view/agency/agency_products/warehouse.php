@@ -20,6 +20,7 @@
 				</div>
 				<div class="content-cart" style="background: #00345E">
 					<div class="table-cart">
+						<p><a href="/listProduct" class="btn btn-danger mb-3">Mua hàng nhập kho</a></p>
 						<?php
 						if(!empty($listData)){
 							foreach ($listData as $key => $value) { 	
