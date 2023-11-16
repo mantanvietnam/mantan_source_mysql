@@ -125,7 +125,7 @@ function addProduct($input)
     if(!empty($_GET['id'])){
         $data = $modelProduct->get( (int) $_GET['id']);
 
-        $data->images = json_decode($data->images, true);
+        
     }else{
         $data = $modelProduct->newEmptyEntity();
     }
@@ -158,7 +158,7 @@ function addProduct($input)
 
 
 	        
-             $data->images = json_decode($data->images, true);
+             
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
@@ -178,6 +178,8 @@ function addProduct($input)
 
             $data->slug = $slugNew;
 
+          
+
 	        $modelProduct->save($data);
 
 
@@ -190,7 +192,9 @@ function addProduct($input)
     }
 
             
-               
+            if(!empty($data->images)){
+                $data->images = json_decode($data->images, true);
+            }           
            
             if(!empty($data->evaluate)){
                 $data->evaluate = json_decode($data->evaluate, true);

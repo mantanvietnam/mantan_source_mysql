@@ -191,4 +191,6 @@
 	$routesPlugin['memberExtendProMonthAPI']= 'ezpics_api/view/memberExtendProMonthAPI.php';	
 	$routesPlugin['buyProductEcoinAPI']= 'ezpics_api/view/buyProductEcoinAPI.php';	
 	$routesPlugin['saveImageProductAPI']= 'ezpics_api/view/saveImageProductAPI.php';	
+	$routesPlugin['listStyleTextAPI']= 'ezpics_api/view/listStyleTextAPI.php';	
+	$routesPlugin['getStyleTextAPI']= 'ezpics_api/view/getStyleTextAPI.php';	
 ?>

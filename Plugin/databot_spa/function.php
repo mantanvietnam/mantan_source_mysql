@@ -55,7 +55,7 @@ $type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
 function getListPermission()
 {
     return array(   array( 'name'=>'Quản lý SPA',
-                            'sub'=>array(   array('name'=>'Xem sơ đồ khách sạn','permission'=>'managerHotelDiagram'),
+                            'sub'=>array(   array('name'=>'Bán hàng ','permission'=>'managerHotelDiagram'),
                                             array('name'=>'Nhận khách - Checkin','permission'=>'managerCheckin'),
                                             array('name'=>'Khách trả phòng - Checkout','permission'=>'managerCheckout'),
                                             array('name'=>'Hủy checkin','permission'=>'managerCancelCheckin'),
