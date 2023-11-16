@@ -399,7 +399,7 @@ function sela($input)
     global $metaDescriptionMantan;
     global $metaImageMantan;
 
-    $metaTitleMantan = 'Tất cả sản phẩm';
+    $metaTitleMantan = 'Sản phẩm khuyến Mại';
 
     $modelProduct = $controller->loadModel('Products');
     $modelEvaluate = $controller->loadModel('Evaluates');

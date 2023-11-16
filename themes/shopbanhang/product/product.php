@@ -621,7 +621,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                                 <div class="product-detail-rate-right-point">
                                     <div class="product-detail-rate-right-number">
-                                    <?php echo $product->point ?>
+                                    <?php if(!empty($product->point)){ echo  number_format(@$product->point, 1);} ?>
                                     </div>
 
                                     <div class="product-detail-rate-right-star">
@@ -776,7 +776,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
                                     </div>
                                 </div>
-                <?php if(!empty($value->reply)){ ?>
+                         <?php if(!empty($value->reply)){ ?>
                                 <!-- Comment phụ -->
                                 <div class="comment-extra">
                                     <div class="product-detail-rate-item">
@@ -809,7 +809,9 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
                                     </div>
                                 </div> 
-<?php }}}}  ?>
+<?php }} }}else{ ?>
+                           <div class="no_evaluate"><h5>Sản phẩn chưa có bình luận nào </h5></div>
+                           <?php } ?>
                           
                             </div>
 
