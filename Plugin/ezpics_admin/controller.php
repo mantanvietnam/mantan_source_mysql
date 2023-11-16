@@ -13,4 +13,5 @@ include_once('controller/questionController.php'); // câu hỏi
 include_once('controller/discountCodeController.php'); // Mã giảm giá 
 include_once('controller/ingredientController.php'); // thành phần
 include_once('controller/searchkeyController.php'); // thành phần
+include_once('controller/styleTextsController.php'); // kiểu chữ
 ?>

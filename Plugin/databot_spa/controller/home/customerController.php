@@ -163,6 +163,7 @@ function listCustomer($input)
 	    if(!empty($listData)){
 	    	foreach($listData as $key => $item){
 	    		$listData[$key]->Prepaycard = count($modelCustomerPrepaycard->find()->where(array('id_customer'=>$item->id))->all()->toList());
+	    		$listData[$key]->category = $modelCategories->find()->where(array('id'=>$item->id_group))->first();
 	    	}
 	    }
 
@@ -418,7 +419,7 @@ function listCategoryCustomer($input){
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            
+
             // tính ID category
             if(!empty($dataSend['idCategoryEdit'])){
                 $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
@@ -428,11 +429,11 @@ function listCategoryCustomer($input){
 
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->parent = 0;
-            $infoCategory->image = '';
+            $infoCategory->parent = (int) $dataSend['id_product'];
+            $infoCategory->image = $dataSend['value_avatar'];
             $infoCategory->id_member = $infoUser->id_member;
-            $infoCategory->keyword = '';
-            $infoCategory->description = '';
+            $infoCategory->keyword = $dataSend['value_name'];
+            $infoCategory->description = $dataSend['value_id'];
             $infoCategory->type = 'category_customer';
             $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 

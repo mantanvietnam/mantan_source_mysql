@@ -82,7 +82,9 @@ global $urlThemeActive;
                                         </div>
 
                                         <div class="best-sale-discount">
+                                            <?php if(!empty($item->price_old)){ ?>
                                             <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                            <?php } ?>
                                         </div>
                                     </div>
 
@@ -154,6 +156,10 @@ global $urlThemeActive;
                         <div class="row">
                             <?php if(!empty($product_sold)){ 
                                 foreach($product_sold as $key => $item){
+                                      $giam = 0;
+                                    if(!empty($item->price_old) && !empty($item->price)){
+                                        $giam = 100 - 100*$item->price/$item->price_old;
+                                    }
                                     $ban = 0;
                                     if(!empty($item->quantity) && !empty($item->sold)){
                                         $ban = 100 - 100*$item->sold/$item->quantity;
@@ -175,7 +181,9 @@ global $urlThemeActive;
                                         </div>
         
                                         <div class="best-sale-discount">
-                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                              <?php if(!empty($item->price_old)){ ?>
+                                            <del><?php  echo number_format($item->price_old); ?>đ</del><span> (<?php echo number_format($giam) ?>%)</span>
+                                            <?php } ?>
                                         </div>
                                     </div>
         

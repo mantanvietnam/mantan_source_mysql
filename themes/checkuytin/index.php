@@ -272,7 +272,7 @@
                     if(msg.hasOwnProperty('data')){
                         dataAgency = msg.data;
 
-                        infoAgency = '<div class="col-lg-5 col-12 modal-image"><div class="image-character"><img src="'+dataAgency.avatar+'" alt=""></div><div class="image-bottom"><img src="'+imageCheck+'" alt=""></div></div><div class="col-lg-7 col-12 modal-info"><div class="modal-name"><p>'+dataAgency.name+'</p></div><div class="modal-detail"><p><strong>Cấp bậc:</strong> '+dataAgency.name_position+'</p><p><strong>Điện thoại:</strong> '+dataAgency.phone+'</p><p><strong>Email:</strong> '+dataAgency.email+'</p></p><p><strong>Địa chỉ:</strong> '+dataAgency.address+'</p><p><button type="button" class="main-below-btn" onclick="window.open(\''+dataAgency.facebook+'\' , \'_blank\')">XEM FACEBOOK</button></p></div></div>';
+                        infoAgency = '<div class="col-lg-5 col-12 modal-image"><div class="image-character"><img src="'+dataAgency.avatar+'" alt=""></div><div class="image-bottom"><img src="'+imageCheck+'" alt=""></div></div><div class="col-lg-7 col-12 modal-info"><div class="modal-name"><p>'+dataAgency.name+'</p></div><div class="modal-detail"><p><strong>Cấp bậc:</strong> '+dataAgency.name_position+'</p><p><strong>Điện thoại:</strong> '+dataAgency.phone+'</p><p><strong>Email:</strong> '+dataAgency.email+'</p><p><strong>Địa chỉ:</strong> '+dataAgency.address+'</p><p><button type="button" class="main-below-btn" onclick="window.open(\''+dataAgency.facebook+'\' , \'_blank\')">XEM FACEBOOK</button></p></div></div>';
 
                     }else{
                         infoAgency = '<p class="text-danger">Không tìm thấy thông tin đại lý trong hệ thống</p>';

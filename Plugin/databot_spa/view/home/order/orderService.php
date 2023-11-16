@@ -145,7 +145,7 @@
                  if(!empty($listService)){ ?>
                     <div class="m-3 col-md-10">
                        
-                        <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                        <input type="text" placeholder="Tìm dịch vụ"  class="form-control phone-mask" id="searchProduct">
                    </div>
 				<div >
 				  <div class="card card-body">
@@ -190,7 +190,7 @@
                         </thead>
                         <tbody id="listProductOrder">
                             <tr id="trFirst">
-                                <td colspan="7" align="center">Chưa có sản phẩm nào được chọn.</td>
+                                <td colspan="7" align="center">Chưa có dich vụ nào được chọn.</td>
                             </tr>
                         </tbody>
                     </table>

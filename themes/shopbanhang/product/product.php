@@ -348,7 +348,9 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
 
                                 <div class="box-confirm-cart-price-discount">
-                                    <del><?php echo number_format($item->price_old); ?>đ</del>
+                                   <?php if(!empty($item->price_old)){ ?>
+                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                            <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -515,7 +517,9 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
     
                                     <div class="product-discount">
-                                        <del><?php echo number_format($item->price_old) ?></del>
+                                        <?php if(!empty($item->price_old)){ ?>
+                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                            <?php } ?>
                                     </div>
                                 </div>
     

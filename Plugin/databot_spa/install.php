@@ -325,9 +325,11 @@ $sqlInstallDatabase .="CREATE TABLE `campains` ( `id` INT NOT NULL AUTO_INCREMEN
 
 $sqlInstallDatabase .="CREATE TABLE `customer_prepaycards` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `id_member` INT NOT NULL , `id_spa` INT NULL DEFAULT NULL ,`id_bill` INT NULL DEFAULT NULL, `total` INT NULL DEFAULT NULL , `status` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL , `id_prepaycard` INT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `updated_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
-$sqlInstallDatabase ."CREATE TABLE `treatment_historys` ( `id` INT NOT NULL AUTO_INCREMENT , `id_orders` INT NOT NULL , `id_customer` INT NULL DEFAULT NULL , `id_services` INT NULL DEFAULT NULL , `status` VARCHAR(255) NULL DEFAULT NULL , `quantity` INT NOT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `id_spa` INT NOT NULL , `id_member` INT NOT NULL , `id_bed` INT NOT NULL , `note` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sqlInstallDatabase .="CREATE TABLE `treatment_historys` ( `id` INT NOT NULL AUTO_INCREMENT , `id_orders` INT NOT NULL , `id_customer` INT NULL DEFAULT NULL , `id_services` INT NULL DEFAULT NULL , `status` VARCHAR(255) NULL DEFAULT NULL , `quantity` INT NOT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `id_spa` INT NOT NULL , `id_member` INT NOT NULL , `id_bed` INT NOT NULL , `note` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
-$sqlInstallDatabase ."CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+$sqlInstallDatabase .="CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
+
+$sqlDeleteDatabase .="CREATE TABLE `agencys` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `id_spa` INT NOT NULL , `id_staff` INT NOT NULL , `id_service` INT NOT NULL , `money` INT NULL DEFAULT NULL , `created_at` TIMESTAMP NULL DEFAULT NULL , `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , `id_order_detail` INT NULL DEFAULT NULL , `status` INT NULL DEFAULT NULL ,`id_order` INT NULL DEFAULT NULL AFTER `status`, `type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB;";
  
 $sqlDeleteDatabase .= "DROP TABLE beds; ";
 $sqlDeleteDatabase .= "DROP TABLE books; ";
@@ -354,6 +356,7 @@ $sqlDeleteDatabase .= "DROP TABLE customer_prepaycards; ";
 $sqlDeleteDatabase .= "DROP TABLE campain_customers; ";
 $sqlDeleteDatabase .= "DROP TABLE treatment_historys; ";
 $sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
+$sqlDeleteDatabase .= "DROP TABLE agencys; ";
 
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_customer'; ";

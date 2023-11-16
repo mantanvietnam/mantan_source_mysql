@@ -1,6 +1,6 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Đơn hàng mua combo</h4>
+    <h4 class="fw-bold py-3 mb-4">Đơn hàng mua sản phẩm</h4>
 
     <form method="get" action="">
         <div class="card mb-4">
@@ -100,14 +100,14 @@
                                             <td align="center">'.$status.'</td>
                                             <td align="center">
                                               <a class="btn btn-primary" 
-                                                href="/plugins/admin/go_draw-view-admin-agency_order-addAgencyOrderAdmin.php/?id='.$item->id .'"
+                                                href="/plugins/admin/go_draw-view-admin-agency_order_product-addAgencyOrderProductAdmin.php/?id='.$item->id .'"
                                               >
                                                 <i class="bx bx-edit-alt me-1"></i>
                                               </a>
                                             </td>
                                             <td align="center">
                                               <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" 
-                                                href="href=/plugins/admin/go_draw-view-admin-agency_order-deleteAgencyOrderAdmin.php/?id='.$item->id.'"
+                                                href="href=/plugins/admin/go_draw-view-admin-agency_order_product-deleteAgencyOrderProductAdmin.php/?id='.$item->id.'"
                                               >
                                                 <i class="bx bx-trash me-1"></i>
                                               </a>
