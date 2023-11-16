@@ -76,16 +76,22 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             <div class="topbar">
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
+                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logophong.png" alt=""></a>
+                        </div>
+
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-phone">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/headphone.png" alt="">&nbsp;
-                            <span><?php echo @$setting['phone'] ?></span>
+                       
                         </div>
             
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
-                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logo.png" alt=""></a>
-                        </div>
+                      
             
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-group-button">
+                            <div class="phone-header topbar-phone">
+                                    <img src="<?php echo $urlThemeActive ?>asset/image/headphone.png" alt="">&nbsp;
+                                    <span><?php echo @$setting['phone'] ?></span>
+                            </div>
+
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/account.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
@@ -97,6 +103,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </div>
                              
                             <div class="topbar-button">
+                               
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
                                 <a href="/cart">Giỏ hàng</a>
                             </div>
@@ -219,7 +226,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         
     
                             <li class="nav-item nav-item-last">
-                                <a class="nav-link" href="/sela">Sale 11.11</a>
+                                <a class="nav-link" href="/sela">Khuyến mãi</a>
                             </li>
                         </ul>
                         <form class="menu-form-search d-flex" role="search"  action="/search-product" method="get" id="myForm">

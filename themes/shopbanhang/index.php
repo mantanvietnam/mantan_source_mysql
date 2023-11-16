@@ -17,7 +17,7 @@ global $urlThemeActive;
         
         <section id="section-advertisement-home">
             <div class="advertisement-home-inner">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
                             <img src="<?php echo @$setting['image1'] ?>" alt="">
@@ -43,7 +43,7 @@ global $urlThemeActive;
                         <p>Flash Sale - Deal chớp nhoáng</p>
                     </div>
                     <div class="flash-sale-link">
-                        <a href="">Xem chi tiết</a>
+                        <a href="">Xem chi tiết <img src="<?php echo $urlThemeActive ?>/asset/image/doublearrow.svg" alt=""></a>
                     </div>
                     <div class="time-flash-sale" id="countdown">
                         
