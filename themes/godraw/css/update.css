@@ -26,3 +26,122 @@
 .content-header a:hover{
 	color: #4A7DCE !important;
 }
+
+body {
+    font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.content-header a {
+    font-size: 15px;
+}
+
+.btn-main a {
+    font-weight: 700;
+    box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+	transition: all .2s ease-in-out;
+}
+
+.btn-main a:hover { 
+	transform: scale(1.1); 
+	background: #0065F7;
+}
+
+.title-slide-vote img {
+    width: 50px;
+}
+
+.title-slide-vote {
+	font-size: 23px;
+}
+
+.title-slide-vote span {
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.slide-top .slick-track {
+    padding: 14px 0;
+}
+
+.slide-top .item-avr {
+	transition: all .2s ease-in-out;
+}
+
+.slide-top .item-avr:hover {
+	transition: all .2s ease-in-out;
+	transform: scale(1.03);  
+	cursor: pointer;
+}
+
+.header-pc ul li a {
+    font-weight: 700;
+}
+
+.view-all.all-top-view a:hover {
+	color: #FDCD07;
+}
+
+img.btn-client {
+    max-width: 300px;
+    display: block;
+    margin: 10px auto 0 auto;
+	transition: all .2s ease-in-out;
+}
+
+img.btn-client:hover {
+	transition: all .2s ease-in-out;
+	transform: scale(1.1);  
+}
+
+img.header-client {
+    max-width: 600px;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+.zoom-effect {
+	transition: all .2s ease-in-out;
+	color: #fff;
+}
+
+.zoom-effect:hover {
+	transition: all .2s ease-in-out;
+	transform: scale(1.05);  
+	color: #fff;
+}
+
+img#go-now1 {
+    max-width: 60px;
+    position: absolute;
+    top: 30%;
+    left: 20%;
+}
+
+img#go-now3 {
+    max-width: 60px;
+    position: absolute;
+    right: 28%;
+    top: 50%;
+}
+
+img#go-now2 {
+    max-width: 60px;
+    position: absolute;
+    bottom: 20%;
+    right: 60%;
+}
+
+img.khung-tranh {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+}
+
+.item-for .avr img {
+    padding: 65px;
+    max-height: auto;
+    height: auto;
+}
