@@ -1,6 +1,6 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Danh mục</h4>
+    <h4 class="fw-bold py-3 mb-4">Đơn hàng mua combo</h4>
 
     <form method="get" action="">
         <div class="card mb-4">
@@ -78,15 +78,18 @@
                             if(!empty($listData)){
                                 foreach ($listData as $item) {
                                     switch ($item->status) {
-                                          case 1:
-                                              $status = 'Đã duyệt';
-                                              break;
-                                          case 2:
-                                              $status = 'Đã thanh toán';
-                                              break;
-                                          default:
-                                              $status = 'Đơn hàng mới';
-                                              break;
+                                        case 1:
+                                            $status = 'Đã xuất kho';
+                                            break;
+                                        case 2:
+                                            $status = 'Đã nhập kho';
+                                            break;
+                                        case 3:
+                                            $status = 'Đã thanh toán';
+                                            break;
+                                        default:
+                                            $status = 'Đơn hàng mới';
+                                            break;
                                     }
 
                                     echo '<tr>

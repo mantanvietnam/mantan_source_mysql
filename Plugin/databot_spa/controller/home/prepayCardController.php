@@ -13,6 +13,22 @@ function listPrepayCard($input)
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
 
+         $mess = '';
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestPrepayCard':
+                    $mess= '<p class="text-danger">Bạn cần tạo thẻ trước</p>';
+                    break;
+                case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa thẻ này</p>';
+                    break;
+
+                case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;    
+            }
+        }
+
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -78,7 +94,8 @@ function listPrepayCard($input)
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
 	    
-	    setVariable('listData', $listData);
+        setVariable('listData', $listData);
+	    setVariable('mess', $mess);
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -196,6 +213,9 @@ function buyPrepayCard($input){
 		
 		$listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
 	    $listData = $modelPrepayCard->find()->where($conditions)->order($order)->all()->toList();
+        if(empty($listData)){
+            return $controller->redirect('/listPrepayCard/?error=requestPrepayCard');
+        }
 	    if ($isRequestPost) {
             $dataSend = $input['request']->getData();
 

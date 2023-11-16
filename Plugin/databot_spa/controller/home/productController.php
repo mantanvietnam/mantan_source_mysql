@@ -16,6 +16,13 @@ function listCategoryProduct($input){
                 case 'requestCategoryProduct':
                     $mess= '<p class="text-danger">Bạn cần tạo nhóm sản phẩm trước</p>';
                     break;
+                case 'requestCategoryDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa danh mục này</p>';
+                    break;
+
+                case 'requestCategoryDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;    
             }
         }
 
@@ -57,19 +64,31 @@ function deleteCategoryProduct($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
 
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $modelProducts = $controller->loadModel('Products');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'type' => 'category_product', 'id_member'=>$infoUser->id_member);
+
             
             $data = $modelCategories->find()->where($conditions)->first();
+
+            $checkProduct = $modelProducts->find()->where(array('id_category'=>$data->id))->all()->toList();
+            if(empty($checkProduct)){
             
-            if(!empty($data)){
-                $modelCategories->delete($data);
+                if(!empty($data)){
+                    $modelCategories->delete($data);
+                    return array('code'=>1);
+                }else{
+                     return array('code'=>0);
+                 }
+            }else{
+                 return array('code'=>0);
             }
         }
     }else{
@@ -94,6 +113,13 @@ function listTrademarkProduct($input){
             switch ($_GET['error']) {
                 case 'requestCategoryTrademark':
                     $mess= '<p class="text-danger">Bạn cần tạo nhãn hiệu sản phẩm trước</p>';
+                    break;
+                case 'requestTrademarkDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhãn hiệu này</p>';
+                    break;
+
+                case 'requestTrademarkDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
                     break;
             }
         }
@@ -147,13 +173,23 @@ function deleteTrademarkProduct($input){
 
         $modelTrademarks = $controller->loadModel('Trademarks');
 
+        $modelProducts = $controller->loadModel('Products');
+
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             
             $data = $modelTrademarks->find()->where($conditions)->first();
-            
-            if(!empty($data)){
-                $modelTrademarks->delete($data);
+
+            $checkProduct = $modelProducts->find()->where(array('id_trademark'=>$data->id))->all()->toList();
+            if(empty($checkProduct)){
+                if(!empty($data)){
+                    $modelTrademarks->delete($data);
+                    return array('code'=>1);
+                }else{
+                     return array('code'=>0);
+                 }
+            }else{
+                 return array('code'=>0);
             }
         }
     }else{
@@ -179,6 +215,12 @@ function listProduct(){
             switch ($_GET['error']) {
                 case 'requestProduct':
                     $mess= '<p class="text-danger">Bạn cần tạo sản phẩm trước</p>';
+                    break;
+                case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa sản phẩm này</p>';
+                    break;
+                case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
                     break;
             }
         }
@@ -371,15 +413,46 @@ function deleteProduct($input){
     global $session;
     
     $modelProduct = $controller->loadModel('Products');
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
+    $modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');
+    $modelCombo = $controller->loadModel('Combos');
     
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
             $data = $modelProduct->get($_GET['id']);
-            
+            $checkOrder = $modelOrderDetails->find()->where(array('id_product'=>$data->id,'type'=>'product','id_member'=>$infoUser->id_member))->all()->toList();
+
+            if(!empty($checkOrder)){
+                return $controller->redirect('/listProduct?error=requestDelete');
+
+            }
+
+            $checkWarehouseProducts = $modelWarehouseProducts->find()->where(array('id_product'=>$data->id,'id_member'=>$infoUser->id_member))->all()->toList();
+
+            $checkCombo = $modelCombo->find()->where(array('id_member'=>$infoUser->id_member))->all()->toList();
+
+            if(!empty($checkCombo)){
+                foreach($checkCombo as $key => $item){
+                    if(!empty($item->product)){
+                        $product = json_decode(@$item->product, true);
+                        foreach($product as $k => $value){
+                            if($k==$data->id){
+                                return $controller->redirect('/listProduct?error=requestDelete');
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(!empty($checkWarehouseProducts)){
+                return $controller->redirect('/listProduct?error=requestDelete');
+
+            }
             if($data){
                 $modelProduct->delete($data);
+                return $controller->redirect('/listProduct?error=requestDeleteSuccess');
             }
         }
 

@@ -275,6 +275,12 @@ function listGroupStaff(){
                 case 'requestGroupStaff':
                     $mess= '<p class="text-danger">Bạn cần tạo nhóm nhân viên trước</p>';
                     break;
+                    case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhóm nhân viên này</p>';
+                    break;
+                	case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
             }
         }
 
@@ -414,15 +420,22 @@ function deteleGroupStaff($input){
 	
 	if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $modelMembers = $modelMember->loadModel('Members');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             
             $data = $modelCategories->find()->where($conditions)->first();
-            
+            $checkMember = $modelMembers->find()->where(array('id_group'=>$data->id))->all()->toList();
+
+            if(!empty($checkMember)){
+                return $controller->redirect('/listGroupStaff?error=requestDelete');
+
+            }
+
             if(!empty($data)){
                 $modelCategories->delete($data);
-                return $controller->redirect('/listGroupStaff');
+                return $controller->redirect('/listGroupStaff?error=requestDeleteSuccess');
             }
         }
     }else{

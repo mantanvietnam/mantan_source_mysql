@@ -588,9 +588,9 @@ function detailOrder(){
                             $present[] = $presentf;
                         }
                     }
-                    
+                   $product->present = @$present; 
             }
-            $product->present = $present;
+            
                 $detail_order[$key]->product = $product;
                 }
             }

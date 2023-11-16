@@ -107,15 +107,18 @@
       if(check){
         $.ajax({
           method: "GET",
-          url: "/deleteCategoryCustomer/?id="+id,
-          data: {}
-        })
-          .done(function( msg ) {
-            window.location = '/listSourceCustomer';
-          })
-          .fail(function() {
-            window.location = '/listSourceCustomer';
-          });
+          url: "/apis/deleteCategoryCustomer/?id="+id+"&type=Source",
+          data: {},
+          success:function(res){
+                  //console.log(res);
+                  if(res.code==1){
+                    window.location = '/listSourceCustomer?error=requestSourceDeleteSuccess';
+                  }else{
+                    window.location = '/listSourceCustomer?error=requestSourceDelete';
+                  }
+                }
+
+        });
       }
     }
   </script>

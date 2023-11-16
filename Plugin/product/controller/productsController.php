@@ -125,7 +125,7 @@ function addProduct($input)
     if(!empty($_GET['id'])){
         $data = $modelProduct->get( (int) $_GET['id']);
 
-        $data->images = json_decode($data->images, true);
+        
     }else{
         $data = $modelProduct->newEmptyEntity();
     }
@@ -143,6 +143,7 @@ function addProduct($input)
 	        $data->info = @$dataSend['info'];
 	        $data->image = @$dataSend['image'];
             $data->images = json_encode(@$dataSend['images']);
+            $data->evaluate = json_encode(@$dataSend['evaluate']);
             $data->code = @$dataSend['code'];
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
@@ -154,8 +155,10 @@ function addProduct($input)
             $data->id_product = @$dataSend['id_product'];
             $data->idpro_discount = @$dataSend['idpro_discount'];
             $data->pricepro_discount = @$dataSend['pricepro_discount'];
+
+
 	        
-            
+             
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
             $slugNew = $slug;
@@ -175,15 +178,28 @@ function addProduct($input)
 
             $data->slug = $slugNew;
 
+          
+
 	        $modelProduct->save($data);
 
-            $data->images = json_decode($data->images, true);
+
+
 
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 	    }else{
 	    	$mess= '<p class="text-danger">Bạn chưa nhập tên sản phẩm</p>';
 	    }
     }
+
+            
+            if(!empty($data->images)){
+                $data->images = json_decode($data->images, true);
+            }           
+           
+            if(!empty($data->evaluate)){
+                $data->evaluate = json_decode($data->evaluate, true);
+            }
+          
 
     $conditions = array('type' => 'category_product');
     $listCategory = $modelCategories->find()->where($conditions)->all()->toList();

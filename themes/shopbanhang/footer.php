@@ -95,6 +95,21 @@ $infoUser = $session->read('infoUser');
                                 <p>Đăng ký với chúng tôi</p>
                             </div>
                         </div>
+
+                        <section id="section-blog-contact" class="footer-blog-contact">
+                            <div class="title-section-sub">
+                                <p>Để cập nhập những tin tức về sức khỏe, làm đẹp,.. và những ưu đãi đặc biệt sớm nhất</p>
+                            </div>
+
+                            <div class="form-blog-contact">
+                                <form action="">
+                                    <div class="input-blog-contact">
+                                        <input type="email" class="form-control" placeholder="Nhập email của bạn" required>
+                                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
@@ -148,9 +163,9 @@ $infoUser = $session->read('infoUser');
                                         <div class="login-social-item">
                                             <i class="fa-brands fa-google" style="color: red"></i><a href="<?php echo filter_var($authUrl, FILTER_SANITIZE_URL) ?>">Tiếp tục với Google</a>
                                         </div>
-                                        <div class="login-social-item">
+                                        <!-- <div class="login-social-item">
                                             <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
-                                        </div>
+                                        </div> -->
                                          <div class="row">
               <div class="col-sm-12 text-center mb-2">
                   
@@ -217,9 +232,9 @@ $infoUser = $session->read('infoUser');
                                         <div class="login-social-item">
                                             <i class="fa-brands fa-google" style="color: red"></i><a href="">Tiếp tục với Google</a>
                                         </div>
-                                        <div class="login-social-item">
+                                        <!-- <div class="login-social-item">
                                             <i class="fa-brands fa-apple"></i><a href="">Tiếp tục với Apple</a>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="modal-left-bottom">
@@ -357,7 +372,7 @@ $infoUser = $session->read('infoUser');
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
                                     </div>
-                                    <p >Bạn kieemr tra Email lấy mã xác nhận </p>
+                                    <p >Bạn kiểm tra Email lấy mã xác nhận </p>
                                     <a onclick="forgotpassword()" class="btn btn-primary">Tiếp tục</a>
                                 </form>
                             </div>
@@ -556,6 +571,8 @@ $infoUser = $session->read('infoUser');
     <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>
+    <script src="<?php echo $urlThemeActive ?>asset/js/review.js"></script>
+
 
 
 </body>

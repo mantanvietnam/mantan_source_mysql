@@ -27,15 +27,15 @@
                                                 <select name="agency_id" class="form-select color-dropdown" disabled>
                                                     <?php
                                                     if (!empty($listAgency)):
-                                                        foreach ($listAgency as $agency):
+                                                        foreach ($listAgency as $agencyitem):
                                                             ?>
-                                                          <option value="<?php echo $agency->id; ?>" <?php if (@$data->agency_id == $agency->id) echo 'selected'; ?>><?php echo $agency->name; ?></option>
+                                                          <option value="<?php echo $agencyitem->id; ?>" <?php if (@$data->agency_id == $agencyitem->id) echo 'selected'; ?>><?php echo $agencyitem->name; ?></option>
                                                         <?php
                                                         endforeach;
                                                     endif;
                                                     ?>
                                                 </select>
-                                                <a class="btn btn-primary" href="<?php echo '/plugins/admin/go_draw-view-admin-agency-viewDetailAgencyAdmin.php/?id=' . @$agency->id; ?>">
+                                                <a class="btn btn-primary" href="<?php echo '/plugins/admin/go_draw-view-admin-agency-viewDetailAgencyAdmin.php/?id=' . @$agency->agency_id; ?>">
                                                   <i class="bx bx-edit-alt me-1"></i>
                                                 </a>
                                             </div>
@@ -47,7 +47,7 @@
                                                   <button type="button" class="btn btn-primary" onclick="acceptOrder(<?php echo @$data->id; ?>);">
                                                     Phê duyệt
                                                   </button>
-                                                <?php elseif (@$data->status === 1): ?>
+                                                <?php elseif (@$data->status === 2): ?>
                                                   <button type="button" class="btn btn-danger" onclick="payOrder(<?php echo @$data->id; ?>);" id="btn-pay-order">
                                                     Thanh toán
                                                   </button>
@@ -66,8 +66,9 @@
                                           <label class="form-label">Trạng thái</label>
                                           <select name="status" class="form-select color-dropdown" disabled>
                                             <option value="0" <?php if(@$data->status == 0) echo 'selected';?> >Đơn hàng mới</option>
-                                            <option value="1" <?php if(@$data->status == 1) echo 'selected';?> >Đã duyệt</option>
-                                            <option value="2" <?php if(@$data->status == 2) echo 'selected';?> >Đã thanh toán</option>
+                                            <option value="1" <?php if(@$data->status == 1) echo 'selected';?> >Đã xuất kho</option>
+                                            <option value="2" <?php if(@$data->status == 2) echo 'selected';?> >Đã nhập kho</option>
+                                            <option value="2" <?php if(@$data->status == 3) echo 'selected';?> >Đã thanh toán</option>
                                           </select>
                                         </div>
                                     </div>

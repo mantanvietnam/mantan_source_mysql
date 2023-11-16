@@ -218,6 +218,11 @@
                               <label class="form-label" for="basic-default-fullname">Ảnh backdrop (7000 x 3500)</label>
                               <?php showUploadFile('image_backdrop','image_backdrop',@$data['image_backdrop'],3);?>
                             </div>
+
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">Link ảnh 360</label>
+                              <input type="text" class="form-control" placeholder="" name="link_image_360" id="link_image_360" value="<?php echo @$data['link_image_360'];?>" />
+                            </div>
                           </div>
                           <div class="col-md-6">
                             <div class="mb-3">

@@ -115,13 +115,30 @@ $(document).ready(function() {
     // Chi tiết sản phẩm
 
     $('.product-slide-left').slick({
-        slidesToShow: 3,
+        slidesToShow: 5,
         slidesToScroll: 1,
         asNavFor: '.product-slide-right',
-        centerMode: true,
+        // centerMode: true,
         vertical: true,
-        centerMode: true,
+        // centerMode: true,
         focusOnSelect: true,
+        arrows: false,
+
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                arrows: false,
+                slidesToShow: 3
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                arrows: false,
+                slidesToShow: 3
+            }
+        }
+    ]
         
     });
     $('.product-slide-right').slick({

@@ -5,6 +5,7 @@ global $urlThemeActive;
 $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
+
 ?>
 
 <main>
@@ -12,7 +13,7 @@ $slide_home= slide_home($setting['id_slide']);
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Khuyên mãi</li>
+                    <li class="breadcrumb-item active">Khuyến mãi</li>
                 </ul>
             </div>
         </section>
@@ -27,15 +28,15 @@ $slide_home= slide_home($setting['id_slide']);
                         <span><?php echo @$setting['sela_title3'] ?></span>
                     </p>
                 </div>
-            
-                    <div class="row combo-voucher">
+             <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> --> 
+                     <div class="row combo-voucher">
                         <?php if(!empty($DiscountCode)){
                             foreach($DiscountCode as $item){ ?>
                         <div class="item-voucher col-md-4 col-sm-6">
-                            <!-- <img src="<?php echo $urlThemeActive ?>asset/image/voucher.png"> -->
+                           
                             <div class="detail-voucher-sale">
-                                <p><?php $item->code ?></p>
-                                <span><?php $item->note ?></span>
+                                <p><?php echo $item->code ?></p>
+                                <span><?php echo $item->note ?></span>
                             </div>
                         </div>
                     <?php }} ?>
@@ -94,7 +95,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                            <p><?php echo $product->point ?> <span>(<?php echo $product->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">

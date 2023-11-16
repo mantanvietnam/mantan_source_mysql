@@ -1,6 +1,8 @@
 <?php
 getHeader();
 global $urlThemeActive;
+global $session;
+$infoUser = $session->read('infoUser'); 
 
 $setting = setting();
 
@@ -379,7 +381,11 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="cart-button-buy">
+                                <?php if(!empty($infoUser)){ ?>
                                 <input type="submit" value="Đặt hàng">
+                            <?php }else{
+                                echo '<a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Đặt hàng</a>';
+                            } ?>
                             </div>
                             </form>
                         </div>
@@ -391,7 +397,7 @@ $slide_home= slide_home($setting['id_slide']);
 
         <section id="section-modal-cart">
             <!-- Modal -->
-            <div class="modal fade" id="modal-cart">
+            <!-- <div class="modal fade" id="modal-cart">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -418,7 +424,7 @@ $slide_home= slide_home($setting['id_slide']);
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </section>
     </main>
 <script type="text/javascript">

@@ -52,6 +52,29 @@ $type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
                                     'hinh_thuc_khac'=>'Hình thức khác',
                                 );
 
+function getListPermission()
+{
+    return array(   array( 'name'=>'Quản lý SPA',
+                            'sub'=>array(   array('name'=>'Bán hàng ','permission'=>'managerHotelDiagram'),
+                                            array('name'=>'Nhận khách - Checkin','permission'=>'managerCheckin'),
+                                            array('name'=>'Khách trả phòng - Checkout','permission'=>'managerCheckout'),
+                                            array('name'=>'Hủy checkin','permission'=>'managerCancelCheckin'),
+                                            array('name'=>'Chuyển phòng','permission'=>'managerChangRoom'),
+                                            array('name'=>'Thêm hàng hóa vào phòng','permission'=>'managerAddServiceRoom'),
+                                            array('name'=>'Xem thông tin phòng','permission'=>'managerViewRoomDetail'),
+                                            array('name'=>'Xem danh sách khách chờ theo phòng','permission'=>'managerListWaiting'),
+                                            array('name'=>'Báo đã dọn phòng','permission'=>'managerClearRoom'),
+                                            array('name'=>'Thu tiền tạm ứng','permission'=>'managerSaveAddPrepay'),
+                                            array('name'=>'Sửa giá khi nhận phòng','permission'=>'managerEditPriceCheckin'),
+                                            array('name'=>'Chuyển hóa đơn vào phòng khác','permission'=>'changePriceRoom'),
+                                            array('name'=>'In thông tin phòng','permission'=>'managerPrintRoomDetail'),
+                                            array('name'=>'Sửa thông tin giảm giá','permission'=>'managerEditDiscount'),
+                                    )
+                    ),   
+                    
+                );
+}
+
 function sendEmailnewpassword($email='', $fullName='', $pass= '')
 {
     $to = array();

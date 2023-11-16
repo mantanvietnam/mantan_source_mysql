@@ -12,6 +12,7 @@
     }else{
     	 $data = $modelOptions->newEmptyEntity();
     }
+    	$mess = '';
     
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();

@@ -627,10 +627,10 @@ strong {
     height: 294px;
 }
 
-.advertisement-home-inner {
+/* .advertisement-home-inner {
     margin: auto;
     max-width: 1523px;
-}
+} */
 
 #section-advertisement-home {
     margin-top: 30px;
@@ -1191,7 +1191,8 @@ strong {
 
 .footer-center {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 75px;
 }
 
 .footer-menu-name {

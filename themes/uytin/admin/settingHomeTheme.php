@@ -331,13 +331,13 @@
 
               <div class=" col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Họ và tên 1</label>
+                    <label class="form-label" for="basic-default-fullname"><b>Họ và tên 1</b></label>
                     <input type="text" class="form-control" name="fullName121" value="<?php echo @$setting['fullName121'];?>" />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ảnh avatar 1</label>
-                    <input type="text" class="form-control" name="avatar121" value="<?php echo @$setting['avatar121'];?>" />
+                    <?php showUploadFile('avatar121','avatar121', @$setting['avatar121'],5);?>
                   </div>
 
                   <div class="mb-3">
@@ -353,13 +353,13 @@
 
               <div class=" col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Họ và tên 2</label>
+                    <label class="form-label" for="basic-default-fullname"><b>Họ và tên 2</b></label>
                     <input type="text" class="form-control" name="fullName122" value="<?php echo @$setting['fullName122'];?>" />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ảnh avatar 2</label>
-                    <input type="text" class="form-control" name="avatar122" value="<?php echo @$setting['avatar122'];?>" />
+                    <?php showUploadFile('avatar122','avatar122', @$setting['avatar122'],6);?>
                   </div>
 
                   <div class="mb-3">
@@ -375,13 +375,13 @@
 
               <div class=" col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Họ và tên 3</label>
+                    <label class="form-label" for="basic-default-fullname"><b>Họ và tên 3</b></label>
                     <input type="text" class="form-control" name="fullName123" value="<?php echo @$setting['fullName123'];?>" />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ảnh avatar 3</label>
-                    <input type="text" class="form-control" name="avatar123" value="<?php echo @$setting['avatar123'];?>" />
+                    <?php showUploadFile('avatar123','avatar123', @$setting['avatar123'],7);?>
                   </div>
 
                   <div class="mb-3">
@@ -397,13 +397,13 @@
 
               <div class=" col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Họ và tên 4</label>
+                    <label class="form-label" for="basic-default-fullname"><b>Họ và tên 4</b></label>
                     <input type="text" class="form-control" name="fullName124" value="<?php echo @$setting['fullName124'];?>" />
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Ảnh avatar 4</label>
-                    <input type="text" class="form-control" name="avatar124" value="<?php echo @$setting['avatar124'];?>" />
+                    <?php showUploadFile('avatar124','avatar124', @$setting['avatar124'],8);?>
                   </div>
 
                   <div class="mb-3">

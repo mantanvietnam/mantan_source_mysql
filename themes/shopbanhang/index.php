@@ -17,7 +17,7 @@ global $urlThemeActive;
         
         <section id="section-advertisement-home">
             <div class="advertisement-home-inner">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
                             <img src="<?php echo @$setting['image1'] ?>" alt="">
@@ -43,7 +43,7 @@ global $urlThemeActive;
                         <p>Flash Sale - Deal chớp nhoáng</p>
                     </div>
                     <div class="flash-sale-link">
-                        <a href="">Xem chi tiết</a>
+                        <a href="">Xem chi tiết <img src="<?php echo $urlThemeActive ?>/asset/image/doublearrow.svg" alt=""></a>
                     </div>
                     <div class="time-flash-sale" id="countdown">
                         
@@ -61,7 +61,7 @@ global $urlThemeActive;
                                     $ban = 0;
                                     if(!empty($item->quantity) && !empty($item->sold)){
                                         if($item->quantity>$item->sold){
-                                            $ban = 100 - 100*$item->sold/$item->quantity;
+                                            $ban = 100*$item->sold/$item->quantity;
                                         }
                                     }
                                 ?>
@@ -82,7 +82,9 @@ global $urlThemeActive;
                                         </div>
 
                                         <div class="best-sale-discount">
+                                            <?php if(!empty($item->price_old)){ ?>
                                             <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                            <?php } ?>
                                         </div>
                                     </div>
 
@@ -154,6 +156,10 @@ global $urlThemeActive;
                         <div class="row">
                             <?php if(!empty($product_sold)){ 
                                 foreach($product_sold as $key => $item){
+                                      $giam = 0;
+                                    if(!empty($item->price_old) && !empty($item->price)){
+                                        $giam = 100 - 100*$item->price/$item->price_old;
+                                    }
                                     $ban = 0;
                                     if(!empty($item->quantity) && !empty($item->sold)){
                                         $ban = 100 - 100*$item->sold/$item->quantity;
@@ -175,7 +181,9 @@ global $urlThemeActive;
                                         </div>
         
                                         <div class="best-sale-discount">
-                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                              <?php if(!empty($item->price_old)){ ?>
+                                            <del><?php  echo number_format($item->price_old); ?>đ</del><span> (<?php echo number_format($giam) ?>%)</span>
+                                            <?php } ?>
                                         </div>
                                     </div>
         
@@ -201,7 +209,7 @@ global $urlThemeActive;
 
         <!-- Chuyên mục -->
         <section id="section-home-category">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="home-category-big col-12 ">
                         <div class="category-home-img">
@@ -225,13 +233,13 @@ global $urlThemeActive;
         </section>
 
         <!-- Banner chinh sách công ty -->
-        <section id="section-banner-policy">
+        <!-- <section id="section-banner-policy">
             <div class="container-fluid">
                 <div class="banner-policy">
                     <img src="<?php echo @$setting['image7'] ?>" alt="">
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Bình luận -->
         <section id="section-comment-customer">

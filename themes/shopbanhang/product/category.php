@@ -164,7 +164,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     $ban = 0;
                                     if(!empty($product->quantity) && !empty($product->sold)){
                                        if($product->quantity>$product->sold){
-                                            $ban = 100 - 100*$product->sold/$product->quantity;
+                                            $ban = 100*$product->sold/$product->quantity;
                                         }
                                     }
                                  ?>
@@ -187,7 +187,9 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
         
                                         <div class="product-discount">
-                                            <del><?php echo number_format($product->price_old) ?>đ</del>
+                                           <?php if(!empty($product->price_old)){ ?>
+                                            <del><?php  echo number_format($product->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                            <?php } ?>
                                         </div>
                                     </div>
         

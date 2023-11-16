@@ -93,11 +93,16 @@
               <?php 
                 if(!empty($listData)){
                   foreach ($listData as $item) {
+                    $classActive = 'text-danger';
+                    if($item->verify ==  'active'){
+                      $classActive = 'text-success';
+                    }
+
                     echo '<tr>
                             <td>'.$item->id.'</td>
                             <td><img src="'.$item->avatar.'" width="100" /></td>
                             <td>
-                              '.$item->name.'<br/>
+                              <span class="'.$classActive.'">'.$item->name.'</span><br/>
                               '.$item->phone.'<br/>
                               '.$item->email.'<br/>
                             </td>

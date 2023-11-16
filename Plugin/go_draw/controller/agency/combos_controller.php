@@ -8,7 +8,7 @@ function listCombo($input)
 	global $session;
 
 	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
-	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';
+	    $metaTitleMantan = 'Combo sản phẩm nhà cung cấp';
 
 		$modelCombos = $controller->loadModel('Combos');
 		$modelComboProducts = $controller->loadModel('ComboProducts');

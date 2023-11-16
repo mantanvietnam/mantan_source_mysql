@@ -33,7 +33,7 @@ rel='stylesheet' type='text/css'>
                                                 <div class="customer-name">
                                                     <span class="room-number"><?php echo $bed->name ?></span><br/>
                                                 <?php if(!empty($bed->Userservice)){ ?>
-                                                       <span class="full-name"><?php echo $bed->Userservice->customer->name ?></span>
+                                                       <span class="full-name"><?php echo @$bed->Userservice->customer->name ?></span>
                                                 <?php } ?>
                                                 </div> 
                                             </div>               
@@ -145,7 +145,7 @@ rel='stylesheet' type='text/css'>
         global $urlHomes;
         global $urlCurrent;
 
-        echo 'var urlCheckinBed = "'.$urlHomes.'order";';
+        echo 'var urlCheckinBed = "'.$urlHomes.'listOrderService";';
         echo 'var urlEditBed = "'.$urlHomes.'listBed";';
         echo 'var urlDeleteBed = "'.$urlHomes.'deleteBed";';
         echo 'var listOrder = "'.$urlHomes.'listOrder";';

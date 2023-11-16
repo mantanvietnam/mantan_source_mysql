@@ -13,6 +13,20 @@ function listCombo($input){
 
 	if(!empty($session->read('infoUser'))){
 		$infoUser = $session->read('infoUser');
+		 $mess= '';
+		if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestProduct':
+                    $mess= '<p class="text-danger">Bạn cần tạo combo trước</p>';
+                    break;
+                case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa combo này</p>';
+                    break;
+                case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
+            }
+        }
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
 		$limit = 20;
@@ -99,6 +113,7 @@ function listCombo($input){
 	    setVariable('back', $back);
 	    setVariable('next', $next);
 	    setVariable('urlPage', $urlPage);
+        setVariable('mess', $mess);
 	    
 	    setVariable('listData', $listData);
 	}else{
@@ -202,6 +217,23 @@ function addCombo($input){
 	    	}
 	    }
 
+	     // danh sách dịch vụ
+	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $dataService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+
+	    // danh sách sản phẩm
+	    $product = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $dataProduct = $modelProducts->find()->where($product)->order(['name' => 'ASC'])->all()->toList();
+
+
+	    if(empty($dataService)){
+	    	return $controller->redirect('/listService/?error=requestService');
+	    }
+
+	    if(empty($dataProduct)){
+	    	return $controller->redirect('/listProduct/?error=requestProduct');
+	    }
+
         setVariable('data', $data);
         setVariable('categoryProduct', $categoryProduct);
         setVariable('CategoryService', $CategoryService);
@@ -216,15 +248,24 @@ function deleteCombo($input){
     global $session;
     
     $modelCombo = $controller->loadModel('Combos');
-    
+    $modelOrderDetails = $controller->loadModel('OrderDetails');
     if(!empty($session->read('infoUser'))){
     	$infoUser = $session->read('infoUser');
 
+
         if(!empty($_GET['id'])){
             $data = $modelCombo->get($_GET['id']);
+
+            $checkOrder = $modelOrderDetails->find()->where(array('id_product'=>$data->id,'type'=>'combo','id_member'=>$infoUser->id_member))->all()->toList();
+
+            if(!empty($checkOrder)){
+                return $controller->redirect('/listCombo?error=requestDelete');
+
+            }
             
             if($data){
                 $modelCombo->delete($data);
+                return $controller->redirect('/listCombo?error=requestDeleteSuccess');
             }
         }
 

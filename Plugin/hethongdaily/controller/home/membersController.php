@@ -337,9 +337,9 @@ function addMember($input)
 	        	$checkPhone = $modelMembers->find()->where($conditions)->first();
 
 	        	if(empty($checkPhone) || (!empty($_GET['id']) && $_GET['id']==$checkPhone->id) ){
-	        		if(empty($dataSend['avatar'])){
-	        			$system = $modelCategories->find()->where(['id'=>(int) $infoUser->id_system])->first();
+	        		$system = $modelCategories->find()->where(['id'=>(int) $infoUser->id_system])->first();
 
+	        		if(empty($dataSend['avatar'])){
 	        			if(!empty($system->image)){
 	        				$dataSend['avatar'] = $system->image;
 	        			}
@@ -370,14 +370,21 @@ function addMember($input)
 						$data->created_at = time();
 						$data->deadline = time()+ 63072000; // 2 năm
 						$data->status =  'active';
-						$data->verify =  'lock';
-						$data->otp =  rand(1000,9999);
+						
+						if(empty($system->keyword)){
+							$data->verify =  'lock';
+							$data->otp =  rand(1000,9999);
 
-						// gửi mã xác thức qua Zalo
-						$zalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
-						if(!empty($zalo->access_token)){
-							sendZNSZalo($zalo->template_otp, ['otp'=>$data->otp], $data->phone, $zalo->id_oa, $zalo->id_app);
+							// gửi mã xác thức qua Zalo
+							$zalo = $modelZalos->find()->where(['id_system'=>$infoUser->id_system])->first();
+							if(!empty($zalo->access_token)){
+								sendZNSZalo($zalo->template_otp, ['otp'=>$data->otp], $data->phone, $zalo->id_oa, $zalo->id_app);
+							}
+						}else{
+							$data->verify =  'active';
+							$data->otp = null;
 						}
+						
 					}else{
 						if(!empty($dataSend['password'])){
 				        	$data->password = md5($dataSend['password']);
@@ -524,6 +531,34 @@ function verify($input)
 	    setVariable('infoUser', $infoUser);
     }else{
 		return $controller->redirect('/login');
+	}
+}
+
+function info($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $urlHomes;
+
+    $modelMembers = $controller->loadModel('Members');
+
+	if(!empty($_GET['id'])){
+		$info = $modelMembers->find()->where(['id'=>(int) $_GET['id'], 'status'=>'active', 'verify'=>'active'])->first();
+
+		if(!empty($info)){
+			$position = $modelCategories->find()->where(array('id'=>$info->id_position))->first();
+				
+			$info->name_position = @$position->name;
+		
+			setVariable('info', $info);
+		}else{
+			return $controller->redirect('/');
+		}
+	}else{
+		return $controller->redirect('/');
 	}
 }
 ?>

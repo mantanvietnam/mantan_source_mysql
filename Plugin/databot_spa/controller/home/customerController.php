@@ -163,6 +163,7 @@ function listCustomer($input)
 	    if(!empty($listData)){
 	    	foreach($listData as $key => $item){
 	    		$listData[$key]->Prepaycard = count($modelCustomerPrepaycard->find()->where(array('id_customer'=>$item->id))->all()->toList());
+	    		$listData[$key]->category = $modelCategories->find()->where(array('id'=>$item->id_group))->first();
 	    	}
 	    }
 
@@ -314,9 +315,17 @@ function addCustomer($input)
 	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
 	    $dataGroup = $modelCategories->find()->where($category)->order(['name' => 'ASC'])->all()->toList();
 
+	    if(empty($dataGroup)){
+	    	return $controller->redirect('listCategoryCustomer?error=requestCategoryCustomer');
+	    }
+
 	    // danh sách dịch vụ
 	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
 	    $dataService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+
+	     if(empty($dataService)){
+	    	return $controller->redirect('listService?error=requestSourceCustomer');
+	    }
 
 	    // danh sách sản phẩm
 	    $product = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
@@ -326,7 +335,7 @@ function addCustomer($input)
 	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
 	    $dataSource = $modelCategories->find()->where($source)->order(['name' => 'ASC'])->all()->toList();
 	   	
-	   	/*
+	   	
 	    if(empty($dataGroup)){
 	    	return $controller->redirect('/listCategoryCustomer/?error=requestCategoryCustomer');
 	    }
@@ -342,7 +351,7 @@ function addCustomer($input)
 	    if(empty($dataProduct)){
 	    	return $controller->redirect('/listProduct/?error=requestProduct');
 	    }
-	    */
+	    
 
 	    setVariable('data', $data);
 	    setVariable('dataMember', $dataMember); 
@@ -398,12 +407,19 @@ function listCategoryCustomer($input){
                 case 'requestCategoryCustomer':
                     $mess= '<p class="text-danger">Bạn cần tạo nhóm khách hàng trước</p>';
                     break;
+                case 'requestCategoryDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhóm khách hàng này</p>';
+                    break;
+
+                case 'requestCategoryDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
             }
         }
 
         if ($isRequestPost) {
             $dataSend = $input['request']->getData();
-            
+
             // tính ID category
             if(!empty($dataSend['idCategoryEdit'])){
                 $infoCategory = $modelCategories->get( (int) $dataSend['idCategoryEdit']);
@@ -413,11 +429,11 @@ function listCategoryCustomer($input){
 
             // tạo dữ liệu save
             $infoCategory->name = str_replace(array('"', "'"), '’', $dataSend['name']);
-            $infoCategory->parent = 0;
-            $infoCategory->image = '';
+            $infoCategory->parent = (int) $dataSend['id_product'];
+            $infoCategory->image = $dataSend['value_avatar'];
             $infoCategory->id_member = $infoUser->id_member;
-            $infoCategory->keyword = '';
-            $infoCategory->description = '';
+            $infoCategory->keyword = $dataSend['value_name'];
+            $infoCategory->description = $dataSend['value_id'];
             $infoCategory->type = 'category_customer';
             $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
 
@@ -453,6 +469,13 @@ function listSourceCustomer($input){
             switch ($_GET['error']) {
                 case 'requestSourceCustomer':
                     $mess= '<p class="text-danger">Bạn cần tạo nguồn khách hàng trước</p>';
+                    break;
+                case 'requestSourceDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa nhóm khách hàng này</p>';
+                    break;
+
+                case 'requestSourceDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
                     break;
             }
         }
@@ -498,18 +521,45 @@ function deleteCategoryCustomer($input){
     global $modelCategories;
     global $metaTitleMantan;
     global $session;
+    global $controller;
 
     $metaTitleMantan = 'Xóa nhóm khách hàng';
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
+        $modelCustomer = $controller->loadModel('Customers');
 
         if(!empty($_GET['id'])){
             $conditions = array('id'=> $_GET['id'], 'id_member'=>$infoUser->id_member);
             $data = $modelCategories->find()->where($conditions)->first();
-            
-            if(!empty($data)){
-                $modelCategories->delete($data);
+
+            if(!empty($_GET['type'])){
+            switch ($_GET['type']) {
+                case 'Source':
+                    $checkCustomer = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
+                    break;
+                case 'Category':
+                   	$checkCustomer = $modelCustomer->find()->where(array('id_group'=>$data->id))->all()->toList();
+                    break;
+
+          
             }
+        }
+            
+
+            if(empty($checkCustomer)){
+            	if(!empty($data)){
+                	$modelCategories->delete($data);
+                	return array('code'=>1);
+            	}else{
+            		return array('code'=>0);
+            	}
+            }else{
+            	return array('code'=>0);
+            }
+            
+            
+        }else{
+        	return array('code'=>0);
         }
     }else{
         return $controller->redirect('/login');

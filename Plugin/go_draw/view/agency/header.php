@@ -53,8 +53,22 @@
                             </div>
                         </li>
 
+                        <li><a href="/warehouse">Kho hàng</a></li>
+
                         <li>
-                            <a href="javascript:void(0);">Mua hàng</a>
+                            <a href="javascript:void(0);">Trả hàng</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="/orderBackStore">Đơn trả hàng</a></li>
+                                    <li><a href="/orderBackStoreDone">Đơn đã trả</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <?php if(!empty($session->read('isAgencyBoss'))){ ?>
+                        <!--
+                        <li>
+                            <a href="javascript:void(0);">Mua combo</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="/listCombo">Tạo đơn mua</a></li>
@@ -64,7 +78,20 @@
                                 </ul>
                             </div>
                         </li>
+                        -->
 
+                        <li>
+                            <a href="javascript:void(0);">Mua lẻ</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="/listProduct">Tạo đơn mua</a></li>
+                                    <li><a href="/orderProductWait">Đơn chờ duyệt</a></li>
+                                    <li><a href="/orderProductProcess">Đơn chưa thanh toán</a></li>
+                                    <li><a href="/orderProductDone">Đơn đã thanh toán</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <?php }?>
                         
                         <li><a href="/changePass">Đổi mật khẩu</a></li>
                         <li><a href="/logout">Đăng xuất</a></li>

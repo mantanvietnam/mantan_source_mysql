@@ -169,7 +169,7 @@
                  if(!empty($listCombo)){ ?>
                     <div class="m-3 col-md-10">
                        
-                        <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
+                        <input type="text" placeholder="Tìm Combo"  class="form-control phone-mask" id="searchProduct">
                    </div>
 				<div >
 				  <div class="card card-body">

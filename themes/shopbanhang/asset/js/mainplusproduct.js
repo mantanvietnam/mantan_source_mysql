@@ -1,3 +1,22 @@
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
+  var myCheckbox = voucherDiv.querySelector('.form-check-input');
+  myCheckbox.disabled = true;
+});
+
+
+$('.slide-rate-image').slick({
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  // autoplay: true,
+  autoplaySpeed: 3000,
+  arrows: false
+});
+
+
 var tocList = document.getElementById('toc-list');
 var headings = document.querySelectorAll('.blog-detail-content h1,.blog-detail-content h2,.blog-detail-content h3,.blog-detail-content h4,.blog-detail-content h5,.blog-detail-content h6');
 headings.forEach(function (heading, index) {
@@ -24,23 +43,27 @@ var contentMain = document.querySelector('.describe-description-filter');
 contentMain.classList.add('hideContent');
 
 document.querySelectorAll(".describe-more button").forEach(function(link) {
-    link.addEventListener("click", function() {
-      // var content = this.parentElement.previousElementSibling;
-      var linkText = this.textContent.toUpperCase();
-  
-      if (linkText === "XEM THÊM") {
-        linkText = "Rút gọn";
-        contentMain.classList.remove("hideContent");
-        contentMain.classList.add("showContent");
-      } else {
-        linkText = "Xem thêm";
-        contentMain.classList.remove("showContent");
-        contentMain.classList.add("hideContent");
-      }
-  
-      this.textContent = linkText;
-    });
-  });   
+  link.addEventListener("click", function() {
+    // var content = this.parentElement.previousElementSibling;
+    var linkText = this.textContent.toUpperCase();
+
+    if (linkText === "XEM THÊM") {
+      linkText = "Rút gọn";
+      contentMain.classList.remove("hideContent");
+      contentMain.classList.add("showContent");
+    } else {
+      linkText = "Xem thêm";
+      contentMain.classList.remove("showContent");
+      contentMain.classList.add("hideContent");
+    }
+
+    this.textContent = linkText;
+  });
+});   
+
+
+
+
 
 
  

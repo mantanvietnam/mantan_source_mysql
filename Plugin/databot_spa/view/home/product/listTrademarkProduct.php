@@ -100,15 +100,17 @@
       if(check){
         $.ajax({
           method: "GET",
-          url: "/deleteTrademarkProduct/?id="+id,
-          data: {}
-        })
-          .done(function( msg ) {
-            window.location = '/listTrademarkProduct';
-          })
-          .fail(function() {
-            window.location = '/listTrademarkProduct';
-          });
+          url: "/apis/deleteTrademarkProduct/?id="+id,
+          data: {},
+          success:function(res){
+                  //console.log(res);
+                  if(res.code==1){
+                    window.location = '/listTrademarkProduct?error=requestTrademarkDeleteSuccess';
+                  }else{
+                    window.location = '/listTrademarkProduct?error=requestTrademarkDelete';
+                  }
+                }
+        });
       }
     }
   </script>

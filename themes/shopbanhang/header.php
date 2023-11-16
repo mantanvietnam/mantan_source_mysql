@@ -76,18 +76,24 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             <div class="topbar">
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
+                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logophong.png" alt=""></a>
+                        </div>
+
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-phone">
-                            <img src="<?php echo $urlThemeActive ?>asset/image/headphone.png" alt="">&nbsp;
-                            <span><?php echo @$setting['phone'] ?></span>
+                       
                         </div>
             
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
-                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logo.png" alt=""></a>
-                        </div>
+                      
             
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-group-button">
+                            <div class="phone-header topbar-phone">
+                                    <img src="<?php echo $urlThemeActive ?>asset/image/headphone.png" alt="">&nbsp;
+                                    <span><?php echo @$setting['phone'] ?></span>
+                            </div>
+
                             <div class="topbar-button">
-                                <img src="<?php echo $urlThemeActive ?>asset/image/user.png" alt="">
+                                <img src="<?php echo $urlThemeActive ?>asset/image/account.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
                                     <a href="/infoUser" >Tài khoản của tôi</a>
                                     <a href="/logout" >Đăng xuất</a>
@@ -97,6 +103,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </div>
                              
                             <div class="topbar-button">
+                               
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
                                 <a href="/cart">Giỏ hàng</a>
                             </div>
@@ -113,31 +120,22 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         </button> -->
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <?php 
-                            $menu = getMenusDefault();
-                          
-                            if(!empty($menu)){
-                            foreach($menu as $key => $value){
-                              if(empty($value['sub'])){
-                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
-                            </li>
-                        <?php   }else{  ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <?php echo $value['name']  ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
-                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                            <?php }}} ?>
-    
-                            <li class="nav-item nav-item-image  dropdown ">
+                                    <!-- Menu mặc định -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Sản phẩm
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/allProduct">Tất cả sản phẩm</a></li>
+                                        <li><a class="dropdown-item" href="#">Bumas Beauty</a></li>
+                                        <li><a class="dropdown-item" href="#">Bumas Home</a></li>
+                                        <li><a class="dropdown-item" href="#">Bumas Care</a></li>
+                                        <li><a class="dropdown-item" href="#">Quà tăng</a></li>
+
+                                    </ul>
+                                </li>
+                            
+                                <li class="nav-item nav-item-image  dropdown ">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Combo quà tặng
                                 </a>
@@ -201,9 +199,34 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     </div>
                                 </ul>
                             </li>
+                            <?php 
+                            $menu = getMenusDefault();
+                          
+                            if(!empty($menu)){
+                            foreach($menu as $key => $value){
+                              if(empty($value['sub'])){
+                         ?>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
+                            </li>
+                        <?php   }else{  ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <?php echo $value['name']  ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
+                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
+                                    <?php } ?>
+                                </ul>
+                            </li>
+                            <?php }}} ?>
+    
+                        
     
                             <li class="nav-item nav-item-last">
-                                <a class="nav-link" href="#">Sản phẩm</a>
+                                <a class="nav-link" href="/sela">Khuyến mãi</a>
                             </li>
                         </ul>
                         <form class="menu-form-search d-flex" role="search"  action="/search-product" method="get" id="myForm">

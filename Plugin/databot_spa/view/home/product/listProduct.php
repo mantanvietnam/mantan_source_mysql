@@ -90,7 +90,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách Sản phẩm</h5>
+    <h5 class="card-header">Danh sách sản phẩm</h5>
 
     <div class="card-body row">
       <div class="table-responsive">

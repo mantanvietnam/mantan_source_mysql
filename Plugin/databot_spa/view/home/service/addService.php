@@ -3,7 +3,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listProduct">Dịch vụ </a> /</span>
+    <span class="text-muted fw-light"><a href="/listService">Dịch vụ </a> /</span>
     Thông tin dịch vụ
   </h4>
 
