@@ -274,7 +274,35 @@
   function showViewText()
   {
     var color = $('#color').val();
+    var size = $('#size').val();
+    var font = $('#font').val();
+    var text_align = $('#text_align').val();
+    var brightness = $('#brightness').val();
+    var contrast = $('#contrast').val();
+    var gachchan = $('#gachchan').val();
+    var uppercase = $('#uppercase').val();
+    var indam = $('#indam').val();
+    var gianchu = $('#gianchu').val();
+    var giandong = $('#giandong').val();
+    var width = $('#width').val();
 
-    $('#showViewText').css('color',color);
+    console.log(color);
+    console.log(uppercase);
+
+    var myElement = document.getElementById('showViewText');
+
+    myElement.style.color = color;
+    myElement.style.fontSize = size+'px';
+    myElement.style.fontFamily = font;
+    myElement.style.textAlign = text_align;
+    myElement.style.textDecoration = gachchan;
+    myElement.style.fontStyle = uppercase;
+    myElement.style.fontWeight = indam;
+    myElement.style.letterSpacing = gianchu+'px';
+    myElement.style.width = width+'px';
+    myElement.style.lineHeight = giandong;
+    myElement.style.filter = 'brightness('+brightness+')';
+
+    //$('#showViewText').css('color',color, 'font-size',size); 
   }
-</script>
+</script> letter-spacing
