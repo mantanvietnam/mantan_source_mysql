@@ -80,13 +80,13 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logophong.png" alt=""></a>
                         </div>
 
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-phone">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-12 topbar-phone">
                        
                         </div>
             
                       
             
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-group-button">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-12 topbar-group-button">
                             <div class="phone-header topbar-phone">
                                     <img src="<?php echo $urlThemeActive ?>asset/image/headphone.png" alt="">&nbsp;
                                     <span><?php echo @$setting['phone'] ?></span>

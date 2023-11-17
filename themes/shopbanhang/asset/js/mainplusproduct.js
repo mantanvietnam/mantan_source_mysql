@@ -1,5 +1,21 @@
 
 
+//  sticky
+
+
+// window.onscroll = function() {myFunction()};
+
+// var navbar = document.querySelector("header");
+// var sticky = navbar.offsetTop;
+
+// function myFunction() {
+//   if (window.pageYOffset >= sticky) {
+//     navbar.classList.add("sticky")
+//   } else {
+//     navbar.classList.remove("sticky");
+//   }
+// }
+
 document.addEventListener('DOMContentLoaded', function() {
   var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
   var myCheckbox = voucherDiv.querySelector('.form-check-input');
@@ -66,4 +82,3 @@ document.querySelectorAll(".describe-more button").forEach(function(link) {
 
 
 
- 

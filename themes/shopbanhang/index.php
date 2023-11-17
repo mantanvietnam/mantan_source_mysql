@@ -3,7 +3,7 @@ getHeader();
 global $urlThemeActive;
 ?>
  <main>
-        <section id="section-banner-home">
+        <section id="section-banner-home" class="banner-home-margin">
             <div class="banner-home-slide">
                <?php if(!empty($slide_home->imageinfo)){
                         foreach($slide_home->imageinfo as $key => $item){ ?>
