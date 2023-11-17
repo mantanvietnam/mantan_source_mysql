@@ -108,3 +108,37 @@ function changePass($input)
 		return $controller->redirect('/login');
 	}
 }
+
+function checkBoos($input)
+{
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+
+	$metaTitleMantan = 'Kiểm tra quyền truy cập';
+
+	$modelAgencyAccounts = $controller->loadModel('AgencyAccounts');
+
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			$infoAgency = $modelAgencyAccounts->get($session->read('infoUser')->id);
+
+			if(!empty($dataSend['code_pin']) && $dataSend['code_pin']==$infoAgency->code_pin){
+				$session->write('isAgencyBoss', true);
+
+				return $controller->redirect('/listProduct');
+			}else{
+				$mess= '<p class="text-danger">Sai mã PIN</p>';
+			}
+		}
+
+		setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/login');
+	}
+}

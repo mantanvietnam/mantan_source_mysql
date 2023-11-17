@@ -41,6 +41,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_accounts` (
     `type` TINYINT(4) NOT NULL COMMENT "1 là chủ, 2 là nhân viên" , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `status` VARCHAR(255) NOT NULL DEFAULT "active",
     `last_login` TIMESTAMP NULL,
+    `code_pin` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';

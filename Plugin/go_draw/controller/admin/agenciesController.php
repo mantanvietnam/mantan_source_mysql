@@ -116,6 +116,7 @@ function viewDetailAgencyAdmin($input)
             if (!empty($dataSend['master_account_name'])
                 && !empty($dataSend['master_account_password'])
                 && !empty($dataSend['master_account_password_confirmation'])
+                && !empty($dataSend['master_account_code_pin'])
                 && !empty($dataSend['name'])
                 && !empty($dataSend['address'])
                 && !empty($dataSend['phone'])
@@ -137,6 +138,7 @@ function viewDetailAgencyAdmin($input)
 
                     $masterAccount->agency_id = $agency->id;
                     $masterAccount->name = $dataSend['master_account_name'];
+                    $masterAccount->code_pin = $dataSend['master_account_code_pin'];
                     $masterAccount->password = md5($dataSend['master_account_password']);
                     $masterAccount->type = $dataSend['type'] ?? 1;
                     $accountModel->save($masterAccount);
@@ -156,6 +158,10 @@ function viewDetailAgencyAdmin($input)
                 $agency->phone = $dataSend['phone'];
                 $agency->status = $dataSend['status'] ?? 1;
                 $agencyModel->save($agency);
+
+                $masterAccount->name = $dataSend['master_account_name'];
+                $masterAccount->code_pin = $dataSend['master_account_code_pin'];
+                $accountModel->save($masterAccount);
 
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
             } else {

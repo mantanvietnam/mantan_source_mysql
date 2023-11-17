@@ -14,6 +14,9 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css">
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
 
     <?php mantan_header();global $settingThemes;?>
 </head>
@@ -22,7 +25,7 @@
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo.svg" class="img-fluid" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo-godraw.png" class="img-fluid" alt=""></a></div>
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>

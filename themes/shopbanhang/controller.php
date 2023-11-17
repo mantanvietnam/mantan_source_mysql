@@ -286,6 +286,8 @@ function indexTheme($input){
 function news(){
     global $modelPosts;
     global $controller;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Tin tức';
 
     $order = array('id'=>'desc');
 
@@ -309,6 +311,8 @@ function news(){
 
 function guarantee(){
     global $modelOptions;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Chính sách bảo hành';
 
     $conditions = array('key_word' => 'sttingGuaranteeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -324,7 +328,8 @@ function guarantee(){
 
 function instruction(){
     global $modelOptions;
-
+     global $metaTitleMantan;
+    $metaTitleMantan = 'Hướng dẫn kích hoạt bảo hành';
     $conditions = array('key_word' => 'sttingGuaranteeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
 
@@ -394,7 +399,8 @@ function reviewkol(){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
-
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Nhận xét từ các KOL, KOC';
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
@@ -445,7 +451,8 @@ function reviewBeatbox(){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
-
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Khách hàng đập hộp';
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
@@ -497,7 +504,8 @@ function reviewProduct(){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
-
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Review sản phẩm';
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
