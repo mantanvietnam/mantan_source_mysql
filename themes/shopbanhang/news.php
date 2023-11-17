@@ -262,9 +262,10 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
 
                 <div class="form-blog-contact">
-                    <form action="">
+                    <form action="/addSubscribe" method="post">
                         <div class="input-blog-contact">
-                            <input type="email" class="form-control" placeholder="Nhập email của bạn" required>
+                            <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+                            <input type="email" name="email" class="form-control" placeholder="Nhập email của bạn" required>
                             <button type="submit" class="btn btn-primary">Đăng ký</button>
                         </div>
                     </form>
