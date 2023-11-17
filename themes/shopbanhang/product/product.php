@@ -1147,7 +1147,11 @@ function deteleComment($id){
             url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status="+status
         })
         .done(function( msg ) {
-            window.location = '/cart';
+            if(status=='true'){
+                window.location = '/cart';
+            }else{
+                location.reload();
+            }
         });
     }
 </script>
