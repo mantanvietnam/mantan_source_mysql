@@ -198,7 +198,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         <div class="product-discount">
                                             <?php if(!empty($product->price_old)){ ?>
                                             <del><?php  echo number_format($product->price_old); ?>đ</del><!-- <span> (50%)</span> -->
-                                            <?php } ?>
+                                            <?php }else{ echo '&nbsp;';} ?>
                                         </div>
                                     </div>
         

@@ -916,6 +916,32 @@ header{
     font-weight: bold;
 }
 
+#review .nav-tabs {
+    width: 841px;
+}
+
+/* Chi tiet */
+.product-like-slide .product-price{
+    font-weight: bold !important;
+}
+
+.product-like-slide .product-name a{
+    height: 36px;
+}
+
+#section-product-like-inner .title-section h2{
+    font-weight: bold !important;
+}
+
+.section-pro-review-inner .title-section p {
+    font-size: 28px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 27px;
+}
+
+
+
 /* Chuyên mục sản phẩm */
 /* #section-cateogry-product .rate-sold p{} */
 
@@ -953,6 +979,10 @@ header{
 }
 
 @media(max-width: 445px) {
+
+    .product-question-img img{
+        width: 100%;
+    }
     /* Chuyen tu main */
     .home-category-small .category-home-img {
         height: 248px;

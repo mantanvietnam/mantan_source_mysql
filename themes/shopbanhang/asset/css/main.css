@@ -4,7 +4,7 @@
 */
 
 @font-face {
-    font-family: "Roboto";
+    font-family: "NunitoSans";
     src: url("../font/Roboto-Thin.ttf") format("truetype");
     font-weight: 100;
     font-style: normal;
@@ -12,24 +12,24 @@
 }
 
 @font-face {
-    font-family: "Roboto";
-    src: url("../font/Roboto-Light.ttf") format("truetype");
+    font-family: "NunitoSans";
+    src: url("../font/NunitoSans_10pt-Light.ttf") format("truetype");
     font-weight: 200;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Roboto";
-    src: url("../font/Roboto-Regular.ttf") format("truetype");
+    font-family: "NunitoSans";
+    src: url("../font/NunitoSans_10pt-Regular.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Roboto";
-    src: url("../font/Roboto-Medium.ttf") format("truetype");
+    font-family: "NunitoSans";
+    src: url("../font/NunitoSans_10pt-Medium.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -122,7 +122,7 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: Roboto;
+    font-family: NunitoSans;
 }
 
 
@@ -2058,7 +2058,7 @@ strong {
     padding: 10px;
     box-shadow: 5px 10px 8px -3px #888888;
     position: absolute;
-    top: 0;
+    top: -39px;
     right: 12px;
 }
 
@@ -2147,7 +2147,7 @@ strong {
 
 #section-product-detail .container .row {
     padding-bottom: 49px;
-    border-bottom: 1px solid #6D6E71;
+    border-bottom: 1px solid #EAEBEB;
 }
 
 .product-detail-slide-small {
@@ -2266,6 +2266,7 @@ strong {
     list-style-type: disc;
     margin-bottom: 12px;
     line-height: 1.3;
+    font-size: 14px
 }
 
 .info-col-right .info-col-description {
@@ -2295,6 +2296,7 @@ strong {
 .info-col-description tr {
     display: block;
     margin-bottom: 18px;
+    font-size: 14px;
 }
 
 .info-col-left .info-col-description {
@@ -3041,7 +3043,7 @@ strong {
 .list-filter-rate-list {
     width: 68%;
     display: flex;
-    gap: 5px;
+    gap: 6px;
     margin-bottom: 18px;
     flex-wrap: wrap;
 }
