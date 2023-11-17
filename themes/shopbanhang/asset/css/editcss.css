@@ -5,7 +5,7 @@ header{
     top: 0;
     right: 0;
     left: 0;
-    z-index: 99;
+    z-index: 1000;
 }
 
 /* .sticky{
@@ -671,7 +671,7 @@ header{
     font-size: 11px;
     margin-top: 0;
     margin-bottom: 15px !important;
-    padding-right: 159px;
+    padding-right: 69px;
 }
 
 /* sale */

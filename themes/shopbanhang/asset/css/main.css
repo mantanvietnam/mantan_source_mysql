@@ -1192,7 +1192,7 @@ strong {
 .footer-center {
     display: flex;
     /* justify-content: space-between; */
-    gap: 16px;
+    gap: 50px;
 }
 
 .footer-menu-name {
