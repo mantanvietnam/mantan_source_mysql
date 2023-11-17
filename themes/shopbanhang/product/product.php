@@ -99,7 +99,7 @@ $slide_home= slide_home($setting['id_slide']);
                               
                             <div class="detail-info-rate-right">
                                 <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
-                                <span><?php echo $product->number_like ?> + loves</span>
+                                <span><?php echo $product->number_like ?> + yêu thích</span>
                             </div>
                             
                         </div>
@@ -368,11 +368,11 @@ $slide_home= slide_home($setting['id_slide']);
             <div class="container">
                 <div class="section-pro-review-inner">
                     <div class="title-section">
-
+                        <p>Chuyên gia đánh giá sản phẩm</p>
                     </div>
 
                     <div class="pro-review-slide">
-                       
+                        
                          <?php if(!empty($product->evaluate)){
                              	foreach($product->evaluate as $item) {
                              	if(!empty($item['image'])){
@@ -444,7 +444,9 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-12 product-question-left">
-
+                            <div class="product-question-img">
+                                <img src="<?php echo $urlThemeActive ?>asset/image/detailproductfaq.png" alt="">
+                            </div>
                         </div>
             
                         <div class="col-lg-6 col-12 product-question-right">
@@ -519,7 +521,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-discount">
                                         <?php if(!empty($item->price_old)){ ?>
                                             <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
-                                            <?php } ?>
+                                            <?php }else{ echo '&nbsp;';} ?>
                                     </div>
                                 </div>
     
