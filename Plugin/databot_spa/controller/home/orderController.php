@@ -125,8 +125,8 @@ function orderProduct($input){
 
                 $modelOrderDetails->save($detail);
 
-                $checkProduct = $modelProduct->find()->where('id'=>$value)->first();
-                $price_agency = 0; 
+                $checkProduct = $modelProduct->find()->where(array('id'=>$value))->first();
+                 
                 if(!empty($checkProduct)){
                     if(!empty($checkProduct->commission_affiliate_fix)){
                         $money += $checkProduct->commission_affiliate_fix*$detail->quantity;
@@ -328,6 +328,7 @@ function orderCombo($input){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
+        $modelAgency = $controller->loadModel('Agencys');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
@@ -423,6 +424,7 @@ function orderCombo($input){
 
             $modelOrder->save($order);
             // tạo chi tiêt dơn hàng 
+            $money = 0;
             foreach($dataSend['idHangHoa'] as $key => $value){
                 $detail = $modelOrderDetails->newEmptyEntity();
 
@@ -434,6 +436,34 @@ function orderCombo($input){
                 $detail->type = $dataSend['type'][$key];
 
                 $modelOrderDetails->save($detail);
+
+                $checkCombo = $modelCombo->find()->where(array('id'=>$value))->first();
+                 
+                if(!empty($checkCombo)){
+                    if(!empty($checkCombo->commission_staff_fix)){
+                        $money += $checkCombo->commission_staff_fix*$detail->quantity;
+                    }elseif(!empty($checkCombo->commission_staff_percent)){
+                        $money += (((int)$checkCombo->commission_staff_percent / 100)*$detail->price)*(int)$detail->quantity;
+                    }
+                }
+            }
+
+            if($money>0){
+                $agency = $modelAgency->newEmptyEntity();
+
+                $agency->id_member = @$infoUser->id_member;
+                $agency->id_spa = $session->read('id_spa');
+                $agency->id_staff = $infoUser->id;
+                $agency->id_service = 0;
+                $agency->money = $money;
+                $agency->created_at = date('Y-m-d H:i:s');
+                $agency->note = '';
+                $agency->id_order_detail = 0;
+                $agency->status = 0;
+                $agency->id_order = $order->id;
+                $agency->type = 'sale';
+
+                $modelAgency->save($agency);
             }
 
 
@@ -609,6 +639,7 @@ function orderService($input){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
+        $modelAgency = $controller->loadModel('Agencys');
         $modelCustomerPrepaycards = $controller->loadModel('CustomerPrepaycards');
 
         $conditionsService = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'status'=>'1');
@@ -681,6 +712,7 @@ function orderService($input){
 
             $modelOrder->save($order);
             // tạo chi tiêt dơn hàng 
+             $money = 0;
             foreach($dataSend['idHangHoa'] as $key => $value){
                 $detail = $modelOrderDetails->newEmptyEntity();
 
@@ -692,6 +724,34 @@ function orderService($input){
                 $detail->type = $dataSend['type'][$key];
 
                 $modelOrderDetails->save($detail);
+
+                $checkService = $modelService->find()->where(array('id'=>$value))->first();
+                 
+                if(!empty($checkService)){
+                    if(!empty($checkService->commission_staff_fix)){
+                        $money += $checkService->commission_staff_fix*$detail->quantity;
+                    }elseif(!empty($checkService->commission_staff_percent)){
+                        $money += (((int)$checkService->commission_staff_percent / 100)*$detail->price)*(int)$detail->quantity;
+                    }
+                }
+            }
+
+            if($money>0){
+                $agency = $modelAgency->newEmptyEntity();
+
+                $agency->id_member = @$infoUser->id_member;
+                $agency->id_spa = $session->read('id_spa');
+                $agency->id_staff = $infoUser->id;
+                $agency->id_service = 0;
+                $agency->money = $money;
+                $agency->created_at = date('Y-m-d H:i:s');
+                $agency->note = '';
+                $agency->id_order_detail = 0;
+                $agency->status = 0;
+                $agency->id_order = $order->id;
+                $agency->type = 'sale';
+
+                $modelAgency->save($agency);
             }
 
             //sử lý phần thanh toán 
