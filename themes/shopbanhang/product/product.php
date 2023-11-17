@@ -99,7 +99,7 @@ $slide_home= slide_home($setting['id_slide']);
                               
                             <div class="detail-info-rate-right">
                                 <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
-                                <span><?php echo $product->number_like ?> + loves</span>
+                                <span><?php echo $product->number_like ?> + yêu thích</span>
                             </div>
                             
                         </div>
