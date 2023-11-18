@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" title="" href="/plugins/go_draw/view/agency/css/jquery.mmenu.all.css">
     <link rel="stylesheet" type="text/css" title="" href="/plugins/go_draw/view/agency/css/style.css">
     <link rel="stylesheet" type="text/css" title="" href="/plugins/go_draw/view/agency/css/more.css">
+    <link rel="stylesheet" type="text/css" title="" href="/themes/godraw//css/update.css">
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -26,7 +27,10 @@
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div>
+            <!-- <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div> -->
+            <div class="logo"><a href=""><img src="/themes/godraw//images/logo.png" class="img-fluid btn-effect" alt=""></a></div>
+
+       
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>

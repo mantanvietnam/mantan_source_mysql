@@ -25,7 +25,7 @@
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo-godraw.png" class="img-fluid" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo.png" class="img-fluid btn-effect" alt=""></a></div>
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>
@@ -103,7 +103,7 @@
     <div class="header-mobile">
         <div class="container">
             <div class="content-mm-mobile">
-                <div class="logo"><a href=""><img src="<?php echo $urlThemeActive;?>/images/logo.svg" class="img-fluid" alt=""></a></div>
+                <div class="logo"><a href=""><img src="<?php echo $urlThemeActive;?>/images/logo.png" class="img-fluid" alt=""></a></div>
                 <div class="right-mb">
                     <ul>
                         <?php if(!empty($session->read('infoMember'))){ ?>
@@ -198,13 +198,15 @@
                                         <a href="">Quên mật khẩu?</a>
                                     </div>
                                     
-                                    <div class="item item-submit text-center">
+                                    <div class="item item-submit">
                                         <input type="submit" class="btn_field" value="ĐĂNG NHẬP">
+                                        <p class="button-login-red">
+                                            <a href="/login" class="text-white">Đại lý đăng nhập</a>
+                                        </p>
+                                        
                                     </div>
 
-                                    <p class="text-center">
-                                        <a href="/login" class="text-white">Đại lý đăng nhập</a>
-                                    </p>
+                                   
                                 </form>
                             </div>
                         </div>

@@ -112,6 +112,15 @@ img.header-client {
 	color: #fff;
 }
 
+.btn-effect {
+	transition: all .2s ease-in-out;
+}
+
+.btn-effect:hover {
+	transition: all .2s ease-in-out;
+	transform: scale(1.08);  
+}
+
 img#go-now1 {
     max-width: 60px;
     position: absolute;
@@ -145,3 +154,107 @@ img.khung-tranh {
     max-height: auto;
     height: auto;
 }
+
+.logo img {
+    max-width: 245px;
+}
+
+/* Cập nhật mới 17/11*/
+/* header */
+.header-pc ul li a{
+    font-size: 18px;
+}
+
+/* trang chủ */
+.social-home{
+    z-index: 9;
+}
+
+.btn-effect:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.08);
+    filter: brightness(0.7);
+}
+
+.h-user ul li a.login:hover{
+    background: #0046ab;
+}
+
+.content-header {
+	height: 81px;
+}
+
+.h-menu ul li {
+	margin-right: 20px;
+	padding: 0 10px;
+}
+
+.h-menu a {
+	height: auto;
+}
+
+.slider-hot-nav{
+    padding: 0 74px;
+}
+
+.h-menu > ul > li {
+    height: 82px;
+    display: flex;
+}
+
+/* .h-menu ul li li:hover{
+    border-bottom: 3px solid #fff;
+} */
+
+.h-menu > ul > li:hover {
+    border-bottom: 3px solid #fff;
+}
+
+.slider-nav .item-avr img:hover{
+    filter: brightness(0.5);
+}
+
+.button-login-red{
+    padding: 0;
+    background: #EC2024;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 80px;
+    height: 62px;
+    width: 300px;
+    cursor: pointer;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    transition: all 0.3s linear;
+}
+
+.button-login-red:hover{
+    background-color: #a30b0e;
+    transition: all 0.3s linear;
+
+}
+
+.list-form-item .item.item-submit {
+    gap: 26px
+}
+
+.list-form-item .item .btn_field:hover{
+    background-color: #0046ab;
+}
+
+body > header > div.header-pc > div > div.h-menu-right > div > ul > li:nth-child(1) > a{
+    color: #f7cc5b !important;
+    transition: all 0.3s linear;
+}
+
+body > header > div.header-pc > div > div.h-menu-right > div > ul > li:nth-child(1) > a:hover{
+    color: #76612b !important;
+    transition: all 0.3s linear;
+
+}
+
+
+

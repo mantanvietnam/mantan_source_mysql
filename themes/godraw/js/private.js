@@ -58,14 +58,14 @@ $(document).ready(function(){
 
 
 	$('.slider-nav').slick({
-	  arrows: false,
+	  arrows: true,
 	  slidesToShow: 6,
 	  slidesToScroll: 1,
 	  asNavFor: '.slider-for',
 	  dots: true,
 	  focusOnSelect: true,
-	  nextArrow: '',
-      prevArrow: '',
+	  nextArrow: '<a href="javascript:void(0)" class="arr-right arr-right-nav"><img src="images/slide-right.svg" class="img-fluid" alt=""></a>',
+      prevArrow: '<a href="javascript:void(0)" class="arr-left arr-right-nav"><img src="images/slide-left.svg" class="img-fluid" alt=""></a>',
       responsive: [
             {
                 breakpoint: 1023,

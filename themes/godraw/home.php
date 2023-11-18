@@ -6,6 +6,20 @@
 	}
 </style>
 <main>
+    <div class="social-home">
+        <ul>
+            <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
+
+            <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
+            
+            <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>
+            
+            <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>
+            
+            <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
+        </ul>
+    </div>
+
     <div class="full-home-slider">
         <div class="item-slide">
             <section class="box-banner-home">
@@ -15,21 +29,7 @@
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="social-home">
-                    <ul>
-                        <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid" alt=""></a></li>
-
-                        <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid" alt=""></a></li>
-                        
-                        <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid" alt=""></a></li>
-                        
-                        <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid" alt=""></a></li>
-                        
-                        <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid" alt=""></a></li>
-                        
-                        
-                    </ul>
-                </div>
+                
                 <div class="btn-main text-center text-uppercase"><a href="">THƯ VIỆN ẢNH</a></div>
             </section>
         </div>
