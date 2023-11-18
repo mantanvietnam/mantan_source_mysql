@@ -1192,7 +1192,7 @@ strong {
 .footer-center {
     display: flex;
     /* justify-content: space-between; */
-    gap: 75px;
+    gap: 50px;
 }
 
 .footer-menu-name {
@@ -3657,7 +3657,11 @@ tbody {
 }
 
 #section-modal-cart .modal-icon-discount {
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+}
+
+#section-banner-home{
+    /* margin-top: 117px; */
 }
 
 #section-modal-cart .modal-body {
@@ -3879,6 +3883,10 @@ tbody {
 @media(min-width: 445px){
     .menu-mobile{
         display: none;
+    }
+
+    .banner-home-margin{
+        margin-top: 117px;
     }
 }
 
