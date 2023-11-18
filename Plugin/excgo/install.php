@@ -13,10 +13,10 @@ $sqlInstallDatabase .= 'CREATE TABLE `bookings` (
   `status` tinyint(4) NOT NULL DEFAULT 0,
   `start_time` datetime DEFAULT NULL,
   `finish_time` datetime DEFAULT NULL,
-  `departure` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `destination` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `departure` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `destination` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `departure_province_id` int(11) NOT NULL,
-  `destination_province_id` int(11) NOT NULL,
+  `destination_province_id` int(11) DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `introduce_fee` int(11) NOT NULL,
   `price` int(11) NOT NULL,
@@ -38,9 +38,10 @@ $sqlInstallDatabase .= 'CREATE TABLE `images` (
 
 $sqlInstallDatabase .= 'CREATE TABLE `provinces` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` INT NOT NULL DEFAULT 0,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gps` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bsx` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gps` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bsx` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';

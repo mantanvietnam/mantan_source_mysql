@@ -370,6 +370,9 @@ function updateStatusWithdrawRequestAdmin($input)
             ])->first();
 
         if ($request && isset($_GET['status'])) {
+            $user->total_coin -= $request->amount;
+            $userModel->save($user);
+
             $request->status = $_GET['status'];
             $withdrawRequestModel->save($request);
 
