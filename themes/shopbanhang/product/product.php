@@ -323,7 +323,7 @@ $slide_home= slide_home($setting['id_slide']);
                     if($item->id==$product->id){
              ?>
             <!-- Xác nhận thêm giỏ hàng -->
-            <div class="box-confirm-cart">
+            <div class="box-confirm-cart" id="myElement">
                 <div class="box-confirm-cart-title">
                     <p>Đã thêm vào giỏ hàng</p>
                     <div class="close-button">
@@ -1154,6 +1154,20 @@ function deteleComment($id){
             }
         });
     }
+</script>
+
+
+<script>
+    // Lấy tham chiếu đến phần tử cần thay đổi CSS
+    var myElement = document.getElementById('myElement');
+
+    // Hàm thay đổi CSS
+    function changeCSS() {
+        myElement.style.display = 'none';
+    }
+
+    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+    setTimeout(changeCSS, 10000);
 </script>
 <?php
 getFooter();?>
