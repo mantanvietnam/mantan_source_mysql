@@ -178,7 +178,11 @@
                         <button type="button" class="close" data-dismiss="modal"><img src="<?php echo $urlThemeActive;?>/images/close.svg" class="img-fluid" alt=""></button>
                         <div class="modal-form">
                             <div class="head-form">
-                                <h3>ĐĂNG NHẬP <span>Đăng nhập tài khoản người dùng</span></h3>
+                                <h3>ĐĂNG NHẬP</h3>
+
+                                <p class="button-login-red">
+                                    <a href="/login" class="">*ĐẠI LÝ ĐĂNG NHẬP</a>
+                                </p>
                             </div>
                             <div class="list-form-item">
                                 <form action="/loginUser" method="POST">
@@ -186,7 +190,7 @@
 
                                     <div class="item">
                                         <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/login-1.svg" class="img-fluid" alt=""></div>
-                                        <div class="txt_field"><input type="text" name="username" required class="txt_inp" placeholder="Tài khoản"></div>
+                                        <div class="txt_field"><input type="text" name="username" required class="txt_inp" placeholder="Tài khoản người dùng"></div>
                                     </div>
                                     
                                     <div class="item mb-0">
@@ -200,9 +204,7 @@
                                     
                                     <div class="item item-submit">
                                         <input type="submit" class="btn_field" value="ĐĂNG NHẬP">
-                                        <p class="button-login-red">
-                                            <a href="/login" class="text-white">Đại lý đăng nhập</a>
-                                        </p>
+                                      
                                         
                                     </div>
 

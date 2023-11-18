@@ -1,7 +1,7 @@
 <?php include __DIR__.'/../header.php';?>
 <style>
 	footer {
-		display: none;
+		/* display: none; */
 	}
 </style>
 <main>

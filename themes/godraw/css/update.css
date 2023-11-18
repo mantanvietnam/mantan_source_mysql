@@ -19,12 +19,23 @@
 	top: 45px !important;
 }
 
+.text-yeallow-menu{
+    color: #f7cc5b !important;
+    transition: all 0.3s linear;
+}
+
+.text-yeallow-menu:hover{
+    color: #76612b !important;
+    transition: all 0.3s linear;
+
+}
+
 .content-header a{
-	color: #fff !important;
+	color: #fff ;
 }
 
 .content-header a:hover{
-	color: #4A7DCE !important;
+	color: #4A7DCE ;
 }
 
 body {
@@ -216,9 +227,9 @@ img.khung-tranh {
 
 .button-login-red{
     padding: 0;
-    background: #EC2024;
+    /* background: #EC2024; */
     color: #fff;
-    border: 1px solid #fff;
+    /* border: 1px solid #fff; */
     border-radius: 80px;
     height: 62px;
     width: 300px;
@@ -229,11 +240,18 @@ img.khung-tranh {
     align-items: center;
     text-transform: uppercase;
     transition: all 0.3s linear;
+    color: #EC2024 !important
 }
 
-.button-login-red:hover{
-    background-color: #a30b0e;
+.button-login-red a{
+    color: #EC2024 
+
+}
+
+.button-login-red a:hover{
+    /* background-color: #a30b0e; */
     transition: all 0.3s linear;
+    color: #941c1e;
 
 }
 
@@ -245,16 +263,62 @@ img.khung-tranh {
     background-color: #0046ab;
 }
 
-body > header > div.header-pc > div > div.h-menu-right > div > ul > li:nth-child(1) > a{
-    color: #f7cc5b !important;
-    transition: all 0.3s linear;
+
+.h-menu .submenu ul li{
+    display: block;
 }
 
-body > header > div.header-pc > div > div.h-menu-right > div > ul > li:nth-child(1) > a:hover{
-    color: #76612b !important;
-    transition: all 0.3s linear;
-
+.h-menu .submenu ul li{
+    width: 100%;
+    max-width: 100%;
 }
 
+.h-menu .submenu ul{
+    flex-direction: column;
+}
 
+.h-menu .submenu ul li a{
+    border-radius: 0;
+}
 
+.h-menu .submenu ul li:first-child a{
+    border-radius: 6px 6px 0 0;
+}
+
+.h-menu .submenu ul li:last-child a{
+    border-radius: 0 0 6px 6px;
+}
+
+.h-menu .submenu{
+    width: 142px;
+}
+
+.h-menu .submenu{
+    right: -25%;
+}
+
+.h-menu li:nth-child(2) .submenu{
+    right: -50%;
+}
+
+.head-form{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-login-red{
+    margin-right: 40px;
+}
+
+.h-menu > ul > li:nth-child(4){
+    position: relative;
+}
+
+.h-menu > ul > li:nth-child(4):before{
+    content:"";
+    background-image: url(/plugins/starred.png);
+    position: absolute;
+    top: 20px;
+    right: 0;
+
+}
