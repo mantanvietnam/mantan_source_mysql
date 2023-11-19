@@ -327,7 +327,7 @@ img.khung-tranh {
 }
 
 .footer-page{
-    display: block !important;
+    /* display: block !important; */
 }
 
 .box-footer{
@@ -418,7 +418,11 @@ img.khung-tranh {
 }
 
 .list-form-item .item .btn_field{
-    width: 288px;
+    width: 267px;
+}
+
+.list-form-item .item .btn_field:hover{
+    background-color: transparent;
 }
 
 .avarta-intro .btn-main a{
