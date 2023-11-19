@@ -25,7 +25,7 @@
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo.png" class="img-fluid btn-effect" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo-godraw.png" class="img-fluid btn-effect" alt=""></a></div>
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>
@@ -62,7 +62,7 @@
                 <div class="h-user text-uppercase">
                     <?php if(empty($session->read('infoMember'))){ ?>
                     <ul>
-                        <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modal-register">Đăng ký</a></li>
+                        <li><a href="javascript:void(0)" class="dangky" data-toggle="modal" data-target="#modal-register">Đăng ký</a></li>
                         <li><a href="javascript:void(0)" class="login" data-toggle="modal" data-target="#modal-login">Đăng nhập</a></li>
                     </ul>
                     <?php }else{ ?>

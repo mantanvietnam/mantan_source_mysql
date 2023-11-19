@@ -64,8 +64,10 @@ $(document).ready(function(){
 	  asNavFor: '.slider-for',
 	  dots: true,
 	  focusOnSelect: true,
-	  nextArrow: '<a href="javascript:void(0)" class="arr-right arr-right-nav"><img src="images/slide-right.svg" class="img-fluid" alt=""></a>',
-      prevArrow: '<a href="javascript:void(0)" class="arr-left arr-right-nav"><img src="images/slide-left.svg" class="img-fluid" alt=""></a>',
+	  autoplay: true,
+  	  autoplaySpeed: 2000,
+	  nextArrow: '<a href="javascript:void(0)" class="arr-right arr-right-nav"><img src="/themes/godraw/images/slide-right.svg" class="img-fluid" alt=""></a>',
+      prevArrow: '<a href="javascript:void(0)" class="arr-left arr-right-nav"><img src="/themes/godraw/images/slide-left.svg" class="img-fluid" alt=""></a>',
       responsive: [
             {
                 breakpoint: 1023,
@@ -87,11 +89,11 @@ $(document).ready(function(){
 	 $('.slider-for').slick({
 	  slidesToShow: 1,
 	  slidesToScroll: 1,
-	  arrows: true,
+	  arrows: false,
 	  fade: true,
 	  asNavFor: '.slider-nav',
-	  nextArrow: '<a href="javascript:void(0)" class="arr-right"><img src="images/slide-right.svg" class="img-fluid" alt=""></a>',
-      prevArrow: '<a href="javascript:void(0)" class="arr-left"><img src="images/slide-left.svg" class="img-fluid" alt=""></a>',
+	  nextArrow: '<a href="javascript:void(0)" class="arr-right"><img src="/themes/godraw/images/slide-right.svg" class="img-fluid" alt=""></a>',
+      prevArrow: '<a href="javascript:void(0)" class="arr-left"><img src="/themes/godraw/images/slide-left.svg" class="img-fluid" alt=""></a>',
 	});
 
 	$('.full-home-slider').slick({

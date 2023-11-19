@@ -12,7 +12,7 @@
             </a>
         </div>
         <div class="video-banner">
-            <img src="<?php echo $urlThemeActive;?>/images/cover.jpg" class="img-fluid w-100">
+            <img src="<?php echo $urlThemeActive;?>/images/giangsinh.jpg" class="img-fluid w-100">
         </div>
         <div class="wrapper-intro">
             <div class="content-intro">

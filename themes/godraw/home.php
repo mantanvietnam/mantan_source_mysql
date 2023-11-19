@@ -22,6 +22,98 @@
 
     <div class="full-home-slider">
         <div class="item-slide">
+            <section class="box-toturial">
+                <div class="container">
+                    <div class="avr-top text-center"><img src="images/tutorial.svg" class="img-fluid" alt=""></div>
+                    <div class="content-toturial">
+                        <div class="head-tt text-center"><span>DỊCH</span> VỤ</div>
+                        <div class="tab-top-toturial">
+                            <ul>
+                                <li><a href="javascript:void(0)" data-tab="toturial-1" style="background: #1A3A89" class="active">Sản phẩm</a></li>
+                                <li><a href="javascript:void(0)" data-tab="toturial-2" style="background: #EC2024">Dịch vụ</a></li>
+                                <li><a href="javascript:void(0)" data-tab="toturial-3" style="background: #FBB03B">Quy trình vẽ</a></li>
+                            </ul>
+                        </div>
+                        <div class="content-tab-toturial">
+                            <div class="tab-content active" id="toturial-1" style="background: #1A3A89">
+                                <div class="content-toturial">
+                                    <ul>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt1.svg" alt=""></div>
+                                                <h3><a href="">Smart EASEL</a></h3>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt2.svg" alt=""></div>
+                                                <h3><a href="">COLORS</a></h3>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt3.svg" alt=""></div>
+                                                <h3><a href="">PAI NT FRAMES</a></h3>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt4.svg" alt=""></div>
+                                                <h3><a href="">PAINT BRUSH</a></h3>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="toturial-2" style="background: #EC2024">
+                                <div class="content-toturial">
+                                    <ul>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt1.svg" alt=""></div>
+                                                <h3><a href="">Smart EASEL</a></h3>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt2.svg" alt=""></div>
+                                                <h3><a href="">COLORS</a></h3>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt3.svg" alt=""></div>
+                                                <h3><a href="">PAI NT FRAMES</a></h3>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="toturial-3" style="background: #FBB03B">
+                                <div class="content-toturial">
+                                    <ul>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt1.svg" alt=""></div>
+                                                <h3><a href="">Smart EASEL</a></h3>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-toturial">
+                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt2.svg" alt=""></div>
+                                                <h3><a href="">COLORS</a></h3>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="item-slide">
             <section class="box-banner-home">
                 <div class="video-banner">
                     <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
@@ -280,12 +372,17 @@ $(document).ready(function(){
     <?php 
     if(!empty($_GET['view'])){
         switch ($_GET['view']) {
+            case 'service':
+                echo "$('.full-home-slider').slick('slickGoTo', 0);";
+                break;
+            
+
             case 'gallery':
                 echo "$('.full-home-slider').slick('slickGoTo', 1);";
                 break;
             
             case 'store':
-                echo "$('.full-home-slider').slick('slickGoTo', 2);";
+                echo "$('.full-home-slider').slick('slickGoTo', 3);";
                 break;
         }
     }

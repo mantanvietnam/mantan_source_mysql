@@ -54,10 +54,10 @@ body {
 	transition: all .2s ease-in-out;
 }
 
-.btn-main a:hover { 
+/* .btn-main a:hover { 
 	transform: scale(1.1); 
 	background: #0065F7;
-}
+} */
 
 .title-slide-vote img {
     width: 50px;
@@ -187,9 +187,9 @@ img.khung-tranh {
     filter: brightness(0.7);
 }
 
-.h-user ul li a.login:hover{
+/* .h-user ul li a.login:hover{
     background: #0046ab;
-}
+} */
 
 .content-header {
 	height: 81px;
@@ -244,7 +244,9 @@ img.khung-tranh {
 }
 
 .button-login-red a{
-    color: #EC2024 
+    color: #EC2024 ;
+    font-size: 20px;
+    font-weight: bold;
 
 }
 
@@ -256,7 +258,8 @@ img.khung-tranh {
 }
 
 .list-form-item .item.item-submit {
-    gap: 26px
+    gap: 26px;
+    transform: translatey(-25px);
 }
 
 .list-form-item .item .btn_field:hover{
@@ -307,7 +310,7 @@ img.khung-tranh {
 }
 
 .button-login-red{
-    margin-right: 40px;
+    /* margin-right: 40px; */
 }
 
 .h-menu > ul > li:nth-child(4){
@@ -339,11 +342,89 @@ img.khung-tranh {
 }
 
 .h-user ul li:first-child a:hover{
-    background-color: #3358b6;
+    /* background-color: #3358b6; */
     transition: all 0.3s linear;
 }
 
 .h-user ul li:first-child a{
     transition: all 0.3s linear;
 
+}
+
+
+.slide-top .slick-arrow {
+    position: absolute;
+    z-index: 2;
+    top: calc(50% - 30px);
+}
+
+.slide-top .slick-arrow img{
+    height: 48px;
+}
+
+.slide-top .slick-arrow.arr-left {
+    left: -60px;
+}
+
+.slide-top .slick-arrow.arr-right {
+    right: -60px;
+}
+
+.header-pc ul li a{
+    text-transform: capitalize;
+}
+
+.head-form h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.list-form-item .item .btn_field{
+    font-size: 27px;
+}
+
+.avarta-intro .logo{
+    display: none;
+}
+
+.h-user ul li a.login{
+    background-image: url("/themes/godraw/images/button_2.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+}
+
+.h-user ul li a.dangky{
+    background-image: url("/themes/godraw/images/button_3.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+}
+
+.btn-main a{
+    background-image: url("/themes/godraw/images/button_1.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+    height: 57px;
+}
+
+.list-form-item .item .btn_field{
+    background-image: url("/themes/godraw/images/button_2.svg") ;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    border: none;
+    background-color: transparent;
+}
+
+.list-form-item .item .btn_field{
+    width: 288px;
+}
+
+.avarta-intro .btn-main a{
+    background-color: transparent;
+}
+
+.btn-main a {
+    height: 69px;
 }
