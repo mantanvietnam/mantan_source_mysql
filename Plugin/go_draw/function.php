@@ -8,19 +8,20 @@ $menus[0]['sub'][0] = array('title' => 'Cài đặt sản phẩm',
     'permission' => 'listProduct'
 );
 
+/*
 $menus[0]['sub'][] = array('title' => 'Đơn hàng combo',
     'url' => '/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listOrderAdmin'
 );
-
-$menus[0]['sub'][] = array('title' => 'Đơn hàng sản phẩm',
+*/
+$menus[0]['sub'][] = array('title' => 'Đơn hàng đại lý',
     'url' => '/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listAgencyOrderProductAdmin'
 );
 
-$menus[0]['sub'][] = array('title' => 'Đại lý',
+$menus[0]['sub'][] = array('title' => 'Tài khoản đại lý',
     'url' => '/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin.php',
     'classIcon' => 'bx bx-home',
     'permission' => 'listAgencyAdmin'

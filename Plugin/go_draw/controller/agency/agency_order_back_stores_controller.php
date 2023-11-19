@@ -11,6 +11,10 @@ function addToCartBackStore($input)
 	if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Trả hàng';
 
+	    if(empty($session->read('isAgencyBoss'))){
+			return $controller->redirect('/checkBoos');
+		}
+
 	    $modelProducts = $controller->loadModel('Products');
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 
@@ -18,6 +22,8 @@ function addToCartBackStore($input)
 	    	$dataSend = $input['request']->getData();
 
 	    	if(!empty($dataSend['product_id'])){
+	    		if(empty($dataSend['amount'])) $dataSend['amount'] = 1;
+
 	    		$infoProductAgency = $modelAgencyProducts->find()->where(['product_id'=>(int) $dataSend['product_id'], 'agency_id'=>$session->read('infoUser')->id])->first();
 	    		$infoProduct = $modelProducts->find()->where(['id'=>(int) $dataSend['product_id']])->first();
 
@@ -28,21 +34,27 @@ function addToCartBackStore($input)
 	    			if(empty($cartUser)) $cartUser = [];
 
 	    			if(empty($cartUser[$infoProduct->id])){
-	    				$infoProduct->amount_sell = 1;
+	    				$infoProduct->amount_sell = $dataSend['amount'];
 	    				$cartUser[$infoProduct->id] = $infoProduct;
 	    			}else{
-	    				$cartUser[$infoProduct->id]->amount_sell ++;
+	    				$cartUser[$infoProduct->id]->amount_sell += $dataSend['amount'];
 	    			}
 
 	    			$session->write('cartBackStore', $cartUser);
 
-	    			return ['code'=>1];
-	    		}
-	    	}
-	    }
+	    			return $controller->redirect('/agencyCartBackStore');
+	    		}else{
+					return $controller->redirect('/warehouse');
+				}
+	    	}else{
+				return $controller->redirect('/warehouse');
+			}
+	    }else{
+			return $controller->redirect('/warehouse');
+		}
+	}else{
+		return $controller->redirect('/login');
 	}
-
-	return ['code'=>0];
 }
 
 function agencyCartBackStore($input)

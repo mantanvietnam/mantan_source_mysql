@@ -30,6 +30,11 @@ global $routesPlugin;
     $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
     $routesPlugin['orderAgencyDone']= 'go_draw/view/agency/agency_orders/orderAgencyDone.php';
 
+    // kiểm tra combo
+    $routesPlugin['checkCombo']= 'go_draw/view/agency/user_orders/checkCombo.php';
+    $routesPlugin['viewComboAgency']= 'go_draw/view/agency/user_orders/viewComboAgency.php';
+    $routesPlugin['addCartComboUser']= 'go_draw/view/agency/user_orders/addCartComboUser.php';
+
     // đơn hàng mua sản phẩm với hệ thống listProduct
     $routesPlugin['listProduct']= 'go_draw/view/agency/products/listProduct.php';
     $routesPlugin['viewProduct']= 'go_draw/view/agency/products/viewProduct.php';
