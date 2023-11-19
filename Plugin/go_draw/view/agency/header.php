@@ -112,8 +112,8 @@
                                 <div class="submenu">
                                     <ul>
                                         <li><a href="/warehouse">Kho hàng</a></li>
-                                        <li><a href="/orderBackStore">Đơn trả hàng</a></li>
-                                        <li><a href="/orderBackStoreDone">Đơn đã trả</a></li>
+                                        <!-- <li><a href="/orderBackStore">Đơn trả hàng</a></li>
+                                        <li><a href="/orderBackStoreDone">Đơn đã trả</a></li> -->
                                         <li><a href="/changePass">Thông tin tài khoản</a></li>
                                         <!-- <li><a href="/changePass">Đổi mật khẩu</a></li> -->
                                         <li><a href="/logout">Đăng xuất</a></li>

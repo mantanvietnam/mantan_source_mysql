@@ -12,7 +12,7 @@
             </a>
         </div>
         <div class="video-banner">
-            <img src="<?php echo $urlThemeActive;?>/images/giangsinh.jpg" class="img-fluid w-100">
+            <img src="<?php echo $urlThemeActive;?>/images/Go_background_1.jpg" class="img-fluid w-100">
         </div>
         <div class="wrapper-intro">
             <div class="content-intro">
@@ -24,10 +24,15 @@
                         </svg>
                     </a>
                 </div>
-                <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
-                    <source src="<?php echo @$settingThemes['video_trailer'];?>" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <div class="video-background">
+                    <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
+                        <source src="<?php echo @$settingThemes['video_trailer'];?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+              
+                </div>
+
+             
                 <div class="social-intro">
                     <ul>
                         <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>

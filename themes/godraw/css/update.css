@@ -432,3 +432,44 @@ img.khung-tranh {
 .btn-main a {
     height: 69px;
 }
+
+.wrapper-intro .content-intro video, .wrapper-intro .content-intro img {
+    scale: 0.8;
+}
+
+.wrapper-intro .content-intro video, .wrapper-intro .content-intro {
+    /* background-image: url("/themes/godraw/images/frame_go.svg") ;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center; */
+    
+}
+
+.wrapper-intro .content-intro video, .wrapper-intro .content-intro .video-background{
+    /* background-image: url("/themes/godraw/images/frame_go.svg") ; */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    position: relative;
+    z-index: 99;
+    height: 100%;
+}
+
+.wrapper-intro .content-intro video, .wrapper-intro .content-intro video{
+    width: 963px;
+    height: 94%;
+    object-fit: cover;
+    position: absolute;
+    top: 19px;
+    left: 121px;
+    z-index: -1;
+    /* border-radius: 25px; */
+    border: 20px solid transparent;
+    border-image: linear-gradient(to right, #a42119, #57110d);
+    border-image-slice: 30;
+    border-image-width: 30px;
+    border-image-outset: 10px;
+    border-image-repeat: round;
+}
+
+
