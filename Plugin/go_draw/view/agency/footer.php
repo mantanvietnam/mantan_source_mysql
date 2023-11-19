@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer-page">
 	<div class="content-footer">
 		<div class="logo-foter">
 			<div class="logo"><img src="/plugins/go_draw/view/agency/images/logo-footer.svg" class="img-fluid" alt=""></div>

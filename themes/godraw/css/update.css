@@ -322,3 +322,28 @@ img.khung-tranh {
     right: 0;
 
 }
+
+.footer-page{
+    display: block !important;
+}
+
+.box-footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.item-slide-relative{
+    position: relative;
+}
+
+.h-user ul li:first-child a:hover{
+    background-color: #3358b6;
+    transition: all 0.3s linear;
+}
+
+.h-user ul li:first-child a{
+    transition: all 0.3s linear;
+
+}
