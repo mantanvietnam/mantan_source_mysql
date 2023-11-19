@@ -67,3 +67,44 @@ function updateStatusProvinceAdmin($input)
 
     return $controller->redirect('/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php');
 }
+
+function addProvinceAdmin($input)
+{
+    global $controller;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Thông tin khu vực';
+    $provinceModel = $controller->loadModel('Provinces');
+    $mess = '';
+    $listProvince = $provinceModel->find()
+        ->where([
+            'status' => 1,
+            'parent_id' => 0
+        ])->all()
+        ->toList();
+
+    if (!empty($_GET['id'])) {
+        $data = $provinceModel->find()->where(['id' => $_GET['id']])->first();
+    } else {
+        $data = $provinceModel->newEmptyEntity();
+    }
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['name'])) {
+            $data->name = $dataSend['name'];
+            $data->parent_id = $dataSend['parent_id'] ?? 0;
+            $provinceModel->save($data);
+
+            $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
+        } else {
+            $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
+        }
+    }
+
+    setVariable('data', $data);
+    setVariable('listProvince', $listProvince);
+    setVariable('mess', $mess);
+}

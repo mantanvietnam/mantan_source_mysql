@@ -83,7 +83,7 @@
                         <td align="center"><img src="' . $item->image . '" width="100" /></td>
                         <td>' . $item->name . '</td>
                         <td>
-                          ' . $item->price . 'đ
+                          ' . number_format($item->price) . 'đ
                         </td>
                         <td> 
                         <p align="center">

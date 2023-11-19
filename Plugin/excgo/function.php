@@ -10,7 +10,7 @@ $menus[1]['sub'][0] = array(
     'permission' => 'listUserAdmin',
 );
 
-$menus[2]['sub'][0] = array('title' => 'Danh sách tỉnh thành',
+$menus[2]['sub'][0] = array('title' => 'Danh sách khu vực',
     'url' => '/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php',
     'classIcon' => 'bx bx-cog',
     'permission' => 'listProvinceAdmin',

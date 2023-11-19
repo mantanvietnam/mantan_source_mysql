@@ -22,6 +22,12 @@ function getListProvinceApi($input): array
             $conditions['bsx LIKE'] = '%' . $dataSend['bsx'] . '%';
         }
 
+        if (!empty($dataSend['parent_id'])) {
+            $conditions['parent_id'] = $dataSend['parent_id'];
+        } else {
+            $conditions['parent_id'] = 0;
+        }
+
         if (!isset($dataSend['access_token'])) {
             $listProvince = $modelProvinces->find()
                 ->limit($limit)
