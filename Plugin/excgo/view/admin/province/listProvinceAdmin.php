@@ -2,13 +2,14 @@
   <h4 class="fw-bold py-3 mb-4">Thông tin tỉnh thành</h4>
   <h4 class="fw-bold py-3 mb-4"></h4>
   <!-- Form Search -->
+  <p><a href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <form method="get" action="">
     <div class="card mb-4">
-      <h5 class="card-header">Tìm kiếm</h5>
+      <h5 class="card-header">Tìm kiếm dữ liệu</h5>
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-4">
-            <label class="form-label">Tên tỉnh</label>
+            <label class="form-label">Tên khu vực</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
 
@@ -46,6 +47,7 @@
             <th>ID</th>
             <th>Tên tỉnh</th>
             <th>Biển số xe</th>
+            <th>Chi tiết</th>
             <th>Trạng thái</th>
           </tr>
         </thead>
@@ -75,6 +77,13 @@
                         <td>' . $item->id . '</td>
                         <td>' . $item->name . '</td>
                         <td>' . $item->bsx . '</td>
+                        <td><p align="center">
+                        <a class="btn btn-primary" 
+                          href="/plugins/admin/excgo-view-admin-province-addProvinceAdmin.php/?id=' . $item->id . '"
+                        >
+                          <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
+                        </a>
+                        </p></td>
                         <td align="center">' . $status . '</td>
                       </tr>';
             }

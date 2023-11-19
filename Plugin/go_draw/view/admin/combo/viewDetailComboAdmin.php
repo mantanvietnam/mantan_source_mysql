@@ -60,7 +60,7 @@
                                             <?php foreach (@$comboProduct as $key => $item): ?>
                                             <div class="product-item row mb-3" id="<?php echo 'product-item-'.$key; ?>">
                                                 <div class="col-md-6">
-                                                    <input type="hidden" id="<?php echo 'combo-product-id['.$key.']'; ?>" value="<?php echo $item->id; ?>">
+                                                    <input type="hidden" id="<?php echo 'combo-product-id['.$key.']'; ?>" value="<?php echo $item->ComboProducts['id']; ?>">
                                                     <label class="form-label">Tên sản phẩm</label>
                                                     <select class="form-select color-dropdown select-product" data-target="<?php echo $key; ?>"
                                                             name="<?php echo 'product-item-id['.$key.']'; ?>" id="<?php echo 'product-item-id['.$key.']'; ?>"
@@ -71,9 +71,13 @@
                                                     </select>
 
                                                     <label class="form-label">Số lượng</label>
-                                                    <input required type="number" class="form-control" value="<?php echo $item->ComboProducts['amount']; ?>"
+                                                    <input required type="number" class="form-control input-amount" value="<?php echo $item->ComboProducts['amount']; ?>"
                                                            name="<?php echo 'product-item-amount['.$key.']'; ?>" id="<?php echo 'product-item-amount['.$key.']'; ?>"
+                                                           data-val="<?php echo $item->ComboProducts['amount'];?>" data-target="<?php echo $key;?>"
                                                     />
+
+                                                    <label class="form-label">Đơn giá</label>
+                                                    <input disabled class="form-control" type="number" id="<?php echo 'product-item-price['.$key.']'; ?>" value="<?php echo $item->price;?>"/>
                                                 </div>
 
                                                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
@@ -143,7 +147,13 @@
                     </select>
 
                     <label class="form-label">Số lượng</label>
-                    <input required type="number" class="form-control" name="product-item-amount[${productCount}]" id="product-item-amount[${productCount}]" />
+                    <input required type="number" class="form-control input-amount" name="product-item-amount[${productCount}]" id="product-item-amount[${productCount}]"
+                        data-val="0" data-target="${productCount}"
+                    />
+
+                    <label class="form-label">Đơn giá</label>
+                    <input disabled type="number" class="form-control" id="product-item-price[${productCount}]" value="0"/>
+
                 </div>
 
                 <div class="col-md-4" style="align-items: center; display: flex; justify-content: center">
@@ -166,6 +176,11 @@
         const removeId = $(this).data('target');
         const id = $(document.getElementById(`combo-product-id[${removeId}]`)).val();
         const token = "<?php echo $csrfToken;?>";
+        let comboPrice = parseInt($('#price').val());
+        const productPrice = $(document.getElementById(`product-item-price[${removeId}]`)).val();
+        const productAmount = $(document.getElementById(`product-item-amount[${removeId}]`)).val();
+        comboPrice = (comboPrice - productPrice * productAmount);
+        $('#price').val(comboPrice);
         if (id) {
             $.ajax({
                 method: "POST",
@@ -181,7 +196,6 @@
                     }
                     $('#alert-message').empty();
                     $('#alert-message').append(message);
-                    $(document.getElementById(remove)).remove();
                 },
                 error: function () {
                     $('#alert-message').empty();
@@ -212,13 +226,28 @@
                 },
                 success: function (result) {
                     const image = result.data.image ? result.data.image : "https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg";
+                    const price = result.data.price ?? 0;
                     $(document.getElementById(`product-item-image[${target}]`)).attr('src', image);
+                    $(document.getElementById(`product-item-price[${target}]`)).val(price);
                 },
                 error: function () {
                 },
             });
         }
     });
+
+    $(document).on('focusin', '.input-amount', function(){
+      $(this).data('val', $(this).val() ?? 0);
+    });
+
+    $(document).on('change', '.input-amount', function () {
+      let comboPrice = parseInt($('#price').val());
+      const target = $(this).data('target');
+      const productPrice = $(document.getElementById(`product-item-price[${target}]`)).val();
+      const oldAmount = $(this).data('val');
+      comboPrice = comboPrice + productPrice * ($(this).val() - oldAmount);
+      $('#price').val(comboPrice);
+    })
 
     $('#btn-submit').on('click', function () {
       const productList = [];
@@ -255,6 +284,7 @@
           console.log(error);
         },
         complete: function () {
+          window.scrollTo(0, 0);
           setTimeout(function () {
             $('#alert-message').empty();
           }, 3000);

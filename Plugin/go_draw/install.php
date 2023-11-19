@@ -90,7 +90,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_combos` (
     `amount` INT NOT NULL , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-    `price` INT NOT NULL DEFAULT '0',
+    `price` INT NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`), 
     INDEX `agency_id_index` (`agency_id`), 
     INDEX `combo_id_index` (`combo_id`)
@@ -179,9 +179,11 @@ $sqlInstallDatabase .= 'CREATE TABLE `user_combo_orders` ( `id` INT NOT NULL AUT
 
 $sqlInstallDatabase .= 'CREATE TABLE `user_combo_order_details` ( `id` INT NOT NULL AUTO_INCREMENT , `order_combo_id` INT NOT NULL , `combo_id` INT NOT NULL , `price` INT NOT NULL , `amount` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , `updated_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
-$sqlInstallDatabase .= 'CREATE TABLE `user_order_combo_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_combo_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , `status` INT NULL DEFAULT '0' , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+$sqlInstallDatabase .= 'CREATE TABLE `user_order_combo_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_combo_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL , `status` INT NULL DEFAULT 0 , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
 $sqlInstallDatabase .= 'CREATE TABLE `user_order_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
+$sqlInstallDatabase .= 'CREATE TABLE `godraw_home`.`agency_order_products` ( `id` INT NOT NULL AUTO_INCREMENT , `order_detail_id` INT NOT NULL , `product_id` INT NOT NULL , `amount_sold` INT NOT NULL , `unit_price` INT NOT NULL , `amount_received` INT NOT NULL , `paid_price` INT NOT NULL , `status` TINYINT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `paid_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`), INDEX `order_detail_id_index` (`order_detail_id`)) ENGINE = InnoDB;';
 
 $sqlInstallDatabase .= 'CREATE TABLE `agency_order_back_stores` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `total_price` INT NOT NULL , `status` INT NOT NULL COMMENT '0: yêu cầu mới, 2: đã xử lý, 3: hủy bỏ' , `created_at` TIMESTAMP NOT NULL , `updated_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
@@ -211,6 +213,7 @@ $sqlDeleteDatabase .= 'DROP TABLE `user_combo_orders`;';
 $sqlDeleteDatabase .= 'DROP TABLE `user_combo_order_details`;';
 $sqlDeleteDatabase .= 'DROP TABLE `user_order_combo_histories`;';
 $sqlDeleteDatabase .= 'DROP TABLE `user_order_histories`;';
+$sqlDeleteDatabase .= 'DROP TABLE `agency_order_products`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_stores`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_store_details`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_store_histories`;';

@@ -77,6 +77,7 @@ function viewDetailComboAdmin($input)
                 'Products.name',
                 'Products.price',
                 'Products.image',
+                'ComboProducts.id',
                 'ComboProducts.amount',
             ])->all();
     } else {
@@ -99,6 +100,8 @@ function deleteComboProductAdminApi($input): array
     global $isRequestPost;
 
     $comboProductModel = $controller->loadModel('ComboProducts');
+    $comboModel = $controller->loadModel('Combos');
+    $productModel = $controller->loadModel('Products');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -107,6 +110,15 @@ function deleteComboProductAdminApi($input): array
             $data = $comboProductModel->find()
                 ->where(['id' => $dataSend['id']])
                 ->first();
+            $product = $productModel->find()
+                ->where(['id' => $data->product_id])
+                ->first();
+            $combo = $comboModel->find()
+                ->where(['id' => $data->combo_id])
+                ->first();
+            $combo->price = $combo->price - $product->price * $data->amount;
+
+            $comboModel->save($combo);
             $comboProductModel->delete($data);
 
             return apiResponse(0, 'Xóa thành công');

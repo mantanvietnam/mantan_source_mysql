@@ -75,6 +75,7 @@
           <th>Họ và tên</th>
           <th>Thông tin</th>
           <th>Loại tài khoản</th>
+          <th>Cộng/Trừ coin</th>
           <th>Sửa</th>
           <th>Trạng thái</th>
         </tr>
@@ -123,6 +124,14 @@
                           Địa chỉ: ' . $item->address . '
                         </td>
                         <td align="center">' . $type . ' </td>
+                        <td>
+                          <a class="btn btn-success" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin.php/?type=plus&id='.$item->id.'">
+                           Cộng coin 
+                          </a>
+                          <a class="btn btn-danger" href="/plugins/admin/excgo-view-admin-user-updateUserCoinAdmin.php/?type=minus&id='.$item->id.'">
+                           Trừ coin 
+                          </a>
+                        </td>
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 

@@ -92,6 +92,7 @@ function listBookingAdmin($input)
         ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['created_at' => 'DESC'])
         ->all()
         ->toList();
     $totalBooking = $query->where($conditions)

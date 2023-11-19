@@ -13,3 +13,4 @@ include('model/complaints.php');
 include('model/notifications.php');
 include('model/user_bookings.php');
 include('model/support_requests.php');
+include('model/booking_deals.php');
