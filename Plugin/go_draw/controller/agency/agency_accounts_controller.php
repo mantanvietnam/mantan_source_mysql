@@ -35,7 +35,7 @@ function login($input)
 
 		    			$session->write('infoUser', $info_customer);
 		    			
-						return $controller->redirect('/sellComboProduct');
+						return $controller->redirect('/checkCombo');
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}
@@ -49,7 +49,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/sellComboProduct');
+		return $controller->redirect('/checkCombo');
 	}
 }
 
@@ -131,7 +131,7 @@ function checkBoos($input)
 			if(!empty($dataSend['code_pin']) && $dataSend['code_pin']==$infoAgency->code_pin){
 				$session->write('isAgencyBoss', true);
 
-				return $controller->redirect('/listProduct');
+				return $controller->redirect('/warehouse');
 			}else{
 				$mess= '<p class="text-danger">Sai mã PIN</p>';
 			}

@@ -39,8 +39,13 @@
 											<div class="btn-order">
 												<ul>
 													<li>
-														<div class="btn-order">
-															<a href="javascript:void(0);" onclick="addToCartBackStore('.$value->product_id.');">Trả hàng</a>
+														<div class="btn-order text-center">
+															<form action="/addToCartBackStore" method="post">
+																<input type="hidden" name="_csrfToken" value="'.$csrfToken.'" />
+																<input type="hidden" value="'.$value->product_id.'" name="product_id" />
+																<input class="mb-3" style="width: 70px;" type="number" value="1" min="1" max="" name="amount" />
+																<button type="submit" class="btn btn-primary">Trả hàng</button>
+															</form>
 															<p class="text-danger text-center mt-2" id="mess-'.$value->product_id.'">'.number_format($value->price).'đ</p>
 														</div>
 													</li>
@@ -49,7 +54,7 @@
 										</div>';
 							}
 
-							echo '<div class="btn-main text-center"><a href="/agencyCartBackStore">XEM GIỎ HÀNG</a></div>';
+							//echo '<div class="btn-main text-center"><a href="/agencyCartBackStore">XEM GIỎ HÀNG</a></div>';
 						}else{
 							echo '<p class="text-danger">Trong kho đã hết hàng</p>';
 						}
@@ -60,20 +65,5 @@
 		</div>
 	</section>
 </main>
-
-<script type="text/javascript">
-	function addToCartBackStore(product_id) {
-		$.ajax({
-		  	method: "POST",
-		  	url: "/apis/addToCartBackStore",
-		  	data: { product_id: product_id }
-		})
-		.done(function( msg ) {
-			if(msg.code == 1){
-				$('#mess-'+product_id).html('Đã thêm giỏ hàng');
-			}
-		});
-	}
-</script>
 
 <?php include __DIR__.'/../footer.php';?>

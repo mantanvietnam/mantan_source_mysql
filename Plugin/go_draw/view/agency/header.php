@@ -42,25 +42,32 @@
                             <div class="submenu">
                                 <ul>
                                     <!-- <li><a href="/sellComboProduct">Tạo đơn hàng</a></li> -->
-                                    <li><a href="/sellComboProduct">Sản phẩm</a></li>
+                                    <li><a href="/checkCombo">Combo</a></li>
+                                    <li><a href="/sellProduct">Sản phẩm</a></li>
+                                    <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
+                                    <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
+                                    <!-- 
+                                    <li><a href="/sellComboProduct">Sản phẩm</a></li> 
                                     <li><a href="/orderUserComboProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserComboDone">Đơn hoàn thành</a></li>
+                                    -->
                                 </ul>
                             </div>
                         </li>
 
+                        <!--
                         <li>
                             <a href="javascript:void(0);">Bán lẻ</a>
                             <div class="submenu">
                                 <ul>
-                                    <!-- <li><a href="/sellProduct">Tạo đơn hàng</a></li> -->
+                                    <li><a href="/sellProduct">Tạo đơn hàng</a></li> 
                                     <li><a href="/sellProduct">Sản phẩm</a></li>
                                     <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
                                 </ul>
                             </div>
                         </li>
-
+                        -->
                         <!-- <li><a href="/warehouse">Kho hàng</a></li> -->
 
                         <!-- <li>
