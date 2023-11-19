@@ -19,6 +19,8 @@ header{
 
 .navbar-header .nav-item .nav-link{
     color: #000;
+    font-weight: 300;
+
 }
 
 .topbar-mobile-inner{
@@ -28,9 +30,6 @@ header{
     align-items: center;
 }
 
-.navbar-header .nav-item .nav-link{
-    font-weight: 500;
-}
 
 .topbar-mobile-inner .topbar-button img{
     width: 21px;
@@ -52,7 +51,6 @@ header{
 
 .nav-item-last a{
     color: #fff !important;
-    font-weight: bold !important;
 }
 
 /* breadcrumb */
@@ -375,7 +373,7 @@ header{
 }
 
 .main-blog-left-title a{
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 /* blog chi tiết */
@@ -715,11 +713,11 @@ header{
 
 
 .topbar-phone span{
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .topbar-button a{
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .navbar-header .nav-item .nav-link::after {
@@ -759,7 +757,8 @@ header{
 
 /* Sản phẩm trang chủ */
 .best-sale-name a{
-    font-weight: 400;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 .best-sale-price{
@@ -767,15 +766,15 @@ header{
 }
 
 .best-sale-discount{
-    font-weight: 300;
+    font-weight: 200;
 }
 
 .rate-sold p{
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .rate-star p{
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .topbar-button:first-child img{
@@ -958,6 +957,20 @@ header{
     margin-bottom: 27px;
 }
 
+.product-detail-button-buy a{
+    color : #fff
+}
+
+.list-procerdure li:last-child span{
+    display: block;
+    width: 58px;
+
+}
+
+.combo-voucher .detail-voucher-sale span{
+    font-size: 18px;
+    line-height: normal;
+}
 
 
 /* Chuyên mục sản phẩm */
