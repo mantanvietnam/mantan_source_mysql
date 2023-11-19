@@ -96,8 +96,9 @@
                                                 <label class="form-label">Loại hàng</label>
                                                 <div class="input-group input-group-merge">
                                                     <select class="form-select" name="type" id="type">
-                                                        <option value="active" <?php if(!empty($data->type) && $data->type == 1) echo 'selected'; ?> >Tái sử dụng</option>
-                                                        <option value="lock" <?php if(!empty($data->type) && $data->type == 2) echo 'selected'; ?> >Tiêu hao</option>
+                                                        <option value="0">Tiêu hao</option>
+                                                        <option value="1" <?php if(!empty($data->type) && $data->type == 1) echo 'selected'; ?> >Tái sử dụng</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
