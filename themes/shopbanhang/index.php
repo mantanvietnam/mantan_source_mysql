@@ -84,7 +84,7 @@ global $urlThemeActive;
                                         <div class="best-sale-discount">
                                             <?php if(!empty($item->price_old)){ ?>
                                             <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
-                                            <?php } ?>
+                                            <?php } else{ echo '&nbsp;';} ?>
                                         </div>
                                     </div>
 
@@ -183,7 +183,7 @@ global $urlThemeActive;
                                         <div class="best-sale-discount">
                                               <?php if(!empty($item->price_old)){ ?>
                                             <del><?php  echo number_format($item->price_old); ?>đ</del><span> (<?php echo number_format($giam) ?>%)</span>
-                                            <?php } ?>
+                                            <?php } else{ echo '&nbsp;';} ?>
                                         </div>
                                     </div>
         

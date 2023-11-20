@@ -108,7 +108,7 @@
                         </li>
                         <?php }?>
                             <li>
-                                <a href="javascript:void(0);"><i class="fa-solid fa-user"></i></a>
+                                <a href="javascript:void(0);"><img class="image-user" src="/plugins/go_draw/view/agency/images/userdangnhap.png" alt=""></a>
                                 <div class="submenu">
                                     <ul>
                                         <li><a href="/warehouse">Kho hàng</a></li>
@@ -130,9 +130,30 @@
                            
                           
                         <?php }?>
+
+
+
                     </ul>
                 </div>
                 
+                <div class="h-translate">
+                    <div class="lang-main">
+                        <a href="javascript:void(0)">
+                            <span><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></span>
+                            <span class="icon">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.84814 10.0701L0.257812 0.77002H13.4482L6.84814 10.0701Z" fill="white"/>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="sub-lang">
+                        <ul>
+                            <li><a href=""><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></a></li></li>
+                            <li><a href=""><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></a></li></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

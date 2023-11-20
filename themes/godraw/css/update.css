@@ -54,10 +54,11 @@ body {
 	transition: all .2s ease-in-out;
 }
 
-/* .btn-main a:hover { 
-	transform: scale(1.1); 
-	background: #0065F7;
-} */
+.btn-main a:hover { 
+    filter: brightness(0.9);
+    transition: all .2s ease-in-out;
+
+}
 
 .title-slide-vote img {
     width: 50px;
@@ -187,9 +188,13 @@ img.khung-tranh {
     filter: brightness(0.7);
 }
 
-/* .h-user ul li a.login:hover{
+.h-user ul li a.login:hover{
     background: #0046ab;
-} */
+    filter: brightness(0.7);
+    transition: all .2s ease-in-out;
+
+
+}
 
 .content-header {
 	height: 81px;
@@ -301,7 +306,7 @@ img.khung-tranh {
 }
 
 .h-menu li:nth-child(2) .submenu{
-    right: -50%;
+    right: -87%;
 }
 
 .head-form{
@@ -338,12 +343,13 @@ img.khung-tranh {
 }
 
 .item-slide-relative{
-    position: relative;
+    /* position: relative; */
 }
 
 .h-user ul li:first-child a:hover{
     /* background-color: #3358b6; */
     transition: all 0.3s linear;
+    filter: brightness(0.9);
 }
 
 .h-user ul li:first-child a{
@@ -457,7 +463,7 @@ img.khung-tranh {
 
 .wrapper-intro .content-intro video, .wrapper-intro .content-intro video{
     width: 963px;
-    height: 94%;
+    height: 600px;
     object-fit: cover;
     position: absolute;
     top: 19px;
@@ -513,3 +519,27 @@ img.khung-tranh {
     z-index: -2;
     height: 93%;
 }
+
+
+.image-user{
+    width: 34px;
+}
+
+.slide-relative{
+    position: relative;
+}
+
+.avr-top{
+    display: flex;
+    justify-content: center;
+}
+
+.box-banner-home .btn-main {
+    bottom: -58px
+}
+
+.btn-main-first{
+    bottom: 0 !important;
+}
+
+

@@ -12,7 +12,7 @@
             </a>
         </div>
         <div class="video-banner">
-            <img src="<?php echo $urlThemeActive;?>/images/Go_background_1.jpg" class="img-fluid w-100">
+            <img src="<?php echo $urlThemeActive;?>/images/backfirst.jpg" class="img-fluid w-100">
         </div>
         <div class="wrapper-intro">
             <div class="content-intro">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="btn-main text-center text-uppercase"><a href="https://godraw.vn/home">VÀO TRANG CHỦ</a></div>
+        <div class="btn-main-first btn-main text-center text-uppercase"><a href="https://godraw.vn/home">VÀO TRANG CHỦ</a></div>
     </section>
 </main>
 <?php getFooter();?>

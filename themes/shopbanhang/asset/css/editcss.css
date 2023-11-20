@@ -825,7 +825,7 @@ header{
 
 /* Khuyến mãi */
 .product-price{
-    font-weight: 300;
+    font-weight: bold;
 }
 
 #section-comment-customer{
