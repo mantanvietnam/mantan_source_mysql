@@ -139,9 +139,9 @@ function orderProduct($input){
             if($money>0){
                 $agency = $modelAgency->newEmptyEntity();
 
-                $agency->id_member = @$infoUser->id_member;
+                $agency->id_member = @$user->id_member;
                 $agency->id_spa = $session->read('id_spa');
-                $agency->id_staff = $infoUser->id;
+                $agency->id_staff = $user->id;
                 $agency->id_service = 0;
                 $agency->money = $money;
                 $agency->created_at = date('Y-m-d H:i:s');
@@ -451,9 +451,9 @@ function orderCombo($input){
             if($money>0){
                 $agency = $modelAgency->newEmptyEntity();
 
-                $agency->id_member = @$infoUser->id_member;
+                $agency->id_member = @$user->id_member;
                 $agency->id_spa = $session->read('id_spa');
-                $agency->id_staff = $infoUser->id;
+                $agency->id_staff = $user->id;
                 $agency->id_service = 0;
                 $agency->money = $money;
                 $agency->created_at = date('Y-m-d H:i:s');
@@ -739,9 +739,9 @@ function orderService($input){
             if($money>0){
                 $agency = $modelAgency->newEmptyEntity();
 
-                $agency->id_member = @$infoUser->id_member;
+                $agency->id_member = @$user->id_member;
                 $agency->id_spa = $session->read('id_spa');
-                $agency->id_staff = $infoUser->id;
+                $agency->id_staff = $user->id;
                 $agency->id_service = 0;
                 $agency->money = $money;
                 $agency->created_at = date('Y-m-d H:i:s');

@@ -4,7 +4,8 @@ global $urlThemeActive;
 global $session;
 $settinghom = setting();
 
-// debug($slide_home);
+ $infoUser = $session->read('infoUser');
+
 // debug($list_product);
 ?>
 <main>
@@ -87,10 +88,27 @@ $settinghom = setting();
                                             <div class="image-unbox">
                                                 <iframe width="560" height="320" src="https://www.youtube.com/embed/<?php echo $value->note; ?>?si=4iryEOiZIA0Krkpn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                             </div>
-                                            <!-- <div class="icon-interact">
-                                                <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                                <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                            </div> -->
+                                            <div class="icon-interact">
+                                                <?php  
+                                    
+
+                                    if(!empty($infoUser)){
+                                if(empty(getLike($infoUser['id'],$value->id,'review'))){?>
+            
+                                <a class="like" onclick="addlike(<?php echo $value->id; ?>)"><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
+                                <?php }else{
+                                  
+                                 ?>
+                                 <a class="like" onclick="delelelike(<?php echo $value->id; ?>)"><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
+                                   
+                           
+                                <?php }  }else{ ?>
+                                        <a  class="like" href="#" ><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
+                                      
+                                <?php   } ?>
+                                                <a class="share" onclick="addNumberShare('<?php echo $value->note ?>','<?php echo $value->id; ?>')"><i class="fa-solid fa-share"></i><?php echo $value->number_share; ?></a>
+                                                <p id="id<?php echo $value->id; ?>" style="color: red;"></p>
+                                            </div> 
                                         </div>
                                     <?php }}}} ?>
 
@@ -198,12 +216,15 @@ $settinghom = setting();
                                             <div class="image-unbox">
                                                 <iframe width="560" height="320" src="https://www.youtube.com/embed/<?php echo $value->note; ?>?si=4iryEOiZIA0Krkpn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                             </div>
-                                            <!-- <div class="icon-interact">
-                                                <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
-                                                <a class="share"><i class="fa-solid fa-share"></i>214</a>
-                                            </div> -->
+                                             <div class="icon-interact">
+                                                 <a  class="like" href="#" ><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
+                                                
+                                                <a class="share"><i class="fa-solid fa-share"></i><?php echo $value->number_share; ?></a>
+                                            </div>
                                         </div>
-                                    <?php }}}} ?>
+                                    <?php }}}}
+
+                                     ?>
 
                                 <!-- <div class="icon-loading">
                                     <i class="fa-solid fa-spinner"></i>
@@ -271,6 +292,79 @@ $settinghom = setting();
             });
         
     }
+
+function addlike(id){
+    $.ajax({
+            method: 'POST',
+            url: '/apis/addlike',
+            data: { idobject: id,
+                type: 'review',
+                idcustomer: <?php echo @$infoUser['id'] ?>,
+            },
+            success:function(res){
+              console.log(res);
+               
+                 location.reload();
+            }
+        })
+            
+}
+function delelelike(id){
+
+          $.ajax({
+                method: 'POST',
+                url: '/apis/delelelike',
+                data: { idobject: id,
+                    type: 'review',
+                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                },
+                success:function(res){
+                  console.log('res');
+                    
+                     location.reload();
+                }
+            })
+               
+}
+function addNumberShare(textCopy, messId){
+    $.ajax({
+            method: 'POST',
+            url: '/apis/addNumberShare',
+            data: { id: messId},
+            success:function(res){
+              console.log(res);
+               // Create a "hidden" input
+                var aux = document.createElement("input");
+
+                // Assign it the value of the specified element
+                aux.setAttribute("value", textCopy);
+
+                // Append it to the body
+                document.body.appendChild(aux);
+
+                // Highlight its content
+                aux.select();
+
+                // Copy the highlighted text
+                document.execCommand("copy");
+
+                // Remove it from the body
+                document.body.removeChild(aux);
+
+                // show mess
+                $('#id'+messId).html('Đã sao chép link');
+
+                const element = document.getElementById("idbutton"+messId);
+                element.remove();
+
+                setInterval(emptyMess, 3000,messId);
+                
+                
+            }
+        })
+            
+}
 </script>
 <?php
 getFooter();?>
+

@@ -7,6 +7,7 @@
 	$routesPlugin['searchProductApi']= 'databot_spa/view/api/customer/searchProductApi.php'; 
 	$routesPlugin['searchServicesApi']= 'databot_spa/view/api/customer/searchServicesApi.php'; 
 	$routesPlugin['searchComboApi']= 'databot_spa/view/api/customer/searchComboApi.php'; 
+	$routesPlugin['searchStaffApi']= 'databot_spa/view/api/customer/searchStaffApi.php'; 
 
 	// member 
 	$routesPlugin['login']= 'databot_spa/view/home/member/login.php';
@@ -131,6 +132,10 @@
 	$routesPlugin['transactionHistories']= 'databot_spa/view/home/transaction/transactionHistories.php';
 	$routesPlugin['createRequestAddMoney']= 'databot_spa/view/home/transaction/createRequestAddMoney.php';
 	$routesPlugin['updateBankingAPI']= 'databot_spa/view/home/transaction/updateBankingAPI.php';
+
+
+	// chiến khấu 
+	$routesPlugin['listAgency']= 'databot_spa/view/home/agency/listAgency.php';
 	
 
 ?>

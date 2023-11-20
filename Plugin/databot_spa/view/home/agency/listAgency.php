@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
+  <h4 class="fw-bold py-3 mb-4">Hoa hông cho nhân viên</h4>
   <p><a href="/addCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -15,46 +15,24 @@
           </div>
 
           <div class="col-md-3">
-            <label class="form-label">Họ tên</label>
+            <label class="form-label">nhân viên</label>
             <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
           </div>
-
           <div class="col-md-2">
-            <label class="form-label">Điện thoại</label>
-            <input type="text" class="form-control" name="phone" value="<?php if(!empty($_GET['phone'])) echo $_GET['phone'];?>">
+            <label class="form-label">Tạo từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
           </div>
 
           <div class="col-md-2">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php if(!empty($_GET['email'])) echo $_GET['email'];?>">
-          </div>
-
-          <div class="col-md-2">
-            <label class="form-label">NV phụ trách</label>
-            <select name="id_staff" class="form-select color-dropdown">
-              <option value="">Tất cả</option>
-              <?php 
-                if(!empty($listStaff)){
-                  foreach ($listStaff as $key => $value) {
-                    if(empty($_GET['id_staff']) || $_GET['id_staff']!=$value->id){
-                      echo '<option value="'.$value->id.'">'.$value->name.'</option>';
-                    }else{
-                      echo '<option selected value="'.$value->id.'">'.$value->name.'</option>';
-                    }
-                  }
-                }
-              ?>
-            </select>
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
           </div>
 
           <div class="col-md-2">
             <label class="form-label">&nbsp;</label>
             <button type="submit" class="btn btn-primary d-block">Tìm kiếm</button>
           </div>
-          <div class="col-md-1">
-            <label class="form-label">&nbsp;</label>
-            <input type="submit" class="btn btn-danger d-block" value="Excel" name="action">
-          </div>
+     
         </div>
       </div>
     </div>
@@ -63,19 +41,18 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách khách hàng</h5>
+    <h5 class="card-header">Danh sách hoa hông cho nhân viên</h5>
     <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr class="">
               <th>ID</th>
-              <th>Ảnh đại điện</th>
-              <th>Khách hàng</th>
-              <th>Email</th>
-              <th>Điểm</th>
-              <th>NV phụ trách</th>
-              <th>thẻ in hàng hoạt</th>
+              <th>nhân viên</th>
+              <th>Thời gian</th>
+              <th>Hoa hông</th>
+              <th>ID đơn</th>
+              <th>Loại</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -83,40 +60,20 @@
           <tbody>
             <?php 
               if(!empty($listData)){
+        
                 foreach ($listData as $item) {
-                  $link = "https://designer.ezpics.vn/create-image-series/?id=";
-                  if(!empty($item->category->parent)){
-                    $link .= $item->category->parent;
-                  }
-                  if(!empty($item->category->image)){
-                    $link .= '&'.$item->category->image.'='.$item->avatar;
-                  }
-
-                  if(!empty($item->category->keyword)){
-                    $link .= '&'.$item->category->keyword.'='.$item->name;
-                  }
-
-                  if(!empty($item->category->description)){
-                    $link .= '&'.$item->category->description.'='.$item->id;
-                  }
+             
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
-                          <td>
-                            <img src="' . $item->avatar . '" width="100" />
-                          </td>
-                          <td>'.$item->name.'</br>
-                         '.$item->phone.'</td>
-                          <td>'.$item->email.'</td>
-                          <td>'.number_format($item->point).'</td>
-                          <td>'.@$listStaff[$item->id_staff]->name.'</td>
+                        
+                          <td>'.$item->staff->name.'</td>
+                          <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
+                          <td>'.number_format($item->money).'đ</td>
+                          <td>'.@$item->id_order.'</td>
+                          <td>'.@$item->type.'</td>
                           
-                          <td align="center">
-                            <a class="dropdown-item" href="'.$link.'" data-bs-toggle="modal"
-                            data-bs-target="#basicModal'.$item->id.'" target="_blank">
-                              <i class="bx bx-image" ></i>
-                            </a>
-                          </td>
+                         
                           <td align="center">
                             <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>

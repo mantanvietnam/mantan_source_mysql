@@ -24,6 +24,7 @@ include_once('controller/home/campainsController.php'); // chiến dịch
 include_once('controller/home/campainCustomersController.php'); // người dùng tham gia chiến dịch
 include_once('controller/home/statisticalController.php'); // thống kê 
 include_once('controller/home/transactionHistoriesController.php'); // lịch sử nạp tiền
+include_once('controller/home/agencyController.php'); // chiết khấu
 
 // api
 include_once('controller/api/customerController.php'); // api khách hàng
@@ -32,4 +33,5 @@ include_once('controller/api/partnerController.php'); // api khách hàng
 include_once('controller/api/productController.php'); // api khách hàng
 include_once('controller/api/servicesController.php'); // api khách hàng
 include_once('controller/api/transactionHistoriesController.php'); // lịch sử nạp tiền
+include_once('controller/api/staffController.php'); // nhân viên
 ?>
