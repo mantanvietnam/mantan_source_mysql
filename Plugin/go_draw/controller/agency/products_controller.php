@@ -18,7 +18,8 @@ function listProduct($input)
 		
 		$user = $session->read('infoUser');
 
-		$conditions = array('status'=>1);
+		$conditions = array('status'=>1, 'deleted_at IS'=> null);
+
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;

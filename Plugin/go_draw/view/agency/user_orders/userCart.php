@@ -22,6 +22,7 @@
 					</svg>
 				</div>
 				<div class="content-cart">
+					<?php if(!empty($infoCart)){ ?>
 					<div class="info-form-user">
 						<div class="item-frm">
 							<div class="desc">
@@ -29,12 +30,17 @@
 							</div>
 						</div>
 					</div>
+					<?php }?>
 
 					<div class="table-cart">
 						<?php
 							echo $mess;
 							if(!empty($infoCart)){
 								foreach ($infoCart as $key => $value) {
+									if($value->type == 1){
+										$value->price = 0;
+									}
+									
 									echo '	<div class="item-cart">
 												<div class="prd-cart">
 													<div class="avarta">
@@ -55,7 +61,7 @@
 						?>
 					</div>
 
-					<?php if(!empty($infoCart)) echo '<div class="btn-main text-center"><a id="buttonCreate" href="/createOrderUser">TẠO ĐƠN</a></div>';?>
+					<?php if(!empty($infoCart)) echo '<div class="btn-main text-center"><a id="buttonCreate" href="/createOrderUser" onclick="return checkPhone();">TẠO ĐƠN</a></div>';?>
 					
 				</div>
 			</div>
@@ -64,10 +70,17 @@
 </main>
 
 <script type="text/javascript">
-	function updatePhone()
+
+	function checkPhone()
 	{
-		var phone = $('#phone').val();
-		$('#buttonCreate').attr("href", "/createOrderUser/?phone="+phone);
+		var phone = $('#search_user').val();
+
+		if(phone == ''){
+			alert('Bạn chưa nhập thông tin khách hàng');
+			return false;
+		}else{
+			return true;
+		}
 	}
 </script>
 

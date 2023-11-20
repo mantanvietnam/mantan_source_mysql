@@ -19,6 +19,7 @@
 					</svg>
 				</div>
 				<div class="content-cart">
+					<?php if(!empty($infoCart)){ ?>
 					<div class="info-form-user">
 						<div class="item-frm">
 							<div class="desc">
@@ -26,12 +27,13 @@
 							</div>
 						</div>
 					</div>
+					<?php }?>
+
 					<div class="table-cart">
 						<?php
 							echo $mess;
 							if(!empty($infoCart)){
 								foreach ($infoCart as $key => $value) {
-									
 									echo '	<div class="item-cart">
 												<div class="prd-cart">
 													<div class="avarta">

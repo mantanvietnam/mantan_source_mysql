@@ -34,6 +34,10 @@
             LƯU Ý: CHỈ CÁC THÀNH VIÊN ĐƯỢC XÁC NHẬN TẠI ĐÂY MỚI LÀ THÀNH VIÊN CHÍNH THỨC CỦA CỘNG ĐỒNG PHOENIX, HÃY XÁC NHẬN ĐÚNG MẶT THÀNH VIÊN PHOENIX ĐỂ TRÁNH CÁC TRƯỜNG HỢP MẠO DANH.
         </div>
 
+        <div class="mb-3">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/icd3mBlSr0c?si=VPUNWQDRF8n25hDb&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
         <div class="row" id="infoAgency">
             <div class="col-lg-5 col-12 modal-image mb-3">
                 <div class="image-character">

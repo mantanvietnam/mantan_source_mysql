@@ -120,7 +120,16 @@ function addAgencyOrderProductAdmin($input)
 
 
         if (!empty($order)) {
-            $listItem = $agencyOrderProductDetailsModel->find()->where(['order_id' => $order->id])->all();
+            $listItem = $agencyOrderProductDetailsModel->find()->where(['order_id' => $order->id])->all()->toList();
+            
+            if(!empty($listItem)){
+                foreach ($listItem as $key => $value) {
+                    $product = $productsModel->find()->where(['id' => $value->product_id])->first();
+
+                    $listItem[$key]->name_product = $product->name;
+                }
+            }
+
             setVariable('listItem', $listItem);
 
             $agency = $agencyAccountsModel->find()->where(['id' => $order->agency_id])->first();
@@ -129,29 +138,13 @@ function addAgencyOrderProductAdmin($input)
             $listAgency = $agencyModel->find()->all();
             setVariable('listAgency', $listAgency);
 
-            if ($isRequestPost) {
-                $dataSend = $input['request']->getData();
-
-                if (isset($dataSend['agency_id'])
-                    && isset($dataSend['total_price'])
-                ) {
-
-                    $order->total_price = $dataSend['total_price'];
-                    $orderModel->save($order);
-
-                    $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
-                } else {
-                    $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
-                }
-            }
+            
         } else {
             return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php');
         }
 
-        $listProduct = $productsModel->find()->where(['status' => 1])->all();
 
         setVariable('data', $order);
-        setVariable('listProduct', $listProduct);
         setVariable('mess', $mess);
     }else{
         return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php');
@@ -182,6 +175,70 @@ function acceptAgencyOrderProductAdminApi($input)
             $orderHistory->agency_id = $order->agency_id;
             $orderHistory->order_id = $order->id;
             $orderHistory->note = 'Admin duyệt xuất kho đơn hàng mua lẻ sản phẩm của đại lý';
+            $orderHistory->created_at = date('Y-m-d H:i:s');
+            $orderHistory->status = $order->status;
+
+            $agencyOrderProductHistoriesModel->save($orderHistory);
+
+            return apiResponse(0, 'Cập nhật thành công');
+        }
+
+        return apiResponse(2, 'Gửi thiếu dữ liệu');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function payAgencyOrderProductAdminApi($input)
+{
+    global $controller;
+    global $isRequestPost;
+
+    $agencyOrderProductsModel = $controller->loadModel('AgencyOrderProducts');
+    $agencyOrderProductHistoriesModel = $controller->loadModel('AgencyOrderProductHistories');
+    $productsModel = $controller->loadModel('Products');
+    $agencyOrderProductDetailsModel = $controller->loadModel('AgencyOrderProductDetails');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['id'])) {
+            $order = $agencyOrderProductsModel->find()->where(['id' => $dataSend['id']])->first();
+
+            // hoàn hàng vào kho
+            $listItem = $agencyOrderProductDetailsModel->find()->where(['order_id' => $order->id])->all();
+            $total_price = 0;
+            debug($listItem);die;
+            if (!empty($listItem)) {
+                foreach ($listItem as $item) {
+                    $infoProduct = $productsModel->find()->where(['id'=>$item->product_id])->first();
+                    
+                    // nếu là sản phẩm tái sử dụng
+                    if($infoProduct->type == 1){
+                        $infoProduct->amount += $item->amount;
+                        $infoProduct->updated_at = date('Y-m-d H:i:s');
+
+                        debug($infoProduct);die;
+                        $productsModel->save($infoProduct);
+                    }else{
+                        $total_price += $item->price * $item->amount;
+                    }
+                }
+            }
+
+            // cập nhập trạng thái đơn hàng
+            $order->status = 3; // 0: đơn hàng mới, 1: đã duyệt xuất kho, 2: đã nhập kho, 3: đã thanh toán, 4: hủy bỏ
+            $order->total_price = $total_price;
+            $order->updated_at = date('Y-m-d H:i:s');
+
+            $agencyOrderProductsModel->save($order);
+
+            // lưu lịch sử thay đổi trạng thái đơn hàng
+            $orderHistory = $agencyOrderProductHistoriesModel->newEmptyEntity();
+
+            $orderHistory->agency_id = $order->agency_id;
+            $orderHistory->order_id = $order->id;
+            $orderHistory->note = 'Admin duyệt thanh toán đơn hàng mua lẻ sản phẩm của đại lý';
             $orderHistory->created_at = date('Y-m-d H:i:s');
             $orderHistory->status = $order->status;
 

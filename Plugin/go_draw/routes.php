@@ -69,6 +69,7 @@ global $routesPlugin;
 	$routesPlugin['checkoutOrderUser']= 'go_draw/view/agency/user_orders/checkoutOrderUser.php';
 
 	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
+    $routesPlugin['staticAgency']= 'go_draw/view/agency/user_orders/staticAgency.php';
 
     // đơn hàng combo
     $routesPlugin['sellComboProduct']= 'go_draw/view/agency/user_combo_orders/sellComboProduct.php';

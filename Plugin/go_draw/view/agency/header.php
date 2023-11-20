@@ -43,10 +43,10 @@
                                 <ul>
                                     <!-- <li><a href="/sellComboProduct">Tạo đơn hàng</a></li> -->
                                     <li><a href="/checkCombo">Combo</a></li>
-                                    <li><a href="/sellProduct">Sản phẩm</a></li>
                                     <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
                                     <!-- 
+                                    <li><a href="/sellProduct">Sản phẩm</a></li>
                                     <li><a href="/sellComboProduct">Sản phẩm</a></li> 
                                     <li><a href="/orderUserComboProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserComboDone">Đơn hoàn thành</a></li>
@@ -106,6 +106,8 @@
                                 </ul>
                             </div>
                         </li>
+
+                        <li><a href="/staticAgency">Thống kê</a></li>
                         <?php }?>
                             <li>
                                 <a href="javascript:void(0);"><img class="image-user" src="/plugins/go_draw/view/agency/images/userdangnhap.png" alt=""></a>
