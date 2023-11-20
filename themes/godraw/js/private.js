@@ -115,4 +115,11 @@ $(document).ready(function(){
 	    $(this).slick('slickNext');
 	  }
 	}));
+
+
+
+	const button1 = document.getElementById('video-off');
+	const button2 = document.getElementById('video-on');
+	button1.show();
+
 })

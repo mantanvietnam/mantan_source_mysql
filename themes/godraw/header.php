@@ -13,11 +13,13 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/jquery.mmenu.all.css">
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css">
-    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <?php mantan_header();global $settingThemes;?>
 </head>
 <body>
@@ -57,6 +59,8 @@
                                 }
                             }
                         ?>
+
+
                     </ul>
                 </div>
                 <div class="h-user text-uppercase">
@@ -97,6 +101,26 @@
                     </div>
                 </div>
                 -->
+
+                <!-- Doi ngon ngu -->
+                <div class="h-translate">
+                    <div class="lang-main">
+                        <a href="javascript:void(0)">
+                            <span><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></span>
+                            <span class="icon">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.84814 10.0701L0.257812 0.77002H13.4482L6.84814 10.0701Z" fill="white"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="sub-lang">
+                        <ul>
+                            <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -25,8 +25,22 @@
                     </a>
                 </div>
                 <div class="video-background">
+                    <div class="buttom-volume">
+                        <div class="video-off video-turn">
+                            <button>
+                                <i class="fa-solid fa-volume-xmark"></i>
+                            </button>
+                        </div>
+
+                        <div class="video-on video-turn">
+                            <button>
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="border-video">
-                        
+                    
                     </div>
 
                     <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">

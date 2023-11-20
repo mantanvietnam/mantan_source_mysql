@@ -56,6 +56,7 @@
 		</div>
 	</div>
 </footer>
+
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/lib/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/lib/slick.min.js"></script> 
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/private.js"></script>

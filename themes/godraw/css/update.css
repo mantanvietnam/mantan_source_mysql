@@ -189,7 +189,7 @@ img.khung-tranh {
 }
 
 .h-user ul li a.login:hover{
-    background: #0046ab;
+    /* background: #0046ab; */
     filter: brightness(0.7);
     transition: all .2s ease-in-out;
 
@@ -466,7 +466,7 @@ img.khung-tranh {
     height: 600px;
     object-fit: cover;
     position: absolute;
-    top: 19px;
+    top: 71px;
     left: 121px;
     z-index: -1;
     /* border-radius: 25px; */
@@ -476,24 +476,13 @@ img.khung-tranh {
     border-image-width: 30px;
     border-image-outset: 10px;
     border-image-repeat: round; */
-    border-radius: 50px; /*1*/
+    border-radius: 23px; /*1*/
     border: 13px solid transparent; /*2*/
     background: linear-gradient(45deg,#a42119,#ff3529) border-box; /*3*/
     -webkit-mask-composite: xor; /*5'*/
             mask-composite: exclude; /*5*/
 
     /* scale: 0.8; */
-}
-
-.wrapper-intro .content-intro video, .wrapper-intro .content-intro video .background-inner-video{
-    /* content: '';
-    position: absolute;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    bottom: -15px;
-    background: red;
-    z-index: -1; */
 }
 
 
@@ -507,17 +496,17 @@ img.khung-tranh {
 
 .border-video{
     position: absolute;
-    top: 25px;
-    right: 141px;
+    top: 70px;
+    right: 132px;
     /* bottom: 89px; */
-    left: 141px;
+    left: 136px;
     border-radius: 50px;
     border: 21px solid transparent;
     background: linear-gradient(45deg,#57110d,#a42119) border-box;
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     z-index: -2;
-    height: 93%;
+    height: 600px;
 }
 
 
@@ -535,7 +524,7 @@ img.khung-tranh {
 }
 
 .box-banner-home .btn-main {
-    bottom: -58px
+    bottom: -40px
 }
 
 .btn-main-first{
@@ -543,3 +532,33 @@ img.khung-tranh {
 }
 
 
+.content-footer{
+    background-color: rgb(12, 43, 82);
+}
+
+.box-banner-home .btn-main {
+    padding: 0 0 59px 0;
+}
+
+.box-banner-home .social-intro {
+    bottom: -149px;
+
+}
+
+.info-form-user{
+    max-width: 400px;
+}
+
+.wrapper-user {
+    max-width: 804px
+}
+
+.buttom-volume{
+    position: absolute;
+    right: 0;
+
+}
+
+.buttom-volume.hidden {
+    display: none;
+}
