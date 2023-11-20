@@ -118,7 +118,6 @@
                 <div class="video-banner">
                     <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
                 

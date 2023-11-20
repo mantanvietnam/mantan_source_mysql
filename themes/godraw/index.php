@@ -25,9 +25,16 @@
                     </a>
                 </div>
                 <div class="video-background">
+                    <div class="border-video">
+                        
+                    </div>
+
                     <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_trailer'];?>" type="video/mp4">
                         Your browser does not support the video tag.
+                        <div class="background-inner-video">
+                            
+                            </div>
                     </video>
               
                 </div>
