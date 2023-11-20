@@ -69,19 +69,19 @@
                   <input type="text" class="form-control phone-mask" name="name" id="name" value=""/>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">Id ảnh in hàng hoạt</label>
+                  <label class="form-label" for="basic-default-phone">Id ảnh in hàng hoạt EZPICS </label>
                   <input type="text" class="form-control phone-mask" name="id_product" id="id_product" value=""/>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">giá trị họ và tên khách hàng</label>
+                  <label class="form-label" for="basic-default-phone">Tên biến họ và tên khách hàng</label>
                   <input type="text" class="form-control phone-mask" name="value_name" id="value_name" value=""/>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">giá trị avatar khách hàng</label>
+                  <label class="form-label" for="basic-default-phone">Tên biến avatar khách hàng</label>
                   <input type="text" class="form-control phone-mask" name="value_avatar" id="value_avatar" value=""/>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="basic-default-phone">giá trị id khách hàng</label>
+                  <label class="form-label" for="basic-default-phone">Tên biến id khách hàng</label>
                   <input type="text" class="form-control phone-mask" name="value_id" id="value_id" value=""/>
                 </div>
 

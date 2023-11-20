@@ -147,7 +147,7 @@ function product($input)
                 }
             }
             
-
+            
             setVariable('product', $product);
             setVariable('other_product', $other_product);
             setVariable('category', $category);

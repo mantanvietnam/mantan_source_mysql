@@ -363,7 +363,18 @@ $slide_home= slide_home($setting['id_slide']);
                                     
                                 </div>
 
-                                
+                                 <!-- Giá tổng chiết khẩu -->
+                                <div class="cart-price-sum-discount">
+                                    <div class="cart-price-sum-discount-item">
+                                        <div class="cart-price-sum-discount-title">
+                                            Tổng chiết khấu
+                                        </div>
+    
+                                        <div class="cart-price-sum-discount-price" id=totalck>
+                                            0đ
+                                        </div>
+                                    </div>
+                                </div>
 
                                  <!-- Thành tiền -->
                                  <div class="cart-price-total">
@@ -515,7 +526,8 @@ $slide_home= slide_home($setting['id_slide']);
 
              console.log(price_total);
 
-
+             var totalck = new Intl.NumberFormat().format(discount1 + discount2 + discount3);
+             $('#totalck').html(totalck+'đ');
             var total = new Intl.NumberFormat().format(price_total);
              $('#totals').html(total+'đ');
 

@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-product-listProduct.php">Sản phẩm</a></span> / Câu hỏi của sản phẩm thường gặp</h4>
+  <h4 class="fw-bold py-3 mb-4"> <span class="text-muted fw-light"><a href="/plugins/admin/product-view-admin-product-listProduct.php">Sản phẩm</a></span> / video đập hộp</h4>
 
   <!-- Form Search -->
  <!--  <form method="get" action="">
@@ -88,7 +88,7 @@
 
   <!-- Responsive Table -->
   <div class="card row">
-    <h5 class="card-header">Danh sách câu hỏi của sản phẩm thường gặp</h5>
+    <h5 class="card-header">Danh sách video đập hộp</h5>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>

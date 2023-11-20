@@ -72,9 +72,8 @@ $slide_home= slide_home($setting['id_slide']);
 
                     <div class="col-lg-5 col-md-5 col-sm-5 col-12 product-detail-info">
                         <div class="product-detail-info-category">
-                            <span><?php $category->name; ?></span>
+                            <span><?php echo $category->name; ?></span>
                         </div>
-
                         <div class="product-detail-info-name">
                             <span><?php echo $product->title; ?></span>
                         </div>
