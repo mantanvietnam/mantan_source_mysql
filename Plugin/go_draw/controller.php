@@ -24,3 +24,4 @@ include('controller/agency/agency_order_products_controller.php'); // đơn hàn
 
 // home
 include('controller/home/user_controller.php'); // tài khoản người dùng
+include('controller/home/agencies_controller.php'); // đại lý

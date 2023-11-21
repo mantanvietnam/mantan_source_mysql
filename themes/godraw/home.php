@@ -190,7 +190,7 @@
                         <div class="head-search">
                             <img class="header-client img-fluid" src="<?php echo $urlThemeActive;?>/images/daily_button.png" alt="">
                         </div>
-                        <a href="#"><img class="btn-client img-fluid" src="<?php echo $urlThemeActive;?>/images/go_button.png" alt=""></a>
+                        <a href="/search-agency"><img class="btn-client img-fluid" src="<?php echo $urlThemeActive;?>/images/go_button.png" alt=""></a>
                     </div>
                 </div>
             </section>

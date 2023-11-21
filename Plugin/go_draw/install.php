@@ -53,6 +53,10 @@ $sqlInstallDatabase .= 'CREATE TABLE `agencies` (
     `phone` VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL , 
     `coordinates` POINT NULL DEFAULT NULL , 
     `status` TINYINT NOT NULL DEFAULT 1 ,
+    `image` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `lat_gps` VARCHAR(255) NOT NULL,
+    `long_gps` VARCHAR(255) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
