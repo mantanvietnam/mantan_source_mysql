@@ -134,7 +134,9 @@ function createOrderUser($input)
 
 	    	$total_price = 0;
 	    	foreach ($infoCart as $key => $value) {
-	    		$total_price += $value->price * $value->amount_sell;
+	    		if($value->type == 0){
+		    		$total_price += $value->price * $value->amount_sell;
+		    	}
 	    	}
 
 	    	$user_id = 0;
@@ -354,13 +356,9 @@ function checkoutOrderUser($input)
 	    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $_GET['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
 
 	    	if(!empty($infoOrder)){
-	    		// cập nhập lại trạng thái đơn hàng
-	    		$infoOrder->status = 2;
-	    		$infoOrder->updated_at = date('Y-m-d H:i:s');
-	    		$modelUserOrders->save($infoOrder);
-
 	    		// hoàn lại sản phẩm
 	    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
+	    		$total_price = 0;
 
 	    		if(!empty($infoOrder->product)){
 					foreach ($infoOrder->product as $keyProduct=>$product) {
@@ -376,9 +374,17 @@ function checkoutOrderUser($input)
 
 								$modelAgencyProducts->save($product_agency);
 							}
+						}else{
+							$total_price += $product->unit_price * $product->amount;
 						}
 					}
 				}
+
+				// cập nhập lại trạng thái đơn hàng
+	    		$infoOrder->status = 2;
+	    		$infoOrder->total_price = $total_price;
+	    		$infoOrder->updated_at = date('Y-m-d H:i:s');
+	    		$modelUserOrders->save($infoOrder);
 
 				// lưu lịch sử cập nhập đơn
 		    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
@@ -483,6 +489,67 @@ function orderUserDone($input)
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function staticAgency($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Thống kê đơn hàng';
+
+		$modelUserOrders = $controller->loadModel('UserOrders');
+	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
+	    $modelProducts = $controller->loadModel('Products');
+		
+		$user = $session->read('infoUser');
+
+		$conditions = array('status'=>2, 'agency_id'=>$user->id);
+		
+		if (!empty($_GET['from_date'])) {
+	        $fromDate = DateTime::createFromFormat('d/m/Y', $_GET['from_date']);
+	        $conditions['updated_at >='] = $fromDate->format('Y-m-d H:i:s');
+	    }
+
+	    if (!empty($_GET['to_date'])) {
+	        $toDate = DateTime::createFromFormat('d/m/Y', $_GET['to_date']);
+	        $conditions['updated_at <='] = $toDate->format('Y-m-d H:i:s');
+	    }
+
+
+		$order = array('id'=>'desc');
+
+		$listData = $modelUserOrders->find()->where($conditions)->order($order)->all()->toList();
+
+		$total_money = 0;
+		
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
+
+				if(!empty($listData[$key]->product)){
+					foreach ($listData[$key]->product as $keyProduct=>$product) {
+						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+
+						$listData[$key]->product[$keyProduct]->name = @$infoProduct->name;
+					}
+				}
+
+				$total_money += $value->total_price;
+			}
+		}
+
+		
+	    
+	    setVariable('listData', $listData);
+	    setVariable('total_money', $total_money);
 	}else{
 		return $controller->redirect('/login');
 	}

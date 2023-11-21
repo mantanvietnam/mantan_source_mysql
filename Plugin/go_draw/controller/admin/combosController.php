@@ -182,7 +182,10 @@ function updateComboAdminApi($input): array
                     $comboProductModel->save($newComboProduct);
                 }
                 $product = $productModel->find()->where(['id' => $item['productId']])->first();
-                $totalPrice += $product->price * $item['amount'];
+                
+                if($product->type == 0){
+                    $totalPrice += $product->price * $item['amount'];
+                }
             }
         }
         $combo->price = $totalPrice;
