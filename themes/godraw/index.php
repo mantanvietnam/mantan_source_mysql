@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="video-background">
-                    <div class="buttom-volume">
+                    <!-- <div class="buttom-volume">
                         <div class="video-off video-turn">
                             <button>
                                 <i class="fa-solid fa-volume-xmark"></i>
@@ -37,13 +37,13 @@
                                 <i class="fa-solid fa-volume-high"></i>
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="border-video">
                     
                     </div>
 
-                    <video loop="loop" autoplay="autoplay" muted="" defaultmuted="" playsinline="" oncontextmenu="return false;" preload="auto">
+                    <video controls loop="loop" autoplay="autoplay" muted="false" defaultmuted="false" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_trailer'];?>" type="video/mp4">
                         Your browser does not support the video tag.
                         <div class="background-inner-video">

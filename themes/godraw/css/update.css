@@ -562,3 +562,7 @@ img.khung-tranh {
 .buttom-volume.hidden {
     display: none;
 }
+
+.sub-form .txt_field{
+    width: 267px;
+}

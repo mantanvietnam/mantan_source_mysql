@@ -55,7 +55,7 @@ header{
 
 /* breadcrumb */
 #section-breadcrumb{
-    margin-top: 9px;
+    margin-top: 137px;
 }
 
 header{
@@ -387,7 +387,7 @@ header{
 }
 
 .table-cart-right .logo-voucher{
-    width: 36%;
+    width: 35%;
 }
 
 .table-cart-right .list-code-discount .check-voucher{
@@ -401,6 +401,11 @@ header{
 
 .table-cart-right .infor-voucher {
     width: 51%;
+    border-left: 1px solid #000;
+}
+
+.table-cart-right .logo-voucher h3{
+    border: none;
 }
 
 .dropdown-image-item-title{
@@ -958,7 +963,7 @@ header{
 }
 
 .product-detail-button-buy a{
-    color : #fff
+    color : #fff !important
 }
 
 .list-procerdure li:last-child span{
@@ -972,13 +977,30 @@ header{
     line-height: normal;
 }
 
+.navbar-header{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 
+.list-video .detail-review-video p{
+    font-size: 17px;
+    line-height: 26px;
+}
 /* Chuyên mục sản phẩm */
 /* #section-cateogry-product .rate-sold p{} */
+.table-border{
+    overflow: auto;
+}
+
+.table-cart-left tr th{
+    font-size: 14px;
+}
+
 
 @media(min-width: 445px){
+    
     #section-breadcrumb{
-        margin-top: 117px;
+        margin-top: 137px;
     }
 
     .topbar-mobile{
@@ -1013,11 +1035,20 @@ header{
     }
 
     #profile{
-        margin-top: 117px;
+        margin-top: 147px;
     }
 
     #section-cart{
-        margin-top: 117px;
+        margin-top: 147px;
+    }
+
+    #section-order{
+        margin-top: 147px;
+
+    }
+
+    #section-complete{
+        margin-top: 147px;
     }
 }
 
@@ -1181,6 +1212,16 @@ header{
     .slide-rate-image .slick-list{
         height: auto;
     }
+
+    .table-cart-left tr th{
+        font-size: 11px;
+    }
+    .cart-product-number .qty-input{
+        width: 96%;
+    }
+    
+
+    
  
   
 }
