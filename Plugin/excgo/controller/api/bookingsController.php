@@ -27,12 +27,7 @@ function createBookingApi($input): array
         if (isset($dataSend['name'])
             && isset($dataSend['price'])
             && isset($dataSend['departure_province_id'])
-            && isset($dataSend['destination_province_id'])
-            && isset($dataSend['departure'])
-            && isset($dataSend['destination'])
             && isset($dataSend['introduce_fee'])
-            && isset($dataSend['start_time'])
-            && isset($dataSend['finish_time'])
         ) {
             if (!is_numeric($dataSend['price']) || $dataSend['price'] < 0) {
                 return apiResponse(2, 'Số tiền không hợp lệ');
@@ -49,7 +44,7 @@ function createBookingApi($input): array
                 return apiResponse(2, 'Tỉnh khởi hành không hợp lệ');
             }
 
-            if (!in_array($dataSend['destination_province_id'], $listProvinceIds)) {
+            if (isset($dataSend['destination_province_id']) && !in_array($dataSend['destination_province_id'], $listProvinceIds)) {
                 return apiResponse(2, 'Tỉnh đến không hợp lệ');
             }
 
@@ -57,28 +52,33 @@ function createBookingApi($input): array
                 return apiResponse(2, 'Tỉ lệ chiết khấu không hợp lệ');
             }
 
-            $startTime = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
-            $finishTime = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
             $now = date('Y-m-d H:i:s');
+            if (isset($dataSend['start_time'])) {
+                $startTime = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
 
-            if ($startTime <= $now) {
-                return apiResponse(2, 'Thời gian khởi hành phải lớn hơn hiện tại');
+                if ($startTime <= $now) {
+                    return apiResponse(2, 'Thời gian khởi hành phải lớn hơn hiện tại');
+                }
             }
 
-            if ($finishTime <= $startTime) {
-                return apiResponse(2, 'Thời gian đến phải lớn hơn thời gian khởi hành');
+            if (isset($dataSend['finish_time'])) {
+                $finishTime = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
+
+                if ($finishTime <= $startTime) {
+                    return apiResponse(2, 'Thời gian đến phải lớn hơn thời gian khởi hành');
+                }
             }
 
             $booking = $modelBooking->newEmptyEntity();
             $booking->name = $dataSend['name'];
             $booking->posted_by = $currentUser->id;
             $booking->status = $bookingStatus['unreceived'];
-            $booking->start_time = $startTime;
-            $booking->finish_time = $finishTime;
+            $booking->start_time = $startTime ?? null;
+            $booking->finish_time = $finishTime ?? null;
             $booking->departure_province_id = $dataSend['departure_province_id'];
-            $booking->destination_province_id = $dataSend['destination_province_id'];
-            $booking->departure = $dataSend['departure'];
-            $booking->destination = $dataSend['destination'];
+            $booking->destination_province_id = $dataSend['destination_province_id'] ?? null;
+            $booking->departure = $dataSend['departure'] ?? null;
+            $booking->destination = $dataSend['destination'] ?? null;
             $booking->introduce_fee = $dataSend['introduce_fee'];
             $booking->price = $dataSend['price'];
             $booking->description = $dataSend['description'] ?? null;
@@ -114,24 +114,24 @@ function getBookingListApi($input): array
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        $conditions = ['status' => $bookingStatus['unreceived']];
-        $order = ['created_at' => 'DESC'];
+        $conditions = ['Bookings.status' => $bookingStatus['unreceived']];
+        $order = ['Bookings.updated_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
         if ($page < 1) $page = 1;
 
         if (!empty($dataSend['keyword'])) {
             $conditions[] = ['OR' => [
-                ['name LIKE' => '%' . $dataSend['keyword'] . '%'],
-                ['departure LIKE' => '%' . $dataSend['keyword'] . '%'],
-                ['destination LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['Bookings.name LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['Bookings.departure LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['Bookings.destination LIKE' => '%' . $dataSend['keyword'] . '%'],
             ]];
         }
 
         if (!empty($dataSend['province_id'])) {
             $conditions[] = ['OR' => [
-                ['departure_province_id' => $dataSend['province_id']],
-                ['destination_province_id' => $dataSend['province_id']]
+                ['Bookings.departure_province_id' => $dataSend['province_id']],
+                ['Bookings.destination_province_id' => $dataSend['province_id']]
             ]];
         }
 
@@ -159,7 +159,22 @@ function getBookingListApi($input): array
             }
         }
         $listData = $modelBooking->find()
-            ->limit($limit)
+            ->join([
+                [
+                    'table' => 'users',
+                    'alias' => 'PostedUsers',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Bookings.posted_by = PostedUsers.id',
+                    ],
+                ],
+            ])->select([
+                'Bookings.id', 'Bookings.name', 'Bookings.posted_by', 'Bookings.received_by', 'Bookings.status',
+                'Bookings.start_time', 'Bookings.finish_time', 'Bookings.departure', 'Bookings.destination',
+                'Bookings.departure_province_id', 'Bookings.destination_province_id', 'Bookings.description',
+                'Bookings.introduce_fee', 'Bookings.price', 'Bookings.created_at', 'Bookings.updated_at',
+                'Bookings.received_at', 'Bookings.canceled_at', 'PostedUsers.name', 'PostedUsers.avatar',
+            ])->limit($limit)
             ->page($page)
             ->where($conditions)
             ->order($order)
@@ -1014,10 +1029,8 @@ function getAvailableBookingListApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            $conditions = [
-                'status NOT IN' => [$bookingStatus['completed'], $bookingStatus['canceled'], $bookingStatus['paid']],
-            ];
-            $order = ['created_at' => 'DESC'];
+            $conditions = [];
+            $order = ['updated_at' => 'DESC'];
             $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
             $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
 
@@ -1025,6 +1038,12 @@ function getAvailableBookingListApi($input): array
                 $conditions['received_by'] = $currentUser->id;
             } else {
                 $conditions['posted_by'] = $currentUser->id;
+            }
+
+            if (isset($dataSend['status'])) {
+                $conditions['status'] = $dataSend['status'];
+            } else {
+                $conditions['status'] = $bookingStatus['unreceived'];
             }
 
             $listData = $modelBooking->find()
