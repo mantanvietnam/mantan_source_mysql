@@ -129,6 +129,52 @@ function loginUser($input)
 	}
 }
 
+function changePassUser($input)
+{
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+
+	$metaTitleMantan = 'Đổi mật khẩu';
+
+	$modelUsers = $controller->loadModel('Users');
+
+	if(!empty($session->read('infoMember'))){
+		$mess = '';
+
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			if(!empty($dataSend['passOld']) && !empty($dataSend['passNew']) && !empty($dataSend['passAgain'])){
+				if($dataSend['passNew'] == $dataSend['passAgain']){
+					$user = $modelUsers->get($session->read('infoMember')->id);
+
+					if($user->password == md5($dataSend['passOld'])){
+						$user->password = md5($dataSend['passNew']);
+
+						$modelUsers->save($user);
+
+						$session->write('infoMember', $user);
+
+						$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
+					}else{
+						$mess= '<p class="text-danger">Sai mật khẩu cũ</p>';
+					}
+				}else{
+					$mess= '<p class="text-danger">Mật khẩu nhập lại chưa đúng</p>';
+				}
+			}else{
+				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+			}
+		}
+
+		setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/');
+	}
+}
+
 function searchUserApi($input)
 {
 	global $controller;

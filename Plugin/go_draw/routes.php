@@ -85,6 +85,7 @@ global $routesPlugin;
     $routesPlugin['register']= 'go_draw/view/home/user/register.php';
     $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
     $routesPlugin['loginUser']= 'go_draw/view/home/user/loginUser.php';
+    $routesPlugin['changePassUser']= 'go_draw/view/home/user/changePassUser.php';
 
     $routesPlugin['search-agency']= 'go_draw/view/home/agencies/searchAgency.php';
 
