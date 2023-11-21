@@ -63,32 +63,16 @@ $menus[0]['sub'][] = array('title' => 'Lịch sử đơn hàng',
     )
 );
 
-$menus[0]['sub'][] = array('title' => 'Cài đặt',
-    'url' => '/',
-    'classIcon' => 'bx bx-cog',
-    'permission' => 'settingsProducts',
-    'sub' => array(
-        array('title' => 'Danh mục sản phẩm',
-        'url' => '/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php',
+$menus[0]['sub'][] = array('title' => 'Danh mục sản phẩm',
+    'url' => '/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php',
         'classIcon' => 'bx bx-category',
         'permission' => 'listCategoryAdmin',
-        ),
-        array('title' => 'Nhà sản xuất',
-            'url' => '/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct.php',
-            'classIcon' => 'bx bx-category',
-            'permission' => 'listManufacturerProduct',
-        ),
-        array('title' => 'Gửi thông báo',
-            'url' => '/plugins/admin/product-view-admin-smaxbot-settingSmaxbotAdmin.php',
-            'classIcon' => 'bx bx-category',
-            'permission' => 'settingSmaxbotAdmin',
-        ),
-
-    )
 );
 
+
+
 global $domain;
-$domain = 'https://godraw.2top.vn/';
+$domain = 'https://godraw.vn/';
 
 global $defaultImage;
 $defaultImage = 'plugins/go_draw/view/image/default-image.jpg';

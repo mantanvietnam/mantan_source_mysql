@@ -419,6 +419,8 @@ function addProductToStore($input)
 	    $modelProducts = $controller->loadModel('Products');
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 	    $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+	    $modelAgencyAccounts = $controller->loadModel('AgencyAccounts');
+		$modelAgencies = $controller->loadModel('Agencies');
 		
 		$user = $session->read('infoUser');
 
@@ -475,13 +477,16 @@ function addProductToStore($input)
 			            $modelProducts->save($info_product);
 
 			            // tạo phiếu xuất kho
+			            $userAcc = $modelAgencyAccounts->get($session->read('infoUser')->id);
+						$user = $modelAgencies->get($userAcc->agency_id);
+
 			            $warehouse = $modelWarehouseHistories->newEmptyEntity();
 
 			            $warehouse->product_id = (int) $item->product_id;
 			            $warehouse->amount = (int) $item->amount;
 			            $warehouse->total_price = $item->amount*$item->price;
 			            $warehouse->price_average = $item->price;
-			            $warehouse->note = 'Xuất sản phẩm '.$info_product->name.' về kho của đại lý '.$session->read('infoUser')->phone;
+			            $warehouse->note = 'Xuất sản phẩm '.$info_product->name.' về kho của đại lý '.$user->name;
 			            $warehouse->updated_at = date('Y-m-d H:i:s');
 			            $warehouse->type = 'minus';
 

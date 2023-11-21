@@ -26,6 +26,7 @@ function listCategoryAdmin($input)
     $listData = $query->where($conditions)
         ->limit($limit)
         ->page($page)
+        ->order(['id'=>'desc'])
         ->all()
         ->toList();
     $total = $categoryModel->find()->count();
