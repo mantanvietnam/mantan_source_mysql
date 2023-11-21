@@ -54,8 +54,7 @@
               <th>Hoa hồng</th>
               <th>ID đơn</th>
               <th>Loại</th>
-              <th>Sửa</th>
-              <th>Xóa</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -73,18 +72,6 @@
                           <td>'.number_format($item->money).'đ</td>
                           <td>'.@$item->id_order.'</td>
                           <td>'.@$item->type.'</td>
-                          
-                         
-                          <td align="center">
-                            <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
-                          <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCustomer/?id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
-                            </a>
-                          </td>
                         </tr>';
                 }
               }else{
