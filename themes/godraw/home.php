@@ -202,8 +202,8 @@
                         <div class="txt-logo">
                             <h4>CÔNG TY CỔ PHẦN NGHỆ THUẬT THÔNG MiNH</h4>
                             <ul>
-                                <li>Addres : So. 34A Tran Phu - Q. Ba Dinh - Tp. Ha Noi</li>
-                                <li>Hotline: 09.8888.9999 - 09.6666.8888</li>
+                                <li>Địa chỉ : So. 34A Tran Phu - Q. Ba Dinh - Tp. Ha Noi</li>
+                                <li>Số điện thoại: 09.8888.9999 - 09.6666.8888</li>
                             </ul>
                         </div>
                     </div>
@@ -229,17 +229,17 @@
                                     <path d="M10.1504 14.3999C10.1504 14.8399 9.79035 15.1899 9.36035 15.1899C8.92035 15.1899 8.57031 14.8399 8.57031 14.3999C8.57031 13.9599 8.92035 13.6099 9.36035 13.6099C9.79035 13.6099 10.1504 13.9599 10.1504 14.3999Z" fill="white"/>
                                 </svg>
                             </div>
-                            <span>Support</span>
+                            <span>Hỗ trợ</span>
                         </div>
                         <div class="content-subscribe">
                             <div class="head-sub">
-                                <h4>REGISTER TO RECEIVE EMAIL FROM US</h4>
+                                <h4>ĐĂNG KÝ NHẬN EMAIL TỪ CHÚNG TÔI</h4>
                                 <div class="icon"><img src="/plugins/go_draw/view/agency/images/subscribe.svg" class="img-fluid" alt=""></div>
                             </div>
                             <div class="sub-form">
                                 <form action="">
                                     <input type="text" class="txt_field" value="" placeholder="Entering email here">
-                                    <input type="submit" value="Subscribe" class="btn_field">
+                                    <input type="submit" value="Đăng ký" class="btn_field">
                                 </form>
                             </div>
                         </div>
