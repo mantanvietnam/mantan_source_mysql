@@ -566,3 +566,48 @@ img.khung-tranh {
 .sub-form .txt_field{
     width: 267px;
 }
+
+.btn-mm-mobile ul{
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 20px;
+}
+
+.btn-mm-mobile ul li {
+    max-width: 100%;
+}
+
+@media(max-width: 445px)  {
+    .wrapper-intro .content-intro video, .wrapper-intro .content-intro video{
+        width: 100%;
+        height: auto;
+        left: 0;
+        top: 23%;
+    }
+
+
+    .border-video {
+        top: 108px;
+        left: 0;
+        height: 225px;
+    }
+
+    .btn-main-first {
+        bottom: 167px
+    }
+
+    .box-banner-home .social-intro {
+        right: 0;
+        top: 0
+    }
+
+    .social-mobile{
+        top: 50px;
+        height: auto;
+    }
+
+    .box-banner-home .btn-main{
+        display: none
+    }
+}

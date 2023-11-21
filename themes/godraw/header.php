@@ -128,6 +128,26 @@
         <div class="container">
             <div class="content-mm-mobile">
                 <div class="logo"><a href=""><img src="<?php echo $urlThemeActive;?>/images/logo.png" class="img-fluid" alt=""></a></div>
+
+                <div class="h-translate">
+                    <div class="lang-main">
+                        <a href="javascript:void(0)">
+                            <span><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></span>
+                            <span class="icon">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.84814 10.0701L0.257812 0.77002H13.4482L6.84814 10.0701Z" fill="white"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="sub-lang">
+                        <ul>
+                            <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
                 <div class="right-mb">
                     <ul>
                         <?php if(!empty($session->read('infoMember'))){ ?>

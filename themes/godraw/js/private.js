@@ -100,7 +100,7 @@ $(document).ready(function(){
 	  slidesToShow: 1,
 	  slidesToScroll: 1,
 	  arrows: false,
-	  // infinite: false, 
+	  infinite: false, 
 	  nextArrow: '',
       prevArrow: '',
       vertical: true,
@@ -115,6 +115,8 @@ $(document).ready(function(){
 	    $(this).slick('slickNext');
 	  }
 	}));
+
+	
 
 
 

@@ -6,7 +6,7 @@
 	}
 </style>
 <main>
-    <div class="social-home">
+    <div class="social-home social-mobile">
         <ul>
             <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
 
