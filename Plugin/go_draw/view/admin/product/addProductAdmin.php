@@ -107,12 +107,12 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">Số lượng trong kho</label>
-                                                <input type="number" class="form-control phone-mask" name="amount_in_stock" id="amount_in_stock" value="<?php echo @$data->amount_in_stock;?>" />
+                                                <input disabled type="number" class="form-control phone-mask" name="amount_in_stock" id="amount_in_stock" value="<?php echo @$data->amount_in_stock;?>" />
                                             </div>
 
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">Số lượng đã bán</label>
-                                                <input type="number" class="form-control phone-mask" name="amount_sold" id="amount_sold" value="<?php echo @$data->amount_sold;?>" />
+                                                <input disabled type="number" class="form-control phone-mask" name="amount_sold" id="amount_sold" value="<?php echo @$data->amount_sold;?>" />
                                             </div>
                                         </div>
                                     </div>

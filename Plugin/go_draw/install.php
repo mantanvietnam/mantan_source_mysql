@@ -197,6 +197,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `agency_order_product_details` ( `id` INT N
 
 $sqlInstallDatabase .= 'CREATE TABLE `agency_order_product_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `agency_id` INT NOT NULL , `order_id` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `status` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `warehouse_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `product_id` INT NOT NULL , `amount` INT NOT NULL , `total_price` INT NOT NULL , `price_average` FLOAT NOT NULL COMMENT 'giá nhập trung bình' , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `updated_at` TIMESTAMP NOT NULL , `type` VARCHAR(255) NOT NULL COMMENT "minus: trừ hàng, plus: cộng hàng", PRIMARY KEY (`id`)) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE `products`;';
 $sqlDeleteDatabase .= 'DROP TABLE `users`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_accounts`;';
@@ -220,4 +222,5 @@ $sqlDeleteDatabase .= 'DROP TABLE `agency_order_back_store_histories`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_products`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_product_details`;';
 $sqlDeleteDatabase .= 'DROP TABLE `agency_order_product_histories`;';
+$sqlDeleteDatabase .= 'DROP TABLE `warehouse_histories`;';
 

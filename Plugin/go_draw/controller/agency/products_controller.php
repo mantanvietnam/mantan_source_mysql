@@ -9,7 +9,7 @@ function listProduct($input)
 
 	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 		if(empty($session->read('isAgencyBoss'))){
-			return $controller->redirect('/checkBoos');
+			return $controller->redirect('/checkBoos/?redirect=/listProduct');
 		}
 
 	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';

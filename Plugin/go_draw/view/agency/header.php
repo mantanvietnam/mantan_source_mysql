@@ -96,13 +96,13 @@
                         -->
 
                         <li>
-                            <a href="javascript:void(0);">Mua lẻ</a>
+                            <a href="javascript:void(0);">Mua hàng</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="/listProduct">Tạo đơn mua</a></li>
-                                    <li><a href="/orderProductWait">Đơn chờ duyệt</a></li>
-                                    <li><a href="/orderProductProcess">Đơn chưa thanh toán</a></li>
-                                    <li><a href="/orderProductDone">Đơn đã thanh toán</a></li>
+                                    <li><a href="/orderProductWait">Chờ duyệt</a></li>
+                                    <li><a href="/orderProductProcess">Chờ nhập kho</a></li>
+                                    <li><a href="/orderProductDone">Đã thanh toán</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -116,7 +116,8 @@
                                         <li><a href="/warehouse">Kho hàng</a></li>
                                         <!-- <li><a href="/orderBackStore">Đơn trả hàng</a></li>
                                         <li><a href="/orderBackStoreDone">Đơn đã trả</a></li> -->
-                                        <li><a href="/changePass">Thông tin tài khoản</a></li>
+                                        <li><a href="/profile">Thông tin tài khoản</a></li>
+                                        <li><a href="/changePass">Đổi mật khẩu</a></li>
                                         <!-- <li><a href="/changePass">Đổi mật khẩu</a></li> -->
                                         <li><a href="/logout">Đăng xuất</a></li>
                                     </ul>
