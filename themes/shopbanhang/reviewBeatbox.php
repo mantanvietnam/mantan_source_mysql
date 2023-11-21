@@ -86,7 +86,7 @@ $settinghom = setting();
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
-                                                <iframe width="560" height="320" src="https://www.youtube.com/embed/<?php echo $value->note; ?>?si=4iryEOiZIA0Krkpn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a>
                                             </div>
                                             <div class="icon-interact">
                                                 <?php  
@@ -214,7 +214,7 @@ $settinghom = setting();
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
-                                                <iframe width="560" height="320" src="https://www.youtube.com/embed/<?php echo $value->note; ?>?si=4iryEOiZIA0Krkpn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a>
                                             </div>
                                              <div class="icon-interact">
                                                  <a  class="like" href="#" ><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>

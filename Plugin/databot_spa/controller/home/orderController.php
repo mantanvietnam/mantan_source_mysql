@@ -728,10 +728,10 @@ function orderService($input){
                 $checkService = $modelService->find()->where(array('id'=>$value))->first();
                  
                 if(!empty($checkService)){
-                    if(!empty($checkService->commission_staff_fix)){
-                        $money += $checkService->commission_staff_fix*$detail->quantity;
-                    }elseif(!empty($checkService->commission_staff_percent)){
-                        $money += (((int)$checkService->commission_staff_percent / 100)*$detail->price)*(int)$detail->quantity;
+                    if(!empty($checkService->commission_affiliate_fix)){
+                        $money += $checkService->commission_affiliate_fix*$detail->quantity;
+                    }elseif(!empty($checkService->commission_affiliate_percent)){
+                        $money += (((int)$checkService->commission_affiliate_percent / 100)*$detail->price)*(int)$detail->quantity;
                     }
                 }
             }
@@ -1505,6 +1505,7 @@ function addUserService($input){
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
         $modelBill = $controller->loadModel('Bills');
+        $modelAgency = $controller->loadModel('Agencys');
         $modelCustomer = $controller->loadModel('Customers');
         $modelUserserviceHistories = $controller->loadModel('UserserviceHistories');
 
@@ -1564,6 +1565,36 @@ function addUserService($input){
                 }
 
             }
+            $money = 0;
+            $checkService = $modelService->find()->where(array('id'=>$_GET['id_service']))->first();
+                 
+                if(!empty($checkService)){
+                    if(!empty($checkService->commission_staff_fix)){
+                        $money += $checkService->commission_staff_fix;
+                    }elseif(!empty($checkService->commission_staff_percent)){
+                        $money += ((int)$checkService->commission_staff_percent / 100)*$checkService->price;
+                    }
+                }
+
+            if($money>0){
+                $agency = $modelAgency->newEmptyEntity();
+
+                $agency->id_member = @$user->id_member;
+                $agency->id_spa = $session->read('id_spa');
+                $agency->id_staff = $user->id;
+                $agency->id_service = $_GET['id_service'];
+                $agency->id_user_service =  @$UserService->id;
+                $agency->money = $money;
+                $agency->created_at = date('Y-m-d H:i:s');
+                $agency->note = 'lần thứ '.@$OrderDetails->number_uses;
+                $agency->id_order_detail = $_GET['id'];
+                $agency->status = 0;
+                $agency->id_order = $Order->id;
+                $agency->type = 'thực hiện';
+
+                $modelAgency->save($agency);
+            }
+
              return $controller->redirect('/listOrderService');
          }
     }else{

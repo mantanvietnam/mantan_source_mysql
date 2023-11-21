@@ -456,6 +456,7 @@ function replyCommentAdmin($input){
     if(!empty($_GET['id'])){
         $data = $modelComment->get($_GET['id']);
         $data->reply = $_GET['reply'];
+        $data->comment = $_GET['comment'];
         $data->updated_at = time();
         $modelComment->save($data);
 

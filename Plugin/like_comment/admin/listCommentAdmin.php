@@ -137,10 +137,15 @@
                             <div style=" padding: 20px; ">
                               <p><label>Sản phẩn :</label> <?php echo $item->product->title ?></p>
                               <p><label>Khách hàng :</label> <?php echo $custom->full_name ?></p>
-                              <p><label>bình luận:</label> <?php echo $items->comment ?></p>
+                            <form action="/plugins/admin/like_comment-admin-replyCommentAdmin.php" method="GET">
+
+                              <p><label>bình luận:</label> </p>
+                              <div class="modal-footer">
+                                <input type="text" class="form-control"  required="" value="<?php echo $items->comment ?>" name="comment">
+                              </div>
                                <p><label>Trả lời:</label></p>
                              
-                              <form action="/plugins/admin/like_comment-admin-replyCommentAdmin.php" method="GET">
+                              
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="text" class="form-control"  required="" value="<?php echo @$item->reply; ?>" name="reply">

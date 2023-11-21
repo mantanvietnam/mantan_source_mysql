@@ -34,9 +34,9 @@ function listAgency($input){
 			$conditions['id_debt'] = (int) $_GET['id_debt'];
 		}
 
-		if(!empty($_GET['full_name'])){
+		/*if(!empty($_GET['full_name'])){
 			$conditions['full_name LIKE'] = '%'.$_GET['full_name'].'%';
-		}
+		}*/
 
 		if(!empty($_GET['date_start'])){
 	        $date_start = explode('/', $_GET['date_start']);

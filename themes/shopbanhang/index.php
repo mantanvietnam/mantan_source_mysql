@@ -257,7 +257,9 @@ global $urlThemeActive;
                        <?php foreach(showFeedback() as $key => $item){ ?>
                         <div class="comment-customer-item" >
                             <div class="comment-customer-img" >
-                                <img src="<?php echo @$item->avatar ?>" alt="">
+                                <a href="<?php echo @$item->link ?>" target="_blank">
+                                    <img src="<?php echo @$item->avatar ?>" alt="">
+                                </a>
                             </div>
                         </div>
                         <?php } ?>

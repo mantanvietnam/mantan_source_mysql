@@ -95,11 +95,14 @@
           <tr class="">
             <th>ID</th>
             <th>Khách hàng</th>
-            <th>video</th>
+            <th>link</th>
+            <th>sản phẩn </th>
+            <th>ảnh</th>
             <th>duyệt</th>
             <th>Xóa</th>
           </tr>
         </thead>
+
         <tbody>
           <?php 
             if(!empty($listData)){
@@ -108,7 +111,10 @@
                 echo '<tr>
                         <td>'.$item->id.'</td>
                         <td>'.$item->user->full_name.'</td>
-                        <td><iframe width="160" height="100" src="https://www.youtube.com/embed/'.$item->note.'?si=4iryEOiZIA0Krkpn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
+                        <td> <a href="'.$item->note.'" target="_blank" >'.$item->note.'</a></td>
+                        <td><a href="/product/'.@$item->product->slug.'.html" target="_blank" >'.@$item->product->title.'</td>
+                        <td><img src="'.@$item->image.'" width="100"></td>
+                        
                         <td align="center">
                           <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal'.$item->id.'">
                             <i class="bx bxs-show"></i>
@@ -132,7 +138,7 @@
     </div>
 <?php 
             if(!empty($listData)){
-              foreach ($listData as $item) {?>
+              foreach ($listData as $key => $item) {?>
     <div class="modal fade" id="basicModal<?php echo $item->id; ?>"  name="id">
                                 
                           <div class="modal-dialog" role="document">
@@ -151,7 +157,10 @@
                                       <label class="form-label">Id sản phẩm </label>
                                       <input type="number" value="<?php echo @$item->id_product ?>" name="id_product" class="form-control" placeholder="" name="price">
                                     </div>
-                                    
+                                    <div class="mb-3">
+                                      <label class="form-label">ảnh</label>
+                                      <?php showUploadFile('image'.$key,'image',@$item->image,$key);?>
+                                    </div>
                                   </div>
                                 </div>
                                 
