@@ -610,4 +610,45 @@ img.khung-tranh {
     .box-banner-home .btn-main{
         display: none
     }
+
+    img.khung-tranh{
+        display: none;
+    }
+
+    .item-for .heart{
+        display: none;
+    }
+
+    .title-slide-vote{
+        top: -175px
+    }
+
+    .title-slide-vote{
+
+    }
+
+    .slide-bot {
+        top: 245px
+    }
+
+    .slider-hot-nav{
+        top: 469px
+    }
+
+    .box-toturial{
+        transform: translateY(136px);
+
+    }
+
+    .content-search img.header-client{
+        max-width: 100%;
+    }
+
+    .head-search {
+        transform: translateY(-64px);
+    }
+
+    img.btn-client {
+        max-width: 200px;
+    }
 }
