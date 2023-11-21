@@ -36,6 +36,7 @@ function listUserAdmin($input)
         ->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all()
         ->toList();
     $totalUser = $modelUser->find()

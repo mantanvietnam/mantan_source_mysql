@@ -35,6 +35,7 @@ function historyProductWarehouseAdmin($input)
     $listData = $warehouseHistoriesModel->find()->where($conditions)
                 ->limit($limit)
                 ->page($page)
+                ->order(['id'=>'desc'])
                 ->all()
                 ->toList();
 

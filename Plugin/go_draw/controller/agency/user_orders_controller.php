@@ -342,6 +342,7 @@ function checkoutOrderUser($input)
 	global $metaTitleMantan;
 	global $modelCategories;
 	global $session;
+	global $isRequestPost;
 
 	if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Thanh toán đơn hàng';
@@ -352,58 +353,76 @@ function checkoutOrderUser($input)
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 	    $modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
 
-	    if(!empty($_GET['id'])){
-	    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $_GET['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
+	    if($isRequestPost){
+	    	$dataSend = $input['request']->getData();
 
-	    	if(!empty($infoOrder)){
-	    		// hoàn lại sản phẩm
-	    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
-	    		$total_price = 0;
+		    if(!empty($dataSend['id'])){
+		    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $dataSend['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
 
-	    		if(!empty($infoOrder->product)){
-					foreach ($infoOrder->product as $keyProduct=>$product) {
-						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+		    	if(!empty($infoOrder)){
+		    		// hoàn lại sản phẩm
+		    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
+		    		$total_price = 0;
 
-						// nếu là sản phẩm tái sử dụng
-						if($infoProduct->type == 1){
-							$product_agency = $modelAgencyProducts->find()->where(['agency_id'=>$session->read('infoUser')->id, 'product_id'=>$product->product_id])->first();
+		    		if(!empty($infoOrder->product)){
+						foreach ($infoOrder->product as $keyProduct=>$product) {
+							$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
 
-							if(!empty($product_agency)){
-								$product_agency->amount += $product->amount;
-								$product_agency->updated_at = date('Y-m-d H:i:s');
+							// nếu là sản phẩm tái sử dụng
+							if($infoProduct->type == 1){
+								$product_agency = $modelAgencyProducts->find()->where(['agency_id'=>$session->read('infoUser')->id, 'product_id'=>$product->product_id])->first();
 
-								$modelAgencyProducts->save($product_agency);
+								if(!empty($product_agency)){
+
+									// nếu trả đủ hàng tái sử dụng
+									if($dataSend['used'][$product->product_id] == '0'){
+										$product_agency->amount += $product->amount;
+										$product_agency->updated_at = date('Y-m-d H:i:s');
+
+										$modelAgencyProducts->save($product_agency);
+									}else{
+										$product_agency->amount += $product->amount - $dataSend['used'][$product->product_id];
+										$product_agency->updated_at = date('Y-m-d H:i:s');
+
+										$modelAgencyProducts->save($product_agency);
+
+										// tính tiền sản phẩm làm hỏng
+										$total_price += $infoProduct->price * $dataSend['used'][$product->product_id];
+									}
+								}
+							}else{
+								$total_price += $product->unit_price * $product->amount;
 							}
-						}else{
-							$total_price += $product->unit_price * $product->amount;
 						}
 					}
-				}
 
-				// cập nhập lại trạng thái đơn hàng
-	    		$infoOrder->status = 2;
-	    		$infoOrder->total_price = $total_price;
-	    		$infoOrder->updated_at = date('Y-m-d H:i:s');
-	    		$modelUserOrders->save($infoOrder);
+					// cập nhập lại trạng thái đơn hàng
+		    		$infoOrder->status = 2;
+		    		$infoOrder->total_price = $total_price;
+		    		$infoOrder->updated_at = date('Y-m-d H:i:s');
+		    		$modelUserOrders->save($infoOrder);
 
-				// lưu lịch sử cập nhập đơn
-		    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
+					// lưu lịch sử cập nhập đơn
+			    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
 
-		    	$orderHistory->agency_id = $session->read('infoUser')->id;
-		    	$orderHistory->order_id = $infoOrder->id;
-		    	$orderHistory->note = 'Hoàn thành đơn bán lẻ vật tư cho khách hàng';
-		    	$orderHistory->created_at = date('Y-m-d H:i:s');
-		    	$orderHistory->status = $infoOrder->status;
+			    	$orderHistory->agency_id = $session->read('infoUser')->id;
+			    	$orderHistory->order_id = $infoOrder->id;
+			    	$orderHistory->note = 'Hoàn thành đơn bán lẻ vật tư cho khách hàng';
+			    	$orderHistory->created_at = date('Y-m-d H:i:s');
+			    	$orderHistory->status = $infoOrder->status;
 
-		    	$modelUserOrderHistories->save($orderHistory);
+			    	$modelUserOrderHistories->save($orderHistory);
 
-				return $controller->redirect('/orderUserProcess/?status=checkoutOrderDone');
-	    	}else{
-	    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
-	    	}
-	    }else{
-	    	return $controller->redirect('/orderUserProcess');
-	    }
+					return $controller->redirect('/orderUserProcess/?status=checkoutOrderDone');
+		    	}else{
+		    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
+		    	}
+		    }else{
+		    	return $controller->redirect('/orderUserProcess');
+		    }
+		}else{
+			return $controller->redirect('/orderUserProcess');
+		}
 	}else{
 		return $controller->redirect('/login');
 	}

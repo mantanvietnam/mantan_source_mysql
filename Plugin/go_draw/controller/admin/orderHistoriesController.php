@@ -50,6 +50,7 @@ function listAgencyOrderHistoryAdmin($input)
         ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all();
 
     $total = $orderHistoryModel->find()
@@ -127,6 +128,7 @@ function listUserOrderHistoryAdmin($input)
     ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all();
 
     $total = $orderHistoryModel->find()
@@ -204,6 +206,7 @@ function listUserOrderComboHistoryAdmin($input)
     ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all();
 
     $total = $orderHistoryModel->find()

@@ -29,6 +29,7 @@ function listComboAdmin($input)
         ->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all()
         ->toList();
     $totalUser = $comboModel->find()

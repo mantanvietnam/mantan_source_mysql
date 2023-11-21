@@ -72,6 +72,7 @@ function listProductAdmin($input)
         ])->where($conditions)
         ->limit($limit)
         ->page($page)
+        ->order(['Products.id'=>'desc'])
         ->all()
         ->toList();
     $total = $productModel->find()->count();
