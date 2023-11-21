@@ -134,7 +134,12 @@ function viewDetailAgencyAdmin($input)
                     $agency->name = $dataSend['name'];
                     $agency->address = $dataSend['address'];
                     $agency->phone = $dataSend['phone'];
+                    $agency->image = $dataSend['image'];
+                    $agency->email = $dataSend['email'];
+                    $agency->lat_gps = $dataSend['lat_gps'];
+                    $agency->long_gps = $dataSend['long_gps'];
                     $agency->status = $dataSend['status'];
+
                     $agencyModel->save($agency);
 
                     $masterAccount->agency_id = $agency->id;
@@ -157,6 +162,10 @@ function viewDetailAgencyAdmin($input)
                 $agency->name = $dataSend['name'];
                 $agency->address = $dataSend['address'];
                 $agency->phone = $dataSend['phone'];
+                $agency->image = $dataSend['image'];
+                $agency->email = $dataSend['email'];
+                $agency->lat_gps = $dataSend['lat_gps'];
+                $agency->long_gps = $dataSend['long_gps'];
                 $agency->status = $dataSend['status'] ?? 1;
                 $agencyModel->save($agency);
 

@@ -55,7 +55,7 @@
 
                           <div class="row">
                             <div class="col-md-6 mb-3 ">
-                              <label class="form-label" for="basic-default-phone">Đại chỉ (*)</label>
+                              <label class="form-label" for="basic-default-phone">Địa chỉ (*)</label>
                               <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
                             </div>
 
@@ -63,6 +63,29 @@
                               <label class="form-label" for="basic-default-phone">Số điện thoại (*)</label>
                               <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                             </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Email (*)</label>
+                              <input required type="email" class="form-control phone-mask" name="email" id="email" value="<?php echo @$data->email;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Latitude GPS (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="lat_gps" id="lat_gps" value="<?php echo @$data->lat_gps;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Longitude GPS (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="long_gps" id="long_gps" value="<?php echo @$data->long_gps;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Hình ảnh cửa hàng (*)</label>
+                              <?php 
+                              showUploadFile('image','image',@$data->image,0);
+                              ?>
+                            </div>
+                            
                           </div>
 
                           <div id="master-account" class="mb-3">
