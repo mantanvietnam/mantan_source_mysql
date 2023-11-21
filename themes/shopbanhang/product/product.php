@@ -563,7 +563,10 @@ $slide_home= slide_home($setting['id_slide']);
                     
                     <div class="row">
                         <div class="product-detail-rate-list col-lg-7 col-md-7 col-sm-7 col-12" id="evaluate">
-                           <?php if(!empty($product->evaluates)){
+                           <?php 
+                           $images = array();
+                           if(!empty($product->evaluates)){
+
                                 foreach($product->evaluates as $key => $item){ 
                                      $item->image = json_decode($item->image, true);
                                     ?>
@@ -601,10 +604,21 @@ $slide_home= slide_home($setting['id_slide']);
             
                                     <div class="product-detail-rate-image">
                                         <?php if(!empty($item->image)){
-                                            foreach($item->image as $image) {
+                                            foreach($item->image as $k => $image) {
                                             if(!empty($image)){
+                                                $images[] = $image;
                                         ?>
-                                        <img src="<?php echo $image;?>" alt="">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal<?php  echo $key.'-'.$k; ?>"><img src="<?php echo $image;?>" alt=""></a>
+
+                                         <div class="modal-login">
+                                             <div class="modal fade" id="exampleModal<?php  echo $key.'-'.$k; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                   
+                                                       <img src="<?php echo $image;?>" alt="" style="width: 100%; height: auto;">
+                                                    
+                                                </div>
+                                            </div>
+                                         </div>
                                     <?php }}} ?>
                                     </div> 
 
@@ -679,18 +693,26 @@ $slide_home= slide_home($setting['id_slide']);
                                         Hình ảnh từ người dùng
                                     </div>
                                     <div class="list-rate-image">
+                                        <?php if(!empty($images)){
+
+                                        foreach($images as $k => $item) { ?>
                                         <div class="rate-image-item">
-                                            <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#example<?php  echo $k; ?>">
+                                            <img src="<?php echo $item ?>" alt="">
+                                            </a>
+
+                                            <div class="modal-login">
+                                             <div class="modal fade" id="example<?php  echo $k; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                   
+                                                       <img src="<?php echo $item ?>" alt="" style="width: 100%; height: auto;">
+                                                    
+                                                </div>
+                                            </div>
+                                         </div>
                                         </div>
-        
-                                        <div class="rate-image-item">
-                                            <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
-        
-                                        </div>
-        
-                                        <div class="rate-image-item">
-                                            <img src="<?php echo $urlThemeActive;?>asset/image/background-home.png" alt="">
-                                        </div>
+                                        <?php }} ?>
+                                       
                                     </div>
                                 </div>
                             </div>

@@ -102,23 +102,31 @@ $slide_home= slide_home($setting['id_slide']);
                                     <?php 
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
-                                                echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                if(@$value->description!='combo'){
+                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                }
                                             }
                                         }
                                         ?>
                                 </ul>
                             </div>
                             
-                            <!-- <div class="category-product-item">
+                            <div class="category-product-item">
                                 <ul>
                                     <div class="category-product-menu-title">
                                         <p>Combo quà tặng</p>
                                     </div>
-                                    <li><a href="">Quà tặng dành cho cha mẹ</a></li>
-                                    <li><a href="">Bumas Care</a></li>
-                                    <li><a href="">Bumas Home</a></li>
+                                    <?php 
+                                        if(!empty($category_all)){
+                                            foreach ($category_all as $key => $value) {
+                                                if(@$value->description=='combo'){
+                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                }
+                                            }
+                                        }
+                                        ?>
                                 </ul>
-                            </div> -->
+                            </div> 
 
                             <div class="banner-category">
                                 <div class="banner-category-image">
