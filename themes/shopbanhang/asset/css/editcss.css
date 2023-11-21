@@ -252,6 +252,7 @@ header{
 
 #section-cateogry-product .product-name a{
     margin-top: 5px;
+    height: 32px;
 }
 
 .form-select-sm{
