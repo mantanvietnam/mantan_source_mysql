@@ -109,6 +109,7 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `birthday` varchar(255) DEFAULT NULL,
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code_otp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permission` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `coin` INT NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB;";
 

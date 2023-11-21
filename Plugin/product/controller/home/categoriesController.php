@@ -14,6 +14,7 @@ function category($input)
     $metaTitleMantan = 'Danh mục sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -39,6 +40,25 @@ function category($input)
 		    $order = array('id'=>'desc');
 		    
 		    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+
+		    if(!empty($list_product)){
+		        foreach($list_product as $key => $item){
+		            $list_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+		            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+		            $point = 0;
+		            if(!empty($list_product[$key]->evaluate)){
+		                foreach($list_product[$key]->evaluate as $k => $s){
+		                    $point = $s->point;
+		                }
+		            }
+
+		            if(!empty($list_product[$key]->evaluatecount)){
+
+		                $list_product[$key]->point = $point/$list_product[$key]->evaluatecount;
+		            }
+		        }
+		    }
 
 		    // phân trang
 		    $totalData = $modelProduct->find()->where($conditions)->all()->toList();

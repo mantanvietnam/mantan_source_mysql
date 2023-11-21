@@ -120,15 +120,20 @@ function addStaff($input){
 		// lấy data edit
 	    if(!empty($_GET['id'])){
 	        $data = $modelMembers->get( (int) $_GET['id']);
+	        
 	    }else{
 	        $data = $modelMembers->newEmptyEntity();
 	        $data->created_at = date('Y-m-d H:i:s');
 	    }
 
+	    $listPermissionMenu = getListPermission();
+
 	    $mess ='';
 
 		if($isRequestPost){
 	        $dataSend = $input['request']->getData();
+
+	        
 
 	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
 	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', @$dataSend['phone']));
@@ -154,6 +159,7 @@ function addStaff($input){
 			        $data->id_group =(int) @$dataSend['id_group'];
 			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->email = $dataSend['email'];
+					$data->permission = json_encode(@$dataSend['check_list_permission']);
 					$data->address = $dataSend['address'];
 					$data->birthday = $dataSend['birthday'];
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
@@ -178,9 +184,13 @@ function addStaff($input){
         if(empty($listCategory)){
         	return $controller->redirect('/listGroupStaff/?error=requestGroupStaff');
         }
+        if(!empty($data->permission)){
+        	$data->permission = json_decode($data->permission, true);
+        }
 
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
+	    setVariable('listPermissionMenu', $listPermissionMenu);
         setVariable('listCategory', $listCategory);
 
 	}else{
