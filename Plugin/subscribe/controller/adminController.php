@@ -19,8 +19,27 @@ function list_subscribe($input)
     if(!empty($_GET['email'])){
         $conditions['email'] = $_GET['email'];
     }
-    
-    $listData = $modelSubscribes->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+        $listData = $modelSubscribes->find()->where($conditions)->order($order)->all()->toList();
+        $titleExcel =   [
+                            ['name'=>'ID', 'type'=>'text', 'width'=>10],
+                            ['name'=>'Email', 'type'=>'text', 'width'=>25],               
+                    ];
+
+        $dataExcel = [];
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {                   
+                $dataExcel[] = [
+                            $value->id, 
+                            $value->email, 
+                                    
+                            ];
+            }
+        }            
+        export_excel($titleExcel, $dataExcel, 'danh-sach-email'.date('d-m-Y'));
+    }else{
+        $listData = $modelSubscribes->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
 
     // phân trang
     $totalData = $modelSubscribes->find()->where($conditions)->all()->toList();

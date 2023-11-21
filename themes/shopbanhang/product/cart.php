@@ -189,11 +189,11 @@ $slide_home= slide_home($setting['id_slide']);
                                                             </div>
                             
                                                             <div class="product-price">
-                                                                <p><?php echo $item->pricepro_discount ?>đ</p>
+                                                                <p><?php echo number_format($item->pricepro_discount); ?>đ</p>
                                                             </div>
 
                                                             <div class="product-discount">
-                                                                <del><?php echo $item->price_old ?>đ</del><span> 
+                                                                <del><?php echo number_format($item->price_old); ?>đ</del><span> 
                                                             </div>
                                                             
                                                             
@@ -238,11 +238,11 @@ $slide_home= slide_home($setting['id_slide']);
                                                             </div>
                             
                                                             <div class="product-price">
-                                                                <p><?php echo $value->price ?>đ</p>
+                                                                <p><?php echo number_format($value->price); ?>đ</p>
                                                             </div>
 
                                                             <div class="product-discount">
-                                                                <del><?php echo $value->price_old ?>đ</del><span> 
+                                                                <del><?php echo number_format($value->price_old); ?>đ</del><span> 
                                                             </div>
                                                             
                                                             

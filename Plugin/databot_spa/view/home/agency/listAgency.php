@@ -1,6 +1,6 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Hoa hông cho nhân viên</h4>
+  <h4 class="fw-bold py-3 mb-4">Hoa hồng cho nhân viên</h4>
   <p><a href="/addCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
@@ -16,7 +16,8 @@
 
           <div class="col-md-3">
             <label class="form-label">nhân viên</label>
-            <input type="text" class="form-control" name="name" value="<?php if(!empty($_GET['name'])) echo $_GET['name'];?>">
+             <input  type="text" class="form-control phone-mask" name="full_name" id="full_name" value="<?php echo @$_GET['full_name'];?>" />
+              <input type="hidden" name="id_staff"  id="id_staff" value="<?php echo (int) @$_GET['id_staff'];?>">
           </div>
           <div class="col-md-2">
             <label class="form-label">Tạo từ ngày</label>
@@ -41,7 +42,7 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách hoa hông cho nhân viên</h5>
+    <h5 class="card-header">Danh sách hoa hồng cho nhân viên</h5>
     <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -50,11 +51,10 @@
               <th>ID</th>
               <th>nhân viên</th>
               <th>Thời gian</th>
-              <th>Hoa hông</th>
+              <th>Hoa hồng</th>
               <th>ID đơn</th>
               <th>Loại</th>
-              <th>Sửa</th>
-              <th>Xóa</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -72,18 +72,6 @@
                           <td>'.number_format($item->money).'đ</td>
                           <td>'.@$item->id_order.'</td>
                           <td>'.@$item->type.'</td>
-                          
-                         
-                          <td align="center">
-                            <a class="dropdown-item" href="/addCustomer/?id='.$item->id.'">
-                              <i class="bx bx-edit-alt me-1"></i>
-                            </a>
-                          </td>
-                          <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách hàng không?\');" href="/deleteCustomer/?id='.$item->id.'">
-                              <i class="bx bx-trash me-1"></i>
-                            </a>
-                          </td>
                         </tr>';
                 }
               }else{
@@ -185,29 +173,59 @@
                         <?php }} ?>
 
 <script type="text/javascript">
-  function downloadImage(url) {
+    // tìm khách hàng 
+    $(function() {
+        function split( val ) {
+          return val.split( /,\s*/ );
+        }
 
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
 
-///////////
-fetch(url { mode: 'cors' })
-  .then(response => response.blob())
-  .then(blob => {
-    // Tạo một đối tượng URL từ đối tượng Blob
-    const url = URL.createObjectURL(blob);
+        $( "#full_name" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+            if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) {
+                event.preventDefault();
+            }
 
-    // Tạo một thẻ a để tạo liên kết và tải ảnh
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'downloaded_image.jpg'; // Tên file khi tải về
-    document.body.appendChild(a);
-    a.click();
+            $('#id_staff').val(0);
+        })
+        .autocomplete({
+            source: function( request, response ) {
+                $.getJSON( "/apis/searchStaffApi", {
+                    key: extractLast( request.term )
+                }, response );
+            },
+            search: function() {
+                // custom minLength
+                var term = extractLast( this.value );
+                if ( term.length < 2 ) {
+                    return false;
+                }
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function( event, ui ) {
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.label );
+               
+                $('#full_name').val(ui.item.label);
+                $('#id_staff').val(ui.item.id);
+          
+                return false;
 
-    // Xóa thẻ a sau khi tải xong
-    document.body.removeChild(a);
-  })
-  .catch(error => console.error('không tản dc ảnh :', error));
-}
-
-
+                tinhtien();
+            }
+        });
+    });
 </script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <?php include(__DIR__.'/../footer.php'); ?>

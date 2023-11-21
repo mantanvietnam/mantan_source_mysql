@@ -9,6 +9,7 @@ include('controller/admin/categoriesController.php');
 include('controller/admin/usersController.php');
 include('controller/admin/orderHistoriesController.php');
 include('controller/admin/agencyOrderProductsController.php');
+include('controller/admin/warehouseHistoriesController.php');
 
 // agency
 include('controller/agency/agency_accounts_controller.php'); // tài khoản đại lý

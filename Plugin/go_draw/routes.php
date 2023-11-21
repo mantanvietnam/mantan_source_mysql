@@ -12,6 +12,7 @@ global $routesPlugin;
     $routesPlugin['login']= 'go_draw/view/agency/agency_accounts/login.php';
     $routesPlugin['logout']= 'go_draw/view/agency/agency_accounts/logout.php';
     $routesPlugin['changePass']= 'go_draw/view/agency/agency_accounts/changePass.php';
+    $routesPlugin['profile']= 'go_draw/view/agency/agency_accounts/profile.php';
     $routesPlugin['checkBoos']= 'go_draw/view/agency/agency_accounts/checkBoos.php';
 
     $routesPlugin['listCombo']= 'go_draw/view/agency/combos/listCombo.php';

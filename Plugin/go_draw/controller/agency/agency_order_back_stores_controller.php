@@ -12,7 +12,7 @@ function addToCartBackStore($input)
 	    $metaTitleMantan = 'Trả hàng';
 
 	    if(empty($session->read('isAgencyBoss'))){
-			return $controller->redirect('/checkBoos');
+			return $controller->redirect('/checkBoos?redirect=/warehouse');
 		}
 
 	    $modelProducts = $controller->loadModel('Products');

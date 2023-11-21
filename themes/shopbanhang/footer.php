@@ -255,11 +255,11 @@ $infoUser = $session->read('infoUser');
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
+                                            <input type="number" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="emailReg" id="emailReg" placeholder="email">
+                                            <input type="email" class="form-control" name="emailReg" id="emailReg" placeholder="Email">
                                         </div>
 
                                         <div class="mb-3">
@@ -267,7 +267,7 @@ $infoUser = $session->read('infoUser');
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
+                                            <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Nhập lại mật khẩu ">
                                         </div>
                                         <p id="messReg"></p>
                                         <a class="btn btn-primary" onclick="register()">Tiếp tục</a>
@@ -453,32 +453,37 @@ $infoUser = $session->read('infoUser');
         var passReg = $('#passReg').val();
         var passAgin = $('#passAgain').val();
         console.log(full_name);
-        console.log(phone);
+        console.log(phone.length);
         console.log(email);
         console.log(passReg);
-        console.log(passAgin);  
-        $.ajax({
-            method: "POST",
-            data:{
-                  full_name: full_name,
-                  phone: phone,  
-                  email: email,
-                  pass: passReg,  
-                  passAgain: passAgin,  
-                },
-            url: "/apis/register",
-        })
-        .done(function(msg) {
-            console.log(msg);
-            if(msg.code==1){
-                location.reload();
-            }else{
-                var html = '<p class="text-danger">'+msg.messages+'</p>';
-                document.getElementById("messReg").innerHTML = html;
+        console.log(passAgin);
+        if(phone.length ==10){  
+            $.ajax({
+                method: "POST",
+                data:{
+                      full_name: full_name,
+                      phone: phone,  
+                      email: email,
+                      pass: passReg,  
+                      passAgain: passAgin,  
+                    },
+                url: "/apis/register",
+            })
+            .done(function(msg) {
+                console.log(msg);
+                if(msg.code==1){
+                    location.reload();
+                }else{
+                    var html = '<p class="text-danger">'+msg.messages+'</p>';
+                    document.getElementById("messReg").innerHTML = html;
 
-            }
-           
-        });
+                }
+               
+            });
+        }else{
+             var html = '<p class="text-danger">Số điên thoại không đúng</p>';
+                    document.getElementById("messReg").innerHTML = html;
+        }
     }
 
     function forgotpassword(){
@@ -568,7 +573,7 @@ $infoUser = $session->read('infoUser');
     }
     
     </script>
-
+ 
     <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>

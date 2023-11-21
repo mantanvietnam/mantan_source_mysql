@@ -520,6 +520,7 @@ function upReview(){
         if($data){
             if(!empty($_GET['id_product'])){
                 $data->id_product = $_GET['id_product'];
+                $data->image = $_GET['image'];
                 $data->status = 'active';
             }else{
                 $data->id_product = '';
