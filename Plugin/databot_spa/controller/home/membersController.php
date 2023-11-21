@@ -55,6 +55,10 @@ function login($input)
 			    				$info_customer->id_member = $info_customer->id;
 			    			}
 
+			    			if(!empty($info_customer->permission)){
+			    				$info_customer->list_permission = json_decode($info_customer->permission,true);
+			    			}
+
 			    			$session->write('CheckAuthentication', true);
 		                    $session->write('urlBaseUpload', '/upload/admin/images/'.$info_customer->id_member.'/');
 

@@ -95,7 +95,9 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p><?php echo $product->point ?> <span>(<?php echo $product->evaluatecount ?>)</span></p>
+                                            <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
+                                            <p><?php echo number_format(@$product->point,1); ?> <span>(<?php echo @$product->evaluatecount ?>)</span></p>
+                                        <?php } ?>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">

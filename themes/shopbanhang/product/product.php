@@ -92,7 +92,9 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>   
 
                                 <div class="rate-left-text">
-                                    <span><?php echo $product->point ?> (<?php echo $product->evaluatecount ?> đánh giá) | <?php echo $product->sold ?> đã bán</span>
+                                    <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
+                                    <span><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) | <?php echo $product->sold ?> đã bán</span>
+                                <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
                                 </div>
                             </div>
                               
@@ -577,7 +579,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
             
                                         <div class="product-detail-rate-date">
-                                            <?php echo date('H:i d/m/Y', strtotime(@$item->created_at)); ?>
+                                            <?php if(!empty(@$item->created_at)){ echo date('H:i d/m/Y', strtotime(@$item->created_at));} ?>
                                         </div>
                                     </div>
             

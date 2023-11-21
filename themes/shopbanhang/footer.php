@@ -251,23 +251,23 @@ $infoUser = $session->read('infoUser');
                                     <form action="" method="post">
                                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Họ và tên">
+                                            <input type="text" required="" class="form-control" name="full_name" id="full_name" placeholder="Họ và tên">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="number" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
+                                            <input type="number"  required="" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="email" class="form-control" name="emailReg" id="emailReg" placeholder="Email">
+                                            <input type="email"  required="" class="form-control" name="emailReg" id="emailReg" placeholder="Email">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" name="passReg" id="passReg" placeholder="Mật khẩu">
+                                            <input type="password"  required="" class="form-control" name="passReg" id="passReg" placeholder="Mật khẩu">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Nhập lại mật khẩu ">
+                                            <input type="password"  required="" class="form-control" name="passAgain" id="passAgain" placeholder="Nhập lại mật khẩu ">
                                         </div>
                                         <p id="messReg"></p>
                                         <a class="btn btn-primary" onclick="register()">Tiếp tục</a>
@@ -457,34 +457,48 @@ $infoUser = $session->read('infoUser');
         console.log(email);
         console.log(passReg);
         console.log(passAgin);
-        if(phone.length ==10){  
-            $.ajax({
-                method: "POST",
-                data:{
-                      full_name: full_name,
-                      phone: phone,  
-                      email: email,
-                      pass: passReg,  
-                      passAgain: passAgin,  
-                    },
-                url: "/apis/register",
-            })
-            .done(function(msg) {
-                console.log(msg);
-                if(msg.code==1){
-                    location.reload();
-                }else{
-                    var html = '<p class="text-danger">'+msg.messages+'</p>';
-                    document.getElementById("messReg").innerHTML = html;
 
-                }
-               
-            });
+        if(phone.length ==10){  
+            if(kiemTraEmailHopLe(email)){
+                $.ajax({
+                    method: "POST",
+                    data:{
+                          full_name: full_name,
+                          phone: phone,  
+                          email: email,
+                          pass: passReg,  
+                          passAgain: passAgin,  
+                        },
+                    url: "/apis/register",
+                })
+                .done(function(msg) {
+                    console.log(msg);
+                    if(msg.code==1){
+                        location.reload();
+                    }else{
+                        var html = '<p class="text-danger">'+msg.messages+'</p>';
+                        document.getElementById("messReg").innerHTML = html;
+
+                    }
+                   
+                });
+            }else{
+                    var html = '<p class="text-danger">Email không đúng</p>';
+                    document.getElementById("messReg").innerHTML = html;
+            }
         }else{
              var html = '<p class="text-danger">Số điên thoại không đúng</p>';
                     document.getElementById("messReg").innerHTML = html;
         }
     }
+
+    function kiemTraEmailHopLe(email) {
+  // Biểu thức chính quy cho kiểm tra email cơ bản
+  var bieuThucChinhQuy = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  // Kiểm tra email với biểu thức chính quy
+  return bieuThucChinhQuy.test(email);
+}
 
     function forgotpassword(){
         var email = $('#exampleCheck1').val();
