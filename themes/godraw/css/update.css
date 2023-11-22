@@ -2,6 +2,19 @@
 	/* padding-top: 10px;*/
 }
 
+.h-translate .lang-main a{
+    background: transparent;
+}
+
+
+.sub-lang ul{
+    flex-direction:column ;
+}
+
+.sub-lang {
+    right: 19px;
+}
+
 .content-form-modal{
 	padding-bottom: 15px !important;
 }
@@ -579,6 +592,9 @@ img.khung-tranh {
 }
 
 @media(max-width: 500px)  {
+    .wrapper-intro .content-intro video, .wrapper-intro .content-intro video{
+        background: transparent;
+    }
 
     /* .header-mobile{
         position: absolute;
@@ -743,8 +759,8 @@ img.khung-tranh {
     }
 
     .box-banner-home .video-banner video, .box-banner-home .video-banner .videohome {
-        height: auto;
-        transform: translateY(119%);
+        height: 100%;
+        /* transform: translateY(119%); */
     }
 
     .social-home ul{
@@ -766,6 +782,8 @@ img.khung-tranh {
     .zoom-effect {
         font-size: 19px;
     }
+
+    
 
 
 }
