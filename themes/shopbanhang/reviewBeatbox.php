@@ -217,9 +217,9 @@ $settinghom = setting();
                                                 <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a>
                                             </div>
                                              <div class="icon-interact">
-                                                 <a  class="like" href="#" ><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
+                                                 <a  class="like" href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
                                                 
-                                                <a class="share"><i class="fa-solid fa-share"></i><?php echo $value->number_share; ?></a>
+                                                <a class="share"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-share"></i><?php echo $value->number_share; ?></a>
                                             </div>
                                         </div>
                                     <?php }}}}
@@ -243,7 +243,7 @@ $settinghom = setting();
                                     <div class="input-link">
                                         <input type="text" placeholder="Chia sẻ link đập hộp tại đây">
                                         <div class="btn-submit">
-                                            <button>Chia sẻ</button>
+                                            <button data-bs-toggle="modal" data-bs-target="#exampleModal" >Chia sẻ</button>
                                         </div>
                                     </div>
                                     <div class="detail-share-link">

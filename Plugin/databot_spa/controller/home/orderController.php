@@ -9,7 +9,7 @@ function orderProduct($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('orderProduct'))){
 		$user = $session->read('infoUser');
 
 		$modelCombo = $controller->loadModel('Combos');
@@ -299,7 +299,7 @@ function orderProduct($input){
 	    setVariable('mess', $mess);
 
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/orderProduct');
 	}
 }
 
@@ -313,7 +313,7 @@ function orderCombo($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('orderCombo'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -610,7 +610,7 @@ function orderCombo($input){
         setVariable('mess', $mess);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -624,7 +624,7 @@ function orderService($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('orderService'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -896,7 +896,7 @@ function orderService($input){
         setVariable('user', $user);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -909,7 +909,7 @@ function listOrderProduct($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listOrderProduct'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
 		$modelProduct = $controller->loadModel('Products');
@@ -1034,7 +1034,7 @@ function listOrderProduct($input){
         setVariable('mess', @$mess);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -1049,7 +1049,7 @@ function listOrderCombo($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listOrderCombo'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelProduct = $controller->loadModel('Products');
@@ -1219,7 +1219,7 @@ function listOrderCombo($input){
         setVariable('mess', @$mess);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -1231,7 +1231,7 @@ function listOrderService($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listOrderService'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelProduct = $controller->loadModel('Products');
@@ -1364,7 +1364,7 @@ function listOrderService($input){
         setVariable('mess', @$mess);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -1379,7 +1379,7 @@ function checkinbed($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('checkinbed'))){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
         $user = $session->read('infoUser');
@@ -1407,7 +1407,7 @@ function checkinbed($input){
         }
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -1421,7 +1421,7 @@ function printInfoOrder($input){
 
     $metaTitleMantan = 'in đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('printInfoOrder'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -1479,7 +1479,7 @@ function printInfoOrder($input){
             setVariable('data', $data);
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -1493,7 +1493,7 @@ function addUserService($input){
 
     $metaTitleMantan = 'in đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('printInfoOrder'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -1598,7 +1598,7 @@ function addUserService($input){
              return $controller->redirect('/listOrderService');
          }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

@@ -11,7 +11,7 @@ function listPartner($input)
 
 	$modelPartner = $controller->loadModel('Partners');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listPartner'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member);
@@ -117,7 +117,7 @@ function listPartner($input)
 	    
 	    setVariable('listData', $listData);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -137,7 +137,7 @@ function addPartner($input)
 	
 	$mess= '';
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addPartner'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -183,7 +183,7 @@ function addPartner($input)
 	    setVariable('mess', $mess);
 	    setVariable('infoUser', $infoUser);
     }else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -193,7 +193,7 @@ function deletePartner($input){
 	
 	$modelPartner = $controller->loadModel('Partners');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deletePartner'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -206,7 +206,7 @@ function deletePartner($input){
 
 		return $controller->redirect('/listPartner');
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 

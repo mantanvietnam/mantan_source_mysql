@@ -311,7 +311,7 @@ $slide_home= slide_home($setting['id_slide']);
                            
                                 <?php }  }else{ ?>
                                      <div class="button-like">
-                                        <a  class="like" href="/" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></a>
+                                        <a  class="like" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></a>
                                         </div>
                                 <?php   } ?>
                             </div>
@@ -787,7 +787,7 @@ $slide_home= slide_home($setting['id_slide']);
                            
                                 <?php }  }else{ ?>
                                      <div class="button-like<?php echo $value->id ?>">
-                                        <a  class="like" href="/" ><button type="button" ><i class='bx bxs-like'></i>                                     
+                                        <a  class="like"  data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" ><i class='bx bxs-like'></i>                                     
                                                     <span>Thích</span></a>
                                         </div>
                                 <?php   } ?>

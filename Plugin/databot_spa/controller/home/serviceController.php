@@ -7,7 +7,7 @@ function listCategoryService($input){
 
     $metaTitleMantan = 'Danh mục dịch vụ';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCategoryService'))){
         $mess= '';
         
         if(!empty($_GET['error'])){
@@ -60,7 +60,7 @@ function listCategoryService($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -73,7 +73,7 @@ function deleteCategoryService($input){
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteCategoryService'))){
         $infoUser = $session->read('infoUser');
         $modelService = $controller->loadModel('Services');
 
@@ -95,7 +95,7 @@ function deleteCategoryService($input){
             }
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -107,7 +107,7 @@ function listService($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách dịch vụ';
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listService'))){
         $mess= '';
         
         if(!empty($_GET['error'])){
@@ -199,7 +199,7 @@ function listService($input){
 	    setVariable('listCategory', $listCategory);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -214,7 +214,7 @@ function addService($input){
 
     $metaTitleMantan = 'Thông tin dịch vụ';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addService'))){
         $modelMembers = $controller->loadModel('Members');
         $modelService = $controller->loadModel('Services');
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -280,7 +280,7 @@ function addService($input){
         setVariable('data', $data);
         setVariable('listCategory', $listCategory);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -291,7 +291,7 @@ function deleteService($input){
     $modelService = $controller->loadModel('Services');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteService'))){
         $infoUser = $session->read('infoUser');
         $modelCombo = $controller->loadModel('Combos');
 
@@ -330,7 +330,7 @@ function deleteService($input){
 
         return $controller->redirect('/listService');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 ?>

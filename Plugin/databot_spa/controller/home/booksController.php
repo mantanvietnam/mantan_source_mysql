@@ -12,7 +12,7 @@ function listBook($input){
 	$modelMembers = $controller->loadModel('Members');
 
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listBook'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
@@ -115,7 +115,7 @@ function listBook($input){
 	    setVariable('listStaffs', $listStaffs);
 	    setVariable('listService', $listService);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -136,7 +136,7 @@ function addBook($input){
 	$modelRoom = $controller->loadModel('Rooms');
     $modelBed = $controller->loadModel('Beds');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addBook'))){
 		$infoUser = $session->read('infoUser');
 
 		$mess= '';
@@ -246,7 +246,7 @@ function addBook($input){
 	    setVariable('infoUser', $infoUser);
 	    setVariable('listRoom', $listRoom);
     }else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -256,7 +256,7 @@ function deleteBook($input){
 	
 	$modelBook = $controller->loadModel('Books');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteBook'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -269,7 +269,7 @@ function deleteBook($input){
 
         return $controller->redirect('listBook');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

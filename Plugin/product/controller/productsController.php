@@ -434,10 +434,10 @@ function listReview($input){
 
         foreach ($listData as $key => $value) {
             if(!empty($value->id_user)){
-                $listData[$key]->user = $modelCustomers->get( (int) $value->id_user);
+                $listData[$key]->user = $modelCustomers->find()->where(array('id'=>$value->id_user))->first();
             }
             if(!empty($value->id_product)){
-                $listData[$key]->product = $modelProduct->get( (int) $value->id_product);
+                $listData[$key]->product = $modelProduct->find()->where(array('id'=>$value->id_product))->first();
             }
             
          

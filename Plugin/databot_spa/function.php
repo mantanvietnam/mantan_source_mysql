@@ -450,4 +450,28 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
         sendEmail($to, $cc, $bcc, $subject, $content);
     }
 }
+
+function checkLoginManager($permission='') {
+    global $session;
+    global $controller;
+
+    
+
+    if(!empty($session->read('infoUser'))){
+        $infoUser = $session->read('infoUser');
+        if($infoUser->type==1){
+            $return = 1;
+        }else{
+            if(!empty($infoUser->list_permission) && in_array($permission, $infoUser->list_permission)){
+                $return = 1;
+            }else{
+                $return = 0;
+            }
+        }
+    }else{
+        $return = 0;
+    }
+      
+    return $return;
+}
 ?>

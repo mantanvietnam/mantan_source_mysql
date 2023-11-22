@@ -6,8 +6,8 @@ function transactionHistories($input){
 	global $modelCategories;
 	global $session;
 	global $type_collection_bill;
-
-	if(!empty($session->read('infoUser'))){
+	
+	if(!empty(checkLoginManager('transactionHistories'))){
 	    $metaTitleMantan = 'Lịch sử giao dịch';
 
 	    $modelTransactionHistories = $controller->loadModel('TransactionHistories');
@@ -115,7 +115,7 @@ function transactionHistories($input){
 	    setVariable('mess', $mess);
 	    setVariable('boss_spa', $boss_spa);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -128,13 +128,13 @@ function createRequestAddMoney($input)
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('createRequestAddMoney'))){
 	    $metaTitleMantan = 'Yêu cầu nạp tiền';
 
 	    $boss_spa = $modelMember->find()->where(['id'=>$session->read('infoUser')->id_member])->first();
 	    setVariable('boss_spa', $boss_spa);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 ?>

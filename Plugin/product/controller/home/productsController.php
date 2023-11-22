@@ -84,7 +84,7 @@ function product($input)
             $point = 0;
             if(!empty($product->evaluates)){
                 foreach($product->evaluates as $key => $item){
-                    $point = $item->point;
+                    $point += $item->point;
                 }
             }
             if(!empty($product->evaluatecount)){
@@ -117,7 +117,7 @@ function product($input)
                     $point = 0;
                     if(!empty($other_product[$key]->evaluate)){
                         foreach($other_product[$key]->evaluate as $k => $s){
-                            $point = $s->point;
+                            $point += $s->point;
                         }
                     }
 
@@ -195,7 +195,7 @@ function allProduct($input)
             $point = 0;
             if(!empty($list_product[$key]->evaluate)){
                 foreach($list_product[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -326,7 +326,7 @@ function search($input)
             $point = 0;
             if(!empty($list_product[$key]->evaluate)){
                 foreach($list_product[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -422,7 +422,7 @@ function sela($input)
             $point = 0;
             if(!empty($list_product[$key]->evaluate)){
                 foreach($list_product[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
