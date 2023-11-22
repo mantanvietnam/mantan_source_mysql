@@ -216,27 +216,6 @@ $(document).ready(function () {
     hasLoggedSwipeDown = false;
   });
 
-  // $('.full-home-slider').on('mousewheel', function(event) {
-  // 	if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
-  // 		// Vuốt lên
-  // 		$(this).slick('slickPrev');
-  // 	} else {
-  // 		// Vuốt xuống
-  // 		$(this).slick('slickNext');
-  // 	}
-  // });
-
-
-    //   // Lấy div cần set chiều cao
-    // const fullHeightDiv = document.querySelector('.box-banner-home');
-
-    // // Lấy chiều cao thực tế của viewport
-    // const vh = window.innerHeight * 0.01;
-
-    // // Set chiều cao cho div bằng CSS variable
-    // document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-    // // Áp dụng cho div 
     // fullHeightDiv.style.height = 'calc(var(--vh, 1vh) * 100)';
     let height = window.innerHeight;
       // Đặt chiều cao của div bằng chiều cao của màn hình khi trang được tải

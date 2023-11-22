@@ -25,7 +25,7 @@
          <div class="item-slide">
             <section class="box-banner-home">
                 <div class="video-banner">
-                    <video loop="loop" muted="false" controls autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
+                    <video class="videohome" loop="loop" muted="false" controls autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                     </video>
                 </div>
