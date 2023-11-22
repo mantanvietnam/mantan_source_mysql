@@ -683,10 +683,19 @@ img.khung-tranh {
     }
 
     .slider-hot-nav{
-        /* right: 0;
+        right: 0;
         left: 0;
-        top: 0;
-        bottom: 0; */
+        bottom: 0;
+        padding: 0 20px
+    }
+
+    .slider-nav .item-slide {
+        padding: 0 3px;
+    }
+    
+
+    .social-home img {
+        width: 39px;    
     }
 }
 

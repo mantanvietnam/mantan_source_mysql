@@ -80,7 +80,7 @@ $(document).ready(function () {
         settings: {
           slidesToShow: 4,
           dots: true,
-          arrows: false
+          arrows: true
         },
       },
     ],
