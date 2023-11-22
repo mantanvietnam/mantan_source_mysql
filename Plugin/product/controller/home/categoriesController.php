@@ -49,7 +49,7 @@ function category($input)
 		            $point = 0;
 		            if(!empty($list_product[$key]->evaluate)){
 		                foreach($list_product[$key]->evaluate as $k => $s){
-		                    $point = $s->point;
+		                    $point += $s->point;
 		                }
 		            }
 

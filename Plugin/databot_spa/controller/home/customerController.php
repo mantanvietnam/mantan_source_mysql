@@ -16,7 +16,7 @@ function listCustomer($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listCustomer'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member);
@@ -205,7 +205,7 @@ function listCustomer($input)
 	    setVariable('listData', $listData);
 	    setVariable('listStaff', $listStaff);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -228,7 +228,7 @@ function addCustomer($input)
 	
 	$mess= '';
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addCustomer'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -363,7 +363,7 @@ function addCustomer($input)
 	    setVariable('mess', $mess);
 	    setVariable('infoUser', $infoUser);
     }else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -373,7 +373,7 @@ function deleteCustomer($input){
 	
 	$modelCustomer = $controller->loadModel('Customers');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deleteCustomer'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -386,7 +386,7 @@ function deleteCustomer($input){
 
 		return $controller->redirect('/listCustomer');
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -398,7 +398,7 @@ function listCategoryCustomer($input){
 
     $metaTitleMantan = 'Nhóm khách hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCategoryCustomer'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -449,7 +449,7 @@ function listCategoryCustomer($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -461,7 +461,7 @@ function listSourceCustomer($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Nguồn khách hàng';
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listSourceCustomer'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -512,7 +512,7 @@ function listSourceCustomer($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -524,7 +524,7 @@ function deleteCategoryCustomer($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa nhóm khách hàng';
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteCategoryCustomer'))){
         $infoUser = $session->read('infoUser');
         $modelCustomer = $controller->loadModel('Customers');
 
@@ -562,7 +562,7 @@ function deleteCategoryCustomer($input){
         	return array('code'=>0);
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 ?>

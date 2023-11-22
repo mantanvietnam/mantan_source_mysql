@@ -8,7 +8,7 @@ function listAgency($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listAgency'))){
 	    $metaTitleMantan = 'Hoa hồng cho nhân viên';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -125,7 +125,7 @@ function listAgency($input){
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
  ?>

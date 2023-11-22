@@ -9,7 +9,7 @@ function listCampain(){
 
     $metaTitleMantan = 'Danh sách chiến dịch';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCampain'))){
 
         $mess= '';
 
@@ -89,7 +89,7 @@ function listCampain(){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -104,7 +104,7 @@ function addCampain($input){
 
     $metaTitleMantan = 'Thông tin chiến dịch';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addCampain'))){
         $modelMembers = $controller->loadModel('Members');
         $modelCampains = $controller->loadModel('Campains');
 
@@ -182,7 +182,7 @@ function addCampain($input){
         setVariable('data', $data);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -193,7 +193,7 @@ function deleteCampain($input)
     
     $modelCampains = $controller->loadModel('Campains');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteCampain'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -206,7 +206,7 @@ function deleteCampain($input)
 
         return $controller->redirect('/listCampain');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 ?>

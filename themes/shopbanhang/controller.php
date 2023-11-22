@@ -242,7 +242,7 @@ function indexTheme($input){
             $point = 0;
             if(!empty($product_flasl[$key]->evaluate)){
                 foreach($product_flasl[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -262,7 +262,7 @@ function indexTheme($input){
             $point = 0;
             if(!empty($product_sold[$key]->evaluate)){
                 foreach($product_sold[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 

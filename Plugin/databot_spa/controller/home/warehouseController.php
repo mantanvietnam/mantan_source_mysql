@@ -9,7 +9,7 @@ function listWarehouse($input){
 
     $metaTitleMantan = 'Danh sách kho hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listWarehouse'))){
     	$user = $session->read('infoUser');
 
 		$modelMembers = $controller->loadModel('Members');
@@ -83,7 +83,7 @@ function listWarehouse($input){
 	    
 	    setVariable('listData', $listData);
     }else{
-    	return $controller->redirect('/login');
+    	return $controller->redirect('/');
     }
 
 }
@@ -97,7 +97,7 @@ function addWarehouse($input)
 
 	$metaTitleMantan = 'Thông tin kho';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addWarehouse'))){
 
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
@@ -136,7 +136,7 @@ function addWarehouse($input)
 		setVariable('data', $data);
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -145,7 +145,7 @@ function deleteWarehouse($input)
 	global $controller;
 	global $session;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deleteWarehouse'))){
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		
 		if(!empty($_GET['id'])){
@@ -160,7 +160,7 @@ function deleteWarehouse($input)
 
 		return $controller->redirect('/listWarehouse');
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 ?>

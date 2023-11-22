@@ -552,7 +552,7 @@ $infoUser = $session->read('infoUser');
                 exampleModalcode.classList.remove("show");
             }else{
                 var html = '<p class="text-danger">'+msg.messages+'</p>';
-                document.getElementById("c").innerHTML = html;
+                document.getElementById("confirm").innerHTML = html;
 
             }
            

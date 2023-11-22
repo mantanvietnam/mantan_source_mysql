@@ -48,7 +48,7 @@ $slide_home= slide_home($setting['id_slide']);
                                             <span>Khuyễn mãi</span>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" value="sela">
+                                            <input class="form-check-input" type="checkbox" onchange="actioncheckbox(this);"   name="sela" id="inlineCheckbox1" value="sela">
                                         </div>
                                     </div>
 
@@ -56,12 +56,12 @@ $slide_home= slide_home($setting['id_slide']);
                                         <div class="heading-check">
                                             <span>Sắp xếp</span>
                                         </div>
-                                        <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
-                                            <option selected value="">Sắp xếp theo</option>
-                                            <option value="1">Sản phẩm bán chạy nhất</option>
-                                            <option value="2">Giá từ cao đến thấp</option>
-                                            <option value="3">Giá từ thấp đến cao</option>
-                                            <option value="4">Sản phẩm mới nhất</option>
+                                        <select class="form-select form-select-sm" id="order"  onchange="actionSelect(this);"  name="order">
+                                            <option value="">Sắp xếp theo</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==1){ echo 'selected'; } ?> data-link="/search-product?order=1" value="1">Sản phẩm bán chạy nhất</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==2){ echo 'selected'; } ?> data-link="/search-product?order=2" value="2">Giá từ cao đến thấp</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==3){ echo 'selected'; } ?> data-link="/search-product?order=3" value="3">Giá từ thấp đến cao</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==4){ echo 'selected'; } ?> data-link="/search-product?order=4" value="4">Sản phẩm mới nhất</option>
                                         </select>
                                         <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
                                     </div>
@@ -102,23 +102,31 @@ $slide_home= slide_home($setting['id_slide']);
                                     <?php 
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
-                                                echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                if(@$value->description!='combo'){
+                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                }
                                             }
                                         }
                                         ?>
                                 </ul>
                             </div>
                             
-                            <!-- <div class="category-product-item">
+                            <div class="category-product-item">
                                 <ul>
                                     <div class="category-product-menu-title">
                                         <p>Combo quà tặng</p>
                                     </div>
-                                    <li><a href="">Quà tặng dành cho cha mẹ</a></li>
-                                    <li><a href="">Bumas Care</a></li>
-                                    <li><a href="">Bumas Home</a></li>
+                                    <?php 
+                                        if(!empty($category_all)){
+                                            foreach ($category_all as $key => $value) {
+                                                if(@$value->description=='combo'){
+                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                }
+                                            }
+                                        }
+                                        ?>
                                 </ul>
-                            </div> -->
+                            </div> 
 
                             <div class="banner-category">
                                 <div class="banner-category-image">
@@ -272,13 +280,25 @@ $slide_home= slide_home($setting['id_slide']);
             </div>
         </section>
     </main>
- <script type="text/javascript">
-     const dropdown = document.getElementById("order");
+  <script>
+function actionSelect(select)
+{
+    var action= select.value;
+    var link= $(select).find('option:selected').attr('data-link');
+    window.location= link;
+   
+    
+}
 
-dropdown.addEventListener("change", function() {
-  
-  document.getElementById("myForm").submit();
-});
- </script>
+function actioncheckbox(select)
+{
+    var action= select.value;
+    var link= $(select).find('option:selected').attr('data-link');
+    window.location= '/search-product?sela=sela';
+   
+    
+}
+
+    </script>
 <?php
 getFooter();?>

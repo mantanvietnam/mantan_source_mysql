@@ -8,7 +8,7 @@ function listBed($input){
 
     $metaTitleMantan = 'Danh sách giường';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listBed'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
@@ -64,7 +64,7 @@ function listBed($input){
         setVariable('listData', $listData);
         setVariable('listRoom', $listRoom);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -77,7 +77,7 @@ function deleteBed($input){
 
     $metaTitleMantan = 'Xóa giường';
     
-    if(!empty($session->read('infoUser'))){
+   if(!empty(checkLoginManager('deleteBed'))){
         $infoUser = $session->read('infoUser');
         
         $modelBed = $controller->loadModel('Beds');
@@ -92,7 +92,7 @@ function deleteBed($input){
             }
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -105,7 +105,7 @@ function listRoomBed($input){
 
     $metaTitleMantan = 'Danh sách danh Phòng';
     
-    if(!empty($session->read('infoUser'))){
+   if(!empty(checkLoginManager('listRoomBed'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
@@ -159,7 +159,7 @@ function listRoomBed($input){
         setVariable('listData', $listData);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -172,7 +172,7 @@ function infoRoomBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('infoRoomBed'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelProduct = $controller->loadModel('Products');
@@ -280,7 +280,7 @@ function infoRoomBed($input){
         setVariable('modelUserserviceHistories', @$modelUserserviceHistories);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -294,7 +294,7 @@ function cancelBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('cancelBed'))){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
@@ -320,7 +320,7 @@ function cancelBed($input){
 
        return $return;
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -333,7 +333,7 @@ function checkoutBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('checkoutBed'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelProduct = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -398,7 +398,7 @@ function checkoutBed($input){
         setVariable('modelUserserviceHistories', @$modelUserserviceHistories);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

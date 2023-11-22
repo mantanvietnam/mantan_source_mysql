@@ -11,7 +11,7 @@ function listCombo($input){
 	$modelProduct = $controller->loadModel('Products');
 	$modelService = $controller->loadModel('Services');
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listCombo'))){
 		$infoUser = $session->read('infoUser');
 		 $mess= '';
 		if(!empty($_GET['error'])){
@@ -117,7 +117,7 @@ function listCombo($input){
 	    
 	    setVariable('listData', $listData);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -132,7 +132,7 @@ function addCombo($input){
 
     $metaTitleMantan = 'Thông tin combo dịch vụ';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addCombo'))){
         $modelMembers = $controller->loadModel('Members');
         $modelCombo = $controller->loadModel('Combos');
         $modelProducts = $controller->loadModel('Products');
@@ -239,7 +239,7 @@ function addCombo($input){
         setVariable('CategoryService', $CategoryService);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -249,7 +249,7 @@ function deleteCombo($input){
     
     $modelCombo = $controller->loadModel('Combos');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteCombo'))){
     	$infoUser = $session->read('infoUser');
 
 
@@ -271,7 +271,7 @@ function deleteCombo($input){
 
         return $controller->redirect('/listCombo');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 ?>
