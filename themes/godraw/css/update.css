@@ -578,7 +578,11 @@ img.khung-tranh {
     max-width: 100%;
 }
 
-@media(max-width: 445px)  {
+@media(max-width: 500px)  {
+    /* main.main-cover{
+        height: 86vh;
+    } */
+
     .wrapper-intro .content-intro video, .wrapper-intro .content-intro video{
         width: 100%;
         height: auto;
@@ -588,12 +592,14 @@ img.khung-tranh {
 
 
     .border-video {
-        top: 108px;
+        top: 128px;        
         left: 0;
+        right: 0;
         height: 225px;
     }
 
     .btn-main-first {
+        display: block !important;
         bottom: 167px
     }
 
@@ -603,7 +609,7 @@ img.khung-tranh {
     }
 
     .social-mobile{
-        top: 50px;
+        top: 75%;
         height: auto;
     }
 
@@ -620,19 +626,17 @@ img.khung-tranh {
     }
 
     .title-slide-vote{
-        top: -175px
-    }
-
-    .title-slide-vote{
-
+        top: 0;
+        bottom: 773px;
     }
 
     .slide-bot {
-        top: 245px
+        top: 114px
     }
 
     .slider-hot-nav{
-        top: 469px
+        top: 664px;
+        bottom: 159px;
     }
 
     .box-toturial{
@@ -650,5 +654,68 @@ img.khung-tranh {
 
     img.btn-client {
         max-width: 200px;
+    }
+
+    .border-video{
+        background: transparent;
+        border-width: 0;
+    }
+
+    .wrapper-intro .content-intro video, .wrapper-intro .content-intro img{
+        scale: 1;
+    }
+
+    .item-for {
+        height: 67%;
+    }
+
+    .social-home{
+        padding-bottom: 0
+    }
+
+    .item-for .avr img{
+        height: 100%;
+        padding: 0;
+    }
+
+    .title-slide-vote{
+        background-color: none;
+    }
+}
+
+@media(max-width: 400px) {
+    .slider-hot-nav{
+        top: 637px;
+    }
+
+    .item-for .avr img{
+        padding: 0;
+    }
+
+    .title-slide-vote{
+        top: 0;
+        bottom: 667px;
+    }
+}
+
+@media(max-width: 376px) {
+    .slide-bot {
+        top: 67px
+    }
+
+    .title-slide-vote{
+        top: 25px;
+    }
+
+    .slider-hot-nav{
+        top: 473px;
+    }
+
+    .social-mobile{
+        top: 71%;
+    }
+
+    .box-toturial {
+        transform: translateY(0);
     }
 }

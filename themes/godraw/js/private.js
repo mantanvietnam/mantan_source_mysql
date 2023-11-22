@@ -78,8 +78,9 @@ $(document).ready(function () {
       {
         breakpoint: 767,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           dots: true,
+          arrows: false
         },
       },
     ],
@@ -224,4 +225,30 @@ $(document).ready(function () {
   // 		$(this).slick('slickNext');
   // 	}
   // });
+
+
+    //   // Lấy div cần set chiều cao
+    // const fullHeightDiv = document.querySelector('.box-banner-home');
+
+    // // Lấy chiều cao thực tế của viewport
+    // const vh = window.innerHeight * 0.01;
+
+    // // Set chiều cao cho div bằng CSS variable
+    // document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    // // Áp dụng cho div 
+    // fullHeightDiv.style.height = 'calc(var(--vh, 1vh) * 100)';
+    let height = window.innerHeight;
+      // Đặt chiều cao của div bằng chiều cao của màn hình khi trang được tải
+      $(document).ready(function () {
+        var screenHeight = window.innerHeight;
+        $('main.main-cover').css('height', screenHeight + 'px');
+    });
+
+    // Đặt lại chiều cao của div khi kích thước màn hình thay đổi
+    $(window).resize(function () {
+        var screenHeight = $(window).height();
+        $('main.main-cover').css('height', screenHeight + 'px');
+    });
+
 });
