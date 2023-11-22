@@ -41,22 +41,22 @@ function register($input)
 
 					$session->write('infoMember', $data);
 
-					return $controller->redirect('/?status=registerDone');
+					return $controller->redirect('/home/?status=registerDone');
 					
 				}else{
 					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
 
-					return $controller->redirect('/?status=errorPassAgain');
+					return $controller->redirect('/home/?status=errorPassAgain');
 				}
 			}else{
 				$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
 
-				return $controller->redirect('/?status=errorPhoneExits');
+				return $controller->redirect('/home/?status=errorPhoneExits');
 			}
 		}else{
 			$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
 
-			return $controller->redirect('/?status=errorEmptyData');
+			return $controller->redirect('/home/?status=errorEmptyData');
 		}
 	}
 	
@@ -72,7 +72,7 @@ function logoutUser($input)
 
 	$session->destroy();
 
-	return $controller->redirect('/');
+	return $controller->redirect('/home/');
 }
 
 function loginUser($input)
@@ -105,21 +105,21 @@ function loginUser($input)
     					
 		    			$session->write('infoMember', $info_customer);
 		    			
-						return $controller->redirect('/');
+						return $controller->redirect('/home/');
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 
-						return $controller->redirect('/?status=errorUserLock');
+						return $controller->redirect('/home/?status=errorUserLock');
 					}
 	    		}else{
 	    			$mess= '<p class="text-danger">Sai tài khoản hoặc mật khẩu</p>';
 
-	    			return $controller->redirect('/?status=errorUserOrPass');
+	    			return $controller->redirect('/home/?status=errorUserOrPass');
 	    		}
 	    	}else{
 	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 
-	    		return $controller->redirect('/?status=errorEmptyData');
+	    		return $controller->redirect('/home/?status=errorEmptyData');
 	    	}
 	    }
 

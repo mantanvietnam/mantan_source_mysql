@@ -335,6 +335,62 @@ function processUserOrder($input)
 	}
 }
 
+function orderUserPrintBill($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+	global $isRequestPost;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'In hóa đơn';
+
+	    $modelUserOrders = $controller->loadModel('UserOrders');
+	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
+	    $modelProducts = $controller->loadModel('Products');
+	    $modelAgencyAccounts = $controller->loadModel('AgencyAccounts');
+		$modelAgencies = $controller->loadModel('Agencies');
+		$modelUsers = $controller->loadModel('Users');
+
+	    if(!empty($_GET['id'])){
+	    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $_GET['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
+
+	    	$agencyAcc = $modelAgencyAccounts->get($session->read('infoUser')->id);
+			$infoAgency = $modelAgencies->get($agencyAcc->agency_id);
+
+			$infoUser = $modelUsers->find()->where(['id'=>(int) $infoOrder->user_id])->first();
+
+	    	if(!empty($infoOrder)){
+	    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
+
+	    		if(!empty($infoOrder->product)){
+					foreach ($infoOrder->product as $keyProduct=>$product) {
+						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+
+						$infoOrder->product[$keyProduct]->name = @$infoProduct->name;
+						$infoOrder->product[$keyProduct]->image = @$infoProduct->image;
+						$infoOrder->product[$keyProduct]->type = @$infoProduct->type;
+					}
+				}else{
+					return $controller->redirect('/orderUserProcess/?status=orderEmptyProduct');
+				}
+	    	}else{
+	    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
+	    	}
+
+	    	setVariable('infoOrder', $infoOrder);
+	    	setVariable('infoAgency', $infoAgency);
+	    	setVariable('infoUser', $infoUser);
+	    }else{
+	    	return $controller->redirect('/orderUserProcess');
+	    }
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
 function checkoutOrderUser($input)
 {
 	global $controller;
@@ -375,7 +431,7 @@ function checkoutOrderUser($input)
 								if(!empty($product_agency)){
 
 									// nếu trả đủ hàng tái sử dụng
-									if($dataSend['used'][$product->product_id] == '0'){
+									if(empty($dataSend['used'][$product->product_id]) || $dataSend['used'][$product->product_id] == '0'){
 										$product_agency->amount += $product->amount;
 										$product_agency->updated_at = date('Y-m-d H:i:s');
 
@@ -413,7 +469,7 @@ function checkoutOrderUser($input)
 
 			    	$modelUserOrderHistories->save($orderHistory);
 
-					return $controller->redirect('/orderUserProcess/?status=checkoutOrderDone');
+					return $controller->redirect('/orderUserPrintBill/?id='.$dataSend['id']);
 		    	}else{
 		    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
 		    	}

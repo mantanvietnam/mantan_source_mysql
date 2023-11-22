@@ -1,5 +1,6 @@
 <?php
-global $routesPlugin;
+    global $routesPlugin;
+    
     // Admin
     $routesPlugin['adminDeleteAccountApi']= 'go_draw/view/adminDeleteAccountApi.php';
     $routesPlugin['adminUpdateStaffAccountApi']= 'go_draw/view/adminUpdateStaffAccountApi.php';
@@ -68,6 +69,7 @@ global $routesPlugin;
 	$routesPlugin['orderUserProcess']= 'go_draw/view/agency/user_orders/orderUserProcess.php';
 	$routesPlugin['processUserOrder']= 'go_draw/view/agency/user_orders/processUserOrder.php';
 	$routesPlugin['checkoutOrderUser']= 'go_draw/view/agency/user_orders/checkoutOrderUser.php';
+    $routesPlugin['orderUserPrintBill']= 'go_draw/view/agency/user_orders/orderUserPrintBill.php';
 
 	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
     $routesPlugin['staticAgency']= 'go_draw/view/agency/user_orders/staticAgency.php';

@@ -775,6 +775,11 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->naturalHeight = 0;
                     }
 
+                    // link ảnh svg khung
+                    if(empty($layer->image_svg)){
+                        $layer->image_svg = ''; 
+                    }
+
                     /*
                     if(!isset($layer->naturalWidth)){
                         if($layer->type=='image'){
@@ -1014,6 +1019,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'border' => 0,
         'rotate' => '0deg',
         'banner' => $link,
+        'image_svg' => '',
         'gianchu' => 'normal',
         'giandong' => 'normal',
         'opacity' => '1',
