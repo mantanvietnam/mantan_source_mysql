@@ -282,6 +282,10 @@
                                         <div class="txt_field"><input type="text" name="name" required class="txt_inp" placeholder="Họ tên"></div>
                                     </div>
                                     <div class="item">
+                                        <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-1.svg" class="img-fluid" alt=""></div>
+                                        <div class="txt_field"><input type="text" name="nickname" required class="txt_inp" placeholder="Bút danh"></div>
+                                    </div>
+                                    <div class="item">
                                         <div class="icon"><img src="<?php echo $urlThemeActive;?>/images/reg-2.svg" class="img-fluid" alt=""></div>
                                         <div class="txt_field"><input type="text" name="email" required class="txt_inp" placeholder="Email"></div>
                                     </div>
