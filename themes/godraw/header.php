@@ -74,6 +74,7 @@
                         <a href="javascript:void(0)"><img src="<?php echo $urlThemeActive;?>/images/user_head.svg" class="img-fluid" alt=""></a>
                         <div class="sub-user">
                             <p><a href="/myGallery">Ảnh của bạn</a></p>
+                            <p><a href="/myOrder">Đơn hàng của bạn</a></p>
                             <p><a href="/changePassUser">Đổi mật khẩu</a></p>
                             <p><a href="/logoutUser">Đăng xuất</a></p>
                         </div>

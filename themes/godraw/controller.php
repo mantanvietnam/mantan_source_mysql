@@ -51,6 +51,17 @@ function settingHomeThemeGodraw($input)
     setVariable('mess', $mess);
 }
 
+function home($input)
+{
+    global $controller;
+    
+    $modelUserPictures = $controller->loadModel('UserPictures');
+
+    $topImages = $modelUserPictures->find()->page(1)->limit(20)->order(['vote'=>'desc'])->all()->toList();
+
+    setVariable('topImages', $topImages);
+}
+
 function indexTheme($input)
 {
     
