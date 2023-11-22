@@ -41,17 +41,19 @@
                     <div class="content-slide-gallery">
                         <div class="title-slide-vote">
                             <div class="icon" style="margin-right: 10px;"><img src="<?php echo $urlThemeActive;?>/images/top.gif" class="img-fluid" alt=""></div>
-                            <a href="#" class="zoom-effect"><span>TOP</span>Tranh yêu thích</a>
+                            <a href="/topImage" class="zoom-effect"><span>TOP</span>Tranh yêu thích</a>
                         </div>
                         <div class="content-slider">
                             <div class="slider-hot-nav">
                                 <div class="slide-top slider-nav">
                                     <?php
-                                    for ($x = 0; $x <= 7; $x++) { ?>
-                                        <div class="item-slide">
-                                            <div class="item-avr"><img src="<?php echo $urlThemeActive;?>/images/slide.jpg" class="img-fluid w-100" alt=""></div>
-                                        </div>
-                                    <?php }
+                                    if(!empty($topImages)){
+                                        foreach ($topImages as $key => $value) {
+                                            echo '  <div class="item-slide">
+                                                        <div class="item-avr"><img src="'.$value->image.'" class="img-fluid w-100" alt="'.$value->name.'"></div>
+                                                    </div>';
+                                        }
+                                    }
                                     ?>
                                 </div>
                             </div>
@@ -59,25 +61,29 @@
                                 <img class="khung-tranh" src="<?php echo $urlThemeActive;?>/images/frame-fn.png" alt="">
                                 <div class="slider-for">
                                     <?php
-                                    for ($x = 0; $x <= 7; $x++) { ?>
-                                        <div class="item-slide">
-                                            <div class="item-for">
-                                                <div class="avr"><img src="<?php echo $urlThemeActive;?>/images/picture-demo1.jpg" class="img-fluid w-100" alt=""></div>
-                                                <div class="icon-screen"><img src="<?php echo $urlThemeActive;?>/images/screen.svg" class="img-fluid" alt=""></div>
-                                                <div class="heart">
-                                                    <span>25</span><img src="<?php echo $urlThemeActive;?>/images/heart.svg" class="img-fluid" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php }
+                                    if(!empty($topImages)){
+                                        foreach ($topImages as $key => $value) {
+                                            echo '  <div class="item-slide">
+                                                        <div class="item-for">
+                                                            <div class="avr"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></div>
+                                                            
+                                                            <div class="icon-screen"><img src="'.$urlThemeActive.'/images/screen.svg" class="img-fluid" alt=""></div>
+                                                            
+                                                            <div class="heart">
+                                                                <span>'.number_format($value->vote).'</span><img src="'.$urlThemeActive.'/images/heart.svg" class="img-fluid" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </div>';
+                                        }
+                                    }
                                     ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="view-all all-top-view">
-                        <a href="">
-                            <img src="<?php echo $urlThemeActive;?>/images/serch.svg" class="img-fluid" alt=""><span>VIEW ALL</span>
+                        <a href="/topImage">
+                            <img src="<?php echo $urlThemeActive;?>/images/serch.svg" class="img-fluid" alt=""><span>XEM THÊM</span>
                         </a>
                     </div>
                 </div>

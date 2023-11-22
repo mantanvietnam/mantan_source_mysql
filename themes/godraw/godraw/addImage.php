@@ -15,7 +15,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="529" height="61" viewBox="0 0 529 61" fill="none">
 									<path d="M528.161 60.7202H0.53125V30.6699C0.53125 14.1599 13.9113 0.779785 30.4213 0.779785H498.271C514.781 0.779785 528.161 14.1599 528.161 30.6699V60.7202Z" fill="#0065F7"/>
 								</svg>
-								<span>Đổi mật khẩu</span>
+								<span>Đăng ảnh</span>
 							</a>
 						</li>
 					</ul>
@@ -28,33 +28,30 @@
               					<div class="item-frm">
               						<?php echo $mess;?>
               					</div>
-								<div class="item-frm">
-									<div class="icon">
-										<i class="fa-solid fa-lock"></i>
-									</div>
+								<div class="item-frm mb-3">
 									<div class="desc">
-										<input type="password" placeholder="Mật khẩu cũ" name="passOld" class="txt_filed" autocomplete="off">
+										<p>Tên ảnh</p>
+										<input type="text" placeholder="" name="name" value="" class="txt_filed" required>
 									</div>
 								</div>
-								<div class="item-frm">
-									<div class="icon">
-										<i class="fa-solid fa-lock"></i>
-									</div>
+
+								<div class="item-frm mb-3">
 									<div class="desc">
-										<input type="password" placeholder="Mật khẩu mới" name="passNew" class="txt_filed" autocomplete="off">
+										<p>Chọn ảnh để đăng</p>
+										<input type="file" placeholder="" name="image" value="" class="txt_filed" required>
 									</div>
 								</div>
-								<div class="item-frm">
-									<div class="icon">
-										<i class="fa-solid fa-lock"></i>
-									</div>
+
+								<div class="item-frm mb-3">
 									<div class="desc">
-										<input type="password" placeholder="Nhập lại mật khẩu mới" name="passAgain" class="txt_filed" autocomplete="off">
+										<p>Mô tả về ảnh</p>
+										<textarea rows="5" style="width: 100%;" name="description"></textarea>
 									</div>
 								</div>
+								
 								<div class="item-frm justify-content-center">
 									<div class="item-submit">
-										<input type="submit" value="ĐỔI MẬT KHẨU" class="btn_filed">
+										<input type="submit" value="ĐĂNG ẢNH" class="btn_filed">
 									</div>
 								</div>
 							</form>

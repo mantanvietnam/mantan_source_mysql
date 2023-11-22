@@ -166,9 +166,9 @@ $sqlInstallDatabase .= 'ALTER TABLE `categories` ADD `deleted_at` TIMESTAMP NULL
 
 $sqlInstallDatabase .= 'CREATE TABLE `user_pictures` ( 
     `id` INT NOT NULL AUTO_INCREMENT , 
-    `name` VARCHAR(255) NULL , 
-    `description` VARCHAR(1000) NULL , 
-    `image` VARCHAR(255) NOT NULL , 
+    `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `image` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `vote` INT NOT NULL DEFAULT 0 , 
     `user_id` INT NOT NULL , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 

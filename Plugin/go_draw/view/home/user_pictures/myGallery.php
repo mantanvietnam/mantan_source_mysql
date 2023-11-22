@@ -1,0 +1,1 @@
+<?php getFileTheme('godraw/myGallery.php'); ?>
