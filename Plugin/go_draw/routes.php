@@ -95,4 +95,5 @@
     $routesPlugin['myGallery']= 'go_draw/view/home/user_pictures/myGallery.php';
     $routesPlugin['addImage']= 'go_draw/view/home/user_pictures/addImage.php';
     $routesPlugin['topImage']= 'go_draw/view/home/user_pictures/topImage.php';
+    $routesPlugin['detailImage']= 'go_draw/view/home/user_pictures/detailImage.php';
 

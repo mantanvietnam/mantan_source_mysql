@@ -15,7 +15,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="529" height="61" viewBox="0 0 529 61" fill="none">
 									<path d="M528.161 60.7202H0.53125V30.6699C0.53125 14.1599 13.9113 0.779785 30.4213 0.779785H498.271C514.781 0.779785 528.161 14.1599 528.161 30.6699V60.7202Z" fill="#003B75"/>
 								</svg>
-								<span>Kho ảnh của bạn</span>
+								<span>TOP ảnh yêu thích</span>
 							</a>
 						</li>
 					</ul>
@@ -24,9 +24,6 @@
 					<div class="content-tab active" id="tab-1">
 						<div class="list-gallery">
 							<div class="row">
-								<div class="col-md-12 mb-3">
-									<a class="btn btn-primary" href="/addImage"><i class="fa-solid fa-plus"></i> Đăng ảnh mới</a>
-								</div>
 								<?php
 								if(!empty($listData)){
 									foreach ($listData as $key => $value) {
