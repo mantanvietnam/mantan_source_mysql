@@ -19,33 +19,39 @@
 					</svg>
 				</div>
 				<div class="content-cart">
-					<div class="table-cart">
-						<?php
-							echo $mess;
-							if(!empty($infoCart)){
-								foreach ($infoCart as $key => $value) {
-									echo '	<div class="item-cart">
-												<div class="prd-cart">
-													<div class="avarta">
-														<div class="avr"><a href="javascript:void(0);"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a></div>
-													</div>
-													<div class="info">
-														<h3><a href="javascript:void(0);">'.$value->name.'</a></h3>
-													</div>
-												</div>
-												<div class="price text-center">'.number_format($value->price).'đ</div>
-												<div class="checkbox-cart text-center">
-													x '.$value->amount_sell.'
-												</div>
-											</div>';
+					<form method="post" action="/createOrderBackStore" id="form-id">
+						<input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
 
+						<div class="table-cart">
+							<?php
+								echo $mess;
+								if(!empty($infoCart)){
+									foreach ($infoCart as $key => $value) {
+										echo '	<div class="item-cart">
+													<div class="prd-cart">
+														<div class="avarta">
+															<div class="avr"><a href="javascript:void(0);"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a></div>
+														</div>
+														<div class="info">
+															<h3><a href="javascript:void(0);">'.$value->name.'</a></h3>
+														</div>
+													</div>
+													<div class="price text-center">'.number_format($value->price).'đ</div>
+													<div class="checkbox-cart text-center">
+														x '.$value->amount_sell.'
+													</div>
+												</div>';
+
+									}
 								}
-							}
-						?>
-					</div>
+							?>
+						</div>
 
-					<?php if(!empty($infoCart)) echo '<div class="btn-main text-center"><a id="buttonCreate" href="/createOrderBackStore">TẠO YÊU CẦU TRẢ HÀNG</a></div>';?>
-					
+						
+
+						<?php if(!empty($infoCart)) echo '<textarea class="mb-3" style="width: 100%;" placeholder="Lý do trả hàng" name="note" rows="5"></textarea>
+						<div class="btn-main text-center"><a id="buttonCreate" href="javascript:void(0);" onclick="document.getElementById(\'form-id\').submit();">TẠO YÊU CẦU TRẢ HÀNG</a></div>';?>
+					</form>
 				</div>
 			</div>
 		</div>

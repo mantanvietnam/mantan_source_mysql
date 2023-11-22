@@ -21,6 +21,12 @@ $menus[0]['sub'][] = array('title' => 'Đơn hàng đại lý',
     'permission' => 'listAgencyOrderProductAdmin'
 );
 
+$menus[0]['sub'][] = array('title' => 'Yêu cầu trả hàng',
+    'url' => '/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin.php',
+    'classIcon' => 'bx bx-cart-add',
+    'permission' => 'listAgencyBackProductAdmin'
+);
+
 $menus[0]['sub'][] = array('title' => 'Tài khoản đại lý',
     'url' => '/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin.php',
     'classIcon' => 'bx bx-home',

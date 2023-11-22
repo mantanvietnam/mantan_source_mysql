@@ -116,6 +116,7 @@ function createOrderBackStore($input)
 	    	$order->status = 0; // 0: yêu cầu mới, 2: đã xử lý, 3: hủy bỏ 
 	    	$order->created_at  = date('Y-m-d H:i:s');
 	    	$order->updated_at  = date('Y-m-d H:i:s');
+	    	$order->note  = @$_POST['note'];
 	    	
 	    	$modelAgencyOrderBackStores->save($order);
 

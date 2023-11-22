@@ -31,6 +31,7 @@ function register($input)
 					$data->password = md5($dataSend['password']);
 					$data->email = @$dataSend['email'];
 					$data->phone = $dataSend['phone'];
+					$data->nickname = (!empty($dataSend['nickname']))?$dataSend['nickname']:$dataSend['name'];
 					$data->avatar = $avatar;
 					$data->total_coin = 0;
 					$data->status = 1;
