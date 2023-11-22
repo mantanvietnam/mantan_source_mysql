@@ -67,7 +67,7 @@ $settinghom = setting();
                                     </div>
 
                                     <div class="commnet-text-hastag">
-                                        <p><?php echo $item->link ?> </p>
+                                        <p><?php echo $item->hastag ?> </p>
                                     </div>
 
                                    <!--  <div class="icon-video">

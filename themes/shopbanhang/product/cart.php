@@ -187,13 +187,14 @@ $slide_home= slide_home($setting['id_slide']);
                                                             <div class="product-name">
                                                                 <a href="/product/<?php echo  $item->slug ?>.html"><?php echo  $item->title ?></a>
                                                             </div>
-                            
                                                             <div class="product-price">
-                                                                <p><?php echo number_format($item->pricepro_discount); ?>đ</p>
+                                                                <?php if(!empty($item->pricepro_discount)){ ?>
+                                                                <p><?php echo number_format(@$item->pricepro_discount); ?>đ</p>
+                                                            <?php }else{ echo '<p>0đ</p>'; } ?>
                                                             </div>
 
                                                             <div class="product-discount">
-                                                                <del><?php echo number_format($item->price_old); ?>đ</del><span> 
+                                                                <del><?php echo number_format(@$item->price_old); ?>đ</del><span> 
                                                             </div>
                                                             
                                                             
@@ -238,11 +239,11 @@ $slide_home= slide_home($setting['id_slide']);
                                                             </div>
                             
                                                             <div class="product-price">
-                                                                <p><?php echo number_format($value->price); ?>đ</p>
+                                                                <p><?php echo number_format(@$value->price); ?>đ</p>
                                                             </div>
 
                                                             <div class="product-discount">
-                                                                <del><?php echo number_format($value->price_old); ?>đ</del><span> 
+                                                                <del><?php echo number_format(@$value->price_old); ?>đ</del><span> 
                                                             </div>
                                                             
                                                             

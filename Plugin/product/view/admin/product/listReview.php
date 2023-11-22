@@ -154,8 +154,8 @@
                                 <div class="card-body">
                                   <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-12">
-                                      <label class="form-label">Id sản phẩm </label>
-                                      <input type="number" value="<?php echo @$item->id_product ?>" name="id_product" class="form-control" placeholder="" name="price">
+                                      <label class="form-label">MÃ sản phẩm </label>
+                                      <input type="text" value="<?php echo @$item->id_product ?>" name="id_product" class="form-control" placeholder="" name="price">
                                     </div>
                                     <div class="mb-3">
                                       <label class="form-label">ảnh</label>
