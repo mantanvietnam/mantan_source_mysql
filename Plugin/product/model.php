@@ -7,4 +7,5 @@ include('model/question.php');
 include('model/evaluates.php');
 include('model/views.php');
 include('model/reviews.php');
+include('model/categorie_product.php');
 ?>

@@ -21,7 +21,7 @@ function category($input)
             $conditions = array('id'=>$_GET['id']);
         }else{
             $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
-            $conditions = array('slug'=>$slug, 'type' => 'category_product');
+            $conditions = array('slug'=>$slug, 'type' => 'category_product', 'status'=>'active');
         }
         
         $category = $modelCategories->find()->where($conditions)->first();
@@ -92,7 +92,7 @@ function category($input)
 		        $urlPage = $urlPage . '?page=';
 		    }
 
-		    $conditions = array('type' => 'category_product');
+		    $conditions = array('type' => 'category_product', 'status'=>'active');
     		$category_all = $modelCategories->find()->where($conditions)->all()->toList();
 
     		$conditions = array('type' => 'manufacturer_product');

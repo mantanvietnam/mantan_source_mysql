@@ -18,7 +18,7 @@ function cart($input)
                 $id_product = explode(',', @$product->id_product);
                
                 foreach($id_product as $item){
-                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    $presentf = $modelProduct->find()->where(['code'=>$item])->first();
                     if(!empty($presentf)){
                         $present[] = $presentf;
                     }
@@ -31,7 +31,7 @@ function cart($input)
                 $id_prodiscount = explode(',', @$product->idpro_discount);
                // debug($id_prodiscount);
                 foreach($id_prodiscount as $item){
-                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    $presentf = $modelProduct->find()->where(['code'=>$item])->first();
                      // debug($presentf);
                     if(!empty($presentf)){
 
@@ -404,7 +404,7 @@ function pay($input){
 	                $id_product = explode(',', @$product->id_product);
 	               
 	                foreach($id_product as $item){
-	                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+	                    $presentf = $modelProduct->find()->where(['code'=>$item])->first();
 	                    if(!empty($presentf)){
 	                        $present[] = $presentf;
 	                    }
@@ -581,7 +581,7 @@ function detailOrder(){
                     $id_product = explode(',', @$product->id_product);
                
                     foreach($id_product as $item){
-                        $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                        $presentf = $modelProduct->find()->where(['code'=>$item])->first();
 
                        ;
                         if(!empty($presentf)){

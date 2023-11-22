@@ -482,7 +482,7 @@ function reviewBeatbox(){
     if(!empty($list_product)){
         foreach($list_product as $key => $item){
             $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
-            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
+            $review = $modelReview->find()->where(['id_product'=>$item->code])->all()->toList();
             foreach($review as $k => $value){
                 $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
             }

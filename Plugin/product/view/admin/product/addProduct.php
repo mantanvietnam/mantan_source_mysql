@@ -66,26 +66,6 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Danh mục (*)</label>
-                              <div class="input-group input-group-merge">
-                                <select class="form-select" name="id_category" id="id_category" required>
-                                  <option value="">Chọn danh mục</option>
-                                  <?php 
-                                  if(!empty($listCategory)){
-                                    foreach ($listCategory as $key => $item) {
-                                      if(empty($data->id_category) || $data->id_category!=$item->id){
-                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
-                                      }else{
-                                        echo '<option selected value="'.$item->id.'">'.$item->name.'</option>';
-                                      }
-                                    }
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div class="mb-3">
                               <label class="form-label">Nhà sản xuất</label>
                               <div class="input-group input-group-merge">
                                 <select class="form-select" name="id_manufacturer" id="id_manufacturer">
@@ -129,8 +109,27 @@
                               <input disabled type="number" class="form-control phone-mask" name="view" id="view" value="<?php echo (int) @$data->view;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Id sản phẩm quà tặng </label>
+                              <label class="form-label">Mã sản phẩm quà tặng </label>
                               <input type="text" class="form-control" name="id_product" id="id_product" value="<?php echo @$data->id_product; ?>" />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Danh mục (*)</label>
+                              <div class="input-group input-group-merge">
+                                <?php 
+                                  if(!empty($listCategory)){
+                                     echo '<ul class = "list-inline">';
+                                        foreach ($listCategory as $Category) {
+                                          $check = '';
+                                          if(!empty($listCategoryCheck)){
+                                            $check = (in_array($Category->id, $listCategoryCheck))? 'checked':'';
+                                          }
+
+                                          echo '<li><input type="checkbox" '.$check.' name="id_category[]" value="'.$Category->id.'"> '.$Category->name.'</li>';
+                                        }
+                                        echo '</ul>';
+                                      }?>
+                                
+                              </div>
                             </div>
                           </div>
 
@@ -163,9 +162,11 @@
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
                             <div class="mb-3">
-                              <label class="form-label">Id sản phẩm ưu đãi</label>
+                              <label class="form-label">Mã sản phẩm ưu đãi</label>
                               <input type="text" class="form-control" name="idpro_discount" id="idpro_discount" value="<?php echo @$data->idpro_discount; ?>" />
                             </div>
+
+
                           </div>
                         </div>
                       </div>

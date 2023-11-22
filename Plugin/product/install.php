@@ -17,9 +17,11 @@ $sqlInstallDatabase .="CREATE TABLE `questions` (`id` int(11) NOT NULL AUTO_INCR
 
 $sqlInstallDatabase .="CREATE TABLE `evaluates` ( `id` INT NOT NULL AUTO_INCREMENT , `full_name` VARCHAR(155) NULL DEFAULT NULL , `avatar` VARCHAR NULL DEFAULT NULL , `id_product` INT NOT NULL , `content` TEXT NULL DEFAULT NULL , `image` TEXT NULL DEFAULT NULL , `point` FLOAT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `views` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `id_product` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
+$sqlInstallDatabase .="CREATE TABLE `views` ( `id` INT NOT NULL AUTO_INCREMENT , `id_customer` INT NOT NULL , `id_product` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
-$sqlInstallDatabase .="CREATE TABLE `reviews` ( `id` INT NOT NULL AUTO_INCREMENT , `id_user` INT NOT NULL , `id_product` INT  NULL DEFAULT NULL ,`status`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL , `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
+$sqlInstallDatabase .="CREATE TABLE `reviews` ( `id` INT NOT NULL AUTO_INCREMENT , `id_user` INT NOT NULL , `id_product` INT  NULL DEFAULT NULL ,`status`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL , `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+$sqlInstallDatabase .="CREATE TABLE `categorie_products` ( `id` INT NOT NULL AUTO_INCREMENT , `id_category` INT NOT NULL , `id_product` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
 $sqlDeleteDatabase .= "DROP TABLE products; ";
 $sqlDeleteDatabase .= "DROP TABLE orders; ";
@@ -28,6 +30,7 @@ $sqlDeleteDatabase .= "DROP TABLE questions; ";
 $sqlDeleteDatabase .= "DROP TABLE evaluates; ";
 $sqlDeleteDatabase .= "DROP TABLE views; ";
 $sqlDeleteDatabase .= "DROP TABLE reviews; ";
+$sqlDeleteDatabase .= "DROP TABLE categorie_products; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='category_product'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='manufacturer_product'; ";
