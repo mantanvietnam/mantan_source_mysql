@@ -324,42 +324,39 @@ $infoUser = $session->read('infoUser');
         </div>
 
         <!-- mã xác nhân  -->
-        <div class="modal-login modal-forgotpass">
- 
-            
+        <div class="modal-login modal-forgotpass">  
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-dismiss="modal">
                 <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12 modal-right">
-                                <div class="or-login">
-                                    <div class="forgot-text-title">
-                                        Mã xác nhận 
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 modal-right">
+                                    <div class="or-login">
+                                        <div class="forgot-text-title">
+                                            Mã xác nhận 
+                                        </div>
                                     </div>
+                                    <p id="confirm"></p>
+                                    <form action="">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
+                                        </div>
+                                        <a onclick="confirm()" class="btn btn-primary">Tiếp tục</a>
+                                    </form>
                                 </div>
-                                <p id="confirm"></p>
-                                <form action="">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
-                                    </div>
-                                    <a onclick="confirm()" class="btn btn-primary">Tiếp tục</a>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
-
+        
+        <!-- Nut bam xác nhận modal -->
          <!-- mã xác nhân  -->
         <div class="modal-login modal-forgotpass">
- 
-            
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-dismiss="modal">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -389,7 +386,7 @@ $infoUser = $session->read('infoUser');
  
             
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModalpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-dismiss="modal">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">

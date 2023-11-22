@@ -681,6 +681,13 @@ img.khung-tranh {
     .title-slide-vote{
         background-color: none;
     }
+
+    .slider-hot-nav{
+        /* right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0; */
+    }
 }
 
 @media(max-width: 400px) {

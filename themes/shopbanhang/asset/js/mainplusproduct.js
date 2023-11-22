@@ -15,6 +15,13 @@
 //     navbar.classList.remove("sticky");
 //   }
 // }
+$('.modal-content').on('click', function (e) {
+  // Kiểm tra xem phần tử được click có phải là phần nội dung modal không
+  if ($(e.target).hasClass('modal-content')) {
+      // Nếu đúng, ẩn modal
+      $('#exampleModalcode').modal('hide');
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
