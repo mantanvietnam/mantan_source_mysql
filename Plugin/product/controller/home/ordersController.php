@@ -56,7 +56,7 @@ function cart($input)
    		$category[$key]=$data;
     }
 	// SẢN PHẨM NGẪU NHIÊN
-    $conditions = array();
+    $conditions = array('status' => 'active');
     $limit = 4;
     $page = 1;
     $order = array('id'=>'desc');

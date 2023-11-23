@@ -30,6 +30,13 @@
               					</div>
 								<div class="item-frm mb-3">
 									<div class="desc">
+										<p>Mã đơn hàng</p>
+										<input type="number" placeholder="" min="1" name="order_id" value="<?php echo (int) @$_GET['order_id'];?>" class="txt_filed" required>
+									</div>
+								</div>
+
+								<div class="item-frm mb-3">
+									<div class="desc">
 										<p>Tên ảnh</p>
 										<input type="text" placeholder="" name="name" value="" class="txt_filed" required>
 									</div>

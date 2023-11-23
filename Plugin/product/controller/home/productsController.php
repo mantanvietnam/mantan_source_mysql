@@ -19,6 +19,7 @@ function product($input)
     $modelDiscountCodes = $controller->loadModel('DiscountCodes');
     $modelEvaluate = $controller->loadModel('Evaluates');
     $modelView = $controller->loadModel('Views');
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -55,12 +56,29 @@ function product($input)
                 $product->evaluate = json_decode(@$product->evaluate, true);
             }
 
+
+            $conditionsCategorie = ['id_product'=>$product->id];
+            $category = $modelCategorieProduct->find()->where(array($conditionsCategorie))->all()->toList();
+            if(!empty($category)){
+                foreach ($category as $key => $item) {
+                    if(!empty($item->id_category)){
+                        $category[$key]->name_category = @$modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
+                          
+                    }
+
+                         
+    
+                }
+                $product->category = $category;
+            }
+
             // SẢN PHẨM KHÁC
-            $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category, 'status'=>'active');
+            $category = $modelCategorieProduct->find()->where(array('id_product'=> $product->id))->first();
+            $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>$category->id_category, 'status'=>'active');
 			$limit = 4;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
-		    $order = array('id'=>'desc');
+		    $order = array('Products.id'=>'desc');
 
             $product->question = $modelQuestion->find()->where(['id_product'=>$product->id])->all()->toList();
             $product->evaluates = $modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList();
@@ -107,7 +125,14 @@ function product($input)
 
             $product->present = $present;
 
-		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+		    $other_product = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();;
 
             if(!empty($other_product)){
                 foreach($other_product as $key => $item){

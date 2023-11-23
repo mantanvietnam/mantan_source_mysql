@@ -780,6 +780,11 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->image_svg = ''; 
                     }
 
+                    // chia trang
+                    if(empty($layer->page)){
+                        $layer->page = 0; 
+                    }
+
                     /*
                     if(!isset($layer->naturalWidth)){
                         if($layer->type=='image'){
@@ -1024,6 +1029,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'giandong' => 'normal',
         'opacity' => '1',
         'width' => $width.'vw',
+        'page' => 0,
         'gradient' => 0,
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,

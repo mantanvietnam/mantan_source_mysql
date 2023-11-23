@@ -44,7 +44,10 @@
 														<div class="info d-block">
 															<div class="txt-left">
 																<h3><a href="'.$link.'">'.$value->name.'</a></h3>
-																<p>'.number_format($value->vote).' like</p>
+																<div class="row">
+																	<div class="col-md-6">'.number_format($value->vote).' like</div>
+																	<div class="col-md-6 text-right"><a class="text-white" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/deleteImage/?id='.$value->id.'"><i class="fa-regular fa-trash-can"></i></a></div>
+																</div>
 															</div>
 														</div>
 													</div>

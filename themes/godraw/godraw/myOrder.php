@@ -27,6 +27,7 @@
                                               <th scope="col" width="50">ID</th>
                                               <th scope="col">Sản phẩm</th>
                                               <th scope="col" width="150">Thành tiền</th>
+                                              <th scope="col" width="100">Đăng ảnh</th>
                                             </tr>
                                         </thead>
                                         <tbody>';
@@ -50,6 +51,7 @@
 
                                                 echo      '</td>
                                                           <td>'.number_format($value->total_price).'</td>
+                                                          <td align="center"><a href="/addImage/?order_id='.$value->id.'" class="btn btn-danger">Đăng ảnh</a></td>
                                                         </tr>';
                                             }
                                         }

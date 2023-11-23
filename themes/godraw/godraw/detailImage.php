@@ -37,12 +37,16 @@
 							<div class="txt-detail-gallery">
 								<div class="detail">
 									<div class="top-detail">
-										<?php echo $infoImage->description;?>
+										<?php echo nl2br($infoImage->description);?>
 									</div>
 
 									<div class="social text-right">
 										<div class="btn-main">
-											<a id="orderButton" href="/addLike/?id=<?php echo $infoImage->id;?>">THÍCH ẢNH NÀY</a>
+											<?php 
+											if(empty($checkLike)){
+												echo '<a id="orderButton" href="/addLike/?id='.$infoImage->id.'">THÍCH ẢNH NÀY</a>';
+											}
+											?>
 										</div>
 									</div>
 								</div>

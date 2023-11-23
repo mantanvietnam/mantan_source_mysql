@@ -96,4 +96,6 @@
     $routesPlugin['addImage']= 'go_draw/view/home/user_pictures/addImage.php';
     $routesPlugin['topImage']= 'go_draw/view/home/user_pictures/topImage.php';
     $routesPlugin['detailImage']= 'go_draw/view/home/user_pictures/detailImage.php';
+    $routesPlugin['deleteImage']= 'go_draw/view/home/user_pictures/deleteImage.php';
+    $routesPlugin['addLike']= 'go_draw/view/home/user_pictures/addLike.php';
 

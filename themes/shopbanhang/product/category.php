@@ -180,9 +180,11 @@ $slide_home= slide_home($setting['id_slide']);
                                  ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-6 product-item">
                                 <div class="product-item-inner">
-                                    <?php if($giam>0){ ?>
+                                    
+                                    <?php if(!empty($product->flash_sale)){
+                                    if($giam>0 ){ ?>
                                         <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
-                                    <?php } ?>
+                                    <?php }} ?>
                                     <div class="product-img">
                                         <a href="<?php echo $link ?>"><img src="<?php echo $product->image ?>" alt=""></a>
                                     </div>
@@ -198,17 +200,20 @@ $slide_home= slide_home($setting['id_slide']);
         
                                         <div class="product-discount">
                                            <?php if(!empty($product->price_old)){ ?>
-                                            <del><?php  echo number_format($product->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                            <del><?php  echo number_format($product->price_old); ?>đ</del><?php if(empty($product->flash_sale)){
+                                    if($giam>0 ){ ?> <span> (<?php echo number_format($giam) ?>%)</span>   <?php }} ?>
                                             <?php }else{ echo '&nbsp;';} ?>
                                         </div>
                                     </div>
         
+                                     <?php if (!empty($product->flash_sale)){ ?>
                                     <div class="progress-box">
                                         <div class="product-progress">
                                             <div class="text-progress">Sản phẩm <?php echo $product->sold ?> Đã bán</div>
                                             <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
+                                     <?php }else{ echo '<div class="mb-5"></div>'; } ?>
         
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
