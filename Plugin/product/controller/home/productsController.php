@@ -73,7 +73,8 @@ function product($input)
             }
 
             // SẢN PHẨM KHÁC
-            $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>$product->id_category, 'status'=>'active');
+            $category = $modelCategorieProduct->find()->where(array('id_product'=> $product->id))->first();
+            $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>$category->id_category, 'status'=>'active');
 			$limit = 4;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
