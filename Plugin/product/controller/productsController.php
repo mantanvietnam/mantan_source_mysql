@@ -80,7 +80,7 @@ function listProduct($input)
                 if(!empty($category)){
                     foreach ($category as $k => $item) {
                         if(!empty($item->id_category)){
-                            $category[$k]->name_category = $modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
+                            $category[$k]->name_category = @$modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
                           
                         }
 

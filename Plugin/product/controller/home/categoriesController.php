@@ -15,6 +15,7 @@ function category($input)
 
     $modelProduct = $controller->loadModel('Products');
     $modelEvaluate = $controller->loadModel('Evaluates');
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -33,13 +34,28 @@ function category($input)
         	$metaDescriptionMantan = $category->description;
             
 
-            $conditions = array('id_category'=>$category->id, 'status'=>'active');
+            $conditions = array('cp.id_category'=>$category->id,'status'=>'active');
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
-		    $order = array('id'=>'desc');
-		    
-		    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+		    $order = array('Products.id'=>'desc');
+
+            $list_product = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $totalData = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->where($conditions)->all()->toList();
 
 		    if(!empty($list_product)){
 		        foreach($list_product as $key => $item){
@@ -61,7 +77,6 @@ function category($input)
 		    }
 
 		    // phân trang
-		    $totalData = $modelProduct->find()->where($conditions)->all()->toList();
 		    $totalData = count($totalData);
 
 		    $balance = $totalData % $limit;

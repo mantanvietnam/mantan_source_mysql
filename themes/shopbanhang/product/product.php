@@ -72,7 +72,15 @@ $slide_home= slide_home($setting['id_slide']);
 
                     <div class="col-lg-5 col-md-5 col-sm-5 col-12 product-detail-info">
                         <div class="product-detail-info-category">
-                            <span><?php echo $category->name; ?></span>
+                            <?php  $category_name = '';
+                if(!empty($product->category)){
+                  foreach($product->category as $value){
+                     if(!empty($value->name_category)){
+                      $category_name .= $value->name_category.', ';
+                     }
+                  }
+                } ?>
+                            <span><?php echo @$category_name; ?></span>
                         </div>
                         <div class="product-detail-info-name">
                             <span><?php echo $product->title; ?></span>
