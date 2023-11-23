@@ -179,14 +179,51 @@ img.khung-tranh {
 }
 
 .item-for .avr img {
-    padding: 65px;
+    /* padding: 65px; */
     max-height: auto;
     height: auto;
+    width: auto;
+    position: relative;
+}
+
+.slide-bot .item-slide{
+    /* border: 3px solid #fff;
+    border-radius: 20px;
+    overflow: hidden; */
+    /* box-shadow: 0 -5px 24px -5px #888888; */
+}
+
+.slide-bot .item-for{
+    background-color: #0b192a;
+}
+
+.slide-bot{
+    box-shadow: 0 -5px 24px -5px #888888;
+    border-radius: 20px;
+}
+
+.slide-bot .slider-for .slick-list{
+    /* box-shadow: 0 -5px 24px -5px #888888;
+    border-radius: 20px; */
+
+}
+
+.slide-bot .slider-for{
+    border: 3px solid #fff;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .logo img {
     max-width: 245px;
 }
+
+.avr {
+    display: flex;
+    justify-content: center;
+}
+
+.background
 
 /* Cập nhật mới 17/11*/
 /* header */
@@ -603,9 +640,21 @@ img.khung-tranh {
     display: none;
 }
 
+.icon-screen{
+    display: none !important;
+}
+
+.txt-detail-gallery .like-imageDetail img{
+    width: 30px;
+}
+
 @media(max-width: 500px)  {
     .header-mobile{
         display: block;
+    }
+
+    .header-trailer .header-mobile{
+        display: none;
     }
 
     .avarta-intro .btn-main a{

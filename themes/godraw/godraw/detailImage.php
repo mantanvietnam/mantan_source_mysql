@@ -22,7 +22,7 @@
 				</div>
 				<div class="content-gallery-detail">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-8">
 							<div class="avar-detail">
 								<div class="avr"><img src="<?php echo $infoImage->image;?>" class="img-fluid w-100" alt=""></div>
 							</div>
@@ -33,7 +33,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="txt-detail-gallery">
 								<div class="detail">
 									<div class="top-detail">
@@ -41,12 +41,22 @@
 									</div>
 
 									<div class="social text-right">
-										<div class="btn-main">
+										<div class="like-imageDetail">
 											<?php 
 											if(empty($checkLike)){
-												echo '<a id="orderButton" href="/addLike/?id='.$infoImage->id.'">THÍCH ẢNH NÀY</a>';
+												echo '<a id="orderButton" href="/addLike/?id='.$infoImage->id.'"><img src="/themes/godraw/images/heart.svg" class="img-fluid" alt=""></a>';
 											}
 											?>
+										</div>
+
+										<div class="social">
+											<ul>
+												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-1.svg" class="img-fluid" alt=""></a></li>
+												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-2.svg" class="img-fluid" alt=""></a></li>
+												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-3.svg" class="img-fluid" alt=""></a></li>
+												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-4.svg" class="img-fluid" alt=""></a></li>
+												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-5.svg" class="img-fluid" alt=""></a></li>
+											</ul>
 										</div>
 									</div>
 								</div>

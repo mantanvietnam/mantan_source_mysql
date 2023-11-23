@@ -89,14 +89,14 @@
                                 </div>
                             </div>
                             <div class="slide-bot">
-                                <img class="khung-tranh" src="<?php echo $urlThemeActive;?>/images/frame-fn.png" alt="">
+                                <!-- <img class="khung-tranh" src="<?php echo $urlThemeActive;?>/images/frame-fn.png" alt=""> -->
                                 <div class="slider-for">
                                     <?php
                                     if(!empty($topImages)){
                                         foreach ($topImages as $key => $value) {
                                             echo '  <div class="item-slide">
                                                         <div class="item-for">
-                                                            <div class="avr"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></div>
+                                                            <div class="avr"><img src="'.$value->image.'" class="img-fluid" alt=""></div>
                                                             
                                                             <div class="icon-screen">
                                                                 
@@ -236,37 +236,40 @@
                     </div>
                 </div>
                 -->
-                <div class="content-maps">
-                    <div class="maps-left">
-                        <div class="content-maps-left">
-                           
-                            <div class="list-showroom">
-                                <?php 
-                                if(!empty($listAgency)){
-                                    foreach ($listAgency as $key => $value) {
-                                        echo '<div class="item-showroom">
-                                                <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
-                                                <div class="info">
-                                                    <h3>'.@$value->name.'</h3>
-                                                    <ul>
-                                                        <li>'.@$value->address.'</li>
-                                                        <li>'.@$value->phone.'</li>
-                                                        <li>'.@$value->email.'</li>
-                                                    </ul>
-                                                </div>
-                                            </div>';
+                <div class="container">
+                    <div class="content-maps">
+                        <div class="maps-left">
+                            <div class="content-maps-left">
+                            
+                                <div class="list-showroom">
+                                    <?php 
+                                    if(!empty($listAgency)){
+                                        foreach ($listAgency as $key => $value) {
+                                            echo '<div class="item-showroom">
+                                                    <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
+                                                    <div class="info">
+                                                        <h3>'.@$value->name.'</h3>
+                                                        <ul>
+                                                            <li>'.@$value->address.'</li>
+                                                            <li>'.@$value->phone.'</li>
+                                                            <li>'.@$value->email.'</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>';
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="maps-right">
+                            <div class="avr-maps">
+                                <?php include(__DIR__.'/godraw/findnear_google_map.php');?>
                             </div>
                         </div>
                     </div>
-                    <div class="maps-right">
-                        <div class="avr-maps">
-                            <?php include(__DIR__.'/godraw/findnear_google_map.php');?>
-                        </div>
-                    </div>
                 </div>
+              
             </section>
 
             <div class="item-slide-relative box-footer">

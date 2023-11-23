@@ -228,8 +228,6 @@ $(document).ready(function () {
     $(window).resize(function () {
         var screenHeight = $(window).height();
         $('main.main-cover').css('height', screenHeight + 'px');
-        $('main.main-cover').css('height', screenHeight + 'px');
-
         console.log(screenHeight);
 
        
