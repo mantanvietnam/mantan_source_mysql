@@ -323,7 +323,7 @@ function search($input)
     }
 
     if(!empty($_GET['sela'])){
-        $conditions['price_old >'] = 0;
+        $conditions['price_old'] = 1;
     }
 
     if(!empty($_GET['category'])){

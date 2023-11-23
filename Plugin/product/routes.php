@@ -24,4 +24,5 @@
 	$routesPlugin['clearCart']= 'product/view/home/clearCart.php';
 	$routesPlugin['completeOrder']= 'product/view/home/completeOrder.php';
 	$routesPlugin['likeProduct']= 'product/view/home/likeProduct.php';
+	$routesPlugin['addNumberShare']= 'product/view/home/addNumberShare.php';
 ?>

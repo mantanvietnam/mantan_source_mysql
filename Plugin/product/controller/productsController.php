@@ -599,4 +599,28 @@ function upReview(){
 
     return $controller->redirect('/plugins/admin/product-view-admin-product-listReview.php');
 }
+
+function addNumberShare(){
+    global $controller;
+
+    $modelReview = $controller->loadModel('Reviews');
+    
+    if(!empty($_POST['id'])){
+        $data = $modelReview->get($_POST['id']);
+        
+        if($data){
+          $data->number_share +=1;
+            
+
+            $modelReview->save($data);
+            $return  =array('code'=>1);
+        }else{
+            $return  =array('code'=>0);
+        }
+    }else{
+        $return  =array('code'=>2);
+    }
+
+    return $return;
+}
 ?>

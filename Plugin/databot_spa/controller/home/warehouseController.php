@@ -15,6 +15,22 @@ function listWarehouse($input){
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
 
+		$mess= '';
+        
+        if(!empty($_GET['error'])){
+            switch ($_GET['error']) {
+                case 'requestWarehouset':
+                    $mess= '<p class="text-danger">Bạn cần tạo kho trước</p>';
+                    break;
+                case 'requestDelete':
+                    $mess= '<p class="text-danger">Bạn không được xóa Kho này</p>';
+                    break;
+                case 'requestDeleteSuccess':
+                    $mess= '<p class="text-success">Bạn xóa thành công</p>';
+                    break;
+            }
+        }
+
 		$conditions = ['id_member'=>$user->id_member,'id_spa'=>$user->id_spa];
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
@@ -147,14 +163,23 @@ function deleteWarehouse($input)
 
 	if(!empty(checkLoginManager('deleteWarehouse'))){
 		$modelWarehouses = $controller->loadModel('Warehouses');
+		$modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');
 		
 		if(!empty($_GET['id'])){
 			$data = $modelWarehouses->get($_GET['id']);
 			$user = $session->read('infoUser');
+
+			$checkWarehouseProducts = $modelWarehouseProducts->find()->where(array('id_warehouse'=>$data->id,'id_member'=>$infoUser->id_member))->all()->toList();
+
+			 if(!empty($checkWarehouseProducts)){
+                return $controller->redirect('/listWarehouse?error=requestDelete');
+
+            }
 			
 			if($data && $data->id_member == $user->id_member){
-	         	// xóa kho mẫu thiết kế
+	         	// xóa kho 
 				$modelWarehouses->delete($data);
+				return $controller->redirect('/listWarehouse?error=requestDeleteSuccess');
 	        }
 		}
 

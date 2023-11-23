@@ -69,6 +69,9 @@ function settingHomeTheme($input){
                         'sela_title3' => @$dataSend['sela_title3'],
                         'background_sele' => @$dataSend['background_sele'],
                         'baner_product' => @$dataSend['baner_product'],
+                        'link_nho1' => @$dataSend['link_nho1'],
+                        'link_nho2' => @$dataSend['link_nho2'],
+                        'link_nho3' => @$dataSend['link_nho3'],
 
                        'targetTime' => @$targetTime,
                     );
@@ -286,6 +289,7 @@ function indexTheme($input){
 function news(){
     global $modelPosts;
     global $controller;
+    global $modelCategories;
     global $metaTitleMantan;
     $metaTitleMantan = 'Tin tức';
 
@@ -298,6 +302,9 @@ function news(){
     $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>9))->order($order)->all()->toList();
     $listDataPost= $modelPosts->find()->limit(12)->where(array())->order($order)->all()->toList();
 
+    $Category1 = $modelCategories->find()->where(array('id'=>4))->first()->name;
+    $Category2 = $modelCategories->find()->where(array('id'=>9))->first()->name;
+
 
 
     setVariable('listDataPost', $listDataPost);
@@ -305,6 +312,8 @@ function news(){
     setVariable('listDataNew', $listDataNew);
     setVariable('listDataCategory1', $listDataCategory1);
     setVariable('listDataCategory2', $listDataCategory2);
+    setVariable('Category1', $Category1);
+    setVariable('Category2', $Category2);
     setVariable('listDataView', $listDataView);
 
 }

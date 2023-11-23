@@ -102,13 +102,10 @@ $infoUser = $session->read('infoUser');
                             </div>
 
                             <div class="form-blog-contact">
-                                <form action="/addSubscribe" method="post">
                                     <div class="input-blog-contact">
-                                        <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
-                                        <input type="email" name="email" class="form-control" placeholder="Nhập email của bạn" required>
-                                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                        <input type="email" name="emailSubscribe" id="emailSubscribe" class="form-control" placeholder="Nhập email của bạn" required>
+                                        <button onclick="addSubscribe()" class="btn btn-primary">Đăng ký</button>
                                     </div>
-                                </form>
                             </div>
                         </section>
                     </div>
@@ -417,6 +414,32 @@ $infoUser = $session->read('infoUser');
             </div>
         </div>
 
+
+         <!-- mật khẩu   -->
+        <div class="modal-login modal-forgotpass">  
+            <!-- Modal -->
+            <div class="modal fade" id="modalemailSubscribe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 modal-right">
+                                    <div class="or-login">
+                                        <div class="forgot-text-title" id="messSubscribe">
+                                            
+                                        </div>
+                                      
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <script type="text/javascript">
         
 
@@ -584,6 +607,33 @@ $infoUser = $session->read('infoUser');
            
         });
     }
+
+    function addSubscribe(){
+        var email = $('#emailSubscribe').val();
+          console.log(code);
+        var modalemailSubscribe =  document.getElementById("modalemailSubscribe");
+        var addClass =  document.getElementById("addClass");
+
+
+       
+        $.ajax({
+            method: "POST",
+            data:{email: email,
+                },
+            url: "/apis/addSubscribeAPI",
+        })
+        .done(function(msg) {
+            console.log(msg);
+                document.getElementById("messSubscribe").innerHTML = msg.mess;
+                modalemailSubscribe.style.display = 'block';
+                modalemailSubscribe.classList.add("show");
+                addClass.classList.add("show");
+                addClass.classList.add("modal-backdrop");
+                addClass.classList.add("fade");
+
+           
+        });
+    }
     
     </script>
  
@@ -591,6 +641,7 @@ $infoUser = $session->read('infoUser');
     <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/review.js"></script>
+    <div id="addClass"></div>
 
 
 
