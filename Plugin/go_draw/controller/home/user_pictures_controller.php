@@ -268,6 +268,7 @@ function addLike($input)
 		$user = $session->read('infoMember');
 
 		$data = $modelUserLikes->find()->where(['picture_id'=>(int) $_GET['id'], 'user_id'=>$user->id])->first();
+		$picture = $modelUserPictures->find()->where(['id'=>(int) $_GET['id']])->first();
 
 		if(empty($data)){
 			$data = $modelUserLikes->newEmptyEntity();
@@ -276,6 +277,9 @@ function addLike($input)
     		$data->user_id = $user->id;
 
     		$modelUserLikes->save($data);
+
+    		$picture->vote ++;
+    		$modelUserPictures->save($picture);
 		}
 
 		return $controller->redirect('/detailImage/?id='.$_GET['id']);
