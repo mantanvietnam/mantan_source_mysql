@@ -31,12 +31,18 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
                    <?php showUploadFile('image1','image1', @$setting['image1'],2);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 1</label>
+                  <input type="text" class="form-control" name="link_nho1" value="<?php echo @$setting['link_nho1'];?>" />
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
                    <?php showUploadFile('image2','image2', @$setting['image2'],3);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 2</label>
+                  <input type="text" class="form-control" name="link_nho2" value="<?php echo @$setting['link_nho2'];?>" />
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">ảnh 3</label>
                    <?php showUploadFile('image3','image3', @$setting['image3'],4);?>
+                   <label class="form-label" for="basic-default-fullname">link ảnh 3</label>
+                  <input type="text" class="form-control" name="link_nho3" value="<?php echo @$setting['link_nho3'];?>" />
                 </div>
 
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

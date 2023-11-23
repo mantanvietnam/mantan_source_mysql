@@ -27,7 +27,9 @@ $slide_home= slide_home($setting['id_slide']);
                     <?php if(!empty($slide_home->imageinfo)){
                         foreach($slide_home->imageinfo as $key => $item){ ?>
                 <div class="banner-home-item">
+                    <a href="<?php echo $item->link ?>">
                     <img src="<?php echo $item->image ?>" alt="">
+                    </a>
                 </div>
             <?php }} ?>
                 </div>
@@ -150,7 +152,7 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 blog-col-item blog-col-item-left">
                         <div class="title-section">
-                            <p>Làm đẹp cùng Bumas</p>
+                            <p><?php echo $Category1 ?></p>
                         </div>
     
                         <div class="list-blog-col">
@@ -185,7 +187,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 blog-col-item blog-col-item-right">
                         <div class="title-section">
-                            <p>Sức khỏe</p>
+                            <p><?php echo $Category2 ?></p>
                         </div>
     
                         <div class="list-blog-col">
@@ -262,16 +264,43 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
 
                 <div class="form-blog-contact">
-                    <form action="/addSubscribe" method="post">
                         <div class="input-blog-contact">
                             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
-                            <input type="email" name="email" class="form-control" placeholder="Nhập email của bạn" required>
-                            <button type="submit" class="btn btn-primary">Đăng ký</button>
+                            <input type="email" name="email" id='emailSubscribenew' class="form-control" placeholder="Nhập email của bạn" required>
+                            <button onclick="addSubscribenew()"; class="btn btn-primary">Đăng ký</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </section>
     </main>
+    <script type="text/javascript">
+        
+function addSubscribenew(){
+        var email = $('#emailSubscribenew').val();
+          console.log(code);
+        var modalemailSubscribe =  document.getElementById("modalemailSubscribe");
+        var addClass =  document.getElementById("addClass");
+
+
+       
+        $.ajax({
+            method: "POST",
+            data:{email: email,
+                },
+            url: "/apis/addSubscribeAPI",
+        })
+        .done(function(msg) {
+            console.log(msg);
+                document.getElementById("messSubscribe").innerHTML = msg.mess;
+                modalemailSubscribe.style.display = 'block';
+                modalemailSubscribe.classList.add("show");
+                addClass.classList.add("show");
+                addClass.classList.add("modal-backdrop");
+                addClass.classList.add("fade");
+
+           
+        });
+    }
+    </script>
 <?php
 getFooter();?>

@@ -142,6 +142,41 @@ function getListPermission()
                             'sub'=>array(   array('name'=>'Danh sách phiếu thu','permission'=>'listCollectionBill'),
                                             array('name'=>'Thêm và sửa phiếu thu','permission'=>'addCollectionBill'),
                                             array('name'=>'Xem phiếu thu','permission'=>'detailCollectionBill'),
+                                            array('name'=>'Danh sách phiếu chi','permission'=>'listBill'),
+                                            array('name'=>'Thêm và sửa phiếu chi','permission'=>'addBill'),
+                                            array('name'=>'Xóa phiếu chi','permission'=>'deleteBill'),
+                                           
+                                    ),
+                    ),
+                    array( 'name'=>'Quản lý công nợ',
+                            'sub'=>array(   array('name'=>'Danh sách công nợ phải trả','permission'=>'listPayableDebt'),
+                                            array('name'=>'Thêm và sửa công nợ phải trả','permission'=>'addPayableDebt'),
+                                            array('name'=>'Thanh toán công nợ phải trả','permission'=>'paymentBill'),
+                                            array('name'=>'Danh sách công nợ phải thu','permission'=>'listCollectionDebt'),
+                                            array('name'=>'Thêm và sửa công nợ phải thu','permission'=>'addCollectionDebt'),
+                                            array('name'=>'Thanh toán công nợ phải thu','permission'=>'paymentCollectionBill'),
+                                          
+                                           
+                                    ),
+                    ),
+                    array( 'name'=>'Quản lý kho',
+                            'sub'=>array(   array('name'=>'Danh sách kho','permission'=>'listWarehouse'),
+                                            array('name'=>'Thêm và sửa kho','permission'=>'addWarehouse'),
+                                            array('name'=>'Xóa kho','permission'=>'deleteWarehouse'),
+                                            array('name'=>'Lịch sử nhập hàng vào kho','permission'=>'importHistorytWarehouse'),
+                                            array('name'=>'Nhập hàng vào kho','permission'=>'addProductWarehouse'),
+                                          
+                                           
+                                    ),
+                    ),
+                    array( 'name'=>'Quản lý chiến dịch Marketing',
+                            'sub'=>array(   array('name'=>'Danh sách Chiến dịch','permission'=>'listCampain'),
+                                            array('name'=>'Thêm và sửa Chiến dịch','permission'=>'addCampain'),
+                                            array('name'=>'Xóa Chiến dịch','permission'=>'deleteCampain'),
+                                            array('name'=>'Lịch sử giao dịch','permission'=>'transactionHistories'),
+                                            array('name'=>'Tạo yêu cầu tiền','permission'=>'createRequestAddMoney'),
+                                            array('name'=>'Hướng dẫn tích hợp API','permission'=>'guideAddCustomerCampainApi'),
+                                          
                                            
                                     ),
                     ),

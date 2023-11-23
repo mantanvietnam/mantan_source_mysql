@@ -275,6 +275,9 @@ $settinghom = setting();
     function addReview(){
         var note = $('#note').val();
           var html = "";
+
+           var modalemailSubscribe =  document.getElementById("modalemailSubscribe");
+    var addClass =  document.getElementById("addClass");
         $.ajax({
                 method: 'GET',
                 url: '/apis/addReview',
@@ -283,11 +286,17 @@ $settinghom = setting();
                   console.log(res);
                     if(res.code==1){
                         html += '<p class="text-success">Bạn chia sẻ thành công đang chờ duyệt</p>';
-                         $('#mess').html(html);
+                         
                     }else{
                          html += '<p class="text-danger">Bạn chia sẻ không thành công</p>';
-                          $('#mess').html(html);
+                          
                     }
+                    document.getElementById("messSubscribe").innerHTML = html;
+                modalemailSubscribe.style.display = 'block';
+                modalemailSubscribe.classList.add("show");
+                addClass.classList.add("show");
+                addClass.classList.add("modal-backdrop");
+                addClass.classList.add("fade");
                 }
             });
         
@@ -327,6 +336,8 @@ function delelelike(id){
                
 }
 function addNumberShare(textCopy, messId){
+    var modalemailSubscribe =  document.getElementById("modalemailSubscribe");
+    var addClass =  document.getElementById("addClass");
     $.ajax({
             method: 'POST',
             url: '/apis/addNumberShare',
@@ -351,13 +362,20 @@ function addNumberShare(textCopy, messId){
                 // Remove it from the body
                 document.body.removeChild(aux);
 
-                // show mess
+               /* // show mess
                 $('#id'+messId).html('Đã sao chép link');
 
                 const element = document.getElementById("idbutton"+messId);
                 element.remove();
 
-                setInterval(emptyMess, 3000,messId);
+                setInterval(emptyMess, 3000,messId);*/
+
+                 document.getElementById("messSubscribe").innerHTML = 'Đã sao chép link';
+                modalemailSubscribe.style.display = 'block';
+                modalemailSubscribe.classList.add("show");
+                addClass.classList.add("show");
+                addClass.classList.add("modal-backdrop");
+                addClass.classList.add("fade");
                 
                 
             }

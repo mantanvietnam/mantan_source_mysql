@@ -8,7 +8,9 @@ global $urlThemeActive;
                <?php if(!empty($slide_home->imageinfo)){
                         foreach($slide_home->imageinfo as $key => $item){ ?>
                 <div class="banner-home-item">
+                    <a href="<?php echo $item->link ?>">
                     <img src="<?php echo $item->image ?>" alt="">
+                    </a>
                 </div>
             <?php }} ?>
                
@@ -20,15 +22,15 @@ global $urlThemeActive;
                 <div class="container">
                     <div class="row">
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo @$setting['image1'] ?>" alt="">
+                            <a href="<?php echo @$setting['link_nho1'] ?>"><img src="<?php echo @$setting['image1'] ?>" alt=""></a>
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo @$setting['image2'] ?>" alt="">
+                            <a href="<?php echo @$setting['link_nho2'] ?>"><img src="<?php echo @$setting['image2'] ?>" alt=""></a>
                         </div>
             
                         <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
-                            <img src="<?php echo @$setting['image3'] ?>" alt="">
+                            <a href="<?php echo @$setting['link_nho3'] ?>"><img src="<?php echo @$setting['image3'] ?>" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -36,6 +38,7 @@ global $urlThemeActive;
         </section>
 
         <!-- Flash sale -->
+        <?php if(!empty($product_flasl)){  ?>
         <section id="section-flash-sale">
             <div class="container">
                 <div class="section-flash-sale-inner">
@@ -51,7 +54,7 @@ global $urlThemeActive;
 
                     <div class="list-product">
                         <div class="row">
-                            <?php if(!empty($product_flasl)){ 
+                            <?php 
                                 foreach($product_flasl as $key => $item){
                                      $giam = 0;
                                     if(!empty($item->price_old) && !empty($item->price)){
@@ -108,14 +111,14 @@ global $urlThemeActive;
                                     </div>
                                 </div>
                             </div>
-                            <?php }} ?>
+                            <?php } ?>
                             
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
+        <?php } ?>
         <!-- Xu hướng tìm kiếm -->
         <!-- <section id="section-top-search">
             <div class="container">
