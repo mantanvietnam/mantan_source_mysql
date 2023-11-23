@@ -705,7 +705,7 @@ img.khung-tranh {
 
     header{
         position: fixed;
-        top: 20px;
+        top: 0;
         right: 0;
         left: 0;
     }
@@ -923,7 +923,7 @@ img.khung-tranh {
   
 }
 
-@media (max-height: 658px){
+@media (max-height: 715px) and (min-height: 668px){
     .slider-hot-nav{
         top: 469px;
         /* display: none; */
@@ -983,7 +983,7 @@ img.khung-tranh {
 
 @media(max-width: 376px) {
     .slide-bot {
-        top: 67px
+        top: 0
     }
 
     /* .title-slide-vote{

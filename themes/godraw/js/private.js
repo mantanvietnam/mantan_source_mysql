@@ -230,15 +230,11 @@ $(document).ready(function () {
         $('main.main-cover').css('height', screenHeight + 'px');
         $('main.main-cover').css('height', screenHeight + 'px');
 
-     
+        console.log(screenHeight);
+
        
  
     });
 
-    // var width = $(window).width();
-    // console.log(width);
-    // if (width <= 500){
-    //     $('.item-for .avr img').css('height', screenHeight + 'px');
-    // }
 
 });

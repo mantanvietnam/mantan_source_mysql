@@ -1,4 +1,6 @@
-<?php getHeader();global $settingThemes;?>
+<div class="header-trailer">
+    <?php getHeader();global $settingThemes;?>
+</div>
 <style>
     footer, header {
         display: none;
