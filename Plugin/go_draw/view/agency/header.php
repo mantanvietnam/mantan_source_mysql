@@ -42,7 +42,7 @@
                             <div class="submenu">
                                 <ul>
                                     <!-- <li><a href="/sellComboProduct">Tạo đơn hàng</a></li> -->
-                                    <li><a href="/checkCombo">Combo</a></li>
+                                    <li><a href="/checkCombo">Đặt tranh</a></li>
                                     <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
                                     <!-- 
