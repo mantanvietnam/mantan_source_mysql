@@ -1054,6 +1054,34 @@ header{
 }
 
 @media(max-width: 445px) {
+    .footer-center{
+        gap: 0;
+    }
+
+    #profile{
+        margin-top: 81px;
+    }
+
+    #section-cart{
+        margin-top: 81px;
+    }
+
+    #section-order{
+        margin-top: 81px;
+
+    }
+
+    #section-complete{
+        margin-top: 81px;
+    }
+
+    #section-breadcrumb {
+        margin-top: 80px;
+    }
+
+    .menu-footer{
+        padding-left: 0
+    }
    
     /* sticky */
     #section-banner-home {

@@ -326,7 +326,7 @@ $infoUser = $session->read('infoUser');
         <!-- mã xác nhân  -->
         <div class="modal-login modal-forgotpass">  
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-dismiss="modal">
+            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -336,6 +336,8 @@ $infoUser = $session->read('infoUser');
                                         <div class="forgot-text-title">
                                             Mã xác nhận 
                                         </div>
+                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button> -->
+
                                     </div>
                                     <p id="confirm"></p>
                                     <form action="">
@@ -356,7 +358,7 @@ $infoUser = $session->read('infoUser');
          <!-- mã xác nhân  -->
         <div class="modal-login modal-forgotpass">
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-dismiss="modal">
+            <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">

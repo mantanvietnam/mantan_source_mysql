@@ -4188,7 +4188,7 @@ tbody {
     }
 
     .modal-login .modal-dialog{
-        max-width: 100%;
+        max-width: 100% !important;
     }
 
     .modal-left-sub {

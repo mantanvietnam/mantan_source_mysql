@@ -1,27 +1,24 @@
 
 
-//  sticky
+$(document).on('click', function (e) {
+  // Nếu sự kiện click xảy ra ngoài modal content và không phải là nút đóng modal
+  if (!$(e.target).closest('#exampleModalcode .modal-content').length && $('#exampleModalcode').is(":visible")) {
+      // Ẩn modal bằng ID của modal
+      location.reload(); // hoặc location.reload(true);
 
-
-// window.onscroll = function() {myFunction()};
-
-// var navbar = document.querySelector("header");
-// var sticky = navbar.offsetTop;
-
-// function myFunction() {
-//   if (window.pageYOffset >= sticky) {
-//     navbar.classList.add("sticky")
-//   } else {
-//     navbar.classList.remove("sticky");
-//   }
-// }
-$('.modal-content').on('click', function (e) {
-  // Kiểm tra xem phần tử được click có phải là phần nội dung modal không
-  if ($(e.target).hasClass('modal-content')) {
-      // Nếu đúng, ẩn modal
-      $('#exampleModalcode').modal('hide');
   }
+
+  if (!$(e.target).closest('#exampleModalpassword .modal-content').length && $('#exampleModalpassword').is(":visible")) {
+    // Ẩn modal bằng ID của modal
+    location.reload(); // hoặc location.reload(true);
+
+}
+
+
+  
+
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
   var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
