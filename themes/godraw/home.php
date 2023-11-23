@@ -50,7 +50,11 @@
                                     if(!empty($topImages)){
                                         foreach ($topImages as $key => $value) {
                                             echo '  <div class="item-slide">
-                                                        <div class="item-avr"><img src="'.$value->image.'" class="img-fluid w-100" alt="'.$value->name.'"></div>
+                                                        <div class="item-avr">
+                                                            <a href="/detailImage/?id='.$value->id.'">
+                                                                <img src="'.$value->image.'" class="img-fluid w-100" alt="'.$value->name.'">
+                                                            </a>
+                                                        </div>
                                                     </div>';
                                         }
                                     }
@@ -67,7 +71,11 @@
                                                         <div class="item-for">
                                                             <div class="avr"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></div>
                                                             
-                                                            <div class="icon-screen"><img src="'.$urlThemeActive.'/images/screen.svg" class="img-fluid" alt=""></div>
+                                                            <div class="icon-screen">
+                                                                
+                                                                <img src="'.$urlThemeActive.'/images/screen.svg" class="img-fluid" alt="">
+                                                                
+                                                            </div>
                                                             
                                                             <div class="heart">
                                                                 <span>'.number_format($value->vote).'</span><img src="'.$urlThemeActive.'/images/heart.svg" class="img-fluid" alt="">

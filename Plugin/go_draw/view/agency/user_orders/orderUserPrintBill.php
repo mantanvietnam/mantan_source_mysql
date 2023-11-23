@@ -36,6 +36,7 @@
             <section>
                 <div class="text-center">
                     <h2>Hóa đơn thanh toán</h2>
+                    <p>Mã đơn: <b><?php echo $infoOrder->id;?></b></p>
                 </div>
                 <div class="content">
                     <div class="row">
