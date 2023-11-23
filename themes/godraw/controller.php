@@ -56,10 +56,14 @@ function home($input)
     global $controller;
     
     $modelUserPictures = $controller->loadModel('UserPictures');
+    $modelAgencies = $controller->loadModel('Agencies');
+
+    $listAgency = $modelAgencies->find()->where(['status'=>1, 'deleted_at IS'=>null])->all()->toList();
 
     $topImages = $modelUserPictures->find()->page(1)->limit(20)->order(['vote'=>'desc'])->all()->toList();
 
     setVariable('topImages', $topImages);
+    setVariable('listAgency', $listAgency);
 }
 
 function indexTheme($input)
