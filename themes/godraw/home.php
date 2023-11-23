@@ -6,7 +6,7 @@
 	}
 </style>
 <main>
-    <div class="social-home social-mobile">
+    <div class="social-home">
         <ul>
             <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
 
@@ -23,9 +23,22 @@
     <div class="full-home-slider">
          <!-- Trang chủ -->
          <div class="item-slide">
+            <div class="social-intro social-mobile">
+                <ul>
+                    <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
+
+                    <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
+                    
+                    <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>
+                    
+                    <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>
+                    
+                    <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
+                </ul>
+            </div>
             <section class="box-banner-home">
                 <div class="video-banner">
-                    <video class="videohome" loop="loop" muted="false" controls autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
+                    <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                     </video>
                 </div>
@@ -36,6 +49,20 @@
 
         <!-- Top tranh yêu thích -->
         <div class="item-slide">
+            <div class="social-intro social-mobile">
+                <ul>
+                    <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
+
+                    <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
+                    
+                    <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>
+                    
+                    <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>
+                    
+                    <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
+                </ul>
+            </div>
+
             <section class="box-gallery">
                 <div class="container">
                     <div class="content-slide-gallery">

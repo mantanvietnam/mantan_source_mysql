@@ -24,6 +24,10 @@
 </head>
 <body>
 
+<div class="header-mobile">
+    
+</div>
+
 <header>
     <div class="header-pc">
         <div class="content-header">

@@ -110,8 +110,8 @@ $(document).ready(function () {
 
   $(".full-home-slider").on("wheel", function (e) {
     e.preventDefault();
-    console.log(e);
-    console.log("x", e.originalEvent.deltaX);
+    // console.log(e);
+    // console.log("x", e.originalEvent.deltaX);
 
     if (e.originalEvent.deltaY < 0) {
       $(this).slick("slickPrev");
@@ -228,6 +228,17 @@ $(document).ready(function () {
     $(window).resize(function () {
         var screenHeight = $(window).height();
         $('main.main-cover').css('height', screenHeight + 'px');
+        $('main.main-cover').css('height', screenHeight + 'px');
+
+     
+       
+ 
     });
+
+    // var width = $(window).width();
+    // console.log(width);
+    // if (width <= 500){
+    //     $('.item-for .avr img').css('height', screenHeight + 'px');
+    // }
 
 });

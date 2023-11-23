@@ -14,6 +14,10 @@
         <div class="video-banner">
             <img src="<?php echo $urlThemeActive;?>/images/backfirst.jpg" class="img-fluid w-100">
         </div>
+
+        <div class="logo-mm logo-trailer-mobile"><img src="/themes/godraw//images/logo-menu.svg" class="img-fluid" alt=""></div>
+
+
         <div class="wrapper-intro">
             <div class="content-intro">
                 <div class="close-intro btn-effect">
@@ -24,6 +28,7 @@
                         </svg>
                     </a>
                 </div>
+
                 <div class="video-background">
                     <!-- <div class="buttom-volume">
                         <div class="video-off video-turn">
