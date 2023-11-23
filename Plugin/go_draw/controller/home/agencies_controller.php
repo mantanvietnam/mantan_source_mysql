@@ -7,8 +7,8 @@ function searchAgency($input)
 
 	$modelAgencies = $controller->loadModel('Agencies');
 
-	$listData = $modelAgencies->find()->where(['status'=>1, 'deleted_at IS'=>null])->all()->toList();
+	$listAgency = $modelAgencies->find()->where(['status'=>1, 'deleted_at IS'=>null])->all()->toList();
 
-	setVariable('listData', $listData);
+	setVariable('listAgency', $listAgency);
 }
 ?>

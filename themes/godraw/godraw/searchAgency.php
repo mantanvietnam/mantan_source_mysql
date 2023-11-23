@@ -38,8 +38,8 @@
                                
                                 <div class="list-showroom">
                                     <?php 
-                                    if(!empty($listData)){
-                                        foreach ($listData as $key => $value) {
+                                    if(!empty($listAgency)){
+                                        foreach ($listAgency as $key => $value) {
                                             echo '<div class="item-showroom">
                                                     <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
                                                     <div class="info">

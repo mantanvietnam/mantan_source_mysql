@@ -31,10 +31,10 @@
 <script type="text/javascript">
   function initMap() {
     var locations = [<?php
-    if (!empty($listData)) {
+    if (!empty($listAgency)) {
         $listShowMap= array();
         
-        foreach ($listData as $data) {
+        foreach ($listAgency as $data) {
           if(!empty($data->lat_gps) & !empty($data->long_gps)){
               $content   = '<img src='.$data->image.' style=width:200px;height:156px;><br/><a href=/store/?id='.$data->id.'>' . $data->name. '</a>';
               $content.='<br/>Điện thoại: ' . $data->phone;

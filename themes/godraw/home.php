@@ -222,7 +222,8 @@
         
         <!-- Danh sách đại lý -->
         <div class="item-slide slide-relative">
-            <section class="box-search">
+            <section class="">
+                <!--
                 <img id="go-now1" src="<?php echo $urlThemeActive;?>/images/go-now.gif" class="img-fluid" alt="">
                 <img id="go-now2" src="<?php echo $urlThemeActive;?>/images/go-now.gif" class="img-fluid" alt="">
                 <img id="go-now3" src="<?php echo $urlThemeActive;?>/images/go-now.gif" class="img-fluid" alt="">
@@ -232,6 +233,38 @@
                             <img class="header-client img-fluid" src="<?php echo $urlThemeActive;?>/images/daily_button.png" alt="">
                         </div>
                         <a href="/search-agency"><img class="btn-client img-fluid" src="<?php echo $urlThemeActive;?>/images/go_button.png" alt=""></a>
+                    </div>
+                </div>
+                -->
+                <div class="content-maps">
+                    <div class="maps-left">
+                        <div class="content-maps-left">
+                           
+                            <div class="list-showroom">
+                                <?php 
+                                if(!empty($listAgency)){
+                                    foreach ($listAgency as $key => $value) {
+                                        echo '<div class="item-showroom">
+                                                <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
+                                                <div class="info">
+                                                    <h3>'.@$value->name.'</h3>
+                                                    <ul>
+                                                        <li>'.@$value->address.'</li>
+                                                        <li>'.@$value->phone.'</li>
+                                                        <li>'.@$value->email.'</li>
+                                                    </ul>
+                                                </div>
+                                            </div>';
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="maps-right">
+                        <div class="avr-maps">
+                            <?php include(__DIR__.'/godraw/findnear_google_map.php');?>
+                        </div>
                     </div>
                 </div>
             </section>
