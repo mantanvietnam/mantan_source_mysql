@@ -232,7 +232,6 @@ $(document).ready(function () {
         console.log(screenHeight);
 
        
- 
     });
 
 
