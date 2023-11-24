@@ -141,6 +141,7 @@ function viewDetailAgencyAdmin($input)
                     $agency->status = $dataSend['status'];
                     $agency->province_id = $dataSend['province_id'];
                     $agency->district_id = $dataSend['district_id'];
+                    $agency->ward_id = $dataSend['ward_id'];
 
                     $agencyModel->save($agency);
 
@@ -171,6 +172,7 @@ function viewDetailAgencyAdmin($input)
                 $agency->status = $dataSend['status'] ?? 1;
                 $agency->province_id = $dataSend['province_id'];
                 $agency->district_id = $dataSend['district_id'];
+                $agency->ward_id = $dataSend['ward_id'];
 
                 $agencyModel->save($agency);
 

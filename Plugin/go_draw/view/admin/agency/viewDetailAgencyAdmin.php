@@ -82,8 +82,17 @@
                             <div class="col-md-6 mb-3 ">
                               <label class="form-label" for="basic-default-phone">Quận huyện (*)</label>
                               <div class="input-group input-group-merge">
-                                <select class="form-select" name="district_id" id="district_id" required>
+                                <select class="form-select" name="district_id" id="district_id" required onchange="selectDistrict();">
                                     <option value="">Chọn quận huyện</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Xã phường (*)</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="ward_id" id="ward_id" required>
+                                    <option value="">Chọn xã phường</option>
                                 </select>
                               </div>
                             </div>
@@ -470,7 +479,39 @@
 
 <script type="text/javascript">
     var district_id = "<?php echo @$data->district_id;?>";
+    var ward_id = "<?php echo @$data->ward_id;?>";
     
+    function selectDistrict()
+    {
+        var district_select = $('#district_id').val();
+
+        var ward_option = '<option value="">Chọn xã phường</option>';
+        var i;
+
+        if(district_select != ""){
+            $.ajax({
+              method: "POST",
+              url: "/apis/getWardAPI",
+              data: { district_id: district_select }
+            })
+            .done(function( msg ) {
+                if(msg.length>0){
+                    for(i=0;i<msg.length;i++){
+                        if(msg[i].wards_id != ward_id){
+                            ward_option += '<option value="'+msg[i].wards_id+'">'+msg[i].name+'</option>';
+                        }else{
+                            ward_option += '<option selected value="'+msg[i].wards_id+'">'+msg[i].name+'</option>';
+                        }
+                    }
+                }
+
+                $('#ward_id').html(ward_option);
+            });
+        }else{
+          $('#ward_id').html(ward_option);
+        }
+    }
+
     function selectCity()
     {
         var province_id = $('#province_id').val();
@@ -495,9 +536,18 @@
                 }
 
                 $('#district_id').html(district_option);
+
+                selectDistrict();
             });
+        }else{
+            $('#district_id').html(district_option);
+
+            selectDistrict();
         }
     }
 
+    
+
     selectCity();
+
 </script>

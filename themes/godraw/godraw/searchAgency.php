@@ -36,11 +36,11 @@
                         <form action="" method="get">
                             <div class="row mb-3">
                             
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <p>Tên đại lý</p>
                                     <input type="text" name="name_agency" value="<?php echo @$_GET['name_agency'];?>" class="form-control">
                                 </div>    
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <p>Tỉnh thành</p>
                                     <select name="province_id" id="province_id" class="form-control" onchange="selectCity();">
                                         <option value="">Chọn tỉnh thành</option>
@@ -59,11 +59,19 @@
                                 </div>    
                                 <div class="col-md-3">
                                     <p>Quận huyện</p>
-                                    <select name="district_id" id="district_id" class="form-control">
-                                        <option value="">Chọn tỉnh thành</option>
+                                    <select name="district_id" id="district_id" class="form-control" onchange="selectDistrict();">
+                                        <option value="">Chọn quận huyện</option>
                                     </select>
                                 </div>    
                                 <div class="col-md-3">
+                                    <p>Xã phường</p>
+                                    <select name="ward_id" id="ward_id" class="form-control">
+                                        <option value="">Chọn xã phường</option>
+                                    </select>
+                                </div> 
+
+
+                                <div class="col-md-2">
                                     <p>&nbsp;</p>
                                     <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                                 </div>    
@@ -113,6 +121,38 @@
 
 <script type="text/javascript">
     var district_id = "<?php echo @$_GET['district_id'];?>";
+    var ward_id = "<?php echo @$_GET['ward_id'];?>";
+    
+    function selectDistrict()
+    {
+        var district_select = $('#district_id').val();
+
+        var ward_option = '<option value="">Chọn xã phường</option>';
+        var i;
+
+        if(district_select != ""){
+            $.ajax({
+              method: "POST",
+              url: "/apis/getWardAPI",
+              data: { district_id: district_select }
+            })
+            .done(function( msg ) {
+                if(msg.length>0){
+                    for(i=0;i<msg.length;i++){
+                        if(msg[i].wards_id != ward_id){
+                            ward_option += '<option value="'+msg[i].wards_id+'">'+msg[i].name+'</option>';
+                        }else{
+                            ward_option += '<option selected value="'+msg[i].wards_id+'">'+msg[i].name+'</option>';
+                        }
+                    }
+                }
+
+                $('#ward_id').html(ward_option);
+            });
+        }else{
+            $('#ward_id').html(ward_option);
+        }
+    }
     
     function selectCity()
     {
@@ -138,7 +178,13 @@
                 }
 
                 $('#district_id').html(district_option);
+
+                selectDistrict();
             });
+        }else{
+            $('#district_id').html(district_option);
+
+            selectDistrict();
         }
     }
 
