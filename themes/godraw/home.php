@@ -219,34 +219,70 @@
                 </div>
                 -->
                 <div class="container">
-                    <div class="content-maps">
-                        <div class="maps-left">
-                            <div class="content-maps-left">
+                    <div class="">
+                        <form action="/search-agency" method="get">
+                            <div class="row mb-3">
                             
-                                <div class="list-showroom">
-                                    <?php 
-                                    if(!empty($listAgency)){
-                                        foreach ($listAgency as $key => $value) {
-                                            echo '<div class="item-showroom">
-                                                    <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
-                                                    <div class="info">
-                                                        <h3>'.@$value->name.'</h3>
-                                                        <ul>
-                                                            <li>'.@$value->address.'</li>
-                                                            <li>'.@$value->phone.'</li>
-                                                            <li>'.@$value->email.'</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>';
+                                <div class="col-md-3">
+                                    <p>Tên đại lý</p>
+                                    <input type="text" name="name_agency" value="" class="form-control">
+                                </div>    
+                                <div class="col-md-3">
+                                    <p>Tỉnh thành</p>
+                                    <select name="province_id" id="province_id" class="form-control" onchange="selectCity();">
+                                        <option value="">Chọn tỉnh thành</option>
+                                        <?php 
+                                        if(!empty($listCity)){
+                                            foreach ($listCity as $key => $value) {
+                                                echo '<option value="'.$value->province_id.'">'.$value->name.'</option>';
+                                            }
                                         }
-                                    }
-                                    ?>
+                                        ?>
+                                    </select>
+                                </div>    
+                                <div class="col-md-3">
+                                    <p>Quận huyện</p>
+                                    <select name="district_id" id="district_id" class="form-control">
+                                        <option value="">Chọn tỉnh thành</option>
+                                    </select>
+                                </div>    
+                                <div class="col-md-3">
+                                    <p>&nbsp;</p>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>  
+                            
+                            </div>
+                        </form>  
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="content-maps-left">
+                                
+                                    <div class="list-showroom">
+                                        <?php 
+                                        if(!empty($listAgency)){
+                                            foreach ($listAgency as $key => $value) {
+                                                echo '<div class="item-showroom">
+                                                        <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
+                                                        <div class="info">
+                                                            <h3>'.@$value->name.'</h3>
+                                                            <ul>
+                                                                <li>'.@$value->address.'</li>
+                                                                <li>'.@$value->phone.'</li>
+                                                                <li>'.@$value->email.'</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>';
+                                            }
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="maps-right">
-                            <div class="avr-maps">
-                                <?php include(__DIR__.'/godraw/findnear_google_map.php');?>
+                            <div class="col-md-7">
+                                <div class="avr-maps">
+                                    <?php include(__DIR__.'/godraw/findnear_google_map.php');?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -516,4 +552,30 @@ $(document).ready(function(){
     ?>
     
 });
+</script>
+
+<script type="text/javascript">
+    function selectCity()
+    {
+        var province_id = $('#province_id').val();
+        var district_option = '<option value="">Chọn quận huyện</option>';
+        var i;
+
+        if(province_id != ""){
+            $.ajax({
+              method: "POST",
+              url: "/apis/getDistrictAPI",
+              data: { province_id: province_id }
+            })
+            .done(function( msg ) {
+                if(msg.length>0){
+                    for(i=0;i<msg.length;i++){
+                        district_option += '<option value="'+msg[i].district_id+'">'+msg[i].name+'</option>';
+                    }
+                }
+
+                $('#district_id').html(district_option);
+            });
+        }
+    }
 </script>
