@@ -86,7 +86,7 @@ else{
 }
 $urlHomes = $protocol . "://" . $_SERVER['HTTP_HOST'].'/';
 
-$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts','modelMenus');
+$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlHomes', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts', 'modelMenus', 'modelAlbums', 'modelAlbuminfos', 'modelVideos', 'metaImageMantan');
 
 
 $metaTitleMantan = 'Mantan Source';

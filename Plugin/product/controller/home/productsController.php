@@ -74,7 +74,7 @@ function product($input)
 
             // SẢN PHẨM KHÁC
             $category = $modelCategorieProduct->find()->where(array('id_product'=> $product->id))->first();
-            $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>$category->id_category, 'status'=>'active');
+            $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>@$category->id_category, 'status'=>'active');
 			$limit = 4;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
