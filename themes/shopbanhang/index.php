@@ -320,63 +320,31 @@ global $urlThemeActive;
                 </div>
 
                 <div class="row">
+                    <?php if(!empty($listDataPost)){
+                        foreach($listDataPost as $item){ ?>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-12 item-news-home">
                         <div class="img-news-home">
-                            <a href=""><img src="/themes/shopbanhang/asset/image/background-home.png" alt=""></a>
+                            <a href=""><img src="<?php echo $item->image; ?>" alt=""></a>
                         </div>
 
                         <div class="title-news-home">
-                            <a href="">Đánh giá tri tiết về máy massage đầu gối mới nhất của nhà Bumas  </a>
+                            <a href="/<?php echo @$item->slug ?>.html"><?php echo $item->title; ?>  </a>
                         </div>
 
                         <div class="description-news-home">
-                            <p>Có nhiều người luôn thắc mắc rằng:”tiêu chuẩn BS22 là gì? Liệu có đủ đánh giá một chiếc quạt có chất lượng tốt?”.</p>
+                            <p><?php echo $item->description; ?></p>
                         </div>
 
                         <div class="link-news-home">
-                            <a href="">Xem thêm </a><img src="/themes/shopbanhang//asset/image/doublearrow.svg" alt="">
+                            <a href="/<?php echo @$item->slug ?>.html">Xem thêm </a><img src="/themes/shopbanhang//asset/image/doublearrow.svg" alt="">
                         </div>
                     </div>
+                    <?php }} ?>
                     
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 item-news-home">
-                        <div class="img-news-home">
-                            <a href=""><img src="/themes/shopbanhang/asset/image/background-home.png" alt=""></a>
-                        </div>
-
-                        <div class="title-news-home">
-                            <a href="">Đánh giá tri tiết về máy massage đầu gối mới nhất của nhà Bumas  </a>
-                        </div>
-
-                        <div class="description-news-home">
-                            <p>Có nhiều người luôn thắc mắc rằng:”tiêu chuẩn BS22 là gì? Liệu có đủ đánh giá một chiếc quạt có chất lượng tốt?”.</p>
-                        </div>
-
-                        <div class="link-news-home">
-                            <a href="">Xem thêm </a><img src="/themes/shopbanhang//asset/image/doublearrow.svg" alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 item-news-home">
-                        <div class="img-news-home">
-                            <a href=""><img src="/themes/shopbanhang/asset/image/background-home.png" alt=""></a>
-                        </div>
-
-                        <div class="title-news-home">
-                            <a href="">Đánh giá tri tiết về máy massage đầu gối mới nhất của nhà Bumas  </a>
-                        </div>
-
-                        <div class="description-news-home">
-                            <p>Có nhiều người luôn thắc mắc rằng:”tiêu chuẩn BS22 là gì? Liệu có đủ đánh giá một chiếc quạt có chất lượng tốt?”.</p>
-                        </div>
-
-                        <div class="link-news-home">
-                            <a href="">Xem thêm </a><img src="/themes/shopbanhang//asset/image/doublearrow.svg" alt="">
-                        </div>
-                    </div>
                 </div>
 
                 <div class="seemore-news-home">
-                    <a href="">Xem tất cả >></a>
+                    <a href="/news">Xem tất cả >></a>
                 </div>
             </div>
         </section>
