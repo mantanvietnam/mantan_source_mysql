@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php">Đơn hàng</a> /</span>
-        Thông tin đơn hàng
+        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin.php">Yêu cầu trả hàng</a> /</span>
+        Thông tin yêu cầu
     </h4>
 
     <!-- Basic Layout -->
@@ -10,7 +10,7 @@
         <div class="col-xl">
             <div class="card mb-12">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Thông tin sản phẩm</h5>
+                    <h5 class="mb-0">Thông tin yêu cầu</h5>
                 </div>
                 <div class="card-body">
                     <div id="alert-message"><?php echo $mess;?></div>
@@ -45,11 +45,7 @@
                                             <div>
                                                 <?php if (@$data->status === 0) : ?>
                                                   <button type="button" class="btn btn-primary" onclick="acceptOrder(<?php echo @$data->id; ?>);">
-                                                    Phê duyệt
-                                                  </button>
-                                                <?php elseif (@$data->status === 2): ?>
-                                                  <button type="button" class="btn btn-danger" onclick="payOrder(<?php echo @$data->id; ?>);" id="btn-pay-order">
-                                                    Thanh toán
+                                                    Nhập lại kho
                                                   </button>
                                                 <?php endif; ?>
                                             </div>
@@ -66,9 +62,8 @@
                                           <label class="form-label">Trạng thái</label>
                                           <select name="status" class="form-select color-dropdown" disabled>
                                             <option value="0" <?php if(@$data->status == 0) echo 'selected';?> >Đơn hàng mới</option>
-                                            <option value="1" <?php if(@$data->status == 1) echo 'selected';?> >Đã xuất kho</option>
+                                            
                                             <option value="2" <?php if(@$data->status == 2) echo 'selected';?> >Đã nhập kho</option>
-                                            <option value="3" <?php if(@$data->status == 3) echo 'selected';?> >Đã thanh toán</option>
                                           </select>
                                         </div>
                                     </div>
@@ -76,7 +71,7 @@
                                     <h5>Các sản phẩm trong đơn hàng</h5>
                                     <?php
                                     if (!empty($listItem)){
-                                        echo '<table class="table table-bordered">
+                                        echo '<table class="table table-bordered mb-3">
                                                 <thead>
                                                     <tr>
                                                         <td>ID sản phẩm</td>
@@ -101,7 +96,8 @@
                                         echo '</tbody></table>';
                                     }
                                     ?>
-                                        
+                                    <h5>Lý do trả hàng</h5>    
+                                    <p><?php echo $data->note;?></p>
                                 </div>
                             </div>
                         </div>
@@ -118,14 +114,14 @@
 
       function acceptOrder(id)
       {
-        var r = confirm('Bạn có chắc chắn muốn duyệt đơn hàng này không?');
+        var r = confirm('Bạn có chắc chắn muốn duyệt yêu cầu này không?');
         
         const token = "<?php echo $csrfToken;?>";
 
         if(r == true){
             $.ajax({
               method: "POST",
-              url: '/apis/acceptAgencyOrderProductAdminApi',
+              url: '/apis/acceptAgencyBackProductAdminApi',
               headers: {'X-CSRF-Token': token},
               data: {id:id},
               success: function (result) {
@@ -147,34 +143,6 @@
         }
       }
 
-      function payOrder(id)
-      {
-        var r = confirm('Bạn có chắc chắn muốn thanh toán đơn hàng này không?');
-        const token = "<?php echo $csrfToken;?>";
-
-        if(r == true){
-            $.ajax({
-              method: "POST",
-              url: '/apis/payAgencyOrderProductAdminApi',
-              headers: {'X-CSRF-Token': token},
-              data: {id:id},
-              success: function (result) {
-                if (result.code) {
-                  $('#alert-message').append(`<p class="text-danger">${result.messages}</p>`);
-                } else {
-                  window.location.reload();
-                }
-              },
-              error: function (error) {
-                $('#alert-message').append(`<p class="text-danger">Đã xảy ra lỗi</p>`);
-              },
-              complete: function () {
-                setTimeout(function () {
-                  $('#alert-message').empty();
-                }, 3000);
-              }
-            });
-        }
-      }
+      
     </script>
 </div>
