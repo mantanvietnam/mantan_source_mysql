@@ -70,6 +70,7 @@ $slide_home= slide_home($setting['id_slide']);
                                             <!-- Tên -->
                                             <td class="td-name">
                                                 <div class="cart-product-name-box">
+                                                    <a href="<?php echo $link ?>">
                                                     <div class="cart-product-image">
                                                         <img src="<?php echo $value->image ?>" width="100" alt="">
                                                     </div>
@@ -77,6 +78,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                     <div class="cart-product-name">
                                                         <p><?php echo $value->title ?></p>
                                                     </div>
+                                                </a>
                                                 </div>
                                             </td>
         
@@ -163,8 +165,8 @@ $slide_home= slide_home($setting['id_slide']);
                                 <?php }}}} ?>
                                 </table>
                             </div>
-
-                            <div class="cart-left-bottom">
+                            <?php $checkud = 0; ?>
+                            <div class="cart-left-bottom chek checkud">
                                 <div class="title-cart-left-bottom">
                                         Ưu đãi dành cho bạn
                                 </div>
@@ -177,8 +179,10 @@ $slide_home= slide_home($setting['id_slide']);
                                             <div class="cart-product-gift-right-inner">
                                                  <?php   if(!empty($list_product)){
                                                     foreach ($list_product as $key => $value) { 
-                                                         if(!empty($value->idprodiscount)){
-                                                        foreach($value->idprodiscount as $item){?>
+                                                         if(!empty($value->idprodiscount) && if(@$value->statuscart=='true')){
+                                                        foreach($value->idprodiscount as $item){
+                                                            $checkud = 1;
+                                                            ?>
                                                 <div class="cart-product-gift-item">
                                                     <div class="product-item-inner">
                                                         <div class="product-img">
@@ -214,6 +218,13 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
                                 </div>
                             </div>
+<?php if(empty($checkud)){?>
+<style type="text/css">
+    .checkud{
+        display: none;
+    }
+</style>
+<?php } ?>
 
                             <div class="cart-left-bottom">
                                 <div class="title-cart-left-bottom">
@@ -252,7 +263,7 @@ $slide_home= slide_home($setting['id_slide']);
                                                         </div>
 
                                                         <div class="product-button-cart product-button-cart-add">
-                                                            <a href="/product/<?php echo  $value->slug ?>.html">Thêm vào giỏ hàng</a>
+                                                            <a onclick="addProduct(<?php echo $value->id; ?>,'true')">Thêm vào giỏ hàng</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -456,6 +467,8 @@ $slide_home= slide_home($setting['id_slide']);
             </div> -->
         </section>
     </main>
+
+
 <script type="text/javascript">
     function checkupdatecart(id){
          var checkBox = document.getElementById("checkproduct"+id);
@@ -721,6 +734,20 @@ $slide_home= slide_home($setting['id_slide']);
         .done(function( msg ) {
             window.location = '/cart';
         });
+    }
+</script>
+<script type="text/javascript">
+    function addProduct(idProduct, status){
+        console.log(status);
+        $.ajax({
+            method: "GET",
+            url: "/addProductToCart/?id_product="+idProduct+"&quantity=1&status="+status
+        })
+        .done(function( msg ) {
+           window.location = '/cart';
+            
+        });
+
     }
 </script>
 

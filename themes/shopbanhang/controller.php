@@ -236,7 +236,7 @@ function indexTheme($input){
         $news->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$news->id])->all()->toList();
     }
 
-    $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1])->all()->toList();
+    $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1,'status'=>'active'])->all()->toList();
 
     if(!empty($product_flasl)){
         foreach($product_flasl as $key => $item){

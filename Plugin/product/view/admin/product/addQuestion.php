@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                              <label class="form-label">Mã sản phẩm (*)</label>
+                              <label class="form-label">Trả lời (*)</label>
                               <textarea name="answer" class="form-control phone-mask" required="" rows="5"><?php echo @$data->answer; ?></textarea>
                             </div>
                   </div>

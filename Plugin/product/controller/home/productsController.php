@@ -157,7 +157,7 @@ function product($input)
             $manufacturer = $modelCategories->find()->where(['id'=>$product->id_manufacturer])->first();
 
             // DANH MỤC SẢN PHẨM
-            $category = $modelCategories->find()->where(['id'=>$product->id_category])->first();
+            // /$category = $modelCategories->find()->where(['id'=>$product->id_category])->first();
 
             // LƯU LỊCH SỬ XEM
             if(empty($session->read('product_view'))){
@@ -175,7 +175,7 @@ function product($input)
             
             setVariable('product', $product);
             setVariable('other_product', $other_product);
-            setVariable('category', $category);
+            // setVariable('category', $category);
             setVariable('manufacturer', $manufacturer);
             setVariable('list_product_view', $list_product_view);
         }else{
@@ -323,7 +323,7 @@ function search($input)
     }
 
     if(!empty($_GET['sela'])){
-        $conditions['price_old'] = 1;
+        $conditions['flash_sale'] = 1;
     }
 
     if(!empty($_GET['category'])){
@@ -361,6 +361,7 @@ function search($input)
             }
         }
     }
+
 
     // phân trang
     $totalData = $modelProduct->find()->where($conditions)->all()->toList();
