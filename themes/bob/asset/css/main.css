@@ -502,7 +502,9 @@ img{
 
 /* Đăng dự án miễn phí */
 #section-home-contact{
-    max-height: 548px;
+    /* max-height: 548px; */
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #section-home-contact .home-contact-left{
