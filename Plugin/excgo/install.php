@@ -200,6 +200,18 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`booking_deals` (
     INDEX `booking_id_index` (`booking_id`)
 ) ENGINE = InnoDB;';
 
+$sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`canceled_booking_requests` ( 
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `booking_id` INT NOT NULL , 
+    `user_id` INT NOT NULL ,
+    `status` TINYINT NOT NULL DEFAULT 0 , 
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    PRIMARY KEY (`id`), 
+    INDEX `booking_id_index` (`booking_id`) ,
+    INDEX `user_id_index` (`user_id`)
+) ENGINE = InnoDB;';
+
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `images`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `provinces`;';
@@ -215,4 +227,5 @@ $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `notifications`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `user_bookings`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `support_requests`;';
 $sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `booking_deals`;';
+$sqlDeleteDatabase .= 'DROP TABLE IF EXISTS `canceled_booking_requests`;';
 ?>

@@ -36,6 +36,7 @@ $menus[5]['sub'][0] = array('title' => 'Yêu cầu rút tiền',
 
 addMenuAdminMantan($menus);
 
+global $keyFirebase;
 $keyFirebase = 'AAAAo-cvWGs:APA91bGtlvHuQ-Dj2bW6KdWNfWkp3fmYZDLv13HfEzevZJ-rSWNs9Ut0wCy6iGF4DKvqNTleRdFYFg4Xx1ry_2x5uQcCOJ8phOxKOVZIDZ1KIJ3ZMafVkGcSELTUEPAd6taLHk27dbBw';
 
 global $typeCar;

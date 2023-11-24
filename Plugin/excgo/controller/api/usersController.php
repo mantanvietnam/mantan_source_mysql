@@ -463,6 +463,7 @@ function checkLoginGoogleApi($input): array
     global $defaultAvatar;
 
     $userModel = $controller->loadModel('Users');
+    $imageModel = $controller->loadModel('Images');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -513,7 +514,6 @@ function checkLoginGoogleApi($input): array
                 }
 
                 // Tạo user mới
-
                 if (!empty($dataSend['email']) || !empty($dataSend['phone_number'])) {
                     $newUser = $userModel->newEmptyEntity();
                     $newUser->name = $dataSend['name'] ?? 'Người dùng';
@@ -529,6 +529,17 @@ function checkLoginGoogleApi($input): array
                     $newUser->access_token = createToken();
                     $newUser->device_token = $dataSend['device_token'] ?? null;
                     $userModel->save($newUser);
+
+                    if (!empty($dataSend['avatar'])) {
+                        $newImage = [
+                            'path' => $dataSend['avatar'],
+                            'local_path' => null,
+                            'type' => 'avatar',
+                            'owner_id' => $newUser->id,
+                            'owner_type' => 'users',
+                        ];
+                        $imageModel->save($newImage);
+                    }
 
                     return apiResponse(0, 'Đăng nhập thành công', $newUser);
                 }
@@ -858,7 +869,9 @@ function updateUserApi($input): array
             $modelImage->deleteAll(['id IN' => $deleteImageIds]);
 
             foreach ($oldImages as $item) {
-                removeFile($item->local_path);
+                if (!empty($item->local_path)) {
+                    removeFile($item->local_path);
+                }
             }
         }
 
