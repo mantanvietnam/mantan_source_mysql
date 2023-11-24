@@ -31,6 +31,10 @@ function settingHomeThemeGodraw($input)
                         'video_trailer' => $dataSend['video_trailer'],
                         'company_name' => $dataSend['company_name'],
 
+                        'id_category_product' => $dataSend['id_category_product'],
+                        'id_category_service' => $dataSend['id_category_service'],
+                        'id_category_procedure' => $dataSend['id_category_procedure'],
+
     					
                     );
 
@@ -54,6 +58,8 @@ function settingHomeThemeGodraw($input)
 function home($input)
 {
     global $controller;
+    global $modelPosts;
+    global $settingThemes;
     
     $modelUserPictures = $controller->loadModel('UserPictures');
     $modelAgencies = $controller->loadModel('Agencies');
@@ -62,8 +68,27 @@ function home($input)
 
     $topImages = $modelUserPictures->find()->page(1)->limit(20)->order(['vote'=>'desc'])->all()->toList();
 
+    $listPost1 = [];
+    if(!empty($settingThemes['id_category_product'])){
+        $listPost1 = $modelPosts->find()->where(['type'=>'post', 'idCategory'=>(int) $settingThemes['id_category_product']])->all()->toList();
+    }
+
+    $listPost2 = [];
+    if(!empty($settingThemes['id_category_service'])){
+        $listPost2 = $modelPosts->find()->where(['type'=>'post', 'idCategory'=>(int) $settingThemes['id_category_service']])->all()->toList();
+    }
+
+    $listPost3 = [];
+    if(!empty($settingThemes['id_category_procedure'])){
+        $listPost3 = $modelPosts->find()->where(['type'=>'post', 'idCategory'=>(int) $settingThemes['id_category_procedure']])->all()->toList();
+    }
+    
+
     setVariable('topImages', $topImages);
     setVariable('listAgency', $listAgency);
+    setVariable('listPost1', $listPost1);
+    setVariable('listPost2', $listPost2);
+    setVariable('listPost3', $listPost3);
 }
 
 function indexTheme($input)

@@ -143,72 +143,54 @@
                             <div class="tab-content active" id="toturial-1" style="background: #1A3A89">
                                 <div class="content-toturial">
                                     <ul>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt1.svg" alt=""></div>
-                                                <h3><a href="">Smart EASEL</a></h3>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt2.svg" alt=""></div>
-                                                <h3><a href="">COLORS</a></h3>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt3.svg" alt=""></div>
-                                                <h3><a href="">PAI NT FRAMES</a></h3>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt4.svg" alt=""></div>
-                                                <h3><a href="">PAINT BRUSH</a></h3>
-                                            </div>
-                                        </li>
+                                        <?php
+                                        if(!empty($listPost1)){
+                                            foreach ($listPost1 as $key => $value) {
+                                                echo '  <li>
+                                                            <div class="item-toturial">
+                                                                <div class="icon"><img src="'.$value->image.'" alt=""></div>
+                                                                <h3><a href="/'.$value->slug.'.html">'.$value->title.'</a></h3>
+                                                            </div>
+                                                        </li>';
+                                            }
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
                             <div class="tab-content" id="toturial-2" style="background: #EC2024">
                                 <div class="content-toturial">
                                     <ul>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt1.svg" alt=""></div>
-                                                <h3><a href="">Smart EASEL</a></h3>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt2.svg" alt=""></div>
-                                                <h3><a href="">COLORS</a></h3>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt3.svg" alt=""></div>
-                                                <h3><a href="">PAI NT FRAMES</a></h3>
-                                            </div>
-                                        </li>
+                                        <?php
+                                        if(!empty($listPost2)){
+                                            foreach ($listPost2 as $key => $value) {
+                                                echo '  <li>
+                                                            <div class="item-toturial">
+                                                                <div class="icon"><img src="'.$value->image.'" alt=""></div>
+                                                                <h3><a href="/'.$value->slug.'.html">'.$value->title.'</a></h3>
+                                                            </div>
+                                                        </li>';
+                                            }
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
                             <div class="tab-content" id="toturial-3" style="background: #FBB03B">
                                 <div class="content-toturial">
                                     <ul>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt1.svg" alt=""></div>
-                                                <h3><a href="">Smart EASEL</a></h3>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="item-toturial">
-                                                <div class="icon"><img src="<?php echo $urlThemeActive;?>images/tt2.svg" alt=""></div>
-                                                <h3><a href="">COLORS</a></h3>
-                                            </div>
-                                        </li>
+                                        <?php
+                                        if(!empty($listPost3)){
+                                            foreach ($listPost3 as $key => $value) {
+                                                echo '  <li>
+                                                            <div class="item-toturial">
+                                                                <div class="icon"><img src="'.$value->image.'" alt=""></div>
+                                                                <h3><a href="/'.$value->slug.'.html">'.$value->title.'</a></h3>
+                                                            </div>
+                                                        </li>';
+                                            }
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
