@@ -311,6 +311,39 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
+
+        <!-- Tin tức -->
+        <section id="section-news-home">
+            <div class="container">
+                <div class="title-section">
+                    <h2>Tin tức</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6 item-news-home">
+                        <div class="img-news-home">
+
+                        </div>
+
+                        <div class="title-news-home">
+
+                        </div>
+
+                        <div class="description-news-home">
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6 item-news-home">
+                        
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6 item-news-home">
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 <script>
     function updateCountdown() {

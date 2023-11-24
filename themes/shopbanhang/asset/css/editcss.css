@@ -997,6 +997,20 @@ header{
     font-size: 14px;
 }
 
+/* Tin tức  */
+#section-news-home{
+    padding-top: 21px;
+    padding-bottom: 26px;
+    background-color: #EAEBEB;
+    margin-top: 50px;
+}
+
+#section-news-home .title-section h2{
+    font-size: 38px;
+    font-weight: 400;
+}
+
+
 
 @media(min-width: 445px){
     
