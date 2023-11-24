@@ -558,7 +558,7 @@ $slide_home= slide_home($setting['id_slide']);
             maximum_price_reduction2 = parseInt($('#maximum_price_reduction2').val());
             maximum_price_reduction3 = parseInt($('#maximum_price_reduction3').val());
             
-            if(applicable_price1<price_total){
+            if(applicable_price1<=price_total){
                 if(discount1>100){
                      var d1 = discount1;
                 }else{
@@ -574,7 +574,7 @@ $slide_home= slide_home($setting['id_slide']);
                 var d1 = 0;
             }
 
-            if(applicable_price2<price_total){
+            if(applicable_price2<=price_total){
                 if(discount2>100){
                      var d2 = discount2;
                 }else{
@@ -589,7 +589,7 @@ $slide_home= slide_home($setting['id_slide']);
                 var d2 = 0;
             }   
 
-            if(applicable_price3<price_total){
+            if(applicable_price3<=price_total){
                 if(discount3>100){
                      var d3 = discount3;
                 }else{
@@ -675,7 +675,7 @@ $slide_home= slide_home($setting['id_slide']);
         .done(function(msg) {
             console.log(msg);
             if(msg.code==1){
-                if(msg.data.applicable_price<totalPays){
+                if(msg.data.applicable_price<=totalPays){
                     const specifiedTime = new Date(msg.data.deadline_at);
                     const currentTime = new Date();
                     var html ='';

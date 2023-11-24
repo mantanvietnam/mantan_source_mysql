@@ -209,6 +209,7 @@ function indexTheme($input){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
+    global $modelPosts;
 
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -277,12 +278,15 @@ function indexTheme($input){
     }
     $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
 
+    $listDataPost = $modelPosts->find()->limit(3)->where(array('pin'=>1))->all()->toList();
+
     setVariable('setting', $data_value);
     setVariable('product_flasl', $product_flasl);
     setVariable('product_sold', $product_sold);
     setVariable('product_search', $product_search);
     setVariable('slide_home', $slide_home);
     setVariable('news', $news);
+    setVariable('listDataPost', $listDataPost);
 
 }
 
