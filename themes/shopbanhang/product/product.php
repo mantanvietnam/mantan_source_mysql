@@ -191,7 +191,7 @@ $slide_home= slide_home($setting['id_slide']);
                           <!-- F & A -->
                         <div class="product-detail-fa">
                             <div class="product-info-detail-title">
-                                <p>F & A</p>
+                                <p>FAQ</p>
                             </div>
 
                             <div class="product-detail-fa-list">
@@ -314,7 +314,7 @@ $slide_home= slide_home($setting['id_slide']);
                                  ?>
                                     <div class="button-like">
 
-                                <button type="button" onclick="delelelike()" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                                <button type="button" onclick="delelelike()" style="background-color: #ff7373; color: rgb(255, 255, 255);"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
                             </div>
                            
                                 <?php }  }else{ ?>

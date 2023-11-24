@@ -253,6 +253,8 @@ header{
 #section-cateogry-product .product-name a{
     margin-top: 5px;
     height: 32px;
+    margin-bottom: 15px;
+    font-weight: 300;
 }
 
 .form-select-sm{
@@ -937,6 +939,12 @@ header{
 /*  */
 #section-cateogry-product .product-price{
     font-weight: bold;
+    font-style: 20px;
+    margin-bottom: 8px;
+}
+
+.product-discount{
+    font-size: 14px;
 }
 
 #review .nav-tabs {
