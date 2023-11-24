@@ -14,3 +14,4 @@ include('model/notifications.php');
 include('model/user_bookings.php');
 include('model/support_requests.php');
 include('model/booking_deals.php');
+include('model/canceled_booking_requests.php');

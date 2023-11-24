@@ -96,6 +96,7 @@ function addProvinceAdmin($input)
         if (!empty($dataSend['name'])) {
             $data->name = $dataSend['name'];
             $data->parent_id = $dataSend['parent_id'] ?? 0;
+            $data->status = (int) $dataSend['status'] ?? 1;
             $provinceModel->save($data);
 
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';

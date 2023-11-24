@@ -30,10 +30,11 @@ function getListProvinceApi($input): array
 
         if (!isset($dataSend['access_token'])) {
             $listProvince = $modelProvinces->find()
+                ->where($conditions)
                 ->limit($limit)
                 ->page($page)
                 ->order([
-                    'name' => 'ASC'
+                    'id' => 'ASC'
                 ])->all()
                 ->toList();
 

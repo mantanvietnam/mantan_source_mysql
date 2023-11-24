@@ -27,12 +27,7 @@ function createBookingApi($input): array
         if (isset($dataSend['name'])
             && isset($dataSend['price'])
             && isset($dataSend['departure_province_id'])
-            && isset($dataSend['destination_province_id'])
-            && isset($dataSend['departure'])
-            && isset($dataSend['destination'])
             && isset($dataSend['introduce_fee'])
-            && isset($dataSend['start_time'])
-            && isset($dataSend['finish_time'])
         ) {
             if (!is_numeric($dataSend['price']) || $dataSend['price'] < 0) {
                 return apiResponse(2, 'Số tiền không hợp lệ');
@@ -49,7 +44,7 @@ function createBookingApi($input): array
                 return apiResponse(2, 'Tỉnh khởi hành không hợp lệ');
             }
 
-            if (!in_array($dataSend['destination_province_id'], $listProvinceIds)) {
+            if (isset($dataSend['destination_province_id']) && !in_array($dataSend['destination_province_id'], $listProvinceIds)) {
                 return apiResponse(2, 'Tỉnh đến không hợp lệ');
             }
 
@@ -57,28 +52,33 @@ function createBookingApi($input): array
                 return apiResponse(2, 'Tỉ lệ chiết khấu không hợp lệ');
             }
 
-            $startTime = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
-            $finishTime = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
             $now = date('Y-m-d H:i:s');
+            if (isset($dataSend['start_time'])) {
+                $startTime = date('Y-m-d H:i:s', strtotime($dataSend['start_time']));
 
-            if ($startTime <= $now) {
-                return apiResponse(2, 'Thời gian khởi hành phải lớn hơn hiện tại');
+                if ($startTime <= $now) {
+                    return apiResponse(2, 'Thời gian khởi hành phải lớn hơn hiện tại');
+                }
             }
 
-            if ($finishTime <= $startTime) {
-                return apiResponse(2, 'Thời gian đến phải lớn hơn thời gian khởi hành');
+            if (isset($dataSend['finish_time'])) {
+                $finishTime = date('Y-m-d H:i:s', strtotime($dataSend['finish_time']));
+
+                if ($finishTime <= $startTime) {
+                    return apiResponse(2, 'Thời gian đến phải lớn hơn thời gian khởi hành');
+                }
             }
 
             $booking = $modelBooking->newEmptyEntity();
             $booking->name = $dataSend['name'];
             $booking->posted_by = $currentUser->id;
             $booking->status = $bookingStatus['unreceived'];
-            $booking->start_time = $startTime;
-            $booking->finish_time = $finishTime;
+            $booking->start_time = $startTime ?? null;
+            $booking->finish_time = $finishTime ?? null;
             $booking->departure_province_id = $dataSend['departure_province_id'];
-            $booking->destination_province_id = $dataSend['destination_province_id'];
-            $booking->departure = $dataSend['departure'];
-            $booking->destination = $dataSend['destination'];
+            $booking->destination_province_id = $dataSend['destination_province_id'] ?? null;
+            $booking->departure = $dataSend['departure'] ?? null;
+            $booking->destination = $dataSend['destination'] ?? null;
             $booking->introduce_fee = $dataSend['introduce_fee'];
             $booking->price = $dataSend['price'];
             $booking->description = $dataSend['description'] ?? null;
@@ -114,24 +114,24 @@ function getBookingListApi($input): array
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        $conditions = ['status' => $bookingStatus['unreceived']];
-        $order = ['created_at' => 'DESC'];
+        $conditions = ['Bookings.status' => $bookingStatus['unreceived']];
+        $order = ['Bookings.updated_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
         if ($page < 1) $page = 1;
 
         if (!empty($dataSend['keyword'])) {
             $conditions[] = ['OR' => [
-                ['name LIKE' => '%' . $dataSend['keyword'] . '%'],
-                ['departure LIKE' => '%' . $dataSend['keyword'] . '%'],
-                ['destination LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['Bookings.name LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['Bookings.departure LIKE' => '%' . $dataSend['keyword'] . '%'],
+                ['Bookings.destination LIKE' => '%' . $dataSend['keyword'] . '%'],
             ]];
         }
 
         if (!empty($dataSend['province_id'])) {
             $conditions[] = ['OR' => [
-                ['departure_province_id' => $dataSend['province_id']],
-                ['destination_province_id' => $dataSend['province_id']]
+                ['Bookings.departure_province_id' => $dataSend['province_id']],
+                ['Bookings.destination_province_id' => $dataSend['province_id']]
             ]];
         }
 
@@ -144,7 +144,7 @@ function getBookingListApi($input): array
             }
 
             // Mặc định sẽ sắp xếp các cuốc xe có điểm đi hoặc đến các tỉnh được ghim lên trước
-            $listPinnedProvince = $modelPinnedProvince->find()
+            /*$listPinnedProvince = $modelPinnedProvince->find()
                 ->where(['user_id =' => $currentUser->id])
                 ->all();
 
@@ -156,10 +156,25 @@ function getBookingListApi($input): array
                 $order = [
                     "departure_province_id IN ($listPinnedProvinceIds) OR destination_province_id IN ($listPinnedProvinceIds)" => 'DESC'
                 ] + $order;
-            }
+            }*/
         }
         $listData = $modelBooking->find()
-            ->limit($limit)
+            ->join([
+                [
+                    'table' => 'users',
+                    'alias' => 'PostedUsers',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Bookings.posted_by = PostedUsers.id',
+                    ],
+                ],
+            ])->select([
+                'Bookings.id', 'Bookings.name', 'Bookings.posted_by', 'Bookings.received_by', 'Bookings.status',
+                'Bookings.start_time', 'Bookings.finish_time', 'Bookings.departure', 'Bookings.destination',
+                'Bookings.departure_province_id', 'Bookings.destination_province_id', 'Bookings.description',
+                'Bookings.introduce_fee', 'Bookings.price', 'Bookings.created_at', 'Bookings.updated_at',
+                'Bookings.received_at', 'Bookings.canceled_at', 'PostedUsers.name', 'PostedUsers.avatar',
+            ])->limit($limit)
             ->page($page)
             ->where($conditions)
             ->order($order)
@@ -304,10 +319,10 @@ function receiveBookingApi($input): array
                         'content' => $content,
                         'action' => 'receiveBookingSuccess'
                     );
-                    sendNotification($dataSendNotification, $postedUser->device_token);
+                    $res = sendNotification($dataSendNotification, $postedUser->device_token);
                 }
 
-                return apiResponse(0, 'Nhận cuốc xe thành công');
+                return apiResponse(0, 'Nhận cuốc xe thành công', $res);
             }
 
             return apiResponse(2, 'Gửi thiếu dữ liệu');
@@ -324,13 +339,11 @@ function cancelReceiveBookingApi($input): array
     global $controller;
     global $isRequestPost;
     global $bookingStatus;
-    global $bookingType;
 
     $modelBooking = $controller->loadModel('Bookings');
-    $modelBookingFee = $controller->loadModel('BookingFees');
     $modelUser = $controller->loadModel('Users');
     $modelNotification = $controller->loadModel('Notifications');
-    $userBookingModel = $controller->loadModel('UserBookings');
+    $canceledBookingModel = $controller->loadModel('CanceledBookingRequests');
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
@@ -358,45 +371,11 @@ function cancelReceiveBookingApi($input): array
                     return apiResponse(4, 'Cuốc xe đã hoàn thành nên không thể hủy');
                 }
 
-                $bookingFee = $modelBookingFee->find()
-                    ->where(['booking_id' => $booking->id])
-                    ->first();
-
-                // Cộng lại số tiền chiết khấu
-                $currentUser->total_coin = $currentUser->total_coin + $bookingFee->received_fee + $bookingFee->service_fee;
-                $modelUser->save($currentUser);
-
-                // Update trạng thái cuốc xe
-                $booking->received_by = null;
-                $booking->status = $bookingStatus['unreceived'];
-                $booking->received_at = null;
-                $modelBooking->save($booking);
-                $modelBookingFee->delete($bookingFee);
-
-                // Lưu lại lịch sử hủy cuốc của tài xế
-                $canceledBooking = $userBookingModel->find()->where([
-                    'user_id' => $currentUser->id,
-                    'booking_id' => $booking->id,
-                    'type' => $bookingType['receive'],
-                ])->first();
-                if (!empty($canceledBooking)) {
-                    $canceledBooking->status = $bookingStatus['canceled'];
-                    $canceledBooking->canceled_at = date('Y-m-d H:i:s');
-                    $canceledBooking->received_at = null;
-                    $userBookingModel->save($canceledBooking);
-                }
-
-                // Update lịch sử cuốc xe của người đăng
-                $postedUserBooking = $userBookingModel->find()->where([
-                    'user_id' => $booking->posted_by,
-                    'booking_id' => $booking->id,
-                    'type' => $bookingType['post'],
-                ])->first();
-                if (!empty($postedUserBooking)) {
-                    $postedUserBooking->status = $bookingStatus['unreceived'];
-                    $postedUserBooking->received_at = null;
-                    $userBookingModel->save($postedUserBooking);
-                }
+                $canceledBooking = $canceledBookingModel->newEmptyEntity();
+                $canceledBooking->booking_id = $booking->id;
+                $canceledBooking->user_id = $currentUser->id;
+                $canceledBooking->status = 0;
+                $canceledBookingModel->save($canceledBooking);
 
                 // Thông báo cho người đăng cuốc xe
                 $title = 'Tài xế đã hủy nhận cuốc xe';
@@ -404,6 +383,7 @@ function cancelReceiveBookingApi($input): array
                 $postedUser = $modelUser->find()->where(['id' => $booking->posted_by])->first();
                 $notification = $modelNotification->newEmptyEntity();
                 $notification->user_id = $postedUser->id;
+                $notification->request_id = $canceledBooking->id;
                 $notification->title = $title;
                 $notification->content = $content;
                 $modelNotification->save($notification);
@@ -413,15 +393,129 @@ function cancelReceiveBookingApi($input): array
                         'title' => $title,
                         'time' => date('H:i d/m/Y'),
                         'content' => $content,
-                        'action' => 'cancelReceiveBookingSuccess'
+                        'action' => 'cancelReceiveBookingSuccess',
+                        'user_id' => $currentUser->id,
+                        'booking_id' => $booking->id,
+                        'request_id' => $canceledBooking->id
                     );
                     sendNotification($dataSendNotification, $postedUser->device_token);
                 }
 
-                return apiResponse(0, 'Hủy cuốc xe thành công');
+                return apiResponse(0, 'Gửi yêu cầu hủy cuốc xe thành công');
             }
 
             return apiResponse(2, 'Gửi thiếu dữ liệu');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function acceptCanceledBookingApi($input): array
+{
+    global $controller, $bookingStatus, $bookingType;
+    global $isRequestPost;
+
+    $bookingModel = $controller->loadModel('Bookings');
+    $canceledBookingModel = $controller->loadModel('CanceledBookingRequests');
+    $modelBookingFee = $controller->loadModel('BookingFees');
+    $userBookingModel = $controller->loadModel('UserBookings');
+    $modelUser = $controller->loadModel('Users');
+    $modelNotification = $controller->loadModel('Notifications');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type != 2) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (empty($dataSend['request_id'])) {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $request = $canceledBookingModel->find()->where(['id' => $dataSend['request_id']])->first();
+            $booking = $bookingModel->find()->where(['id' => $request->booking_id])->first();
+
+            if ($booking->posted_by != $currentUser->id) {
+                return apiResponse(4, 'Bạn không phải người đăng cuốc xe này');
+            }
+
+            $cancelUser = $modelUser->find()->where(['id' => $request->user_id])->first();
+            $bookingFee = $modelBookingFee->find()
+                ->where(['booking_id' => $booking->id])
+                ->first();
+
+            // Cộng lại số tiền chiết khấu
+            $cancelUser->total_coin = $cancelUser->total_coin + $bookingFee->received_fee + $bookingFee->service_fee;
+            $modelUser->save($cancelUser);
+
+            // Update trạng thái cuốc xe
+            $booking->received_by = null;
+            $booking->status = $bookingStatus['unreceived'];
+            $booking->received_at = null;
+            $bookingModel->save($booking);
+            $modelBookingFee->delete($bookingFee);
+
+            // Lưu lại lịch sử hủy cuốc của tài xế
+            $canceledBooking = $userBookingModel->find()->where([
+                'user_id' => $cancelUser->id,
+                'booking_id' => $booking->id,
+                'type' => $bookingType['receive'],
+            ])->first();
+            if (!empty($canceledBooking)) {
+                $canceledBooking->status = $bookingStatus['canceled'];
+                $canceledBooking->canceled_at = date('Y-m-d H:i:s');
+                $canceledBooking->received_at = null;
+                $userBookingModel->save($canceledBooking);
+            }
+
+            // Update lịch sử cuốc xe của người đăng
+            $postedUserBooking = $userBookingModel->find()->where([
+                'user_id' => $booking->posted_by,
+                'booking_id' => $booking->id,
+                'type' => $bookingType['post'],
+            ])->first();
+            if (!empty($postedUserBooking)) {
+                $postedUserBooking->status = $bookingStatus['unreceived'];
+                $postedUserBooking->received_at = null;
+                $userBookingModel->save($postedUserBooking);
+            }
+
+            // Update trạng thái yêu cầu
+            $request->status = 1;
+            $canceledBookingModel->save($request);
+
+            // Thông báo cho người hủy cuốc xe
+            $title = 'Yêu cầu hủy cuốc xe đã được chấp nhận';
+            $content = "Tài xế $currentUser->name đã chấp nhận hủy cuốc xe #$booking->id";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $cancelUser->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $modelNotification->save($notification);
+
+            if ($cancelUser->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'cancelReceiveBookingSuccess',
+                    'booking_id' => $booking->id,
+                    'request_id' => $canceledBooking->id
+                );
+                sendNotification($dataSendNotification, $cancelUser->device_token);
+            }
+
+            return apiResponse(0, 'Thao tác thành công');
         }
 
         return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
@@ -1014,10 +1108,8 @@ function getAvailableBookingListApi($input): array
                 return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
             }
 
-            $conditions = [
-                'status NOT IN' => [$bookingStatus['completed'], $bookingStatus['canceled'], $bookingStatus['paid']],
-            ];
-            $order = ['created_at' => 'DESC'];
+            $conditions = [];
+            $order = ['updated_at' => 'DESC'];
             $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
             $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
 
@@ -1025,6 +1117,12 @@ function getAvailableBookingListApi($input): array
                 $conditions['received_by'] = $currentUser->id;
             } else {
                 $conditions['posted_by'] = $currentUser->id;
+            }
+
+            if (isset($dataSend['status'])) {
+                $conditions['status'] = $dataSend['status'];
+            } else {
+                $conditions['status'] = $bookingStatus['unreceived'];
             }
 
             $listData = $modelBooking->find()
@@ -1162,7 +1260,7 @@ function getListBookingDealApi($input): array
                 ->select([
                     'BookingDeals.id', 'BookingDeals.booking_id', 'BookingDeals.user_id',
                     'BookingDeals.introduce_fee', 'BookingDeals.price',
-                    'Users.name', 'Users.id', 'Users.phone_number',
+                    'Users.name', 'Users.id', 'Users.phone_number', 'Users.avatar'
                 ])->all();
 
             return apiResponse(0, 'Lấy thông tin thành công', $listDeal);
@@ -1320,6 +1418,53 @@ function acceptBookingDealApi($input): array
             }
 
             return apiResponse(0, 'Nhận cuốc xe thành công');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function repostBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $bookingModel = $controller->loadModel('Bookings');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type !== 2) {
+                return apiResponse(4, 'Bạn cần trở thành tài xế để xem thông tin này');
+            }
+
+            if (empty($dataSend['id'])) {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $booking = $bookingModel->find()->where(['id' => $dataSend['id']])->first();
+
+            if ($currentUser->id !== $booking->posted_by) {
+                return apiResponse(4, 'Bạn không phải là người đăng cuốc xe này');
+            }
+
+            if (!is_null($booking->received_by)) {
+                return apiResponse(4, 'Cuốc xe đã có người nhận');
+            }
+
+            $booking->updated_at = date('Y-m-d H:i:s');
+            $bookingModel->save($booking);
+
+            return apiResponse(0, 'Thao tác thành công');
         }
 
         return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
