@@ -408,6 +408,7 @@ function checkoutOrderUser($input)
 	    $modelProducts = $controller->loadModel('Products');
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 	    $modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
+	    $modelUsers = $controller->loadModel('Users');
 
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
@@ -468,6 +469,13 @@ function checkoutOrderUser($input)
 			    	$orderHistory->status = $infoOrder->status;
 
 			    	$modelUserOrderHistories->save($orderHistory);
+
+			    	// cộng điểm tích lũy
+			    	$infoUserBuy = $modelUsers->get($infoOrder->user_id);
+
+			    	$infoUserBuy->total_coin += $total_price/1000;
+
+			    	$modelUsers->save($infoUserBuy);
 
 					return $controller->redirect('/orderUserPrintBill/?id='.$dataSend['id']);
 		    	}else{

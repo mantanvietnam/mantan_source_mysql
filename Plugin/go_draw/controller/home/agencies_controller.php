@@ -21,6 +21,11 @@ function searchAgency($input)
 		$conditions['district_id'] = (int) $_GET['district_id'];
 	}
 
+	if(!empty($_GET['ward_id'])){
+		$conditions['ward_id'] = (int) $_GET['ward_id'];
+	}
+	
+
 	$listAgency = $modelAgencies->find()->where($conditions)->all()->toList();
 
 	$listCity = [];
