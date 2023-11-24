@@ -24,7 +24,16 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="avar-detail">
-								<div class="avr"><img src="<?php echo $infoImage->image;?>" class="img-fluid w-100" alt=""></div>
+								<div class="avr">
+									<img src="<?php echo $infoImage->image;?>" class="img-fluid w-100" alt="">
+									<div class="like-imageDetail">
+										<?php 
+										if(empty($checkLike)){
+											echo '<a id="orderButton" href="/addLike/?id='.$infoImage->id.'"><img src="/themes/godraw/images/heart.svg" class="img-fluid" alt=""></a>';
+										}
+										?>
+									</div>
+								</div>
 							</div>
 							<div class="title-detail">
 								<div class="content-head-title">
@@ -41,14 +50,6 @@
 									</div>
 
 									<div class="social text-right">
-										<div class="like-imageDetail">
-											<?php 
-											if(empty($checkLike)){
-												echo '<a id="orderButton" href="/addLike/?id='.$infoImage->id.'"><img src="/themes/godraw/images/heart.svg" class="img-fluid" alt=""></a>';
-											}
-											?>
-										</div>
-
 										<div class="social">
 											<ul>
 												<!--

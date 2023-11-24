@@ -106,6 +106,7 @@ $(document).ready(function () {
     nextArrow: "",
     prevArrow: "",
     vertical: true,
+
   });
 
   $(".full-home-slider").on("wheel", function (e) {
