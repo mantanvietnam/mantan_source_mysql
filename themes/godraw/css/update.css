@@ -1,3 +1,35 @@
+@font-face {
+    font-family: "Vollkorn";
+    src: url("/themes/godraw/fonts/Vollkorn-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Vollkorn";
+    src: url("/themes/godraw/fonts/Vollkorn-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Vollkorn";
+    src: url("/themes/godraw/fonts/Vollkorn-Bold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+body {
+    /* font-family: 'Nunito Sans', sans-serif !important; */
+    font-family: 'Vollkorn' !important;
+
+}
+
+
 .content-header{
 	/* padding-top: 10px;*/
 }
@@ -55,9 +87,7 @@
 	color: #4A7DCE ;
 }
 
-body {
-    font-family: 'Nunito Sans', sans-serif !important;
-}
+
 
 .content-header a {
     font-size: 15px;
@@ -649,6 +679,15 @@ img.khung-tranh {
 }
 
 @media(max-width: 500px)  {
+    .slide-bot .slider-for{
+        border: none;
+        border-radius: 0;
+    }
+
+    .avr{
+        height: 100%;
+    }
+
     .header-mobile{
         display: block;
     }
