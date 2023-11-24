@@ -83,12 +83,17 @@ function home($input)
         $listPost3 = $modelPosts->find()->where(['type'=>'post', 'idCategory'=>(int) $settingThemes['id_category_procedure']])->all()->toList();
     }
     
+    $listCity = [];
+    if(function_exists('getProvince')){
+        $listCity = getProvince();
+    }
 
     setVariable('topImages', $topImages);
     setVariable('listAgency', $listAgency);
     setVariable('listPost1', $listPost1);
     setVariable('listPost2', $listPost2);
     setVariable('listPost3', $listPost3);
+    setVariable('listCity', $listCity);
 }
 
 function indexTheme($input)

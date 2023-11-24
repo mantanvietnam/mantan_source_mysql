@@ -139,6 +139,8 @@ function viewDetailAgencyAdmin($input)
                     $agency->lat_gps = $dataSend['lat_gps'];
                     $agency->long_gps = $dataSend['long_gps'];
                     $agency->status = $dataSend['status'];
+                    $agency->province_id = $dataSend['province_id'];
+                    $agency->district_id = $dataSend['district_id'];
 
                     $agencyModel->save($agency);
 
@@ -167,6 +169,9 @@ function viewDetailAgencyAdmin($input)
                 $agency->lat_gps = $dataSend['lat_gps'];
                 $agency->long_gps = $dataSend['long_gps'];
                 $agency->status = $dataSend['status'] ?? 1;
+                $agency->province_id = $dataSend['province_id'];
+                $agency->district_id = $dataSend['district_id'];
+
                 $agencyModel->save($agency);
 
                 $masterAccount->name = $dataSend['master_account_name'];
@@ -180,9 +185,16 @@ function viewDetailAgencyAdmin($input)
         }
     }
 
+    $listCity = [];
+    if(function_exists('getProvince')){
+        $listCity = getProvince();
+    }
+
     setVariable('data', $agency);
     setVariable('masterAccount', $masterAccount);
     setVariable('mess', $mess);
+    setVariable('listCity', $listCity);
+
     if (isset($listStaffAccount)) {
         setVariable('listStaffAccount', $listStaffAccount);
     }

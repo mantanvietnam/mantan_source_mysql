@@ -58,6 +58,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `agencies` (
     `email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `lat_gps` VARCHAR(255) NOT NULL,
     `long_gps` VARCHAR(255) NOT NULL,
+    `province_id` INT NOT NULL DEFAULT "0" ,
+    `district_id` INT NOT NULL DEFAULT "0",
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
