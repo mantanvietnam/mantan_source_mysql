@@ -123,11 +123,8 @@ function viewOrderAdmin($input)
 
                     if(!empty($product->id_product) ){
                     $id_product = explode(',', @$product->id_product);
-               
                     foreach($id_product as $item){
-                        $presentf = $modelProduct->find()->where(['id'=>$item])->first();
-
-                       ;
+                        $presentf = $modelProduct->find()->where(['code'=>$item])->first();
                         if(!empty($presentf)){
                             $present[] = $presentf;
                         }

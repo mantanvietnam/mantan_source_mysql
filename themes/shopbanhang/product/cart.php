@@ -309,8 +309,11 @@ $slide_home= slide_home($setting['id_slide']);
                                                     </div>
                                                     <div class="infor-voucher">
                                                         <h4><?php echo $item->note; ?></h4>
-                                                        <?php if($item->applicable_price){ ?>
+                                                        <?php if(!empty($item->applicable_price)){ ?>
                                                         <p>Đơn tối thiểu <?php echo number_format($item->applicable_price); ?> đ</p>
+                                                    <?php } ?>
+                                                    <?php if(!empty($item->maximum_price_reduction)){ ?>
+                                                        <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher">
@@ -346,7 +349,11 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="cart-price-item" id="discountPrice1">
                                         
                                     </div>
-                                    <input type="hidden"  name="discount_price1" value="0" id="discount_price1">
+                                    <input type="hidden"  name="discount_price1" value="" id="discount_price1">
+                                    <input type="hidden"  name="maximum_price_reduction1" value="" id="maximum_price_reduction1">
+                                    <input type="hidden"  name="discount1" value="" id="discount1">
+                                    <input type="hidden"  name="code1" value="" id="code1">
+                                    <input type="hidden"  name="applicable_price1" value="" id="applicable_price1">
                                     
                                 </div>
 
@@ -354,7 +361,11 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="cart-price-item" id="discountPrice2">
                                         
                                     </div>
-                                    <input type="hidden"  name="discount_price2" value="0" id="discount_price2">
+                                    <input type="hidden"  name="discount_price2" value="" id="discount_price2">
+                                    <input type="hidden"  name="maximum_price_reduction2" value="" id="maximum_price_reduction2">
+                                    <input type="hidden"  name="discount2" value="" id="discount2">
+                                    <input type="hidden"  name="code2" value="" id="code2">
+                                    <input type="hidden"  name="applicable_price2" value="" id="applicable_price2">
                                     
                                 </div>
 
@@ -362,7 +373,11 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="cart-price-item" id="discountPrice3">
                                         
                                     </div>
-                                    <input type="hidden"  name="discount_price3" value="0" id="discount_price3">
+                                    <input type="hidden"  name="discount_price3" value="" id="discount_price3">
+                                    <input type="hidden"  name="maximum_price_reduction3" value="" id="maximum_price_reduction3">
+                                    <input type="hidden"  name="discount3" value="" id="discount3">
+                                    <input type="hidden"  name="code3" value="" id="code3">
+                                    <input type="hidden"  name="applicable_price3" value="" id="applicable_price3">
                                     
                                 </div>
 
@@ -519,17 +534,122 @@ $slide_home= slide_home($setting['id_slide']);
             var discount1 = 0;
             var discount2 = 0;
             var discount3 = 0;
-            discount1= parseInt($('#discount_price1').val());
+
+            var maximum_price_reduction1 = 0;
+            var maximum_price_reduction2 = 0;
+            var maximum_price_reduction3 = 0;
+            /*discount1= parseInt($('#discount_price1').val());
             discount2= parseInt($('#discount_price2').val());
-            discount3= parseInt($('#discount_price3').val());
-            // console.log(discount);
-             console.log(price_total);
+            discount3= parseInt($('#discount_price3').val());*/
 
-            price_total = price_total - discount1 - discount2 - discount3;
+            discount1= parseInt($('#discount1').val());
+            discount2= parseInt($('#discount2').val());
+            discount3= parseInt($('#discount3').val());
 
-             console.log(price_total);
+            var code1 = $('#code1').val();
+            var code2 = $('#code2').val();
+            var code3 = $('#code3').val();
 
-             var totalck = new Intl.NumberFormat().format(discount1 + discount2 + discount3);
+            var applicable_price1 = parseInt($('#applicable_price1').val());
+            var applicable_price2 = parseInt($('#applicable_price2').val());
+            var applicable_price3 = parseInt($('#applicable_price3').val());
+           
+            maximum_price_reduction1 = parseInt($('#maximum_price_reduction1').val());
+            maximum_price_reduction2 = parseInt($('#maximum_price_reduction2').val());
+            maximum_price_reduction3 = parseInt($('#maximum_price_reduction3').val());
+            
+            if(applicable_price1<price_total){
+                if(discount1>100){
+                     var d1 = discount1;
+                }else{
+                    var d1 =(discount1 / 100) * price_total;
+                }
+
+                if(maximum_price_reduction1>0){
+                    if(d1>maximum_price_reduction1 ){
+                        d1 = maximum_price_reduction1;
+                    }
+                }
+            }else{
+                var d1 = 0;
+            }
+
+            if(applicable_price2<price_total){
+                if(discount2>100){
+                     var d2 = discount2;
+                }else{
+                    var d2 =(discount2 / 100) * price_total;
+                }
+                if(maximum_price_reduction2>0){
+                    if(d2>maximum_price_reduction2 ){
+                        d2 = maximum_price_reduction2;
+                    }
+                }
+            }else{
+                var d2 = 0;
+            }   
+
+            if(applicable_price3<price_total){
+                if(discount3>100){
+                     var d3 = discount3;
+                }else{
+                    var d3 =(discount3 / 100) * price_total;
+                }
+                if(maximum_price_reduction3>0){
+                    if(d3>maximum_price_reduction3 ){
+                        d3 = maximum_price_reduction3;
+                    }
+                }
+            }else{
+                var d3 = 0;
+            } 
+
+            var  html1 = '';
+            document.getElementById("code1").value = code1;
+            document.getElementById("discount_price1").value = d1;
+            document.getElementById("discount1").value = discount1;
+            var di1 = new Intl.NumberFormat().format(d1);
+            if(d1>0){
+                html1 +='<div class="cart-price-sum-discount-title">'+code1+'</div>';
+                html1 +='<div class="cart-price-sum-discount-price"> - '+di1+'</div>';
+            }else{
+                html1 = '';
+            }
+           
+            $('#discountPrice1').html(html1);
+
+            var  html2 = '';
+            document.getElementById("code2").value = code2;
+            document.getElementById("discount_price2").value = d2;
+            document.getElementById("discount2").value = discount2;
+            var di2 = new Intl.NumberFormat().format(d2);
+            if(d2>0){
+                html2 +='<div class="cart-price-sum-discount-title">'+code2+'</div>';
+                html2 +='<div class="cart-price-sum-discount-price"> - '+di2+'</div>';
+            }else{
+                html2 = '';
+            }
+            $('#discountPrice2').html(html2);
+
+            var  html3  = '';
+            document.getElementById("code2").value = code3;
+            document.getElementById("discount_price3").value = d3;
+            document.getElementById("discount3").value = discount3;
+            var di3 = new Intl.NumberFormat().format(d3);
+            if(d3>0){
+                html3 +='<div class="cart-price-sum-discount-title">'+code3+'</div>';
+                html3 +='<div class="cart-price-sum-discount-price"> - '+di3+'</div>';
+            }else{
+                html3 = '';
+            }
+            $('#discountPrice3').html(html3);
+           
+
+            price_total = price_total - d1 - d2 - d3;
+
+                     // console.log(price_total);
+
+             var totalck = new Intl.NumberFormat().format(d1 + d2 + d3);
              $('#totalck').html(totalck+'đ');
             var total = new Intl.NumberFormat().format(price_total);
              $('#totals').html(total+'đ');
@@ -553,6 +673,7 @@ $slide_home= slide_home($setting['id_slide']);
             url: "/apis/searchDiscountCodeAPI/?code="+code+"&category="+key,
         })
         .done(function(msg) {
+            console.log(msg);
             if(msg.code==1){
                 if(msg.data.applicable_price<totalPays){
                     const specifiedTime = new Date(msg.data.deadline_at);
@@ -566,8 +687,17 @@ $slide_home= slide_home($setting['id_slide']);
                         }else{
                            var discount =(msg.data.discount / 100) * totalPays;
                         }
+                        if(msg.data.maximum_price_reduction!=null){
+                            if(discount>msg.data.maximum_price_reduction ){
+                                discount = msg.data.maximum_price_reduction;
+                            }
+                        }
 
+                       document.getElementById("code"+key).value = msg.data.code;
                        document.getElementById("discount_price"+key).value = discount;
+                       document.getElementById("maximum_price_reduction"+key).value = msg.data.maximum_price_reduction;
+                       document.getElementById("discount"+key).value = msg.data.discount;
+                       document.getElementById("applicable_price"+key).value = msg.data.applicable_price;
                         var discount = new Intl.NumberFormat().format(discount);
                         html +='<div class="cart-price-sum-discount-title">'+msg.data.code+'</div>'
                         html +='<div class="cart-price-sum-discount-price"> - '+discount+'</div>'
