@@ -51,11 +51,37 @@
 
 										<div class="social">
 											<ul>
-												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-1.svg" class="img-fluid" alt=""></a></li>
-												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-2.svg" class="img-fluid" alt=""></a></li>
-												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-3.svg" class="img-fluid" alt=""></a></li>
-												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-4.svg" class="img-fluid" alt=""></a></li>
-												<li><a href=""><img src="<?php echo $urlThemeActive;?>images/sc-5.svg" class="img-fluid" alt=""></a></li>
+												<!--
+												<li>
+													<a href="">
+														<img src="<?php echo $urlThemeActive;?>images/sc-1.svg" class="img-fluid" alt="">
+													</a>
+												</li>
+
+												<li>
+													<a href="">
+														<img src="<?php echo $urlThemeActive;?>images/sc-3.svg" class="img-fluid" alt="">
+													</a>
+												</li>
+												-->
+												
+												<li>
+													<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank" rel="noopener">
+														<img src="<?php echo $urlThemeActive;?>images/sc-2.svg" class="img-fluid" alt="">
+													</a>
+												</li>
+												
+												<li>
+													<a href="http://twitter.com/share?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<img src="<?php echo $urlThemeActive;?>images/sc-4.svg" class="img-fluid" alt="">
+													</a>
+												</li>
+												
+												<li>
+													<a href="https://telegram.me/share/url?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<img src="<?php echo $urlThemeActive;?>images/sc-5.svg" class="img-fluid" alt="">
+													</a>
+												</li>
 											</ul>
 										</div>
 									</div>

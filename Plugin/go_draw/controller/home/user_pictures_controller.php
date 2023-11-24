@@ -204,6 +204,8 @@ function detailImage($input)
 	global $controller;
 	global $urlCurrent;
 	global $metaTitleMantan;
+	global $metaDescriptionMantan;
+	global $metaImageMantan;
 	global $modelCategories;
 	global $session;
 
@@ -214,6 +216,10 @@ function detailImage($input)
 		$infoImage = $modelUserPictures->find()->where(['id'=>(int) $_GET['id']])->first();
 
 		if(!empty($infoImage)){
+			$metaTitleMantan = $infoImage->name;
+			$metaDescriptionMantan = $infoImage->description;
+			$metaImageMantan = $infoImage->image;
+
 			$user = $session->read('infoMember');
 
 			$checkLike = $modelUserLikes->find()->where(['picture_id'=>(int) $_GET['id'], 'user_id'=>(int) @$user->id])->first();
