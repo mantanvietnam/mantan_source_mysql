@@ -45,6 +45,13 @@ $menus[0]['sub'][] = array('title' => 'Thành viên',
     'permission' => 'listUserAdmin'
 );
 
+$menus[0]['sub'][] = array('title' => 'Lịch sử bán hàng đại lý',
+    'url' => '/plugins/admin/go_draw-view-admin-user_orders-listUserOrderAdmin.php',
+    'classIcon' => 'bx bx-user',
+    'permission' => 'listUserOrderAdmin'
+);
+
+/*
 $menus[0]['sub'][] = array('title' => 'Lịch sử đơn hàng',
     'url' => '/',
     'classIcon' => 'bx bx-cog',
@@ -68,6 +75,7 @@ $menus[0]['sub'][] = array('title' => 'Lịch sử đơn hàng',
 
     )
 );
+*/
 
 $menus[0]['sub'][] = array('title' => 'Danh mục sản phẩm',
     'url' => '/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php',

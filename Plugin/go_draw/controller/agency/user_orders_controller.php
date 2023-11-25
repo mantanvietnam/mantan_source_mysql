@@ -156,6 +156,7 @@ function createOrderUser($input)
 
 	    	$order->user_id = $user_id;
 	    	$order->agency_id = $session->read('infoUser')->id;
+	    	$order->combo_id = (int) @$session->read('idComboUserBuy');
 	    	$order->total_price  = $total_price;
 	    	$order->status = 0; // 0: đơn hàng mới, 2: đã thanh toán, 3: hủy bỏ
 	    	$order->created_at  = date('Y-m-d H:i:s');
@@ -198,6 +199,7 @@ function createOrderUser($input)
 	    }
 
 	    $session->write('cartUser', []);
+	    $session->write('idComboUserBuy', 0);
 
 	    return $controller->redirect('/userCart/?status=create_order_done');
 	}else{
@@ -219,6 +221,7 @@ function orderUserProcess($input)
 		$modelUserOrders = $controller->loadModel('UserOrders');
 	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    $modelProducts = $controller->loadModel('Products');
+	    $modelCombos = $controller->loadModel('Combos');
 		
 		$user = $session->read('infoUser');
 
@@ -232,6 +235,10 @@ function orderUserProcess($input)
 		
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
+				$infoCombo = $modelCombos->find()->where(['id'=>$value->combo_id])->first();
+
+				$listData[$key]->name_combo = @$infoCombo->name;
+
 				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
 
 				if(!empty($listData[$key]->product)){
@@ -506,6 +513,7 @@ function orderUserDone($input)
 		$modelUserOrders = $controller->loadModel('UserOrders');
 	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    $modelProducts = $controller->loadModel('Products');
+	    $modelCombos = $controller->loadModel('Combos');
 		
 		$user = $session->read('infoUser');
 
@@ -519,6 +527,10 @@ function orderUserDone($input)
 		
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
+				$infoCombo = $modelCombos->find()->where(['id'=>$value->combo_id])->first();
+
+				$listData[$key]->name_combo = @$infoCombo->name;
+				
 				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
 
 				if(!empty($listData[$key]->product)){
@@ -795,6 +807,7 @@ function addCartComboUser($input)
 					}
 
 					$session->write('cartUser', $cartUser);
+					$session->write('idComboUserBuy', $infoCombo->id);
 
 			    	return $controller->redirect('/userCart');
 				}else{
