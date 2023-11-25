@@ -42,7 +42,15 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách hoa hồng cho nhân viên</h5>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="card-header">Danh sách hoa hồng cho nhân viên</h5>
+      </div>
+      <div class="col-md-6">
+        <h5 class="card-header" style="float: right;">Tổng tiền hoa hồng - <b class="text-danger"><?php echo number_format($totalMoney);?>đ</b> </h5>
+      </div>
+    </div>
     <div class="card-body row">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -52,6 +60,7 @@
               <th>nhân viên</th>
               <th>Thời gian</th>
               <th>Hoa hồng</th>
+              <th>Dịch vụ </th>
               <th>ID đơn</th>
               <th>Loại</th>
               
@@ -60,7 +69,6 @@
           <tbody>
             <?php 
               if(!empty($listData)){
-        
                 foreach ($listData as $item) {
              
 
@@ -70,6 +78,7 @@
                           <td>'.$item->staff->name.'</td>
                           <td>'.date('H:i d/m/Y', strtotime(@$item->created_at)).'</td>
                           <td>'.number_format($item->money).'đ</td>
+                          <td>'.@$item->service.'</td>
                           <td>'.@$item->id_order.'</td>
                           <td>'.@$item->type.'</td>
                         </tr>';

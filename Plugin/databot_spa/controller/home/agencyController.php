@@ -12,6 +12,7 @@ function listAgency($input){
 	    $metaTitleMantan = 'Hoa hồng cho nhân viên';
 
 	    $modelMember = $controller->loadModel('Members');
+	    $modelService = $controller->loadModel('Services');
 		$modelAgency = $controller->loadModel('Agencys');
 		
 		$user = $session->read('infoUser');
@@ -66,6 +67,12 @@ function listAgency($input){
 				if(!empty($staff)){
 					$listData[$key]->staff = $staff;
 				}
+				$service = $modelService->find()->where(array('id'=>$item->id_service))->first();
+
+				if(!empty($service)){
+					$listData[$key]->service = $service->name;
+				}
+
 			}
 		}
 
@@ -73,7 +80,14 @@ function listAgency($input){
 	    
 
 		$totalData = $modelAgency->find()->where($conditions)->all()->toList();
-	    $totalData = count($totalData);
+	    
+	    $totalMoney = 0;
+	     if(!empty($totalData)){
+			foreach($totalData as $key =>$item){
+				$totalMoney += $item->money;
+			}
+		}
+		$totalData = count($totalData);
 
 	    $balance = $totalData % $limit;
 	    $totalPage = ($totalData - $balance) / $limit;
@@ -122,6 +136,7 @@ function listAgency($input){
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	    setVariable('totalMoney', $totalMoney);
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
