@@ -29,7 +29,7 @@
                                                     if (!empty($listAgency)):
                                                         foreach ($listAgency as $agencyitem):
                                                             ?>
-                                                          <option value="<?php echo $agencyitem->id; ?>" <?php if (@$data->agency_id == $agencyitem->id) echo 'selected'; ?>><?php echo $agencyitem->name; ?></option>
+                                                          <option value="<?php echo $agencyitem->id; ?>" <?php if (@$agency->agency_id == $agencyitem->id) echo 'selected'; ?>><?php echo $agencyitem->name; ?></option>
                                                         <?php
                                                         endforeach;
                                                     endif;
