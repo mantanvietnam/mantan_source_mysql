@@ -63,13 +63,14 @@
 											    
 											  </tbody>
 											</table>
-
+											<!--
 											<div class="row">
 												<div class="col-md-12">
 													<label>Số lượng gói</label>
 													<input onchange="updateAmount();" class="text-center" type="number" name="amount" id="amount" value="1" style="width: 50px;" />
 												</div>
 											</div>
+											-->
 										</div>
 									</div>
 									<div class="social text-right">

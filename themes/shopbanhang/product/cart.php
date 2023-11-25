@@ -179,8 +179,8 @@ $slide_home= slide_home($setting['id_slide']);
                                             <div class="cart-product-gift-right-inner">
                                                  <?php   if(!empty($list_product)){
                                                     foreach ($list_product as $key => $value) { 
-                                                         if(!empty($value->idprodiscount) && if(@$value->statuscart=='true')){
-                                                        foreach($value->idprodiscount as $item){
+                                                         if(!empty($value->idprodiscount) && (@$value->statuscart=='true')){
+                                                        foreach(@$value->idprodiscount as $item){
                                                             $checkud = 1;
                                                             ?>
                                                 <div class="cart-product-gift-item">

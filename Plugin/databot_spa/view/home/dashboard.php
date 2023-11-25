@@ -7,9 +7,9 @@
         <div class="d-flex align-items-end row">
           <div class="col-sm-7">
             <div class="card-body">
-              <h5 class="card-title text-primary">Xin chào <?php echo $session->read('infoUser')->name;?>! 🎉</h5>
+              <h5 class="card-title text-primary">Xin chào <?php echo $session->read('infoUser')->name;?> 🎉</h5>
               <p class="mb-4">
-                Chào mừng bạn quay trở lại với phần mềm quản lý SPA.
+                Chào mừng bạn quay trở lại với phần mềm quản lý DATA SPA.
               </p>
 
               <!-- <a href="/addProduct" class="btn btn-sm btn-outline-primary">Tạo mẫu thiết kế mới</a> -->

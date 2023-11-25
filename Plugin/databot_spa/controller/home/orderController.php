@@ -9,7 +9,7 @@ function orderProduct($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty(checkLoginManager('orderProduct'))){
+    if(!empty(checkLoginManager('orderProduct', 'product'))){
 		$user = $session->read('infoUser');
 
 		$modelCombo = $controller->loadModel('Combos');
@@ -313,7 +313,7 @@ function orderCombo($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty(checkLoginManager('orderCombo'))){
+    if(!empty(checkLoginManager('orderCombo', 'combo'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -624,7 +624,7 @@ function orderService($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty(checkLoginManager('orderService'))){
+    if(!empty(checkLoginManager('orderService', 'product'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');
@@ -909,7 +909,7 @@ function listOrderProduct($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty(checkLoginManager('listOrderProduct'))){
+    if(!empty(checkLoginManager('listOrderProduct', 'product'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
 		$modelProduct = $controller->loadModel('Products');
@@ -1049,7 +1049,7 @@ function listOrderCombo($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty(checkLoginManager('listOrderCombo'))){
+    if(!empty(checkLoginManager('listOrderCombo', 'combo'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelProduct = $controller->loadModel('Products');
@@ -1231,7 +1231,7 @@ function listOrderService($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty(checkLoginManager('listOrderService'))){
+    if(!empty(checkLoginManager('listOrderService', 'product'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelProduct = $controller->loadModel('Products');
@@ -1379,7 +1379,7 @@ function checkinbed($input){
 
     $metaTitleMantan = 'Danh sách đơn hàng';
     
-    if(!empty(checkLoginManager('checkinbed'))){
+    if(!empty(checkLoginManager('checkinbed', 'room'))){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
         $user = $session->read('infoUser');
@@ -1419,9 +1419,9 @@ function printInfoOrder($input){
     global $isRequestPost;
     global $session;
 
-    $metaTitleMantan = 'in đơn hàng';
+    $metaTitleMantan = 'In đơn hàng';
 
-    if(!empty(checkLoginManager('printInfoOrder'))){
+    if(!empty(checkLoginManager('printInfoOrder', 'product'))){
         $user = $session->read('infoUser');
 
         $modelCombo = $controller->loadModel('Combos');

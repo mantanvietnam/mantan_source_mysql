@@ -7,7 +7,7 @@ function listCategoryProduct($input){
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     
-    if(!empty(checkLoginManager('listCategoryProduct'))){
+    if(!empty(checkLoginManager('listCategoryProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -68,7 +68,7 @@ function deleteCategoryProduct($input){
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
 
-    if(!empty(checkLoginManager('deleteCategoryProduct'))){
+    if(!empty(checkLoginManager('deleteCategoryProduct', 'product'))){
         $infoUser = $session->read('infoUser');
         $modelProducts = $controller->loadModel('Products');
 
@@ -105,7 +105,7 @@ function listTrademarkProduct($input){
 
     $metaTitleMantan = 'Nhãn hiệu sản phẩm';
 
-    if(!empty(checkLoginManager('listTrademarkProduct'))){
+    if(!empty(checkLoginManager('listTrademarkProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -168,7 +168,7 @@ function deleteTrademarkProduct($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa nhãn hiệu sản phẩm';
-    if(!empty(checkLoginManager('deleteTrademarkProduct'))){
+    if(!empty(checkLoginManager('deleteTrademarkProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -207,7 +207,7 @@ function listProduct(){
 
     $metaTitleMantan = 'Danh sách sản phẩm';
     
-    if(!empty(checkLoginManager('listProduct'))){
+    if(!empty(checkLoginManager('listProduct', 'product'))){
 
         $mess= '';
         
@@ -325,7 +325,7 @@ function addProduct($input){
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
-    if(!empty(checkLoginManager('addProduct'))){
+    if(!empty(checkLoginManager('addProduct', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -417,7 +417,7 @@ function deleteProduct($input){
     $modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');
     $modelCombo = $controller->loadModel('Combos');
     
-    if(!empty(checkLoginManager('deleteProduct'))){
+    if(!empty(checkLoginManager('deleteProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -470,7 +470,7 @@ function addProductWarehouse($input){
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
-    if(!empty(checkLoginManager('addProductWarehouse'))){
+    if(!empty(checkLoginManager('addProductWarehouse', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -605,7 +605,7 @@ function importHistorytWarehouse($input){
 
     $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
     
-    if(!empty(checkLoginManager('importHistorytWarehouse'))){
+    if(!empty(checkLoginManager('importHistorytWarehouse', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');

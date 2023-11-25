@@ -12,7 +12,7 @@ function listBook($input){
 	$modelMembers = $controller->loadModel('Members');
 
 	
-	if(!empty(checkLoginManager('listBook'))){
+	if(!empty(checkLoginManager('listBook', 'calendar'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
@@ -136,7 +136,7 @@ function addBook($input){
 	$modelRoom = $controller->loadModel('Rooms');
     $modelBed = $controller->loadModel('Beds');
 	
-	if(!empty(checkLoginManager('addBook'))){
+	if(!empty(checkLoginManager('addBook', 'calendar'))){
 		$infoUser = $session->read('infoUser');
 
 		$mess= '';
@@ -256,7 +256,7 @@ function deleteBook($input){
 	
 	$modelBook = $controller->loadModel('Books');
     
-    if(!empty(checkLoginManager('deleteBook'))){
+    if(!empty(checkLoginManager('deleteBook', 'calendar'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
