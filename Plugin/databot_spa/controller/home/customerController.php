@@ -16,7 +16,7 @@ function listCustomer($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	
-	if(!empty(checkLoginManager('listCustomer'))){
+	if(!empty(checkLoginManager('listCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member);
@@ -228,7 +228,7 @@ function addCustomer($input)
 	
 	$mess= '';
 	
-	if(!empty(checkLoginManager('addCustomer'))){
+	if(!empty(checkLoginManager('addCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -373,7 +373,7 @@ function deleteCustomer($input){
 	
 	$modelCustomer = $controller->loadModel('Customers');
 	
-	if(!empty(checkLoginManager('deleteCustomer'))){
+	if(!empty(checkLoginManager('deleteCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -398,7 +398,7 @@ function listCategoryCustomer($input){
 
     $metaTitleMantan = 'Nhóm khách hàng';
 
-    if(!empty(checkLoginManager('listCategoryCustomer'))){
+    if(!empty(checkLoginManager('listCategoryCustomer', 'customer'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -461,7 +461,7 @@ function listSourceCustomer($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Nguồn khách hàng';
-    if(!empty(checkLoginManager('listSourceCustomer'))){
+    if(!empty(checkLoginManager('listSourceCustomer', 'customer'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -524,7 +524,7 @@ function deleteCategoryCustomer($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa nhóm khách hàng';
-    if(!empty(checkLoginManager('deleteCategoryCustomer'))){
+    if(!empty(checkLoginManager('deleteCategoryCustomer', 'customer'))){
         $infoUser = $session->read('infoUser');
         $modelCustomer = $controller->loadModel('Customers');
 

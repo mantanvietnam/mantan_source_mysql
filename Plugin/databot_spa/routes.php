@@ -19,6 +19,7 @@
 	$routesPlugin['confirm']= 'databot_spa/view/home/member/confirm.php';
 	$routesPlugin['register']= 'databot_spa/view/home/member/register.php';
 	$routesPlugin['managerSelectSpa']= 'databot_spa/view/home/member/managerSelectSpa.php';
+	$routesPlugin['error_permission']= 'databot_spa/view/home/member/error_permission.php';
 
 	$routesPlugin['listProduct']= 'databot_spa/view/home/product/listProduct.php';
 	$routesPlugin['listCategoryProduct']= 'databot_spa/view/home/product/listCategoryProduct.php';

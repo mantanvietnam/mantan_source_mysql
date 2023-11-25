@@ -162,7 +162,7 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/orderProduct" class="menu-link">
-                    <div>Bán sản phầm </div> 
+                    <div>Bán sản phẩm </div> 
                   </a>
                 </li>
                 <li class="menu-item">
@@ -404,14 +404,24 @@
                     <div>Nhóm nhân viên</div>
                   </a>
                 </li>
+              </ul>
+            </li>
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+                <div>Báo cáo - Thống kê</div>
+              </a>
+              <ul class="menu-sub">
+                
                 <li class="menu-item">
                   <a href="/listAgency" class="menu-link">
-                    <div>Hoa hông</div>
+                    <div>Hoa hồng CTV</div>
                   </a>
                 </li>
               </ul>
             </li>
-            
+
             <li class="menu-item">
               <a href="/listSpa" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>

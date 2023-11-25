@@ -110,7 +110,8 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code_otp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `permission` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `coin` INT NOT NULL DEFAULT '0'
+  `coin` INT NOT NULL DEFAULT '0',
+  `module` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[\"customer\"]',
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (

@@ -529,25 +529,31 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
     }
 }
 
-function checkLoginManager($permission='') {
+function checkLoginManager($permission='', $module='') {
     global $session;
     global $controller;
 
-    
-
     if(!empty($session->read('infoUser'))){
         $infoUser = $session->read('infoUser');
-        if($infoUser->type==1){
-            $return = 1;
-        }else{
-            if(!empty($infoUser->list_permission) && in_array($permission, $infoUser->list_permission)){
+        
+        if(!empty($infoUser->module) && in_array($module, $infoUser->module)){
+            if($infoUser->type==1){
                 $return = 1;
             }else{
-                $return = 0;
+                if(!empty($infoUser->list_permission) && in_array($permission, $infoUser->list_permission)){
+                    $return = 1;
+                }else{
+                    //$return = 0;
+                    return $controller->redirect('/error_permission');
+                }
             }
+        }else{
+            //$return = 0;
+            return $controller->redirect('/error_permission');
         }
     }else{
-        $return = 0;
+        //$return = 0;
+        return $controller->redirect('/login');
     }
       
     return $return;

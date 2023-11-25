@@ -39,6 +39,7 @@ function login($input)
 				    	// lấy tình trạng tài khoản của nhân viên theo chủ spa
 				    	$info_customer->dateline_at = $info_member->dateline_at;
 				    	$info_customer->status = $info_member->status;
+				    	$info_customer->module = json_decode($info_member->module, true);
 				    }
 
 	    			// còn hạn sử dụng
@@ -53,6 +54,7 @@ function login($input)
 			    			// nếu là chủ spa
 			    			if($info_customer->type == 1){
 			    				$info_customer->id_member = $info_customer->id;
+			    				$info_customer->module = json_decode($info_customer->module, true);
 			    			}
 
 			    			if(!empty($info_customer->permission)){
@@ -428,4 +430,8 @@ function managerSelectSpa() {
 	}
 }
 
+function error_permission($input)
+{
+
+}
 ?>

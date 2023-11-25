@@ -168,9 +168,13 @@ function addMemberAdmin($input)
 	// lấy data edit
     if(!empty($_GET['id'])){
         $data = $modelMembers->get( (int) $_GET['id']);
+
+        $data->module = json_decode($data->module, true);
     }else{
         $data = $modelMembers->newEmptyEntity();
         $data->created_at = date('Y-m-d H:i:s');
+        $data->module = [];
+        $data->type == 1;
     }
 
 	if ($isRequestPost) {
@@ -192,6 +196,13 @@ function addMemberAdmin($input)
 				$data->updated_at = date('Y-m-d H:i:s');
 				$data->dateline_at = @$dataSend['dateline_at'];
 				$data->number_spa = @$dataSend['number_spa'];
+				
+				if($data->type == 1){
+					$data->module = json_encode($dataSend['module']);
+				}else{
+					$data->module = '[]';
+				}
+				
 
 				if(empty($_GET['id'])){
 
@@ -209,6 +220,8 @@ function addMemberAdmin($input)
 
 
 		        $modelMembers->save($data);
+
+		        $data->module = json_decode($data->module, true);
 
 		        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 		    }else{

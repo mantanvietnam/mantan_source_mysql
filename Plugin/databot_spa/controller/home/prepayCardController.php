@@ -10,7 +10,7 @@ function listPrepayCard($input)
 
 	$modelPrepayCard = $controller->loadModel('PrepayCards');
 	
-	if(!empty(checkLoginManager('listPrepayCard'))){
+	if(!empty(checkLoginManager('listPrepayCard', 'prepaid_cards'))){
 		$infoUser = $session->read('infoUser');
 
          $mess = '';
@@ -111,7 +111,7 @@ function addPrepayCard($input){
 
     $metaTitleMantan = 'Thông tin thẻ dịch vụ';
     
-    if(!empty(checkLoginManager('addPrepayCard'))){
+    if(!empty(checkLoginManager('addPrepayCard', 'prepaid_cards'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelPrepayCard = $controller->loadModel('PrepayCards');
 		$modelTrademarks = $controller->loadModel('Trademarks');
@@ -171,7 +171,7 @@ function deletePrepayCard($input){
 
     $modelPrepayCard = $controller->loadModel('PrepayCards');
     
-    if(!empty(checkLoginManager('deletePrepayCard'))){
+    if(!empty(checkLoginManager('deletePrepayCard', 'prepaid_cards'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -202,7 +202,8 @@ function buyPrepayCard($input){
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	$modelBill = $controller->loadModel('Bills');
 	$modelMembers = $controller->loadModel('Members');
-	if(!empty(checkLoginManager('buyPrepayCard'))){
+	
+    if(!empty(checkLoginManager('buyPrepayCard', 'prepaid_cards'))){
 		$infoUser = $session->read('infoUser');
 		$order = array('id'=>'desc');
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
@@ -283,7 +284,7 @@ function printInfoBillCard($input){
 
     $metaTitleMantan = 'in đơn hàng';
 
-    if(!empty(checkLoginManager('printInfoBillCard'))){
+    if(!empty(checkLoginManager('printInfoBillCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
 
         $modelBill = $controller->loadModel('Bills');
@@ -329,7 +330,7 @@ function listCustomerPrepayCard($input){
 
     $metaTitleMantan = 'Danh sách thẻ trước';
 
-    if(!empty(checkLoginManager('listCustomerPrepayCard'))){
+    if(!empty(checkLoginManager('listCustomerPrepayCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
 
         $modelBill = $controller->loadModel('Bills');

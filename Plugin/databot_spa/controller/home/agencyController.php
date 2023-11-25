@@ -8,7 +8,7 @@ function listAgency($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('listAgency'))){
+	if(!empty(checkLoginManager('listAgency', 'static'))){
 	    $metaTitleMantan = 'Hoa hồng cho nhân viên';
 
 	    $modelMember = $controller->loadModel('Members');

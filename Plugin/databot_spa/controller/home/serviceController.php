@@ -7,7 +7,7 @@ function listCategoryService($input){
 
     $metaTitleMantan = 'Danh mục dịch vụ';
     
-    if(!empty(checkLoginManager('listCategoryService'))){
+    if(!empty(checkLoginManager('listCategoryService', 'product'))){
         $mess= '';
         
         if(!empty($_GET['error'])){
@@ -73,7 +73,7 @@ function deleteCategoryService($input){
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
     
-    if(!empty(checkLoginManager('deleteCategoryService'))){
+    if(!empty(checkLoginManager('deleteCategoryService', 'product'))){
         $infoUser = $session->read('infoUser');
         $modelService = $controller->loadModel('Services');
 
@@ -107,7 +107,7 @@ function listService($input){
     global $controller;
 
     $metaTitleMantan = 'Danh sách dịch vụ';
-    if(!empty(checkLoginManager('listService'))){
+    if(!empty(checkLoginManager('listService', 'product'))){
         $mess= '';
         
         if(!empty($_GET['error'])){
@@ -214,7 +214,7 @@ function addService($input){
 
     $metaTitleMantan = 'Thông tin dịch vụ';
     
-    if(!empty(checkLoginManager('addService'))){
+    if(!empty(checkLoginManager('addService', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelService = $controller->loadModel('Services');
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -291,7 +291,7 @@ function deleteService($input){
     $modelService = $controller->loadModel('Services');
     $modelOrderDetails = $controller->loadModel('OrderDetails');
 
-    if(!empty(checkLoginManager('deleteService'))){
+    if(!empty(checkLoginManager('deleteService', 'product'))){
         $infoUser = $session->read('infoUser');
         $modelCombo = $controller->loadModel('Combos');
 
