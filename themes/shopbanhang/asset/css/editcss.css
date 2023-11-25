@@ -1101,6 +1101,19 @@ header{
     color: #000;
 }
 
+.video-review-product >div{
+    width: 50%;
+}
+
+.video-review-product .image-modal{
+    height: 443px;
+}
+
+.cart-product-name-box a{
+    display: flex;
+    align-items: center;
+    color: #000;
+}
 
 @media(min-width: 445px){
     
@@ -1164,6 +1177,9 @@ header{
         margin-bottom: 20px;
     }
 
+    .video-review-product .image-modal {
+        height: 248px;
+    }
 
     .footer-center{
         gap: 0;

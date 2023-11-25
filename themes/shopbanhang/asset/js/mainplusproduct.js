@@ -21,7 +21,7 @@ if (!$(e.target).closest('#modalemailSubscribe .modal-content').length && $('#mo
 
   
 
-});s
+});
 
 
 document.addEventListener('DOMContentLoaded', function() {
