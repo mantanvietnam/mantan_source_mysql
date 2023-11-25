@@ -22,7 +22,7 @@
 
     <div class="full-home-slider">
          <!-- Trang chủ -->
-         <div class="item-slide">
+         <div class="item-slide" id="slide-home">
             <div class="social-intro social-mobile">
                 <ul>
                     <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
@@ -43,12 +43,12 @@
                     </video>
                 </div>
                 
-                <div class="btn-main text-center text-uppercase"><a href="">THƯ VIỆN ẢNH</a></div>
+                <!-- <div class="btn-main text-center text-uppercase"><a href="">THƯ VIỆN ẢNH</a></div> -->
             </section>
         </div>
 
         <!-- Top tranh yêu thích -->
-        <div class="item-slide">
+        <div class="item-slide" id="slide-home-top">
             <div class="social-intro social-mobile">
                 <ul>
                     <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
@@ -71,12 +71,12 @@
                             <a href="/topImage" class="zoom-effect"><span>TOP</span>Tranh yêu thích</a>
                         </div>
                         <div class="content-slider">
-                            <div class="slider-hot-nav">
+                            <div class="slider-hot-nav" id="item-slide-full-mobile">
                                 <div class="slide-top slider-nav">
                                     <?php
                                     if(!empty($topImages)){
                                         foreach ($topImages as $key => $value) {
-                                            echo '  <div class="item-slide">
+                                            echo '  <div class="item-slide " >
                                                         <div class="item-avr">
                                                             <a href="/detailImage/?id='.$value->id.'">
                                                                 <img src="'.$value->image.'" class="img-fluid w-100" alt="'.$value->name.'">
@@ -126,7 +126,7 @@
         </div>
 
         <!-- Dịch vụ -->
-        <div class="item-slide">
+        <div class="item-slide" id="slide-home-service">
             <section class="box-toturial">
                 <div class="container">
                     <div class="avr-top text-center"><img src="<?php echo $urlThemeActive;?>images/tutorial.svg" class="img-fluid" alt=""></div>
@@ -203,7 +203,7 @@
      
         
         <!-- Danh sách đại lý -->
-        <div class="item-slide slide-relative">
+        <div class="item-slide slide-relative" id="slide-home-shop">
             <section class="">
                 <!--
                 <img id="go-now1" src="<?php echo $urlThemeActive;?>/images/go-now.gif" class="img-fluid" alt="">

@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<div class="header-mobile">
+<div class="header-mobile-height">
     
 </div>
 
@@ -123,7 +123,7 @@
                     <div class="sub-lang">
                         <ul>
                             <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href=""><img src="/themes/godraw/images/lang1.png" class="img-fluid" alt=""></a></li>
                         </ul>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                     <div class="sub-lang">
                         <ul>
                             <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href=""><img src="/themes/godraw/images/lang1.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href=""><img src="/themes/godraw/images/comy.png" class="img-fluid" alt=""></a></li>
                         </ul>
                     </div>
                 </div>

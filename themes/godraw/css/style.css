@@ -1101,7 +1101,7 @@ footer {
     bottom: unset;
     width: 100%;
     text-align: center;
-    top: 62%;
+    /* top: 62%; */
   }
 }
 .box-banner-home .social-intro ul {

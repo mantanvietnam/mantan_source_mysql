@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  console.log('a');
+
+
   $(".mm-bar").click(function () {
     $(".nav-mobile").addClass("open_menu");
   });
@@ -59,7 +63,7 @@ $(document).ready(function () {
     slidesToShow: 6,
     slidesToScroll: 1,
     asNavFor: ".slider-for",
-    dots: true,
+    dots: false,
     focusOnSelect: true,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -72,14 +76,14 @@ $(document).ready(function () {
         breakpoint: 1023,
         settings: {
           slidesToShow: 4,
-          dots: true,
+          dots: false,
         },
       },
       {
         breakpoint: 767,
         settings: {
           slidesToShow: 4,
-          dots: true,
+          dots: false,
           arrows: true
         },
       },
@@ -218,12 +222,12 @@ $(document).ready(function () {
   });
 
     // fullHeightDiv.style.height = 'calc(var(--vh, 1vh) * 100)';
-    let height = window.innerHeight;
-      // Đặt chiều cao của div bằng chiều cao của màn hình khi trang được tải
-      $(document).ready(function () {
-        var screenHeight = window.innerHeight;
-        $('main.main-cover').css('height', screenHeight + 'px');
-    });
+    // let screenHeight = window.innerHeight;
+    //   // Đặt chiều cao của div bằng chiều cao của màn hình khi trang được tải
+    //   $(document).ready(function () {
+    //     var screenHeight = window.innerHeight;
+    //     $('main.main-cover').css('height', screenHeight + 'px');
+    // });
 
     // Đặt lại chiều cao của div khi kích thước màn hình thay đổi
     $(window).resize(function () {
@@ -231,8 +235,23 @@ $(document).ready(function () {
         $('main.main-cover').css('height', screenHeight + 'px');
         console.log(screenHeight);
 
-       
+        // $('.full-home-slider').css('height', screenHeight + 'px');
+        // console.log('a')
+
+
+  //       // Lấy div cần set chiều cao
+
     });
 
-
-});
+    const fullHeightDiv = document.querySelector('.full-home-slider');
+    console.log(fullHeightDiv);
+  
+    // Lấy chiều cao thực tế của viewport
+    const vh = window.innerHeight * 0.01;
+    
+    // Set chiều cao cho div bằng CSS variable
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // Áp dụng cho div 
+    fullHeightDiv.style.height = 'calc(var(--vh, 1vh) * 100)';
+})
