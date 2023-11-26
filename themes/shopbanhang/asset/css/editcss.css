@@ -1144,6 +1144,10 @@ background: #888;
 background: #555;
 }
 
+.cart-product-gift-right-inner .slick-track{
+    margin-left: 0;
+}
+
 @media(min-width: 445px){
     
     #section-breadcrumb{
