@@ -112,13 +112,13 @@
             <!-- Cards -->
 
             <li class="menu-item">
-              <a href="/listRoomBed" class="menu-link">
+              <a href="/listRoomBed" class="menu-link <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>" >
                 <i class="menu-icon tf-icons bx bx-sitemap"></i>
                 <div>Sơ đồ SPA</div>
               </a>
             </li>   
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('customer', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-user-detail"></i>
                 <div>Khách hàng</div>
               </a>
@@ -141,7 +141,7 @@
               </ul>
             </li>  
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('calendar', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div>Đặt hẹn</div>
               </a>
@@ -155,7 +155,7 @@
               </ul>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-shopping-bag"></i>
                 <div>Bán hàng</div>
               </a>
@@ -171,12 +171,12 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/orderCombo" class="menu-link">
+                  <a href="/orderCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                     <div>Bán Combo liệu trình </div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listOrderCombo" class="menu-link">
+                  <a href="/listOrderCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                     <div>Danh sách đơn Combo liệu trình</div> 
                   </a>
                 </li>
@@ -191,19 +191,19 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/buyPrepayCard" class="menu-link">
+                  <a href="/buyPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                     <div>Bán thẻ trả trước</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listCustomerPrepayCard" class="menu-link">
+                  <a href="/listCustomerPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                     <div>Danh sách đơn thẻ trả trước</div> 
                   </a>
                 </li>
               </ul>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('bill', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
                 <div>Quản lý thu chi</div>
               </a>
@@ -222,7 +222,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('bill', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-book-content"></i>
                 <div>Quản lý công nợ</div>
               </a>
@@ -241,7 +241,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('static', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-square"></i>
                 <div>Thống kê</div>
               </a>
@@ -259,28 +259,28 @@
             <!-- Cards -->
 
             <li class="menu-item">
-              <a href="/listCampain" class="menu-link">
+              <a href="/listCampain" class="menu-link <?php if(!in_array('campain', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-line-chart"></i>
                 <div>Chiến dịch</div>
               </a>
             </li> 
 
             <li class="menu-item">
-              <a href="/listSMSMarketing" class="menu-link">
+              <a href="/listSMSMarketing" class="menu-link <?php if(!in_array('sms', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div>Gửi SMS</div>
               </a>
             </li>  
 
             <li class="menu-item">
-              <a href="/listEmailMarketing" class="menu-link">
+              <a href="/listEmailMarketing" class="menu-link <?php if(!in_array('customer', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div>Gửi Email</div>
               </a>
             </li> 
 
             <li class="menu-item">
-              <a href="/transactionHistories" class="menu-link">
+              <a href="/transactionHistories" class="menu-link <?php if(!in_array('zalo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-credit-card"></i>
                 <div>Nạp tiền</div>
               </a>
@@ -298,14 +298,14 @@
             <!-- Cards -->
 
             <li class="menu-item">
-              <a href="/listPrepayCard" class="menu-link">
+              <a href="/listPrepayCard" class="menu-link <?php if(!in_array('prepaid_cards', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bxs-credit-card"></i>
                 <div>Loại thẻ trả trước</div>
               </a>
             </li>   
             
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>Sản phẩm</div>
               </a>
@@ -326,7 +326,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listPartner" class="menu-link">
+                  <a href="/listPartner" class="menu-link <?php if(!in_array('agency', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                     <div>Đối tác</div>
                   </a>
                 </li>
@@ -344,7 +344,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('product', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-basket"></i>
                 <div>Dịch vụ</div>
               </a>
@@ -363,14 +363,14 @@
             </li>
 
             <li class="menu-item">
-              <a href="/listCombo" class="menu-link">
+              <a href="/listCombo" class="menu-link <?php if(!in_array('combo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class='menu-icon tf-icons bx bx-gift'></i>
                 <div>Combo liệu trình</div>
               </a>
             </li>
 
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('room', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-bed"></i>
                 <div>Phòng - Giường</div>
               </a>
@@ -389,7 +389,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('staff', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div>Đội ngũ</div>
               </a>
@@ -408,7 +408,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('static', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-bar-chart"></i>
                 <div>Báo cáo - Thống kê</div>
               </a>
