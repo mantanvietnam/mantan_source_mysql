@@ -7,6 +7,7 @@ $setting = setting();
 $slide_home= slide_home($setting['id_slide']);
 
 
+
 ?>
 
 <main>
@@ -98,8 +99,12 @@ $slide_home= slide_home($setting['id_slide']);
                                     <?php 
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
+                                                $active = '';
+                                                if($value->id==$category->id){
+                                                    $active = 'active ';
+                                                }
                                                 if(@$value->description!='combo'){
-                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                    echo '  <li class="'.@$active.'"><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
                                                 }
                                             }
                                         }
@@ -115,8 +120,12 @@ $slide_home= slide_home($setting['id_slide']);
                                     <?php 
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
+                                                $active = '';
+                                                if($value->id==$category->id){
+                                                    $active = 'active ';
+                                                }
                                                 if(@$value->description=='combo'){
-                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                    echo '  <li class="'.@$active.'"><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
                                                 }
                                             }
                                         }
