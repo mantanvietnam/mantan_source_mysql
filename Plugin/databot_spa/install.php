@@ -112,6 +112,10 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `permission` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `coin` INT NOT NULL DEFAULT '0',
   `module` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '[\"customer\"]',
+  `access_token_zalo` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `id_app_zalo` VARCHAR(255) NULL,
+  `secret_app_zalo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `id_oa_zalo` VARCHAR(255) NULL,
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (

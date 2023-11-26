@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+ 
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +14,7 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/lib/slick-theme.min.css"> 
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/jquery.mmenu.all.css">
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
-    <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css">
+    <!-- <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css"> -->
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -20,7 +22,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <?php 
+        if(empty($isCssHome)){
+            echo     
+            '<link rel="stylesheet" type="text/css" title="" href="'.$urlThemeActive.'/css/update.css">';
+        }
+        else{
+            echo 
+            '
+            <link rel="stylesheet" type="text/css" title="" href="'.$urlThemeActive.'/css/style2.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.css" integrity="sha512-wCVOuVtxsXqrQK7tj9j4BvyfITQmpp7UE7mVilD7aieGLYFEIAa5UKTP1RapOf6dxQ9JIKAneakcyykWG4r4Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            ';
+        }
+    ?> 
+
     <?php mantan_header();global $settingThemes;?>
 </head>
 <body>

@@ -9,7 +9,7 @@ function listCampain(){
 
     $metaTitleMantan = 'Danh sách chiến dịch';
     
-    if(!empty(checkLoginManager('listCampain'))){
+    if(!empty(checkLoginManager('listCampain', 'campain'))){
 
         $mess= '';
 
@@ -104,7 +104,7 @@ function addCampain($input){
 
     $metaTitleMantan = 'Thông tin chiến dịch';
     
-    if(!empty(checkLoginManager('addCampain'))){
+    if(!empty(checkLoginManager('addCampain', 'campain'))){
         $modelMembers = $controller->loadModel('Members');
         $modelCampains = $controller->loadModel('Campains');
 
@@ -193,7 +193,7 @@ function deleteCampain($input)
     
     $modelCampains = $controller->loadModel('Campains');
     
-    if(!empty(checkLoginManager('deleteCampain'))){
+    if(!empty(checkLoginManager('deleteCampain', 'campain'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){

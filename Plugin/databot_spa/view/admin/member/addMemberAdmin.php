@@ -79,11 +79,23 @@
                 </div>
 
                 <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="staff" <?php if(!empty($data->module) && in_array('staff', $data->module)) echo 'checked';?> > Nhân viên
+                </div>
+
+                <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="calendar" <?php if(!empty($data->module) && in_array('calendar', $data->module)) echo 'checked';?> > Đặt lịch hẹn
                 </div>
 
                 <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="campain" <?php if(!empty($data->module) && in_array('campain', $data->module)) echo 'checked';?> > Chiến dịch marketing
+                </div>
+
+                <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="zalo" <?php if(!empty($data->module) && in_array('zalo', $data->module)) echo 'checked';?> > Kết nối Zalo
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="sms" <?php if(!empty($data->module) && in_array('sms', $data->module)) echo 'checked';?> > Tin nhắn SMS
                 </div>
 
                 <div class="col-md-3 mb-3">
@@ -100,6 +112,14 @@
                 
                 <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="combo" <?php if(!empty($data->module) && in_array('combo', $data->module)) echo 'checked';?> > Combo liệu trình
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="bill" <?php if(!empty($data->module) && in_array('bill', $data->module)) echo 'checked';?> > Phiếu thu, chi, công nợ
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="agency" <?php if(!empty($data->module) && in_array('agency', $data->module)) echo 'checked';?> > Đối tác - Cộng tác viên
                 </div>
 
                 <div class="col-md-3 mb-3">

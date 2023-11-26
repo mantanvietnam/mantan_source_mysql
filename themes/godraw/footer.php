@@ -57,8 +57,20 @@
 	</div>
 </footer>
 
+<?php 
+    if(empty($isCssHome)){
+        echo     
+        '<script type="text/javascript" src="'.$urlThemeActive.'/js/private.js"></script>';
+    }
+	else{
+		echo 
+		'<script type="text/javascript" src="'.$urlThemeActive.'/js/private2.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js" integrity="sha512-LGiXf+jHGTHcIybSsOWO3I/in+OObCkcEsWIZ7IyhzfD6RzD5qDUw2CK+JveuI7zTSEcDG//bIOvOpAJW2BWsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>';
+	}
+?> 
+
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/lib/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/lib/slick.min.js"></script> 
-<script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/private.js"></script>
+<!-- <script type="text/javascript" src="<?php echo $urlThemeActive;?>/js/private.js"></script> -->
 </body>
 </html>

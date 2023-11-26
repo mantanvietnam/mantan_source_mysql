@@ -9,7 +9,7 @@ function listWarehouse($input){
 
     $metaTitleMantan = 'Danh sách kho hàng';
 
-    if(!empty(checkLoginManager('listWarehouse'))){
+    if(!empty(checkLoginManager('listWarehouse', 'product'))){
     	$user = $session->read('infoUser');
 
 		$modelMembers = $controller->loadModel('Members');
@@ -113,7 +113,7 @@ function addWarehouse($input)
 
 	$metaTitleMantan = 'Thông tin kho';
 
-    if(!empty(checkLoginManager('addWarehouse'))){
+    if(!empty(checkLoginManager('addWarehouse', 'product'))){
 
 		$modelMembers = $controller->loadModel('Members');
 		$modelWarehouses = $controller->loadModel('Warehouses');
@@ -161,7 +161,7 @@ function deleteWarehouse($input)
 	global $controller;
 	global $session;
 
-	if(!empty(checkLoginManager('deleteWarehouse'))){
+	if(!empty(checkLoginManager('deleteWarehouse', 'product'))){
 		$modelWarehouses = $controller->loadModel('Warehouses');
 		$modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');
 		

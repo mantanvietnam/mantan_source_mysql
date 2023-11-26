@@ -8,7 +8,7 @@ function listRoom($input){
 
     $metaTitleMantan = 'Danh sách Phòng';
     
-    if(!empty(checkLoginManager('listRoom'))){
+    if(!empty(checkLoginManager('listRoom', 'room'))){
         $mess = '';
         if(!empty($_GET['error'])){
             switch ($_GET['error']) {
@@ -63,7 +63,7 @@ function deleteRoom($input){
 
     $metaTitleMantan = 'Xóa phòng';
     
-    if(!empty(checkLoginManager('deleteRoom'))){
+    if(!empty(checkLoginManager('deleteRoom', 'room'))){
         $infoUser = $session->read('infoUser');
         
         $modelRoom = $controller->loadModel('Rooms');

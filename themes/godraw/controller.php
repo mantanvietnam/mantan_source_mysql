@@ -56,7 +56,7 @@ function settingHomeThemeGodraw($input)
 }
 
 function home($input)
-{
+{   
     global $controller;
     global $modelPosts;
     global $settingThemes;
@@ -88,6 +88,7 @@ function home($input)
         $listCity = getProvince();
     }
 
+    setVariable('isCssHome', true);
     setVariable('topImages', $topImages);
     setVariable('listAgency', $listAgency);
     setVariable('listPost1', $listPost1);

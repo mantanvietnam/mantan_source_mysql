@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng nhập phần mềm quản lý SPA  </title>
+    <title>Đăng nhập phần mềm quản lý DATA SPA  </title>
 
     <meta name="description" content="" />
 
@@ -83,8 +83,8 @@
                 </a>
               </div> -->
               <!-- /Logo -->
-              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
-              <p class="mb-4">Mời bạn đăng nhập phần mềm quản lý SPA</p>
+              <h4 class="mb-2">Phần mềm quản lý DATA SPA 👋</h4>
+              <p class="mb-4">Mời bạn đăng nhập phần mềm quản lý SPA của bạn</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">

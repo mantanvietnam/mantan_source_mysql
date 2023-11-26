@@ -1,6 +1,6 @@
 <?php 
-
 require_once __DIR__ . '/lib/google/vendor/autoload.php';
+require_once __DIR__ . '/lib/zalo/vendor/autoload.php';
 
 global $urlCreateImage;
 
@@ -557,5 +557,13 @@ function checkLoginManager($permission='', $module='') {
     }
       
     return $return;
+}
+
+function base64url_encode($plainText)
+{
+    $base64 = base64_encode($plainText);
+    $base64 = trim($base64, "=");
+    $base64url = strtr($base64, '+/', '-_');
+    return ($base64url);
 }
 ?>

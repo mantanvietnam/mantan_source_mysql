@@ -8,7 +8,7 @@ function listCollectionBill($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('listCollectionBill'))){
+	if(!empty(checkLoginManager('listCollectionBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -168,7 +168,7 @@ function detailCollectionBill($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty(checkLoginManager('detailCollectionBill'))){
+    if(!empty(checkLoginManager('detailCollectionBill', 'bill'))){
 		$user = $session->read('infoUser');
 
 		$modelCombo = $controller->loadModel('Combos');
@@ -239,7 +239,7 @@ function addCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu thu';
     
-    if(!empty(checkLoginManager('addCollectionBill'))){
+    if(!empty(checkLoginManager('addCollectionBill', 'bill'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 
@@ -310,7 +310,7 @@ function listBill($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('listBill'))){
+	if(!empty(checkLoginManager('listBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -471,7 +471,7 @@ function addBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu chi';
     
-    if(!empty(checkLoginManager('addBill'))){
+    if(!empty(checkLoginManager('addBill', 'bill'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 
@@ -538,7 +538,7 @@ function deleteBill($input){
     
     $modelBill = $controller->loadModel('Bills');
     
-    if(!empty(checkLoginManager('deleteBill'))){
+    if(!empty(checkLoginManager('deleteBill', 'bill'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -567,7 +567,7 @@ function printCollectionBill(){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('printCollectionBill'))){
+	if(!empty(checkLoginManager('printCollectionBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -596,7 +596,7 @@ function printBill(){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('printBill'))){
+	if(!empty(checkLoginManager('printBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');

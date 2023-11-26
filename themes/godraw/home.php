@@ -20,9 +20,9 @@
         </ul>
     </div>
 
-    <div class="full-home-slider">
+    <div class="full-home-slider" id="fullpage">
          <!-- Trang chủ -->
-         <div class="item-slide" id="slide-home">
+         <div class="item-slide section" id="slide-home">
             <div class="social-intro social-mobile">
                 <ul>
                     <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Top tranh yêu thích -->
-        <div class="item-slide" id="slide-home-top">
+        <div class="item-slide section" id="slide-home-top">
             <div class="social-intro social-mobile">
                 <ul>
                     <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
@@ -78,9 +78,7 @@
                                         foreach ($topImages as $key => $value) {
                                             echo '  <div class="item-slide " >
                                                         <div class="item-avr">
-                                                            <a href="/detailImage/?id='.$value->id.'">
-                                                                <img src="'.$value->image.'" class="img-fluid w-100" alt="'.$value->name.'">
-                                                            </a>
+                                                            <img src="'.$value->image.'" class="img-fluid w-100" alt="'.$value->name.'">
                                                         </div>
                                                     </div>';
                                         }
@@ -96,12 +94,14 @@
                                         foreach ($topImages as $key => $value) {
                                             echo '  <div class="item-slide">
                                                         <div class="item-for">
-                                                            <div class="avr"><img src="'.$value->image.'" class="img-fluid" alt=""></div>
+                                                            <div class="avr">
+                                                                <a href="/detailImage/?id='.$value->id.'">
+                                                                    <img src="'.$value->image.'" class="img-fluid" alt="">
+                                                                </a>
+                                                            </div>
                                                             
                                                             <div class="icon-screen">
-                                                                
                                                                 <img src="'.$urlThemeActive.'/images/screen.svg" class="img-fluid" alt="">
-                                                                
                                                             </div>
                                                             
                                                             <div class="heart">
@@ -126,7 +126,7 @@
         </div>
 
         <!-- Dịch vụ -->
-        <div class="item-slide" id="slide-home-service">
+        <div class="item-slide section" id="slide-home-service">
             <section class="box-toturial">
                 <div class="container">
                     <div class="avr-top text-center"><img src="<?php echo $urlThemeActive;?>images/tutorial.svg" class="img-fluid" alt=""></div>
@@ -203,7 +203,7 @@
      
         
         <!-- Danh sách đại lý -->
-        <div class="item-slide slide-relative" id="slide-home-shop">
+        <div class="item-slide section slide-relative" id="slide-home-shop">
             <section class="">
                 <!--
                 <img id="go-now1" src="<?php echo $urlThemeActive;?>/images/go-now.gif" class="img-fluid" alt="">
