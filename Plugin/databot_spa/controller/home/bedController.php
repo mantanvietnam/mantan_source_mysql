@@ -8,7 +8,7 @@ function listBed($input){
 
     $metaTitleMantan = 'Danh sách giường';
     
-    if(!empty(checkLoginManager('listBed'))){
+    if(!empty(checkLoginManager('listBed', 'room'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
@@ -77,7 +77,7 @@ function deleteBed($input){
 
     $metaTitleMantan = 'Xóa giường';
     
-   if(!empty(checkLoginManager('deleteBed'))){
+   if(!empty(checkLoginManager('deleteBed', 'room'))){
         $infoUser = $session->read('infoUser');
         
         $modelBed = $controller->loadModel('Beds');
@@ -105,7 +105,7 @@ function listRoomBed($input){
 
     $metaTitleMantan = 'Danh sách danh Phòng';
     
-   if(!empty(checkLoginManager('listRoomBed'))){
+   if(!empty(checkLoginManager('listRoomBed', 'room'))){
         $infoUser = $session->read('infoUser');
         $modelRoom = $controller->loadModel('Rooms');
         $modelBed = $controller->loadModel('Beds');
@@ -172,7 +172,7 @@ function infoRoomBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
     
-    if(!empty(checkLoginManager('infoRoomBed'))){
+    if(!empty(checkLoginManager('infoRoomBed', 'room'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelWarehouses = $controller->loadModel('Warehouses');
         $modelProduct = $controller->loadModel('Products');
@@ -294,7 +294,7 @@ function cancelBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
     
-    if(!empty(checkLoginManager('cancelBed'))){
+    if(!empty(checkLoginManager('cancelBed', 'room'))){
         $modelBed = $controller->loadModel('Beds');
         $modelOrder = $controller->loadModel('Orders');
         $modelOrderDetails = $controller->loadModel('OrderDetails');
@@ -333,7 +333,7 @@ function checkoutBed($input){
 
     $metaTitleMantan = 'Thông tin giường';
     
-    if(!empty(checkLoginManager('checkoutBed'))){
+    if(!empty(checkLoginManager('checkoutBed', 'room'))){
         $modelCombo = $controller->loadModel('Combos');
         $modelProduct = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
