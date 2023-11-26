@@ -1,5 +1,8 @@
+
 <div class="header-trailer">
     <?php getHeader();global $settingThemes;?>
+    <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css">
+
 </div>
 <style>
     footer, header {
