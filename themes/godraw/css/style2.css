@@ -761,6 +761,14 @@ header{
     display: none;
 }
 
+.content-maps-left .btn{
+    width: 100%;
+}
+
+
+
+
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
@@ -779,6 +787,20 @@ header{
 
     .box-banner-home .social-intro ul{
         gap: 10px
+    }
+}
+
+@media(min-width: 1024px){
+    .box-gallery .container{
+        max-width: 60%;
+    }
+
+    #slide-home-top .box-gallery{
+        padding-top: 110px;
+    }
+
+    .list-showroom {
+        max-height: 30%;
     }
 }
 
@@ -831,6 +853,14 @@ header{
 
 
 @media(max-width: 500px)  {
+    .list-form-item .item .btn_field{
+        background-color: #0046ab;
+        background-image: none;
+        font-size: 18px;
+        margin-top: 12px;
+        border:1px solid #fff ;
+    }
+
     .box-gallery{
         padding: 0;
     }

@@ -118,8 +118,9 @@ $(document).ready(function () {
           scrollBar: false,
           navigation: false,
           navigationPosition: 'right',
-          scrollOverflow: false,
+          scrollOverflow: true,
           controlArrows: false, // Thêm dòng này để ẩn "watermark"
+          normalScrollElements: '.list-showroom',
 
         });
       });

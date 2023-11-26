@@ -1472,11 +1472,11 @@ footer {
 }
 @media (max-width: 767px) {
   .txt-detail-gallery {
-    position: fixed;
-    height: auto;
+    /* position: fixed;
     left: 0;
-    bottom: 0;
-    border-radius: 0;
+    bottom: 0; */
+    height: auto;
+    border-radius: 10px;
     background: rgba(21, 53, 93, 0.58);
   }
 }
@@ -1549,10 +1549,10 @@ footer {
 }
 @media (max-width: 767px) {
   .avar-detail img {
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100vh; */
     object-fit: cover;
   }
 }

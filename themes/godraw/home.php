@@ -220,50 +220,50 @@
                 -->
                 <div class="container">
                     <div class="">
-                        <form action="/search-agency" method="get">
-                            <div class="row mb-3">
-                            
-                                <div class="col-md-2">
-                                    <p>Tên đại lý</p>
-                                    <input type="text" name="name_agency" value="" class="form-control">
-                                </div>    
-                                <div class="col-md-2">
-                                    <p>Tỉnh thành</p>
-                                    <select name="province_id" id="province_id" class="form-control" onchange="selectCity();">
-                                        <option value="">Chọn tỉnh thành</option>
-                                        <?php 
-                                        if(!empty($listCity)){
-                                            foreach ($listCity as $key => $value) {
-                                                echo '<option value="'.$value->province_id.'">'.$value->name.'</option>';
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>    
-                                <div class="col-md-3">
-                                    <p>Quận huyện</p>
-                                    <select name="district_id" id="district_id" class="form-control" onchange="selectDistrict();">
-                                        <option value="">Chọn tỉnh thành</option>
-                                    </select>
-                                </div>  
-                                <div class="col-md-3">
-                                    <p>Xã phường</p>
-                                    <select name="ward_id" id="ward_id" class="form-control">
-                                        <option value="">Chọn xã phường</option>
-                                    </select>
-                                </div>    
-                                <div class="col-md-2">
-                                    <p>&nbsp;</p>
-                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                                </div>  
-                            
-                            </div>
-                        </form>  
+                    
 
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="content-maps-left">
-                                
+                                    <!-- form select -->
+                                    <form action="/search-agency" method="get">
+                                        <div class="row mb-3">                    
+                                            <div class="col-md-6">
+                                                <p>Tên đại lý</p>
+                                                <input type="text" name="name_agency" value="" class="form-control">
+                                            </div>    
+                                            <div class="col-md-6">
+                                                <p>Tỉnh thành</p>
+                                                <select name="province_id" id="province_id" class="form-control" onchange="selectCity();">
+                                                    <option value="">Chọn tỉnh thành</option>
+                                                    <?php 
+                                                    if(!empty($listCity)){
+                                                        foreach ($listCity as $key => $value) {
+                                                            echo '<option value="'.$value->province_id.'">'.$value->name.'</option>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>    
+                                            <div class="col-md-6">
+                                                <p>Quận huyện</p>
+                                                <select name="district_id" id="district_id" class="form-control" onchange="selectDistrict();">
+                                                    <option value="">Chọn tỉnh thành</option>
+                                                </select>
+                                            </div>  
+                                            <div class="col-md-6">
+                                                <p>Xã phường</p>
+                                                <select name="ward_id" id="ward_id" class="form-control">
+                                                    <option value="">Chọn xã phường</option>
+                                                </select>
+                                            </div>    
+                                            <div class="col-md-12">
+                                                <p>&nbsp;</p>
+                                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                            </div>  
+                                        </div>
+                                    </form>          
+
                                     <div class="list-showroom">
                                         <?php 
                                         if(!empty($listAgency)){
