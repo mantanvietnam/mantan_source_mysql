@@ -251,6 +251,12 @@
                     <div>Thống kê doanh thu</div> 
                   </a>
                 </li>
+
+                <li class="menu-item">
+                  <a href="/listAgency" class="menu-link">
+                    <div>Hoa hồng nhân viên</div>
+                  </a>
+                </li>
               </ul>
             </li>
 
@@ -278,6 +284,30 @@
                 <div>Gửi Email</div>
               </a>
             </li> 
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('zalo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
+                <i class="menu-icon tf-icons bx bx-alarm-snooze"></i>
+                <div>Zalo</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/addFriendZaloMarketing" class="menu-link">
+                    <div>Kết bạn Zalo</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/listZaloMarketing" class="menu-link">
+                    <div>Gửi tin Zalo</div> 
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/settingZaloMarketing" class="menu-link">
+                    <div>Cài đặt Zalo</div> 
+                  </a>
+                </li>
+              </ul>
+            </li>
 
             <li class="menu-item">
               <a href="/transactionHistories" class="menu-link <?php if(!in_array('zalo', $session->read('infoUser')->module)) echo 'btn disabled';?>">
@@ -407,20 +437,6 @@
               </ul>
             </li>
             
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle <?php if(!in_array('static', $session->read('infoUser')->module)) echo 'btn disabled';?>">
-                <i class="menu-icon tf-icons bx bx-bar-chart"></i>
-                <div>Báo cáo - Thống kê</div>
-              </a>
-              <ul class="menu-sub">
-                
-                <li class="menu-item">
-                  <a href="/listAgency" class="menu-link">
-                    <div>Hoa hồng CTV</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
 
             <li class="menu-item">
               <a href="/listSpa" class="menu-link">
