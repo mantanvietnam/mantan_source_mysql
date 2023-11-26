@@ -1611,7 +1611,7 @@ footer {
 }
 
 .box-gallery {
-  /* padding: 48px 0; */
+  padding: 48px 0;
 }
 @media (max-width: 767px) {
   .box-gallery {

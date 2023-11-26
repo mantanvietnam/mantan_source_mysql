@@ -757,6 +757,10 @@ header{
     padding-top: 60px
 }
 
+.fp-watermark{
+    display: none;
+}
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
@@ -866,7 +870,7 @@ header{
     } */
 
     .slide-bot {
-        height: 100vh;
+        height: 100%;
     }
 
     .slide-bot .slider-for{
@@ -876,7 +880,7 @@ header{
 
     .box-gallery{
         position: relative;
-        height: 100vh;
+        height: 100%;
     }
 
     .avr{
@@ -1048,7 +1052,7 @@ header{
     }
 
     .box-toturial{
-        transform: translateY(136px);
+        /* transform: translateY(136px); */
 
     }
 
@@ -1181,7 +1185,7 @@ header{
     }
 
     .box-toturial {
-        transform: translateY(63px);
+        /* transform: translateY(63px); */
     }
 }
 
@@ -1246,7 +1250,7 @@ header{
     } */
 
     .box-toturial {
-        transform: translateY(92px);
+        /* transform: translateY(92px); */
     }
 
     .item-for {
