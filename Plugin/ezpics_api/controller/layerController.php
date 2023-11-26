@@ -199,6 +199,8 @@ function addLayerImageAPI($input){
 		            // layer mới
 		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
 		            if(!empty($product)){
+		            	if(empty($dataSend['page'])) $dataSend['page'] = 0;
+
 			            $sizeBackground = getimagesize($product->thumn);
 
 			            $tyle = $sizeBackground[0]*100/30;
@@ -208,8 +210,9 @@ function addLayerImageAPI($input){
 			            
 			            $new->name = 'Layer '.$idlayer;
 			            $new->products_id = $dataSend['idproduct'];
-			            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
+			            $new->content = json_encode(getLayer($idlayer, 'image', $thumbnail['linkOnline'], $tyle, $tyle, '', '', '', 'Arial','#000','10vw', '', 0, $dataSend['page']));
 			            $new->sort = $idlayer;
+
 			            
 			            $new->created_at = date('Y-m-d H:i:s');
 			            
@@ -269,6 +272,8 @@ function addLayerImageUrlAPI($input){
 		            // layer mới
 		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
 		            if(!empty($product)){
+		            	if(empty($dataSend['page'])) $dataSend['page'] = 0;
+
 			            $sizeBackground = getimagesize($product->thumn);
 
 			            $tyle = $sizeBackground[0]*100/30;
@@ -278,8 +283,10 @@ function addLayerImageUrlAPI($input){
 			            
 			            $new->name = 'Layer '.$idlayer;
 			            $new->products_id = $dataSend['idproduct'];
-			            $new->content = json_encode(getLayer($idlayer,'image',$dataSend['imageUrl'],$tyle, $tyle));
+			            $new->content = json_encode(getLayer($idlayer, 'image', $dataSend['imageUrl'], $tyle, $tyle, '', '', '', 'Arial','#000','10vw', '', 0, $dataSend['page']));
 			            $new->sort = $idlayer;
+
+			            
 			            
 			            $new->created_at = date('Y-m-d H:i:s');
 			            
@@ -473,9 +480,11 @@ function addLayerText($input){
 				// lấy tk người dùng 
 				$dataMembr = $modelMember->get($dataProduct->user_id);
 				if ($dataMembr->token == $dataSend['token']) {
+					if(empty($dataSend['page'])) $dataSend['page'] = 0;
 					
 					$datalayer = $modelProductDetail->newEmptyEntity();
-					$datalayer->content = json_encode(getLayer($idlayer, 'text', '', '80', '30', @$dataSend['text'],'','', $dataSend['font'],$dataSend['color'] ,$dataSend['size']));
+					$datalayer->content = json_encode(getLayer($idlayer, 'text', '', '80', '30', @$dataSend['text'],'','', $dataSend['font'],$dataSend['color'] ,$dataSend['size'], '', 0, $dataSend['page']));
+
 					$datalayer->name =  'layer '.$idlayer;
 					$datalayer->created_at = date('Y-m-d H:i:s');
 					$datalayer->products_id =  @$dataSend['idproduct'];

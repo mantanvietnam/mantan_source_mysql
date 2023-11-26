@@ -25,6 +25,7 @@ include_once('controller/home/campainCustomersController.php'); // người dùn
 include_once('controller/home/statisticalController.php'); // thống kê 
 include_once('controller/home/transactionHistoriesController.php'); // lịch sử nạp tiền
 include_once('controller/home/agencyController.php'); // chiết khấu
+include_once('controller/home/zaloController.php'); // zalo
 
 // api
 include_once('controller/api/customerController.php'); // api khách hàng

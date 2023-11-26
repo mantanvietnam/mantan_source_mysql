@@ -135,8 +135,13 @@
 	$routesPlugin['updateBankingAPI']= 'databot_spa/view/home/transaction/updateBankingAPI.php';
 
 
-	// chiến khấu 
+	// chiết khấu 
 	$routesPlugin['listAgency']= 'databot_spa/view/home/agency/listAgency.php';
+
+	// zalo
+	$routesPlugin['settingZaloMarketing']= 'databot_spa/view/home/zalo/settingZaloMarketing.php';
+	$routesPlugin['callbackZalo']= 'databot_spa/view/home/zalo/callbackZalo.php';
+	$routesPlugin['addFriendZaloMarketing']= 'databot_spa/view/home/zalo/addFriendZaloMarketing.php';
 	
 
 ?>

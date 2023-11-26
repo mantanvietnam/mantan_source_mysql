@@ -985,7 +985,7 @@ function getLayerProductForEdit($idProduct=0)
     }
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw', $typeShowTextVariable='', $removeBackgroundAuto = 0)
+function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw', $typeShowTextVariable='', $removeBackgroundAuto = 0, $page = 0)
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
@@ -1029,7 +1029,7 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'giandong' => 'normal',
         'opacity' => '1',
         'width' => $width.'vw',
-        'page' => 0,
+        'page' => $page,
         'gradient' => 0,
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,

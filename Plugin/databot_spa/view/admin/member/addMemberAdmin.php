@@ -87,7 +87,15 @@
                 </div>
 
                 <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="campain" <?php if(!empty($data->module) && in_array('campain', $data->module)) echo 'checked';?> > Chiến dịch marketing
+                </div>
+
+                <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="zalo" <?php if(!empty($data->module) && in_array('zalo', $data->module)) echo 'checked';?> > Kết nối Zalo
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="sms" <?php if(!empty($data->module) && in_array('sms', $data->module)) echo 'checked';?> > Tin nhắn SMS
                 </div>
 
                 <div class="col-md-3 mb-3">
