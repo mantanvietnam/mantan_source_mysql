@@ -7,7 +7,7 @@ function listCollectionDebt($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('listCollectionDebt'))){
+	if(!empty(checkLoginManager('listCollectionDebt', 'bill'))){
 	    $metaTitleMantan = 'Danh sách công nợ phải thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -174,7 +174,7 @@ function addCollectionDebt($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải thu';
     
-    if(!empty(checkLoginManager('addCollectionDebt'))){
+    if(!empty(checkLoginManager('addCollectionDebt', 'bill'))){
         $modelMember
 
         		 = $controller->loadModel('Members');
@@ -251,7 +251,7 @@ function paymentCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty(checkLoginManager('paymentCollectionBill'))){
+    if(!empty(checkLoginManager('paymentCollectionBill', 'bill'))){
         $modelMember = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelDebts = $controller->loadModel('Debts');
@@ -303,7 +303,7 @@ function listPayableDebt($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('listPayableDebt'))){
+	if(!empty(checkLoginManager('listPayableDebt', 'bill'))){
 	    $metaTitleMantan = 'Danh sách công nợ phải trả';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -470,7 +470,7 @@ function addPayableDebt($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty(checkLoginManager('addPayableDebt'))){
+    if(!empty(checkLoginManager('addPayableDebt', 'bill'))){
         $modelMember= $controller->loadModel('Members');
 		$modelDebts = $controller->loadModel('Debts');
 
@@ -542,7 +542,7 @@ function paymentBill($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty(checkLoginManager('paymentBill'))){
+    if(!empty(checkLoginManager('paymentBill', 'bill'))){
         $modelMember= $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelDebts = $controller->loadModel('Debts');

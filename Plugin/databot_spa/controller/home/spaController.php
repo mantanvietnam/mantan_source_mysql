@@ -12,7 +12,7 @@ function listSpa($input){
 	
 	$metaTitleMantan = 'Danh sách cơ sở kinh doanh';
 
-	if(!empty(checkLoginManager('listSpa'))){
+	if(!empty(checkLoginManager('listSpa', 'customer'))){
 
 		$infoUser = $session->read('infoUser');
 
@@ -115,7 +115,7 @@ function addSpa($input){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelWarehouse = $controller->loadModel('Warehouses');
 
-	if(!empty(checkLoginManager('addSpa'))){
+	if(!empty(checkLoginManager('addSpa', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array();
@@ -187,7 +187,7 @@ function deleteSpa($input){
 
 	$modelSpas = $controller->loadModel('Spas');
 	
-	if(!empty(checkLoginManager('deleteSpa'))){
+	if(!empty(checkLoginManager('deleteSpa', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 	    if(!empty($_GET['id'])){

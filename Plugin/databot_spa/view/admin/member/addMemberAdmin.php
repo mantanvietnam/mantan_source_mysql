@@ -79,6 +79,10 @@
                 </div>
 
                 <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="staff" <?php if(!empty($data->module) && in_array('staff', $data->module)) echo 'checked';?> > Nhân viên
+                </div>
+
+                <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="calendar" <?php if(!empty($data->module) && in_array('calendar', $data->module)) echo 'checked';?> > Đặt lịch hẹn
                 </div>
 
@@ -100,6 +104,14 @@
                 
                 <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="combo" <?php if(!empty($data->module) && in_array('combo', $data->module)) echo 'checked';?> > Combo liệu trình
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="bill" <?php if(!empty($data->module) && in_array('bill', $data->module)) echo 'checked';?> > Phiếu thu, chi, công nợ
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="agency" <?php if(!empty($data->module) && in_array('agency', $data->module)) echo 'checked';?> > Đối tác - Cộng tác viên
                 </div>
 
                 <div class="col-md-3 mb-3">

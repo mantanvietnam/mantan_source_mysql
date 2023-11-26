@@ -13,7 +13,7 @@ function listStaff($input)
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	
-	if(!empty(checkLoginManager('listStaff'))){
+	if(!empty(checkLoginManager('listStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
@@ -114,7 +114,7 @@ function addStaff($input){
     $modelMembers = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	
-	if(!empty(checkLoginManager('addStaff'))){
+	if(!empty(checkLoginManager('addStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -209,7 +209,7 @@ function lockStaff($input){
 
     $modelMember = $controller->loadModel('Members');
 	
-	if(!empty(checkLoginManager('lockStaff'))){
+	if(!empty(checkLoginManager('lockStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -278,7 +278,7 @@ function listGroupStaff(){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelMemberGroup = $controller->loadModel('MemberGroups');
 	
-	if(!empty(checkLoginManager('listGroupStaff'))){
+	if(!empty(checkLoginManager('listGroupStaff', 'staff'))){
 		$mess = '';
         if(!empty($_GET['error'])){
             switch ($_GET['error']) {
@@ -377,7 +377,7 @@ function addGroupStaff($input){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelMemberGroup = $controller->loadModel('MemberGroups');
 	
-	if(!empty(checkLoginManager('addGroupStaff'))){
+	if(!empty(checkLoginManager('addGroupStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -428,7 +428,7 @@ function deteleGroupStaff($input){
 
     $metaTitleMantan = 'Thông tin Nhóm nhân viên';
 	
-	if(!empty(checkLoginManager('deteleGroupStaff'))){
+	if(!empty(checkLoginManager('deteleGroupStaff', 'staff'))){
         $infoUser = $session->read('infoUser');
         $modelMembers = $modelMember->loadModel('Members');
 
