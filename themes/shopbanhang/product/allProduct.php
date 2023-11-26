@@ -19,7 +19,7 @@ $slide_home= slide_home($setting['id_slide']);
         </section>
 
         <section id="section-banner-home">
-            <div class="container">
+            <div class="">
                 <div class="banner-home-slide">
                     <?php if(!empty($slide_home->imageinfo)){
                         foreach($slide_home->imageinfo as $key => $item){ ?>

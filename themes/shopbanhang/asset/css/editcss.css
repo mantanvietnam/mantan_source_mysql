@@ -1115,6 +1115,35 @@ header{
     color: #000;
 }
 
+.category-product-item .active a{
+    color: #008ACE;
+    font-weight: 400;
+}
+
+.cart-product-gift-number{
+    font-size: 14px;
+}
+
+
+.table-border::-webkit-scrollbar {
+    height: 5px;
+}
+  
+/* Track */
+.table-border::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+
+/* Handle */
+.table-border::-webkit-scrollbar-thumb {
+background: #888;
+}
+
+/* Handle on hover */
+.table-border::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+
 @media(min-width: 445px){
     
     #section-breadcrumb{
@@ -1267,11 +1296,11 @@ header{
     }
 
     #section-flash-sale .time-flash-item .time-flash-number {
-        font-size: 10px;
+        font-size: 13px;
     }
 
     #section-flash-sale .time-flash-item .time-flash-text {
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .logo-footer img {
@@ -1360,6 +1389,14 @@ header{
         line-height: 1.4;
     }
 
+    .table-top{
+        display: none;
+    }
+
+    .cart-product-name-box .cart-product-image {
+        width: 143px;
+    }
+
     /* Respon trang chủ */
     .banner-home-slide .slick-list{
         height: auto;
@@ -1377,8 +1414,26 @@ header{
     }
     
 
+    .cart-product-gift-item .product-img{
+        height: 127px;
+    }
     
- 
+    .cart-product-gift-item .product-item-inner{
+        padding: 0;
+    }
+
+    #section-banner-home .slick-dots {
+        bottom: -17px;
+
+    }
+
+    #section-banner-home .slick-dots button{
+        background-color: #888;
+    }
+
+    #section-banner-home .slick-active button{
+        background-color: #000;
+    }
   
 }
 /* .showContent {
