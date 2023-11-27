@@ -259,10 +259,18 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <a href="/cart"><img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt=""></a>
                             </li>
 
+                             <?php if(!empty($infoUser)){ ?>
+
                             <li>
+
+                                <a href="/infoUser"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
+                            </li>
+                                <?php }else{ ?>
+                            <li>
+
                                 <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
                             </li>
-
+                        <?php } ?>
                             <li>
                                 <nav class="nav-mobile">
                                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -301,9 +309,19 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                                         </ul>
                                                     </li>
                                                     <?php }}} ?>
+
+                                                   
                                             </ul>
-                                            <div class="number-phone-mobile">
-                                                <p>Điện thoại tư vấn : 0963.514.244</p>
+                                           
+                                             <?php if(!empty($infoUser)){ ?>
+
+                                                  <div class="number-phone-mobile">
+
+                                                        <a href="/logout" class="nav-link ">Đăng xuất</a>
+                                                   </div>
+                                                        <?php }?>
+                                             <div class="number-phone-mobile">
+                                                <p>Điện thoại tư vấn : <?php echo @$setting['phone'] ?></p>
                                             </div>
                                         </div>
                                     </div>

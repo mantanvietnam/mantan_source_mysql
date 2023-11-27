@@ -4,8 +4,10 @@ function register($input)
 	global $isRequestPost;
 	global $controller;
 	global $session;
+	global $modelOptions;
 
 	$modelUsers = $controller->loadModel('Users');
+	$modelZaloOas = $controller->loadModel('ZaloOas');
 	
 	$mess = '';
 	
@@ -35,14 +37,49 @@ function register($input)
 					$data->avatar = $avatar;
 					$data->total_coin = 0;
 					$data->status = 1;
+					$data->verified = 0;
+					$data->otp = rand(1000,9999);
 					$data->created_at = date('Y-m-d H:i:s');
 					$data->updated_at = date('Y-m-d H:i:s');
 
 					$modelUsers->save($data);
 
-					$session->write('infoMember', $data);
+					// gửi tin nhắn Zalo
+					if(function_exists('sendZNSZalo')){
+						$money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
+    					$money_zalo = (int) $money_zalo_zns->value;
 
-					return $controller->redirect('/home/?status=registerDone');
+    					if($money_zalo>=500){
+    						$zaloOA = $modelZaloOas->find()->first();
+
+    						if(!empty($zaloOA->access_token)){
+    							$template_id = 297430;
+    							$params = ['otp' => $data->otp];
+    							$phone = $data->phone;
+    							$id_oa = $zaloOA->id_oa;
+    							$app_id = $zaloOA->id_app;
+
+    							$sendZalo = sendZNSZalo($template_id, $params, $phone, $id_oa, $app_id);
+
+    							if($sendZalo['error'] == 0){
+    								$money_zalo_zns->value -= 500;
+
+    								$modelOptions->save($money_zalo_zns);
+    							}else{
+    								return $controller->redirect('/verified/?status=errorSendZalo&code='.$sendZalo['error']);
+    							}
+    						}else{
+    							return $controller->redirect('/verified/?status=errorTokenEmpty');
+    						}
+    					}else{
+    						return $controller->redirect('/verified/?status=errorMoneyEmpty');
+    					}
+					}
+
+					// gửi email
+					sendEmailVerified($data->email, $data->name, $data->otp);
+
+					return $controller->redirect('/verified/?phone='.$data->phone);
 					
 				}else{
 					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
@@ -103,10 +140,13 @@ function loginUser($input)
 
     				// nếu tài khoản không bị khóa
     				if($info_customer->status == 1){
-    					
-		    			$session->write('infoMember', $info_customer);
-		    			
-						return $controller->redirect('/home/');
+    					if($info_customer->verified == 1){
+			    			$session->write('infoMember', $info_customer);
+			    			
+							return $controller->redirect('/home/');
+						}else{
+							return $controller->redirect('/verified/?phone='.$info_customer->phone);
+						}
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 
@@ -211,4 +251,41 @@ function searchUserApi($input)
 	return $return;
 }
 
+function verified($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $session;
+	$mess = '';
+
+	$modelUsers = $controller->loadModel('Users');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['phone']) && !empty($dataSend['otp'])){
+			$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+			$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+
+			$user = $modelUsers->find()->where(['phone'=>$dataSend['phone'], 'otp'=>(int) $dataSend['otp']])->first();
+		
+			if(!empty($user)){
+				$user->verified = 1;
+				$user->otp = null;
+
+				$modelUsers->save($user);
+
+				$session->write('infoMember', $user);
+		    			
+				return $controller->redirect('/home/');
+			}else{
+				$mess= '<p class="text-danger">Sai mã OTP hoặc số điện thoại</p>';
+			}
+		}else{
+			$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+		}
+	}
+
+	setVariable('mess', $mess);
+}
 ?>

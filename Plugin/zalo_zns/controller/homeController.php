@@ -16,4 +16,6 @@ function callbackZalo($input)
 			$return = getAccessTokenZaloOA($zalooa->id_oa, $zalooa->id_app);
 		}
 	}
+
+	return $controller->redirect('/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin.php');
 }

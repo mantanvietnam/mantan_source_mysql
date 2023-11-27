@@ -31,7 +31,9 @@ $sqlInstallDatabase .= 'CREATE TABLE `users` (
     `nickname` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-    `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
+    `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`),
+    `verified` INT NOT NULL DEFAULT "0",
+    `otp` INT NULL DEFAULT NULL,
 ) ENGINE = InnoDB;';
 
 $sqlInstallDatabase .= 'CREATE TABLE `agency_accounts` ( 

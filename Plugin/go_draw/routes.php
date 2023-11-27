@@ -15,6 +15,7 @@
     $routesPlugin['changePass']= 'go_draw/view/agency/agency_accounts/changePass.php';
     $routesPlugin['profile']= 'go_draw/view/agency/agency_accounts/profile.php';
     $routesPlugin['checkBoos']= 'go_draw/view/agency/agency_accounts/checkBoos.php';
+    
 
     $routesPlugin['listCombo']= 'go_draw/view/agency/combos/listCombo.php';
     $routesPlugin['viewCombo']= 'go_draw/view/agency/combos/viewCombo.php';
@@ -88,6 +89,8 @@
     $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
     $routesPlugin['loginUser']= 'go_draw/view/home/user/loginUser.php';
     $routesPlugin['changePassUser']= 'go_draw/view/home/user/changePassUser.php';
+    $routesPlugin['verified']= 'go_draw/view/home/user/verified.php';
+    
 
     $routesPlugin['search-agency']= 'go_draw/view/home/agencies/searchAgency.php';
     $routesPlugin['myOrder']= 'go_draw/view/home/user_orders/myOrder.php';

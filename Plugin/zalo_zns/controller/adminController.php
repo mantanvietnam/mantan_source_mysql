@@ -4,6 +4,7 @@ function listZaloOAAdmin($input)
 	global $controller;
 	global $urlCurrent;
 	global $modelCategories;
+    global $modelOptions;
     global $metaTitleMantan;
 
     $metaTitleMantan = 'Danh sách tài khoản Zalo OA';
@@ -58,6 +59,9 @@ function listZaloOAAdmin($input)
         $urlPage = $urlPage . '?page=';
     }
 
+    $money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
+    $money_zalo_zns = (int) $money_zalo_zns->value;
+
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);
     setVariable('back', $back);
@@ -65,6 +69,7 @@ function listZaloOAAdmin($input)
     setVariable('urlPage', $urlPage);
     
     setVariable('listData', $listData);
+    setVariable('money_zalo_zns', $money_zalo_zns);
 }
 
 function addZaloOAAdmin($input)
