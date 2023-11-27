@@ -91,7 +91,7 @@ body {
 
 
 .content-header a {
-    font-size: 19px;
+    font-size: 18px;
     text-transform: uppercase;
 
 }
@@ -766,8 +766,26 @@ header{
 }
 
 
+.item-showroom{
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+}
 
+.slick-arrow{
+    display: none !important;
+}
 
+.list-showroom{
+    background-color: #fff;
+}
+
+.item-showroom h3{
+    color: #000;
+}
+
+.item-showroom ul li{
+    color: #000
+}
 
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
@@ -802,6 +820,27 @@ header{
     .list-showroom {
         max-height: 205px
     }
+
+    #slide-home-shop .col-md-5{
+        padding: 0;
+    }
+    
+    #slide-home-shop .col-md-7{
+        padding: 0;
+    }
+    
+    #slide-home-shop .col-md-12{
+        padding: 0;
+    }
+
+    .content-maps-left form{
+        padding-right: 9px
+    }
+    
+    .content-maps-left .btn{
+        width: 97%;
+    }
+    
 }
 
 @media(max-width: 1440px){
@@ -853,12 +892,23 @@ header{
 
 
 @media(max-width: 500px)  {
+    #slide-home-top .box-gallery{
+        padding: 0;
+        height: 100%;
+        position: unset;
+        
+    }
+
     .list-form-item .item .btn_field{
         background-color: #0046ab;
         background-image: none;
         font-size: 18px;
         margin-top: 12px;
         border:1px solid #fff ;
+    }
+
+    .iframe-map{
+        display: none;
     }
 
     .box-gallery{
@@ -910,7 +960,7 @@ header{
 
     .box-gallery{
         position: relative;
-        height: 100%;
+        height: 100vh;
     }
 
     .avr{
@@ -962,11 +1012,19 @@ header{
         height: auto;
     }
 
-    .social-mobile{
+    #social-home .social-mobile{
+        top: 88%;
+        height: auto;
+        right: 22%;
+    }
+
+    #slide-home-top .social-mobile{
         top: 69%;
         height: auto;
         right: 22%;
     }
+
+
 
     .logo-trailer-mobile{
         display: block;
@@ -1072,7 +1130,7 @@ header{
     }
 
     .slide-bot {
-        top: 0
+        top: 0;
     }
 
     .slider-hot-nav{
@@ -1108,7 +1166,7 @@ header{
     }
 
     .item-for {
-        height: 100%;
+        height: 100vh;
     }
 
     .social-home{
@@ -1182,6 +1240,55 @@ header{
         height: auto;
         transform: translateX(120%);
     }
+
+    .btn-mm-mobile a.login{
+        background-image: url(/themes/godraw/images/button_2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+    }
+
+    .btn-mm-mobile > ul > li:first-child a{
+        background-image: url(/themes/godraw/images/button_3.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+
+    }
+
+    .list-form-item .item .btn_field{
+        background-image: url(/themes/godraw/images/button_2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+      }
+    
+      .info-form-user .item-submit .btn_filed{
+        background-image: url(/themes/godraw/images/button_2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+      }
 
 }
 

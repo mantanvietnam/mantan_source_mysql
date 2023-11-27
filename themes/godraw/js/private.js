@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-  console.log('a');
-
+  console.log('private');
+  $(".menu-mm-mobie a").click(function () {
+    $(".submenu").toggleSlide();
+  });
 
   $(".mm-bar").click(function () {
     $(".nav-mobile").addClass("open_menu");

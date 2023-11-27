@@ -4,6 +4,13 @@ $(document).ready(function(){
 		$('.nav-mobile').addClass('open_menu');
 	})
 	
+	console.log('private');
+	$(".menu-mm-mobie > ul > li > a").click(function () {
+		console.log('a');
+		// Tìm phần tử con của a được click và thực hiện hành động
+		$(this).next(".submenu").toggle();
+	});
+
 	$('.close-mm a').click(function(){
 		$('.nav-mobile').removeClass('open_menu');
 	})

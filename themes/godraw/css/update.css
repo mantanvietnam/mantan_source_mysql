@@ -393,7 +393,7 @@ img.khung-tranh {
 }
 
 .h-menu li:nth-child(2) .submenu{
-    right: -87%;
+    right: -18%;
 }
 
 .head-form{
@@ -812,6 +812,22 @@ img.khung-tranh {
 
 
 @media(max-width: 500px)  {
+
+    .menu-mm-mobie .submenu{
+        display: none;
+    }
+
+   
+    .menu-mm-mobie ul {
+        list-style: none;
+        padding: 0 15px;
+    }
+
+    .menu-mm-mobie > ul > li{
+        border-bottom: 1px solid #fff;
+        /* border-top: 1px solid #fff; */
+    }
+
     .content-mm-mobile ul li{
         margin-right: 0;
         margin-bottom: 2px;
@@ -858,6 +874,7 @@ img.khung-tranh {
     .box-gallery{
         position: relative;
         height: 100vh;
+        padding: 100px 0;
     }
 
     .avr{
@@ -1129,6 +1146,56 @@ img.khung-tranh {
         height: auto;
         transform: translateX(120%);
     }
+
+    .btn-mm-mobile a.login{
+        background-image: url(/themes/godraw/images/button_2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+
+    }
+
+    .btn-mm-mobile > ul > li:first-child a{
+        background-image: url(/themes/godraw/images/button_3.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+
+    }
+
+    .list-form-item .item .btn_field{
+        background-image: url(/themes/godraw/images/button_2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+      }
+
+      .info-form-user .item-submit .btn_filed{
+        background-image: url(/themes/godraw/images/button_2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+      }
 
 }
 
