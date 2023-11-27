@@ -806,6 +806,10 @@ header{
     .box-banner-home .social-intro ul{
         gap: 10px
     }
+
+    .logo-trailer-mobile img{
+        width: 213px;
+    }
 }
 
 @media(min-width: 1024px){
@@ -1012,7 +1016,7 @@ header{
         height: auto;
     }
 
-    #social-home .social-mobile{
+    #slide-home .social-mobile{
         top: 88%;
         height: auto;
         right: 22%;
@@ -1024,6 +1028,10 @@ header{
         right: 22%;
     }
 
+    .item-for .heart{
+        display: block;
+        bottom: 20%
+    }
 
 
     .logo-trailer-mobile{
@@ -1101,7 +1109,7 @@ header{
         bottom:7px;
         /* background-color: #0046ab; */
         padding: 5px;
-        display: none !important;
+        /* display: none !important; */
     }
 
     .box-gallery .view-all a{
@@ -1185,7 +1193,8 @@ header{
         right: 0;
         left: 0;
         bottom: 0;
-        padding: 0 13px
+        padding: 0 13px;
+        top: 84%;
     }
 
     .slider-nav .item-slide {
@@ -1226,7 +1235,7 @@ header{
         right: 0;
         left: 11%;
         width: 80%;
-        top: 117px;
+        top: 90px;
         bottom: 677px;
         height: 67px;
         background: rgb(0,0,0,0.5);
@@ -1289,6 +1298,10 @@ header{
         background-position: center;
         scale: 0.8;
       }
+
+    .slider-hot-nav .slick-dots {
+        bottom: -20px;
+    }
 
 }
 

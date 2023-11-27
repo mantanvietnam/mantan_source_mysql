@@ -890,10 +890,7 @@ img.khung-tranh {
         display: none;
     }
 
-    .avarta-intro .btn-main a{
-        background-image: none;
-        background-color: #EC2024;
-    }
+ 
 
 
     .social-home{
@@ -1027,7 +1024,8 @@ img.khung-tranh {
     }
 
     .item-for .heart{
-        display: none;
+        display: block;
+        bottom: 20%
     }
 
     .title-slide-vote{
@@ -1196,6 +1194,18 @@ img.khung-tranh {
         background-position: center;
         scale: 0.8;
       }
+
+      .avarta-intro .btn-main a{
+        background-image: url(/themes/godraw/images/button_1.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: none;
+        background-color: transparent;
+        height: 68px;
+        font-size: 22px;
+        background-position: center;
+        scale: 0.8;
+    }
 
 }
 
