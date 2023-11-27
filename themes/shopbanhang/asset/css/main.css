@@ -1858,13 +1858,13 @@ strong {
 #section-cateogry-product .rate-star p {
     margin-left: 8px;
     font-weight: 200;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 #section-cateogry-product .rate-sold p {
     margin-right: 8px;
     font-weight: 200;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .product-item-inner {
@@ -2438,7 +2438,7 @@ strong {
 }
 
 .detail-info-rate-left span {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 200;
 }
 
@@ -2510,7 +2510,7 @@ strong {
     padding: 6px 15px;
     background-color: #ef5b36;
     color: #fff;
-    border-radius: 3.5;
+    border-radius: 3.5px;
 }
 
 .product-detail-info-price-left {
@@ -2605,7 +2605,12 @@ strong {
 }
 
 .product-detail-fa-list .accordion-item {
-    border: none
+    border: 1px solid #9b9b9b;
+    padding: 7px;
+    font-size: 14px;
+    border-radius: 6px;
+    font-weight: 300;
+
 }
 
 .product-detail-fa-list .accordion-body {
@@ -2613,6 +2618,8 @@ strong {
     font-weight: 300;
     padding: 0;
     padding-top: 12px;
+    padding-left: 7px;
+    line-height: 1.4;
 }
 
 .accordion-button:not(.collapsed) {

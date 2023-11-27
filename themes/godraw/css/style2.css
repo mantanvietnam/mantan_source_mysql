@@ -483,14 +483,25 @@ img.khung-tranh {
 .h-user ul li a.login{
     background-image: url("/themes/godraw/images/button_2.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
+    background-position: center;
     border: none;
+}
+
+.h-user ul li a.login{
+    background-color: transparent;
+}
+
+.h-user ul li a {
+    font-size: 16px;
 }
 
 .h-user ul li a.dangky{
     background-image: url("/themes/godraw/images/button_3.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
+    background-position: center;
+
     border: none;
 }
 
@@ -789,6 +800,13 @@ header{
     padding: 0;
 }
 
+.item-for .heart {
+    bottom: 84px;
+}
+
+
+
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
@@ -798,6 +816,7 @@ header{
         position: relative;
         max-width: 1205px;
         margin:0 auto;
+        transform: translateY(47px);
     }
 
     .box-banner-home .social-intro img {
@@ -815,6 +834,15 @@ header{
 }
 
 @media(min-width: 1024px){
+    .slide-bot .heart img{
+        width: 32px;
+    }
+    
+
+    .slide-bot .heart span{
+        font-size: 25px;
+    }
+
     .box-gallery .container{
         max-width: 60%;
     }
@@ -1062,7 +1090,7 @@ header{
     }
 
     .item-for .heart{
-        display: block;
+        /* display: block; */
         bottom: 20%
     }
 
@@ -1162,7 +1190,6 @@ header{
     }
 
     .item-for .heart{
-        display: none;
     }
 
     .title-slide-vote{

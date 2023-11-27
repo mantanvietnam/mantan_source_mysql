@@ -16,7 +16,11 @@ header{
     z-index: 20;
 } */
 
-
+.group-social ul li a{
+    display: block;
+    width: 35px;
+    height: 35px;
+}
 .navbar-header .nav-item .nav-link{
     color: #000;
     font-weight: 300;

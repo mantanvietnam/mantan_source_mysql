@@ -85,7 +85,7 @@ $infoUser = $session->read('infoUser');
                                     <li><a href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
                                     <li><a href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
                                     <li><a href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/mail.png" alt=""></a></li>
+                                    <li><a href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>

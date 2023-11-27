@@ -98,9 +98,9 @@ body {
 
 .btn-main a {
     font-weight: 700;
-    box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+    /* box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
     -webkit-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75); */
 	transition: all .2s ease-in-out;
 }
 
@@ -484,23 +484,27 @@ img.khung-tranh {
 .h-user ul li a.login{
     background-image: url("/themes/godraw/images/button_2.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
+    background-position: center;
+
     border: none;
 }
 
 .h-user ul li a.dangky{
     background-image: url("/themes/godraw/images/button_3.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
+    background-position: center;
     border: none;
 }
 
 .btn-main a{
     background-image: url("/themes/godraw/images/button_1.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
+    background-position: center;
     border: none;
-    height: 57px;
+    height: 60px;
 }
 
 .list-form-item .item .btn_field{
@@ -523,9 +527,7 @@ img.khung-tranh {
     background-color: transparent;
 }
 
-.btn-main a {
-    height: 69px;
-}
+
 
 .wrapper-intro .content-intro video, .wrapper-intro .content-intro img {
     /* scale: 0.9; */
@@ -785,6 +787,7 @@ img.khung-tranh {
         position: relative;
         max-width: 1205px;
         margin:0 auto;
+        transform: translateY(47px);
     }
 
     .box-banner-home .social-intro img {
@@ -854,6 +857,9 @@ img.khung-tranh {
 
 
 @media(max-width: 500px)  {
+    .background-inner-video {
+        /* padding-top: 90px; */
+    }
 
     .menu-mm-mobie .submenu{
         display: none;
@@ -880,7 +886,8 @@ img.khung-tranh {
     }
 
     .background-inner-video{
-        padding-bottom: 175px;
+        padding-bottom: 132px;
+        padding-top:32px;
     }
 
     .header-mobile-height{
@@ -1329,11 +1336,15 @@ img.khung-tranh {
 
 
 @media(max-width: 376px) {
+    .background-inner-video{
+        /* padding-top: 30px; */
+    }
+
     .slide-bot {
         top: 0
     }
 
-    /* .title-slide-vote{
+    /* .title-slide-vote{f
         top: 25px;
     } */
 
