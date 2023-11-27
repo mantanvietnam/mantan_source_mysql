@@ -259,10 +259,18 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <a href="/cart"><img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt=""></a>
                             </li>
 
+                             <?php if(!empty($infoUser)){ ?>
+
                             <li>
+
+                                <a href="/infoUser"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
+                            </li>
+                                <?php }else{ ?>
+                            <li>
+
                                 <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
                             </li>
-
+                        <?php } ?>
                             <li>
                                 <nav class="nav-mobile">
                                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
