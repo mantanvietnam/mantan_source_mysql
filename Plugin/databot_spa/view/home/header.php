@@ -292,13 +292,13 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/addFriendZaloMarketing" class="menu-link">
-                    <div>Kết bạn Zalo</div> 
+                  <a href="/sendMessZaloOA" class="menu-link">
+                    <div>Gửi tin nhắn Zalo</div> 
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/listZaloMarketing" class="menu-link">
-                    <div>Gửi tin Zalo</div> 
+                  <a href="/listTemplateZNSZalo" class="menu-link">
+                    <div>Mẫu tin nhắn Zalo ZNS</div> 
                   </a>
                 </li>
                 <li class="menu-item">

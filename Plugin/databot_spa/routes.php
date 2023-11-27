@@ -141,7 +141,11 @@
 	// zalo
 	$routesPlugin['settingZaloMarketing']= 'databot_spa/view/home/zalo/settingZaloMarketing.php';
 	$routesPlugin['callbackZalo']= 'databot_spa/view/home/zalo/callbackZalo.php';
+	$routesPlugin['callbackZaloOA']= 'databot_spa/view/home/zalo/callbackZaloOA.php';
 	$routesPlugin['addFriendZaloMarketing']= 'databot_spa/view/home/zalo/addFriendZaloMarketing.php';
+	$routesPlugin['sendMessZaloOA']= 'databot_spa/view/home/zalo/sendMessZaloOA.php';
+
+	$routesPlugin['listTemplateZNSZalo']= 'databot_spa/view/home/zalo_templates/listTemplateZNSZalo.php';
 	
 
 ?>

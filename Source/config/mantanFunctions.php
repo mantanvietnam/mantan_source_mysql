@@ -516,6 +516,7 @@ function sendDataConnectMantan($url,$data=null,$header=array(),$typeData='form',
 		// Cấu hình cURL để thiết lập URL và các tùy chọn khác
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 
 		// Thực hiện yêu cầu cURL
 		$response = curl_exec($curl);

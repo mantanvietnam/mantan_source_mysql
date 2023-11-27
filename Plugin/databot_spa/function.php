@@ -566,4 +566,130 @@ function base64url_encode($plainText)
     $base64url = strtr($base64, '+/', '-_');
     return ($base64url);
 }
+
+function getAccessTokenZaloOA($id_oa='', $app_id='')
+{
+    global $controller;
+
+    if(!empty($id_oa) && !empty($app_id)){
+        $modelMembers = $controller->loadModel('Members');
+
+        $zalo_oa = $modelMembers->find()->where(['id_app_zalo'=>$app_id, 'id_oa_zalo'=>$id_oa])->first();
+
+        if(!empty($zalo_oa->secret_app_zalo) && !empty($zalo_oa->code_zalo_oa)){
+            $url_zns = 'https://oauth.zaloapp.com/v4/oa/access_token';
+            $header_zns = ['Content-Type: application/x-www-form-urlencoded', 'secret_key: '.$zalo_oa->secret_app_zalo];
+            $data_send_zns = [
+                                "code" => $zalo_oa->code_zalo_oa,
+                                "app_id" => $app_id,
+                                "grant_type" =>  'authorization_code',
+                                "code_verifier" => time(),
+                            ];
+
+            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns);
+            $return_zns = json_decode($return_zns, true);
+
+            if(!empty($return_zns['access_token']) && !empty($return_zns['refresh_token']) && !empty($return_zns['expires_in'])){
+                $zalo_oa->access_token_zalo_oa = $return_zns['access_token'];
+                $zalo_oa->refresh_token_zalo_oa = $return_zns['refresh_token'];
+                $zalo_oa->deadline_token_zalo_oa = time() + $return_zns['expires_in'] - 600;
+
+                $modelMembers->save($zalo_oa);
+            }
+
+            return $return_zns;
+        }
+    }
+
+    return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
+}
+
+function refreshTokenZaloOA($id_oa='', $app_id='')
+{
+    global $controller;
+
+    if(!empty($id_oa) && !empty($app_id)){
+        $modelMembers = $controller->loadModel('Members');
+
+        $zalo_oa = $modelMembers->find()->where(['id_app_zalo'=>$app_id, 'id_oa_zalo'=>$id_oa])->first();
+
+        if(!empty($zalo_oa->refresh_token_zalo_oa)){
+            $url_zns = 'https://oauth.zaloapp.com/v4/oa/access_token';
+            $header_zns = ['Content-Type: application/x-www-form-urlencoded', 'secret_key: '.$zalo_oa->secret_app_zalo];
+            $data_send_zns = [
+                                "refresh_token" => $zalo_oa->refresh_token_zalo_oa,
+                                "app_id" => $app_id,
+                                "grant_type" =>  'refresh_token',
+                            ];
+
+            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns);
+            $return_zns = json_decode($return_zns, true);
+
+            if(!empty($return_zns['access_token']) && !empty($return_zns['refresh_token']) && !empty($return_zns['expires_in'])){
+                $zalo_oa->access_token_zalo_oa = $return_zns['access_token'];
+                $zalo_oa->refresh_token_zalo_oa = $return_zns['refresh_token'];
+                $zalo_oa->deadline_token_zalo_oa = time() + $return_zns['expires_in'] - 600;
+
+                $modelMembers->save($zalo_oa);
+            }
+
+            return $return_zns;
+        }
+    }
+
+    return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
+}
+
+function sendZNSZalo($template_id='', $params='', $phone='', $id_oa='', $app_id='')
+{
+    global $controller;
+
+    $modelMembers = $controller->loadModel('Members');
+
+    if(!empty($template_id) && !empty($params) && !empty($phone)){
+        if (substr($phone, 0, 1) === '0') {
+            // Thay thế số 0 đầu tiên bằng "84"
+            $phone = '84' . substr($phone, 1);
+        }
+
+        if(empty($id_oa) || empty($app_id)){
+            $zalo_oa = $modelMembers->find()->where(['access_token_zalo_oa IS NOT'=>null, 'deadline_token_zalo_oa >='=>time()])->first();
+
+            if(empty($zalo_oa)){
+                $zalo_oa = $modelMembers->find()->where(['access_token_zalo_oa IS NOT'=>null])->first();
+
+                refreshTokenZaloOA($zalo_oa->id_oa_zalo, $zalo_oa->id_app_zalo);
+
+                $zalo_oa = $modelMembers->find()->where(['access_token_zalo_oa IS NOT'=>null, 'deadline_token_zalo_oa >='=>time()])->first();
+            }
+        }else{
+            $zalo_oa = $modelMembers->find()->where(['id_oa_zalo'=>$id_oa, 'id_app_zalo'=>$app_id])->first();
+
+            // nếu token hết hạn
+            if($zalo_oa->deadline_token_zalo_oa < time()){
+                refreshTokenZaloOA($zalo_oa->id_oa_zalo, $zalo_oa->id_app_zalo);
+
+                $zalo_oa = $modelMembers->find()->where(['id_oa_zalo'=>$id_oa, 'id_app_zalo'=>$app_id])->first();
+            }
+        }
+
+        if(!empty($zalo_oa->access_token_zalo_oa)){
+            $url_zns = 'https://business.openapi.zalo.me/message/template';
+            $data_send_zns = [
+                                "phone" => $phone,
+                                "template_id" => $template_id,
+                                "template_data" =>  $params,
+                                "tracking_id" => time().rand(0,100),
+                            ];
+            $header_zns = ['Content-Type: application/json', 'access_token: '.$zalo_oa->access_token_zalo_oa];
+            $typeData='raw';
+            $return_zns = sendDataConnectMantan($url_zns,$data_send_zns,$header_zns,$typeData);
+            return json_decode($return_zns, true);
+        }else{
+            return ['error'=>2, 'message'=>'Không tìm được Zalo OA phù hợp'];
+        }
+    }
+
+    return ['error'=>1, 'message'=>'Gửi thiếu dữ liệu'];
+}
 ?>

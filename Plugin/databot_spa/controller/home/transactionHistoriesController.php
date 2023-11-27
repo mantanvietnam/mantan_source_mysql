@@ -7,7 +7,7 @@ function transactionHistories($input){
 	global $session;
 	global $type_collection_bill;
 	
-	if(!empty(checkLoginManager('transactionHistories'))){
+	if(!empty(checkLoginManager('transactionHistories', 'zalo'))){
 	    $metaTitleMantan = 'Lịch sử giao dịch';
 
 	    $modelTransactionHistories = $controller->loadModel('TransactionHistories');
@@ -128,7 +128,7 @@ function createRequestAddMoney($input)
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty(checkLoginManager('createRequestAddMoney'))){
+	if(!empty(checkLoginManager('createRequestAddMoney', 'zalo'))){
 	    $metaTitleMantan = 'Yêu cầu nạp tiền';
 
 	    $boss_spa = $modelMember->find()->where(['id'=>$session->read('infoUser')->id_member])->first();
