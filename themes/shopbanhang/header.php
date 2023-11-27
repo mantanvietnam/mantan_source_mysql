@@ -250,26 +250,41 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <div class="menu-mobile-box">
                         <ul>
                             <li>
-                                <a href="/"><img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt=""></a>
+                                <a href="/">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt="">
+                                    <p>Trang chủ</p>
+                                </a>
                             </li>
 
                             <li>
-                                <a href="/sela"><img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt=""></a>
+                                <a href="/sela">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt="">
+                                    <p>Khuyến mãi</p>
+                                </a>
                             </li>
 
                             <li>
-                                <a href="/contact"><img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt=""></a>
+                                <a href="/contact">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt="">
+                                    <p>Tư vấn</p> 
+                                </a>
                             </li>
 
                             <li>
-                                <a href="/cart"><img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt=""></a>
+                                <a href="/cart">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt="">
+                                    <p>Giỏ hàng</p>
+                                </a>
                             </li>
 
                              <?php if(!empty($infoUser)){ ?>
 
                             <li>
 
-                                <a href="/infoUser"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
+                                <a href="/infoUser">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt="">
+                                    <p>Tài khoản</p>
+                                </a>
                             </li>
                                 <?php }else{ ?>
                             <li>
@@ -281,6 +296,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <nav class="nav-mobile">
                                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                                         <img src="<?php echo $urlThemeActive ?>/asset/image/linemobile.png" alt="">
+                                        <p>Danh mục</p>
                                     </button>
                                     <div class="offcanvas" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                                         <div class="offcanvas-header">

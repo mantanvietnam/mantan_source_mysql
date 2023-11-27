@@ -20,16 +20,16 @@ global $urlThemeActive;
         <section id="section-advertisement-home">
             <div class="advertisement-home-inner">
                 <div class="container">
-                    <div class="row">
-                        <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="advertisement-slide">
+                        <div class="advertisement-home-item">
                             <a href="<?php echo @$setting['link_nho1'] ?>"><img src="<?php echo @$setting['image1'] ?>" alt=""></a>
                         </div>
             
-                        <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="advertisement-home-item">
                             <a href="<?php echo @$setting['link_nho2'] ?>"><img src="<?php echo @$setting['image2'] ?>" alt=""></a>
                         </div>
             
-                        <div class="advertisement-home-item col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="advertisement-home-item">
                             <a href="<?php echo @$setting['link_nho3'] ?>"><img src="<?php echo @$setting['image3'] ?>" alt=""></a>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ $infoUser = $session->read('infoUser');
                     <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-left">
                         <div class="footer-info">
                             <div class="copyright">
-                                <strong><?php echo $setting['company'] ?></strong>
+                                <?php echo $setting['company'] ?>
                             </div>
                             <div class="footer-info-list">
                                 <div class="footer-info-item">

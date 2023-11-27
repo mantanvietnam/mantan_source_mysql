@@ -34,6 +34,7 @@ header{
 .topbar-mobile-inner .topbar-button img{
     width: 21px;
     height: auto;
+    opacity: 0.5;
 }
 
 .topbar-mobile-inner .topbar-logo img{
@@ -927,7 +928,7 @@ header{
 }
 
 .topbar-logo {
-    padding-left: 26px
+    padding-left: 26px 
 }
 
 .navbar-header{
@@ -1146,6 +1147,35 @@ background: #555;
     margin-left: 0;
 }
 
+/*   PHẦN PROMOTION HEADER   */
+.promotion-header {
+    display: none;
+    justify-content: center;
+    background-color: #081d36;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.promotion-header p,
+.promotion-header a {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+.promotion-header i {
+    color: #fff;
+    font-size: 14px;
+}
+.promotion-header a {
+    margin-left: 10px;
+    margin-right: 8px;
+    text-decoration: underline;
+}
+
+.advertisement-slide{
+    display: flex;
+    gap: 20px
+}
+
 @media(min-width: 445px){
     .nav-item.dropdown:hover .dropdown-menu {
         display: block;
@@ -1205,6 +1235,19 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .promotion-header {
+        display: flex !important;
+    }
+
+    /*   PHẦN PROMOTION HEADER   */
+    .promotion-header p,
+    .promotion-header a {
+        font-size: 12px !important;
+    }
+    .promotion-header i {
+        font-size: 12px !important;
+    }
+
     .group-deal .product-img{
         height: 106px;
     }
@@ -1259,7 +1302,7 @@ background: #555;
    
     /* sticky */
     #section-banner-home {
-        margin-top: 70px;
+        margin-top: 91px;
     }
 
     .product-question-img img{
@@ -1275,6 +1318,14 @@ background: #555;
         height: 354px;
     }
 
+
+    .topbar-mobile{
+        background-color: #fff;
+    }
+
+    header{
+        height: 90px;
+    }
     /*  */
 
 
@@ -1299,7 +1350,7 @@ background: #555;
 
     .menu-form-search{
         width: 56%;
-        border-radius: 10px;
+        border-radius: 30px;
     }
 
     .menu-form-search input{
@@ -1441,16 +1492,21 @@ background: #555;
     }
 
     #section-banner-home .slick-dots {
-        bottom: -17px;
+        bottom: 9px;
 
     }
 
     #section-banner-home .slick-dots button{
-        background-color: #888;
+        background-color: transparent;
+        border: 1px solid #555;
     }
 
     #section-banner-home .slick-active button{
         background-color: #000;
+    }
+
+    #section-banner-home .slick-dots button {
+        scale: 0.7
     }
 
     .top-deal {
@@ -1469,7 +1525,69 @@ background: #555;
         padding-bottom: 4px;
         margin-bottom: 21px;
     }
-  
+    
+    /*  SLide trượt  */
+    .advertisement-slide {
+        display: flex;
+        overflow: auto;
+    }
+    .advertisement-home-inner .container-fluid {
+        padding: 0;
+    }
+    .advertisement-slide .advertisement-home-item {
+        height: 120px;
+    }
+    .advertisement-slide .advertisement-home-item img {
+        width: auto;
+    }
+    .advertisement-slide .advertisement-home-item {
+        width: fit-content;
+        padding: 0 3px;
+    }
+
+    .header-inner {
+        height: 55px;
+        background: #fff;
+    }
+
+    .topbar-mobile{
+        height: 100%;
+    }
+
+    .topbar-mobile-inner {
+        height: 55px;
+    }
+
+    .topbar-mobile-inner .topbar-button{
+        margin: 0 22px;
+    }
+
+    .topbar-mobile .container-fluid{
+        padding: 0;
+    }
+
+    .topbar-logo{
+        padding-left: 22px;
+        padding-right: 18px
+    }
+
+    #section-flash-sale .flash-sale-link a{
+        font-size: 19px;
+    }
+    
+
+    .menu-mobile-box a p {
+        font-size: 12px;
+        color : #000;
+        font-weight: 400;
+        white-space: nowrap;
+        margin-top: 5px;
+    }
+
+    .menu-mobile-box li:first-child a p{
+        color: #008ACE;
+    }
+    
 }
 /* .showContent {
     line-height: 1em;

@@ -803,7 +803,7 @@ strong {
 
 .best-sale-discount {
     font-style: italic;
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 40px;
 }
 
@@ -1201,7 +1201,7 @@ strong {
     color: #0084C8;
     text-transform: uppercase;
     margin-bottom: 20px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .footer-center ul li {
@@ -3989,7 +3989,7 @@ tbody {
         height: 20px;
     }
     #section-flash-sale .flash-sale-title {
-        font-size: 18px
+        font-size: 25px
     }
     .title-section h2 {
         font-size: 18px
@@ -4016,10 +4016,11 @@ tbody {
 
     .menu-mobile-box ul li{
         margin: 0;
+        text-align: center;
     }
 
     .menu-mobile-box ul{
-        gap: 25px;
+        gap: 18px;
         justify-content: space-around;
     }
 
@@ -4049,6 +4050,17 @@ tbody {
     .menu-mobile-box ul li:last-child button{
         background-color: none;
         border: none;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .menu-mobile-box ul li:last-child img{
+        height: 23px;
+    }
+
+    .menu-mobile-box ul li:last-child button p{
+        margin-top: 8px;
+
     }
 
     .menu-mobile-box .nav-mobile .offcanvas{

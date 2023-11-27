@@ -95,7 +95,7 @@
                         <div class="sub-user">
                             <p><a href="/myGallery">Ảnh của bạn</a></p>
                             <p><a href="/myOrder">Đơn hàng của bạn</a></p>
-                            <p><a href="/changePassUser">Thông tin tài khoản</a></p>
+                            <p><a href="/changePassUser">Đổi mật khẩu</a></p>
                             <p><a href="/logoutUser">Đăng xuất</a></p>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
     <div class="header-mobile">
         <div class="container">
             <div class="content-mm-mobile">
-                <div class="logo"><a href=""><img src="<?php echo $urlThemeActive;?>/images/logo.png" class="img-fluid" alt=""></a></div>
+                <div class="logo"><a href="/"><img src="<?php echo $urlThemeActive;?>/images/logo.png" class="img-fluid" alt=""></a></div>
 
                 <div class="h-translate">
                     <div class="lang-main">

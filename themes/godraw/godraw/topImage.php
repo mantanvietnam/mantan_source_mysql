@@ -12,6 +12,7 @@
 				<div class="row">
 					<?php
 					if(!empty($listData)){
+						// debug($listData);
 						foreach ($listData as $key => $value) {
 							$link = '/detailImage/?id='.$value->id;
 
@@ -20,10 +21,6 @@
 											<div class="avarta">
 												<div class="avr">
 													<a href="'.$link.'"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a>
-												</div>
-												
-												<div class="icon">
-													<img src="'.$urlThemeActive.'/images/screen.svg" class="img-fluid" alt="">
 												</div>
 											</div>
 											<div class="info">
@@ -35,6 +32,9 @@
 													<span>'.number_format($value->vote).'</span>
 													<div class="icon"><img src="'.$urlThemeActive.'/images/heart.svg" class="img-fluid" alt=""></div>
 												</div>
+												<div class="txt-right">
+													<h3>Mã: GODRAW'.$value->id.'</h3>
+												</div>
 											</div>
 										</div>
 									</div>';
@@ -43,6 +43,7 @@
 					?>
 				</div>
 			</div>
+
 			<div class="pagination">
 				<ul>
 					<?php

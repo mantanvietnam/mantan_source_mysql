@@ -29,12 +29,20 @@
 									<div class="like-imageDetail">
 										<?php 
 										if(empty($checkLike)){
-											echo '<a id="orderButton" href="/addLike/?id='.$infoImage->id.'"><img src="/themes/godraw/images/heart.svg" class="img-fluid" alt=""></a>';
+											echo '
+											<div class="heart">
+												<div class="icon">
+													<a id="orderButton" href="/addLike/?id='.$infoImage->id.'"><img src="/themes/godraw/images/heart.svg" class="img-fluid" alt=""></a>
+												</div>
+											</div>
+											';
 										}
 										?>
 									</div>
 								</div>
 							</div>
+
+							
 							<div class="title-detail">
 								<div class="content-head-title">
 									<h1><?php echo $infoImage->name;?></h1>

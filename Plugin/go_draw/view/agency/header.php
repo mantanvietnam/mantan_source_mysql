@@ -30,7 +30,7 @@
     <div class="header-pc">
         <div class="content-header">
             <!-- <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div> -->
-            <div class="logo"><a href="/checkCombo"><img src="/themes/godraw//images/logo.png" class="img-fluid btn-effect" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="/themes/godraw//images/logo.png" class="img-fluid btn-effect" alt=""></a></div>
 
        
             <div class="h-menu-right">
@@ -152,8 +152,8 @@
                     </div>
                     <div class="sub-lang">
                         <ul>
-                            <li><a href=""><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></a></li></li>
-                            <li><a href=""><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></a></li></li>
+                            <li><a href=""><img src="<?php echo $urlThemeActive;?>images/comy.png" class="img-fluid" alt=""></a></li></li>
+                            <!-- <li><a href=""><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></a></li></li> -->
                         </ul>
                     </div>
                 </div>

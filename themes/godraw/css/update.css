@@ -105,8 +105,9 @@ body {
 }
 
 .btn-main a:hover { 
-    filter: brightness(0.9);
+    filter: brightness(0.7);
     transition: all .2s ease-in-out;
+    scale: 1.1;
 
 }
 
@@ -685,13 +686,22 @@ img.khung-tranh {
 }
 
 .like-imageDetail img{
-    width: 44px;
+    width: 32px;
 }
 
 .like-imageDetail{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    right: 4%;
-    top: 7%;
+    bottom: 14%;
+    right: 0;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.58);
+    border-radius: 30px 0 0 30px;
+    color: #EC2024;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .avar-detail{
@@ -733,6 +743,7 @@ img.khung-tranh {
 
 .box-banner-home .social-intro{
     bottom: 15px;
+    z-index: 3;
 }
 
 .sub-lang img{
@@ -740,6 +751,29 @@ img.khung-tranh {
 }
 .h-translate .lang-main a img{
     height: 24px;
+}
+
+.item-gallery .heart{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 33%;
+    right: 0;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.58);
+    border-radius: 30px 0 0 30px;
+    color: #EC2024;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.item-gallery .info h3 {
+    font-size: 14px;
+}
+
+.like-imageDetail .heart{
+
 }
 
 @media (min-width: 1920px) and (min-height: 1080px){
@@ -760,6 +794,14 @@ img.khung-tranh {
 
     .box-banner-home .social-intro ul{
         gap: 10px
+    }
+
+    .logo-trailer-mobile img {
+        width: 200px;
+    }
+
+    .wrapper-intro{
+        padding-top: 122px
     }
 }
 
