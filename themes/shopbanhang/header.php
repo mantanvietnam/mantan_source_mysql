@@ -309,9 +309,19 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                                         </ul>
                                                     </li>
                                                     <?php }}} ?>
+
+                                                   
                                             </ul>
-                                            <div class="number-phone-mobile">
-                                                <p>Điện thoại tư vấn : 0963.514.244</p>
+                                           
+                                             <?php if(!empty($infoUser)){ ?>
+
+                                                  <div class="number-phone-mobile">
+
+                                                        <a href="/logout" class="nav-link ">Đăng xuất</a>
+                                                   </div>
+                                                        <?php }?>
+                                             <div class="number-phone-mobile">
+                                                <p>Điện thoại tư vấn : <?php echo @$setting['phone'] ?></p>
                                             </div>
                                         </div>
                                     </div>
