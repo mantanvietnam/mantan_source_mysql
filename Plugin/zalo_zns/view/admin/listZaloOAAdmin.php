@@ -33,6 +33,8 @@
     <h5 class="card-header">Danh sách Zalo OA</h5>
     
     <div class="card-body row">
+      <p>Link callback: <?php echo $urlHomes;?>callbackZalo</p>
+      <p>Số dư tài khoản: <?php echo number_format($money_zalo_zns);?>đ</p>
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -41,6 +43,7 @@
               <th>ID OA</th>
               <th>ID APP</th>
               <th>Khóa bảo mật</th>
+              <th>Token</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -49,12 +52,17 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  $access_token = $item->access_token;
+                  if(empty($item->access_token)){
+                    $access_token = '<a target="_blank" href="https://developers.zalo.me/app/'.$item->id_app.'/oa/settings" class="btn btn-primary">Cấp quyền</a>';
+                  }
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->id_oa.'</td>
                           <td>'.$item->id_app.'</td>
                           <td>'.$item->secret_key.'</td>
+                          <td>'.$access_token.'</td>
 
                           <td align="center">
                             <a class="dropdown-item" href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php/?id='.$item->id.'">

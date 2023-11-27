@@ -223,7 +223,7 @@ function detailImage($input)
 			$user = $session->read('infoMember');
 
 			$checkLike = $modelUserLikes->find()->where(['picture_id'=>(int) $_GET['id'], 'user_id'=>(int) @$user->id])->first();
-
+			
 			setVariable('infoImage', $infoImage);
 			setVariable('checkLike', $checkLike);
 		}else{

@@ -71,6 +71,7 @@
                 <th>Ảnh thiết kế</th>
                 <th>Ảnh đại diện</th>
                 <th>Mẫu thiết kế</th>
+                <th>Sửa</th>
                 <th>Xóa</th>
               </tr>
             </thead>
@@ -108,8 +109,21 @@
                               <img src="'.$image.'" width="100" /><br/>
                               '.date('d/m/Y', strtotime($item->created_at)).'
                             </td>
-                            <td> <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'"  title="sửa layer ">'.$item->name.' </a><br/>'.$type.'</td>
+                            <td> 
+                              <!--
+                              <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'"  title="sửa layer ">'.$item->name.' </a>
+                              -->
+
+                              '.$item->name.'
+                              <br/>'.$type.'
+                            </td>
                             
+                            <td align="center">
+
+                              <a target="_blank" class="dropdown-item" href="http://editor.ezpics.vn:5173/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa thông tin mẫu thiết kế">
+                                <i class="bx bx bx-edit-alt me-1"></i>       
+                              </a>       
+                            </td>
 
                             <td align="center">
                               <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
@@ -151,25 +165,36 @@
                     $image = (!empty($item->thumbnail))?$item->thumbnail:$item->image;
 
                     echo ' <div class="col-sm-12 p-2 m-2 border border-secondary mb-3">
-                            <p><b>Mẫu '.$item->id.'</b><a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a><br/>'.$type.'</p>
+                            <p><b>Mẫu '.$item->id.'</b> 
+                            <!--
+                            <a target="_blank" href="https://apis.ezpics.vn/edit-design/?id='.$item->id.'&token='.$session->read('infoUser')->token.'" title="sửa layer ">'.$item->name.'</a>
+                            -->
+
+                            '.$item->name.'
+                            <br/>'.$type.'</p>
                             <p>
-                              <img src="'.$item->image.'"  style="width: 100%;" />
-                              
+                              <img src="'.$item->image.'"  style="width: 49%;" />
+                              <img src="'.$image.'"  style="width: 49%;float:left;" />
                             </p>
-                            <p>
-                              <img src="'.$image.'"  style="width: 100%;" /><br/>
+                            <p style="clear: both;">
                               '.date('d/m/Y', strtotime($item->created_at)).'
                             </p>
                             <div class="mb-3 row">
                               <div class="col-md-6" style="width: 50%;">
+                                <!--
                                 <a class="dropdown-item btn btn-primary d-block" href="/addProduct/?id='.$item->id.'">
-                                        <i class="bx bx-edit"></i> sửa
-                                      </a>
+                                  <i class="bx bx-edit"></i> Sửa
+                                </a>
+                                -->
+
+                                <a target="_blank" class="dropdown-item btn btn-primary d-block" href="http://editor.ezpics.vn:5173/?id='.$item->id.'&token='.$session->read('infoUser')->token.'">
+                                  <i class="bx bx-edit"></i> Sửa
+                                </a>
                               </div>
                               <div class="col-md-6" style="width: 50%;">
                                   <a class="btn btn-danger d-block" onclick="return confirm(\'Bạn có chắc chắn muốn xóa kho mẫu thiết kế không?\');" href="/deleteProduct/?id='.$item->id.'">
-                                        <i class="bx bx-trash me-1"></i> xóa
-                                      </a>
+                                    <i class="bx bx-trash me-1"></i> Xóa
+                                  </a>
                               </div>
                             </div>
                           </div>';
