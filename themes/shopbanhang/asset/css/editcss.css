@@ -912,9 +912,7 @@ header{
     margin-bottom: 2px;
 }
 
-.nav-item.dropdown:hover .dropdown-menu {
-    display: block;
-  }
+
 
   .advertisement-home-item{
     height: auto;
@@ -1149,6 +1147,9 @@ background: #555;
 }
 
 @media(min-width: 445px){
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+      }
     
     #section-breadcrumb{
         margin-top: 137px;
@@ -1204,6 +1205,19 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .group-deal .product-img{
+        height: 106px;
+    }
+
+    .group-icon{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-text{
+        padding: 0;
+    }
+
     #section-tell .title-section h2{}
 
     .item-news-home{
@@ -1437,6 +1451,23 @@ background: #555;
 
     #section-banner-home .slick-active button{
         background-color: #000;
+    }
+
+    .top-deal {
+        min-height: 1px;
+        padding-top: 53px;
+    }
+
+    .modal-right .btn{
+        margin-top: 2px;
+        width: 100%;
+        font-size: 17px;
+        background-color: #011436;
+        border-radius: 3px;
+        border-color: transparent;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-bottom: 21px;
     }
   
 }

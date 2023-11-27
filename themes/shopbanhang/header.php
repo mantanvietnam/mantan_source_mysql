@@ -244,23 +244,23 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     <div class="menu-mobile-box">
                         <ul>
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt=""></a>
+                                <a href="/"><img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt=""></a>
+                                <a href="/sela"><img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt=""></a>
+                                <a href="/contact"><img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt=""></a>
+                                <a href="/cart"><img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt=""></a>
                             </li>
 
                             <li>
-                                <a href=""><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
                             </li>
 
                             <li>
@@ -274,6 +274,10 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         </div>
                                         <div class="offcanvas-body">
                                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="/allProduct">Sản phẩm</a>
+                                                </li>
+
                                                  <?php 
                                                     $menu = getMenusDefault();
                                                   
