@@ -332,6 +332,16 @@ $slide_home= slide_home($setting['id_slide']);
                     if($item->id==$product->id){
              ?>
             <!-- Xác nhận thêm giỏ hàng -->
+
+            <div class="box-confirm-cart" id="myLikeNoti">
+                <div class="box-confirm-cart-title">
+                    <p>Đã thêm danh sách yêu thích</p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
+
             <div class="box-confirm-cart" id="myElement">
                 <div class="box-confirm-cart-title">
                     <p>Đã thêm vào giỏ hàng</p>
