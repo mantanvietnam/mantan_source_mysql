@@ -22,6 +22,18 @@
     font-display: swap;
 }
 
+.content-gallery-detail .col-md-8{
+    padding-right: 0 !important;
+}
+
+.content-gallery-detail .col-md-4{
+    padding-left: 0 !important;
+}
+
+.avar-detail{
+    margin-bottom: 0 !important;
+}
+
 
 body {
     /* font-family: 'Nunito Sans', sans-serif !important; */

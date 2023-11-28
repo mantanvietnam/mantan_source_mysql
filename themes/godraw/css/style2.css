@@ -807,6 +807,7 @@ header{
 
 
 
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
@@ -829,7 +830,7 @@ header{
     }
 
     .logo-trailer-mobile img{
-        width: 213px;
+        width: 413px;
     }
 }
 
