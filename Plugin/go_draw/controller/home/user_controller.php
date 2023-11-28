@@ -288,4 +288,46 @@ function verified($input)
 
 	setVariable('mess', $mess);
 }
+
+function changeProfile($input)
+{
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+
+	$metaTitleMantan = 'Đổi thông tin tài khoản';
+
+	$modelUsers = $controller->loadModel('Users');
+
+	if(!empty($session->read('infoMember'))){
+		$mess = '';
+		$user = $modelUsers->get($session->read('infoMember')->id);
+
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			if(!empty($dataSend['name']) && !empty($dataSend['email']) ){
+				$user->name = $dataSend['name'];
+				$user->email = $dataSend['email'];
+				$user->nickname = $dataSend['nickname'];
+
+				$modelUsers->save($user);
+
+				$session->write('infoMember', $user);
+
+				$mess= '<p class="text-success">Đổi thông tin thành công</p>';
+				
+				
+			}else{
+				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+			}
+		}
+
+		setVariable('mess', $mess);
+		setVariable('user', $user);
+	}else{
+		return $controller->redirect('/');
+	}
+}
 ?>

@@ -26,7 +26,9 @@
 											<div class="info">
 												<div class="txt-left">
 													<h3><a href="'.$link.'">'.$value->name.'</a></h3>
-													<div class="icon"><img src="'.$urlThemeActive.'/images/user.svg" class="img-fluid" alt=""></div>
+													<div class="icon">
+														<img src="'.$urlThemeActive.'/images/user.svg" class="img-fluid" alt=""> '.$value->nickname.'
+													</div>
 												</div>
 												<div class="heart">
 													<span>'.number_format($value->vote).'</span>

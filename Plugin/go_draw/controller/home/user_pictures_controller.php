@@ -145,6 +145,7 @@ function topImage($input)
     $metaTitleMantan = 'TOP ảnh yêu thích';
 
 	$modelUserPictures = $controller->loadModel('UserPictures');
+	$modelUsers = $controller->loadModel('Users');
 	
 	$user = $session->read('infoMember');
 
@@ -155,6 +156,14 @@ function topImage($input)
 	$order = array('id'=>'desc');
 
 	$listData = $modelUserPictures->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+
+	if(!empty($listData)){
+		foreach ($listData as $key => $value) {
+			$user = $modelUsers->find()->where(array('id'=>$value->user_id))->first();
+
+			$listData[$key]->nickname = $user->nickname;
+		}
+	}
 
 	$totalData = $modelUserPictures->find()->where($conditions)->all()->toList();
 

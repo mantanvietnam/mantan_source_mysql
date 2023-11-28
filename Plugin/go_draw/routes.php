@@ -89,6 +89,7 @@
     $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
     $routesPlugin['loginUser']= 'go_draw/view/home/user/loginUser.php';
     $routesPlugin['changePassUser']= 'go_draw/view/home/user/changePassUser.php';
+    $routesPlugin['changeProfile']= 'go_draw/view/home/user/changeProfile.php';
     $routesPlugin['verified']= 'go_draw/view/home/user/verified.php';
     
 
