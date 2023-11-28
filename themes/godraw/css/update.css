@@ -41,6 +41,25 @@ body {
 
 }
 
+a.intro-link {
+    color: #fff;
+    position: absolute;
+    bottom: 67px;
+    display: block;
+    text-align: center;
+    left: 0;
+    right: 0;
+}
+
+a.intro-link:hover{
+    color: #0b192a;
+}
+
+a.intro-link svg {
+    fill: #fff;
+    padding-top: 3px;
+}
+
 
 .content-header{
 	/* padding-top: 10px;*/
@@ -831,11 +850,11 @@ footer{
     }
 
     .logo-trailer-mobile img {
-        width: 200px;
+        width: 220px;
     }
 
     .wrapper-intro{
-        padding-top: 122px
+        padding-top: 100px
     }
 }
 
