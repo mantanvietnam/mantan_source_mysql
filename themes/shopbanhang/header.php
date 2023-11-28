@@ -136,7 +136,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         <li><a class="dropdown-item" href="#">Bumas Beauty</a></li>
                                         <li><a class="dropdown-item" href="#">Bumas Home</a></li>
                                         <li><a class="dropdown-item" href="#">Bumas Care</a></li>
-                                        <li><a class="dropdown-item" href="#">Quà tăng</a></li>
+                                        <li><a class="dropdown-item" href="#">Quà tặng</a></li>
 
                                     </ul>
                                 </li>
@@ -289,7 +289,9 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <?php }else{ ?>
                             <li>
 
-                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt=""></a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt="">
+                                    <p>Tài khoản</p>
+                                </a>
                             </li>
                         <?php } ?>
                             <li>
