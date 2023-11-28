@@ -122,18 +122,26 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cài đặt</span></li>
             <!-- Cards -->
             <li class="menu-item">
+              <a href="/sendMessZaloOA" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-send' ></i> 
+                <div data-i18n="Tempaltes">Gửi tin Zalo OA</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
               <a href="/setttingZaloOA" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-list-ul' ></i> 
-                <div data-i18n="Tempaltes">Zalo OA</div>
+                <i class='menu-icon tf-icons bx bx-cog' ></i> 
+                <div data-i18n="Tempaltes">Cài đặt Zalo OA</div>
               </a>
             </li>
 
             <li class="menu-item">
               <a href="/listPosition" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-list-ul' ></i> 
-                <div data-i18n="Tempaltes">Chức danh</div>
+                <i class='menu-icon tf-icons bx bx-crown' ></i> 
+                <div data-i18n="Tempaltes">Cài đặt chức danh</div>
               </a>
             </li>
+
             <?php }?>
 
             <!-- Template -->
@@ -141,19 +149,19 @@
             <!-- Cards -->
             <li class="menu-item">
               <a href="/changePass" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-list-ul' ></i> 
+                <i class='menu-icon tf-icons bx bx-lock-alt' ></i> 
                 <div data-i18n="Tempaltes">Đổi mật khẩu</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/account" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-list-ul' ></i> 
+                <i class='menu-icon tf-icons bx bx-info-circle' ></i> 
                 <div data-i18n="Tempaltes">Đổi thông tin</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="/logout" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-list-ul' ></i> 
+                <i class='menu-icon tf-icons bx bx-log-out' ></i> 
                 <div data-i18n="Tempaltes">Đăng xuất</div>
               </a>
             </li>

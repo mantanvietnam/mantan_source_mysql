@@ -19,6 +19,7 @@
 	// zalo oa
 	$routesPlugin['setttingZaloOA']= 'hethongdaily/view/home/zalo/setttingZaloOA.php';
 	$routesPlugin['callbackZalo']= 'hethongdaily/view/home/zalo/callbackZalo.php';
+	$routesPlugin['sendMessZaloOA']= 'hethongdaily/view/home/zalo/sendMessZaloOA.php';
 
 	// chức danh
 	$routesPlugin['listPosition']= 'hethongdaily/view/home/position/listPosition.php';

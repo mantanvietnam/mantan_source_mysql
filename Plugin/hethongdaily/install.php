@@ -24,6 +24,7 @@ $sqlInstallDatabase .= "CREATE TABLE `members` (
   `facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_position` int(11) NOT NULL DEFAULT 0,
   `create_agency` VARCHAR(255) NOT NULL DEFAULT 'active',
+  `coin` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
@@ -41,8 +42,11 @@ $sqlInstallDatabase .= "CREATE TABLE `zalos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
+$sqlInstallDatabase .= "CREATE TABLE `transaction_histories` ( `id` INT NOT NULL AUTO_INCREMENT , `id_member` INT NOT NULL , `coin` INT NOT NULL , `type` VARCHAR(255) NOT NULL , `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `create_at` INT NOT NULL , `id_system` INT NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; "
+
 $sqlDeleteDatabase .= "DROP TABLE members; ";
 $sqlDeleteDatabase .= "DROP TABLE zalos; ";
+$sqlDeleteDatabase .= "DROP TABLE transaction_histories; ";
 
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_sales'; ";
 $sqlDeleteDatabase .= "DELETE FROM `categories` WHERE `type`='system_positions'; ";

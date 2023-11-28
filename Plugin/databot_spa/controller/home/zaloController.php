@@ -221,7 +221,9 @@ function sendMessZaloOA($input)
 
 						    $return_zns = json_decode($return_zns, true);
 
-						    $listFollowers += $return_zns['data']['followers'];
+						    if(!empty($return_zns['data']['followers'])){
+						    	$listFollowers += $return_zns['data']['followers'];
+							}
 						} while(!empty($return_zns['data']['followers']));
 					}
 
