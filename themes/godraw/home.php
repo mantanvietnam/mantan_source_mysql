@@ -222,7 +222,7 @@
                     <div class="row">
                         <div class="col-12 title-search-home">
                             <div class="title text-center mb-0">
-                                <span>Danh sách đại lý GÔDRAW</span>
+                                <span>Danh sách Quán Vẽ GÔDRAW</span>
                                 <svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1181.45 57.9501H0.28125V46.8002C0.28125 21.1802 21.0513 0.410156 46.6713 0.410156H1135.05C1160.67 0.410156 1181.44 21.1802 1181.44 46.8002V57.9501H1181.45Z" fill="#1A3A89"/>
                                 </svg>
@@ -237,11 +237,11 @@
                                     <!-- form select -->
                                     <form action="/search-agency" method="get">
                                         <div class="row mb-3">                    
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-6">
                                                 <p>Tên đại lý</p>
                                                 <input type="text" name="name_agency" value="" class="form-control">
                                             </div>    
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-6">
                                                 <p>Tỉnh thành</p>
                                                 <select name="province_id" id="province_id" class="form-control" onchange="selectCity();">
                                                     <option value="">Chọn tỉnh thành</option>
@@ -254,13 +254,13 @@
                                                     ?>
                                                 </select>
                                             </div>    
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-6">
                                                 <p>Quận huyện</p>
                                                 <select name="district_id" id="district_id" class="form-control" onchange="selectDistrict();">
                                                     <option value="">Chọn tỉnh thành</option>
                                                 </select>
                                             </div>  
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-6">
                                                 <p>Xã phường</p>
                                                 <select name="ward_id" id="ward_id" class="form-control">
                                                     <option value="">Chọn xã phường</option>

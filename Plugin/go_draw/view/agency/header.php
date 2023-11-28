@@ -30,7 +30,7 @@
     <div class="header-pc">
         <div class="content-header">
             <!-- <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div> -->
-            <div class="logo"><a href="/"><img src="/themes/godraw//images/logo.png" class="img-fluid btn-effect" alt=""></a></div>
+            <div class="logo"><a href="/"><img src="/themes/godraw//images/logo-godraw.png" class="img-fluid btn-effect" alt=""></a></div>
 
        
             <div class="h-menu-right">
@@ -163,7 +163,7 @@
     <div class="header-mobile">
         <div class="container">
             <div class="content-mm-mobile">
-                <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div>
+                <div class="logo"><a href=""><img src="/themes/godraw//images/logo-godraw.png" class="img-fluid" alt=""></a></div>
                 <div class="right-mb">
                     <ul>
                         

@@ -1119,8 +1119,8 @@ header{
 }
 
 .category-product-item .active a{
-    color: #008ACE;
-    font-weight: 400;
+    color: #000;
+    font-weight: bold;
 }
 
 .cart-product-gift-number{

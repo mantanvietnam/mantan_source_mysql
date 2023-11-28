@@ -1,6 +1,26 @@
 
 
 $(document).on('click', function (e) {
+
+  $(document).ready(function(){
+    // Sử dụng sự kiện click cho tất cả các radio button có class 'radioOption'
+    $(".check-voucher #checkcode3").click(function(){
+        // Bỏ chọn tất cả các radio button trong nhóm có tên 'group1'
+        $("input[name='code3']").prop('checked', !$(this).prop('checked'));
+    });
+
+    $(".check-voucher #checkcode1").click(function(){
+      // Bỏ chọn tất cả các radio button trong nhóm có tên 'group1'
+      $("input[name='code1']").prop('checked', !$(this).prop('checked'));
+    });
+
+    $(".check-voucher #checkcode2").click(function(){
+      // Bỏ chọn tất cả các radio button trong nhóm có tên 'group1'
+      $("input[name='code2']").prop('checked', !$(this).prop('checked'));
+    });
+  });
+
+
   // Nếu sự kiện click xảy ra ngoài modal content và không phải là nút đóng modal
   if (!$(e.target).closest('#exampleModalcode .modal-content').length && $('#exampleModalcode').is(":visible")) {
       // Ẩn modal bằng ID của modal

@@ -88,7 +88,9 @@ body {
 	color: #4A7DCE ;
 }
 
-
+.btn-main a{
+    background-color: transparent;
+}
 
 .content-header a {
     font-size: 19px;
@@ -282,6 +284,10 @@ img.khung-tranh {
     transition: all .2s ease-in-out;
 
 
+}
+
+.h-user ul li a.login{
+    background-color: transparent;
 }
 
 .content-header {
@@ -776,6 +782,19 @@ img.khung-tranh {
 
 .like-imageDetail .heart{
 
+}
+
+.main-footer{
+    height: auto;
+}
+
+footer{
+    position: unset;
+}
+
+.txt-left .icon {
+    font-size: 12px;
+    margin-top: 7px;
 }
 
 @media (min-width: 1920px) and (min-height: 1080px){

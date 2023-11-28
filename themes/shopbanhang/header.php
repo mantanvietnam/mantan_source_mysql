@@ -128,7 +128,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <!-- Menu mặc định -->
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="/allProduct" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="/allProduct" role="button" aria-expanded="false">
                                         Sản phẩm
                                     </a>
                                     <ul class="dropdown-menu">

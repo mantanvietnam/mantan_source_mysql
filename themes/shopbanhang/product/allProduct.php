@@ -7,6 +7,13 @@ $setting = setting();
 $slide_home= slide_home($setting['id_slide']);
 ?>
 
+<style>
+    #section-cateogry-product > div > div > div.col-lg-3.col-12 > div > div:nth-child(1) > ul > li:nth-child(2) > a{
+        color: #000;
+        font-weight: bold;
+    }
+</style>
+
 <main>
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
