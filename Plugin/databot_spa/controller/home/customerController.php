@@ -565,4 +565,141 @@ function deleteCategoryCustomer($input){
         return $controller->redirect('/');
     }
 }
+
+function addDataCustomer($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+
+    $metaTitleMantan = 'Thêm data khách hàng';
+    if(!empty(checkLoginManager('addDataCustomer', 'customer'))){
+        $infoUser = $session->read('infoUser');
+        $modelCustomer = $controller->loadModel('Customers');
+
+
+        if(!empty($_GET['id'])){
+			$id = (int) $_GET['id'];
+
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				if($isRequestPost){
+					$dataSeries = uploadAndReadExcelData('dataSeries');
+
+					if($dataSeries){
+						unset($dataSeries[0]);
+
+						$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+						if(!empty($listLayer)){
+							$listDataImage = [];
+							
+							foreach ($dataSeries as $row) {
+								$number = -1;
+								$urlThumb = 'https://apis.ezpics.vn/createImageFromTemplate/?id='.$id;
+
+			                    foreach ($listLayer as $layer) {
+			                        $content = json_decode($layer->content, true);
+
+			                        if(!empty($content['variable']) && !empty($content['variableLabel'])){
+			                        	$number++;
+			                        	$urlThumb .= '&'.$content['variable'].'='.$row[$number];
+			                        }
+			                    }
+			                   	
+			                   	// dùng tool tự code
+			                    $urlExportImage = $urlCreateImage.'?url='.urlencode($urlThumb).'&width='.$product->width.'&height='.$product->height;
+			                    $dataImage = sendDataConnectMantan($urlExportImage);
+
+			                    // dùng screenshotProduct api
+			                    //$urlImage = screenshotProduct($urlThumb, $product->width, $product->height);
+								//$dataImage = base64_encode(file_get_contents($urlImage));
+
+			                    //$listDataImage[] = compressImageBase64($dataImage);
+			                    $listDataImage[] = $dataImage;
+			                }
+
+			                if(!empty($listDataImage)){
+			                	createZipFromBase64Images($listDataImage, $product->slug);
+			                }
+		                }
+					}
+				}
+
+				setVariable('mess', $mess);
+				setVariable('product', $product);
+			}else{
+				return $controller->redirect('/listProductSeries');
+			}
+		}else{
+			return $controller->redirect('/listProductSeries');
+		}
+
+    }
+}
+
+function exportFormDataSeries($input)
+{
+	global $controller;
+	global $isRequestPost;
+	global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+
+    if(!empty(checkLoginManager('addDataCustomer', 'customer'))){
+        $infoUser = $session->read('infoUser');
+        $modelCustomer = $controller->loadModel('Customers');
+
+
+	    $metaTitleMantan = 'Nhập dữ liệu cho khách hàng';
+
+		$modelProduct = $controller->loadModel('Products');
+		$modelProductDetail = $controller->loadModel('ProductDetails');
+		$mess= '';
+
+		if(!empty($_GET['id'])){
+			$id = (int) $_GET['id'];
+
+			$product = $modelProduct->find()->where(['id'=>$id])->first();
+
+			if(!empty($product) && $product->type == 'user_series' && $product->status == 1){
+				$listLayer = $modelProductDetail->find()->where(array('products_id'=>$product->id))->all()->toList();
+
+				$titleExcel = [];
+
+				
+                $titleExcel[] = ['name'=>$content['TÊN KHÁCH HÀNG'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['SỐ ĐIỆN THOẠI '], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['EMAIL'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['ĐỊA CHỈ'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['HÌNH ĐẠI DIỆN'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['SỐ CMT'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['GIỚI TÍNH'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['NGÀY SINH'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['NHÂN VIÊN PHỤ TRÁCH'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['ID NHÓM KHÁCH HÀNG'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['MÃ NGƯỜI GIỚI THIỆU'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['LINK FACEBOOK'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['LINK FACEBOOK'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['LINK FACEBOOK'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['LINK FACEBOOK'], 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>$content['LINK FACEBOOK'], 'type'=>'text', 'width'=>25];
+                       
+
+				$dataExcel = [];
+
+				export_excel($titleExcel, $dataExcel, $product->slug);
+			}else{
+				return $controller->redirect('/listProductSeries');
+			}
+		}else{
+			return $controller->redirect('/listProductSeries');
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
 ?>
