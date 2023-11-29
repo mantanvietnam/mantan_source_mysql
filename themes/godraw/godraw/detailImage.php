@@ -45,7 +45,6 @@
 							
 							<div class="title-detail">
 								<div class="content-head-title">
-									<h1><?php echo $infoImage->name;?></h1>
 									<div class="price"><?php echo number_format($infoImage->vote);?> like</div>
 								</div>
 							</div>

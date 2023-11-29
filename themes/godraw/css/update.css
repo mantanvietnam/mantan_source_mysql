@@ -828,7 +828,10 @@ footer{
     margin-top: 7px;
 }
 
-
+.topimage-page{
+    padding: 0;
+    height: calc(100vh - 284px);
+}
 
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{

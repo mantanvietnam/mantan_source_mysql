@@ -305,7 +305,7 @@ img.khung-tranh {
 }
 
 .h-menu > ul > li {
-    height: 82px;
+    height: 65px;
     display: flex;
 }
 
@@ -884,12 +884,16 @@ header{
         max-width: 60%;
     }
 
+    #map_HS{
+        height: 100% !important;
+    }
+
     #slide-home-top .box-gallery{
         /* padding-top: 90px; */
     }
 
     .list-showroom {
-        max-height: 324px
+        max-height: 350px
     }
 
     #slide-home-shop .col-md-5{
@@ -916,9 +920,11 @@ header{
     }
 
     .iframe-map{
-        height: 521px;
-        max-height: 521px;
+        height: 547px;
+        max-height: 547px;
     }
+
+   
     
 }
 

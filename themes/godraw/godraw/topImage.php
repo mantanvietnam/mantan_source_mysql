@@ -1,5 +1,5 @@
 <?php getHeader();?>
-<main class="main-footer">
+<main class="topimage-page main-footer">
 	<section class="box-gallery">
 		<div class="container-fluid">
 			<!-- <div class="title text-center">
