@@ -112,7 +112,7 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
                             
                         </div>
-
+                        <?php if($product->flash_sale==1){ ?>
                         <div class="product-detail-info-flash">
                             <div class="product-info-flash-title">
                                 Flash sale
@@ -125,7 +125,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
                             </div>
                         </div>
-
+                    <?php } ?>
                         <div class="product-detail-info-price">
                             <div class="product-detail-info-price-left">
                                 <div class="price-left-real">
@@ -391,7 +391,7 @@ $slide_home= slide_home($setting['id_slide']);
         <section id="section-pro-review">
             <div class="container">
                 <div class="section-pro-review-inner">
-                    <div class="title-section">
+                    <div class="title-section mt-5">
                         <p>Chuyên gia đánh giá sản phẩm</p>
                     </div>
 

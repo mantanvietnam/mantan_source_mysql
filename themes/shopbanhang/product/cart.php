@@ -8,6 +8,7 @@ $setting = setting();
 
 $slide_home= slide_home($setting['id_slide']);
 //debug($list_product);
+$price_total = 0;
 ?>
 <main>
         <section id="section-cart">
@@ -20,6 +21,7 @@ $slide_home= slide_home($setting['id_slide']);
                     <div class="row">
                         <!-- Bảng -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-12 table-cart-left">
+                           <?php if(!empty($list_product)){ ?>
                             <div class="table-top">
                                 <table class="table">
                                     <thead>
@@ -44,8 +46,8 @@ $slide_home= slide_home($setting['id_slide']);
                                         <!-- Sản phẩm -->
                                         <?php  $price_total = 0;
                                         $total = 0;
-                            if(!empty($list_product)){
-                                foreach ($list_product as $key => $value) {
+                            
+                                            foreach ($list_product as $key => $value) {
                                             $link = '/product/'.$value->slug.'.html';
                                             $total += 1;
                                             if($value->price_old){
@@ -58,8 +60,7 @@ $slide_home= slide_home($setting['id_slide']);
                                             if($value->statuscart=="true"){
                                                 
                                                 $price_total += $price_buy;
-                                            }
-                             ?>
+                                            }?>
                                         <tr>
                                             <!-- check -->
                                             <td class="td-check">
@@ -124,14 +125,14 @@ $slide_home= slide_home($setting['id_slide']);
                                             </td>
                                         </tr>
         
-                                       <?php }} ?>
+                                       <?php } ?>
                                     </tbody>
                                 </table>
 
                                 <table class="table table-bottom">
                                     <!-- Sản phẩm quà tặng -->
                                     <?php   if(!empty($list_product)){
-                                foreach ($list_product as $key => $value) { 
+                                        foreach ($list_product as $key => $value) { 
                                      if(!empty($value->present)){
                                     foreach($value->present as $item){
                                  
@@ -165,6 +166,11 @@ $slide_home= slide_home($setting['id_slide']);
                                 <?php }}}} ?>
                                 </table>
                             </div>
+                        <?php }else{?>
+                            <div class="table-top">
+                                <p>Không có sản phầm nào trong giỏ hàng</p>
+                            </div>
+                        <?php } ?>
                             <?php $checkud = 0; ?>
                             <div class="cart-left-bottom chek checkud">
                                 <div class="title-cart-left-bottom">
@@ -304,7 +310,7 @@ $slide_home= slide_home($setting['id_slide']);
                                             <?php if(!empty($value['discountCode'])){
                                                 foreach($value['discountCode'] as $k => $item){
                                                      $voucher = "";
-                                                    if($price_total < $item->applicable_price){
+                                                    if(@$price_total < @$item->applicable_price){
 
                                                     $voucher= 'voucher-disabled';
                                                 }
@@ -349,7 +355,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
 
                                     <div class="cart-price-item-price" id="pricetotal">
-                                      <?php echo number_format($price_total); ?>đ
+                                      <?php echo number_format(@$price_total); ?>đ
                                     </div>
                                     <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
                                 </div>
@@ -413,7 +419,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
     
                                         <div class="cart-price-total-price" id="totals">
-                                           <?php echo number_format($price_total); ?>đ
+                                           <?php echo number_format(@$price_total); ?>đ
                                         </div>
                                          <input type="hidden" value="<?php echo $price_total; ?>" name="total" id=total>
                                     </div>

@@ -54,7 +54,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 <body>
     <header>
         <div class="promotion-header">
-            <p>Siêu sale 11.11 toàn ngành hàng</p>
+            <p><?php echo $setting['text_mobile']; ?></p>
             <a href="/sela">Mua ngay</a>
             <i class="fa-solid fa-arrow-right"></i>
         </div>
