@@ -159,6 +159,7 @@ function updateComboAdminApi($input): array
             $combo = $comboModel->newEmptyEntity();
         }
         $combo->name = $dataSend['name'];
+        $combo->description = $dataSend['description'];
         $combo->price = 0;
         $combo->image = $dataSend['image'] ?? $defaultImage;
         $combo->slug = createSlugMantan($dataSend['name']);

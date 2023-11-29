@@ -105,4 +105,5 @@
 
     // thông tin cửa hàng
     $routesPlugin['store']= 'go_draw/view/home/agencies/store.php';
+    $routesPlugin['detailCombo']= 'go_draw/view/home/combos/detailCombo.php';
 

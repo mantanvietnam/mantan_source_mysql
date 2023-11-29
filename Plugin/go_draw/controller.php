@@ -29,3 +29,4 @@ include('controller/home/user_controller.php'); // tài khoản người dùng
 include('controller/home/agencies_controller.php'); // đại lý
 include('controller/home/user_orders_controller.php'); // đơn hàng của người dùng
 include('controller/home/user_pictures_controller.php'); // ảnh người dùng
+include('controller/home/combos_controller.php'); // combo sản phẩm

@@ -21,7 +21,7 @@
 
                                 <div class="tab-content">
                                     <div class="row">
-                                      <input type="hidden" id="id" name="id" value="<?php echo @$data->id;?>"/>
+                                        <input type="hidden" id="id" name="id" value="<?php echo @$data->id;?>"/>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Tên combo (*)</label>
                                             <input required type="text" class="form-control phone-mask" name="name" id="name" value="<?php echo @$data->name;?>" />
@@ -35,8 +35,8 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label class="form-label">Hình minh họa</label>
                                             <div class="mb-3">
+                                                <label class="form-label">Hình minh họa</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-label="" aria-describedby="btnGroupAddonUpload"
                                                            name="image" id="image" value="<?php echo @$data->image;?>"
@@ -46,8 +46,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Mô tả</label>
+                                                <textarea class="form-control" rows="5" name="description" id="description"><?php echo $data->description;?></textarea>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <img id="show-image" src="<?php echo @$data->image ?: 'https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg'; ?>" alt=""
                                                  style="max-width: 400px; max-height: 400px"
                                             />
@@ -262,8 +267,9 @@
       const name = $('#name').val();
       // const price = $('#price').val();
       const image = $('#image').val();
+      const description = $('#description').val();
       const id = $('#id').val();
-      const data = {id, name, image, productList};
+      const data = {id, name, image, productList, description};
       const token = "<?php echo $csrfToken;?>";
 
       $.ajax({

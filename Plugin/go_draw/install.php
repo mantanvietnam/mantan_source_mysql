@@ -78,6 +78,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `combos` (
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
     `deleted_at` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;';
 
