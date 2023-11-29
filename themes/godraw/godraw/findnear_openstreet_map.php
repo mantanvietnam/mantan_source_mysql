@@ -43,6 +43,7 @@
         foreach ($listAgency as $data) {
           if(!empty($data->lat_gps) & !empty($data->long_gps)){
               $content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a target=_blank href=https://www.google.com/maps/dir/?api=1&destination='.$data->lat_gps.','.$data->long_gps.'>' . $data->name. '</a>';
+              //$content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a target=_blank href=/store/?id='.$data->id.'>' . $data->name. '</a>';
               $content.='<br/>Điện thoại: ' . @$data->phone;
               $content.='<br/>Địa chỉ: ' . $data->address;
 

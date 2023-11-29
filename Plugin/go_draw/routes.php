@@ -103,3 +103,6 @@
     $routesPlugin['deleteImage']= 'go_draw/view/home/user_pictures/deleteImage.php';
     $routesPlugin['addLike']= 'go_draw/view/home/user_pictures/addLike.php';
 
+    // thông tin cửa hàng
+    $routesPlugin['store']= 'go_draw/view/home/agencies/store.php';
+
