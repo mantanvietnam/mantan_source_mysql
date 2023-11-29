@@ -77,6 +77,7 @@
 	$routesPlugin['createThumb']= 'ezpics_api/view/home/createThumb.php';
 	$routesPlugin['createLayerVariable']= 'ezpics_api/view/home/createLayerVariable.php';
 	$routesPlugin['checkToolExportImage']= 'ezpics_api/view/home/checkToolExportImage.php';
+	$routesPlugin['deletePageLayerAPI']= 'ezpics_api/view/home/deletePageLayerAPI.php';
 	
 
 	// yêu thích sản phẩm
