@@ -296,7 +296,7 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="avr-maps">
-                                    <?php include(__DIR__.'/godraw/findnear_google_map.php');?>
+                                    <?php include(__DIR__.'/godraw/findnear_openstreet_map.php');?>
                                 </div>
                             </div>
                         </div>
