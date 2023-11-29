@@ -2,8 +2,12 @@
 global $urlThemeActive;
 $setting = setting();
 global $session;
-$infoUser = $session->read('infoUser');  
-// $cart = count($session->read('product_order'));     
+$infoUser = $session->read('infoUser');
+ $cart = 0;
+ if(!empty($session->read('product_order'))){
+    $cart = count($session->read('product_order')); 
+ }
+    
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -114,7 +118,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="topbar-button">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
                                 <a href="/cart">Giỏ hàng</a>
-                                <span><?php echo $cart; ?></span>
+                                <span><?php echo @$cart; ?></span>
 
                             </div>
                         </div>

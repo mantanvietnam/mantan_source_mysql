@@ -113,7 +113,7 @@ $slide_home= slide_home($setting['id_slide']);
                             
                         </div>
                         <?php if($product->flash_sale==1){ ?>
-                        <div class="product-detail-info-flash">
+                        <div class="product-detail-info-flash" id="info_flash">
                             <div class="product-info-flash-title">
                                 Flash sale
                             </div>
@@ -652,7 +652,7 @@ $slide_home= slide_home($setting['id_slide']);
                            <div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>
                            <?php } ?>
                         </div>
-
+                        <?php  if(!empty($product->evaluates)){ ?>
                         <div class="product-detail-rate-right col-lg-5 col-md-5 col-sm-5 col-12">
                             <div class="flex-rate">
                                 <div class="product-detail-rate-right-title">
@@ -741,6 +741,7 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
                             
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -920,20 +921,7 @@ $slide_home= slide_home($setting['id_slide']);
       const timeLeft = targetTime - currentTime;
 
       if (timeLeft <= 0) {
-         var html = '';
-        html +='                       <div class="time-flash-number">'
-        html +='                           <p>00</p>'
-        html +='                       </div>'
-        html +='                       <div class="time-flash-number">'
-        html +='                           <p>00</p>'
-        html +='                       </div>'
-        html +='                       <div class="time-flash-number">'
-        html +='                           <p>00</p>'
-        html +='                       </div>'
-        html +='                       <div class="time-flash-number">'
-        html +='                           <p>00</p>'
-        html +='                       </div>'
-        document.getElementById("countdown").innerHTML = html;
+         $("#info_flash").css('display', 'none');
       } else {
         const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
