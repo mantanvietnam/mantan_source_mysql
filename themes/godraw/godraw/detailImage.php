@@ -63,37 +63,49 @@
 										<div class="content-head-title">
 											<div class="price"><?php echo number_format($infoImage->vote);?> like</div>
 										</div>
-										<div class="social">
+										<div class="social row">
 											<ul>
-												<!--
+												
 												<li>
-													<a href="">
-														<img src="<?php echo $urlThemeActive;?>images/sc-1.svg" class="img-fluid" alt="">
+													<a href="mailto:info@godraw.vn?subject=<?php echo $infoImage->name;?>&body=Link trang: <?php echo $urlHomes.$urlCurrent;?>" class="text-white">
+														<i class="fa-regular fa-envelope"></i>
 													</a>
 												</li>
 
 												<li>
-													<a href="">
-														<img src="<?php echo $urlThemeActive;?>images/sc-3.svg" class="img-fluid" alt="">
+													<a href="https://pinterest.com/pin/create/button/?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" class="text-white">
+														<i class="fa-brands fa-pinterest"></i>
 													</a>
 												</li>
-												-->
-												
+
 												<li>
-													<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank" rel="noopener">
-														<img src="<?php echo $urlThemeActive;?>images/sc-2.svg" class="img-fluid" alt="">
-													</a>
-												</li>
-												
-												<li>
-													<a href="http://twitter.com/share?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
-														<img src="<?php echo $urlThemeActive;?>images/sc-4.svg" class="img-fluid" alt="">
+													<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($urlHomes.$urlCurrent);?>" class="text-white">
+														<i class="fa-brands fa-linkedin"></i>
 													</a>
 												</li>
 												
+												
 												<li>
-													<a href="https://telegram.me/share/url?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
-														<img src="<?php echo $urlThemeActive;?>images/sc-5.svg" class="img-fluid" alt="">
+													<a class="text-white" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank" rel="noopener">
+														<i class="fa-brands fa-facebook"></i>
+													</a>
+												</li>
+												
+												<li>
+													<a class="text-white" href="http://twitter.com/share?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<i class="fa-brands fa-twitter"></i>
+													</a>
+												</li>
+												
+												<li>
+													<a class="text-white" href="https://telegram.me/share/url?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<i class="fa-brands fa-telegram"></i>
+													</a>
+												</li>
+
+												<li>
+													<a class="text-white" href="https://tumblr.com/widgets/share/tool?canonicalUrl=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<i class="fa-brands fa-tumblr"></i>
 													</a>
 												</li>
 											</ul>
