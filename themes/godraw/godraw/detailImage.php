@@ -52,12 +52,15 @@
 						<div class="col-md-3 detail-image-right">
 							<div class="txt-detail-gallery">
 								<div class="detail">
-									<h1><?php echo $infoImage->name;?></h1>
+									<div class="box-top-detail">
+										<h1><?php echo $infoImage->name;?></h1>
 
 
-									<div class="top-detail">
-										<?php echo nl2br($infoImage->description);?>
+										<div class="top-detail">
+											<?php echo nl2br($infoImage->description);?>
+										</div>
 									</div>
+								
 
 									<div class="social text-right">
 										<div class="content-head-title">

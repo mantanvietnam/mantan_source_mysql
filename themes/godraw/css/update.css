@@ -872,6 +872,14 @@ footer{
     height: 65px;
 }
 
+.top-detail{
+    font-size: 20px
+}
+
+.txt-detail-gallery .social li{
+    font-size: 20px;
+}
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
