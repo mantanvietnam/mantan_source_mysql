@@ -81,9 +81,3 @@
   }
 </script>
 
-<script>
-  $(document).ready(function() {
-    var h = $('#section4').innerHeight();
-    $('#map, #map_HS').css({'height': '350px'});
-  });
-</script>
