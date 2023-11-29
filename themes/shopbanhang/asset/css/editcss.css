@@ -246,7 +246,7 @@ header{
 .link-empty a:hover{
     background-color: #06a2f0;
     transition: all 0.3s linear;
-    color: #fff;
+    color: #fff !important;
 
 }
 
@@ -431,6 +431,9 @@ header{
     object-fit: cover;
 }
 
+.small-text{
+    font-size: 14px;
+}
 
 .group-viewed-product .table td{
     vertical-align: middle;
@@ -495,7 +498,8 @@ header{
 
 #content-policy ol li{
     font-size: 14px;
-    font-weight: 200 !important;
+    font-weight: 300 !important;
+    line-height: 1.5;
 }
 
 #content-policy ol{
@@ -504,15 +508,17 @@ header{
 
 #content-policy ul li{
     font-size: 14px;
-    font-weight: 200 !important;
+    font-weight: 300 !important;
 }
 
 #content-policy ul{
-    line-height: 1.4;
+    line-height: 1.5;
+    font-weight: 300;
 }
 
 .active-policy p{
-    font-weight: 200;
+    font-weight: 300;
+    line-height: 1.5;
 }
 
 .detail-policy .end-text{
@@ -546,6 +552,10 @@ header{
 #policy .nav-tabs li{
     width: 50%;
     text-align: center;
+}
+
+.product-detail-rate-right-title{
+    margin-bottom: 12px;
 }
 
 /* Liên hệ */
@@ -767,7 +777,7 @@ header{
 }
 
 #content-policy ul{
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .item-star-rating {
@@ -1044,8 +1054,17 @@ header{
 
 .list-procerdure li:last-child span{
     display: block;
-    width: 58px;
+    width: 61px;
 
+}
+
+.box-confirm-like{
+    height: 88px;
+
+}
+
+.box-confirm-like p{
+    margin: 30px auto;
 }
 
 .combo-voucher .detail-voucher-sale span{

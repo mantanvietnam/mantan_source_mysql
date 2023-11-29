@@ -307,14 +307,14 @@ $slide_home= slide_home($setting['id_slide']);
                                     if(!empty($infoUser)){
                                 if(empty(getLike($infoUser['id'],$product->id,'product'))){?>
                             <div class="button-like">
-                                <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                                <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
                             </div>
                                 <?php }else{
                                   
                                  ?>
                                     <div class="button-like">
 
-                                <button type="button" onclick="delelelike()" style="background-color: #ff7373; color: rgb(255, 255, 255);"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                                <button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
                             </div>
                            
                                 <?php }  }else{ ?>
@@ -378,8 +378,8 @@ $slide_home= slide_home($setting['id_slide']);
         if(!empty($infoUser)){
         if(!empty(getLike(@$infoUser['id'],@$product->id,'product'))){
             ?>    
-        <div class="box-confirm-cart" id="myLikeNoti">
-                <div class="box-confirm-cart-title">
+        <div class="box-confirm-cart box-confirm-like" id="myLikeNoti">
+                <div class="box-confirm-cart-title confirm-like">
                     <p>Đã thêm danh sách yêu thích</p>
                     <div class="close-button">
                         <i class="fa-solid fa-xmark"></i>
@@ -872,8 +872,8 @@ $slide_home= slide_home($setting['id_slide']);
                                 <p>Gửi thảo luận</p>
                             </div>
 
-                            <div class="product-detail-comment-right-title">
-                                <p>Nhanh tay chia sẻ với cộng đồng những cảm nhận của bạn về sản phẩm này</p>
+                            <div class="product-detail-comment-right-title small-text">
+                                <p>Chia sẻ cảm nhận hoặc thắc mắc của bạn về sản phẩm này</p>
                             </div>
 
                             <div class="product-detail-rate-comment">

@@ -2010,7 +2010,7 @@ strong {
 .product-detail-comment-right-title {
     margin-bottom: 21px;
     font-size: 20px;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .product-detail-comment-right-title-small{
@@ -2913,13 +2913,13 @@ strong {
 
 .product-detail-rate-date {
     font-size: 14px;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .product-detail-rate-comment {
     margin-bottom: 13px;
     font-size: 14px;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .product-detail-rate-image {
@@ -3035,8 +3035,8 @@ strong {
 }
 
 .product-detail-rate-right .rate-image-title {
-    font-size: 11px;
-    font-weight: 200;
+    font-size: 14px;
+    font-weight: 300;
 }
 
 .product-detail-rate-right .list-rate-image {
@@ -3045,12 +3045,12 @@ strong {
 }
 
 .product-detail-rate-right .rate-image-title {
-    margin-bottom: 9px;
+    margin-bottom: 12px;
 }
 
 .product-detail-rate-right .list-filter-rate-list a {
-    font-size: 11px;
-    font-weight: 200;
+    font-size: 14px;
+    font-weight: 300;
     display: block;
     color: #000;
     border: 1px solid #EAEBEB;
@@ -3062,7 +3062,7 @@ strong {
 .list-filter-rate-list {
     width: 68%;
     display: flex;
-    gap: 6px;
+    gap: 3px;
     margin-bottom: 18px;
     flex-wrap: wrap;
 }
@@ -3080,14 +3080,15 @@ strong {
 }
 
 .cart-product-name-box .cart-product-image {
-    width: 51%;
+    width: 100px;
+    height: 100px;
     background-color: #F1F2F2;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .cart-product-name-box .cart-product-image img {
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 

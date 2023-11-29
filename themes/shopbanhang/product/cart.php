@@ -173,7 +173,7 @@ $price_total = 0;
                                 </div>
 
                                 <div class="text-empty">
-                                     <p>Không có sản phầm nào trong giỏ hàng</p>
+                                     <p>Không có sản phẩm nào trong giỏ hàng</p>
                                 </div>
                               
                                 <div class="link-empty">

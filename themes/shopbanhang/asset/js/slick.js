@@ -43,6 +43,30 @@ $(document).ready(function() {
         ]
     });
 
+    // sản phẩm
+    // $('.product-detail-rate-right .list-rate-image').slick({
+    //     slidesToScroll: 1,
+    //     arrows: false,
+    //     slidesToShow: 5,
+
+    //     responsive: [{
+    //             breakpoint: 768,
+    //             settings: {
+    //                 arrows: false,
+    //                 slidesToShow: 5
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 480,
+    //             settings: {
+    //                 arrows: false,
+    //                 slidesToShow: 5
+    //             }
+    //         }
+    //     ]
+    // });
+
+
     $('.comment-text-slide').slick({
         infinite: true,
         slidesToShow: 1,
