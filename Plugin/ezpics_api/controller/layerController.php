@@ -1,4 +1,55 @@
 <?php 
+function deletePageLayerAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$return = array('code'=>0);
+
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['idProduct']) && !empty($dataSend['token']) && isset($dataSend['page'])){
+			$dataMembr = $modelMember->find()->where(['token'=>$dataSend['token']])->first();
+
+			if(!empty($dataMembr)){
+				$product = $modelProduct->find()->where(['id'=>$dataSend['idProduct'], 'user_id'=>$dataMembr->id])->first();
+				
+				if(!empty($product)){
+					$listLayer = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idProduct']))->all()->toList();
+
+					if(!empty($listLayer)){
+						foreach ($listLayer as $key => $value) {
+							$content = json_decode($value->content, true);
+
+							if(empty($content->page)) $content->page = 0;
+
+							if($content->page == $dataSend['page']){
+								$modelProductDetail->delete($value);
+							}
+						}
+					}
+				}else{
+					$return = array('code'=>3, 'mess'=>'Bạn không có quyền xóa layer của mẫu thiết kế này');
+				}
+			}else{
+				$return = array('code'=>2, 'mess'=>'Sai mã token');
+			}
+		}else{
+			$return = array('code'=>1, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}else{
+		$return = array('code'=>1, 'mess'=>'Gửi thiếu dữ liệu');
+	}
+
+	return $return;
+}
+
 // xóa layer
 function deleteLayerAPI($input){
 	global $isRequestPost;
