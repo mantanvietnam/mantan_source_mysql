@@ -167,8 +167,18 @@ $price_total = 0;
                                 </table>
                             </div>
                         <?php }else{?>
-                            <div class="table-top">
-                                <p>Không có sản phầm nào trong giỏ hàng</p>
+                            <div class="table-empty">
+                                <div class="img-empty">
+                                    <img src="<?php echo $urlThemeActive ?>asset/image/emptyproduct.png" alt="">
+                                </div>
+
+                                <div class="text-empty">
+                                     <p>Không có sản phầm nào trong giỏ hàng</p>
+                                </div>
+                              
+                                <div class="link-empty">
+                                    <a href="/">Tiếp tục mua sắm</a>
+                                </div>
                             </div>
                         <?php } ?>
                             <?php $checkud = 0; ?>
