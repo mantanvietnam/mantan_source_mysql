@@ -54,7 +54,60 @@
 								<div class="detail">
 									<div class="box-top-detail">
 										<h1><?php echo $infoImage->name;?></h1>
-										<?php echo $infoImage->name_user;?>
+										<p class="artist-detail-image">Tác giả: <?php echo $infoImage->name_user;?></p>
+										<div class="social row">
+											<ul>
+												
+												<li>
+													<a href="mailto:info@godraw.vn?subject=<?php echo $infoImage->name;?>&body=Link trang: <?php echo $urlHomes.$urlCurrent;?>" class="text-white">
+														<i class="fa-regular fa-envelope"></i>
+													</a>
+												</li>
+
+												<li>
+													<a href="https://pinterest.com/pin/create/button/?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" class="text-white">
+														<i class="fa-brands fa-pinterest"></i>
+													</a>
+												</li>
+
+												<li>
+													<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($urlHomes.$urlCurrent);?>" class="text-white">
+														<i class="fa-brands fa-linkedin"></i>
+													</a>
+												</li>
+												
+												
+												<li>
+													<a class="text-white" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank" rel="noopener">
+														<i class="fa-brands fa-facebook"></i>
+													</a>
+												</li>
+												
+												<li>
+													<a class="text-white" href="http://twitter.com/share?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<i class="fa-brands fa-twitter"></i>
+													</a>
+												</li>
+												
+												<li>
+													<a class="text-white" href="https://telegram.me/share/url?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<i class="fa-brands fa-telegram"></i>
+													</a>
+												</li>
+
+												<li>
+													<a class="text-white" href="https://tumblr.com/widgets/share/tool?canonicalUrl=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank">
+														<i class="fa-brands fa-tumblr"></i>
+													</a>
+												</li>
+											</ul>
+										</div>
+										<div class="box-top-attri">
+											<p>Chất liệu: Màu acrylic trên vải Canvas</p>
+											<p>Kích thước: 300x450</p>
+											<p>Yêu thích: <span class="like-detail"><?php echo number_format($infoImage->vote);?></span></p>
+
+										</div>
 
 										<div class="top-detail">
 											<?php echo nl2br($infoImage->description);?>
@@ -62,7 +115,7 @@
 									</div>
 								
 
-									<div class="social text-right">
+									<!-- <div class="social text-right">
 										<div class="content-head-title">
 											<div class="price"><?php echo number_format($infoImage->vote);?> like</div>
 										</div>
@@ -113,7 +166,7 @@
 												</li>
 											</ul>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>

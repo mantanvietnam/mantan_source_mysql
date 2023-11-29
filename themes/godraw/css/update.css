@@ -22,13 +22,8 @@
     font-display: swap;
 }
 
-.content-gallery-detail .detail-image-left{
-    padding-right: 0 !important;
-}
 
-.content-gallery-detail .detail-image-right{
-    padding-left: 0 !important;
-}
+
 
 .avar-detail{
     margin-bottom: 0 !important;
@@ -213,11 +208,7 @@ img.header-client {
 	transition: all .2s ease-in-out;
 }
 
-.txt-detail-gallery{
-    border-radius: 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
+
 
 .content-head-title .price{
     font-size: 22px;
@@ -877,7 +868,56 @@ footer{
 }
 
 .txt-detail-gallery .social li{
+    font-size: 25px;
+}
+
+.box-top-detail h1{
+    text-transform: uppercase;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 20px;
+}
+
+.social.row{
+    margin-left: 0;
+}
+
+.artist-detail-image{
     font-size: 20px;
+}
+
+.top-detail{
+    border-top: 1px dashed #fff;
+    padding-top: 10px;
+}
+
+.txt-detail-gallery .social ul{
+    gap: 10px
+}
+
+.like-detail{
+    font-size: 22px;
+    color: #941c1e;
+    font-weight: bold;
+}
+
+
+
+
+@media (min-width: 1024px){
+    .content-gallery-detail .detail-image-right{
+        padding-left: 0 !important;
+    }
+
+    .txt-detail-gallery{
+        border-radius: 0;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .content-gallery-detail .detail-image-left{
+        padding-right: 0 !important;
+    }
+    
 }
 
 @media (min-width: 1920px) and (min-height: 1080px){
