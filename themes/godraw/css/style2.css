@@ -22,6 +22,26 @@
     font-display: swap;
 }
 
+.header-pc{
+    background-image: url("/themes/godraw/images/backgroundheader2.png") ;
+    background-size: cover;
+
+}
+
+#slide-home-top{
+    background-image: url("/themes/godraw/images/backgroundtop4.jpg");
+    background-size: cover;
+}
+
+#slide-home-service{
+    background-image: url("/themes/godraw/images/backgroundservice3.png");
+    background-size: cover;
+}
+
+#slide-home-shop{
+    background-image: url("/themes/godraw/images/backgroundshop.jpg");
+    background-size: cover;
+}
 
 body {
     /* font-family: 'Nunito Sans', sans-serif !important; */
@@ -29,6 +49,9 @@ body {
 
 }
 
+.h-menu .submenu {
+    top: 64px
+}
 
 .content-header{
 	/* padding-top: 10px;*/
@@ -147,6 +170,7 @@ body {
 
 .header-pc{
     height: 65px;
+    border-bottom: 3px solid #000
 }
 
 .view-all.all-top-view a:hover {
@@ -840,10 +864,32 @@ header{
     padding-top: 60px
 }
 
-.full-home-slider .item-slide {
-    background-image: url(/themes/godraw/images/background-home-news.png);
+.video-background-bottom{
+    /* background-image: url(/themes/godraw/images/background-home-news.png); */
+   height: 46%;
 }
 
+.box-banner-home-unset{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.box-banner-home-unset .video-banner{
+    height: 54%;
+}
+
+.box-banner-home-unset .video-banner video, .box-banner-home .video-banner img{
+    position: unset;
+ 
+}
+
+
+.video-background-bottom img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 @media (min-width: 1920px) and (min-height: 1070px){
     .logo-trailer-mobile{

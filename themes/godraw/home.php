@@ -36,11 +36,17 @@
                     <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
                 </ul>
             </div>
-            <section class="box-banner-home">
+            <section class="box-banner-home box-banner-home-unset">
                 <div class="video-banner">
                     <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                     </video>
+
+                    
+                </div>
+
+                <div class="video-background-bottom">
+                        <img src="/themes/godraw/images/backgroundhomevideo.jpg" alt="">
                 </div>
                 
                 <!-- <div class="btn-main text-center text-uppercase"><a href="">THƯ VIỆN ẢNH</a></div> -->
