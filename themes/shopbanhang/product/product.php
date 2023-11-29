@@ -89,7 +89,7 @@ $slide_home= slide_home($setting['id_slide']);
                         <div class="product-detail-info-rate">
                             <div class="detail-info-rate-left">
                                 <?php $point = 100 - ($product->point/5) / 1 * 100 ?>
-                                <div class="stars" style="color: gold;">
+                                <div class="stars" style="color: black;">
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
                                         <i class='bx bxs-star'></i>
@@ -611,7 +611,7 @@ $slide_home= slide_home($setting['id_slide']);
             
                                     <div class="product-detail-rate-star">
                                         <?php $itempoint =100- ($item->point/5) / 1 * 100 ?>
-                                        <div class="stars" style="color: gold; width: 95px;">
+                                        <div class="stars" style="color: black; width: 95px;">
                                             <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
@@ -665,7 +665,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
 
                                     <div class="product-detail-rate-right-star">
-                                        <div class="stars" style="color: gold;">
+                                        <div class="stars" style="color: black;">
                                             <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
@@ -1133,7 +1133,7 @@ function deteleComment($id){
                             html +='            <div class="product-detail-rate-date">'+date+'</div>'
                             html +='        </div>'
             
-                            html +='        <div class="product-detail-rate-star"><div class="stars" style="color: gold; width: 95px;">'
+                            html +='        <div class="product-detail-rate-star"><div class="stars" style="color: black; width: 95px;">'
                             html +='                <i class="bx bxs-star"></i>'
                             html +='                 <i class="bx bxs-star"></i>'
                             html +='                <i class="bx bxs-star"></i>'

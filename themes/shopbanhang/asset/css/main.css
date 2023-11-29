@@ -2439,7 +2439,7 @@ strong {
 
 .detail-info-rate-left span {
     font-size: 14px;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 
@@ -2554,7 +2554,7 @@ strong {
 
 .product-detail-gift-item .gift-item-name {
     text-align: center;
-    font-size: 5px;
+    font-size: 12px;
     font-weight: 300;
 }
 
@@ -3912,6 +3912,13 @@ tbody {
 }
 
 @media(max-width: 445px) {
+    .gift-item-inner {
+        padding-top: 0;
+        padding-bottom: 14px;
+        width: 90px !important;
+        height: 87px !important;
+    }
+
     /* Trang chủ */
     .topbar-phone{
         display: none;
