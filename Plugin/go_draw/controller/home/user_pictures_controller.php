@@ -150,7 +150,7 @@ function topImage($input)
 	$user = $session->read('infoMember');
 
 	$conditions = array();
-	$limit = 20;
+	$limit = 18;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
 	$order = array('id'=>'desc');

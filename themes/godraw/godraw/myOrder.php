@@ -24,7 +24,7 @@
                             echo '  <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                              <th scope="col" width="50">ID</th>
+                                              <th scope="col" width="50">Mã đơn</th>
                                               <th scope="col">Sản phẩm</th>
                                               <th scope="col" width="150">Thành tiền</th>
                                               <th scope="col" width="100">Đăng ảnh</th>
@@ -36,8 +36,8 @@
                                             foreach ($listData as $key => $value) {
                                                 echo '  <tr>
                                                           <td scope="row">'.$value->id.'</td>
-                                                          <td>';
-                                                          
+                                                          <td>'.$value->name_combo;
+                                                          /*
                                                           if(!empty($value->product)){
                                                             echo '<table class="noborder" style="width: 100%;">';
                                                             foreach ($value->product as $keyProduct=>$product) {
@@ -48,6 +48,7 @@
                                                             }
                                                             echo '</table>';
                                                           }
+                                                          */
 
                                                 echo      '</td>
                                                           <td>'.number_format($value->total_price).'</td>

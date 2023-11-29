@@ -137,27 +137,67 @@ $infoUser = $session->read('infoUser');
                                     </div>
 
                                     <div class="modal-left-login-social">
-                                        <div class="login-social-item">
+                                        <div class="login-social-item" onclick="loginFB();">
                                             <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
                                         </div>
+                                        
+                                        <div id="fb-root"></div>
+                                        <script type="text/javascript">
+                                        //<![CDATA[
+                                        window.fbAsyncInit = function() {
+                                           FB.init({
+                                             appId      : '202676052887175', // App ID
+                                             channelURL : '', // Channel File, not required so leave empty
+                                             status     : true, // check login status
+                                             cookie     : true, // enable cookies to allow the server to access the session
+                                             oauth      : true, // enable OAuth 2.0
+                                             xfbml      : false  // parse XFBML
+                                           });
+                                        };
+                                        // logs the user in the application and facebook
+                                        function loginFB(){
+                                            FB.getLoginStatus(function(r){
+                                                 if(r.status === 'connected'){
+                                                        window.location.href = 'fbconnect.php';
+                                                 }else{
+                                                    FB.login(function(response) {
+                                                            if(response.authResponse) {
+                                                          //if (response.perms)
+                                                                window.location.href = 'fbconnect.php';
+                                                        } else {
+                                                          // user is not logged in
+                                                        }
+                                                 },{scope:'email'}); // which data to access from user profile
+                                             }
+                                            });
+                                        }
+                                        // Load the SDK Asynchronously
+                                        (function() {
+                                           var e = document.createElement('script'); e.async = true;
+                                           e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                                           document.getElementById('fb-root').appendChild(e);
+                                        }());
+                                        //]]>
+                                        </script>
+
                                         <div class="login_f gg">
-                      <?php
-                      global $google_clientId;
-                      global $google_clientSecret;
-                      global $google_redirectURL;
+                                            <?php
+                                              global $google_clientId;
+                                              global $google_clientSecret;
+                                              global $google_redirectURL;
 
-                      $client = new Google_Client();
-                      $client->setClientId($google_clientId);
-                      $client->setClientSecret($google_clientSecret);
-                      $client->setRedirectUri($google_redirectURL);
-                      $client->setApplicationName('Đăng nhập Ezpics');
-                      //$client->setApprovalPrompt('force');
+                                              $client = new Google_Client();
+                                              $client->setClientId($google_clientId);
+                                              $client->setClientSecret($google_clientSecret);
+                                              $client->setRedirectUri($google_redirectURL);
+                                              $client->setApplicationName('Đăng nhập Ezpics');
+                                              //$client->setApprovalPrompt('force');
 
-                      $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
+                                              $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
 
-                      $authUrl = $client->createAuthUrl();
-                      ?>
-                  </div>
+                                              $authUrl = $client->createAuthUrl();
+                                            ?>
+                                        </div>
                                         <div class="login-social-item">
                                             <i class="fa-brands fa-google" style="color: red"></i><a href="<?php echo filter_var($authUrl, FILTER_SANITIZE_URL) ?>">Tiếp tục với Google</a>
                                         </div>
