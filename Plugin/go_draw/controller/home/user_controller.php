@@ -11,96 +11,104 @@ function register($input)
 	
 	$mess = '';
 	
-	if($isRequestPost && empty($session->read('infoMember'))){
-		$dataSend = $input['request']->getData();
+	if(empty($session->read('infoMember'))){
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
 
-		$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
-		$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
+			$dataSend['phone']= str_replace(array(' ','.','-'), '', @$dataSend['phone']);
+			$dataSend['phone'] = str_replace('+84','0',$dataSend['phone']);
 
-		$avatar= 'https://godraw.vn/plugins/go_draw/view/agency/images/avatar-default.png';
+			$avatar= 'https://godraw.vn/plugins/go_draw/view/agency/images/avatar-default.png';
 
-		if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($dataSend['email'])){
-			
-			$checkPhone = $modelUsers->find()->where(array('username'=>$dataSend['phone']))->first();
+			if(!empty($dataSend['name']) && !empty($dataSend['phone']) && !empty($dataSend['password']) && !empty($dataSend['password_again']) && !empty($dataSend['email'])){
+				
+				$checkPhone = $modelUsers->find()->where(array('username'=>$dataSend['phone']))->first();
 
-			if(empty($checkPhone)){
-				if($dataSend['password'] == $dataSend['password_again']){
-					// tạo người dùng mới
-					$data = $modelUsers->newEmptyEntity();
+				if(empty($checkPhone)){
+					if($dataSend['password'] == $dataSend['password_again']){
+						// tạo người dùng mới
+						$data = $modelUsers->newEmptyEntity();
 
-					$data->username = $dataSend['phone'];
-					$data->name = $dataSend['name'];
-					$data->password = md5($dataSend['password']);
-					$data->email = @$dataSend['email'];
-					$data->phone = $dataSend['phone'];
-					$data->nickname = (!empty($dataSend['nickname']))?$dataSend['nickname']:$dataSend['name'];
-					$data->avatar = $avatar;
-					$data->total_coin = 0;
-					$data->status = 1;
-					$data->verified = 0;
-					$data->otp = rand(1000,9999);
-					$data->created_at = date('Y-m-d H:i:s');
-					$data->updated_at = date('Y-m-d H:i:s');
+						$data->username = $dataSend['phone'];
+						$data->name = $dataSend['name'];
+						$data->password = md5($dataSend['password']);
+						$data->email = @$dataSend['email'];
+						$data->phone = $dataSend['phone'];
+						$data->nickname = (!empty($dataSend['nickname']))?$dataSend['nickname']:$dataSend['name'];
+						$data->avatar = $avatar;
+						$data->total_coin = 0;
+						$data->status = 1;
+						$data->verified = 0;
+						$data->otp = rand(1000,9999);
+						$data->created_at = date('Y-m-d H:i:s');
+						$data->updated_at = date('Y-m-d H:i:s');
 
-					$modelUsers->save($data);
+						$modelUsers->save($data);
 
-					// gửi tin nhắn Zalo
-					if(function_exists('sendZNSZalo')){
-						$money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
-    					$money_zalo = (int) $money_zalo_zns->value;
+						// gửi tin nhắn Zalo
+						if(function_exists('sendZNSZalo')){
+							$money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
+	    					$money_zalo = (int) $money_zalo_zns->value;
 
-    					if($money_zalo>=500){
-    						$zaloOA = $modelZaloOas->find()->first();
+	    					if($money_zalo>=500){
+	    						$zaloOA = $modelZaloOas->find()->first();
 
-    						if(!empty($zaloOA->access_token)){
-    							$template_id = 297430;
-    							$params = ['otp' => $data->otp];
-    							$phone = $data->phone;
-    							$id_oa = $zaloOA->id_oa;
-    							$app_id = $zaloOA->id_app;
+	    						if(!empty($zaloOA->access_token)){
+	    							$template_id = 297430;
+	    							$params = ['otp' => $data->otp];
+	    							$phone = $data->phone;
+	    							$id_oa = $zaloOA->id_oa;
+	    							$app_id = $zaloOA->id_app;
 
-    							$sendZalo = sendZNSZalo($template_id, $params, $phone, $id_oa, $app_id);
+	    							$sendZalo = sendZNSZalo($template_id, $params, $phone, $id_oa, $app_id);
 
-    							if($sendZalo['error'] == 0){
-    								$money_zalo_zns->value -= 500;
+	    							if($sendZalo['error'] == 0){
+	    								$money_zalo_zns->value -= 500;
 
-    								$modelOptions->save($money_zalo_zns);
-    							}else{
-    								return $controller->redirect('/verified/?status=errorSendZalo&code='.$sendZalo['error']);
-    							}
-    						}else{
-    							return $controller->redirect('/verified/?status=errorTokenEmpty');
-    						}
-    					}else{
-    						return $controller->redirect('/verified/?status=errorMoneyEmpty');
-    					}
+	    								$modelOptions->save($money_zalo_zns);
+	    							}else{
+	    								$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo, mã lỗi '.$sendZalo['error'].'</p>';		
+
+	    								//return $controller->redirect('/verified/?status=errorSendZalo&code='.$sendZalo['error']);
+	    							}
+	    						}else{
+	    							$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo do chưa có token</p>';	
+
+	    							//return $controller->redirect('/verified/?status=errorTokenEmpty');
+	    						}
+	    					}else{
+	    						$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo do tài khoản không đủ tiền</p>';	
+
+	    						//return $controller->redirect('/verified/?status=errorMoneyEmpty');
+	    					}
+						}
+
+						// gửi email
+						sendEmailVerified($data->email, $data->name, $data->otp);
+
+						return $controller->redirect('/verified/?phone='.$data->phone);
+						
+					}else{
+						$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
+
+						//return $controller->redirect('/home/?status=errorPassAgain');
 					}
-
-					// gửi email
-					sendEmailVerified($data->email, $data->name, $data->otp);
-
-					return $controller->redirect('/verified/?phone='.$data->phone);
-					
 				}else{
-					$mess = '<p class="text-danger">Mật khẩu nhập lại không đúng</p>';		
+					$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
 
-					return $controller->redirect('/home/?status=errorPassAgain');
+					//return $controller->redirect('/home/?status=errorPhoneExits');
 				}
 			}else{
-				$mess = '<p class="text-danger">Số điện thoại đã tồn tại</p>';
+				$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
 
-				return $controller->redirect('/home/?status=errorPhoneExits');
+				//return $controller->redirect('/home/?status=errorEmptyData');
 			}
-		}else{
-			$mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
-
-			return $controller->redirect('/home/?status=errorEmptyData');
 		}
+		
+		setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/home');
 	}
-	
-	setVariable('mess', $mess);
-
-	return $controller->redirect('/');
 }
 
 function logoutUser($input)
@@ -150,17 +158,17 @@ function loginUser($input)
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 
-						return $controller->redirect('/home/?status=errorUserLock');
+						//return $controller->redirect('/home/?status=errorUserLock');
 					}
 	    		}else{
 	    			$mess= '<p class="text-danger">Sai tài khoản hoặc mật khẩu</p>';
 
-	    			return $controller->redirect('/home/?status=errorUserOrPass');
+	    			//return $controller->redirect('/home/?status=errorUserOrPass');
 	    		}
 	    	}else{
 	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
 
-	    		return $controller->redirect('/home/?status=errorEmptyData');
+	    		//return $controller->redirect('/home/?status=errorEmptyData');
 	    	}
 	    }
 

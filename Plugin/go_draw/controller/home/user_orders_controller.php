@@ -13,6 +13,7 @@ function myOrder($input)
 		$modelUserOrders = $controller->loadModel('UserOrders');
 	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    $modelProducts = $controller->loadModel('Products');
+	    $modelCombos = $controller->loadModel('Combos');
 		
 		$user = $session->read('infoMember');
 
@@ -26,6 +27,10 @@ function myOrder($input)
 		
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
+				$infoCombo = $modelCombos->find()->where(['id'=>$value->combo_id])->first();
+
+				$listData[$key]->name_combo = @$infoCombo->name;
+
 				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
 
 				if(!empty($listData[$key]->product)){
