@@ -44,7 +44,7 @@ body {
 a.intro-link {
     color: #fff;
     position: absolute;
-    bottom: 67px;
+    bottom: 73px;
     display: block;
     text-align: center;
     left: 0;
@@ -52,7 +52,7 @@ a.intro-link {
 }
 
 a.intro-link:hover{
-    color: #0b192a;
+    color: #6ab6f3;
 }
 
 a.intro-link svg {
@@ -750,13 +750,13 @@ img.khung-tranh {
 
 .background-inner-video{
     position: relative;
-    max-width: 940px;
+    max-width: 1044px;
     margin:0 auto;
     padding-bottom: 120px;
 }
 
 .logo-trailer-mobile img{
-    width: 127px;
+    width: 170px;
 }
 
 .close-intro{
@@ -828,6 +828,8 @@ footer{
     margin-top: 7px;
 }
 
+
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
@@ -849,9 +851,9 @@ footer{
         gap: 10px
     }
 
-    .logo-trailer-mobile img {
+    /* .logo-trailer-mobile img {
         width: 220px;
-    }
+    } */
 
     .wrapper-intro{
         padding-top: 100px
@@ -861,7 +863,7 @@ footer{
 @media(max-width: 1440px){
     .background-inner-video{
         position: relative;
-        max-width: 740px;
+        max-width: 950px;
         margin:0 auto;
     }
 
