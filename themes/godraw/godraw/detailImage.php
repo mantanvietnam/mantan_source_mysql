@@ -12,7 +12,7 @@
 </style>
 <main>
 	<section class="box-gallery">
-		<div class="container">
+		<div class="detail-page">
 			<div class="content-detail-gallery">
 				<div class="title text-center">
 					<span>Thông tin ảnh</span>
@@ -22,7 +22,7 @@
 				</div>
 				<div class="content-gallery-detail">
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-9 detail-image-left">
 							<div class="avar-detail">
 								<div class="avr">
 									<img src="<?php echo $infoImage->image;?>" class="img-fluid w-100" alt="">
@@ -43,20 +43,26 @@
 							</div>
 
 							
-							<div class="title-detail">
+							<!-- <div class="title-detail">
 								<div class="content-head-title">
 									<div class="price"><?php echo number_format($infoImage->vote);?> like</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3 detail-image-right">
 							<div class="txt-detail-gallery">
 								<div class="detail">
+									<h1><?php echo $infoImage->name;?></h1>
+
+
 									<div class="top-detail">
 										<?php echo nl2br($infoImage->description);?>
 									</div>
 
 									<div class="social text-right">
+										<div class="content-head-title">
+											<div class="price"><?php echo number_format($infoImage->vote);?> like</div>
+										</div>
 										<div class="social">
 											<ul>
 												<!--

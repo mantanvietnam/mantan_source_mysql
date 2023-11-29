@@ -22,17 +22,18 @@
     font-display: swap;
 }
 
-.content-gallery-detail .col-md-8{
+.content-gallery-detail .detail-image-left{
     padding-right: 0 !important;
 }
 
-.content-gallery-detail .col-md-4{
+.content-gallery-detail .detail-image-right{
     padding-left: 0 !important;
 }
 
 .avar-detail{
     margin-bottom: 0 !important;
 }
+
 
 
 body {
@@ -210,6 +211,16 @@ img.header-client {
 
 .btn-effect {
 	transition: all .2s ease-in-out;
+}
+
+.txt-detail-gallery{
+    border-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.content-head-title .price{
+    font-size: 22px;
 }
 
 .btn-effect:hover {
@@ -831,6 +842,18 @@ footer{
 .topimage-page{
     padding: 0;
     height: calc(100vh - 284px);
+}
+
+.txt-detail-gallery .social{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0px;
+    align-items: center;
+}
+
+.detail-page{
+    width: 88%;
+    margin: auto;
 }
 
 @media (min-width: 1920px) and (min-height: 1080px){
