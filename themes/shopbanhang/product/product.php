@@ -333,14 +333,7 @@ $slide_home= slide_home($setting['id_slide']);
              ?>
             <!-- Xác nhận thêm giỏ hàng -->
 
-            <div class="box-confirm-cart" id="myLikeNoti">
-                <div class="box-confirm-cart-title">
-                    <p>Đã thêm danh sách yêu thích</p>
-                    <div class="close-button">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="box-confirm-cart" id="myElement">
                 <div class="box-confirm-cart-title">
@@ -381,8 +374,20 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
         <?php }}} ?>
+        <?php  
+        if(!empty($infoUser)){
+        if(!empty(getLike(@$infoUser['id'],@$product->id,'product'))){
+            ?>    
+        <div class="box-confirm-cart" id="myLikeNoti">
+                <div class="box-confirm-cart-title">
+                    <p>Đã thêm danh sách yêu thích</p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
         </section>
-
+    <?php }} ?>
         <section id="section-pro-review">
             <div class="container">
                 <div class="section-pro-review-inner">
@@ -1210,5 +1215,19 @@ function deteleComment($id){
     // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
     setTimeout(changeCSS, 10000);
 </script>
+<script>
+    // Lấy tham chiếu đến phần tử cần thay đổi CSS
+    var myElement = document.getElementById('myLikeNoti');
+
+    // Hàm thay đổi CSS
+    function changeCSS() {
+        myElement.style.display = 'none';
+    }
+
+    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+    setTimeout(changeCSS, 3000);
+</script>
+
+
 <?php
 getFooter();?>
