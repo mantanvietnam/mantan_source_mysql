@@ -382,7 +382,7 @@ function pay($input){
 	global $isRequestPost;
 	global $session;
 	
-	if(!empty($session->read('infoUser'))){
+	
 		$infoUser = $session->read('infoUser');
 		$modelProduct = $controller->loadModel('Products');
 		$modelDiscountCode = $controller->loadModel('DiscountCodes');
@@ -433,10 +433,10 @@ function pay($input){
 	   		debug($pay);
 	   		debug($list_product);
 	   		die;*/
-	   		if(empty($dataSend['id_address'])){
+	   		if(empty($dataSend['id_address']) && !empty($infoUser)){
 				$address = $modelAddress->newEmptyEntity();
 				$address->address_name = $dataSend['address'];
-				$address->id_customer = $infoUser->id;
+				$address->id_customer = @$infoUser->id;
 				$address->address_type = 1;
 
 				$modelAddress->save($address);
@@ -444,7 +444,7 @@ function pay($input){
 
 			$data = $modelOrder->newEmptyEntity();
 
-			$data->id_user = @$infoUser->id;
+			$data->id_user = (!empty($infoUser->id))?$infoUser->id:0;
 			$data->full_name = @$dataSend['full_name'];
 			$data->email = @$dataSend['email'];
 			$data->phone = @$dataSend['phone'];
@@ -498,9 +498,7 @@ function pay($input){
 		setVariable('list_product', $list_product);
 		setVariable('pay', $pay);
 		setVariable('discountCode', $discountCode);
-	}else{
-		return $controller->redirect('/');
-	}
+	
 }
 function completeOrder(){
 	global $session;
@@ -508,14 +506,14 @@ function completeOrder(){
 	global $isRequestPost;
 	global $session;
 	
-	if(!empty($session->read('infoUser'))){
+	
 		$infoUser = $session->read('infoUser');
 		$modelProduct = $controller->loadModel('Products');
 		$modelDiscountCode = $controller->loadModel('DiscountCodes');
 		$modelAddress = $controller->loadModel('Address');
 		$modelOrder = $controller->loadModel('Orders');
 
-		$data = $modelOrder->find()->where(['id'=>$_GET['id'], 'id_user'=>$infoUser->id])->first();
+		$data = $modelOrder->find()->where(['id'=>$_GET['id']])->first();
 
 		if(!empty($data)){
 			
@@ -523,9 +521,7 @@ function completeOrder(){
 		}else{
 			return $controller->redirect('/');
 		}
-	}else{
-		return $controller->redirect('/');
-	}
+	
 }
 
 function listOrder($input){

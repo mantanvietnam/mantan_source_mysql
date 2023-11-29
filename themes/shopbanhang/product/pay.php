@@ -171,12 +171,12 @@ $infoUser = $session->read('infoUser');
 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" required="" name="full_name" value="<?php echo $infoUser->full_name ?>" placeholder="Họ và tên" aria-label="Username">
-                                        <input type="text" class="form-control" required="" name="phone" value="<?php echo $infoUser->phone ?>" placeholder="điện thoại" aria-label="Server">
+                                        <input type="text" class="form-control" required="" name="full_name" value="<?php echo @$infoUser->full_name ?>" placeholder="Họ và tên" aria-label="Username">
+                                        <input type="text" class="form-control" required="" name="phone" value="<?php echo @$infoUser->phone ?>" placeholder="điện thoại" aria-label="Server">
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <input type="email" class="form-control"  required="" value="<?php echo $infoUser->email ?>" placeholder="Email">
+                                        <input type="email" class="form-control"  required="" value="<?php echo @$infoUser->email ?>" placeholder="Email">
                                     </div>
                                 </div>
                             </div>
