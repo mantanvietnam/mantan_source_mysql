@@ -42,11 +42,11 @@
         
         foreach ($listAgency as $data) {
           if(!empty($data->lat_gps) & !empty($data->long_gps)){
-              $content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a href=/store/?id='.$data->id.'>' . $data->name. '</a>';
+              $content   = '<img src='.$data->image.' style=width:200px;height:156px;  ><br/><a target=_blank href=https://www.google.com/maps/dir/?api=1&destination='.$data->lat_gps.','.$data->long_gps.'>' . $data->name. '</a>';
               $content.='<br/>Điện thoại: ' . @$data->phone;
               $content.='<br/>Địa chỉ: ' . $data->address;
 
-              $listShowMap[]= '["' . $content . '", ' . $data->lat_gps . ', ' . $data->long_gps . ', ""]';
+              $listShowMap[]= '["' . $content . '", ' . $data->lat_gps . ', ' . $data->long_gps . ', "https://home.ahamove.com/wp-content/uploads/2020/10/orange-location-icon-png-18.png"]';
             }
         }
         
@@ -56,7 +56,7 @@
 
   const map = L.map('map_HS', {
     center: [21.02923538766046, 105.85243979738055],
-    zoom: 15,
+    zoom: 10,
   });
 
   L.tileLayer('https://maps.vnpost.vn/api/tm/{z}/{x}/{y}@@2x.png?apikey='+keyMap, {
@@ -68,34 +68,16 @@
 
   var icon, y, i;
 
-  for (y = 1; y < 10; y++) {
-    if($('#check-all'+y).is(":checked")){
-      for (i = 0; i < locations.length; i++) {
-        if($('#check-all'+y).val() == locations[i][4]){
-          icon = L.icon({
-            iconUrl: locations[i][3],
-            iconSize: [40, 40],
-          });
+  
+  for (i = 0; i < locations.length; i++) {
+    
+      icon = L.icon({
+        iconUrl: locations[i][3],
+        iconSize: [40, 40],
+      });
 
-          L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(map);
-        }
-      }
-    }
+      L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(map);
+    
   }
 </script>
-
-<script>
-	$(document).ready(function() {
-		var w = $(window).innerHeight();
-		var h = $('.map_search').innerHeight();
-    // var s = $('#search').innerHeight();
-		var f = $('footer').innerHeight();
-
-		var x = w-h-f-10;
-		x= 400;
-		// document.write(x);
-		$('#map, #map_HS').css({'height':x});
-	});
-</script>
-
 

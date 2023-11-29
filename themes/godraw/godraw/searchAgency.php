@@ -1,4 +1,4 @@
-<?php getHeader();global $settingThemes;?>
+<a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination='.$value->lat_gps.','.$value->long_gps.'"><?php getHeader();global $settingThemes;?>
 
 <style>
 	footer {
@@ -90,7 +90,7 @@
                                                 echo '<div class="item-showroom">
                                                         <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
                                                         <div class="info">
-                                                            <h3>'.@$value->name.'</h3>
+                                                            <h3><a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination='.$value->lat_gps.','.$value->long_gps.'">'.@$value->name.'</a></h3>
                                                             <ul>
                                                                 <li>'.@$value->address.'</li>
                                                                 <li>'.@$value->phone.'</li>
@@ -108,7 +108,7 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="avr-maps">
-                                    <?php include(__DIR__.'/findnear_google_map.php');?>
+                                    <?php include(__DIR__.'/findnear_openstreet_map.php');?>
                                 </div>
                             </div>
                         </div>
