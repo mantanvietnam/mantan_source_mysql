@@ -141,6 +141,10 @@ body {
     font-weight: 700;
 }
 
+.header-pc {
+    height: 65px;
+}
+
 .view-all.all-top-view a:hover {
 	color: #FDCD07;
 }
@@ -284,7 +288,7 @@ img.khung-tranh {
 }
 
 .content-header {
-	height: 81px;
+	height: 65px;
 }
 
 .h-menu ul li {
@@ -823,11 +827,22 @@ header{
     padding: 0;
 }
 
+.title-slide-vote {
+    margin-top: 22px;
+}
 
 
-@media (min-width: 1920px) and (min-height: 1080px){
+@media (min-width: 1920px) and (min-height: 1070px){
     .logo-trailer-mobile{
         margin-bottom: 20px;
+    }
+
+    .title-slide-vote{
+        margin-bottom: 10px;
+    }
+
+    .slider-hot-nav{
+        margin-bottom: 10px;
     }
 
     .background-inner-video{
@@ -848,6 +863,10 @@ header{
 
     .logo-trailer-mobile img{
         width: 413px;
+    }
+
+    .slide-bot {
+        height: calc(100vh - 449px);
     }
 }
 

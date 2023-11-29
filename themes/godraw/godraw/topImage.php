@@ -1,13 +1,13 @@
 <?php getHeader();?>
 <main class="main-footer">
 	<section class="box-gallery">
-		<div class="container">
-			<div class="title text-center">
+		<div class="container-fluid">
+			<!-- <div class="title text-center">
 				<span>Phòng tranh</span>
 				<svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M1181.45 57.9501H0.28125V46.8002C0.28125 21.1802 21.0513 0.410156 46.6713 0.410156H1135.05C1160.67 0.410156 1181.44 21.1802 1181.44 46.8002V57.9501H1181.45Z" fill="#CA2026"/>
 				</svg>
-			</div>
+			</div> -->
 			<div class="list-gallery">
 				<div class="row">
 					<?php
@@ -16,7 +16,7 @@
 						foreach ($listData as $key => $value) {
 							$link = '/detailImage/?id='.$value->id;
 
-							echo '	<div class="col-md-3">
+							echo '	<div class="col-md-2">
 										<div class="item-gallery">
 											<div class="avarta">
 												<div class="avr">
