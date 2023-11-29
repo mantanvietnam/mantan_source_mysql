@@ -376,7 +376,7 @@ $slide_home= slide_home($setting['id_slide']);
         <?php }}} ?>
         <?php  
         if(!empty($infoUser)){
-        if(empty(getLike(@$infoUser['id'],@$product->id,'product'))){
+        if(!empty(getLike(@$infoUser['id'],@$product->id,'product'))){
             ?>    
         <div class="box-confirm-cart" id="myLikeNoti">
                 <div class="box-confirm-cart-title">
