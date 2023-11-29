@@ -3,7 +3,7 @@ global $urlThemeActive;
 $setting = setting();
 global $session;
 $infoUser = $session->read('infoUser');  
-$cart = count($session->read('product_order'));     
+// $cart = count($session->read('product_order'));     
 ?>
 <!DOCTYPE html>
 <html lang="vi">

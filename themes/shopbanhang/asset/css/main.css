@@ -3912,6 +3912,10 @@ tbody {
 }
 
 @media(max-width: 445px) {
+    .info-col .title-info-col {
+        text-align: center;
+    }
+
     .gift-item-inner {
         padding-top: 0;
         padding-bottom: 14px;

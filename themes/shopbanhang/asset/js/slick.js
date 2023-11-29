@@ -208,10 +208,10 @@ $(document).ready(function() {
         // nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'>></button>",
 
         responsive: [{
-            breakpoint: 768,
+            breakpoint: 1024,
             settings: {
                 arrows: false,
-                slidesToShow: 3
+                slidesToShow: 2
             }
         },
         
