@@ -54,7 +54,7 @@
 								<div class="detail">
 									<div class="box-top-detail">
 										<h1><?php echo $infoImage->name;?></h1>
-
+										<?php echo $infoImage->name_user;?>
 
 										<div class="top-detail">
 											<?php echo nl2br($infoImage->description);?>

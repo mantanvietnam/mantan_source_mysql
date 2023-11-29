@@ -220,6 +220,7 @@ function detailImage($input)
 
 	$modelUserPictures = $controller->loadModel('UserPictures');
 	$modelUserLikes = $controller->loadModel('UserLikes');
+	$modelUsers = $controller->loadModel('Users');
 
 	if(!empty($_GET['id'])){
 		$infoImage = $modelUserPictures->find()->where(['id'=>(int) $_GET['id']])->first();
@@ -230,6 +231,8 @@ function detailImage($input)
 			$metaImageMantan = $infoImage->image;
 
 			$user = $session->read('infoMember');
+			$userImage = $modelUsers->find()->where(['id'=>(int) $infoImage->user_id])->first();
+			$infoImage->name_user = $userImage->nickname;
 
 			$checkLike = $modelUserLikes->find()->where(['picture_id'=>(int) $_GET['id'], 'user_id'=>(int) @$user->id])->first();
 			
