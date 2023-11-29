@@ -6,7 +6,7 @@
 </style>
 <main>
 	<section class="box-gallery">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="wrapper-user">
 				<div class="head-tab text-center">
 					<ul>

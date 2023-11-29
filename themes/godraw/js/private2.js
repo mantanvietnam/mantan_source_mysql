@@ -109,6 +109,8 @@ $(document).ready(function () {
           console.log(screenHeight);
     });
 
+    
+
 
     $(document).ready(function() {
         $('#fullpage').fullpage({
@@ -128,5 +130,10 @@ $(document).ready(function () {
       });
   
   })
+
+  $(document).ready(function() {
+    var h = $('#section4').innerHeight();
+    $('#map, #map_HS').css({'height': h});
+  });
   
 

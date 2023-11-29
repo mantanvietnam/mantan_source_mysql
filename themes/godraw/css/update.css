@@ -856,6 +856,22 @@ footer{
     margin: auto;
 }
 
+.header-pc {
+    height: 65px;
+}
+
+.content-header{
+    height: 65px;
+}
+
+.wrapper-user-post {
+    width: 1259px;
+}
+
+.h-menu > ul > li{
+    height: 65px;
+}
+
 @media (min-width: 1920px) and (min-height: 1080px){
     .logo-trailer-mobile{
         margin-bottom: 20px;

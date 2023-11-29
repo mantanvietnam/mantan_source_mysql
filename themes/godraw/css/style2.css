@@ -141,7 +141,11 @@ body {
     font-weight: 700;
 }
 
-.header-pc {
+.content-header{
+    height: 65px;
+}
+
+.header-pc{
     height: 65px;
 }
 
@@ -885,6 +889,7 @@ header{
     }
 
     #map_HS{
+        min-height: 1px !important;
         height: 100% !important;
     }
 
