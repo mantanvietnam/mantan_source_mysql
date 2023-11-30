@@ -327,15 +327,12 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                 </div>
             </div>
-            <?php if(!empty($list_product)){
-                foreach($list_product as $item){
-                    if($item->id==$product->id){
-             ?>
+         
             <!-- Xác nhận thêm giỏ hàng -->
 
             
 
-            <div class="box-confirm-cart" id="myElement">
+            <div class="box-confirm-cart" id="myElement" style=" display: none; ">
                 <div class="box-confirm-cart-title">
                     <p>Đã thêm vào giỏ hàng</p>
                     <div class="close-button">
@@ -346,22 +343,22 @@ $slide_home= slide_home($setting['id_slide']);
                 <div class="box-confirm-cart-detail">
                     <div class="box-confirm-cart-top">
                         <div class="box-confirm-cart-image">
-                            <img src="<?php echo $item->image;?>" alt="">
+                            <img src="<?php echo $product->image;?>" alt="">
                         </div>
 
                         <div class="box-confirm-cart-detail-box">
                             <div class="box-confirm-cart-detail-name">
-                                <?php echo $item->title; ?>
+                                <?php echo $product->title; ?>
                             </div>
 
                             <div class="box-confirm-cart-detail-price">
                                 <div class="box-confirm-cart-price-real">
-                                    <span><?php echo number_format($item->price); ?>đ</span>
+                                    <span><?php echo number_format($product->price); ?>đ</span>
                                 </div>
 
                                 <div class="box-confirm-cart-price-discount">
-                                   <?php if(!empty($item->price_old)){ ?>
-                                            <del><?php  echo number_format($item->price_old); ?>đ</del><!-- <span> (50%)</span> -->
+                                   <?php if(!empty($product->price_old)){ ?>
+                                            <del><?php  echo number_format($product->price_old); ?>đ</del><!-- <span> (50%)</span> -->
                                             <?php } ?>
                                 </div>
                             </div>
@@ -373,12 +370,9 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                 </div>
             </div>
-        <?php }}} ?>
-        <?php  
-        if(!empty($infoUser)){
-            if(!empty(getLike(@$infoUser['id'],@$product->id,'product'))){
-            ?>    
-            <div class="box-confirm-cart box-confirm-like" id="myLikeNoti">
+      
+        
+            <div class="box-confirm-cart box-confirm-like" id="myLikeNoti"  style=" display: none; ">
                 <div class="box-confirm-cart-title confirm-like">
                     <p>Đã thêm danh sách yêu thích</p>
                     <div class="close-button">
@@ -387,7 +381,7 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
         </section>
-    <?php }} ?>
+
         <section id="section-pro-review">
             <div class="container">
                 <div class="section-pro-review-inner">
@@ -585,7 +579,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-lg-7 col-md-12 col-sm-12 col-12" id="evaluate">
+                        <div class="product-detail-rate-list col-lg-7 col-md-7 col-sm-7 col-12" id="evaluate">
                            <?php 
                            $images = array();
                            if(!empty($product->evaluates)){
@@ -653,7 +647,7 @@ $slide_home= slide_home($setting['id_slide']);
                            <?php } ?>
                         </div>
                         <?php  if(!empty($product->evaluates)){ ?>
-                        <div class="product-detail-rate-right col-lg-5 col-md-12 col-sm-12 col-12">
+                        <div class="product-detail-rate-right col-lg-5 col-md-5 col-sm-5 col-12">
                             <div class="flex-rate">
                                 <div class="product-detail-rate-right-title">
                                     Đánh giá sản phẩm
@@ -785,9 +779,9 @@ $slide_home= slide_home($setting['id_slide']);
                                             </div>  
 
                                             <div class="product-detail-rate-like" >
-                                                <!-- <div class="people-comment">
+                                                <div class="people-comment">
                                                     <span>Trả lời</span>
-                                                </div> -->
+                                                </div>
 
                                                 <div class="people-like" id="like_comment">
                                                     
@@ -965,12 +959,14 @@ function addlike(){
                 idcustomer: <?php echo @$infoUser['id'] ?>,
             },
             success:function(res){
-              console.log(res);
+                console.log(res);
+                document.getElementById("myLikeNoti").style.display = 'block';
                 $('#like_save').load(location.href + ' #like_save>*');
                 $('#place-detail .button-like button').css('background-color', '#188181');
                 $('#place-detail .button-like button').css('color', '#fff')
                 $('.button-like i').css('color', '#fff');
-                 location.reload();
+
+                 // location.reload();
             }
         })
             
@@ -985,12 +981,14 @@ function delelelike(){
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
-                  console.log('res');
+                  console.log(res);
                     $('#like_save').load(location.href + ' #like_save>*');
+
+                document.getElementById("myLikeNoti").style.display = 'block';
                     $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
                     $('#place-detail .button-like button').css('color', '#3F4042')
                     $('.button-like i').css('color', '#126B66');
-                     location.reload();
+                     // location.reload();
                 }
             })
                
@@ -1184,14 +1182,14 @@ function deteleComment($id){
             if(status=='true'){
                 window.location = '/cart';
             }else{
-                location.reload();
+                document.getElementById("myElement").style.display = 'block';
             }
         });
     }
 </script>
 
 
-<script>
+<!-- <script>
     // Lấy tham chiếu đến phần tử cần thay đổi CSS
     var myElement = document.getElementById('myElement');
 
@@ -1214,7 +1212,7 @@ function deteleComment($id){
 
     // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
     setTimeout(changeCSS, 3000);
-</script>
+</script> -->
 
 
 <?php
