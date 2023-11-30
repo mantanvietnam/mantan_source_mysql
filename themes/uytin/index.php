@@ -14,7 +14,7 @@
           <span data-aos="fade-up" data-aos-delay="400"><?php echo @$themeSettings['content1']; ?></span>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="<?php echo @$themeSettings['linkgetstarted']; ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <a href="<?php echo @$themeSettings['linkgetstarted']; ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                 <span><?php echo @$themeSettings['submit1']; ?></span>
                 <i class="bi bi-arrow-right"></i>
               </a>
