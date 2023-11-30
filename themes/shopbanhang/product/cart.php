@@ -18,6 +18,7 @@ $price_total = 0;
 </style>
 
 <main>
+    <form action="/addDiscountCode"  method="get">
         <section id="section-cart">
             <div class="container">
                 <div class="title-section-cart">
@@ -28,6 +29,7 @@ $price_total = 0;
                     <div class="row">
                         <!-- Bảng -->
                         <div class="col-lg-9 col-md-12 col-sm-12 col-12 table-cart-left">
+                            <div id="desktop_view">
                            <?php if(!empty($list_product)){ ?>
                             <div class="table-top">
                                 <table class="table">
@@ -46,7 +48,7 @@ $price_total = 0;
                                         </tr>
                                     </thead>
                                 </table>
-                            </div>
+                            </div>  
                             <div class="table-border">
                                 <table class="table table-center">
                                     <tbody>
@@ -173,7 +175,7 @@ $price_total = 0;
                                 <?php }}}} ?>
                                 </table>
                             </div>
-                        <?php }else{?>
+                            <?php }else{?>
                             <div class="table-empty">
                                 <div class="img-empty">
                                     <img src="<?php echo $urlThemeActive ?>asset/image/emptyproduct.png" alt="">
@@ -187,7 +189,7 @@ $price_total = 0;
                                     <a href="/">Tiếp tục mua sắm</a>
                                 </div>
                             </div>
-                        <?php } ?>
+                            <?php } ?>
                             <?php $checkud = 0; ?>
                             <div class="cart-left-bottom chek checkud">
                                 <div class="title-cart-left-bottom">
@@ -241,13 +243,14 @@ $price_total = 0;
                                     </div>
                                 </div>
                             </div>
-<?php if(empty($checkud)){?>
-<style type="text/css">
-    .checkud{
-        display: none;
-    }
-</style>
-<?php } ?>
+                        </div>
+                            <?php if(empty($checkud)){?>
+                            <style type="text/css">
+                                .checkud{
+                                    display: none;
+                                }
+                            </style>
+                            <?php } ?>
 
 
                         <!-- Cart -->
@@ -255,47 +258,95 @@ $price_total = 0;
                             <div class="container">
                                 <div class="product-mobile-group">
                                     <!-- Sản phẩm -->
+                                     <?php if(!empty($list_product)){ 
+                                         $price_total = 0;
+                                        $total = 0;
+                            
+                                            foreach ($list_product as $key => $value) {
+                                            $link = '/product/'.$value->slug.'.html';
+                                            $total += 1;
+                                            if($value->price_old){
+                                                $price_old = '<del>'.number_format($value->price_old).'₫</del>';
+                                            }else{
+                                                $price_old = '';
+                                            }
+                                            $price_buy  = 0;
+                                            $price_buy = @$value->price * @$value->numberOrder;
+                                            if($value->statuscart=="true"){
+                                                
+                                                $price_total += $price_buy;
+                                            }?>
                                     <div class="combo-product-mobile">
                                         <div class="product-mobile-radio">
-                                            <input type="checkbox">
+                                             <input class="form-check-input" type="checkbox" onclick="checkupdatecart(<?php echo $value->id ?>)" value="1" id="checkproduct<?php echo $value->id ?>" <?php  if($value->statuscart=='true'){echo 'checked';} ?>>
                                         </div>
                                         <div class="product-mobile-img">
-                                            <a href=""><img src="../asset/image/baggift.png" alt=""></a>
+                                            <a href=""><img src="<?php echo $value->image ?>" alt=""></a>
                                         </div>
                                         <div class="product-mobile-detail">
                                             <div class="product-mobile-name">
-                                                <p>May massage khop goi Bumas M6</p>
+                                                <p><?php echo $value->title ?></p>
 
                                             </div>
                                             <div class="product-mobile-cost">
                                                 <p>Giá</p>
-                                                <p>1.680.000đ</p>
+                                                <p><?php echo number_format($value->price); ?>đ</p>
                                             </div>
                                             <div class="product-mobile-quantity cart-product-number">
                                                 <p>Số lượng</p>
                                                 <div class="product-mobile-quantity-btn product-detail-number-item">
                                                     <div class="qty-input">
-                                                        <button onclick="decreaseValue()" class="qty-count-minus" data-action="minus" type="button">-</button>
+                                                        <!-- <button onclick="decreaseValue()" class="qty-count-minus" data-action="minus" type="button">-</button>
                                                         <input id="valueInput" class="product-qty" type="text" name="product-qty" value="1" min="0">
-                                                        <button onclick="increaseValue()" class="qty-count-add" data-action="add" type="button">+</button>
+                                                        <button onclick="increaseValue()" class="qty-count-add" data-action="add" type="button">+</button> -->
+                                                         <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value->price ?>">
+
+                                                        <button onclick="minusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-minus" data-action="minus" type="button">-</button>
+                                                            <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
+                                                            <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
+                                                            <button onclick="plusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-add" data-action="add" type="button">+</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php } ?>
+                                   
+                                    <?php   if(!empty($list_product)){
+                                        foreach ($list_product as $key => $value) { 
+                                     if(!empty($value->present)){
+                                    foreach($value->present as $item){
+                                 
+                                    ?>
                                     <!--  qua tang -->
                                     <div class="present-mobile">
                                         <div class="present-img">
-                                            <img src="../asset/image/giftproduct.png" alt="">
+                                            <img src="<?php echo @$item->image ?>" alt="">
                                         </div>
                                         <div class="present-content">
                                             <span>[  Quà tặng  ]</span>
                                             <div class="present-detail">
-                                                <p>Túi giấy quà tặng Bumas</p>
+                                                <p><?php echo @$item->title ?></p>
                                                 <p>1</p>
                                             </div>
                                         </div>
                                     </div>
+                                     <?php }}}} ?>
+                                     <?php }else{ ?>
+                                        <div class="table-empty">
+                                            <div class="img-empty">
+                                                <img src="<?php echo $urlThemeActive ?>asset/image/emptyproduct.png" alt="">
+                                            </div>
+
+                                            <div class="text-empty">
+                                                 <p>Không có sản phẩm nào trong giỏ hàng</p>
+                                            </div>
+                                          
+                                            <div class="link-empty">
+                                                <a href="/">Tiếp tục mua sắm</a>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </section>
@@ -353,7 +404,7 @@ $price_total = 0;
                         
                         <!-- Mã giảm giá và tổng tiền -->
                         <div class="col-lg-3 col-md-12 col-sm-12 col-12 table-cart-right">
-                            <form action="/addDiscountCode"  method="get">
+                            
                                 <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="cart-code-discount-right">
                                 <div class="title-code-enter">
@@ -474,7 +525,7 @@ $price_total = 0;
                                             Tổng chiết khấu
                                         </div>
     
-                                        <div class="cart-price-sum-discount-price" id=totalck>
+                                        <div class="cart-price-sum-discount-price" id="totalck">
                                             0đ
                                         </div>
                                     </div>
@@ -500,7 +551,7 @@ $price_total = 0;
                                 <input type="submit" value="Đặt hàng">
                            
                             </div>
-                            </form>
+                          
                         </div>
                     </div>
                 </div>
@@ -549,11 +600,11 @@ $price_total = 0;
         
                     <div class="cart-footer-mobile-right">
                         <div class="cart-footer-right-top">
-                            <p>1.500.000đ</p>
+                            <p id="totals-mobile"><?php echo number_format(@$price_total); ?>đ</p>
                         </div>
     
                         <div class="cart-footer-right-bottom">
-                            <p>Bạn đã tiết kiệm 130.000đ</p>
+                            <p>Bạn đã tiết kiệm <span id="totalck_1">0</span></p>
                         </div>
                     </div>
                 </div>
@@ -566,8 +617,20 @@ $price_total = 0;
             </div>
         
         </section>
+          </form>
     </main>
 
+<script type="text/javascript">
+$(document).ready(function() {
+    if($(window).width()<1024){
+        $('#desktop_view').remove();
+        $('#product-mobile').show();
+    }else{
+        $('#mobile_view').remove();
+        $('#desktop_view').show();
+    }
+});
+</script>
 
 <script type="text/javascript">
     function checkupdatecart(id){
@@ -603,6 +666,27 @@ $price_total = 0;
          addProductCart(total,id)
     }
 
+  /*  function plusQuantityMobile(total, id)
+    {
+        let quantity = parseInt($('#quantity_mobile'+total).val());
+        quantity++;
+        $('#quantity_buy'+total).val(quantity);
+        $('#quantity_mobile'+total).val(quantity);
+        tinhtien();
+        // addProductCart(total,id)
+    }
+
+    function minusQuantityMobile(total, id)
+    {
+        let quantity = parseInt($('#quantity_mobile'+total).val());
+        quantity--;
+        if(quantity<1) quantity=1;
+        $('#quantity_buy'+total).val(quantity);
+        $('#quantity_mobile'+total).val(quantity);
+        tinhtien();
+         // addProductCart(total,id)
+    }*/
+
     function addProductCart(total, id)
     {
         let quantity = parseInt($('#quantity_buy'+total).val());
@@ -627,6 +711,9 @@ $price_total = 0;
                 var quantity = parseInt($('#quantity_buy'+i).val());
                 var price = parseInt($('#price'+i).val());
                 var statuscart = $('#statuscart'+i).val();
+
+                console.log(quantity);
+                console.log(price);
                
 
                 var price_buy  = quantity* price;
@@ -639,6 +726,8 @@ $price_total = 0;
 
             }
         }
+
+         console.log(price_total);
             var pricetotal = new Intl.NumberFormat().format(price_total);
             $('#pricetotal').html(pricetotal+'đ');
 
@@ -764,8 +853,10 @@ $price_total = 0;
 
              var totalck = new Intl.NumberFormat().format(d1 + d2 + d3);
              $('#totalck').html(totalck+'đ');
+             $('#totalck_1').html(totalck+'đ');
             var total = new Intl.NumberFormat().format(price_total);
              $('#totals').html(total+'đ');
+             $('#totals-mobile').html(total+'đ');
 
             document.getElementById("total").value = price_total;
 
