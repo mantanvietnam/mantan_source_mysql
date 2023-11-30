@@ -41,7 +41,9 @@
                     <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                     </video>
-
+                    <div class="auto-run-text">
+                        <marquee scrollamount="20" direction="right">Chào mừng bạn đến với GoDraw</marquee>
+                    </div>
                     
                 </div>
 
