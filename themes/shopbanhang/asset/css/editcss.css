@@ -2041,6 +2041,10 @@ background: #555;
     .pro-review-img{
         padding: 0 15px
     }
+
+    .cart-button-buy input{ 
+        display: none;
+    }
 }
 
 

@@ -136,75 +136,80 @@
         <!-- Dịch vụ -->
         <div class="item-slide section" id="slide-home-service">
             <section class="box-toturial">
-                <div class="container">
+            
                     <div class="avr-top text-center"><img src="<?php echo $urlThemeActive;?>images/tutorial.svg" class="img-fluid" alt=""></div>
                     <div class="content-toturial">
                         <div class="head-tt text-center"><span>DỊCH</span> VỤ</div>
-                        <div class="tab-top-toturial">
-                            <ul>
-                                <li><a href="javascript:void(0)" data-tab="toturial-1" style="background: #1A3A89" class="active">Sản phẩm</a></li>
-                                <li><a href="javascript:void(0)" data-tab="toturial-2" style="background: #EC2024">Dịch vụ</a></li>
-                                <li><a href="javascript:void(0)" data-tab="toturial-3" style="background: #FBB03B">Quy trình vẽ</a></li>
-                            </ul>
-                        </div>
-                        <div class="content-tab-toturial">
-                            <div class="tab-content active" id="toturial-1" style="background: #1A3A89">
-                                <div class="content-toturial">
-                                    <ul>
-                                        <?php
-                                        if(!empty($listPost1)){
-                                            foreach ($listPost1 as $key => $value) {
-                                                echo '  <li>
-                                                            <div class="item-toturial">
-                                                                <div class="icon"><img src="'.$value->image.'" alt=""></div>
-                                                                <h3><a href="/'.$value->slug.'.html">'.$value->title.'</a></h3>
-                                                            </div>
-                                                        </li>';
-                                            }
-                                        }
-                                        ?>
-                                    </ul>
+                        <section id="sevices">
+                            <div class="sevices-content">
+                                <div class="item-sevices">
+                                    <div class="item-sevices-name">
+                                        <p>Khách hàng doanh nghiệp</p>
+                                        <div class="item-sevices-name-bg">
+                                            <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-sevices-img">
+                                        <img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt="">
+                                    </div>
+                                    <div class="item-sevices-detail">
+                                        <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+
+                                        <div class="item-services-btn">
+                                            <a href="">
+                                                <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-content" id="toturial-2" style="background: #EC2024">
-                                <div class="content-toturial">
-                                    <ul>
-                                        <?php
-                                        if(!empty($listPost2)){
-                                            foreach ($listPost2 as $key => $value) {
-                                                echo '  <li>
-                                                            <div class="item-toturial">
-                                                                <div class="icon"><img src="'.$value->image.'" alt=""></div>
-                                                                <h3><a href="/'.$value->slug.'.html">'.$value->title.'</a></h3>
-                                                            </div>
-                                                        </li>';
-                                            }
-                                        }
-                                        ?>
-                                    </ul>
+
+                                <div class="item-sevices">
+                                    <div class="item-sevices-name">
+                                        <p>WORKSHOP HỘI NGHỊ</p>
+                                        <div class="item-sevices-name-bg">
+                                            <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-sevices-img">
+                                        <img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt="">
+                                    </div>
+                                    <div class="item-sevices-detail">
+                                        <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+
+                                        <div class="item-services-btn">
+                                            <a href="">
+                                                <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-content" id="toturial-3" style="background: #FBB03B">
-                                <div class="content-toturial">
-                                    <ul>
-                                        <?php
-                                        if(!empty($listPost3)){
-                                            foreach ($listPost3 as $key => $value) {
-                                                echo '  <li>
-                                                            <div class="item-toturial">
-                                                                <div class="icon"><img src="'.$value->image.'" alt=""></div>
-                                                                <h3><a href="/'.$value->slug.'.html">'.$value->title.'</a></h3>
-                                                            </div>
-                                                        </li>';
-                                            }
-                                        }
-                                        ?>
-                                    </ul>
+
+                                <div class="item-sevices">
+                                    <div class="item-sevices-name">
+                                        <p>KHÁCH HÀNG CÁ NHÂN</p>
+                                        <div class="item-sevices-name-bg">
+                                            <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-sevices-img">
+                                        <img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt="">
+                                    </div>
+                                    <div class="item-sevices-detail">
+                                        <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+
+                                        <div class="item-services-btn">
+                                            <a href="">
+                                                <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
+
+
                             </div>
-                        </div>
+                        </section>
                     </div>
-                </div>
+    
             </section>
         </div>
 

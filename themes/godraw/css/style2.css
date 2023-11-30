@@ -849,7 +849,7 @@ header {
 
 .video-background-bottom {
     /* background-image: url(/themes/godraw/images/background-home-news.png); */
-    height: 46%;
+    height: 35%;
 }
 
 .box-banner-home-unset {
@@ -901,6 +901,94 @@ header {
 .video-banner .auto-run-text marquee {
     font-size: 21px;
     text-transform: uppercase;
+}
+
+
+.sevices-content .item-sevices {
+    width: 360px;
+    position: relative;
+}
+
+.sevices-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sevices-content .item-sevices-detail {
+    padding-top: 35px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 60px;
+    background-color: #fff;
+    border-radius: 0 0 50px 50px;
+}
+
+.sevices-content .item-sevices-detail p {
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 30px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    height: 150px;
+    text-align: justify;
+}
+
+.sevices-content .item-services-btn {
+    padding-top: 20px;
+    text-align: end;
+}
+
+.sevices-content .item-services-btn img {
+    width: 20px;
+    height: auto;
+    object-fit: cover;
+}
+
+.sevices-content .item-services-btn a {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 42px;
+    display: inline-block;
+    transition: all 0.2s linear;
+}
+
+.sevices-content .item-services-btn a:hover {
+    scale: 1.1;
+    transition: all 0.2s linear;
+}
+
+.item-sevices .item-sevices-name p {
+    font-size: 19px;
+    line-height: 23px;
+    margin-bottom: 0;
+    position: absolute;
+    top: -8px;
+    z-index: 2;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+}
+
+.item-sevices .item-sevices-name-bg {
+    object-fit: cover;
+    width: 100%;
+    position: absolute;
+    top: -24px;
+    z-index: 1;
+    text-align: center;
+}
+
+.item-sevices .item-sevices-name-bg img {
+    width: 303px;
+    height: auto;
+    object-fit: cover;
 }
 
 @media (min-width: 1920px) and (min-height: 1070px) {
