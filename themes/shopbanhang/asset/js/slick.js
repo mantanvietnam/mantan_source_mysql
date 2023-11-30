@@ -181,10 +181,10 @@ $(document).ready(function() {
         prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-chevron-left'></i></button>",
         nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-chevron-right'></i></button>",
         responsive: [{
-            breakpoint: 768,
+            breakpoint: 1048,
             settings: {
                 arrows: false,
-                slidesToShow: 3
+                slidesToShow: 2
             }
         },
         

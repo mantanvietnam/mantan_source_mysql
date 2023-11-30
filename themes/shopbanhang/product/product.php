@@ -785,9 +785,9 @@ $slide_home= slide_home($setting['id_slide']);
                                             </div>  
 
                                             <div class="product-detail-rate-like" >
-                                                <div class="people-comment">
+                                                <!-- <div class="people-comment">
                                                     <span>Trả lời</span>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="people-like" id="like_comment">
                                                     

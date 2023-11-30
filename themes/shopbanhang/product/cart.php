@@ -242,6 +242,58 @@ $price_total = 0;
 </style>
 <?php } ?>
 
+
+                        <!-- Cart -->
+                        <section id="product-mobile">
+                            <div class="container">
+                                <div class="product-mobile-group">
+                                    <!-- Sản phẩm -->
+                                    <div class="combo-product-mobile">
+                                        <div class="product-mobile-radio">
+                                            <input type="checkbox">
+                                        </div>
+                                        <div class="product-mobile-img">
+                                            <a href=""><img src="../asset/image/baggift.png" alt=""></a>
+                                        </div>
+                                        <div class="product-mobile-detail">
+                                            <div class="product-mobile-name">
+                                                <p>May massage khop goi Bumas M6</p>
+
+                                            </div>
+                                            <div class="product-mobile-cost">
+                                                <p>Giá</p>
+                                                <p>1.680.000đ</p>
+                                            </div>
+                                            <div class="product-mobile-quantity cart-product-number">
+                                                <p>Số lượng</p>
+                                                <div class="product-mobile-quantity-btn product-detail-number-item">
+                                                    <div class="qty-input">
+                                                        <button onclick="decreaseValue()" class="qty-count-minus" data-action="minus" type="button">-</button>
+                                                        <input id="valueInput" class="product-qty" type="text" name="product-qty" value="1" min="0">
+                                                        <button onclick="increaseValue()" class="qty-count-add" data-action="add" type="button">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--  qua tang -->
+                                    <div class="present-mobile">
+                                        <div class="present-img">
+                                            <img src="../asset/image/giftproduct.png" alt="">
+                                        </div>
+                                        <div class="present-content">
+                                            <span>[  Quà tặng  ]</span>
+                                            <div class="present-detail">
+                                                <p>Túi giấy quà tặng Bumas</p>
+                                                <p>1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
                             <div class="cart-left-bottom">
                                 <div class="title-cart-left-bottom">
                                   Sản phẩm khác
