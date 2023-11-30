@@ -73,7 +73,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         </div>
 
                         <form class="menu-form-search d-flex" role="search">
-                            <input class="form-control" type="search" placeholder="Tìm kiếm nhanh" aria-label="Search">
+                            <input class="form-control" type="text" name="key" placeholder="Tìm kiếm nhanh" aria-label="Search">
                             <button class="btn btn-outline-success button-search" type="submit"><img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""></button>
                         </form>
 
@@ -135,7 +135,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <!-- Menu mặc định -->
-                                <li class="nav-item dropdown">
+                                <!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="/allProduct" role="button" aria-expanded="false">
                                         Sản phẩm
                                     </a>
@@ -212,7 +212,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         </div>
                                     </div>
                                 </ul>
-                            </li>
+                            </li> -->
                             <?php 
                             $menu = getMenusDefault();
                           
@@ -314,10 +314,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         </div>
                                         <div class="offcanvas-body">
                                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="/allProduct">Sản phẩm</a>
-                                                </li>
-
+                                    
                                                  <?php 
                                                     $menu = getMenusDefault();
                                                   

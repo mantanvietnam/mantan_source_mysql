@@ -2541,15 +2541,15 @@ strong {
 
 .product-detail-gift-item .gift-item-img img {
     width: auto;
-    height: 21px;
+    height: 51px;
     object-fit: cover;
 }
 
 .gift-item-inner {
     padding-top: 2px;
-    padding-bottom: 8px;
-    width: 49px;
-    height: 36px;
+    padding-bottom: 20px;
+    width: 85px;
+    height: 75px;
 }
 
 .product-detail-gift-item .gift-item-name {
@@ -4056,6 +4056,7 @@ tbody {
 
     #section-footer .container{
         padding-bottom: 78px;
+        margin-bottom: 22px;
     }
 
     .menu-mobile-right{

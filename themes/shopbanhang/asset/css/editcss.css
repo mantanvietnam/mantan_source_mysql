@@ -1263,6 +1263,20 @@ background: #555;
     gap: 20px
 }
 
+.product-detail-rate-image .modal img{
+    width: auto !important;
+    max-height: 600px !important;
+}
+
+.modal-login .modal-dialog{
+    justify-content: center;
+}
+
+.list-rate-image .modal img{
+    width: auto !important;
+    max-height: 600px !important;
+}
+
 @media(min-width: 445px){
     .nav-item.dropdown:hover .dropdown-menu {
         display: block;
@@ -1779,7 +1793,32 @@ background: #555;
     .product-detail-slide{
         width: 100%;
     }
+
+    .navbar-nav .nav-item{
+        text-align: left !important;
+    }
+
+    .number-phone-mobile .nav-link {
+
+    }
     
+    .number-phone-mobile{
+        text-align: left;
+    }
+
+    .menu-mobile-box ul .nav-item .nav-link{
+        position: relative;
+
+    }
+
+    .menu-mobile-box ul .nav-item .nav-link::before{
+        content: "\f078";
+        position: absolute;
+        right: 0;
+        font-family: "Font Awesome 6 Free";
+        font-weight: bold;
+    }
+
 }
 /* .showContent {
     line-height: 1em;
