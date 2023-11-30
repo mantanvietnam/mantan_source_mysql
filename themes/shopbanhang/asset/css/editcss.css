@@ -1339,7 +1339,7 @@ background: #555;
     }
 }
 
-@media(max-width: 900px){
+@media(max-width: 900px) and (min-width: 500px){
     #section-describe .describe-description img{
         width: 100% !important;
         height: auto !important;
@@ -1357,6 +1357,10 @@ background: #555;
 
     .flex-rate{
         padding-left:0 ;
+    }
+
+    .cart-code-discount-right .list-code-item{
+        width: 50%;
     }
 }
 
@@ -1974,7 +1978,7 @@ background: #555;
 @media (max-width: 480px) {
     /*  Phần sản phẩm màn mobile  */
     #product-mobile {
-        display: none;
+        display: block;
     }
 }
 

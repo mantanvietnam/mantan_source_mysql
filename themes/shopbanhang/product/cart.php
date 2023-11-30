@@ -27,7 +27,7 @@ $price_total = 0;
                 <div class="cart-col">
                     <div class="row">
                         <!-- Bảng -->
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-12 table-cart-left">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-12 table-cart-left">
                            <?php if(!empty($list_product)){ ?>
                             <div class="table-top">
                                 <table class="table">
@@ -352,7 +352,7 @@ $price_total = 0;
                         </div>
                         
                         <!-- Mã giảm giá và tổng tiền -->
-                        <div class="col-lg-3 col-lg-3 col-sm-3 col-12 table-cart-right">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-12 table-cart-right">
                             <form action="/addDiscountCode"  method="get">
                                 <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="cart-code-discount-right">
