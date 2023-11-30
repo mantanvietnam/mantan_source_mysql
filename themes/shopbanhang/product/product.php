@@ -9,9 +9,14 @@ $list_product = (!empty($session->read('product_order')))?$session->read('produc
 
 $slide_home= slide_home($setting['id_slide']);
 
-
-
 ?>
+
+<style>
+    .menu-mobile{
+        display: none
+    }
+</style>
+
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
         
 <main>
@@ -310,8 +315,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
                             </div>
                                 
-                                    <div class="button-like" id="delelelike">
-
+                            <div class="button-like" id="delelelike">
                                 <button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
                             </div>
                            
@@ -322,6 +326,30 @@ $slide_home= slide_home($setting['id_slide']);
                                 <?php   } ?>
                             </div>
                         </div>
+
+
+
+                        <!-- Đặt hàng mobile -->
+                        <section class="product-detail-group-mobile" id="product-cart-mobile-footer">
+                            <div class="product-detail-like-mobile">
+                                <div class="button-like" id="addlike">
+                                    <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
+                                    <p>Yêu thích</p>
+                                </div>
+                            </div>
+
+                            <div class="product-add-cart-mobile">
+                                <a onclick="addProductCart(<?php echo $product->id;?>,'false')"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""></a>
+                                <p>Thêm giỏ hàng</p>
+                            </div>
+
+                            <div class="product-buy-mobile">
+                                <a onclick="addProductCart(<?php echo $product->id;?>,'true')">Mua ngay</a>
+                            </div>
+                        </section>
+
+
+                        <!--  -->
                     </div>
                 </div>
             </div>

@@ -859,7 +859,7 @@ header {
 }
 
 .box-banner-home-unset .video-banner {
-    /* height: 54%; */
+    height: 63%;
 }
 
 .box-banner-home-unset .video-banner video,
@@ -872,6 +872,8 @@ header {
     height: 100%;
     object-fit: cover;
 }
+
+
 
 
 /*     PHẦN LỚP MỜ TRÊN VIDEO BANNER TRANG CHỦ     */
@@ -1052,8 +1054,8 @@ header {
     background-image: url("/themes/godraw/images/backgroundhomevideo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 105px;
-    padding-bottom: 95px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 #sevices-ft .container {
@@ -1099,6 +1101,14 @@ header {
     width: 218px;
     text-align: center;
     position: relative;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.sevices-ft-btn:hover{
+    filter: brightness(0.8);
+    transition: all 0.3s ease-in-out;
+    scale: 1.1;
 }
 
 .sevices-ft-btn p {
@@ -1695,7 +1705,7 @@ header {
         bottom: -20px;
     }
     .menu-mm-mobie {
-        padding-bottom: 41%;
+        padding-bottom: 35%;
     }
 }
 
@@ -1756,7 +1766,7 @@ header {
 
 @media(max-width: 376px) {
     .menu-mm-mobie {
-        padding-bottom: 20%;
+        padding-bottom: 17%;
     }
     .slide-bot {
         top: 0
