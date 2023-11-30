@@ -48,7 +48,74 @@
                 </div>
 
                 <div class="video-background-bottom">
-                        <img src="/themes/godraw/images/backgroundhomevideo.jpg" alt="">
+                    <!-- <img src="/themes/godraw/images/backgroundhomevideo.jpg" alt=""> -->
+
+                    <section id="sevices-ft">
+                        <div class="container">
+                            <div class="sevices-ft-line"></div>
+                            <div class="sevices-ft-content">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="sevices-ft-detail">
+                                            <div class="sevices-ft-title">
+                                                <img src="<?php echo $urlThemeActive;?>/images/svfoot-icon.png" alt="">
+                                                <p>WELCOME to GODRAW</p>
+                                            </div>
+                                            <div class="sevices-ft-text">
+                                                <p>Là quy trình vẽ thông minh giúp bạn có thể hoàn thiện các bức tranh sơn dầu một cách chuyên nghiệp nhất, tác phẩm của bạn khi hoàn thiện sẽ có chất lượng tương đương với một họa sỹ chuyên nghiệp.</p>
+                                            </div>
+                                            <div class="sevices-ft-btn">
+                                                <a href="">
+
+                                                    <img src="<?php echo $urlThemeActive;?>/images/bgft-btn.png" alt="">
+                                                    <p>Pitch deck</p>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="sevices-ft-list">
+                                            <div class="sevices-ft-list-title">
+                                                <img src="<?php echo $urlThemeActive;?>/images/bg1.png" alt="">
+                                                <div class="sevices-ft-list-name">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DICH VU
+                                                </div>
+                                            </div>
+                                            <div class="sevices-ft-list-items">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="sevices-ft-list">
+                                            <div class="sevices-ft-list-title">
+                                                <img src="<?php echo $urlThemeActive;?>/images/bg1.png" alt="">
+                                                <div class="sevices-ft-list-name">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DICH VU
+                                                </div>
+                                            </div>
+                                            <div class="sevices-ft-list-items">
+                                                <ul>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
                 
                 <!-- <div class="btn-main text-center text-uppercase"><a href="">THƯ VIỆN ẢNH</a></div> -->

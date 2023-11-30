@@ -402,11 +402,12 @@ header{
 
 .blog-detail-description{
     margin-top: 35px;
+    line-height: 1.6;
 }
 
 
 #table-of-contents h2{
-    font-size: 20px;
+    font-size: 16px;
     padding-bottom: 10px;
     border-bottom: 1px solid #000;
     margin-bottom: 20px;
@@ -420,6 +421,7 @@ header{
 #toc-list li a{
     color: #000;
     line-height: 1.2;
+    font-size: 16px;
 }
 
 #section-describe{

@@ -210,8 +210,8 @@ $infoUser = $session->read('infoUser');
                                 <div class="order-right-group-input">
                                    
                                     <div class="input-group mb-3">
-                                        <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
-                                        <label>Thanh toán chuyển khoản</label>
+                                        <!-- <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
+                                        <label>Thanh toán chuyển khoản</label> -->
                                         <input type="radio" name="payment" value="2"  required="" placeholder="Server" aria-label="Server">
                                         <label>Nhận hàng rồi thanh toán </label>
                                     </div>
