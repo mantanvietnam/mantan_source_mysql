@@ -585,7 +585,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                     
                     <div class="row">
-                        <div class="product-detail-rate-list col-lg-7 col-md-7 col-sm-7 col-12" id="evaluate">
+                        <div class="product-detail-rate-list col-lg-7 col-md-12 col-sm-12 col-12" id="evaluate">
                            <?php 
                            $images = array();
                            if(!empty($product->evaluates)){
@@ -653,7 +653,7 @@ $slide_home= slide_home($setting['id_slide']);
                            <?php } ?>
                         </div>
                         <?php  if(!empty($product->evaluates)){ ?>
-                        <div class="product-detail-rate-right col-lg-5 col-md-5 col-sm-5 col-12">
+                        <div class="product-detail-rate-right col-lg-5 col-md-12 col-sm-12 col-12">
                             <div class="flex-rate">
                                 <div class="product-detail-rate-right-title">
                                     Đánh giá sản phẩm

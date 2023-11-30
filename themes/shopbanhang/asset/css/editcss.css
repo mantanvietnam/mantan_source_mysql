@@ -1350,6 +1350,14 @@ background: #555;
         width: 100%;
         margin-top: 30px;
     }
+    
+    .menu-footer{
+        padding-left: 0;
+    }
+
+    .flex-rate{
+        padding-left:0 ;
+    }
 }
 
 @media(max-width: 445px) {

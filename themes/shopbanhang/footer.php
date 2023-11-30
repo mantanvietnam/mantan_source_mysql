@@ -16,7 +16,7 @@ $infoUser = $session->read('infoUser');
                 </div>
         
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-left">
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-12 footer-item footer-left">
                         <div class="footer-info">
                             <div class="copyright">
                                 <?php echo $setting['company'] ?>
@@ -41,7 +41,7 @@ $infoUser = $session->read('infoUser');
                         </div>
                     </div>
 
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 footer-item footer-center">
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 footer-item footer-center">
                         <div class="menu-footer menu-footer1">
                             <div class="footer-menu-name footer-menu-name1">
                                 <p>Danh mục</p>
@@ -75,7 +75,7 @@ $infoUser = $session->read('infoUser');
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-12 footer-item footer-right">
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-12 footer-item footer-right">
                         <div class="footer-social">
                             <div class="footer-menu-name">
                                 <p>KẾT NỐI VỚI CHÚNG TÔI</p>
