@@ -16,6 +16,10 @@ header{
     z-index: 20;
 } */
 
+.product-detail-info-price-right{
+    text-align: right;
+}
+
 .group-social ul li a{
     display: block;
     width: 35px;
@@ -1281,7 +1285,15 @@ background: #555;
     padding: 0;
 }
 
+.product-detail-rate-inner{
+    margin-bottom: 30px;
+}
+
+
+
 @media(min-width: 445px){
+ 
+
     .nav-item.dropdown:hover .dropdown-menu {
         display: block;
       }
@@ -1362,9 +1374,29 @@ background: #555;
     .cart-code-discount-right .list-code-item{
         width: 50%;
     }
+
+    .comment-text-description{
+        padding: 0;
+    }
+
+    .best-sale-item{
+        margin-bottom: 20px;
+    }
 }
 
 @media(max-width: 445px) {
+    .table-border{
+        display: none;
+    }
+
+    #section-product-detail-rate .product-detail-rate-inner .row{
+        flex-direction: column-reverse;
+    }
+
+    .product-detail-rate-inner:first-child h2{
+        display: none;
+    }
+
     .product-question-img{
         display: none;
     }
@@ -1463,6 +1495,10 @@ background: #555;
 
     .banner-home-margin{
         margin-top: 212px !important;
+    }
+
+    .banner-home-edit{
+        margin-top: 97px !important;
     }
 
     .product-question-img img{
@@ -1827,7 +1863,7 @@ background: #555;
 
     }
 
-    .menu-mobile-box ul .nav-item .nav-link::before{
+    .menu-mobile-box ul .nav-item.dropdown .nav-link::before{
         content: "\f078";
         position: absolute;
         right: 0;
@@ -2035,6 +2071,7 @@ background: #555;
 
 .cart-footer-right-top p{
     margin-bottom: 8px;
+    text-align: right;
 }
 
 .product-cart-mobile-footer .container-fluid{

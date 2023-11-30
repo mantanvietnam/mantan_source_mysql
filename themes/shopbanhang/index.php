@@ -3,7 +3,7 @@ getHeader();
 global $urlThemeActive;
 ?>
  <main>
-        <section id="section-banner-home" class="banner-home-margin">
+        <section id="section-banner-home" class="banner-home-margin banner-home-edit">
             <div class="banner-home-slide">
                <?php if(!empty($slide_home->imageinfo)){
                         foreach($slide_home->imageinfo as $key => $item){ ?>
@@ -68,7 +68,7 @@ global $urlThemeActive;
                                         }
                                     }
                                 ?>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-6 best-sale-item">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 best-sale-item">
                                 <div class="best-sale-item-inner">
                                     <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
                                     <div class="best-sale-img">
@@ -168,7 +168,7 @@ global $urlThemeActive;
                                         $ban = 100 - 100*$item->sold/$item->quantity;
                                     }
                                 ?>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-6 best-sale-item">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 best-sale-item">
                                 <div class="best-sale-item-inner">
                                     <div class="best-sale-img">
                                         <a href="product/<?php echo $item->slug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
