@@ -10,6 +10,13 @@ $slide_home= slide_home($setting['id_slide']);
 //debug($list_product);
 $price_total = 0;
 ?>
+
+<style>
+    .menu-mobile{
+        display: none
+    }
+</style>
+
 <main>
         <section id="section-cart">
             <div class="container">
@@ -531,6 +538,33 @@ $price_total = 0;
                     </div>
                 </div>
             </div> -->
+        </section>
+
+        <section id="product-cart-mobile-footer">
+            <div class="container-fluid">
+                <div class="cart-mobile-top">
+                    <div class="cart-footer-mobile-left">
+                        <p>Thành tiền</p>
+                    </div>
+        
+                    <div class="cart-footer-mobile-right">
+                        <div class="cart-footer-right-top">
+                            <p>1.500.000đ</p>
+                        </div>
+    
+                        <div class="cart-footer-right-bottom">
+                            <p>Bạn đã tiết kiệm 130.000đ</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="cart-mobile-bottom">
+                    <div class="cart-button-buy">
+                        <input type="submit" value="Đặt hàng">
+                    </div>
+                </div>
+            </div>
+        
         </section>
     </main>
 
