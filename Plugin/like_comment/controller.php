@@ -85,7 +85,7 @@ function delelelike ($input){
         
 }
 
-function addComment ($input){
+function addComment($input){
 
     global $isRequestPost;
     global $modelUser;
