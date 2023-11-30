@@ -903,6 +903,25 @@ header {
     text-transform: uppercase;
 }
 
+/*  Bo sung */
+
+.sevices-content .item-sevices-img {
+    height: 285px;
+    overflow: hidden;
+}
+
+.sevices-content .item-sevices-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.2s linear;
+}
+
+.sevices-content .item-sevices:hover .item-sevices-img img {
+    scale: 1.1;
+    transition: all 0.2s linear;
+}
+
 
 .sevices-content .item-sevices {
     width: 360px;
@@ -910,14 +929,14 @@ header {
 }
 
 .sevices-content {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
 }
 
 .sevices-content .item-sevices-detail {
     padding-top: 35px;
-    padding-left: 35px;
-    padding-right: 35px;
+    padding-left: 25px;
+    padding-right: 25px;
     padding-bottom: 60px;
     background-color: #fff;
     border-radius: 0 0 50px 50px;
@@ -935,6 +954,7 @@ header {
     -webkit-line-clamp: 5;
     height: 150px;
     text-align: justify;
+    color: #000;
 }
 
 .sevices-content .item-services-btn {
@@ -963,7 +983,7 @@ header {
 }
 
 .item-sevices .item-sevices-name p {
-    font-size: 19px;
+    font-size: 16px;
     line-height: 23px;
     margin-bottom: 0;
     position: absolute;
@@ -990,6 +1010,44 @@ header {
     height: auto;
     object-fit: cover;
 }
+
+.sevices-title .sevices-logo {
+    width: 81px;
+    height: 75px;
+}
+
+.sevices-title .sevices-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sevices-title {
+    font-size: 48px;
+    line-height: 57px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 68px;
+    margin-top: 45px;
+}
+
+.sevices-title span {
+    font-weight: 500;
+}
+
+.sevices-title p {
+    font-weight: 300;
+    margin-left: 20px;
+    margin-right: 15px;
+    margin-bottom: 0;
+}
+
+#slide-home-service .container{
+    padding: 0 30px;
+}
+
 
 @media (min-width: 1920px) and (min-height: 1070px) {
     .logo-trailer-mobile {
@@ -1097,6 +1155,32 @@ header {
 }
 
 @media(max-width: 500px) {
+    .sevices-title{
+        font-size: 17px;
+    }
+
+    .sevices-title .sevices-logo {
+        width: 44px;
+        height: auto;
+    }
+
+    .sevices-content .item-sevices-detail p{
+        display: none;
+    }
+
+    .sevices-content .item-sevices-detail {
+        padding-top: 0;
+        padding-bottom: 14px;
+    }
+
+    .item-sevices{
+        margin-bottom: 30px;
+    }
+
+    .sevices-content .item-sevices-img {
+        height: 209px;
+    }
+
     .video-banner .auto-run-text marquee {
         font-size: 18px;
     }

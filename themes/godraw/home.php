@@ -137,75 +137,81 @@
         <div class="item-slide section" id="slide-home-service">
             <section class="box-toturial">
             
-                    <div class="avr-top text-center"><img src="<?php echo $urlThemeActive;?>images/tutorial.svg" class="img-fluid" alt=""></div>
-                    <div class="content-toturial">
-                        <div class="head-tt text-center"><span>DỊCH</span> VỤ</div>
+                    <!-- <div class="avr-top text-center"><img src="<?php echo $urlThemeActive;?>images/tutorial.svg" class="img-fluid" alt=""></div> -->
+                    <div class="container">
+                        <div class="sevices-title">
+                            <div class="sevices-logo">
+                                <img src="<?php echo $urlThemeActive;?>/images/bag-icon.png" alt="">
+                            </div>
+                            <p>Dịch vụ khách hàng</p>
+                            <span>GÔDRAW</span>
+                        </div>
                         <section id="sevices">
                             <div class="sevices-content">
-                                <div class="item-sevices">
-                                    <div class="item-sevices-name">
-                                        <p>Khách hàng doanh nghiệp</p>
-                                        <div class="item-sevices-name-bg">
-                                            <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                <div class="row">
+                                    <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
+                                        <div class="item-sevices-name">
+                                            <p>Khách hàng doanh nghiệp</p>
+                                            <div class="item-sevices-name-bg">
+                                                <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="item-sevices-img">
+                                            <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
+                                        </div>
+                                        <div class="item-sevices-detail">
+                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+
+                                            <div class="item-services-btn">
+                                                <a href="/tin-tuc.html">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="item-sevices-img">
-                                        <img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt="">
-                                    </div>
-                                    <div class="item-sevices-detail">
-                                        <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
 
-                                        <div class="item-services-btn">
-                                            <a href="">
-                                                <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
-                                            </a>
+                                    <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
+                                        <div class="item-sevices-name">
+                                            <p>WORKSHOP HỘI NGHỊ</p>
+                                            <div class="item-sevices-name-bg">
+                                                <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="item-sevices-img">
+                                            <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
+                                        </div>
+                                        <div class="item-sevices-detail">
+                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+
+                                            <div class="item-services-btn">
+                                                <a href="/tin-tuc.html">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
+                                        <div class="item-sevices-name">
+                                            <p>KHÁCH HÀNG CÁ NHÂN</p>
+                                            <div class="item-sevices-name-bg">
+                                                <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="item-sevices-img">
+                                            <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
+                                        </div>
+                                        <div class="item-sevices-detail">
+                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+
+                                            <div class="item-services-btn">
+                                                <a href="/tin-tuc.html">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="item-sevices">
-                                    <div class="item-sevices-name">
-                                        <p>WORKSHOP HỘI NGHỊ</p>
-                                        <div class="item-sevices-name-bg">
-                                            <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="item-sevices-img">
-                                        <img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt="">
-                                    </div>
-                                    <div class="item-sevices-detail">
-                                        <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
-
-                                        <div class="item-services-btn">
-                                            <a href="">
-                                                <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-sevices">
-                                    <div class="item-sevices-name">
-                                        <p>KHÁCH HÀNG CÁ NHÂN</p>
-                                        <div class="item-sevices-name-bg">
-                                            <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="item-sevices-img">
-                                        <img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt="">
-                                    </div>
-                                    <div class="item-sevices-detail">
-                                        <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
-
-                                        <div class="item-services-btn">
-                                            <a href="">
-                                                <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </section>
                     </div>
