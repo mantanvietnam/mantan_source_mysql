@@ -119,10 +119,6 @@
                 </div>
 
                 <div class="col-md-3 mb-3">
-                  <input type="checkbox" name="module[]" value="agency" <?php if(!empty($data->module) && in_array('agency', $data->module)) echo 'checked';?> > Đối tác - Cộng tác viên
-                </div>
-
-                <div class="col-md-3 mb-3">
                   <input type="checkbox" name="module[]" value="static" <?php if(!empty($data->module) && in_array('static', $data->module)) echo 'checked';?> > Báo cáo - Thống kê
                 </div>
 

@@ -27,9 +27,9 @@ function deletePageLayerAPI($input)
 						foreach ($listLayer as $key => $value) {
 							$content = json_decode($value->content, true);
 
-							if(empty($content->page)) $content->page = 0;
+							if(empty($content['page'])) $content['page'] = 0;
 
-							if($content->page == $dataSend['page']){
+							if($content['page'] == $dataSend['page']){
 								$modelProductDetail->delete($value);
 							}
 						}

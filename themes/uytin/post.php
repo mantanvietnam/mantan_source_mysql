@@ -10,9 +10,18 @@
                             <i>Trang chủ</i>
                         </a> 
                         / 
-                        <a href="<?php echo $category->slug;?>.html">
-                            <i><?php echo $category->name;?></i>
-                        </a>
+                        <?php 
+                        if(!empty($category)){
+                            echo '  <a href="'.$category->slug.'.html">
+                                        <i>'.$category->name.'</i>
+                                    </a>';
+                        }else{
+                            echo '  <a href="'.$post->slug.'.html">
+                                        <i>'.$post->title.'</i>
+                                    </a>';
+                        }
+                        ?>
+                        
                     </p>
                 </div>
             </div>

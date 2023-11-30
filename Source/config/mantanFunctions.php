@@ -319,7 +319,9 @@ function showEditorInput($idEditor='',$nameEditor='',$content='')
 {
 	echo '	<textarea style="border: 1px solid #abadb3;height: auto;"  name="'.$nameEditor.'" id="'.$idEditor.'">'.$content.'</textarea>
 			<script type="text/javascript">
-				CKEDITOR.replace( "'.$idEditor.'"); 
+				CKEDITOR.replace("'.$idEditor.'", {
+				    allowedContent: true,
+				});
 			</script>
 			';
 }
