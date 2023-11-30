@@ -108,7 +108,7 @@ $slide_home= slide_home($setting['id_slide']);
                               
                             <div class="detail-info-rate-right">
                                 <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
-                                <span><?php echo $product->number_like ?> + yêu thích</span>
+                                <span><span id="number_like"><?php echo $product->number_like ?></span> + yêu thích</span>
                             </div>
                             
                         </div>
@@ -305,19 +305,17 @@ $slide_home= slide_home($setting['id_slide']);
                                      global $session;
                                  $infoUser = $session->read('infoUser');
                                     if(!empty($infoUser)){
-                                if(empty(getLike($infoUser['id'],$product->id,'product'))){?>
-                            <div class="button-like">
+                                ?>
+                            <div class="button-like" id="addlike">
                                 <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
                             </div>
-                                <?php }else{
-                                  
-                                 ?>
-                                    <div class="button-like">
+                                
+                                    <div class="button-like" id="delelelike">
 
                                 <button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
                             </div>
                            
-                                <?php }  }else{ ?>
+                                <?php   }else{ ?>
                                      <div class="button-like">
                                         <a  class="like" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></a>
                                         </div>
@@ -375,6 +373,15 @@ $slide_home= slide_home($setting['id_slide']);
             <div class="box-confirm-cart box-confirm-like" id="myLikeNoti"  style=" display: none; ">
                 <div class="box-confirm-cart-title confirm-like">
                     <p>Đã thêm danh sách yêu thích</p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-confirm-cart box-confirm-like" id="myLike"  style=" display: none; ">
+                <div class="box-confirm-cart-title confirm-like">
+                    <p>Đã bỏ danh sách yêu thích</p>
                     <div class="close-button">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
@@ -896,7 +903,18 @@ $slide_home= slide_home($setting['id_slide']);
         </div>
         
     </main>
-
+<script type="text/javascript">
+$(document).ready(function() {
+   <?php     if(!empty($infoUser)){
+         if(empty(getLike($infoUser['id'],$product->id,'product'))){ ?>
+        $('#delelelike').remove();
+        $('#addlike').show();
+    <?php }else{ ?>
+        $('#addlike').remove();
+        $('#delelelike').show();
+   <?php }} ?>
+});
+</script>
 <script>
     function updateCountdown() {
       // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
@@ -960,11 +978,16 @@ function addlike(){
             },
             success:function(res){
                 console.log(res);
+                var html = '';
                 document.getElementById("myLikeNoti").style.display = 'block';
-                $('#like_save').load(location.href + ' #like_save>*');
-                $('#place-detail .button-like button').css('background-color', '#188181');
-                $('#place-detail .button-like button').css('color', '#fff')
-                $('.button-like i').css('color', '#fff');
+                document.getElementById("myLike").style.display = 'none';
+                
+                    html= '<div class="button-like" id="delelelike"><button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></div>'
+                $('#addlike').remove();
+
+                  document.getElementById("place-detail").innerHTML = html;
+
+                  document.getElementById("number_like").innerHTML = res.number_like;
 
                  // location.reload();
             }
@@ -981,14 +1004,16 @@ function delelelike(){
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
-                  console.log(res);
-                    $('#like_save').load(location.href + ' #like_save>*');
+                    console.log(res);myLike
+                    document.getElementById("myLike").style.display = 'block';
+                    document.getElementById("myLikeNoti").style.display = 'none';
 
-                document.getElementById("myLikeNoti").style.display = 'block';
-                    $('#place-detail .button-like button').css('background-color', 'rgb(24 129 129 / 0%)');
-                    $('#place-detail .button-like button').css('color', '#3F4042')
-                    $('.button-like i').css('color', '#126B66');
-                     // location.reload();
+                    html= '<div class="button-like" id="addlike"><button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button></div>'
+                $('#delelelike').remove();
+
+                  document.getElementById("place-detail").innerHTML = html;
+
+                  document.getElementById("number_like").innerHTML = res.number_like;
                 }
             })
                
