@@ -2016,6 +2016,31 @@ background: #555;
     #product-mobile {
         display: block;
     }
+
+    .title-section-cart h1 {
+        margin-top: 117px;
+    }
+
+    #section-product-detail .container .row{
+        padding-bottom: 45px;
+    }
+
+    .section-pro-review-inner .title-section {
+        margin-top: 33px !important;
+    }
+
+    #section-product-detail {
+        margin-bottom: 33px;
+    }
+
+    .section-pro-review-inner .title-section p{
+        padding: 0 15px;
+        font-size: 26px;
+    }
+
+    .pro-review-img{
+        padding: 0 15px
+    }
 }
 
 

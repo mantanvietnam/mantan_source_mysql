@@ -2059,9 +2059,9 @@ strong {
     background-color: #F1F2F2;
     padding: 10px;
     box-shadow: 5px 10px 8px -3px #888888;
-    position: absolute;
-    top: -39px;
-    right: 12px;
+    position: fixed;
+    top: 143px;
+    right: 12px
 }
 
 .box-confirm-cart-image {
@@ -2592,6 +2592,7 @@ strong {
     font-size: 14px;
     font-weight: 300;
     border: none;
+    line-height: 1.4;
 }
 
 .product-detail-fa-list .accordion-item {
@@ -2899,7 +2900,8 @@ strong {
 }
 
 .product-detail-rate-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 11fr;
     margin-bottom: 46px;
 }
 
@@ -2928,6 +2930,7 @@ strong {
     margin-bottom: 13px;
     font-size: 14px;
     font-weight: 300;
+    line-height: 1.4;
 }
 
 .product-detail-rate-image {
