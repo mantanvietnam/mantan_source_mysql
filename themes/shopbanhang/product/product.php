@@ -334,13 +334,13 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="product-detail-like-mobile">
                                 <div class="button-like" id="addlike">
                                     <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
-                                    <p>Yêu thích</p>
+                                    <p onclick="addlike()">Yêu thích</p>
                                 </div>
                             </div>
 
                             <div class="product-add-cart-mobile">
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'false')"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""></a>
-                                <p>Thêm giỏ hàng</p>
+                                <p onclick="addProductCart(<?php echo $product->id;?>,'false')">Thêm giỏ hàng</p>
                             </div>
 
                             <div class="product-buy-mobile">

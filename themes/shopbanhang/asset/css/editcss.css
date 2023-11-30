@@ -2179,6 +2179,11 @@ background: #555;
         color :#fff;
     }
 
+    .product-buy-mobile a:hover{
+        font-size: 23px;
+        color :#fff !important;
+    }
+
     .product-buy-mobile{
         background-color: #008BCE;
     }
