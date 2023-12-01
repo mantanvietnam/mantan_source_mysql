@@ -118,7 +118,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="topbar-button">
                                 <a href="/cart"><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
                                 <a href="/cart">Giỏ hàng</a>
-                                <span><?php echo @$cart; ?></span>
+                                <span id="count"><?php echo @$cart; ?></span>
 
                             </div>
                         </div>

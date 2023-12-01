@@ -1255,9 +1255,12 @@ function deteleComment($id){
 
         $.ajax({
             method: "GET",
-            url: "/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status="+status
+            url: "/apis/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status="+status
         })
         .done(function( msg ) {
+            console.log(msg);
+
+            document.getElementById("count").innerHTML = msg.count;
             if(status=='true'){
                 window.location = '/cart';
             }else{
