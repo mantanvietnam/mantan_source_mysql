@@ -80,7 +80,7 @@ global $type_collection_bill;
             <tr class="">
               <th>ID</th>
               <th>Thời gian</th>
-              <th>Người nợ </th>
+              <th>Người nợ</th>
               <th>Nhân viên</th>
               <th>Số tiền </th>
               <th>Số lần trả</th>
@@ -120,8 +120,6 @@ global $type_collection_bill;
                           </td>
                           <td align="center"><a href="/listCollectionBill?id_debt='.$item->id.'" title="chi tiết">'.$item->number_payment.'</a></td>
                           <td>'.$item->note.'</td>
-                          
-
                           '.$status.'
                         </tr>';
                 }

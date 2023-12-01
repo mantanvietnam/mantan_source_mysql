@@ -572,7 +572,6 @@ function addDataCustomer($input){
     global $metaTitleMantan;
     global $session;
     global $controller;
-    global $urlHomes;
 
     $metaTitleMantan = 'Thêm data khách hàng';
     if(!empty(checkLoginManager('addDataCustomer', 'customer'))){
@@ -580,33 +579,13 @@ function addDataCustomer($input){
         $modelCustomer = $controller->loadModel('Customers');
 
 		if($isRequestPost){
-			$dataSeries = uploadAndReadExcelData('dataCustomer');
-					
-			if(!empty($dataSeries){
-					$number = 0;				
-			    foreach ($dataSeries as $key => $value) {
-			        if($key<0){
-			               
-				        $data = $modelCustomer->newEmptyEntity();
-
-				        $data->name = $value[0];
-						$data->id_member =(int) $infoUser->id_member;
-						$data->id_spa = (int) $infoUser->is_spa;
-						$data->phone = $value[1];
-						$data->email = $value[2];
-						$data->address = $value[3];
-						$data->updated_at = date('Y-m-d H:i:s');
-						$data->sex = (int) $value[5];
-						$data->avatar = (!empty($value[3]))?$value[3]:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
-						$data->birthday = $value[7];
-						$data->cmnd = $dataSend['cmnd'];
-						$data->link_facebook = $dataSend['link_facebook'];
-						$data->source = (int) $dataSend['source'];
-						$data->id_group = (int) $dataSend['id_group'];
-		            }
-		        }
-		    }			
-		}
+					$dataSeries = uploadAndReadExcelData('dataCustomer');
+					debug($dataSeries);
+						die;
+					if($dataSeries){
+						
+					}
+				}
 
 				// setVariable('mess', $mess);
 				// setVariable('product', $product);
@@ -637,8 +616,9 @@ function exportFormDataCustomer($input)
 
 				
                 $titleExcel[] = ['name'=>'Tên khách hàng', 'type'=>'text', 'width'=>25];
-                $titleExcel[] = ['name'=>'Số điệt thoạt', 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25];
                 $titleExcel[] = ['name'=>'Email', 'type'=>'text', 'width'=>25];
+                $titleExcel[] = ['name'=>'Hình ảnh', 'type'=>'text', 'width'=>25];
                 $titleExcel[] = ['name'=>'Link ảnh ', 'type'=>'text', 'width'=>25];
                 $titleExcel[] = ['name'=>'Số cmt', 'type'=>'text', 'width'=>25];
                 $titleExcel[] = ['name'=>'Giới tính', 'type'=>'text', 'width'=>25];

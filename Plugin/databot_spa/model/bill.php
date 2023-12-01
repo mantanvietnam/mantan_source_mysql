@@ -2,7 +2,7 @@
 namespace App\Model\Table;
 use Cake\ORM\Table;
 
-class TransactionHistoriesTable extends Table
+class BillsTable extends Table
 {
 	/*
 	public function initialize(array $config): void
