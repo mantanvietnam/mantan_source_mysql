@@ -454,7 +454,7 @@ $price_total = 0;
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher">
-                                                        <input class="form-check-input" onclick="addDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>)"  type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>">
+                                                        <input class="form-check-input" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>)"  type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -864,13 +864,16 @@ $(document).ready(function() {
 
     }
 
-    function addDiscountCodeAPI(code, key){
+   /* function addDiscountCodeAPI(code, key){
          document.getElementById("discountCode").value = code;
          searchDiscountCodeAPI(code, key);
-    }
+    }*/
 
     function searchDiscountCodeAPI(code, key)
     {
+
+        var w = $('#checkcode'+key).val();
+        console.log(w);
         let totalPays = $('#totalPays').val();
         $.ajax({
             method: "GET",
