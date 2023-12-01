@@ -141,7 +141,17 @@ $infoUser = $session->read('infoUser');
                                 </div>
                             <?php } ?>
                                 <!-- Giá tổng chiết khẩu -->
-                                
+                                 <div class="cart-price-total">
+                                    <div class="cart-price-item">
+                                        <div class="cart-price-item-title">
+                                           Tổng chiết khấu   
+                                        </div>
+    
+                                        <div class="cart-price-item-price">
+                                            <?php echo number_format( (int) @$pay['discount_price3']+ (int) @$pay['discount_price1']+ (int) @$pay['discount_price2']); ?>đ
+                                        </div>
+                                    </div>
+                                </div>
                                  <!-- Thành tiền -->
                                  <div class="cart-price-total">
                                     <div class="cart-price-total-item">

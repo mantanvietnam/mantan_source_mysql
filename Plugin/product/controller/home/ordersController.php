@@ -400,7 +400,7 @@ function pay($input){
 			foreach($list_product as $key => $product){
 		 		$present = array();
 
-	            if(!empty($product->id_product)){
+	            if(!empty($product->id_product) && @$product->statuscart=='true'){
 	                $id_product = explode(',', @$product->id_product);
 	               
 	                foreach($id_product as $item){
