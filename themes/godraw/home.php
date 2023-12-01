@@ -23,7 +23,7 @@
     <div class="full-home-slider" id="fullpage">
          <!-- Trang chủ -->
          <div class="item-slide section" id="slide-home">
-            <div class="social-intro social-mobile">
+            <!-- <div class="social-intro social-mobile">
                 <ul>
                     <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
 
@@ -35,7 +35,7 @@
                     
                     <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
                 </ul>
-            </div>
+            </div> -->
             <section class="box-banner-home box-banner-home-unset">
                 <div class="video-banner">
                     <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
@@ -227,11 +227,15 @@
                                             <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
                                         </div>
                                         <div class="item-sevices-detail">
+                                            <div class="background-bottom-service">
+                                                <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
+                                            </div>
+
                                             <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
 
                                             <div class="item-services-btn">
                                                 <a href="/tin-tuc.html">
-                                                    <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                                    <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
                                                 </a>
                                             </div>
                                         </div>
@@ -239,7 +243,7 @@
 
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
                                         <div class="item-sevices-name">
-                                            <p>WORKSHOP HỘI NGHỊ</p>
+                                            <p>Khách hàng doanh nghiệp</p>
                                             <div class="item-sevices-name-bg">
                                                 <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
                                             </div>
@@ -248,11 +252,15 @@
                                             <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
                                         </div>
                                         <div class="item-sevices-detail">
+                                            <div class="background-bottom-service">
+                                                <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
+                                            </div>
+
                                             <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
 
                                             <div class="item-services-btn">
                                                 <a href="/tin-tuc.html">
-                                                    <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                                    <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
                                                 </a>
                                             </div>
                                         </div>
@@ -260,7 +268,7 @@
 
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
                                         <div class="item-sevices-name">
-                                            <p>KHÁCH HÀNG CÁ NHÂN</p>
+                                            <p>Khách hàng doanh nghiệp</p>
                                             <div class="item-sevices-name-bg">
                                                 <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
                                             </div>
@@ -269,11 +277,15 @@
                                             <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
                                         </div>
                                         <div class="item-sevices-detail">
+                                            <div class="background-bottom-service">
+                                                <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
+                                            </div>
+
                                             <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
 
                                             <div class="item-services-btn">
                                                 <a href="/tin-tuc.html">
-                                                    <img src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
+                                                    <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
                                                 </a>
                                             </div>
                                         </div>

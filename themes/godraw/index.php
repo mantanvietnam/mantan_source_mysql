@@ -73,7 +73,7 @@
                             </ul>
                         </div>
 
-                        <a href="/register" class="intro-link">Đăng ký thành viên để hưởng quyền lợi <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg></a>
+                        <a href="/register" class="intro-link">Tham gia cộng đồng GODRAW để nhận ưu đãi đặc biệt. Đăng ký ngay<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg></a>
 
                         <div class="btn-main-first btn-main text-center text-uppercase"><a href="https://godraw.vn/home">VÀO TRANG CHỦ</a></div>
 

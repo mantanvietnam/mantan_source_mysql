@@ -100,7 +100,9 @@ $(document).ready(function () {
       prevArrow:
         '<a href="javascript:void(0)" class="arr-left"><img src="/themes/godraw/images/slide-left.svg" class="img-fluid" alt=""></a>',
     });
-  
+
+
+
   
 
     $(window).resize(function () {
@@ -127,7 +129,7 @@ $(document).ready(function () {
           normalScrollElements: '.list-showroom',
 
         });
-      });
+    });
   
   })
 
@@ -137,3 +139,37 @@ $(document).ready(function () {
   });
   
 
+  // slcik nhat dinh
+  $(document).ready(function(){
+    // Kiểm tra kích thước màn hình khi tải trang
+    checkWindowSize();
+
+    // Kiểm tra kích thước màn hình khi thay đổi kích thước cửa sổ
+    $(window).resize(function(){
+        checkWindowSize();
+    });
+});
+
+function checkWindowSize() {
+    // Lấy chiều rộng của màn hình
+    var windowWidth = $(window).width();
+
+    // Điều kiện để kiểm tra
+    if (windowWidth <= 425) {
+        // Nếu màn hình lớn hơn hoặc bằng 768px, thì khởi tạo Slick.js
+        $(".sevices-content .row").slick({
+          arrows: true,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+          focusOnSelect: true,
+          // autoplay: true,
+          autoplaySpeed: 3000,
+         
+        });
+      
+    } else {
+        // Nếu màn hình nhỏ hơn 768px, có thể thực hiện các hành động khác hoặc không sử dụng Slick.js
+        // Ví dụ: $('.your-slider-class').unslick();
+    }
+}

@@ -862,9 +862,12 @@ header {
     height: 63%;
 }
 
-.box-banner-home-unset .video-banner video,
-.box-banner-home .video-banner img {
+.box-banner-home-unset .video-banner video {
     position: unset;
+}
+
+.box-banner-home-unset .video-banner video{
+    height: 100%;
 }
 
 .video-background-bottom img {
@@ -885,7 +888,7 @@ header {
     right: 0;
     bottom: 0;
     height: 50px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(145, 140, 140, 0.8);
 }
 
 .video-banner .auto-run-text {
@@ -910,7 +913,9 @@ header {
 .sevices-content .item-sevices-img {
     height: 285px;
     overflow: hidden;
+    border-top: 30px solid #000;
 }
+
 
 .sevices-content .item-sevices-img img {
     width: 100%;
@@ -964,7 +969,7 @@ header {
     text-align: end;
 }
 
-.sevices-content .item-services-btn img {
+.sevices-content .item-services-btn .icon-hand {
     width: 20px;
     height: auto;
     object-fit: cover;
@@ -989,7 +994,7 @@ header {
     line-height: 23px;
     margin-bottom: 0;
     position: absolute;
-    top: -8px;
+    top: 18px;
     z-index: 2;
     text-transform: uppercase;
     color: #fff;
@@ -1002,7 +1007,7 @@ header {
     object-fit: cover;
     width: 100%;
     position: absolute;
-    top: -24px;
+    top: 2px;
     z-index: 1;
     text-align: center;
 }
@@ -1032,7 +1037,7 @@ header {
     align-items: center;
     justify-content: center;
     margin-bottom: 68px;
-    margin-top: 45px;
+    margin-top: 77px;
 }
 
 .sevices-title span {
@@ -1048,6 +1053,8 @@ header {
 
 #slide-home-service .container{
     padding: 0 30px;
+    max-width: 1470px;
+    height: 100vh;
 }
 
 #sevices-ft {
@@ -1056,6 +1063,7 @@ header {
     background-repeat: no-repeat;
     padding-top: 50px;
     padding-bottom: 50px;
+    background-position: center;
 }
 
 #sevices-ft .container {
@@ -1084,11 +1092,12 @@ header {
 .sevices-ft-text p {
     text-align: justify;
     font-size: 21px;
-    line-height: 25px;
+    line-height: 24px;
     margin-bottom: 0;
     color: #fff;
     padding-top: 36px;
     padding-bottom: 30px;
+    padding-right: 121px;
 }
 
 .sevices-ft-btn img {
@@ -1159,7 +1168,7 @@ header {
 
 .sevices-ft-list-items ul li {
     font-size: 22px;
-    line-height: 26px;
+    line-height: 19px;
     color: #fff;
     margin-top: 20px;
     display: flex;
@@ -1176,17 +1185,44 @@ header {
     margin-right: 20px;
 }
 
+.sevices-content .item-sevices-detail{
+    position: relative;
+}
+
+.background-bottom-service{
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.background-bottom-service .background-service-bottom{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
 @media (max-width: 1024px) {
     .sevices-ft-content .col-lg-6.col-md-12 {
         width: 100%;
     }
     .sevices-ft-content .col-lg-3.col-md-6 {
-        margin-top: 50px;
+        margin-top: 23px;
         width: 50%;
     }
 }
 
 @media (max-width: 425px) {
+    .sevices-ft-list-name {
+        height: 27px;
+    }
+
+    .sevices-ft-list-title{
+        height: 43px;
+    }
+
     .sevices-ft-content .col-lg-3.col-md-6 {
         width: 100%;
     }
@@ -1198,17 +1234,68 @@ header {
         line-height: 39px;
     }
     .sevices-ft-text p {
-        font-size: 18px;
+        font-size: 15px;
     }
     .sevices-ft-btn {
         width: 160px;
     }
     .sevices-ft-list-name {
-        font-size: 22px;
+        font-size: 17px;
     }
     .sevices-ft-list-items ul li {
-        font-size: 18px;
+        font-size: 14px;
     }
+
+    /* trang chủ */
+    .box-banner-home-unset .video-banner {
+        height: 30%;
+    }
+
+    .sevices-ft-text p{
+        padding-right: 0;
+        padding-top: 15px;
+        padding-bottom: 11px;
+    }
+
+    .sevices-ft-title p {
+        font-size: 18px;
+   
+
+    }
+
+    .sevices-ft-title{
+        justify-content: center;
+    }
+
+    #sevices-ft {
+        padding-top: 35px
+    }
+
+    .sevices-ft-title img {
+        width: 38px;
+        height: 38px;
+        object-fit: cover;
+    }
+
+    .sevices-ft-list-items ul li:first-child{
+        margin-top: 8px;
+    }
+
+    .sevices-ft-list-items ul{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+    .sevices-ft-list-items ul li i {
+        font-size: 8px;
+        margin-left: 5px;
+        margin-right: 8px;
+    }
+
+    .sevices-ft-list-items ul li{
+        margin-top: 8px;
+    }
+    
 }
 
 @media (max-width: 325px) {
@@ -1221,6 +1308,8 @@ header {
     .sevices-ft-list-name {
         top: 5px;
     }
+    
+    
 }
 
 
@@ -1330,8 +1419,47 @@ header {
 }
 
 @media(max-width: 500px) {
+    #slide-home-service .slick-dots {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 1rem 0;
+        list-style-type: none;
+        bottom: -60px;
+    }
+
+    #slide-home-service .box-toturial{
+        padding: 0;
+    }
+
+    #slide-home-service .slick-dots li {
+        margin: 0 0.25rem;
+    }
+    #slide-home-service .slick-dots button {
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        padding: 0;
+        border: none;
+        border-radius: 100%;
+        background-color: #fff;
+        text-indent: -9999px;
+    }
+    #slide-home-service .slick-dots li.slick-active button {
+        background-color: #000;
+    }
+
+    #slide-home-service{
+        display: block;
+    }
+    
+
+
     .sevices-title{
-        font-size: 17px;
+        font-size: 21px;
+        margin-top: 0;
+        margin-bottom: 30px;
+        padding-top: 80px;
     }
 
     .sevices-title .sevices-logo {
@@ -1339,18 +1467,14 @@ header {
         height: auto;
     }
 
-    .sevices-content .item-sevices-detail p{
-        display: none;
-    }
-
     .sevices-content .item-sevices-detail {
         padding-top: 0;
-        padding-bottom: 14px;
+        padding-bottom: 23px;
     }
 
-    .item-sevices{
+    /* .item-sevices{
         margin-bottom: 30px;
-    }
+    } */
 
     .sevices-content .item-sevices-img {
         height: 209px;
@@ -1707,6 +1831,37 @@ header {
     .menu-mm-mobie {
         padding-bottom: 35%;
     }
+
+    /* respon trang chủ */
+    .sevices-title{
+        flex-direction: column;
+        gap: 3px
+    }
+
+    .sevices-title p{
+        line-height: normal;
+    }
+    .sevices-title span{
+        line-height: normal;
+    }
+
+    .sevices-content .slick-list{
+        padding-top: 19px;
+    }
+
+    .item-sevices .item-sevices-name-bg img{
+        margin: auto;
+    }
+
+    .item-sevices .item-sevices-name-bg {
+        right: 0;
+        left: 0;
+    }
+
+
+    .box-banner-home-unset{
+        height: auto;
+    }
 }
 
 @media(max-width: 417px) {
@@ -1765,6 +1920,15 @@ header {
 }
 
 @media(max-width: 376px) {
+    .sevices-content .item-sevices-detail p {
+        height: 34px;
+        -webkit-line-clamp: 3;
+    }
+
+    .sevices-title{
+        margin: 0;
+    }
+
     .menu-mm-mobie {
         padding-bottom: 17%;
     }
