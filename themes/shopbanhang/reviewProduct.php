@@ -7,6 +7,7 @@ $settinghom = setting();
 // debug($slide_home);
 // debug($list_product);
 ?>
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 <main>
     <section id="section-breadcrumb">
         <div class="breadcrumb-center">
@@ -42,7 +43,7 @@ $settinghom = setting();
                                             if(!empty($item->evaluate)){
                                      ?>
                                     <div class="item-slick-product">
-                                        <a href="/product/<?php echo $item->slug ?>">
+                                        <a href="/review_san_pham?id_product=<?php echo $item->id ?>">
                                             <img src="<?php echo $item->image; ?>">
                                             <p><?php echo $item->title; ?></p>
                                         </a>
@@ -50,10 +51,9 @@ $settinghom = setting();
                                     <?php }}} ?>
 
                                     </div>
-                                    <?php if(!empty($list_product)){
-                                        foreach($list_product as $key => $item){
-                                            if(!empty($item->evaluate)){
-                                              foreach($item->evaluate as $k => $value){  
+                                    <?php
+                                            if(!empty($evaluate)){
+                                              foreach($evaluate as $k => $value){  
                                                     $value->image = json_decode($value->image, true);
                                      ?>
                                         <div class="content-unbox posts">
@@ -64,17 +64,21 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->full_name ?></span> đã viết đánh giá sản phẩm
-                                                        <span><?php echo $item->title ?></span>
+                                                        <span><?php echo $value->product ?></span>
                                                     </h4>
-                                                    <div class="five-star">
-                                                        <ul>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-regular fa-star"></i></li>
-                                                        </ul>
-                                                        <p>2 ngày trước</p>
+                                                    <div class="five-star product-detail-rate-star">
+                                                        
+                                                         <?php $point = 100 - ($value->point/5) / 1 * 100 ?>
+                                                        <div class="stars" style="color: gold;">
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <div class="overlay" style="width: <?php echo $point ?>%"></div>
+
+                                                            </div> 
+                                                      
                                                     </div>
 
                                                 </div>
@@ -115,7 +119,7 @@ $settinghom = setting();
                                                 <a class="share"><i class="fa-solid fa-share"></i>214</a>
                                             </div> -->
                                         </div>
-                                    <?php }}}} ?>
+                                    <?php }} ?>
                                     
 
                                     <!-- <div class="icon-loading">
@@ -129,25 +133,25 @@ $settinghom = setting();
                                     </div>
                                     <div class="star-rating">
                                         <div class="item-star-rating">
-                                            <button>Tất cả</button>
+                                            <a href="/review_san_pham">Tất cả</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <button>1 sao</button>
+                                            <a href="/review_san_pham?point=1">1 sao</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <button>2 sao</button>
+                                            <a href="/review_san_pham?point=2">2 sao</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <button>3 sao</button>
+                                            <a href="/review_san_pham?point=3">3 sao</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <button>4 sao</button>
+                                            <a href="/review_san_pham?point=4">4 sao</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <button>5 sao</button>
+                                            <a href="/review_san_pham?point=5">5 sao</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <button>Có hình ảnh/video</button>
+                                            <a href="/review_san_pham">Có hình ảnh/video</a>
                                         </div>
                                     </div>
                                 </div>
