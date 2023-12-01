@@ -16,6 +16,10 @@ header{
     z-index: 20;
 } */
 
+.container .banner-home-slide .slick-list{
+    height: 463px;
+}
+
 .product-detail-info-price-right{
     text-align: right;
 }
@@ -1321,6 +1325,10 @@ background: #555;
     margin-left: auto;
 }
 
+.category-home-img-mobile{
+    display: none;
+}
+
 
 @media(min-width: 900px) and (max-width: 1024px){
     .navbar-header .nav-item .nav-link {
@@ -1439,6 +1447,14 @@ background: #555;
 
 
 @media(max-width: 445px) {
+    .category-home-img-mobile{
+        display: block;
+    }
+
+    .category-home-img-desktop{
+        display: none;
+    }
+
     .combo-4{
         padding-top: 35px;
     }

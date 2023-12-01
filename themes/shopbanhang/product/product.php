@@ -692,7 +692,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
                             </div>
                         <?php }}else{ ?>
-                           <div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>
+                           <div class="no_evaluate"><h5>Sản phẩm chưa có đánh giá nào </h5></div>
                            <?php } ?>
                         </div>
                         <?php  if(!empty($product->evaluates)){ ?>
@@ -902,7 +902,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
                                 </div> 
 <?php }} }}else{ ?>
-                           <div class="no_evaluate"><h5>Sản phẩn chưa có bình luận nào </h5></div>
+                           <div class="no_evaluate"><h5>Sản phẩm chưa có bình luận nào </h5></div>
                            <?php } ?>
                           
                             </div>
@@ -1242,7 +1242,7 @@ function deteleComment($id){
                         }
                         document.getElementById("evaluate").innerHTML = html;
                     }else{
-                         document.getElementById("evaluate").innerHTML = '<div class="no_evaluate"><h5>Sản phẩn chưa có đánh giá nào </h5></div>';
+                         document.getElementById("evaluate").innerHTML = '<div class="no_evaluate"><h5>Sản phẩm chưa có đánh giá nào </h5></div>';
                     }
                 }
             });

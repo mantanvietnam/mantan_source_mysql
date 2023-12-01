@@ -235,8 +235,12 @@ global $urlThemeActive;
             <div class="container">
                 <div class="row">
                     <div class="home-category-big col-12 ">
-                        <div class="category-home-img">
+                        <div class="category-home-img category-home-img-desktop">
                             <a href="<?php echo @$setting['link_image1'] ?>"><img src="<?php echo @$setting['image4'] ?>" alt=""></a>
+                        </div>
+
+                        <div class="category-home-img category-home-img-mobile">
+                            <a href="<?php echo @$setting['link_image1'] ?>"><img src="<?php echo @$setting['image-mobile'] ?>" alt=""></a>
                         </div>
                     </div>
 

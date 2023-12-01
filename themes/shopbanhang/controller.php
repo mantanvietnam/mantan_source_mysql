@@ -75,6 +75,9 @@ function settingHomeTheme($input){
                         'text_mobile' => @$dataSend['text_mobile'],
 
                        'targetTime' => @$targetTime,
+
+                       'image-mobile' => @$dataSend['image-mobile'],
+
                     );
 
     

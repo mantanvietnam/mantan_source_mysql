@@ -51,6 +51,8 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
                    <?php showUploadFile('image4','image4', @$setting['image4'],5);?>
+                   <label class="form-label" for="basic-default-fullname">Ảnh 1 - Mobile</label>
+                   <?php showUploadFile('image-mobile','image-mobile', @$setting['image-mobile'],20);?>
                    <label class="form-label" for="basic-default-fullname">link ảnh 1</label>
                   <input type="text" class="form-control" name="link_image1" value="<?php echo @$setting['link_image1'];?>" />
                 </div><div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
@@ -87,7 +89,7 @@
                   <input type="text" class="form-control" name="address" value="<?php echo @$setting['address'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">Điên thoại</label>
+                  <label class="form-label" for="basic-default-fullname">Điện thoại</label>
                   <input type="text" class="form-control" name="phone" value="<?php echo @$setting['phone'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
@@ -131,7 +133,7 @@
                   <input type="text" class="form-control" name="instagram" value="<?php echo @$setting['instagram'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                  <label class="form-label" for="basic-default-fullname">Email</label>
+                  <label class="form-label" for="basic-default-fullname">Tiktok</label>
                   <input type="text" class="form-control" name="email" value="<?php echo @$setting['email'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
