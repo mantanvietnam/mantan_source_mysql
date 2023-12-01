@@ -440,7 +440,7 @@ $price_total = 0;
                                                 <div class="bg-voucher">
                                                     <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
                                                 </div>
-                                                <div class="detail-voucher">
+                                                <div class="detail-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
                                                     <div class="logo-voucher">
                                                         <h3><?php echo $item->code; ?></h3>
                                                     </div>
@@ -454,7 +454,7 @@ $price_total = 0;
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher">
-                                                        <input class="form-check-input" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>)"  type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>">
+                                                        <input class="form-check-input checkcode<?php echo @$key ?>"   type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -631,12 +631,36 @@ $(document).ready(function() {
     }
 });
 </script>
+<script type="text/javascript">
+    $(document).on('click', function (e) {
+
+  $(document).ready(function(){
+    // Sử dụng sự kiện click cho tất cả các radio button có class 'radioOption'
+     <?php foreach($category as $key => $value){ ?>
+        <?php if(!empty($value['discountCode'])){
+            foreach($value['discountCode'] as $k => $item){
+                                            
+                                             ?>
+    $(".check-voucher #checkcode<?php echo @$key ?>-<?php echo @$k ?>").click(function(){
+        // Bỏ chọn tất cả các radio button trong nhóm có tên 'group1'
+        $("input[name='code<?php echo @$key ?>-<?php echo @$k ?>']").prop('checked', !$(this).prop('checked'));
+    });
+
+   <?php }}} ?>
+  });
+
+
+ 
+
+  
+
+});
+</script>
 
 <script type="text/javascript">
     function checkupdatecart(id){
          var checkBox = document.getElementById("checkproduct"+id);
 
-        console.log(checkBox.checked);
 
         $.ajax({
             method: "GET",
@@ -712,8 +736,7 @@ $(document).ready(function() {
                 var price = parseInt($('#price'+i).val());
                 var statuscart = $('#statuscart'+i).val();
 
-                console.log(quantity);
-                console.log(price);
+             
                
 
                 var price_buy  = quantity* price;
@@ -726,8 +749,6 @@ $(document).ready(function() {
 
             }
         }
-
-         console.log(price_total);
             var pricetotal = new Intl.NumberFormat().format(price_total);
             $('#pricetotal').html(pricetotal+'đ');
 
@@ -761,46 +782,59 @@ $(document).ready(function() {
             maximum_price_reduction3 = parseInt($('#maximum_price_reduction3').val());
             
             if(applicable_price1<=price_total){
-                if(discount1>100){
-                     var d1 = discount1;
+                if(applicable_price1>0){
+                    if(discount1>100){
+                         var d1 = discount1;
+                    }else{
+                        var d1 =(discount1 / 100) * price_total;
+                    }
+
+                    if(maximum_price_reduction1>0){
+                        if(d1>maximum_price_reduction1 ){
+                            d1 = maximum_price_reduction1;
+                        }
+                    }
                 }else{
-                    var d1 =(discount1 / 100) * price_total;
+                    var d1 = 0;
                 }
 
-                if(maximum_price_reduction1>0){
-                    if(d1>maximum_price_reduction1 ){
-                        d1 = maximum_price_reduction1;
-                    }
-                }
             }else{
                 var d1 = 0;
             }
 
             if(applicable_price2<=price_total){
-                if(discount2>100){
-                     var d2 = discount2;
-                }else{
-                    var d2 =(discount2 / 100) * price_total;
-                }
-                if(maximum_price_reduction2>0){
-                    if(d2>maximum_price_reduction2 ){
-                        d2 = maximum_price_reduction2;
+                if(applicable_price2>0){
+                    if(discount2>100){
+                         var d2 = discount2;
+                    }else{
+                        var d2 =(discount2 / 100) * price_total;
                     }
+                    if(maximum_price_reduction2>0){
+                        if(d2>maximum_price_reduction2 ){
+                            d2 = maximum_price_reduction2;
+                        }
+                    }
+                }else{
+                    var d2 = 0;
                 }
             }else{
                 var d2 = 0;
             }   
 
-            if(applicable_price3<=price_total){
-                if(discount3>100){
-                     var d3 = discount3;
-                }else{
-                    var d3 =(discount3 / 100) * price_total;
-                }
-                if(maximum_price_reduction3>0){
-                    if(d3>maximum_price_reduction3 ){
-                        d3 = maximum_price_reduction3;
+            if(applicable_price3<=price_total && applicable_price3>0){
+                if(applicable_price3>0){
+                    if(discount3>100){
+                         var d3 = discount3;
+                    }else{
+                        var d3 =(discount3 / 100) * price_total;
                     }
+                    if(maximum_price_reduction3>0){
+                        if(d3>maximum_price_reduction3 ){
+                            d3 = maximum_price_reduction3;
+                        }
+                    }
+                }else{
+                    var d3 = 0;
                 }
             }else{
                 var d3 = 0;
@@ -849,7 +883,6 @@ $(document).ready(function() {
 
             price_total = price_total - d1 - d2 - d3;
 
-                     // console.log(price_total);
 
              var totalck = new Intl.NumberFormat().format(d1 + d2 + d3);
              $('#totalck').html(totalck+'đ');
@@ -869,57 +902,66 @@ $(document).ready(function() {
          searchDiscountCodeAPI(code, key);
     }*/
 
-    function searchDiscountCodeAPI(code, key)
-    {
-
-        var w = $('#checkcode'+key).val();
-        console.log(w);
-        let totalPays = $('#totalPays').val();
-        $.ajax({
-            method: "GET",
-            url: "/apis/searchDiscountCodeAPI/?code="+code+"&category="+key,
-        })
-        .done(function(msg) {
-            console.log(msg);
-            if(msg.code==1){
-                if(msg.data.applicable_price<=totalPays){
-                    const specifiedTime = new Date(msg.data.deadline_at);
-                    const currentTime = new Date();
-                    var html ='';
-                    console.log(msg.data);
-                  if(specifiedTime > currentTime) {
-                     
-                        if(msg.data.discount>100){
-                            var discount = msg.data.discount;
-                        }else{
-                           var discount =(msg.data.discount / 100) * totalPays;
-                        }
-                        if(msg.data.maximum_price_reduction!=null){
-                            if(discount>msg.data.maximum_price_reduction ){
-                                discount = msg.data.maximum_price_reduction;
-                            }
-                        }
-
-                       document.getElementById("code"+key).value = msg.data.code;
-                       document.getElementById("discount_price"+key).value = discount;
-                       document.getElementById("maximum_price_reduction"+key).value = msg.data.maximum_price_reduction;
-                       document.getElementById("discount"+key).value = msg.data.discount;
-                       document.getElementById("applicable_price"+key).value = msg.data.applicable_price;
-                        var discount = new Intl.NumberFormat().format(discount);
-                        html +='<div class="cart-price-sum-discount-title">'+msg.data.code+'</div>'
-                        html +='<div class="cart-price-sum-discount-price"> - '+discount+'</div>'
-                         $('#discountPrice'+key).html(html);
-
-                   }
-                }
-            } 
+    function searchDiscountCodeAPI(code, key, k)
+        {
            
-        });
-        tinhtien();
+        var w = $('#checkcode'+key+'-'+k).val();
+        var s = document.getElementById('checkcode'+key+'-'+k).checked;
+        console.log(s);
+        if(s==true){
+            let totalPays = $('#totalPays').val();
+            $.ajax({
+                method: "GET",
+                url: "/apis/searchDiscountCodeAPI/?code="+code+"&category="+key,
+            })
+            .done(function(msg) {
+                if(msg.code==1){
+                    if(msg.data.applicable_price<=totalPays){
+                        const specifiedTime = new Date(msg.data.deadline_at);
+                        const currentTime = new Date();
+                        var html ='';
+                      if(specifiedTime > currentTime) {
+                         
+                            if(msg.data.discount>100){
+                                var discount = msg.data.discount;
+                            }else{
+                               var discount =(msg.data.discount / 100) * totalPays;
+                            }
+                            if(msg.data.maximum_price_reduction!=null){
+                                if(discount>msg.data.maximum_price_reduction ){
+                                    discount = msg.data.maximum_price_reduction;
+                                }
+                            }
+
+                           document.getElementById("code"+key).value = msg.data.code;
+                           document.getElementById("discount_price"+key).value = discount;
+                           document.getElementById("maximum_price_reduction"+key).value = msg.data.maximum_price_reduction;
+                           document.getElementById("discount"+key).value = msg.data.discount;
+                           document.getElementById("applicable_price"+key).value = msg.data.applicable_price;
+                            var discount = new Intl.NumberFormat().format(discount);
+                            html +='<div class="cart-price-sum-discount-title">'+msg.data.code+'</div>'
+                            html +='<div class="cart-price-sum-discount-price"> - '+discount+'</div>'
+                             $('#discountPrice'+key).html(html);
+
+                            tinhtien();
+
+                       }
+                    }
+                } 
+               
+            });
+        }else{
+
+            document.getElementById("applicable_price"+key).value = 0;
+            document.getElementById("discount_price"+key).value = 0;
+            document.getElementById("maximum_price_reduction"+key).value = 0;
+            tinhtien();
+        }
+        
+        
     }
 
      function addProductdiscountCart(idProduct, status){
-        console.log(status);
 
         $.ajax({
             method: "GET",
@@ -932,7 +974,6 @@ $(document).ready(function() {
 </script>
 <script type="text/javascript">
     function addProduct(idProduct, status){
-        console.log(status);
         $.ajax({
             method: "GET",
             url: "/addProductToCart/?id_product="+idProduct+"&quantity=1&status="+status
