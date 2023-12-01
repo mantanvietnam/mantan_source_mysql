@@ -56,14 +56,16 @@
                             <h5 class="text-gray-600">Mã sản phẩm</h5>
                             <?php 
                             foreach($project->infoProduct as $key => $value){
-                                echo'
-                                    <div class="hinh-anh-masp">
-                                        <a href="/product/'.$value->slug.'.html" class="w-56 h-56 block img-du-an mg-top-24">
-                                            <img src="'.$value->image.'" alt="">
-                                        </a>
-                                        <h5 class="text-gray-600 mg-top-8">'.$value->code.'</h5>
-                                    </div>';   
+                                if(!empty($value)){
+                                    echo'
+                                        <div class="hinh-anh-masp">
+                                            <a href="/product/'.$value->slug.'.html" class="w-56 h-56 block img-du-an mg-top-24">
+                                                <img src="'.$value->image.'" alt="">
+                                            </a>
+                                            <h5 class="text-gray-600 mg-top-8">'.$value->code.'</h5>
+                                        </div>';   
                                 } 
+                            }
                             ?>
                         </div>
                     </div>

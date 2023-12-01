@@ -59,7 +59,9 @@
                                                 <div class="product-info-code">
                                                     <span>Mã sản phẩm: ';
                                                     foreach($valueProject->infoProduct as $item){
-                                                        echo '<span class="code">'.$item->code.' </span>';
+                                                        if(!empty($item)){
+                                                            echo '<span class="code">'.$item->code.' </span>';
+                                                        }
                                                     }
                                                     echo'
                                                     </span>
