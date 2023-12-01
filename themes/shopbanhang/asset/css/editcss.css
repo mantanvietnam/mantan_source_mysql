@@ -1403,7 +1403,7 @@ background: #555;
         flex-direction: column-reverse;
     }
 
-    .product-detail-rate-inner:first-child h2{
+    #section-product-detail-rate .product-detail-rate-inner:first-child h2{
         display: none;
     }
 
