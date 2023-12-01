@@ -42,22 +42,22 @@ $settinghom = setting();
                                 </div>
                                 <div class="list-product-review">
                                      <?php if(!empty($list_product)){
+
                                         foreach($list_product as $key => $item){
-                                            if(!empty($item->review)){
+                                           
                                      ?>
                                     <div class="item-slick-product">
-                                        <a href="/product/<?php echo $item->slug ?>">
+                                        <a href="/khach_hang_dap_hop?code=<?php echo $item->code ?>">
                                             <img src="<?php echo $item->image; ?>">
                                             <p><?php echo $item->title; ?></p>
                                         </a>
                                     </div>
-                                    <?php }}} ?>
+                                    <?php }} ?>
 
                                 </div>
-                                 <?php if(!empty($list_product)){
-                                        foreach($list_product as $key => $item){
-                                            if(!empty($item->review)){
-                                              foreach($item->review as $k => $value){  
+                                 <?php 
+                                            if(!empty($review)){
+                                              foreach($review as $k => $value){  
                                      ?>
                                         <div class="content-unbox posts">
                                             <div class="detail-unbox">
@@ -67,7 +67,7 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->user->full_name ?></span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                        <span><?php echo $item->title ?></span>
+                                                        <span><?php echo $value->product ?></span>
                                                     </h4>
                                                     <!-- <div class="five-star">
                                                         <ul>
@@ -110,7 +110,7 @@ $settinghom = setting();
                                                 <p id="id<?php echo $value->id; ?>" style="color: red;"></p>
                                             </div> 
                                         </div>
-                                    <?php }}}} ?>
+                                    <?php }} ?>
 
                                 <!-- <div class="icon-loading">
                                     <i class="fa-solid fa-spinner"></i>

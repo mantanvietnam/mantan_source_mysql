@@ -90,10 +90,10 @@ function addProductToCart($input)
 				$product->numberOrder = (int) $_REQUEST['quantity'];
 				$list_product[$product->id] = $product;
 			}
-
+			$count =count($list_product);
 			$session->write('product_order', $list_product);
 
-			return $controller->redirect('/cart/?error=addDone');
+			return array('code'=>1,'count'=>$count);
 		}else{
 			return $controller->redirect('/cart/?error=empty_product');
 		}

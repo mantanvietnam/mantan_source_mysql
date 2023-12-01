@@ -485,30 +485,28 @@ function reviewBeatbox(){
     if(!empty($slide_home)){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
     }
-
     $conditions = array();
     $conditions['status'] = 'active';
 
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
-
-
-    if(!empty($list_product)){
-        foreach($list_product as $key => $item){
-            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
-            $review = $modelReview->find()->where(['id_product'=>$item->code])->all()->toList();
-            foreach($review as $k => $value){
-                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
-            }
-            $list_product[$key]->review = $review;
-        }
+    $conditionsreview = array();
+    if(!empty($_GET['code'])){
+        $conditionsreview['id_product'] = $_GET['code'];
     }
 
-    
+    $review = $modelReview->find()->where($conditionsreview)->all()->toList();
+  
+    foreach($review as $k => $value){
 
+        $review[$k]->product = $modelProduct->find()->where(['code'=>$value->id_product])->first()->title;
+
+        $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
+    }
 
     setVariable('setting', $data_value);
     setVariable('list_product', $list_product);
+    setVariable('review', $review);
     setVariable('slide_home', $slide_home);
 }
 
@@ -544,24 +542,29 @@ function reviewProduct(){
 
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
-
-
-    if(!empty($list_product)){
-        foreach($list_product as $key => $item){
-            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
-            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
-            foreach($review as $k => $value){
-                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
-            }
-            $list_product[$key]->review = $review;
-        }
+    $conditionsEvaluat = array();
+    if(!empty($_GET['id_product'])){
+        $conditionsEvaluat['id_product'] = $_GET['id_product'];
     }
+
+    if(!empty($_GET['point'])){
+        $conditionsEvaluat['point'] = $_GET['point'];
+    }
+    $evaluate = $modelEvaluate->find()->where($conditionsEvaluat)->order($order)->all()->toList();
+
+
+
+   
+            foreach($evaluate as $k => $value){
+                $evaluate[$k]->product = $modelProduct->find()->where(['id'=>$value->id_product])->first()->title;
+            }
 
     
 
 
     setVariable('setting', $data_value);
     setVariable('list_product', $list_product);
+    setVariable('evaluate', $evaluate);
     setVariable('slide_home', $slide_home);
 }
 
