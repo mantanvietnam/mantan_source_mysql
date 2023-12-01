@@ -1296,7 +1296,9 @@ background: #555;
 }
 
 /* Mobile footer */
-
+.top-deal {
+    background-size: contain;
+}
 
 
 @media(min-width: 445px){
