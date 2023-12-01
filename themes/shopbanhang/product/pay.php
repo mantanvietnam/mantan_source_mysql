@@ -144,7 +144,7 @@ $infoUser = $session->read('infoUser');
                                  <div class="cart-price-total">
                                     <div class="cart-price-item">
                                         <div class="cart-price-item-title">
-                                           Tổng chiếu khấu   
+                                           Tổng chiết khấu   
                                         </div>
     
                                         <div class="cart-price-item-price">
