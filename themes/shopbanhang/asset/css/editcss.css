@@ -1300,6 +1300,10 @@ background: #555;
     background-size: contain;
 }
 
+.combo-4{
+    padding-top: 35px;
+}
+
 
 @media(min-width: 445px){
  
@@ -1395,6 +1399,36 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .product-detail-slide{
+        height: 400px;
+        overflow: hidden;
+    }
+
+    .button-not-login{
+        display: flex;
+        color: #000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button-not-login a{
+        color :#000
+    }
+
+    .like-notlogin{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .like-notlogin{
+        font-size: 14px !important;
+        font-weight: 300 !important;
+        color :#000 !important
+
+    }
+
     .product-detail-group-button{
         display: none;
     }

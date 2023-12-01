@@ -347,7 +347,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
                                  <?php   }else{ ?>
                                      <div class="button-like">
-                                        <a  class="like" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button> c</a>
+                                        <a  class="like like-notlogin" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button class="button-not-login" type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>Yêu thích</a>
                                         </div>
                                 <?php   } ?>
                             </div>

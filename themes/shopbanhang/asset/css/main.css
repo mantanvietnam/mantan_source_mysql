@@ -2071,7 +2071,8 @@ strong {
     box-shadow: 5px 10px 8px -3px #888888;
     position: fixed;
     top: 143px;
-    right: 12px
+    right: 12px;
+    z-index: 99;
 }
 
 .box-confirm-cart-image {
@@ -2836,9 +2837,10 @@ strong {
 
 #section-product-question .accordion-body {
     font-size: 13px;
-    font-weight: 200;
+    font-weight: 300;
     padding: 13px;
     padding-top: 12px;
+    line-height: 1.4;
 }
 
 .describe-inner .title-section h2 {
