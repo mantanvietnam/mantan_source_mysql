@@ -101,7 +101,7 @@ global $urlThemeActive;
                                     <div class="best-sale-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p><?php echo @$item->point ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
+                                            <p><?php echo number_format(@$item->point,1) ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
@@ -193,11 +193,11 @@ global $urlThemeActive;
                                     <div class="best-sale-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p><?php echo @$item->point ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
+                                            <p><?php echo number_format(@$item->point,1) ?><span>(<?php echo @$item->evaluatecount ?>)</span></p>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p><?php  echo @$item->sold; ?>  Đã bán</p>
+                                            <p><?php  echo @$item->sold; ?> Đã bán</p>
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>

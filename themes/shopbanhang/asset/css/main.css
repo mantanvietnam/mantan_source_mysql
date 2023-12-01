@@ -1756,6 +1756,15 @@ strong {
     font-weight: 300;
 }
 
+#section-blog-detail .blog-detail-content h1{
+    font-weight: 400;
+    line-height: 2;
+}
+
+#section-blog-detail .blog-detail-content img{
+    width: 100% !important;
+}
+
 
 /* chuyên mục sản phẩm  */
 

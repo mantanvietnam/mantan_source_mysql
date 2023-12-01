@@ -84,14 +84,31 @@ $settinghom = setting();
                                             </div>
                                             <div class="image-unbox">
                                                 <p><?php echo $value->content ?></p>
-                                                <div class="slide-rate-image">
-                                                 <?php if(!empty($value->image)){
+                                                
+                                                <?php 
+                                                    if(!empty($value->image)){
+                                                        $check = false;
+
                                                         foreach($value->image as $image) {
-                                                        if(!empty($image)){
-                                                    ?>
-                                                    <img src="<?php echo $image;?>" alt="">
-                                                <?php }}} ?>
-                                                </div>
+                                                            if(!empty($image)){
+                                                                $check = true;
+                                                            }
+                                                        }
+
+                                                        if($check){
+                                                            echo '<div class="slide-rate-image">';
+                                                            
+                                                            foreach($value->image as $image) {
+                                                                if(!empty($image)){
+                                                                    echo '<img src="'.$image.'" alt="">';
+                                                                }
+                                                            }
+
+                                                            echo '</div>';
+                                                        }
+                                                    } 
+                                                ?>
+                                                
                                             </div>
                                             <!-- <div class="icon-interact">
                                                 <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>

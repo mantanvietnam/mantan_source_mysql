@@ -69,7 +69,7 @@ global $urlThemeActive;
                             </div>
 
                             <div class="blog-last-image">
-                                <a href="/<?php echo @$item->slug ?>.html"><a href=""><img src="<?php echo @$item->image ?>" alt=""></a></a>
+                                <a href="/<?php echo @$item->slug ?>.html"><img src="<?php echo @$item->image ?>" alt=""></a>
                             </div>
                         </div>
                     <?php } } ?>

@@ -232,7 +232,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
                             </div>
                             <?php }} ?>
-                             <div class="col-12 col-md-12 col-lg-12">
+                             <!-- <div class="col-12 col-md-12 col-lg-12">
                                 <div class="demo-inline-spacing">
                                   <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-center">
@@ -272,7 +272,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </ul>
                                   </nav>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>  
                     </div>
                 </div>

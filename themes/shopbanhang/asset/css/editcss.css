@@ -109,6 +109,10 @@ header{
     margin-bottom: 21px;
 }
 
+.toc-number{
+    display: none;
+}
+
 .modal-forgotpass .modal-dialog{
     max-width: 22%;
 }

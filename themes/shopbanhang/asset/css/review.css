@@ -418,6 +418,17 @@
     text-align: center;
     font-size: 12px;
     line-height: 14px;
+
+}
+
+.list-product-review .item-slick-product p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    line-height: normal;
+    height: 42px;
 }
 
 .list-product-review .item-slick-product:hover a {
@@ -483,6 +494,8 @@
     line-height: 17px;
     padding-left: 20px;
     padding-bottom: 18px;
+    font-weight: 300;
+    line-height: 21px;
 }
 
 .icon-interact {
