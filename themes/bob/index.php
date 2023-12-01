@@ -113,11 +113,12 @@
                 
                                                     <div class="product-info-code">
                                                         <span>Mã sản phẩm ';
+                                                        
                                                         if(!empty($value->infoProduct)){
-                                                            // $mang = explode(",", $chuoi);
                                                             foreach($value->infoProduct as $itemProduct){
-                                                                echo'
-                                                                <span class="code">'.$itemProduct->code.'</span>';
+                                                                if(!empty($itemProduct)){
+                                                                    echo'<span class="code">'.$itemProduct->code.'</span>';
+                                                                }
                                                             }
                                                         }
                                                             

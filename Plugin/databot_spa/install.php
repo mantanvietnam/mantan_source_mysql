@@ -12,7 +12,8 @@ $sqlInstallDatabase .= 'CREATE TABLE `beds` (
   `status` int(11) NOT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL,
-  `id_room` int(11) NOT NULL
+  `id_room` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;';
 
 $sqlInstallDatabase .= "CREATE TABLE `books` (
@@ -36,7 +37,8 @@ $sqlInstallDatabase .= "CREATE TABLE `books` (
   `type2` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch chăm sóc',
   `type3` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch liệu trình',
   `type4` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Lịch điều trị',
-  `repeat_book` BOOLEAN NOT NULL DEFAULT FALSE
+  `repeat_book` BOOLEAN NOT NULL DEFAULT FALSE,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB; ";
 
 $sqlInstallDatabase .= "CREATE TABLE `combos` (
@@ -55,7 +57,8 @@ $sqlInstallDatabase .= "CREATE TABLE `combos` (
   `commission_staff_fix` INT NOT NULL DEFAULT '0',
   `commission_staff_percent` INT NOT NULL DEFAULT '0',
   `use_time` INT NOT NULL DEFAULT '0',
-  `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `customers` (
@@ -87,7 +90,8 @@ $sqlInstallDatabase .="CREATE TABLE `customers` (
   `job` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `id_product` INT NULL,
   `point` INT NOT NULL DEFAULT '0',
-  `id_customer_aff` INT NOT NULL DEFAULT '0'
+  `id_customer_aff` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `members` (
@@ -120,6 +124,7 @@ $sqlInstallDatabase .="CREATE TABLE `members` (
   `code_zalo_oa` VARCHAR(500) NULL, 
   `deadline_token_zalo_oa` INT NULL,
   `access_token_zalo_oa` VARCHAR(500) NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (
@@ -134,6 +139,7 @@ $sqlInstallDatabase .= "CREATE TABLE `prepay_cards` (
   `status` VARCHAR(20) NOT NULL,
   `commission_staff_fix` INT NOT NULL DEFAULT '0',
   `commission_staff_percent` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `products` (
@@ -157,7 +163,8 @@ $sqlInstallDatabase .= "CREATE TABLE `products` (
   `commission_staff_fix` INT NOT NULL DEFAULT '0',
   `commission_staff_percent` INT NOT NULL DEFAULT '0',
   `commission_affiliate_fix` INT NOT NULL DEFAULT '0',
-  `commission_affiliate_percent` INT NOT NULL DEFAULT '0'
+  `commission_affiliate_percent` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .= "CREATE TABLE `rooms` (
@@ -166,7 +173,8 @@ $sqlInstallDatabase .= "CREATE TABLE `rooms` (
   `created_at` datetime DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
-  `id_spa` int(11) NOT NULL
+  `id_spa` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `services` (
@@ -187,7 +195,8 @@ $sqlInstallDatabase .="CREATE TABLE `services` (
   `commission_staff_fix` INT NOT NULL DEFAULT '0',
   `commission_staff_percent` INT NOT NULL DEFAULT '0',
   `commission_affiliate_fix` INT NOT NULL DEFAULT '0',
-  `commission_affiliate_percent` INT NOT NULL DEFAULT '0'
+  `commission_affiliate_percent` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `spas` (
@@ -204,7 +213,8 @@ $sqlInstallDatabase .="CREATE TABLE `spas` (
   `updated_at` datetime NOT NULL,
   `facebook` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
   `website` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
-  `zalo` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NULL
+  `zalo` VARCHAR(255) CHARACTER SET utf32 COLLATE utf32_unicode_ci NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 ";
 
@@ -215,7 +225,8 @@ $sqlInstallDatabase .="CREATE TABLE `trademarks` (
   `created_at` datetime DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `slug` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `warehouses` (
@@ -226,6 +237,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouses` (
   `credit` int(11) DEFAULT NULL,
   `id_member` int(11) NOT NULL,
   `id_spa` int(11) NOT NULL
+  PRIMARY KEY (`id`),
 ) ENGINE=InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `bills` (
@@ -243,7 +255,8 @@ $sqlInstallDatabase .="CREATE TABLE `bills` (
   `id_customer` INT NULL DEFAULT NULL , 
   `id_warehouse_product` INT NULL DEFAULT NULL , 
   `id_debt` INT NOT NULL ,
-  `time` INT NOT NULL DEFAULT '0'
+  `time` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;"
 
 $sqlInstallDatabase .="CREATE TABLE `debts` ( 
@@ -260,7 +273,8 @@ $sqlInstallDatabase .="CREATE TABLE `debts` (
   `status` INT NULL DEFAULT NULL COMMENT '0 : chưa trả ,1 đã trả ' , 
   `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL , 
   `created_at` DATETIME NULL DEFAULT NULL , 
-  `updated_at` DATETIME NULL DEFAULT NULL 
+  `updated_at` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `partners` ( 
@@ -272,7 +286,8 @@ $sqlInstallDatabase .="CREATE TABLE `partners` (
   `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL ,
   `id_member` INT NOT NULL , 
   `created_at` DATETIME NOT NULL , 
-  `updated_at` DATETIME NOT NULL 
+  `updated_at` DATETIME NOT NULL ,
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `warehouse_products` ( 
@@ -286,7 +301,8 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse_products` (
   `inventory_quantity` INT NULL DEFAULT NULL COMMENT 'số lượng tồn kho' , 
   `deadline` INT NULL DEFAULT NULL , 
   `created_at` INT NOT NULL , 
-  `id_partner` INT NULL DEFAULT NULL 
+  `id_partner` INT NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `warehouse_product_details` ( 
@@ -298,6 +314,7 @@ $sqlInstallDatabase .="CREATE TABLE `warehouse_product_details` (
   `quantity` INT NOT NULL , 
   `inventory_quantity` INT NULL DEFAULT NULL , 
   `created_at` DATETIME NOT NULL , 
+  PRIMARY KEY (`id`)
  ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `orders` ( 
@@ -316,6 +333,7 @@ $sqlInstallDatabase .="CREATE TABLE `orders` (
   `total` INT NOT NULL ,
   `promotion` INT NULL DEFAULT NULL ,
   `totalPay` INT NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `order_details` ( 
@@ -326,6 +344,7 @@ $sqlInstallDatabase .="CREATE TABLE `order_details` (
   `type` VARCHAR(225) NOT NULL , 
   `price` INT NULL DEFAULT NULL , 
   `quantity` INT NULL DEFAULT NULL , 
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;";
 
 $sqlInstallDatabase .="CREATE TABLE `campain_customers` ( `id` INT NOT NULL AUTO_INCREMENT , `id_campain` INT NOT NULL , `id_customer` INT NOT NULL , `create_at` INT NOT NULL , `code` INT NOT NULL , `note` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB; ";
