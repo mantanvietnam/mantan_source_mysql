@@ -3757,6 +3757,7 @@ tbody {
     margin-bottom: 41px;
     font-size: 14px;
     font-weight: 200;
+    line-height: 1.4;
 }
 
 .product-order-left-text {
@@ -3800,7 +3801,7 @@ tbody {
 }
 
 .product-order-detail {
-    margin-left: auto;
+    margin-left: 25px;
 }
 
 .order-right-title-input {
@@ -3935,6 +3936,9 @@ tbody {
         margin-top: 120px;
     }
 }
+
+
+
 
 @media(max-width: 445px) {
     .info-col .title-info-col {

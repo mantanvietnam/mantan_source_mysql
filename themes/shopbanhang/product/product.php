@@ -928,17 +928,33 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
 
                                     <button type="submit" class="btn btn-primary"  onclick="addComment()">Gửi</button>
-
-
-
-                                    
-
                                 </form>
                             </div>
                             
 
                         </div> 
-                    <?php } ?>
+                    <?php }else{?>
+                        <div class="product-detail-comment-right col-lg-4 col-12">
+                            <div class="product-detail-comment-right-title">
+                                <p>Gửi thảo luận</p>
+                            </div>
+
+                            <div class="product-detail-comment-right-title small-text">
+                                <p>Chia sẻ cảm nhận hoặc thắc mắc của bạn về sản phẩm này</p>
+                            </div>
+
+                            <div class="product-detail-rate-comment">
+                                <form action="">
+                                    <div class="product-detail-rate-comment-avata">
+                                        <img src="<?php echo $urlThemeActive ?>asset/image/user-placeholder.png" alt="">
+                                        <input type="text" class="form-control"name="comment" id="comment"  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+                                    </div>
+
+                                    <button type="button" class="send-no btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Gửi</button>
+                                </form>
+                            </div>
+                        </div> 
+                       <?php } ?>
                     </div>
                 </div>
             </div>

@@ -1300,8 +1300,25 @@ background: #555;
     background-size: contain;
 }
 
-.combo-4{
-    padding-top: 35px;
+.item-star-rating a{
+    font-size: 14px;
+    font-weight: 300;
+    display: block;
+    color: #000 !important;
+    border: 1px solid #EAEBEB;
+    padding: 4px 13px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.send-no{
+    padding: 6px 35px;
+    background-color: #008BCF;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+    display: flex;
+    margin-left: auto;
 }
 
 
@@ -1380,6 +1397,12 @@ background: #555;
     }
 }
 
+@media(max-width: 1440px) {
+    .banner-home-slide .slick-list {
+        height: 530px;
+    }
+}
+
 @media(max-width: 900px) and (min-width: 500px){
     #section-describe .describe-description img{
         width: 100% !important;
@@ -1413,7 +1436,13 @@ background: #555;
     }
 }
 
+
+
 @media(max-width: 445px) {
+    .combo-4{
+        padding-top: 35px;
+    }
+
     .product-detail-slide{
         height: 400px;
         overflow: hidden;

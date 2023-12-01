@@ -6,8 +6,8 @@ global $urlThemeActive;
         <section id="section-breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                  <li class="breadcrumb-item"><a href="#">Bài viết</a></li>
+                  <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                  <li class="breadcrumb-item"><a href="/news">Bài viết</a></li>
                   <li class="breadcrumb-item active">Chi tiết bài viết</li>
                 </ul>
             </div>
