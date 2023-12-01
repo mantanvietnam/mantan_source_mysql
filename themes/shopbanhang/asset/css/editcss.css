@@ -1395,6 +1395,10 @@ background: #555;
 }
 
 @media(max-width: 445px) {
+    .product-detail-group-button{
+        display: none;
+    }
+
     .table-border{
         display: none;
     }
