@@ -610,10 +610,19 @@
     right: 20px;
     position: absolute;
     margin-left: 10px;
+    background-color: #dbd8d8;
+    padding: 3px;
 }
 
 .posts {
     position: relative;
+}
+
+.product-details-rate-comment{
+    margin-bottom: 13px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 @media (max-width: 1025px) {

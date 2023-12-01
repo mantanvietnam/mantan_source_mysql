@@ -232,16 +232,16 @@ $slide_home= slide_home($setting['id_slide']);
                                         <img src="<?php echo $urlThemeActive;?>asset/image/policy1.png" alt="">
                                     </div>
                                     <div class="policy-item-text">
-                                        <strong>Miễn phí </strong>giao hàng <br> đơn hàng từ 2 triệu 
+                                        <strong>Miễn phí </strong>giao hàng <br> đơn hàng từ 1 triệu 
                                     </div>
                                 </div>
 
                                 <div class="roduct-detail-policy-item">
                                     <div class="policy-item-image">
-                                        <img src="<?php echo $urlThemeActive;?>asset/image/policy2.png" alt="">
+                                        <img src="<?php echo $urlThemeActive;?>asset/image/fastclock.jpg" alt="">
                                     </div>
                                     <div class="policy-item-text">
-                                        Chính sách <strong>bảo mật</strong> <br> thông tin khách hàng
+                                        <strong>Giao hàng nhanh chóng</strong> <br> toàn quốc
                                     </div>
                                 </div>
 
@@ -250,9 +250,9 @@ $slide_home= slide_home($setting['id_slide']);
                                         <img src="<?php echo $urlThemeActive;?>asset/image/policy3.png" alt="">
                                     </div>
                                     <div class="policy-item-text">
-                                        <strong>12 tháng bảo hành </strong>
+                                        <strong>Bảo hành 6 tháng </strong>
                                         <br>
-                                        <span>30 ngày 1 đổi 1 tại nhà</span>
+                                        <!-- <span>30 ngày 1 đổi 1 tại nhà</span> -->
                                     </div>
                                 </div>
 
@@ -261,10 +261,10 @@ $slide_home= slide_home($setting['id_slide']);
                                         <img src="<?php echo $urlThemeActive;?>asset/image/policy4.png" alt="">
                                     </div>
                                     <div class="policy-item-text">
-                                        <strong>7 ngày dùng thử</strong> 
+                                        <strong>Hỗ trợ đổi mới</strong> 
                                         <br>
                                         <span>
-                                            Trả hàng hoàn tiền nếu <br> khách hàng không hài lòng
+                                            Hỗ trợ 1 đổi 1 trong vòng <br> 7 ngày nếu có lỗi NSX
                                         </span>
                                     </div>
                                 </div>

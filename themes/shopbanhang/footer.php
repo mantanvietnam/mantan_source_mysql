@@ -82,10 +82,10 @@ $infoUser = $session->read('infoUser');
                             </div>
                             <div class="group-social">
                                 <ul>
-                                    <li><a href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -225,7 +225,7 @@ $infoUser = $session->read('infoUser');
                                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                         
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại">
+                                            <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại/Email">
                                         </div>
 
                                         <div class="mb-3">

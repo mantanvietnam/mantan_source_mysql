@@ -219,7 +219,7 @@ header{
 .topbar-button span{
     position: absolute;
     top: 17px;
-    left: 12px;
+    left: 21px;
     width: 16px;
     height: 16px;
     line-height: 15px;
@@ -1302,6 +1302,21 @@ background: #555;
 
 .combo-4{
     padding-top: 35px;
+}
+
+
+@media(min-width: 900px) and (max-width: 1024px){
+    .navbar-header .nav-item .nav-link {
+        margin: 0 7px;
+    }
+
+    .topbar-group-button a {
+        font-size: 12px;
+    }
+
+    .topbar-phone span{
+        font-size: 12px;
+    }
 }
 
 
