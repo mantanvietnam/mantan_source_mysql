@@ -321,7 +321,7 @@ $slide_home= slide_home($setting['id_slide']);
                            
                                 <?php   }else{ ?>
                                      <div class="button-like">
-                                        <a  class="like" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></a>
+                                        <a  class="like" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button></a>
                                         </div>
                                 <?php   } ?>
                             </div>
@@ -331,11 +331,25 @@ $slide_home= slide_home($setting['id_slide']);
 
                         <!-- Đặt hàng mobile -->
                         <section class="product-detail-group-mobile" id="product-cart-mobile-footer">
-                            <div class="product-detail-like-mobile">
-                                <div class="button-like" id="addlike">
+                            <div class="product-detail-like-mobile"  id="place-mobile">
+                                  <?php  
+                                     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                ?>
+                                <div class="button-like" id="addlikemobile">
+                                    
                                     <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
-                                    <p onclick="addlike()">Yêu thích</p>
+                                    <p >Yêu thích</p>
                                 </div>
+                                <div class="button-like" id="delelelikemobile">
+                                    <button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button>
+                                </div>
+                                 <?php   }else{ ?>
+                                     <div class="button-like">
+                                        <a  class="like" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button> <p >Yêu thích</p></a>
+                                        </div>
+                                <?php   } ?>
                             </div>
 
                             <div class="product-add-cart-mobile">
@@ -937,9 +951,15 @@ $(document).ready(function() {
          if(empty(getLike($infoUser['id'],$product->id,'product'))){ ?>
         $('#delelelike').remove();
         $('#addlike').show();
+
+        $('#delelelikemobile').remove();
+        $('#addlikemobile').show();
     <?php }else{ ?>
         $('#addlike').remove();
         $('#delelelike').show();
+
+        $('#addlikemobile').remove();
+        $('#delelelikemobile').show();
    <?php }} ?>
 });
 </script>
@@ -1010,10 +1030,13 @@ function addlike(){
                 document.getElementById("myLikeNoti").style.display = 'block';
                 document.getElementById("myLike").style.display = 'none';
                 
-                    html= '<div class="button-like" id="delelelike"><button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></div>'
+                    html= '<div class="button-like" id="delelelike"><button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""></button></div>';
+                    htmlmobile= '<div class="button-like" id="delelelikemobile"><button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""><p >Yêu thích</p></button></div>';
                 $('#addlike').remove();
+                $('#addlikemobile').remove();
 
                   document.getElementById("place-detail").innerHTML = html;
+                  document.getElementById("place-mobile").innerHTML = htmlmobile;
 
                   document.getElementById("number_like").innerHTML = res.number_like;
 
@@ -1036,10 +1059,13 @@ function delelelike(){
                     document.getElementById("myLike").style.display = 'block';
                     document.getElementById("myLikeNoti").style.display = 'none';
 
-                    html= '<div class="button-like" id="addlike"><button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button></div>'
+                    html= '<div class="button-like" id="addlikemobile"><button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button></div>'
+                    htmlmobile= '<div class="button-like" id="addlikemobile"><button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button><p >Yêu thích</p></div>'
                 $('#delelelike').remove();
+                $('#delelelikemobile').remove();
 
                   document.getElementById("place-detail").innerHTML = html;
+                  document.getElementById("place-mobile").innerHTML = htmlmobile;
 
                   document.getElementById("number_like").innerHTML = res.number_like;
                 }
