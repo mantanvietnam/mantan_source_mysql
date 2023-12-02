@@ -67,7 +67,7 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->user->full_name ?></span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                        <span><?php echo $value->product ?></span>
+                                                        <span><?php echo $value->product->title ?></span>
                                                     </h4>
                                                     <!-- <div class="five-star">
                                                         <ul>
@@ -86,7 +86,7 @@ $settinghom = setting();
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
-                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a>
+                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->product->image; ?>"></a>
                                             </div>
                                             <div class="icon-interact">
                                                 <?php  
