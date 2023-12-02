@@ -944,7 +944,7 @@ header {
     padding-top: 35px;
     padding-left: 25px;
     padding-right: 25px;
-    padding-bottom: 60px;
+    padding-bottom: 147px;
     background-color: #fff;
     border-radius: 0 0 50px 50px;
 }
@@ -994,7 +994,7 @@ header {
     line-height: 23px;
     margin-bottom: 0;
     position: absolute;
-    top: 18px;
+    top: -9px;
     z-index: 2;
     text-transform: uppercase;
     color: #fff;
@@ -1007,7 +1007,7 @@ header {
     object-fit: cover;
     width: 100%;
     position: absolute;
-    top: 2px;
+    top: -27px;
     z-index: 1;
     text-align: center;
 }
@@ -1968,5 +1968,40 @@ header {
     }
     #slide-home-shop>div.fp-overflow>section>div {
         padding-bottom: 30px;
+    }
+
+    .sevices-ft-text p {
+        line-height: 18px;
+    }
+
+    .sevices-ft-text p {
+        padding-top: 5px
+    }
+
+    .sevices-ft-text p {
+        font-size: 14px;
+    }
+
+    .sevices-ft-btn {
+        width: 105px;
+    }
+
+    .sevices-ft-btn p {
+        font-size: 14px;
+        top: -5px;
+    }
+
+    .sevices-ft-list-title {
+        height: 28px;
+    }
+
+    .sevices-ft-list-name {
+        font-size: 14px;
+        height: 20px;
+    }
+
+    .sevices-ft-list-name {
+        top: 4px;
+        left: 24px;
     }
 }

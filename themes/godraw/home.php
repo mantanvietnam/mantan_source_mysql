@@ -87,8 +87,8 @@
                                                 <ul>
                                                     <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
                                                     <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -106,8 +106,8 @@
                                                 <ul>
                                                     <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
                                                     <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -231,8 +231,16 @@
                                                 <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
                                             </div>
 
-                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
-
+                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                            </p>
                                             <div class="item-services-btn">
                                                 <a href="/tin-tuc.html">
                                                     <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
@@ -243,7 +251,7 @@
 
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
                                         <div class="item-sevices-name">
-                                            <p>Khách hàng doanh nghiệp</p>
+                                            <p>Workshop hội nghị</p>
                                             <div class="item-sevices-name-bg">
                                                 <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
                                             </div>
@@ -256,7 +264,16 @@
                                                 <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
                                             </div>
 
-                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
+                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                            </p>
 
                                             <div class="item-services-btn">
                                                 <a href="/tin-tuc.html">
@@ -268,7 +285,7 @@
 
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
                                         <div class="item-sevices-name">
-                                            <p>Khách hàng doanh nghiệp</p>
+                                            <p>Khách hàng cá nhân</p>
                                             <div class="item-sevices-name-bg">
                                                 <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
                                             </div>
@@ -281,8 +298,16 @@
                                                 <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
                                             </div>
 
-                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</p>
-
+                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                            </p>
                                             <div class="item-services-btn">
                                                 <a href="/tin-tuc.html">
                                                     <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
