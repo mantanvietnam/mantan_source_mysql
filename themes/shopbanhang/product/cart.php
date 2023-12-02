@@ -57,7 +57,7 @@ $price_total = 0;
                                         $total = 0;
                             
                                             foreach ($list_product as $key => $value) {
-                                            $link = '/product/'.$value->slug.'.html';
+                                            $link = '/san-pham/'.$value->slug.'.html';
                                             $total += 1;
                                             if($value->price_old){
                                                 $price_old = '<del>'.number_format($value->price_old).'₫</del>';
@@ -211,12 +211,12 @@ $price_total = 0;
                                                 <div class="cart-product-gift-item">
                                                     <div class="product-item-inner">
                                                         <div class="product-img">
-                                                            <a href="/product/<?php echo  $value->slug ?>.html"><img src="<?php echo $item->image ?>" alt="/product/<?php echo  $item->slug ?>.html"></a>
+                                                            <a href="/san-pham/<?php echo  $value->slug ?>.html"><img src="<?php echo $item->image ?>" alt="<?php echo  $item->title ?>"></a>
                                                         </div>
                             
                                                         <div class="product-info">
                                                             <div class="product-name">
-                                                                <a href="/product/<?php echo  $item->slug ?>.html"><?php echo  $item->title ?></a>
+                                                                <a href="/san-pham/<?php echo  $item->slug ?>.html"><?php echo  $item->title ?></a>
                                                             </div>
                                                             <div class="product-price">
                                                                 <?php if(!empty($item->pricepro_discount)){ ?>
@@ -263,7 +263,7 @@ $price_total = 0;
                                         $total = 0;
                             
                                             foreach ($list_product as $key => $value) {
-                                            $link = '/product/'.$value->slug.'.html';
+                                            $link = '/san-pham/'.$value->slug.'.html';
                                             $total += 1;
                                             if($value->price_old){
                                                 $price_old = '<del>'.number_format($value->price_old).'₫</del>';
@@ -369,12 +369,12 @@ $price_total = 0;
                                                 <div class="cart-product-gift-item">
                                                     <div class="product-item-inner">
                                                         <div class="product-img">
-                                                            <a href="/product/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt="/product/<?php echo  $value->slug ?>.html"></a>
+                                                            <a href="/san-pham/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt="<?php echo  $value->title ?>"></a>
                                                         </div>
                             
                                                         <div class="product-info">
                                                             <div class="product-name">
-                                                                <a href="/product/<?php echo  $value->slug ?>.html"><?php echo  $value->title ?></a>
+                                                                <a href="/san-pham/<?php echo  $value->slug ?>.html"><?php echo  $value->title ?></a>
                                                             </div>
                             
                                                             <div class="product-price">
@@ -969,7 +969,7 @@ $(document).ready(function() {
             url: "/addProductdiscountCart/?id_product="+idProduct+"&quantity=1&status="+status
         })
         .done(function( msg ) {
-            window.location = '/cart';
+            window.location = '/gio-hang';
         });
     }
 </script>
@@ -980,7 +980,7 @@ $(document).ready(function() {
             url: "/addProductToCart/?id_product="+idProduct+"&quantity=1&status="+status
         })
         .done(function( msg ) {
-           window.location = '/cart';
+           window.location = '/gio-hang';
             
         });
 

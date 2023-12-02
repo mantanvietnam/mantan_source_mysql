@@ -115,7 +115,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
                                                 if(@$value->description!='combo'){
-                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                    echo '  <li><a href="/danh-muc/'.$value->slug.'.html">'.$value->name.'</a></li>';
                                                 }
                                             }
                                         }
@@ -132,7 +132,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
                                                 if(@$value->description=='combo'){
-                                                    echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                    echo '  <li><a href="/danh-muc/'.$value->slug.'.html">'.$value->name.'</a></li>';
                                                 }
                                             }
                                         }
@@ -184,7 +184,7 @@ $slide_home= slide_home($setting['id_slide']);
                             <?php  if(!empty($list_product)){
                                 foreach ($list_product as $product) {
 
-                                	$link = '/product/'.$product->slug.'.html';
+                                	$link = '/san-pham/'.$product->slug.'.html';
                                 	 $giam = 0;
                                     if(!empty($product->price_old) && !empty($product->price)){
                                         $giam = 100 - 100*$product->price/$product->price_old;

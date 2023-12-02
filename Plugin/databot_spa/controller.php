@@ -35,4 +35,5 @@ include_once('controller/api/productController.php'); // api khách hàng
 include_once('controller/api/servicesController.php'); // api khách hàng
 include_once('controller/api/transactionHistoriesController.php'); // lịch sử nạp tiền
 include_once('controller/api/staffController.php'); // nhân viên
+include_once('controller/api/membersController.php'); // tài khoản spa
 ?>

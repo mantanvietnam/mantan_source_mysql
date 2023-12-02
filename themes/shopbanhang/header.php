@@ -78,7 +78,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         </form>
 
                         <div class="topbar-button">
-                            <a href="/cart">
+                            <a href="/gio-hang">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
                             </a>   
                         </div>
@@ -116,8 +116,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </div>
                              
                             <div class="topbar-button">
-                                <a href="/cart"><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
-                                <a href="/cart">Giỏ hàng</a>
+                                <a href="/gio-hang"><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
+                                <a href="/gio-hang">Giỏ hàng</a>
                                 <span id="count"><?php echo @$cart; ?></span>
 
                             </div>
@@ -279,7 +279,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </li>
 
                             <li>
-                                <a href="/cart">
+                                <a href="/gio-hang">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt="">
                                     <p>Giỏ hàng</p>
                                 </a>
