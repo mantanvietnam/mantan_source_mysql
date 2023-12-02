@@ -25,4 +25,9 @@
 	$routesPlugin['completeOrder']= 'product/view/home/completeOrder.php';
 	$routesPlugin['likeProduct']= 'product/view/home/likeProduct.php';
 	$routesPlugin['addNumberShare']= 'product/view/home/addNumberShare.php';
+
+	// việt hóa
+	$routesPlugin['danh-muc']= 'product/view/home/category.php';
+	$routesPlugin['san-pham']= 'product/view/home/product.php';
+	$routesPlugin['gio-hang']= 'product/view/home/cart.php';
 ?>

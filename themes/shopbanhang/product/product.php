@@ -406,7 +406,7 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
 
                     <div class="box-confirm-cart-bottom">
-                        <a href="/cart">Xem giỏ hàng</a>
+                        <a href="/gio-hang">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>
@@ -554,7 +554,7 @@ $slide_home= slide_home($setting['id_slide']);
                     <div class="product-like-slide">
                        <?php if(!empty($other_product)) { 
                             foreach($other_product as $item) {
-                                    $link = '/product/'.$item->slug.'.html';
+                                    $link = '/san-pham/'.$item->slug.'.html';
                                      $giam = 0;
                                     if(!empty($item->price_old) && !empty($item->price)){
                                         $giam = 100 - 100* @$item->price/@$item->price_old;
@@ -1278,7 +1278,7 @@ function deteleComment($id){
 
             document.getElementById("count").innerHTML = msg.count;
             if(status=='true'){
-                window.location = '/cart';
+                window.location = '/gio-hang';
             }else{
                 document.getElementById("myElement").style.display = 'block';
             }

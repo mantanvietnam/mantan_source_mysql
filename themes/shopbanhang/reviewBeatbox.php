@@ -172,7 +172,7 @@ $settinghom = setting();
                                             if(!empty($item->review)){
                                      ?>
                                     <div class="item-slick-product">
-                                        <a href="/product/<?php echo $item->slug ?>">
+                                        <a href="/san-pham/<?php echo $item->slug ?>">
                                             <img src="<?php echo $item->image; ?>">
                                             <p><?php echo $item->title; ?></p>
                                         </a>

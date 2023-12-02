@@ -49,7 +49,7 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="row">
                                 <?php if(!empty($list_product)){
                         foreach($list_product as $product){
-                            $link = '/product/'.$product->slug.'.html';
+                            $link = '/san-pham/'.$product->slug.'.html';
                                      $giam = 0;
                                     if(!empty($product->price_old) && !empty($product->price)){
                                         $giam = 100 - 100*$product->price/$product->price_old;
