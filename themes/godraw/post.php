@@ -1,12 +1,27 @@
 <?php getHeader();?>
 <style>
+	.wrapper-full {
+		padding: 0 46px;
+	}
+	body {
+		background: #fff !important;
+	}
 	footer {
-		display: none;
+		margin-top: 30px;
+		position: static !important;
+	}
+	main {
+		height: auto !important;
+	}
+	@media only screen and (max-width: 767px) {
+	.wrapper-full {
+		padding: 0 15px;
+	}
 	}
 </style>
 <main>
-	<section class="box-gallery">
-		<div class="container">
+	<section class="wrapper-full">
+		
 			<div class="wrapper-user">
 				<div class="head-tab text-center">
 					<ul>
@@ -23,6 +38,10 @@
 				<div class="content-user">
 					<div class="content-tab active" id="tab-1">
 						<div class="list-gallery">
+							<div class="row info mb-3">
+								<div class="date-post mr-3"><?php echo date('d/m/Y', $post->time);?></div>
+								<div class="date-author"><?php echo $post->author;?></div>
+							</div>
 							<div class="row">
 								<?php echo $post->content;?>
 							</div>
@@ -32,7 +51,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		
 	</section>
 </main>
 <?php getFooter();?>

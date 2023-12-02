@@ -65,15 +65,25 @@
                                                         <ul>';
 
                                                         foreach ($value->sub as $sub) {
-                                                            echo '<li><a href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                            $active = '';
+                                                            if(strpos($urlCurrent, $sub->link) !== false){
+                                                                $active = 'active';
+                                                            }
+
+                                                            echo '<li><a class="'.$active.'" href="'.$sub->link.'">'.$sub->name.'</a></li>';
                                                         }
                                         echo        '
                                                         </ul>
                                                     </div>
                                                 </li>';
                                     }else{
+                                        $active = '';
+                                        if(strpos($urlCurrent, $value->link) !== false){
+                                            $active = 'active';
+                                        }
+
                                         echo '  <li>
-                                                    <a href="'.$value->link.'">'.$value->name.'</a>
+                                                    <a class="'.$active.'" href="'.$value->link.'">'.$value->name.'</a>
                                                 </li>';
                                     }
                                 }

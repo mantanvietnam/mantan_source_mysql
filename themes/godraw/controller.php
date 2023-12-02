@@ -35,6 +35,9 @@ function settingHomeThemeGodraw($input)
                         'id_category_service' => $dataSend['id_category_service'],
                         'id_category_procedure' => $dataSend['id_category_procedure'],
 
+                        'id_menu_news' => $dataSend['id_menu_news'],
+                        'id_slide_news' => $dataSend['id_slide_news'],
+
     					
                     );
 
@@ -114,7 +117,16 @@ function searchTheme($input)
 
 function categoryPostTheme($input)
 {
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $settingThemes;
+
+    $slide_news = [];
+    if(!empty($settingThemes['id_slide_news'])){
+        $slide_news = $modelAlbuminfos->find()->where(['id_album'=>(int) $settingThemes['id_slide_news']])->all()->toList();
+    }
     
+    setVariable('slide_news', $slide_news);
 }
 
 function categoryAlbumTheme($input)
