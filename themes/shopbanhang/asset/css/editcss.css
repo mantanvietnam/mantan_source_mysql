@@ -1361,7 +1361,7 @@ background: #555;
 @media(min-width: 445px){
  
 
-   
+  
     
     #section-breadcrumb{
         margin-top: 137px;
@@ -2491,8 +2491,15 @@ background: #555;
     border: none;
 }
 
+
+
 /* respon màn mobile giỏ hàng */
 @media (max-width: 480px) {
+
+    .product-delete-mobile a{
+        color: #000;
+        padding-top: 20px;
+   }
     /*  Phần sản phẩm màn mobile  */
     #product-mobile {
         display: block;

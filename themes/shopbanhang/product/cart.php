@@ -190,6 +190,109 @@ $price_total = 0;
                                 </div>
                             </div>
                             <?php } ?>
+
+                             <!-- Cart -->
+                        <section id="product-mobile">
+                            <div class="container">
+                                <div class="product-mobile-group">
+                                    <!-- Sản phẩm -->
+                                     <?php if(!empty($list_product)){ 
+                                         $price_total = 0;
+                                        $total = 0;
+                            
+                                            foreach ($list_product as $key => $value) {
+                                            $link = '/san-pham/'.$value->slug.'.html';
+                                            $total += 1;
+                                            if($value->price_old){
+                                                $price_old = '<del>'.number_format($value->price_old).'₫</del>';
+                                            }else{
+                                                $price_old = '';
+                                            }
+                                            $price_buy  = 0;
+                                            $price_buy = @$value->price * @$value->numberOrder;
+                                            if($value->statuscart=="true"){
+                                                
+                                                $price_total += $price_buy;
+                                            }?>
+                                    <div class="combo-product-mobile">
+                                        <div class="product-mobile-radio">
+                                             <input class="form-check-input" type="checkbox" onclick="checkupdatecart(<?php echo $value->id ?>)" value="1" id="checkproduct<?php echo $value->id ?>" <?php  if($value->statuscart=='true'){echo 'checked';} ?>>
+                                        </div>
+                                        <div class="product-mobile-img">
+                                            <a href=""><img src="<?php echo $value->image ?>" alt=""></a>
+                                        </div>
+                                        <div class="product-mobile-detail">
+                                            <div class="product-mobile-name">
+                                                <p><?php echo $value->title ?></p>
+
+                                            </div>
+                                            <div class="product-mobile-cost">
+                                                <p>Giá</p>
+                                                <p><?php echo number_format($value->price); ?>đ</p>
+                                            </div>
+                                            <div class="product-mobile-quantity cart-product-number">
+                                                <p>Số lượng</p>
+                                                <div class="product-mobile-quantity-btn product-detail-number-item">
+                                                    <div class="qty-input">
+                                                        <!-- <button onclick="decreaseValue()" class="qty-count-minus" data-action="minus" type="button">-</button>
+                                                        <input id="valueInput" class="product-qty" type="text" name="product-qty" value="1" min="0">
+                                                        <button onclick="increaseValue()" class="qty-count-add" data-action="add" type="button">+</button> -->
+                                                         <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value->price ?>">
+
+                                                        <button onclick="minusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-minus" data-action="minus" type="button">-</button>
+                                                            <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
+                                                            <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
+                                                            <button onclick="plusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-add" data-action="add" type="button">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="product-delete-mobile">
+                                                <a href="/deleteProductCart/?id_product=<?php echo $value->id ?>"><i class="fa-regular fa-trash-can"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                   
+                                    <?php   if(!empty($list_product)){
+                                        foreach ($list_product as $key => $value) { 
+                                     if(!empty($value->present)){
+                                    foreach($value->present as $item){
+                                 
+                                    ?>
+                                    <!--  qua tang -->
+                                    <div class="present-mobile">
+                                        <div class="present-img">
+                                            <img src="<?php echo @$item->image ?>" alt="">
+                                        </div>
+                                        <div class="present-content">
+                                            <span>[  Quà tặng  ]</span>
+                                            <div class="present-detail">
+                                                <p><?php echo @$item->title ?></p>
+                                                <p>1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <?php }}}} ?>
+                                     <?php }else{ ?>
+                                        <div class="table-empty">
+                                            <div class="img-empty">
+                                                <img src="<?php echo $urlThemeActive ?>asset/image/emptyproduct.png" alt="">
+                                            </div>
+
+                                            <div class="text-empty">
+                                                 <p>Không có sản phẩm nào trong giỏ hàng</p>
+                                            </div>
+                                          
+                                            <div class="link-empty">
+                                                <a href="/">Tiếp tục mua sắm</a>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </section>
+
                             <?php $checkud = 0; ?>
                             <div class="cart-left-bottom chek checkud">
                                 <div class="title-cart-left-bottom">
@@ -253,103 +356,7 @@ $price_total = 0;
                             <?php } ?>
 
 
-                        <!-- Cart -->
-                        <section id="product-mobile">
-                            <div class="container">
-                                <div class="product-mobile-group">
-                                    <!-- Sản phẩm -->
-                                     <?php if(!empty($list_product)){ 
-                                         $price_total = 0;
-                                        $total = 0;
-                            
-                                            foreach ($list_product as $key => $value) {
-                                            $link = '/san-pham/'.$value->slug.'.html';
-                                            $total += 1;
-                                            if($value->price_old){
-                                                $price_old = '<del>'.number_format($value->price_old).'₫</del>';
-                                            }else{
-                                                $price_old = '';
-                                            }
-                                            $price_buy  = 0;
-                                            $price_buy = @$value->price * @$value->numberOrder;
-                                            if($value->statuscart=="true"){
-                                                
-                                                $price_total += $price_buy;
-                                            }?>
-                                    <div class="combo-product-mobile">
-                                        <div class="product-mobile-radio">
-                                             <input class="form-check-input" type="checkbox" onclick="checkupdatecart(<?php echo $value->id ?>)" value="1" id="checkproduct<?php echo $value->id ?>" <?php  if($value->statuscart=='true'){echo 'checked';} ?>>
-                                        </div>
-                                        <div class="product-mobile-img">
-                                            <a href=""><img src="<?php echo $value->image ?>" alt=""></a>
-                                        </div>
-                                        <div class="product-mobile-detail">
-                                            <div class="product-mobile-name">
-                                                <p><?php echo $value->title ?></p>
-
-                                            </div>
-                                            <div class="product-mobile-cost">
-                                                <p>Giá</p>
-                                                <p><?php echo number_format($value->price); ?>đ</p>
-                                            </div>
-                                            <div class="product-mobile-quantity cart-product-number">
-                                                <p>Số lượng</p>
-                                                <div class="product-mobile-quantity-btn product-detail-number-item">
-                                                    <div class="qty-input">
-                                                        <!-- <button onclick="decreaseValue()" class="qty-count-minus" data-action="minus" type="button">-</button>
-                                                        <input id="valueInput" class="product-qty" type="text" name="product-qty" value="1" min="0">
-                                                        <button onclick="increaseValue()" class="qty-count-add" data-action="add" type="button">+</button> -->
-                                                         <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value->price ?>">
-
-                                                        <button onclick="minusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-minus" data-action="minus" type="button">-</button>
-                                                            <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
-                                                            <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
-                                                            <button onclick="plusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-add" data-action="add" type="button">+</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
-                                   
-                                    <?php   if(!empty($list_product)){
-                                        foreach ($list_product as $key => $value) { 
-                                     if(!empty($value->present)){
-                                    foreach($value->present as $item){
-                                 
-                                    ?>
-                                    <!--  qua tang -->
-                                    <div class="present-mobile">
-                                        <div class="present-img">
-                                            <img src="<?php echo @$item->image ?>" alt="">
-                                        </div>
-                                        <div class="present-content">
-                                            <span>[  Quà tặng  ]</span>
-                                            <div class="present-detail">
-                                                <p><?php echo @$item->title ?></p>
-                                                <p>1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <?php }}}} ?>
-                                     <?php }else{ ?>
-                                        <div class="table-empty">
-                                            <div class="img-empty">
-                                                <img src="<?php echo $urlThemeActive ?>asset/image/emptyproduct.png" alt="">
-                                            </div>
-
-                                            <div class="text-empty">
-                                                 <p>Không có sản phẩm nào trong giỏ hàng</p>
-                                            </div>
-                                          
-                                            <div class="link-empty">
-                                                <a href="/">Tiếp tục mua sắm</a>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </section>
+                       
 
 
                             <div class="cart-left-bottom">

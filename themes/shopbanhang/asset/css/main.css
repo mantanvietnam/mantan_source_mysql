@@ -2475,17 +2475,21 @@ strong {
 }
 
 .stars .overlay {
-    background: #fff;
+    background: #c4c3c3;
     height: 100%;
     overflow: hidden;
-    mix-blend-mode: color;
+    mix-blend-mode: lighten;
     position: absolute;
     top: 0;
     right: 0;
 }
 
+.stars{
+    color: #000 !important;
+}
+
 .stars svg {
-    fill: gold;
+    fill: #000;
 }
 
 .product-detail-info-price-left .price-left-real p {
