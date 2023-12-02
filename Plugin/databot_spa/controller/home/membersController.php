@@ -362,6 +362,9 @@ function register($input)
 					
 					$modelWarehouse->save($dataWarehouse);
 
+					// gửi email thông báo tài khoản
+					sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['password']);
+
 			    	$mess = '<p class="text-success">Đăng ký phần mền quản lý SPA thành công</p>';
 		    	
 				}else{

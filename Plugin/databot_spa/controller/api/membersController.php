@@ -75,6 +75,9 @@ function createMemberAPI($input)
 				
 				$modelWarehouse->save($dataWarehouse);
 
+				// gửi email thông báo tài khoản
+				sendEmailRegAcc($data->email, $data->name, $data->phone, $dataSend['phone']);
+
 				$return = ['code'=>0, 'mess'=>'Đăng ký phần mền quản lý SPA thành công'];
 			}else{
 				$return = ['code'=>2, 'mess'=>'Số điện thoại đã tồn tại'];
