@@ -129,9 +129,9 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             <div class="mneu-desktop">
                 <nav class="navbar-header navbar navbar-expand-lg ">
                     <div class="container-fluid">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
-                        </button>
+                        </button> -->
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <!-- Menu mặc định -->
@@ -276,7 +276,14 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt="">
                                     <p>Tư vấn</p> 
                                     <div class="content-contact">
-                                        Liên hệ
+                                        <div class="content-group">
+                                            <div class="content-contact-item">
+                                                <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
+                                            </div>
+                                            <div class="content-contact-item content-contact-item-phone">
+                                                <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </a>
                             </li>

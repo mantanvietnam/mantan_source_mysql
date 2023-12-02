@@ -78,6 +78,10 @@ function settingHomeTheme($input){
 
                        'image-mobile' => @$dataSend['image-mobile'],
 
+                    //    Bo sung
+                    'contact-zalo-link' => @$dataSend['contact-zalo-link'],
+                    'contact-phone-link' => @$dataSend['contact-phone-link'],
+
                     );
 
     

@@ -155,7 +155,7 @@ function checkWindowSize() {
     var windowWidth = $(window).width();
 
     // Điều kiện để kiểm tra
-    if (windowWidth <= 425) {
+    if (windowWidth <= 431) {
         // Nếu màn hình lớn hơn hoặc bằng 768px, thì khởi tạo Slick.js
         $(".sevices-content .row").slick({
           arrows: true,

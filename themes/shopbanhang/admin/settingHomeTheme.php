@@ -136,6 +136,18 @@
                   <label class="form-label" for="basic-default-fullname">Tiktok</label>
                   <input type="text" class="form-control" name="email" value="<?php echo @$setting['email'];?>" />
                 </div>
+
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Link điện thoại</label>
+                  <input type="text" class="form-control" name="contact-phone-link" value="<?php echo @$setting['contact-phone-link'];?>" />
+                </div>  
+                
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Link Zalo</label>
+                  <input type="text" class="form-control" name="contact-zalo-link" value="<?php echo @$setting['contact-zalo-link'];?>" />
+                </div>   
+
+
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <label class="form-label" for="basic-default-fullname">phần ẢNh combo menu</label>
                 </div>
