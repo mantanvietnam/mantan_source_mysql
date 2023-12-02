@@ -1,8 +1,5 @@
 <?php getHeader();?>
 <style>
-	.wrapper-full {
-		padding: 0 46px;
-	}
 	body {
 		background: #fff !important;
 	}
@@ -21,8 +18,49 @@
    		 margin-top: 30px;
 	}
 	ul.news-menu li {
-    padding: 16px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #adadad;
+	}
+
+	ul.news-menu li a {
+		font-size: 18px;
+	}
+
+	ul.news-menu li a.active {
+		color: #0387FF;
+	}
+
+	@keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                    }
+
+
+                    50% {
+                        transform: scale(0.9);
+                    }
+
+                    100% {
+                        transform: scale(1)
+                    }
+    }
+
+	#top-news-row .item-news-wrap:first-child .item-news:before, #top-news-row .item-news-wrap:nth-child(2) .item-news:before, #top-news-row .item-news-wrap:nth-child(3) .item-news:before {
+		content: "NEW";
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		z-index: 999;
+		animation: 0.5s infinite pulse;
+		color: #fff;
+		font-weight: 900;
+		background: #FF0000;
+		width: 42px;
+		height: 42px;
+		text-align: center;
+		line-height: 45px;
+		border-radius: 100%;
+		font-size: 13px;
 	}
 
 	.slider {
@@ -203,8 +241,7 @@
 
 </style>
 <main>
-	
-	<div class="wrapper-full">
+	<div class="container">
 		<div class="top-news">
 		<div class="row">
 			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">	
@@ -375,13 +412,13 @@
 
 	<div class="content-news">		
 		<div class="list-news">
-			<div class="row">
+			<div class="row" id="top-news-row">
 					<?php
 					if(!empty($listPosts)){
 						foreach ($listPosts as $key => $value) {
 							$link = '/'.$value->slug.'.html';
 
-							echo '	<div class="col-md-3">
+							echo '	<div class="col-md-3 item-news-wrap">
 										<div class="item-news">
 											<div class="news-thumb">															
 												<a href="'.$link.'"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a>
@@ -399,7 +436,7 @@
 		<div class="pagination">
 			<ul>
 				<?php
-			            if($totalPage>0){
+			            if($totalPage>1){
 			                if ($page > 5) {
 			                    $startPage = $page - 5;
 			                } else {
@@ -425,7 +462,7 @@
 			    ?>
 			</ul>
 		</div> <!-- #pagination -->
-	</div> <!-- #content-news -->
+	</div> <!-- #container -->
 
 </main>
 <?php getFooter();?>

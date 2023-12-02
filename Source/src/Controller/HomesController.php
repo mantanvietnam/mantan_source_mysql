@@ -38,7 +38,8 @@ class HomesController extends AppController{
         $slug= $_SERVER['REQUEST_URI'];
        
         if(!empty($slug)){
-            $slug = str_replace('.html', '', $slug);
+            $slug = explode('.html', $slug);
+            $slug = $slug[0];
             $slug = str_replace('/', '', $slug);
 
             $conditions = array('slug'=>$slug);
@@ -185,21 +186,21 @@ class HomesController extends AppController{
         $category = $modelCategories->newEmptyEntity();
 
         if(!empty($slug)){
-            $slug = str_replace('.html', '', $slug);
+            $slug = explode('.html', $slug);
+            $slug = $slug[0];
             $slug = str_replace('/', '', $slug);
 
-            $conditions = array('slug'=>$slug);
+            $conditionsCate = array('slug'=>$slug);
 
-            $category = $modelCategories->find()->where($conditions)->first();
+            $category = $modelCategories->find()->where($conditionsCate)->first();
 
             if(!empty($category)){
-                $conditions = array('idCategory'=>$category->id);
+                $conditions['idCategory'] = $category->id;
             }else{
                 $category = $modelCategories->newEmptyEntity();
-                $conditions = ['type'=>'post'];
             }
         }
-
+        
         $limit = (!empty($infoSite['number_post']))?$infoSite['number_post']:12;
         $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
         if($page<1) $page = 1;
@@ -276,7 +277,8 @@ class HomesController extends AppController{
         $slug= $_SERVER['REQUEST_URI'];
        
         if(!empty($slug)){
-            $slug = str_replace('.html', '', $slug);
+            $slug = explode('.html', $slug);
+            $slug = $slug[0];
             $slug = str_replace('/', '', $slug);
 
             $conditions = array('slug'=>$slug);
@@ -333,7 +335,8 @@ class HomesController extends AppController{
         $category = $modelCategories->newEmptyEntity();
 
         if(!empty($slug)){
-            $slug = str_replace('.html', '', $slug);
+            $slug = explode('.html', $slug);
+            $slug = $slug[0];
             $slug = str_replace('/', '', $slug);
 
             $conditions = array('slug'=>$slug);
@@ -421,7 +424,8 @@ class HomesController extends AppController{
         $slug= $_SERVER['REQUEST_URI'];
        
         if(!empty($slug)){
-            $slug = str_replace('.html', '', $slug);
+            $slug = explode('.html', $slug);
+            $slug = $slug[0];
             $slug = str_replace('/', '', $slug);
 
             $conditions = array('slug'=>$slug);
@@ -474,7 +478,8 @@ class HomesController extends AppController{
         $category = $modelCategories->newEmptyEntity();
 
         if(!empty($slug)){
-            $slug = str_replace('.html', '', $slug);
+            $slug = explode('.html', $slug);
+            $slug = $slug[0];
             $slug = str_replace('/', '', $slug);
 
             $conditions = array('slug'=>$slug);
