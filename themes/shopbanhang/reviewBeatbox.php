@@ -67,7 +67,7 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->user->full_name ?></span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                        <span><?php echo $value->product ?></span>
+                                                        <span><?php echo $value->product->title ?></span>
                                                     </h4>
                                                     <!-- <div class="five-star">
                                                         <ul>
@@ -86,7 +86,7 @@ $settinghom = setting();
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
-                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a>
+                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->product->image; ?>"></a>
                                             </div>
                                             <div class="icon-interact">
                                                 <?php  
@@ -143,7 +143,7 @@ $settinghom = setting();
                                             </div>
                                         </div>
                                         <div class="detail-share-link">
-                                            <p>Những lưu ý cần biết để nhận thưởng 50.000đ:</p>
+                                            <p>Những lưu ý cần biết để nhận thưởng voucher 50k:</p>
                                             <ul>
                                                 <li>Video hợp lệ là video được đăng tải ở chế độ công khai trên ứng dụng TikTok hoặc bất cứ ứng dụng.</li>
                                                 <li>Chỉ ghi nhận 1 video đập hộp cho mỗi đơn hàng .</li>
@@ -194,7 +194,7 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->user->full_name ?></span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                        <span><?php echo $item->title ?></span>
+                                                        <!-- <span><?php echo $item->title ?></span> -->
                                                     </h4>
                                                     <!-- <div class="five-star">
                                                         <ul>
