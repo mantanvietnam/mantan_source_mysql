@@ -913,7 +913,7 @@ header {
 .sevices-content .item-sevices-img {
     height: 285px;
     overflow: hidden;
-    border-top: 30px solid #000;
+    /* border-top: 30px solid #000; */
 }
 
 
@@ -944,7 +944,7 @@ header {
     padding-top: 35px;
     padding-left: 25px;
     padding-right: 25px;
-    padding-bottom: 147px;
+    padding-bottom: 66px;
     background-color: #fff;
     border-radius: 0 0 50px 50px;
 }
@@ -1053,7 +1053,7 @@ header {
 
 #slide-home-service .container{
     padding: 0 30px;
-    max-width: 1470px;
+    /* max-width: 1470px; */
     height: 100vh;
 }
 
@@ -1202,6 +1202,9 @@ header {
     object-fit: cover;
 }
 
+.title-slide-vote{
+    justify-content: center;
+}
 
 
 @media (max-width: 1024px) {
@@ -1295,6 +1298,10 @@ header {
     .sevices-ft-list-items ul li{
         margin-top: 8px;
     }
+
+    .sevices-content .item-sevices-detail p {
+        height: 243px;
+    }
     
 }
 
@@ -1340,6 +1347,14 @@ header {
     }
     .slide-bot {
         height: calc(100vh - 449px);
+    }
+
+    .title-slide-vote {
+        font-size: 36px;
+    }
+
+    .title-slide-vote span {
+        font-size: 35px;
     }
 }
 
