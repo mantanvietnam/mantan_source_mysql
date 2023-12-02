@@ -1338,12 +1338,12 @@ background: #555;
 
 @media(min-width: 1920px){
     .banner-home-slide .slick-list {
-        width: 727px;
+        height: 727px;
     }
 }
 
 
-@media(min-width: 900px) and (max-width: 1024px){
+@media(min-width: 900px) and (max-width: 1025px){
     .navbar-header .nav-item .nav-link {
         margin: 0 7px;
     }
@@ -1692,9 +1692,16 @@ background: #555;
 
 
 @media(max-width: 445px) {
+
+    
     .content-contact-item img{
         height: 32px !important;
     }
+
+    .advertisement-slide{
+        gap: 10px
+    }
+
 
 
     .list-contact{
@@ -2104,6 +2111,34 @@ background: #555;
     }
 
     /* Respon trang chủ */
+    /* Trang chủ */
+    #section-comment-customer .title-section h2{
+        font-style: 30px;
+        line-height: 1.2;
+    }
+
+    #section-comment-customer{
+        padding-top: 40px;
+    }
+
+    .comment-text-description{
+        margin-bottom: 30px;
+    }
+
+    .comment-customer-slide{
+        margin-bottom: 30px;
+    }
+
+    .title-section-sub{
+        line-height: 1.4;
+        margin-bottom: 35px;
+    }
+
+    #section-comment-customer{
+        padding-bottom: 0;
+    }
+    /*  */
+
     .banner-home-slide .slick-list{
         height: auto;
     }
@@ -2172,10 +2207,11 @@ background: #555;
         padding: 0;
     }
     .advertisement-slide .advertisement-home-item {
-        height: 120px;
+        /* height: 148px; */
     }
     .advertisement-slide .advertisement-home-item img {
-        width: auto;
+        width: 250px;
+        
     }
     .advertisement-slide .advertisement-home-item {
         width: fit-content;
@@ -2230,6 +2266,10 @@ background: #555;
         padding-top: 30px;
         border-top: 1px solid #000;
     } */
+
+    #section-describe{
+        margin-bottom: 50px;
+    }
 
     #section-info-col{
         margin-bottom: 0;

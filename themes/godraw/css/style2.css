@@ -1226,6 +1226,10 @@ header {
 }
 
 @media (max-width: 431px) {
+    .sevices-content .item-sevices-detail {
+        border-radius: 0 0 35px 35px;
+    }
+
     .sevices-ft-list-name {
         height: 27px;
     }
@@ -1281,6 +1285,10 @@ header {
     #sevices-ft {
         padding-top: 35px;
         padding-bottom:24px ;
+    }
+
+    #slide-home-service .container{
+        padding: 67px 30px;
     }
 
     .sevices-ft-title img {
@@ -1459,7 +1467,7 @@ header {
 
 @media(max-width: 500px) {
     .box-banner-home-unset .video-banner video{
-        height: 414px !important;
+        height: 370px !important;
     }
 
     #slide-home-service .slick-dots {
@@ -1502,7 +1510,7 @@ header {
         font-size: 21px;
         margin-top: 0;
         margin-bottom: 30px;
-        padding-top: 80px;
+        padding-top: 30px;
     }
 
     .sevices-title .sevices-logo {
@@ -1964,7 +1972,7 @@ header {
 
 @media(max-width: 376px) {
     .sevices-content .item-sevices-detail p {
-        height: 34px;
+        height: 92px;
         -webkit-line-clamp: 3;
     }
 
@@ -2059,6 +2067,23 @@ header {
 
     .sevices-ft-content .col-lg-3.col-md-6 {
         margin-top: 11px;
+    }
+
+    .sevices-title {
+        font-size: 14px;
+        padding-top: 0;
+    }
+
+    .sevices-content .item-services-btn a{
+        font-size: 14px;
+    }
+
+    .sevices-content .item-sevices-detail {
+        height: 202px;
+    }
+
+    .sevices-title .sevices-logo {
+        width: 37px;
     }
 
     
