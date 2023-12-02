@@ -440,7 +440,7 @@ $price_total = 0;
                                                 <div class="bg-voucher">
                                                     <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
                                                 </div>
-                                                <div class="detail-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
+                                                <div class="detail-voucher">
                                                     <div class="logo-voucher">
                                                         <h3><?php echo $item->code; ?></h3>
                                                     </div>
@@ -453,7 +453,7 @@ $price_total = 0;
                                                         <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
                                                     <?php } ?>
                                                     </div>
-                                                    <div class="check-voucher">
+                                                    <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
                                                         <input class="form-check-input checkcode<?php echo @$key ?>"   type="radio" name="code<?php echo @$key ?>-<?php echo @$k ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                     </div>
                                                 </div>
