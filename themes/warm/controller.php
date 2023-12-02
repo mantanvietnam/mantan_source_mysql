@@ -124,7 +124,8 @@ function postTheme($input)
     $slug= $_SERVER['REQUEST_URI'];
        
     if(!empty($slug)){
-        $slug = str_replace('.html', '', $slug);
+        $slug = explode('.html', $slug);
+        $slug = $slug[0];
         $slug = str_replace('/', '', $slug);
 
         $conditions = array('slug'=>$slug);
