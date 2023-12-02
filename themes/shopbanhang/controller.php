@@ -502,7 +502,7 @@ function reviewBeatbox(){
   
     foreach($review as $k => $value){
 
-        $review[$k]->product = $modelProduct->find()->where(['code'=>$value->id_product])->first()->title;
+        $review[$k]->product = $modelProduct->find()->where(['code'=>$value->id_product])->first();
 
         $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
     }
@@ -553,13 +553,17 @@ function reviewProduct(){
     if(!empty($_GET['point'])){
         $conditionsEvaluat['point'] = $_GET['point'];
     }
+
+    if(!empty($_GET['image'])){
+        $conditionsEvaluat['image !='] = $_GET['image'];
+    }
     $evaluate = $modelEvaluate->find()->where($conditionsEvaluat)->order($order)->all()->toList();
 
 
 
    
             foreach($evaluate as $k => $value){
-                $evaluate[$k]->product = $modelProduct->find()->where(['id'=>$value->id_product])->first()->title;
+                $evaluate[$k]->product = $modelProduct->find()->where(['id'=>$value->id_product])->first();
             }
 
     

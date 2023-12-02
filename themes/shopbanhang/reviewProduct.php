@@ -64,7 +64,7 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->full_name ?></span> đã viết đánh giá sản phẩm
-                                                        <span><?php echo $value->product ?></span>
+                                                        <span><?php echo $value->product->title ?></span>
                                                     </h4>
                                                     <div class="five-star product-detail-rate-star">
                                                         
@@ -83,7 +83,7 @@ $settinghom = setting();
 
                                                 </div>
                                                 <div class="icon-product">
-                                                    <img src="<?php echo $item->image ?>">
+                                                    <img src="<?php echo $value->product->image ?>">
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
@@ -151,7 +151,7 @@ $settinghom = setting();
                                             <a href="/review_san_pham?point=5">5 sao</a>
                                         </div>
                                         <div class="item-star-rating">
-                                            <a href="/review_san_pham">Có hình ảnh/video</a>
+                                            <a href='/review_san_pham?image={"1":"","2":"","3":"","4":"","5":""}'>Có hình ảnh/video</a>
                                         </div>
                                     </div>
                                 </div>

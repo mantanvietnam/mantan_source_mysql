@@ -454,7 +454,7 @@ $price_total = 0;
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher">
-                                                        <input class="form-check-input checkcode<?php echo @$key ?>"   type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
+                                                        <input class="form-check-input checkcode<?php echo @$key ?>"   type="radio" name="code<?php echo @$key ?>-<?php echo @$k ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -868,7 +868,7 @@ $(document).ready(function() {
             $('#discountPrice2').html(html2);
 
             var  html3  = '';
-            document.getElementById("code2").value = code3;
+            document.getElementById("code3").value = code3;
             document.getElementById("discount_price3").value = d3;
             document.getElementById("discount3").value = discount3;
             var di3 = new Intl.NumberFormat().format(d3);
@@ -916,6 +916,7 @@ $(document).ready(function() {
             })
             .done(function(msg) {
                 if(msg.code==1){
+                    
                     if(msg.data.applicable_price<=totalPays){
                         const specifiedTime = new Date(msg.data.deadline_at);
                         const currentTime = new Date();
