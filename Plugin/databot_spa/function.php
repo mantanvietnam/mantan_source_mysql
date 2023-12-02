@@ -244,13 +244,13 @@ function sendEmailnewpassword($email='', $fullName='', $pass= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
-                            <span>Phần mềm quản lý Spa chuyên nghiệp</span>
+                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DATA SPA</span> <br>
+                            <span>Phần mềm quản lý SPA chuyên nghiệp</span>
                         </div>
-                        <ul class="list-unstyled" style=" font-size: 15px;">
-                            <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
-                            <li>Mobile: 0828266622</li>
-                            <li>Website: <a href="https://databot.vn">https://databot.vn</a></li>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Trần Ngọc Mạnh</li>
+                            <li>Mobile: 081.656.0000</li>
+                            <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
                         </ul>
                     </div>
 
@@ -510,12 +510,95 @@ function sendEmailAddMoney($email='', $fullName='', $coin= '')
                     <div class="thong_tin">
                         <div class="line"><div class="line1"></div></div>
                         <div class="cty">
-                            <span style="font-weight: bold;">CÔNG TY TNHH GIẢI PHÁP SỐ TOP TOP</span> <br>
-                            <span>Phần mềm quản lý SPA</span>
+                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DATA SPA</span> <br>
+                            <span>Phần mềm quản lý SPA chuyên nghiệp</span>
                         </div>
                         <ul class="list-unstyled" style="    font-size: 15px;">
                             <li>Hỗ trợ: Trần Ngọc Mạnh</li>
-                            <li>Mobile: 0816560000</li>
+                            <li>Mobile: 081.656.0000</li>
+                            <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
+function sendEmailRegAcc($email='', $fullName='', $user= '', $pass= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = '[DATASPA] ' . 'Tài khoản phần mềm quản lý SPA';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Tài khoản phần mềm quản lý SPA</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>THÔNG TIN TÀI KHOẢN</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        Bạn đã đăng ký sử dụng phần mềm quản lý SPA thành công, thông tin tài khoản của bạn như sau:
+                        <br/><br/>
+                        Link đăng nhập: <a href="https://admin.dataspa.vn">https://admin.dataspa.vn</a><br/>
+                        Tài khoản: '.$user.'<br/>
+                        Mật khẩu: '.$pass.'<br/>
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">PHẦN MỀM QUẢN LÝ DATA SPA</span> <br>
+                            <span>Phần mềm quản lý SPA chuyên nghiệp</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Trần Ngọc Mạnh</li>
+                            <li>Mobile: 081.656.0000</li>
                             <li>Website: <a href="https://dataspa.vn">https://dataspa.vn</a></li>
                         </ul>
                     </div>

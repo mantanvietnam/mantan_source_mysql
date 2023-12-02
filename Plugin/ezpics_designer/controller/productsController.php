@@ -642,7 +642,8 @@ function detailProduct($input)
 	$link_open_app = '';
 	
 	if(!empty($input['request']->getAttribute('params')['pass'][1])){
-		$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = $slug[0];
 		$slug = explode('-', $slug);
 		$count = count($slug)-1;
 		$id = (int) $slug[$count];
@@ -696,7 +697,8 @@ function detailSeries($input)
 	$link_open_app = '';
 	
 	if(!empty($input['request']->getAttribute('params')['pass'][1])){
-		$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
+		$slug = $slug[0];
 		$slug = explode('-', $slug);
 		$count = count($slug)-1;
 		$id = (int) $slug[$count];
