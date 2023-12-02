@@ -1022,12 +1022,12 @@ strong {
 /* Báo chí nói gì về Bumas */
 
 #section-tell .title-section {
-    margin-bottom: 31px;
+    margin-bottom: 30px;
 }
 
 #section-tell {
-    padding-top: 21px;
-    padding-bottom: 26px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     background-color: #EAEBEB;
 }
 
@@ -1129,7 +1129,7 @@ strong {
 .title-section-sub {
     font-size: 14px;
     font-weight: 200;
-    margin-top: 34px;
+    margin-top: 20px;
     margin-bottom: 65px;
     text-align: center;
 }
@@ -4055,6 +4055,11 @@ tbody {
         flex-direction: column;
     }
 
+    #section-footer .container{
+        padding-bottom: 78px;
+        margin-bottom: 22px;
+    }
+
 
     /* header */
     .menu-mobile-box ul li img {
@@ -4083,10 +4088,7 @@ tbody {
         padding: 19px 9px;
     }
 
-    #section-footer .container{
-        padding-bottom: 78px;
-        margin-bottom: 22px;
-    }
+   
 
     .menu-mobile-right{
         position: absolute;

@@ -129,9 +129,9 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             <div class="mneu-desktop">
                 <nav class="navbar-header navbar navbar-expand-lg ">
                     <div class="container-fluid">
-                        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
-                        </button> -->
+                        </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <!-- Menu mặc định -->
@@ -271,10 +271,13 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="/contact">
+                            <li class="list-contact">
+                                <a id="button-contact">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt="">
                                     <p>Tư vấn</p> 
+                                    <div class="content-contact">
+                                        Liên hệ
+                                    </div>
                                 </a>
                             </li>
 
@@ -350,7 +353,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                                    </div>
                                                         <?php }?>
                                              <div class="number-phone-mobile">
-                                                <p>Điện thoại tư vấn : <?php echo @$setting['phone'] ?></p>
+                                                <p>Điện thoại tư vấn :<a href="tel: <?php echo @$setting['phone'] ?>"> <?php echo @$setting['phone'] ?></a></p>
                                             </div>
                                         </div>
                                     </div>

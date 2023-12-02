@@ -1,6 +1,9 @@
 
 
 $(document).on('click', function (e) {
+  document.getElementById('button-contact').addEventListener('click', function() {
+    this.classList.toggle('active');
+  });
 
   $(document).ready(function(){
     // Sử dụng sự kiện click cho tất cả các radio button có class 'radioOption'

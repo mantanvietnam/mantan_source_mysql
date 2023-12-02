@@ -533,7 +533,7 @@ $slide_home= slide_home($setting['id_slide']);
                                             </button>
                                         </h2>
                                         <div id="questionBottom-collapse<?php echo $key ?>" class="accordion-collapse collapse" aria-labelledby="questionBottom-heading<?php echo $key ?>" data-bs-parent="#accordionquestionBottomExample">
-                                            <div class="accordion-body"><?php echo $item->answer ?></div>
+                                            <div class="accordion-body"><?php echo nl2br($item->answer) ?></div>
                                         </div>
                                     </div>
                                 <?php }} ?>
