@@ -246,14 +246,13 @@ $settinghom = setting();
                                         </div>
                                     </div>
                                     <div class="detail-share-link">
-                                        <p>Những lưu ý cần biết để nhận thưởng 50.000đ + 150 Lixicoin:</p>
+                                        <p>Những lưu ý cần biết để nhận thưởng voucher 50k:</p>
                                         <ul>
-                                            <li>Video hợp lệ là video được đăng tải ở chế độ công khai trên ứng dụng TikTok hoặc bất cứ ứng dụng nào với nội dung: Unboxing đơn hàng Bumas, hoặc review sản phẩm bạn mua tại Bumas.</li>
+                                            <li>Video hợp lệ là video được đăng tải ở chế độ công khai trên ứng dụng TikTok hoặc bất cứ ứng dụng.</li>
                                             <li>Chỉ ghi nhận 1 video đập hộp cho mỗi đơn hàng .</li>
-                                            <li>Caption cần đính kèm đầy đủ hashtag #Unboxing #Bumas</li>
                                             <li>Sau khi đăng tải Video và thực hiện đúng yêu cầu trên, dán link video vào mục "chia sẻ link video đập hộp".</li>
                                             <li>Đội ngũ Bumas sẽ
-                                                <span>ểm duyệt video trong vòng 48 giờ</span> làm việc (không tính Chủ nhật). Nếu đạt yêu cầu, bạn sẽ được
+                                                <span>kiểm duyệt video trong vòng 48 giờ</span> làm việc (không tính Chủ nhật). Nếu đạt yêu cầu, bạn sẽ được
                                                 <span>nhận ngay voucher 50k</span> vào kho voucher của bạn.
                                             </li>
                                         </ul>
