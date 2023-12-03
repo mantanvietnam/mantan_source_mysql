@@ -42,7 +42,7 @@
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                     </video>
                     <div class="auto-run-text">
-                        <marquee scrollamount="20" direction="right">Chào mừng bạn đến với GoDraw</marquee>
+                        <marquee scrollamount="5" direction="right">Chào mừng bạn đến với GoDraw</marquee>
                     </div>
                     
                 </div>
@@ -85,10 +85,10 @@
                                             </div>
                                             <div class="sevices-ft-list-items">
                                                 <ul>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khách hàng doanh nghiệp</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Tổ chức Workshop</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Giáo dục nghệ thuật</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Khách hàng cá nhân</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -99,15 +99,15 @@
                                             <div class="sevices-ft-list-title">
                                                 <img src="<?php echo $urlThemeActive;?>/images/bg1.png" alt="">
                                                 <div class="sevices-ft-list-name">
-                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DICH VU
+                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> Sản phẩm
                                                 </div>
                                             </div>
                                             <div class="sevices-ft-list-items">
                                                 <ul>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Khach hang doanh nghiep</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
-                                                    <li><i class="fa-solid fa-circle"></i> Du lịch truyền thống</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Giải trí - Thư dãn </li>
+                                                    <li><i class="fa-solid fa-circle"></i> Quảng bá du lịch</li>
+                                                    <li><i class="fa-solid fa-circle"></i> Ấn phẩm truyền thông</li>
+                                                    <li><i class="fa-solid fa-circle"></i>Trợ vẽ thông minh</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -224,25 +224,29 @@
                                             </div>
                                         </div>
                                         <div class="item-sevices-img">
-                                            <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
+                                            <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
                                         </div>
                                         <div class="item-sevices-detail">
                                             <div class="background-bottom-service">
                                                 <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
                                             </div>
 
-                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                            <p>
+                                                <span class="text-red-service">HỢP TÁC TRIỂN KHAI DỊCH VỤ GÔ DRAW TẠI QUÁN CAFE VÀ CÁC KHU VUI CHƠI GIẢI TRÍ</span>
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Đổi mới phong cách, tạo không gian vui chơi
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Quảng bá thương hiệu doanh nghiệp
+                                                <br>
+                                                - Tăng trưởng doanh thu lợi nhuận
+                                                <br>
+                                                - Không chi phí đầu tư
                                             </p>
                                             <div class="item-services-btn">
-                                                <a href="/tin-tuc.html">
+                                                <a href="/tin-moi-nhat.html">
                                                     <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
                                                 </a>
                                             </div>
@@ -257,26 +261,28 @@
                                             </div>
                                         </div>
                                         <div class="item-sevices-img">
-                                            <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
+                                            <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
                                         </div>
                                         <div class="item-sevices-detail">
                                             <div class="background-bottom-service">
                                                 <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
                                             </div>
 
-                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                            <p>
+                                                <span class="text-red-service">HỢP TÁC TỔ CHỨC WORKSHOP THEO KHUNG THỜI GIAN</span>
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Tạo sân chơi thỏa mãn đam mê
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Quảng bá thương hiệu doanh nghiệp
+                                                <br>
+                                                - Tối ưu chi phí, doanh thu và lơi nhuận
                                             </p>
 
                                             <div class="item-services-btn">
-                                                <a href="/tin-tuc.html">
+                                                <a href="/tin-moi-nhat.html">
                                                     <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
                                                 </a>
                                             </div>
@@ -291,25 +297,43 @@
                                             </div>
                                         </div>
                                         <div class="item-sevices-img">
-                                            <a href="/tin-tuc.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
+                                            <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
                                         </div>
                                         <div class="item-sevices-detail">
                                             <div class="background-bottom-service">
                                                 <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
                                             </div>
 
-                                            <p>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                            <p>
+                                                <span class="text-red-service">CUNG CẤP TRẢI NGHIỆM DỊCH VỤ VẼ TRANH GÔ DRAW TẠI CÁC ĐIỂM VẼ</span>
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Đổi mới phong cách, tạo không gian vui chơi
                                                 <br>
-                                                Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                - Quảng bá thương hiệu doanh nghiệp
+                                                <br>
+                                                - Tăng trưởng doanh thu và lợi nhuận
+                                                <br>
+                                                - Không chi phí đầu tư
+                                                <br>
+                                                <br>
+                                                <span class="text-red-service">CUNG CẤP DỊCH VỤ VẼ TRANH THEO Ý TƯỞNG</span>
+                                                <br>
+                                                <br>
+                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
+                                                <br>
+                                                - Đổi mới phong cách, tạo không gian vui chơi
+                                                <br>
+                                                - Quảng bá thương hiệu doanh nghiệp
+                                                <br>
+                                                - Tăng trưởng doanh thu và lợi nhuận
+                                                <br>
+                                                - Không chi phí đầu tư
                                             </p>
                                             <div class="item-services-btn">
-                                                <a href="/tin-tuc.html">
+                                                <a href="/tin-moi-nhat.html">
                                                     <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
                                                 </a>
                                             </div>
@@ -357,7 +381,7 @@
                         <div class="seach-shop-agency">
                               <!-- form select -->
                               <form action="/search-agency" method="get">
-                                        <div class="row mb-3">                    
+                                        <div class="row box-search-agency">                    
                                             <div class="col-md-2 col-6">
                                                 <p>Tên đại lý</p>
                                                 <input type="text" name="name_agency" value="" class="form-control">
@@ -396,7 +420,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="content-maps-left">
                                     <div class="list-showroom">
                                         <?php 
@@ -421,7 +445,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <div class="avr-maps">
                                     <?php include(__DIR__.'/godraw/findnear_openstreet_map.php');?>
                                 </div>

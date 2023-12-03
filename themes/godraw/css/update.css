@@ -684,7 +684,14 @@ img.khung-tranh {
 
 
 .content-footer{
-    background-color: rgb(12, 43, 82);
+    background: rgb(34,0,48);
+background: linear-gradient(124deg, rgba(34,0,48,1) 0%, rgba(49,5,96,1) 43%, rgba(40,9,107,1) 67%, rgba(0,21,40,1) 100%);
+}
+
+.copyright{
+    background: rgb(34,0,48);
+    background: linear-gradient(124deg, rgba(34,0,48,1) 0%, rgba(49,5,96,1) 43%, rgba(40,9,107,1) 67%, rgba(0,21,40,1) 100%);
+    color: #fff
 }
 
 .box-banner-home .btn-main {
