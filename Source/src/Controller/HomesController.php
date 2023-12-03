@@ -73,6 +73,10 @@ class HomesController extends AppController{
                 $limit = 3;
                 $page = 1;
                 $order = array('id'=>'desc');
+
+                if(!empty($data->idCategory)){
+                    $conditions['idCategory'] = $data->idCategory;
+                }
                 
                 $otherPosts = $modelPosts->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
