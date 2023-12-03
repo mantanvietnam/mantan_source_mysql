@@ -1214,6 +1214,10 @@ header {
     justify-content: center;
 }
 
+.seach-shop-agency button{
+    width: 100%;
+
+}
 
 @media (max-width: 1024px) {
     .sevices-ft-content .col-lg-6.col-md-12 {
@@ -1428,8 +1432,8 @@ header {
         width: 97%;
     }
     .iframe-map {
-        height: 547px;
-        max-height: 547px;
+        min-height: 352px;
+        height: 352px;
     }
 }
 
