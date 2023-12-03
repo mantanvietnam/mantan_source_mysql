@@ -15,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
+
 /**********************************************************
  *  Các file đã sửa
  *  1. /src/Controller/AppController.php sửa trong hàm initialize
@@ -72,11 +73,25 @@ global $isPost;
 global $isPage;
 global $isPlugin;
 
+global $isMobile;
+global $isTable;
+global $isDesktop;
+
 $isHome = false;
 $isCategory = false;
 $isPost = false;
 $isPage = false;
 $isPlugin = false;
+
+// kiểm tra thiết bị người dùng
+$isMobile = false;
+$isTable = false;
+$isDesktop = false;
+
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$isMobile = (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false);
+$isTablet = (strpos($userAgent, 'iPad') !== false || strpos($userAgent, 'Tablet') !== false);
+$isDesktop = !$isMobile && !$isTablet;
 
 if(isset($_SERVER['HTTPS'])){
     $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
@@ -86,7 +101,7 @@ else{
 }
 $urlHomes = $protocol . "://" . $_SERVER['HTTP_HOST'].'/';
 
-$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlHomes', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts', 'modelMenus', 'modelAlbums', 'modelAlbuminfos', 'modelVideos', 'metaImageMantan', 'isHome', 'isCategory', 'isPost', 'isPage', 'isPlugin');
+$variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlHomes', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts', 'modelMenus', 'modelAlbums', 'modelAlbuminfos', 'modelVideos', 'metaImageMantan', 'isHome', 'isCategory', 'isPost', 'isPage', 'isPlugin', 'isMobile', 'isTable', 'isDesktop');
 
 
 $metaTitleMantan = 'Mantan Source';
