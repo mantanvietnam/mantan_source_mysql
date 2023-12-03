@@ -20,25 +20,22 @@
         </ul>
     </div>
 
-    <div class="full-home-slider">
+    <div class="full-home-slider" id="slide-home-shop">
         
         <!-- Danh sách đại lý -->
         <div class="item-slide">
             <section class="box-maps">
                 <div class="container">
                     <div class="title text-center mb-0">
-                        <span>Danh sách đại lý GÔDRAW</span>
-                        <svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1181.45 57.9501H0.28125V46.8002C0.28125 21.1802 21.0513 0.410156 46.6713 0.410156H1135.05C1160.67 0.410156 1181.44 21.1802 1181.44 46.8002V57.9501H1181.45Z" fill="#1A3A89"/>
-                        </svg>
+                        <span>ĐỊA ĐIỂM CÓ DỊCH VỤ VẼ GÔ DRAW</span>
                     </div>
                     <div class="">
                         <form action="" method="get">
-                            <div class="row mb-3">
+                            <div class="row box-search-agency">
                             
                                 <div class="col-md-2">
-                                    <p>Tên đại lý</p>
-                                    <input type="text" name="name_agency" value="<?php echo @$_GET['name_agency'];?>" class="form-control">
+                                    <p>Tìm điểm vẽ</p>
+                                    <input placeholder="Nhập điểm vẽ ..." type="text" name="name_agency" value="<?php echo @$_GET['name_agency'];?>" class="form-control">
                                 </div>    
                                 <div class="col-md-2">
                                     <p>Tỉnh thành</p>
@@ -80,7 +77,7 @@
                         </form>
 
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="content-maps-left">
                                    
                                     <div class="list-showroom">
@@ -108,7 +105,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <div class="avr-maps">
                                     <?php include(__DIR__.'/findnear_openstreet_map.php');?>
                                 </div>

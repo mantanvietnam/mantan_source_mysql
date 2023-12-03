@@ -119,7 +119,7 @@
                     <div class="icon-user-head">
                         <a href="javascript:void(0)"><img src="<?php echo $urlThemeActive;?>/images/user_head.svg" class="img-fluid" alt=""></a>
                         <div class="sub-user">
-                            <p><a href="/myGallery">Ảnh của bạn</a></p>
+                            <p><a href="/myGallery">Phòng tranh của bạn</a></p>
                             <p><a href="/myOrder">Đơn hàng của bạn</a></p>
                             <p><a href="/changeProfile">Thông tin tài khoản</a></p>
                             <p><a href="/changePassUser">Đổi mật khẩu</a></p>
@@ -206,7 +206,7 @@
                             <div class="icon-user-head">
                                 <a href="javascript:void(0)"><img src="<?php echo $urlThemeActive;?>/images/user_head.svg" class="img-fluid" alt=""></a>
                                 <div class="sub-user">
-                                    <p><a href="/myGallery">Ảnh của bạn</a></p>
+                                    <p><a href="/myGallery">Phòng tranh của bạn</a></p>
                                     <p><a href="/myOrder">Đơn hàng của bạn</a></p>
                                     <p><a href="/changeProfile">Thông tin tài khoản</a></p>
                                     <p><a href="/changePassUser">Đổi mật khẩu</a></p>

@@ -8,15 +8,15 @@
 <main>
     <div class="social-home">
         <ul>
-            <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
+            <li><a href="<?php echo @$settingThemes['facebook'];?>" target="_blank"><img title="FACEBOOK" src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
 
-            <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
+            <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img title="YOUTUBE" src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
             
-            <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>
+            <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img title="TELEGRAM" src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>
             
-            <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>
+            <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img title="INSTAGRAM" src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>
             
-            <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
+            <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img title="ZALO" src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
         </ul>
     </div>
 
@@ -42,7 +42,7 @@
                         <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
                     </video>
                     <div class="auto-run-text">
-                        <marquee scrollamount="5" direction="right">Chào mừng bạn đến với GoDraw</marquee>
+                        <marquee scrollamount="5" direction="right">Chào mừng bạn đến với GôDraw</marquee>
                     </div>
                     
                 </div>
@@ -59,7 +59,7 @@
                                         <div class="sevices-ft-detail">
                                             <div class="sevices-ft-title">
                                                 <img src="<?php echo $urlThemeActive;?>/images/svfoot-icon.png" alt="">
-                                                <p>WELCOME to GODRAW</p>
+                                                <p>WELCOME to GÔDRAW</p>
                                             </div>
                                             <div class="sevices-ft-text">
                                                 <p>Là quy trình vẽ thông minh giúp bạn có thể hoàn thiện các bức tranh sơn dầu một cách chuyên nghiệp nhất, tác phẩm của bạn khi hoàn thiện sẽ có chất lượng tương đương với một họa sỹ chuyên nghiệp.</p>
@@ -68,7 +68,7 @@
                                                 <a href="">
 
                                                     <img src="<?php echo $urlThemeActive;?>/images/bgft-btn.png" alt="">
-                                                    <p>Pitch deck</p>
+                                                    <p>Về chúng tôi</p>
                                                 </a>
                                             </div>
 
@@ -80,7 +80,7 @@
                                             <div class="sevices-ft-list-title">
                                                 <img src="<?php echo $urlThemeActive;?>/images/bg1.png" alt="">
                                                 <div class="sevices-ft-list-name">
-                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DICH VU
+                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DỊCH VỤ
                                                 </div>
                                             </div>
                                             <div class="sevices-ft-list-items">
@@ -210,8 +210,8 @@
                             <div class="sevices-logo">
                                 <img src="<?php echo $urlThemeActive;?>/images/bag-icon.png" alt="">
                             </div>
-                            <p>Dịch vụ khách hàng</p>
-                            <span>GÔDRAW</span>
+                            <p>DỊCH VỤ</p>
+                            <!-- <span>GÔDRAW</span> -->
                         </div>
                         <section id="sevices">
                             <div class="sevices-content">
@@ -369,10 +369,10 @@
                     <div class="row">
                         <div class="col-12 title-search-home">
                             <div class="title text-center mb-0">
-                                <span>Danh sách Quán Vẽ GÔDRAW</span>
-                                <svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <span>ĐỊA ĐIỂM CÓ DỊCH VỤ VẼ GÔ DRAW</span>
+                                <!-- <svg width="1182" height="58" viewBox="0 0 1182 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1181.45 57.9501H0.28125V46.8002C0.28125 21.1802 21.0513 0.410156 46.6713 0.410156H1135.05C1160.67 0.410156 1181.44 21.1802 1181.44 46.8002V57.9501H1181.45Z" fill="#1A3A89"/>
-                                </svg>
+                                </svg> -->
                             </div>
                         </div>
                     </div>
@@ -383,8 +383,8 @@
                               <form action="/search-agency" method="get">
                                         <div class="row box-search-agency">                    
                                             <div class="col-md-2 col-6">
-                                                <p>Tên đại lý</p>
-                                                <input type="text" name="name_agency" value="" class="form-control">
+                                                <p>Tìm điểm vẽ</p>
+                                                <input placeholder="Nhập điểm vẽ ..." type="text" name="name_agency" value="" class="form-control">
                                             </div>    
                                             <div class="col-md-2 col-6">
                                                 <p>Tỉnh thành</p>
@@ -402,13 +402,13 @@
                                             <div class="col-md-3 col-6">
                                                 <p>Quận huyện</p>
                                                 <select name="district_id" id="district_id" class="form-control" onchange="selectDistrict();">
-                                                    <option value="">Chọn tỉnh thành</option>
+                                                    <option value="">Chọn quận huyện</option>
                                                 </select>
                                             </div>  
                                             <div class="col-md-3 col-6">
                                                 <p>Xã phường</p>
                                                 <select name="ward_id" id="ward_id" class="form-control">
-                                                    <option value="">Chọn xã phường</option>
+                                                    <option value="">Chọn phường xã</option>
                                                 </select>
                                             </div>    
                                             <div class="col-md-2">
@@ -461,10 +461,11 @@
                     <div class="logo-foter">
                         <div class="logo"><img src="/plugins/go_draw/view/agency/images/logo-footer.svg" class="img-fluid" alt=""></div>
                         <div class="txt-logo">
-                            <h4>CÔNG TY CỔ PHẦN NGHỆ THUẬT THÔNG MiNH</h4>
+                            <h4>CÔNG TY CỔ PHẦN GIẢI PHÁP NGHỆ THUẬT THÔNG MiNH</h4>
                             <ul>
-                                <li>Địa chỉ : So. 34A Tran Phu - Q. Ba Dinh - Tp. Ha Noi</li>
-                                <li>Số điện thoại: 09.8888.9999 - 09.6666.8888</li>
+                                <li>Địa chỉ : <?php echo @$contactSite['address'];?></li>
+                                <li>Điện thoại: </span> <?php echo @$contactSite['phone'];?></li>
+                                <li>Email: </span> </span><?php echo @$contactSite['email'];?></li>
                             </ul>
                         </div>
                     </div>

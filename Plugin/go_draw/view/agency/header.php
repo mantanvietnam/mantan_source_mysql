@@ -182,9 +182,12 @@
                         <a href="javascript:void(0);">Bán hàng</a>
                         <div class="submenu">
                             <ul>
-                                <li><a href="/sellProduct">Tạo đơn hàng</a></li>
+                                <!-- <li><a href="/sellProduct">Tạo đơn hàng</a></li>
                                 <li><a href="">Đơn hàng chờ</a></li>
-                                <li><a href="">Đơn hoàn thành</a></li>
+                                <li><a href="">Đơn hoàn thành</a></li> -->
+                                <li><a href="/checkCombo">Đặt tranh</a></li>
+                                    <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
+                                    <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
                             </ul>
                         </div>
                     </li>
@@ -193,14 +196,19 @@
                         <a href="javascript:void(0);">Mua hàng</a>
                         <div class="submenu">
                             <ul>
-                                <li><a href="/listCombo">Tạo đơn mua</a></li>
+                                <!-- <li><a href="/listCombo">Tạo đơn mua</a></li>
                                 <li><a href="">Đơn đã mua</a></li>
-                                <li><a href="">Đơn đã thanh toán</a></li>
+                                <li><a href="">Đơn đã thanh toán</a></li> -->
+                                <li><a href="/listProduct">Tạo đơn mua</a></li>
+                                    <li><a href="/orderProductWait">Chờ duyệt</a></li>
+                                    <li><a href="/orderProductProcess">Chờ nhập kho</a></li>
+                                    <li><a href="/orderProductDone">Đã thanh toán</a></li>
                             </ul>
                         </div>
                     </li>
 
-                    
+                    <li><a href="/warehouse">Kho hàng</a></li>
+                    <li><a href="/profile">Thông tin tài khoản</a></li>
                     <li><a href="/changePass">Đổi mật khẩu</a></li>
                     <li><a href="/logout">Đăng xuất</a></li>
                     <?php }?>
