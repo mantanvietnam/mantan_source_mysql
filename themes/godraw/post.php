@@ -221,11 +221,13 @@
 						<div class="single-bottom">
 							<div class="single-social-share">
 								<ul>
-									<li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo @$settingThemes['facebook'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
-									<li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>                              
-									<li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>                               
-									<li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>                               
-									<li><a href="https://twitter.com/intent/tweet?text=Ngày 20/11 với Lòng biết ơn vô hạn&amp;url=<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
+									<li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/facebook.png" class="img-fluid btn-effect" alt=""></a></li>
+									
+
+									<li><a href="https://telegram.me/share/url?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>   
+
+									                         
+									<li><a href="http://twitter.com/share?url=<?php echo urlencode($urlHomes.$urlCurrent);?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
 								</ul>
 							</div>
 							<div class="post-author">Tác giả: <strong><?php echo $post->author;?></strong></div>		
