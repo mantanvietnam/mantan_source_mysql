@@ -14,10 +14,26 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/lib/slick-theme.min.css"> 
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/jquery.mmenu.all.css">
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <!-- <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css"> -->
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        @keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                    }
 
+
+                    50% {
+                        transform: scale(0.9);
+                    }
+
+                    100% {
+                        transform: scale(1)
+                    }
+         }
+    </style>    
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet"> -->
@@ -180,6 +196,9 @@
                     </div>
                 </div>
                 
+                <div class="header-new-icon">        
+                    <a href="https://godraw.vn/tin-moi-nhat.html"><img style="animation: 0.5s infinite pulse;" src="/themes/godraw/images/new-icon.png" class="img-fluid" alt="" width="37px;" ></a>    
+                </div>
                 <div class="right-mb">
                     <ul>
                         <?php if(!empty($session->read('infoMember'))){ ?>
