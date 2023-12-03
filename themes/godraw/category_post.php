@@ -169,8 +169,21 @@
 	.previous_btn:hover, .next_btn:hover {
 	opacity: 1;
 	}
+	#top-news-mb {
+		display: none;
+	}
+	#top-news-pc {
+		display: block;
+	}
 
 	@media only screen and (max-width: 767px) {
+	#top-news-mb {
+		display: block;
+		margin-top: 60px;
+	}
+	#top-news-pc {
+		display: none;
+	}
 	.previous_btn {
 		left: 50px;
 	}
@@ -181,7 +194,7 @@
 		padding: 0 15px;
 	}
 	.top-news {
-		margin-top: 60px;
+		margin-top: 0px;
 		margin-bottom: 20px;
 	}
 	}
@@ -239,13 +252,70 @@
 		color: #000;
 	}
 
+	swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+	ul.news-menu-mb {
+		white-space: nowrap;
+   		overflow-x: auto;
+   		overflow-y: hidden;
+		text-align: center;
+		background: #0F8DF4;
+	}
+
+	ul.news-menu-mb::-webkit-scrollbar {
+		display: none;
+	}
+
+	ul.news-menu-mb li {
+		display: inline-block;
+		border-radius: 100px;
+		margin: 5px;
+		transition: all .2s ease-in-out;
+	}
+	ul.news-menu-mb li a {
+		color: #fff;
+		padding: 10px;
+		display: block;
+	}
+
 </style>
 <main>
-	<div class="container">
-		<div class="top-news">
-		<div class="row">
-			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">	
-				<ul class="news-menu">
+
+	<div class="top-news" id="top-news-mb">
+		<swiper-container class="mySwiper" pagination="true" pagination-clickable="true" loop="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">											
+					<?php 
+							if(!empty($slide_news)){
+								foreach ($slide_news as $key => $value) {
+									echo '	<swiper-slide>
+												<a href="'.$value->link.'">
+													<img src="'.$value->image.'">
+												</a>
+											</swiper-slide>';
+								}
+							}
+					?>
+			
+		</swiper-container>
+		<ul class="news-menu-mb">
 					<?php 
 						global $settingThemes;
 
@@ -288,181 +358,193 @@
 					?>
 
 
+		</ul>
+		<div class="container">
+		<div class="content-news">		
+			<div class="list-news">
+				<div class="row" id="top-news-row">
+						<?php
+						if(!empty($listPosts)){
+							foreach ($listPosts as $key => $value) {
+								$link = '/'.$value->slug.'.html';
+
+								echo '	<div class="col-md-3 item-news-wrap">
+											<div class="item-news">
+												<div class="news-thumb">															
+													<a href="'.$link.'"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a>
+												</div>
+												<div class="news-title">
+														<h2><a href="'.$link.'">'.$value->title.'</a></h2>
+												</div>
+											</div>
+										</div>';
+							}
+						}
+						?>
+				</div><!-- #row -->
+			</div><!-- #list-news -->
+
+			<div class="pagination">
+				<ul>
+					<?php
+							if($totalPage>1){
+								if ($page > 5) {
+									$startPage = $page - 5;
+								} else {
+									$startPage = 1;
+								}
+
+								if ($totalPage > $page + 5) {
+									$endPage = $page + 5;
+								} else {
+									$endPage = $totalPage;
+								}
+								
+								echo '<li><a href="'.$urlPage.'1"><img src="/plugins/go_draw/view/agency/images/arr-left.svg" class="img-fluid" alt=""></a></li>';
+								
+								for ($i = $startPage; $i <= $endPage; $i++) {
+									$active= ($page==$i)?'active':'';
+
+									echo '<li><a href="'.$urlPage.$i.'" class="'.$active.'">'.$i.'</a></li>';
+								}
+
+								echo '<li><a href="'.$urlPage.$totalPage.'"><img src="/plugins/go_draw/view/agency/images/arr-right.svg" class="img-fluid"></a></li>';
+							}
+					?>
 				</ul>
-			</div><!-- End menu -->
-			<div class="col-lg-9 col-md-6 col-sm-6 col-xs-12">	
-				<div class="slider">
-					<div class="slide_viewer">
-						<div class="slide_group">
-							<?php 
-							if(!empty($slide_news)){
-								foreach ($slide_news as $key => $value) {
-									echo '	<div class="slide">
-												<a href="'.$value->link.'">
-													<img src="'.$value->image.'">
-												</a>
-											</div>';
+			</div> <!-- #pagination -->
+		</div>	<!-- #content-news -->
+		</div>
+	</div>	
+
+	<div class="container">
+		<div class="top-news" id="top-news-pc">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">	
+					<ul class="news-menu">
+						<?php 
+							global $settingThemes;
+
+							$menu = getMenusDefault($settingThemes['id_menu_news']);
+
+							if(!empty($menu)){
+								foreach($menu as $key => $value){
+									if(!empty($value->sub)){
+										echo '  <li>
+													<a href="javascript:void(0);">
+														'.$value->name.'
+													</a>
+													<div class="submenu">
+														<ul>';
+
+														foreach ($value->sub as $sub) {
+															$active = '';
+															if(strpos($urlCurrent, $sub->link) !== false){
+																$active = 'active';
+															}
+
+															echo '<li><a href="'.$sub->link.'" class="'.$active.'">'.$sub->name.'</a></li>';
+														}
+										echo        '
+														</ul>
+													</div>
+												</li>';
+									}else{
+										$active = '';
+										if(strpos($urlCurrent, $value->link) !== false){
+											$active = 'active';
+										}
+
+										echo '  <li>
+													<a class="'.$active.'" href="'.$value->link.'">'.$value->name.'</a>
+												</li>';
+									}
 								}
 							}
-							?>
-						</div>
-					</div>
-					<div class="slide_buttons"></div>
-				</div><!-- End // .slider -->	
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-				<script>
-					$('.slider').each(function() {
-					var $this = $(this);
-					var $group = $this.find('.slide_group');
-					var $slides = $this.find('.slide');
-					var bulletArray = [];
-					var currentIndex = 0;
-					var timeout;
+						?>
+
+
+					</ul>
+				</div><!-- End menu -->
+				<div class="col-lg-9 col-md-6 col-sm-6 col-xs-12">	
+					<swiper-container class="mySwiper" pagination="true" pagination-clickable="true" loop="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">											
+						<?php 
+								if(!empty($slide_news)){
+									foreach ($slide_news as $key => $value) {
+										echo '	<swiper-slide>
+													<a href="'.$value->link.'">
+														<img src="'.$value->image.'">
+													</a>
+												</swiper-slide>';
+									}
+								}
+						?>
+				
+					</swiper-container>
+					<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 					
-					function move(newIndex) {
-						var animateLeft, slideLeft;
-						
-						advance();
-						
-						if ($group.is(':animated') || currentIndex === newIndex) {
-						return;
-						}
-						
-						bulletArray[currentIndex].removeClass('active');
-						bulletArray[newIndex].addClass('active');
-						
-						if (newIndex > currentIndex) {
-						slideLeft = '100%';
-						animateLeft = '-100%';
-						} else {
-						slideLeft = '-100%';
-						animateLeft = '100%';
-						}
-						
-						$slides.eq(newIndex).css({
-						display: 'block',
-						left: slideLeft
-						});
-						$group.animate({
-						left: animateLeft
-						}, function() {
-						$slides.eq(currentIndex).css({
-							display: 'none'
-						});
-						$slides.eq(newIndex).css({
-							left: 0
-						});
-						$group.css({
-							left: 0
-						});
-						currentIndex = newIndex;
-						});
-					}
-					
-					function advance() {
-						clearTimeout(timeout);
-						timeout = setTimeout(function() {
-						if (currentIndex < ($slides.length - 1)) {
-							move(currentIndex + 1);
-						} else {
-							move(0);
-						}
-						}, 4000);
-					}
-					
-					$('.next_btn').on('click', function() {
-						if (currentIndex < ($slides.length - 1)) {
-						move(currentIndex + 1);
-						} else {
-						move(0);
-						}
-					});
-					
-					$('.previous_btn').on('click', function() {
-						if (currentIndex !== 0) {
-						move(currentIndex - 1);
-						} else {
-						move(3);
-						}
-					});
-					
-					$.each($slides, function(index) {
-						var $button = $('<a class="slide_btn">&bull;</a>');
-						
-						if (index === currentIndex) {
-						$button.addClass('active');
-						}
-						$button.on('click', function() {
-						move(index);
-						}).appendTo('.slide_buttons');
-						bulletArray.push($button);
-					});
-					
-					advance();
-					});
-				</script>			
-			</div>			
-		</div><!-- #End row -->
+				</div>			
+			</div><!-- #End row -->
 		<div><!-- #End Topnews -->
 
-				
-				
-					
-	</div>
 
-	<div class="content-news">		
-		<div class="list-news">
-			<div class="row" id="top-news-row">
-					<?php
-					if(!empty($listPosts)){
-						foreach ($listPosts as $key => $value) {
-							$link = '/'.$value->slug.'.html';
+		<div class="content-news">		
+			<div class="list-news">
+				<div class="row" id="top-news-row">
+						<?php
+						if(!empty($listPosts)){
+							foreach ($listPosts as $key => $value) {
+								$link = '/'.$value->slug.'.html';
 
-							echo '	<div class="col-md-3 item-news-wrap">
-										<div class="item-news">
-											<div class="news-thumb">															
-												<a href="'.$link.'"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a>
+								echo '	<div class="col-md-3 item-news-wrap">
+											<div class="item-news">
+												<div class="news-thumb">															
+													<a href="'.$link.'"><img src="'.$value->image.'" class="img-fluid w-100" alt=""></a>
+												</div>
+												<div class="news-title">
+														<h2><a href="'.$link.'">'.$value->title.'</a></h2>
+												</div>
 											</div>
-											<div class="news-title">
-													<h2><a href="'.$link.'">'.$value->title.'</a></h2>
-											</div>
-										</div>
-									</div>';
+										</div>';
+							}
 						}
-					}
+						?>
+				</div><!-- #row -->
+			</div><!-- #list-news -->
+
+			<div class="pagination">
+				<ul>
+					<?php
+							if($totalPage>1){
+								if ($page > 5) {
+									$startPage = $page - 5;
+								} else {
+									$startPage = 1;
+								}
+
+								if ($totalPage > $page + 5) {
+									$endPage = $page + 5;
+								} else {
+									$endPage = $totalPage;
+								}
+								
+								echo '<li><a href="'.$urlPage.'1"><img src="/plugins/go_draw/view/agency/images/arr-left.svg" class="img-fluid" alt=""></a></li>';
+								
+								for ($i = $startPage; $i <= $endPage; $i++) {
+									$active= ($page==$i)?'active':'';
+
+									echo '<li><a href="'.$urlPage.$i.'" class="'.$active.'">'.$i.'</a></li>';
+								}
+
+								echo '<li><a href="'.$urlPage.$totalPage.'"><img src="/plugins/go_draw/view/agency/images/arr-right.svg" class="img-fluid"></a></li>';
+							}
 					?>
-			</div><!-- #row -->
-		</div><!-- #list-news -->
-		<div class="pagination">
-			<ul>
-				<?php
-			            if($totalPage>1){
-			                if ($page > 5) {
-			                    $startPage = $page - 5;
-			                } else {
-			                    $startPage = 1;
-			                }
+				</ul>
+			</div> <!-- #pagination -->
+		</div>	<!-- #content-news -->
+								
 
-			                if ($totalPage > $page + 5) {
-			                    $endPage = $page + 5;
-			                } else {
-			                    $endPage = $totalPage;
-			                }
-			                  
-			                echo '<li><a href="'.$urlPage.'1"><img src="/plugins/go_draw/view/agency/images/arr-left.svg" class="img-fluid" alt=""></a></li>';
-			                  
-			                for ($i = $startPage; $i <= $endPage; $i++) {
-			                    $active= ($page==$i)?'active':'';
-
-			                    echo '<li><a href="'.$urlPage.$i.'" class="'.$active.'">'.$i.'</a></li>';
-			                }
-
-			                echo '<li><a href="'.$urlPage.$totalPage.'"><img src="/plugins/go_draw/view/agency/images/arr-right.svg" class="img-fluid"></a></li>';
-			            }
-			    ?>
-			</ul>
-		</div> <!-- #pagination -->
-	</div> <!-- #container -->
-
+	</div> <!-- #container -->					
 </main>
 <?php getFooter();?>
+
