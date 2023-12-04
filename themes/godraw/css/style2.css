@@ -1309,7 +1309,10 @@ header {
         width: 50%;
     }
 
-    
+    .title-search-home .title{
+        background: transparent;
+    }
+
 }
 
 @media (max-width: 431px) {
@@ -2093,6 +2096,15 @@ header {
 }
 
 @media(max-width: 376px) {
+    #slide-home-shop{
+        justify-content: start;
+    }
+
+    #slide-home-shop>div.fp-overflow>section>div{
+        padding-bottom: 30px;
+        padding-top: 60px;
+    }
+
     .sevices-content .item-sevices-detail p {
         height: 92px;
         -webkit-line-clamp: 3;

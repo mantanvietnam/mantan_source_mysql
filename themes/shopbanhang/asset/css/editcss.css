@@ -1433,6 +1433,10 @@ background: #555;
 /* tablet */
 @media(max-width: 900px) and (min-width: 500px){
 
+    #section-breadcrumb {
+        margin-top: 103px;
+    }
+
     .product-slide-right-img img{
         width: 100%;
         height: auto;
@@ -1475,7 +1479,11 @@ background: #555;
     }
 
     .banner-home-slide .slick-list {
-        height: 394px;
+        height: 294px;
+
+    }
+
+    .banner-home-edit .slick-list{
     }
 
     .banner-home-margin{
@@ -1483,7 +1491,7 @@ background: #555;
     }
 
     .container .banner-home-slide .slick-list{
-        height: 348px;
+        height: 268px;
     }
 
     .navbar-toggler{
