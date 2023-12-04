@@ -10,13 +10,16 @@ $slide_home= slide_home($setting['id_slide']);
 
 ?>
 
+
 <main>
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                  <li class="breadcrumb-item"><a href="/allProduct">Sản Phẩm</a></li>
+                  <li class="breadcrumb-item"><a href=""><?php echo($category->name) ?></a></li>
                   <!-- <li class="breadcrumb-item active">Data</li> -->
+                  <!-- <?php debug($category); ?> -->
+
                 </ul>
             </div>
         </section>

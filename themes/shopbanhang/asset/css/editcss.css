@@ -2266,6 +2266,10 @@ background: #555;
         padding-top: 30px;
         border-top: 1px solid #000;
     } */
+    .product-code-discount-item{
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 
     #section-describe{
         margin-bottom: 50px;
@@ -2350,6 +2354,23 @@ background: #555;
         right: 0;
         font-family: "Font Awesome 6 Free";
         font-weight: bold;
+    }
+
+    /* Chuyên mục sản phẩm */
+    .category-product-item{
+        display: none;
+    }
+
+    .search-form-category {
+        margin-top: 10px;
+    }
+
+    #section-cateogry-product > .container > .row{
+        flex-direction: column-reverse;
+    }
+
+    #section-cateogry-product .mb-5{
+        margin-bottom: 49px !important;
     }
 
 }

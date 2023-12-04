@@ -1658,6 +1658,7 @@ header {
     }
     .logo-foter h4 {
         font-size: 12px;
+        text-align: center;
     }
     .logo-foter .logo img {
         font-size: 54px;
@@ -1666,6 +1667,7 @@ header {
         display: flex;
         flex-direction: column;
         align-items: start;
+        padding: 5px 35px;
     }
     .subscribe-fter {
         margin-top: 10px;
