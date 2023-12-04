@@ -432,7 +432,7 @@ $slide_home= slide_home($setting['id_slide']);
 
             <div class="box-confirm-cart box-confirm-like" id="myComment"  style=" display: none; ">
                 <div class="box-confirm-cart-title confirm-like">
-                    <p>Cảm ơn bạn đã gửi bình luận, bình luân của bạn đang chờ duyệt</p>
+                    <p>Cảm ơn bạn đã gửi bình luận, bình luận của bạn đang chờ duyệt</p>
                     <div class="close-button">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
