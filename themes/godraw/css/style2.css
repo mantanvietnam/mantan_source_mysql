@@ -864,8 +864,13 @@ header {
 .title-search-home .title span{
     position: relative;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     text-align: center;
+}
+
+.iconmarket i{
+    font-size: 37px;
+    margin-bottom: 5px;
 }
 
 .item-for .heart {
@@ -1499,7 +1504,7 @@ header {
     }
 
     #slide-home-shop{
-        padding-bottom: 80px;
+        padding-bottom: 93px;
     }
 
     .slide-bot .heart img {
@@ -1578,6 +1583,10 @@ header {
 }
 
 @media(max-width: 500px) {
+    .iconmarket i {
+        font-size: 30px;
+    }
+
     .box-search-agency .col-6{
         padding-bottom: 10px;
     }
@@ -1693,6 +1702,8 @@ header {
     .iframe-map {
         display: none;
     }
+
+    
     .box-gallery {
         padding: 0;
     }
@@ -2037,6 +2048,18 @@ header {
 
     .box-banner-home-unset{
         height: auto;
+    }
+
+    .title-search-home .title span{
+        margin-bottom: 0;
+    }
+
+    .iconmarket i {
+        font-size: 40px;
+    }
+
+    .title-search-home .title span {
+        font-size: 21px;
     }
 }
 
