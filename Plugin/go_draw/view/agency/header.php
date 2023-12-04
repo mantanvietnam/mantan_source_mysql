@@ -192,20 +192,26 @@
                         </div>
                     </li>
 
-                    <li>
-                        <a href="javascript:void(0);">Mua hàng</a>
-                        <div class="submenu">
-                            <ul>
-                                <!-- <li><a href="/listCombo">Tạo đơn mua</a></li>
-                                <li><a href="">Đơn đã mua</a></li>
-                                <li><a href="">Đơn đã thanh toán</a></li> -->
-                                <li><a href="/listProduct">Tạo đơn mua</a></li>
+                    <?php if(!empty($session->read('isAgencyBoss'))){ ?>
+                        <li>
+                            <a href="javascript:void(0);">Mua hàng</a>
+                            <div class="submenu">
+                                <ul>
+                                    <!-- <li><a href="/listCombo">Tạo đơn mua</a></li>
+                                    <li><a href="">Đơn đã mua</a></li>
+                                    <li><a href="">Đơn đã thanh toán</a></li> -->
+                                    <li><a href="/listProduct">Tạo đơn mua</a></li>
                                     <li><a href="/orderProductWait">Chờ duyệt</a></li>
                                     <li><a href="/orderProductProcess">Chờ nhập kho</a></li>
                                     <li><a href="/orderProductDone">Đã thanh toán</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li><a href="/staticAgency">Thống kê</a></li>
+
+                    <?php }?>
+
 
                     <li><a href="/warehouse">Kho hàng</a></li>
                     <li><a href="/profile">Thông tin tài khoản</a></li>
