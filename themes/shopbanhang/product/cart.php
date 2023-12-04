@@ -193,67 +193,9 @@ $price_total = 0;
 
                       
 
-                            <?php $checkud = 0; ?>
-                            <div class="cart-left-bottom chek checkud">
-                                <div class="title-cart-left-bottom">
-                                        Ưu đãi dành cho bạn
-                                </div>
-
-                                <div class="row">
-
-                                    <!-- Sản phẩm đi kèm -->
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 cart-product-gift-right">
-                                        <div class="cart-product-gift-item-list">
-                                            <div class="cart-product-gift-right-inner">
-                                                 <?php   if(!empty($list_product)){
-                                                    foreach ($list_product as $key => $value) { 
-                                                         if(!empty($value->idprodiscount) && (@$value->statuscart=='true')){
-                                                        foreach(@$value->idprodiscount as $item){
-                                                            $checkud = 1;
-                                                            ?>
-                                                <div class="cart-product-gift-item">
-                                                    <div class="product-item-inner">
-                                                        <div class="product-img">
-                                                            <a href="/san-pham/<?php echo  $value->slug ?>.html"><img src="<?php echo $item->image ?>" alt="<?php echo  $item->title ?>"></a>
-                                                        </div>
                             
-                                                        <div class="product-info">
-                                                            <div class="product-name">
-                                                                <a href="/san-pham/<?php echo  $item->slug ?>.html"><?php echo  $item->title ?></a>
-                                                            </div>
-                                                            <div class="product-price">
-                                                                <?php if(!empty($item->pricepro_discount)){ ?>
-                                                                <p><?php echo number_format(@$item->pricepro_discount); ?>đ</p>
-                                                            <?php }else{ echo '<p>0đ</p>'; } ?>
-                                                            </div>
-
-                                                            <div class="product-discount">
-                                                                <del><?php echo number_format(@$item->price_old); ?>đ</del><span> 
-                                                            </div>
-                                                            
-                                                            
-                                                        </div>
-
-                                                        <div class="product-button-cart product-button-cart-add">
-                                                            <a onclick="addProductdiscountCart(<?php echo $item->id; ?>,'true')">Thêm vào giỏ hàng</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php }}}} ?>
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                            <?php if(empty($checkud)){?>
-                            <style type="text/css">
-                                .checkud{
-                                    display: none;
-                                }
-                            </style>
-                            <?php } ?>
+                            
 
 
                               <!-- Cart -->
@@ -358,6 +300,67 @@ $price_total = 0;
                                 </div>
                             </section>
 
+                            <?php $checkud = 0; ?>
+                            <div class="cart-left-bottom chek checkud">
+                                <div class="title-cart-left-bottom">
+                                        Ưu đãi dành cho bạn
+                                </div>
+
+                                <div class="row">
+
+                                    <!-- Sản phẩm đi kèm -->
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 cart-product-gift-right">
+                                        <div class="cart-product-gift-item-list">
+                                            <div class="cart-product-gift-right-inner">
+                                                 <?php   if(!empty($list_product)){
+                                                    foreach ($list_product as $key => $value) { 
+                                                         if(!empty($value->idprodiscount) && (@$value->statuscart=='true')){
+                                                        foreach(@$value->idprodiscount as $item){
+                                                            $checkud = 1;
+                                                            ?>
+                                                <div class="cart-product-gift-item">
+                                                    <div class="product-item-inner">
+                                                        <div class="product-img">
+                                                            <a href="/san-pham/<?php echo  $value->slug ?>.html"><img src="<?php echo $item->image ?>" alt="<?php echo  $item->title ?>"></a>
+                                                        </div>
+                            
+                                                        <div class="product-info">
+                                                            <div class="product-name">
+                                                                <a href="/san-pham/<?php echo  $item->slug ?>.html"><?php echo  $item->title ?></a>
+                                                            </div>
+                                                            <div class="product-price">
+                                                                <?php if(!empty($item->pricepro_discount)){ ?>
+                                                                <p><?php echo number_format(@$item->pricepro_discount); ?>đ</p>
+                                                            <?php }else{ echo '<p>0đ</p>'; } ?>
+                                                            </div>
+
+                                                            <div class="product-discount">
+                                                                <del><?php echo number_format(@$item->price_old); ?>đ</del><span> 
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+
+                                                        <div class="product-button-cart product-button-cart-add">
+                                                            <a onclick="addProductdiscountCart(<?php echo $item->id; ?>,'true')">Thêm vào giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php }}}} ?>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php if(empty($checkud)){?>
+                            <style type="text/css">
+                                .checkud{
+                                    display: none;
+                                }
+                            </style>
+                            <?php } ?>
 
                             <div class="cart-left-bottom">
                                 <div class="title-cart-left-bottom">
