@@ -82,7 +82,7 @@ $settinghom = setting();
 
                                                 </div>
                                                 <div class="icon-product">
-                                                    <img src="<?php echo $item->image ?>">
+                                                    <img src="<?php echo $value->product->image ?>">
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
@@ -169,7 +169,6 @@ $settinghom = setting();
                                 <div class="list-product-review">
                                      <?php if(!empty($list_product)){
                                         foreach($list_product as $key => $item){
-                                            if(!empty($item->review)){
                                      ?>
                                     <div class="item-slick-product">
                                         <a href="/san-pham/<?php echo $item->slug ?>">
@@ -177,13 +176,12 @@ $settinghom = setting();
                                             <p><?php echo $item->title; ?></p>
                                         </a>
                                     </div>
-                                    <?php }}} ?>
+                                    <?php }} ?>
 
                                 </div>
-                                 <?php if(!empty($list_product)){
-                                        foreach($list_product as $key => $item){
-                                            if(!empty($item->review)){
-                                              foreach($item->review as $k => $value){  
+                                 <?php 
+                                     if(!empty($review)){
+                                              foreach($review as $k => $value){ 
                                                    
                                      ?>
                                         <div class="content-unbox posts">
@@ -194,7 +192,7 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->user->full_name ?></span> chia sẻ hình ảnh đập hộp trên Tiktok về
-                                                        <!-- <span><?php echo $item->title ?></span> -->
+                                                        <span><?php echo $value->product->title ?></span>
                                                     </h4>
                                                     <!-- <div class="five-star">
                                                         <ul>
@@ -209,7 +207,7 @@ $settinghom = setting();
 
                                                 </div>
                                                 <div class="icon-product">
-                                                    <img src="<?php echo $item->image ?>">
+                                                    <img src="<?php echo $value->product->image ?>">
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
@@ -221,7 +219,7 @@ $settinghom = setting();
                                                 <a class="share"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-share"></i><?php echo $value->number_share; ?></a>
                                             </div>
                                         </div>
-                                    <?php }}}}
+                                    <?php }}
 
                                      ?>
 

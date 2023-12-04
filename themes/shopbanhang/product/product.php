@@ -429,6 +429,15 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                 </div>
             </div>
+
+            <div class="box-confirm-cart box-confirm-like" id="myComment"  style=" display: none; ">
+                <div class="box-confirm-cart-title confirm-like">
+                    <p>Cảm ơn bạn đã gửi bình luận, bình luân của bạn đang chờ duyệt</p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="section-pro-review">
@@ -921,14 +930,14 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-detail-rate-comment">
-                                <form action="">
+                               
                                     <div class="product-detail-rate-comment-avata">
                                         <img src="<?php echo $infoUser['avatar'] ?>" alt="">
                                         <input type="text" class="form-control"name="comment" id="comment"  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary"  onclick="addComment()">Gửi</button>
-                                </form>
+                               
                             </div>
                             
 
@@ -1056,6 +1065,17 @@ function addlike(){
 
                   document.getElementById("number_like").innerHTML = res.number_like;
 
+                   // Lấy tham chiếu đến phần tử cần thay đổi CSS
+                var myElement = document.getElementById('myLikeNoti');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
+
                  // location.reload();
             }
         })
@@ -1084,6 +1104,16 @@ function delelelike(){
                   document.getElementById("place-mobile").innerHTML = htmlmobile;
 
                   document.getElementById("number_like").innerHTML = res.number_like;
+
+                  var myElement = document.getElementById('myLike');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
                 }
             })
                
@@ -1141,7 +1171,18 @@ function addComment(){
                 },
                 success:function(res){
                   console.log(res);
-                   location.reload();
+                   // location.reload();
+                   
+                   document.getElementById("myComment").style.display = 'block';
+                   var myElement = document.getElementById('myComment');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
                 }
             })
                
@@ -1281,36 +1322,29 @@ function deteleComment($id){
                 window.location = '/gio-hang';
             }else{
                 document.getElementById("myElement").style.display = 'block';
+
+                var myElement = document.getElementById('myElement');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
             }
         });
     }
 </script>
 
 
-<!-- <script>
+ <script>
     // Lấy tham chiếu đến phần tử cần thay đổi CSS
-    var myElement = document.getElementById('myElement');
-
-    // Hàm thay đổi CSS
-    function changeCSS() {
-        myElement.style.display = 'none';
-    }
-
-    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
-    setTimeout(changeCSS, 10000);
+    
 </script>
 <script>
-    // Lấy tham chiếu đến phần tử cần thay đổi CSS
-    var myElement = document.getElementById('myLikeNoti');
-
-    // Hàm thay đổi CSS
-    function changeCSS() {
-        myElement.style.display = 'none';
-    }
-
-    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
-    setTimeout(changeCSS, 3000);
-</script> -->
+   
+</script>
 
 
 <?php
