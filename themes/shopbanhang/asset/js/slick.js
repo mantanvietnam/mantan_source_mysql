@@ -170,7 +170,19 @@ $(document).ready(function() {
         slidesToScroll: 1,
         asNavFor: '.product-slide-left',
         arrows: false,
-        fade: true
+        fade: true,
+        responsive: [
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 1,
+                    dots:true,
+                    prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-circle-chevron-left'></i></button>",
+                    nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-circle-chevron-right'></i></button>",
+                }
+            }
+        ]
     });
 
     // chi tiết sản phẩm
@@ -210,7 +222,7 @@ $(document).ready(function() {
         responsive: [{
             breakpoint: 1024,
             settings: {
-                arrows: false,
+                arrows: true,
                 slidesToShow: 2
             }
         },
@@ -218,7 +230,11 @@ $(document).ready(function() {
         {
             breakpoint: 480,
             settings: {
-                slidesToShow: 2
+                arrows: true,
+                slidesToShow: 2,
+                dots: true,
+                prevArrow:"<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-arrow-left'></i></button>",
+                nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-arrow-right'></i></button>",
             }
         }]
     });

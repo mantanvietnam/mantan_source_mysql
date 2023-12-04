@@ -2241,11 +2241,22 @@ strong {
 
 .pro-review-img {
     height: 562px;
+    padding: 0 9px;
+    position: relative;
 }
 
-.pro-review-img {
-    padding: 0 9px
+.pro-review-img .pro-review-link{
+    position: absolute;
+    top: 42%;
+    width: 40px;
+    height: auto;
+    right: 43%;
+
 }
+
+
+
+
 
 .pro-review-slide .slick-prev {
     position: absolute;

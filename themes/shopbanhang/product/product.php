@@ -22,7 +22,7 @@ $slide_home= slide_home($setting['id_slide']);
 <main>
         <section id="section-breadcrumb">
             <div class="breadcrumb-center">
-                <ul class="breadcrumb">
+                <ul class="breadcrumb breadcrumb-none">
                   <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                   <li class="breadcrumb-item"><a href="/allProduct">Sản phẩm </a></li>
                   <li class="breadcrumb-item active"><?php echo $product->title; ?></li>
@@ -456,7 +456,12 @@ $slide_home= slide_home($setting['id_slide']);
                         <div class="pro-review-item">
                             <div class="pro-review-img">
                                <a href="<?php echo $item['link'] ?>"><img src="<?php echo $item['image'] ?>" alt=""></a>
+                                <div class="pro-review-link">
+                                    <a href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
+                                </div>
                             </div>
+
+                           
                         </div>
                     <?php }}} ?>
                     </div>
