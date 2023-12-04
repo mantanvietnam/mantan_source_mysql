@@ -90,14 +90,14 @@ $(document).ready(function() {
         responsive: [{
                 breakpoint: 768,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     slidesToShow: 3
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     centerMode: false,
                     slidesToShow: 1
                 }
@@ -183,7 +183,7 @@ $(document).ready(function() {
         responsive: [{
             breakpoint: 1048,
             settings: {
-                arrows: false,
+                arrows: true,
                 slidesToShow: 2
             }
         },
@@ -191,7 +191,7 @@ $(document).ready(function() {
         {
             breakpoint: 480,
             settings: {
-                arrows: false,
+                arrows: true,
                 centerMode: false,
                 slidesToShow: 1
             }

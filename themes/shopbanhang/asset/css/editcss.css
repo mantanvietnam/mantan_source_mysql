@@ -1428,6 +1428,8 @@ background: #555;
     .banner-home-slide .slick-list {
         height: 530px;
     }
+
+
 }
 
 /* tablet */
@@ -2527,10 +2529,43 @@ background: #555;
     border: none;
 }
 
+@media (max-width: 1024px) and (min-width: 501px){
+    .product-mobile{
+        margin-bottom: 20px;
+    }
 
+    /* .pro-review-slide .slick-arrow {
+        font-style: 50px;
+    }
+
+    .pro-review-slide .slick-prev {
+        left: 20px;
+    }
+
+    .pro-review-slide .slick-next {
+        right: 20px;
+    } */
+}
 
 /* respon màn mobile giỏ hàng */
 @media (max-width: 480px) {
+
+
+    /* Slick arrow */
+    .pro-review-slide .slick-arrow {
+        font-style: 50px;
+    }
+
+    .pro-review-slide .slick-prev {
+        left: 20px;
+    }
+
+    .pro-review-slide .slick-next {
+        right: 20px;
+    }
+
+
+    /*  */
 
     .product-delete-mobile a{
         color: #000;
