@@ -218,7 +218,11 @@ function checkLoginMemberAPI($input)
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->number_login += 1;
 				$checkPhone->token = createToken();
-				$checkPhone->token_device = @$dataSend['token_device'];
+
+				if(!empty($dataSend['token_device'])){
+					$checkPhone->token_device = @$dataSend['token_device'];
+				}
+				
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
 				if(!empty($checkdeadlinepro)){
 					$checkPhone->member_pro = 0;
@@ -278,8 +282,12 @@ function checkLoginFacebookAPI($input)
 				if($checkPhone->status == 1){
 					$checkPhone->token = createToken();
 					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
 					$checkPhone->id_facebook = @$dataSend['id_facebook'];
+
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = @$dataSend['token_device'];
+					}
+
 					$modelMember->save($checkPhone);
 
 					$return = array(	'code'=>0, 
@@ -377,7 +385,11 @@ function checkLoginGoogleAPI($input)
 				if($checkPhone->status == 1){
 					$checkPhone->token = createToken();
 					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
+					
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = @$dataSend['token_device'];
+					}
+
 					$checkPhone->id_google = @$dataSend['id_google'];
 					$modelMember->save($checkPhone);
 
@@ -476,7 +488,11 @@ function checkLoginAppleAPI($input)
 				if($checkPhone->status == 1){
 					$checkPhone->token = createToken();
 					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
+					
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = @$dataSend['token_device'];
+					}
+					
 					$checkPhone->id_apple = @$dataSend['id_apple'];
 					$modelMember->save($checkPhone);
 
