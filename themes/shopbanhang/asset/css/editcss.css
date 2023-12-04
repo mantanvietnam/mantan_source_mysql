@@ -1430,7 +1430,14 @@ background: #555;
     }
 }
 
+/* tablet */
 @media(max-width: 900px) and (min-width: 500px){
+
+    .product-slide-right-img img{
+        width: 100%;
+        height: auto;
+    }
+
     #section-describe .describe-description img{
         width: 100% !important;
         height: auto !important;
@@ -1849,7 +1856,7 @@ background: #555;
     }
 
     .banner-home-item img{
-        height: 186px;
+        height: 138px;
     }
 
     .advertisement-home-inner .container{
