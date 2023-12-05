@@ -173,3 +173,10 @@ function checkWindowSize() {
         // Ví dụ: $('.your-slider-class').unslick();
     }
 }
+
+
+
+$( ".menu-mm-mobie a" ).on( "click", function() {
+  $( ".nav-mobile" ).toggleClass('open_menu');
+  console.log('a');
+});
