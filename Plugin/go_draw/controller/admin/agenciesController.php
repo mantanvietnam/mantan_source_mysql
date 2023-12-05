@@ -176,10 +176,14 @@ function viewDetailAgencyAdmin($input)
 
                 $agencyModel->save($agency);
 
+                if(!empty($dataSend['master_account_password']) && !empty($dataSend['master_account_password_confirmation']) && $dataSend['master_account_password']==$dataSend['master_account_password_confirmation']){
+                    $masterAccount->password = md5($dataSend['master_account_password']);
+                }
+
                 $masterAccount->name = $dataSend['master_account_name'];
                 $masterAccount->code_pin = $dataSend['master_account_code_pin'];
                 $accountModel->save($masterAccount);
-
+               
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
             } else {
                 $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';

@@ -145,7 +145,7 @@
                               </div>
 
                               <div class="col-md-6 mb-3">
-                                <label class="form-label" for="username">Mã bảo mật (*)</label>
+                                <label class="form-label" for="username">Mã PIN (*)</label>
                                 <input type="text" class="form-control phone-mask" name="master_account_code_pin" id="master_account_code_pin" value="<?php echo @$masterAccount->code_pin;?>" />
                               </div>
                             </div>
