@@ -429,7 +429,8 @@
                                                                 <li>
                                                                     <a class="btn btn-sm btn-primary" href="/store/?id='.$value->id.'">Xem cửa hàng</a> 
 
-                                                                    <a class="btn btn-sm btn-danger" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination='.$value->lat_gps.','.$value->long_gps.'">Chỉ đường</a></li>
+                                                                    <a class="btn btn-sm btn-danger" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination='.$value->lat_gps.','.$value->long_gps.'">Chỉ đường</a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>';

@@ -464,7 +464,7 @@ $price_total = 0;
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
-                                                        <input class="form-check-input checkcode<?php echo @$key ?>-<?php echo @$k ?>"   type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
+                                                        <input class="form-check-input checkbox-<?php echo @$key ?> checkcode<?php echo @$key ?>-<?php echo @$k ?>"   type="checkbox" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -906,8 +906,13 @@ $(document).ready(function() {
     }*/
 
     function searchDiscountCodeAPI(code, key, k)
-        {
-           
+    {
+        $( '.checkbox-'+key ).each(function() {
+          if(!$( this ).hasClass( 'checkcode'+key+'-'+k )){
+            $(this).prop('checked', false); 
+          }
+        });
+
         var w = $('#checkcode'+key+'-'+k).val();
         var s = document.getElementById('checkcode'+key+'-'+k).checked;
         console.log(w);
