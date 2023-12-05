@@ -65,6 +65,14 @@ $setting = setting();
                             </div>
                         </div>
 
+                        <div class="mobile mt-4">
+                            <?php 
+                            if(function_exists('showStatic')){
+                                showStatic();
+                            }
+                            ?>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -74,7 +82,7 @@ $setting = setting();
         <div class="container">
             <div class="row g-3">
                 <div class="col-12 col-lg-9"><span>Copyright Tay Ho 360 © 2020. Developed & Managed by VinGG</span></div>
-                <div class="col-12 col-lg-3"><span>Lượt truy cập: 1.000.000</span></div>
+                <div class="col-12 col-lg-3"><span></span></div>
             </div>
         </div>
     </div>

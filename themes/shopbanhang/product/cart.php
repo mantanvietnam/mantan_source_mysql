@@ -445,29 +445,29 @@ $price_total = 0;
                                                     $voucher= 'voucher-disabled';
                                                 }
                                              ?>
-                                             <div class="voucher">
-                                            <div class="btn-voucher <?php echo $voucher ?>">
-                                                <div class="bg-voucher">
-                                                    <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
+                                            <div class="voucher" for="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
+                                                <div class="btn-voucher <?php echo $voucher ?>">
+                                                    <div class="bg-voucher">
+                                                        <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
+                                                    </div>
+                                                    <div class="detail-voucher">
+                                                        <div class="logo-voucher">
+                                                            <h3><?php echo $item->code; ?></h3>
+                                                        </div>
+                                                        <div class="infor-voucher">
+                                                            <h4><?php echo $item->note; ?></h4>
+                                                            <?php if(!empty($item->applicable_price)){ ?>
+                                                            <p>Đơn tối thiểu <?php echo number_format($item->applicable_price); ?> đ</p>
+                                                        <?php } ?>
+                                                        <?php if(!empty($item->maximum_price_reduction)){ ?>
+                                                            <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
+                                                        <?php } ?>
+                                                        </div>
+                                                        <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
+                                                            <input class="form-check-input checkbox-<?php echo @$key ?> checkcode<?php echo @$key ?>-<?php echo @$k ?>"   type="checkbox" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="detail-voucher">
-                                                    <div class="logo-voucher">
-                                                        <h3><?php echo $item->code; ?></h3>
-                                                    </div>
-                                                    <div class="infor-voucher">
-                                                        <h4><?php echo $item->note; ?></h4>
-                                                        <?php if(!empty($item->applicable_price)){ ?>
-                                                        <p>Đơn tối thiểu <?php echo number_format($item->applicable_price); ?> đ</p>
-                                                    <?php } ?>
-                                                    <?php if(!empty($item->maximum_price_reduction)){ ?>
-                                                        <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
-                                                    <?php } ?>
-                                                    </div>
-                                                    <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
-                                                        <input class="form-check-input checkcode<?php echo @$key ?>-<?php echo @$k ?>"   type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
-                                                    </div>
-                                                </div>
-                                            </div>
                                             </div>
                                         <?php }}     ?>
                                         
@@ -906,8 +906,13 @@ $(document).ready(function() {
     }*/
 
     function searchDiscountCodeAPI(code, key, k)
-        {
-           
+    {
+        $( '.checkbox-'+key ).each(function() {
+          if(!$( this ).hasClass( 'checkcode'+key+'-'+k )){
+            $(this).prop('checked', false); 
+          }
+        });
+
         var w = $('#checkcode'+key+'-'+k).val();
         var s = document.getElementById('checkcode'+key+'-'+k).checked;
         console.log(w);

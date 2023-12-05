@@ -65,11 +65,7 @@
                                                 <p>Là quy trình vẽ thông minh giúp bạn có thể hoàn thiện các bức tranh sơn dầu một cách chuyên nghiệp nhất, tác phẩm của bạn khi hoàn thiện sẽ có chất lượng tương đương với một họa sỹ chuyên nghiệp.</p>
                                             </div>
                                             <div class="sevices-ft-btn">
-                                                <a href="">
-
-                                                    <img src="<?php echo $urlThemeActive;?>/images/bgft-btn.png" alt="">
-                                                    <p>Về chúng tôi</p>
-                                                </a>
+                                                <a href="#">Về chúng tôi</a>
                                             </div>
 
                                         </div>
@@ -77,12 +73,18 @@
 
                                     <div class="col-lg-3 col-md-6">
                                         <div class="sevices-ft-list">
-                                            <div class="sevices-ft-list-title">
-                                                <img src="<?php echo $urlThemeActive;?>/images/bg1.png" alt="">
-                                                <div class="sevices-ft-list-name">
-                                                    <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DỊCH VỤ
-                                                </div>
-                                            </div>
+                                            <?php if ($isMobile): ?>
+                                                   <h2 class="mobile-title">Dịch vụ</h2>
+                                            <?php else: ?>
+                                                <div class="sevices-ft-list-title">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/bg1.png" alt="">
+                                                    <div class="sevices-ft-list-name">
+                                                        <img src="<?php echo $urlThemeActive;?>/images/home-icon.png" alt=""> DỊCH VỤ
+                                                    </div>
+                                                </div> 
+                                            <?php endif; ?>
+                                                
+                                            
                                             <div class="sevices-ft-list-items">
                                                 <ul>
                                                     <li><i class="fa-solid fa-circle"></i> Khách hàng doanh nghiệp</li>
@@ -93,7 +95,10 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                              
+                                    <?php if ($isMobile): ?>
+                                                 
+                                    <?php else: ?>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="sevices-ft-list">
                                             <div class="sevices-ft-list-title">
@@ -112,6 +117,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -217,127 +223,108 @@
                             <div class="sevices-content">
                                 <div class="row">
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="item-sevices-name">
-                                            <p>Khách hàng doanh nghiệp</p>
-                                            <div class="item-sevices-name-bg">
-                                                <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                        <div class="item-service-wrap">
+                                            <div class="item-sevices-name">
+                                                <p>Khách hàng doanh nghiệp</p>
+                                                <div class="item-sevices-name-bg">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="item-sevices-img">
-                                            <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
-                                        </div>
-                                        <div class="item-sevices-detail">
-                                            <div class="background-bottom-service">
-                                                <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
+                                            <div class="item-sevices-img">                                 
+                                                <?php if ($isMobile): ?>
+                                                    <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item-mb.jpg" alt=""></a>
+                                                <?php else: ?>
+                                                    <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item-pc.jpg" alt=""></a>
+                                                <?php endif; ?>
+                                                
                                             </div>
-
-                                            <p>
-                                                <span class="text-red-service">HỢP TÁC TRIỂN KHAI DỊCH VỤ GÔ DRAW TẠI QUÁN CAFE VÀ CÁC KHU VUI CHƠI GIẢI TRÍ</span>
-                                                <br>
-                                                <br>
-                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
-                                                <br>
-                                                - Đổi mới phong cách, tạo không gian vui chơi
-                                                <br>
-                                                - Quảng bá thương hiệu doanh nghiệp
-                                                <br>
-                                                - Tăng trưởng doanh thu lợi nhuận
-                                                <br>
-                                                - Không chi phí đầu tư
-                                            </p>
-                                            <div class="item-services-btn">
-                                                <a href="/tin-moi-nhat.html">
-                                                    <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
-                                                </a>
+                                            <div class="item-sevices-detail">                                           
+                                                <strong class="text-red-service">HỢP TÁC TRIỂN KHAI DỊCH VỤ GÔ DRAW TẠI QUÁN CAFE VÀ CÁC KHU VUI CHƠI GIẢI TRÍ</strong>
+                                                
+                                                <ul>
+                                                    <li>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</li>
+                                                    <li>Đổi mới phong cách, tạo không gian vui chơi</li>
+                                                    <li>Quảng bá thương hiệu doanh nghiệp</li>
+                                                    <li>Tăng trưởng doanh thu lợi nhuận</li>
+                                                    <li>Không chi phí đầu tư</li>
+                                                </ul>
+                                             
                                             </div>
-                                        </div>
+                                            <div class="item-services-btn"><a href="/tin-moi-nhat.html">Xem thêm <i class="fa-solid fa-angles-right"></i></a></div>
+                                            <div class="border-service-bottom"></div>
+                                        </div> <!-- #item-service-wrap -->
                                     </div>
 
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="item-sevices-name">
-                                            <p>Workshop hội nghị</p>
-                                            <div class="item-sevices-name-bg">
-                                                <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                       <div class="item-service-wrap">
+                                            <div class="item-sevices-name">
+                                                <p>Workshop hội nghị</p>
+                                                <div class="item-sevices-name-bg">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="item-sevices-img">
-                                            <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
-                                        </div>
-                                        <div class="item-sevices-detail">
-                                            <div class="background-bottom-service">
-                                                <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
+                                            <div class="item-sevices-img">
+                                                <?php if ($isMobile): ?>
+                                                    <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item-mb.jpg" alt=""></a>
+                                                <?php else: ?>
+                                                    <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item-pc.jpg" alt=""></a>
+                                                <?php endif; ?>
                                             </div>
+                                            <div class="item-sevices-detail">
+                                                    <strong class="text-red-service">HỢP TÁC TỔ CHỨC WORKSHOP THEO KHUNG THỜI GIAN</strong>
+                                                    <ul>
+                                                    <li>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</li>                                               
+                                                    <li>Tạo sân chơi thỏa mãn đam mê</li>
+                                                    <li>Quảng bá thương hiệu doanh nghiệp</li>                                              
+                                                    <li>Tối ưu chi phí, doanh thu và lơi nhuận</li>
+                                                    </ul>
 
-                                            <p>
-                                                <span class="text-red-service">HỢP TÁC TỔ CHỨC WORKSHOP THEO KHUNG THỜI GIAN</span>
-                                                <br>
-                                                <br>
-                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
-                                                <br>
-                                                - Tạo sân chơi thỏa mãn đam mê
-                                                <br>
-                                                - Quảng bá thương hiệu doanh nghiệp
-                                                <br>
-                                                - Tối ưu chi phí, doanh thu và lơi nhuận
-                                            </p>
-
-                                            <div class="item-services-btn">
-                                                <a href="/tin-moi-nhat.html">
-                                                    <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
-                                                </a>
+                                                
                                             </div>
-                                        </div>
+                                            <div class="item-services-btn"><a href="/tin-moi-nhat.html">Xem thêm <i class="fa-solid fa-angles-right"></i></a></div>
+                                            <div class="border-service-bottom"></div>
+                                        </div>    
                                     </div>
 
                                     <div class="item-sevices col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="item-sevices-name">
-                                            <p>Khách hàng cá nhân</p>
-                                            <div class="item-sevices-name-bg">
-                                                <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                        <div class="item-service-wrap">
+                                            <div class="item-sevices-name">
+                                                <p>Khách hàng cá nhân</p>
+                                                <div class="item-sevices-name-bg">
+                                                    <img src="<?php echo $urlThemeActive;?>/images/bg2.png" alt="">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="item-sevices-img">
-                                            <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item.png" alt=""></a>
-                                        </div>
-                                        <div class="item-sevices-detail">
-                                            <div class="background-bottom-service">
-                                                <img class="background-service-bottom" src="<?php echo $urlThemeActive;?>/images/bottomservice.png" alt="">
+                                            <div class="item-sevices-img">
+                                                <?php if ($isMobile): ?>
+                                                    <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item-mb.jpg" alt=""></a>
+                                                <?php else: ?>
+                                                    <a href="/tin-moi-nhat.html"><img src="<?php echo $urlThemeActive;?>/images/sv-item-pc.jpg" alt=""></a>
+                                                <?php endif; ?>
                                             </div>
-
-                                            <p>
-                                                <span class="text-red-service">CUNG CẤP TRẢI NGHIỆM DỊCH VỤ VẼ TRANH GÔ DRAW TẠI CÁC ĐIỂM VẼ</span>
-                                                <br>
-                                                <br>
-                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
-                                                <br>
-                                                - Đổi mới phong cách, tạo không gian vui chơi
-                                                <br>
-                                                - Quảng bá thương hiệu doanh nghiệp
-                                                <br>
-                                                - Tăng trưởng doanh thu và lợi nhuận
-                                                <br>
-                                                - Không chi phí đầu tư
-                                                <br>
-                                                <br>
-                                                <span class="text-red-service">CUNG CẤP DỊCH VỤ VẼ TRANH THEO Ý TƯỞNG</span>
-                                                <br>
-                                                <br>
-                                                - Cung cấp dịch vụ vẽ tranh tiên phong độc quyền
-                                                <br>
-                                                - Đổi mới phong cách, tạo không gian vui chơi
-                                                <br>
-                                                - Quảng bá thương hiệu doanh nghiệp
-                                                <br>
-                                                - Tăng trưởng doanh thu và lợi nhuận
-                                                <br>
-                                                - Không chi phí đầu tư
-                                            </p>
-                                            <div class="item-services-btn">
-                                                <a href="/tin-moi-nhat.html">
-                                                    <img class="icon-hand" src="<?php echo $urlThemeActive;?>/images/hand-icon.png" alt=""> see more
-                                                </a>
+                                            <div class="item-sevices-detail">
+                                                    <strong class="text-red-service">CUNG CẤP TRẢI NGHIỆM DỊCH VỤ VẼ TRANH GÔ DRAW TẠI CÁC ĐIỂM VẼ</strong>
+                                                
+                                                    <ul>
+                                                    <li>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</li>                                              
+                                                    <li>Đổi mới phong cách, tạo không gian vui chơi</li>                                               
+                                                    <li>Quảng bá thương hiệu doanh nghiệp</li>                                              
+                                                    <li>Tăng trưởng doanh thu và lợi nhuận</li>                                            
+                                                    <li>Không chi phí đầu tư</li>
+                                                    </ul>
+                                                    <strong class="text-red-service">CUNG CẤP DỊCH VỤ VẼ TRANH THEO Ý TƯỞNG</strong>
+                                                
+                                                    <ul>
+                                                    <li>Cung cấp dịch vụ vẽ tranh tiên phong độc quyền</li>         
+                                                    <li>Đổi mới phong cách, tạo không gian vui chơi</li>         
+                                                    <li>Quảng bá thương hiệu doanh nghiệp</li>         
+                                                    <li>Tăng trưởng doanh thu và lợi nhuận</li>         
+                                                    <li>Không chi phí đầu tư</li>         
+                                                    </ul>
+                                                                                               
                                             </div>
-                                        </div>
+                                            <div class="item-services-btn"><a href="/tin-moi-nhat.html">Xem thêm <i class="fa-solid fa-angles-right"></i></a></div>
+                                            <div class="border-service-bottom"></div>
+                                        </div><!-- #item-service-wrap -->
                                     </div>
                                 </div>
                             </div>
@@ -434,12 +421,16 @@
                                                         <div class="avr"><img src="'.@$value->image.'" class="img-fluid w-100" alt=""></div>
                                                         <div class="info">
                                                             <h3>
-                                                                <a target="_blank" href="/store/?id='.$value->id.'">'.@$value->name.'</a>
+                                                                <a href="/store/?id='.$value->id.'">'.@$value->name.'</a>
                                                             </h3>
                                                             <ul>
                                                                 <li>'.@$value->address.'</li>
                                                                 <li>'.@$value->phone.'</li>
-                                                                <li>'.@$value->email.'</li>
+                                                                <li>
+                                                                    <a class="btn btn-sm btn-primary" href="/store/?id='.$value->id.'">Xem cửa hàng</a> 
+
+                                                                    <a class="btn btn-sm btn-danger" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination='.$value->lat_gps.','.$value->long_gps.'">Chỉ đường</a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>';
@@ -465,7 +456,7 @@
                     <div class="logo-foter">
                         <div class="logo"><img src="/plugins/go_draw/view/agency/images/logo-footer.svg" class="img-fluid" alt=""></div>
                         <div class="txt-logo">
-                            <h4>CÔNG TY CỔ PHẦN GIẢI PHÁP NGHỆ THUẬT THÔNG MiNH</h4>
+                            <h4>CÔNG TY CP GIẢI PHÁP NGHỆ THUẬT THÔNG MiNH</h4>
                             <ul>
                                 <li>Địa chỉ : <?php echo @$contactSite['address'];?></li>
                                 <li>Điện thoại: </span> <?php echo @$contactSite['phone'];?></li>

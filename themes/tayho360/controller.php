@@ -75,40 +75,35 @@ function indexTheme($input){
 
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
-     $modelEvent = $controller->loadModel('Events');
-     $modelPosts = $controller->loadModel('Posts');
-     $modelTour = $controller->loadModel('Tours');
-     $modelImage = $controller->loadModel('Images');
+    $modelEvent = $controller->loadModel('Events');
+    $modelPosts = $controller->loadModel('Posts');
+    $modelTour = $controller->loadModel('Tours');
+    $modelImage = $controller->loadModel('Images');
 
     $month = getdate()['mon'];
     $year = getdate()['year'];
-      $order = array('id'=>'desc');
+    $order = array('id'=>'desc');
 
 
-    $conditionsmonth = array('month' => $month, 'year' => $year, 'outstanding' =>'1' , 'status' => '1' );
+    $conditionsmonth = array('month' => $month, 'year' => $year , 'status' => '1' );
 
     $conditionsTour =array('status' => '1');
     
-    $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order($order)->all()->toList();
+    $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
     $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     $listDataImage = $modelImage ->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
 
 
-    
-
-     $data_value = array();
+    $data_value = array();
     if(!empty($data->value)){
         $data_value = json_decode($data->value, true);
     }
 
-     setVariable('setting', $data_value);
-     setVariable('listDataEvent', $listDataEvent);
-     setVariable('listDataPost', $listDataPost);
-     setVariable('listDataTour', $listDataTour);
-     setVariable('listDataImage', $listDataImage);
-    
-
-
+    setVariable('setting', $data_value);
+    setVariable('listDataEvent', $listDataEvent);
+    setVariable('listDataPost', $listDataPost);
+    setVariable('listDataTour', $listDataTour);
+    setVariable('listDataImage', $listDataImage);
 }
- ?>
+?>

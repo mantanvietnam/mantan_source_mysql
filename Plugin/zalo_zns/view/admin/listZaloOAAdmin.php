@@ -43,7 +43,7 @@
               <th>ID OA</th>
               <th>ID APP</th>
               <th>Khóa bảo mật</th>
-              <th>Token</th>
+              <th>Deadline</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -52,9 +52,11 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
-                  $access_token = $item->access_token;
+                  
                   if(empty($item->access_token)){
                     $access_token = '<a target="_blank" href="https://developers.zalo.me/app/'.$item->id_app.'/oa/settings" class="btn btn-primary">Cấp quyền</a>';
+                  }else{
+                    $access_token = date('H:i d/m/Y', $item->deadline);
                   }
 
                   echo '<tr>

@@ -85,7 +85,7 @@ function register($input)
 
 						// gửi email
 						sendEmailVerified($data->email, $data->name, $data->otp);
-
+					
 						return $controller->redirect('/verified/?phone='.$data->phone);
 						
 					}else{
