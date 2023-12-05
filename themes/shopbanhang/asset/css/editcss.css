@@ -1336,13 +1336,22 @@ background: #555;
     /* display: none; */
 }
 
+@media(max-width: 1920px) and (min-width: 1440px){
+  
+    .container .banner-home-slide .slick-list {
+        height: 447px !important;
+    }
+
+}
+
+
 @media (max-width: 1024px) and (min-width: 819px) {
     .mneu-desktop .navbar-header .nav-item .nav-link {
         margin: 0 9px !important; 
     }
 
     .container .banner-home-slide .slick-list {
-        height: 268px;
+        height: 322px;
     }
 }
 
@@ -1448,7 +1457,7 @@ background: #555;
 /* tablet  ipad pro*/
 @media(max-width: 1024px) and (min-width: 819px){
     .container .banner-home-slide .slick-list{
-        height: 268px;
+        height: 364px;
     }
 
     .navbar-header .nav-item .nav-link{
@@ -2435,6 +2444,10 @@ background: #555;
 
 }
 
+
+@media (max-width: 375px) {
+
+}
 
 
 /* Mobile  */
