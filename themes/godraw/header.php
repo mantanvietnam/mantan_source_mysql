@@ -215,7 +215,7 @@
                             </div>
                         </li>
                         <?php }?>
-                        <li><a href="javascript:void(0)" class="mm-bar"><img src="<?php echo $urlThemeActive;?>/images/bar.svg" class="img-fluid" alt=""></a></li>
+                        <li><a href="javascript:void(0)" class="mm-bar"><img src="<?php echo $urlThemeActive;?>/images/bar-white.svg" class="img-fluid" alt=""></a></li>
                     </ul>
                 </div>
             </div>

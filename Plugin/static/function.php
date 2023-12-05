@@ -75,89 +75,67 @@ function getStatic(){
         return $static;
 }
     
-function showStatic(){
-        $today= getdate();
-        global $modelOptions;
-        global $infoSite;
-        global $urlHomes;
-        
-        $conditions = array('key_word' => 'Static');
-        $data = $modelOptions->find()->where($conditions)->first();
-        $static = json_decode($data->value, true);
-        $urlPluginStatic= $urlHomes.'/app/Plugin/static/';
-        
-        if(isset($static['oldMon']) && $today['mon']== $static['oldMon'])
-        {
+function showStatic()
+{
+    $today= getdate();
+    global $modelOptions;
+    global $infoSite;
+    global $urlHomes;
+    
+    $conditions = array('key_word' => 'Static');
+    $data = $modelOptions->find()->where($conditions)->first();
+    $static = json_decode($data->value, true);
 
-          $static['mon'] += 1;
-
-        }
-        else
-        {
-
-          $static['oldMon']= $today['mon'];
-
-          $static['mon'] = 1;
-
-        }
+    $urlPluginStatic= $urlHomes.'/app/Plugin/static/';
+    
+    if(isset($static['oldMon']) && $today['mon']== $static['oldMon']){
+        $static['mon'] += 1;
+    }else{
+        $static['oldMon']= $today['mon'];
+        $static['mon'] = 1;
+    }
 
 
-
-        if(isset($static['oldMday']) && $today['mday']== $static['oldMday'])
-
-        {
-
-          $static['mday'] += 1;
-
-        }
-
-        else
-
-        {
-
-          $static['oldMday']= $today['mday'];
-
-          $static['mday'] = 1;
-
-        }
+    if(isset($static['oldMday']) && $today['mday']== $static['oldMday']){
+        $static['mday'] += 1;
+    }else{
+        $static['oldMday']= $today['mday'];
+        $static['mday'] = 1;
+    }
 
 
-        if(isset($static['total'])){
-            $static['total'] += 1;
-        }else{
-            $static['total'] = 1;
-        }
+    if(isset($static['total'])){
+        $static['total'] += 1;
+    }else{
+        $static['total'] = 1;
+    }
 
-        $data->value = json_encode($static);
-        $data->key_word = 'Static';
-        $modelOptions->save($data);
+    $data->value = json_encode($static);
+    $data->key_word = 'Static';
+    $modelOptions->save($data);
 
         
-        ?>
-        <ul>
+    echo '<ul>
               <li>
-                <img width="16" height="16" alt="Đang truy cập" src="<?php echo $urlPluginStatic;?>images/users.png">
-                Đang truy cập : <strong><?php echo rand(1,$static['mday']);?></strong>
+                
+                Đang truy cập : <strong>'.rand(1,$static['mday']).'</strong>
               </li>
           
               <li>
-                <img width="16" height="16" alt="Hôm nay" src="<?php echo $urlPluginStatic;?>images/today.png">
-                Hôm nay : <strong><?php echo $static['mday'];?></strong>
+                Hôm nay : <strong>'.number_format($static['mday']).'</strong>
               </li>
         
               <li>
-                <img width="16" height="16" alt="Tháng hiện tại" src="<?php echo $urlPluginStatic;?>images/month.png">
-                Tháng hiện tại : <strong><?php echo $static['mon'];?></strong>
+                Tháng hiện tại : <strong>'.number_format($static['mon']).'</strong>
               </li>
         
               <li>
-                <img width="16" height="16" alt="Tổng lượt truy cập" src="<?php echo $urlPluginStatic;?>images/hits.png">
-                Tổng lượt truy cập : <strong><?php echo $static['total'];?></strong>
+                Tổng lượt truy cập : <strong>'.number_format($static['total']).'</strong>
               </li>
 
-        </ul>
-<?php
+        </ul>';
 }
+
 function toStatic(){
     global $modelOptions;
     global $metaTitleMantan;

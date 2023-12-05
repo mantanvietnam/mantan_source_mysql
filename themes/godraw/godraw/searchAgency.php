@@ -1,4 +1,4 @@
-<a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination='.$value->lat_gps.','.$value->long_gps.'"><?php getHeader();global $settingThemes;?>
+<?php getHeader();global $settingThemes;?>
 
 <style>
 	footer {

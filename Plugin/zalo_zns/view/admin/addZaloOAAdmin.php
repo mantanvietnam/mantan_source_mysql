@@ -34,6 +34,15 @@
                     <textarea rows="5" name="secret_key" class="form-control phone-mask"><?php echo @$data->secret_key;?></textarea>
                   </div>
                 </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Access token</label>
+                    <textarea disabled rows="5" name="access_token" class="form-control phone-mask"><?php echo @$data->access_token;?></textarea>
+                  </div>
+                </div>
+
+
               </div>
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>
