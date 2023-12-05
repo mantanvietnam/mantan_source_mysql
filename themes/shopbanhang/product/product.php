@@ -138,12 +138,15 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
 
                                 <div class="price-left-sale">
-                                    <del><?php echo number_format($product->price_old); ?>đ</del>
+                                    <del><?php if($product->price_old>$product->price){  echo number_format($product->price_old); ?>đ
+                                     <?php } ?></del>
                                 </div>
                             </div>
 
                             <div class="product-detail-info-price-right">
+                                <?php if($product->price_old>$product->price){ ?>
                                 <span>(Bạn đã tích kiệm  <?php echo number_format($product->price_old-$product->price); ?>đ)</span>
+                            <?php } ?>
                             </div>
                         </div>
 

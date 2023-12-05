@@ -464,7 +464,7 @@ $price_total = 0;
                                                     <?php } ?>
                                                     </div>
                                                     <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
-                                                        <input class="form-check-input checkcode<?php echo @$key ?>"   type="radio" name="code<?php echo @$key ?>-<?php echo @$k ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
+                                                        <input class="form-check-input checkcode<?php echo @$key ?>-<?php echo @$k ?>"   type="radio" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -641,31 +641,24 @@ $(document).ready(function() {
     }
 });
 </script>
+
 <script type="text/javascript">
     $(document).on('click', function (e) {
 
+ <?php foreach($category as $key => $value){
+     if(!empty($value['discountCode'])){
+    foreach($value['discountCode'] as $k => $item){ ?>
   $(document).ready(function(){
     // Sử dụng sự kiện click cho tất cả các radio button có class 'radioOption'
-     <?php foreach($category as $key => $value){ ?>
-        <?php if(!empty($value['discountCode'])){
-            foreach($value['discountCode'] as $k => $item){
-                                            
-                                             ?>
     $(".check-voucher #checkcode<?php echo @$key ?>-<?php echo @$k ?>").click(function(){
         // Bỏ chọn tất cả các radio button trong nhóm có tên 'group1'
         $("input[name='code<?php echo @$key ?>-<?php echo @$k ?>']").prop('checked', !$(this).prop('checked'));
     });
 
-   <?php }}} ?>
+<?php }}} ?>
   });
-
-
- 
-
-  
-
-});
 </script>
+
 
 <script type="text/javascript">
     function checkupdatecart(id){
@@ -917,7 +910,7 @@ $(document).ready(function() {
            
         var w = $('#checkcode'+key+'-'+k).val();
         var s = document.getElementById('checkcode'+key+'-'+k).checked;
-        console.log(s);
+        console.log(w);
         if(s==true){
             let totalPays = $('#totalPays').val();
             $.ajax({
