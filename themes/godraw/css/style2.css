@@ -1383,7 +1383,7 @@ header {
     }
 
     #slide-home-service .container{
-        padding-top: 67px;
+        padding-top: 44px;
         padding-bottom: 67px;
     }
 
@@ -1583,6 +1583,9 @@ header {
 }
 
 @media(max-width: 500px) {
+
+
+
     .iconmarket i {
         font-size: 30px;
     }
@@ -2021,9 +2024,11 @@ header {
 
     /* respon trang chủ */
     .sevices-title{
-        flex-direction: column;
-        gap: 3px
+        gap: 3px;
+        margin-bottom: 10px;
+        padding-top: 0;
     }
+
 
     .sevices-title p{
         line-height: normal;
