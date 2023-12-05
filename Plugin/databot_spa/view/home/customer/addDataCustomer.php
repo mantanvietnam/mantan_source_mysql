@@ -15,7 +15,8 @@
           </div>
           <div class="card-body">
             <p><?php echo @$mess;?></p>
-            <p>Tải file excel để nhập liệu: <a href="/exportFormDataCustomer/?id=<?php echo @$_GET['id'];?>">DOWNLOAD EXCEL</a></p>
+            <p>Tải file excel để nhập liệu: <a href="/plugins/databot_spa/view/home/customer/list_data_khach_hang_spa.xlsx">DOWNLOAD EXCEL</a></p>
+            
             <form enctype="multipart/form-data" method="post" action="">
               <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />
               <div class="row">
@@ -27,7 +28,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Xuất file ảnh</button>
+              <button type="submit" class="btn btn-primary">Nhập danh sách khách hàng</button>
             </form>
           </div>
         </div>
