@@ -205,7 +205,7 @@ $(document).ready(function() {
             settings: {
                 arrows: true,
                 centerMode: false,
-                slidesToShow: 1
+                slidesToShow: 2
             }
         }]
     });

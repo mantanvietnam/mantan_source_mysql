@@ -2252,7 +2252,19 @@ strong {
     width: 40px;
     height: auto;
     right: 43%;
+}
 
+/* Play review */
+.comment-customer-img{
+    position: relative;
+}
+
+.comment-customer-img .pro-review-link{
+    position: absolute;
+    top: 42%;
+    width: 40px;
+    height: auto;
+    right: 43%;
 }
 
 
@@ -2272,13 +2284,14 @@ strong {
 .pro-review-slide .slick-arrow {
     background-color: transparent;
     z-index: 1;
-    width: 48px;
-    height: 48px;
-    color: #7a7777;
+    width: 30px;
+    height: 30px;
+    color: #fff;
     border-radius: 50%;
     padding: 0;
-    bottom: 50%;
+    bottom: 46%;
     border: none;
+    background-color: #787878;
 }
 
 #section-info-col {
