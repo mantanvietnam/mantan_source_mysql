@@ -1336,12 +1336,38 @@ background: #555;
     /* display: none; */
 }
 
+#myComment > div > p{
+    font-weight: 300;
+    line-height: 1.3;
+    padding-left: 14px;
+}
+
+#myComment{
+    height: 102px;
+}
+
 @media(max-width: 1920px) and (min-width: 1440px){
   
     .container .banner-home-slide .slick-list {
         height: 447px !important;
     }
 
+}
+
+@media(max-width: 1440px) and (min-width: 1024px){
+    .navbar-header .nav-item .nav-link {
+        /* margin: 0px 14px; */
+    }
+
+    .navbar-header .nav-item .nav-link{
+        font-size: 12px;
+    }
+}
+
+@media(max-width: 1185px) and (min-width: 1024px){
+    .navbar-header .nav-item .nav-link {
+        margin: 0px 13px;
+    }
 }
 
 
@@ -2745,7 +2771,7 @@ background: #555;
 
     #section-product-like .slick-dots {
         position: absolute;
-        bottom: -36px;
+        bottom: -18px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -2811,7 +2837,7 @@ background: #555;
         color: #000;
         border-radius: 50%;
         padding: 0;
-        bottom: -28px;
+        bottom: -37px;
         border: none;
     }
 

@@ -222,7 +222,7 @@ $(document).ready(function() {
         responsive: [{
             breakpoint: 1024,
             settings: {
-                arrows: true,
+                arrows: false,
                 slidesToShow: 2
             }
         },

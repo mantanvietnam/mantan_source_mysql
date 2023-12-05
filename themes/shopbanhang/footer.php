@@ -33,7 +33,7 @@ $infoUser = $session->read('infoUser');
                                 </div>
 
                                 <div class="footer-info-item">
-                                    <p>Tổng đài hỗ trợ (08:00-21:00, miễn phí gọi)</p>  
+                                    <p>Tổng đài hỗ trợ (08:00-17:00)</p>  
                                     <p>Gọi mua: <span class="blue-text"><?php echo $setting['call_buy'] ?></span></p>  
                                     <p>Khiếu nại: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
                                 </div>

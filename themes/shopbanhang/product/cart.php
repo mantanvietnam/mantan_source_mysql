@@ -445,7 +445,7 @@ $price_total = 0;
                                                     $voucher= 'voucher-disabled';
                                                 }
                                              ?>
-                                            <div class="voucher" for="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
+                                            <label class="voucher" for="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                 <div class="btn-voucher <?php echo $voucher ?>">
                                                     <div class="bg-voucher">
                                                         <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
@@ -468,7 +468,7 @@ $price_total = 0;
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </label>
                                         <?php }}     ?>
                                         
                                     </div>

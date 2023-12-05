@@ -458,9 +458,9 @@ $slide_home= slide_home($setting['id_slide']);
                             ?>
                         <div class="pro-review-item">
                             <div class="pro-review-img">
-                               <a href="<?php echo $item['link'] ?>"><img src="<?php echo $item['image'] ?>" alt=""></a>
+                               <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $item['image'] ?>" alt=""></a>
                                 <div class="pro-review-link">
-                                    <a href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
+                                    <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
                                 </div>
                             </div>
 
@@ -686,6 +686,24 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>  
             
                                     <div class="product-detail-rate-image">
+                                        <!-- video -->
+                                        <a style="display:none" href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo">
+                                            <img src="<?php echo $urlThemeActive ?>/asset/image/detailproduct2.png" alt="">
+                                        </a>
+
+                                        <div class="modal-login">
+                                             <div class="modal fade" id="exampleModalVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                   
+                                                <video autoplay width="600" height="440" controls>
+                                                    <source src="https://godraw.vn/upload/admin/files/godrawtrailer.mp4" type="video/mp4">
+                                                </video>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ket thuc video -->
+
                                         <?php if(!empty($item->image)){
                                             foreach($item->image as $k => $image) {
                                             if(!empty($image)){

@@ -51,11 +51,11 @@ if (!$(e.target).closest('#modalemailSubscribe .modal-content').length && $('#mo
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
-  var myCheckbox = voucherDiv.querySelector('.form-check-input');
-  myCheckbox.disabled = true;
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   var voucherDiv = document.querySelector('.voucher-disabled .detail-voucher');
+//   var myCheckbox = voucherDiv.querySelector('.form-check-input');
+//   myCheckbox.disabled = true;
+// });
 
 
 $('.slide-rate-image').slick({
