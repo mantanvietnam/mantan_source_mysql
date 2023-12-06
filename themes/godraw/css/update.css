@@ -30,13 +30,16 @@ body {
 }
 
 a.intro-link {
-    color: #fff;
+    color: #ebebeb;
     position: absolute;
-    bottom: 73px;
+    bottom: 99px;
     display: block;
     text-align: center;
     left: 0;
     right: 0;
+    max-width: 70%;
+    margin: 0 auto;
+    font-size: 15px;
 }
 
 a.intro-link:hover{
@@ -137,11 +140,11 @@ a.intro-link svg {
 }
 
 .title-slide-vote {
-	font-size: 23px;
+	font-size: 30px;
 }
 
 .title-slide-vote span {
-    font-size: 23px;
+    font-size: 30px;
     font-weight: 700;
 }
 
@@ -188,6 +191,10 @@ img.header-client {
 .zoom-effect {
 	transition: all .2s ease-in-out;
 	color: #fff;
+}
+
+.logo-foter ul li{
+    color: #fff;
 }
 
 .zoom-effect:hover {
@@ -666,8 +673,8 @@ background: linear-gradient(124deg, rgba(34,0,48,1) 0%, rgba(49,5,96,1) 43%, rgb
 }
 
 .copyright{
-    background: rgb(34,0,48);
-    background: linear-gradient(124deg, rgba(34,0,48,1) 0%, rgba(49,5,96,1) 43%, rgba(40,9,107,1) 67%, rgba(0,21,40,1) 100%);
+    background: rgb(38, 37, 39);
+
     color: #fff
 }
 
@@ -1583,4 +1590,15 @@ footer{
     .title-slide-vote {
         top: 115px;
     }
+}
+
+.item-showroom .btn {
+    font-size: 10px;
+    padding: 3px 5px;
+    display: inline;
+}
+
+.item-showroom {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 10px;
 }
