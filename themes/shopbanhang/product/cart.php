@@ -36,14 +36,14 @@ $price_total = 0;
                                     <thead>
                                         <tr>
                                             <th scope="col col-check">
-                                                <!-- <input class="form-check-input" type="checkbox" value="" id="allcheck"> -->
+                                                 <input class="form-check-input" type="checkbox" onclick="checkproductAll()" value="1" id="allcheck" <?php if($checkproductAll=='true'){echo 'checked';} ?>> 
                                             </th>
                                             <th scope="col col-name">Tên sản phẩm</th>
                                             <th scope="col col-price">Đơn giá</th>
                                             <th scope="col col-number">Số lượng</th>
                                             <th scope="col col-total">Thành tiền</th>
                                             <th scope="col col-delete">
-                                                <!-- <a href=""><i class="fa-regular fa-trash-can"></i></a> -->
+                                                 <a href="/clearCart"><i class="fa-regular fa-trash-can"></i></a>
                                             </th>
                                         </tr>
                                     </thead>
@@ -671,6 +671,25 @@ $(document).ready(function() {
         })
         .done(function( msg ) {
             location.reload();
+        });
+
+
+    }
+
+    function checkproductAll(id){
+         var checkBox = document.getElementById("allcheck");
+
+
+         
+
+        $.ajax({
+            method: "GET",
+            url: "/apis/checkproductAll/?status="+checkBox.checked
+        })
+        .done(function( msg ) {
+            location.reload();
+
+            //console.log(msg);
         });
 
 
