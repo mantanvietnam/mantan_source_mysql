@@ -1927,7 +1927,12 @@ background: #555;
     }
 
     #section-product-detail-rate .product-detail-rate-inner:first-child h2{
-        display: none;
+        /* display: none; */
+
+    }
+
+    .product-detail-rate-inner .title-section h2{
+        margin-bottom: 25px;
     }
 
     .product-question-img{
@@ -2251,7 +2256,7 @@ background: #555;
     
 
     .cart-product-gift-item .product-img{
-        height: 127px;
+        height: 177px;
     }
     
     .cart-product-gift-item .product-item-inner{
