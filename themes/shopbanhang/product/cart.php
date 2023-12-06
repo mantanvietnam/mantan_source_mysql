@@ -203,11 +203,11 @@ $price_total = 0;
                                 <div class="container">
                                     <div class="product-mobile-top-table">
                                         <div class="product-mobile-radio">
-                                            <input class="form-check-input" type="checkbox">
+                                            <input class="form-check-input" type="checkbox"  onclick="checkproductAll()" value="1" id="allcheck" <?php if($checkproductAll=='true'){echo 'checked';} ?>>
                                         </div>
 
                                         <div class="product-delete-mobile">
-                                            <i class="fa-regular fa-trash-can"></i>
+                                            <a href="/clearCart"><i class="fa-regular fa-trash-can"></i></a>
                                         </div>
                                     </div>
 

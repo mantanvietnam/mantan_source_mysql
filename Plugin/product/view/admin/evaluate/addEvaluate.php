@@ -57,7 +57,7 @@
                               <?php showUploadFile('image_video','image_video',@$data->image_video,6);?>
                           </div>
                           <div class="col-md-6 mb-3">
-                             <label class="form-label">video đánh giá 5</label>
+                             <label class="form-label">video đánh giá </label>
                               <?php showUploadFile('video','video',@$data->video,7);?>
                           </div>
 
