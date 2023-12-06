@@ -688,14 +688,14 @@ $slide_home= slide_home($setting['id_slide']);
                                         </a>
                                    
 
-                                        <div class="modal-login">
+                                        <div class="modal-video">
                                              <div class="modal fade" id="exampleModalVideo<?php echo $key ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
-                                                   
-                                                <video autoplay width="600" height="440" controls>
-                                                    <source src="<?php echo $item->video ?>" type="video/mp4">
-                                                </video>
-                                                    
+                                                    <div class="modal-content">
+                                                        <video autoplay width="600" height="440" controls>
+                                                            <source src="<?php echo $item->video ?>" type="video/mp4">
+                                                        </video>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
