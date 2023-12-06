@@ -11,6 +11,8 @@ function cart($input)
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 	//$session = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
+	$checkproductAll = 'true';
+
 	if(!empty($list_product)){
 
 		foreach($list_product as $key => $product){
@@ -24,7 +26,9 @@ function cart($input)
                     if(!empty($presentf)){
                         $present[] = $presentf;
                     }
+
                 }
+
             }
             $list_product[$key]->present = $present;
 
@@ -42,9 +46,13 @@ function cart($input)
                 }
             }
             $list_product[$key]->idprodiscount = $idprodiscount;
+
+            if(@$product->statuscart=='false'){
+            	$checkproductAll = 'false';
+            }
+
         }
     }
-    // die;
     $categoryDiscountCode = categoryDiscountCode();
     $category = array();
 
@@ -79,6 +87,7 @@ function cart($input)
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
 	setVariable('category', $category);
+	setVariable('checkproductAll', $checkproductAll);
 }
 
 function addProductToCart($input)
@@ -346,6 +355,18 @@ function checkUpdateCart(){
 				 
 			}
 
+			if($list_product[$product->id]->statuscart=='false' && !empty($list_product[$product->id]->idpro_discount)){
+				$id_prodiscount = explode(',', @$list_product[$product->id]->idpro_discount);
+				foreach($id_prodiscount as $key => $item){
+					$code_check = $modelProduct->find()->where(['code'=>$item])->first();
+
+					if(!empty($list_product[$code_check->id])){
+						unset($list_product[$code_check->id]);
+					}
+				}
+
+			}
+
 			$session->write('product_order', $list_product);
 
 			return $controller->redirect('/cart/?error=addDone');
@@ -357,6 +378,51 @@ function checkUpdateCart(){
 	}
 
 	return $controller->redirect('/cart');
+}
+
+function checkproductAll(){
+	global $session;
+	global $controller;
+
+	$modelProduct = $controller->loadModel('Products');
+
+	if(!empty($_REQUEST['status'])){
+	
+		//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+
+		$list_product = $session->read('product_order');
+
+		if(!empty($list_product)){
+			foreach($list_product as $k =>$value){
+				if(!empty($list_product[$value->id])){
+					$list_product[$value->id]->statuscart =  $_REQUEST['status'];
+					 
+				}
+
+				if($list_product[$value->id]->statuscart=='false' && !empty($list_product[$value->id]->idpro_discount)){
+					$id_prodiscount = explode(',', @$list_product[$value->id]->idpro_discount);
+					foreach($id_prodiscount as $key => $item){
+						$code_check = $modelProduct->find()->where(['code'=>$item])->first();
+
+						if(!empty($list_product[$code_check->id])){
+							unset($list_product[$code_check->id]);
+						}
+					}
+
+				}
+
+				$session->write('product_order', $list_product);
+			}
+
+				return array('code' => 1);
+		}else{
+			return array('code' => 2);
+		}
+	}else{
+		return array('code' => 3);
+	}
+
+	return array('code' => 4);
 }
 
 function addProductdiscountCart($input)
