@@ -52,6 +52,15 @@
                               <?php showUploadFile('image5','image[5]',@$data->image[5],5);?>
                           </div>
 
+                           <div class="col-md-6 mb-3">
+                             <label class="form-label">ảnh video đánh giá</label>
+                              <?php showUploadFile('image_video','image_video',@$data->image_video,6);?>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                             <label class="form-label">video đánh giá 5</label>
+                              <?php showUploadFile('video','video',@$data->video,7);?>
+                          </div>
+
                             <div class="col-md-6 mb-3">
                               <label class="form-label">nội dung (*)</label>
                               <textarea name="content" class="form-control phone-mask" required="" rows="5"><?php echo @$data->content; ?></textarea>

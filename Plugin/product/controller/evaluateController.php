@@ -117,7 +117,9 @@ function addEvaluate($input){
             $data->id_product = @$dataSend['id_product'];
             $data->content = @$dataSend['content'];
             $data->point = @$dataSend['point'];
-            $data->image = json_encode($dataSend['image']);;
+            $data->image = json_encode($dataSend['image']);
+            $data->image_video = $dataSend['image_video'];
+            $data->video = $dataSend['video'];
             $data->id_product = @$_GET['id_product'];
 
             $modelEvaluate->save($data);

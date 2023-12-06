@@ -144,11 +144,15 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">video đập hộp của : <?php echo $item->user->full_name; ?></h5>
+                                <h5 class="modal-title" id="exampleModalLabel1">video đập hộp của khách : <?php echo $item->user->full_name; ?> </h5><br>
+                                
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                               </div>
+                              <h5 class="modal-title modal-header" id="exampleModalLabel1">Id khách hàng : <?php echo $item->user->id; ?> </h5>
                              <form action="/plugins/admin/product-view-admin-product-upReview.php" method="GET">
                                <div class="modal-footer">
+
                                 <input type="hidden" value="<?php echo $item->id; ?>"  name="id">
                                 <iframe width="360" height="220" src="https://www.youtube.com/embed/<?php echo $item->note; ?>?si=4iryEOiZIA0Krkpn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 <div class="card-body">
