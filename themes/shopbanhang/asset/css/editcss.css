@@ -2465,6 +2465,9 @@ background: #555;
         margin-bottom: 49px !important;
     }
 
+    .banner-category-image{
+        display: none;
+    }
 }
 
 
