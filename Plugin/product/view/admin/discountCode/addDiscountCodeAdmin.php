@@ -34,7 +34,7 @@
                   </div>
                    <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Danh mục(*)</label>
-                    <select class="form-select form-select-sm" id="category" required  name="category" aria-label=".form-select-sm example">
+                    <select class="form-select form-select" id="category" required  name="category" aria-label=".form-select-sm example">
                        <option value="">Chọn danh mục</option>
                         <?php  foreach(categoryDiscountCode() as $key => $item){ ?>
                         <option <?php if($data['category']==$key){ echo 'selected'; } ?> value="<?php echo $key ?>"><?php echo $item ?></option>        
@@ -58,6 +58,10 @@
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Giá giảm tối đa </label>
                     <input type="number"  class="form-control" placeholder="mỗi id sản phẩm cách nhau dấu phẩy " name="maximum_price_reduction" id="maximum_price_reduction" value="<?php echo @$data->maximum_price_reduction;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Id khách hàng</label>
+                    <input type="text" class="form-control" placeholder="mỗi id khách hàng cách nhau dấu phẩy" name="id_customers" id="id_customers" value="<?php echo @$data->id_customers;?>" />
                   </div>
                 </div>
               </div>
