@@ -332,7 +332,12 @@ function addDiscountCode($input){
 	$pay['total'] = @$_GET['total'];
 
 	$session->write('pay', $pay);
-	return $controller->redirect('/pay');
+	if($pay['total']>0){
+		return $controller->redirect('/pay');
+	}else{
+		return $controller->redirect('/cart');
+	}
+	
 }
 
 
