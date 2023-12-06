@@ -2129,9 +2129,9 @@ background: #555;
         height: auto !important;
     }
 
-    .info-col-right{
+    /* .info-col-right{
         margin-top: 80px;
-    }
+    } */
     
     /* footer */
     .footer-menu-name{
@@ -2382,9 +2382,6 @@ background: #555;
         margin-bottom: 10px;
     }
 
-    .describe-inner .title-section h2{
-        text-align: center;
-    }
 
     .section-pro-review-inner .title-section p{
         margin-bottom: 20px;

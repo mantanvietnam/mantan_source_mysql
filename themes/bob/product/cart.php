@@ -46,7 +46,7 @@
                                     <p>Số lượng</p>
                                 </div>
 
-                                <div class="cart-table">
+                               
                                     <?php
                                         foreach ($list_product as $key => $value) {
                                             $link = '/product/'.$value->slug.'.html';
@@ -60,7 +60,9 @@
                                             $price_buy = $value->price * $value->numberOrder;
                                             $price_total += $price_buy;
 
-                                            echo '  <div class="cart-table-image">
+                                            echo '  
+                                            <div class="cart-table">
+                                                    <div class="cart-table-image">
                                                         <img src="'.$value->image.'" alt="">
                                                     </div>
                                                     <div class="cart-table-info">
@@ -85,10 +87,11 @@
                                                         <div class="cart-delete-inner">
                                                             <a href="/deleteProductCart/?id_product='.$value->id.'"><i class="fa-solid fa-trash-can"></i></a>
                                                         </div>
+                                                    </div>
                                                     </div>';
                                         }
                                     ?>
-                                </div>
+                               
                             </div>
             
                             <div class="col-lg-4 col-md-4 col-sm-4 col-12 cart-right">

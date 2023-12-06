@@ -372,9 +372,6 @@ $slide_home= slide_home($setting['id_slide']);
             </div>
          
             <!-- Xác nhận thêm giỏ hàng -->
-
-            
-
             <div class="box-confirm-cart" id="myElement" style=" display: none; ">
                 <div class="box-confirm-cart-title">
                     <p>Đã thêm vào giỏ hàng</p>
@@ -463,8 +460,6 @@ $slide_home= slide_home($setting['id_slide']);
                                     <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
                                 </div>
                             </div>
-
-                           
                         </div>
                     <?php }}} ?>
                     </div>

@@ -3970,9 +3970,7 @@ tbody {
 
 
 @media(max-width: 445px) {
-    .info-col .title-info-col {
-        text-align: center;
-    }
+
 
     .gift-item-inner {
         padding-top: 0;
@@ -4255,6 +4253,43 @@ tbody {
         margin-bottom: 20px;
     }
 
+    /* .info-col .title-info-col {
+        text-align: center;
+    }
+
+    .info-col .title-info-col {
+        text-align: left;
+    } */
+
+    .info-col .title-info-col {
+       font-size: 18px;
+       position: relative;
+       font-weight: 300;
+    }
+
+    .info-col .title-info-col::before{
+        content: "+";
+        position: absolute;
+        right: 0;
+    }
+
+    .info-col{
+        padding: 0 12px
+    }
+
+    #section-info-col .row{
+        min-height: 1px;
+    }
+
+    .info-col-right{
+        margin-top: 0;
+    }
+
+    .info-col-description {
+        height: auto;
+        /* padding-bottom: 15px; */
+    }
+
     /* Chuyên mục blog */
     .section-blog-new-inner{
         padding-left: 0;
@@ -4350,6 +4385,29 @@ tbody {
         width: 74px;
     }
 
+    .info-col-description{
+        background-color: transparent !important;
+    }
+
+    .info-col-right{
+        margin-bottom: 0;
+    }
+
+    .describe-inner .title-section h2{
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+    .describe-inner .title-section h2{
+        text-align: left;
+    }
+
+
+     .info-col-description li{
+        font-weight: 300 !important;
+    }
+
+
     /* Chi tiết blog */
     #section-blog-detail .title-blog-detail {
         font-size: 26px;
@@ -4359,6 +4417,11 @@ tbody {
     .title-blog-like {
         margin-bottom: 30px;
     }
+
+    .info-col-description{
+        padding-top: 5px;
+    }
+
 
  
 }

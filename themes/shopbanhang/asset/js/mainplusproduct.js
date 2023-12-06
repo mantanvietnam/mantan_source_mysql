@@ -6,9 +6,8 @@ document.getElementById('button-contact').addEventListener('click', function() {
   content.offsetHeight; /* Trigger reflow */
   content.style.animation = null;
 });
+
 $(document).on('click', function (e) {
-
-
   $(document).ready(function(){
     // Sử dụng sự kiện click cho tất cả các radio button có class 'radioOption'
     $(".check-voucher .checkcode3").click(function(){
@@ -90,6 +89,9 @@ headings.forEach(function (heading, index) {
     tocList.appendChild(listItem);
 });
 
+
+// Chi tiết sản phẩm
+
 var contentMain = document.querySelector('.describe-description-filter');
 contentMain.classList.add('hideContent');
 
@@ -111,6 +113,28 @@ document.querySelectorAll(".describe-more button").forEach(function(link) {
     this.textContent = linkText;
   });
 });   
+
+ // Sử dụng jQuery để thực hiện toggle khi nút được click
+ $(document).ready(function(){
+    $('.info-col-description').hide();
+
+    $(".info-col-left .title-info-col").click(function(){
+      if ($(window).width() <= 450) {
+          $(".info-col-left .info-col-description").slideToggle();
+      }
+    });
+
+    $(".info-col-right .title-info-col").click(function(){
+      if ($(window).width() <= 450) {
+        $(".info-col-right .info-col-description").slideToggle();
+      }
+    });
+
+    
+});
+
+
+
 
 
 
