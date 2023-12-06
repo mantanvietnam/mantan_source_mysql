@@ -438,6 +438,25 @@ $slide_home= slide_home($setting['id_slide']);
                     </div>
                 </div>
             </div>
+
+             <div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
+                <div class="box-confirm-cart-title confirm-like">
+                    <p>Đã thích Comment này </p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
+
+             <div class="box-confirm-cart box-confirm-like" id="myLikeCommentno"  style=" display: none; ">
+                <div class="box-confirm-cart-title confirm-like">
+                    <p>Đã bỏ yêu thích Comment này</p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="section-pro-review">
@@ -683,16 +702,16 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-detail-rate-image">
                                         <!-- video -->
                                         <?php if(!empty($item->image_video) && !empty($item->video)){ ?>
-                                        <a  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo<?php echo $key ?>">
+                                        <a class="video-comment-box"  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo<?php echo $key ?>">
                                             <img src="<?php echo $item->image_video ?>" alt="">
                                         </a>
                                    
 
-                                        <div class="modal-video">
+                                        <div class="modal-video-comment">
                                              <div class="modal fade" id="exampleModalVideo<?php echo $key ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
-                                                        <video autoplay width="600" height="440" controls>
+                                                        <video autoplay controls>
                                                             <source src="<?php echo $item->video ?>" type="video/mp4">
                                                         </video>
                                                     </div>
@@ -872,18 +891,14 @@ $slide_home= slide_home($setting['id_slide']);
                                  $infoUser = $session->read('infoUser');
                                     if(!empty($infoUser)){
                                 if(empty(getLike($infoUser['id'],$value->id,'comment'))){?>
-                            <div class="button-like<?php echo $value->id ?>">
-                                <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i>                                     
-                                                    <span>Thích</span></button>
+                            <div class="button-like<?php echo $value->id ?>" id="likecomment">
+                                <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i><span>Thích</span></button>
                             </div>
                                 <?php }else{
                                   
                                  ?>
-                                    <div class="button-like<?php echo $value->id ?>">
-
-                                <button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i>                                     
-                                                    <span>Thích</span></button><?php echo $value->number_like ?>
-                            </div>
+                                    <div class="button-like<?php echo $value->id ?>"  id="likecommentno"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
+                                    </div>
                            
                                 <?php }  }else{ ?>
                                      <div class="button-like<?php echo $value->id ?>">
@@ -1144,6 +1159,7 @@ function delelelike(){
 } 
 
 function addlikecomment(idobject, comment){
+    var s = "'comment'";
     $.ajax({
             method: 'POST',
             url: '/apis/addlike',
@@ -1153,17 +1169,31 @@ function addlikecomment(idobject, comment){
             },
             success:function(res){
               console.log(res);
-                $('#like_save').load(location.href + ' #like_save>*');
-                $('#like_comment .button-like'+idobject+' button').css('background-color', '#188181');
-                $('#like_comment .button-like'+idobject+' button').css('color', '#fff')
-                $('.button-like i').css('color', '#fff');
-                 location.reload();
+              $('#likecomment').remove();
+              html= '<div class="button-like'+idobject+'"  id="likecommentno"><button type="button" onclick="delelelikecomment('+idobject+','+s+')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class="bx bxs-like"></i><span>Thích</span></button></div>'
+
+              document.getElementById("like_comment").innerHTML = html;
+
+                document.getElementById("myLikeComment").style.display = 'block';
+                   var myElement = document.getElementById('myLikeComment');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
+                
+               
             }
+
+            
         })
             
 }
 function  delelelikecomment(idobject, comment){
-
+            var s = "'comment'";
           $.ajax({
                 method: 'POST',
                 url: '/apis/delelelike',
@@ -1173,10 +1203,21 @@ function  delelelikecomment(idobject, comment){
                 },
                 success:function(res){
                   console.log(res);
-                    $('#like_save').load(location.href + ' #like_save>*');
-                    $('#like_comment .button-like'+idobject+' button').css('background-color', 'rgb(24 129 129 / 0%)');
-                    $('#like_comment .button-like'+idobject+' button').css('color', '#3F4042')
-                    $('.button-like i').css('color', '#126B66');
+                   $('#likecommentno').remove();
+              html= '<div class="button-like'+idobject+'"  id="likecomment"><button type="button" onclick="addlikecomment('+idobject+','+s+')"><i class="bx bxs-like"></i><span>Thích</span></button></div>'
+
+              document.getElementById("like_comment").innerHTML = html;
+
+              document.getElementById("myLikeCommentno").style.display = 'block';
+                   var myElement = document.getElementById('myLikeCommentno');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
                 }
             })
                

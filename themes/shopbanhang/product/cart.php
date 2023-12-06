@@ -100,10 +100,11 @@ $price_total = 0;
                                                         <input type="hidden" name="price<?php echo $total ?>" id="price<?php echo $total ?>" value="<?php echo @$value->price ?>">
 
                                                     </div>
-        
+                                                     <?php  if($value->price_old>$value->price){  ?>
                                                     <div class="cart-product-price-discount">
                                                         <del><?php echo number_format($value->price_old); ?>đ</del>
                                                     </div>
+                                                <?php } ?>
                                                 </div>
                                             </td>
         
@@ -668,6 +669,14 @@ $(document).ready(function() {
 <?php }}} ?>
   });
 </script>
+
+ <script>
+        // Sự kiện xảy ra khi người dùng nhấn nút "Back"
+        window.addEventListener('popstate', function(event) {
+            // Tải lại trang
+            location.reload();
+        });
+    </script>
 
 
 <script type="text/javascript">

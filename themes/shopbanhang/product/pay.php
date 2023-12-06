@@ -252,6 +252,14 @@ $infoUser = $session->read('infoUser');
             </div>
         </section>
     </main>
+
+     <script>
+        // Sự kiện xảy ra khi người dùng nhấn nút "Back"
+        window.addEventListener('popstate', function(event) {
+            // Tải lại trang
+            location.reload();
+        });
+    </script>
 <script type="text/javascript">
     // tìm khách hàng 
     $(function() {

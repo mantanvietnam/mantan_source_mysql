@@ -69,6 +69,8 @@ function cart($input)
 		    		if( in_array($infoUser->id, $id_customer)){
 		    			$data['discountCode'][$k] = $value;
 		    		}
+		    	}else{
+		    		$data['discountCode'][$k] = $value;
 		    	}
 	    	}
     	}
@@ -753,6 +755,8 @@ function discount($input){
 		    		if( in_array($infoUser->id, $id_customer)){
 		    			$data['discountCode'][$k] = $value;
 		    		}
+		    	}else{
+		    		$data['discountCode'][$k] = $value;
 		    	}
 	    	}
     	}
