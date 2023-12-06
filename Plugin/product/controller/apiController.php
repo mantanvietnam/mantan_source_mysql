@@ -47,9 +47,14 @@ function searchEvaluateAPI($input)
 		
         $conditions = ['id_product'=>$dataSend['id_product']];
         if(!empty($dataSend['point'])){
-        	$conditions['point'] = $dataSend['point'];
+        	if($dataSend['point']==6){
+        			$conditions['image !=']= '{"1":"","2":"","3":"","4":"","5":""}';
+        	}else{
+ 		       	$conditions['point'] = $dataSend['point'];
+        	}
         }
 
+       
         $listData= $modelEvaluate->find()->where($conditions)->all()->toList();
         
         if(!empty($listData)){

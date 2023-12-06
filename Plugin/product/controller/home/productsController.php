@@ -425,7 +425,7 @@ function sela($input)
     global $metaDescriptionMantan;
     global $metaImageMantan;
 
-    $metaTitleMantan = 'Sản phẩm khuyến Mại';
+    $metaTitleMantan = 'Sản phẩm khuyến Mãi';
 
     $modelProduct = $controller->loadModel('Products');
     $modelEvaluate = $controller->loadModel('Evaluates');

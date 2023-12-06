@@ -63,15 +63,15 @@
               foreach ($listData as $item) {
                 $status= '';
                if($item->status=='new'){ 
-                 $status= 'Đơm mới';
+                 $status= '<p style="color: #00aeee;">Đơm mới</p>';
                 }elseif($item->status=='browser'){
-                   $status= 'Đã duyệt';
+                   $status= '<p style="color: #0333f6;">Đã duyệt</p>';
                 }elseif($item->status=='delivery'){
-                     $status= 'Đang giao';
+                     $status= '<p style="color: #7503f6;">Đang giao</p>';
                 }elseif($item->status=='done'){
-                   $status= 'Đã xong';
+                   $status= '<p style="color: #00ee4b;">Đã xong</p>';
                 }else{
-                   $status= 'Đã hủy';
+                   $status= '<p style="color: red;">Đã hủy</p>';
                 }
                 echo '<tr>
                         <td>'.$item->id.'</td>

@@ -240,7 +240,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         
     
                             <li class="nav-item nav-item-last">
-                                <a class="nav-link" href="/sela">Khuyến mãi</a>
+                                <a class="nav-link" href="/sale">Khuyến mãi</a>
                             </li>
                         </ul>
                         <form class="menu-form-search d-flex" role="search"  action="/search-product" method="get" id="myForm">
@@ -265,7 +265,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             </li>
 
                             <li>
-                                <a href="/sela">
+                                <a href="/sale">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt="">
                                     <p>Khuyến mãi</p>
                                 </a>

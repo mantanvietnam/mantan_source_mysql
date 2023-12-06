@@ -687,7 +687,7 @@ $slide_home= slide_home($setting['id_slide']);
             
                                     <div class="product-detail-rate-image">
                                         <!-- video -->
-                                        <a style="display:none" href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo">
+                                        <a  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo">
                                             <img src="<?php echo $urlThemeActive ?>/asset/image/detailproduct2.png" alt="">
                                         </a>
 
@@ -785,7 +785,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     </div>
 
                                     <div class="list-filter-rate-item">
-                                        <a onclick=" searchEvaluates()">Có hình ảnh/video</a>
+                                        <a onclick=" searchEvaluates(6)">Có hình ảnh/video</a>
                                     </div>
                                 </div>
 
@@ -1244,11 +1244,12 @@ function deteleComment($id){
 </script>
 <script type="text/javascript">
     function searchEvaluates(point){
+      
         console.log(point);
          $.ajax({
                 method: 'POST',
                 url: '/apis/searchEvaluateAPI',
-                data: { id_product: <?php echo $product->id ?>, point: point },
+                data: { id_product: <?php echo $product->id ?>, point: point},
                 success:function(res){
                     console.log(res);
                     if(res.code==1){

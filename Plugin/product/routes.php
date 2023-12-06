@@ -14,7 +14,7 @@
 	$routesPlugin['detailOrder']= 'product/view/home/detailOrder.php';
 	$routesPlugin['search-product']= 'product/view/home/search.php';
 	$routesPlugin['cart']= 'product/view/home/cart.php';
-	$routesPlugin['sela']= 'product/view/home/sela.php';
+	$routesPlugin['sale']= 'product/view/home/sela.php';
 	$routesPlugin['pay']= 'product/view/home/pay.php';
 	$routesPlugin['discount']= 'product/view/home/discount.php';
 	$routesPlugin['addReview']= 'product/view/home/addReview.php';
