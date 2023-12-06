@@ -3123,7 +3123,14 @@ strong {
 /*  */
 
 
-/* cart */
+/* Giỏ hàng */
+.product-mobile-top-table{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    border-bottom: 2px dashed #949494;
+}
 
 .title-section-cart h1 {
     font-size: 28px;

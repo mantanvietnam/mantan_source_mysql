@@ -201,6 +201,16 @@ $price_total = 0;
                               <!-- Cart -->
                             <section id="product-mobile">
                                 <div class="container">
+                                    <div class="product-mobile-top-table">
+                                        <div class="product-mobile-radio">
+                                            <input class="form-check-input" type="checkbox">
+                                        </div>
+
+                                        <div class="product-delete-mobile">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </div>
+                                    </div>
+
                                     <div class="product-mobile-group">
                                         <!-- Sản phẩm -->
                                         <?php if(!empty($list_product)){ 
