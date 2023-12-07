@@ -80,6 +80,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <div class="topbar-button">
                             <a href="/gio-hang">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt="">
+                                <span id="count"><?php echo @$cart; ?></span>
+
                             </a>   
                         </div>
                     </div>

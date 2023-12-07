@@ -1787,7 +1787,10 @@ background: #555;
 
 
 @media(max-width: 445px) {
-
+    .topbar-button span{
+        top: 15px;
+        left: 14px;
+    }
     
     .content-contact-item img{
         height: 32px !important;

@@ -711,7 +711,7 @@ $slide_home= slide_home($setting['id_slide']);
                                              <div class="modal fade" id="exampleModalVideo<?php echo $key ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
-                                                        <video autoplay controls>
+                                                        <video controls>
                                                             <source src="<?php echo $item->video ?>" type="video/mp4">
                                                         </video>
                                                     </div>

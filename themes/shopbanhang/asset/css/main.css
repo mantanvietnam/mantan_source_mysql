@@ -2936,9 +2936,13 @@ strong {
     /* background-image: url('/themes/shopbanhang//asset/image/play.png'); */
     font-weight: 900;
     font-family: "Font Awesome 6 Free";
-    top: 35%;
-    right: 33%;
-    color: #000
+    color: #fff;
+    right: 35%;
+    top: 29%;
+    padding: 6px;
+    background: #000;
+    font-size: 9px;
+    border-radius: 30px;
 
 }
 
