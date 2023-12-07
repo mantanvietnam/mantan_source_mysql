@@ -126,7 +126,7 @@ $(document).ready(function () {
           navigationPosition: 'right',
           scrollOverflow: true,
           controlArrows: false, // Thêm dòng này để ẩn "watermark"
-          normalScrollElements: '.list-showroom',
+          normalScrollElements: '.list-showroom, .item-sevices-detail',
 
         });
     });

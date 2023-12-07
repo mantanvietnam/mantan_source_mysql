@@ -2926,6 +2926,23 @@ strong {
     object-fit: cover;
 }
 
+.video-comment-box{
+    position: relative;
+}
+
+.video-comment-box::before{
+    content: "\f04b";
+    position: absolute;
+    /* background-image: url('/themes/shopbanhang//asset/image/play.png'); */
+    font-weight: 900;
+    font-family: "Font Awesome 6 Free";
+    top: 35%;
+    right: 33%;
+    color: #000
+
+}
+
+
 .product-detail-rate-avata {
     width: 41px;
     height: 41px;

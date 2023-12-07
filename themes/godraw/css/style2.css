@@ -136,11 +136,11 @@ body {
 }
 
 .title-slide-vote {
-    font-size: 23px;
+    font-size: 30px;
 }
 
 .title-slide-vote span {
-    font-size: 23px;
+    font-size: 30px;
     font-weight: 700;
 }
 
@@ -196,6 +196,7 @@ img.header-client {
 .zoom-effect {
     transition: all .2s ease-in-out;
     color: #fff;
+    text-transform: uppercase;
 }
 
 .zoom-effect:hover {
@@ -819,7 +820,7 @@ header {
 }
 
 .item-showroom {
-    border-bottom: 1px solid #888484;
+    border-bottom: 1px solid #ebebeb;
     padding-bottom: 10px;
 }
 
@@ -857,6 +858,7 @@ header {
     display: block;
     margin-bottom: 5px;
     text-align: center;
+    font-size: 30px;
 }
 
 .iconmarket i{
@@ -990,11 +992,19 @@ header {
     padding: 15px 0;
 }
 
+.logo-foter ul li{
+    color: #fff;
+}
+
 .text-red-service{
     color: #e04938;
     line-height: normal;
     font-weight: bold;
     font-size: 14px;
+}
+
+.item-services-btn i{
+    font-size: 12px;
 }
 
 
@@ -1064,13 +1074,13 @@ header {
 }
 
 .sevices-title {
-    font-size: 48px;
+    font-size: 30px;
     line-height: 57px;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 68px;
+    margin-bottom: 30px;
     margin-top: 20px;
 }
 
@@ -1103,7 +1113,7 @@ header {
     object-fit: cover;
 }
 
-.sevices-ft-title p {
+.sevices-ft-title h2 {
     margin-bottom: 0;
     font-size: 36px;
     line-height: 44px;
@@ -1115,24 +1125,6 @@ header {
     display: flex;
     align-items: center;
 }
-
-.sevices-ft-text p {
-    text-align: justify;
-    font-size: 21px;
-    line-height: 24px;
-    margin-bottom: 0;
-    color: #fff;
-    padding-top: 36px;
-    padding-bottom: 30px;
-    padding-right: 121px;
-}
-
-
-
-
-
-
-
 
 .sevices-ft-list-title {
     height: 49px;
@@ -1262,7 +1254,7 @@ header {
     .sevices-ft-content .col-lg-3.col-md-6 {
         width: 100%;
     }
-    .sevices-ft-title p {
+    .sevices-ft-title h2 {
         font-size: 30px;
     }
 
@@ -1278,8 +1270,8 @@ header {
         height: 30%;
     }
 
-    .sevices-ft-title p {
-        font-size: 18px;
+    .sevices-ft-title h2 {
+        font-size: 19px;
    
 
     }
@@ -1369,7 +1361,7 @@ header {
     }
 
     .title-slide-vote span {
-        font-size: 35px;
+        font-size: 30px;
     }
 
     .box-banner-home-unset .video-banner {
@@ -1400,7 +1392,7 @@ header {
     }
 
     #slide-home-shop{
-        padding-bottom: 93px;
+        padding-bottom: 110px;
     }
 
     .slide-bot .heart img {
@@ -1490,6 +1482,16 @@ header {
         padding-bottom: 10px;
     }
 
+    .box-search-agency .col-6:nth-child(1), .box-search-agency .col-6:nth-child(3){
+        padding-right: 5px;
+    } 
+
+    .box-search-agency .col-6:nth-child(2), .box-search-agency .col-6:nth-child(4){
+        padding-left: 5px;
+    } 
+
+
+
     .box-banner-home-unset .video-banner video{
         height: 370px !important;
     }
@@ -1559,7 +1561,7 @@ header {
         font-size: 11px;
     }
     .logo-foter h4 {
-        font-size: 12px;
+        font-size: 11px;
         text-align: center;
     }
     .logo-foter .logo img {
@@ -1567,12 +1569,13 @@ header {
     }
     .content-footer {
         display: flex;
-        flex-direction: column;
-        align-items: start;
+        /* flex-direction: column;
+        align-items: start; */
         padding: 10px 15px 5px 15px;
     }
     .subscribe-fter {
         margin-top: 10px;
+        width: 47px;
     }
     .slick-arrow {
         display: none !important;
@@ -1746,20 +1749,7 @@ header {
         display: block !important;
         bottom: 167px
     }
-    .box-gallery .view-all {
-        /* top: 138px; */
-        z-index: 10;
-        bottom: 7px;
-        /* background-color: #0046ab; */
-        padding: 5px;
-        /* display: none !important; */
-    }
-    .box-gallery .view-all a {
-        display: flex;
-        /* background-color: #0046ab; */
-        padding: 6px;
-        border-radius: 3px;
-    }
+    
     .box-banner-home .btn-main {
         display: none
     }
@@ -2046,16 +2036,11 @@ header {
     .item-for {
         height: 100%;
     }
-    /* .box-gallery .view-all {
-        top: 105px
-        
-    } */
+
     .item-for .avr img {
         top: 0;
     }
-    .box-gallery .view-all {
-        bottom: -10px;
-    }
+
     /* .title-slide-vote {
         top: 112px
     } */
@@ -2116,10 +2101,10 @@ header {
 @media only screen and (min-width:320px) {
     .item-sevices-detail {
         max-height: 260px;
-        overflow: hidden;
+        overflow: scroll;
         position: relative;
     }
-    .item-sevices-detail:after {
+    /* .item-sevices-detail:after {
         content: '';
         background: rgb(255,255,255);
         background: linear-gradient(0deg, rgba(255,255,255,1) 47%, rgba(255,255,255,0) 96%);
@@ -2128,11 +2113,7 @@ header {
         width: 100%;
         position: absolute;
         left: 0;
-    }
-    .sevices-ft-text p {
-        text-align: center;
-        display: block;
-    }
+    } */
     .sevices-ft-btn {
         display: table;
         margin: 10px auto 10px auto;
@@ -2143,16 +2124,35 @@ header {
     }
     #sevices-ft {
         padding: 10px 0px 0px 0px;
+    }
+    .sevices-ft-text p {
+        text-align: center;
+        font-size: 15px;
+        line-height: 20px;
+        margin: 0;
+        color: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 0;
+    }
+    .list-showroom {
+        height: 32vh;
+    }
+    .box-gallery .view-all {
+        position: absolute;
+        bottom: 5px;
+        right: 9px;
+        z-index: 9;
     }
 }    
 
 @media only screen and (min-width:480px) {
     .item-sevices-detail {
-        max-height: 280px;
-        overflow: hidden;
+        max-height: 500px;
+        overflow: scroll;
         position: relative;
     }
-    .item-sevices-detail:after {
+    /* .item-sevices-detail:after {
         content: '';
         background: rgb(255,255,255);
         background: linear-gradient(0deg, rgba(255,255,255,1) 47%, rgba(255,255,255,0) 96%);
@@ -2161,11 +2161,7 @@ header {
         width: 100%;
         position: absolute;
         left: 0;
-    }
-    .sevices-ft-text p {
-        text-align: center;
-        display: block;
-    }
+    } */
     .sevices-ft-btn {
         display: table;
         margin: 10px auto 10px auto;
@@ -2176,19 +2172,50 @@ header {
     }
     #sevices-ft {
         padding: 10px 0px 0px 0px;
+    }
+    .sevices-ft-text p {
+        text-align: center;
+        font-size: 15px;
+        line-height: 20px;
+        margin: 0;
+        color: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 0;
+    }
+    .list-showroom {
+        height: 32vh;
+    }
+    .box-gallery .view-all {
+        position: absolute;
+        bottom: 5px;
+        right: 9px;
+        z-index: 9;
     }
 
 }    
 
 @media only screen and (min-width:768px) {	
     .item-sevices-detail {
-        max-height: 100%;
+        max-height: 400px;
+        overflow-y: scroll;
+        position: relative;
     }
     .item-sevices-detail:after {
         content: '';
         background-color: transparent;
         height: 0;
     }
+    /* .item-sevices-detail:after {
+        content: '';
+        background: rgb(255,255,255);
+        background: linear-gradient(0deg, rgba(255,255,255,1) 47%, rgba(255,255,255,0) 96%);
+        height: 77px;
+        bottom: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+    } */
     .sevices-ft-text p {
         text-align: left;
         display: block;
@@ -2203,6 +2230,26 @@ header {
     }
     #sevices-ft {
         padding: 50px 50px 50px 50px;
+    }
+    .sevices-ft-text p {
+        text-align: justify;
+        font-size: 21px;
+        line-height: 24px;
+        margin: 0;
+        color: #fff;
+        padding-top: 25px;
+        padding-bottom: 30px;
+        padding-right: 121px;
+    }
+
+    .list-showroom {
+        height: 100%;
+    }
+    .box-gallery .view-all {
+        position: static;
+        bottom: 5px;
+        right: 9px;
+        z-index: 9;
     }
 }
 
@@ -2247,4 +2294,10 @@ h2.mobile-title {
     background: rgb(2,127,198);
     background: linear-gradient(180deg, rgba(2,127,198,1) 26%, rgba(131,54,146,1) 96%);
     border: 1px solid #066195;
+}
+
+.item-showroom .btn {
+    font-size: 10px;
+    padding: 3px 5px;
+    display: inline;
 }

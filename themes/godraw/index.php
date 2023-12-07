@@ -65,15 +65,23 @@
 
                                 <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
                                 
-                                <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/telegram.png" class="img-fluid btn-effect" alt=""></a></li>
+                                <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/zalo.png" class="img-fluid btn-effect" alt=""></a></li>
                                 
                                 <li><a href="<?php echo @$settingThemes['instagram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/instagram.png" class="img-fluid btn-effect" alt=""></a></li>
                                 
-                                <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/twitter.png" class="img-fluid btn-effect" alt=""></a></li>
+                                <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/call.png" class="img-fluid btn-effect" alt=""></a></li>
                             </ul>
                         </div>
 
-                        <a href="/register" class="intro-link">Tham gia cộng đồng GODRAW để nhận ưu đãi đặc biệt. Đăng ký ngay<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg></a>
+                        <?php if ($isMobile): ?>
+                        <!-- Hiển thị nội dung cho thiết bị di động -->
+                        <a href="/register" class="intro-link">Để nhận ưu đãi đặc biệt <strong style="color: #40bfff"><i class="fa-solid fa-hand-point-right"></i>  Đăng ký</strong> </a>
+                        <?php else: ?>
+                            <!-- Hiển thị nội dung cho máy tính -->
+                            <a href="/register" class="intro-link">Tham gia cộng đồng GODRAW để nhận ưu đãi đặc biệt <strong style="color: #40bfff"><i class="fa-solid fa-hand-point-right"></i> Đăng ký </strong> </a>
+                        <?php endif; ?>
+
+                        <!-- <a href="/register" class="intro-link">Tham gia cộng đồng GODRAW để nhận ưu đãi đặc biệt. <i class="fa-solid fa-hand-point-right"></i> Đăng ký ngay </a> -->
 
                         <div class="btn-main-first btn-main text-center text-uppercase"><a href="https://godraw.vn/home">VÀO TRANG CHỦ</a></div>
 
