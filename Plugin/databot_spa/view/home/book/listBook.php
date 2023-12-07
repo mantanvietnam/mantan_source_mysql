@@ -48,7 +48,7 @@
             </select>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">NV chăm sóc</label>
             <select name="id_staff" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -66,7 +66,7 @@
             </select>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Dịch vụ</label>
             <select name="id_service" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -84,6 +84,16 @@
             </select>
           </div>
 
+          <div class="col-md-2">
+            <label class="form-label">Đặt từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
+          </div>
+
           
 
           <div class="col-md-2">
@@ -98,7 +108,9 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách Đặt lịch hẹn</h5>
+    <h5 class="card-header">
+      <a href="/listBookCalendar" class="btn btn-danger">Xem dạng lịch</a>
+    </h5>
     
     <div class="card-body row">
       <div class="table-responsive">

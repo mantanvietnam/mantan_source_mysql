@@ -3,7 +3,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBook">Lịch hẹn</a> /</span>
+    <span class="text-muted fw-light"><a href="/listBookCalendar">Lịch hẹn</a> /</span>
     Thông tin lịch hẹn
   </h4>
 
