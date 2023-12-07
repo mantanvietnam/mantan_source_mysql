@@ -3,10 +3,12 @@ function cart($input)
 {
 	global $session;
 	global $controller;
+	global $metaTitleMantan;
 
 	$modelProduct = $controller->loadModel('Products');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
 	$infoUser = $session->read('infoUser');
+	$metaTitleMantan = 'Giỏ hàng';
 
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 	//$session = (!empty($session->read('product_order')))?$session->read('product_order'):[];
@@ -477,6 +479,7 @@ function pay($input){
 	global $controller;
 	global $isRequestPost;
 	global $session;
+	global $metaTitleMantan;
 	
 	
 	$infoUser = $session->read('infoUser');
@@ -485,6 +488,7 @@ function pay($input){
 	$modelAddress = $controller->loadModel('Address');
 	$modelOrder = $controller->loadModel('Orders');
 	$modelOrderDetail = $controller->loadModel('OrderDetails');
+	$metaTitleMantan = 'Thanh toán';
 
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
