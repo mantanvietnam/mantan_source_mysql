@@ -15,7 +15,7 @@
 		<div class="social">
 			<ul>
 				<li><a href="<?php echo @$settingThemes['facebook'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-2.svg" class="img-fluid" alt=""></a></li>
-				<li><a href="<?php echo @$settingThemes['instagram'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-4.svg" class="img-fluid" alt=""></a></li>
+				<li><a href="<?php echo @$settingThemes['instagram'];?>"><img src="<?php echo $urlThemeActive;?>/images/INS.png" class="img-fluid" alt=""></a></li>
 				<li><a href="<?php echo @$settingThemes['youtube'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-1.svg" class="img-fluid" alt=""></a></li>
 				<li><a href="<?php echo @$settingThemes['telegram'];?>"><img src="<?php echo $urlThemeActive;?>/images/Z.png" class="img-fluid" alt=""></a></li>
 				<li><a href="<?php echo @$settingThemes['twitter'];?>"><img src="<?php echo $urlThemeActive;?>/images/C.png" class="img-fluid" alt=""></a></li>
@@ -23,7 +23,7 @@
 		</div>
 		<div class="subscribe-fter">
 			<div class="support">
-				<a href=""></a>
+				<a href="/contact"></a>
 				<div class="icon">
 					<svg width="19" height="24" viewBox="0 0 19 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M13.7996 4.96973C13.7996 4.59973 13.7996 4.29996 13.7996 4.20996C13.7996 2.63996 12.7295 0 9.43945 0H9.27954C5.71954 0 4.90942 2.69996 4.90942 4.20996C4.90942 4.30996 4.90942 4.59973 4.90942 4.96973C4.55942 4.96973 4.26953 5.25986 4.26953 5.60986V7.18994C4.26953 7.53994 4.54942 7.83008 4.90942 7.83008C4.91942 7.83008 4.92945 7.83008 4.93945 7.83008C5.19945 10.1101 7.83954 12.6899 9.27954 12.6899H9.43945C10.9195 12.6899 13.5195 10.1201 13.7795 7.83008C13.7895 7.83008 13.7993 7.83008 13.8093 7.83008C14.1593 7.83008 14.4495 7.54994 14.4495 7.18994V5.60986C14.4395 5.25986 14.1496 4.96973 13.7996 4.96973Z" fill="white"/>

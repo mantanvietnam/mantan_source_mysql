@@ -978,6 +978,22 @@ footer{
     width: 100%;
 }
 
+.info-form-user .item-submit .btn_filed{
+    background-image: url(/themes/godraw/images/button_2.svg);
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    padding: 0 23px;
+    background-position: center;
+}
+
+
+.image-rule{
+    font-size: 13px;
+    color: #eb2015
+}
+
+
 @media (min-width: 1024px){
     .content-gallery-detail .detail-image-right{
         padding-left: 0 !important;

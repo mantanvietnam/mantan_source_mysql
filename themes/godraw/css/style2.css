@@ -1253,6 +1253,16 @@ header {
     color: #fff;
 }
 
+.sevices-ft-list:hover{
+    scale: 1.1;
+    filter: brightness(0.8);
+    transition: all 0.3s linear;
+}
+
+.sevices-ft-list{
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
 
 
 

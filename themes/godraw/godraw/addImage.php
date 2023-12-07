@@ -46,6 +46,10 @@
 									<div class="desc">
 										<p>Chọn ảnh để đăng</p>
 										<input type="file" placeholder="" name="image" value="" class="txt_filed" required>
+										<div class="image-rule">
+											* Bạn có quyền đăng tác phẩm của mình lên phòng tranh chung khi có Mã đơn hàng đã trải nghiệm dịch vụ. <br>
+											* Bạn nên đăng tác phẩm và không nên đăng nội dung không phù hợp vì chúng tôi buộc phải xoá nội dung này.
+										</div>
 									</div>
 								</div>
 

@@ -494,7 +494,7 @@
                     <div class="social">
                         <ul>
                             <li><a href="<?php echo @$settingThemes['facebook'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-2.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href="<?php echo @$settingThemes['instagram'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-4.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href="<?php echo @$settingThemes['instagram'];?>"><img src="<?php echo $urlThemeActive;?>/images/INS.png" class="img-fluid" alt=""></a></li>
                             <li><a href="<?php echo @$settingThemes['youtube'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-1.svg" class="img-fluid" alt=""></a></li>
                             <li><a href="<?php echo @$settingThemes['telegram'];?>"><img src="<?php echo $urlThemeActive;?>/images/Z.png" class="img-fluid" alt=""></a></li>
                             <li><a href="<?php echo @$settingThemes['twitter'];?>"><img src="<?php echo $urlThemeActive;?>/images/C.png" class="img-fluid" alt=""></a></li>
