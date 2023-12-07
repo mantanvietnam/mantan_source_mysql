@@ -373,7 +373,7 @@ $price_total = 0;
                             </style>
                             <?php } ?>
 
-                            <div class="cart-left-bottom">
+                            <div class="cart-left-bottom"  id="desktop_view1" >
                                 <div class="title-cart-left-bottom">
                                   Sản phẩm khác
                                 </div>
@@ -574,6 +574,54 @@ $price_total = 0;
                             </div>
                           
                         </div>
+                        <div class="cart-left-bottom"  id="product-mobile1" >
+                                <div class="title-cart-left-bottom">
+                                  Sản phẩm khác
+                                </div>
+
+                                <div class="row">
+
+                                    <!-- Sản phẩm đi kèm -->
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 cart-product-gift-right">
+                                        <div class="cart-product-gift-item-list">
+                                            <div class="cart-product-gift-right-inner">
+                                                <?php if(!empty($new_product)){
+                                                    foreach($new_product as $value){
+                                                 ?>
+                                                <div class="cart-product-gift-item">
+                                                    <div class="product-item-inner">
+                                                        <div class="product-img">
+                                                            <a href="/san-pham/<?php echo  $value->slug ?>.html"><img src="<?php echo $value->image ?>" alt="<?php echo  $value->title ?>"></a>
+                                                        </div>
+                            
+                                                        <div class="product-info">
+                                                            <div class="product-name">
+                                                                <a href="/san-pham/<?php echo  $value->slug ?>.html"><?php echo  $value->title ?></a>
+                                                            </div>
+                            
+                                                            <div class="product-price">
+                                                                <p><?php echo number_format(@$value->price); ?>đ</p>
+                                                            </div>
+
+                                                            <div class="product-discount">
+                                                                <del><?php echo number_format(@$value->price_old); ?>đ</del><span> 
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+
+                                                        <div class="product-button-cart product-button-cart-add">
+                                                            <a onclick="addProduct(<?php echo $value->id; ?>,'true')">Thêm vào giỏ hàng</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php }} ?>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
 
@@ -648,9 +696,13 @@ $(document).ready(function() {
     if($(window).width()<1024){
         $('#desktop_view').remove();
         $('#product-mobile').show();
+        $('#desktop_view1').remove();
+        $('#product-mobile1').show();
     }else{
         $('#mobile_view').remove();
         $('#desktop_view').show();
+        $('#mobile_view1').remove();
+        $('#desktop_view1').show();
     }
 });
 </script>
