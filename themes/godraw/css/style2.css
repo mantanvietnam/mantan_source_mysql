@@ -1544,9 +1544,9 @@ header {
 
 
 
-    .box-banner-home-unset .video-banner video{
+    /* .box-banner-home-unset .video-banner video{
         height: 370px !important;
-    }
+    } */
 
     #slide-home-service .slick-dots {
         display: flex;
@@ -2128,7 +2128,7 @@ header {
     }
 
     .box-banner-home-unset .video-banner video{
-        height: 300px !important;
+        /* height: 300px !important; */
     }
 
     .sevices-ft-content .col-lg-3.col-md-6 {

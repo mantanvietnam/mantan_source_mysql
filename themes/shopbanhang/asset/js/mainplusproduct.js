@@ -1,5 +1,30 @@
 
+// scroll-top
+var btn = $('#button-scrolltop');
+
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 300) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '300');
+});
+
+
 document.getElementById('button-contact').addEventListener('click', function() {
+  this.classList.toggle('active');
+  var content = $('.content-contact');
+  content.style.animation = 'none';
+  content.offsetHeight; /* Trigger reflow */
+  content.style.animation = null;
+});
+
+document.getElementById('button-contact-2').addEventListener('click', function() {
   this.classList.toggle('active');
   var content = $('.content-contact');
   content.style.animation = 'none';
@@ -132,6 +157,10 @@ document.querySelectorAll(".describe-more button").forEach(function(link) {
 
     
 });
+
+
+// Top
+
 
 
 

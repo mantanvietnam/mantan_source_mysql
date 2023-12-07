@@ -1717,6 +1717,7 @@ background: #555;
         display: none !important;
     } */
 
+    /* Contact button slide */
     .list-contact{
         position: relative;
     }
@@ -1776,12 +1777,14 @@ background: #555;
         display: block;
         animation: slideIn 0.5s forwards;
         padding-top: 26px;
-        border-radius: 26px;
+        border-radius: 26px; 
       }
 
       .content-contact-item-phone{
         margin-top: 20px;
       }
+
+      /* ket thuc */
 }
 
 

@@ -375,6 +375,27 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
             </div>
 
         </div>
-        
-
     </header>
+
+  
+    <a id="button-scrolltop"></a>
+
+    <div class="contact-fixed">
+        <li class="list-contact">
+            <a id="button-contact-2">
+                <p>Tư vấn</p> 
+                <div class="content-contact">
+                    <div class="content-group">
+                        <div class="content-contact-item">
+                            <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
+                        </div>
+                        <div class="content-contact-item content-contact-item-phone">
+                            <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </div>
+    
+    
