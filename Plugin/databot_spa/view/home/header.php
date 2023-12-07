@@ -32,7 +32,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://designer.ezpics.vn/plugins/databot_spa/view/home/assets/img/avatar-ezpics.png" />
+    <link rel="icon" type="image/x-icon" href="https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,7 +142,7 @@
             </li>  
 
             <li class="menu-item">
-              <a href="/listBook" class="menu-link <?php if(!in_array('calendar', $session->read('infoUser')->module)) echo 'btn disabled';?>">
+              <a href="/listBookCalendar" class="menu-link <?php if(!in_array('calendar', $session->read('infoUser')->module)) echo 'btn disabled';?>">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div>Đặt hẹn</div>
               </a>
