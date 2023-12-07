@@ -73,6 +73,7 @@ function settingHomeTheme($input){
                         'link_nho2' => @$dataSend['link_nho2'],
                         'link_nho3' => @$dataSend['link_nho3'],
                         'text_mobile' => @$dataSend['text_mobile'],
+                        'menu' => @$dataSend['menu'],
 
                        'targetTime' => @$targetTime,
 
@@ -192,6 +193,7 @@ function sttingReviewTheme($input){
                         'name_video_42' => @$dataSend['name_video_42'],
                         'imagevideo42' => @$dataSend['imagevideo42'],
                         'embedded42' => @$dataSend['embedded42'],
+                        
                     );
 
         $data->key_word = 'sttingReviewTheme';
