@@ -18,6 +18,10 @@
                 </div>
 
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname">Thay đổi text menu khuyến mãi</label>
+                  <input type="text" class="form-control" name="menu" value="<?php echo @$setting['menu'];?>" />
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname">id ảnh slide</label>
                   <input type="text" class="form-control" name="id_slide" value="<?php echo @$setting['id_slide'];?>" />
                 </div>
