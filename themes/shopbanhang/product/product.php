@@ -1332,13 +1332,37 @@ function deteleComment($id){
                             html +='        </div>  '
             
                             html +='        <div class="product-details-rate-comment">'+res.data[i].content+'</div>'  
-            
                             html +='        <div class="product-detail-rate-image">'
+                if(res.data[i].image_video != null) {
+                            html +='<a class="video-comment-box"  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo'+i+'">'
+                            html +='                <img src="'+res.data[i].image_video+'" alt="">'
+                            html +='            </a>'
+                                   
+
+                            html +='            <div class="modal-video-comment">'
+                            html +='                 <div class="modal fade" id="exampleModalVideo'+i+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+                            html +='                    <div class="modal-dialog modal-dialog-centered">'
+                            html +='                        <div class="modal-content">'
+                            html +='                            <video controls>'
+                            html +='                                <source src="'+res.data[i].video+'" type="video/mp4">'
+                            html +='                            </video>'
+                            html +='                        </div>'
+                            html +='                    </div>'
+                            html +='                </div>'
+                            html +='            </div>'
+            }
+                            
                              for(var key in image) {
                                 if (image.hasOwnProperty(key)) {
                                     if (image[key] != '') {
                                 console.log(image[key]);
-                           html +='            <img src="'+image[key]+'" alt="">'
+                            html +='    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalimg'+i+'-'+key+'"> <img src="'+image[key]+'" alt=""></a>'
+                            html +='<div class="modal-login">'
+                            html +='<div class="modal fade" id="exampleModalimg'+i+'-'+key+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+                            html +='<div class="modal-dialog modal-dialog-centered"><img src="'+image[key]+'" alt="" style="width: 100%; height: auto;">'
+                           html += '</div>'
+                            html +='</div>'
+                            html +=             '</div>'
                         }}}
                             html +='        </div> '
 

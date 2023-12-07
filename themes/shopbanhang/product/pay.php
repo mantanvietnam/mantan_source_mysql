@@ -242,8 +242,9 @@ $infoUser = $session->read('infoUser');
                                     </div>
                                 </div>
                             </div>
-
+                           
                             <div class="order-right-group-button">
+                                <a href="/gio-hang" > <button type="button" class="btn btn-primary">Quay lại</button></a>
                                 <button type="submit" class="btn btn-primary">Đặt hàng</button>
                             </div>
                         </form>
@@ -258,6 +259,18 @@ $infoUser = $session->read('infoUser');
         window.addEventListener('popstate', function(event) {
             // Tải lại trang
             location.reload();
+        });
+    </script>
+
+
+ <script>
+        // Use the replaceState method to replace the current history entry
+        history.replaceState(null, document.title, location.href);
+
+        // Add a popstate event listener
+        window.addEventListener('popstate', function(event) {
+            // Restore the current state by pushing a new state
+            history.pushState(null, document.title, location.href);
         });
     </script>
 <script type="text/javascript">
