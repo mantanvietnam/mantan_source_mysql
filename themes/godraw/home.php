@@ -38,9 +38,17 @@
             </div> -->
             <section class="box-banner-home box-banner-home-unset">
                 <div class="video-banner">
-                    <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
-                        <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
-                    </video>
+                   
+                    <?php if ($isMobile): ?>
+                        <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
+                            <source src="<?php echo @$settingThemes['video_background_2'];?>" type="video/mp4">
+                        </video>
+                    <?php else: ?>
+                        <video class="videohome" loop="loop" muted="false" autoplay="autoplay" playsinline="" oncontextmenu="return false;" preload="auto">
+                            <source src="<?php echo @$settingThemes['video_background_1'];?>" type="video/mp4">
+                        </video>
+                    <?php endif; ?>
+
                     <div class="auto-run-text">
                         <marquee scrollamount="5" direction="right">Chào mừng bạn đến với GôDraw</marquee>
                     </div>
@@ -485,11 +493,11 @@
                     </div>
                     <div class="social">
                         <ul>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/sc-1.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/sc-2.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/sc-3.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/sc-4.svg" class="img-fluid" alt=""></a></li>
-                            <li><a href=""><img src="/plugins/go_draw/view/agency/images/sc-5.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href="<?php echo @$settingThemes['facebook'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-2.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href="<?php echo @$settingThemes['instagram'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-4.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href="<?php echo @$settingThemes['youtube'];?>"><img src="<?php echo $urlThemeActive;?>/images/sc-1.svg" class="img-fluid" alt=""></a></li>
+                            <li><a href="<?php echo @$settingThemes['telegram'];?>"><img src="<?php echo $urlThemeActive;?>/images/Z.png" class="img-fluid" alt=""></a></li>
+                            <li><a href="<?php echo @$settingThemes['twitter'];?>"><img src="<?php echo $urlThemeActive;?>/images/C.png" class="img-fluid" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="subscribe-fter">

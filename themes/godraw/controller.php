@@ -28,7 +28,9 @@ function settingHomeThemeGodraw($input)
                         'telegram' => $dataSend['telegram'],
                         
                         'video_background_1' => $dataSend['video_background_1'],
+                        'video_background_2' => $dataSend['video_background_2'],
                         'video_trailer' => $dataSend['video_trailer'],
+
                         'company_name' => $dataSend['company_name'],
 
                         'id_category_product' => $dataSend['id_category_product'],
@@ -37,6 +39,8 @@ function settingHomeThemeGodraw($input)
 
                         'id_menu_news' => $dataSend['id_menu_news'],
                         'id_slide_news' => $dataSend['id_slide_news'],
+
+
 
     					
                     );

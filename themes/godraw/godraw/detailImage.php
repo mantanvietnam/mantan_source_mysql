@@ -1,9 +1,9 @@
 <?php getHeader();global $settingThemes;?>
 
 <style>
-	footer {
+	/* footer {
 		display: none;
-	}
+	} */
 	@media (max-width: 767px) {
 		.view-all {
 			display: none;
