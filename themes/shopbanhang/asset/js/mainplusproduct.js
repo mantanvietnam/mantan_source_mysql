@@ -24,12 +24,19 @@ document.getElementById('button-contact').addEventListener('click', function() {
   content.style.animation = null;
 });
 
+
+$('.icon-close').hide();
 document.getElementById('button-contact-2').addEventListener('click', function() {
+  $('.icon-phone-bottom').toggle();
+  $('.icon-close').toggle();
   this.classList.toggle('active');
-  var content = $('.content-contact');
+  var content = $('.content-contact-2');
   content.style.animation = 'none';
   content.offsetHeight; /* Trigger reflow */
   content.style.animation = null;
+
+
+
 });
 
 $(document).on('click', function (e) {
