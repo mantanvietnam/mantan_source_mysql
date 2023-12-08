@@ -253,7 +253,9 @@
 			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
 				<div class="sidebar-ads">
 					<a href="#"><img src="https://i.pinimg.com/originals/f2/c6/71/f2c6717859921909a724f6f449a28d52.jpg" width="100%"></a>	
-					<a href="#"><img src="https://i.pinimg.com/564x/c8/db/34/c8db346be51a73b50b53ce8546a9e10b.jpg		" width="100%"></a>			
+					<a href="#"><img src="https://i.pinimg.com/564x/c8/db/34/c8db346be51a73b50b53ce8546a9e10b.jpg" width="100%"></a>	
+					<!-- <a href="#"><img src="/themes/godraw/images/Asset 7-100.jpg" width="100%"></a>	 -->
+
 				</div>		
 			</div>
 		</div>	

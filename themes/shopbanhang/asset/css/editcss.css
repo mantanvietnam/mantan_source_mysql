@@ -1346,6 +1346,72 @@ background: #555;
     height: 102px;
 }
 
+
+
+/* Button right cotact bottom*/
+ /* Contact right button */
+ @keyframes slideIn {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+ #button-contact-2.active .content-contact {
+    display: block;
+    animation: slideIn 0.5s forwards;
+}
+
+.contact-fixed .button-contact-2:not(.active) .content-contact-2 {
+    display: block;
+    animation: slideOut 0.5s forwards;
+}
+
+.contact-fixed .content-contact-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+  }
+  
+  .contact-fixed .content-contact-2 {
+    display: none;
+    /* width: 200px; */
+    height: 218px;
+    left: -1px;
+    top: -118px;
+    /* box-shadow: 0 -5px 24px -5px #888888; */
+    z-index: -1;
+    background-color: transparent;
+  }
+  
+  .contact-fixed #button-contact-2.active + .content-contact-2 {
+    display: block;
+    animation: slideIn 0.5s forwards;
+    padding-top: 26px;
+    border-radius: 26px; 
+  }
+
+  .contact-fixed .content-contact-item-phone{
+    margin-top: 10px;
+  }
+
 @media(max-width: 1920px) and (min-width: 1440px){
   
     .container .banner-home-slide .slick-list {
@@ -1722,23 +1788,7 @@ background: #555;
         position: relative;
     }
 
-    @keyframes slideIn {
-        from {
-          transform: translateY(100%);
-        }
-        to {
-          transform: translateY(0);
-        }
-    }
-
-    @keyframes slideOut {
-        from {
-          transform: translateY(0);
-        }
-        to {
-          transform: translateY(100%);
-        }
-      }
+    
 
     #button-contact.active .content-contact {
         display: block;
@@ -1785,6 +1835,9 @@ background: #555;
       }
 
       /* ket thuc */
+
+
+     
 }
 
 
