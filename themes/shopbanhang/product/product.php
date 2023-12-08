@@ -865,13 +865,13 @@ $slide_home= slide_home($setting['id_slide']);
                                 <div class="comment-main">
                                     <div class="product-detail-rate-item">
                                         <div class="product-detail-rate-avata">
-                                            <img src="<?php echo $custom->avatar ?>" alt="">
+                                            <img src="<?php echo @$value->avatar ?>" alt="">
                                         </div>
                     
                                         <div class="product-detail-rate-right">
                                             <div class="product-detail-rate-heading">
                                                 <div class="product-detail-rate-name">
-                                                    <?php echo $custom->full_name ?>
+                                                    <?php echo @$value->full_name ?>
                                                 </div>
                                             </div>
 
@@ -972,7 +972,10 @@ $slide_home= slide_home($setting['id_slide']);
                                
                                     <div class="product-detail-rate-comment-avata">
                                         <img src="<?php echo $infoUser['avatar'] ?>" alt="">
-                                        <input type="text" class="form-control"name="comment" id="comment"  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+                                        <input type="text" class="form-control"name="comment" id="comment"  required=""  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+                                         <input type="hidden" class="form-control"name="full_name" id="full_name"  aria-describedby="emailHelp" value="<?php echo  $infoUser['full_name'] ?>">
+                                         <input type="hidden" class="form-control"name="idcustomer" id="idcustomer"  aria-describedby="emailHelp" value="<?php echo  $infoUser['id'] ?>">
+                                         <input type="hidden" class="form-control"name="avatar" id="avatar"  aria-describedby="emailHelp" value="<?php echo  $infoUser['avatar'] ?>">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary"  onclick="addComment()">Gửi</button>
@@ -992,14 +995,16 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-detail-rate-comment">
-                                <form action="">
                                     <div class="product-detail-rate-comment-avata">
                                         <img src="<?php echo $urlThemeActive ?>asset/image/user-placeholder.png" alt="">
-                                        <input type="text" class="form-control"name="comment" id="comment"  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+                                        <input type="text" class="form-control" name="comment" id="comment" required=""  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
                                     </div>
-
-                                    <button type="button" class="send-no btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Gửi</button>
-                                </form>
+                                     <div class="product-detail-rate-comment-avata">
+                                        <input type="text" class="form-control" name="full_name" id="full_name" required=""  aria-describedby="emailHelp" placeholder="Mời bạn nhập họ và tên">
+                                        <input type="hidden" class="form-control" name="idcustomer" id="idcustomer"  aria-describedby="emailHelp" value="0">
+                                        <input type="hidden" class="form-control" name="avatar" id="avatar"  aria-describedby="emailHelp" value="<?php echo $urlThemeActive ?>asset/image/user-placeholder.png">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" onclick="addComment()">Gửi</button>
                             </div>
                         </div> 
                        <?php } ?>
@@ -1086,7 +1091,7 @@ function addlike(){
             url: '/apis/addlike',
             data: { idobject: '<?php echo @$product->id; ?>',
                 type: 'product',
-                idcustomer: <?php echo @$infoUser['id'] ?>,
+                idcustomer: <?php echo (!empty(@$infoUser['id']))?$infoUser['id']:0 ?>,
             },
             success:function(res){
                 console.log(res);
@@ -1127,7 +1132,7 @@ function delelelike(){
                 url: '/apis/delelelike',
                 data: { idobject: '<?php echo @$product->id; ?>',
                     type: 'product',
-                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                    idcustomer: <?php echo (!empty(@$infoUser['id']))?$infoUser['id']:0 ?>,
                 },
                 success:function(res){
                     console.log(res);myLike
@@ -1165,7 +1170,7 @@ function addlikecomment(idobject, comment){
             url: '/apis/addlike',
             data: { idobject: idobject,
                 type: comment,
-                idcustomer: <?php echo @$infoUser['id'] ?>,
+                idcustomer: <?php echo (!empty(@$infoUser['id']))?$infoUser['id']:0 ?>,
             },
             success:function(res){
               console.log(res);
@@ -1199,7 +1204,7 @@ function  delelelikecomment(idobject, comment){
                 url: '/apis/delelelike',
                 data: { idobject: idobject,
                     type: comment,
-                    idcustomer: <?php echo @$infoUser['id'] ?>,
+                    idcustomer: <?php echo (!empty(@$infoUser['id']))?$infoUser['id']:0 ?>,
                 },
                 success:function(res){
                   console.log(res);
@@ -1223,35 +1228,7 @@ function  delelelikecomment(idobject, comment){
                
 } 
 
-function addComment(){
-    var comment= $('#comment').val();
 
-    $.ajax({
-                method: 'POST',
-                url: '/apis/addComment',
-                data: { idobject: '<?php echo @$product->id; ?>',
-                    type: 'product',
-                    comment: comment,
-                    idcustomer: <?php echo @$infoUser['id'] ?>,
-                },
-                success:function(res){
-                  console.log(res);
-                   // location.reload();
-                   
-                   document.getElementById("myComment").style.display = 'block';
-                   var myElement = document.getElementById('myComment');
-
-                // Hàm thay đổi CSS
-                function changeCSS() {
-                    myElement.style.display = 'none';
-                }
-
-                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
-                setTimeout(changeCSS, 3000);
-                }
-            })
-               
-} 
 
 function deteleComment($id){
 
@@ -1280,6 +1257,44 @@ function deteleComment($id){
             })
                
 }
+
+function addComment(){
+    var comment= $('#comment').val();
+    var idcustomer= $('#idcustomer').val();
+    var full_name= $('#full_name').val();
+    var avatar= $('#avatar').val();
+
+    console.log(comment);
+    console.log(idcustomer);
+    console.log(full_name);
+    console.log(avatar);
+   $.ajax({
+                method: 'POST',
+                url: '/apis/addComment',
+                data: { idobject: '<?php echo @$product->id; ?>',
+                    type: 'product',
+                    comment: comment,
+                    idcustomer: idcustomer,
+                    full_name: full_name,
+                    avatar: avatar,
+                },
+                success:function(res){
+                  console.log(res);
+                   // location.reload();
+                   
+                   document.getElementById("myComment").style.display = 'block';
+                   var myElement = document.getElementById('myComment');
+
+                // Hàm thay đổi CSS
+                function changeCSS() {
+                    myElement.style.display = 'none';
+                }
+
+                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                setTimeout(changeCSS, 3000);
+                }
+            });
+} 
 </script>
 <script type="text/javascript">
     function searchEvaluates(point){
