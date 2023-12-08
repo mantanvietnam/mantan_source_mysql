@@ -86,7 +86,10 @@ $settinghom = setting();
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
-                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->product->image; ?>"></a>
+                                                <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a> 
+                                                <div class="pro-review-link">
+                                                    <a target="_blank" href="<?php echo $value->note; ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
+                                                </div>
                                             </div>
                                             <div class="icon-interact">
                                                 <?php  
