@@ -969,10 +969,11 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-detail-rate-comment">
-                               
+                                    <span id="commentinput"></span>
                                     <div class="product-detail-rate-comment-avata">
                                         <img src="<?php echo $infoUser['avatar'] ?>" alt="">
                                         <input type="text" class="form-control"name="comment" id="comment"  required=""  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+                                        
                                          <input type="hidden" class="form-control"name="full_name" id="full_name"  aria-describedby="emailHelp" value="<?php echo  $infoUser['full_name'] ?>">
                                          <input type="hidden" class="form-control"name="idcustomer" id="idcustomer"  aria-describedby="emailHelp" value="<?php echo  $infoUser['id'] ?>">
                                          <input type="hidden" class="form-control"name="avatar" id="avatar"  aria-describedby="emailHelp" value="<?php echo  $infoUser['avatar'] ?>">
@@ -995,9 +996,11 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
 
                             <div class="product-detail-rate-comment">
+                                    <span id="commentinput"></span>
                                     <div class="product-detail-rate-comment-avata">
                                         <img src="<?php echo $urlThemeActive ?>asset/image/user-placeholder.png" alt="">
                                         <input type="text" class="form-control" name="comment" id="comment" required=""  aria-describedby="emailHelp" placeholder="Mời bạn nhập bình luận">
+
                                     </div>
                                      <div class="product-detail-rate-comment-avata">
                                         <input type="text" class="form-control" name="full_name" id="full_name" required=""  aria-describedby="emailHelp" placeholder="Mời bạn nhập họ và tên">
@@ -1268,32 +1271,38 @@ function addComment(){
     console.log(idcustomer);
     console.log(full_name);
     console.log(avatar);
-   $.ajax({
-                method: 'POST',
-                url: '/apis/addComment',
-                data: { idobject: '<?php echo @$product->id; ?>',
-                    type: 'product',
-                    comment: comment,
-                    idcustomer: idcustomer,
-                    full_name: full_name,
-                    avatar: avatar,
-                },
-                success:function(res){
-                  console.log(res);
-                   // location.reload();
-                   
-                   document.getElementById("myComment").style.display = 'block';
-                   var myElement = document.getElementById('myComment');
+    if(comment!=''){
+       $.ajax({
+                    method: 'POST',
+                    url: '/apis/addComment',
+                    data: { idobject: '<?php echo @$product->id; ?>',
+                        type: 'product',
+                        comment: comment,
+                        idcustomer: idcustomer,
+                        full_name: full_name,
+                        avatar: avatar,
+                    },
+                    success:function(res){
+                      console.log(res);
+                       // location.reload();
 
-                // Hàm thay đổi CSS
-                function changeCSS() {
-                    myElement.style.display = 'none';
-                }
+                       document.getElementById('comment').value = '';   
+                       
+                       document.getElementById("myComment").style.display = 'block';
+                       var myElement = document.getElementById('myComment');
 
-                // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
-                setTimeout(changeCSS, 3000);
-                }
-            });
+                    // Hàm thay đổi CSS
+                    function changeCSS() {
+                        myElement.style.display = 'none';
+                    }
+
+                    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                    setTimeout(changeCSS, 3000);
+                    }
+                });
+    }else{
+       document.getElementById("commentinput").innerHTML ='<p style="color: red;">bạn chưa nhập bình luận!</p>'; 
+    }
 } 
 </script>
 <script type="text/javascript">
