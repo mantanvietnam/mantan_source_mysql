@@ -266,10 +266,16 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js'></script>
 
 <script>
+    var listEvent = [];
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       locale: 'vi',
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek,dayGridDay'
+      },
 
       events: [
         <?php
@@ -308,22 +314,34 @@
                   break;
               }
 
-              echo '{
-                  id: "'.$data->id.'",
-                  title: "'.date("H:i", $data->time_book).' '.$data->Services['name'].'",
-                  name: "'.$data->name.'",
-                  phone: "'.$data->phone.'",
-                  email: "'.$data->email.'",
-                  time_book: "'.date("d/m/Y H:i", $data->time_book).'",
-                  start: "'.date('Y-m-d', $data->time_book).'",
-                  end: "'.date('Y-m-d', $data->time_book).'",
-                  service: "'.$data->Services['name'].'",
-                  staff: "'.$data->Members['name'].'",
-                  bed: "'.$data->Beds['name'].'",
-                  status: "'.$status.'",
-                  type: "'.implode(', ', $type).'",
-                  note: "'.$data->note.'",
-                },';
+              $apt_times = -1;
+              do{
+                $apt_times ++;
+                $time_book = $data->time_book + $apt_times*$data->apt_step*24*60*60;
+                $id = $data->id;
+                if($apt_times>0) $id .= '-'.$apt_times;
+
+                echo '{
+                    id: "'.$id.'",
+                    idBook: "'.$data->id.'",
+                    title: "'.date("H:i", $time_book).' '.$data->Services['name'].'",
+                    name: "'.$data->name.'",
+                    phone: "'.$data->phone.'",
+                    email: "'.$data->email.'",
+                    time_book: "'.date("d/m/Y H:i", $time_book).'",
+                    start: "'.date('Y-m-d', $time_book).'",
+                    end: "'.date('Y-m-d', $time_book).'",
+                    service: "'.$data->Services['name'].'",
+                    staff: "'.$data->Members['name'].'",
+                    bed: "'.$data->Beds['name'].'",
+                    status: "'.$status.'",
+                    type: "'.implode(', ', $type).'",
+                    note: "'.$data->note.'",
+                    repeat_book: "'.$data->repeat_book.'",
+                    apt_times: "'.$data->apt_times.'",
+                    apt_step: "'.$data->apt_step.'",
+                  },';
+              } while (!empty($data->repeat_book) && $data->apt_times>=$apt_times);
             }
           }
         ?>
@@ -359,7 +377,7 @@
       },
 
       eventClick: function(info) {
-        console.log(info);
+        listEvent = calendar.getEvents();
 
         //display a modal
         var modal = 
@@ -405,7 +423,7 @@
               </table>\
            </div>\
            <div class="modal-footer">\
-            <a href="/addBook/?id='+info.event.id+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
+            <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>\
            </div>\
           </form>\
@@ -422,12 +440,19 @@
           if(check){
             $.ajax({
               method: "GET",
-              url: "/deleteBook/?id="+info.event.id,
+              url: "/deleteBook/?id="+info.event.extendedProps.idBook,
               data: {}
             })
             .done(function( msg ) {
-                calendar.getEventById(info.event.id).remove();
-                modal.modal("hide");
+              if(listEvent.length > 0){
+                for (var i = 0; i < listEvent.length; i++) {
+                  if(listEvent[i]._def.extendedProps.idBook == info.event.extendedProps.idBook){
+                    calendar.getEventById(listEvent[i]._def.publicId).remove();
+                  }
+                }
+              }
+                
+              modal.modal("hide");
             });
           }
           
@@ -481,28 +506,41 @@
     if(name != '' && id_customer != 0 && id_service != '' && time_book != ''){
       $.ajax({
         method: "POST",
-        url: "/addBook",
+        url: "/apis/addBookAPI",
         data: {_csrfToken:csrfToken, name:name , id_customer:id_customer , status:status , phone:phone , email:email , time_book:time_book , id_staff:id_staff , id_service:id_service , note:note , id_bed:id_bed , apt_step:apt_step , apt_times:apt_times , type1:type1 , type2:type2 , type3:type3 , type4:type4 , repeat_book:repeat_book}
       })
       .done(function( msg ) {
+        if(msg.code == 1){
+          let startDate = time_book.split(" ");
+          let startTime = startDate[1];
+          startDate = startDate[0].split("/");
+          let service = $( "#id_service option:selected" ).text();
+          let staff = $( "#id_staff option:selected" ).text();
+          let bed = $( "#id_bed option:selected" ).text();
+          let statusText = $( "#status option:selected" ).text();
+
           calendar.addEvent({
-            id: 100,
-            title: name,
+            id: msg.id,
+            idBook: msg.id,
+            title: startTime+" "+service,
             name: name,
             phone: phone,
             email: email,
-            time_book: "",
-            start: "",
-            end: "",
-            service: "",
-            staff: "",
-            bed: "",
-            status: "",
+            time_book: time_book,
+            start: startDate[2]+"-"+startDate[1]+"-"+startDate[0],
+            end: startDate[2]+"-"+startDate[1]+"-"+startDate[0],
+            service: service,
+            staff: staff,
+            bed: bed,
+            status: statusText,
             type: "",
             note: note,
           });
 
           $('#createBookModal').modal('hide');
+        }else{
+          alert(msg.mess);
+        }
       });
     }else{
       alert('Bạn không được để trống các trường bắt buộc');

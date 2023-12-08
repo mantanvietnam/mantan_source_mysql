@@ -817,7 +817,7 @@ function createImageSeries($input)
         	}
 
         	if(!empty($_GET['id'])){
-        		$max = 1500;
+        		$max = 1000;
 	        	if($product->width<=$max && $product->height<=$max){
 	        		$width = $product->width;
 	        		$height = $product->height;

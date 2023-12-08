@@ -7,7 +7,7 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://ezpics.vn" target="_blank" class="footer-link fw-bolder">Data Bot</a>
+                  <a href="https://ezpics.vn" target="_blank" class="footer-link fw-bolder">DATA SPA</a>
                 </div>
                 <div>
                   <a href="https://www.facebook.com/ezpicsvn" class="footer-link me-4" target="_blank">Facebook</a>
