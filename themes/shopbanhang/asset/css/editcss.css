@@ -1314,6 +1314,11 @@ background: #555;
     cursor: pointer;
 }
 
+.item-star-rating a:hover{
+    color: #008ACE !important;
+    transition: all 0.5s linear;
+}
+
 .send-no{
     padding: 6px 35px;
     background-color: #008BCF;
@@ -1378,6 +1383,34 @@ background: #555;
     animation: slideOut 0.5s forwards;
 }
 
+/* contact fixed */
+.contact-fixed{
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.contact-fixed .content-contact-item-phone{
+    width: 36px;
+    height: auto;
+}
+
+.contact-fixed .icon-zalo{
+    width: 36px;
+    height: auto;
+}
+
+.contact-fixed .content-contact-item-phone img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contact-fixed li{
+    list-style: none;
+}
+
 .contact-fixed .content-contact-2 {
     display: flex;
     align-items: center;
@@ -1394,7 +1427,7 @@ background: #555;
     display: none;
     /* width: 200px; */
     height: 218px;
-    left: -1px;
+    left: -11px;
     top: -118px;
     /* box-shadow: 0 -5px 24px -5px #888888; */
     z-index: -1;
@@ -1410,6 +1443,14 @@ background: #555;
 
   .contact-fixed .content-contact-item-phone{
     margin-top: 10px;
+  }
+
+  .contact-fixed .icon-phone-bottom {
+    width: 36px;
+    }
+
+  .icon-close{
+    display: none;
   }
 
 @media(max-width: 1920px) and (min-width: 1440px){

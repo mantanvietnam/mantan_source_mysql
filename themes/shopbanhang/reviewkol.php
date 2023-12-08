@@ -36,7 +36,7 @@ $settinghom = setting();
                                 <div class="comment-customer-item">
                                     <div class="comment-customer-img">
                                         <img src="<?php echo $item->image ?>" alt="" data-bs-toggle="modal" data-bs-target="#modalvideoreviewslide<?php echo $key; ?>">
-                                        <div class="pro-review-link">
+                                        <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreviewslide<?php echo $key; ?>">
                                             <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
                                         </div>
                                     </div>

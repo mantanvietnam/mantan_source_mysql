@@ -223,28 +223,7 @@ strong {
 
   /*  */
   
-/* contact fixed */
-.contact-fixed{
-    position: fixed;
-    bottom: 90px;
-    right: 30px;
-    z-index: 1000;
-}
 
-.contact-fixed .content-contact-item-phone{
-    width: 30px;
-    height: auto;
-}
-
-.contact-fixed .content-contact-item-phone img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.contact-fixed li{
-    list-style: none;
-}
 
 /*  */
 
@@ -1126,6 +1105,10 @@ strong {
 
 #section-comment-customer .container {
     max-width: 1454px;
+}
+
+.comment-customer-item{
+    cursor: pointer;
 }
 
 .comment-customer-item.lt2 {
@@ -2335,6 +2318,7 @@ strong {
 
 
 
+
 .pro-review-slide .slick-prev {
     position: absolute;
     left: -40px;
@@ -2810,6 +2794,7 @@ strong {
 .icon-phone-bottom{
     width: 30px;
     height: auto;
+    transform: translateX(10px);
 }
 
 .product-detail-group-button {
@@ -4018,6 +4003,42 @@ tbody {
 
 
 /* Chung */
+/* Arrow review */
+.list-product-review .slick-prev {
+    position: absolute;
+    left: 0px;
+}
+
+.list-product-review .slick-next {
+    position: absolute;
+    right: 0px;
+}
+
+.list-product-review .slick-arrow {
+    background-color: transparent;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0;
+    bottom: 46%;
+    border: none;
+    background-color: #787878;
+}
+
+/* Icon play */
+.image-unbox{
+    position: relative;
+}
+
+.image-unbox .pro-review-link{
+    position: absolute;
+    top: 42%;
+    width: 62px;
+    height: auto;
+    right: 43%;
+}
 
 @media (min-width: 1400px) {
     .container,

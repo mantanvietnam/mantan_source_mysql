@@ -25,6 +25,7 @@ document.getElementById('button-contact').addEventListener('click', function() {
 });
 
 
+
 $('.icon-close').hide();
 document.getElementById('button-contact-2').addEventListener('click', function() {
   $('.icon-phone-bottom').toggle();
@@ -34,10 +35,8 @@ document.getElementById('button-contact-2').addEventListener('click', function()
   content.style.animation = 'none';
   content.offsetHeight; /* Trigger reflow */
   content.style.animation = null;
-
-
-
 });
+
 
 $(document).on('click', function (e) {
   $(document).ready(function(){

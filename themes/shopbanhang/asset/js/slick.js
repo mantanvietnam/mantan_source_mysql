@@ -12,7 +12,7 @@ $('.top-search-slide').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     arrows: true,
-    prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'></button>",
+    prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-angle-left'></i></button>",
     nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-angle-right'></i></button>"
 });
 

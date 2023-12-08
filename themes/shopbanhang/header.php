@@ -381,16 +381,18 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
     <a id="button-scrolltop"></a>
 
     <div class="contact-fixed">
-        <li class="list-contact">
+        <div class="list-contact">
             <a id="button-contact-2">
-                <img class="icon-phone-bottom" src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""> 
+                <div class="con-phone-bottom-box">
+                    <img class="icon-phone-bottom" src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""> 
+                </div>
                 <div class="icon-close">
                     <i class="fa-solid fa-xmark"></i>
                 </div>
                 <div class="content-contact-2">
                     <div class="content-group">
                         <div class="content-contact-item">
-                            <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
+                            <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img class="icon-zalo" src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
                         </div>
                         <div class="content-contact-item content-contact-item-phone content-contact-margin">
                             <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""></a>
@@ -398,7 +400,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                     </div>
                 </div>
             </a>
-        </li>
+        </div>
     </div>
     
     

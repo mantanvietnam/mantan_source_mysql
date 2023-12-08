@@ -212,6 +212,9 @@ $settinghom = setting();
                                             </div>
                                             <div class="image-unbox">
                                                 <a href="<?php echo $value->note;  ?>" target="_blank"><img src="<?php echo $value->image; ?>"></a>
+                                                <div class="pro-review-link">
+                                                    <a target="_blank" href="<?php echo $value->note; ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
+                                                </div>
                                             </div>
                                              <div class="icon-interact">
                                                  <a  class="like" href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa-regular fa-thumbs-up"></i><?php echo $value->number_like; ?></a>
