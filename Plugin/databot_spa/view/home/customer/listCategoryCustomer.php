@@ -30,7 +30,7 @@
                                     <td>'.$item->id.'</td>
                                     <td>'.$item->name.'</td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->parent.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->parent.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\', \''.$item->slug.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -81,6 +81,10 @@
                   <input type="text" class="form-control phone-mask" name="value_avatar" id="value_avatar" value=""/>
                 </div>
                 <div class="mb-3">
+                  <label class="form-label" for="basic-default-phone">Tên biến điện thoại khách hàng</label>
+                  <input type="text" class="form-control phone-mask" name="value_phone" id="value_phone" value=""/>
+                </div>
+                <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Tên biến id khách hàng</label>
                   <input type="text" class="form-control phone-mask" name="value_id" id="value_id" value=""/>
                 </div>
@@ -96,13 +100,14 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name,id_product,value_avatar,value_name,value_id){
+    function editData(id, name,id_product,value_avatar,value_name,value_id,value_phone){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
       $('#id_product').val(id_product);
       $('#value_name').val(value_name);
       $('#value_avatar').val(value_avatar);
       $('#value_id').val(value_id);
+      $('#value_phone').val(value_phone);
     }
 
     function deleteCategory(id){

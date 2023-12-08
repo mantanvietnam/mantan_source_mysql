@@ -427,7 +427,7 @@ function listCategoryCustomer($input){
             $infoCategory->keyword = $dataSend['value_name'];
             $infoCategory->description = $dataSend['value_id'];
             $infoCategory->type = 'category_customer';
-            $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
+            $infoCategory->slug = $dataSend['value_phone'];
 
             $modelCategories->save($infoCategory);
 

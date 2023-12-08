@@ -205,6 +205,10 @@
                   if(!empty($items->category->description)){
                     $link .= '&'.$items->category->description.'='.$items->id;
                   }
+
+                   if(!empty($items->category->slug)){
+                    $link .= '&'.$items->category->slug.'='.$items->phone;
+                  }
                   
                ?>
                         <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
@@ -218,7 +222,7 @@
                               <div>
                                 <img src="<?php echo $link ?>" style="width: 100%;">
                               </div>
-                              <a href="data:image/png;base64,<?php echo $link ?>" class="btn btn-warning mb-2 mt-3" download="<?php echo $link ?>">
+                              <a href="data:image/png;base64,<?php echo base64_decode($link); ?>" class="btn btn-warning mb-2 mt-3" download="<?php echo $link ?>">
                                   <i class="bx bx-down-arrow-circle"></i>  Tải ảnh
                                 </a>
                                 <!-- <a class="btn btn-primary m-3" onclick="downloadImage('')"><i class="bx bx-down-arrow-circle"></i> Tải xuống</a> -->
