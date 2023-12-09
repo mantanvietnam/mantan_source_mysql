@@ -86,7 +86,7 @@ function viewDetailComboAdmin($input)
     }
 
     $productList = $productModel->find()
-        ->where(['status' => 1])
+        ->where(['status' => 1, 'deleted_at is'=>null])
         ->all();
 
     setVariable('data', $combo);
@@ -168,21 +168,18 @@ function updateComboAdminApi($input): array
         $totalPrice = 0;
 
         if (!empty($dataSend['productList']) && is_array($dataSend['productList'])) {
+            // xóa tất cả các sản phẩm combo cũ
+            $comboProductModel->deleteAll(['combo_id'=> $combo->id]);
+
             foreach ($dataSend['productList'] as $item) {
-                if (in_array($item['productId'], $listProductId)) {
-                    $comboProduct = $comboProductModel->find()
-                        ->where([
-                            'combo_id' => $combo->id,
-                            'product_id' => $item['productId'],
-                        ])->first();
-                    $comboProduct->amount = $item['amount'] ?? 1;
-                } else {
-                    $newComboProduct = $comboProductModel->newEmptyEntity();
-                    $newComboProduct->combo_id = $combo->id;
-                    $newComboProduct->product_id = $item['productId'];
-                    $newComboProduct->amount = $item['amount'];
-                    $comboProductModel->save($newComboProduct);
-                }
+                $newComboProduct = $comboProductModel->newEmptyEntity();
+                
+                $newComboProduct->combo_id = $combo->id;
+                $newComboProduct->product_id = $item['productId'];
+                $newComboProduct->amount = $item['amount'];
+                
+                $comboProductModel->save($newComboProduct);
+
                 $product = $productModel->find()->where(['id' => $item['productId']])->first();
                 
                 if($product->type == 0){
@@ -190,6 +187,7 @@ function updateComboAdminApi($input): array
                 }
             }
         }
+
         $combo->price = $totalPrice;
         $comboModel->save($combo);
 
