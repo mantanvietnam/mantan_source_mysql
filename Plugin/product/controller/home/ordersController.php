@@ -16,7 +16,7 @@ function cart($input)
 	$checkproductAll = 'true';
 
 	if(!empty($list_product)){
-
+		$idprodiscount =array();
 		foreach($list_product as $key => $product){
 	 		$present = array();
 
@@ -34,7 +34,7 @@ function cart($input)
             }
             $list_product[$key]->present = $present;
 
-            $idprodiscount =array();
+            
             if(!empty($product->idpro_discount) && @$product->statuscart=='true'){
                 $id_prodiscount = explode(',', @$product->idpro_discount);
                // debug($id_prodiscount);
@@ -88,10 +88,11 @@ function cart($input)
 
     $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
 	setVariable('category', $category);
-	setVariable('idprodiscount', $idprodiscount);
+	setVariable('prodiscount', $idprodiscount);
 	setVariable('checkproductAll', $checkproductAll);
 }
 

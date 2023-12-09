@@ -313,7 +313,7 @@ $price_total = 0;
                                 </div>
                             </section>
 
-                            <?php $checkud = 0; ?>
+                            <?php if(!empty($prodiscount)){ ?>
                             <div class="cart-left-bottom chek checkud">
                                 <div class="title-cart-left-bottom">
                                         Ưu đãi dành cho bạn
@@ -325,10 +325,8 @@ $price_total = 0;
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12 cart-product-gift-right">
                                         <div class="cart-product-gift-item-list">
                                             <div class="cart-product-gift-right-inner">
-                                                 <?php   if(!empty($list_product)){
-                                                    foreach ($list_product as $key => $value) { 
-                                                         if(!empty($value->idprodiscount) && (@$value->statuscart=='true')){
-                                                        foreach(@$value->idprodiscount as $item){
+                                                 <?php   
+                                                    foreach(@$prodiscount as $item){
                                                             $checkud = 1;
                                                             ?>
                                                 <div class="cart-product-gift-item">
@@ -359,7 +357,7 @@ $price_total = 0;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <?php }}}} ?>
+                                                <?php } ?>
                                                
                                             </div>
                                         </div>
@@ -367,12 +365,7 @@ $price_total = 0;
                                 </div>
                             </div>
 
-                            <?php if(empty($checkud)){?>
-                            <style type="text/css">
-                                .checkud{
-                                    display: none;
-                                }
-                            </style>
+                           
                             <?php } ?>
 
                             <div class="cart-left-bottom"  id="desktop_view1" >

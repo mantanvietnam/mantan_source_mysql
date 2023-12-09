@@ -293,7 +293,7 @@ $slide_home= slide_home($setting['id_slide']);
                         <div class="product-detail-group-button">
                             
                                  <?php
-                                 if(@$product->quantity>0){
+                                 if(@$product->quantity=0){
 
                                         ?>
                             <div class="product-detail-button-cart">
@@ -304,7 +304,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'true')">Mua ngay</a>
                             </div>
                         <?php }else{?>
-                             <div class="product-detail-button-cart">
+                             <div class="product-detail-button-buy">
                                 <a data-bs-toggle="modal" data-bs-target="#">Hết hàng</a>
                             </div>
                       <?php  } ?>
@@ -354,6 +354,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
                                 <?php   } ?>
                             </div>
+                            <?php  if(!empty($prod->quantity)){ ?>
 
                             <div class="product-add-cart-mobile">
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'false')"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""></a>
@@ -363,7 +364,13 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="product-buy-mobile">
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'true')">Mua ngay</a>
                             </div>
+                        <?php }else{?>
+                            <div class="product-buy-mobile">
+                                <a href="#">Hết hàng</a>
+                            </div>
+                        <?php } ?>
                         </section>
+
 
 
                         <!--  -->
@@ -804,6 +811,7 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="list-filter-rate-item">
                                         <a onclick=" searchEvaluates(6)">Có hình ảnh/video</a>
                                     </div>
+                                   
                                 </div>
 
                                 <div class="rate-image-right">
@@ -1308,8 +1316,7 @@ function addComment(){
 <script type="text/javascript">
     function searchEvaluates(point){
       
-        console.log(point);
-         $.ajax({
+        $.ajax({
                 method: 'POST',
                 url: '/apis/searchEvaluateAPI',
                 data: { id_product: <?php echo $product->id ?>, point: point},
@@ -1357,7 +1364,8 @@ function addComment(){
             
                             html +='        <div class="product-details-rate-comment">'+res.data[i].content+'</div>'  
                             html +='        <div class="product-detail-rate-image">'
-                if(res.data[i].image_video != null) {
+                if(res.data[i].image_video !== null){
+                    if(res.data[i].image_video !== '') {
                             html +='<a class="video-comment-box"  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo'+i+'">'
                             html +='                <img src="'+res.data[i].image_video+'" alt="">'
                             html +='            </a>'
@@ -1374,12 +1382,12 @@ function addComment(){
                             html +='                    </div>'
                             html +='                </div>'
                             html +='            </div>'
+                }
             }
                             
                              for(var key in image) {
                                 if (image.hasOwnProperty(key)) {
                                     if (image[key] != '') {
-                                console.log(image[key]);
                             html +='    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalimg'+i+'-'+key+'"> <img src="'+image[key]+'" alt=""></a>'
                             html +='<div class="modal-login">'
                             html +='<div class="modal fade" id="exampleModalimg'+i+'-'+key+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
