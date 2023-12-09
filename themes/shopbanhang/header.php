@@ -242,7 +242,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         
                             <?php if(!empty(checkFlasl())){ ?>
                             <li class="nav-item nav-item-last">
-                                <a class="nav-link" href="/sale"><?php echo @$setting['menu_title1']?></a>
+                                <a class="nav-link" href="/sale"><?php echo @$setting['menu']?></a>
                             </li>
                         <?php } ?>
                         </ul>
@@ -384,7 +384,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
         <div class="list-contact">
             <a id="button-contact-2">
                 <div class="con-phone-bottom-box">
-                    <img class="icon-phone-bottom" src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""> 
+                    <img class="icon-phone-bottom" src="<?php echo $urlThemeActive ?>/asset/image/icon mẹ.png" alt=""> 
                 </div>
                 <div class="icon-close">
                     <i class="fa-solid fa-xmark"></i>
@@ -395,7 +395,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img class="icon-zalo" src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
                         </div>
                         <div class="content-contact-item content-contact-item-phone content-contact-margin">
-                            <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""></a>
+                            <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/icon con.png" alt=""></a>
                         </div>
                     </div>
                 </div>
