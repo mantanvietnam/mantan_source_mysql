@@ -91,6 +91,7 @@ function cart($input)
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
 	setVariable('category', $category);
+	setVariable('idprodiscount', $idprodiscount);
 	setVariable('checkproductAll', $checkproductAll);
 }
 
