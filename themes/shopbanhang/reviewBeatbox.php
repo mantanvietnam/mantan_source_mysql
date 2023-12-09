@@ -330,7 +330,7 @@ function delelelike(id){
                     idcustomer: <?php echo @$infoUser['id'] ?>,
                 },
                 success:function(res){
-                  console.log('res');
+                  console.log(res);
                     
                      location.reload();
                 }
