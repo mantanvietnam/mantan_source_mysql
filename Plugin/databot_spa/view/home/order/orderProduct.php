@@ -51,7 +51,6 @@
     .top .left{
         display: flex;
         padding: 0px 20px;
-        border-bottom: 1px solid #566a7f;
         position: relative;
         display: flex;
         align-items: center;
@@ -134,78 +133,38 @@
 	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
 	               <div class="mb-3 col-md-2">
-	                   <p><a href="/addCustomer" class="btn btn-primary" target="_blank" type="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a></p>
+                        <label class="form-label" for="basic-default-phone">&nbsp;</label>
+	                    <a href="/addCustomer" class="btn btn-primary" target="_blank" title="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a>
 	               </div>
 	           </div>
 		 	</div>
-		 	<!-- <div class="card mb-4">
-		 		<a class="tableService" data-bs-toggle="collapse" href="#collapseService" role="button" aria-expanded="false" aria-controls="collapseExample">Dịch vụ <i class='bx bx-plus' style="float: right;"></i></a>
-		 		<?php if(!empty($listService)){ ?>
-				<div class="collapse" id="collapseService">
-				  <div class="card card-body">
-				  	<div class="row diagram">
-				    <?php	foreach($listService as $key => $Service){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Service->image ?>');" onclick="addProduct('<?php echo $Service->id ?>','<?php echo $Service->name ?>',<?php echo $Service->price ?>,'service');" id='service<?php echo $Service->id ?>'>
-                                    <div class="item_produc">
-                                        <div class="customer-name"><span class="service_name"><?php echo $Service->name ?></span></div>
-                                        <div class="customer-name"><span class="service_name"><?php echo $Service->duration ?> phút</span></div>
-                                        <div class="customer-name"><span class="service_price"><?php echo number_format($Service->price) ?>đ</span></div>
-                                    </div>
-                                    
-                                 </div> 
-				  <?php   } ?>
-				</div>
-				  </div>
-				</div>
-				 <?php   } ?>
-		 	</div>
-
-		 	<div class="card mb-4">
-		 		<a class="tableService" data-bs-toggle="collapse" href="#collapseCombo" role="button" aria-expanded="false" aria-controls="collapseExample">ComBo<i class='bx bx-plus' style="float: right;"></i></a>
-				<?php if(!empty($listCombo)){ ?>
-				<div class="collapse" id="collapseCombo">
-				  <div class="card card-body">
-				  	<div class="row diagram">
-				    <?php	foreach($listCombo as $key => $combo){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $combo->image ?>');" onclick="addProduct('<?php echo $combo->id; ?>','<?php echo $combo->name ?>',<?php echo $combo->price ?>,'combo');" id='combo<?php echo $combo->id ?>'>
-                                    <div class="item_produc">
-                                        <div class="customer-name"><span class="service_name"><?php echo $combo->name ?></span></div>
-                                        <div class="customer-name"><span class="service_price"><?php echo number_format($combo->price) ?>đ</span></div>
-                                    </div>
-                                 </div> 
-				  <?php   } ?>
-				</div>
-				  </div>
-				</div>
-				 <?php   } ?>
-		 	</div> -->
 
 		 	<div class="card mb-4">
 		 		<h4 class="fw-bold m-2">Sản phẩm</h4>
 
 		 		<?php
-                    echo @$mess;
-                 if(!empty($listProduct)){ ?>
+                echo @$mess;
+                if(!empty($listProduct)){ ?>
                     <div class="m-3 col-md-10">
-                       
                         <input type="text" placeholder="Tìm sản phẩm"  class="form-control phone-mask" id="searchProduct">
-                   </div>
-				<div >
-				  <div class="card card-body">
-				  	<div class="row diagram">
+                    </div>
 
-				     <?php foreach($listProduct as $key => $Product){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->name ?>',<?php echo $Product->price ?>,'product');" id='product_<?php echo $Product->id ?>' >
-                                    <div class="item_produc">
-                                       <div class="customer-name"><span class="service_name"><?php echo $Product->name ?></span></div>
-                                            <div class="customer-name"><span class="service_price"><?php echo number_format($Product->price) ?>đ</span></div>
-                                        </div>
-                                 </div> 
-				   <?php   } ?>
-					</div>
-				  </div>
-				</div>
-				 <?php   } ?>
+    				<div >
+    				  <div class="card card-body">
+    				  	<div class="row diagram">
+
+    				     <?php foreach($listProduct as $key => $Product){ ?>
+    				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $Product->image ?>');" onclick="addProduct('<?php echo $Product->id ?>','<?php echo $Product->name ?>',<?php echo $Product->price ?>,'product');" id='product_<?php echo $Product->id ?>' >
+                                        <div class="item_produc">
+                                           <div class="customer-name"><span class="service_name"><?php echo $Product->name ?></span></div>
+                                                <div class="customer-name"><span class="service_price"><?php echo number_format($Product->price) ?>đ</span></div>
+                                            </div>
+                                     </div> 
+    				   <?php   } ?>
+    					</div>
+    				  </div>
+    				</div>
+				<?php   } ?>
 		 	</div>
 		 	
 		</div>
@@ -213,24 +172,25 @@
             <div class="card mb-4">
                 <h4 class="fw-bold py-3 mb-4 info-order">Thông tin đơn hàng</h4>
                  <div class="top row">
-                    <div class="left col-md-4">
+                    <div class="left col-md-10">
                         <i class="bx bx-time" aria-hidden="true"></i>&nbsp;
                         <div class="input-group">
                             <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
                         </div>
                     </div>      
-                    <div class="right col-md-7">
+                    <div class="right col-md-12">
                         <p >Kho hàng (*)</p>
                         <div class="input-Warehouses">
                             <select  name="id_warehouse" required="" id="id_bed"  class="form-select color-dropdown">
-                                                        <option value="">Chọn Kho</option>
-                                                     <?php if(!empty($listWarehouse)){
-                                                        foreach ($listWarehouse as $warehouse) { 
-                                                            echo '<option  value="'.$warehouse->id.'">'.$warehouse->name.'</option>';
-                                                            }
-                                                            
-                                                        }?>
-                                                </select>
+                                <?php 
+                                if(!empty($listWarehouse)){
+                                    foreach ($listWarehouse as $warehouse) { 
+                                        echo '<option  value="'.$warehouse->id.'">'.$warehouse->name.'</option>';
+                                    }
+                                        
+                                }
+                                ?>
+                            </select>
                         </div>
                         
                     </div>
@@ -331,8 +291,8 @@
                                             </p>
                                         </li>
                                         <div id="card"> </div>  
-                                        <li style="display: contents;"><span>chú ý</span><br/>
-                                            <textarea class="form-control phone-mask" rows="8" name="note"></textarea>
+                                        <li style="display: contents;"><span>Ghi chú</span><br/>
+                                            <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
                                         </li> 
 
                                          
@@ -530,7 +490,7 @@ function addProduct(id, name, priceProduct,type){
         $('#nhankhach').remove();
 
         if(numberProduct>0){
-            r = confirm("bạn lưu đơn này?");
+            r = confirm("Bạn muốn lưu đơn này đúng không?");
             if (r == true) {
                 if(checkProduct){
                     $('#summary-form').submit();
@@ -554,7 +514,7 @@ function addProduct(id, name, priceProduct,type){
         $('#nhankhach').remove();
 
         if(numberProduct>0){
-            r = confirm("bạn thanh toán đơn này?");
+            r = confirm("Bạn muốn thanh toán đơn này đúng không?");
             if (r == true) {
                 if(checkProduct){
                     $('#summary-form').submit();
@@ -578,7 +538,7 @@ function addProduct(id, name, priceProduct,type){
         $('#nhankhach').show();
 
         if(numberProduct>0){
-            r = confirm("bạn nhận khách này vào giường?");
+            r = confirm("Bạn muốn nhận khách này vào giường đúng không?");
             if (r == true) {
                 if(checkProduct){
                     $('#summary-form').submit();

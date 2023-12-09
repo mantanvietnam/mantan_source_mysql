@@ -200,12 +200,12 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Check out", icon: "checkout"},
-                "view": {name: "Xem thông tin phòng", icon: "view"},
-                "cancel": {name: "Hủy checkin", icon: "delete"},
+                "paid": {name: "Check-out", icon: "quit"},
+                "view": {name: "Xem thông tin giường", icon: "view"},
+                "cancel": {name: "Hủy check-in", icon: "delete"},
                 "sep1": "---------",
-                "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
-                "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
+                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
+                "edit": {name: "Sửa cài đặt giường", icon: "edit"},
             }
         });
          
@@ -235,10 +235,10 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "checkinBed": {name: "Nhận khách", icon: "received"},
+                "checkinBed": {name: "Nhận khách", icon: "add"},
                 "sep1": "---------",
                 "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
-                "listOrder": {name: "Danh sách khách chờ", icon: "list"},
+                "listOrder": {name: "Danh sách khách chờ", icon: "paste"},
                 "deleteBed": {name: "Xóa giường", icon: "delete"},
             }
         });
@@ -288,12 +288,12 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Check out", icon: "checkout"},
-                "cancel": {name: "Hủy checkin", icon: "delete"},
-                "view": {name: "Xem thông tin phòng", icon: "view"},
+                "paid": {name: "Check-out", icon: "quit"},
+                "cancel": {name: "Hủy check-in", icon: "delete"},
+                "view": {name: "Xem thông tin giường", icon: "view"},
                 "sep1": "---------",
-                "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
-                "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
+                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
+                "edit": {name: "Sửa cài đặt giường", icon: "edit"},
             }
         });
 
@@ -333,11 +333,11 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                // "receivedFast": {name: "Nhận phòng nhanh", icon: "received"},
-                "received": {name: "Nhận phòng", icon: "received"},
-                "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
+                "received": {name: "Nhận khách", icon: "add"},
+                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
                 "sep1": "---------",
-                "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
-                "delete": {name: "Xóa phòng", icon: "delete"},
+                "edit": {name: "Sửa cài đặt giường", icon: "edit"},
+                "delete": {name: "Xóa giường", icon: "delete"},
             }
         });
 
@@ -359,7 +359,7 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                 "addroom": {name: "Thêm phòng", icon: "add"},
-                "editFloor": {name: "Sửa tên tầng", icon: "edit"},
+                "editFloor": {name: "Sửa tên phòng", icon: "edit"},
             }
         });
 
@@ -382,7 +382,7 @@ rel='stylesheet' type='text/css'>
             },
             items: {
                 "addroom": {name: "Thêm phòng", icon: "add"},
-                "editFloor": {name: "Sửa tên tầng", icon: "edit"},
+                "editFloor": {name: "Sửa tên phòng", icon: "edit"},
             }
         });
     });

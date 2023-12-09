@@ -60,7 +60,7 @@ function orderProduct($input){
         }
         $mess = '';
         if(@$_GET['mess']=='kho'){
-            $mess  = '<p style="color: #00f83a;">&emsp; Sản phẩm trong kho không đủ</p>';
+            $mess  = '<p class="text-danger">Sản phẩm trong kho không đủ</p>';
         }
 
         // sử lý đơn hàng
@@ -366,7 +366,7 @@ function orderCombo($input){
 
         $mess = '';
         if(@$_GET['mess']=='kho'){
-            $mess  = '<p style="color: #00f83a;">&emsp; Sản phẩm trong kho không đủ</p>';
+            $mess  = '<p class="text-danger">Sản phẩm trong kho không đủ</p>';
         }
 
         // sử lý đơn hàng

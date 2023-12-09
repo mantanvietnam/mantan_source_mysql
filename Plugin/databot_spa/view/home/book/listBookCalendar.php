@@ -134,12 +134,16 @@
    <div class="modal-body">
       <label><b>Thông tin khách đặt</b></label>
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-5 mb-3">
           <label class="form-label">Tên khách hàng (*)</label>
           <input required type="text" placeholder="Vui lòng nhập tên hoặc sđt khách hàng" class="form-control phone-mask" name="name" id="name" value="" >
           <input type="hidden" name="id_customer" id="id_customer" value="">
           <input type="hidden" name="phone" id="phone" value="" />
           <input type="hidden" name="email" id="email" value="" />
+        </div>
+        <div class="mb-3 col-md-1">
+            <label class="form-label" for="basic-default-phone">&nbsp;</label>
+            <a href="/addCustomer" class="btn btn-primary" target="_blank" title="Thêm khách hàng mới "><i class='bx bx-plus'></i></a>
         </div>
         <div class="col-md-6 mb-3">
           <label class="form-label">Ngày đặt (*)</label>

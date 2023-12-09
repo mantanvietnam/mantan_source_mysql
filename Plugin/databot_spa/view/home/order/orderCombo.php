@@ -51,7 +51,6 @@
     .top .left{
         display: flex;
         padding: 0px 20px;
-        border-bottom: 1px solid #566a7f;
         position: relative;
         display: flex;
         align-items: center;
@@ -134,7 +133,8 @@
 	                    <input type="hidden" name="id_customer"  id="id_customer" value="<?php echo (int) @$data->id_customer;?>">
 	               </div>
 	               <div class="mb-3 col-md-2">
-	                   <p><a href="/addCustomer" class="btn btn-primary" target="_blank" type="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a></p>
+                        <label class="form-label" for="basic-default-phone">&nbsp;</label>
+	                    <a href="/addCustomer" class="btn btn-primary" target="_blank" title="Thêm khách hàng mới "><i class='bx bx-plus'></i> </a>
 	               </div>
 	           </div>
 		 	</div>
@@ -194,24 +194,23 @@
             <div class="card mb-4">
                 <h4 class="fw-bold py-3 mb-4 info-order">Thông tin đơn hàng</h4>
                  <div class="top row">
-                    <div class="left col-md-4">
+                    <div class="left col-md-10">
                         <i class="bx bx-time" aria-hidden="true"></i>&nbsp;
                         <div class="input-group">
                             <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
                         </div>
                     </div>      
-                    <div class="right col-md-7">
+                    <div class="right col-md-12">
                         <p >Kho hàng (*)</p>
                         <div class="input-Warehouses">
                             <select  name="id_warehouse" required="" id="id_bed"  class="form-select color-dropdown">
-                                                        <option value="">Chọn Kho</option>
-                                                     <?php if(!empty($listWarehouse)){
-                                                        foreach ($listWarehouse as $warehouse) { 
-                                                            echo '<option  value="'.$warehouse->id.'">'.$warehouse->name.'</option>';
-                                                            }
-                                                            
-                                                        }?>
-                                                </select>
+                                <?php if(!empty($listWarehouse)){
+                                    foreach ($listWarehouse as $warehouse) { 
+                                        echo '<option  value="'.$warehouse->id.'">'.$warehouse->name.'</option>';
+                                        }
+                                        
+                                }?>
+                            </select>
                         </div>
                         
                     </div>
@@ -312,8 +311,8 @@
                                             </p>
                                         </li>
                                         <div id="card"> </div>  
-                                        <li style="display: contents;"><span>chú ý</span><br/>
-                                            <textarea class="form-control phone-mask" rows="8" name="note"></textarea>
+                                        <li style="display: contents;"><span>Ghi chú</span><br/>
+                                            <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
                                         </li> 
 
                                          
