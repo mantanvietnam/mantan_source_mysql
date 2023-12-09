@@ -382,10 +382,12 @@ function addBook($input){
 	    $service = array('id_member'=>$infoUser->id_member);
 	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
 
+	    /*
 	   	if(empty($dataService)){
 	   		// nếu chưa cài đặt dịch vụ
 	   		return $controller->redirect('/listService/?error=requestService');
 	   	}
+	   	*/
 
 	   	$conditionsRoom = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
 	   	$listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();

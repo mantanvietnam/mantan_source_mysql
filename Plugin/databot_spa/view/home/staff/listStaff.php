@@ -107,7 +107,7 @@
             <?php
             if (!empty($listData)) {
               foreach ($listData as $item) {
-                $group = $modelCategories->get($item->id_group);
+                $group = $modelCategories->find()->where(['id'=>(int) $item->id_group])->first();
                 $status = 'Kích hoạt <br/>';
                 $button = '<a class="dropdown-item" title="Khóa"  onclick="return confirm(\'Bạn có chắc chắn muốn khóa nhân viên này không?\');" href="/lockStaff?id=' . $item->id . '&status=0">
                               <i class="bx bx-lock-open"></i> </a>';

@@ -66,7 +66,7 @@ $sqlInstallDatabase .="CREATE TABLE `books` (
   `created_at` datetime NOT NULL,
   `time_book` int(11) NOT NULL COMMENT 'thời gian đặt lịch hẹn',
   `id_staff` int(11) DEFAULT NULL,
-  `status` int(4) DEFAULT NULL COMMENT '0: Chưa xác nhận, 1: Xác nhận, 2:Không đến,  3:Hủy, 4:Đã đến , 5:Đặt online.',
+  `status` INT(4) NOT NULL DEFAULT '0' COMMENT '0: Chưa xác nhận, 1: Xác nhận, 2:Không đến, 3:Đã đến, 4:Hủy , 5:Đặt online.',
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `apt_step` int(11) DEFAULT NULL,
   `apt_times` int(11) DEFAULT NULL,

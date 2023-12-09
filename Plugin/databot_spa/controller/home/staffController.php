@@ -87,6 +87,10 @@ function listStaff($input)
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
 
+        if(empty($listCategory)){
+        	return $controller->redirect('/listGroupStaff/?error=requestGroupStaff');
+        }
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('totalData', $totalData);

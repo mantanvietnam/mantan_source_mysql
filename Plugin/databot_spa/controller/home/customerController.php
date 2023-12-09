@@ -336,6 +336,7 @@ function addCustomer($input)
 	    	return $controller->redirect('/listSourceCustomer/?error=requestSourceCustomer');
 	    }
 
+	    /*
 	    if(empty($dataService)){
 	    	return $controller->redirect('/listService/?error=requestService');
 	    }
@@ -343,7 +344,7 @@ function addCustomer($input)
 	    if(empty($dataProduct)){
 	    	return $controller->redirect('/listProduct/?error=requestProduct');
 	    }
-	    
+	    */
 
 	    setVariable('data', $data);
 	    setVariable('dataMember', $dataMember); 
@@ -525,17 +526,17 @@ function deleteCategoryCustomer($input){
             $data = $modelCategories->find()->where($conditions)->first();
 
             if(!empty($_GET['type'])){
-            switch ($_GET['type']) {
-                case 'Source':
-                    $checkCustomer = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
-                    break;
-                case 'Category':
-                   	$checkCustomer = $modelCustomer->find()->where(array('id_group'=>$data->id))->all()->toList();
-                    break;
+	            switch ($_GET['type']) {
+	                case 'Source':
+	                    $checkCustomer = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
+	                    break;
+	                case 'Category':
+	                   	$checkCustomer = $modelCustomer->find()->where(array('id_group'=>$data->id))->all()->toList();
+	                    break;
 
-          
-            }
-        }
+	          
+	            }
+	        }
             
 
             if(empty($checkCustomer)){

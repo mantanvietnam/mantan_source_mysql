@@ -10,7 +10,7 @@ function listCustomerCampaign($input)
     $modelCampainCustomers = $controller->loadModel('CampainCustomers');
     $modelCustomer = $controller->loadModel('Customers');
     
-    if(!empty(checkLoginManager('listCustomerCampaign'))){
+    if(!empty(checkLoginManager('listCustomerCampaign', 'campain'))){
         $mess= '';
 
         if(!empty($_GET['idCampaign'])){
@@ -146,7 +146,7 @@ function deleteCustomerCampain($input){
 	
 	$modelCampainCustomers = $controller->loadModel('CampainCustomers');
 	
-	if(!empty(checkLoginManager('deleteCustomerCampain'))){
+	if(!empty(checkLoginManager('deleteCustomerCampain','campain'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
