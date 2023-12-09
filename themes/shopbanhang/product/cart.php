@@ -405,7 +405,9 @@ $price_total = 0;
                                                             </div>
 
                                                             <div class="product-discount">
-                                                                <del><?php echo number_format(@$value->price_old); ?>đ</del><span> 
+                                                                <?php if(!empty($value->price_old)){ ?>
+                                                                <del><?php echo number_format(@$value->price_old); ?>đ</del>
+                                                            <?php } ?>
                                                             </div>
                                                             
                                                             
@@ -704,6 +706,7 @@ $(document).ready(function() {
         $('#mobile_view').remove();
         $('#desktop_view').show();
         $('#mobile_view1').remove();
+        $('#product-mobile1').remove();
         $('#desktop_view1').show();
     }
 });
