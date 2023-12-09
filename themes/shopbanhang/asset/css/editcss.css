@@ -1290,9 +1290,7 @@ background: #555;
     max-height: 600px !important;
 }
 
-.list-rate-image{
-    overflow: scroll;
-}
+
 
 #section-info-col .container{
     padding: 0;
@@ -1450,7 +1448,7 @@ background: #555;
   }
 
   .contact-fixed .icon-phone-bottom {
-    width: 36px;
+    width: 40px;
     }
 
   .icon-close{
@@ -1888,6 +1886,11 @@ background: #555;
 
 
 @media(max-width: 445px) {
+
+    .list-rate-image{
+        overflow: scroll;
+    }
+
     .topbar-button span{
         top: 15px;
         left: 14px;
