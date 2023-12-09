@@ -435,7 +435,7 @@ header{
 }
 
 .pro-review-slide .slick-arrow {
-    font-size: 31px;
+    font-size: 19px;
 }
 
 .product-slide-left-img img{
@@ -1288,6 +1288,10 @@ background: #555;
 .list-rate-image .modal img{
     width: auto !important;
     max-height: 600px !important;
+}
+
+.list-rate-image{
+    overflow: scroll;
 }
 
 #section-info-col .container{

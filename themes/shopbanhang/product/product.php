@@ -921,7 +921,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <div class="comment-extra">
                                     <div class="product-detail-rate-item">
                                         <div class="product-detail-rate-avata">
-                                            <img src="<?php echo $urlThemeActive ?>asset/image/logo.png" alt="">
+                                            <img src="<?php echo $urlThemeActive ?>asset/image/Logo Bumas-01.jpg" alt="">
                                         </div>
                     
                                         <div class="product-detail-rate-right">
