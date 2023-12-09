@@ -202,7 +202,12 @@ $price_total = 0;
                               <!-- Cart -->
                             <section id="product-mobile">
                                 <div class="container">
-                                    <div class="product-mobile-top-table">
+                                    
+
+                                    <div class="product-mobile-group">
+                                        <!-- Sản phẩm -->
+                                        <?php if(!empty($list_product)){ ?>
+                                            <div class="product-mobile-top-table">
                                         <div class="product-mobile-radio">
                                             <input class="form-check-input" type="checkbox"  onclick="checkproductAll()" value="1" id="allcheck" <?php if($checkproductAll=='true'){echo 'checked';} ?>>
                                         </div>
@@ -212,10 +217,7 @@ $price_total = 0;
                                         </div>
                                     </div>
 
-                                    <div class="product-mobile-group">
-                                        <!-- Sản phẩm -->
-                                        <?php if(!empty($list_product)){ 
-                                            $price_total = 0;
+                                            <?php $price_total = 0;
                                             $total = 0;
                                 
                                                 foreach ($list_product as $key => $value) {

@@ -85,65 +85,72 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                                        <label class="col-sm-12 control-label">Chức năng được sử dụng: <input type="checkbox" id="selectAll" onclick="checkboxAll(this,'checkAll');"> <label for="selectAll">Tất cả</label></label>
-                                        <div class="col-sm-12">
-                                            <div class="form-group" id="checkAll">
-                                                <div class="col-sm-12">
-                                                    <script type="text/javascript">
-                                                        function addCheck(idCheckbox)
-                                                        {
-                                                            $('#'+idCheckbox).attr( 'checked', true );
-                                                        }
-                                                    </script>
-                                                    <ul class="list-unstyled list_addPer">
-                                                        <?php 
-                                                        foreach ($listPermissionMenu as $keyGroup=>$permissionMenu) { 
-                                                            $checkGroup= false;
-                                                            echo '<li class="has_sub_staff">
-                                                            <span><input type="checkbox" id="check'.$keyGroup.'"> <label for="">'.$permissionMenu['name'].'</label></span>
-                                                            <ul class="list-unstyled sub_staff" style="margin-left: 20px;">';
-                                                            foreach ($permissionMenu['sub'] as $key=>$menu2) { 
-                                                                $check= '';
-                                                                if (isset($data->permission) && in_array($menu2['permission'], $data->permission)) {
-                                                                    $check= 'checked';
-                                                                    $checkGroup= true;
-                                                                }
-                                                                if($menu2['permission']=='managerLogout'){
-                                                                    $check= 'checked';
-                                                                    $checkGroup= true;
-                                                                }
-                                                                echo '<li><input '.$check.' name="check_list_permission[]" value="'.$menu2['permission'].'" type="checkbox" id="check'.$keyGroup.'_'.$key.'"> <label for="check'.$keyGroup.'_'.$key.'">'.$menu2['name'].'</label></li>';
-                                                            }
-                                                            echo '  </ul>
-                                                            </li>';
+                    <label class="form-label" for="basic-default-email">Phân quyền chức năng</label>
 
-                                                            if($checkGroup){
-                                                                echo '<script type="text/javascript">addCheck("check'.$keyGroup.'");</script>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </ul>
-                                                    <script>
-                                                        $(document).ready(function() {
-                                                            $('.list_addPer ul').hide();
-                                                            $('.has_sub_staff span label').click(function(){
-                                                                if($(this).parent().next('.sub_staff').hasClass('show')){
-                                                                    $(this).parent().next('.sub_staff').slideUp();
-                                                                    $(this).parent().next('.sub_staff').removeClass('show');
-                                                                } else{
-                                                                    $(this).parent().next('.sub_staff').slideDown();
-                                                                    $(this).parent().next('.sub_staff').addClass('show');
-                                                                }
-                                                            });
-                                                            $(".has_sub_staff span input").click(function(){
-                                                                $(this).parent().parent().find('input').prop('checked', this.checked);    
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
+                    <label class="col-sm-12 control-label">
+
+                      <input type="checkbox" id="selectAll" onclick="checkboxAll(this,'checkAll');"> <label for="selectAll">Tất cả</label>
+
+                    </label>
+                      
+                      <div class="col-sm-12" style="margin-left: 20px;">
+                          <div class="form-group" id="checkAll">
+                              <div class="col-sm-12">
+                                  <script type="text/javascript">
+                                      function addCheck(idCheckbox)
+                                      {
+                                          $('#'+idCheckbox).attr( 'checked', true );
+                                      }
+                                  </script>
+                                  <ul class="list-unstyled list_addPer">
+                                      <?php 
+                                      foreach ($listPermissionMenu as $keyGroup=>$permissionMenu) { 
+                                          $checkGroup= false;
+                                          echo '<li class="has_sub_staff">
+                                          <span><input type="checkbox" id="check'.$keyGroup.'"> <label for="">'.$permissionMenu['name'].'</label></span>
+                                          <ul class="list-unstyled sub_staff" style="margin-left: 20px;">';
+                                          foreach ($permissionMenu['sub'] as $key=>$menu2) { 
+                                              $check= '';
+                                              if (isset($data->permission) && in_array($menu2['permission'], $data->permission)) {
+                                                  $check= 'checked';
+                                                  $checkGroup= true;
+                                              }
+                                              if($menu2['permission']=='managerLogout'){
+                                                  $check= 'checked';
+                                                  $checkGroup= true;
+                                              }
+                                              echo '<li><input '.$check.' name="check_list_permission[]" value="'.$menu2['permission'].'" type="checkbox" id="check'.$keyGroup.'_'.$key.'"> <label for="check'.$keyGroup.'_'.$key.'">'.$menu2['name'].'</label></li>';
+                                          }
+                                          echo '  </ul>
+                                          </li>';
+
+                                          if($checkGroup){
+                                              echo '<script type="text/javascript">addCheck("check'.$keyGroup.'");</script>';
+                                          }
+                                      }
+                                      ?>
+                                  </ul>
+                                  <script>
+                                      $(document).ready(function() {
+                                          $('.list_addPer ul').hide();
+                                          $('.has_sub_staff span label').click(function(){
+                                              if($(this).parent().next('.sub_staff').hasClass('show')){
+                                                  $(this).parent().next('.sub_staff').slideUp();
+                                                  $(this).parent().next('.sub_staff').removeClass('show');
+                                              } else{
+                                                  $(this).parent().next('.sub_staff').slideDown();
+                                                  $(this).parent().next('.sub_staff').addClass('show');
+                                              }
+                                          });
+                                          $(".has_sub_staff span input").click(function(){
+                                              $(this).parent().parent().find('input').prop('checked', this.checked);    
+                                          });
+                                      });
+                                  </script>
+                              </div>
+                          </div> 
+                      </div>
+                  </div>
                   
                 </div>
               </div>

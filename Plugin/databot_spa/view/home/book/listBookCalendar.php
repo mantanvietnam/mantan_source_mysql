@@ -32,9 +32,8 @@
               <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa xác nhận </option>
               <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Xác nhận</option>
               <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Không đến</option>
-              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Hủy lịch</option>
-              <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Đã đến</option>
-              <option value="5" <?php if(!empty($_GET['status']) && $_GET['status']=='5') echo 'selected';?> >Đặt online</option>
+              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Đã đến</option>
+              <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Hủy lịch</option>
             </select>
           </div>
 
@@ -114,6 +113,13 @@
     </h5>
     
     <div class="card-body row">
+      <div class="col-md-12 mb-3">
+        <span class="statistic"><label id="staticStatus0" class="number" style="background-color: Gold; padding: 0 7px; color: white;">0</label> Chưa xác nhận</span>
+        <span class="statistic"><label id="staticStatus1" class="number" style="background-color: Blue; padding: 0 7px; color: white;">0</label> Xác nhận</span>
+        <span class="statistic"><label id="staticStatus2" class="number" style="background-color: Red; padding: 0 7px; color: white;">0</label> Không đến</span>
+        <span class="statistic"><label id="staticStatus3" class="number" style="background-color: Green; padding: 0 7px; color: white;">0</label> Đã đến</span>
+        <span class="statistic"><label id="staticStatus4" class="number" style="background-color: Black; padding: 0 7px; color: white;">0</label> Hủy lịch</span>
+      </div>
       <div id='calendar'></div>
     </div>
   </div>
@@ -174,7 +180,6 @@
             <option value="2">Không đến</option>
             <option value="3">Đã đến</option>
             <option value="4">Hủy lịch</option>
-            <option value="5">Đặt online</option>
           </select>
         </div>
 
@@ -266,6 +271,12 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js'></script>
 
 <script>
+    var staticStatus0 = 0;
+    var staticStatus1 = 0;
+    var staticStatus2 = 0;
+    var staticStatus3 = 0;
+    var staticStatus4 = 0;
+
     var listEvent = [];
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -279,6 +290,12 @@
 
       events: [
         <?php
+          $staticStatus0 = 0;
+          $staticStatus1 = 0;
+          $staticStatus2 = 0;
+          $staticStatus3 = 0;
+          $staticStatus4 = 0;
+
           if(!empty($listData)){
             foreach($listData as $data){
               $type = [];
@@ -288,29 +305,36 @@
               if(!empty($data->type4)) $type[] = 'Lịch điều trị';
 
               $status = '';
+              $color = '';
               switch ($data->status) {
                 case '0':
                   $status = 'Chưa xác nhận';
+                  $color = 'Gold';
+                  $staticStatus0 ++;
                   break;
                 
                 case '1':
                   $status = 'Xác nhận';
+                  $color = 'Blue';
+                  $staticStatus1 ++;
                   break;
 
                 case '2':
                   $status = 'Không đến';
+                  $color = 'Red';
+                  $staticStatus2 ++;
                   break;
 
                 case '3':
-                  $status = 'Hủy';
+                  $status = 'Đã đến';
+                  $color = 'Green';
+                  $staticStatus3 ++;
                   break;
 
                 case '4':
-                  $status = 'Đã đến';
-                  break;
-
-                case '5':
-                  $status = 'Đặt online';
+                  $status = 'Hủy';
+                  $color = 'Black';
+                  $staticStatus4 ++;
                   break;
               }
 
@@ -340,6 +364,7 @@
                     repeat_book: "'.$data->repeat_book.'",
                     apt_times: "'.$data->apt_times.'",
                     apt_step: "'.$data->apt_step.'",
+                    color: "'.$color.'",
                   },';
               } while (!empty($data->repeat_book) && $data->apt_times>=$apt_times);
             }
@@ -466,6 +491,18 @@
     });
 
     calendar.render();
+
+    staticStatus0 = "<?php echo number_format($staticStatus0);?>";
+    staticStatus1 = "<?php echo number_format($staticStatus1);?>";
+    staticStatus2 = "<?php echo number_format($staticStatus2);?>";
+    staticStatus3 = "<?php echo number_format($staticStatus3);?>";
+    staticStatus4 = "<?php echo number_format($staticStatus4);?>";
+
+    $('#staticStatus0').html(staticStatus0);
+    $('#staticStatus1').html(staticStatus1);
+    $('#staticStatus2').html(staticStatus2);
+    $('#staticStatus3').html(staticStatus3);
+    $('#staticStatus4').html(staticStatus4);
 </script>
 
 <script type="text/javascript">
@@ -518,6 +555,12 @@
           let staff = $( "#id_staff option:selected" ).text();
           let bed = $( "#id_bed option:selected" ).text();
           let statusText = $( "#status option:selected" ).text();
+          let typeBook = [];
+
+          if(type1==1) typeBook.push('Lịch tư vấn');
+          if(type2==1) typeBook.push('Lịch chăm sóc');
+          if(type3==1) typeBook.push('Lịch liệu trình');
+          if(type4==1) typeBook.push('Lịch điều trị');
 
           calendar.addEvent({
             id: msg.id,
@@ -533,7 +576,7 @@
             staff: staff,
             bed: bed,
             status: statusText,
-            type: "",
+            type: typeBook.join(', '),
             note: note,
           });
 

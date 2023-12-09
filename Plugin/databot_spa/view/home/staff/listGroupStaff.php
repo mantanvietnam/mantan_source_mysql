@@ -36,11 +36,12 @@
       <div class="col-md-6">
         <h5 class="card-header">Danh sách nhóm nhân viên</h5>
       </div>
-     
     </div>
-    <p><?php echo @$mess;?></p>  
+    
     
     <div class="card-body row">
+      <?php echo @$mess;?>
+      
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>

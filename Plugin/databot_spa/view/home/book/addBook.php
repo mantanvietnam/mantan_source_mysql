@@ -86,7 +86,6 @@
                           <option value="2" <?php if(!empty($data->status) && $data->status==2) echo 'selected';?>>Không đến</option>
                           <option value="3" <?php if(!empty($data->status) && $data->status==3) echo 'selected';?>>Đã đến</option>
                           <option value="4" <?php if(!empty($data->status) && $data->status==4) echo 'selected';?>>Hủy lịch</option>
-                          <option value="5" <?php if(!empty($data->status) && $data->status==5) echo 'selected';?>>Đặt online</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-3">

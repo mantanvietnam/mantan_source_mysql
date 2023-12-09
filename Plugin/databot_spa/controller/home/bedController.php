@@ -284,6 +284,48 @@ function infoRoomBed($input){
     }
 }
 
+function checkinbed($input){
+    global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlCurrent;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Danh sách đơn hàng';
+    
+    if(!empty(checkLoginManager('checkinbed', 'room'))){
+        $modelBed = $controller->loadModel('Beds');
+        $modelOrder = $controller->loadModel('Orders');
+        $user = $session->read('infoUser');
+
+        if(!empty($_GET['id_order'])){
+            $Order = $modelOrder->find()->where(array('id_bed'=>$_GET['id_bed'], 'status'=>2))->first();
+            $bed = $modelBed->find()->where(array('id'=>$_GET['id_bed'], 'status'=>2))->first();
+            if(empty($Order) && empty($bed)){
+                $dataOrder = $modelOrder->get($_GET['id_order']);
+
+                $dataOrder->check_in = time();
+                $dataOrder->status = 2;
+
+                $modelOrder->save($dataOrder);
+
+                $dataBed = $modelBed->get($_GET['id_bed']);
+                $dataBed->status = 2;
+
+                $modelBed->save($dataBed);
+
+                return $controller->redirect('/listRoomBed');
+            }else{
+                return $controller->redirect('/listOrder?mess=conkhach');
+            }
+        }
+
+    }else{
+        return $controller->redirect('/');
+    }
+}
 
 function cancelBed($input){
     global $isRequestPost;

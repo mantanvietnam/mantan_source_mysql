@@ -328,7 +328,7 @@ function listCustomerPrepayCard($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách thẻ trước';
+    $metaTitleMantan = 'Danh sách khách mua thẻ trước';
 
     if(!empty(checkLoginManager('listCustomerPrepayCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
