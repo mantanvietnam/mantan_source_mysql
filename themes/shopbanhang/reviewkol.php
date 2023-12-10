@@ -51,6 +51,9 @@ $settinghom = setting();
                                 <div class="modal fade" id="modalvideoreviewslide<?php echo $key; ?>" tabindex="-1" aria-labelledby="modalvideoreviewslide<?php echo $key; ?>Label" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                       <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
                                         <div class="modal-body">
                                             <?php echo $item->description ?>
                                         </div>
@@ -299,6 +302,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview1" tabindex="-1" aria-labelledby="modalvideoreview1Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                        <?php echo $setting['embedded11'] ?>
                                     </div>
@@ -311,6 +317,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview2" tabindex="-1" aria-labelledby="modalvideoreview2Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded12'] ?>
                                     </div>
@@ -324,6 +333,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview3" tabindex="-1" aria-labelledby="modalvideoreview3Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded21'] ?>
                                     </div>
@@ -336,6 +348,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview4" tabindex="-1" aria-labelledby="modalvideoreview4Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded22'] ?>
                                     </div>
@@ -349,6 +364,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview5" tabindex="-1" aria-labelledby="modalvideoreview5Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded31'] ?>
                                     </div>
@@ -374,9 +392,12 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview7" tabindex="-1" aria-labelledby="modalvideoreview7Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                    <div class="modal-body">
-                                        <?php echo $setting['embedded41'] ?>
-                                    </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo $setting['embedded41'] ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -386,9 +407,12 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview8" tabindex="-1" aria-labelledby="modalvideoreview8Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                    <div class="modal-body">
-                                        <?php echo $setting['embedded42'] ?>
-                                    </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo $setting['embedded42'] ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

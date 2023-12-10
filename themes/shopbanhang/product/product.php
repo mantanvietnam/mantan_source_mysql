@@ -334,6 +334,9 @@ $slide_home= slide_home($setting['id_slide']);
 
                         <!-- Đặt hàng mobile -->
                         <section class="product-detail-group-mobile" id="product-cart-mobile-footer">
+                        
+                            <?php  if(@$product->quantity>0){ ?>
+
                             <div class="product-detail-like-mobile"  id="place-mobile">
                                   <?php  
                                      global $session;
@@ -354,7 +357,6 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
                                 <?php   } ?>
                             </div>
-                            <?php  if(@$product->quantity>0){ ?>
 
                             <div class="product-add-cart-mobile">
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'false')"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""></a>
@@ -365,7 +367,28 @@ $slide_home= slide_home($setting['id_slide']);
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'true')">Mua ngay</a>
                             </div>
                         <?php }else{?>
-                            <div class="product-buy-mobile">
+                            <div class="product-detail-like-mobile product-detail-like-mobile-none"  id="place-mobile">
+                                  <?php  
+                                     global $session;
+                                 $infoUser = $session->read('infoUser');
+                                    if(!empty($infoUser)){
+                                ?>
+                                <div class="button-like" id="addlikemobile">
+                                    
+                                    <button type="button" onclick="addlike()"><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>
+                                    <p >Yêu thích</p>
+                                </div>
+                                <div class="button-like" id="delelelikemobile">
+                                    <button type="button" onclick="delelelike()"><img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt=""><p >Yêu thích</p></button>
+                                </div>
+                                 <?php   }else{ ?>
+                                     <div class="button-like">
+                                        <a  class="like like-notlogin" data-bs-toggle="modal" data-bs-target="#exampleModal" ><button class="button-not-login" type="button" ><img src="<?php echo $urlThemeActive;?>asset/image/iconempty.png" alt=""></button>Yêu thích</a>
+                                        </div>
+                                <?php   } ?>
+                            </div>
+
+                            <div class="product-buy-mobile product-buy-mobile-none">
                                 <a href="#">Hết hàng</a>
                             </div>
                         <?php } ?>

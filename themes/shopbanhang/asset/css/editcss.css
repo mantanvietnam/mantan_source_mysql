@@ -1637,6 +1637,7 @@ background: #555;
         object-fit: cover;
     }
 
+
     .topbar{
         padding-left: 10px;
         padding-right: 10px;
@@ -1886,6 +1887,10 @@ background: #555;
 
 
 @media(max-width: 445px) {
+
+    #section-describe .describe-description{
+        width: 100%;
+    }
 
     .list-rate-image{
         overflow: scroll;
@@ -2492,15 +2497,24 @@ background: #555;
 
     #section-info-col{
         margin-bottom: 10px;
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
 
     .section-pro-review-inner .title-section p{
         margin-bottom: 20px;
+
     }
+
+    
 
     .product-detail-rate-item{
         border-bottom: 1px solid #EAEBEB;
+    }
+
+    #section-product-detail-comment .product-detail-rate-item{
+        border-color: transparent;
     }
 
     /* #section-product-detail .container .row{
@@ -2791,6 +2805,8 @@ background: #555;
     .section-pro-review-inner .title-section p{
         padding: 0 15px;
         font-size: 26px;
+        font-size: 18px;
+        font-weight: 300;
     }
 
     .pro-review-img{
@@ -3053,6 +3069,14 @@ background: #555;
         color :#fff;
     }
 
+    .product-buy-mobile-none{
+        width: 50% !important;
+    }
+
+    .product-detail-like-mobile-none{
+        width: 50%;
+    }
+
     .product-buy-mobile a:hover{
         font-size: 23px;
         color :#fff !important;
@@ -3076,4 +3100,312 @@ background: #555;
         align-items: center;
     } */
     
+}
+
+/* Bo sung about us */
+
+/* Bổ sung Về chúng tôi*/
+.container-padding{
+    padding: 0 58px;
+}
+
+#section-banner-aboutus img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-content-image{
+    height: 469px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.about-content-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+
+}
+
+.about-content-image:hover img{
+    scale: 1.1;
+    transition: all 0.3s linear;
+}
+
+#section-story{
+    margin-bottom: 50px;
+}
+
+.section-content-image .row{
+    align-items: center;
+}
+
+.title-story {
+    margin: 37px 0;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.content-story{
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.section-content-image .about-content-image-left-box{
+    padding-right: 28px
+}
+
+.section-content-image .about-content-image-right-box{
+    padding-left: 28px
+}
+
+.about-content-text{
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+#section-content-image-right{
+    margin-bottom: 80px;
+}
+
+.title-mission{
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.about-misstion-box{
+    background-color: #0084c9;
+    border-radius: 8px;
+    padding-top: 35px;
+    padding-bottom: 44px;
+    padding-right: 84px;
+    padding-left: 50px;
+}
+
+.content-mission{
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.4;
+}
+
+#section-about-misstion{
+    margin-bottom: 70px;
+}
+
+
+#section-about-value .container{
+    padding: 0 170px;
+}
+
+#section-about-value{
+    margin-bottom: 76px;
+}
+
+#section-about-value .value-item-3{
+    margin-bottom: 70px;
+}
+
+.value-item-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-item-3{
+    display: flex;
+    justify-content: space-between;
+}
+
+.value-item-2{
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.value-item-icon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.value-item-icon{
+    max-width: 83px;
+}
+
+.title-value{
+    margin-bottom: 62px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.value-item-text{
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+#section-about-number .container{
+    padding: 0 58px;
+    border-radius: 8px;
+}
+
+.box-about-number{
+    padding-top: 34px;
+    padding-bottom: 68px;
+    background-color: #0084c9;
+    padding-left: 112px;
+    padding-right: 112px;
+    border-radius: 8px;
+
+
+
+}
+
+.title-number{
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.box-about-number .value-item-text{
+    color: #fff;
+    font-size: 21px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.box-about-number .value-item-2{
+    margin-bottom: 70px;
+}
+
+.value-item-text span{
+    font-size: 11px;
+    font-weight: 300;
+}
+
+#section-about-number{
+    margin-bottom: 111px;
+}
+
+.background-about-bottom img{
+    width: 100%;
+    height: auto;
+}
+
+.text-italic-blue{
+    font-size: 22px;
+    color: #0086ca;
+    line-height: 1.3;
+    text-align: center;
+    margin-top: 50px;
+    padding: 0px 267px;
+}
+
+.title-number{
+    margin-bottom: 62px;
+}
+
+#section-content-image-left{
+    margin-bottom: 40px;
+}
+
+.value-item-icon-last{
+    max-width: 118px;
+}
+
+.value-item-icon-last img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.value-item-icon-six{
+    max-width: 49px;
+}
+
+.value-item-icon-six img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+    .text-italic-blue{
+        padding: 0px 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .text-italic-blue {
+        padding: 0;
+    }
+
+    .container-padding{
+        padding: 0 12px;
+    }
+
+    .box-about-number{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #section-about-value .container{
+        padding: 0 12px;
+    }
+
+    .about-content-image{
+        margin-bottom: 30px;
+    }
+
+    .section-content-image .about-content-image-left-box{
+        padding-right: 12px;
+    }
+
+    .about-content-image{
+        height: auto;
+    }
+
+    .section-content-image .about-content-image-right-box{
+        padding-left: 12px;
+    }
+
+    #section-about-number .container{
+        padding: 0 12px;
+    }
+
+    .about-misstion-box {
+        padding-right: 23px;
+        padding-left: 34px;
+    }
+
+    .box-about-number .value-item-text {
+        font-size: 13px;
+    }
+
+    .value-item-icon-six {
+        max-width: 34px;
+    }
+
+    .about-content-image-right-box .about-content-image{
+        margin-top: 30px;
+    }
+
+    .title-number{
+        font-size: 23px;
+    }
 }

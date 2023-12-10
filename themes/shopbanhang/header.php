@@ -73,7 +73,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logo_mobile.png" alt=""></a>
                         </div>
 
-                        <form class="menu-form-search d-flex" role="search">
+                        <form class="menu-form-search d-flex" role="search" action="/search-product" method="get" id="myForm">
                             <input class="form-control" type="text" name="key" placeholder="Tìm kiếm nhanh" aria-label="Search">
                             <button class="btn btn-outline-success button-search" type="submit"><img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt=""></button>
                         </form>

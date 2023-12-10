@@ -3039,6 +3039,7 @@ strong {
 .product-detail-rate-date {
     font-size: 14px;
     font-weight: 300;
+    display: none;
 }
 
 .product-detail-rate-comment {
@@ -4391,7 +4392,9 @@ tbody {
     }
 
     .info-col{
-        padding: 0 12px
+        padding: 0 12px;
+        border-bottom: 1px solid #7a7777;
+        margin-bottom: 10px;
     }
 
     #section-info-col .row{
