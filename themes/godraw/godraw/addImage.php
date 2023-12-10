@@ -15,7 +15,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="529" height="61" viewBox="0 0 529 61" fill="none">
 									<path d="M528.161 60.7202H0.53125V30.6699C0.53125 14.1599 13.9113 0.779785 30.4213 0.779785H498.271C514.781 0.779785 528.161 14.1599 528.161 30.6699V60.7202Z" fill="#0065F7"/>
 								</svg>
-								<span>Đăng ảnh</span>
+								<span>Đăng tranh</span>
 							</a>
 						</li>
 					</ul>
@@ -37,14 +37,14 @@
 
 								<div class="item-frm mb-3">
 									<div class="desc">
-										<p>Tên ảnh</p>
+										<p>Tên tranh</p>
 										<input type="text" placeholder="" name="name" value="" class="txt_filed" required>
 									</div>
 								</div>
 
 								<div class="item-frm mb-3">
 									<div class="desc">
-										<p>Chọn ảnh để đăng</p>
+										<p>Chọn tranh để đăng</p>
 										<input type="file" placeholder="" name="image" value="" class="txt_filed" required>
 										<div class="image-rule">
 											* Bạn có quyền đăng tác phẩm của mình lên phòng tranh chung khi có Mã đơn hàng đã trải nghiệm dịch vụ. <br>
@@ -55,7 +55,7 @@
 
 								<div class="item-frm mb-3">
 									<div class="desc">
-										<p>Mô tả về ảnh</p>
+										<p>Mô tả về tranh</p>
 										<textarea rows="5" style="width: 100%;" name="description"></textarea>
 									</div>
 								</div>

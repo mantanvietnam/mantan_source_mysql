@@ -40,7 +40,7 @@
         }
         ?>
 
-        <section id="section-logo-home">
+        <!-- <section id="section-logo-home">
             <div class="container-fluid logo-home-box">
                 <div class="logo-home-item">
                     <div class="logo-home-img logo-home-1">
@@ -53,7 +53,7 @@
                 </div>
                 
             </div>
-        </section>
+        </section> -->
 
         <!-- WARM Facility -->
         <section id="section-facility" data-aos="fade-up">

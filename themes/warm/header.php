@@ -177,4 +177,19 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                 </nav>
             </div>
         </section>
+
+        <section id="section-logo-home">
+            <div class="container-fluid logo-home-box">
+                <div class="logo-home-item">
+                    <div class="logo-home-img logo-home-1">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/Logo-set-with-GG-EU-emblem (1).png" alt="">
+                    </div>
+        
+                    <div class="logo-home-img logo-home-2">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/logo-afd.png" alt="">
+                    </div>
+                </div>
+                
+            </div>
+        </section>
     </header>

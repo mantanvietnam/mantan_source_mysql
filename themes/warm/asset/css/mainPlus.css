@@ -1548,3 +1548,40 @@
         height: 200px;
     }
 }
+
+/* Bổ sung */
+#section-logo-home .logo-home-box .logo-home-item{
+    position: absolute;
+    right: 0;
+    top:69px;
+    margin: 0;
+}
+
+#section-home-banner{
+    margin-bottom: 40px;
+}
+
+.description-img p{
+    font-weight: bold;
+}
+
+@media (max-width: 500px) {
+    #section-logo-home .logo-home-box .logo-home-item{
+        top:56px;
+    }
+
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-1 {
+        width: 64px;
+        margin-right: 16px;
+    }
+
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-2 {
+        width: 99px;
+    }
+
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-img{
+        margin-right: 12px;
+    }
+
+ 
+}

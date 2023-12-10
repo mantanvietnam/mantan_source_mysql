@@ -483,11 +483,11 @@
                     <div class="logo-foter">
                         <div class="logo"><img src="/plugins/go_draw/view/agency/images/logo-footer.svg" class="img-fluid" alt=""></div>
                         <div class="txt-logo">
-                            <h4>CÔNG TY CP GIẢI PHÁP NGHỆ THUẬT THÔNG MiNH</h4>
+                            <h4>CÔNG TY CP GIẢI PHÁP NGHỆ THUẬT THÔNG MINH</h4>
                             <ul>
                                 <li>Địa chỉ : <?php echo @$contactSite['address'];?></li>
-                                <li>Điện thoại: </span> <?php echo @$contactSite['phone'];?></li>
-                                <li>Email: </span> </span><?php echo @$contactSite['email'];?></li>
+                                <li>Điện thoại: <?php echo @$contactSite['phone'];?></li>
+                                <li>Email: <?php echo @$contactSite['email'];?></li>
                             </ul>
                         </div>
                     </div>
