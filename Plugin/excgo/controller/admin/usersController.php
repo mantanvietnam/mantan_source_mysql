@@ -164,8 +164,12 @@ function listUpgradeRequestToDriverAdmin($input)
     $modelDriverRequest = $controller->loadModel('DriverRequests');
     $modelUser = $controller->loadModel('Users');
 
+    $requestConditions = [];
+    if (isset($_GET['status']) && is_numeric($_GET['status'])) {
+        $requestConditions['status'] = $_GET['status'];
+    }
     $listUserRequest = $modelDriverRequest->find()
-        ->where(['status' => 0])
+        ->where($requestConditions)
         ->all();
 
     $limit = (!empty($_GET['limit'])) ? (int)$_GET['limit'] : 20;
@@ -196,10 +200,6 @@ function listUpgradeRequestToDriverAdmin($input)
 
         if (isset($_GET['type']) && $_GET['type'] !== '' && is_numeric($_GET['type'])) {
             $conditions['type'] = $_GET['type'];
-        }
-
-        if (isset($_GET['status']) && $_GET['status'] !== '' && is_numeric($_GET['status'])) {
-            $conditions['status'] = $_GET['status'];
         }
 
         $listData = $modelUser->find()
@@ -334,6 +334,7 @@ function listWithdrawRequestAdmin($input)
         ])->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['WithdrawRequests.created_at' => 'DESC'])
         ->all()
         ->toList();
     $totalRequest = $query->where($conditions)->count();

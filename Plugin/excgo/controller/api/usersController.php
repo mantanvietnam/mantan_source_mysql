@@ -363,6 +363,8 @@ function upgradeToDriverApi($input): array
         $request->user_id = $currentUser->id;
         $modelDriverRequest->save($request);
 
+        sendEmailUpgradeToDriver($currentUser->name, $currentUser->id);
+
         return apiResponse(0, 'Gửi yêu cầu thành công');
     }
 
@@ -475,6 +477,7 @@ function checkLoginGoogleApi($input): array
                 $user->access_token = createToken();
                 $user->avatar = $dataSend['avatar'] ?? $user->avatar;
                 $user->name = $dataSend['name'] ?? $user->name;
+                $user->device_token = $dataSend['device_token'] ?? $user->device_token;
                 $userModel->save($user);
 
                 return apiResponse(0, 'Đăng nhập thành công', $user);
@@ -490,6 +493,7 @@ function checkLoginGoogleApi($input): array
                         $checkPhone->email = $dataSend['email'] ?? $checkPhone->email;
                         $checkPhone->last_login = date('Y-m-d H:i:s');
                         $checkPhone->access_token = createToken();
+                        $checkPhone->device_token = $dataSend['device_token'] ?? $checkPhone->device_token;
                         $userModel->save($checkPhone);
 
                         return apiResponse(0, 'Đăng nhập thành công', $checkPhone);
@@ -507,6 +511,7 @@ function checkLoginGoogleApi($input): array
                         $checkEmail->phone_number = $dataSend['phone_number'] ?? $checkEmail->phone_number;
                         $checkEmail->last_login = date('Y-m-d H:i:s');
                         $checkEmail->access_token = createToken();
+                        $checkEmail->device_token = $dataSend['device_token'] ?? $checkEmail->device_token;
                         $userModel->save($checkEmail);
 
                         return apiResponse(0, 'Đăng nhập thành công', $checkEmail);
@@ -780,6 +785,8 @@ function updateUserApi($input): array
                 'owner_id' => $currentUser->id,
                 'owner_type' => $ownerType['users']
             ];
+
+            $currentUser->avatar = $newAvatar['linkOnline'];
         }
 
         // Id card front

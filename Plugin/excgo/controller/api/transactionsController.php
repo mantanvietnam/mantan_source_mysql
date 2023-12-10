@@ -218,6 +218,7 @@ function createWithdrawRequestApi($input): array
             $newRequest->amount = $dataSend['amount'];
             $withdrawRequestModel->save($newRequest);
 
+            sendEmailWithdrawRequest($currentUser->name, $newRequest->id);
             return apiResponse(0, 'Gửi yêu cầu thành công');
         }
 

@@ -4,6 +4,8 @@
 include_once('controller/admin/provincesController.php'); // Tỉnh thành
 include_once('controller/admin/usersController.php'); // Tài xế
 include_once('controller/admin/bookingsController.php'); // Tài xế
+include_once('controller/admin/complaintController.php'); // Khiếu nại
+include_once('controller/admin/supportController.php'); // Yêu cầu hỗ trợ
 
 // Api
 include_once('controller/api/provincesController.php'); // Tỉnh thành
