@@ -293,7 +293,7 @@ $slide_home= slide_home($setting['id_slide']);
                         <div class="product-detail-group-button">
                             
                                  <?php
-                                 if(@$product->quantity=0){
+                                 if(@$product->quantity>0){
 
                                         ?>
                             <div class="product-detail-button-cart">
@@ -354,7 +354,7 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
                                 <?php   } ?>
                             </div>
-                            <?php  if(!empty($prod->quantity)){ ?>
+                            <?php  if(@$product->quantity>0){ ?>
 
                             <div class="product-add-cart-mobile">
                                 <a onclick="addProductCart(<?php echo $product->id;?>,'false')"><img src="<?php echo $urlThemeActive;?>asset/image/cartdetail.png" alt=""></a>
