@@ -67,13 +67,14 @@ $infoUser = $session->read('infoUser');
         <section id="section-about-misstion">
             <div class="container container-padding">
                 <div class="about-misstion-box">
-                    <div class="title-mission">
+                    <!-- <div class="title-mission">
                         <h2>Sứ mệnh</h2>
                     </div>
         
                     <div class="content-mission">
                         <?php echo @$setting['mission'] ?>
-                    </div>
+                    </div> -->
+                    <img src="<?php echo @$setting['image_mission1'] ?>" alt="">
                 </div>
             </div>
         </section>
@@ -180,7 +181,8 @@ $infoUser = $session->read('infoUser');
                                 </div>
     
                                 <div class="value-item-text">
-                                    <p><?php echo @$setting['name_impression3'] ?></p>
+                                    <p>Sản phẩm thuộc 
+                                    <br>Top bán chạy</p>
                                 </div>
                             </div>
     
@@ -190,7 +192,8 @@ $infoUser = $session->read('infoUser');
                                 </div>
     
                                 <div class="value-item-text">
-                                    <p><?php echo @$setting['name_impression4'] ?></p>
+                                    <p>Sản phẩm lọt 
+                                    <br>top thịnh hành</p>
                                 </div>
                             </div>
     
@@ -199,9 +202,12 @@ $infoUser = $session->read('infoUser');
                                     <img src="<?php echo @$setting['image_impression5'] ?>" alt="">
                                 </div>
     
-                                <div class="value-item-text">
-                                    <p><?php echo @$setting['name_impression5'] ?>
-                                        <!-- <span>(tính đến thời điểm hiện tại)</span> -->
+                                <div class="value-item-text value-item-text-last">
+                                    <p>
+                                        độ nhận diện
+                                        <br>thương hiệu
+                                        <br>
+                                        <span>(tính đến thời điểm hiện tại)</span>
                                     </p>
                                 </div>
                             </div>

@@ -38,7 +38,9 @@
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <label class="form-label" for="basic-default-fullname">SỨ MỆNH</label>
-                  <textarea class="form-control" name="mission" rows="5"><?php echo @$setting['mission'] ?></textarea>
+                  <!-- <textarea class="form-control" name="mission" rows="5"><?php echo @$setting['mission'] ?></textarea> -->
+                  <?php showUploadFile('image_mission1','image_mission1', @$setting['image_mission1'],15);?>
+
                 </div>
 
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-14 col-lg-14 col-xl-12">
@@ -80,32 +82,32 @@
                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">Ảnh 1</label>
                    <?php showUploadFile('image_impression1','image_impression1', @$setting['image_impression1'],9);?>
-                   <label class="form-label" for="basic-default-fullname">Giá trị cốt lõi 1</label>
+                   <label class="form-label" for="basic-default-fullname">Con số ấn tượng 1</label>
                    <input type="text" class="form-control" name="name_impression1" value="<?php echo @$setting['name_impression1'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">Ảnh 2</label>
                    <?php showUploadFile('image_impression2','image_impression2', @$setting['image_impression2'],10);?>
-                   <label class="form-label" for="basic-default-fullname">Giá trị cốt lõi 2</label>
+                   <label class="form-label" for="basic-default-fullname">Con số ấn tượng 2</label>
                    <input type="text" class="form-control" name="name_impression2" value="<?php echo @$setting['name_impression2'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">Ảnh 3</label>
                    <?php showUploadFile('image_impression3','image_impression3', @$setting['image_impression3'],11);?>
-                   <label class="form-label" for="basic-default-fullname">Giá trị cốt lõi 3</label>
-                   <input type="text" class="form-control" name="name_impression3" value="<?php echo @$setting['name_impression3'];?>" />
+                   <!-- <label class="form-label" for="basic-default-fullname">Con số ấn tượng 3</label>
+                   <input type="text" class="form-control" name="name_impression3" value="<?php echo @$setting['name_impression3'];?>" /> -->
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">Ảnh 4</label>
                    <?php showUploadFile('image_impression4','image_impression4', @$setting['image_impression4'],12);?>
-                   <label class="form-label" for="basic-default-fullname">Giá trị cốt lõi 4</label>
-                   <input type="text" class="form-control" name="name_impression4" value="<?php echo @$setting['name_impression4'];?>" />
+                   <!-- <label class="form-label" for="basic-default-fullname">Con số ấn tượng 4</label>
+                   <input type="text" class="form-control" name="name_impression4" value="<?php echo @$setting['name_impression4'];?>" /> -->
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                   <label class="form-label" for="basic-default-fullname">Ảnh 5</label>
                    <?php showUploadFile('image_impression5','image_impression5', @$setting['image_impression5'],13);?>
-                   <label class="form-label" for="basic-default-fullname">Giá trị cốt lõi 5</label>
-                   <input type="text" class="form-control" name="name_impression5" value="<?php echo @$setting['name_impression5'];?>" />
+                   <!-- <label class="form-label" for="basic-default-fullname">Con số ấn tượng 5</label>
+                   <input type="text" class="form-control" name="name_impression5" value="<?php echo @$setting['name_impression5'];?>" /> -->
                 </div>
 
                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row">

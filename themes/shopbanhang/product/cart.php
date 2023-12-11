@@ -15,6 +15,10 @@ $price_total = 0;
     .menu-mobile{
         display: none
     }
+
+    .icon-phone-bottom{
+        display: block;
+    }
 </style>
 
 <main>

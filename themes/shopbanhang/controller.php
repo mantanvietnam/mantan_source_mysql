@@ -261,8 +261,9 @@ function settingAboutusTheme($input){
                         'name_impression5' => @$dataSend['name_impression5'],
                         'image' => @$dataSend['image'],
                         'content_below' => @$dataSend['content_below'],
-                      
-                        
+
+                        'image_mission1' => @$dataSend['image_mission1'],
+
                     );
 
         $data->key_word = 'settingAboutusTheme';
