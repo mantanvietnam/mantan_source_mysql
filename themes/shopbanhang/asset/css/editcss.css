@@ -1463,6 +1463,22 @@ background: #555;
     max-height: 815px;
   }
 
+  .list-video .pro-review-link{
+    position: absolute;
+    top: 42%;
+    width: 40px;
+    height: auto;
+    right: 43%;
+  }
+
+  .list-video .image-modal{
+    position: relative;
+  }
+
+  .image-modal .pro-review-link img{
+    box-shadow: none;
+  }
+
   @media (min-width: 900px){
     .contact-fixed .icon-phone-bottom{
         width: 50px;

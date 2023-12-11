@@ -105,6 +105,9 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo11'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview1">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview1">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -125,6 +128,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo12'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview2">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview2">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -153,6 +159,10 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo21'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview3">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview3">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
+                                                    
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -173,6 +183,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo22'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview4">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview4">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -204,6 +217,9 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo31'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview5">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview5">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -224,6 +240,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo32'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview6">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview6">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -252,6 +271,9 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo41'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview7">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview7">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -272,6 +294,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo42'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview8">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview8">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
