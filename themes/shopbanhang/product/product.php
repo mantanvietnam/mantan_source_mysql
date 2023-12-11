@@ -896,9 +896,8 @@ $slide_home= slide_home($setting['id_slide']);
         if(!empty($comment)){ 
                     foreach($comment as $key => $value){
                    //     debug($value);
-                    $custom =  getCustomer($value->idcustomer);
                 
-                     if(!empty($custom)){
+                     if(!empty($value)){
                 ?>
                                 <div class="comment-main">
                                     <div class="product-detail-rate-item">
@@ -929,12 +928,10 @@ $slide_home= slide_home($setting['id_slide']);
                                  $infoUser = $session->read('infoUser');
                                     if(!empty($infoUser)){
                                 if(empty(getLike($infoUser['id'],$value->id,'comment'))){?>
-                            <div class="button-like<?php echo $value->id ?>" id="likecomment">
-                                <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i><span>Thích</span></button>
-                            </div>
-                                <?php }else{
-                                  
-                                 ?>
+                                    <div class="button-like<?php echo $value->id ?>" id="likecomment">
+                                        <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i><span>Thích</span></button>
+                                    </div>
+                                <?php }else{?>
                                     <div class="button-like<?php echo $value->id ?>"  id="likecommentno"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
                                     </div>
                            
