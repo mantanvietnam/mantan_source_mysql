@@ -91,7 +91,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <input type="text" placeholder="Tìm kiếm tại đây...">
                     </div>
                     <div class="search-btn">
-                        <a href="">
+                        <a href="/">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
                     </div>
@@ -103,7 +103,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                 <div class="top-menu" id="fixedNav">
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand" href="/">
                                 <img src="<?php echo $setting['image_logo'] ?>" alt="">
                             </a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

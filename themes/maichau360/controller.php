@@ -94,20 +94,16 @@ function indexTheme($input){
 
     $listHistorie = $modelHistoricalSite->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     
-   /* $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
-    $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
+    $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
+   /* $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     $listDataImage = $modelImage ->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
-
-
-   
-
     
-    setVariable('listDataEvent', $listDataEvent);
     setVariable('listDataPost', $listDataPost);
     setVariable('listDataTour', $listDataTour);
     setVariable('listDataImage', $listDataImage);*/
     setVariable('setting', $data_value);
     setVariable('listHistorie', $listHistorie);
+    setVariable('listDataEvent', $listDataEvent);
 }
 ?>

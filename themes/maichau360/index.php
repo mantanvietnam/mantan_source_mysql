@@ -61,7 +61,7 @@ global $urlThemeActive;
         </div>
 
         <div class="container-fluid combo-slide-1">
-            <div class="events-month-slide">
+            <!-- <div class="events-month-slide">
                 <div class="item-month-slide">
                     <p>Tháng 1</p>
                 </div>
@@ -109,286 +109,54 @@ global $urlThemeActive;
                 <div class="item-month-slide">
                     <p>Tháng 12</p>
                 </div>
-            </div>
+            </div> -->
+            <?php include('mon.php') ?>
         </div>
 
         <div class="container-fluid combo-slide-2">
             <div class="events-slide">
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php if(!empty($tmpVariable['listDataEvent'])) {
+                            foreach ($tmpVariable['listDataEvent'] as $keyEvent => $valueEvent) {
 
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
+                         ?>
+                        <div class="item-events-slide">
+                            <div class="events-slide-img">
+                                <img src="<?php echo $valueEvent['image']; ?>" alt="">
+                            </div>
+                            <div class="events-slide-content">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-7 col-sm-12">
+                                        <div class="events-slide-content-box">
+                                            <div class="events-slide-detail">
+                                                <a href="">
+                                                    <h3><?php echo @$valueEvent['name']; ?> </h3>
+                                                </a>
+                                                <p>Ngày<?php echo date("d/m/Y",@$valueEvent['datestart']); ?> - Ngày <?php echo date("d/m/Y",@$valueEvent['dateEnd']); ?></p>
+                                            </div>
+                                            <div class="events-slide-btn">
+                                                <a href="/chi_tiet_su_kien/<?php echo @$valueEvent['urlSlug']; ?>.html">Xem chi tiết</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
+                        <?php } }else { ?>
+                           <div class="item-events-slide">
+                            <div class="item-event-home absolute">
+                                <div class="box-img-item-eh">
+                                    <img src="<?= $urlThemeActive ?>/img/thaianhimg/eventhome.png" alt="">
+                                </div>
+                            </div>
+                            <div class="info-event-home">
+                                <div class="name-event-home">
+                                    <p>Chưa có sự kiện nào đang diễn ra.</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item-events-slide">
-                    <div class="events-slide-img">
-                        <img src="../images/slide-event.png" alt="">
-                    </div>
-                    <div class="events-slide-content">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-7 col-sm-12">
-                                <div class="events-slide-content-box">
-                                    <div class="events-slide-detail">
-                                        <a href="">
-                                            <h3>Chung khảo Hội thiếu nhi Mai Châu tuyên truyền giới thiệu sách</h3>
-                                        </a>
-                                        <p>Ngày 1/7/2023 - Ngày 12/7/2023</p>
-                                    </div>
-                                    <div class="events-slide-btn">
-                                        <a href="">Xem chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <?php
+                        } ?>
+                
             </div>
         </div>
 
@@ -450,5 +218,79 @@ global $urlThemeActive;
         </div>
     </section>
   </main>
+
+<script type="text/javascript">
+    // load event
+    function loadEvent(e) {
+  var month = $(e).attr('data-month');
+  console.log(month);
+  //var url = 'su_kien?month='+month;
+  $.ajax({
+      type: "GET",
+      url: '/apis/ajax_event',
+      data:{ month:month }
+    }).done(function( msg ) {
+        console.log(msg);
+      /*var msg = JSON.parse(msg);
+      console.log(msg);*/
+      $('.in-box-event-home').html(msg.text);
+    });
+     eventhome();
+    
+    }
+
+    function eventhome(){
+  $('.in-box-event-home').slick({
+
+    dots: false,
+
+    infinite: true,
+
+    arrows: true,
+
+    speed: 500,
+
+    fade: true,
+
+    cssEase: 'linear',
+
+    prevArrow: `<button type='button' class='slick-prev pull-left'><i class="fa-solid fa-angle-left"></i></button>`,
+
+    nextArrow: `<button type='button' class='slick-next pull-right'><i class="fa-solid fa-angle-right"></i></button>`
+
+  });
+    }
+
+    function loadEventNextPrev(e) {
+  var month = $('.slick-active').attr('data-month');
+
+  if(e = 1){
+    month = Number(month) + 1;
+  }else{
+     month = Number(month) - 1;
+  }
+  console.log(month);   
+  $.ajax({
+      type: "GET",
+      url: '/apis/ajax_event',
+      data:{ month:month }
+    }).done(function( msg ) {
+     //document.getElementById("event-month-s").remove();
+      $('.in-box-event-home').html(msg.text);
+    });
+     eventhome();
+
+}
+
+// menu scroll 
+$(document).ready(function() {
+    const button = document.querySelector(".mon-pull-right");
+    button.setAttribute("onclick", "loadEventNextPrev(1)");
+
+   const butt = document.querySelector(".mon-pull-left");
+   butt.setAttribute("onclick", "loadEventNextPrev(2)");
+});
+
+</script> 
 <?php
 getFooter();?>

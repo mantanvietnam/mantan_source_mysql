@@ -6,14 +6,14 @@ global $urlThemeActive;
     <main>
         <section id="page-banner-img">
             <div class="banner-img">
-                <img src="<?= $urlThemeActive ?>img/hinh-anh-ho-tay.jpg" alt="">
+                <img src="<?= $urlThemeActive ?>images/slide-event.png" alt="">
             </div>
         </section>
 
         <section id="section-background-index">
             <form action="" method="GET">
                 <div class="container-fluid background-index">
-                    <img src="<?= $urlThemeActive ?>img/background-index.jpg" alt="">
+                    <img src="<?= $urlThemeActive ?>images/background-index.jpg" alt="">
                 </div>
 
                 <!-- Bộ lọc -->
