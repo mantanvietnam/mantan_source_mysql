@@ -890,7 +890,7 @@
 #section-describe .describe-description-filter::before {
     content: "";
     position: absolute;
-    bottom: -37px;
+    bottom: -100px;
     left: -38px;
     width: 119%;
     height: 112px;
@@ -1044,6 +1044,9 @@
 }
 
 @media (max-width: 480px) {
+    #section-describe .describe-description video{
+        width: 100%;
+    }
     /*  TRANG PORFILE  */
     #profile>.container {
         padding: 0 15px;

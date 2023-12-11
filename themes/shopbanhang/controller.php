@@ -213,6 +213,96 @@ function sttingReviewTheme($input){
     setVariable('mess', $mess);
 }
 
+function settingAboutusTheme($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện Review';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+       
+
+        
+        $value = array( 'image_banner' => @$dataSend['image_banner'],
+                        'content' => @$dataSend['content'],
+                        'image_left' => @$dataSend['image_left'],
+                        'content_right' => @$dataSend['content_right'],
+                        'content_left' => @$dataSend['content_left'],
+                        'image_right' => @$dataSend['image_right'],
+                        'mission' => @$dataSend['mission'],
+                        'image_core1' => @$dataSend['image_core1'],
+                        'name_core1' => @$dataSend['name_core1'],
+                        'image_core2' => @$dataSend['image_core2'],
+                        'name_core2' => @$dataSend['name_core2'],
+                        'image_core3' => @$dataSend['image_core3'],
+                        'name_core3' => @$dataSend['name_core3'],
+                        'image_core4' => @$dataSend['image_core4'],
+                        'name_core4' => @$dataSend['name_core4'],
+                        'image_core5' => @$dataSend['image_core5'],
+                        'name_core5' => @$dataSend['name_core5'],
+                        'image_impression1' => @$dataSend['image_impression1'],
+                        'name_impression1' => @$dataSend['name_impression1'],
+                        'image_impression2' => @$dataSend['image_impression2'],
+                        'name_impression2' => @$dataSend['name_impression2'],
+                        'image_impression3' => @$dataSend['image_impression3'],
+                        'name_impression3' => @$dataSend['name_impression3'],
+                        'image_impression4' => @$dataSend['image_impression4'],
+                        'name_impression4' => @$dataSend['name_impression4'],
+                        'image_impression5' => @$dataSend['image_impression5'],
+                        'name_impression5' => @$dataSend['name_impression5'],
+                        'image' => @$dataSend['image'],
+                        'content_below' => @$dataSend['content_below'],
+
+                        'image_mission1' => @$dataSend['image_mission1'],
+
+                    );
+
+        $data->key_word = 'settingAboutusTheme';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
+function aboutus(){
+    global $controller;
+    global $modelOptions;
+     global $metaTitleMantan;
+    $metaTitleMantan = 'Câu chuyện về bumas';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+
+    setVariable('setting', $data_value);
+
+
+}
+
 function indexTheme($input){
     global $modelAlbums;
     global $modelAlbuminfos;

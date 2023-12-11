@@ -15,6 +15,10 @@ $slide_home= slide_home($setting['id_slide']);
     .menu-mobile{
         display: none
     }
+
+    .icon-phone-bottom{
+        display: block;
+    }
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
@@ -748,6 +752,9 @@ $slide_home= slide_home($setting['id_slide']);
                                              <div class="modal fade" id="exampleModalVideo<?php echo $key ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
                                                         <video controls>
                                                             <source src="<?php echo $item->video ?>" type="video/mp4">
                                                         </video>
@@ -1461,7 +1468,7 @@ function addComment(){
 
         $.ajax({
             method: "GET",
-            url: "/apis/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status="+status
+            url: "/apis/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status=true"
         })
         .done(function( msg ) {
             console.log(msg);

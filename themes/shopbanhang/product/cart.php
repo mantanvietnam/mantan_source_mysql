@@ -15,6 +15,10 @@ $price_total = 0;
     .menu-mobile{
         display: none
     }
+
+    .icon-phone-bottom{
+        display: block;
+    }
 </style>
 
 <main>
@@ -104,7 +108,7 @@ $price_total = 0;
                                                     <div class="cart-product-price-discount">
                                                         <del><?php echo number_format($value->price_old); ?>đ</del>
                                                     </div>
-                                                <?php } ?>
+                                                <?php } else{ echo '<p class="none-price-discout">&nbsp;</p>';} ?>
                                                 </div>
                                             </td>
         
@@ -210,6 +214,7 @@ $price_total = 0;
                                             <div class="product-mobile-top-table">
                                         <div class="product-mobile-radio">
                                             <input class="form-check-input" type="checkbox"  onclick="checkproductAll()" value="1" id="allcheck" <?php if($checkproductAll=='true'){echo 'checked';} ?>>
+                                            <label>Chọn tất cả</label>
                                         </div>
 
                                         <div class="product-delete-mobile">
@@ -400,7 +405,7 @@ $price_total = 0;
                                                             <div class="product-discount">
                                                                 <?php if(!empty($value->price_old)){ ?>
                                                                 <del><?php echo number_format(@$value->price_old); ?>đ</del>
-                                                            <?php } ?>
+                                                            <?php } else{ echo '<p class="none-price-discout">&nbsp;</p>';}?>
                                                             </div>
                                                             
                                                             

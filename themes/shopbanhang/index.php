@@ -287,6 +287,9 @@ global $urlThemeActive;
                                 <a href="<?php echo @$item->link ?>" target="_blank">
                                     <img src="<?php echo @$item->avatar ?>" alt="">
                                 </a>
+                                <div class="pro-review-link">
+                                    <a target="_blank" href="<?php echo $item['link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt=""></a>
+                                </div>
                             </div>
                         </div>
                         <?php } ?>

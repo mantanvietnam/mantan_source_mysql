@@ -192,7 +192,7 @@ strong {
     text-align: center;
     border-radius: 30px;
     position: fixed;
-    bottom: 90px;
+    bottom: 102px;
     left: 30px;
     transition: background-color .3s, 
       opacity .5s, visibility .5s;
@@ -1144,7 +1144,7 @@ strong {
 .comment-customer-slide .slick-prev,
 .comment-customer-slide .slick-next {
     position: absolute;
-    top: 50%;
+    top: 43%;
     appearance: none;
     margin-top: -10px;
     padding: 0;
@@ -2403,7 +2403,7 @@ strong {
 }
 
 .title-info-col {
-    margin-bottom: 13px;
+    margin-bottom: 10px;
 }
 
 
@@ -4041,6 +4041,24 @@ tbody {
     right: 43%;
 }
 
+.modal-header{
+    border-color: transparent;
+}
+
+.input-required{
+    position: relative;
+}
+
+.input-required::after{
+    content: "";
+    font-size: 14px;
+    color: red;
+    position: absolute;
+    left: 0;
+    z-index: 999999;
+
+}
+
 @media (min-width: 1400px) {
     .container,
     .container-lg,
@@ -4088,6 +4106,35 @@ tbody {
 
 
 @media(max-width: 445px) {
+    #section-pro-review{
+        margin-bottom: 10px;
+    }
+
+    .value-item-3{
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .value-item-2{
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    #section-about-value .value-item-3{
+        margin-bottom: 30px !important;
+    }
+
+    .box-about-number .value-item-2{
+        margin-bottom: 30px !important;
+    }
+
+    .icon-phone-bottom{
+        display: none;
+    }
+
+    .value-item-icon-last{
+        width: 146px;
+    }
 
 
     .gift-item-inner {
@@ -4392,7 +4439,7 @@ tbody {
     }
 
     .info-col{
-        padding: 0 12px;
+        padding: 0;
         border-bottom: 1px solid #7a7777;
         margin-bottom: 10px;
     }
