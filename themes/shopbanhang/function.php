@@ -16,6 +16,12 @@ $menus[0]['sub'][2]= array( 'title'=>'Cài đặt trang Review',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'sttingReviewTheme'
                         );
+$menus[0]['sub'][3]= array( 'title'=>'Cài đặt trang About us',
+                            'url'=>'/plugins/admin/shopbanhang-admin-settingAboutusTheme.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingAboutuTheme'
+                        );
+
 
 addMenuAdminMantan($menus);
 
