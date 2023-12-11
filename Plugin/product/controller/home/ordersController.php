@@ -63,12 +63,12 @@ function cart($input)
     	$data = array();
     	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
     	$data['name'] = $item;
-    	if(!empty($discountCode) && !empty($infoUser)){
+    	if(!empty($discountCode)){
     		foreach(@$discountCode as $k => $value){
-    			if(!empty($value->id_customers)){
+    			if(!empty($value->id_customers) ){
     				
 		    		$id_customer = explode(',', $value->id_customers);
-		    		if( in_array($infoUser->id, $id_customer)){
+		    		if( in_array(@$infoUser->id, $id_customer) && !empty($infoUser)){
 		    			$data['discountCode'][$k] = $value;
 		    		}
 		    	}else{

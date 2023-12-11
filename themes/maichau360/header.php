@@ -1,9 +1,6 @@
 <?php
 global $urlThemeActive;
-include_once("helper.php");
 $setting = setting();
-global $session;
-$infoUser = $session->read('infoUser');
 ?>
 
 <!doctype html>
@@ -30,6 +27,20 @@ $infoUser = $session->read('infoUser');
     <link rel="stylesheet" href="<?= $urlThemeActive ?>css/thaianh.css">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>css/main.css">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>css/font.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png" />
+    <!-- SLick -->
+
+    <!-- Boostrap -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
+
+
+    <!-- Fonawesome -->
+    <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <!-- FILE INCLUDE CSS END -->
     <!-- FILE INCLUDE JS -->
     <!-- MAP JS API -->
@@ -70,105 +81,73 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 <body>
 
 <header>
-    <div class="top bg-primary-cus py-2">
+    <section id="header">
         <div class="container">
-            <div class="d-flex justify-content-end align-items-center">
-                <form class="search-input d-none d-md-block" action="/search" method="get">
-                    <img src="<?= $urlThemeActive ?>/assets/lou_icon/icon-search.svg" class="me-2" alt="">
-                    <input type="text" name="key" placeholder="Tìm kiếm">
-                </form>
-                <li class="nav-item dropdown user-login">
-                    <?php if (!empty($infoUser)) { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                           data-bs-toggle="dropdown">
-                            <img src="<?php echo @$infoUser['avatar']; ?>" style=" width: 25px; border-radius: 20px;"
-                                 alt="">
-                            <span class="username ms-3">Xin chào <?php echo $infoUser['full_name']; ?></span>
+
+            <!--  Phần Tìm Kiếm  -->
+            <div class="row">
+                <div class="search-area">
+                    <div class="search-input">
+                        <input type="text" placeholder="Tìm kiếm tại đây...">
+                    </div>
+                    <div class="search-btn">
+                        <a href="">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/bookingonline">Đặt phòng</a></li>
-                            <li><a class="dropdown-item" href="/diem_den_yeu_thich">Yêu thích</a></li>
-                            <li><a class="dropdown-item" href="/infoUser">Tài khoản</a></li>
-                            <li><a class="dropdown-item " href="/logout">Đăng xuất</a></li>
-                        </ul>
-                    <?php } else { ?>
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" style=" color: white; "
-                           href="/login">Đăng nhập</a>
-                    <?php } ?>
-                </li>
-                <!-- <a href="" class="sign btn">Đăng ký / Đăng nhập</a> -->
-                <a href="https://tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-vn.svg" alt="">
-                </a>
-                <a href="https://en.tayho360.vn/" class="lang d-block">
-                    <img src="<?= $urlThemeActive ?>assets/lou_icon/lang-en.svg" alt="">
-                </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="main-nav">
-        <div class="container-xxl">
-            <nav class="navbar navbar-expand-xl">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-block" href="/">
-                        <img src="<?php echo @$setting['image_logo']; ?>" style=" width: 55px; " alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <!-- <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">TRANG CHỦ</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    ĐIỂM ĐẾN
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Di tích văn hóa</a></li>
-                                    <li><a class="dropdown-item" href="#">Danh lam</a></li>
-                                    <li><a class="dropdown-item" href="#">Làng nghề</a></li>
-                                    <li><a class="dropdown-item" href="#">Lễ hội</a></li>
-                                    <li><a class="dropdown-item" href="#">Trụ sở cơ quan chính</a></li>
-                                    <li><a class="dropdown-item" href="#">Trung tâm hội nghị, sự kiện</a></li>
-                                    <li><a class="dropdown-item" href="#">Khách sạn</a></li>
-                                    <li><a class="dropdown-item" href="#">Nhà hàng quán ăn</a></li>
-                                    <li><a class="dropdown-item" href="#">Dịch vụ hỗ trợ du lịch</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">SỰ KIỆN</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    CẨM NANG DU LỊCH
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Cẩm nang 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Cẩm nang 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Cẩm nang khác</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">TIN TỨC</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">TOUR DU LỊCH</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">BẢN ĐỒ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">VIỆT NAM 360</a>
-                            </li> -->
-                             <?php 
+
+            <!--  Phần Menu  -->
+            <div class="row">
+                <div class="top-menu" id="fixedNav">
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">
+                                <img src="<?php echo $setting['image_logo'] ?>" alt="">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                               <!--  <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Danh mục điểm đến
+                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                        </a>
+                                        <ul class="dropdown-menu relics-drop ">
+                                            <li><a class="dropdown-item" href="#">Danh lam thắng cảnh</a></li>
+                                            <li><a class="dropdown-item" href="#">Điểm du lịch cộng đồng</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Tin tức - Sự kiện</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Bản đồ số</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Liên hệ</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+
+                                        </a>
+                                        <ul class="dropdown-menu language-drop">
+                                            <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
+                                            <li><a class="dropdown-item" href="#">Tiếng Anh</a></li>
+                                        </ul>
+                                    </li>
+                                </ul> -->
+                                 <?php
                             $menu = getMenusDefault();
-                          
                             if(!empty($menu)){
                             foreach($menu as $key => $value){
                               if(empty($value['sub'])){
@@ -176,25 +155,27 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
                             </li>
-                        <?php   }else{  ?>
+                        <?php   }else{ ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <?php echo $value['name']  ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values) { ?>
+                                    <?php  foreach($value['sub'] as $keys => $values)  ?>
                                     <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
-                                    <?php } ?>
+
                                 </ul>
                             </li>
                             <?php }}} ?>
-                        </ul>
-                    </div>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
-            </nav>
+            </div>
         </div>
-    </div>
+    </section>
+
 </header>
 
 

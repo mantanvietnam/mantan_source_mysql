@@ -14,7 +14,7 @@ global $urlThemeActive;
     <?php } ?>
         <section class="section-background-index">
             <div class="container-fluid background-index">
-                <img src="<?= $urlThemeActive ?>img/background-index.jpg" alt="">
+                <img src="<?= $urlThemeActive ?>images/background-index.jpg" alt="">
             </div>
         </section>
 
@@ -281,8 +281,8 @@ global $urlThemeActive;
             </div>
         </section>
 <?php } ?>
-<?php  $comment= getComment($data->id,'dich_tich_lich_su'); 
-        if(!empty($comment)){ ?>
+<!-- <?php // $comment= getComment($data->id,'dich_tich_lich_su'); 
+       // if(!empty($comment)){ ?>
         <section id="place-post-comment">
             <div class="container">
                 <div class="row">
@@ -332,7 +332,7 @@ global $urlThemeActive;
                 </div>
             </div>
         </section>
-    <?php }  ?>
+    <?php //}  ?> -->
 
        
 
