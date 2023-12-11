@@ -61,6 +61,11 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/admins', ['controller' => 'Admins', 'action' => 'index']);
         $builder->connect('/admins/login', ['controller' => 'Admins', 'action' => 'login']);
         $builder->connect('/admins/logout', ['controller' => 'Admins', 'action' => 'logout']);
+        $builder->connect('/admins/changePass', ['controller' => 'Admins', 'action' => 'changePass']);
+        $builder->connect('/admins/profile', ['controller' => 'Admins', 'action' => 'profile']);
+        $builder->connect('/admins/listAdmin', ['controller' => 'Admins', 'action' => 'listAdmin']);
+        $builder->connect('/admins/addAdmin', ['controller' => 'Admins', 'action' => 'addAdmin']);
+        $builder->connect('/admins/deleteAdmin', ['controller' => 'Admins', 'action' => 'deleteAdmin']);
 
         $builder->connect('/options/infoSite', ['controller' => 'Options', 'action' => 'infoSite']);
         $builder->connect('/options/menus', ['controller' => 'Options', 'action' => 'menus']);
@@ -105,6 +110,10 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/videos/', ['controller' => 'Homes', 'action' => 'category_video']);
 
         $builder->connect('/apis/*', ['controller' => 'Apis', 'action' => 'index']);
+
+        // Route cho WebSocket server
+        $builder->connect('/websocket', ['controller' => 'WebSocketServer']);
+
 
         $builder->connect('/plugins/admin/*', ['controller' => 'Plugins', 'action' => 'admin']);
         $builder->connect('/*', ['controller' => 'Plugins', 'action' => 'index']);

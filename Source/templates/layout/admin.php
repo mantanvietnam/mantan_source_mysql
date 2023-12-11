@@ -268,6 +268,13 @@
               </a>
             </li>
 
+            <li class="menu-item">
+              <a href="/admins/listAdmin" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div>Tài khoản quản trị</div>
+              </a>
+            </li>
+
             <?php 
               global $hookMenuAdminMantan;
 

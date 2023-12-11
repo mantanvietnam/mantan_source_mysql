@@ -22,6 +22,190 @@ class AdminsController extends AppController{
 
     }
 
+    public function changePass(){
+        $mess= '';
+        $modelAdmins = $this->Admins;
+        $session = $this->request->getSession();
+
+        if ($this->request->is('post')) {
+            $dataSend = $this->request->getData();
+            $infoAdmin = $modelAdmins->find()->where(['id'=>$session->read('infoAdmin')->id])->first();
+
+            if(!empty($infoAdmin)){
+                if($infoAdmin->password == md5($dataSend['passOld'])){
+                    if(!empty($dataSend['passNew']) && !empty($dataSend['passAgain']) && $dataSend['passNew']==$dataSend['passAgain']){
+                        $infoAdmin->password = md5($dataSend['passNew']);
+
+                        $modelAdmins->save($infoAdmin);
+
+                        $mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
+                    }else{
+                        $mess= '<p class="text-danger">Nhập sai mật khẩu nhập lại</p>';
+                    }
+                }else{
+                    $mess= '<p class="text-danger">Nhập sai mật khẩu cũ</p>';
+                }
+            }else{
+                $mess= '<p class="text-danger">Tài khoản không còn tồn tại</p>';
+            }
+        }
+
+        $this->set('mess', $mess);
+    }
+
+    public function profile(){
+        $mess= '';
+        $modelAdmins = $this->Admins;
+        $session = $this->request->getSession();
+
+        $infoAdmin = $modelAdmins->find()->where(['id'=>$session->read('infoAdmin')->id])->first();
+
+        if ($this->request->is('post')) {
+            $dataSend = $this->request->getData();
+
+            if(!empty($dataSend['fullName'])){
+                $infoAdmin->fullName = $dataSend['fullName'];
+                $infoAdmin->email = $dataSend['email'];
+
+                $modelAdmins->save($infoAdmin);
+
+                $session->write('infoAdmin', $infoAdmin);
+
+                $mess= '<p class="text-success">Đổi thông tin thành công</p>';
+            }else{
+                $mess= '<p class="text-danger">Gửi thiếu dữ liệu</p>';
+            }
+        }
+
+        $this->set('infoAdmin', $infoAdmin);
+        $this->set('mess', $mess);
+    }
+
+    public function listAdmin(){
+        global $urlCurrent;
+
+        $modelAdmins = $this->Admins;
+
+        $conditions = array();
+        $limit = 20;
+        $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+        if($page<1) $page = 1;
+
+        if(!empty($_GET['id'])){
+            $conditions['id'] = (int) $_GET['id'];
+        }
+
+        if(!empty($_GET['fullName'])){
+            $conditions['fullName LIKE'] = '%'.$_GET['fullName'].'%';
+        }
+
+        if(!empty($_GET['email'])){
+            $conditions['email'] = $_GET['email'];
+        }
+
+        $listData = $modelAdmins->find()->limit($limit)->page($page)->where($conditions)->order(['id' => 'DESC'])->all()->toList();
+
+        $totalData = $modelAdmins->find()->where($conditions)->all()->toList();
+        $totalData = count($totalData);
+
+        $balance = $totalData % $limit;
+        $totalPage = ($totalData - $balance) / $limit;
+        if ($balance > 0)
+            $totalPage+=1;
+
+        $back = $page - 1;
+        $next = $page + 1;
+        if ($back <= 0)
+            $back = 1;
+        if ($next >= $totalPage)
+            $next = $totalPage;
+
+        if (isset($_GET['page'])) {
+            $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+            $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+        } else {
+            $urlPage = $urlCurrent;
+        }
+        if (strpos($urlPage, '?') !== false) {
+            if (count($_GET) >= 1) {
+                $urlPage = $urlPage . '&page=';
+            } else {
+                $urlPage = $urlPage . 'page=';
+            }
+        } else {
+            $urlPage = $urlPage . '?page=';
+        }
+
+        $this->set('page', $page);
+        $this->set('totalPage', $totalPage);
+        $this->set('back', $back);
+        $this->set('next', $next);
+        $this->set('urlPage', $urlPage);
+
+        $this->set('listData', $listData);
+    }
+
+    public function addAdmin(){
+        $modelAdmins = $this->Admins;
+        
+        $mess = '';
+
+        // lấy data edit
+        if(!empty($_GET['id'])){
+            $infoAccAdmin = $modelAdmins->get( (int) $_GET['id']);
+        }else{
+            $infoAccAdmin = $modelAdmins->newEmptyEntity();
+        }
+
+        if ($this->request->is('post')) {
+            $dataSend = $this->request->getData();
+
+            if(!empty($dataSend['fullName'])){
+                $check = true;
+                $dataSend['permission'] = [];
+
+                // tạo dữ liệu save
+                $infoAccAdmin->fullName = $dataSend['fullName'];
+                $infoAccAdmin->email = $dataSend['email'];
+                $infoAccAdmin->type = $dataSend['type'];
+                $infoAccAdmin->permission = json_encode($dataSend['permission']);
+
+                if(empty($_GET['id'])){
+                    if(!empty($dataSend['user']) && !empty($dataSend['password'])){
+                        $checkAcc = $modelAdmins->find()->where(['user'=>$dataSend['user']])->first();
+
+                        if(empty($checkAcc)){
+                            $infoAccAdmin->user = $dataSend['user'];
+                            $infoAccAdmin->password = md5($dataSend['password']);
+                        }else{
+                            $check = false;
+                            $mess= '<p class="text-danger">Tài khoản đã tồn tại</p>';
+                        }
+                    }else{
+                        $check = false;
+                        $mess= '<p class="text-danger">Nhập thiếu dữ liệu</p>';
+                    }
+                }
+
+                if($check){
+                    $modelAdmins->save($infoAccAdmin);
+
+                    $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+                }
+                
+            }else{
+                $mess= '<p class="text-danger">Nhập thiếu dữ liệu</p>';
+            }
+        }
+
+        $this->set('mess', $mess);
+        $this->set('infoAccAdmin', $infoAccAdmin);
+    }
+
+    public function deleteAdmin(){
+
+    }
+
     public function login(){
         // Set the layout.
         $this->viewBuilder()->setLayout('ajax');

@@ -2,7 +2,7 @@
 $menus= array();
 $menus[0]['title']= 'Cài đặt giao diện';
 $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
-                            'url'=>'/plugins/admin/tayho360-admin-settingHomeTheme.php',
+                            'url'=>'/plugins/admin/maichau360-admin-settingHomeTheme.php',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );

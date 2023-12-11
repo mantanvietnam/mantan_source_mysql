@@ -121,19 +121,19 @@
           </div>
           <div class="img-calendar">
             <div class="box-img-calendar">
-              <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+              <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
             <div class="box-img-calendar">
-              <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+              <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
             <div class="box-img-calendar">
-              <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+              <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
             <div class="box-img-calendar">
-              <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+              <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
             <div class="box-img-calendar">
-              <img src="<?php echo $urlThemeActive; ?>img/thaianhimg/Ellip.png" alt="">
+              <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@
     ?>];
 
   const map = L.map('map_HS', {
-    center: [21.057646992531012, 105.83320869683257],
+    center: [20.668785542548076, 105.00060413875005],
     zoom: 15,
   });
 

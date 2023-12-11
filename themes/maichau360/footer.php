@@ -2,90 +2,61 @@
 global $urlThemeActive;
 
 $setting = setting();
-
-
 ?>
 <footer>
-    <div class="main-footer px-0 py-5">
+    <section id="contact">
         <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-4 col-lg-2">
-                    <div class="logo-footer mb-4">
-                        <img class="w-100" src="<?php echo @$setting['image_logo']; ?>" alt="">
+            <div class="contact-content row">
+                <div class="col-lg-1 col-md-12">
+                    <div class="contact-logo ">
+                        <img src="../images/logo.png" alt="">
                     </div>
                 </div>
-                <div class="col-12 col-md-8 col-lg-7">
-                    <div class="list-info">
-                        <h5><?php echo @$setting['title_footer']; ?></h5>
-                        <div class="list-info">
-                            <ul class="p-0 list-unstyled">
-                                <li>Cơ quan chủ quản: <?php echo @$setting['agency']; ?></li>
-                                <li>Địa chỉ: <?php echo @$setting['address']; ?></li>
-                                <li>Điện thoại: <?php echo @$setting['phone']; ?></li>
-                                <li>Email: <?php echo @$setting['email']; ?></li>
-                                <li class="mt-3">Chịu trách nhiệm chính: <?php echo @$setting['responsibility']; ?></li>
-                                <li>Điện thoại: <?php echo @$setting['responsibilityphone']; ?></li>
-                                <li>Hòm thư công vụ: <?php echo @$setting['responsibilityemail']; ?>n</li>
-                                <li class="mt-3">Theo dõi chúng tôi qua:<?php echo @$setting['follow']; ?></li>
-                                <ul class="list-unstyled d-flex p-0 pt-2">
-                                    <li class="me-2"><a href="<?php echo @$setting['facebook']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/facebook-foot.svg" alt=""></a></li>
-                                    <li class="me-2"><a href="<?php echo @$setting['tiktok']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/tiktok-foot.svg" alt=""></a>
-                                    </li>
-                                    <li class="me-2"><a href="<?php echo @$setting['zalo']; ?>"><i class="fa-brands fa-instagram"></i></a>
-                                    </li>
-                                    <li class="me-2"><a href="<?php echo @$setting['youtube']; ?>"><img src="<?= $urlThemeActive ?>assets/lou_icon/youtube-foot.svg" alt=""></a>
-                                    </li>
-                                </ul>
-                            </ul>
-                        </div>
-
+                <div class="col-lg-6 col-md-12">
+                    <div class="contact-detail">
+                        <h4><?php echo @$setting['title_footer']; ?></h4>
+                        <p>Cơ quan chủ quản: <span><?php echo @$setting['agency']; ?>.</span></p>
+                        <p>Chịu trách nhiệm chính: <span><?php echo @$setting['responsibility']; ?></span></p>
+                        <ul>
+                            <li><i class="fa-solid fa-house"></i><?php echo @$setting['address']; ?></li>
+                            <li><i class="fa-solid fa-phone"></i><?php echo @$setting['phone']; ?></li>
+                            <li><i class="fa-regular fa-envelope"></i><?php echo @$setting['responsibilityemail']; ?></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-12 col-md-12 col-lg-3">
-                    <div class="list-info thong-tin-chung">
-                        <h5>Thông tin chung</h5>
-                        <div class="list-info">
-                            <ul class="p-0 list-unstyled">
-                                <?php
-                                if (!empty(getListLinkWeb(@$setting['idlink']))) {
-                                    foreach (getListLinkWeb(@$setting['idlink']) as $key => $ListLink) { ?>
-                                        <li>
-                                            <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
-                                        </li>
-                                <?php }
-                                } ?>
-                            </ul>
-                        </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="contact-text">
+                        <h4>Về chúng tôi</h4>
+                        <a href="">Di tích lịch sử</a>
+                        <br><a href="">Kênh thông tin</a>
+                        <br><a href="">Liên hệ</a>
+                        <br><a href="">Bản đồ</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-12">
+                    <div class="contact-icon">
+                        <h4>Theo dõi tại:</h4>
+                        <div class="combo-icon">
+                            <a href="<?php echo @$setting['facebook']; ?>"><i class="fa-brands fa-facebook"></i></a>
 
-                        <div class="mobile mt-4">
-                            <p class="fs-6">Tải phiên bản dành cho di động</p>
-                            <div class="d-flex mt-2">
-                                <a href=""><img src="<?= $urlThemeActive ?>assets/lou_img/android.png" alt=""></a>
-                                <a href=""><img src="<?= $urlThemeActive ?>assets/lou_img/IOS.png" alt=""></a>
-                            </div>
+                            <a href="<?php echo @$setting['tiktok']; ?>"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="<?php echo @$setting['youtube']; ?>"><i class="fa-brands fa-youtube"></i></a>
                         </div>
-
-                        <div class="mobile mt-4">
-                            <?php 
-                            if(function_exists('showStatic')){
-                                showStatic();
-                            }
-                            ?>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="bottom-footer">
-        <div class="container">
-            <div class="row g-3">
-                <div class="col-12 col-lg-9"><span>Copyright Tay Ho 360 © 2020. Developed & Managed by VinGG</span></div>
-                <div class="col-12 col-lg-3"><span></span></div>
-            </div>
-        </div>
-    </div>
+    </section>
+
+    <section id="footer">
+        <p>Copyright © 2023 Mai Chau District. All rights reserved</p>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="<?= $urlThemeActive ?>js/main.js"></script>
 
 
     <div class="scripts">
