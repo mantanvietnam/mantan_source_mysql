@@ -1455,6 +1455,27 @@ background: #555;
     display: none;
   }
 
+  @media (min-width: 900px){
+    .contact-fixed .icon-phone-bottom{
+        width: 50px;
+    }
+
+    .contact-fixed .content-contact-item-phone{
+        width: 50px;
+    }
+
+    .contact-fixed .icon-zalo{
+        width: 50px;
+    }
+
+
+    .contact-fixed .content-contact-2{
+        left: -21px;
+        top: -149px;
+    }
+
+  }
+
 @media(max-width: 1920px) and (min-width: 1440px){
   
     .container .banner-home-slide .slick-list {
@@ -1514,6 +1535,7 @@ background: #555;
 
 
 @media(min-width: 445px){
+    
  
 
   
