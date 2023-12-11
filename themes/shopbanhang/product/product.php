@@ -1461,7 +1461,7 @@ function addComment(){
 
         $.ajax({
             method: "GET",
-            url: "/apis/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status="+status
+            url: "/apis/addProductToCart/?id_product="+idProduct+"&quantity="+quantity+"&status=true"
         })
         .done(function( msg ) {
             console.log(msg);

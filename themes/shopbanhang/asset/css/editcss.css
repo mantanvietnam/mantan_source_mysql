@@ -2906,6 +2906,17 @@ background: #555;
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
 
+    .product-mobile-radio{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px
+    }
+
+    .product-mobile-radio label{
+        margin-top: 3px;
+    }
+
     #section-product-like .product-img {
         height: 176px;
     }
@@ -3190,7 +3201,7 @@ background: #555;
 
 .about-content-text{
     font-weight: 300;
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.4;
 }
 
