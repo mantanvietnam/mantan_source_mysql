@@ -104,7 +104,7 @@ $price_total = 0;
                                                     <div class="cart-product-price-discount">
                                                         <del><?php echo number_format($value->price_old); ?>đ</del>
                                                     </div>
-                                                <?php } ?>
+                                                <?php } else{ echo '&nbsp';} ?>
                                                 </div>
                                             </td>
         

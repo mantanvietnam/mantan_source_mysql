@@ -2829,6 +2829,7 @@ background: #555;
         font-size: 26px;
         font-size: 18px;
         font-weight: 300;
+        text-align: left;
     }
 
     .pro-review-img{
@@ -3365,6 +3366,8 @@ background: #555;
     height: 100%;
     object-fit: cover;
 }
+
+
 
 @media (max-width: 1024px) {
     .text-italic-blue{
