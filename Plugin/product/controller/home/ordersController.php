@@ -87,9 +87,9 @@ function cart($input)
     $order = array('id'=>'desc');
 
     $new_product = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-
-    $idprodiscount = array_unique($idprodiscount);
-
+    if(!empty($idprodiscount)){
+    	$idprodiscount = array_unique(@$idprodiscount);
+    }
 	setVariable('list_product', $list_product);
 	setVariable('new_product', $new_product);
 	setVariable('category', $category);
