@@ -139,6 +139,9 @@ function saveRegisterMemberAPI($input)
 			    						'info_member'=>$data,
 			    						'code_otp' => $data->otp
 			    					);
+
+					// gửi mã xác thực về Email người đăng ký
+					sendEmailCodeVerify($data->email, $data->name, $data->otp);
 				}else{
 					$return = array('code'=>4,
 										'set_attributes'=>array('id_customer'=>0),
@@ -1060,6 +1063,9 @@ function requestCodeForgotPasswordAPI($input)
 				$modelMember->save($checkPhone);
 
 				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+
+				// gửi mã xác thực về Zalo người đăng ký
+				sendOTPZalo($checkPhone->phone, $checkPhone->otp);
 
 				$return = array('code'=>0,
 								'codeForgotPassword' => $code,
