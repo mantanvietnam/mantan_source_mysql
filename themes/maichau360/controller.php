@@ -77,6 +77,7 @@ function indexTheme($input){
     $data = $modelOptions->find()->where($conditions)->first();
     $modelEvent = $controller->loadModel('Events');
     $modelHistoricalSite = $controller->loadModel('HistoricalSites');
+    $modelImage = $controller->loadModel('Images');
 
     $month = getdate()['mon'];
     $year = getdate()['year'];
@@ -95,15 +96,15 @@ function indexTheme($input){
     $listHistorie = $modelHistoricalSite->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     
     $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order(['id'=>'desc','pin'=>'desc', 'outstanding' =>'desc'])->all()->toList();
+    $listDataImage = $modelImage->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
    /* $listDataPost= $modelPosts->find()->limit(4)->page(1)->where()->order($order)->all()->toList();
     $listDataTour= $modelTour->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
-    $listDataImage = $modelImage ->find()->limit(30)->page(1)->where($conditionsTour)->order($order)->all()->toList();
     
     setVariable('listDataPost', $listDataPost);
-    setVariable('listDataTour', $listDataTour);
-    setVariable('listDataImage', $listDataImage);*/
+    setVariable('listDataTour', $listDataTour);*/
     setVariable('setting', $data_value);
     setVariable('listHistorie', $listHistorie);
     setVariable('listDataEvent', $listDataEvent);
+    setVariable('listDataImage', $listDataImage);
 }
 ?>

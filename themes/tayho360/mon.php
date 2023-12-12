@@ -1,183 +1,184 @@
   <?php if(getdate()['mon']==1){ ?>
-    <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+    </ul>
 <?php }elseif(getdate()['mon']==2){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+    </ul>
 <?php }elseif(getdate()['mon']==3){  ?>
-    <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+    </ul>
 <?php }elseif(getdate()['mon']==4){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+    </ul>
 <?php }elseif(getdate()['mon']==5){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+    </ul>
 <?php }elseif(getdate()['mon']==6){  ?>
-    <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+    </ul>
 <?php }elseif(getdate()['mon']==7){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+    </ul>
 <?php }elseif(getdate()['mon']==8){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+    </ul>
 <?php }elseif(getdate()['mon']==9){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+    </ul>
 <?php }elseif(getdate()['mon']==10){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+    </ul>
 <?php }elseif(getdate()['mon']==11){  ?>
-     <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+    </ul>
 <?php }elseif(getdate()['mon']==12){  ?>
-    <div class="events-month-slide">
-        <div class="item-month-slide"><p>Tháng 12</p></div>
-        <div class="item-month-slide"><p>Tháng 1</p></div>
-        <div class="item-month-slide"><p>Tháng 2</p></div>
-        <div class="item-month-slide"><p>Tháng 3</p></div>
-        <div class="item-month-slide"><p>Tháng 4</p></div>
-        <div class="item-month-slide"><p>Tháng 5</p></div>
-        <div class="item-month-slide"><p>Tháng 6</p></div>
-        <div class="item-month-slide"><p>Tháng 7</p></div>
-        <div class="item-month-slide"><p>Tháng 8</p></div>
-        <div class="item-month-slide"><p>Tháng 9</p></div>
-        <div class="item-month-slide"><p>Tháng 10</p></div>
-        <div class="item-month-slide"><p>Tháng 11</p></div>
-    </div>
+    <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
+        <li class="month-start-event" data-month="12">Tháng12</li>
+        <li class="month-start-event" data-month="1">Tháng 1</li>
+        <li class="month-start-event" data-month="2">Tháng 2</li>
+        <li class="month-start-event" data-month="3">Tháng 3</li>
+        <li class="month-start-event" data-month="4">Tháng 4</li>
+        <li class="month-start-event" data-month="5">Tháng 5</li>
+        <li class="month-start-event" data-month="6">Tháng 6</li>
+        <li class="month-start-event" data-month="7">Tháng 7</li>
+        <li class="month-start-event" data-month="8">Tháng 8</li>
+        <li class="month-start-event" data-month="9">Tháng 9</li>
+        <li class="month-start-event" data-month="10">Tháng 10</li>
+        <li class="month-start-event" data-month="11">Tháng11</li>
+        
+    </ul>
 <?php } ?>
 
 

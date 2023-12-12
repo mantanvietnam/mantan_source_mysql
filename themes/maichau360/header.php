@@ -117,7 +117,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Danh mục điểm đến
-                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                            
                                         </a>
                                         <ul class="dropdown-menu relics-drop ">
                                             <li><a class="dropdown-item" href="#">Danh lam thắng cảnh</a></li>
@@ -146,28 +146,30 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         </ul>
                                     </li>
                                 </ul> -->
+                                <ul class="navbar-nav">
                                  <?php
-                            $menu = getMenusDefault();
+                                 $menu = getMenusDefault();
                             if(!empty($menu)){
                             foreach($menu as $key => $value){
                               if(empty($value['sub'])){
-                         ?>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $value['link']  ?>"><?php echo $value['name']  ?></a>
-                            </li>
-                        <?php   }else{ ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="<?php echo $value['link']  ?>" role="button" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <?php echo $value['name']  ?>
+                         
+                         echo '   <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
+                            </li>';
+                         }else{ 
+                          echo '   <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'
+                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <?php  foreach($value['sub'] as $keys => $values)  ?>
-                                    <li><a class="dropdown-item" href="<?php echo $values['link']  ?>"><?php echo $values['name']  ?></a></li>
+                                <ul class="dropdown-menu relics-drop">';
+                                  foreach($value['sub'] as $keys => $values){  
+                                    echo '<li><a class="dropdown-item" href="'.$values['link'].'">'.$values['name'].'</a></li>';
+                                    }
 
-                                </ul>
-                            </li>
-                            <?php }}} ?>
+                                echo'</ul>
+                            </li>';
+                            }}} ?>
+                        </ul>
                             </div>
                         </div>
                     </nav>
