@@ -118,8 +118,8 @@ $price_total = 0;
                                                     <div class="product-detail-number-item">
                                                         <div class="qty-input">
                                                             <button onclick="minusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-minus" data-action="minus" type="button">-</button>
-                                                            <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
-                                                            <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onclick="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
+                                                            <input id="quantity_buy<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onchange="tinhtien()" class="product-qty" type="text" name="quantity_buy" value="<?php echo $value->numberOrder ?>" min="0">
+                                                            <input id="statuscart<?php echo $total ?>" min="0" max="<?php echo $value->quantity ?>" onchange="tinhtien()" class="product-qty" type="hidden" name="statuscart" value="<?php echo $value->statuscart ?>" min="0">
                                                             <button onclick="plusQuantity(<?php echo $total ?>, <?php echo $value->id; ?>)" class="qty-count-add" data-action="add" type="button">+</button>
                                                         </div>
                                                     </div>

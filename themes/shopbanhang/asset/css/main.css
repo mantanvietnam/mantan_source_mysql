@@ -3168,7 +3168,27 @@ strong {
 
 .product-detail-rate-right .list-rate-image {
     display: flex;
-    gap: 9px
+    gap: 9px;
+    overflow-x: scroll;
+}
+
+.product-detail-rate-right .list-rate-image::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.product-detail-rate-right .list-rate-image::-webkit-scrollbar
+{   	
+    width: 1px;
+    height: 4px;
+	background-color: #F5F5F5;
+}
+
+.product-detail-rate-right .list-rate-image::-webkit-scrollbar-thumb
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #b6b8be;
 }
 
 .product-detail-rate-right .rate-image-title {

@@ -1642,13 +1642,18 @@ background: #555;
     }
 
     .navbar-header .nav-item .nav-link{
-        font-size: 13px;
+        font-size: 12px;
     }
 
  
 
     .navbar-header .nav-item .nav-link {
         margin: 0 10px;
+    }
+
+    .product-slide-right-img img{
+        width: 100%;
+        height: auto;
     }
 }
 
@@ -3208,14 +3213,14 @@ background: #555;
 
 .title-story {
     margin: 37px 0;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 500;
     text-transform: uppercase;
 }
 
 .content-story{
     font-weight: 300;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.4;
 }
 
@@ -3229,7 +3234,7 @@ background: #555;
 
 .about-content-text{
     font-weight: 300;
-    font-size: 19px;
+    font-size: 16px;
     line-height: 1.4;
 }
 

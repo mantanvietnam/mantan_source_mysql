@@ -114,7 +114,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
                                 </div>
                             </div>
-                              
+
                             <div class="detail-info-rate-right">
                                 <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
                                 <!-- <span><span id="number_like"><?php echo $product->number_like ?></span> + yêu thích</span> -->
