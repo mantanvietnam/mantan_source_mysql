@@ -1,8 +1,8 @@
 <?php
 	$menus= array();
 	$menus[0]['title']= 'Link web';
-    $menus[0]['sub'][0]= array('title'=>'Liên kết web','classIcon'=>'fa-link','url'=>'/plugins/admin/linkWeb-admin-listLinkWebAdmin.php','permission'=>'listLinkWeb',);
-    $menus[0]['sub'][1]= array('title'=>'Nhóm liên kết','classIcon'=>'fa-users','url'=>'/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php','permission'=>'groupLinkWeb',);
+    $menus[0]['sub'][0]= array('title'=>'Liên kết web','classIcon'=>'bx bx-list-ulk','url'=>'/plugins/admin/linkWeb-admin-listLinkWebAdmin.php','permission'=>'listLinkWebAdmin',);
+    $menus[0]['sub'][1]= array('title'=>'Nhóm liên kết','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php','permission'=>'listLinkWebCategoryAdmin',);
     
     addMenuAdminMantan($menus); 
 

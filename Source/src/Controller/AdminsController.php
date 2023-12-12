@@ -69,6 +69,8 @@ class AdminsController extends AppController{
 
                 $modelAdmins->save($infoAdmin);
 
+                $infoAdmin->permission = json_decode($infoAdmin->permission, true);
+
                 $session->write('infoAdmin', $infoAdmin);
 
                 $mess= '<p class="text-success">Đổi thông tin thành công</p>';
@@ -146,15 +148,54 @@ class AdminsController extends AppController{
     }
 
     public function addAdmin(){
+        global $hookMenuAdminMantan;
+
         $modelAdmins = $this->Admins;
+        $session = $this->request->getSession();
         
         $mess = '';
+        $permissions = [
+                        ['name'=>'Cài đặt website', 'permission'=>'infoSite'],
+                        ['name'=>'Quản lý tin tức', 'permission'=>'posts'],
+                        ['name'=>'Quản lý thư viện hình ảnh', 'permission'=>'albums'],
+                        ['name'=>'Quản lý thư viện video', 'permission'=>'videos'],
+                        ['name'=>'Quản lý giao diện', 'permission'=>'themes'],
+                        ['name'=>'Quản lý trình đơn menu', 'permission'=>'menus'],
+                        ['name'=>'Quản lý cài đặt mở rộng', 'permission'=>'plugins'],
+                        ['name'=>'Quản lý tài khoản quản trị', 'permission'=>'admins'],
+        ];
+
+        if(!empty($hookMenuAdminMantan)){
+            foreach ($hookMenuAdminMantan as $menu) {
+                if(!empty($menu)){
+                    if(!empty($menu['sub'])){
+                        foreach ($menu['sub'] as $sub) {
+                            if(empty($sub['sub'])){
+                                if(!empty($sub['permission'])){
+                                    $permissions[] = ['name'=>$sub['title'], 'permission'=>$sub['permission']];
+                                }
+                            }else{
+                                foreach ($sub['sub'] as $itemSub) {
+                                    if(!empty($sub['permission'])){
+                                        $permissions[] = ['name'=>$itemSub['title'], 'permission'=>$itemSub['permission']];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // lấy data edit
         if(!empty($_GET['id'])){
             $infoAccAdmin = $modelAdmins->get( (int) $_GET['id']);
+
+            $infoAccAdmin->permission = json_decode($infoAccAdmin->permission, true);
         }else{
             $infoAccAdmin = $modelAdmins->newEmptyEntity();
+
+            $infoAccAdmin->permission = [];
         }
 
         if ($this->request->is('post')) {
@@ -162,7 +203,9 @@ class AdminsController extends AppController{
 
             if(!empty($dataSend['fullName'])){
                 $check = true;
-                $dataSend['permission'] = [];
+                if(empty($dataSend['permission'])){
+                    $dataSend['permission'] = [];
+                }
 
                 // tạo dữ liệu save
                 $infoAccAdmin->fullName = $dataSend['fullName'];
@@ -191,7 +234,15 @@ class AdminsController extends AppController{
                     $modelAdmins->save($infoAccAdmin);
 
                     $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+
+                    if($infoAccAdmin->id == $session->read('infoAdmin')->id){
+                        $infoAccAdmin->permission = json_decode($infoAccAdmin->permission, true);
+
+                        $session->write('infoAdmin', $infoAccAdmin);
+                    }
                 }
+
+                $infoAccAdmin->permission = json_decode($infoAccAdmin->permission, true);
                 
             }else{
                 $mess= '<p class="text-danger">Nhập thiếu dữ liệu</p>';
@@ -200,10 +251,25 @@ class AdminsController extends AppController{
 
         $this->set('mess', $mess);
         $this->set('infoAccAdmin', $infoAccAdmin);
+        $this->set('permissions', $permissions);
     }
 
     public function deleteAdmin(){
+        $modelAdmins = $this->Admins;
+        
+        if(!empty($_GET['id'])){
+            $data = $modelAdmins->get($_GET['id']);
+            $allData = $modelAdmins->find()->where()->all()->toList();
+            $countData = count($allData);
+            
+            if($data && $countData>1){
+                $modelAdmins->delete($data);
+            }
 
+            return $this->redirect('/admins/listAdmin');
+        }
+
+        return $this->redirect('/admins');
     }
 
     public function login(){
@@ -224,6 +290,8 @@ class AdminsController extends AppController{
                     $infoAdmin = $modelAdmins->find()->where($conditions)->first();
 
                     if($infoAdmin){
+                        $infoAdmin->permission = json_decode($infoAdmin->permission, true);
+
                         $session->write('infoAdmin', $infoAdmin);
                         $session->write('CheckAuthentication', true);
                         $session->write('urlBaseUpload', '/upload/'.$infoAdmin->user.'/');
