@@ -36,6 +36,14 @@ background: linear-gradient(90deg, rgba(22,0,79,1) 0%, rgba(79,47,212,1) 39%, rg
     background: linear-gradient(124deg, rgba(86,0,81,1) 0%, rgba(106,6,212,1) 43%, rgba(84,17,230,1) 70%, rgba(0,133,255,1) 100%);
 } */
 
+.logo-foter ul li a{
+    color: #fff !important;
+}
+
+.logo-foter ul li span{
+    color: #fff !important;
+}
+
 
 .avar-detail{
     margin-bottom: 0 !important;

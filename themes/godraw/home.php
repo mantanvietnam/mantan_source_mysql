@@ -486,7 +486,7 @@
                             <h4>CÔNG TY CP GIẢI PHÁP NGHỆ THUẬT THÔNG MINH</h4>
                             <ul>
                                 <li>Địa chỉ : <?php echo @$contactSite['address'];?></li>
-                                <li>Điện thoại: <?php echo @$contactSite['phone'];?></li>
+                                <li>Điện thoại: <span><?php echo @$contactSite['phone'];?></span></li>
                                 <li>Email: <?php echo @$contactSite['email'];?></li>
                             </ul>
                         </div>

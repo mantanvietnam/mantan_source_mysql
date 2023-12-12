@@ -21,6 +21,13 @@
     font-style: normal;
     font-display: swap;
 }
+.logo-foter ul li a{
+    color: #fff !important;
+}
+
+.logo-foter ul li span{
+    color: #fff !important;
+}
 
 .header-mobile{
     background: rgb(86,0,81);
