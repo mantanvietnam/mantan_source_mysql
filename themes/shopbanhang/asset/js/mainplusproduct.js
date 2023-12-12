@@ -147,7 +147,10 @@ document.querySelectorAll(".describe-more button").forEach(function(link) {
 
  // Sử dụng jQuery để thực hiện toggle khi nút được click
  $(document).ready(function(){
-    $('.info-col-description').hide();
+    if ($(window).width() <= 450) {
+      $('.info-col-description').hide();
+
+    }
 
     $(".info-col-left .title-info-col").click(function(){
       if ($(window).width() <= 450) {
