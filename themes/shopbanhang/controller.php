@@ -399,12 +399,12 @@ function news(){
 
     $order = array('id'=>'desc');
 
-    $listDatatop= $modelPosts->find()->limit(1)->where(array('pin'=>1))->order($order)->all()->toList();
-    $listDataView= $modelPosts->find()->limit(4)->where(array('view >'=>1))->order(array('view'=>'desc'))->all()->toList();
-    $listDataNew= $modelPosts->find()->limit(4)->where(array())->order($order)->all()->toList();
-    $listDataCategory1= $modelPosts->find()->limit(3)->where(array('idCategory'=>4))->order($order)->all()->toList();
-    $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>9))->order($order)->all()->toList();
-    $listDataPost= $modelPosts->find()->limit(12)->where(array())->order($order)->all()->toList();
+    $listDatatop= $modelPosts->find()->limit(1)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    $listDataView= $modelPosts->find()->limit(4)->where(array('view >'=>1, 'type'=>'post'))->order(array('view'=>'desc'))->all()->toList();
+    $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
+    $listDataCategory1= $modelPosts->find()->limit(3)->where(array('idCategory'=>4, 'type'=>'post'))->order($order)->all()->toList();
+    $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>9, 'type'=>'post'))->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->limit(12)->where(array('type'=>'post'))->order($order)->all()->toList();
 
     $Category1 = $modelCategories->find()->where(array('id'=>4))->first()->name;
     $Category2 = $modelCategories->find()->where(array('id'=>9))->first()->name;

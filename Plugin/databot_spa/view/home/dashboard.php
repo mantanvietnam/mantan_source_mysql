@@ -117,39 +117,16 @@
       </div>
     </div> -->
 
-   <!--  <div class="col-md-4 col-lg-4 order-2 mb-4">
+     <div class="col-lg-7 mb-4 order-0">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-          <h5 class="card-title m-0 me-2">Mẫu được yêu thích nhất</h5>
+          <h5 class="card-title m-0 me-2">Doanh thu theo tháng </h5>
         </div>
         <div class="card-body">
-          <ul class="p-0 m-0">
-            <?php 
-            // if(!empty($listTopFavorite)){
-            //   foreach ($listTopFavorite as $key => $value) {
-            //     echo '<li class="d-flex mb-4 pb-1">
-            //             <div class="avatar flex-shrink-0 me-3">
-            //               <img src="'.$value->image.'" class="rounded" />
-            //             </div>
-            //             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-            //               <div class="me-2">
-            //                 <h6 class="mb-1">'.$value->name.'</h6>
-            //               </div>
-            //               <div class="user-progress d-flex align-items-center gap-1">
-            //                 <h6 class="mb-0">'.number_format($value->favorites).'</h6>
-            //                 <span class="text-muted">like</span>
-            //               </div>
-            //             </div>
-            //           </li>';
-            //   }
-            // }else{
-            //   echo 'Chưa có mẫu thiết kế được đăng bán';
-            // }
-            ?> 
-          </ul>
+           <div id="order_chart" style="width: 100%; height: 500px; background: white;"></div>
         </div>
       </div>
-    </div> -->
+    </div> 
 
    <!--  <div class="col-md-4 col-lg-4 order-2 mb-4">
       <div class="card h-100">
@@ -187,5 +164,66 @@
     <!--/ Transactions -->
   </div>
 </div>
+
+<center>
+<div class="taovien" >
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var char3= google;
+
+        char3.charts.load('current', {'packages':['corechart', 'line']});
+        char3.charts.setOnLoadCallback(drawChartOrder);
+
+        function drawChartOrder() {
+            var data = google.visualization.arrayToDataTable([
+              ['Ngày', ''],
+              <?php 
+              // for($i=1;$i<32;$i++){
+                    if(!empty(@$dayDataBill) ){
+                        foreach($dayDataBill as $date=>$number){
+                          //  if ($i==date('d',$number["time"])) {
+                                echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
+                            // }else{
+                            //      echo '['.$i.',0],';
+                            // }
+                            
+                        }
+                    }else{
+
+                        echo '["0",0],';
+                    }
+                // }
+              ?>
+            ]);
+
+            // var options = {
+            //   title: '',
+            //   curveType: 'function',
+            //   legend: { position: 'bottom' }
+            // };
+
+             var options = {
+                chart: {
+                  title: 'Tổng doanh thu',
+                 // subtitle: 'in millions of dollars (USD)'
+                },
+                width: 770,
+                height: 500,
+                
+              };
+
+
+            // var chart = new google.visualization.LineChart(document.getElementById('order_chart'));
+             var chart = new google.charts.Line(document.getElementById('order_chart'));
+
+            chart.draw(data, options);
+        }
+
+        
+    </script>
+
+   
+</div>
+</center>
 <!-- / Content -->
 <?php include(__DIR__.'/footer.php'); ?>
