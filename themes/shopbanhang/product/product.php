@@ -117,7 +117,8 @@ $slide_home= slide_home($setting['id_slide']);
                               
                             <div class="detail-info-rate-right">
                                 <img src="<?php echo $urlThemeActive;?>asset/image/heart.png" alt="">
-                                <span><span id="number_like"><?php echo $product->number_like ?></span> + yêu thích</span>
+                                <!-- <span><span id="number_like"><?php echo $product->number_like ?></span> + yêu thích</span> -->
+                                <span><span ><?php echo random_int(1000, 9999) ?></span> + yêu thích</span>
                             </div>
                             
                         </div>
