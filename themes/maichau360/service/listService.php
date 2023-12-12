@@ -46,8 +46,8 @@ global $urlThemeActive;
 
         <section id="place-category">
             <div class="category-title">
-                <h1>DI TÍCH VĂN HÓA LỊCH SỬ</h1>
-                <p>Hãy khám phá những điểm đến di tích lịch sử ở Mai Châu</p>
+                <h1>DIỂM DU LỊCH CỘNG ĐỒNG</h1>
+                <p>Hãy khám phá những điểm du lịch cộng đồng ở Mai Châu</p>
             </div>
 
             <div class="container">
@@ -58,9 +58,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
+                            <a href="/chi_tiet_diem_du_lich_cong_dong/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
+                                <a href="/chi_tiet_diem_du_lich_cong_dong/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>
@@ -92,8 +92,7 @@ global $urlThemeActive;
                         <a class="page-link" href="'.$urlPage.'1"
                           ><i class="fa-solid fa-chevron-left"></i
                         ></a>
-                      </li>';
-                
+                      </li>';                
                 for ($i = $startPage; $i <= $endPage; $i++) {
                     $active= ($page==$i)?'active':'';
 

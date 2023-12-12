@@ -61,80 +61,31 @@ global $urlThemeActive;
         </div>
 
         <div class="container-fluid combo-slide-1">
-            <!-- <div class="events-month-slide">
-                <div class="item-month-slide">
-                    <p>Tháng 1</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 2</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 3</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 4</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 5</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 6</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 7</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 8</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 9</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 10</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 11</p>
-                </div>
-
-                <div class="item-month-slide">
-                    <p>Tháng 12</p>
-                </div>
-            </div> -->
             <?php include('mon.php') ?>
         </div>
 
         <div class="container-fluid combo-slide-2">
-            <div class="events-slide">
+            <div class="events-slide in-box-event-home">
                 <?php if(!empty($tmpVariable['listDataEvent'])) {
                             foreach ($tmpVariable['listDataEvent'] as $keyEvent => $valueEvent) {
 
                          ?>
                         <div class="item-events-slide">
                             <div class="events-slide-img">
-                                <img src="<?php echo $valueEvent['image']; ?>" alt="">
+                                <img src="<?php echo $valueEvent->image; ?>" alt="">
                             </div>
                             <div class="events-slide-content">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-7 col-sm-12">
                                         <div class="events-slide-content-box">
                                             <div class="events-slide-detail">
-                                                <a href="">
-                                                    <h3><?php echo @$valueEvent['name']; ?> </h3>
+                                                <a href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">
+                                                    <h3><?php echo @$valueEvent->name; ?> </h3>
                                                 </a>
-                                                <p>Ngày<?php echo date("d/m/Y",@$valueEvent['datestart']); ?> - Ngày <?php echo date("d/m/Y",@$valueEvent['dateEnd']); ?></p>
+                                                <p>Ngày<?php echo date("d/m/Y",@$valueEvent->datestart); ?> - Ngày <?php echo date("d/m/Y",@$valueEvent->dateEnd); ?></p>
                                             </div>
                                             <div class="events-slide-btn">
-                                                <a href="/chi_tiet_su_kien/<?php echo @$valueEvent['urlSlug']; ?>.html">Xem chi tiết</a>
+                                                <a href="/chi_tiet_su_kien/<?php echo @$valueEvent->urlSlug; ?>.html">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     </div>
@@ -189,34 +140,20 @@ global $urlThemeActive;
 
         <div class="container">
             <div class="destinations-slide">
-                <div class="item-destinations-slide">
-                    <a href="">
-                        <img src="../images/destination-slide.jpg" alt="">
+                
+                <?php if(!empty($listDataImage)){ 
+                      foreach ($listDataImage as $key => $item) {
+               echo' <div class="item-destinations-slide">
+                    <a href="'.@$item->image360.'" target="_blank">
+                        <img src="'.@$item->image.'" alt="">
                     </a>
-                </div>
+                </div>';
 
-                <div class="item-destinations-slide">
-                    <a href="">
-                        <img src="../images/destination-slide.jpg" alt="">
-                    </a>
-                </div>
-
-                <div class="item-destinations-slide">
-                    <a href="">
-                        <img src="../images/destination-slide.jpg" alt="">
-                    </a>
-                </div>
-
-                <div class="item-destinations-slide">
-                    <a href="">
-                        <img src="../images/destination-slide.jpg" alt="">
-                    </a>
-                </div>
-
+                }} ?>
             </div>
 
         </div>
-    </section>
+   </section>
   </main>
 
 <script type="text/javascript">
@@ -262,19 +199,30 @@ global $urlThemeActive;
     }
 
     function loadEventNextPrev(e) {
-  var month = $('.slick-active').attr('data-month');
+  var month = $('.slick-center').attr('data-month');
 
-  if(e = 1){
-    month = Number(month) + 1;
+  /*if(e = 1){
+    if(month==12){
+        month = 1
+    }else{
+        month = Number(month) + 1;
+    }
+    
   }else{
-     month = Number(month) - 1;
-  }
+     if(month==1){
+        month = 12
+    }else{
+        mmonth = Number(month) - 1;
+    }
+     
+  }*/
   console.log(month);   
   $.ajax({
       type: "GET",
       url: '/apis/ajax_event',
       data:{ month:month }
     }).done(function( msg ) {
+        console.log(msg); 
      //document.getElementById("event-month-s").remove();
       $('.in-box-event-home').html(msg.text);
     });
@@ -284,10 +232,10 @@ global $urlThemeActive;
 
 // menu scroll 
 $(document).ready(function() {
-    const button = document.querySelector(".mon-pull-right");
+    const button = document.querySelector(".pull-right");
     button.setAttribute("onclick", "loadEventNextPrev(1)");
 
-   const butt = document.querySelector(".mon-pull-left");
+   const butt = document.querySelector(".pull-left");
    butt.setAttribute("onclick", "loadEventNextPrev(2)");
 });
 
