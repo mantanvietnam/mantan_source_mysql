@@ -278,10 +278,10 @@ global $urlThemeActive;
                 <div class="title-section-sub">
                     <p>Những đánh giá và cảm nhận từ khách hàng sau khi sử dụng sản phẩm của Bumas</p>
                 </div>
-                 <?php if(!empty(showFeedback())){ ?>
+                 <?php if(!empty(getListFeedback())){ ?>
                 <div class="container">
                     <div class="comment-customer-slide slick">
-                       <?php foreach(showFeedback() as $key => $item){ ?>
+                       <?php foreach(getListFeedback() as $key => $item){ ?>
                         <div class="comment-customer-item" >
                             <div class="comment-customer-img" >
                                 <a href="<?php echo @$item->link ?>" target="_blank">
@@ -296,7 +296,7 @@ global $urlThemeActive;
                     </div>
 
                     <div class="comment-text-slide">
-                        <?php foreach(showFeedback() as $key => $item){ ?>
+                        <?php foreach(getListFeedback() as $key => $item){ ?>
                         <div class="comment-text-item">
                             <div class="comment-text-description">
                                <?php echo @$item->content ?>

@@ -35,11 +35,30 @@
 
                 <div class="mb-3">
                   <label class="form-label">Quyền hạn</label>
-                  <select name="type" class="form-select color-dropdown">
+                  <select name="type" id="type" class="form-select color-dropdown" onchange="showPermission();">
                     <option value="boss" <?php if(!empty($infoAccAdmin->type) && $infoAccAdmin->type=='boss') echo 'selected';?> >Tất cả các quyền</option>
                     <option value="staff" <?php if(!empty($infoAccAdmin->type) && $infoAccAdmin->type=='staff') echo 'selected';?> >Giới hạn quyền</option>
                   </select>
                 </div>
+              </div>
+
+              <div id="list_permission" style="display: none;" class="row">
+              <?php 
+              if(!empty($permissions)){
+                foreach ($permissions as $key => $permission) {
+                  $checked = '';
+                  if(in_array($permission['permission'], $infoAccAdmin->permission)){
+                    $checked = 'checked';
+                  }
+
+                  echo '<div class="col-4 col-sm-4 col-md-3 mb-3">
+                          <label class="form-label">
+                            <input '.$checked.' type="checkbox" name="permission[]" value="'.$permission['permission'].'"> '.$permission['name'].'
+                          </label>
+                        </div>';
+                }
+              }
+              ?>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Lưu thông tin</button>
@@ -49,3 +68,16 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function showPermission()
+  {
+    if($('#type').val() == 'staff'){
+      $('#list_permission').show();
+    }else{
+      $('#list_permission').hide();
+    }
+  }
+
+  showPermission();
+</script>

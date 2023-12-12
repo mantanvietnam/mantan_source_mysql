@@ -94,7 +94,7 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-					$data->status = (int) 0; //1: kích hoạt, 0: khóa Ecoin
+					$data->status = 1; //1: kích hoạt, 0: khóa Ecoin
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();

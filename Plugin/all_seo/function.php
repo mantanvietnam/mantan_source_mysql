@@ -3,7 +3,8 @@
 	$menus[0]['title']= 'All SEO';
     $menus[0]['sub'][0]= array(	'title'=>'Cài đặt SEO',
     							'url'=>'/plugins/admin/all_seo-settingAllSEO.php',
-    							'classIcon'=>'menu-icon tf-icons bx bxs-data'
+    							'classIcon'=>'bx bxs-data',
+    							'permission'=>'settingAllSEO'
     						);
     
     addMenuAdminMantan($menus);
