@@ -10,44 +10,44 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <section id="section-background-index">
+         <section id="section-background-index">
             <form action="" method="GET">
-                <div class="container-fluid background-index">
-                    <img src="<?= $urlThemeActive ?>images/background-index.jpg" alt="">
-                </div>
+            <div class="container-fluid background-index">
+                <img src="<?= $urlThemeActive ?>images/background-index.jpg" alt="">
+            </div>
 
-                <!-- Bộ lọc -->
-                <div class="container container-box-filter-search">
-                    <div class="filter-option-box">
-                        <div class="filter-option-title">
-                            <p>Danh mục</p>
-                        </div>
-
-                        <!-- <div class="filter-option">
-                            <select class="form-select-filter">
-                                <option selected>Di tích văn hoá, lịch sử</option>
-                            
-                            </select>
-                        </div> -->
-                         <?php include __DIR__.'/../select.php' ;?>
+            <!-- Bộ lọc -->
+            <div class="container container-box-filter-search">
+                <div class="filter-option-box">
+                    <div class="filter-option-title">
+                        <p>Danh mục</p>
                     </div>
 
-                    <div class="box-search">
-                        <div class="input-search">
-                            <label for="search-place" class="col-form-label"><i
-                                    class="fa-solid fa-magnifying-glass"></i></label>
-                                <input type="text" name="name" id="search-place" value="<?php echo @$_GET['name']; ?>" placeholder="Tìm kiếm">
-                                <button class="mt-3 btn button-submit-custom" style="display: none;" >Lưu</button>
-                        </div>
+                    <!-- <div class="filter-option">
+                        <select class="form-select-filter">
+                            <option selected>Di tích văn hoá, lịch sử</option>
+                        
+                        </select>
+                    </div> -->
+                     <?php include __DIR__.'/../select.php' ;?>
+                </div>
+
+                <div class="box-search">
+                    <div class="input-search">
+                        <label for="search-place" class="col-form-label"><i
+                                class="fa-solid fa-magnifying-glass"></i></label>
+                            <input type="text" name="name" id="search-place" value="<?php echo @$_GET['name']; ?>" placeholder="Tìm kiếm">
+                            <button class="mt-3 btn button-submit-custom" style="display: none;" >Lưu</button>
                     </div>
                 </div>
-            </form>
+            </div>
+        </form>
         </section>
 
         <section id="place-category">
             <div class="category-title">
-                <h1>DI TÍCH VĂN HÓA LỊCH SỬ</h1>
-                <p>Hãy khám phá những điểm đến di tích lịch sử ở Mai Châu</p>
+                <h1>DANH LAM THẮNG CẢNH</h1>
+                <p>Hãy khám phá những điểm đến Danh lam thắng cảnh ở Mai Châu</p>
             </div>
 
             <div class="container">
@@ -58,9 +58,9 @@ global $urlThemeActive;
                         <div class="place-category-item-img">
                             <div class="background-opacity">
                             </div>
-                            <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
+                            <a href="/chi_tiet_danh_lam/<?php echo $item->urlSlug ?>.html"><img src="<?php echo $item->image ?>" alt=""></a>
                             <div class="place-category-item-title">
-                                <a href="/chi_tiet_di_tich_lich_su/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
+                                <a href="/chi_tiet_danh_lam/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                             </div>
                         </div>
                     </div>
