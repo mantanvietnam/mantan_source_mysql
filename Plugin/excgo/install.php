@@ -208,6 +208,7 @@ $sqlInstallDatabase .= 'CREATE TABLE `excgo_app`.`canceled_booking_requests` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `booking_id` INT NOT NULL , 
     `user_id` INT NOT NULL ,
+    `request_id` INT NULL ,
     `status` TINYINT NOT NULL DEFAULT 0 , 
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
     `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 

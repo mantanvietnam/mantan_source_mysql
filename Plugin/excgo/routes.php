@@ -41,6 +41,7 @@ $routesPlugin['cancelBookingApi'] = 'excgo/view/cancelBookingApi.php';
 $routesPlugin['getAvailableBookingListApi'] = 'excgo/view/getAvailableBookingListApi.php';
 $routesPlugin['repostBookingApi'] = 'excgo/view/repostBookingApi.php';
 $routesPlugin['acceptCanceledBookingApi'] = 'excgo/view/acceptCanceledBookingApi.php';
+$routesPlugin['rejectCanceledBookingApi'] = 'excgo/view/rejectCanceledBookingApi.php';
 
 // Transaction
 $routesPlugin['getListTransactionApi'] = 'excgo/view/getListTransactionApi.php';
@@ -54,6 +55,7 @@ $routesPlugin['getListNotificationApi'] = 'excgo/view/getListNotificationApi.php
 $routesPlugin['updateNotificationStatusApi'] = 'excgo/view/updateNotificationStatusApi.php';
 $routesPlugin['markAllNotificationAsReadApi'] = 'excgo/view/markAllNotificationAsReadApi.php';
 $routesPlugin['deleteAllNotificationsApi'] = 'excgo/view/deleteAllNotificationsApi.php';
+$routesPlugin['deleteNotificationApi'] = 'excgo/view/deleteNotificationApi.php';
 
 // Support Request
 $routesPlugin['createSupportRequestApi'] = 'excgo/view/createSupportRequestApi.php';

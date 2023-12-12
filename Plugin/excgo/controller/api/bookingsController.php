@@ -456,13 +456,17 @@ function acceptCanceledBookingApi($input): array
             }
 
             $request = $canceledBookingModel->find()->where(['id' => $dataSend['request_id']])->first();
+            if (empty($request)) {
+                return apiResponse(4, 'Không tìm thấy dữ liệu');
+            }
+
             $booking = $bookingModel->find()->where(['id' => $request->booking_id])->first();
 
             if ($booking->posted_by != $currentUser->id) {
                 return apiResponse(4, 'Bạn không phải người đăng cuốc xe này');
             }
 
-            $cancelUser = $modelUser->find()->where(['id' => $request->user_id])->first();
+            $cancelUser = $modelUser->find()->where(['id' => $booking->received_by])->first();
             $bookingFee = $modelBookingFee->find()
                 ->where(['booking_id' => $booking->id])
                 ->first();
@@ -524,6 +528,73 @@ function acceptCanceledBookingApi($input): array
                     'action' => 'cancelReceiveBookingSuccess',
                     'booking_id' => $booking->id,
                     'request_id' => $canceledBooking->id
+                );
+                sendNotification($dataSendNotification, $cancelUser->device_token);
+            }
+
+            return apiResponse(0, 'Thao tác thành công');
+        }
+
+        return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+    }
+
+    return apiResponse(1, 'Bắt buộc sử dụng phương thức POST');
+}
+
+function rejectCanceledBookingApi($input): array
+{
+    global $controller;
+    global $isRequestPost;
+
+    $bookingModel = $controller->loadModel('Bookings');
+    $canceledBookingModel = $controller->loadModel('CanceledBookingRequests');
+    $modelUser = $controller->loadModel('Users');
+    $modelNotification = $controller->loadModel('Notifications');
+
+    if ($isRequestPost) {
+        $dataSend = $input['request']->getData();
+        if (!empty($dataSend['access_token'])) {
+            $currentUser = getUserByToken($dataSend['access_token']);
+
+            if (empty($currentUser)) {
+                return apiResponse(3, 'Tài khoản không tồn tại hoặc sai mã token');
+            }
+
+            if ($currentUser->type != 2) {
+                return apiResponse(3, 'Tài khoản chưa nâng cấp lên tài xế');
+            }
+
+            if (empty($dataSend['request_id'])) {
+                return apiResponse(2, 'Gửi thiếu dữ liệu');
+            }
+
+            $request = $canceledBookingModel->find()->where(['id' => $dataSend['request_id']])->first();
+            if (empty($request)) {
+                return apiResponse(4, 'Không tìm thấy dữ liệu');
+            }
+
+            $booking = $bookingModel->find()->where(['id' => $request->booking_id])->first();
+            $cancelUser = $modelUser->find()->where(['id' => $booking->received_by])->first();
+
+            if ($booking->posted_by != $currentUser->id) {
+                return apiResponse(4, 'Bạn không phải người đăng cuốc xe này');
+            }
+
+            $title = 'Yêu cầu hủy cuốc xe thất bại';
+            $content = "Người đăng chuyến không đồng ý hủy chuyến vui lòng liên hệ với người đăng";
+            $notification = $modelNotification->newEmptyEntity();
+            $notification->user_id = $cancelUser->id;
+            $notification->title = $title;
+            $notification->content = $content;
+            $modelNotification->save($notification);
+
+            if ($cancelUser->device_token) {
+                $dataSendNotification= array(
+                    'title' => $title,
+                    'time' => date('H:i d/m/Y'),
+                    'content' => $content,
+                    'action' => 'cancelReceiveBookingFailed',
+                    'booking_id' => $booking->id,
                 );
                 sendNotification($dataSendNotification, $cancelUser->device_token);
             }
@@ -1076,6 +1147,10 @@ function updateBookingApi($input): array
 
             if (!empty($dataSend['description'])) {
                 $booking->description = $dataSend['description'];
+            }
+
+            if (!empty($dataSend['deposit'])) {
+                $booking->deposit = $dataSend['deposit'];
             }
 
             if (!empty($dataSend['status'])) {
