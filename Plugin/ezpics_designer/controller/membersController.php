@@ -277,8 +277,8 @@ function forgotPass($input){
 		$checkMember = $modelMembers->find()->where($conditions)->first();
 
 		if(!empty($checkMember)){
-			@$pass = getdate()[0];
-			$checkPhone->token = md5($pass);
+			$pass = time();
+			$checkMember->token = @$pass;
 			
 			$modelMembers->save($checkMember);
 			sendEmailnewpassword($checkMember->email, $checkMember->name, $pass);
@@ -308,7 +308,7 @@ function confirm($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		$conditions = array();
-		$conditions = array('phone'=>@$phone, 'token'=>md5($dataSend['code']));
+		$conditions = array('phone'=>@$phone, 'token'=>$dataSend['code']);
 	    		$data = $modelMembers->find()->where($conditions)->first();
 	    		if(!empty($data)){
 	    				if($dataSend['pass'] == $dataSend['passAgain']){

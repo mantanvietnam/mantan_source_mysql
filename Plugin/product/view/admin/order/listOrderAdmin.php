@@ -63,7 +63,7 @@
               foreach ($listData as $item) {
                 $status= '';
                if($item->status=='new'){ 
-                 $status= '<p style="color: #00aeee;">Đơm mới</p>';
+                 $status= '<p style="color: #00aeee;">Đơn mới</p>';
                 }elseif($item->status=='browser'){
                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
                 }elseif($item->status=='delivery'){

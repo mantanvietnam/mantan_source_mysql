@@ -81,7 +81,7 @@ function deleteOrderAdmin($input)
     global $controller;
 
     $modelOrder = $controller->loadModel('Orders');
-    $modelOrderDetail = $controller->loadModel('OrderDetail');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
     
     if(!empty($_GET['id'])){
         $data = $modelOrder->get((int) $_GET['id']);

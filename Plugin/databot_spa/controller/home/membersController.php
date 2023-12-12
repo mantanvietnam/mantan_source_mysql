@@ -106,8 +106,39 @@ function dashboard($input)
 	$metaTitleMantan = 'Thống kê tài khoản';
 	
 	if(!empty($session->read('infoUser'))){
-		
-		
+		$user = $session->read('infoUser');
+		$conditBill['type'] = 0;
+	    $conditBill['id_member'] = $user->id_member;
+	    $conditBill['id_spa'] = $user->id_spa;
+	    $modelBill = $controller->loadModel('Bills');
+	    $order = array('created_at'=>'asc');
+	   
+	    $listDataBill = $modelBill->find()->where($conditBill)->order($order)->all()->toList();
+
+	      
+	       
+	        $dayDataBill= array();
+
+	        if(!empty($listDataBill)){
+	            foreach ($listDataBill as $item) {
+	                $time= @$item->created_at->toDateTimeString();
+	                $time = strtotime($time);
+	                $todayTime= getdate($time);
+
+	                      // tính doanh thu theo ngày
+	               @$dayTotalBill[$todayTime['mday'].'-'.$todayTime['mon'].'-'.$todayTime['year']] += $item->total;
+	    
+	            }
+
+	            if(!empty($dayTotalBill)){
+	                foreach($dayTotalBill as $key=>$item){
+	                    $time= strtotime($key.' 0:0:0')+25200; // cộng thêm 7 tiếng
+	                    $dayDataBill[]= array('time'=>$time , 'value'=>$item );
+	                }
+	            }
+	        }
+
+	        setVariable('dayDataBill', $dayDataBill);
 	}else{
 		return $controller->redirect('/login');
 	}
