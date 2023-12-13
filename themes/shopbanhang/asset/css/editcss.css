@@ -1985,7 +1985,7 @@ background: #555;
     }
     
     .content-contact-item img{
-        height: 32px !important;
+        height: 36px !important;
     }
 
     .advertisement-slide{
@@ -2052,7 +2052,7 @@ background: #555;
       #button-contact.active + .content-contact {
         display: block;
         animation: slideIn 0.5s forwards;
-        padding-top: 26px;
+        padding-top: 16px;
         border-radius: 26px;
       }
 

@@ -3971,6 +3971,7 @@ tbody {
     border-radius: 0;
     background-color: #00A9DC;
     border-color: #00A9DC;
+    border-radius: 12px;
 }
 
 .order-right-group-button button:hover {
@@ -3979,7 +3980,7 @@ tbody {
 }
 
 .order-right-group-buttona a button:hover {
-    background-color: #E5E5E5;
+    background-color: #E5E5E5 !important;
     border-color: transparent;
 }
 
@@ -3991,6 +3992,7 @@ tbody {
     background-color: #E5E5E5;
     border-color: #E5E5E5;
     color: #B2B2B2;
+    border-radius: 12px;
 }
 
 .order-left {
@@ -4663,6 +4665,15 @@ tbody {
     .order-right-group-button button{
         width: 100%;
         margin-bottom: 10px;
+    }
+
+    .order-right{
+        padding-left: 12px;
+    }
+
+    .order-right-group-button{
+        display: flex;
+        flex-direction: column-reverse;
     }
  
 }
