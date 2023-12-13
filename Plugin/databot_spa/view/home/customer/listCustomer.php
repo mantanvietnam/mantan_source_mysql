@@ -75,7 +75,7 @@
               <th>Email</th>
               <th>Điểm</th>
               <th>NV phụ trách</th>
-              <th>thẻ in hàng hoạt</th>
+              <th>Thẻ thành viên</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -112,7 +112,7 @@
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
                           
                           <td align="center">
-                            <a class="dropdown-item" href="'.$link.'" data-bs-toggle="modal"
+                            <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
                             data-bs-target="#basicModal'.$item->id.'" target="_blank">
                               <i class="bx bx-image" ></i>
                             </a>

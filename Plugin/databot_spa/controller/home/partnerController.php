@@ -11,7 +11,7 @@ function listPartner($input)
 
 	$modelPartner = $controller->loadModel('Partners');
 	
-	if(!empty(checkLoginManager('listPartner', 'agency'))){
+	if(!empty(checkLoginManager('listPartner', 'product'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member);
@@ -137,7 +137,7 @@ function addPartner($input)
 	
 	$mess= '';
 	
-	if(!empty(checkLoginManager('addPartner', 'agency'))){
+	if(!empty(checkLoginManager('addPartner', 'product'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -193,7 +193,7 @@ function deletePartner($input){
 	
 	$modelPartner = $controller->loadModel('Partners');
 	
-	if(!empty(checkLoginManager('deletePartner', 'agency'))){
+	if(!empty(checkLoginManager('deletePartner', 'product'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){

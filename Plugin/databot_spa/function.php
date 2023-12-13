@@ -54,193 +54,243 @@ $type_collection_bill = array(      'tien_mat'=>'Tiền mặt',
 
 function getListPermission()
 {
-    return array(   array( 'name'=>'Thống kê',
-                            'sub'=>array(   array('name'=>'Thống kê hoa hồng nhân viên','permission'=>'listAgency'),
-                                            array('name'=>'Thống kê doanh thu Spa','permission'=>'revenueStatistical'),
-                                    ),
-                    ),
+    global $session;
 
-                    array( 'name'=>'Quản lý phòng và giường',
-                            'sub'=>array(   array('name'=>'Danh sách phòng','permission'=>'listRoom'),
-                                            array('name'=>'Xóa phòng','permission'=>'deleteRoom'),
-                                            
-                                            array('name'=>'Danh sách giường','permission'=>'listBed'),
-                                            array('name'=>'Xóa giường','permission'=>'deleteBed'),
-                                            array('name'=>'Sơ đồ giường','permission'=>'listRoomBed'),
-                                            array('name'=>'Thông tin giường','permission'=>'infoRoomBed'),
+    $permission = [];
+    $infoUser = $session->read('infoUser');
 
-                                            array('name'=>'Nhận khách vào giường','permission'=>'checkinbed'),
-                                            array('name'=>'Hủy giường','permission'=>'cancelBed'),
-                                            array('name'=>'Trả giường','permission'=>'checkoutBed'),
-                                            
-                                    ),
-                    ),
+    if(!empty($infoUser->module)){
+        if(in_array('static', $infoUser->module)){
+            $permission[] = array( 'name'=>'Thống kê',
+                                    'sub'=>array(   array('name'=>'Thống kê hoa hồng nhân viên','permission'=>'listAgency'),
+                                                    array('name'=>'Thống kê doanh thu Spa','permission'=>'revenueStatistical'),
+                                            ),
+                            );
+        }
 
-                    array( 'name'=>'Quản lý phiếu thu chi',
-                            'sub'=>array(   array('name'=>'Danh sách phiếu thu','permission'=>'listCollectionBill'),
-                                            array('name'=>'Thêm và sửa phiếu thu','permission'=>'addCollectionBill'),
-                                            array('name'=>'Xem phiếu thu','permission'=>'detailCollectionBill'),
-                                            array('name'=>'In phiếu thu','permission'=>'printCollectionBill'),
+        if(in_array('room', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý phòng và giường',
+                                    'sub'=>array(   array('name'=>'Danh sách phòng','permission'=>'listRoom'),
+                                                    array('name'=>'Xóa phòng','permission'=>'deleteRoom'),
+                                                    
+                                                    array('name'=>'Danh sách giường','permission'=>'listBed'),
+                                                    array('name'=>'Xóa giường','permission'=>'deleteBed'),
+                                                    array('name'=>'Sơ đồ giường','permission'=>'listRoomBed'),
+                                                    array('name'=>'Thông tin giường','permission'=>'infoRoomBed'),
 
-                                            array('name'=>'Danh sách phiếu chi','permission'=>'listBill'),
-                                            array('name'=>'Thêm và sửa phiếu chi','permission'=>'addBill'),
-                                            array('name'=>'Xóa phiếu chi','permission'=>'deleteBill'),
-                                            array('name'=>'In phiếu chi','permission'=>'printBill'),
-                                           
-                                    ),
-                    ),
+                                                    array('name'=>'Nhận khách vào giường','permission'=>'checkinbed'),
+                                                    array('name'=>'Hủy giường','permission'=>'cancelBed'),
+                                                    array('name'=>'Trả giường','permission'=>'checkoutBed'),
+                                                    
+                                            ),
+                            );
+        }
 
-                    array( 'name'=>'Quản lý công nợ',
-                            'sub'=>array(   array('name'=>'Danh sách công nợ phải trả','permission'=>'listPayableDebt'),
-                                            array('name'=>'Thêm và sửa công nợ phải trả','permission'=>'addPayableDebt'),
-                                            array('name'=>'Thanh toán công nợ phải trả','permission'=>'paymentBill'),
-                                            
-                                            array('name'=>'Danh sách công nợ phải thu','permission'=>'listCollectionDebt'),
-                                            array('name'=>'Thêm và sửa công nợ phải thu','permission'=>'addCollectionDebt'),
-                                            array('name'=>'Thanh toán công nợ phải thu','permission'=>'paymentCollectionBill'),
-                                    ),
-                    ),
+        if(in_array('bill', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý phiếu thu chi',
+                                    'sub'=>array(   array('name'=>'Danh sách phiếu thu','permission'=>'listCollectionBill'),
+                                                    array('name'=>'Thêm và sửa phiếu thu','permission'=>'addCollectionBill'),
+                                                    array('name'=>'Xem phiếu thu','permission'=>'detailCollectionBill'),
+                                                    array('name'=>'In phiếu thu','permission'=>'printCollectionBill'),
 
-                    array( 'name'=>'Quản lý đặt lịch hẹn',
-                            'sub'=>array(   array('name'=>'Danh sách lịch hẹn','permission'=>'listBook'),
-                                            array('name'=>'Thêm và sửa lịch hẹn','permission'=>'addBook'),
-                                            array('name'=>'Xóa lịch hẹn','permission'=>'deleteBook'),
-                                           
-                                    ),
-                    ),
+                                                    array('name'=>'Danh sách phiếu chi','permission'=>'listBill'),
+                                                    array('name'=>'Thêm và sửa phiếu chi','permission'=>'addBill'),
+                                                    array('name'=>'Xóa phiếu chi','permission'=>'deleteBill'),
+                                                    array('name'=>'In phiếu chi','permission'=>'printBill'),
+                                                   
+                                            ),
+                            );
 
-                    array( 'name'=>'Quản lý chiến dịch Marketing',
-                            'sub'=>array(   array('name'=>'Danh sách chiến dịch','permission'=>'listCampain'),
-                                            array('name'=>'Thêm và sửa chiến dịch','permission'=>'addCampain'),
-                                            array('name'=>'Xóa chiến dịch','permission'=>'deleteCampain'),
+            $permission[] = array( 'name'=>'Quản lý công nợ',
+                                    'sub'=>array(   array('name'=>'Danh sách công nợ phải trả','permission'=>'listPayableDebt'),
+                                                    array('name'=>'Thêm và sửa công nợ phải trả','permission'=>'addPayableDebt'),
+                                                    array('name'=>'Thanh toán công nợ phải trả','permission'=>'paymentBill'),
+                                                    
+                                                    array('name'=>'Danh sách công nợ phải thu','permission'=>'listCollectionDebt'),
+                                                    array('name'=>'Thêm và sửa công nợ phải thu','permission'=>'addCollectionDebt'),
+                                                    array('name'=>'Thanh toán công nợ phải thu','permission'=>'paymentCollectionBill'),
+                                            ),
+                            );
+        }
 
-                                            array('name'=>'Danh sách khách theo chiến dịch','permission'=>'listCustomerCampaign'),
-                                            array('name'=>'Xóa khách đăng ký tham gia chiến dịch','permission'=>'deleteCustomerCampain'),
-                                    ),
-                    ),
+        if(in_array('calendar', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý đặt lịch hẹn',
+                                    'sub'=>array(   array('name'=>'Danh sách lịch hẹn','permission'=>'listBook'),
+                                                    array('name'=>'Thêm và sửa lịch hẹn','permission'=>'addBook'),
+                                                    array('name'=>'Xóa lịch hẹn','permission'=>'deleteBook'),
+                                                   
+                                            ),
+                            );
+        }
 
-                    array( 'name'=>'Quản lý combo',
-                            'sub'=>array(   array('name'=>'Danh sách combo ','permission'=>'listCombo'),
-                                            array('name'=>'Thêm và sửa combo ','permission'=>'addCombo'),
-                                            array('name'=>'Xóa combo ','permission'=>'deleteCombo'),
-                                    ),
-                    ), 
+        if(in_array('campain', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý chiến dịch Marketing',
+                                    'sub'=>array(   array('name'=>'Danh sách chiến dịch','permission'=>'listCampain'),
+                                                    array('name'=>'Thêm và sửa chiến dịch','permission'=>'addCampain'),
+                                                    array('name'=>'Xóa chiến dịch','permission'=>'deleteCampain'),
 
-                    array( 'name'=>'Quản lý khách hàng',
-                            'sub'=>array(   array('name'=>'Danh sách khách hàng ','permission'=>'listCustomer'),
-                                            array('name'=>'Thêm và sửa khách hàng','permission'=>'addCustomer'),
-                                            array('name'=>'Thêm khách hàng bằng Excel','permission'=>'addDataCustomer'),
-                                            array('name'=>'Xóa khách hàng','permission'=>'deleteCustomer'),
-                                            
-                                            array('name'=>'Nhóm khách hàng','permission'=>'listCategoryCustomer'),
-                                            array('name'=>'Xóa nhóm khách hàng','permission'=>'deleteCategoryCustomer'),
-                                            array('name'=>'Thêm và sửa nguồn khách hàng','permission'=>'listSourceCustomer'),
+                                                    array('name'=>'Danh sách khách theo chiến dịch','permission'=>'listCustomerCampaign'),
+                                                    array('name'=>'Xóa khách đăng ký tham gia chiến dịch','permission'=>'deleteCustomerCampain'),
+                                            ),
+                            );
+        }
 
-                                            
-                                    ),
-                    ),
+        if(in_array('combo', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý combo',
+                                    'sub'=>array(   array('name'=>'Danh sách combo ','permission'=>'listCombo'),
+                                                    array('name'=>'Thêm và sửa combo ','permission'=>'addCombo'),
+                                                    array('name'=>'Xóa combo ','permission'=>'deleteCombo'),
+                                            ),
+                            );
+        }
 
-                    array( 'name'=>'Quản lý bán hàng',
-                            'sub'=>array(   array('name'=>'Bán sản phẩm','permission'=>'orderProduct'),
-                                            array('name'=>'Bán combo','permission'=>'orderCombo'),
-                                            array('name'=>'Bán dịch vụ','permission'=>'orderService'),
-                                            array('name'=>'Bán thẻ trả trước','permission'=>'buyPrepayCard'),
+        if(in_array('customer', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý khách hàng',
+                                    'sub'=>array(   array('name'=>'Danh sách khách hàng ','permission'=>'listCustomer'),
+                                                    array('name'=>'Thêm và sửa khách hàng','permission'=>'addCustomer'),
+                                                    array('name'=>'Thêm khách hàng bằng Excel','permission'=>'addDataCustomer'),
+                                                    array('name'=>'Xóa khách hàng','permission'=>'deleteCustomer'),
+                                                    
+                                                    array('name'=>'Nhóm khách hàng','permission'=>'listCategoryCustomer'),
+                                                    array('name'=>'Xóa nhóm khách hàng','permission'=>'deleteCategoryCustomer'),
+                                                    array('name'=>'Thêm và sửa nguồn khách hàng','permission'=>'listSourceCustomer'),
 
-                                            array('name'=>'Danh sách đơn sản phẩn','permission'=>'listOrderProduct'),
-                                            array('name'=>'Danh sách đơn combo','permission'=>'listOrderCombo'),
-                                            array('name'=>'Danh sách đơn dịch vụ','permission'=>'listOrderService'),
-                                            
-                                            array('name'=>'Nhận khách làm dịch vụ','permission'=>'addUserService'),
-                                            array('name'=>'In hóa đơn','permission'=>'printInfoOrder'),
-                                    ),
-                    ),
+                                                    
+                                            ),
+                            );
 
-                    array( 'name'=>'Quản lý đối tác',
-                            'sub'=>array(   array('name'=>'Danh sách đối tác','permission'=>'listPartner'),
-                                            array('name'=>'Thêm và sửa đối tác','permission'=>'addPartner'),
-                                            array('name'=>'Xóa đối tác','permission'=>'deletePartner'),
-                                    ),
-                    ),
+            $permission[] = array( 'name'=>'Quản lý SPA',
+                                    'sub'=>array(   array('name'=>'Danh sách Spa ','permission'=>'listSpa'),
+                                                    array('name'=>'Thêm và sửa Spa ','permission'=>'addSpa'),
+                                                    array('name'=>'Xóa Spa ','permission'=>'deleteSpa'),
+                                            ),
+                            );
+        }
 
-                    array( 'name'=>'Quản lý thẻ trả trước',
-                            'sub'=>array(   array('name'=>'Danh sách thẻ trả trước ','permission'=>'listPrepayCard'),
-                                            array('name'=>'Thêm và sửa thẻ trả trước','permission'=>'addPrepayCard'),
-                                            array('name'=>'Xóa thẻ trả trước','permission'=>'deletePrepayCard'),
-                                            
-                                            array('name'=>'In phiếu thu thẻ trả trước','permission'=>'printInfoBillCard'),
-                                            array('name'=>'Danh sách khách hàng có thẻ trả trước','permission'=>'listCustomerPrepayCard'),
-                                    ),
-                    ),
+        if(in_array('prepaid_cards', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý thẻ trả trước',
+                                    'sub'=>array(   array('name'=>'Danh sách thẻ trả trước ','permission'=>'listPrepayCard'),
+                                                    array('name'=>'Thêm và sửa thẻ trả trước','permission'=>'addPrepayCard'),
+                                                    array('name'=>'Xóa thẻ trả trước','permission'=>'deletePrepayCard'),
+                                                    
+                                                    array('name'=>'In phiếu thu thẻ trả trước','permission'=>'printInfoBillCard'),
+                                                    array('name'=>'Danh sách khách hàng có thẻ trả trước','permission'=>'listCustomerPrepayCard'),
+                                            ),
+                            );
+        }
 
-                    array( 'name'=>'Quản lý sản phẩm',
-                            'sub'=>array(   array('name'=>'Danh sách sản phẩm ','permission'=>'listProduct'),
-                                            array('name'=>'Thêm và sửa sản phẩm ','permission'=>'addProduct'),
-                                            array('name'=>'Xóa sản phẩm ','permission'=>'deleteProduct'),
-                                            
-                                            array('name'=>'Danh nục sản phẩm ','permission'=>'listCategoryProduct'),
-                                            array('name'=>'Xóa danh nục sản phẩm ','permission'=>'deleteCategoryProduct'),
-                                            
-                                            array('name'=>'Nhãn hiệu sản phẩm ','permission'=>'listTrademarkProduct'),
-                                            array('name'=>'Xóa nhãn hiệu sản phẩm ','permission'=>'deleteTrademarkProduct'),
-                                    ),
-                    ),
+        if(in_array('product', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý sản phẩm',
+                                    'sub'=>array(   array('name'=>'Danh sách sản phẩm ','permission'=>'listProduct'),
+                                                    array('name'=>'Thêm và sửa sản phẩm ','permission'=>'addProduct'),
+                                                    array('name'=>'Xóa sản phẩm ','permission'=>'deleteProduct'),
+                                                    
+                                                    array('name'=>'Danh nục sản phẩm ','permission'=>'listCategoryProduct'),
+                                                    array('name'=>'Xóa danh nục sản phẩm ','permission'=>'deleteCategoryProduct'),
+                                                    
+                                                    array('name'=>'Nhãn hiệu sản phẩm ','permission'=>'listTrademarkProduct'),
+                                                    array('name'=>'Xóa nhãn hiệu sản phẩm ','permission'=>'deleteTrademarkProduct'),
+                                            ),
+                            );
 
-                    array( 'name'=>'Quản lý kho',
-                            'sub'=>array(   array('name'=>'Danh sách kho','permission'=>'listWarehouse'),
-                                            array('name'=>'Thêm và sửa kho','permission'=>'addWarehouse'),
-                                            array('name'=>'Xóa kho','permission'=>'deleteWarehouse'),
-                                            array('name'=>'Lịch sử nhập hàng vào kho','permission'=>'importHistorytWarehouse'),
-                                            array('name'=>'Nhập hàng vào kho','permission'=>'addProductWarehouse'),
-                                          
-                                           
-                                    ),
-                    ),
+            $permission[] = array( 'name'=>'Quản lý dịch vụ',
+                                    'sub'=>array(   array('name'=>'Danh sách dịch vụ ','permission'=>'listService'),
+                                                    array('name'=>'Thêm và sửa dịch vụ ','permission'=>'addService'),
+                                                    array('name'=>'Xóa dịch vụ ','permission'=>'deleteService'),
 
-                    array( 'name'=>'Quản lý dịch vụ',
-                            'sub'=>array(   array('name'=>'Danh sách dịch vụ ','permission'=>'listService'),
-                                            array('name'=>'Thêm và sửa dịch vụ ','permission'=>'addService'),
-                                            array('name'=>'Xóa dịch vụ ','permission'=>'deleteService'),
+                                                    array('name'=>'Danh mục dịch vụ ','permission'=>'listCategoryService'),
+                                                    array('name'=>'Xóa danh mục dịch vụ ','permission'=>'deleteCategoryService'),
+                                            ),
+                            );
 
-                                            array('name'=>'Danh mục dịch vụ ','permission'=>'listCategoryService'),
-                                            array('name'=>'Xóa danh mục dịch vụ ','permission'=>'deleteCategoryService'),
-                                    ),
-                    ),
+            $permission[] = array( 'name'=>'Quản lý đối tác',
+                                    'sub'=>array(   array('name'=>'Danh sách đối tác','permission'=>'listPartner'),
+                                                    array('name'=>'Thêm và sửa đối tác','permission'=>'addPartner'),
+                                                    array('name'=>'Xóa đối tác','permission'=>'deletePartner'),
+                                            ),
+                            );
 
-                    array( 'name'=>'Quản lý SPA',
-                            'sub'=>array(   array('name'=>'Danh sách Spa ','permission'=>'listSpa'),
-                                            array('name'=>'Thêm và sửa Spa ','permission'=>'addSpa'),
-                                            array('name'=>'Xóa Spa ','permission'=>'deleteSpa'),
-                                    ),
-                    ),
+            $permission[] = array( 'name'=>'Quản lý kho',
+                                    'sub'=>array(   array('name'=>'Danh sách kho','permission'=>'listWarehouse'),
+                                                    array('name'=>'Thêm và sửa kho','permission'=>'addWarehouse'),
+                                                    array('name'=>'Xóa kho','permission'=>'deleteWarehouse'),
+                                                    array('name'=>'Lịch sử nhập hàng vào kho','permission'=>'importHistorytWarehouse'),
+                                                    array('name'=>'Nhập hàng vào kho','permission'=>'addProductWarehouse'),
+                                                  
+                                                   
+                                            ),
+                            );
+        }
 
-                    
+        if(in_array('product', $infoUser->module) || in_array('combo', $infoUser->module) || in_array('prepaid_cards', $infoUser->module)){
+            $order['name'] = 'Quản lý bán hàng';
+            $order['sub'] = [];
 
-                    array( 'name'=>'Quản lý nhân viên',
-                            'sub'=>array(   array('name'=>'Danh sách nhân viên ','permission'=>'listStaff'),
-                                            array('name'=>'Thêm và sửa nhân viên','permission'=>'addStaff'),
-                                            array('name'=>'Khóa nhân viên','permission'=>'lockStaff'),
-                                            
-                                            array('name'=>'Nhóm nhân viên','permission'=>'listGroupStaff'),
-                                            array('name'=>'Thêm và sửa nhóm nhân viên','permission'=>'addGroupStaff'),
-                                            array('name'=>'Xóa nhóm nhân viên','permission'=>'deteleGroupStaff'),
+            if(in_array('product', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Bán sản phẩm','permission'=>'orderProduct');
+                $order['sub'][] = array('name'=>'Bán dịch vụ','permission'=>'orderService');
+            }
 
-                                            array('name'=>'Đổi mật khẩu nhân viên','permission'=>'changePassStaff'),
-                                    ),
-                    ),
+            if(in_array('combo', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Bán combo','permission'=>'orderCombo');
+            }
 
-                    array( 'name'=>'Quản lý Zalo',
-                            'sub'=>array(   array('name'=>'Nạp tiền tài khoản Zalo OA','permission'=>'createRequestAddMoney'),
-                                            array('name'=>'Lịch sử giao dịch','permission'=>'transactionHistories'),
+            if(in_array('prepaid_cards', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Bán thẻ trả trước','permission'=>'buyPrepayCard');
+            }
 
-                                            array('name'=>'Cài đặt Zalo OA','permission'=>'settingZaloMarketing'),
-                                            
-                                            array('name'=>'Gửi tin nhắn Zalo OA','permission'=>'sendMessZaloOA'),
-                                            
-                                            //array('name'=>'Gửi yêu cầu kết bạn Zalo','permission'=>'addFriendZaloMarketing'),
-                                            
-                                    ),
-                    ),
-                );
+            if(in_array('product', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Danh sách đơn sản phẩn','permission'=>'listOrderProduct');
+            }
+
+            if(in_array('combo', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Danh sách đơn combo','permission'=>'listOrderCombo');
+            }
+
+            if(in_array('prepaid_cards', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Danh sách đơn dịch vụ','permission'=>'listOrderService');
+            }
+
+            if(in_array('product', $infoUser->module)){
+                $order['sub'][] = array('name'=>'Nhận khách làm dịch vụ','permission'=>'addUserService');
+            }
+
+            $order['sub'][] = array('name'=>'In hóa đơn','permission'=>'printInfoOrder');
+
+            $permission[] = $order;
+        }
+
+        if(in_array('staff', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý nhân viên',
+                                    'sub'=>array(   array('name'=>'Danh sách nhân viên ','permission'=>'listStaff'),
+                                                    array('name'=>'Thêm và sửa nhân viên','permission'=>'addStaff'),
+                                                    array('name'=>'Khóa nhân viên','permission'=>'lockStaff'),
+                                                    
+                                                    array('name'=>'Nhóm nhân viên','permission'=>'listGroupStaff'),
+                                                    array('name'=>'Thêm và sửa nhóm nhân viên','permission'=>'addGroupStaff'),
+                                                    array('name'=>'Xóa nhóm nhân viên','permission'=>'deteleGroupStaff'),
+
+                                                    array('name'=>'Đổi mật khẩu nhân viên','permission'=>'changePassStaff'),
+                                            ),
+                            );
+        }
+
+        if(in_array('zalo', $infoUser->module)){
+            $permission[] = array( 'name'=>'Quản lý Zalo',
+                                    'sub'=>array(   array('name'=>'Nạp tiền tài khoản Zalo OA','permission'=>'createRequestAddMoney'),
+                                                    array('name'=>'Lịch sử giao dịch','permission'=>'transactionHistories'),
+
+                                                    array('name'=>'Cài đặt Zalo OA','permission'=>'settingZaloMarketing'),
+                                                    
+                                                    array('name'=>'Gửi tin nhắn Zalo OA','permission'=>'sendMessZaloOA'),
+                                                    
+                                                    //array('name'=>'Gửi yêu cầu kết bạn Zalo','permission'=>'addFriendZaloMarketing'),
+                                                    
+                                            ),
+                            );
+        }
+    }
+    return $permission;
 }
 
 function sendEmailnewpassword($email='', $fullName='', $pass= '')
