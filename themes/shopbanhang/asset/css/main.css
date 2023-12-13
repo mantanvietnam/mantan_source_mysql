@@ -3978,6 +3978,21 @@ tbody {
     border-color: transparent;
 }
 
+.order-right-group-buttona a button:hover {
+    background-color: #E5E5E5;
+    border-color: transparent;
+}
+
+.order-right-group-button a button {
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 82px;
+    border-radius: 0;
+    background-color: #E5E5E5;
+    border-color: #E5E5E5;
+    color: #B2B2B2;
+}
+
 .order-left {
     padding-top: 26px;
     padding-bottom: 20px;
@@ -4010,6 +4025,10 @@ tbody {
 
 
 /* Hoàn thành thanh toán */
+
+#section-order div:nth-child(4) > .order-right-group-input{
+    padding-left: 20px;
+}
 
 #section-complete .icon-button-check {
     width: 62px;
@@ -4079,6 +4098,7 @@ tbody {
 
 }
 
+
 @media (min-width: 1400px) {
     .container,
     .container-lg,
@@ -4126,6 +4146,23 @@ tbody {
 
 
 @media(max-width: 445px) {
+    /* Sale trang chủ */
+    #button-scrolltop{
+        display: none;
+    }
+
+   
+
+    #section-flash-sale .time-flash-sale{
+        margin-bottom: 20px;
+    }
+
+    #section-flash-sale .flash-sale-link{
+        margin-bottom: 10px;
+    }
+
+    /*  */
+
     #section-pro-review{
         margin-bottom: 10px;
     }
@@ -4218,7 +4255,7 @@ tbody {
     }
     .advertisement-home-item {
         height: auto;
-        margin-bottom: 19px;
+        /* margin-bottom: 10px; */
     }
     .rate-star p {
         font-size: 8px;
@@ -4237,7 +4274,8 @@ tbody {
     }
     .section-flash-sale-inner {
         padding-left: 18px;
-        padding-right: 18px
+        padding-right: 18px;
+        padding-top: 30px;
     }
     #section-flash-sale .best-sale-discount {
         margin-bottom: 4px;
@@ -4249,11 +4287,17 @@ tbody {
         height: 20px;
     }
     #section-flash-sale .flash-sale-title {
-        font-size: 25px
+        font-size: 22px;
+        margin-bottom: 10px;
     }
     .title-section h2 {
         font-size: 18px
     }
+
+    #section-best-sale .title-section h2 {
+        font-size: 22px;
+    }
+
     .comment-customer-item.slick-center {
         /* width: 257px !important; */
     }
@@ -4270,6 +4314,7 @@ tbody {
     #section-footer .container{
         padding-bottom: 78px;
         margin-bottom: 22px;
+        border-color: transparent;
     }
 
 
@@ -4515,14 +4560,14 @@ tbody {
     }
 
     .modal-left-sub {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .modal-left-login-social .login-social-item {
         padding-left: 20px;
         padding-top: 11px;
         padding-bottom: 11px;
-        margin-bottom: 23px;
+        margin-bottom: 11px;
     }
 
     .modal-left-login-social .login-social-item i{
@@ -4536,8 +4581,8 @@ tbody {
     .modal-right {
         padding-right: 37px;
         padding-left: 45px;
-        margin-top: 42px;
-        margin-bottom: 51px;
+        margin-top: 27px;
+        margin-bottom: 25px;
     }
 
     .modal-right .form-control{
@@ -4552,6 +4597,10 @@ tbody {
         margin-bottom: 24px;
     }
 
+    .modal-login .modal-header{
+        padding: 11px;
+    }
+
     .modal-right form button {
         margin-top: 12px;
         margin-bottom: 4px;
@@ -4562,6 +4611,7 @@ tbody {
 
     .modal-left-heading{
         font-size: 27px;
+        margin-top: 0;
     }
 
     .or-login span::before {

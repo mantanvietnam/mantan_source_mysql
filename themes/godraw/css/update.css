@@ -1111,6 +1111,25 @@ footer{
 
 
 @media(max-width: 500px)  {
+
+    .logo-foter ul li{
+        font-size: 11px;
+    }
+
+    .logo-foter h4 {
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .logo-foter h4{
+        padding-left: 6px;
+    }
+
+    .subscribe-fter {
+        margin-top: 10px;
+        width: 54px;
+    }
+
     .background-inner-video {
         /* padding-top: 90px; */
     }

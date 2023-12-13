@@ -90,7 +90,7 @@ global $urlThemeActive;
             </div>
         </section>
 
-        <div id="policy">
+        <div id="policy" class="page-view">
             <div class="container">
 
                 <!-- <ul class="nav nav-tabs">

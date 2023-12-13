@@ -61,7 +61,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
          <?php if(!empty(checkFlasl())){ ?>
         <div class="promotion-header">
             <p><?php echo $setting['text_mobile']; ?></p>
-            <a href="/sela">Mua ngay</a>
+            <a href="/sale">Mua ngay</a>
             <i class="fa-solid fa-arrow-right"></i>
         </div>
         <?php } ?>

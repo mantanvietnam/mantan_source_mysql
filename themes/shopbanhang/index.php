@@ -46,7 +46,7 @@ global $urlThemeActive;
                         <p>Flash Sale - Deal chớp nhoáng</p>
                     </div>
                     <div class="flash-sale-link">
-                        <a href="">Xem chi tiết <img src="<?php echo $urlThemeActive ?>/asset/image/doublearrow.svg" alt=""></a>
+                        <a href="/sale">Xem chi tiết <img src="<?php echo $urlThemeActive ?>/asset/image/doublearrow.svg" alt=""></a>
                     </div>
                     <div class="time-flash-sale" id="countdown">
                         

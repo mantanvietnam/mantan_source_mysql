@@ -1355,6 +1355,7 @@ background: #555;
 
 
 
+
 /* Button right cotact bottom*/
  /* Contact right button */
  @keyframes slideIn {
@@ -1448,7 +1449,7 @@ background: #555;
   }
 
   .contact-fixed .icon-phone-bottom {
-    width: 40px;
+    width: 45px;
     }
 
   .icon-close{
@@ -1479,26 +1480,48 @@ background: #555;
     box-shadow: none;
   }
 
-  @media (min-width: 900px){
-    .contact-fixed .icon-phone-bottom{
-        width: 50px;
-    }
 
-    .contact-fixed .content-contact-item-phone{
-        width: 50px;
-    }
+    /* Trang tinh */
 
-    .contact-fixed .icon-zalo{
-        width: 50px;
-    }
+.page-view .detail-policy{
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+.page-view .detail-policy p{
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.page-view .detail-policy p strong{
+    font-weight: 500;
+}
+
+.page-view .detail-policy strong{
+    font-weight: 500;
+}
+
+@media (min-width: 900px){
+.contact-fixed .icon-phone-bottom{
+    width: 50px;
+}
+
+.contact-fixed .content-contact-item-phone{
+    width: 50px;
+}
+
+.contact-fixed .icon-zalo{
+    width: 50px;
+}
 
 
-    .contact-fixed .content-contact-2{
-        left: -21px;
-        top: -149px;
-    }
+.contact-fixed .content-contact-2{
+    left: -21px;
+    top: -149px;
+}
 
-  }
+}
 
 @media(max-width: 1920px) and (min-width: 1440px){
   
@@ -1939,6 +1962,11 @@ background: #555;
 
 @media(max-width: 445px) {
 
+    .contact-fixed{
+        bottom: 82px;
+        right: 22px;
+    }
+
     .modal-video .modal-dialog{
         max-width: 100%;
     }
@@ -2125,7 +2153,7 @@ background: #555;
 
     #section-advertisement-home{
         margin-top: 10px;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     .promotion-header {
@@ -2159,7 +2187,11 @@ background: #555;
     }
 
     #section-tell .title-section h2{
-        font-size: 25px;
+        font-size: 22px;
+    }
+
+    #section-news-home .title-section h2{
+        font-size: 22px !important;
     }
 
     #section-news-home .title-section{
@@ -2380,12 +2412,12 @@ background: #555;
     /* Respon trang chủ */
     /* Trang chủ */
     #section-comment-customer .title-section h2{
-        font-style: 30px;
+        font-size: 22px ; 
         line-height: 1.2;
     }
 
     #section-comment-customer{
-        padding-top: 40px;
+        padding-top: 30px;
     }
 
     .comment-text-description{
@@ -2401,8 +2433,29 @@ background: #555;
         margin-bottom: 35px;
     }
 
+    #section-tell{
+        padding: 30px 0;
+    }
+
+    #section-news-home{
+        padding-bottom: 30px;
+    }
+
+    .seemore-news-home{
+        margin-top: 20px;
+    }
+
     #section-comment-customer{
         padding-bottom: 0;
+    }
+
+    #section-footer .container{
+        padding-top: 30px;
+        margin-top: 30px;
+    }
+
+    .seemore-news-home a{
+        font-size: 14px;
     }
     /*  */
 
@@ -2482,7 +2535,7 @@ background: #555;
     }
     .advertisement-slide .advertisement-home-item {
         width: fit-content;
-        padding: 0 3px;
+        /* padding: 0 3px; */
     }
 
     .header-inner {
@@ -2512,12 +2565,12 @@ background: #555;
     }
 
     #section-flash-sale .flash-sale-link a{
-        font-size: 19px;
+        font-size: 14px;
     }
     
 
     .menu-mobile-box a p {
-        font-size: 12px;
+        font-size: 10px;
         color : #000;
         font-weight: 400;
         white-space: nowrap;
