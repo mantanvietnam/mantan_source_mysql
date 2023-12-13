@@ -8,12 +8,12 @@ function listOrderAdmin($input)
 
     $metaTitleMantan = 'Danh sách đơn hàng';
 
-	$modelOrder = $controller->loadModel('Orders');
+    $modelOrder = $controller->loadModel('Orders');
 
-	$conditions = array();
-	$limit = 20;
-	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-	if($page<1) $page = 1;
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
     $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
@@ -122,18 +122,18 @@ function viewOrderAdmin($input)
                     $present = array();
 
                     if(!empty($product->id_product) ){
-                    $id_product = explode(',', @$product->id_product);
-                    foreach($id_product as $item){
-                        $presentf = $modelProduct->find()->where(['code'=>$item])->first();
-                        $presentf->numberOrder = $value->quantity;
-                        if(!empty($presentf)){
-                            $present[] = $presentf;
+                        $id_product = explode(',', @$product->id_product);
+                        foreach($id_product as $item){
+                            $presentf = $modelProduct->find()->where(['code'=>$item])->first();
+                            $presentf->numberOrder = $value->quantity;
+                            if(!empty($presentf)){
+                                $present[] = $presentf;
+                            }
                         }
+                        
                     }
-                    
-            }
-            $product->present = $present;
-                $detail_order[$key]->product = $product;
+                    $product->present = $present;
+                    $detail_order[$key]->product = $product;
                 }
             }
 
@@ -166,7 +166,7 @@ function treatmentOrder($input){
         $order->status = $_GET['status'];
 
         $modelOrder->save($order);
-         return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
 
     }
 }

@@ -10,6 +10,7 @@ $setting = setting();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/thaianh.css">
 
     <?php  if(@$isHome==false){ ?>
      <!-- FONTAWESOME 6 -->
@@ -26,7 +27,6 @@ $setting = setting();
     <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/footer.css">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/particle.css">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/style.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/thaianh.css">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/main.css">
     <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/font.css">
     <!-- FILE INCLUDE CSS END -->
@@ -66,21 +66,21 @@ $setting = setting();
     <!-- FILE INCLUDE JS END -->
     <?php mantan_header(); ?>
     <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1428203714597073');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
-/></noscript>
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1428203714597073');
+            fbq('track', 'PageView');
+    </script>
+        <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
+            /></noscript>
 <!-- End Meta Pixel Code -->
 
 
@@ -154,28 +154,30 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     </li>
                                 </ul> -->
                                 <ul class="navbar-nav">
-                                 <?php
-                                 $menu = getMenusDefault();
-                            if(!empty($menu)){
-                            foreach($menu as $key => $value){
-                              if(empty($value['sub'])){
-                         
-                         echo '   <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
-                            </li>';
-                         }else{ 
-                          echo '   <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'
-                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                </a>
-                                <ul class="dropdown-menu relics-drop">';
-                                  foreach($value['sub'] as $keys => $values){  
-                                    echo '<li><a class="dropdown-item" href="'.$values['link'].'">'.$values['name'].'</a></li>';
-                                    }
+                                    <?php
+                                    $menu = getMenusDefault();
+                                    if(!empty($menu)){
+                                        foreach($menu as $key => $value){
+                                          if(empty($value['sub'])){
+                                           
+                                            echo '   <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="'.$value['link'].'">'.$value['name'].'</a>
+                                            </li>';
+                                        }else{ 
+                                            echo '   <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="'.$value['link'].'" role="button" data-bs-toggle="dropdown" aria-expanded="false"> '.$value['name'].'
+                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                            </a>
+                                            <ul class="dropdown-menu relics-drop">';
+                                            foreach($value['sub'] as $keys => $values){  
+                                                echo '<li><a class="dropdown-item" href="'.$values['link'].'">'.$values['name'].'</a></li>';
+                                            }
 
-                                echo'</ul>
-                            </li>';
-                            }}} ?>
+                                            echo'</ul>
+                                            </li>';
+                                        }
+                                    }
+                                } ?>
                         </ul>
                             </div>
                         </div>
