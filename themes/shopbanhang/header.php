@@ -6,6 +6,8 @@ $infoUser = $session->read('infoUser');
  $cart = 0;
  if(!empty($session->read('product_order'))){
     $cart = count($session->read('product_order')); 
+
+
  }
     
 ?>
@@ -58,7 +60,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 </head>
 <body>
     <header>
-         <?php if(!empty(checkFlasl())){ ?>
+         <?php 
+         if(!empty(checkFlasl()) && $setting['targetTime']>time()){ ?>
         <div class="promotion-header">
             <p><?php echo $setting['text_mobile']; ?></p>
             <a href="/sale">Mua ngay</a>
@@ -241,7 +244,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <?php }}} ?>
     
                         
-                            <?php if(!empty(checkFlasl())){ ?>
+                            <?php if(!empty(checkFlasl()) && $setting['targetTime']>time()){ ?>
                             <li class="nav-item nav-item-last">
                                 <a class="nav-link" href="/sale"><?php echo @$setting['menu']?></a>
                             </li>
@@ -267,7 +270,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <p>Trang chủ</p>
                                 </a>
                             </li>
-                            <?php if(!empty(checkFlasl())){ ?>
+                            <?php if(!empty(checkFlasl()) && $setting['targetTime']>time()){ ?>
                             <li>
                                 <a href="/sale">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt="">

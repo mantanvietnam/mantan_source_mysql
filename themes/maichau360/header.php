@@ -1,5 +1,6 @@
 <?php
 global $urlThemeActive;
+global $isHome;
 $setting = setting();
 ?>
 
@@ -10,37 +11,24 @@ $setting = setting();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- FONTAWESOME 6 -->
+    <?php  if(@$isHome==false){ ?>
+     <!-- FONTAWESOME 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <!-- FILE INCLUDE CSS -->
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>assets/css/bootstrap.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>assets/css/slick.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>assets/css/slick-theme.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/assets/css/slick.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/assets/css/slick-theme.css">
 
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/header.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/footer.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/particle.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/style.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/thaianh.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/main.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/font.css">
-    <link rel="stylesheet" href="<?= $urlThemeActive ?>css/main.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="shortcut icon" type="image/png" href="../images/logo.png" />
-    <!-- SLick -->
-
-    <!-- Boostrap -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
-
-
-    <!-- Fonawesome -->
-    <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/header.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/footer.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/particle.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/style.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/thaianh.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/main.css">
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>tayho/css/font.css">
     <!-- FILE INCLUDE CSS END -->
     <!-- FILE INCLUDE JS -->
     <!-- MAP JS API -->
@@ -48,14 +36,33 @@ $setting = setting();
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
             integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <script src="<?= $urlThemeActive ?>assets/js/jquery.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/assets/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= $urlThemeActive ?>assets/js/slick.min.js"></script>
-    <script src="<?= $urlThemeActive ?>js/jshieu.js"></script>
-    <script src="/themes/tayho360/js/slick.js"></script>
-    <script src="<?= $urlThemeActive ?>js/slickslide.js"></script>
-    <script src="<?= $urlThemeActive ?>assets/js/main.js"></script>
-    <script src="/themes/tayho360/js/slick.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/assets/js/slick.min.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/js/jshieu.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/js/slick.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/js/slickslide.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/assets/js/main.js"></script>
+    <script src="<?= $urlThemeActive ?>tayho/js/slick.js"></script>
+
+<?php }else{ ?>
+    <link rel="stylesheet" href="<?= $urlThemeActive ?>maichau/css/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png" />
+    <!-- SLick -->
+
+    <!-- Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+    <!-- Fonawesome -->
+    <script src="https://kit.fontawesome.com/9163bded0f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+<?php } ?>
+   
     <!-- FILE INCLUDE JS END -->
     <?php mantan_header(); ?>
     <!-- Meta Pixel Code -->

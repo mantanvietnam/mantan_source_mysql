@@ -279,6 +279,17 @@ $slide_home= slide_home($setting['id_slide']);
                             </div>
                         </div>
 
+                         <div class="product-detail-number">
+                            <div class="product-info-detail-title">
+                                <p>Số lượng còn</p>
+                            </div>
+
+                            <div class="product-detail-number-item">
+                                <span><?php echo @$product->quantity; ?></span>
+                                
+                            </div>
+                        </div>
+
                         <!-- Số lượng -->
                          <div class="product-detail-number">
                             <div class="product-info-detail-title">
@@ -474,7 +485,7 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
 
-             <div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
+            <div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
                 <div class="box-confirm-cart-title confirm-like">
                     <p>Đã thích Comment này </p>
                     <div class="close-button">
@@ -483,7 +494,7 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
 
-             <div class="box-confirm-cart box-confirm-like" id="myLikeCommentno"  style=" display: none; ">
+            <div class="box-confirm-cart box-confirm-like" id="myLikeCommentno"  style=" display: none; ">
                 <div class="box-confirm-cart-title confirm-like">
                     <p>Đã bỏ yêu thích Comment này</p>
                     <div class="close-button">
@@ -492,6 +503,17 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
 
+            <?php if(@$_GET['error']=='quantity'){ ?>
+                <div class="box-confirm-cart box-confirm-like" id="myQuantity"  style=" display: block; ">
+                <div class="box-confirm-cart-title confirm-like">
+                    <p>Sản phẩm này không đủ</p>
+                    <div class="close-button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
+
+            <?php } ?>
         </section>
 
         <section id="section-pro-review">
@@ -1500,7 +1522,15 @@ function addComment(){
     
 </script>
 <script>
-   
+   var myElement = document.getElementById('myQuantity');
+
+    // Hàm thay đổi CSS
+    function changeCSS() {
+        myElement.style.display = 'none';
+    }
+
+    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+    setTimeout(changeCSS, 3000);
 </script>
 
 

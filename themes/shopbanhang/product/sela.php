@@ -57,7 +57,7 @@ $slide_home= slide_home($setting['id_slide']);
 
                                     $ban = 0;
                                     if(!empty($product->quantity) && !empty($product->sold)){
-                                        $ban = 100 - 100*$product->sold/$product->quantity;
+                                        $ban = 100*$product->sold/$product->quantity;
                                     }
                          ?>
 

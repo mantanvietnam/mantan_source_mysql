@@ -99,6 +99,7 @@
             <th>Hình minh họa</th>
             <th>Danh mục</th>
             <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
             <th>Trạng thái</th>
             <th>câu hỏi</th>
             <th>Flash sale</th>
@@ -129,6 +130,7 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$category_name.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
+                        <td>'.$item->quantity.'</td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                         câu hỏi<br/>

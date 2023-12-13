@@ -83,7 +83,7 @@ $settinghom = setting();
 
                                                 </div>
                                                 <div class="icon-product">
-                                                    <img src="<?php echo $value->product->image ?>">
+                                                      <a href="/san-pham/<?php echo $value->product->slug ?>.html"><img src="<?php echo $value->product->image ?>"></a>
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
