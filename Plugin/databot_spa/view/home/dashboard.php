@@ -24,62 +24,15 @@
       </div>
     </div>
 
-    <!-- <div class="col-lg-5 col-md-5 order-1">
-      <div class="row">
-        <div class="col-lg-6 col-md-12 col-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-start justify-content-between">
-                <div class="avatar flex-shrink-0">
-                  <img
-                    src="/plugins/ezpics_designer/view/home/assets/img/icons/unicons/chart-success.png"
-                    alt="chart success"
-                    class="rounded"
-                  />
-                </div>
-              </div>
-              <span class="fw-semibold d-block mb-1">Mẫu mới 7 ngày</span>
-              <h3 class="card-title mb-2"><?php echo number_format($countProductNew);?> mẫu</h3>
-              <?php 
-                // $hieu = $countProductOld - $countProductNew;
+    <div class="col-lg-5 col-md-5 order-1">
+      <div class="card">
+        <div class="card-body">
+          <span class="fw-semibold d-block mb-1">Thống kê hôm nay </span>
 
-                // if($hieu > 0){
-                //   echo '<small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +'.$hieu.' mẫu</small>';
-                // }elseif($hieu < 0){
-                //   echo '<small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -'.$hieu.' mẫu</small>';
-                // }
-              ?>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-12 col-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-start justify-content-between">
-                <div class="avatar flex-shrink-0">
-                  <img
-                    src="/plugins/ezpics_designer/view/home/assets/img/icons/unicons/wallet-info.png"
-                    alt="Credit Card"
-                    class="rounded"
-                  />
-                </div>
-              </div>
-              <span>Doanh thu 7 ngày</span>
-              <h3 class="card-title text-nowrap mb-1"><?php echo number_format($countOrderNew);?>đ</h3>
-              <?php 
-                $hieu = $countOrderOld - $countOrderNew;
-
-                if($hieu > 0){
-                  echo '<small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +'.$hieu.'đ</small>';
-                }elseif($hieu < 0){
-                  echo '<small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -'.$hieu.'đ</small>';
-                }
-              ?>
-            </div>
-          </div>
         </div>
       </div>
-    </div> -->
+    </div>
+        
   </div>
   <div class="row">
     <!-- Transactions -->
@@ -120,7 +73,7 @@
      <div class="col-lg-7 mb-4 order-0">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-          <h5 class="card-title m-0 me-2">Doanh thu theo tháng </h5>
+          <h5 class="card-title m-0 me-2">Doanh thu theo tháng là: <span style="color: red;"><?php echo number_format($total); ?>đ</span></h5>
         </div>
         <div class="card-body">
            <div id="order_chart" style="width: 100%; height: 500px; background: white;"></div>
@@ -207,7 +160,7 @@
                   title: 'Tổng doanh thu',
                  // subtitle: 'in millions of dollars (USD)'
                 },
-                width: 770,
+                width: '100%',
                 height: 500,
                 
               };

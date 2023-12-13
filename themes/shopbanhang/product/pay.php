@@ -189,7 +189,7 @@ $infoUser = $session->read('infoUser');
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <input type="email" class="form-control" value="<?php echo @$infoUser->email ?>" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" value="<?php echo @$infoUser->email ?>" placeholder="Email">
                                     </div>
                                 </div>
                             </div>

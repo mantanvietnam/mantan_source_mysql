@@ -11,7 +11,7 @@ function cart($input)
 	$metaTitleMantan = 'Giỏ hàng';
 
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
-	//$session = (!empty($session->read('product_order')))?$session->read('product_order'):[];
+//$session = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
 	$checkproductAll = 'true';
 
@@ -60,7 +60,7 @@ function cart($input)
 	$categoryDiscountCode = categoryDiscountCode();
 	$category = array();
 
-	
+
 	foreach($categoryDiscountCode as $key => $item){
 		$data = array();
 		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
@@ -82,7 +82,7 @@ function cart($input)
 		$category[$key]=$data;
 	}
 
-	// SẢN PHẨM NGẪU NHIÊN
+// SẢN PHẨM NGẪU NHIÊN
 	$conditions = array('status' => 'active');
 	$limit = 4;
 	$page = 1;
@@ -227,7 +227,7 @@ function createOrder($input)
 		$list_product = $session->read('product_order');
 
 		if(!empty($list_product)){
-			// tạo đơn hàng mới
+// tạo đơn hàng mới
 			$data = $modelOrder->newEmptyEntity();
 
 			$data->id_user = @$dataSend['id_user'];
@@ -248,7 +248,7 @@ function createOrder($input)
 
 			$modelOrder->save($data);
 
-			// tạo chi tiết đơn hàng
+// tạo chi tiết đơn hàng
 			foreach($list_product as $product){
 				$dataDetail = $modelOrderDetail->newEmptyEntity();
 
@@ -259,7 +259,7 @@ function createOrder($input)
 				$modelOrderDetail->save($dataDetail);
 			}
 
-			// gửi thông báo cho admin qua Smax bot
+// gửi thông báo cho admin qua Smax bot
 			if(function_exists('sendNotificationAdmin')){
 				$settingSmaxBotProduct = $modelOptions->find()->where(['key_word' => 'settingSmaxBotProduct'])->first();
 				if(!empty($settingSmaxBotProduct->value)){
@@ -330,7 +330,7 @@ function addDiscountCode($input){
 
 	$pay = array();
 
-	
+
 	$pay['discountCode'] = @$_GET['discountCode'];
 	$pay['code1'] = @$_GET['code1'];
 	$pay['code2'] = @$_GET['code2'];
@@ -348,7 +348,7 @@ function addDiscountCode($input){
 	}else{
 		return $controller->redirect('/cart');
 	}
-	
+
 }
 
 
@@ -404,7 +404,7 @@ function checkproductAll(){
 
 	if(!empty($_REQUEST['status'])){
 
-		//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
 
 		$list_product = $session->read('product_order');
 
@@ -463,7 +463,7 @@ function addProductdiscountCart($input)
 				if(!empty($product->pricepro_discount)){
 					$product->price=@$product->pricepro_discount;
 				}
-				
+
 				$product->numberOrder = (int) $_REQUEST['quantity'];
 				$list_product[$product->id] = $product;
 			}
@@ -487,8 +487,8 @@ function pay($input){
 	global $isRequestPost;
 	global $session;
 	global $metaTitleMantan;
-	
-	
+
+
 	$infoUser = $session->read('infoUser');
 	$modelProduct = $controller->loadModel('Products');
 	$modelDiscountCode = $controller->loadModel('DiscountCodes');
@@ -531,7 +531,7 @@ function pay($input){
 
 	$discountCode = $modelDiscountCode->find()->where(array('code'=>$pay['discountCode']))->first(); 
 
-		// SẢN PHẨM NGẪU NHIÊN
+	// SẢN PHẨM NGẪU NHIÊN
 	$conditions = array();
 	$limit = 4;
 	$page = 1;
@@ -541,250 +541,254 @@ function pay($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-	   		/*debug($dataSend);
-	   		debug($pay);
-	   		debug($list_product);
-	   		die;*/
-	   		if(empty($dataSend['id_address']) && !empty($infoUser)){
-	   			$address = $modelAddress->newEmptyEntity();
-	   			$address->address_name = $dataSend['address'];
-	   			$address->id_customer = @$infoUser->id;
-	   			$address->address_type = 1;
+		/*debug($dataSend);
+		debug($pay);
+		die();
+*/
+		if(empty($dataSend['id_address']) && !empty($infoUser)){
+			$address = $modelAddress->newEmptyEntity();
+			$address->address_name = $dataSend['address'];
+			$address->id_customer = @$infoUser->id;
+			$address->address_type = 1;
 
-	   			$modelAddress->save($address);
-	   		}
+			$modelAddress->save($address);
+		}
 
-	   		$data = $modelOrder->newEmptyEntity();
+		$data = $modelOrder->newEmptyEntity();
 
-	   		$data->id_user = (!empty($infoUser->id))?$infoUser->id:0;
-	   		$data->full_name = @$dataSend['full_name'];
-	   		$data->email = @$dataSend['email'];
-	   		$data->phone = @$dataSend['phone'];
-	   		$data->address = @$dataSend['address'];
-	   		$data->note_user = @$dataSend['note_user'];
-	   		$data->payment = @$dataSend['payment'];
-	   		$data->note_admin = '';
-	   		$data->status = 'new';
-	   		$data->create_at = time();
-
-
-	   		$data->money = $pay['totalPays'];
-	   		$data->total = $pay['total'];
-
-	   		$discount = array( 'code1' => @$pay['code1'],
-	   			'code2' => @$pay['code2'],
-	   			'code3' => @$pay['code3'],
-	   			'discount_price1' => @$pay['discount_price1'],
-	   			'discount_price2' => @$pay['discount_price2'],
-	   			'discount_price3' => @$pay['discount_price3'],
-	   		);
-	   		$data->discount = json_encode($discount);
-
-	   		$modelOrder->save($data);
-
-			// tạo chi tiết đơn hàng
-	   		foreach($list_product as $product){
-	   			if(@$product->statuscart='true'){
-	   				$dataDetail = $modelOrderDetail->newEmptyEntity();
-
-	   				$dataDetail->id_product = $product->id;
-	   				$dataDetail->quantity = $product->numberOrder;
-	   				$dataDetail->present = $product->id_product;
-	   				$dataDetail->id_order = $data->id;
-	   				$dataDetail->price = $product->price;
-
-	   				$modelOrderDetail->save($dataDetail);
-
-	   				$prod = $modelProduct->get($product->id);
-
-	   				$prod->quantity -= $product->numberOrder;
-	   				$prod->sold += $product->numberOrder;
-
-	   				$modelProduct->save($prod);
-	   			}
-	   		}
-	   		$session->write('product_order', []);
-	   		return $controller->redirect('/completeOrder?id='.$data->id);
-	   	}
-
-	   	setVariable('list_product', $list_product);
-	   	setVariable('pay', $pay);
-	   	setVariable('discountCode', $discountCode);
-
-	   }
-	   function completeOrder(){
-	   	global $session;
-	   	global $controller;
-	   	global $isRequestPost;
-	   	global $session;
+		$data->id_user = (!empty($infoUser->id))?$infoUser->id:0;
+		$data->full_name = @$dataSend['full_name'];
+		$data->email = @$dataSend['email'];
+		$data->phone = @$dataSend['phone'];
+		$data->address = @$dataSend['address'];
+		$data->note_user = @$dataSend['note_user'];
+		$data->payment = @$dataSend['payment'];
+		$data->note_admin = '';
+		$data->status = 'new';
+		$data->create_at = time();
 
 
-	   	$infoUser = $session->read('infoUser');
-	   	$modelProduct = $controller->loadModel('Products');
-	   	$modelDiscountCode = $controller->loadModel('DiscountCodes');
-	   	$modelAddress = $controller->loadModel('Address');
-	   	$modelOrder = $controller->loadModel('Orders');
+		$data->money = $pay['totalPays'];
+		$data->total = $pay['total'];
 
-	   	$data = $modelOrder->find()->where(['id'=>$_GET['id']])->first();
+		$discount = array( 'code1' => @$pay['code1'],
+			'code2' => @$pay['code2'],
+			'code3' => @$pay['code3'],
+			'discount_price1' => @$pay['discount_price1'],
+			'discount_price2' => @$pay['discount_price2'],
+			'discount_price3' => @$pay['discount_price3'],
+		);
+		$data->discount = json_encode($discount);
 
-	   	if(!empty($data)){
+		$modelOrder->save($data);
 
-	   		setVariable('data', $data);
-	   	}else{
-	   		return $controller->redirect('/');
-	   	}
+		// tạo chi tiết đơn hàng
+		$listproduct = array();
+		foreach($list_product as $product){
+			if(@$product->statuscart='true'){
+				$listproduct[] = $product;
+				$dataDetail = $modelOrderDetail->newEmptyEntity();
 
-	   }
+				$dataDetail->id_product = $product->id;
+				$dataDetail->quantity = $product->numberOrder;
+				$dataDetail->present = $product->id_product;
+				$dataDetail->id_order = $data->id;
+				$dataDetail->price = $product->price;
 
-	   function listOrder($input){
-	   	global $controller;
-	   	global $session;
+				$modelOrderDetail->save($dataDetail);
 
+				$prod = $modelProduct->get($product->id);
 
-	   	$metaTitleMantan = 'đơn hàng';
+				$prod->quantity -= $product->numberOrder;
+				$prod->sold += $product->numberOrder;
 
-	   	$modelProduct = $controller->loadModel('Products');
-	   	$modelLike = $controller->loadModel('Likes');
+				$modelProduct->save($prod);
+			}
+		}
 
-	   	$modelOrder = $controller->loadModel('Orders');
+		 getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
+		$session->write('product_order', []);
+		return $controller->redirect('/completeOrder?id='.$data->id);
+	}
 
-	   	if(!empty($session->read('infoUser'))){
-	   		$infoUser = $session->read('infoUser');
-	   		$listData = $modelOrder->find()->where(['id_user'=>$infoUser->id])->all()->toList();
+	setVariable('list_product', $list_product);
+	setVariable('pay', $pay);
+	setVariable('discountCode', $discountCode);
 
-	   		setVariable('listData', $listData);
-	   	}else{
-	   		$controller->redirect('/');
-	   	}
-	   }
-
-
-	   function detailOrder(){
-	   	global $controller;
-	   	global $urlCurrent;
-	   	global $modelCategories;
-	   	global $metaTitleMantan;
-	   	global $session;
-
-	   	$metaTitleMantan = 'Chi tiết đơn hàng';
-	   	if(!empty($session->read('infoUser'))){
-	   		$modelProduct = $controller->loadModel('Products');
-	   		$modelOrder = $controller->loadModel('Orders');
-	   		$modelOrderDetail = $controller->loadModel('OrderDetails');
-
-	   		if(!empty($_GET['id'])){
-	   			$order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
-
-	   			if(!empty($order)){
-	   				$detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
-
-	   				if(!empty($detail_order)){
-	   					foreach ($detail_order as $key => $value) {
-	   						$product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+}
+function completeOrder(){
+	global $session;
+	global $controller;
+	global $isRequestPost;
+	global $session;
 
 
-	   						$present = array();
+	$infoUser = $session->read('infoUser');
+	$modelProduct = $controller->loadModel('Products');
+	$modelDiscountCode = $controller->loadModel('DiscountCodes');
+	$modelAddress = $controller->loadModel('Address');
+	$modelOrder = $controller->loadModel('Orders');
 
-	   						if(!empty($product->id_product) ){
-	   							$id_product = explode(',', @$product->id_product);
+	$data = $modelOrder->find()->where(['id'=>$_GET['id']])->first();
 
-	   							foreach($id_product as $item){
-	   								$presentf = $modelProduct->find()->where(['code'=>$item])->first();
+	if(!empty($data)){
 
-	   								;
-	   								if(!empty($presentf)){
-	   									$present[] = $presentf;
-	   								}
-	   							}
-	   							$product->present = @$present; 
-	   						}
+		setVariable('data', $data);
+	}else{
+		return $controller->redirect('/');
+	}
 
-	   						$detail_order[$key]->product = $product;
-	   					}
-	   				}
-	   				setVariable('order', $order);
-	   				setVariable('detail_order', $detail_order);
-	   			}else{
-	   				return $controller->redirect('/listOrder.php');
-	   			}
-	   		}else{
-	   			return $controller->redirect('/listOrder.php');
-	   		}
-	   	}else{
-	   		$controller->redirect('/');
-	   	}
-	   }
+}
 
-	   function cancelOrder(){
-	   	global $controller;
-	   	global $urlCurrent;
-	   	global $modelCategories;
-	   	global $metaTitleMantan;
-
-	   	$metaTitleMantan = 'Chi tiết đơn hàng';
+function listOrder($input){
+	global $controller;
+	global $session;
 
 
-	   	$modelOrder = $controller->loadModel('Orders');
+	$metaTitleMantan = 'đơn hàng';
 
-	   	if(!empty($_GET['id'])){
-	   		$order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
+	$modelProduct = $controller->loadModel('Products');
+	$modelLike = $controller->loadModel('Likes');
 
-	   		$order->status = $_GET['status'];
+	$modelOrder = $controller->loadModel('Orders');
 
-	   		$modelOrder->save($order);
-	   		return $controller->redirect('/listOrder');
+	if(!empty($session->read('infoUser'))){
+		$infoUser = $session->read('infoUser');
+		$listData = $modelOrder->find()->where(['id_user'=>$infoUser->id])->all()->toList();
 
-	   	}
-	   }
-
-	   function discount($input){
-	   	global $controller;
-	   	global $urlCurrent;
-	   	global $session;
-	   	global $modelCategories;
-	   	global $metaTitleMantan;
+		setVariable('listData', $listData);
+	}else{
+		$controller->redirect('/');
+	}
+}
 
 
-	   	if(!empty($session->read('infoUser'))){
-	   		$modelDiscountCode = $controller->loadModel('DiscountCodes');
-	   		$infoUser = $session->read('infoUser');
-	   		$categoryDiscountCode = categoryDiscountCode();
-	   		$category = array();
+function detailOrder(){
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+	global $metaTitleMantan;
+	global $session;
+
+	$metaTitleMantan = 'Chi tiết đơn hàng';
+	if(!empty($session->read('infoUser'))){
+		$modelProduct = $controller->loadModel('Products');
+		$modelOrder = $controller->loadModel('Orders');
+		$modelOrderDetail = $controller->loadModel('OrderDetails');
+
+		if(!empty($_GET['id'])){
+			$order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
+
+			if(!empty($order)){
+				$detail_order = $modelOrderDetail->find()->where(['id_order'=>$order->id])->all()->toList();
+
+				if(!empty($detail_order)){
+					foreach ($detail_order as $key => $value) {
+						$product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+
+
+						$present = array();
+
+						if(!empty($product->id_product) ){
+							$id_product = explode(',', @$product->id_product);
+
+							foreach($id_product as $item){
+								$presentf = $modelProduct->find()->where(['code'=>$item])->first();
+
+								;
+								if(!empty($presentf)){
+									$present[] = $presentf;
+								}
+							}
+							$product->present = @$present; 
+						}
+
+						$detail_order[$key]->product = $product;
+					}
+				}
+				setVariable('order', $order);
+				setVariable('detail_order', $detail_order);
+			}else{
+				return $controller->redirect('/listOrder.php');
+			}
+		}else{
+			return $controller->redirect('/listOrder.php');
+		}
+	}else{
+		$controller->redirect('/');
+	}
+}
+
+function cancelOrder(){
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+	global $metaTitleMantan;
+
+	$metaTitleMantan = 'Chi tiết đơn hàng';
+
+
+	$modelOrder = $controller->loadModel('Orders');
+
+	if(!empty($_GET['id'])){
+		$order = $modelOrder->find()->where(['id'=>(int) $_GET['id'] ])->first();
+
+		$order->status = $_GET['status'];
+
+		$modelOrder->save($order);
+		return $controller->redirect('/listOrder');
+
+	}
+}
+
+function discount($input){
+	global $controller;
+	global $urlCurrent;
+	global $session;
+	global $modelCategories;
+	global $metaTitleMantan;
+
+
+	if(!empty($session->read('infoUser'))){
+		$modelDiscountCode = $controller->loadModel('DiscountCodes');
+		$infoUser = $session->read('infoUser');
+		$categoryDiscountCode = categoryDiscountCode();
+		$category = array();
     /*foreach($categoryDiscountCode as $key => $item){
-    	$data = array();
-    	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
-    	$data['name'] = $item;
-    	if(!empty($discountCode)){
-    		$data['discountCode'] = $discountCode;
-    	}
-    	 
-   		$category[$key]=$data;
-   	}*/
+    $data = array();
+    $discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+    $data['name'] = $item;
+    if(!empty($discountCode)){
+    $data['discountCode'] = $discountCode;
+    }
+     
+   $category[$key]=$data;
+}*/
 
-   	foreach($categoryDiscountCode as $key => $item){
-   		$data = array();
-   		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
-   		$data['name'] = $item;
-   		if(!empty($discountCode) && !empty($infoUser)){
-   			foreach(@$discountCode as $k => $value){
-   				if(!empty($value->id_customers)){
+foreach($categoryDiscountCode as $key => $item){
+	$data = array();
+	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+	$data['name'] = $item;
+	if(!empty($discountCode) && !empty($infoUser)){
+		foreach(@$discountCode as $k => $value){
+			if(!empty($value->id_customers)){
 
-   					$id_customer = explode(',', $value->id_customers);
-   					if( in_array($infoUser->id, $id_customer)){
-   						$data['discountCode'][$k] = $value;
-   					}
-   				}else{
-   					$data['discountCode'][$k] = $value;
-   				}
-   			}
-   		}
+				$id_customer = explode(',', $value->id_customers);
+				if( in_array($infoUser->id, $id_customer)){
+					$data['discountCode'][$k] = $value;
+				}
+			}else{
+				$data['discountCode'][$k] = $value;
+			}
+		}
+	}
 
-   		$category[$key]=$data;
-   	}
-   	setVariable('data', $category);
-   }else{
-   	return $controller->redirect('/cart');
-   }
+	$category[$key]=$data;
+}
+setVariable('data', $category);
+}else{
+	return $controller->redirect('/cart');
+}
 
 
 }
