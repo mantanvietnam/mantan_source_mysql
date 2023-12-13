@@ -1961,7 +1961,9 @@ background: #555;
 
 
 @media(max-width: 445px) {
-
+    #policy .nav-tabs{
+        padding-top : 0px 
+    }
     .contact-fixed{
         bottom: 82px;
         right: 22px;
@@ -1990,6 +1992,10 @@ background: #555;
 
     .advertisement-slide{
         gap: 10px
+    }
+
+    #policy .title-content-policy{
+        padding-top: 30px;
     }
 
 
