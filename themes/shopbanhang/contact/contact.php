@@ -114,8 +114,28 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
         </section>
+<?php if(!empty($mess)){?>
+        <div class="box-confirm-cart box-confirm-like" id="myLike"  style=" display: block; ">
+            <div class="box-confirm-cart-title confirm-like">
+                <p><?php echo @$mess; ?></p>
+                <div class="close-button">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+        </div>
 
+<script>
+  var myElement = document.getElementById('myLike');
 
+    // Hàm thay đổi CSS
+    function changeCSS() {
+        myElement.style.display = 'none';
+    }
+
+    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+    setTimeout(changeCSS, 3000);
+</script>
+<?php } ?>
     </main>
 <?php
 getFooter();?>

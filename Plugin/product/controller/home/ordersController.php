@@ -497,10 +497,13 @@ function pay($input){
 
 	$pay = (!empty($session->read('pay')))?$session->read('pay'):[];
 
+		
+
 	if(!empty($list_product)){
 
 		foreach($list_product as $key => $product){
 	 		$present = array();
+	 		if($product->quantity+1>$product->numberOrder){
             if(!empty($product->id_product) && @$product->statuscart=='true'){
                 $id_product = explode(',', @$product->id_product);
               
@@ -512,6 +515,9 @@ function pay($input){
                 }
             }
             $list_product[$key]->present = $present;
+        	}else{
+        		return $controller->redirect('/san-pham/'.$product->slug.'.html?error=quantity');
+        	}
         }
     }else{
     	return $controller->redirect('/cart');
