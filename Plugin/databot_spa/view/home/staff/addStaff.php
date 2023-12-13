@@ -54,6 +54,21 @@
                       ?>
                     </select>
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
+                    <input type="text" class="form-control" placeholder="" name="address" id="address" value="<?php echo @$data->address;?>" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Trạng thái</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="status" id="status">
+                        <option value="1">Kích hoạt</option>
+                        <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -70,20 +85,7 @@
                     }
                   ?>
 
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Địa chỉ</label>
-                    <input type="text" class="form-control" placeholder="" name="address" id="address" value="<?php echo @$data->address;?>" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="basic-default-email">Trạng thái</label>
-                    <div class="input-group input-group-merge">
-                      <select class="form-select" name="status" id="status">
-                        <option value="1">Kích hoạt</option>
-                        <option value="0" <?php if(isset($data->status) && $data->status=='0') echo 'selected'; ?> >Khóa</option>
-                      </select>
-                    </div>
-                  </div>
+                  
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Phân quyền chức năng</label>
 

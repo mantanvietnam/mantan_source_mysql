@@ -965,11 +965,7 @@ function saveInfoUserAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['token']) 
-			&& !empty($dataSend['name'])
-			&& !empty($dataSend['email'])
-
-		){
+		if(!empty($dataSend['token'])){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
@@ -981,8 +977,13 @@ function saveInfoUserAPI($input)
 					$checkPhone->avatar = $avatar['linkOnline'];
 				}
 
-				$checkPhone->name = $dataSend['name'];
-				$checkPhone->email = $dataSend['email'];
+				if(!empty($dataSend['name'])){
+					$checkPhone->name = $dataSend['name'];
+				}
+				
+				if(!empty($dataSend['email'])){
+					$checkPhone->email = $dataSend['email'];
+				}
 
 				if(isset($dataSend['description'])){
 					$checkPhone->description = $dataSend['description'];

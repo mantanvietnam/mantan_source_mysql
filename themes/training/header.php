@@ -2,7 +2,11 @@
 <html lang="vi">
 
 <head>
-    <?php mantan_header();?>
+    <?php 
+        mantan_header(); 
+
+        if(function_exists('showSeoHome')) showSeoHome();
+    ?>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="<?php echo $urlThemeActive;?>/css/bootstrap.min.css">
