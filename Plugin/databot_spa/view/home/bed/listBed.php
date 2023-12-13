@@ -71,9 +71,15 @@
                   <label class="form-label" for="basic-default-fullname">Phòng</label>
                   <select class="form-select" name="id_room" id="id_room" required>
                       <option value="">Chọn phòng</option>
-                      <?php foreach($listRoom as $key => $item){ ?>
-                        <option value="<?php echo $item->id ?>" ><?php echo $item->name ?></option>
-                      <?php } ?>
+                      <?php 
+                      foreach($listRoom as $key => $item){ 
+                        if(empty($_GET['idRoom']) || $_GET['idRoom']!=$item->id){
+                          echo '<option value="'.$item->id.'" >'.$item->name.'</option>';
+                        }else{
+                          echo '<option selected value="'.$item->id.'" >'.$item->name.'</option>';
+                        }
+                      } 
+                      ?>
                       </select>
                 </div>
 

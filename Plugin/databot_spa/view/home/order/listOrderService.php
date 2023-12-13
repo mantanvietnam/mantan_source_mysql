@@ -1,6 +1,8 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Danh sách đơn dịch vụ</h4>
+    <p><a href="/orderService" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+    
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
