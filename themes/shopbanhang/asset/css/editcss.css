@@ -535,6 +535,7 @@ header{
 
 .detail-policy .end-text{
     font-weight: 400;
+    line-height: 1.4;
 }
 
 #policy .nav-tabs li.active{

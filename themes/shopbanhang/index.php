@@ -38,7 +38,7 @@ global $urlThemeActive;
         </section>
 
         <!-- Flash sale -->
-        <?php if(!empty($product_flasl)){  ?>
+        <?php if(!empty($product_flasl) && $setting['targetTime']>time()){  ?>
         <section id="section-flash-sale">
             <div class="container">
                 <div class="section-flash-sale-inner">
@@ -93,7 +93,7 @@ global $urlThemeActive;
 
                                     <div class="progress-box">
                                         <div class="best-sale-progress">
-                                            <div class="text-progress">Sản phẩm <?php  echo @$item->sold; ?> Đã bán</div>
+                                            <div class="text-progress"> <?php  echo @$item->sold; ?> Sản phẩm đã bán</div>
                                             <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
