@@ -503,7 +503,7 @@ $slide_home= slide_home($setting['id_slide']);
                 </div>
             </div>
 
-            <?php if(!empty($_GET['error']=='quantity')){ ?>
+            <?php if(@$_GET['error']=='quantity'){ ?>
                 <div class="box-confirm-cart box-confirm-like" id="myQuantity"  style=" display: block; ">
                 <div class="box-confirm-cart-title confirm-like">
                     <p>Sản phẩm này không đủ</p>
