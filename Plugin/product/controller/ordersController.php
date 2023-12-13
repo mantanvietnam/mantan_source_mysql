@@ -125,6 +125,7 @@ function viewOrderAdmin($input)
                     $id_product = explode(',', @$product->id_product);
                     foreach($id_product as $item){
                         $presentf = $modelProduct->find()->where(['code'=>$item])->first();
+                        $presentf->numberOrder = $value->quantity;
                         if(!empty($presentf)){
                             $present[] = $presentf;
                         }
@@ -135,6 +136,9 @@ function viewOrderAdmin($input)
                 $detail_order[$key]->product = $product;
                 }
             }
+
+            // debug($detail_order);die;
+
             setVariable('order', $order);
             setVariable('detail_order', $detail_order);
         }else{

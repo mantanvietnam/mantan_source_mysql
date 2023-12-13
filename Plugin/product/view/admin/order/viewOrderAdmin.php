@@ -48,7 +48,7 @@
                         <td>'.$present->id.'</td>
                         <td><img src="'.$present->image.'" width="80" /></td>
                         <td>'.$present->title.'</td>
-                        <td>1</td>
+                        <td>'.$present->numberOrder.'</td>
                         <td>0đ</td>
                         <td>0đ</td>
                       </tr>';

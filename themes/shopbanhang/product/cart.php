@@ -172,7 +172,7 @@ $price_total = 0;
 
                                         <td >
                                             <div class="cart-product-gift-number">
-                                                <span>1</span>
+                                                <span><?php echo @$item->numberOrder ?></span>
                                             </div>
                                         </td>
 
@@ -294,7 +294,7 @@ $price_total = 0;
                                                 <span>[  Quà tặng  ]</span>
                                                 <div class="present-detail">
                                                     <p><?php echo @$item->title ?></p>
-                                                    <p>1</p>
+                                                    <p><?php echo @$item->numberOrder ?></p>
                                                 </div>
                                             </div>
                                         </div>

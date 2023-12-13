@@ -78,6 +78,9 @@ $infoUser = $session->read('infoUser');
                                         <div class="product-order-gift-img-inner">
                                             <img src="<?php echo @$item->image ?>" alt="">
                                         </div>
+                                        <div class="cart-product-gift-number">
+                                                <span><?php echo @$item->numberOrder ?></span>
+                                            </div>
                                     </div>
                                     <?php }}}} ?>
                                     
