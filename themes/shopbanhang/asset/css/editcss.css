@@ -3481,6 +3481,24 @@ background: #555;
     margin: 0;
 }
 
+/* passwword hide show */
+    .password-container {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    #pass {
+        padding-right: 30px; /* Để tạo không gian cho nút ẩn/hiện mật khẩu */
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-60%);
+        cursor: pointer;
+    }
+
 
 
 @media (max-width: 1024px) {

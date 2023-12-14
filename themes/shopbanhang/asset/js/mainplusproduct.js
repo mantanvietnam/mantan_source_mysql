@@ -1,3 +1,22 @@
+// password hide show
+function togglePasswordVisibility() {
+  var passwordInput = document.getElementById("pass");
+  var toggleIcon = document.querySelector(".toggle-password i");
+
+  // Kiểm tra loại của input để chuyển đổi giữa password và text
+  var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+  passwordInput.setAttribute("type", type);
+
+  // Thay đổi icon
+  if (type === "password") {
+    toggleIcon.classList.remove("fa-eye");
+    toggleIcon.classList.add("fa-eye-slash");
+  } else {
+    toggleIcon.classList.remove("fa-eye-slash");
+    toggleIcon.classList.add("fa-eye");
+  }
+}
+
 
 // scroll-top
 var btn = $('#button-scrolltop');

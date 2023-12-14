@@ -183,6 +183,10 @@ strong {
     font-weight: bold;
 }
 
+.nav-link:focus-visible{
+    box-shadow: none;
+}
+
 /* Button scroll top */
 #button-scrolltop {
     display: inline-block;
@@ -199,6 +203,7 @@ strong {
     opacity: 0;
     visibility: hidden;
     z-index: 1000;
+    display: none;
   }
   #button-scrolltop::after {
     content: "\f077";
@@ -4374,10 +4379,11 @@ tbody {
     }
 
     .menu-mobile-box .nav-mobile .offcanvas{
-        left: 40px;
+        /* left: 40px; */
         right: 0;
         top: 0;
         bottom: 0;
+        width: 350px;
         
     }
 

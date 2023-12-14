@@ -231,8 +231,9 @@ $infoUser = $session->read('infoUser');
                                             <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại/Email">
                                         </div>
 
-                                        <div class="mb-3">
+                                        <div class="mb-3 password-container">
                                             <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
+                                            <span class="toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye-slash"></i></span>
                                         </div>
                                         <p id="messlogin"></p>
                                         <div class="group-button-login">

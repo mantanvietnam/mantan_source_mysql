@@ -4,7 +4,9 @@
     global $modelAlbums;
     global $modelAlbuminfos;
 ?>
-<?php getHeader();?>
+<div class="header-logo-show">
+    <?php getHeader();?>
+</div>
     
     <main>
         <?php
@@ -97,8 +99,10 @@
             <div class="project-content">
                 <div class="project-slide">
                     <?php 
+                    // debug($home_projects);
                     if(!empty($home_projects)){
                         foreach($home_projects as $key => $value){
+                            if($value->status == 'active')
                             echo'
                             <div class="project-item">
                                 <div class="project-item-title">

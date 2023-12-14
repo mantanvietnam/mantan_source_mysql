@@ -521,6 +521,12 @@ strong {
     display: flex;
     justify-content: end;
     margin: 0 20px;
+    display: none;
+}
+
+.header-logo-show .logo-home-item {
+    
+    display: flex !important;
 }
 
 #section-logo-home .logo-home-box .logo-home-item .logo-home-img {
@@ -562,7 +568,11 @@ strong {
 }
 
 .text-facility-content p {
-    font-size: 15px;
+    font-size: 14px;
+}
+
+.section-facility-content .text-facility-content p {
+    font-size: 21px;
 }
 
 #section-facility .facility-content .title-facility-content h2 {
