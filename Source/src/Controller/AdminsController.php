@@ -242,7 +242,9 @@ class AdminsController extends AppController{
                     }
                 }
 
-                $infoAccAdmin->permission = json_decode($infoAccAdmin->permission, true);
+                if(!is_array($infoAccAdmin->permission)){
+                    $infoAccAdmin->permission = json_decode($infoAccAdmin->permission, true);
+                }
                 
             }else{
                 $mess= '<p class="text-danger">Nhập thiếu dữ liệu</p>';
