@@ -96,7 +96,16 @@ $infoUser = $session->read('infoUser');
                                     </div>
 
                                     <div class="cart-price-item-price">
-                                        <?php echo number_format($pay['totalPays']); ?>
+                                        <?php echo number_format($pay['totalPays']); ?>đ
+                                    </div>
+                                </div>
+                                <div class="cart-price-item">
+                                    <div class="cart-price-item-title">
+                                        Giá vận chuyển
+                                    </div>
+
+                                    <div class="cart-price-item-price">
+                                        30.000đ
                                     </div>
                                 </div>
 

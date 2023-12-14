@@ -9,6 +9,8 @@ $setting = setting();
 $slide_home= slide_home($setting['id_slide']);
 //debug($list_product);
 $price_total = 0;
+
+
 ?>
 
 <style>
@@ -22,6 +24,7 @@ $price_total = 0;
 </style>
 
 <main>
+
     <form action="/addDiscountCode"  method="get">
         <section id="section-cart">
             <div class="container">
@@ -443,7 +446,8 @@ $price_total = 0;
 
                                 <div class="list-code-discount">
                                     <!-- Mã giảm giá -->
-                                    <?php foreach($category as $key => $value){ ?>
+                                    <?php
+                                     foreach($category as $key => $value){ ?>
                                     <div class="list-code-item">
                                         <div class="title-code-discount">
                                            <?php echo $value['name']; ?>
@@ -499,6 +503,16 @@ $price_total = 0;
 
                                     <div class="cart-price-item-price" id="pricetotal">
                                       <?php echo number_format(@$price_total); ?>đ
+                                    </div>
+                                    <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
+                                </div>
+                                <div class="cart-price-item">
+                                    <div class="cart-price-item-title">
+                                        Giá vận chuyển 
+                                    </div>
+
+                                    <div class="cart-price-item-price" id="pricetotal">
+                                      30.000đ
                                     </div>
                                     <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
                                 </div>
@@ -562,9 +576,9 @@ $price_total = 0;
                                         </div>
     
                                         <div class="cart-price-total-price" id="totals">
-                                           <?php echo number_format(@$price_total); ?>đ
+                                           <?php echo number_format(@$price_total+ 30000); ?>đ
                                         </div>
-                                         <input type="hidden" value="<?php echo $price_total; ?>" name="total" id=total>
+                                         <input type="hidden" value="<?php echo $price_total+ 30000; ?>" name="total" id=total>
                                     </div>
                                 </div>
                             </div>
@@ -689,9 +703,7 @@ $price_total = 0;
         
         </section>
           </form>
-    </main>
-
-    
+    </main> 
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -979,7 +991,7 @@ $(document).ready(function() {
             $('#discountPrice3').html(html3);
            
 
-            price_total = price_total - d1 - d2 - d3;
+            price_total = price_total +30000 - d1 - d2 - d3 ;
 
 
              var totalck = new Intl.NumberFormat().format(d1 + d2 + d3);

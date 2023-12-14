@@ -174,7 +174,8 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
       } 
     }
     $content .=  '<tr>  <td colspan="10">
-    Tổng tiền: '.number_format($order->money).'đ<br/>';
+    Tổng tiền: '.number_format($order->money).'đ<br/>
+    Giá vận chuyển : 30.000đ<br/>';
     if(!empty($discountCode['code1']) && !empty($discountCode['discount_price1'])){
       $content .=  '            <div class="cart-price-code-discount">
       <div class="cart-price-item">
@@ -316,7 +317,8 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
       } 
     }
     $content .=  '<tr>  <td colspan="10">
-    Tổng tiền: '.number_format($order->money).'đ<br/>';
+    Tổng tiền: '.number_format($order->money).'đ<br/>
+     Giá vận chuyển : 30.000đ<br/>';
     if(!empty($discountCode['code1']) && !empty($discountCode['discount_price1'])){
       $content .=  '            <div class="cart-price-code-discount">
       <div class="cart-price-item">
