@@ -63,7 +63,7 @@ $(document).ready(function () {
       dots: false,
       focusOnSelect: true,
       autoplay: true,
-      autoplaySpeed: 2000,
+      autoplaySpeed: 3000,
       nextArrow:
         '<a href="javascript:void(0)" class="arr-right arr-right-nav"><img src="/themes/godraw/images/slide-right.svg" class="img-fluid" alt=""></a>',
       prevArrow:
@@ -99,6 +99,8 @@ $(document).ready(function () {
         '<a href="javascript:void(0)" class="arr-right"><img src="/themes/godraw/images/slide-right.svg" class="img-fluid" alt=""></a>',
       prevArrow:
         '<a href="javascript:void(0)" class="arr-left"><img src="/themes/godraw/images/slide-left.svg" class="img-fluid" alt=""></a>',
+        autoplay: true,
+        autoplaySpeed: 3000,
     });
 
 

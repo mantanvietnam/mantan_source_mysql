@@ -149,9 +149,9 @@
 
                     <li><a href="<?php echo @$settingThemes['youtube'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/youtube.png" class="img-fluid btn-effect" alt=""></a></li>
                     
-                    <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/zalo.png" class="img-fluid btn-effect" alt=""></a></li>
+                    <!-- <li><a href="<?php echo @$settingThemes['telegram'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/zalo.png" class="img-fluid btn-effect" alt=""></a></li>
                     
-                    <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/call.png" class="img-fluid btn-effect" alt=""></a></li>
+                    <li><a href="<?php echo @$settingThemes['twitter'];?>" target="_blank"><img src="<?php echo $urlThemeActive;?>/images/call.png" class="img-fluid btn-effect" alt=""></a></li> -->
                 </ul>
             </div>
 

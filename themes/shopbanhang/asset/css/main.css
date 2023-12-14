@@ -4375,6 +4375,8 @@ tbody {
 
     .menu-mobile-box ul li:last-child button p{
         margin-top: 8px;
+        font-size: 10px;
+        font-weight: 300;
 
     }
 
@@ -4680,6 +4682,19 @@ tbody {
     .order-right-group-button{
         display: flex;
         flex-direction: column-reverse;
+    }
+
+    /* bổ sung css */
+    .detail-info-rate-right{
+        display: none;
+    }
+
+    .blog-new-slide .slick-next{
+        right: 5px;
+    }
+
+    .blog-new-slide .slick-prev{
+        left: 5px;
     }
  
 }
