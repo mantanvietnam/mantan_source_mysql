@@ -36,7 +36,6 @@ function listOrderAdmin($input)
 
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
         $listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
-
         $titleExcel =   [
             ['name'=>'Tên khách hàng', 'type'=>'text', 'width'=>25],
             ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
@@ -50,7 +49,6 @@ function listOrderAdmin($input)
             ['name'=>'Trạng thái', 'type'=>'text', 'width'=>15],
             ['name'=>'Nội dung', 'type'=>'text', 'width'=>15]
         ];
-
         $dataExcel = [];
         if(!empty($listData)){
             foreach ($listData as $key => $value) {
@@ -59,26 +57,26 @@ function listOrderAdmin($input)
                    $pay = json_decode($value->discount, true);
 
                    if(!empty($pay['code1']) && !empty($pay['discount_price1'])){
-                        $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ <br>';
+                        $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ & CHAR(10) &';
                     }
                     if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
-                        $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ <br>';
+                        $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ & CHAR(10) &';
                     }
                     if(!empty($pay['code3']) && !empty($pay['discount_price3'])){
-                        $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ <br>';
+                        $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ & CHAR(10) &';
                     }
                 }
                 $status= '';
                 if($value->status=='new'){ 
-                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
+                    $status= 'Đơn mới';
                  }elseif($value->status=='browser'){
-                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+                    $status= 'Đã duyệt';
                  }elseif($value->status=='delivery'){
-                    $status= '<p style="color: #7503f6;">Đang giao</p>';
+                    $status= 'Đang giao';
                  }elseif($value->status=='done'){
-                    $status= '<p style="color: #00ee4b;">Đã xong</p>';
+                    $status= 'Đã xong';
                  }else{
-                    $status= '<p style="color: red;">Đã hủy</p>';
+                    $status= 'Đã hủy';
                  }
                 $dataExcel[] = [
                     @$value->full_name, 
@@ -114,13 +112,10 @@ function listOrderAdmin($input)
                                         ];
                         }
                     }
-
-                    
                 }
             }
         }
-        
-        export_excel($titleExcel, $dataExcel);
+        export_excel($titleExcel,$dataExcel,'danh_sach_don_hang');
     }else{
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }
