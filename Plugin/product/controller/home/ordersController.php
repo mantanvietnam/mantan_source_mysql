@@ -606,7 +606,11 @@ function pay($input){
 			}
 		}
 
-		 getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
+		// gửi cho khách 
+		getContentEmailOrderSuccess(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
+
+		// gửi cho admin
+		getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
 		$session->write('product_order', []);
 		return $controller->redirect('/completeOrder?id='.$data->id);
 	}

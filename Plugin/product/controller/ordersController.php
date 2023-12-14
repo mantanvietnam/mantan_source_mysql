@@ -8,7 +8,9 @@ function listOrderAdmin($input)
 
     $metaTitleMantan = 'Danh sách đơn hàng';
 
+    $modelProduct = $controller->loadModel('Products');
     $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
 
     $conditions = array();
     $limit = 20;
@@ -32,8 +34,111 @@ function listOrderAdmin($input)
         $conditions['status'] = $_GET['status'];
     }
 
-    
-    $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+        $listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
+
+        $titleExcel =   [
+            ['name'=>'Tên khách hàng', 'type'=>'text', 'width'=>25],
+            ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+            ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
+            ['name'=>'Sản phẩn', 'type'=>'text', 'width'=>15],
+            ['name'=>'Giá bán', 'type'=>'text', 'width'=>35],
+            ['name'=>'Số lượng ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Mã giảm giá ', 'type'=>'text', 'width'=>10],
+            ['name'=>'Số tiền ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Thời gian tạo ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Trạng thái', 'type'=>'text', 'width'=>15],
+            ['name'=>'Nội dung', 'type'=>'text', 'width'=>15]
+        ];
+
+        $dataExcel = [];
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $discount = '';
+                if($value->discount){
+                   $pay = json_decode($value->discount, true);
+
+                   if(!empty($pay['code1']) && !empty($pay['discount_price1'])){
+                        $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ <br>';
+                    }
+                    if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
+                        $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ <br>';
+                    }
+                    if(!empty($pay['code3']) && !empty($pay['discount_price3'])){
+                        $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ <br>';
+                    }
+                }
+                $status= '';
+                if($value->status=='new'){ 
+                    $status= '<p style="color: #00aeee;">Đơn mới</p>';
+                 }elseif($value->status=='browser'){
+                    $status= '<p style="color: #0333f6;">Đã duyệt</p>';
+                 }elseif($value->status=='delivery'){
+                    $status= '<p style="color: #7503f6;">Đang giao</p>';
+                 }elseif($value->status=='done'){
+                    $status= '<p style="color: #00ee4b;">Đã xong</p>';
+                 }else{
+                    $status= '<p style="color: red;">Đã hủy</p>';
+                 }
+                $dataExcel[] = [
+                    @$value->full_name, 
+                    @$value->phone, 
+                    @$value->address, 
+                    '',
+                    '',
+                    '',
+                    @$discount,
+                    @$value->total, 
+                    date('H:i d/m/Y', $value->create_at),
+                    @$status,
+                    @$value->note_user
+                ];
+
+                $detail_order = $modelOrderDetail->find()->where(['id_order'=>$value->id])->all()->toList();
+                if(!empty($detail_order)){
+                    foreach ($detail_order as $k => $item) {
+                        $product = $modelProduct->find()->where(['id'=>$item->id_product ])->first();
+                        if(!empty($product)){
+                            $dataExcel[] = [
+                                            '', 
+                                            '', 
+                                            '', 
+                                            $product->title,
+                                            $item->price,
+                                            $item->quantity,
+                                            $discount,
+                                            '', 
+                                            '',
+                                            '',
+                                            '' 
+                                        ];
+                        }
+                    }
+
+                    
+                }
+            }
+        }
+        
+        export_excel($titleExcel, $dataExcel);
+    }else{
+        $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
+    if(!empty($listData)){
+        foreach($listData as $key => $item){
+            $detail_order = $modelOrderDetail->find()->where(['id_order'=>$item->id])->all()->toList();
+            if(!empty($detail_order)){
+                foreach ($detail_order as $k => $value) {
+                    $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+                    if(!empty($product)){
+                        $detail_order[$k]->product = $product->title;
+                    }
+                }
+
+                $listData[$key]->detail_order = $detail_order;
+            }
+        }
+    }
 
     // phân trang
     $totalData = $modelOrder->find()->where($conditions)->all()->toList();

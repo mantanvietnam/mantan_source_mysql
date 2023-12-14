@@ -5,6 +5,13 @@ function contact($input)
     global $controller;
     global $isRequestPost;
     global $metaTitleMantan;
+    global $modelOptions;
+    $conditions = array('key_word' => 'contact_site');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
 
     $metaTitleMantan = 'Liên hệ';
 
@@ -27,9 +34,9 @@ function contact($input)
             $data->submitted_at = time();
             
             $modelContacts->save($data);
-
-            sendEmailContact($email='', @$dataSend['name'],@$dataSend['phone_number'],@$dataSend['subject'], @$dataSend['content']);
-
+            if(!empty($data_value['email'])){
+                sendEmailContact(@$data_value['email'], @$dataSend['name'],@$dataSend['phone_number'],@$dataSend['subject'], @$dataSend['content']);
+            }
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }else{
             $mess = '<p class="text-danger">Gửi thiếu dữ liệu</p>';
