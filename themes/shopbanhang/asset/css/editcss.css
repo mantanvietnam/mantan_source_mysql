@@ -766,7 +766,7 @@ header{
 
 .footer-blog-contact .title-section-sub{
     text-align: left;
-    font-size: 11px;
+    font-size: 12px;
     margin-top: 0;
     margin-bottom: 15px !important;
     padding-right: 69px;
@@ -2914,7 +2914,7 @@ background: #555;
     }
 
     #section-product-detail {
-        margin-bottom: 33px;
+        margin-bottom: 10px;
     }
 
     .section-pro-review-inner .title-section p{

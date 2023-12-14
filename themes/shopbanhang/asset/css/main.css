@@ -2056,6 +2056,11 @@ strong {
 
 
 /* Chi tiết sản phẩm */
+.product-detail-rate-comment #commentinput{
+    display: block;
+    margin-bottom: 10px;
+}
+
 #section-pro-review{
     margin-bottom: 65px;
 }
@@ -4153,6 +4158,10 @@ tbody {
 
 
 @media(max-width: 445px) {
+
+    header{
+        background-color: transparent !important;
+    }
     /* Sale trang chủ */
     #button-scrolltop{
         display: none;
@@ -4165,7 +4174,7 @@ tbody {
     }
 
     #section-flash-sale .flash-sale-link{
-        margin-bottom: 10px;
+        margin-bottom: 16px;
     }
 
     /*  */
@@ -4432,13 +4441,19 @@ tbody {
     }
 
     .menu-mobile-box ul .nav-item:last-child{
-        color: #ED1C24;
+        color: #000;
     }
 
     .number-phone-mobile{
         margin-top: 28px;
         font-size: 13px;
         font-weight: 200;
+    }
+
+    .number-phone-logout{
+        background-color: #d4f3fd;
+        border-radius: 10px;
+        font-size: 15px;
     }
 
     .nav-mobile .dropdown-toggle::after{
@@ -4449,6 +4464,10 @@ tbody {
     /* Chi tiết sản phẩm */
     .info-col-left{
         margin-bottom: 20px;
+    }
+
+    .hideContent {
+        height: 1291px !important;
     }
 
     #section-info-col{
@@ -4491,6 +4510,10 @@ tbody {
 
     .main-blog-left{
         margin-bottom: 20px;
+    }
+
+    .footer-blog-contact .title-section-sub{
+        /* font-size: 12px !important; */
     }
 
     /* .info-col .title-info-col {

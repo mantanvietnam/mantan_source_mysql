@@ -358,17 +358,18 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 
                                                    
                                             </ul>
+
+                                            <div class="number-phone-mobile">
+                                                <p>Điện thoại tư vấn :<a href="tel: <?php echo @$setting['phone'] ?>"> <?php echo @$setting['phone'] ?></a></p>
+                                            </div>
                                            
                                              <?php if(!empty($infoUser)){ ?>
 
-                                                  <div class="number-phone-mobile">
-
+                                                  <div class="number-phone-mobile number-phone-logout">
                                                         <a href="/logout" class="nav-link ">Đăng xuất</a>
                                                    </div>
                                                         <?php }?>
-                                             <div class="number-phone-mobile">
-                                                <p>Điện thoại tư vấn :<a href="tel: <?php echo @$setting['phone'] ?>"> <?php echo @$setting['phone'] ?></a></p>
-                                            </div>
+                                             
                                         </div>
                                     </div>
                                 </nav>
