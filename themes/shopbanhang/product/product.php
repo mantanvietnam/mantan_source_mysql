@@ -279,7 +279,7 @@
                     </div>
                 </div>
 
-                <div class="product-detail-number">
+                <!-- <div class="product-detail-number">
                     <div class="product-info-detail-title">
                         <p>Số lượng còn</p>
                     </div>
@@ -288,7 +288,7 @@
                         <span><?php echo @$product->quantity; ?></span>
 
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Số lượng -->
                 <div class="product-detail-number">
@@ -1353,6 +1353,7 @@ function addComment(){
                        document.getElementById('comment').value = '';   
                        
                        document.getElementById("myComment").style.display = 'block';
+                        document.getElementById('commentinput').style.display = 'none';
                        var myElement = document.getElementById('myComment');
 
                     // Hàm thay đổi CSS
@@ -1365,7 +1366,7 @@ function addComment(){
                 }
             });
    }else{
-       document.getElementById("commentinput").innerHTML ='<p style="color: red;">bạn chưa nhập bình luận!</p>'; 
+       document.getElementById("commentinput").innerHTML ='<p style="color: red;">Bạn chưa nhập bình luận!</p>'; 
    }
 } 
 </script>
