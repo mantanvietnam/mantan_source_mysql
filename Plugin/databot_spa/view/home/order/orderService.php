@@ -230,7 +230,7 @@
                                         <li id="sotentralaikhach"><span>Số tiền trả lại</span><span id="moneyCustomerReturn">0</span></li> 
 
                                         
-                                        <!-- <li class="total-bh">
+                                        <li class="total-bh">
                                             <p>Giường & phòng</p>
                                             <p>
                                                 <select  name="id_bed" id="id_bed"  class="form-select color-dropdown">
@@ -252,7 +252,7 @@
                                                 </select>
 
                                             </p>
-                                        </li> -->
+                                        </li>
                                         <li class="total-bh">
                                             <p>Nhân viên phụ trách</p>
                                             <p>
