@@ -41,7 +41,7 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`) VALUES
+INSERT INTO `admins` (`id`, `user`, `password`, `fullName`, `email`, `permission`, `type`) VALUES
 (1, 'admin', '0192023a7bbd73250516f069df18b500', 'Trần Mạnh', 'tranmanhbk179@gmail.com', '[]', 'boss');
 
 -- --------------------------------------------------------
