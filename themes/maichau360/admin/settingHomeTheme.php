@@ -52,20 +52,16 @@
                   <input type="text" class="form-control" name="address" value="<?php echo @$setting['address'];?>" />
                 </div>
                 <div class="mb-3 ">
-                  <label class="form-label" for="basic-default-fullname">Điện thoại</label>
-                  <input type="text" class="form-control" name="phone" value="<?php echo @$setting['phone'];?>" />
-                </div>
-                <div class="mb-3 ">
-                  <label class="form-label" for="basic-default-fullname">Email</label>
-                  <input type="text" class="form-control" name="email" value="<?php echo @$setting['email'];?>" />
-                </div>
-                <div class="mb-3 ">
                     <label class="form-label" for="basic-default-fullname">Instagram</label>
                     <input type="text" class="form-control" name="zalo" value="<?php echo @$setting['zalo'];?>" />
                   </div>
                   <div class="mb-3 ">
                     <label class="form-label" for="basic-default-fullname">Facebook</label>
                     <input type="text" class="form-control" name="facebook" value="<?php echo @$setting['facebook'];?>" />
+                  </div>
+                  <div class="mb-3 ">
+                    <label class="form-label" for="basic-default-fullname">Youtube</label>
+                    <input type="text" class="form-control" name="youtube" value="<?php echo @$setting['youtube'];?>" />
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -75,9 +71,9 @@
                     <input type="text" class="form-control" name="responsibility" value="<?php echo @$setting['responsibility'];?>" />
                   </div>
                   <div class="mb-3 ">
-                    <label class="form-label" for="basic-default-fullname">Điện thoại:</label>
-                    <input type="text" class="form-control" name="responsibilityphone" value="<?php echo @$setting['responsibilityphone'];?>" />
-                  </div>
+                  <label class="form-label" for="basic-default-fullname">Điện thoại</label>
+                  <input type="text" class="form-control" name="phone" value="<?php echo @$setting['phone'];?>" />
+                </div>
                   <div class="mb-3 ">
                     <label class="form-label" for="basic-default-fullname">Email</label>
                     <input type="text" class="form-control" name="responsibilityemail" value="<?php echo @$setting['responsibilityemail'];?>" />
@@ -90,10 +86,7 @@
                     <label class="form-label" for="basic-default-fullname">Id nhóm link liên kết chân trang</label>
                     <input type="text" class="form-control" name="idlink" value="<?php echo @$setting['idlink'];?>" />
                   </div>
-                  <div class="mb-3 ">
-                    <label class="form-label" for="basic-default-fullname">Youtube</label>
-                    <input type="text" class="form-control" name="youtube" value="<?php echo @$setting['youtube'];?>" />
-                  </div>
+                  
                   <div class="mb-3 ">
                     <label class="form-label" for="basic-default-fullname">Tiktok</label>
                     <input type="text" class="form-control" name="tiktok" value="<?php echo @$setting['tiktok'];?>" />

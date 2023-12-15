@@ -356,7 +356,7 @@ function indexTheme($input){
             }
         }
     }
-    $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->all()->toList();
+    $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->order(array('sold'=>'desc'))->all()->toList();
 
     if(!empty($product_sold)){
         foreach($product_sold as $key => $item){

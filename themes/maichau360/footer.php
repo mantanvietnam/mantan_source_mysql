@@ -27,10 +27,14 @@ $setting = setting();
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="contact-text">
                         <h4>Về chúng tôi</h4>
-                        <a href="">Di tích lịch sử</a>
-                        <br><a href="">Kênh thông tin</a>
-                        <br><a href="">Liên hệ</a>
-                        <br><a href="">Bản đồ</a>
+                         <?php
+                                if (!empty(getListLinkWeb(@$setting['idlink']))) {
+                                    foreach (getListLinkWeb(@$setting['idlink']) as $key => $ListLink) { ?>
+                                        <li>
+                                            <a href="<?php echo $ListLink['link'] ?>"><?php echo $ListLink['name'] ?></a>
+                                        </li>
+                                <?php }
+                                } ?>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-12">
@@ -42,6 +46,11 @@ $setting = setting();
                             <a href="<?php echo @$setting['tiktok']; ?>"><i class="fa-brands fa-tiktok"></i></a>
                             <a href="<?php echo @$setting['youtube']; ?>"><i class="fa-brands fa-youtube"></i></a>
                         </div>
+                       <div style="display: none;"> <?php 
+                            if(function_exists('showStatic')){
+                                showStatic();
+                            }
+                            ?></div>
                     </div>
                 </div>
             </div>
