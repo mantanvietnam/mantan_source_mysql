@@ -21,7 +21,7 @@
     padding: 50px 60px;
     width: 350px;
     height:450px;
-    z-index: 99999;
+    z-index: 999;
     border-radius: 0 20px 20px 0;
     transition: 1s;
   }
@@ -40,7 +40,19 @@
     margin: 15px 0;
   }
   #map_HS {
-    height: 80vh !important;
+    height: 100% !important;
+  }
+
+  #bando{
+    height: 100%
+  }
+
+  #bando .row{
+    height: 100%
+  }
+
+  .iframe-map{
+    height: 100%
   }
   @media (max-width: 600px) {
     .img-calendar img {
@@ -54,7 +66,7 @@
       padding: 25px 30px;
       width: 250px;
       height: 380px;
-      z-index: 99999;
+      z-index: 999;
       border-radius: 0 20px 20px 0;
       transition: 1s;
     }
@@ -230,9 +242,9 @@
     var f = $('footer').innerHeight();
 
     var x = w-h-f-10;
-    x= 800;
+    // x= 800;
     // document.write(x);
-    $('#map, #map_HS').css({'height':x});
+    // $('#map, #map_HS').css({'height':x});
 
     initMap();
   });
