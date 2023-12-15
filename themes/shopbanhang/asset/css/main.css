@@ -2128,9 +2128,9 @@ strong {
 
 .box-confirm-cart {
     width: 317px;
-    height: 200px;
+    /* height: 200px; */
     background-color: #F1F2F2;
-    padding: 10px;
+    padding: 24px 10px;
     box-shadow: 5px 10px 8px -3px #888888;
     position: fixed;
     top: 143px;
@@ -2169,7 +2169,7 @@ strong {
 }
 
 .box-confirm-cart-title {
-    margin-bottom: 13px;
+    /* margin-bottom: 13px; */
     font-size: 14px;
     font-weight: 400;
 }
@@ -3117,6 +3117,7 @@ strong {
 .people-time {
     font-size: 12px;
     font-weight: 200;
+    display: none;
 }
 
 .box-comment textarea {
@@ -4510,7 +4511,7 @@ tbody {
     }
 
     .product-detail-rate-item{
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     #section-product-detail-comment{

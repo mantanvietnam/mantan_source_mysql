@@ -1073,12 +1073,13 @@ header{
 }
 
 .box-confirm-like{
-    height: 88px;
+    /* height: 88px; */
 
 }
 
 .box-confirm-like p{
-    margin: 30px auto;
+    /* margin: 30px auto; */
+    padding-left: 14px;
 }
 
 .combo-voucher .detail-voucher-sale span{
@@ -1351,7 +1352,7 @@ background: #555;
 }
 
 #myComment{
-    height: 102px;
+    /* height: 102px; */
 }
 
 
@@ -1962,6 +1963,10 @@ background: #555;
 
 
 @media(max-width: 445px) {
+    #section-product-detail-rate .product-detail-rate-inner:first-child h2{
+        margin-top: 20px;
+    }
+
     #policy .nav-tabs{
         padding-top : 0px 
     }
