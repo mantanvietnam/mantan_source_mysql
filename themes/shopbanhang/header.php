@@ -7,6 +7,8 @@ $infoUser = $session->read('infoUser');
  if(!empty($session->read('product_order'))){
     $cart = count($session->read('product_order')); 
 
+global $urlCurrent;
+
 
  }
     

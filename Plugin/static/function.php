@@ -84,6 +84,9 @@ function showStatic()
     
     $conditions = array('key_word' => 'Static');
     $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+       $data = $modelOptions->newEmptyEntity(); 
+    }
     $static = json_decode($data->value, true);
 
     $urlPluginStatic= $urlHomes.'/app/Plugin/static/';
@@ -110,10 +113,13 @@ function showStatic()
         $static['total'] = 1;
     }
 
-    $data->value = json_encode($static);
-    $data->key_word = 'Static';
-    $modelOptions->save($data);
+    if(!empty($static)){
+        $data->value = json_encode(@$static);
+        $data->key_word = 'Static';
 
+
+        $modelOptions->save($data);
+    }
         
     echo '<ul>
               <li>

@@ -186,7 +186,7 @@
                             foreach($product->present as $item){
                              ?>
                              <div class="product-detail-gift-item">
-                                <p href="product/<?php echo $item->slug ?>.html">
+                                <a href="product/<?php echo $item->slug ?>.html">
                                     <div class="gift-item-inner">
                                         <div class="gift-item-img">
                                             <img src="<?php echo $item->image ?>" alt="">
@@ -195,7 +195,7 @@
                                             <span><?php echo $item->title ?></span>
                                         </div>
                                     </div>
-                                </p>
+                                </a>
                             </div>
                         <?php }} ?>
                     </div>
@@ -1082,6 +1082,7 @@
     </div>
 
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
        <?php     if(!empty($infoUser)){
@@ -1104,12 +1105,14 @@
     function updateCountdown() {
       // Thời gian bạn muốn đếm ngược đến (ví dụ: 2023-12-31 23:59:59)
 
-      <?php if(!empty(@$setting['targetTime'])){?>
-        const targetTime = new Date("<?php echo date('Y-m-d H:i:s' , @$setting['targetTime']) ?>").getTime();
+     <?php if(!empty(@$setting['targetTime'])){
+       // echo   'var targetTime =  new Date().getTime();';
+        echo   'var targetTime =  moment("'.date('Y-m-d H:i:s' , @$setting['targetTime']).'", "YYYY-MM-DD HH:mm:ss").valueOf();';
 
-    <?php }else{?>
-     const targetTime = 0;
- <?php } ?>
+    }else{
+            echo   'var targetTime = 0;';
+    } ?>
+
 
       // Lấy thời gian hiện tại
       const currentTime = new Date().getTime();
