@@ -24,10 +24,27 @@
       </div>
     </div>
 
-    <div class="col-lg-5 col-md-5 order-1">
+    <div class="col-lg-5 col-md-5 order-1 mb-4">
       <div class="card">
         <div class="card-body">
           <span class="fw-semibold d-block mb-1">Thống kê hôm nay </span>
+          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+            <div class="me-2">
+              <p class="mb-1">Số đơn sản phẩm: <strong><?php echo @$totalOrderproduct; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
+
+             <div class="me-2">
+              <p class="mb-1">Số dịch vụ: <strong><?php echo @$totalOrderService; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
+
+            <div class="me-2">
+              <p class="mb-1">Số Cobom: <strong><?php echo @$totalOrderCombo; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
+
+            <div class="me-2">
+              <p class="mb-1">Số khách đặt lịch hẹn: <strong><?php echo @$totalbook; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -70,7 +87,7 @@
       </div>
     </div> -->
 
-     <div class="col-lg-7 mb-4 order-0">
+     <div class="col-lg-7 mb-4 order-0 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
           <h5 class="card-title m-0 me-2">Doanh thu theo tháng là: <span style="color: red;"><?php echo number_format($total); ?>đ</span></h5>
@@ -131,39 +148,24 @@
             var data = google.visualization.arrayToDataTable([
               ['Ngày', ''],
               <?php 
-              // for($i=1;$i<32;$i++){
                     if(!empty(@$dayDataBill) ){
                         foreach($dayDataBill as $date=>$number){
-                          //  if ($i==date('d',$number["time"])) {
                                 echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
-                            // }else{
-                            //      echo '['.$i.',0],';
-                            // }
-                            
                         }
                     }else{
 
                         echo '["0",0],';
                     }
-                // }
               ?>
             ]);
 
-            // var options = {
-            //   title: '',
-            //   curveType: 'function',
-            //   legend: { position: 'bottom' }
-            // };
-
-             var options = {
+            var options = {
                 chart: {
                   title: 'Tổng doanh thu',
-                 // subtitle: 'in millions of dollars (USD)'
                 },
                 width: '100%',
-                height: 500,
-                
-              };
+                height: 500,  
+            };
 
 
             // var chart = new google.visualization.LineChart(document.getElementById('order_chart'));

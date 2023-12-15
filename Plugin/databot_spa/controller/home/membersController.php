@@ -113,15 +113,22 @@ function dashboard($input)
 		$modelBill = $controller->loadModel('Bills');
 		$order = array('created_at'=>'asc');
         $modelOrder = $controller->loadModel('Orders');
+        $modelBook = $controller->loadModel('Books');
 
 		$listDataBill = $modelBill->find()->where($conditBill)->order($order)->all()->toList();
 
-		// $conditionsOrder = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'), 'type' =>'product');
+		$conditionproduct = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'),'type'=>'product' ,'time >='=> strtotime(date("Y-m-d 00:00:00")));
+		$totalOrderproduct = count($modelOrder->find()->where($conditionproduct)->all()->toList());
 
+		$conditioncombo = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'),'type'=>'combo' ,'time >='=> strtotime(date("Y-m-d 00:00:00")));
+		$totalOrderCombo = count($modelOrder->find()->where($conditioncombo)->all()->toList());
 
+		$conditionServicet = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'),'type'=>'service' ,'time >='=> strtotime(date("Y-m-d 00:00:00")));
+		$totalOrderService = count($modelOrder->find()->where($conditionServicet)->all()->toList());
 
-		 // $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order()->all()->toList();
-
+		$conditionbook = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa') ,'time_book >='=> strtotime(date("Y-m-d 00:00:00")));
+		$totalbook = count($modelBook->find()->where($conditionbook)->all()->toList());
+		
 		$total = 0;
 
 		$dayDataBill= array();
@@ -146,6 +153,10 @@ function dashboard($input)
 	        }
 	    }
 	    setVariable('dayDataBill', $dayDataBill);
+	    setVariable('totalOrderproduct', $totalOrderproduct);
+	    setVariable('totalOrderService', $totalOrderService);
+	    setVariable('totalOrderCombo', $totalOrderCombo);
+	    setVariable('totalbook', $totalbook);
 	    setVariable('total', $total);
 	}else{
 		return $controller->redirect('/login');

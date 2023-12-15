@@ -597,8 +597,9 @@ function reviewBeatbox(){
     $review = $modelReview->find()->where($conditionsreview)->all()->toList();
   
     foreach($review as $k => $value){
-
-        $review[$k]->product = $modelProduct->find()->where(['code'=>$value->id_product])->first();
+        if(!empty($value->id_product)){
+            $review[$k]->product = $modelProduct->find()->where(['code'=>$value->id_product])->first();
+        }
 
         $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
     }

@@ -145,7 +145,7 @@ rel='stylesheet' type='text/css'>
         global $urlHomes;
         global $urlCurrent;
 
-        echo 'var urlCheckinBed = "'.$urlHomes.'listOrderService";';
+        echo 'var urlCheckinBed = "'.$urlHomes.'orderService";';
         echo 'var urlEditBed = "'.$urlHomes.'listBed";';
         echo 'var urlDeleteBed = "'.$urlHomes.'deleteBed";';
         echo 'var listOrder = "'.$urlHomes.'listOrderService";';
@@ -218,7 +218,7 @@ rel='stylesheet' type='text/css'>
             callback: function (key, options) {
                 switch (key) {
                     case 'checkinBed':
-                        url = urlOrder + '?idBed=' + options.$trigger.attr("idBed");
+                        url = urlCheckinBed + '?idBed=' + options.$trigger.attr("idBed");
                         window.location = url;
                         break;
                     
@@ -310,7 +310,7 @@ rel='stylesheet' type='text/css'>
             callback: function (key, options) {
                 switch (key) {
                     case 'checkinBed':
-                        url = urlOrder + '?idBed=' + options.$trigger.attr("idBed");
+                        url = urlCheckinBed + '?idBed=' + options.$trigger.attr("idBed");
                         window.location = url;
                         break;
                     
