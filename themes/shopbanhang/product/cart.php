@@ -506,8 +506,11 @@ $price_total = 0;
                                     </div>
                                     <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
                                 </div>
-                               <?php if(@$price_total>0){ ?>
-                                <div class="cart-price-item">
+                               <?php 
+                               $ship = 0;
+                               if(@$price_total>0){ 
+                                $ship = 30000; 
+                                 echo '<div class="cart-price-item">
                                     <div class="cart-price-item-title">
                                         Giá vận chuyển 
                                     </div>
@@ -516,8 +519,8 @@ $price_total = 0;
                                       30.000đ
                                     </div>
                                     <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
-                                </div>
-                            <?php } ?>
+                                </div>';
+                            } ?>
                             
                                 <!-- Giá voucher-->
                                 <div class="cart-price-code-discount">
@@ -575,16 +578,11 @@ $price_total = 0;
                                         <div class="cart-price-total-title">
                                             Thành tiền
                                         </div>
-                                        <?php if(@$price_total>0){ ?>
+    
                                         <div class="cart-price-total-price" id="totals">
-                                           <?php echo number_format(@$price_total+ 30000); ?>đ
+                                           <?php echo number_format(@$price_total+ @$ship); ?>đ
                                         </div>
-                                         <input type="hidden" value="<?php echo $price_total+ 30000; ?>" name="total" id=total>
-
-                                     <?php }else{ ?>
-                                        <div class="cart-price-total-price" id="totals">0đ</div>
-                                         <input type="hidden" value="0" name="total" id=total>
-                                     <?php } ?>
+                                         <input type="hidden" value="<?php echo $price_total+ @$ship; ?>" name="total" id=total>
                                     </div>
                                 </div>
                             </div>
@@ -691,7 +689,7 @@ $price_total = 0;
         
                     <div class="cart-footer-mobile-right">
                         <div class="cart-footer-right-top">
-                            <p id="totals-mobile"><?php echo number_format(@$price_total); ?>đ</p>
+                            <p id="totals-mobile"><?php echo number_format(@$price_total + @$ship); ?>đ</p>
                         </div>
     
                         <div class="cart-footer-right-bottom">
