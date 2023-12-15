@@ -525,7 +525,7 @@ $price_total = 0;
                                     <div class="cart-price-item-price" id="pricetotal">
                                       30.000đ
                                     </div>
-                                    <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
+                                    <input type="hidden" name="totalPays" id="totalPays" value="'.$price_total.'">
                                 </div>';
                             } ?>
                             

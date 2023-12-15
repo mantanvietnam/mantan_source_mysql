@@ -122,7 +122,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</a>
                             <?php } ?>
                             </div>
-                             
+                            
                             <div class="topbar-button">
                                 <a href="/gio-hang"><img src="<?php echo $urlThemeActive ?>asset/image/cartitem.png" alt=""></a>
                                 <a href="/gio-hang">Giỏ hàng</a>
@@ -266,14 +266,14 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                 <div class="menu-mobile-inner">
                     <div class="menu-mobile-box">
                         <ul>
-                            <li>
+                            <li <?php if(@$urlCurrent=='/') echo 'class="active"' ?>>
                                 <a href="/">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt="">
                                     <p>Trang chủ</p>
                                 </a>
                             </li>
                             <?php if(!empty(checkFlasl()) && $setting['targetTime']>time()){ ?>
-                            <li>
+                            <li <?php if(@$urlCurrent=='/sale') echo 'class="active"' ?>>
                                 <a href="/sale">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt="">
                                     <p>Khuyến mãi</p>
@@ -297,7 +297,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                 </a>
                             </li>
 
-                            <li>
+                            <li <?php if(@$urlCurrent=='/gio-hang"') echo 'class="active"' ?>>
                                 <a href="/gio-hang">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt="">
                                     <p>Giỏ hàng</p>
@@ -306,7 +306,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 
                              <?php if(!empty($infoUser)){ ?>
 
-                            <li>
+                            <li <?php if(@$urlCurrent=='/infoUser') echo 'class="active"' ?>>
 
                                 <a href="/infoUser">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt="">
