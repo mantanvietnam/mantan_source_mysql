@@ -37,17 +37,19 @@ function listOrderAdmin($input)
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
         $listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
         $titleExcel =   [
-            ['name'=>'Tên khách hàng', 'type'=>'text', 'width'=>25],
+            ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+            ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
             ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
-            ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
-            ['name'=>'Sản phẩn', 'type'=>'text', 'width'=>15],
-            ['name'=>'Giá bán', 'type'=>'text', 'width'=>35],
-            ['name'=>'Số lượng ', 'type'=>'text', 'width'=>15],
-            ['name'=>'Mã giảm giá ', 'type'=>'text', 'width'=>10],
-            ['name'=>'Số tiền ', 'type'=>'text', 'width'=>15],
-            ['name'=>'Thời gian tạo ', 'type'=>'text', 'width'=>15],
-            ['name'=>'Trạng thái', 'type'=>'text', 'width'=>15],
-            ['name'=>'Nội dung', 'type'=>'text', 'width'=>15]
+            ['name'=>'Model', 'type'=>'text', 'width'=>15],
+            ['name'=>'Số lượng', 'type'=>'text', 'width'=>35],
+            ['name'=>'Màu sắc ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Thành tiền ', 'type'=>'text', 'width'=>10],
+            ['name'=>'Thu khách ', 'type'=>'text', 'width'=>15],
+            ['name'=>'NV chốt ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Chú ý', 'type'=>'text', 'width'=>15],
+            ['name'=>'Mã vận đơn', 'type'=>'text', 'width'=>15],
+            ['name'=>'phí shíp', 'type'=>'text', 'width'=>15],
+            ['name'=>'tình trạng', 'type'=>'text', 'width'=>15],    
         ];
         $dataExcel = [];
         if(!empty($listData)){
@@ -57,13 +59,13 @@ function listOrderAdmin($input)
                    $pay = json_decode($value->discount, true);
 
                    if(!empty($pay['code1']) && !empty($pay['discount_price1'])){
-                        $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ & CHAR(10) &';
+                        $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ';
                     }
                     if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
-                        $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ & CHAR(10) &';
+                        $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ';
                     }
                     if(!empty($pay['code3']) && !empty($pay['discount_price3'])){
-                        $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ & CHAR(10) &';
+                        $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ';
                     }
                 }
                 $status= '';
@@ -78,19 +80,6 @@ function listOrderAdmin($input)
                  }else{
                     $status= 'Đã hủy';
                  }
-                $dataExcel[] = [
-                    @$value->full_name, 
-                    @$value->phone, 
-                    @$value->address, 
-                    '',
-                    '',
-                    '',
-                    @$discount,
-                    @$value->total, 
-                    date('H:i d/m/Y', $value->create_at),
-                    @$status,
-                    @$value->note_user
-                ];
 
                 $detail_order = $modelOrderDetail->find()->where(['id_order'=>$value->id])->all()->toList();
                 if(!empty($detail_order)){
@@ -98,24 +87,26 @@ function listOrderAdmin($input)
                         $product = $modelProduct->find()->where(['id'=>$item->id_product ])->first();
                         if(!empty($product)){
                             $dataExcel[] = [
-                                            '', 
-                                            '', 
-                                            '', 
+                                            date('H:i d/m/Y', $value->create_at), 
+                                            @$value->full_name,   
+                                            @$value->phone,   
                                             $product->title,
-                                            $item->price,
                                             $item->quantity,
-                                            $discount,
+                                            '',
+                                            $item->price*$item->quantity,
                                             '', 
                                             '',
+                                            @$value->note_user,
+                                            @$value->id,
                                             '',
-                                            '' 
+                                            $status,
                                         ];
                         }
                     }
                 }
             }
         }
-        export_excel($titleExcel,$dataExcel,'danh_sach_don_hang');
+       export_excel($titleExcel,$dataExcel,'danh_sach_don_hang');
     }else{
         $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
     }

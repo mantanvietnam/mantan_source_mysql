@@ -46,7 +46,7 @@ $setting = setting();
                             <a href="<?php echo @$setting['tiktok']; ?>"><i class="fa-brands fa-tiktok"></i></a>
                             <a href="<?php echo @$setting['youtube']; ?>"><i class="fa-brands fa-youtube"></i></a>
                         </div>
-                       <div style="display: none;"> <?php 
+                       <div class="static"> <?php 
                             if(function_exists('showStatic')){
                                 showStatic();
                             }
