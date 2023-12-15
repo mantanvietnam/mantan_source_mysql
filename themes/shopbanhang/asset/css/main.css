@@ -4180,6 +4180,10 @@ tbody {
 
 
 @media(max-width: 445px) {
+    .box-confirm-cart {
+        top: 100px
+    }
+
     .title-review-product{
         padding-bottom: 20px !important;
     }
@@ -4202,6 +4206,20 @@ tbody {
         margin-bottom: 16px;
     }
 
+    /*  */
+
+    /* Thanh toán */
+    .cart-total-box{
+        padding: 0;
+    }
+
+    .order-left{
+        border-color: transparent;
+    }
+
+    .order-right{
+        padding: 0 20px;
+    }
     /*  */
 
     #section-pro-review{
@@ -4719,14 +4737,14 @@ tbody {
         padding-top: 5px;
     }
 
-    /* Hoàn thành */
+    /* Thanh toán*/
     .order-right-group-button button{
         width: 100%;
         margin-bottom: 10px;
     }
 
     .order-right{
-        padding-left: 12px;
+        /* padding-left: 12px; */
     }
 
     .order-right-group-button{

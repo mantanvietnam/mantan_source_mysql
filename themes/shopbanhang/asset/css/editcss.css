@@ -1504,7 +1504,26 @@ background: #555;
     font-weight: 500;
 }
 
+
+.text-detail h4 {
+    font-weight: 300;
+}
+
+/* .avt-user {
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.avt-user img {
+    object-fit: cover;
+    scale: 1.1;
+} */
+
 @media (min-width: 900px){
+    .slide-rate-image .slick-track{
+        
+    }
+
 .contact-fixed .icon-phone-bottom{
     width: 50px;
 }
@@ -2886,6 +2905,10 @@ background: #555;
         max-height: 485px;
     }
 
+    .cart-price-total {
+        padding-bottom: 10px;
+    }
+
 
     /* Slick arrow */
     .pro-review-slide .slick-arrow {
@@ -3007,13 +3030,30 @@ background: #555;
 
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
+    /* review */
+    .modal-video .modal-dialog{
+        scale: 0.8;
+    }
+
     #review .nav-tabs li:nth-child(2){
         width: 50%;
+        text-align: center;
+    }
+
+    #review .nav-tabs li:nth-child(3){
+        width: 50%;
+        text-align: center;
+    }
+
+    #review .nav-tabs{
+        border: none;
     }
 
     #review .nav-tabs li a{
-        margin: 3px 11px;
+        margin: 3px 0px;
     }
+
+    /* kết thúc review */
 
     .product-mobile-radio{
         display: flex;
@@ -3024,7 +3064,9 @@ background: #555;
 
     .product-mobile-radio label{
         margin-top: 3px;
+        font-weight: 300;
     }
+    
 
     #section-product-like .product-img {
         height: 176px;

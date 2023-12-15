@@ -98,7 +98,7 @@ $infoUser = $session->read('infoUser');
 
                         <section id="section-blog-contact" class="footer-blog-contact">
                             <div class="title-section-sub">
-                                <p>Để cập nhập những tin tức về sức khỏe, làm đẹp,.. và những ưu đãi đặc biệt sớm nhất</p>
+                                <p>Đăng ký nhận tin để nhận những khuyến mãi hấp dẫn</p>
                             </div>
 
                             <div class="form-blog-contact">
