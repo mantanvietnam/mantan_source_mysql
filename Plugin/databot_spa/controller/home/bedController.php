@@ -444,4 +444,4 @@ function checkoutBed($input){
     }
 }
 
- ?>
+?>

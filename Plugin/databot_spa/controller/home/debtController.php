@@ -586,4 +586,3 @@ function paymentBill($input){
     }
 }
 ?>
-

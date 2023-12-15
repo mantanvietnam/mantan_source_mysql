@@ -911,4 +911,3 @@ function addListLayerAPI($input){
 	return $return;
 }
 ?>
-

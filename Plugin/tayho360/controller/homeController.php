@@ -2247,5 +2247,4 @@ function map(){
         $metaTitleMantan= str_replace('%categoryName%', 'Danh lam thắng cảnh', $metaTitleMantan);
 
 }
- ?>
-
+?>

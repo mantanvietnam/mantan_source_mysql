@@ -436,6 +436,7 @@ class ZipStream
 
         $outputStream = $this->opt->getOutputStream();
 
+        ob_end_clean();
         if ($outputStream instanceof StreamInterface) {
             $outputStream->write($str);
         } else {

@@ -218,5 +218,4 @@ function listFollowDesignerAPI($input){
 	return $return;
 
 }
- ?>
-
+?>

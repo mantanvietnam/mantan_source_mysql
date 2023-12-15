@@ -596,5 +596,3 @@ function addReview(){
     }
 }
 ?>
-
-

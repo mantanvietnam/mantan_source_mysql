@@ -533,4 +533,3 @@ function warmteam($input){
 
 
 ?>
-

@@ -1606,5 +1606,4 @@ function getMostFavoriteAPI(){
 
 }
 
- ?>
-
+?>
