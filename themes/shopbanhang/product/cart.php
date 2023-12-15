@@ -21,6 +21,13 @@ $price_total = 0;
     .icon-phone-bottom{
         display: block;
     }
+
+    @media (max-width: 445px){
+        .contact-fixed {
+            bottom: 100px;
+            right: 22px;
+        }
+    }
 </style>
 
 <main>

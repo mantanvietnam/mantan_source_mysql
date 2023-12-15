@@ -19,6 +19,7 @@
     .icon-phone-bottom{
         display: block;
     }
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
@@ -110,7 +111,7 @@
 
                         <div class="rate-left-text">
                             <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
-                                <span><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) | <?php echo $product->sold ?> đã bán</span>
+                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> | <?php echo $product->sold ?> đã bán</span>
                             <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
                         </div>
                     </div>
@@ -186,7 +187,7 @@
                             foreach($product->present as $item){
                              ?>
                              <div class="product-detail-gift-item">
-                                <a href="product/<?php echo $item->slug ?>.html">
+                                <p href="product/<?php echo $item->slug ?>.html">
                                     <div class="gift-item-inner">
                                         <div class="gift-item-img">
                                             <img src="<?php echo $item->image ?>" alt="">
@@ -195,7 +196,7 @@
                                             <span><?php echo $item->title ?></span>
                                         </div>
                                     </div>
-                                </a>
+                                </p>
                             </div>
                         <?php }} ?>
                     </div>
@@ -520,7 +521,7 @@
     <div class="container">
         <div class="section-pro-review-inner">
             <div class="title-section mt-5">
-                <p>Chuyên gia đánh giá sản phẩm</p>
+                <p>Khách hàng đánh giá sản phẩm</p>
             </div>
 
             <div class="pro-review-slide">

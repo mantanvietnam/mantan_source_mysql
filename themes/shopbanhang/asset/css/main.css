@@ -2183,6 +2183,9 @@ strong {
 
 .box-confirm-cart-title .close-button {
     cursor: pointer;
+    position: absolute;
+    right: 7px;
+    top: 8px;
 }
 
 
