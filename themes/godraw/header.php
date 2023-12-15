@@ -296,7 +296,7 @@
                                     </div>
                                     
                                     <div class="item item-forgot text-right">
-                                        <a href="">Quên mật khẩu?</a>
+                                        <a style="color: #fff;" href="/forgotPass">Quên mật khẩu?</a>
                                     </div>
                                     
                                     <div class="item item-submit">

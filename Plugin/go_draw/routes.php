@@ -91,6 +91,8 @@
     $routesPlugin['changePassUser']= 'go_draw/view/home/user/changePassUser.php';
     $routesPlugin['changeProfile']= 'go_draw/view/home/user/changeProfile.php';
     $routesPlugin['verified']= 'go_draw/view/home/user/verified.php';
+    $routesPlugin['forgotPass']= 'go_draw/view/home/user/forgotPass.php';
+    $routesPlugin['confirm']= 'go_draw/view/home/user/confirm.php';
     
 
     $routesPlugin['search-agency']= 'go_draw/view/home/agencies/searchAgency.php';

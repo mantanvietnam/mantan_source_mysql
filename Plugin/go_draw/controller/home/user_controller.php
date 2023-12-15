@@ -338,4 +338,127 @@ function changeProfile($input)
 		return $controller->redirect('/');
 	}
 }
+
+function forgotPass($input)
+{
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+    $metaTitleMantan = 'Quên mật khẩu';
+
+    $modelUsers = $controller->loadModel('Users');
+
+    if(empty($session->read('infoMember'))){
+    	$mess = '';
+
+	    if($isRequestPost){
+	    	$dataSend = $input['request']->getData();
+	    	
+	    	if(!empty($dataSend['username'])){
+
+	    		$conditions = array('username'=>$dataSend['username']);
+	    		
+	    		$info_customer = $modelUsers->find()->where($conditions)->first();
+
+	    		if($info_customer){
+
+    				// nếu tài khoản không bị khóa
+    				if($info_customer->status == 1){
+    					if($info_customer->verified == 1){
+			    			$otp = rand(1000,9999);
+							$info_customer->otp = $otp;
+							
+							$modelUsers->save($info_customer);
+							sendEmailCodeForgotPass($info_customer->email, $info_customer->name, $info_customer->otp);
+							
+							return $controller->redirect('/confirm/?phone='.$info_customer->phone);
+						}else{
+							return $controller->redirect('/verified/?phone='.$info_customer->phone);
+						}
+					}else{
+						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+
+						//return $controller->redirect('/home/?status=errorUserLock');
+					}
+	    		}else{
+	    			$mess= '<p class="text-danger">Không tồn tại tài khoản</p>';
+
+	    			//return $controller->redirect('/home/?status=errorUserOrPass');
+	    		}
+	    	}else{
+	    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+
+	    		//return $controller->redirect('/home/?status=errorEmptyData');
+	    	}
+	    }
+
+	    setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/');
+	}
+}
+
+function confirm($input)
+{
+	global $metaTitleMantan;
+	global $isRequestPost;
+	global $controller;
+	global $session;
+
+    $metaTitleMantan = 'Quên mật khẩu';
+
+    $modelUsers = $controller->loadModel('Users');
+
+    if(empty($session->read('infoMember'))){
+    	$mess = '';
+
+    	if(!empty($_GET['phone'])){
+		    if($isRequestPost){
+		    	$dataSend = $input['request']->getData();
+		    	
+		    	if(!empty($dataSend['otp']) && !empty($dataSend['pass'])){
+
+		    		$conditions = array('username'=>$_GET['phone'], 'otp'=>$dataSend['otp']);
+		    		
+		    		$info_customer = $modelUsers->find()->where($conditions)->first();
+
+		    		if($info_customer){
+
+	    				// nếu tài khoản không bị khóa
+	    				if($info_customer->status == 1){
+	    					if($info_customer->verified == 1){
+				    			$info_customer->password = md5($dataSend['pass']);
+				    			$info_customer->otp = null;
+								
+								$modelUsers->save($info_customer);
+								
+								$mess= '<p class="text-success">Đổi mật khẩu thành công</p>';
+							}else{
+								return $controller->redirect('/verified/?phone='.$info_customer->phone);
+							}
+						}else{
+							$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
+
+							//return $controller->redirect('/home/?status=errorUserLock');
+						}
+		    		}else{
+		    			$mess= '<p class="text-danger">Sai mã xác thực</p>';
+
+		    			//return $controller->redirect('/home/?status=errorUserOrPass');
+		    		}
+		    	}else{
+		    		$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+
+		    		//return $controller->redirect('/home/?status=errorEmptyData');
+		    	}
+		    }
+		}
+
+	    setVariable('mess', $mess);
+	}else{
+		return $controller->redirect('/');
+	}
+}
 ?>
