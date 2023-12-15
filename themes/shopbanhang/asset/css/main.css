@@ -3338,11 +3338,15 @@ strong {
 }
 
 .td-name {
-    width: 29%;
+    width: 28%;
 }
 
 .td-price {
-    width: 18%;
+    width: 17%;
+}
+
+.td-number{
+    width: 20%;
 }
 
 .table-cart-left tbody {
@@ -3363,7 +3367,8 @@ strong {
 }
 
 .table-cart-left tr th:first-child {
-    padding-left: 22px
+    padding-left: 22px;
+    width: 3%;
 }
 
 tbody {
@@ -4175,6 +4180,9 @@ tbody {
 
 
 @media(max-width: 445px) {
+    .title-review-product{
+        padding-bottom: 20px !important;
+    }
 
     header{
         background-color: transparent !important;
@@ -4471,6 +4479,8 @@ tbody {
         background-color: #d4f3fd;
         border-radius: 10px;
         font-size: 15px;
+        text-align: center !important;
+        padding: 12px 0px;
     }
 
     .nav-mobile .dropdown-toggle::after{

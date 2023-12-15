@@ -1968,7 +1968,8 @@ background: #555;
     }
 
     #policy .nav-tabs{
-        padding-top : 0px 
+        padding-top : 0px;
+        margin-top: 14px;
     }
     .contact-fixed{
         bottom: 82px;
@@ -3006,12 +3007,19 @@ background: #555;
 
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
+    #review .nav-tabs li:nth-child(2){
+        width: 50%;
+    }
+
+    #review .nav-tabs li a{
+        margin: 3px 11px;
+    }
 
     .product-mobile-radio{
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 4px
+        gap: 15px
     }
 
     .product-mobile-radio label{
@@ -3224,8 +3232,8 @@ background: #555;
     .product-buy-mobile {
         width: 50%;
         display: flex;
-    justify-content: center;
-    align-items: center;
+        justify-content: center;
+        align-items: center;
     }
 
     /* .product-buy-mobile{
@@ -3234,6 +3242,19 @@ background: #555;
         justify-content: center;
         align-items: center;
     } */
+
+    .title-review-product p{
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .double-line-1{
+        display: none;
+    }
+
+    .double-line-2{
+        display: none;
+    }
     
 }
 

@@ -1113,7 +1113,7 @@
         font-size: 14px;
     }
     #policy .nav-tabs li a {
-        font-size: 12px;
+        font-size: 13px;
     }
     .input-box button {
         font-size: 14px;
@@ -1188,6 +1188,13 @@
     #section-comment-customer .comment-customer-slide .slick-list.draggable {
         padding: 0px 54px;
     }
+
+    #video-review .comment-customer-slide .slick-list.draggable {
+        padding: 0px 54px;
+    }
+
+
+
     #section-comment-customer .comment-customer-slide .comment-customer-img {
         height: 475px;
     }
@@ -1201,6 +1208,10 @@
         height: 390px;
     }
     #section-comment-customer .comment-customer-slide .slick-list.draggable {
+        padding: 0px 40px;
+    }
+
+    #video-review .comment-customer-slide .slick-list.draggable {
         padding: 0px 40px;
     }
 }
