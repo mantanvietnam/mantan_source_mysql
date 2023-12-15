@@ -186,7 +186,7 @@
                             foreach($product->present as $item){
                              ?>
                              <div class="product-detail-gift-item">
-                                <a href="product/<?php echo $item->slug ?>.html">
+                                <p href="product/<?php echo $item->slug ?>.html">
                                     <div class="gift-item-inner">
                                         <div class="gift-item-img">
                                             <img src="<?php echo $item->image ?>" alt="">
@@ -195,7 +195,7 @@
                                             <span><?php echo $item->title ?></span>
                                         </div>
                                     </div>
-                                </a>
+                                </p>
                             </div>
                         <?php }} ?>
                     </div>

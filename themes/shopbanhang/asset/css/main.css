@@ -184,7 +184,12 @@ strong {
 }
 
 .nav-link:focus-visible{
-    box-shadow: none;
+   box-shadow: none;
+    /* outline: none; */
+}
+
+.nav-link{
+    /* color: red !important; */
 }
 
 /* Button scroll top */
