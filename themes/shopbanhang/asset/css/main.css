@@ -3100,6 +3100,10 @@ strong {
     margin-right: 29px;
 }
 
+.people-like a{
+    color: #000
+}
+
 .product-detail-rate-like .people-comment span {
     display: block;
     margin-right: 15px;
