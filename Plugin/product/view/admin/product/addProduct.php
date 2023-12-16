@@ -157,10 +157,16 @@
                               <label class="form-label">Giá ưu đãi</label>
                               <input type="text" class="form-control" name="pricepro_discount" id="pricepro_discount" value="<?php echo @$data->pricepro_discount; ?>" />
                             </div>
+                            <!-- <div class="mb-3">
+                              <label class="form-label">Số lượng ban đầu </label>
+                              <input type="number" class="form-control phone-mask" name="quantity_initial" id="quantity_initial" value="<?php echo (int) @$data->quantity_initial;?>" />
+                            </div> -->
                             <div class="mb-3">
                               <label class="form-label">Số lượng</label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
+                            
+                            
                             <div class="mb-3">
                               <label class="form-label">Mã sản phẩm ưu đãi</label>
                               <input type="text" class="form-control" name="idpro_discount" id="idpro_discount" value="<?php echo @$data->idpro_discount; ?>" />

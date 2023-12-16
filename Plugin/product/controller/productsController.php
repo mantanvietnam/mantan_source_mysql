@@ -69,8 +69,6 @@ function listProduct($input)
         $listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
         $totalData = $modelProduct->find()->where($conditions)->all()->toList();
     }
-    
-
     if(!empty($listData)){
 
     	foreach ($listData as $key => $value) {
@@ -160,6 +158,8 @@ function addProduct($input)
         $data = $modelProduct->get( (int) $_GET['id']);
 
         
+
+        
     }else{
         $data = $modelProduct->newEmptyEntity();
     }
@@ -182,6 +182,7 @@ function addProduct($input)
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
             $data->quantity = (int) @$dataSend['quantity'];
+            $data->quantity_initial = (int) @$dataSend['quantity_initial'];
             $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
 	        $data->status = @$dataSend['status'];
             $data->rule = @$dataSend['rule'];
@@ -191,7 +192,7 @@ function addProduct($input)
             $data->pricepro_discount = @$dataSend['pricepro_discount'];
 
 
-	        
+
              
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
@@ -215,6 +216,7 @@ function addProduct($input)
           
 
 	        $modelProduct->save($data);
+
 
             // lưu danh mục sản phẩm
                 if(!empty($dataSend['id_category'])){

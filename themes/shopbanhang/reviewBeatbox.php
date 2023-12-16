@@ -13,7 +13,7 @@ $settinghom = setting();
         <div class="breadcrumb-center">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                <li class="breadcrumb-item active">Review sản phẩm</li>
+                <li class="breadcrumb-item active">Review sản phẩm </li>
             </ul>
         </div>
     </section>
@@ -38,7 +38,7 @@ $settinghom = setting();
                         <div class="row log-in">
                             <div class="col-lg-8 col-md-12 col-sm-12">
                                 <div class="title-unbox">
-                                    <p>Tìm kiếm theo sản phẩm</p>
+                                    <p>Tìm kiếm theo sản phẩm </p>
                                 </div>
                                 <div class="list-product-review">
                                      <?php if(!empty($list_product)){
@@ -174,7 +174,7 @@ $settinghom = setting();
                                         foreach($list_product as $key => $item){
                                      ?>
                                     <div class="item-slick-product">
-                                        <a href="/san-pham/<?php echo $item->slug ?>">
+                                        <a href="/khach_hang_dap_hop?code=<?php echo $item->code ?>">
                                             <img src="<?php echo $item->image; ?>">
                                             <p><?php echo $item->title; ?></p>
                                         </a>

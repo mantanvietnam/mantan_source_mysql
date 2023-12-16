@@ -40,7 +40,7 @@ function cart($input)
 				$id_prodiscount = explode(',', @$product->idpro_discount);
                // debug($id_prodiscount);
 				foreach($id_prodiscount as $item){
-					$presentf = $modelProduct->find()->where(['code'=>$item])->first();
+					$presentf = $modelProduct->find()->where(['code'=>$item, 'quantity >'=>0])->first();
 					$presentf->numberOrder = $product->$numberOrder;
                      // debug($presentf);
 					if(!empty($presentf)){
@@ -83,7 +83,7 @@ function cart($input)
 	}
 
 // SẢN PHẨM NGẪU NHIÊN
-	$conditions = array('status' => 'active');
+	$conditions = array('status' => 'active', 'quantity >'=>0);
 	$limit = 4;
 	$page = 1;
 	$order = array('id'=>'desc');

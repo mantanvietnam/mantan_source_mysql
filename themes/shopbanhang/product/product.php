@@ -1,4 +1,4 @@
-    <?php
+<?php
     getHeader();
     global $urlThemeActive;
     global $session;
@@ -966,12 +966,12 @@
                                                             <div class="button-like<?php echo $value->id ?>"  id="likecommentno<?php echo $value->id ?>"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
                                                         </div>
 
-                                                    <?php }  }else{ ?>
-                                                     <div class="button-like<?php echo $value->id ?>">
+                                                    <?php }  } ?>
+                                                     <!-- <div class="button-like<?php echo $value->id ?>">
                                                         <a  class="like"  data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" ><i class='bx bxs-like'></i>                                     
                                                             <span>Thích</span></a>
                                                         </div>
-                                                    <?php   } ?>
+                                                     -->
                                                 </div>
 
                                                 <div class="people-time">
@@ -1340,35 +1340,39 @@ function addComment(){
     console.log(full_name);
     console.log(avatar);
     if(comment!=''){
-       $.ajax({
-        method: 'POST',
-        url: '/apis/addComment',
-        data: { idobject: '<?php echo @$product->id; ?>',
-        type: 'product',
-        comment: comment,
-        idcustomer: idcustomer,
-        full_name: full_name,
-        avatar: avatar,
-    },
-    success:function(res){
-      console.log(res);
-                       // location.reload();
+        if(full_name!=''){
+           $.ajax({
+            method: 'POST',
+            url: '/apis/addComment',
+            data: { idobject: '<?php echo @$product->id; ?>',
+            type: 'product',
+            comment: comment,
+            idcustomer: idcustomer,
+            full_name: full_name,
+            avatar: avatar,
+        },
+        success:function(res){
+          console.log(res);
+                           // location.reload();
 
-                       document.getElementById('comment').value = '';   
-                       
-                       document.getElementById("myComment").style.display = 'block';
-                        document.getElementById('commentinput').style.display = 'none';
-                       var myElement = document.getElementById('myComment');
+                           document.getElementById('comment').value = '';   
+                           
+                           document.getElementById("myComment").style.display = 'block';
+                            document.getElementById('commentinput').style.display = 'none';
+                           var myElement = document.getElementById('myComment');
 
-                    // Hàm thay đổi CSS
-                    function changeCSS() {
-                        myElement.style.display = 'none';
+                        // Hàm thay đổi CSS
+                        function changeCSS() {
+                            myElement.style.display = 'none';
+                        }
+
+                        // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
+                        setTimeout(changeCSS, 3000);
                     }
-
-                    // Đặt hẹn giờ để thực hiện thay đổi sau 10 giây
-                    setTimeout(changeCSS, 3000);
-                }
-            });
+                });
+       }else{
+           document.getElementById("commentinput").innerHTML ='<p style="color: red;">Bạn chưa nhập bình luận!</p>'; 
+       }
    }else{
        document.getElementById("commentinput").innerHTML ='<p style="color: red;">Bạn chưa nhập bình luận!</p>'; 
    }
