@@ -53,6 +53,10 @@ $info = $session->read('infoUser');
                                             <li class="nav-item">
                                                 <a class="nav-link" href="/discount">Voucher</a>
                                             </li>
+
+                                            <li class="nav-item">
+                                            <a class="nav-link" href="/logout" >Đăng xuất</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

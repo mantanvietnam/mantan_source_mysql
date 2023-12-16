@@ -88,7 +88,7 @@ $(document).ready(function() {
         nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-angle-right'></i></button>",
         asNavFor: '.comment-text-slide',
         responsive: [{
-                breakpoint: 768,
+                breakpoint: 900,
                 settings: {
                     arrows: true,
                     slidesToShow: 3

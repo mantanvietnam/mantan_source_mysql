@@ -111,7 +111,7 @@
 
                         <div class="rate-left-text">
                             <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
-                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> | <?php echo $product->sold ?> đã bán</span>
+                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> |    <?php echo $product->sold ?>&nbsp;&nbsp;đã bán</span>
                             <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
                         </div>
                     </div>
@@ -963,7 +963,7 @@
                                                                 <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i><span>Thích</span></button>
                                                             </div>
                                                         <?php }else{?>
-                                                            <div class="button-like<?php echo $value->id ?>"  id="likecommentno<?php echo $value->id ?>"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
+                                                            <div class="button-like<?php echo $value->id ?>"  id="likecommentno<?php echo $value->id ?>"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="color: #3672a4;"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
                                                         </div>
 
                                                     <?php }  } ?>
@@ -1246,7 +1246,7 @@
         success:function(res){
           console.log(res);
           $('#likecomment'+idobject ).remove();
-          html= '<div class="button-like'+idobject+'"  id="likecommentno'+idobject+'"><button type="button" onclick="delelelikecomment('+idobject+','+s+')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class="bx bxs-like"></i><span>Thích</span></button></div>'
+          html= '<div class="button-like'+idobject+'"  id="likecommentno'+idobject+'"><button type="button" onclick="delelelikecomment('+idobject+','+s+')" style="color: #3672a4;"><i class="bx bxs-like"></i><span>Thích</span></button></div>'
 
           document.getElementById("like_comment-"+idobject).innerHTML = html;
 

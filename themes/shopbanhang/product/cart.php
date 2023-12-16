@@ -487,7 +487,7 @@ $price_total = 0;
                                                             <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
                                                         <?php } ?>
                                                         <?php if(!empty($item->deadline_at)){ ?>
-                                                            <p>Ngày hết hạn <?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></p>
+                                                            <p>HSD <?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></p>
                                                         <?php } ?>
                                                         </div>
                                                         <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
@@ -519,14 +519,14 @@ $price_total = 0;
                                <?php 
                                $ship = 0;
                                if(@$price_total>0){ 
-                                $ship = 30000; 
+                                $ship = 35000; 
                                  echo '<div class="cart-price-item">
                                     <div class="cart-price-item-title">
                                         Giá vận chuyển 
                                     </div>
 
                                     <div class="cart-price-item-price" id="pricetotal">
-                                      30.000đ
+                                      35.000đ
                                     </div>
                                     <input type="hidden" name="totalPays" id="totalPays" value="'.$price_total.'">
                                 </div>';
@@ -1005,7 +1005,7 @@ $(document).ready(function() {
             $('#discountPrice3').html(html3);
            
 
-            price_total = price_total +30000 - d1 - d2 - d3 ;
+            price_total = price_total +35000 - d1 - d2 - d3 ;
 
 
              var totalck = new Intl.NumberFormat().format(d1 + d2 + d3);

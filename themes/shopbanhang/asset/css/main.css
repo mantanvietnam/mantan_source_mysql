@@ -295,6 +295,7 @@ strong {
     transition: all 0.3s linear;
     margin-bottom: 35px;
     align-items: center;
+    border-radius: 10px;
 }
 
 .modal-left-login-social .login-social-item a {
@@ -307,7 +308,7 @@ strong {
 }
 
 .modal-login .modal-dialog {
-    max-width: 60%;
+    max-width: 48%;
 }
 
 .modal-right .form-control::placeholder {
@@ -381,7 +382,7 @@ strong {
 .modal-right {
     padding-right: 37px;
     padding-left: 45px;
-    margin-top: 153px;
+    margin-top: 90px;
     margin-bottom: 90px
 }
 
@@ -796,6 +797,10 @@ strong {
     font-weight: bold;
     color: #000;
     margin-bottom: 21px;
+}
+
+#section-flash-sale .flash-sale-title img{
+    width: 36%;
 }
 
 #section-flash-sale .flash-sale-link {
@@ -1769,10 +1774,15 @@ strong {
 
 #section-blog-contact .title-section-sub {
     margin-bottom: 20px;
+    line-height: 1.4;
 }
 
 #section-blog-contact .title-section h2 {
     color: #008BCF
+}
+
+.blog-last-title{
+    margin-bottom: 15px;
 }
 
 
@@ -1811,20 +1821,27 @@ strong {
 }
 
 #section-blog-detail .blog-detail-content {
-    margin-top: 26px;
+    margin-top: 13px;
     line-height: 1.6;
     font-weight: 300;
 }
 
 #section-blog-detail .blog-detail-content h1{
     font-weight: 400;
-    line-height: 2;
+    line-height: 1.7;
+    margin: 15px 0;
 }
 
 #section-blog-detail .blog-detail-content img{
     width: 100% !important;
+    margin: 20px 0;
 }
 
+#section-blog-detail .blog-detail-content p ,#section-blog-detail .blog-detail-content span{
+    color: #202020!important;
+    line-height : 24px;
+    font-size : 16px
+}
 
 /* chuyên mục sản phẩm  */
 
@@ -4141,6 +4158,18 @@ tbody {
     font-weight: 300;
 }
 
+.section-flash-sale-inner .best-sale-price p{
+    color: #e84136;
+}
+
+#sale99 .product-price {
+    color: #e84136;
+}
+
+.about-misstion-box-mobile{
+    display: none;
+}
+
 
 @media (min-width: 1400px) {
     .container,
@@ -4186,12 +4215,26 @@ tbody {
 }
 
 
+@media (max-width: 800px){
+   
+}
+
 
 
 @media(max-width: 480px) {
-   
+    .about-misstion-box-pc{
+        display: none;
+    }
 
+    .about-misstion-box-mobile{
+        display: block;
+    }
 
+    /* Chi tiết bài viết */
+    #section-blog-detail .blog-detail-meta p{
+        margin-right: 50px;
+    }
+    /*  */
 
     .box-confirm-cart {
         top: 100px
@@ -4367,6 +4410,11 @@ tbody {
         font-size: 22px;
         margin-bottom: 10px;
     }
+
+    #section-flash-sale .flash-sale-title img{
+        width: 70%;
+    }
+
     .title-section h2 {
         font-size: 18px
     }
