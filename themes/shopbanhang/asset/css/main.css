@@ -258,7 +258,9 @@ strong {
 
 /* Header */
 
-.modal-login .modal-body {}
+.modal-login .modal-body {
+    padding-top: 0;
+}
 
 .modal-login .modal-content {
     /* height: 561px; */
@@ -2553,7 +2555,8 @@ strong {
 }
 
 .detail-info-rate-left a{
-    color : #EF5B36
+    color : #EF5B36;
+    text-decoration: underline;
 }
 
 
@@ -4132,6 +4135,12 @@ tbody {
 
 }
 
+ /* Trang chủ */
+ .forgot-text{
+    font-size: 15px;
+    font-weight: 300;
+}
+
 
 @media (min-width: 1400px) {
     .container,
@@ -4179,7 +4188,11 @@ tbody {
 
 
 
-@media(max-width: 445px) {
+@media(max-width: 480px) {
+   
+
+
+
     .box-confirm-cart {
         top: 100px
     }
@@ -4238,6 +4251,11 @@ tbody {
 
     #section-about-value .value-item-3{
         margin-bottom: 30px !important;
+        gap: 40px
+    }
+
+    #section-about-value .value-item-text{
+        margin-top: 10px;
     }
 
     .box-about-number .value-item-2{

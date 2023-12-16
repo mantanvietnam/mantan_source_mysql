@@ -149,8 +149,8 @@ header{
 }
 
 .modal-forgotpass .modal-right {
-    margin-top: 46px !important;
-    margin-bottom: 55px ;
+    margin-top: 23px !important;
+    margin-bottom: 27px ;
 }
 
 .modal-forgotpass .or-login {
@@ -2299,7 +2299,7 @@ background: #555;
     }
 
     header{
-        height: 90px;
+        height: auto;
     }
     /*  */
 
@@ -3388,6 +3388,8 @@ background: #555;
     padding-bottom: 44px;
     padding-right: 84px;
     padding-left: 50px; */
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .about-misstion-box img{
@@ -3617,8 +3619,8 @@ background: #555;
     }
 
     .about-misstion-box {
-        padding-right: 23px;
-        padding-left: 34px;
+        /* padding-right: 23px;
+        padding-left: 34px; */
     }
 
     .box-about-number .value-item-text {
@@ -3635,5 +3637,25 @@ background: #555;
 
     .title-number{
         font-size: 23px;
+    }
+
+    #section-about-misstion{
+        margin-bottom: 40px;
+    }
+
+    #section-content-image-right{
+        margin-bottom: 40px;
+    }
+
+    .about-content-image-right-box .about-content-image{
+        margin-bottom: 0;
+    }
+
+    #section-about-value{
+        margin-bottom: 40px;
+    }
+
+    #section-about-number{
+        margin-bottom: 40px;
     }
 }
