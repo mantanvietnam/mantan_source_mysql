@@ -949,7 +949,7 @@
 
                                             <div class="product-detail-rate-like" >
                                                 <div class="people-comment">
-                                                    <span>Trả lời</span>
+                                                    <!-- <span>Trả lời</span> -->
                                                 </div>
 
                                                 <div class="people-like" id="like_comment-<?php echo $value->id; ?>">
@@ -966,12 +966,17 @@
                                                             <div class="button-like<?php echo $value->id ?>"  id="likecommentno<?php echo $value->id ?>"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="color: #3672a4;"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
                                                         </div>
 
-                                                    <?php }  } ?>
-                                                     <!-- <div class="button-like<?php echo $value->id ?>">
-                                                        <a  class="like"  data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" ><i class='bx bxs-like'></i>                                     
+                                                    <?php }  } else{
+                                                        echo'
+                                                        <div class="button-like<?php echo $value->id ?>">
+                                                            <a  class="like"  data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" ><i class="bx bxs-like"></i>                                     
                                                             <span>Thích</span></a>
                                                         </div>
-                                                     -->
+                                                    
+                                                        ';
+
+                                                    } ?>
+                                                   
                                                 </div>
 
                                                 <div class="people-time">
@@ -1003,7 +1008,7 @@
 
                                                 <div class="product-detail-rate-like" >
                                                     <div class="people-comment">
-                                                        <span>Trả lời</span>
+                                                        <!-- <span>Trả lời</span> -->
                                                     </div>
 
 
