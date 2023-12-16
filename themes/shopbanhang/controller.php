@@ -263,6 +263,7 @@ function settingAboutusTheme($input){
                         'content_below' => @$dataSend['content_below'],
 
                         'image_mission1' => @$dataSend['image_mission1'],
+                        'image_mission2' => @$dataSend['image_mission2'],
 
                     );
 

@@ -76,6 +76,11 @@ $infoUser = $session->read('infoUser');
                     </div> -->
                     <img src="<?php echo @$setting['image_mission1'] ?>" alt="">
                 </div>
+
+                 <div class="about-misstion-box mobile" style="display: none;">
+                    
+                    <img src="<?php echo @$setting['image_mission2'] ?>" alt="">
+                </div>
             </div>
         </section>
 

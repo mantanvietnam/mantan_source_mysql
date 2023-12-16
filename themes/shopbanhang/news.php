@@ -240,6 +240,9 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="blog-last-meta">
                                 <p class="blog-last-date"><?php echo date('H:i d/m/Y', $item->time); ?></p>
                                 <p class="blog-last-category"></p>
+                                <div class="list-blog-col-category">
+                                            <span><?php echo @$Category->name ?></span>
+                                        </div>
                             </div>
 
                             <div class="blog-last-image">

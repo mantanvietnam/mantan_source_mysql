@@ -1,6 +1,7 @@
 <?php
 getHeader();
 global $urlThemeActive;
+$Category = getByIdCategory($post->idCategory);
 ?>
     <?php if($post->type=='post'){ ?>
     <main>
@@ -24,10 +25,13 @@ global $urlThemeActive;
                     <div class="blog-detail-date">
                         <p><?php echo date('H:i d/m/Y',$post->time); ?></p>
                     </div>
-    
+                     <div class="list-blog-col-category">
+                         <span><?php echo @$Category->name ?></span>
+                    </div>
                     <div class="blog-detail-time">
                         <p><?php echo @$item->author ?></p>
                     </div>
+                   
                 </div>
                 <div class="blog-detail-description">
                     <p><?php echo @$post->description ?></p>

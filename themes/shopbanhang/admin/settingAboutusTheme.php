@@ -36,10 +36,15 @@
                   <label class="form-label" for="basic-default-fullname">ảnh nội dung phải</label>
                   <?php showUploadFile('image_right','image_right', @$setting['image_right'],3);?>
                 </div>
-                <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <label class="form-label" for="basic-default-fullname">SỨ MỆNH</label>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                  <label class="form-label" for="basic-default-fullname">ảnh SỨ MỆNH màng hình máy tính </label>
                   <!-- <textarea class="form-control" name="mission" rows="5"><?php echo @$setting['mission'] ?></textarea> -->
                   <?php showUploadFile('image_mission1','image_mission1', @$setting['image_mission1'],15);?>
+
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                  <label class="form-label" for="basic-default-fullname">ảnh SỨ MỆNH màng hình mobile</label>
+                  <?php showUploadFile('image_mission2','image_mission2', @$setting['image_mission2'],16);?>
 
                 </div>
 
