@@ -486,6 +486,9 @@ $price_total = 0;
                                                         <?php if(!empty($item->maximum_price_reduction)){ ?>
                                                             <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
                                                         <?php } ?>
+                                                        <?php if(!empty($item->deadline_at)){ ?>
+                                                            <p>Ngày hết hạn <?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></p>
+                                                        <?php } ?>
                                                         </div>
                                                         <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">
                                                             <input class="form-check-input checkbox-<?php echo @$key ?> checkcode<?php echo @$key ?>-<?php echo @$k ?>"   type="checkbox" name="code<?php echo @$key ?>" value="<?php echo $item->code ?>" id="checkcode<?php echo @$key ?>-<?php echo @$k ?>">

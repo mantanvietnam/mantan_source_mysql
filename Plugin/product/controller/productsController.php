@@ -182,7 +182,7 @@ function addProduct($input)
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
             $data->quantity = (int) @$dataSend['quantity'];
-            $data->quantity_initial = (int) @$dataSend['quantity_initial'];
+            $data->sold = (int) @$dataSend['sold'];
             $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
 	        $data->status = @$dataSend['status'];
             $data->rule = @$dataSend['rule'];

@@ -11,7 +11,7 @@ function cart($input)
 	$metaTitleMantan = 'Giỏ hàng';
 
 	$list_product = (!empty($session->read('product_order')))?$session->read('product_order'):[];
-//$session = (!empty($session->read('product_order')))?$session->read('product_order'):[];
+	//$session = (!empty($session->read('product_order')))?$session->read('product_order'):[];
 
 	$checkproductAll = 'true';
 
@@ -82,7 +82,7 @@ function cart($input)
 		$category[$key]=$data;
 	}
 
-// SẢN PHẨM NGẪU NHIÊN
+	// SẢN PHẨM NGẪU NHIÊN
 	$conditions = array('status' => 'active', 'quantity >'=>0);
 	$limit = 4;
 	$page = 1;
@@ -227,7 +227,7 @@ function createOrder($input)
 		$list_product = $session->read('product_order');
 
 		if(!empty($list_product)){
-// tạo đơn hàng mới
+		// tạo đơn hàng mới
 			$data = $modelOrder->newEmptyEntity();
 
 			$data->id_user = @$dataSend['id_user'];
@@ -599,7 +599,7 @@ function pay($input){
 
 				$prod = $modelProduct->get($product->id);
 
-				$prod->quantity -= $product->numberOrder;
+				// $prod->quantity -= $product->numberOrder;
 				$prod->sold += $product->numberOrder;
 
 				$modelProduct->save($prod);
