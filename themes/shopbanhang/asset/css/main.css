@@ -255,6 +255,9 @@ strong {
     /* margin-top: 22px; */
 }
 
+.banner-home-slide-news .slick-dots{
+    display: none !important;
+}
 
 /* Header */
 

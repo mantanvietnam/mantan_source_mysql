@@ -23,9 +23,9 @@ $slide_home= slide_home($setting['id_slide']);
 
         <section id="section-banner-home">
             <div class="container">
-                <div class="banner-home-slide">
-                    <?php if(!empty($slide_home->imageinfo)){
-                        foreach($slide_home->imageinfo as $key => $item){ ?>
+                <div class="banner-home-slide banner-home-slide-news">
+                    <?php if(!empty($slide_news->imageinfo)){
+                        foreach($slide_news->imageinfo as $key => $item){ ?>
                 <div class="banner-home-item">
                     <a href="<?php echo $item->link ?>">
                     <img src="<?php echo $item->image ?>" alt="">
