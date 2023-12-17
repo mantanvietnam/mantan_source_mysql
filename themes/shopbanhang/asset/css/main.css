@@ -308,7 +308,7 @@ strong {
 }
 
 .modal-login .modal-dialog {
-    max-width: 48%;
+    max-width: 63%;
 }
 
 .modal-right .form-control::placeholder {
@@ -4121,6 +4121,30 @@ tbody {
     background-color: #787878;
 }
 
+.slide-rate-image .slick-prev {
+    position: absolute;
+    left: 0px;
+}
+
+.slide-rate-image .slick-next {
+    position: absolute;
+    right: 0px;
+}
+
+.slide-rate-image .slick-arrow {
+    background-color: transparent;
+    z-index: 1;
+    width: 45px;
+    height: 45px;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0;
+    bottom: 46%;
+    border: none;
+    background-color: #787878;
+}
+
+
 /* Icon play */
 .image-unbox{
     position: relative;
@@ -4222,6 +4246,10 @@ tbody {
 
 
 @media(max-width: 480px) {
+    .box-video iframe{
+        height: 315px !important;
+    }
+
     .about-misstion-box-pc{
         display: none;
     }

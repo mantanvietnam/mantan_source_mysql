@@ -486,7 +486,7 @@
     </div>
 </div>
 
-<div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
+<!-- <div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
     <div class="box-confirm-cart-title confirm-like">
         <p>Đã thích Comment này </p>
         <div class="close-button">
@@ -502,7 +502,7 @@
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-</div>
+</div> -->
 
 <?php if(@$_GET['error']=='quantity'){ ?>
     <div class="box-confirm-cart box-confirm-like" id="myQuantity"  style=" display: block; ">

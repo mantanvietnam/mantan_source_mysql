@@ -113,7 +113,9 @@ $('.slide-rate-image').slick({
   slidesToScroll: 1,
   // autoplay: true,
   autoplaySpeed: 3000,
-  arrows: false
+  arrows: true,
+  prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-angle-left'></i></button>",
+  nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-angle-right'></i></button>",
 });
 
 
