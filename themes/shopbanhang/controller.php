@@ -395,6 +395,8 @@ function news(){
     global $modelPosts;
     global $controller;
     global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
     global $metaTitleMantan;
     $metaTitleMantan = 'Tin tức';
 
@@ -410,7 +412,10 @@ function news(){
     $Category1 = $modelCategories->find()->where(array('id'=>4))->first()->name;
     $Category2 = $modelCategories->find()->where(array('id'=>9))->first()->name;
 
-
+    $slide_news = $modelAlbums->find()->where(['id'=>'4'])->first();
+    if(!empty($slide_news)){
+        $slide_news->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_news->id])->all()->toList();
+    }
 
     setVariable('listDataPost', $listDataPost);
     setVariable('listDatatop', $listDatatop);
@@ -420,6 +425,8 @@ function news(){
     setVariable('Category1', $Category1);
     setVariable('Category2', $Category2);
     setVariable('listDataView', $listDataView);
+    setVariable('slide_news', $slide_news);
+
 
 }
 

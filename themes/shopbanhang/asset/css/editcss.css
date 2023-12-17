@@ -104,7 +104,7 @@ header{
     width: 100%;
     font-size: 21px;
     background-color: #011436;
-    border-radius: 3px;
+    border-radius: 10px;
     border-color: transparent;
     padding-top: 11px;
     padding-bottom: 11px;
@@ -146,11 +146,12 @@ header{
 
 .forgot-text{
     font-weight: 200;
+    line-height: 1.5;
 }
 
 .modal-forgotpass .modal-right {
-    margin-top: 46px !important;
-    margin-bottom: 55px ;
+    margin-top: 23px !important;
+    margin-bottom: 27px ;
 }
 
 .modal-forgotpass .or-login {
@@ -407,7 +408,7 @@ header{
 }
 
 .blog-detail-description{
-    margin-top: 35px;
+    margin-top: 17px;
     line-height: 1.6;
 }
 
@@ -474,7 +475,11 @@ header{
 }
 
 .table-cart-right .logo-voucher{
-    width: 35%;
+    width: 27%;
+}
+
+.avt-user img{
+    border-radius: 50%;
 }
 
 .table-cart-right .list-code-discount .check-voucher{
@@ -1601,6 +1606,12 @@ background: #555;
     }
 }
 
+@media(min-width: 500px) and (max-width: 1025px){
+    .modal-forgotpass .modal-dialog{
+        max-width: 66% !important;
+    }
+}
+
 
 @media(min-width: 445px){
     
@@ -1838,7 +1849,7 @@ background: #555;
     }
 
     .menu-mobile-box .nav-mobile .offcanvas{
-        left: 40px;
+        /* left: 40px; */
         right: 0;
         top: 0;
         bottom: 0;
@@ -1909,7 +1920,7 @@ background: #555;
     .menu-mobile-box a p {
         font-size: 17px;
         color : #000;
-        font-weight: 400;
+        font-weight: 300;
         white-space: nowrap;
         margin-top: 5px;
     }
@@ -1982,13 +1993,31 @@ background: #555;
 
 
 @media(max-width: 445px) {
+    .text-detail span{
+        font-size: 14px;
+
+    }
+
+    .text-detail {
+        padding-right: 40px;
+
+    }
+
+    .image-unbox p{
+        font-size: 14px;
+    }
+
+    .content-unbox .detail-unbox{
+        padding-bottom: 0;
+    }
+
     #section-product-detail-rate .product-detail-rate-inner:first-child h2{
         margin-top: 20px;
     }
 
     #policy .nav-tabs{
         padding-top : 0px;
-        margin-top: 14px;
+        margin-top: 23px;
     }
     .contact-fixed{
         bottom: 82px;
@@ -2299,7 +2328,7 @@ background: #555;
     }
 
     header{
-        height: 90px;
+        height: auto;
     }
     /*  */
 
@@ -2604,7 +2633,7 @@ background: #555;
     .menu-mobile-box a p {
         font-size: 10px;
         color : #000;
-        font-weight: 400;
+        font-weight: 300;
         white-space: nowrap;
         margin-top: 5px;
     }
@@ -2942,7 +2971,7 @@ background: #555;
     }
 
     .section-pro-review-inner .title-section {
-        margin-top: 33px !important;
+        margin-top: 10px !important;
     }
 
     #section-product-detail {
@@ -3030,6 +3059,9 @@ background: #555;
 
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
+    .detail-info-rate-left a {
+        margin: 0 11px;
+    }
     /* review */
     .modal-video .modal-dialog{
         scale: 0.8;
@@ -3388,6 +3420,8 @@ background: #555;
     padding-bottom: 44px;
     padding-right: 84px;
     padding-left: 50px; */
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .about-misstion-box img{
@@ -3617,12 +3651,21 @@ background: #555;
     }
 
     .about-misstion-box {
-        padding-right: 23px;
-        padding-left: 34px;
+        /* padding-right: 23px;
+        padding-left: 34px; */
     }
 
     .box-about-number .value-item-text {
         font-size: 13px;
+        margin-top: 10px;
+    }
+
+    .box-about-number .value-item-3{
+        gap: 40px;
+    }
+
+    .box-about-number .value-item-2{
+        gap: 40px;
     }
 
     .value-item-icon-six {
@@ -3635,5 +3678,25 @@ background: #555;
 
     .title-number{
         font-size: 23px;
+    }
+
+    #section-about-misstion{
+        margin-bottom: 40px;
+    }
+
+    #section-content-image-right{
+        margin-bottom: 40px;
+    }
+
+    .about-content-image-right-box .about-content-image{
+        margin-bottom: 0;
+    }
+
+    #section-about-value{
+        margin-bottom: 40px;
+    }
+
+    #section-about-number{
+        margin-bottom: 40px;
     }
 }

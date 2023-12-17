@@ -111,7 +111,7 @@
 
                         <div class="rate-left-text">
                             <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
-                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> | <?php echo $product->sold ?> đã bán</span>
+                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> |    <?php echo $product->sold ?>&nbsp;&nbsp;đã bán</span>
                             <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
                         </div>
                     </div>
@@ -486,7 +486,7 @@
     </div>
 </div>
 
-<div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
+<!-- <div class="box-confirm-cart box-confirm-like" id="myLikeComment"  style=" display: none; ">
     <div class="box-confirm-cart-title confirm-like">
         <p>Đã thích Comment này </p>
         <div class="close-button">
@@ -502,7 +502,7 @@
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-</div>
+</div> -->
 
 <?php if(@$_GET['error']=='quantity'){ ?>
     <div class="box-confirm-cart box-confirm-like" id="myQuantity"  style=" display: block; ">
@@ -949,7 +949,7 @@
 
                                             <div class="product-detail-rate-like" >
                                                 <div class="people-comment">
-                                                    <span>Trả lời</span>
+                                                    <!-- <span>Trả lời</span> -->
                                                 </div>
 
                                                 <div class="people-like" id="like_comment-<?php echo $value->id; ?>">
@@ -963,15 +963,20 @@
                                                                 <button type="button" onclick="addlikecomment(<?php echo $value->id ?>, 'comment')"><i class='bx bxs-like'></i><span>Thích</span></button>
                                                             </div>
                                                         <?php }else{?>
-                                                            <div class="button-like<?php echo $value->id ?>"  id="likecommentno<?php echo $value->id ?>"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
+                                                            <div class="button-like<?php echo $value->id ?>"  id="likecommentno<?php echo $value->id ?>"><button type="button" onclick="delelelikecomment(<?php echo $value->id ?>, 'comment')" style="color: #3672a4;"><i class='bx bxs-like'></i><span>Thích</span></button><?php echo $value->number_like ?>
                                                         </div>
 
-                                                    <?php }  } ?>
-                                                     <!-- <div class="button-like<?php echo $value->id ?>">
-                                                        <a  class="like"  data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" ><i class='bx bxs-like'></i>                                     
+                                                    <?php }  } else{
+                                                        echo'
+                                                        <div class="button-like<?php echo $value->id ?>">
+                                                            <a  class="like"  data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" ><i class="bx bxs-like"></i>                                     
                                                             <span>Thích</span></a>
                                                         </div>
-                                                     -->
+                                                    
+                                                        ';
+
+                                                    } ?>
+                                                   
                                                 </div>
 
                                                 <div class="people-time">
@@ -1003,7 +1008,7 @@
 
                                                 <div class="product-detail-rate-like" >
                                                     <div class="people-comment">
-                                                        <span>Trả lời</span>
+                                                        <!-- <span>Trả lời</span> -->
                                                     </div>
 
 
@@ -1246,7 +1251,7 @@
         success:function(res){
           console.log(res);
           $('#likecomment'+idobject ).remove();
-          html= '<div class="button-like'+idobject+'"  id="likecommentno'+idobject+'"><button type="button" onclick="delelelikecomment('+idobject+','+s+')" style="background-color: rgb(24, 129, 129); color: rgb(255, 255, 255);"><i class="bx bxs-like"></i><span>Thích</span></button></div>'
+          html= '<div class="button-like'+idobject+'"  id="likecommentno'+idobject+'"><button type="button" onclick="delelelikecomment('+idobject+','+s+')" style="color: #3672a4;"><i class="bx bxs-like"></i><span>Thích</span></button></div>'
 
           document.getElementById("like_comment-"+idobject).innerHTML = html;
 

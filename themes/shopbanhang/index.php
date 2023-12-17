@@ -43,7 +43,8 @@ global $urlThemeActive;
             <div class="container">
                 <div class="section-flash-sale-inner">
                     <div class="flash-sale-title">
-                        <p>Flash Sale - Deal chớp nhoáng</p>
+                        <!-- <p>Flash Sale - Deal chớp nhoáng</p> -->
+                        <img src="<?php echo $urlThemeActive ?>/asset/image/flashsaletitle.png" alt="">
                     </div>
                     <div class="flash-sale-link">
                         <a href="/sale">Xem chi tiết <img src="<?php echo $urlThemeActive ?>/asset/image/doublearrow.svg" alt=""></a>

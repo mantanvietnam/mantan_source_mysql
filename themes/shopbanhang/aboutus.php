@@ -66,7 +66,7 @@ $infoUser = $session->read('infoUser');
 
         <section id="section-about-misstion">
             <div class="container container-padding">
-                <div class="about-misstion-box">
+                <div class="about-misstion-box about-misstion-box-pc">
                     <!-- <div class="title-mission">
                         <h2>Sứ mệnh</h2>
                     </div>
@@ -77,7 +77,7 @@ $infoUser = $session->read('infoUser');
                     <img src="<?php echo @$setting['image_mission1'] ?>" alt="">
                 </div>
 
-                 <div class="about-misstion-box mobile" style="display: none;">
+                 <div class="about-misstion-box about-misstion-box-mobile">
                     
                     <img src="<?php echo @$setting['image_mission2'] ?>" alt="">
                 </div>
