@@ -258,6 +258,26 @@ strong {
 
 /* Header */
 
+.topbar-button-myacc:hover .myacc-child{
+    display: block;
+}
+
+.myacc-child{
+    position: absolute;
+    bottom: -143px;
+    box-shadow: 2px 8px 12px -6px #888888;
+    background-color: #fff;
+    z-index: 10;
+    display: none;
+}
+
+.myacc-child-item {
+    font-size: 14px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #ddd4d4;
+}
+
+
 .modal-login .modal-body {
     padding-top: 0;
 }

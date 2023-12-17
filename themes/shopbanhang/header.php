@@ -113,11 +113,29 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <span><?php echo @$setting['phone'] ?></span>
                             </div>
 
-                            <div class="topbar-button">
+                            <div class="topbar-button topbar-button-myacc">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/account.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
-                                    <a href="/infoUser" >Tài khoản của tôi</a>
-                                    <a href="/logout" >Đăng xuất</a>
+                                        <a href="">Tài khoản của tôi</a>
+                                        <div class="myacc-child">
+                                            <div class="myacc-child-item">
+                                                <a href="/infoUser" >Thông tin tài khoản</a>
+                                            </div>
+
+                                            <div class="myacc-child-item">
+                                                <a href="/likeProduct">Sản phẩm yêu thích</a>
+                                            </div>
+
+                                            <div class="myacc-child-item">
+                                                <a href="/discount">Voucher</a>
+                                            </div>
+
+                                            <div class="myacc-child-item">
+                                                <a href="/logout" >Đăng xuất</a>
+                                            </div>
+                                        </div>
+                                    
+                                    <!-- <a href="/logout" >Đăng xuất</a> -->
                                 <?php }else{ ?>
                                 <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal">Đăng nhập</a>
                             <?php } ?>
