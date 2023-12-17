@@ -175,11 +175,9 @@ $slide_home= slide_home($setting['id_slide']);
                                         $giam = 100 - 100*$product->price/$product->price_old;
                                     }
 
-                                    $ban = 0;
-                                    if(!empty($product->quantity) && !empty($product->sold)){
-                                        if($product->quantity>$product->sold){
-                                            $ban = 100*$product->sold/$product->quantity;
-                                        }
+                                     $ban = 0;
+                                    if(!empty($product->quantity) && !empty($product->number_like)){
+                                        $ban = 100 - 100*$product->quantity/$product->number_like;
                                     }
                                  ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-6 product-item">

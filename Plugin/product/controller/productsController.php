@@ -155,11 +155,7 @@ function addProduct($input)
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelProduct->get( (int) $_GET['id']);
-
-        
-
-        
+        $data = $modelProduct->get( (int) $_GET['id']);  
     }else{
         $data = $modelProduct->newEmptyEntity();
     }
@@ -181,8 +177,9 @@ function addProduct($input)
             $data->code = @$dataSend['code'];
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
+            $data->quantity_initial = (int) @$dataSend['quantity_initial'];
+            $data->number_like = (int) @$dataSend['number_like'];
             $data->quantity = (int) @$dataSend['quantity'];
-            $data->sold = (int) @$dataSend['sold'];
             $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
 	        $data->status = @$dataSend['status'];
             $data->rule = @$dataSend['rule'];
@@ -217,6 +214,7 @@ function addProduct($input)
 
 	        $modelProduct->save($data);
 
+             
 
             // lưu danh mục sản phẩm
                 if(!empty($dataSend['id_category'])){

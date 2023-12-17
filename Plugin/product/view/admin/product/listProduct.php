@@ -130,7 +130,10 @@
                         <td><img src="'.$item->image.'" width="100" /></td>
                         <td>'.$category_name.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
-                        <td>'.$item->quantity.'</td>
+                        <td> Sl ban đầu:'.$item->number_like.'<br/>
+                              Sl còn:'.$item->quantity.'<br/>
+                            SL đã bán:'.$item->sold.'<br/>
+                        </td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                         câu hỏi<br/>

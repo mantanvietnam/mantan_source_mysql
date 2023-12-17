@@ -599,7 +599,7 @@ function pay($input){
 
 				$prod = $modelProduct->get($product->id);
 
-				// $prod->quantity -= $product->numberOrder;
+				$prod->quantity -= $product->numberOrder;
 				$prod->sold += $product->numberOrder;
 
 				$modelProduct->save($prod);

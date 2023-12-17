@@ -158,11 +158,11 @@
                               <input type="text" class="form-control" name="pricepro_discount" id="pricepro_discount" value="<?php echo @$data->pricepro_discount; ?>" />
                             </div>
                              <div class="mb-3">
-                              <label class="form-label">Số lượng đã bán </label>
-                              <input type="number" class="form-control phone-mask" name="sold" id="sold" value="<?php echo (int) @$data->sold;?>" />
+                              <label class="form-label">Số lượng ban đầu</label>
+                              <input type="number" class="form-control phone-mask" name="number_like" id="number_like" value="<?php echo (int) @$data->number_like;?>" />
                             </div> 
                             <div class="mb-3">
-                              <label class="form-label">Số lượng </label>
+                              <label class="form-label">Số lượng còn trong kho</label>
                               <input type="text" class="form-control phone-mask" name="quantity" id="quantity" value="<?php echo (int) @$data->quantity;?>" />
                             </div>
                             

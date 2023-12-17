@@ -62,11 +62,9 @@ global $urlThemeActive;
                             }
 
                             $ban = 0;
-                            if(!empty($item->quantity) && !empty($item->sold)){
-                                if($item->quantity>$item->sold){
-                                    $ban = 100*$item->sold/$item->quantity;
-                                }
-                            }
+                                    if(!empty($product->quantity) && !empty($product->number_like)){
+                                        $ban = 100 - 100*$product->quantity/$product->number_like;
+                                    }
                             ?>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-6 best-sale-item">
                                 <div class="best-sale-item-inner">
