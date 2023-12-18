@@ -68,9 +68,9 @@
                                             <?php
                                             if (!empty($listData)) {
                                                 foreach ($listData as $key => $item) {
-                                                    $type = 'Chưa xử lý';
+                                                    $type = 'Chưa thanh toán';
                                                     if ($item->status == 1) {
-                                                        $type = 'Đã xử lý';
+                                                        $type = 'Đã thanh toán';
                                                     } elseif ($item->status == 2) {
                                                         $type = 'Dang sử lý';
                                                     } elseif ($item->status == 3) {

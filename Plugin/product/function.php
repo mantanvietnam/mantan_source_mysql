@@ -87,8 +87,8 @@ addMenusAppearance($category);
 function categoryDiscountCode(){
       return array(
           1=>'voucher freeship',
-          2=>' Loại 1',
-          3=>' Loại 2',
+          2=>'Bumas hi',
+          3=>'Foryous',
       );
 }
 

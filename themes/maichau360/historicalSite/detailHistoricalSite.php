@@ -183,10 +183,11 @@ global $urlThemeActive;
                 </div>
 
                 <div class="map-iframe">
-                    <div class="map-btn">
-                        <a href="">Xem chỉ đường</a>
-                    </div>
+                    
                       <?php if(!empty($data->latitude) & !empty($data->longitude)){ ?>
+                        <div class="map-btn">
+                        <a target="_blank" href="https://www.google.com/maps/dir/<?php echo $data->latitude  ?>,+<?php echo $data->longitude  ?>/">Xem chỉ đường</a>
+                    </div>
                                     <div id="map_HS"></div>
 
                             <?php }else{ ?>

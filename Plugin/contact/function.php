@@ -18,7 +18,7 @@ $categoryMenu[0]['sub'] = array(array ( 'url' => '/contact',
 
 addMenusAppearance($categoryMenu);
 
-function sendEmailContact($email='',$fullName='',$phone='',$subject='', $content='')
+function sendEmailContact($email='',$fullName='',$phone='', $contacht='')
 {
     $to = array();
 
@@ -66,7 +66,6 @@ function sendEmailContact($email='',$fullName='',$phone='',$subject='', $content
                 <div class="nd">
                     <div class="main" style=" font-size: 16px;">
                         Full name: '.$fullName.'<br/> 
-                        Address: '.$address.'<br/> 
                         Email: '.$email.'<br/> 
                         Phone: '.$phone.'<br/>
                         contacht: '.$contacht.'<br>

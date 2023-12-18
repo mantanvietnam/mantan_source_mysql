@@ -24,18 +24,17 @@ function contact($input)
 
         $data = $modelContacts->newEmptyEntity();
 
-        if(!empty($dataSend['subject']) && !empty($dataSend['name']) && !empty($dataSend['phone_number'])){
+        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
             // tạo dữ liệu save
-            $data->subject = @$dataSend['subject'];
+           // $data->subject = @$dataSend['subject'];
             $data->name = @$dataSend['name'];
             $data->email = @$dataSend['email'];
-            $data->phone_number = @$dataSend['phone_number'];
+            $data->phone_number = @$dataSend['phone'];
             $data->content = @$dataSend['content'];
             $data->submitted_at = time();
-            
             $modelContacts->save($data);
             if(!empty($data_value['email'])){
-                sendEmailContact(@$data_value['email'], @$dataSend['name'],@$dataSend['phone_number'],@$dataSend['subject'], @$dataSend['content']);
+                sendEmailContact(@$data_value['email'], @$dataSend['name'],@$dataSend['phone_number'], @$dataSend['content']);
             }
             $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
         }else{

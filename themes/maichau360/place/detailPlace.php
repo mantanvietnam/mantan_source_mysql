@@ -155,14 +155,14 @@ global $urlThemeActive;
                 </div>
 
                 <div class="map-iframe">
+                    <?php if(!empty($data->latitude) & !empty($data->longitude)){ 
+                     echo'<div class="map-btn">
+                        <a target="_blank" href="https://www.google.com/maps/dir/'.$data->latitude.',+'.$data->longitude.'/">Xem chỉ đường</a>    
+                    <div id="map_HS"></div>';
 
-                     <div class="map-btn">
-                        <a href="">Xem chỉ đường</a>
-                     </div>       
-                    
-                    <div id="map_HS"></div>
-
-                          
+                     }else{ 
+                               echo'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59569.358618264!2d105.78571485795389!3d21.069270504194773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aae54053e2d5%3A0x2d72b1d7c422234b!2zVMOieSBI4buTLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1680656977802!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> ';
+                     } ?>
                 </div>
             </div>
         </section>
@@ -323,7 +323,7 @@ global $urlThemeActive;
               $content.='<br/>Điện thoạt: ' . $data->phone;
               $content.='<br/>Địa chỉ: ' . $data->address;
 
-              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/maichau360/tayho360/assets/icon/lehoi.png","su_kien"]';
+              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/maichau360/tayho/assets/icon/lehoi.png","su_kien"]';
             }
         
         //  $listShowMap[]= '[]';
