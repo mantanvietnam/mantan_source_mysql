@@ -63,13 +63,20 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 <body>
     <header>
          <?php 
-         if(!empty(checkFlasl()) && $setting['targetTime']>time()){ ?>
-        <div class="promotion-header">
-            <p><?php echo $setting['text_mobile']; ?></p>
-            <a href="/sale">Mua ngay</a>
+         if(!empty(checkFlasl()) && $setting['targetTime']>time()){ 
+        echo '<div class="promotion-header">
+            <p>'.@$setting['text_mobile'].'</p>
+            <a href="'.@$setting['link_mobile'].'">Mua ngay</a>
             <i class="fa-solid fa-arrow-right"></i>
-        </div>
-        <?php } ?>
+        </div>';
+        }else{ 
+        echo '<div class="promotion-header">
+            <p>'.@$setting['text_mobile_ofsale'].'</p>
+            <a href="'.@$setting['link_mobile_ofsale'].'">Mua ngay</a>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>';
+
+        } ?>
         <div class="header-inner">
             <div class="topbar-mobile">
                 <div class="container-fluid">

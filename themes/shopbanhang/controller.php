@@ -73,6 +73,9 @@ function settingHomeTheme($input){
                         'link_nho2' => @$dataSend['link_nho2'],
                         'link_nho3' => @$dataSend['link_nho3'],
                         'text_mobile' => @$dataSend['text_mobile'],
+                        'text_mobile_ofsale' => @$dataSend['text_mobile_ofsale'],
+                        'link_mobile' => @$dataSend['link_mobile'],
+                        'link_mobile_ofsale' => @$dataSend['link_mobile_ofsale'],
                         'menu' => @$dataSend['menu'],
 
                        'targetTime' => @$targetTime,

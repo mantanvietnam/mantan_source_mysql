@@ -216,6 +216,14 @@
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                   <label class="form-label" for="basic-default-fullname" >text header mobile</label>
                    <input type="text" class="form-control" name="text_mobile" value="<?php echo @$setting['text_mobile'];?>" />
+                  <label class="form-label" for="basic-default-fullname" >link mua ngay header mobile </label>
+                  <input type="text" class="form-control" name="link_mobile" value="<?php echo @$setting['link_mobile'];?>" />
+                </div>
+                <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <label class="form-label" for="basic-default-fullname" >text header mobile hết sale</label>
+                  <input type="text" class="form-control" name="text_mobile_ofsale" value="<?php echo @$setting['text_mobile_ofsale'];?>" />
+                  <label class="form-label" for="basic-default-fullname" >link mua ngay header mobile  hết sale</label>
+                  <input type="text" class="form-control" name="link_mobile_ofsale" value="<?php echo @$setting['link_mobile_ofsale'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <button type="submit" class="btn btn-primary" style="width:75px; height: 35px;">Lưu</button>
