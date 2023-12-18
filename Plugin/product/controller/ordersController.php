@@ -34,12 +34,24 @@ function listOrderAdmin($input)
         $conditions['status'] = $_GET['status'];
     }
 
+   if(!empty($_GET['date_start'])){
+        $date_start = explode('/', $_GET['date_start']);
+        $conditions['create_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+    }
+
+    if(!empty($_GET['date_end'])){
+        $date_end = explode('/', $_GET['date_end']);
+        $conditions['create_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+            
+    }
+
     if(!empty($_GET['action']) && $_GET['action']=='Excel'){
         $listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
         $titleExcel =   [
             ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
             ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
             ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+            ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
             ['name'=>'Model', 'type'=>'text', 'width'=>15],
             ['name'=>'Số lượng', 'type'=>'text', 'width'=>35],
             ['name'=>'Màu sắc ', 'type'=>'text', 'width'=>15],
@@ -90,6 +102,7 @@ function listOrderAdmin($input)
                                             date('H:i d/m/Y', $value->create_at), 
                                             @$value->full_name,   
                                             @$value->phone,   
+                                            @$value->address,   
                                             $product->title,
                                             $item->quantity,
                                             '',

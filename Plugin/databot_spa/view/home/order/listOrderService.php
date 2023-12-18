@@ -64,7 +64,7 @@
                                         if(!empty($listData)){
                                             foreach($listData as $key => $item){ 
                                                 $type = 'Chưa thanh toán </br>
-                                                     <a href="" class="btn btn-primary">Thanh toán</a>
+                                                     <a href="/paymentOrders?id_order='.$item->id.'&type=service" class="btn btn-primary">Thanh toán</a>
                                                 ';
                                                 if($item->status==1){
                                                     $type = 'Đã thanh toán';
