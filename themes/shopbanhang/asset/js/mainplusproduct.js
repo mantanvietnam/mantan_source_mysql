@@ -1,6 +1,3 @@
-console.log('a');
-
-
 $('.icon-close').hide();
 document.getElementById('button-contact-2').addEventListener('click', function() {
   $('.icon-phone-bottom').toggle();
@@ -13,7 +10,13 @@ document.getElementById('button-contact-2').addEventListener('click', function()
 });
 
 
-$(".voucher-disable input").attr("disabled", "");
+// voucher disable
+$(document).ready(function() {
+  $(".voucher-disabled .form-check-input ").prop("disabled", true);;
+
+});
+
+
 
 // password hide show
 function togglePasswordVisibility() {

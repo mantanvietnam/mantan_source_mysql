@@ -715,6 +715,8 @@ $price_total = 0;
           </form>
     </main> 
 
+  
+
 <script type="text/javascript">
 $(document).ready(function() {
     if($(window).width()<1024){
@@ -730,6 +732,7 @@ $(document).ready(function() {
         $('#desktop_view1').show();
     }
 });
+
 </script>
 
 <script type="text/javascript">

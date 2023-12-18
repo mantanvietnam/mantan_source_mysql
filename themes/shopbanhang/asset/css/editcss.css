@@ -1927,7 +1927,7 @@ background: #555;
     }
 
     .menu-mobile-box li:first-child a p{
-        color: #008ACE;
+        color: #000;
     }
 
     /* .menu-mobile .dropdown-menu:not(.show){
@@ -2114,7 +2114,7 @@ background: #555;
         /* width: 200px; */
         height: 192px;
         background-color: #fff;
-        left: -9px;
+        left: -11px;
         top: -136px;
         box-shadow: 0 -5px 24px -5px #888888;
         z-index: -1;
@@ -2649,7 +2649,11 @@ background: #555;
     }
 
     .menu-mobile-box li:first-child a p{
-        color: #008ACE;
+        color: #000;
+    }
+
+    .menu-mobile-box .active a p{
+
     }
 
     /* Chi tiết sản phẩm */

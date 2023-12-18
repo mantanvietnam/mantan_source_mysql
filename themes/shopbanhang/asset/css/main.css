@@ -4956,3 +4956,105 @@ tbody {
     box-shadow: none;
 }
 
+/* SVg */
+.menu-mobile-box .st126 {
+    stroke: #000 !important;
+}
+
+.menu-mobile-box .active .st103{
+    fill: #56a9dd;
+    stroke: none;
+}
+
+.menu-mobile-box .active .st126 {
+    stroke: #fff !important;
+}
+
+.menu-mobile-box .active a p{
+    color: #56a9dd !important;
+}
+
+.menu-mobile-box svg{
+    width: 28px;
+}
+
+.menu-mobile-box .cls-1{
+    fill: #000;
+}
+
+.menu-mobile-box .svg-cart{
+    width: 24px;
+}
+
+.menu-mobile-box .home-svg{
+    width: 24px;
+}
+
+.menu-mobile-box .sale-svg{
+    width: 27px;
+}
+
+.menu-mobile-box .active .cls-1{
+    fill: #56a9dd;
+
+}
+
+#button-contact.active p{
+    color: #56a9dd
+}
+
+
+.menu-mobile-box .home-svg .cls-1{
+    stroke: #000;
+    stroke-width: 1px;
+    fill: none
+}
+
+.menu-mobile-box .active .home-svg .cls-1{
+    fill: #56a9dd;
+    stroke: none;
+}
+
+.menu-mobile-box .acc-svg .cls-1{
+    stroke: #000;
+    stroke-width: 1px;
+    fill: none
+}
+
+.menu-mobile-box .active .acc-svg .cls-1{
+    fill: #56a9dd;
+    stroke: none;
+}
+
+.menu-mobile-box .sale-svg .cls-1{
+    stroke: #000;
+    stroke-width: 1px;
+    fill: none;
+}
+
+.menu-mobile-box .sale-svg .cls-2{
+    fill: #000;
+
+}
+
+.menu-mobile-box .active .sale-svg .cls-2{
+    fill: #fff;
+
+}
+
+.menu-mobile-box .active .sale-svg .cls-1{
+    fill: #56a9dd;
+    stroke: none;
+}
+
+.menu-mobile-box .active .sale-svg .cls-2{
+    stroke: #fff;
+
+}
+
+.menu-mobile-box .active .sale-svg .cls-4{
+    stroke: #56a9dd;
+    fill: #56a9dd
+}
+
+
