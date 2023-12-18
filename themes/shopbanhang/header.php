@@ -483,8 +483,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         <g id="Layer_1">
                                         </g>
                                         <g id="Layer_2">
-                                            <circle class="st103" cx="12.5" cy="12.5" r="12.3" stroke="#000" stroke-width="0.5"/>
-                                            <circle class="st126" cx="12.6" cy="11.1" r="4.5" stroke="#000" stroke-width="0.5"/>
+                                            <circle class="st103" cx="12.5" cy="12.5" r="12.3" stroke="#000" stroke-width="1"/>
+                                            <circle class="st126" cx="12.6" cy="11.1" r="4.5" stroke="#000" stroke-width="1"/>
                                             <path class="st126" d="M21,21.4c-1.3-3.4-4.6-5.8-8.4-5.8c-3.9,0-7.1,2.4-8.4,5.9"/>
                                         </g>
                                     </svg>
@@ -628,8 +628,8 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         <g id="Layer_1">
                                         </g>
                                         <g id="Layer_2">
-                                            <circle class="st103" cx="12.5" cy="12.5" r="12.3" stroke="#000" stroke-width="0.5"/>
-                                            <circle class="st126" cx="12.6" cy="11.1" r="4.5" stroke="#000" stroke-width="0.5"/>
+                                            <circle class="st103" cx="12.5" cy="12.5" r="12.3" stroke="#000" stroke-width="1"/>
+                                            <circle class="st126" cx="12.6" cy="11.1" r="4.5" stroke="#000" stroke-width="1"/>
                                             <path class="st126" d="M21,21.4c-1.3-3.4-4.6-5.8-8.4-5.8c-3.9,0-7.1,2.4-8.4,5.9"/>
                                         </g>
                                     </svg>
