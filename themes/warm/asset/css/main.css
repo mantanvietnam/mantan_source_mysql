@@ -1656,6 +1656,17 @@ strong {
     /* .navbar-expand-lg .navbar-collapse {
         display: block !important;
     } */
+    #section-menu .nav-link {
+        font-size: 15px !important;
+    }
+
+    .news-slide .slick-prev{
+        left: -40px !important;
+    }
+
+    .news-slide .slick-next{
+        right: -40px !important;
+    }
 }
 
 @media (max-width: 1300px) {
