@@ -183,6 +183,9 @@ global $urlThemeActive;
                 </div>
 
                 <div class="map-iframe">
+                    <div class="map-btn">
+                        <a href="">Xem chỉ đường</a>
+                    </div>
                       <?php if(!empty($data->latitude) & !empty($data->longitude)){ ?>
                                     <div id="map_HS"></div>
 

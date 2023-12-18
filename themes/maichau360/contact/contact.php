@@ -121,7 +121,7 @@ getHeader();
                                                     <img src="<?= $urlThemeActive ?>assets/lou_icon/icon-global.svg"
                                                          class="me-3" alt="">
                                                     <span>
-                                                        https://tayho360.vn/
+                                                        https://maichau360.vn/
                                                     </span>
                                                 </div>
                                             </div>

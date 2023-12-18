@@ -460,6 +460,7 @@ input:-internal-autofill-selected {
 	height: 932px;
 
 	z-index: -1;
+	display: none;
 
 }
 
@@ -1806,7 +1807,7 @@ color: #188181;
 
 	padding: 0 60px;
 
-	font-size: 29px;
+	font-size: 27px;
 
 
 
@@ -4613,4 +4614,177 @@ color: #188181;
 	background-color: #0f5656;
 	color: #fff;
 }
+
+/*     Em Hiếu CSS - START     */
+
+main {
+	background-image: url("/themes/maichau360/images/bg-places.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.content-information img {
+	text-align: center;
+	object-fit: cover;
+	width: 100%;
+}
+#contact .contact-content .contact-icon .combo-icon {
+	padding: 10px 0;
+}
+#contact .contact-content .contact-icon .static li { 
+	line-height: 26px;
+}
+#contact .contact-content .contact-icon .static li strong {
+	font-weight: bold;
+}
+
+#map-section .map-iframe {
+	position: relative;
+}
+#map-section .map-iframe .map-btn {
+	position: absolute;
+	z-index: 500;
+	right: 0;
+	top: 0;
+    border-radius: 0px 0 0px 15px;
+    overflow: hidden;
+    box-shadow: 0 0px 15px 1px #c5c5c5;
+}
+
+#map-section .map-iframe .map-btn a{ 
+	text-decoration: none;
+	color: #fff;
+	padding: 18px 25px;
+	font-size: 22px;background-color: #4D9F91;
+	display: inline-block;
+	transition: all 0.2s linear;
+}
+#map-section .map-iframe .map-btn a:hover {
+	background-color: #346e65;	
+	transition: all 0.2s linear;
+
+}
+.place-content .button-like{
+	display: none;
+}
+
+@media (max-width: 768px){
+	#header .navbar .navbar-collapse .navbar-nav {
+    	align-items: end;
+	}
+	#header .nav-item.dropdown .dropdown-menu.relics-drop {
+        left: -30px;
+    }
+	.navbar-nav .dropdown-menu {
+		position: absolute !important;
+	}
+}
+
+@media (max-width: 480px) {
+	#map-section .map-iframe .map-btn a {
+		font-size: 14px;
+		padding: 16px 18px;
+	}
+	.content-information {
+		font-size: 14px;
+	}
+	#place-detail .place-content .place-title {
+		text-align: center;
+	}
+	#place-detail .place-img-slide {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	#place-information .title-information {
+		font-size: 24px;
+	}
+	#place-information .content-information {
+		font-size: 14px;
+	}
+	#map-section .title-section {
+		font-size: 24px;
+	}
+	#place-around-section .title-section {
+		font-size: 24px;
+	}
+	#place-detail .place-content .place-address {
+		font-size: 15px;
+	}
+	#place-detail .place-content {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	#place-detail .button-content button {
+		width: 130px;
+		height: 45px;
+		font-size: 18px;
+		margin-right: 20px;
+	}
+	.button-content .button-share {
+		width: 130px;
+		height: 40px;
+	}
+	#place-detail .button-content {
+		justify-content: center;
+	}
+	#contact .col-md-6.col-sm-12 {
+		width: 100%;
+	}
+	#contact .contact-content .contact-text h4 {
+		font-size: 18px;
+	}
+	#contact .contact-content .contact-icon h4 {
+		font-size: 18px;
+	}
+	#contact .contact-content .contact-icon .static li {
+		font-size: 14px;
+	}
+	#contact .contact-content .contact-icon .combo-icon a:first-child {
+		font-size: 36px;
+	}
+	#contact .contact-content .contact-icon .combo-icon a {
+		font-size: 20px;
+	}
+	#contact .contact-content .contact-icon .combo-icon a:last-child{
+		font-size: 20px;
+		padding: 8px 7px;
+	}
+	#header .search-area .search-input {
+		width: 350px;
+	}
+	#header .search-area {
+		padding: 12px 30px;
+	}
+	#header .search-area .search-input input {
+		font-size: 14px;
+		padding: 14px 17px;
+	}
+	#header .search-area .search-btn {
+		position: absolute;
+		right: 37px;
+		top: 18px;
+	}
+	#header .navbar {
+		padding: 12px 30px;
+	}
+	#header .navbar .navbar-collapse .nav-item .nav-link {
+		font-size: 16px;
+	}
+	#header .navbar .navbar-collapse .nav-item.dropdown .dropdown-icon {
+		margin-left: 0;
+	}
+	#header .nav-item.dropdown .dropdown-menu.relics-drop {
+        left: -70px;
+        width: 240px !important;
+    }
+	#header .dropdown-menu .dropdown-item {
+		font-size: 14px;
+	}
+}
+
+
+
+
+
+
+/*     Em Hiếu CSS - END     */
 

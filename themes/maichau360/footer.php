@@ -9,7 +9,7 @@ $setting = setting();
             <div class="contact-content row">
                 <div class="col-lg-1 col-md-12">
                     <div class="contact-logo ">
-                        <img src="../images/logo.png" alt="">
+                    <img src="<?php echo $setting['image_logo'] ?>" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">

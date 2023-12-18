@@ -155,7 +155,12 @@ global $urlThemeActive;
                 </div>
 
                 <div class="map-iframe">
-                                    <div id="map_HS"></div>
+
+                     <div class="map-btn">
+                        <a href="">Xem chỉ đường</a>
+                     </div>       
+                    
+                    <div id="map_HS"></div>
 
                           
                 </div>
