@@ -547,6 +547,10 @@
     padding-left: 8px;
 }
 
+.table-cart-right .infor-voucher{
+    padding-top: 6px;
+}
+
 .infor-voucher p {
     font-size: 10px;
     line-height: 15px;

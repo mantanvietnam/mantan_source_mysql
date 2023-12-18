@@ -78,9 +78,14 @@ $infoUser = $session->read('infoUser');
                                         <div class="product-order-gift-img-inner">
                                             <img src="<?php echo @$item->image ?>" alt="">
                                         </div>
-                                        <!-- <div class="cart-product-gift-number">
-                                                <span><?php echo @$item->numberOrder ?></span>
-                                            </div> -->
+                                    </div>
+                                    <div class="product-order-detail">
+                                        <div class="product-order-name">
+                                            <?php echo $item->title ?>
+                                        </div>
+                                        <div class="cart-product-gift-number">
+                                            <span>Số lượng: <?php echo @$item->numberOrder ?></span>
+                                        </div>
                                     </div>
                                     <?php }}}} ?>
                                     
@@ -105,7 +110,7 @@ $infoUser = $session->read('infoUser');
                                     </div>
 
                                     <div class="cart-price-item-price">
-                                        30.000đ
+                                        35.000đ
                                     </div>
                                 </div>
 
@@ -193,8 +198,8 @@ $infoUser = $session->read('infoUser');
 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control input-required" required="" name="full_name" value="<?php echo @$infoUser->full_name ?>" placeholder="Họ và tên (*)" aria-label="Username">
-                                        <input type="text" class="form-control input-required" required="" name="phone" value="<?php echo @$infoUser->phone ?>" placeholder="Điện thoại (*)" aria-label="Server">
+                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" class="form-control input-required" required="" name="full_name" value="<?php echo @$infoUser->full_name ?>" placeholder="Họ và tên (*)" aria-label="Username">
+                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" class="form-control input-required" required="" name="phone" value="<?php echo @$infoUser->phone ?>" placeholder="Điện thoại (*)" aria-label="Server">
                                     </div>
 
                                     <div class="input-group mb-3">
@@ -213,7 +218,7 @@ $infoUser = $session->read('infoUser');
                                 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" id="address" name="address"  required="" class="form-control" placeholder="Nhập địa chỉ (*)" aria-label="Amount (to the nearest dollar)">
+                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" id="address" name="address"  required="" class="form-control" placeholder="Nhập địa chỉ (*)" aria-label="Amount (to the nearest dollar)">
                                          <input type="hidden" id="id_customer" name="id_address" class="form-control" placeholder="Username" aria-label="Username">
                                     </div>
 
