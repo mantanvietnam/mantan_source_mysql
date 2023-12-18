@@ -2594,9 +2594,7 @@ strong {
     font-weight: 300;
 }
 
-.margin-product{
-    margin-left: 11px;
-}
+
 
 .detail-info-rate-left a{
     color : #EF5B36;
@@ -4273,6 +4271,10 @@ tbody {
 
 
 @media(max-width: 480px) {
+    .margin-product{
+        margin-left: 11px;
+    }
+
     .box-video iframe{
         height: 315px !important;
     }

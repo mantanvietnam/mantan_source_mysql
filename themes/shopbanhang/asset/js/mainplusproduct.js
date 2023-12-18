@@ -17,6 +17,35 @@ function togglePasswordVisibility() {
   }
 }
 
+// Ẩn comment
+var listContainer = document.querySelector('.product-detail-rate-list');
+var items = listContainer.querySelectorAll('.product-detail-rate-item');
+var isExpanded = false;
+
+// Ẩn tất cả phần tử trừ 3 phần tử đầu tiên
+for (var i = 3; i < items.length; i++) {
+  items[i].classList.add('hidden');
+}
+
+function loadMore() {
+  if (!isExpanded) {
+    // Loại bỏ lớp 'hidden' từ tất cả các phần tử nếu chúng đã được ẩn
+    items.forEach(function (item) {
+      item.classList.remove('hidden');
+    });
+    isExpanded = true;
+    document.getElementById('toggle-btn').textContent = 'Rút gọn';
+  } else {
+    // Ẩn bớt các phần tử sau 3 phần tử đầu tiên
+    for (var i = 3; i < items.length; i++) {
+      items[i].classList.add('hidden');
+    }
+    isExpanded = false;
+    document.getElementById('toggle-btn').textContent = 'Xem thêm';
+  }
+}
+
+
 
 // scroll-top
 var btn = $('#button-scrolltop');

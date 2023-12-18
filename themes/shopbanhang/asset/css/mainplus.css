@@ -1258,3 +1258,26 @@
 .showContent{
     height: auto;
 }
+
+.hideContentComment{
+    overflow: hidden;
+
+}
+
+.showContentComment {
+    line-height: 1em;
+    height: auto;
+}
+
+.hidden{
+    display: none;
+}
+
+#toggle-btn{
+    margin-left: auto;
+    margin-bottom: 15px;
+    border: none;
+    background-color: transparent;
+    color: #008BCF;
+    display: block;
+}
