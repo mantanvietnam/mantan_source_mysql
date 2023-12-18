@@ -2594,6 +2594,10 @@ strong {
     font-weight: 300;
 }
 
+.margin-product{
+    margin-left: 11px;
+}
+
 .detail-info-rate-left a{
     color : #EF5B36;
     text-decoration: underline;

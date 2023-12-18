@@ -487,7 +487,7 @@ $price_total = 0;
                                                             <p>Giá giảm tối đa <?php echo number_format($item->maximum_price_reduction); ?> đ</p>
                                                         <?php } ?>
                                                         <?php if(!empty($item->deadline_at)){ ?>
-                                                            <p>HSD <?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></p>
+                                                            <!-- <p>HSD <?php echo date('H:i d/m/Y', strtotime($item->deadline_at)); ?></p> -->
                                                         <?php } ?>
                                                         </div>
                                                         <div class="check-voucher" onclick="searchDiscountCodeAPI('<?php echo @$item->code ?>', <?php echo @$key ?>, <?php echo @$k ?>)">

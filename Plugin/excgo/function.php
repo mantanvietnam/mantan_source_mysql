@@ -658,7 +658,7 @@ $complaintType = [
 ];
 
 global $transactionKey;
-$transactionKey = 'excgo';
+$transactionKey = 'EXCGO';
 
 global $urlTransaction;
 $urlTransaction = 'https://img.vietqr.io/image/TPB-06931228686-compact2.png?';
