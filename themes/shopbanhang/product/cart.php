@@ -456,12 +456,8 @@ $price_total = 0;
                                     <?php
                                      foreach($category as $key => $value){ ?>
                                     <div class="list-code-item">
-                                        <div class="title-code-discount">
-                                           <?php echo $value['name']; ?>
-                                        </div>
-    
-                                        
-                                            <?php if(!empty($value['discountCode'])){
+                                         <?php if(!empty($value['discountCode'])){
+                                        echo '<div class="title-code-discount">'.$value['name'].'</div>';
                                                 foreach($value['discountCode'] as $k => $item){
                                                      $voucher = "";
                                                     if(@$price_total < @$item->applicable_price){
