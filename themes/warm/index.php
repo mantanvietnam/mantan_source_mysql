@@ -4,9 +4,9 @@
     global $modelAlbums;
     global $modelAlbuminfos;
 ?>
-<div class="header-logo-show">
+
     <?php getHeader();?>
-</div>
+
     
     <main>
         <?php

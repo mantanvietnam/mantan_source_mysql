@@ -365,7 +365,6 @@ strong {
 #section-menu .search-menu {
     border: 1px solid #000;
     border-radius: 5px;
-    width: 35%;
     margin-top: 20px;
 }
 
@@ -521,11 +520,9 @@ strong {
     display: flex;
     justify-content: end;
     margin: 0 20px;
-    display: none;
 }
 
 .header-logo-show .logo-home-item {
-    
     display: flex !important;
 }
 
@@ -1613,6 +1610,20 @@ strong {
 }
 
 
+/*    EM HIEU CSS - START     */
+
+#section-menu .navbar-collapse .me-auto {
+    margin-right: 0 !important;
+}
+
+#section-menu .search-menu {
+    width: 22%;
+}
+
+
+/*    EM HIEU CSS - END     */
+
+
 /* responsive */
 
 @media (max-width: 769px) {
@@ -1639,6 +1650,12 @@ strong {
         height: 59px;
         margin-bottom: 40px;
     }
+}
+
+@media (max-width: 1370px) {
+    /* .navbar-expand-lg .navbar-collapse {
+        display: block !important;
+    } */
 }
 
 @media (max-width: 1300px) {
