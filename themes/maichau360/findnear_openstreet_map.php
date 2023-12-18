@@ -183,7 +183,7 @@
 
   const map = L.map('map_HS', {
     center: [20.668785542548076, 105.00060413875005],
-    zoom: 15,
+    zoom: 13,
   });
 
   const pointLayer = L.layerGroup().addTo(map);
@@ -202,6 +202,7 @@
 
     for (y = 1; y < 10; y++) {
       if($('#check-all'+y).is(":checked")){
+
         for (i = 0; i < locations.length; i++) {
           if($('#check-all'+y).val() == locations[i][4]){
             icon = L.icon({
@@ -213,7 +214,7 @@
           }
         }
       }else{
-        console.log(y);
+       
       }
     }  
 

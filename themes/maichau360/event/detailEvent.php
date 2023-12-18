@@ -168,7 +168,7 @@ global $urlThemeActive;
               $content.='<br/>Điện thoạt: ' . $data->phone;
               $content.='<br/>Địa chỉ: ' . $data->address;
 
-              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/tayho360/assets/icon/lehoi.png","su_kien"]';
+              $listShowMap[]= '["' . $content . '", ' . $data->latitude . ', ' . $data->longitude . ', "/themes/maichau360/tayho360/assets/icon/lehoi.png","su_kien"]';
             }
         
         //  $listShowMap[]= '[]';
@@ -177,7 +177,7 @@ global $urlThemeActive;
     ?>];
 
      const map = L.map('map_HS', {
-      center: [21.057646992531012, 105.83320869683257],
+      center: [20.668785542548076, 105.00060413875005],
       zoom: 14,
     });
 
