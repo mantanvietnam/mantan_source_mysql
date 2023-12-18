@@ -88,7 +88,7 @@ $isMobile = false;
 $isTable = false;
 $isDesktop = false;
 
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$userAgent = (!empty($_SERVER['HTTP_USER_AGENT']))?$_SERVER['HTTP_USER_AGENT']:'';
 $isMobile = (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false);
 $isTablet = (strpos($userAgent, 'iPad') !== false || strpos($userAgent, 'Tablet') !== false);
 $isDesktop = !$isMobile && !$isTablet;
@@ -99,7 +99,7 @@ if(isset($_SERVER['HTTPS'])){
 else{
     $protocol = 'http';
 }
-$urlHomes = $protocol . "://" . $_SERVER['HTTP_HOST'].'/';
+$urlHomes = $protocol . "://" . @$_SERVER['HTTP_HOST'].'/';
 
 $variableGlobal= array('hookMenuAdminMantan', 'hookMenusAppearanceMantan', 'tmpVariable', 'themeActive', 'isRequestPost', 'modelCategories', 'modelOptions', 'urlCurrent', 'urlHomes', 'urlThemeActive', 'metaTitleMantan', 'metaKeywordsMantan', 'metaDescriptionMantan', 'routesPlugin', 'routesTheme', 'session', 'infoSite', 'contactSite', 'smtpSite', 'csrfToken', 'modelPosts', 'modelMenus', 'modelAlbums', 'modelAlbuminfos', 'modelVideos', 'metaImageMantan', 'isHome', 'isCategory', 'isPost', 'isPage', 'isPlugin', 'isMobile', 'isTable', 'isDesktop');
 
