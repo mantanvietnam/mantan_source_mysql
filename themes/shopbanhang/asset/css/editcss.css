@@ -142,6 +142,7 @@ header{
 .forgot-text-title{
     font-size: 30px;
     margin-bottom: 19px;
+    font-weight: 500;
 }
 
 .forgot-text{
@@ -3059,6 +3060,13 @@ background: #555;
 
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
+    .forgot-text-title{
+        font-size: 18px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+
     .detail-info-rate-left a {
         margin: 0 11px;
     }

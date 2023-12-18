@@ -267,7 +267,7 @@ strong {
 
 .myacc-child{
     position: absolute;
-    bottom: -143px;
+    bottom: -163px;
     box-shadow: 2px 8px 12px -6px #888888;
     background-color: #fff;
     z-index: 10;
@@ -278,6 +278,12 @@ strong {
     font-size: 14px;
     padding: 11px 16px;
     border-bottom: 1px solid #ddd4d4;
+    display: flex;
+    align-items: center;
+}
+
+.myacc-child-item img{
+    height: 18px !important;
 }
 
 
@@ -4271,6 +4277,9 @@ tbody {
 
 
 @media(max-width: 480px) {
+
+    
+
     .margin-product{
         margin-left: 11px;
     }
@@ -4322,8 +4331,18 @@ tbody {
     /*  */
 
     /* Thanh toán */
+    .list-code-discount .voucher{
+        width: 100%;
+    }
+
+    .table-cart-right .infor-voucher {
+        padding-top: 14px !important;
+        padding-bottom: 10px;
+    }
+
+
     .cart-total-box{
-        padding: 0;
+        padding: 15px 12px;
     }
 
     .order-left{

@@ -126,18 +126,22 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                         <a href="">Tài khoản của tôi</a>
                                         <div class="myacc-child">
                                             <div class="myacc-child-item">
+                                                <img src="<?php echo $urlThemeActive ?>/asset/image/thong-tin-san-pham.png" alt="">
                                                 <a href="/infoUser" >Thông tin tài khoản</a>
                                             </div>
 
                                             <div class="myacc-child-item">
+                                                <img src="<?php echo $urlThemeActive ?>/asset/image/san-pham.png" alt="">
                                                 <a href="/likeProduct">Sản phẩm yêu thích</a>
                                             </div>
 
                                             <div class="myacc-child-item">
+                                                <img src="<?php echo $urlThemeActive ?>/asset/image/voucher.svg" alt="">
                                                 <a href="/discount">Voucher</a>
                                             </div>
 
                                             <div class="myacc-child-item">
+                                                <img src="<?php echo $urlThemeActive ?>/asset/image/dang-xuat.png" alt="">
                                                 <a href="/logout" >Đăng xuất</a>
                                             </div>
                                         </div>
