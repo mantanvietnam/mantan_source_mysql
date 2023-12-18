@@ -472,7 +472,7 @@ $price_total = 0;
                                             <label class="voucher" for="checkcode<?php echo @$key ?>-<?php echo @$k ?>">
                                                 <div class="btn-voucher <?php echo $voucher ?>">
                                                     <div class="bg-voucher">
-                                                        <img src="<?php echo $urlThemeActive;?>asset/image/voucher.png">
+                                                        <img src="<?php echo $urlThemeActive;?>asset/image/voucherbox.jpg">
                                                     </div>
                                                     <div class="detail-voucher">
                                                         <div class="logo-voucher">

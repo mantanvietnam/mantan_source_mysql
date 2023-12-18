@@ -524,6 +524,10 @@
     height: 60px;
 }
 
+.table-cart-right .voucher .bg-voucher img{
+    height: auto;
+}
+
 .voucher {
     position: relative;
     margin-top: 20px;
@@ -546,6 +550,7 @@
 .infor-voucher p {
     font-size: 10px;
     line-height: 15px;
+    font-weight: 300;
 }
 
 .infor-voucher h4 {
