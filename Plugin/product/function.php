@@ -228,7 +228,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 
 
 function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note='',$listTypeMoney=array(),$discountCode=array(), $order=array()){
-
+  global $modelOptions;
    $conditions = array('key_word' => 'contact_site');
     $data = $modelOptions->find()->where($conditions)->first();
 
