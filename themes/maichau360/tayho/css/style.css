@@ -4788,3 +4788,46 @@ main {
 
 /*     Em Hiếu CSS - END     */
 
+/* Bổ sung css */
+#skct-article{
+	background-image: none !important;
+}
+
+.map-event #map_HS{
+	max-height: 500px;
+}
+
+.breadcrumb-event{
+	padding-top: 30px;
+	margin-top: 0 !important;
+}
+
+#map-home #bando{
+    height: 73vh
+}
+
+.leaflet-left .leaflet-control{
+	margin: 0 !important;
+}
+
+/* #bando{
+	position: relative;
+} */
+
+
+
+#bando .col-md-12{
+	position: relative;
+}
+
+.box-menu-map{
+	padding-top: 30px;
+}
+
+
+
+  @media (max-width: 768px){
+	#map-home #bando{
+    height: 500px;
+	}
+}

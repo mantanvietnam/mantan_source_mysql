@@ -3,11 +3,11 @@ getHeader();
 global $urlThemeActive;
 ?>
 <main class="">
-    <section class="breadcrumb-custom mt-5">
+    <section class="breadcrumb-custom breadcrumb-event">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Sự kiện</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Tin tức và Sự kiện</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?php echo @$data->name ?></li>
                 </ol>
             </nav>
@@ -82,7 +82,7 @@ global $urlThemeActive;
                         </div>
                     </article>
                 </div>
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 map-event">
                     <aside class="">
                         <div class="map">
                                 <div id="map_HS"></div>

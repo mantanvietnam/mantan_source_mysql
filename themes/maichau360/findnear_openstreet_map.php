@@ -16,14 +16,14 @@
   }
   .box-menu-map {
     position: absolute;
-    left: 70px;
+    left: 0;
     background-color: #4E9D90;
     padding: 50px 60px;
     width: 350px;
     height:450px;
     z-index: 999;
     border-radius: 0 20px 20px 0;
-    transition: 1s;
+    /* transition: 1s; */
   }
   #bando .col-md-12 {
     padding: 0;
@@ -54,6 +54,43 @@
   .iframe-map{
     height: 100%
   }
+
+  .map-filter-close{
+    position: absolute;
+    left: 36px;
+    top: 0;
+    z-index: 999;
+    width: 30px;
+    height: 30px;
+    background-color: #6FABA1;
+
+}
+
+.map-filter-close i{
+    -moz-transition: all .5s linear;
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+    font-size: 20px;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-radius: 30px; */
+}
+
+
+
+.map-filter-close .rotate.right{
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
+}
+
+#bando .col-md-12{
+	position: relative;
+}
   @media (max-width: 600px) {
     .img-calendar img {
       width: 30px;
@@ -61,14 +98,14 @@
     }
     .box-menu-map {
       position: absolute;
-      left: 25px;
+      left: 0;
       background-color: #4E9D90;
-      padding: 25px 30px;
-      width: 250px;
-      height: 380px;
+      padding: 30px 38px;
+      width: 100%;
+      height: 215px;
       z-index: 999;
-      border-radius: 0 20px 20px 0;
-      transition: 1s;
+      /* border-radius: 0 20px 20px 0; */
+      /* transition: 1s; */
     }
     .img-calendar {
       left: -13px;
@@ -124,14 +161,14 @@
                   </li>
               <?php }?>     
             </ul>
-            <div class="absolute btn-hide">
+            <!-- <div class="absolute btn-hide">
               <a href="javascript:void(0)" class="hide_pop-up"><i class="fa-solid fa-angle-left"></i></a>
-            </div>
+            </div> -->
           </div>
-          <div class="btn-show absolute opacity-0">
+          <!-- <div class="btn-show absolute opacity-0">
             <a href="javascript:void(0)" class="show_pop-up"><i class="fa-solid fa-angle-right"></i></a>
-          </div>
-          <div class="img-calendar">
+          </div> -->
+          <!-- <div class="img-calendar">
             <div class="box-img-calendar">
               <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
@@ -147,12 +184,15 @@
             <div class="box-img-calendar">
               <img src="<?php echo $urlThemeActive; ?>images/Ellip.png" alt="">
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="iframe-map">
         <!-- <button onclick="btnMenu(this)"><i class="fa fa-bars" aria-hidden="true"></i></button> -->
         <div id="map_HS"></div>
+      </div>
+      <div class="map-filter-close">
+        <i class="fa-solid fa-angle-up rotate"></i>
       </div>
     </div>
   </div>
@@ -250,5 +290,7 @@
     initMap();
   });
 </script>
+
+
 
 

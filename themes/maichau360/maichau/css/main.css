@@ -187,7 +187,7 @@ table {
 #header .top-menu {
     padding: 0;
     position: relative;
-    z-index: 1000;
+    z-index: 1999;
     background: #fff;
     top: 0;
 }
@@ -998,6 +998,9 @@ width: 578px !important; */
     font-size: 20px;
     line-height: 28px;
     color: #21274F;
+}
+.contact-icon .static ul {
+ padding-left: 0;
 }
 
 #contact .contact-content .contact-icon .combo-icon a {
@@ -2612,6 +2615,27 @@ width: 578px !important; */
     height: 100%;
 }
 
+/*      EM HIEU CSS - START       */
+
+.container-fluid.wr-map.page-section {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*      EM HIEU CSS - END       */
+
+@media (max-width: 1440px) {
+    #events .events-title {
+        margin-top: 135px;
+    }
+    #relics-content .relics-destinations .relics-destinations-slide .slick-prev {
+        left: -2%;
+    }
+    #relics-content .relics-destinations .relics-destinations-slide .slick-next {
+        right: -2%;
+    }
+}
+
 @media (max-width: 1024px) {
     .slide-artifacts-other .slick-next {
         right: -15px;
@@ -3660,14 +3684,25 @@ width: 578px !important; */
     }
 }
 
-@media (max-width: 1440px) {
-    #events .events-title {
-        margin-top: 135px;
-    }
-    #relics-content .relics-destinations .relics-destinations-slide .slick-prev {
-        left: -2%;
-    }
-    #relics-content .relics-destinations .relics-destinations-slide .slick-next {
-        right: -2%;
-    }
+
+
+/* Bổ sung */
+.box-menu-map ul{
+    padding-left: 0;
+}
+
+.map-filter-close{
+    left: 44px !important;
+}
+
+.box-menu-map ul li{
+    margin: 9px 0;
+}
+
+.box-menu-map {
+    padding: 29px 48px !important;
+}
+
+.box-menu-map .title-menu-map p {
+    margin-bottom: 0;
 }
