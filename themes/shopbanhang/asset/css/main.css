@@ -4010,8 +4010,15 @@ tbody {
 
 #section-order .product-order-gift-item {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     padding-top: 17px;
+    flex-direction: column;
+}
+
+.product-order-gift-box-inner{
+    display: flex;
+    align-items: center;
+
 }
 
 .product-order-detail {
@@ -4891,7 +4898,7 @@ tbody {
 
     .order-right-group-button{
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 
     /* bổ sung css */

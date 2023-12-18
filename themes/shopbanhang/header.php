@@ -297,7 +297,9 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                         <ul>
                             <li <?php if(@$urlCurrent=='/') echo 'class="active"' ?>>
                                 <a href="/">
-                                    <img src="<?php echo $urlThemeActive ?>/asset/image/homebluemobile.png" alt="">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/trang-chu.svg" alt="">
+                                    
+
                                     <p>Trang chủ</p>
                                 </a>
                             </li>
@@ -305,12 +307,12 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li <?php if(@$urlCurrent=='/sale') echo 'class="active"' ?>>
                                 <?php if(!empty(checkFlasl()) && $setting['targetTime']>time()){ 
                                   echo'  <a href="/sale">
-                                        <img src="'.$urlThemeActive.'/asset/image/percentmobile.png" alt="">
+                                        <img src="'.$urlThemeActive.'/asset/image/khuyen-mai.svg" alt="">
                                         <p>Khuyến mãi</p>
                                     </a>';
                                  }else{
                                     echo'  <a href="javascript();" data-bs-toggle="modal" data-bs-target="#exampleModalsale">
-                                        <img src="'.$urlThemeActive.'/asset/image/percentmobile.png" alt="">
+                                        <img src="'.$urlThemeActive.'/asset/image/khuyen-mai.svg" alt="">
                                         <p>Khuyến mãi</p>
                                     </a>';
                                  } ?>
@@ -335,7 +337,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
 
                             <li <?php if(@$urlCurrent=='/gio-hang"') echo 'class="active"' ?>>
                                 <a href="/gio-hang">
-                                    <img src="<?php echo $urlThemeActive ?>/asset/image/cartmobile.png" alt="">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/gio-hang.svg" alt="">
                                     <p>Giỏ hàng</p>
                                 </a>
                             </li>
@@ -345,14 +347,14 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <li <?php if(@$urlCurrent=='/infoUser') echo 'class="active"' ?>>
 
                                 <a href="/infoUser">
-                                    <img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt="">
+                                    <img src="<?php echo $urlThemeActive ?>/asset/image/tai-khoan.svg" alt="">
                                     <p>Tài khoản</p>
                                 </a>
                             </li>
                                 <?php }else{ ?>
                             <li>
 
-                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/infomobile.png" alt="">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo $urlThemeActive ?>/asset/image/tai-khoan.svg" alt="">
                                     <p>Tài khoản</p>
                                 </a>
                             </li>

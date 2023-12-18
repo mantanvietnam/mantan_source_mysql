@@ -2044,6 +2044,15 @@ background: #555;
     
     .content-contact-item img{
         height: 36px !important;
+        scale: 1.2;
+    }
+
+    .menu-mobile .content-contact-item img{
+        scale: 1;
+    }
+
+    .contact-fixed .content-contact-2{
+        left: -14px;
     }
 
     .advertisement-slide{
@@ -3060,6 +3069,16 @@ background: #555;
 
 /* Mobile footer sản phẩm */
 @media (max-width: 475px){
+    .edit-user-photo .d-flex{
+        height: 80px !important;
+        width: 80px !important;
+    }
+
+    .m_bg_img {
+        height: 80px !important;
+        width: 80px !important;
+    }
+
     .forgot-text-title{
         font-size: 18px;
         margin-bottom: 0;

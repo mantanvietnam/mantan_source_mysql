@@ -1,3 +1,14 @@
+$('.icon-close').hide();
+document.getElementById('button-contact-2').addEventListener('click', function() {
+  $('.icon-phone-bottom').toggle();
+  $('.icon-close').toggle();
+  this.classList.toggle('active');
+  var content = $('.content-contact-2');
+  content.style.animation = 'none';
+  content.offsetHeight; /* Trigger reflow */
+  content.style.animation = null;
+});
+
 // password hide show
 function togglePasswordVisibility() {
   var passwordInput = document.getElementById("pass");
@@ -17,33 +28,6 @@ function togglePasswordVisibility() {
   }
 }
 
-// Ẩn comment
-var listContainer = document.querySelector('.product-detail-rate-list');
-var items = listContainer.querySelectorAll('.product-detail-rate-item');
-var isExpanded = false;
-
-// Ẩn tất cả phần tử trừ 3 phần tử đầu tiên
-for (var i = 3; i < items.length; i++) {
-  items[i].classList.add('hidden');
-}
-
-function loadMore() {
-  if (!isExpanded) {
-    // Loại bỏ lớp 'hidden' từ tất cả các phần tử nếu chúng đã được ẩn
-    items.forEach(function (item) {
-      item.classList.remove('hidden');
-    });
-    isExpanded = true;
-    document.getElementById('toggle-btn').textContent = 'Rút gọn';
-  } else {
-    // Ẩn bớt các phần tử sau 3 phần tử đầu tiên
-    for (var i = 3; i < items.length; i++) {
-      items[i].classList.add('hidden');
-    }
-    isExpanded = false;
-    document.getElementById('toggle-btn').textContent = 'Xem thêm  >>';
-  }
-}
 
 
 
@@ -74,16 +58,7 @@ document.getElementById('button-contact').addEventListener('click', function() {
 
 
 
-$('.icon-close').hide();
-document.getElementById('button-contact-2').addEventListener('click', function() {
-  $('.icon-phone-bottom').toggle();
-  $('.icon-close').toggle();
-  this.classList.toggle('active');
-  var content = $('.content-contact-2');
-  content.style.animation = 'none';
-  content.offsetHeight; /* Trigger reflow */
-  content.style.animation = null;
-});
+
 
 
 $(document).on('click', function (e) {
@@ -221,6 +196,37 @@ document.querySelectorAll(".describe-more button").forEach(function(link) {
 // Top
 
 
+// Ẩn comment
+var listContainer = document.querySelector('.product-detail-rate-list');
+var items = listContainer.querySelectorAll('.product-detail-rate-item');
+var isExpanded = false;
+
+// Ẩn tất cả phần tử trừ 3 phần tử đầu tiên
+for (var i = 7; i < items.length; i++) {
+  items[i].classList.add('hidden');
+}
+
+function loadMore() {
+  if (!isExpanded) {
+    // Loại bỏ lớp 'hidden' từ tất cả các phần tử nếu chúng đã được ẩn
+    items.forEach(function (item) {
+      item.classList.remove('hidden');
+    });
+    isExpanded = true;
+    document.getElementById('toggle-btn').textContent = 'Rút gọn';
+  } else {
+    // Ẩn bớt các phần tử sau 3 phần tử đầu tiên
+    for (var i = 3; i < items.length; i++) {
+      items[i].classList.add('hidden');
+    }
+    isExpanded = false;
+    document.getElementById('toggle-btn').textContent = 'Xem thêm  >>';
+  }
+}
+
+
+
+$(".voucher-disable .detail-voucher input").attr("disabled", "");
 
 
 

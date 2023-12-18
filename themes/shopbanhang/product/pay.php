@@ -74,17 +74,19 @@ $infoUser = $session->read('infoUser');
                                 foreach ($list_product as $key => $value) { 
                                      if(!empty($value->present)){
                                     foreach($value->present as $item){ ?>
-                                    <div class="product-order-gift-img">
-                                        <div class="product-order-gift-img-inner">
-                                            <img src="<?php echo @$item->image ?>" alt="">
+                                    <div class="product-order-gift-box-inner">
+                                        <div class="product-order-gift-img">
+                                            <div class="product-order-gift-img-inner">
+                                                <img src="<?php echo @$item->image ?>" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="product-order-detail">
-                                        <div class="product-order-name">
-                                            <?php echo $item->title ?>
-                                        </div>
-                                        <div class="cart-product-gift-number">
-                                            <span>Số lượng: <?php echo @$item->numberOrder ?></span>
+                                        <div class="product-order-detail">
+                                            <div class="product-order-name">
+                                                <?php echo $item->title ?>
+                                            </div>
+                                            <div class="cart-product-gift-number">
+                                                <span>Số lượng: <?php echo @$item->numberOrder ?></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <?php }}}} ?>
@@ -261,8 +263,9 @@ $infoUser = $session->read('infoUser');
                             </div>
                            
                             <div class="order-right-group-button">
-                                <a href="/gio-hang" > <button type="button" class="btn btn-primary">Quay lại</button></a>
                                 <button type="submit" class="btn btn-primary">Đặt hàng</button>
+
+                                <a href="/gio-hang" > <button type="button" class="btn btn-primary">Quay lại</button></a>
                             </div>
                         </form>
                     </div>
