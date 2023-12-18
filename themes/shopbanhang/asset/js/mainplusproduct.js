@@ -1,3 +1,6 @@
+console.log('a');
+
+
 $('.icon-close').hide();
 document.getElementById('button-contact-2').addEventListener('click', function() {
   $('.icon-phone-bottom').toggle();
@@ -8,6 +11,9 @@ document.getElementById('button-contact-2').addEventListener('click', function()
   content.offsetHeight; /* Trigger reflow */
   content.style.animation = null;
 });
+
+
+$(".voucher-disable input").attr("disabled", "");
 
 // password hide show
 function togglePasswordVisibility() {
@@ -226,7 +232,6 @@ function loadMore() {
 
 
 
-$(".voucher-disable .detail-voucher input").attr("disabled", "");
 
 
 
