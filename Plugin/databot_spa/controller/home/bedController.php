@@ -142,11 +142,11 @@ function listRoomBed($input){
 
                     $order = $modelOrder->find()->where($conditionsOrder)->all()->toList();
 
-                    if(!empty(@$order)){
+                    // if(!empty(@$order)){
 
 
-                        $databed[$k]->status = 3;
-                    }
+                    //     $databed[$k]->status = 3;
+                    // }
                 }
 
                 $listData[$key]->bed = $databed;

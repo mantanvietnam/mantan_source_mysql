@@ -229,7 +229,7 @@
                                         </li>
                                         <li id="sotentralaikhach"><span>Số tiền trả lại</span><span id="moneyCustomerReturn">0</span></li> 
 
-                                        
+                                        <?php if(!empty($_GET['idBed'])){ ?>
                                         <li class="total-bh">
                                             <p>Giường & phòng</p>
                                             <p>
@@ -253,6 +253,7 @@
 
                                             </p>
                                         </li>
+                                    <?php } ?>
                                         <li class="total-bh">
                                             <p>Nhân viên phụ trách</p>
                                             <p>

@@ -860,7 +860,9 @@ function orderService($input){
 
                 return $controller->redirect('/printInfoOrder?id='.$order->id);
             }elseif($dataSend['typeOrder']==3){
-                 $Order = $modelOrder->find()->where(array('id_bed'=>$dataSend['id_bed'], 'status'=>2))->first();
+
+                return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product);
+                /* $Order = $modelOrder->find()->where(array('id_bed'=>$dataSend['id_bed'], 'status'=>2))->first();
                 $bed = $modelBed->find()->where(array('id'=>$dataSend['id_bed'], 'status'=>2))->first();
                 if(empty($Order) && empty($bed)){
                     $dataOrder = $modelOrder->get($order->id);
@@ -878,7 +880,7 @@ function orderService($input){
                     return $controller->redirect('/listRoomBed');
                 }else{
                     return $controller->redirect('/listOrder?mess=conkhach');
-                }
+                }*/
             }else{
                 return $controller->redirect('/order?mess=1');
                 

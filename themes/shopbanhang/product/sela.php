@@ -55,10 +55,10 @@ $slide_home= slide_home($setting['id_slide']);
                                         $giam = 100 - 100*$product->price/$product->price_old;
                                     }
 
-                                    $ban = 0;
-                                    if(!empty($product->quantity) && !empty($product->number_like)){
+                                    $ban = random_int(1, 50);
+                                    /*if(!empty($product->quantity) && !empty($product->number_like)){
                                         $ban = 100 - 100*$product->quantity/$product->number_like;
-                                    }
+                                    }*/
                          ?>
 
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-6 product-item">
@@ -87,7 +87,8 @@ $slide_home= slide_home($setting['id_slide']);
         
                                     <div class="progress-box">
                                         <div class="product-progress">
-                                            <div class="text-progress"> <?php echo $product->sold ?> Sản phẩm đã bán</div>
+                                            <!-- <div class="text-progress"> <?php echo $product->sold ?> Sản phẩm đã bán</div> -->
+                                            <div class="text-progress"> <?php echo $ban  ?> Sản phẩm đã bán</div>
                                             <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
@@ -101,7 +102,8 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p><?php echo $product->sold ?>  Đã bán</p>
+                                            <!-- <p><?php echo $product->sold ?>  Đã bán</p> -->
+                                            <p><?php echo $ban ?>  Đã bán</p>
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>

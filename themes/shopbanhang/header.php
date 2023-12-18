@@ -297,14 +297,21 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                     <p>Trang chủ</p>
                                 </a>
                             </li>
-                            <?php if(!empty(checkFlasl()) && $setting['targetTime']>time()){ ?>
+                            
                             <li <?php if(@$urlCurrent=='/sale') echo 'class="active"' ?>>
-                                <a href="/sale">
-                                    <img src="<?php echo $urlThemeActive ?>/asset/image/percentmobile.png" alt="">
-                                    <p>Khuyến mãi</p>
-                                </a>
+                                <?php if(!empty(checkFlasl()) && $setting['targetTime']>time()){ 
+                                  echo'  <a href="/sale">
+                                        <img src="'.$urlThemeActive.'/asset/image/percentmobile.png" alt="">
+                                        <p>Khuyến mãi</p>
+                                    </a>';
+                                 }else{
+                                    echo'  <a href="javascript();" data-bs-toggle="modal" data-bs-target="#exampleModalsale">
+                                        <img src="'.$urlThemeActive.'/asset/image/percentmobile.png" alt="">
+                                        <p>Khuyến mãi</p>
+                                    </a>';
+                                 } ?>
                             </li>
-                             <?php } ?>
+                            
                             <li class="list-contact">
                                 <a id="button-contact">
                                     <img src="<?php echo $urlThemeActive ?>/asset/image/peoplemobile.png" alt="">
@@ -409,6 +416,33 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
         </div>
     </header>
 
+ <!-- mã xác nhân  -->
+        <div class="modal-login modal-forgotpass">  
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalsale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 modal-right">
+                                    <div class="or-login">
+                                        <div class="forgot-text-title">
+                                             Chưa có khuyến mãi 
+                                        </div>
+                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button> -->
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   
     <a id="button-scrolltop"></a>
 
