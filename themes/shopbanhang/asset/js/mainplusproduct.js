@@ -41,7 +41,7 @@ function loadMore() {
       items[i].classList.add('hidden');
     }
     isExpanded = false;
-    document.getElementById('toggle-btn').textContent = 'Xem thêm';
+    document.getElementById('toggle-btn').textContent = 'Xem thêm  >>';
   }
 }
 

@@ -815,7 +815,7 @@
                <?php }}else{ ?>
                    <div class="no_evaluate"><h5>Sản phẩm chưa có đánh giá nào </h5></div>
                <?php } ?>
-               <button id="toggle-btn" onclick="loadMore()">Xem thêm</button>
+               <button id="toggle-btn" onclick="loadMore()">Xem thêm  >></button>
 
            </div>
            <?php  if(!empty($product->evaluates)){ ?>
