@@ -417,6 +417,7 @@ function updateUserCoinAdmin($input)
     global $metaTitleMantan;
 
     $userModel = $controller->loadModel('Users');
+    $notificationModel = $controller->loadModel('Notifications');
     $transactionModel = $controller->loadModel('Transactions');
     $metaTitleMantan = 'Thông tin người dùng';
     $mess = '';
@@ -441,6 +442,15 @@ function updateUserCoinAdmin($input)
 
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
+
+                    $title = 'Tài khoản của bạn dã được cộng coin';
+                    $content = "Tài khoản của bạn dã được cộng $newTransaction->amount coin bởi admin";
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'plusCoinSuccess'
+                    );
                 } else if ($_GET['type'] === 'minus') {
                     $user->total_coin -= $dataSend['coin'];
                     $newTransaction->user_id = $user->id;
@@ -451,6 +461,25 @@ function updateUserCoinAdmin($input)
 
                     $userModel->save($user);
                     $transactionModel->save($newTransaction);
+
+                    $title = 'Tài khoản của bạn dã bị trừ coin';
+                    $content = "Tài khoản của bạn dã bị trừ $newTransaction->amount coin bởi admin";
+                    $dataSendNotification= array(
+                        'title' => $title,
+                        'time' => date('H:i d/m/Y'),
+                        'content' => $content,
+                        'action' => 'minusCoinSuccess'
+                    );
+                }
+
+                // Gửi thông báo tới người dùng
+                if (!empty($newTransaction)) {
+                    $newNotification = $notificationModel->newEmptyEntity();
+                    $newNotification->user_id = $user->id;
+                    $newNotification->title = $title;
+                    $newNotification->content = $content;
+                    $notificationModel->save($newNotification);
+                    sendNotification($dataSendNotification ?? [], $user->device_token);
                 }
 
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';

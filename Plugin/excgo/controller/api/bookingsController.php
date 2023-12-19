@@ -115,7 +115,7 @@ function getBookingListApi($input): array
 
     if ($isRequestPost) {
         $dataSend = $input['request']->getData();
-        $conditions = ['Bookings.status' => $bookingStatus['unreceived']];
+        $conditions = [];
         $order = ['Bookings.updated_at' => 'DESC'];
         $limit = (!empty($dataSend['limit'])) ? (int)$dataSend['limit'] : 20;
         $page = (!empty($dataSend['page'])) ? (int)$dataSend['page'] : 1;
@@ -905,13 +905,13 @@ function getMyBookingListApi($input): array
                 $conditions['OR'][] = [
                     'AND' => [
                         'UserBookings.received_at >=' => $fromDate,
-                        'UserBookings.received_at <' => $toDate,
+                        'UserBookings.received_at <=' => $toDate,
                     ],
                 ];
                 $conditions['OR'][] = [
                     'AND' => [
                         'UserBookings.canceled_at >=' => $fromDate,
-                        'UserBookings.canceled_at <' => $toDate,
+                        'UserBookings.canceled_at <=' => $toDate,
                     ]
                 ];
 
@@ -923,6 +923,9 @@ function getMyBookingListApi($input): array
                 $conditions['UserBookings.created_at <'] = $toDate;
                 $order['Bookings.created_at'] = 'DESC';
             }
+
+            $filterStatus = $dataSend['status'] ?? 0;
+            $conditions['UserBookings.status'] = $filterStatus;
 
             $listData = $query->select([
                     'UserBookings.id',
@@ -956,7 +959,7 @@ function getMyBookingListApi($input): array
                 ->order($order)
                 ->all()
                 ->toList();
-            foreach ($listData as $item) {
+            foreach ($listData as $key => $item) {
                 $item->Bookings['id'] = (int)$item->Bookings['id'];
                 $item->Bookings['status'] = (int)$item->Bookings['status'];
                 $item->Bookings['price'] = (int)$item->Bookings['price'];
@@ -968,28 +971,34 @@ function getMyBookingListApi($input): array
             $totalBookings = $query->where($conditions)->count();
             $paginationMeta = createPaginationMetaData($totalBookings, $limit, $page);
 
+            unset($conditions['UserBookings.status']);
             $statsData = $userBookingModel->find()
                 ->where($conditions)
                 ->all();
             $total = count($statsData);
-            $count = $statsData->countBy(function ($item) use ($bookingStatus) {
-                if ($item->status === $bookingStatus['received']) {
-                    return 'received';
-                } elseif ($item->status === $bookingStatus['completed'] || $item->status === $bookingStatus['paid']) {
-                    return 'completed';
-                } elseif ($item->status === $bookingStatus['canceled']) {
-                    return 'canceled';
+            $count = [
+                'unreceived' => 0,
+                'received' => 0,
+                'completed' => 0,
+            ];
+            foreach ($statsData as $item) {
+                if ($item->status == $bookingStatus['unreceived']) {
+                    ++$count['unreceived'];
+                } elseif ($item->status == $bookingStatus['completed'] || $item->status === $bookingStatus['paid']) {
+                    ++$count['completed'];
+                } elseif ($item->status == $bookingStatus['received']) {
+                    ++$count['received'];
                 }
-            })->toArray();
+            }
 
-            $receiveRate = isset($count['received']) ? round($count['received'] / $total, 1) : 0;
-            $finishRate = isset($count['completed']) ? round($count['completed'] / $total, 1) : 0;
-            $cancelRate = isset($count['canceled']) ? round($count['canceled'] / $total, 1) : 0;
+            $receiveRate = isset($count['received']) && !empty($total) ? round($count['received'] / $total, 1) : 0;
+            $finishRate = isset($count['completed']) && !empty($total) ? round($count['completed'] / $total, 1) : 0;
+            $cancelRate = isset($count['unreceived']) && !empty($total) ? round($count['unreceived'] / $total, 1) : 0;
             $bookingsPerDay = round($total / $numberOfDays, 1);
 
             $data = [
                 'stats' => [
-                    'total' => $total,
+                    'total' => $count,
                     'received' => [
                         'count' => $count['received'] ?? 0,
                         'rate' => $receiveRate,
@@ -998,8 +1007,8 @@ function getMyBookingListApi($input): array
                         'count' => $count['completed'] ?? 0,
                         'rate' => $finishRate,
                     ],
-                    'canceled' => [
-                        'count' => $count['canceled'] ?? 0,
+                    'unreceived' => [
+                        'count' => $count['unreceived'] ?? 0,
                         'rate' => $cancelRate,
                     ],
                     'average' => $bookingsPerDay
@@ -1272,8 +1281,6 @@ function getAvailableBookingListApi($input): array
 
             if (isset($dataSend['status'])) {
                 $conditions['status'] = $dataSend['status'];
-            } else {
-                $conditions['status'] = $bookingStatus['unreceived'];
             }
 
             $listData = $modelBooking->find()
