@@ -1555,9 +1555,9 @@ function sendOTPZalo($phone='', $otp='')
 {
     if(!empty($phone) && !empty($otp)){
         $id_oa = '256174165105937998';
-        $id_app = '4065313055620230836';
+        $id_app = '3056421570793695754';
 
-        $template_id = 285905;
+        $template_id = 302607;
         $params = ['otp'=>$otp];
 
         if(function_exists('sendZNSZalo')){
