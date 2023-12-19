@@ -209,13 +209,12 @@
                         </div>
 
 
-<?php }} ?>
-
-<?php  if(!empty($items->product)){ 
-        foreach($items->product as $k => $value){
-    foreach($value->combo_service as $key => $item){ ?>
+                <?php }} 
+                  if(!empty($items->product)){ 
+                        foreach($items->product as $k => $value){
+                    foreach($value->combo_service as $key => $item){ ?>
        
-<div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id">
+                        <div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id">
                                 
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">

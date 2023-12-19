@@ -88,7 +88,7 @@ function categoryDiscountCode(){
       return array(
           1=>'voucher freeship',
           2=>'Bumas hi',
-          3=>'Foryous',
+          3=>'Foryou',
       );
 }
 
@@ -154,10 +154,10 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
     <thead>
     <tr>
     <th scope="col">Ảnh </th>
-    <th scope="col">tên sản phẩm</th>
+    <th scope="col">Tên sản phẩm</th>
     <th scope="col">Đơn giá </th>
-    <th scope="col">số lượng</th>
-    <th scope="col">thành tiền</th>
+    <th scope="col">Số lượng</th>
+    <th scope="col">Thành tiền</th>
     </tr>
     </thead>
     <tbody>';
@@ -297,10 +297,10 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     <thead>
     <tr>
     <th scope="col">Ảnh </th>
-    <th scope="col">tên sản phẩm</th>
+    <th scope="col">Tên sản phẩm</th>
     <th scope="col">Đơn giá </th>
-    <th scope="col">số lượng</th>
-    <th scope="col">thành tiền</th>
+    <th scope="col">Số lượng</th>
+    <th scope="col">Thành tiền</th>
     </tr>
     </thead>
     <tbody>';

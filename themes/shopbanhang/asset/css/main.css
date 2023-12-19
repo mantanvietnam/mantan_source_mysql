@@ -2670,7 +2670,9 @@ strong {
 
 .product-code-discount-list {
     display: flex;
-    gap: 7px
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-left: 15px;
 }
 
 .product-code-discount-item {
@@ -3220,6 +3222,14 @@ strong {
 
 .list-filter-rate-item {
     min-width: 64px;
+}
+
+.list-filter-rate-item.active a{
+    color: #0084C8 !important;
+}
+
+.item-star-rating.active a{
+    color: #0084C8 !important;
 }
 
 .product-detail-rate-right-star .stars {

@@ -25,8 +25,8 @@
                     <input type="text" required class="form-control" placeholder="" name="code" id="code" value="<?php echo @$data->code;?>" />
                   </div> 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ngày hết hạn </label>
-                    <input type="text"  class="form-control datepicker" placeholder="" name="deadline_at" id="deadline_at" value="<?php if(!empty($data->deadline_at)){  echo @$data->deadline_at->format('d/m/Y');}?>" />
+                    <label class="form-label" for="basic-default-fullname">Ngày hết hạn (*) </label>
+                    <input type="text"  class="form-control datepicker" required placeholder="" name="deadline_at" id="deadline_at" value="<?php if(!empty($data->deadline_at)){  echo @$data->deadline_at->format('d/m/Y');}?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Giá tối thiểu được áp dụng </label>
@@ -53,7 +53,7 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số lượng (*)</label>
-                    <input type="number"  class="form-control" placeholder="" name="number_user" id="number_user" value="<?php echo @$data->number_user;?>" />
+                    <input type="number"  class="form-control" placeholder="" required name="number_user" id="number_user" value="<?php echo @$data->number_user;?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Giá giảm tối đa </label>
