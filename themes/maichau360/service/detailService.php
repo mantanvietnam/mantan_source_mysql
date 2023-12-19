@@ -155,7 +155,7 @@ global $urlThemeActive;
                 <div class="map-iframe">
                      <?php if(!empty($data->latitude) & !empty($data->longitude)){ 
                      echo'<div class="map-btn">
-                        <a target="_blank" href="https://www.google.com/maps/dir/'.$data->latitude.',+'.$data->longitude.'/">Xem chỉ đường</a>    
+                        <a target="_blank" href="https://www.google.com/maps/dir/'.$data->latitude.',+'.$data->longitude.'/">Xem chỉ đường</a>  </div>
                     <div id="map_HS"></div>';
 
                      }else{ 
