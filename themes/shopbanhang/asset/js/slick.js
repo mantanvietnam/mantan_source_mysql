@@ -3,7 +3,10 @@ $('.banner-home-slide').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
     dots: true,
-    arrows: false
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+
 });
 
 
