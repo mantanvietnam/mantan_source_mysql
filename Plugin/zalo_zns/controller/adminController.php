@@ -60,7 +60,7 @@ function listZaloOAAdmin($input)
     }
 
     $money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
-    $money_zalo_zns = (int) $money_zalo_zns->value;
+    $money_zalo_zns = (int) @$money_zalo_zns->value;
 
     setVariable('page', $page);
     setVariable('totalPage', $totalPage);

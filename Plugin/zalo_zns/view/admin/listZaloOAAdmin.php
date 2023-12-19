@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Quản lý Zalo OA</h4>
-  <p><a href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> <button onclick="$('#addMoneyModal').modal('show');" type="button" class="btn btn-danger"><i class='bx bx-dollar'></i> Nạp tiền Zalo OA</button></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -135,4 +135,17 @@
     </div>
   </div>
   <!--/ Responsive Table -->
+</div>
+
+<div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quét mã QR để nạp tiền</h5>
+      </div>
+      <div class="modal-body">
+        <img src="https://img.vietqr.io/image/TPB-06931228686-compact2.png?amount=500000&addInfo=ZALO <?php echo $_SERVER['HTTP_HOST'];?>&accountName=Tran Ngoc Manh" class="img-fluid">
+      </div>
+    </div>
+  </div>
 </div>
