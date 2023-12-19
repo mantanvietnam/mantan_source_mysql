@@ -560,7 +560,7 @@
     font-size: 16px;
     font-weight: bold;
     line-height: 1.1;
-    height: 75px;
+    height: 120px;
 }
 
 .news-slide {
@@ -582,16 +582,17 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
+    /* -webkit-line-clamp: 3; */
     line-height: 24px;
     -webkit-box-pack: start;
     /* Thêm dòng này */
     -webkit-box-align: start;
     /* Thêm dòng này */
+    padding-left: 2px;
 }
 
 .news-press-item .news-item-content p {
-    height: 117px;
+    height: 120px;
 }
 
 .news-right-button-news {
@@ -1206,9 +1207,9 @@
         padding-left: 35px;
         padding-right: 35px;
     }
-    .news-item-content {
+    /* .news-item-content {
         height: 120px;
-    }
+    } */
 }
 
 @media (max-width: 1024px) {
