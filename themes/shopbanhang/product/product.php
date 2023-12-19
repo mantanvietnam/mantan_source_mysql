@@ -151,7 +151,7 @@
 
                      <div class="product-detail-info-price-right">
                         <?php if($product->price_old>$product->price){ ?>
-                            <span>(Bạn đã tích kiệm  <?php echo number_format($product->price_old-$product->price); ?>đ)</span>
+                            <span>(Bạn đã tiết kiệm  <?php echo number_format($product->price_old-$product->price); ?>đ)</span>
                         <?php } ?>
                     </div>
                 </div>

@@ -329,7 +329,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                                                 <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
                                             </div>
                                             <div class="content-contact-item content-contact-item-phone">
-                                                <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/phoneicon2.jpg" alt=""></a>
+                                                <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/9b837a317017d8498106.jpg" alt=""></a>
                                             </div>
                                         </div>
                                     </div>

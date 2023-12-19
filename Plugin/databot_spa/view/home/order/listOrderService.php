@@ -63,9 +63,7 @@
                                         <?php
                                         if(!empty($listData)){
                                             foreach($listData as $key => $item){ 
-                                                $type = 'Chưa thanh toán </br>
-                                                     <a href="/paymentOrders?id_order='.$item->id.'&type=service" class="btn btn-primary">Thanh toán</a>
-                                                ';
+                                                $type = 'Chưa thanh toán';
                                                 if($item->status==1){
                                                     $type = 'Đã thanh toán';
                                                 }elseif($item->status==2){
@@ -123,10 +121,19 @@
     <?php   if(!empty($listData)){
      foreach($listData as $key => $items){
         if($items->promotion>101){
-          $promotion = number_format($items->promotion).'đ';
-      }else{
-         $promotion = $items->promotion.'%';
-     }
+            $promotion = number_format($items->promotion).'đ';
+        }else{
+            $promotion = $items->promotion.'%';
+        }
+
+        $type = 'Chưa thanh toán';
+        if($items->status==1){
+            $type = 'Đã thanh toán';
+        }elseif($items->status==2){
+             $type = 'Dang sử lý';
+        }elseif($items->status==3){
+            $type = 'Hủy';
+        }
 
      ?>      
      <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
@@ -142,7 +149,7 @@
             <p><label>Tiên khách hàng:</label> <?php echo $items->full_name ?></p>
             <p><label>Điện thoại:</label> <?php echo $items->customer->phone ?></p>
             <p><label>Email:</label> <?php echo $items->customer->email ?></p>
-            <p> Chưa giảm giá: <?php echo number_format(@$item->total) ?>đ <br/>
+            <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
                 Giảm giá: <?php echo $promotion ?><br/>
                 Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
                 Trạng thái: <?php echo $type ?></td></p>
@@ -177,7 +184,9 @@
                         <?php }} ?>
                     </tbody>
                 </table>
-
+                <?php  if(@$items->status==0){ ?>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#thanhtoan<?php echo $items->id; ?>"  class="btn btn-primary">Thanh toán</a>
+                <?php } ?>
             </div>
 
         </div>
@@ -195,7 +204,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="" action="/addUserService" class="form-horizontal" method="get" enctype=""> 
-               <div class="modal-footer" style="display: block;">
+             <div class="modal-footer" style="display: block;">
                 <div class="card-body">
                     <div class="row gx-3 gy-2 align-items-center">
                         <div class="col-md-12">
@@ -230,6 +239,56 @@
 </div>
 </div>
 <?php }} ?>
+<!-- ?id_order='.$item->id.'&type=service -->
+<div class="modal fade" id="thanhtoan<?php echo $items->id; ?>"  name="id">
+
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Thanh toán đơn Dịch vụ <?php echo $value->prod->name ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="" action="/paymentOrders" class="form-horizontal" method="get" enctype=""> 
+             <div class="modal-footer" style="display: block;">
+                <div class="card-body">
+                    <div class="row gx-3 gy-2 align-items-center">
+                        <div class="col-md-12">
+                            <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
+                            <input type="hidden" value="<?php echo $value->id_product; ?>"  name="id_service">
+                            <input type="hidden" value="<?php echo $items->full_name; ?>"  name="full_name">
+                            <p><label>Tiên khách hàng:</label> <?php echo $items->full_name ?></p>
+                            <p><label>Điện thoại:</label> <?php echo $items->customer->phone ?></p>
+                            <p><label>Email:</label> <?php echo $items->customer->email ?></p>
+                            <p> Chưa giảm giá: <?php echo number_format(@$items->total) ?>đ <br/>
+                                Giảm giá: <?php echo $promotion ?><br/>
+                                Tổng cộng: <?php echo number_format(@$items->total_pay) ?>đ<br/>
+                                Trạng thái: <?php echo $type ?></td></p>
+                            <label class="form-label">Hình thức thanh toán </label>
+                                <select name="type_collection_bill" class="form-select color-dropdown" required>
+                                  <option value="">Chọn hình thức thanh toán</option>
+                                  <?php
+                                     global $type_collection_bill;
+                                    foreach ($type_collection_bill as $key => $value) {
+                                      if(empty(@$data->type_collection_bill) || @$data->type_collection_bill!=$key){
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                      }else{
+                                        echo '<option selected value="'.$key.'">'.$value.'</option>';
+                                      }
+                                    }
+                                  ?>
+                                  <option value="cong_no">Nợ </option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Thanh toán</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</div>
 
 <?php }} ?>
 
