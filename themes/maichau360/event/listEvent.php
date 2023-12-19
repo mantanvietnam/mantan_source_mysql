@@ -31,7 +31,7 @@ global $urlThemeActive;
     </section>
     <section id="su-kien-list-event">
         <!-- <div class="background" style="background-image: url('<?= $urlThemeActive ?>/assets/lou_img/su-kien-list-event.png')"> -->
-            <section class="section-heading mt-4">
+            <section class="section-heading section-heading-event">
                 <h3 class="text-uppercase text-center">sự kiện</h3>
                 <p class="text-center">Những sự kiện diễn ra ở Mai Châu</p>
             </section>

@@ -123,7 +123,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <div class="topbar-button topbar-button-myacc">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/account.png" alt="">
                                 <?php if(!empty($infoUser)){ ?>
-                                        <a href="">Tài khoản của tôi</a>
+                                        <a href="/infoUser">Tài khoản của tôi</a>
                                         <div class="myacc-child">
                                             <div class="myacc-child-item">
                                                 <img src="<?php echo $urlThemeActive ?>/asset/image/thong-tin-san-pham.png" alt="">
@@ -745,7 +745,7 @@ src="https://www.facebook.com/tr?id=1428203714597073&ev=PageView&noscript=1"
                             <a href="<?php echo @$setting['contact-zalo-link'] ?>"><img class="icon-zalo" src="<?php echo $urlThemeActive ?>/asset/image/zalo.svg" alt=""></a>
                         </div>
                         <div class="content-contact-item content-contact-item-phone content-contact-margin">
-                            <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/icon con.png" alt=""></a>
+                            <a href="<?php echo @$setting['contact-phone-link'] ?>"><img src="<?php echo $urlThemeActive ?>/asset/image/fileiconme.png" alt=""></a>
                         </div>
                     </div>
                 </div>
