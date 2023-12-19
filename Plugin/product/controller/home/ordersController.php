@@ -106,11 +106,17 @@ function addProductToCart($input)
 	global $session;
 	global $controller;
 
+	$setting = setting();
+
 	$modelProduct = $controller->loadModel('Products');
 
 	if(!empty($_REQUEST['id_product'])){
 		if(empty($_REQUEST['quantity'])) $_REQUEST['quantity'] = 1;
 		$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+
+		if($setting['targetTime']>time() && @$product->flash_sale==1 && !empty($product->price_flash)){
+			$product->price = $product->price_flash;
+		}
 
 		$list_product = $session->read('product_order');
 

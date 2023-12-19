@@ -331,7 +331,7 @@ function indexTheme($input){
     $slide_home = $modelAlbums->find()->where(['id'=>(int)$data_value['id_slide']])->first();
 
     if(!empty($slide_home)){
-        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
+        $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->order(['id'=>'desc'])->all()->toList();
     }
 
      $news = $modelAlbums->find()->where(['id'=>(int)$data_value['id_bc']])->first();

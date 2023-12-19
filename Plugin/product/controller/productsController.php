@@ -177,6 +177,7 @@ function addProduct($input)
             $data->code = @$dataSend['code'];
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
+            $data->price_flash = (int) @$dataSend['price_flash'];
             $data->quantity_initial = (int) @$dataSend['quantity_initial'];
             $data->number_like = (int) @$dataSend['number_like'];
             $data->quantity = (int) @$dataSend['quantity'];
@@ -210,29 +211,24 @@ function addProduct($input)
 
             $data->slug = $slugNew;
 
-          
-
 	        $modelProduct->save($data);
 
-             
-
             // lưu danh mục sản phẩm
-                if(!empty($dataSend['id_category'])){
-                    $conditions = ['id_product'=>$data->id];
-                    $modelCategorieProduct->deleteAll($conditions);
+            if(!empty($dataSend['id_category'])){
+                $conditions = ['id_product'=>$data->id];
+                $modelCategorieProduct->deleteAll($conditions);
 
-                    foreach ($dataSend['id_category'] as $id_category) {
-                        $category = $modelCategorieProduct->newEmptyEntity();
+                foreach ($dataSend['id_category'] as $id_category) {
+                    $category = $modelCategorieProduct->newEmptyEntity();
 
-                        $category->id_product = $data->id;;
-                        $category->id_category = $id_category;
-
-                        $modelCategorieProduct->save($category);
-                    }
-                }else{
-                    $conditions = ['id_product'=>$data->id];
-                    $modelCategorieProduct->deleteAll($conditions);
+                    $category->id_product = $data->id;;
+                    $category->id_category = $id_category;
+                    $modelCategorieProduct->save($category);
                 }
+            }else{
+                $conditions = ['id_product'=>$data->id];
+                $modelCategorieProduct->deleteAll($conditions);
+            }
 
 
 

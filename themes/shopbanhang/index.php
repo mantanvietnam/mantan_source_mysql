@@ -58,9 +58,20 @@ global $urlThemeActive;
                             <?php 
                             foreach($product_flasl as $key => $item){
                              $giam = 0;
-                             if(!empty($item->price_old) && !empty($item->price)){
-                                $giam = 100 - 100*$item->price/$item->price_old;
-                            }
+                                    $price = $item->price;
+                                    if($setting['targetTime']>time() && @$item->flash_sale==1){
+                                        if(!empty($item->price_old) && !empty($item->price_flash)){
+                                            $giam = 100 - 100*$item->price_flash/$item->price_old;
+                                            $price = @$item->price_flash;
+
+                                        }
+                                    }else{
+                                        if(!empty($item->price_old) && !empty($item->price)){
+                                            $giam = 100 - (100*($item->price/$item->price_old));
+                                            
+                                        }
+                                    }
+
 
                              $ban = random_int(1, 50);
                             // $ban = 0;
@@ -81,7 +92,7 @@ global $urlThemeActive;
                                         </div>
 
                                         <div class="best-sale-price">
-                                            <p><?php  echo number_format($item->price); ?>đ</p>
+                                            <p><?php  echo number_format(@$price); ?>đ</p>
                                         </div>
 
                                         <div class="best-sale-discount">

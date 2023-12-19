@@ -253,61 +253,7 @@ global $urlThemeActive;
             </div>
         </section>
 <?php } ?>
-<?php  $comment= getComment($data->id,'danh_lam'); 
-        if(!empty($comment)){ ?>
-        <section id="place-post-comment">
-            <div class="container">
-                <div class="row">
-                    <div class="title-post-comment">
-                        <p>Tất cả các bài đánh giá </p>
-                    </div>
-                <?php
-                    foreach($comment as $key => $value){
-                   //     debug($value);
-                    $custom =  getCustomer($value->idcustomer);
-                
-                     if(!empty($custom)){
-                ?>
-                    <div class="post-comment">
-                        <div class="post-comment-content">
-                            <div class="information-people">
-                                <div class="information-people-img">
-                                    <img src="<?php echo $custom->avatar ?>"
-                                        alt="">
-                                </div>
-                                <div class="information-people-box">
-                                    <div class="information-people-name">
-                                        <span><?php echo $custom->full_name ?></span>
-                                    </div>
-                                    <div class="information-people-hour">
-                                        <span><?php echo date("d/m/Y H:i:s",$value->created); ?></span>
-                                    </div>
-                                </div>
-                            </div>
 
-        
-                        </div>
-
-                        <div class="post-comment-content-text">
-                            <?php echo $value->comment ?>
-                        </div>
-                         <?php  if(@$infoUser['id']==@$value->idcustomer){ ?>
-                         <div class="post-comment-content-text">
-                            <a href="javascript:void(0);" onclick="deteleComment(<?php echo $value->id ?>)">xóa</a>
-                        </div>
-                    <?php } ?>
-
-                    </div>
-                   
-
-                     <?php }} ?>             
-                    
-                </div>
-            </div>
-        </section>
-    <?php }  ?>
-
-    </main>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
