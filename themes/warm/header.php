@@ -181,8 +181,10 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
         <section id="section-logo-home">
             <div class="container-fluid logo-home-box">
                 <div class="logo-home-item">
+                    
+
                     <div class="logo-home-img logo-home-1">
-                        <img src="<?php echo $urlThemeActive;?>/asset/img/Logo-set-with-GG-EU-emblem (1).png" alt="">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/combo-logo.png" alt="">
                     </div>
         
                     <div class="logo-home-img logo-home-2">
