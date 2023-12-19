@@ -115,6 +115,10 @@ header .top .search-input
     color: #3f4042;
 }
 
+.card-event h5 a{
+    color: #3f4042 !important;
+}
+
 .card-event .card-time {
     font-style: normal;
     font-weight: 400;

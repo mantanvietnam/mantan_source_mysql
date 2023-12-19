@@ -239,6 +239,15 @@ $(document).ready(function() {
    butt.setAttribute("onclick", "loadEventNextPrev(2)");
 });
 
+
+$(document).ready(function () {
+    $(".rotate").click(function () {
+        $(this).toggleClass("right");
+        $('.box-menu-map').slideToggle();
+        console.log('a')
+    })
+  });
+
 </script> 
 <?php
 getFooter();?>

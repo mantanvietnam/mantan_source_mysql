@@ -253,10 +253,10 @@ $('.slide-artifacts-other').slick({
 });
 
 
-$(document).ready(function () {
-    $(".rotate").click(function () {
-        $(this).toggleClass("right");
-        $('.box-menu-map').slideToggle();
-        console.log('a')
-    })
-  });
+// $(document).ready(function () {
+//     $(".rotate").click(function () {
+//         $(this).toggleClass("right");
+//         $('.box-menu-map').slideToggle();
+//         console.log('a')
+//     })
+//   });

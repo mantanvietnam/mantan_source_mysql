@@ -29,11 +29,32 @@ global $urlThemeActive;
          <?php }
                 } ?>
     </section>
+
+    <section id="news-banner" style="background-image: url('<?= $urlThemeActive ?>/assets/lou_img/backgroundmaichau.jpg')">
+        <div class="news-overlay"></div>
+        <div class="news-banner-content">
+            <div class="news-title">
+                <h1>Tin tức - Sự kiện</h1>
+            </div>
+            <div class="news-search">
+                <div class="news-search-input">
+                    <input type="text" placeholder="Tìm kiếm tin tức và sự kiện...">
+                    <div class="news-search-btn">
+                        <a href="">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <section id="su-kien-list-event">
         <!-- <div class="background" style="background-image: url('<?= $urlThemeActive ?>/assets/lou_img/su-kien-list-event.png')"> -->
             <section class="section-heading section-heading-event">
-                <h3 class="text-uppercase text-center">sự kiện</h3>
-                <p class="text-center">Những sự kiện diễn ra ở Mai Châu</p>
+                <h3 class="text-uppercase text-center">Tin tức và sự kiện</h3>
+                <p class="text-center">Những Tin tức - Sự kiện Văn hoá, Du lịch tỉnh Mai Châu</p>
             </section>
             <div class="container">
                 <div class="row g-3">
@@ -42,15 +63,17 @@ global $urlThemeActive;
                         foreach ($listData as $item) { ?>
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="card card-event">
-                                    <img class="card-img-top" src="<?php echo $item->image ?>" alt="Card image cap">
+                                    <a href="/chi_tiet_su_kien/<?php echo $item->urlSlug ?>.html">
+                                        <img class="card-img-top" src="<?php echo $item->image ?>" alt="Card image cap">
+                                    </a>
                                     <div class="card-body">
-                                        <h5 class="card-title mb-3">
-                                            <?php echo $item->name ?>
+                                        <h5  class="card-title mb-3">
+                                            <a href="/chi_tiet_su_kien/<?php echo $item->urlSlug ?>.html"><?php echo $item->name ?></a>
                                         </h5>
                                         <p class="card-time">
                                             <?php echo date("d/m/Y", @$item->datestart) . ' - ' . date("d/m/Y", @$item->dateend); ?>
                                         </p>
-                                        <a href="/chi_tiet_su_kien/<?php echo $item->urlSlug ?>.html" class="btn button-outline-primary-custom">Xem thêm</a>
+                                        <a href="/chi_tiet_su_kien/<?php echo $item->urlSlug ?>.html" class="btn button-outline-primary-custom btn-seemmore">Xem thêm</a>
                                     </div>
                                 </div>
                             </div>
