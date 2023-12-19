@@ -848,31 +848,31 @@
                     </div>
 
                     <div class="list-filter-rate-list">
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate0">
                             <a onclick="searchEvaluates()">Tất cả</a>
                         </div>
 
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate5">
                             <a onclick=" searchEvaluates(5)">5 sao</a>
                         </div>
 
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate4">
                             <a onclick=" searchEvaluates(4)">4 sao</a>
                         </div>
 
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate3">
                             <a onclick=" searchEvaluates(3)">3 sao</a>
                         </div>
 
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate2">
                             <a onclick=" searchEvaluates(2)">2 sao</a>
                         </div>
 
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate1">
                             <a onclick=" searchEvaluates(1)">1 sao</a>
                         </div>
 
-                        <div class="list-filter-rate-item">
+                        <div class="list-filter-rate-item" id="evaluate6">
                             <a onclick=" searchEvaluates(6)">Có hình ảnh/video</a>
                         </div>
 
@@ -1388,100 +1388,150 @@ function addComment(){
 </script>
 <script type="text/javascript">
     function searchEvaluates(point){
-
+        var diem = point;
         $.ajax({
             method: 'POST',
             url: '/apis/searchEvaluateAPI',
             data: { id_product: <?php echo $product->id ?>, point: point},
             success:function(res){
-                console.log(res);
                 if(res.code==1){
-                 var html = '';
-                 for (i = 0; i < res.data.length; i++) {
+                   var html = '';
+                   for (i = 0; i < res.data.length; i++) {
                     var image = '';
                     var point = 100 - (res.data[i].point/5) / 1 * 100;
                     var originalDate = new Date(res.data[i].created_at);
 
-                            // Lấy thông tin về ngày, tháng, năm và giờ, phút
-                            var day = originalDate.getDate();
-                            var month = originalDate.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần cộng thêm 1
-                            var year = originalDate.getFullYear();
-                            var hour = originalDate.getHours();
-                            var minute = originalDate.getMinutes();
+                    // Lấy thông tin về ngày, tháng, năm và giờ, phút
+                    var day = originalDate.getDate();
+                    var month = originalDate.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần cộng thêm 1
+                    var year = originalDate.getFullYear();
+                    var hour = originalDate.getHours();
+                    var minute = originalDate.getMinutes();
 
-                            // Tạo chuỗi mới với định dạng mong muốn
-                            var date = `${hour}:${minute} ${day}/${month}/${year}`;
+                    // Tạo chuỗi mới với định dạng mong muốn
+                    var date = `${hour}:${minute} ${day}/${month}/${year}`;
 
-                            image = JSON.parse(res.data[i].image); 
-                            html +=' <div class="product-detail-rate-item">'
-                            html +='    <div class="product-detail-rate-avata">'
-                            html +='        <img src="'+res.data[i].avatar+'" alt="">'
-                            html +='    </div>'
-
-                            html +='    <div class="product-detail-rate-right">'
-                            html +='        <div class="product-detail-rate-heading">'
-                            html +='            <div class="product-detail-rate-name">'+res.data[i].full_name+'</div>'
-
-                            html +='            <div class="product-detail-rate-date">'+date+'</div>'
-                            html +='        </div>'
-
-                            html +='        <div class="product-detail-rate-star"><div class="stars" style="color: gold; width: 95px;">'
-                            html +='                <i class="bx bxs-star"></i>'
-                            html +='                 <i class="bx bxs-star"></i>'
-                            html +='                <i class="bx bxs-star"></i>'
-                            html +='                <i class="bx bxs-star"></i>'
-                            html +='                <i class="bx bxs-star"></i>'
-                            html +='                <div class="overlay" style="width: '+point+'%"></div>'
-                            html +='            </div>  '
-                            html +='        </div>  '
-
-                            html +='        <div class="product-details-rate-comment">'+res.data[i].content+'</div>'  
-                            html +='        <div class="product-detail-rate-image">'
-                            if(res.data[i].image_video !== null){
-                                if(res.data[i].image_video !== '') {
-                                    html +='<a class="video-comment-box"  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo'+i+'">'
-                                    html +='                <img src="'+res.data[i].image_video+'" alt="">'
-                                    html +='            </a>'
-
-
-                                    html +='            <div class="modal-video-comment">'
-                                    html +='                 <div class="modal fade" id="exampleModalVideo'+i+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
-                                    html +='                    <div class="modal-dialog modal-dialog-centered">'
-                                    html +='                        <div class="modal-content">'
-                                    html +='                            <video controls>'
-                                    html +='                                <source src="'+res.data[i].video+'" type="video/mp4">'
-                                    html +='                            </video>'
-                                    html +='                        </div>'
-                                    html +='                    </div>'
-                                    html +='                </div>'
-                                    html +='            </div>'
-                                }
-                            }
+                    image = JSON.parse(res.data[i].image); 
+                    html +=' <div class="product-detail-rate-item">'
+                    html +='    <div class="product-detail-rate-avata">'
+                    html +='        <img src="'+res.data[i].avatar+'" alt="">'
+                    html +='    </div>'
+                    html +='    <div class="product-detail-rate-right">'
+                    html +='        <div class="product-detail-rate-heading">'
+                    html +='            <div class="product-detail-rate-name">'+res.data[i].full_name+'</div>'
+                    html +='            <div class="product-detail-rate-date">'+date+'</div>'
+                    html +='        </div>'
+                    html +='        <div class="product-detail-rate-star"><div class="stars" style="color: gold; width: 95px;">'
+                    html +='                <i class="bx bxs-star"></i>'
+                    html +='                 <i class="bx bxs-star"></i>'
+                    html +='                <i class="bx bxs-star"></i>'
+                    html +='                <i class="bx bxs-star"></i>'
+                    html +='                <i class="bx bxs-star"></i>'
+                    html +='                <div class="overlay" style="width: '+point+'%"></div>'
+                    html +='            </div>  '
+                    html +='        </div>  '
+                    html +='        <div class="product-details-rate-comment">'+res.data[i].content+'</div>'  
+                    html +='        <div class="product-detail-rate-image">'
+                    if(res.data[i].image_video !== null){
+                        if(res.data[i].image_video !== '') {
+                            html +='<a class="video-comment-box"  href="" data-bs-toggle="modal" data-bs-target="#exampleModalVideo'+i+'">'
+                            html +='                <img src="'+res.data[i].image_video+'" alt="">'
+                            html +='            </a>'
+                            html +='            <div class="modal-video-comment">'
+                            html +='                 <div class="modal fade" id="exampleModalVideo'+i+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+                            html +='                    <div class="modal-dialog modal-dialog-centered">'
+                            html +='                        <div class="modal-content">'
+                            html +='                            <video controls>'
+                            html +='                                <source src="'+res.data[i].video+'" type="video/mp4">'
+                            html +='                            </video>'
+                            html +='                        </div>'
+                            html +='                    </div>'
+                            html +='                </div>'
+                            html +='            </div>'
+                        }
+                    }
                             
-                            for(var key in image) {
-                                if (image.hasOwnProperty(key)) {
-                                    if (image[key] != '') {
-                                        html +='    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalimg'+i+'-'+key+'"> <img src="'+image[key]+'" alt=""></a>'
-                                        html +='<div class="modal-login">'
-                                        html +='<div class="modal fade" id="exampleModalimg'+i+'-'+key+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
-                                        html +='<div class="modal-dialog modal-dialog-centered"><img src="'+image[key]+'" alt="" style="width: 100%; height: auto;">'
-                                        html += '</div>'
-                                        html +='</div>'
-                                        html +=             '</div>'
-                                    }}}
-                                    html +='        </div> '
+                    for(var key in image) {
+                        if (image.hasOwnProperty(key)) {
+                            if (image[key] != '') {
+                                html +='    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalimg'+i+'-'+key+'"> <img src="'+image[key]+'" alt=""></a>'
+                                html +='<div class="modal-login">'
+                                html +='<div class="modal fade" id="exampleModalimg'+i+'-'+key+'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+                                html +='<div class="modal-dialog modal-dialog-centered"><img src="'+image[key]+'" alt="" style="width: 100%; height: auto;">'
+                                html += '</div>'
+                                html +='</div>'
+                                html +=             '</div>'
+                            }
+                        }
+                    }
+                    html +='        </div> '
+                    html +='    </div>'
+                    html +='</div>'
+                }
+                document.getElementById("evaluate").innerHTML = html;
+            }else{
+                document.getElementById("evaluate").innerHTML = '<div class="no_evaluate"><h5>Sản phẩm chưa có đánh giá nào </h5></div>';
+            }
+            if(diem==1){
+                    document.getElementById("evaluate1").classList.add("active");
+                    document.getElementById("evaluate0").classList.remove("active");
+                    document.getElementById("evaluate2").classList.remove("active");
+                    document.getElementById("evaluate3").classList.remove("active");
+                    document.getElementById("evaluate4").classList.remove("active");
+                    document.getElementById("evaluate5").classList.remove("active");
+                    document.getElementById("evaluate6").classList.remove("active");
+            }else  if(diem==2){
+                    document.getElementById("evaluate1").classList.remove("active");
+                    document.getElementById("evaluate0").classList.remove("active");
+                    document.getElementById("evaluate2").classList.add("active");
+                    document.getElementById("evaluate3").classList.remove("active");
+                    document.getElementById("evaluate4").classList.remove("active");
+                    document.getElementById("evaluate5").classList.remove("active");
+                    document.getElementById("evaluate6").classList.remove("active");
+            }else  if(diem==3){
+                    document.getElementById("evaluate1").classList.remove("active");
+                    document.getElementById("evaluate0").classList.remove("active");
+                    document.getElementById("evaluate2").classList.remove("active");
+                    document.getElementById("evaluate3").classList.add("active");
+                    document.getElementById("evaluate4").classList.remove("active");
+                    document.getElementById("evaluate5").classList.remove("active");
+                    document.getElementById("evaluate6").classList.remove("active");
+            }else  if(diem==4){
+                    document.getElementById("evaluate1").classList.remove("active");
+                    document.getElementById("evaluate0").classList.remove("active");
+                    document.getElementById("evaluate2").classList.remove("active");
+                    document.getElementById("evaluate3").classList.remove("active");
+                    document.getElementById("evaluate4").classList.add("active");
+                    document.getElementById("evaluate5").classList.remove("active");
+                    document.getElementById("evaluate6").classList.remove("active");
+            }else  if(diem==5){
+                    document.getElementById("evaluate1").classList.remove("active");
+                    document.getElementById("evaluate0").classList.remove("active");
+                    document.getElementById("evaluate2").classList.remove("active");
+                    document.getElementById("evaluate3").classList.remove("active");
+                    document.getElementById("evaluate4").classList.remove("active");
+                    document.getElementById("evaluate5").classList.add("active");
+                    document.getElementById("evaluate6").classList.remove("active");
+            }else  if(diem==6){
+                    document.getElementById("evaluate1").classList.remove("active");
+                    document.getElementById("evaluate0").classList.remove("active");
+                    document.getElementById("evaluate2").classList.remove("active");
+                    document.getElementById("evaluate3").classList.remove("active");
+                    document.getElementById("evaluate4").classList.remove("active");
+                    document.getElementById("evaluate5").classList.remove("active");
+                    document.getElementById("evaluate6").classList.add("active");
+            }else{
+                    document.getElementById("evaluate1").classList.remove("active");
+                    document.getElementById("evaluate0").classList.add("active");
+                    document.getElementById("evaluate2").classList.remove("active");
+                    document.getElementById("evaluate3").classList.remove("active");
+                    document.getElementById("evaluate4").classList.remove("active");
+                    document.getElementById("evaluate5").classList.remove("active");
+                    document.getElementById("evaluate6").classList.remove("active");
+            }
 
-                                    
-                                    html +='    </div>'
-                                    html +='</div>'
-
-                                }
-                                document.getElementById("evaluate").innerHTML = html;
-                            }else{
-                             document.getElementById("evaluate").innerHTML = '<div class="no_evaluate"><h5>Sản phẩm chưa có đánh giá nào </h5></div>';
-                         }
-                     }
-                 });
+        }
+    });
 
 }
 </script>

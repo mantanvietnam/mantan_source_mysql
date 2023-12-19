@@ -132,25 +132,25 @@ $settinghom = setting();
                                         <p>Tìm kiếm theo sao</p>
                                     </div>
                                     <div class="star-rating">
-                                        <div class="item-star-rating">
-                                            <a href="/review_san_pham">Tất cả</a>
+                                        <div class="item-star-rating <?php if(empty($_GET['point']) && empty($_GET['image']) && empty($_GET['id_product'])) echo 'active' ?>">
+                                            <a href="/review_san_pham ">Tất cả</a>
                                         </div>
-                                        <div class="item-star-rating">
+                                        <div class="item-star-rating  <?php if(@$_GET['point']==1) echo 'active' ?>">
                                             <a href="/review_san_pham?point=1">1 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
+                                        <div class="item-star-rating <?php if(@$_GET['point']==2) echo 'active' ?>">
                                             <a href="/review_san_pham?point=2">2 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
+                                        <div class="item-star-rating <?php if(@$_GET['point']==3) echo 'active' ?>">
                                             <a href="/review_san_pham?point=3">3 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
+                                        <div class="item-star-rating <?php if(@$_GET['point']==4) echo 'active' ?>">
                                             <a href="/review_san_pham?point=4">4 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
+                                        <div class="item-star-rating <?php if(@$_GET['point']==5) echo 'active' ?>">
                                             <a href="/review_san_pham?point=5">5 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
+                                        <div class="item-star-rating <?php if(@$_GET['image']=='{"1":"","2":"","3":"","4":"","5":""}') echo 'active' ?>">
                                             <a href='/review_san_pham?image={"1":"","2":"","3":"","4":"","5":""}'>Có hình ảnh/video</a>
                                         </div>
                                     </div>
