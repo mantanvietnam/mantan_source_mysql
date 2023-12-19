@@ -560,7 +560,7 @@ strong {
 }
 
 .text-facility-content p {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .section-facility-content .text-facility-content p {
@@ -1674,6 +1674,10 @@ strong {
     #section-menu .search-menu {
         width: 200px;
     }
+    .facility-content .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
 }
 
 @media (max-width: 1400px) {
@@ -1698,7 +1702,7 @@ strong {
         display: block !important;
     } */
     #section-menu .nav-link {
-        font-size: 15px !important;
+        font-size: 15px;
     }
     .news-slide .slick-prev {
         left: -40px !important;
@@ -1715,11 +1719,39 @@ strong {
 }
 
 @media (max-width: 1300px) {
+    .photo-slide .slick-next {
+        right: 37%;
+    }
+    .photo-slide .slick-prev {
+        left: 37%;
+    }
     #facility-project-box .project-box-item-inner {
         min-height: 670px !important;
     }
     #section-menu .nav-link {
         margin-right: 20px;
+    }
+    #section-project .project-content .project-item .project-item-title {
+        font-size: 25px;
+    }
+    .facility-content .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+@media (max-width: 1110px) {
+    #section-menu .button-down-menu {
+        padding-left: 2px;
+    }
+    #section-menu .nav-link {
+        margin-right: 15px;
+    }
+    #section-menu .btn-group {
+        margin-right: 15px !important;
+    }
+    #section-menu .nav-link {
+        font-size: 13px !important;
     }
 }
 
@@ -1908,6 +1940,15 @@ strong {
     /* about us */
     #section-our-partner .list-partner .partner-item2 .partner-logo {
         width: 61px;
+    }
+}
+
+@media (max-width: 500px) {
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-1 {
+        width: 105px;
+    }
+    #section-logo-home .logo-home-box .logo-home-item .logo-home-2 {
+        width: 80px;
     }
 }
 
