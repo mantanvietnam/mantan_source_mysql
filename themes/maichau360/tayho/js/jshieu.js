@@ -1,5 +1,15 @@
 $ = jQuery;
 
+// toggle map
+$(document).ready(function () {
+$(".rotate").click(function () {
+    $(this).toggleClass("right");
+    $('.box-menu-map').slideToggle();
+    console.log('a')
+})
+});
+
+
 
 // Select all elements with the "i" tag and store them in a NodeList called "stars"
 const stars = document.querySelectorAll(".stars i");
@@ -16,6 +26,8 @@ stars.forEach((star, index1) => {
         });
     });
 });
+
+
 
 
 $(document).ready(function () {
@@ -293,3 +305,4 @@ $(document).ready(function(){
    
 
 // });
+

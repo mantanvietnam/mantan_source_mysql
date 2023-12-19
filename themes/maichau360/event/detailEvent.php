@@ -197,7 +197,9 @@ global $urlThemeActive;
             });
           
              console.log(locations[i][1]);
-            L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(map);
+            L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).on('mouseover', function (e) {
+               this.openPopup();
+              }).addTo(map);
           
         }
     }  

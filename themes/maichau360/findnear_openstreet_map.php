@@ -250,7 +250,13 @@
               iconSize: [40, 40],
             });
 
-            L.marker([locations[i][1], locations[i][2]], {icon: icon}).bindPopup(locations[i][0]).addTo(pointLayer);
+            L.marker([locations[i][1], locations[i][2]], {icon: icon }).bindPopup(locations[i][0]).on('mouseover', function (e) {
+               this.openPopup();
+              }).addTo(pointLayer);
+
+             L.marker([locations[i][1], locations[i][2]], {icon: icon }).bindPopup(locations[i][0]).on('mouseout', function (e) {
+              marker.closePopup();
+              });
           }
         }
       }else{
@@ -290,7 +296,5 @@
     initMap();
   });
 </script>
-
-
 
 

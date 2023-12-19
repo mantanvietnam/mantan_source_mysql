@@ -87,7 +87,7 @@ addMenusAppearance($category);
 function categoryDiscountCode(){
       return array(
           1=>'voucher freeship',
-          2=>'Bumas hi',
+          2=>'BUMAS hi',
           3=>'Foryou',
       );
 }
@@ -99,7 +99,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 
     $cc = array();
     $bcc = array();
-    $subject = '[Bumas] Bạn đặt hàng trên web Bumas thành công ';
+    $subject = '[BUMAS] Bạn đặt hàng trên web BUMAS thành công ';
 
     $content='<!DOCTYPE html>
     <html lang="en">
@@ -241,7 +241,7 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
 
     $cc = array();
     $bcc = array();
-    $subject = '[Bumas] Xác thực hàng mới ';
+    $subject = '[BUMAS] Xác thực hàng mới ';
 
     $content='<!DOCTYPE html>
     <html lang="en">

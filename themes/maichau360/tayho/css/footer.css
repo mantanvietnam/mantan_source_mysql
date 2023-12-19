@@ -149,11 +149,11 @@
     font-size: 20px;
     line-height: 28px;
     color: #21274F;
+    font-weight: 600;
 }
 
 #contact .contact-content .contact-icon .combo-icon a {
     font-size: 24px;
-    padding: 2px 9px;
     background-color: black;
     color: #fff;
     border-radius: 50px;
@@ -170,7 +170,6 @@
 
 #contact .contact-content .contact-icon .combo-icon a:last-child {
     font-size: 22px;
-    padding: 4px 8px;
     background-color: black;
     color: #fff;
     border-radius: 50px;
@@ -254,3 +253,19 @@
     font-size: 12px;
   }
 }
+
+/*     Em Hiếu CSS - START     */
+
+#contact .contact-content .contact-icon .combo-icon a {
+    padding: 8px 9px;
+}
+#contact .contact-content .contact-icon .combo-icon a:last-child {
+    padding: 9px 8px;
+}
+#map-section .map-iframe {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0px 15px 1px #c5c5c5;
+}
+
+/*     Em Hiếu CSS - END     */

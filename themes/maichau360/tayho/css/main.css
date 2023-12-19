@@ -58,6 +58,11 @@ header .top .search-input
     /*margin-bottom: 84px!important;*/
 }
 
+.section-heading-event h3{
+    margin: 0 !important;
+    padding-top: 50px;
+}
+
 .section-heading p {
     font-style: normal;
     font-weight: 400;

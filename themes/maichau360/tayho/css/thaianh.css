@@ -1353,8 +1353,8 @@ p {
 }
 
 .btn-hide {
-    right: -25px;
-    top: 200px;
+    /* right: -25px; */
+    /* top: 200px; */
     opacity: 1;
     transition: .5s;
     font-size: 24px;
@@ -1479,6 +1479,15 @@ p {
         height: calc(125vh - 300px);
     }
 } */
+
+/*   EM HIEU CSS - START   */
+
+.btn-hide {
+    bottom: -20px;
+    left: 42%;
+}
+
+/*   EM HIEU CSS - END   */
 
 @media (max-width: 2560px) {
     #banner-home-360 .box-iframe iframe {
