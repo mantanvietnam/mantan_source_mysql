@@ -24,12 +24,12 @@ getHeader();
                                                 foreach($listData as $key => $item){
                                                 if(!empty($item->product)){ ?>
                                         <div class="item-viewd-product">
-                                            <a href="/product/<?php echo $item->product->slug ?>.html" class="btn-img-viewd-product">
+                                            <a href="/san-pham/<?php echo $item->product->slug ?>.html" class="btn-img-viewd-product">
                                                 <div class="group-viewed-product-img">
                                                     <img src="<?php echo $item->product->image ?>" alt="">
                                                 </div>
                                             </a>
-                                            <a href="/product/<?php echo $item->product->slug ?>.html" class="btn-name-viewd-product">
+                                            <a href="/san-pham/<?php echo $item->product->slug ?>.html" class="btn-name-viewd-product">
                                                 <div class="group-viewed-product-name">
                                                     <p><?php echo $item->product->title ?></p>
                                                 </div>

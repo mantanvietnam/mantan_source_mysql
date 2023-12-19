@@ -25,8 +25,8 @@
                     <input type="text" required class="form-control" placeholder="" name="code" id="code" value="<?php echo @$data->code;?>" />
                   </div> 
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Ngày hết hạn </label>
-                    <input type="text"  class="form-control datepicker" placeholder="" name="deadline_at" id="deadline_at" value="<?php if(!empty($data->deadline_at)){  echo @$data->deadline_at->format('d/m/Y');}?>" />
+                    <label class="form-label" for="basic-default-fullname">Ngày hết hạn (*) </label>
+                    <input type="text"  class="form-control datepicker" required placeholder="" name="deadline_at" id="deadline_at" value="<?php if(!empty($data->deadline_at)){  echo @$data->deadline_at->format('d/m/Y');}?>" />
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Giá tối thiểu được áp dụng </label>
@@ -34,7 +34,7 @@
                   </div>
                    <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Danh mục(*)</label>
-                    <select class="form-select form-select-sm" id="category" required  name="category" aria-label=".form-select-sm example">
+                    <select class="form-select form-select" id="category" required  name="category" aria-label=".form-select-sm example">
                        <option value="">Chọn danh mục</option>
                         <?php  foreach(categoryDiscountCode() as $key => $item){ ?>
                         <option <?php if($data['category']==$key){ echo 'selected'; } ?> value="<?php echo $key ?>"><?php echo $item ?></option>        
@@ -53,11 +53,15 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Số lượng (*)</label>
-                    <input type="number"  class="form-control" placeholder="" name="number_user" id="number_user" value="<?php echo @$data->number_user;?>" />
+                    <input type="number"  class="form-control" placeholder="" required name="number_user" id="number_user" value="<?php echo @$data->number_user;?>" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">id sản phẩm(*)</label>
-                    <input type="text"  class="form-control" placeholder="mỗi id sản phẩm cách nhau dấu phẩy " name="id_product" id="id_product" value="<?php echo @$data->id_product;?>" />
+                    <label class="form-label" for="basic-default-fullname">Giá giảm tối đa </label>
+                    <input type="number"  class="form-control" placeholder="mỗi id sản phẩm cách nhau dấu phẩy " name="maximum_price_reduction" id="maximum_price_reduction" value="<?php echo @$data->maximum_price_reduction;?>" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Id khách hàng</label>
+                    <input type="text" class="form-control" placeholder="mỗi id khách hàng cách nhau dấu phẩy" name="id_customers" id="id_customers" value="<?php echo @$data->id_customers;?>" />
                   </div>
                 </div>
               </div>

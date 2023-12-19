@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" title="" href="/plugins/go_draw/view/agency/css/jquery.mmenu.all.css">
     <link rel="stylesheet" type="text/css" title="" href="/plugins/go_draw/view/agency/css/style.css">
     <link rel="stylesheet" type="text/css" title="" href="/plugins/go_draw/view/agency/css/more.css">
+    <link rel="stylesheet" type="text/css" title="" href="/themes/godraw/css/update.css">
+    <link rel="stylesheet" type="text/css" title="" href="/themes/godraw/css/updatePlus.css">
+
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -26,36 +29,48 @@
 <header>
     <div class="header-pc">
         <div class="content-header">
-            <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div>
+            <!-- <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div> -->
+            <div class="logo"><a href="/"><img src="/themes/godraw//images/logo-godraw.png" class="img-fluid btn-effect" alt=""></a></div>
+
+       
             <div class="h-menu-right">
                 <div class="h-menu">
                     <ul>
                         <?php if(!empty($session->read('infoUser'))){ ?>
                         <li>
-                            <a href="javascript:void(0);">Bán combo</a>
+                            <a class="text-yeallow-menu" href="javascript:void(0);">Bán hàng</a>
                             <div class="submenu">
                                 <ul>
-                                    <li><a href="/sellComboProduct">Tạo đơn hàng</a></li>
+                                    <!-- <li><a href="/sellComboProduct">Tạo đơn hàng</a></li> -->
+                                    <li><a href="/checkCombo">Đặt tranh</a></li>
+                                    <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
+                                    <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
+                                    <!-- 
+                                    <li><a href="/sellProduct">Sản phẩm</a></li>
+                                    <li><a href="/sellComboProduct">Sản phẩm</a></li> 
                                     <li><a href="/orderUserComboProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserComboDone">Đơn hoàn thành</a></li>
+                                    -->
                                 </ul>
                             </div>
                         </li>
 
+                        <!--
                         <li>
                             <a href="javascript:void(0);">Bán lẻ</a>
                             <div class="submenu">
                                 <ul>
-                                    <li><a href="/sellProduct">Tạo đơn hàng</a></li>
+                                    <li><a href="/sellProduct">Tạo đơn hàng</a></li> 
+                                    <li><a href="/sellProduct">Sản phẩm</a></li>
                                     <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
                                     <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
                                 </ul>
                             </div>
                         </li>
+                        -->
+                        <!-- <li><a href="/warehouse">Kho hàng</a></li> -->
 
-                        <li><a href="/warehouse">Kho hàng</a></li>
-
-                        <li>
+                        <!-- <li>
                             <a href="javascript:void(0);">Trả hàng</a>
                             <div class="submenu">
                                 <ul>
@@ -63,7 +78,7 @@
                                     <li><a href="/orderBackStoreDone">Đơn đã trả</a></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
 
                         <?php if(!empty($session->read('isAgencyBoss'))){ ?>
                         <!--
@@ -81,31 +96,74 @@
                         -->
 
                         <li>
-                            <a href="javascript:void(0);">Mua lẻ</a>
+                            <a href="javascript:void(0);">Mua hàng</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="/listProduct">Tạo đơn mua</a></li>
-                                    <li><a href="/orderProductWait">Đơn chờ duyệt</a></li>
-                                    <li><a href="/orderProductProcess">Đơn chưa thanh toán</a></li>
-                                    <li><a href="/orderProductDone">Đơn đã thanh toán</a></li>
+                                    <li><a href="/orderProductWait">Chờ duyệt</a></li>
+                                    <li><a href="/orderProductProcess">Chờ nhập kho</a></li>
+                                    <li><a href="/orderProductDone">Đã thanh toán</a></li>
                                 </ul>
                             </div>
                         </li>
+
+                        <li><a href="/staticAgency">Thống kê</a></li>
                         <?php }?>
-                        
-                        <li><a href="/changePass">Đổi mật khẩu</a></li>
-                        <li><a href="/logout">Đăng xuất</a></li>
+                            <li>
+                                <a href="javascript:void(0);"><img class="image-user" src="/plugins/go_draw/view/agency/images/userdangnhap.png" alt=""></a>
+                                <div class="submenu">
+                                    <ul>
+                                        <li><a href="/warehouse">Kho hàng</a></li>
+                                        <!-- <li><a href="/orderBackStore">Đơn trả hàng</a></li>
+                                        <li><a href="/orderBackStoreDone">Đơn đã trả</a></li> -->
+                                        <li><a href="/profile">Thông tin tài khoản</a></li>
+                                        <li><a href="/changePass">Đổi mật khẩu</a></li>
+                                        <!-- <li><a href="/changePass">Đổi mật khẩu</a></li> -->
+                                        <li><a href="/logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- <li>
+                                <a href="javascript:void(0);"><i class="fa-solid fa-user"></i></a>
+                                <div class="submenu">
+                                    <li><a href="/changePass">Đổi mật khẩu</a></li>
+                                    <li><a href="/logout">Đăng xuất</a></li>
+                                </div>
+                            </li> -->
+                           
+                          
                         <?php }?>
+
+
+
                     </ul>
                 </div>
                 
+                <div class="h-translate">
+                    <div class="lang-main">
+                        <a href="javascript:void(0)">
+                            <span><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></span>
+                            <span class="icon">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.84814 10.0701L0.257812 0.77002H13.4482L6.84814 10.0701Z" fill="white"/>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="sub-lang">
+                        <ul>
+                            <li><a href=""><img src="<?php echo $urlThemeActive;?>images/comy.png" class="img-fluid" alt=""></a></li></li>
+                            <!-- <li><a href=""><img src="<?php echo $urlThemeActive;?>images/lang1.svg" class="img-fluid" alt=""></a></li></li> -->
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="header-mobile">
         <div class="container">
             <div class="content-mm-mobile">
-                <div class="logo"><a href=""><img src="/plugins/go_draw/view/agency/images/logo.svg" class="img-fluid" alt=""></a></div>
+                <div class="logo"><a href=""><img src="/themes/godraw//images/logo-godraw.png" class="img-fluid" alt=""></a></div>
                 <div class="right-mb">
                     <ul>
                         
@@ -124,25 +182,39 @@
                         <a href="javascript:void(0);">Bán hàng</a>
                         <div class="submenu">
                             <ul>
-                                <li><a href="/sellProduct">Tạo đơn hàng</a></li>
+                                <!-- <li><a href="/sellProduct">Tạo đơn hàng</a></li>
                                 <li><a href="">Đơn hàng chờ</a></li>
-                                <li><a href="">Đơn hoàn thành</a></li>
+                                <li><a href="">Đơn hoàn thành</a></li> -->
+                                <li><a href="/checkCombo">Đặt tranh</a></li>
+                                    <li><a href="/orderUserProcess">Đơn hàng chờ</a></li>
+                                    <li><a href="/orderUserDone">Đơn hoàn thành</a></li>
                             </ul>
                         </div>
                     </li>
 
-                    <li>
-                        <a href="javascript:void(0);">Mua hàng</a>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="/listCombo">Tạo đơn mua</a></li>
-                                <li><a href="">Đơn đã mua</a></li>
-                                <li><a href="">Đơn đã thanh toán</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    <?php if(!empty($session->read('isAgencyBoss'))){ ?>
+                        <li>
+                            <a href="javascript:void(0);">Mua hàng</a>
+                            <div class="submenu">
+                                <ul>
+                                    <!-- <li><a href="/listCombo">Tạo đơn mua</a></li>
+                                    <li><a href="">Đơn đã mua</a></li>
+                                    <li><a href="">Đơn đã thanh toán</a></li> -->
+                                    <li><a href="/listProduct">Tạo đơn mua</a></li>
+                                    <li><a href="/orderProductWait">Chờ duyệt</a></li>
+                                    <li><a href="/orderProductProcess">Chờ nhập kho</a></li>
+                                    <li><a href="/orderProductDone">Đã thanh toán</a></li>
+                                </ul>
+                            </div>
+                        </li>
 
-                    
+                        <li><a href="/staticAgency">Thống kê</a></li>
+
+                    <?php }?>
+
+
+                    <li><a href="/warehouse">Kho hàng</a></li>
+                    <li><a href="/profile">Thông tin tài khoản</a></li>
                     <li><a href="/changePass">Đổi mật khẩu</a></li>
                     <li><a href="/logout">Đăng xuất</a></li>
                     <?php }?>

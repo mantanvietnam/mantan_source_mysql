@@ -94,7 +94,7 @@ function saveRegisterMemberAPI($input)
 					$data->email = @$dataSend['email'];
 					$data->password = md5($dataSend['password']);
 					$data->account_balance = 0; // tặng 0k cho tài khoản mới
-					$data->status = (int) 0; //1: kích hoạt, 0: khóa Ecoin
+					$data->status = 1; //1: kích hoạt, 0: khóa Ecoin
 					$data->type = (int) $dataSend['type']; // 0: người dùng, 1: designer
 					$data->otp = rand(100000,999999);
 					$data->token = createToken();
@@ -139,6 +139,9 @@ function saveRegisterMemberAPI($input)
 			    						'info_member'=>$data,
 			    						'code_otp' => $data->otp
 			    					);
+
+					// gửi mã xác thực về Email người đăng ký
+					sendEmailCodeVerify($data->email, $data->name, $data->otp);
 				}else{
 					$return = array('code'=>4,
 										'set_attributes'=>array('id_customer'=>0),
@@ -218,7 +221,11 @@ function checkLoginMemberAPI($input)
 				$checkPhone->last_login = date('Y-m-d H:i:s');
 				$checkPhone->number_login += 1;
 				$checkPhone->token = createToken();
-				$checkPhone->token_device = @$dataSend['token_device'];
+
+				if(!empty($dataSend['token_device'])){
+					$checkPhone->token_device = @$dataSend['token_device'];
+				}
+				
 				$checkdeadlinepro = $modelMember->find()->where(array('deadline_pro <=' => date('Y-m-d H:i:s'),"member_pro" => 1,'id'=>$checkPhone->id))->first();
 				if(!empty($checkdeadlinepro)){
 					$checkPhone->member_pro = 0;
@@ -278,8 +285,12 @@ function checkLoginFacebookAPI($input)
 				if($checkPhone->status == 1){
 					$checkPhone->token = createToken();
 					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
 					$checkPhone->id_facebook = @$dataSend['id_facebook'];
+
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = @$dataSend['token_device'];
+					}
+
 					$modelMember->save($checkPhone);
 
 					$return = array(	'code'=>0, 
@@ -377,7 +388,11 @@ function checkLoginGoogleAPI($input)
 				if($checkPhone->status == 1){
 					$checkPhone->token = createToken();
 					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
+					
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = @$dataSend['token_device'];
+					}
+
 					$checkPhone->id_google = @$dataSend['id_google'];
 					$modelMember->save($checkPhone);
 
@@ -476,7 +491,11 @@ function checkLoginAppleAPI($input)
 				if($checkPhone->status == 1){
 					$checkPhone->token = createToken();
 					$checkPhone->last_login = date('Y-m-d H:i:s');
-					$checkPhone->token_device = @$dataSend['token_device'];
+					
+					if(!empty($dataSend['token_device'])){
+						$checkPhone->token_device = @$dataSend['token_device'];
+					}
+					
 					$checkPhone->id_apple = @$dataSend['id_apple'];
 					$modelMember->save($checkPhone);
 
@@ -946,11 +965,7 @@ function saveInfoUserAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-		if(!empty($dataSend['token']) 
-			&& !empty($dataSend['name'])
-			&& !empty($dataSend['email'])
-
-		){
+		if(!empty($dataSend['token'])){
 			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($checkPhone)){
@@ -962,8 +977,13 @@ function saveInfoUserAPI($input)
 					$checkPhone->avatar = $avatar['linkOnline'];
 				}
 
-				$checkPhone->name = $dataSend['name'];
-				$checkPhone->email = $dataSend['email'];
+				if(!empty($dataSend['name'])){
+					$checkPhone->name = $dataSend['name'];
+				}
+				
+				if(!empty($dataSend['email'])){
+					$checkPhone->email = $dataSend['email'];
+				}
 
 				if(isset($dataSend['description'])){
 					$checkPhone->description = $dataSend['description'];
@@ -1044,6 +1064,9 @@ function requestCodeForgotPasswordAPI($input)
 				$modelMember->save($checkPhone);
 
 				sendEmailCodeForgotPassword($checkPhone->email, $checkPhone->name, $code);
+
+				// gửi mã xác thực về Zalo người đăng ký
+				sendOTPZalo($checkPhone->phone, $checkPhone->otp);
 
 				$return = array('code'=>0,
 								'codeForgotPassword' => $code,

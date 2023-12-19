@@ -12,7 +12,7 @@ function listBook($input){
 	$modelMembers = $controller->loadModel('Members');
 
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listBook', 'calendar'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
@@ -53,6 +53,18 @@ function listBook($input){
 
 		if(!empty($_GET['id_service'])){
 			$conditions['id_service'] = (int) $_GET['id_service'];
+		}
+
+		if(!empty($_GET['date_start'])){
+			$date_start = explode('/', $_GET['date_start']);
+			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+			$conditions['time_book >='] = $date_start;
+		}
+
+		if(!empty($_GET['date_end'])){
+			$date_end = explode('/', $_GET['date_end']);
+			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+			$conditions['time_book <='] = $date_end;
 		}
 
 	    $listData = $modelBook->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
@@ -115,7 +127,152 @@ function listBook($input){
 	    setVariable('listStaffs', $listStaffs);
 	    setVariable('listService', $listService);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
+	}
+}
+
+function listBookCalendar($input){
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+    global $session;
+
+    $metaTitleMantan = 'Lịch hẹn';
+
+    $modelService = $controller->loadModel('Services');
+	$modelBook = $controller->loadModel('Books');
+	$modelMembers = $controller->loadModel('Members');
+	$modelRoom = $controller->loadModel('Rooms');
+	$modelBed = $controller->loadModel('Beds');
+
+	
+	if(!empty(checkLoginManager('listBook', 'calendar'))){
+		$infoUser = $session->read('infoUser');
+
+		$conditions = array('Books.id_member'=>$infoUser->id_member, 'Books.id_spa'=>$session->read('id_spa'));
+
+		if(!empty($_GET['id'])){
+			$conditions['Books.id'] = (int) $_GET['id'];
+		}
+
+		if(!empty($_GET['full_name'])){
+			$conditions['Books.name LIKE'] = '%'.$_GET['full_name'].'%';
+		}
+
+		if(!empty($_GET['phone'])){
+			$conditions['Books.phone'] = $_GET['phone'];
+		}
+
+		if(!empty($_GET['email'])){
+			$conditions['Books.email'] = $_GET['email'];
+		}
+
+		if(isset($_GET['status'])){
+            if($_GET['status']!=''){
+                $conditions['Books.status'] = (int) $_GET['status'];
+            }
+        }
+
+        if(!empty($_GET['type'])){
+			$conditions['Books.'.$_GET['type']] = 1;
+		}
+
+		if(!empty($_GET['id_staff'])){
+			$conditions['Books.id_staff'] = (int) $_GET['id_staff'];
+		}
+
+		if(!empty($_GET['id_service'])){
+			$conditions['Books.id_service'] = (int) $_GET['id_service'];
+		}
+
+		if(!empty($_GET['date_start'])){
+			$date_start = explode('/', $_GET['date_start']);
+			$date_start = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+			$conditions['Books.time_book >='] = $date_start;
+		}
+
+		if(!empty($_GET['date_end'])){
+			$date_end = explode('/', $_GET['date_end']);
+			$date_end = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+			$conditions['Books.time_book <='] = $date_end;
+		}
+
+	    $listData = $modelBook
+	    			->find()
+	    			->select([
+			            'Books.id',
+			            'Books.name',
+			            'Books.phone',
+			            'Books.email',
+			            'Books.time_book',
+			            'Books.status',
+			            'Books.note',
+			            'Books.type1',
+			            'Books.type2',
+			            'Books.type3',
+			            'Books.type4',
+			            'Books.repeat_book',
+			            'Books.apt_times',
+			            'Books.apt_step',
+			            'Services.name',
+			            'Members.name',
+			            'Beds.name',
+			        ])
+	    			->join([
+				            [
+				                'table' => 'services',
+				                'alias' => 'Services',
+				                'type' => 'LEFT',
+				                'conditions' => [
+				                    'Books.id_service = Services.id',
+				                ],
+				            ],
+				            [
+				                'table' => 'members',
+				                'alias' => 'Members',
+				                'type' => 'LEFT',
+				                'conditions' => [
+				                    'Books.id_staff = Members.id',
+				                ],
+				            ],
+				            [
+				                'table' => 'beds',
+				                'alias' => 'Beds',
+				                'type' => 'LEFT',
+				                'conditions' => [
+				                    'Books.id_bed = Beds.id',
+				                ],
+				            ],
+				        ])
+	    			->where($conditions)->all()->toList();
+
+	    // danh sách nhân viên
+	    $conditionsStaff['OR'] = [ 
+									['id'=>$infoUser->id_member],
+									['id_member'=>$infoUser->id_member],
+								];
+	    $listStaffs = $modelMembers->find()->where($conditionsStaff)->all()->toList();
+
+	    // danh sách dịch vụ
+	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
+	    $listService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
+	    
+	    // danh sách giường
+	    $conditionsRoom = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
+	   	$listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
+        
+        if(!empty($listRoom)){
+            foreach($listRoom as $key => $item){
+                $listRoom[$key]->bed = $modelBed->find()->where( array('id_room'=>$item->id, 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa')))->all()->toList();
+            }
+        }
+
+	    setVariable('listData', $listData);
+	    setVariable('listStaffs', $listStaffs);
+	    setVariable('listService', $listService);
+	    setVariable('listRoom', $listRoom);
+	}else{
+		return $controller->redirect('/');
 	}
 }
 
@@ -136,7 +293,7 @@ function addBook($input){
 	$modelRoom = $controller->loadModel('Rooms');
     $modelBed = $controller->loadModel('Beds');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addBook', 'calendar'))){
 		$infoUser = $session->read('infoUser');
 
 		$mess= '';
@@ -225,13 +382,15 @@ function addBook($input){
 	    $service = array('id_member'=>$infoUser->id_member);
 	    $dataService = $modelService->find()->where($service)->order(['id' => 'DESC'])->all()->toList();
 
+	    /*
 	   	if(empty($dataService)){
 	   		// nếu chưa cài đặt dịch vụ
 	   		return $controller->redirect('/listService/?error=requestService');
 	   	}
+	   	*/
 
 	   	$conditionsRoom = array( 'id_member'=>$infoUser->id_member,'id_spa'=>$session->read('id_spa'));
-	   	 $listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
+	   	$listRoom = $modelRoom->find()->where($conditionsRoom)->all()->toList();
         
         if(!empty($listRoom)){
             foreach($listRoom as $key => $item){
@@ -246,7 +405,7 @@ function addBook($input){
 	    setVariable('infoUser', $infoUser);
 	    setVariable('listRoom', $listRoom);
     }else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -256,7 +415,7 @@ function deleteBook($input){
 	
 	$modelBook = $controller->loadModel('Books');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteBook', 'calendar'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -269,7 +428,7 @@ function deleteBook($input){
 
         return $controller->redirect('listBook');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

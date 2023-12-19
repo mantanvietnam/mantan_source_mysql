@@ -1,7 +1,7 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
-  <p><a href="/addCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/addCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới</a> <a href="/addDataCustomer" class="btn btn-primary" ><i class='bx bx-plus'></i> Thêm mới bằng Excel</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -75,7 +75,7 @@
               <th>Email</th>
               <th>Điểm</th>
               <th>NV phụ trách</th>
-              <th>thẻ in hàng hoạt</th>
+              <th>Thẻ thành viên</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -99,7 +99,6 @@
                   if(!empty($item->category->description)){
                     $link .= '&'.$item->category->description.'='.$item->id;
                   }
-                  
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
@@ -113,7 +112,8 @@
                           <td>'.@$listStaff[$item->id_staff]->name.'</td>
                           
                           <td align="center">
-                            <a class="dropdown-item" href="'.$link.'" target="_blank">
+                            <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                            data-bs-target="#basicModal'.$item->id.'" target="_blank">
                               <i class="bx bx-image" ></i>
                             </a>
                           </td>
@@ -139,6 +139,8 @@
         </table>
       </div>
     </div>
+
+
     <!-- Phân trang -->
     <div class="demo-inline-spacing">
       <nav aria-label="Page navigation">
@@ -185,4 +187,74 @@
   </div>
   <!--/ Responsive Table -->
 </div>
+
+   <?php  if(!empty($listData)){
+              foreach ($listData as $items) {
+                 $link = "https://designer.ezpics.vn/create-image-series/?id=";
+                  if(!empty($items->category->parent)){
+                    $link .= $items->category->parent;
+                  }
+                  if(!empty($items->category->image)){
+                    $link .= '&'.$items->category->image.'='.$items->avatar;
+                  }
+
+                  if(!empty($items->category->keyword)){
+                    $link .= '&'.$items->category->keyword.'='.$items->name;
+                  }
+
+                  if(!empty($items->category->description)){
+                    $link .= '&'.$items->category->description.'='.$items->id;
+                  }
+
+                   if(!empty($items->category->slug)){
+                    $link .= '&'.$items->category->slug.'='.$items->phone;
+                  }
+                  
+               ?>
+                        <div class="modal fade" id="basicModal<?php echo $items->id; ?>"  name="id">
+                                
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel1">Ảnh thẻ </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                              </div>
+                              <div>
+                                <img src="<?php echo $link ?>" style="width: 100%;">
+                              </div>
+                              <a href="data:image/png;base64,<?php echo base64_decode($link); ?>" class="btn btn-warning mb-2 mt-3" download="<?php echo $link ?>">
+                                  <i class="bx bx-down-arrow-circle"></i>  Tải ảnh
+                                </a>
+                                <!-- <a class="btn btn-primary m-3" onclick="downloadImage('')"><i class="bx bx-down-arrow-circle"></i> Tải xuống</a> -->
+                            </div>
+                          </div>
+                        </div>
+                        <?php }} ?>
+
+<script type="text/javascript">
+  function downloadImage(url) {
+
+
+///////////
+fetch(url { mode: 'cors' })
+  .then(response => response.blob())
+  .then(blob => {
+    // Tạo một đối tượng URL từ đối tượng Blob
+    const url = URL.createObjectURL(blob);
+
+    // Tạo một thẻ a để tạo liên kết và tải ảnh
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'downloaded_image.jpg'; // Tên file khi tải về
+    document.body.appendChild(a);
+    a.click();
+
+    // Xóa thẻ a sau khi tải xong
+    document.body.removeChild(a);
+  })
+  .catch(error => console.error('không tản dc ảnh :', error));
+}
+
+
+</script>
 <?php include(__DIR__.'/../footer.php'); ?>

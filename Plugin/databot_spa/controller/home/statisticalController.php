@@ -7,7 +7,7 @@ function revenueStatistical($input){
 
     
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('revenueStatistical', 'static'))){
 
     	$metaTitleMantan = 'Thống kê doanh thu';
 
@@ -58,7 +58,7 @@ function revenueStatistical($input){
 
 	        setVariable('dayDataBill', $dayDataBill);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 

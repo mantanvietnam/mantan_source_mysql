@@ -1,6 +1,8 @@
 <?php include(__DIR__.'/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Danh sách đơn Combo liệu trình</h4>
+    <p><a href="/orderCombo" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+    
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">  
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>" />                        
@@ -61,9 +63,9 @@
                                             <?php
                                                 if(!empty($listData)){
                                                     foreach($listData as $key => $item){ 
-                                                        $type = 'Chưa xử lý';
+                                                        $type = 'Chưa thanh toán';
                                                         if($item->status==1){
-                                                            $type = 'Đã xử lý';
+                                                            $type = 'Đã thanh toán';
                                                         }elseif($item->status==2){
                                                             $type = 'Dang sử lý';
                                                         }elseif($item->status==3){
@@ -79,9 +81,10 @@
                                                         }else{
                                                            $promotion = $item->promotion.'%';
                                                         }
+                                                        if($item->product){
                                                         ?>
                                                 <tr> 
-                                                    <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->id ?></td>
+                                                    <td rowspan='<?php echo count(@$item->product); ?>'><?php echo @$item->id ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo date('Y-m-d H:i:s', $item->time); ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>'><?php echo $item->full_name ?></td>
                                                     <td rowspan='<?php echo count($item->product); ?>' style="text-align: left;">Chưa giảm giá <?php echo number_format(@$item->total) ?>đ<br/>
@@ -101,9 +104,9 @@
 
                                                       </tr>
                                                         <?php }} 
-                                            }}else{
+                                            }}}else{
                                                 echo '<tr>
-                                                        <td colspan="10" align="center">Chưa có sản phẩm nào</td>
+                                                        <td colspan="10" align="center">Chưa có đơn nào</td>
                                                       </tr>';
                                               } ?>
                                         </tbody>
@@ -206,13 +209,12 @@
                         </div>
 
 
-<?php }} ?>
-
-<?php  if(!empty($items->product)){ 
-        foreach($items->product as $k => $value){
-    foreach($value->combo_service as $key => $item){ ?>
+                <?php }} 
+                  if(!empty($items->product)){ 
+                        foreach($items->product as $k => $value){
+                    foreach($value->combo_service as $key => $item){ ?>
        
-<div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id">
+                        <div class="modal fade" id="sudung<?php echo $value->id; ?>"  name="id">
                                 
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">

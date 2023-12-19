@@ -38,9 +38,9 @@ $info = $session->read('infoUser');
                                                 </div>
                                             </li>
 
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                                 <a class="nav-link" data-bs-toggle="tab" href="/listOrder">Đơn mua</a>
-                                            </li>
+                                            </li> -->
 
                                             <li class="nav-item accordion" id="accordionExample2">
                                                 <a class="nav-link accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" href="#" role="button">Sản phẩm</a>
@@ -52,6 +52,10 @@ $info = $session->read('infoUser');
 
                                             <li class="nav-item">
                                                 <a class="nav-link" href="/discount">Voucher</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                            <a class="nav-link" href="/logout" >Đăng xuất</a>
                                             </li>
                                         </ul>
                                     </div>

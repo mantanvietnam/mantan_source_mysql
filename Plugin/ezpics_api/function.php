@@ -490,6 +490,86 @@ function sendEmailCodeForgotPassword($email='', $fullName='', $code= '')
     }
 }
 
+function sendEmailCodeVerify($email='', $fullName='', $code= '')
+{
+    $to = array();
+
+    if(!empty($email)){
+        $to[]= trim($email);
+    
+        $cc = array();
+        $bcc = array();
+        $subject = '[Ezpics] ' . 'Mã kích hoạt tài khoản';
+
+        $content='<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Mã kích hoạt tài khoản</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                .bao{background: #fafafa;margin: 40px;padding: 20px 20px 40px;}
+                .logo{
+
+                }
+                .logo img{height: 115px;margin:  0 auto;display:  block;margin-bottom: 15px;}
+                .nd{background: white;max-width: 750px;margin: 0 auto;border-radius: 12px;overflow:  hidden;border: 2px solid #e6e2e2;line-height: 2;}
+                .head{background: #3fb901; color:white;text-align: center;padding: 15px 10px;font-size: 17px;text-transform: uppercase;}
+                .main{padding: 10px 20px;}
+                .thong_tin{padding: 0 20px 20px;}
+                .line{position: relative;height: 2px;}
+                .line1{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-image: linear-gradient(to right, transparent 50%, #737373 50%);background-size: 26px 100%;}
+                .cty{text-align:  center;margin: 20px 0 30px;}
+                .main .fa{color:green;}
+                table{margin:auto;}
+                @media screen and (max-width: 768px){
+                    .bao{margin:0;}
+                }
+                @media screen and (max-width: 767px){
+                    .bao{padding:6px; }
+                    .nd{text-align: inherit;}
+                }
+            </style>
+        </head>
+        <body>
+            <div class="bao">
+                <div class="nd">
+                    <div class="head">
+                        <span>MÃ XÁC THỰC</span>
+                    </div>
+                    <div class="main">
+                        <em style="    margin: 10px 0 10px;display: inline-block;">Xin chào '.$fullName.' !</em> <br>
+                        <br/>
+                        Mã kích hoạt tài khoản của bạn là: <b>'.$code.'</b>
+                        
+                        <br><br>
+                        
+                        Trân trọng ./
+                    </div>
+                    <div class="thong_tin">
+                        <div class="line"><div class="line1"></div></div>
+                        <div class="cty">
+                            <span style="font-weight: bold;">CÔNG TY TNHH EZIPCS</span> <br>
+                            <span>Ứng dụng thiết kế hình ảnh Ezpics</span>
+                        </div>
+                        <ul class="list-unstyled" style="    font-size: 15px;">
+                            <li>Hỗ trợ: Vũ Tuyên Hoàng</li>
+                            <li>Mobile: 0828266622</li>
+                            <li>Website: <a href="https://ezpics.vn">https://ezpics.vn</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        sendEmail($to, $cc, $bcc, $subject, $content);
+    }
+}
+
 function listBank()
 {
     return [
@@ -775,6 +855,16 @@ function getLayerProductForEdit($idProduct=0)
                         $layer->naturalHeight = 0;
                     }
 
+                    // link ảnh svg khung
+                    if(empty($layer->image_svg)){
+                        $layer->image_svg = ''; 
+                    }
+
+                    // chia trang
+                    if(empty($layer->page)){
+                        $layer->page = 0; 
+                    }
+
                     /*
                     if(!isset($layer->naturalWidth)){
                         if($layer->type=='image'){
@@ -975,7 +1065,7 @@ function getLayerProductForEdit($idProduct=0)
     }
 }
 
-function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw', $typeShowTextVariable='', $removeBackgroundAuto = 0)
+function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '30', $text = '', $variable='', $variableLabel = '', $font='Arial',$code='#000',$size = '10vw', $typeShowTextVariable='', $removeBackgroundAuto = 0, $page = 0)
 {
     if(empty($text)) $text = 'Layer '.$stt;
 
@@ -1014,10 +1104,12 @@ function getLayer($stt, $type = 'text', $link = '', $width = '100', $height = '3
         'border' => 0,
         'rotate' => '0deg',
         'banner' => $link,
+        'image_svg' => '',
         'gianchu' => 'normal',
         'giandong' => 'normal',
         'opacity' => '1',
         'width' => $width.'vw',
+        'page' => $page,
         'gradient' => 0,
         'gradient_color' => [['position'=>0,'color'=>'#000'],['position'=>1,'color'=>'#000']],
         'variable' => $variable,
@@ -1223,20 +1315,37 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 function getSizeProduct()
 {
     return [
-            ['name'=>'Bài thuyết trình (16:9)','width'=>1920,'height'=>1080],
-            ['name'=>'Bài thuyết trình (9:16)','width'=>1080,'height'=>1920],
-            ['name'=>'Logo','width'=>500,'height'=>500],
-            ['name'=>'Poster (dọc)','width'=>4960,'height'=>7015],
-            ['name'=>'Bài đăng Instagram (vuông)','width'=>1080,'height'=>1080],
-            ['name'=>'Bài đăng Facebook (ngang)','width'=>940,'height'=>788],
-            ['name'=>'Ảnh bìa Facebook','width'=>1640,'height'=>924],
-            ['name'=>'Hình nền máy tính','width'=>1920,'height'=>1080],
-            ['name'=>'A0 (dọc)','width'=>3179,'height'=>4494],
-            ['name'=>'A1 (dọc)','width'=>2245,'height'=>3179],
-            ['name'=>'A2 (dọc)','width'=>1587,'height'=>2245],
-            ['name'=>'A3 (dọc)','width'=>1123,'height'=>1587],
-            ['name'=>'A4 (dọc)','width'=>794,'height'=>1123],
-            ['name'=>'A5 (dọc)','width'=>559,'height'=>794],
+            ['name'=>'Bài thuyết trình (16:9)','width'=>1920,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1920-1080.png'],
+            
+            ['name'=>'Bài thuyết trình (9:16)','width'=>1080,'height'=>1920, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1080-1920.png'],
+            
+            ['name'=>'Logo','width'=>500,'height'=>500, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/500-500.png'],
+            
+            ['name'=>'Poster (dọc)','width'=>4960,'height'=>7015, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/4960-7015.png'],
+            
+            ['name'=>'Bài đăng Instagram (vuông)','width'=>1080,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1080-1080.png'],
+            
+            ['name'=>'Bài đăng Facebook (ngang)','width'=>940,'height'=>788, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/940-788.png'],
+
+            ['name'=>'Avatar Facebook','width'=>761,'height'=>761, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/761-761.png'],
+            
+            ['name'=>'Ảnh bìa Facebook','width'=>1640,'height'=>924, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1640-924.png'],
+            
+            ['name'=>'Ảnh thumbnail video Youtube','width'=>1280,'height'=>720, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1280-720.png'],
+            
+            ['name'=>'Hình nền máy tính','width'=>1920,'height'=>1080, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1920-1080.png'],
+            
+            ['name'=>'A0 (dọc)','width'=>3179,'height'=>4494, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/3179-4494.png'],
+            
+            ['name'=>'A1 (dọc)','width'=>2245,'height'=>3179, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/2245-3179.png'],
+            
+            ['name'=>'A2 (dọc)','width'=>1587,'height'=>2245, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1587-2245.png'],
+            
+            ['name'=>'A3 (dọc)','width'=>1123,'height'=>1587, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/1123-1587.png'],
+            
+            ['name'=>'A4 (dọc)','width'=>794,'height'=>1123, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/794-1123.png'],
+            
+            ['name'=>'A5 (dọc)','width'=>559,'height'=>794, 'image'=>'https://apis.ezpics.vn/plugins/ezpics_api/view/image/size/559-794.png'],
         ];
 }
 
@@ -1446,9 +1555,9 @@ function sendOTPZalo($phone='', $otp='')
 {
     if(!empty($phone) && !empty($otp)){
         $id_oa = '256174165105937998';
-        $id_app = '4065313055620230836';
+        $id_app = '3056421570793695754';
 
-        $template_id = 285905;
+        $template_id = 302607;
         $params = ['otp'=>$otp];
 
         if(function_exists('sendZNSZalo')){

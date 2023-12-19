@@ -700,4 +700,3 @@ function sttingWarmteamAdmin($input){
     setVariable('mess', $mess);
 }
 ?>
-

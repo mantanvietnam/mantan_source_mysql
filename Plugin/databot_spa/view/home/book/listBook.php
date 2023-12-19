@@ -31,9 +31,8 @@
               <option value="0" <?php if(isset($_GET['status']) && $_GET['status']=='0') echo 'selected';?> >Chưa xác nhận </option>
               <option value="1" <?php if(!empty($_GET['status']) && $_GET['status']=='1') echo 'selected';?> >Xác nhận</option>
               <option value="2" <?php if(!empty($_GET['status']) && $_GET['status']=='2') echo 'selected';?> >Không đến</option>
-              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Hủy lịch</option>
-              <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Đã đến</option>
-              <option value="5" <?php if(!empty($_GET['status']) && $_GET['status']=='5') echo 'selected';?> >Đặt online</option>
+              <option value="3" <?php if(!empty($_GET['status']) && $_GET['status']=='3') echo 'selected';?> >Đã đến</option>
+              <option value="4" <?php if(!empty($_GET['status']) && $_GET['status']=='4') echo 'selected';?> >Hủy lịch</option>
             </select>
           </div>
 
@@ -48,7 +47,7 @@
             </select>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">NV chăm sóc</label>
             <select name="id_staff" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -66,7 +65,7 @@
             </select>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <label class="form-label">Dịch vụ</label>
             <select name="id_service" class="form-select color-dropdown">
               <option value="">Tất cả</option>
@@ -84,6 +83,16 @@
             </select>
           </div>
 
+          <div class="col-md-2">
+            <label class="form-label">Đặt từ ngày</label>
+            <input type="text" class="form-control datepicker" name="date_start" value="<?php if(!empty($_GET['date_start'])) echo $_GET['date_start'];?>">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Đến ngày</label>
+            <input type="text" class="form-control datepicker" name="date_end" value="<?php if(!empty($_GET['date_end'])) echo $_GET['date_end'];?>">
+          </div>
+
           
 
           <div class="col-md-2">
@@ -98,7 +107,9 @@
 
   <!-- Responsive Table -->
   <div class="card">
-    <h5 class="card-header">Danh sách Đặt lịch hẹn</h5>
+    <h5 class="card-header">
+      <a href="/listBookCalendar" class="btn btn-danger">Xem dạng lịch</a>
+    </h5>
     
     <div class="card-body row">
       <div class="table-responsive">
@@ -144,11 +155,9 @@
                   }elseif($item->status==2){
                     $status= 'Không đến';
                   }elseif($item->status==3){
-                    $status= 'Hủy lịch';
-                  }elseif($item->status==4){
                     $status= 'Đã đến';
-                  }elseif($item->status==5){
-                    $status= 'Đặt online';
+                  }elseif($item->status==4){
+                    $status= 'Hủy lịch';
                   }
 
                   $repeat_book = [date("d/m/Y H:i", $item->time_book)];
@@ -166,7 +175,7 @@
                           <td>'.$item->name.'<br/>
                               '.$item->phone.'
                             </td>
-                          <td>'.@$item->service->name.'</td>
+                          <td>'.$item->service->name.'</td>
                           <td>'.implode('<br/>', $type).'</td>
                           <td>'.$status.'</td>
 

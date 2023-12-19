@@ -63,6 +63,7 @@ function listProductAdmin($input)
     $productList = $query->select([
             'Products.id',
             'Products.name',
+            'Products.amount_in_stock',
             'Products.price',
             'Products.image',
             'Products.status',
@@ -71,6 +72,7 @@ function listProductAdmin($input)
         ])->where($conditions)
         ->limit($limit)
         ->page($page)
+        ->order(['Products.id'=>'desc'])
         ->all()
         ->toList();
     $total = $productModel->find()->count();
@@ -133,6 +135,9 @@ function addProductAdmin($input)
             ])->first();
     } else {
         $product = $productModel->newEmptyEntity();
+
+        $product->amount_in_stock = 0;
+        $product->amount_sold = 0;
     }
 
     if ($isRequestPost) {
@@ -144,8 +149,6 @@ function addProductAdmin($input)
             && isset($dataSend['category_id'])
             && isset($dataSend['price'])
             && isset($dataSend['type'])
-            && isset($dataSend['amount_in_stock'])
-            && isset($dataSend['amount_sold'])
         ) {
             $product->name = $dataSend['name'];
             $product->code = $dataSend['code'];
@@ -154,8 +157,7 @@ function addProductAdmin($input)
             $product->description = $dataSend['description'];
             $product->price = $dataSend['price'];
             $product->type = (int)$dataSend['type'];
-            $product->amount_in_stock = (int) $dataSend['amount_in_stock'];
-            $product->amount_sold = (int) $dataSend['amount_sold'];
+            
             $product->image = $dataSend['image'] ?? 'https://godraw.2top.vn/plugins/go_draw/view/image/default-image.jpg';
             $productModel->save($product);
 

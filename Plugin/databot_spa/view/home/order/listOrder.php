@@ -107,7 +107,7 @@
                                                         <?php }} 
                                             }}else{
                                                 echo '<tr>
-                                                        <td colspan="10" align="center">Chưa có sản phẩm nào</td>
+                                                        <td colspan="10" align="center">Chưa có đơn nào</td>
                                                       </tr>';
                                               } ?>
                                         </tbody>

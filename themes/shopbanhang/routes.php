@@ -8,4 +8,5 @@
    $routesTheme['nhan_xet_tu_kol'] = 'shopbanhang/reviewkol.php';
    $routesTheme['khach_hang_dap_hop'] = 'shopbanhang/reviewBeatbox.php';
    $routesTheme['review_san_pham'] = 'shopbanhang/reviewProduct.php';
+   $routesTheme['aboutus'] = 'shopbanhang/aboutus.php';
 ?>

@@ -74,7 +74,7 @@ $slide_home= slide_home($setting['id_slide']);
                                             </div>
                                             <div class="col-md-8">
                                             	<?php if (@$data->payment==2){ ?>
-                                            		<p>nhận hàng rồi thanh toán</p>
+                                            		<p>Nhận hàng rồi thanh toán</p>
                                             	<?php }else{?>
                                                 <p>Chuyển khoản</p>
                                             <?php } ?>

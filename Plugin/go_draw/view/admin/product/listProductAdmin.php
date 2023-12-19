@@ -89,10 +89,10 @@
                 <tr class="">
                     <th>ID</th>
                     <th>Hình minh họa</th>
-                    <th>Danh mục</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá</th>
-                    <th>Trạng thái</th>
+                    <th>Tồn kho</th>
+                    <th>Nhập kho</th>
                     <th>Sửa</th>
                     <th>Xóa</th>
                 </tr>
@@ -102,17 +102,23 @@
                 if(!empty($productList)){
                     foreach ($productList as $item) {
                         if ($item->status) {
-                            $status = 'On-sale';
+                            $status = 'Kích hoạt';
                         } else {
                             $status = 'Khóa';
                         }
+
                         echo '<tr>
                         <td class="text-center">'.$item->id.'</td>
                         <td class="text-center"><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.$item->Categories['name'].'</td>
                         <td>'.$item->name.'</td>
                         <td>'.number_format($item->price).'đ</td>
-                        <td class="text-center">'.$status.'</td>
+                        <td>'.number_format($item->amount_in_stock).'</td>
+                        <td align="center">
+                          <a class="btn btn-warning" href="/plugins/admin/go_draw-view-admin-warehouse_histories-historyProductWarehouseAdmin.php/?product_id='.$item->id.'">
+
+                            <i class="bx bx-home me-1"></i>
+                          </a>
+                        </td>
                         <td align="center">
                           <a class="btn btn-primary" href="/plugins/admin/go_draw-view-admin-product-addProductAdmin.php/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>

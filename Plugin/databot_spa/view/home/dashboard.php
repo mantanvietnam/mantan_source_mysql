@@ -7,9 +7,9 @@
         <div class="d-flex align-items-end row">
           <div class="col-sm-7">
             <div class="card-body">
-              <h5 class="card-title text-primary">Xin chào <?php echo $session->read('infoUser')->name;?>! 🎉</h5>
+              <h5 class="card-title text-primary">Xin chào <?php echo $session->read('infoUser')->name;?> 🎉</h5>
               <p class="mb-4">
-                Chào mừng bạn quay trở lại với phần mềm quản lý SPA.
+                Chào mừng bạn quay trở lại với phần mềm quản lý DATA SPA.
               </p>
 
               <!-- <a href="/addProduct" class="btn btn-sm btn-outline-primary">Tạo mẫu thiết kế mới</a> -->
@@ -24,62 +24,32 @@
       </div>
     </div>
 
-    <!-- <div class="col-lg-5 col-md-5 order-1">
-      <div class="row">
-        <div class="col-lg-6 col-md-12 col-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-start justify-content-between">
-                <div class="avatar flex-shrink-0">
-                  <img
-                    src="/plugins/ezpics_designer/view/home/assets/img/icons/unicons/chart-success.png"
-                    alt="chart success"
-                    class="rounded"
-                  />
-                </div>
-              </div>
-              <span class="fw-semibold d-block mb-1">Mẫu mới 7 ngày</span>
-              <h3 class="card-title mb-2"><?php echo number_format($countProductNew);?> mẫu</h3>
-              <?php 
-                // $hieu = $countProductOld - $countProductNew;
+    <div class="col-lg-5 col-md-5 order-1 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <span class="fw-semibold d-block mb-1">Thống kê hôm nay </span>
+          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+            <div class="me-2">
+              <p class="mb-1">Số đơn sản phẩm: <strong><?php echo @$totalOrderproduct; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
 
-                // if($hieu > 0){
-                //   echo '<small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +'.$hieu.' mẫu</small>';
-                // }elseif($hieu < 0){
-                //   echo '<small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -'.$hieu.' mẫu</small>';
-                // }
-              ?>
+             <div class="me-2">
+              <p class="mb-1">Số dịch vụ: <strong><?php echo @$totalOrderService; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
+
+            <div class="me-2">
+              <p class="mb-1">Số Cobom: <strong><?php echo @$totalOrderCombo; ?></strong><span class="text-muted"> đơn</span></p>
+            </div>
+
+            <div class="me-2">
+              <p class="mb-1">Số khách đặt lịch hẹn: <strong><?php echo @$totalbook; ?></strong><span class="text-muted"> đơn</span></p>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-12 col-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-start justify-content-between">
-                <div class="avatar flex-shrink-0">
-                  <img
-                    src="/plugins/ezpics_designer/view/home/assets/img/icons/unicons/wallet-info.png"
-                    alt="Credit Card"
-                    class="rounded"
-                  />
-                </div>
-              </div>
-              <span>Doanh thu 7 ngày</span>
-              <h3 class="card-title text-nowrap mb-1"><?php echo number_format($countOrderNew);?>đ</h3>
-              <?php 
-                $hieu = $countOrderOld - $countOrderNew;
 
-                if($hieu > 0){
-                  echo '<small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +'.$hieu.'đ</small>';
-                }elseif($hieu < 0){
-                  echo '<small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -'.$hieu.'đ</small>';
-                }
-              ?>
-            </div>
-          </div>
         </div>
       </div>
-    </div> -->
+    </div>
+        
   </div>
   <div class="row">
     <!-- Transactions -->
@@ -117,39 +87,16 @@
       </div>
     </div> -->
 
-   <!--  <div class="col-md-4 col-lg-4 order-2 mb-4">
+     <div class="col-lg-7 mb-4 order-0 mb-4">
       <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-          <h5 class="card-title m-0 me-2">Mẫu được yêu thích nhất</h5>
+          <h5 class="card-title m-0 me-2">Doanh thu theo tháng là: <span style="color: red;"><?php echo number_format($total); ?>đ</span></h5>
         </div>
         <div class="card-body">
-          <ul class="p-0 m-0">
-            <?php 
-            // if(!empty($listTopFavorite)){
-            //   foreach ($listTopFavorite as $key => $value) {
-            //     echo '<li class="d-flex mb-4 pb-1">
-            //             <div class="avatar flex-shrink-0 me-3">
-            //               <img src="'.$value->image.'" class="rounded" />
-            //             </div>
-            //             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-            //               <div class="me-2">
-            //                 <h6 class="mb-1">'.$value->name.'</h6>
-            //               </div>
-            //               <div class="user-progress d-flex align-items-center gap-1">
-            //                 <h6 class="mb-0">'.number_format($value->favorites).'</h6>
-            //                 <span class="text-muted">like</span>
-            //               </div>
-            //             </div>
-            //           </li>';
-            //   }
-            // }else{
-            //   echo 'Chưa có mẫu thiết kế được đăng bán';
-            // }
-            ?> 
-          </ul>
+           <div id="order_chart" style="width: 100%; height: 500px; background: white;"></div>
         </div>
       </div>
-    </div> -->
+    </div> 
 
    <!--  <div class="col-md-4 col-lg-4 order-2 mb-4">
       <div class="card h-100">
@@ -187,5 +134,51 @@
     <!--/ Transactions -->
   </div>
 </div>
+
+<center>
+<div class="taovien" >
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var char3= google;
+
+        char3.charts.load('current', {'packages':['corechart', 'line']});
+        char3.charts.setOnLoadCallback(drawChartOrder);
+
+        function drawChartOrder() {
+            var data = google.visualization.arrayToDataTable([
+              ['Ngày', ''],
+              <?php 
+                    if(!empty(@$dayDataBill) ){
+                        foreach($dayDataBill as $date=>$number){
+                                echo '["'.date('d',$number["time"]).'",'.$number["value"].'],';
+                        }
+                    }else{
+
+                        echo '["0",0],';
+                    }
+              ?>
+            ]);
+
+            var options = {
+                chart: {
+                  title: 'Tổng doanh thu',
+                },
+                width: '100%',
+                height: 500,  
+            };
+
+
+            // var chart = new google.visualization.LineChart(document.getElementById('order_chart'));
+             var chart = new google.charts.Line(document.getElementById('order_chart'));
+
+            chart.draw(data, options);
+        }
+
+        
+    </script>
+
+   
+</div>
+</center>
 <!-- / Content -->
 <?php include(__DIR__.'/footer.php'); ?>

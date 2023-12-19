@@ -29,6 +29,7 @@ function listComboAdmin($input)
         ->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all()
         ->toList();
     $totalUser = $comboModel->find()
@@ -85,7 +86,7 @@ function viewDetailComboAdmin($input)
     }
 
     $productList = $productModel->find()
-        ->where(['status' => 1])
+        ->where(['status' => 1, 'deleted_at is'=>null])
         ->all();
 
     setVariable('data', $combo);
@@ -158,6 +159,7 @@ function updateComboAdminApi($input): array
             $combo = $comboModel->newEmptyEntity();
         }
         $combo->name = $dataSend['name'];
+        $combo->description = $dataSend['description'];
         $combo->price = 0;
         $combo->image = $dataSend['image'] ?? $defaultImage;
         $combo->slug = createSlugMantan($dataSend['name']);
@@ -166,25 +168,26 @@ function updateComboAdminApi($input): array
         $totalPrice = 0;
 
         if (!empty($dataSend['productList']) && is_array($dataSend['productList'])) {
+            // xóa tất cả các sản phẩm combo cũ
+            $comboProductModel->deleteAll(['combo_id'=> $combo->id]);
+
             foreach ($dataSend['productList'] as $item) {
-                if (in_array($item['productId'], $listProductId)) {
-                    $comboProduct = $comboProductModel->find()
-                        ->where([
-                            'combo_id' => $combo->id,
-                            'product_id' => $item['productId'],
-                        ])->first();
-                    $comboProduct->amount = $item['amount'] ?? 1;
-                } else {
-                    $newComboProduct = $comboProductModel->newEmptyEntity();
-                    $newComboProduct->combo_id = $combo->id;
-                    $newComboProduct->product_id = $item['productId'];
-                    $newComboProduct->amount = $item['amount'];
-                    $comboProductModel->save($newComboProduct);
-                }
+                $newComboProduct = $comboProductModel->newEmptyEntity();
+                
+                $newComboProduct->combo_id = $combo->id;
+                $newComboProduct->product_id = $item['productId'];
+                $newComboProduct->amount = $item['amount'];
+                
+                $comboProductModel->save($newComboProduct);
+
                 $product = $productModel->find()->where(['id' => $item['productId']])->first();
-                $totalPrice += $product->price * $item['amount'];
+                
+                if($product->type == 0){
+                    $totalPrice += $product->price * $item['amount'];
+                }
             }
         }
+
         $combo->price = $totalPrice;
         $comboModel->save($combo);
 

@@ -95,9 +95,9 @@
                                         echo'
                                         <div class="col-lg-4 col-md-4 col-12 product-item">
                                             <div class="product-inner">
-                                                <div class="product-overlay"></div>
+                                            <a href="project/'.$value->slug.'.html"><div class="product-overlay"></div></a>
                                                 <div class="product-img">
-                                                    <a href="'.$value->slug.'">
+                                                    <a href="project/'.$value->slug.'.html">
                                                         <img src="'.$value->image.'" alt="">
                                                     </a>
                                                 </div>
@@ -108,16 +108,17 @@
                                                     </div>
                 
                                                     <div class="product-info-title">
-                                                        <a href="'.$value->slug.'">'.$value->name.'</a>
+                                                        <a href="project/'.$value->slug.'.html">'.$value->name.'</a>
                                                     </div>
                 
                                                     <div class="product-info-code">
                                                         <span>Mã sản phẩm ';
+                                                        
                                                         if(!empty($value->infoProduct)){
-                                                            // $mang = explode(",", $chuoi);
                                                             foreach($value->infoProduct as $itemProduct){
-                                                                echo'
-                                                                <span class="code">'.$itemProduct->code.'</span>';
+                                                                if(!empty($itemProduct)){
+                                                                    echo'<span class="code">'.$itemProduct->code.', </span>';
+                                                                }
                                                             }
                                                         }
                                                             

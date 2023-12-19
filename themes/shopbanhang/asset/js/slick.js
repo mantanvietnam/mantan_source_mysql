@@ -3,7 +3,10 @@ $('.banner-home-slide').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
     dots: true,
-    arrows: false
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+
 });
 
 
@@ -12,7 +15,7 @@ $('.top-search-slide').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     arrows: true,
-    prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'></button>",
+    prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-angle-left'></i></button>",
     nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-angle-right'></i></button>"
 });
 
@@ -29,19 +32,43 @@ $(document).ready(function() {
         responsive: [{
                 breakpoint: 768,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     slidesToShow: 3
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     slidesToShow: 1
                 }
             }
         ]
     });
+
+    // sản phẩm
+    // $('.product-detail-rate-right .list-rate-image').slick({
+    //     slidesToScroll: 1,
+    //     arrows: false,
+    //     slidesToShow: 5,
+
+    //     responsive: [{
+    //             breakpoint: 768,
+    //             settings: {
+    //                 arrows: false,
+    //                 slidesToShow: 5
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 480,
+    //             settings: {
+    //                 arrows: false,
+    //                 slidesToShow: 5
+    //             }
+    //         }
+    //     ]
+    // });
+
 
     $('.comment-text-slide').slick({
         infinite: true,
@@ -64,16 +91,16 @@ $(document).ready(function() {
         nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-angle-right'></i></button>",
         asNavFor: '.comment-text-slide',
         responsive: [{
-                breakpoint: 768,
+                breakpoint: 900,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     slidesToShow: 3
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    arrows: false,
+                    arrows: true,
                     centerMode: false,
                     slidesToShow: 1
                 }
@@ -146,7 +173,19 @@ $(document).ready(function() {
         slidesToScroll: 1,
         asNavFor: '.product-slide-left',
         arrows: false,
-        fade: true
+        fade: true,
+        responsive: [
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 1,
+                    dots:true,
+                    prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-circle-chevron-left'></i></button>",
+                    nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-circle-chevron-right'></i></button>",
+                }
+            }
+        ]
     });
 
     // chi tiết sản phẩm
@@ -157,19 +196,19 @@ $(document).ready(function() {
         prevArrow: "<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-chevron-left'></i></button>",
         nextArrow: "<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-chevron-right'></i></button>",
         responsive: [{
-            breakpoint: 768,
+            breakpoint: 1048,
             settings: {
-                arrows: false,
-                slidesToShow: 3
+                arrows: true,
+                slidesToShow: 2
             }
         },
         
         {
             breakpoint: 480,
             settings: {
-                arrows: false,
+                arrows: true,
                 centerMode: false,
-                slidesToShow: 1
+                slidesToShow: 2
             }
         }]
     });
@@ -184,17 +223,21 @@ $(document).ready(function() {
         // nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'>></button>",
 
         responsive: [{
-            breakpoint: 768,
+            breakpoint: 1024,
             settings: {
                 arrows: false,
-                slidesToShow: 3
+                slidesToShow: 2
             }
         },
         
         {
             breakpoint: 480,
             settings: {
-                slidesToShow: 2
+                arrows: true,
+                slidesToShow: 2,
+                dots: true,
+                prevArrow:"<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa-solid fa-arrow-left'></i></button>",
+                nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'><i class='fa-solid fa-arrow-right'></i></button>",
             }
         }]
     });

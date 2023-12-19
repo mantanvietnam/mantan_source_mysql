@@ -55,14 +55,75 @@
 
                           <div class="row">
                             <div class="col-md-6 mb-3 ">
-                              <label class="form-label" for="basic-default-phone">Đại chỉ (*)</label>
+                              <label class="form-label" for="basic-default-phone">Địa chỉ (*)</label>
                               <input required type="text" class="form-control phone-mask" name="address" id="address" value="<?php echo @$data->address;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Tỉnh thành (*)</label>
+                              <div class="input-group input-group-merge">
+                                <select onchange="selectCity();" class="form-select" name="province_id" id="province_id" required>
+                                    <option value="">Chọn tỉnh thành</option>
+                                    <?php 
+                                    if(!empty($listCity)){
+                                        foreach ($listCity as $key => $value) {
+                                            if(empty($data->province_id) || $data->province_id!=$value->province_id){
+                                                echo '<option value="'.$value->province_id.'">'.$value->name.'</option>';
+                                            }else{
+                                                echo '<option selected value="'.$value->province_id.'">'.$value->name.'</option>';
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Quận huyện (*)</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="district_id" id="district_id" required onchange="selectDistrict();">
+                                    <option value="">Chọn quận huyện</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Xã phường (*)</label>
+                              <div class="input-group input-group-merge">
+                                <select class="form-select" name="ward_id" id="ward_id" required>
+                                    <option value="">Chọn xã phường</option>
+                                </select>
+                              </div>
                             </div>
 
                             <div class="col-md-6 mb-3 ">
                               <label class="form-label" for="basic-default-phone">Số điện thoại (*)</label>
                               <input required type="text" class="form-control phone-mask" name="phone" id="phone" value="<?php echo @$data->phone;?>" />
                             </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Email (*)</label>
+                              <input required type="email" class="form-control phone-mask" name="email" id="email" value="<?php echo @$data->email;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Latitude GPS (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="lat_gps" id="lat_gps" value="<?php echo @$data->lat_gps;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Longitude GPS (*)</label>
+                              <input required type="text" class="form-control phone-mask" name="long_gps" id="long_gps" value="<?php echo @$data->long_gps;?>" />
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                              <label class="form-label" for="basic-default-phone">Hình ảnh cửa hàng (*)</label>
+                              <?php 
+                              showUploadFile('image','image',@$data->image,0);
+                              ?>
+                            </div>
+                            
                           </div>
 
                           <div id="master-account" class="mb-3">
@@ -84,7 +145,7 @@
                               </div>
 
                               <div class="col-md-6 mb-3">
-                                <label class="form-label" for="username">Mã bảo mật (*)</label>
+                                <label class="form-label" for="username">Mã PIN (*)</label>
                                 <input type="text" class="form-control phone-mask" name="master_account_code_pin" id="master_account_code_pin" value="<?php echo @$masterAccount->code_pin;?>" />
                               </div>
                             </div>
@@ -414,4 +475,79 @@
           }
       });
   })
+</script>
+
+<script type="text/javascript">
+    var district_id = "<?php echo @$data->district_id;?>";
+    var ward_id = "<?php echo @$data->ward_id;?>";
+    
+    function selectDistrict()
+    {
+        var district_select = $('#district_id').val();
+
+        var ward_option = '<option value="">Chọn xã phường</option>';
+        var i;
+
+        if(district_select != ""){
+            $.ajax({
+              method: "POST",
+              url: "/apis/getWardAPI",
+              data: { district_id: district_select }
+            })
+            .done(function( msg ) {
+                if(msg.length>0){
+                    for(i=0;i<msg.length;i++){
+                        if(msg[i].wards_id != ward_id){
+                            ward_option += '<option value="'+msg[i].wards_id+'">'+msg[i].name+'</option>';
+                        }else{
+                            ward_option += '<option selected value="'+msg[i].wards_id+'">'+msg[i].name+'</option>';
+                        }
+                    }
+                }
+
+                $('#ward_id').html(ward_option);
+            });
+        }else{
+          $('#ward_id').html(ward_option);
+        }
+    }
+
+    function selectCity()
+    {
+        var province_id = $('#province_id').val();
+        var district_option = '<option value="">Chọn quận huyện</option>';
+        var i;
+
+        if(province_id != ""){
+            $.ajax({
+              method: "POST",
+              url: "/apis/getDistrictAPI",
+              data: { province_id: province_id }
+            })
+            .done(function( msg ) {
+                if(msg.length>0){
+                    for(i=0;i<msg.length;i++){
+                        if(msg[i].district_id != district_id){
+                            district_option += '<option value="'+msg[i].district_id+'">'+msg[i].name+'</option>';
+                        }else{
+                            district_option += '<option selected value="'+msg[i].district_id+'">'+msg[i].name+'</option>';
+                        }
+                    }
+                }
+
+                $('#district_id').html(district_option);
+
+                selectDistrict();
+            });
+        }else{
+            $('#district_id').html(district_option);
+
+            selectDistrict();
+        }
+    }
+
+    
+
+    selectCity();
+
 </script>

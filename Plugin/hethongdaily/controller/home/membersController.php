@@ -349,12 +349,15 @@ function addMember($input)
 	        			}
 	        		}
 
-			        // tạo dữ liệu save
+	        		// tạo dữ liệu save
+	        		if(empty($data->id_father)){
+	        			$data->id_father = (!empty($_GET['id_father']))? (int) $_GET['id_father']:(int) $infoUser->id;
+	        		}
+			        
 			        $data->name = $dataSend['name'];
 			        $data->address = $dataSend['address'];
 			        $data->avatar = $dataSend['avatar'];
 			        $data->phone = $dataSend['phone'];
-					$data->id_father = (int) $infoUser->id;
 					$data->id_system = (int) $infoUser->id_system;
 					$data->email = $dataSend['email'];
 					$data->birthday = $dataSend['birthday'];

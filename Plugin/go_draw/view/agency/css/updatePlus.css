@@ -1,0 +1,12 @@
+.h-menu .submenu ul li{
+    display: block;
+}
+
+.h-menu .submenu ul li{
+    width: 100%;
+    max-width: 100%;
+}
+
+.h-menu .submenu ul{
+    flex-direction: column;
+}

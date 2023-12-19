@@ -14,13 +14,15 @@ function category($input)
     $metaTitleMantan = 'Danh mục sản phẩm';
 
     $modelProduct = $controller->loadModel('Products');
+    $modelEvaluate = $controller->loadModel('Evaluates');
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
             $conditions = array('id'=>$_GET['id']);
         }else{
             $slug= str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
-            $conditions = array('slug'=>$slug, 'type' => 'category_product');
+            $conditions = array('slug'=>$slug, 'type' => 'category_product', 'status'=>'active');
         }
         
         $category = $modelCategories->find()->where($conditions)->first();
@@ -32,16 +34,49 @@ function category($input)
         	$metaDescriptionMantan = $category->description;
             
 
-            $conditions = array('id_category'=>$category->id, 'status'=>'active');
+            $conditions = array('cp.id_category'=>$category->id,'status'=>'active');
 			$limit = 20;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
-		    $order = array('id'=>'desc');
-		    
-		    $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+		    $order = array('Products.id'=>'desc');
+
+            $list_product = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $totalData = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->where($conditions)->all()->toList();
+
+		    if(!empty($list_product)){
+		        foreach($list_product as $key => $item){
+		            $list_product[$key]->evaluatecount = count($modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList());
+		            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
+
+		            $point = 0;
+		            if(!empty($list_product[$key]->evaluate)){
+		                foreach($list_product[$key]->evaluate as $k => $s){
+		                    $point += $s->point;
+		                }
+		            }
+
+		            if(!empty($list_product[$key]->evaluatecount)){
+
+		                $list_product[$key]->point = $point/$list_product[$key]->evaluatecount;
+		            }
+		        }
+		    }
 
 		    // phân trang
-		    $totalData = $modelProduct->find()->where($conditions)->all()->toList();
 		    $totalData = count($totalData);
 
 		    $balance = $totalData % $limit;
@@ -72,7 +107,7 @@ function category($input)
 		        $urlPage = $urlPage . '?page=';
 		    }
 
-		    $conditions = array('type' => 'category_product');
+		    $conditions = array('type' => 'category_product', 'status'=>'active');
     		$category_all = $modelCategories->find()->where($conditions)->all()->toList();
 
     		$conditions = array('type' => 'manufacturer_product');

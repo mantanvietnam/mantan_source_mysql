@@ -26,7 +26,7 @@
                         if(!empty($listData)){
                           foreach ($listData as $item) {
                             echo '<tr>
-                                    <td>'.$item->name.'</td>
+                                    <td id="name'.$item->id.'">'.$item->name.'</td>
                                     <td align="center">
                                       <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
@@ -99,5 +99,13 @@
           });
       }
     }
+  </script>
+
+  <script type="text/javascript">
+    <?php 
+    if(!empty($_GET['idRoom'])){
+      echo 'var nameEdit = $("#name'.$_GET['idRoom'].'").html();editData('.$_GET['idRoom'].', nameEdit);';
+    }
+    ?>
   </script>
 <?php include(__DIR__.'/../footer.php'); ?>

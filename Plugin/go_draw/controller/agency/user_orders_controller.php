@@ -49,6 +49,8 @@ function addToCartUser($input)
 	    	$dataSend = $input['request']->getData();
 
 	    	if(!empty($dataSend['product_id'])){
+	    		if(empty($dataSend['amount'])) $dataSend['amount'] = 1;
+
 	    		$infoProductAgency = $modelAgencyProducts->find()->where(['product_id'=>(int) $dataSend['product_id'], 'agency_id'=>$session->read('infoUser')->id])->first();
 	    		$infoProduct = $modelProducts->find()->where(['id'=>(int) $dataSend['product_id']])->first();
 
@@ -57,23 +59,30 @@ function addToCartUser($input)
 	    			$infoProduct->price = $infoProductAgency->price;
 
 	    			if(empty($cartUser)) $cartUser = [];
+	    			$cartUser = [];
 
 	    			if(empty($cartUser[$infoProduct->id])){
-	    				$infoProduct->amount_sell = 1;
+	    				$infoProduct->amount_sell = $dataSend['amount'];
 	    				$cartUser[$infoProduct->id] = $infoProduct;
 	    			}else{
-	    				$cartUser[$infoProduct->id]->amount_sell ++;
+	    				$cartUser[$infoProduct->id]->amount_sell += $dataSend['amount'];
 	    			}
 
 	    			$session->write('cartUser', $cartUser);
 
-	    			return ['code'=>1];
-	    		}
-	    	}
-	    }
+	    			return $controller->redirect('/userCart');
+	    		}else{
+					return $controller->redirect('/sellProduct');
+				}
+	    	}else{
+				return $controller->redirect('/sellProduct');
+			}
+	    }else{
+			return $controller->redirect('/sellProduct');
+		}
+	}else{
+		return $controller->redirect('/login');
 	}
-
-	return ['code'=>0];
 }
 
 function userCart($input)
@@ -125,7 +134,9 @@ function createOrderUser($input)
 
 	    	$total_price = 0;
 	    	foreach ($infoCart as $key => $value) {
-	    		$total_price += $value->price * $value->amount_sell;
+	    		if($value->type == 0){
+		    		$total_price += $value->price * $value->amount_sell;
+		    	}
 	    	}
 
 	    	$user_id = 0;
@@ -145,6 +156,7 @@ function createOrderUser($input)
 
 	    	$order->user_id = $user_id;
 	    	$order->agency_id = $session->read('infoUser')->id;
+	    	$order->combo_id = (int) @$session->read('idComboUserBuy');
 	    	$order->total_price  = $total_price;
 	    	$order->status = 0; // 0: đơn hàng mới, 2: đã thanh toán, 3: hủy bỏ
 	    	$order->created_at  = date('Y-m-d H:i:s');
@@ -187,6 +199,7 @@ function createOrderUser($input)
 	    }
 
 	    $session->write('cartUser', []);
+	    $session->write('idComboUserBuy', 0);
 
 	    return $controller->redirect('/userCart/?status=create_order_done');
 	}else{
@@ -208,6 +221,7 @@ function orderUserProcess($input)
 		$modelUserOrders = $controller->loadModel('UserOrders');
 	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    $modelProducts = $controller->loadModel('Products');
+	    $modelCombos = $controller->loadModel('Combos');
 		
 		$user = $session->read('infoUser');
 
@@ -221,6 +235,10 @@ function orderUserProcess($input)
 		
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
+				$infoCombo = $modelCombos->find()->where(['id'=>$value->combo_id])->first();
+
+				$listData[$key]->name_combo = @$infoCombo->name;
+
 				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
 
 				if(!empty($listData[$key]->product)){
@@ -324,6 +342,62 @@ function processUserOrder($input)
 	}
 }
 
+function orderUserPrintBill($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+	global $isRequestPost;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'In hóa đơn';
+
+	    $modelUserOrders = $controller->loadModel('UserOrders');
+	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
+	    $modelProducts = $controller->loadModel('Products');
+	    $modelAgencyAccounts = $controller->loadModel('AgencyAccounts');
+		$modelAgencies = $controller->loadModel('Agencies');
+		$modelUsers = $controller->loadModel('Users');
+
+	    if(!empty($_GET['id'])){
+	    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $_GET['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
+
+	    	$agencyAcc = $modelAgencyAccounts->get($session->read('infoUser')->id);
+			$infoAgency = $modelAgencies->get($agencyAcc->agency_id);
+
+			$infoUser = $modelUsers->find()->where(['id'=>(int) $infoOrder->user_id])->first();
+
+	    	if(!empty($infoOrder)){
+	    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
+
+	    		if(!empty($infoOrder->product)){
+					foreach ($infoOrder->product as $keyProduct=>$product) {
+						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+
+						$infoOrder->product[$keyProduct]->name = @$infoProduct->name;
+						$infoOrder->product[$keyProduct]->image = @$infoProduct->image;
+						$infoOrder->product[$keyProduct]->type = @$infoProduct->type;
+					}
+				}else{
+					return $controller->redirect('/orderUserProcess/?status=orderEmptyProduct');
+				}
+	    	}else{
+	    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
+	    	}
+
+	    	setVariable('infoOrder', $infoOrder);
+	    	setVariable('infoAgency', $infoAgency);
+	    	setVariable('infoUser', $infoUser);
+	    }else{
+	    	return $controller->redirect('/orderUserProcess');
+	    }
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
 function checkoutOrderUser($input)
 {
 	global $controller;
@@ -331,6 +405,7 @@ function checkoutOrderUser($input)
 	global $metaTitleMantan;
 	global $modelCategories;
 	global $session;
+	global $isRequestPost;
 
 	if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Thanh toán đơn hàng';
@@ -340,55 +415,85 @@ function checkoutOrderUser($input)
 	    $modelProducts = $controller->loadModel('Products');
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 	    $modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
+	    $modelUsers = $controller->loadModel('Users');
 
-	    if(!empty($_GET['id'])){
-	    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $_GET['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
+	    if($isRequestPost){
+	    	$dataSend = $input['request']->getData();
 
-	    	if(!empty($infoOrder)){
-	    		// cập nhập lại trạng thái đơn hàng
-	    		$infoOrder->status = 2;
-	    		$infoOrder->updated_at = date('Y-m-d H:i:s');
-	    		$modelUserOrders->save($infoOrder);
+		    if(!empty($dataSend['id'])){
+		    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $dataSend['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
 
-	    		// hoàn lại sản phẩm
-	    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
+		    	if(!empty($infoOrder)){
+		    		// hoàn lại sản phẩm
+		    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
+		    		$total_price = 0;
 
-	    		if(!empty($infoOrder->product)){
-					foreach ($infoOrder->product as $keyProduct=>$product) {
-						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+		    		if(!empty($infoOrder->product)){
+						foreach ($infoOrder->product as $keyProduct=>$product) {
+							$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
 
-						// nếu là sản phẩm tái sử dụng
-						if($infoProduct->type == 1){
-							$product_agency = $modelAgencyProducts->find()->where(['agency_id'=>$session->read('infoUser')->id, 'product_id'=>$product->product_id])->first();
+							// nếu là sản phẩm tái sử dụng
+							if($infoProduct->type == 1){
+								$product_agency = $modelAgencyProducts->find()->where(['agency_id'=>$session->read('infoUser')->id, 'product_id'=>$product->product_id])->first();
 
-							if(!empty($product_agency)){
-								$product_agency->amount += $product->amount;
-								$product_agency->updated_at = date('Y-m-d H:i:s');
+								if(!empty($product_agency)){
 
-								$modelAgencyProducts->save($product_agency);
+									// nếu trả đủ hàng tái sử dụng
+									if(empty($dataSend['used'][$product->product_id]) || $dataSend['used'][$product->product_id] == '0'){
+										$product_agency->amount += $product->amount;
+										$product_agency->updated_at = date('Y-m-d H:i:s');
+
+										$modelAgencyProducts->save($product_agency);
+									}else{
+										$product_agency->amount += $product->amount - $dataSend['used'][$product->product_id];
+										$product_agency->updated_at = date('Y-m-d H:i:s');
+
+										$modelAgencyProducts->save($product_agency);
+
+										// tính tiền sản phẩm làm hỏng
+										$total_price += $infoProduct->price * $dataSend['used'][$product->product_id];
+									}
+								}
+							}else{
+								$total_price += $product->unit_price * $product->amount;
 							}
 						}
 					}
-				}
 
-				// lưu lịch sử cập nhập đơn
-		    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
+					// cập nhập lại trạng thái đơn hàng
+		    		$infoOrder->status = 2;
+		    		$infoOrder->total_price = $total_price;
+		    		$infoOrder->updated_at = date('Y-m-d H:i:s');
+		    		$modelUserOrders->save($infoOrder);
 
-		    	$orderHistory->agency_id = $session->read('infoUser')->id;
-		    	$orderHistory->order_id = $infoOrder->id;
-		    	$orderHistory->note = 'Hoàn thành đơn bán lẻ vật tư cho khách hàng';
-		    	$orderHistory->created_at = date('Y-m-d H:i:s');
-		    	$orderHistory->status = $infoOrder->status;
+					// lưu lịch sử cập nhập đơn
+			    	$orderHistory = $modelUserOrderHistories->newEmptyEntity();
 
-		    	$modelUserOrderHistories->save($orderHistory);
+			    	$orderHistory->agency_id = $session->read('infoUser')->id;
+			    	$orderHistory->order_id = $infoOrder->id;
+			    	$orderHistory->note = 'Hoàn thành đơn bán lẻ vật tư cho khách hàng';
+			    	$orderHistory->created_at = date('Y-m-d H:i:s');
+			    	$orderHistory->status = $infoOrder->status;
 
-				return $controller->redirect('/orderUserProcess/?status=checkoutOrderDone');
-	    	}else{
-	    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
-	    	}
-	    }else{
-	    	return $controller->redirect('/orderUserProcess');
-	    }
+			    	$modelUserOrderHistories->save($orderHistory);
+
+			    	// cộng điểm tích lũy
+			    	$infoUserBuy = $modelUsers->get($infoOrder->user_id);
+
+			    	$infoUserBuy->total_coin += $total_price/1000;
+
+			    	$modelUsers->save($infoUserBuy);
+
+					return $controller->redirect('/orderUserPrintBill/?id='.$dataSend['id']);
+		    	}else{
+		    		return $controller->redirect('/orderUserProcess/?status=orderEmpty');
+		    	}
+		    }else{
+		    	return $controller->redirect('/orderUserProcess');
+		    }
+		}else{
+			return $controller->redirect('/orderUserProcess');
+		}
 	}else{
 		return $controller->redirect('/login');
 	}
@@ -408,6 +513,7 @@ function orderUserDone($input)
 		$modelUserOrders = $controller->loadModel('UserOrders');
 	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
 	    $modelProducts = $controller->loadModel('Products');
+	    $modelCombos = $controller->loadModel('Combos');
 		
 		$user = $session->read('infoUser');
 
@@ -421,6 +527,10 @@ function orderUserDone($input)
 		
 		if(!empty($listData)){
 			foreach ($listData as $key => $value) {
+				$infoCombo = $modelCombos->find()->where(['id'=>$value->combo_id])->first();
+
+				$listData[$key]->name_combo = @$infoCombo->name;
+				
 				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
 
 				if(!empty($listData[$key]->product)){
@@ -474,6 +584,241 @@ function orderUserDone($input)
 	    setVariable('totalData', $totalData);
 	    
 	    setVariable('listData', $listData);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function staticAgency($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Thống kê đơn hàng';
+
+		$modelUserOrders = $controller->loadModel('UserOrders');
+	    $modelUserOrderDetails = $controller->loadModel('UserOrderDetails');
+	    $modelProducts = $controller->loadModel('Products');
+		
+		$user = $session->read('infoUser');
+
+		$conditions = array('status'=>2, 'agency_id'=>$user->id);
+		
+		if (!empty($_GET['from_date'])) {
+	        $fromDate = DateTime::createFromFormat('d/m/Y', $_GET['from_date']);
+	        $conditions['updated_at >='] = $fromDate->format('Y-m-d H:i:s');
+	    }
+
+	    if (!empty($_GET['to_date'])) {
+	        $toDate = DateTime::createFromFormat('d/m/Y', $_GET['to_date']);
+	        $conditions['updated_at <='] = $toDate->format('Y-m-d H:i:s');
+	    }
+
+
+		$order = array('id'=>'desc');
+
+		$listData = $modelUserOrders->find()->where($conditions)->order($order)->all()->toList();
+
+		$total_money = 0;
+		
+		if(!empty($listData)){
+			foreach ($listData as $key => $value) {
+				$listData[$key]->product = $modelUserOrderDetails->find()->where(['order_id'=>$value->id])->all()->toList();
+
+				if(!empty($listData[$key]->product)){
+					foreach ($listData[$key]->product as $keyProduct=>$product) {
+						$infoProduct = $modelProducts->find()->where(['id'=>$product->product_id])->first();
+
+						$listData[$key]->product[$keyProduct]->name = @$infoProduct->name;
+					}
+				}
+
+				$total_money += $value->total_price;
+			}
+		}
+
+		
+	    
+	    setVariable('listData', $listData);
+	    setVariable('total_money', $total_money);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function checkCombo($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Combo sản phẩm';
+
+		$modelCombos = $controller->loadModel('Combos');
+		$modelComboProducts = $controller->loadModel('ComboProducts');
+		$modelAgencyProducts = $controller->loadModel('AgencyProducts');
+
+		$conditions = array('status'=>1);
+
+		$listCombo = $modelCombos->find()->where($conditions)->all()->toList();
+		$list_combo = [];
+
+		$list_product_agency = $modelAgencyProducts->find()->where(['agency_id'=>$session->read('infoUser')->id])->all()->toList();
+
+			
+		$product_agency = [];
+
+		if(!empty($list_product_agency)){
+			foreach ($list_product_agency as $item) {
+				$product_agency[$item->product_id] = $item->amount;
+			}
+		}
+		
+		// nếu kho đại lý có sản phẩm
+		if(!empty($product_agency)){
+			if(!empty($listCombo)){
+				foreach ($listCombo as $infoCombo) {
+					$list_product_combo = $modelComboProducts->find()->where(['combo_id'=>$infoCombo->id])->all()->toList();
+					
+					$check = true;
+					if(!empty($list_product_combo)){
+						foreach ($list_product_combo as $item) {
+							if(empty($product_agency[$item->product_id]) || $product_agency[$item->product_id]<$item->amount){
+								$check = false;
+							}
+						}
+					}
+					
+					if($check){
+						$list_combo[] = $infoCombo;
+					}
+				}
+			}
+		}
+
+		setVariable('list_combo', $list_combo);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function viewComboAgency($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+
+	if(!empty($session->read('infoUser'))){
+	    $modelCombos = $controller->loadModel('Combos');
+	    $modelComboProducts = $controller->loadModel('ComboProducts');
+	    $modelProducts = $controller->loadModel('Products');
+	    $modelAgencyCombos = $controller->loadModel('AgencyCombos');
+
+		if(!empty($_GET['id'])){
+
+			$infoCombo = $modelCombos->find()->where(['id'=>(int) $_GET['id']])->first();
+
+			if(!empty($infoCombo)){
+				$metaTitleMantan = $infoCombo->name;
+
+				$list_products = $modelComboProducts->find()->where(['combo_id'=>$infoCombo->id])->all()->toList();
+
+				$list_product = [];
+
+				foreach ($list_products as $key => $value) {
+					$infoProduct = $modelProducts->find()->where(['id'=>$value->product_id, 'status'=>1])->first();
+
+					if(!empty($infoProduct)){
+						$infoProduct->amount_combo = $value->amount;
+						$list_product[] = $infoProduct;
+					}
+				}
+
+				setVariable('infoCombo', $infoCombo);
+				setVariable('list_product', $list_product);
+			}else{
+				return $controller->redirect('/checkCombo');
+			}
+			
+		}else{
+			return $controller->redirect('/checkCombo');
+		}
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
+function addCartComboUser($input)
+{
+	global $controller;
+	global $urlCurrent;
+	global $metaTitleMantan;
+	global $modelCategories;
+	global $session;
+	global $isRequestPost;
+
+	if(!empty($session->read('infoUser'))){
+	    $metaTitleMantan = 'Bán hàng';
+
+	    $modelProducts = $controller->loadModel('Products');
+	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
+	    $modelCombos = $controller->loadModel('Combos');
+	    $modelComboProducts = $controller->loadModel('ComboProducts');
+
+    	if(!empty($_GET['idCombo'])){
+    		if(empty($_GET['amount'])) $_GET['amount'] = 1;
+
+    		$infoCombo = $modelCombos->find()->where(['id'=>(int) $_GET['idCombo']])->first();
+
+    		if(!empty($infoCombo)){
+    			$list_products = $modelComboProducts->find()->where(['combo_id'=>$infoCombo->id])->all()->toList();
+
+    			if(!empty($list_products)){
+    				$cartUser = $session->read('cartUser');
+    				if(empty($cartUser)) $cartUser = [];
+			    	$cartUser = [];
+
+    				foreach ($list_products as $item) {
+			    		$infoProductAgency = $modelAgencyProducts->find()->where(['product_id'=>(int) $item->product_id, 'agency_id'=>$session->read('infoUser')->id])->first();
+			    		
+			    		$infoProduct = $modelProducts->find()->where(['id'=>(int) $item->product_id])->first();
+
+			    		if(!empty($infoProduct) && !empty($infoProductAgency)){
+			    			$infoProduct->price = $infoProductAgency->price;
+
+			    			if(empty($cartUser[$infoProduct->id])){
+			    				$infoProduct->amount_sell = $_GET['amount'];
+			    				$cartUser[$infoProduct->id] = $infoProduct;
+			    			}else{
+			    				$cartUser[$infoProduct->id]->amount_sell += $_GET['amount'];
+			    			}
+			    		}else{
+							return $controller->redirect('/checkCombo/error=emptyProductAgency');
+						}
+					}
+
+					$session->write('cartUser', $cartUser);
+					$session->write('idComboUserBuy', $infoCombo->id);
+
+			    	return $controller->redirect('/userCart');
+				}else{
+					return $controller->redirect('/checkCombo/error=emptyComboProduct');
+				}
+			}else{
+				return $controller->redirect('/checkCombo/error=emptyInfoCombo');
+			}
+    	}else{
+			return $controller->redirect('/checkCombo/error=emptyIDCombo');
+		}
 	}else{
 		return $controller->redirect('/login');
 	}

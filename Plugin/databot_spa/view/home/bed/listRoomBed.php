@@ -145,13 +145,15 @@ rel='stylesheet' type='text/css'>
         global $urlHomes;
         global $urlCurrent;
 
-        echo 'var urlCheckinBed = "'.$urlHomes.'listOrderService";';
+        echo 'var urlCheckinBed = "'.$urlHomes.'orderService";';
         echo 'var urlEditBed = "'.$urlHomes.'listBed";';
         echo 'var urlDeleteBed = "'.$urlHomes.'deleteBed";';
-        echo 'var listOrder = "'.$urlHomes.'listOrder";';
+        echo 'var listOrder = "'.$urlHomes.'listOrderService";';
         echo 'var urlViewroomdetail = "'.$urlHomes.'infoRoomBed";';
         echo 'var urlCancel = "'.$urlHomes.'apis/cancelBed";';
         echo 'var urlPaid = "'.$urlHomes.'checkoutBed";';
+        echo 'var urlAddroom = "'.$urlHomes.'listBed";';
+        echo 'var urlEditFloor = "'.$urlHomes.'listRoom";';
     ?>
 
 
@@ -200,12 +202,12 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Check out", icon: "checkout"},
-                "view": {name: "Xem thông tin phòng", icon: "view"},
-                "cancel": {name: "Hủy checkin", icon: "delete"},
+                "paid": {name: "Check-out", icon: "quit"},
+                "view": {name: "Xem thông tin giường", icon: "view"},
+                "cancel": {name: "Hủy check-in", icon: "delete"},
                 "sep1": "---------",
-                "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
-                "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
+                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
+                "edit": {name: "Sửa cài đặt giường", icon: "edit"},
             }
         });
          
@@ -225,8 +227,11 @@ rel='stylesheet' type='text/css'>
                         window.location = url;
                         break;
                     case 'deleteBed':
-                        url = urlDeleteBed + '?idBed=' + options.$trigger.attr("idBed");
-                        window.location = url;
+                        var confirmDelete = confirm('Bạn có chắc chắn muốn xóa không?');
+                        if (confirmDelete == true) {
+                            url = urlDeleteBed + '?idBed=' + options.$trigger.attr("idBed");
+                            window.location = url;
+                        }
                         break;
                     case 'listOrder':
                         url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
@@ -235,10 +240,10 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "checkinBed": {name: "Nhận khách", icon: "received"},
+                "checkinBed": {name: "Nhận khách mới", icon: "add"},
+                "listOrder": {name: "Danh sách khách chờ", icon: "paste"},
                 "sep1": "---------",
                 "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
-                "listOrder": {name: "Danh sách khách chờ", icon: "list"},
                 "deleteBed": {name: "Xóa giường", icon: "delete"},
             }
         });
@@ -288,12 +293,12 @@ rel='stylesheet' type='text/css'>
                 }
             },
             items: {
-                "paid": {name: "Check out", icon: "checkout"},
-                "cancel": {name: "Hủy checkin", icon: "delete"},
-                "view": {name: "Xem thông tin phòng", icon: "view"},
+                "paid": {name: "Check-out", icon: "quit"},
+                "cancel": {name: "Hủy check-in", icon: "delete"},
+                "view": {name: "Xem thông tin giường", icon: "view"},
                 "sep1": "---------",
-                "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
-                "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
+                "listwaiting": {name: "Danh sách khách chờ", icon: "paste"},
+                "edit": {name: "Sửa cài đặt giường", icon: "edit"},
             }
         });
 
@@ -304,40 +309,34 @@ rel='stylesheet' type='text/css'>
             trigger: 'left',
             callback: function (key, options) {
                 switch (key) {
-                    case 'received':
-                    url = urlReceived + '?idroom=' + options.$trigger.attr("idroom");
-                    window.location = url;
-                    break;
-                    case 'listwaiting':
-                    url = urlListwaiting + '?idroom=' + options.$trigger.attr("idroom");
-                    window.location = url;
-                    break;
-                    case 'edit':
-                    url = urlEdit + '?idroom=' + options.$trigger.attr("idroom");
-                    window.location = url;
-                    break;
-                    case 'delete':
-                    deleteData(options.$trigger.attr("idroom"));
-                    break;
-                    case 'report':
-                    url = urlReport + '?idroom=' + options.$trigger.attr("idroom");
-                    window.location = url;
-                    break;
-                    case 'clear':
-                    clearData(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"),options.$trigger.attr("clearroom"));
-                    break;
-                    case 'receivedFast':
-                    showCheckinFast(options.$trigger.attr("idroom"),options.$trigger.attr("nameroom"),options.$trigger.attr("typeroom"));
-                    break;
+                    case 'checkinBed':
+                        url = urlCheckinBed + '?idBed=' + options.$trigger.attr("idBed");
+                        window.location = url;
+                        break;
+                    
+                    case 'editBed':
+                        url = urlEditBed + '?idBed=' + options.$trigger.attr("idBed");
+                        window.location = url;
+                        break;
+                    case 'deleteBed':
+                        var confirmDelete = confirm('Bạn có chắc chắn muốn xóa không?');
+                        if (confirmDelete == true) {
+                            url = urlDeleteBed + '?idBed=' + options.$trigger.attr("idBed");
+                            window.location = url;
+                        }
+                        break;
+                    case 'listOrder':
+                        url = listOrder + '?idBed=' + options.$trigger.attr("idBed")+'&status=0';
+                        window.location = url;
+                        break;
                 }
             },
             items: {
-               // "receivedFast": {name: "Nhận phòng nhanh", icon: "received"},
-                "received": {name: "Nhận phòng", icon: "received"},
-                "listwaiting": {name: "Danh sách khách chờ", icon: "list"},
+                "checkinBed": {name: "Nhận khách mới", icon: "add"},
+                "listOrder": {name: "Danh sách khách chờ", icon: "paste"},
                 "sep1": "---------",
-                "edit": {name: "Sửa cài đặt phòng", icon: "edit"},
-                "delete": {name: "Xóa phòng", icon: "delete"},
+                "editBed": {name: "Sửa cài đặt giường", icon: "edit"},
+                "deleteBed": {name: "Xóa giường", icon: "delete"},
             }
         });
 
@@ -348,18 +347,18 @@ rel='stylesheet' type='text/css'>
 
                 switch (key) {
                     case 'addroom':
-                    url = urlAddroom + '?idFloor=' + options.$trigger.attr("idFloor");
+                    url = urlAddroom + '?idRoom=' + options.$trigger.attr("idRoom");
                     window.location = url;
                     break;
                     case 'editFloor':
-                    url = urlEditFloor + '?idFloor=' + options.$trigger.attr("idFloor");
+                    url = urlEditFloor + '?idRoom=' + options.$trigger.attr("idRoom");
                     window.location = url;
                     break;
                 }
             },
             items: {
-                "addroom": {name: "Thêm phòng", icon: "add"},
-                "editFloor": {name: "Sửa tên tầng", icon: "edit"},
+                "addroom": {name: "Thêm giường", icon: "add"},
+                "editFloor": {name: "Sửa tên phòng", icon: "edit"},
             }
         });
 
@@ -371,18 +370,18 @@ rel='stylesheet' type='text/css'>
 
                 switch (key) {
                     case 'addroom':
-                    url = urlAddroom + '?idFloor=' + options.$trigger.attr("idFloor");
+                    url = urlAddroom + '?idRoom=' + options.$trigger.attr("idRoom");
                     window.location = url;
                     break;
                     case 'editFloor':
-                    url = urlEditFloor + '?idFloor=' + options.$trigger.attr("idFloor");
+                    url = urlEditFloor + '?idRoom=' + options.$trigger.attr("idRoom");
                     window.location = url;
                     break;
                 }
             },
             items: {
-                "addroom": {name: "Thêm phòng", icon: "add"},
-                "editFloor": {name: "Sửa tên tầng", icon: "edit"},
+                "addroom": {name: "Thêm giường", icon: "add"},
+                "editFloor": {name: "Sửa tên phòng", icon: "edit"},
             }
         });
     });

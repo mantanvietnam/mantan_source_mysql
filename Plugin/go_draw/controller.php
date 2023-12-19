@@ -9,6 +9,9 @@ include('controller/admin/categoriesController.php');
 include('controller/admin/usersController.php');
 include('controller/admin/orderHistoriesController.php');
 include('controller/admin/agencyOrderProductsController.php');
+include('controller/admin/warehouseHistoriesController.php');
+include('controller/admin/agencyOrderBackStoresController.php');
+include('controller/admin/userOrdersController.php');
 
 // agency
 include('controller/agency/agency_accounts_controller.php'); // tài khoản đại lý
@@ -23,3 +26,7 @@ include('controller/agency/agency_order_products_controller.php'); // đơn hàn
 
 // home
 include('controller/home/user_controller.php'); // tài khoản người dùng
+include('controller/home/agencies_controller.php'); // đại lý
+include('controller/home/user_orders_controller.php'); // đơn hàng của người dùng
+include('controller/home/user_pictures_controller.php'); // ảnh người dùng
+include('controller/home/combos_controller.php'); // combo sản phẩm

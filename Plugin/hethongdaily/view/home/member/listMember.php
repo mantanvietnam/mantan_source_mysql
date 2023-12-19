@@ -180,15 +180,15 @@
             var status, payFees, verify, edit, facebook;
             var linkProfile = '<?php global $urlHomes; echo $urlHomes;?>info/?id=';
 
-            edit = ' <a href="/addMember/?id='+dataAgency.id+'" class="btn btn-danger"">Sửa thông tin</a>';
+            edit = ' <a href="/addMember/?id='+dataAgency.id+'" class="btn btn-danger mb-3">Sửa thông tin</a> <a href="/addMember/?id_father='+dataAgency.id+'" class="btn btn-primary  mb-3">Thêm tuyến dưới</a> ';
 
             if(dataAgency.status == 'active'){
-                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=lock" class="btn btn-danger width-100"><i class="fa fa-trash-o"></i>Khóa tài khoản</a> '+edit+'</div>';
+                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=lock" class="btn btn-danger width-100  mb-3"><i class="fa fa-trash-o"></i>Khóa tài khoản</a> '+edit+'</div>';
             }else{
                 payFees = '<button type="button" class="btn btn-danger" onclick="popupPayFees('+dataAgency.id+')">Đóng phí</button>';
                 payFees = '';
 
-                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=active" class="btn btn-primary width-100"><i class="fa fa-trash-o"></i>Kích hoạt tài khoản</a> '+payFees+' '+edit+'</div>';
+                status = '<div style="margin-top: 10px;margin-bottom: 10px;" class=""><a href="/updateStatusMember?id='+dataAgency.id+'&status=active" class="btn btn-primary width-100  mb-3"><i class="fa fa-trash-o"></i>Kích hoạt tài khoản</a> '+payFees+' '+edit+'</div>';
             }
 
             if(dataAgency.verify == 'lock'){

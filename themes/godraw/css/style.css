@@ -369,8 +369,8 @@ header {
 
 main {
   position: relative;
-  height: calc(100vh - 81px);
-  overflow: auto;
+  /* height: calc(100vh - 81px); */
+  /* overflow: auto; */
 }
 @media (max-width: 1440px) {
   main {
@@ -1027,18 +1027,19 @@ footer {
   height: 100%;
 }
 .full-home-slider .item-slide {
-  height: calc(100vh - 81px);
+  /* height: calc(100vh - 81px); */
   position: relative;
 }
 @media (max-width: 767px) {
   .full-home-slider .item-slide {
-    height: calc(100vh - 60px);
+    /* height: calc(100vh - 60px); */
   }
 }
 
 .box-banner-home {
-  height: 100%;
-  position: relative;
+  /* height: 100%; */
+  /* position: relative; */
+  /* overflow: hidden; */
 }
 .box-banner-home .video-banner video, .box-banner-home .video-banner img {
   width: 100%;
@@ -1101,7 +1102,7 @@ footer {
     bottom: unset;
     width: 100%;
     text-align: center;
-    top: 62%;
+    /* top: 62%; */
   }
 }
 .box-banner-home .social-intro ul {
@@ -1471,11 +1472,11 @@ footer {
 }
 @media (max-width: 767px) {
   .txt-detail-gallery {
-    position: fixed;
-    height: auto;
+    /* position: fixed;
     left: 0;
-    bottom: 0;
-    border-radius: 0;
+    bottom: 0; */
+    height: auto;
+    border-radius: 10px;
     background: rgba(21, 53, 93, 0.58);
   }
 }
@@ -1514,7 +1515,7 @@ footer {
   }
 }
 .txt-detail-gallery .social ul li {
-  margin-right: 20px;
+  margin-right: 15px;
 }
 @media (max-width: 767px) {
   .txt-detail-gallery .social ul li {
@@ -1548,10 +1549,10 @@ footer {
 }
 @media (max-width: 767px) {
   .avar-detail img {
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100vh; */
     object-fit: cover;
   }
 }
@@ -2806,10 +2807,10 @@ footer {
 }
 
 .box-toturial {
-  height: 100%;
+  /* height: 100%;
   padding: 100px 0 0 0;
   position: relative;
-  width: 100%;
+  width: 100%; */
 }
 @media (max-width: 767px) {
   .box-toturial {
@@ -3237,3 +3238,15 @@ footer {
 }
 
 /*# sourceMappingURL=style.css.map */
+/* Bổ sung */
+/* .list-form-item .item .btn_field{
+  background-image: url(/themes/godraw/images/button_2.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+  height: 68px;
+  font-size: 22px;
+  background-position: center;
+  scale: 0.8;
+} */

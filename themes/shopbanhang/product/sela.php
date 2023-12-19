@@ -49,19 +49,19 @@ $slide_home= slide_home($setting['id_slide']);
                             <div class="row">
                                 <?php if(!empty($list_product)){
                         foreach($list_product as $product){
-                            $link = '/product/'.$product->slug.'.html';
+                            $link = '/san-pham/'.$product->slug.'.html';
                                      $giam = 0;
                                     if(!empty($product->price_old) && !empty($product->price)){
                                         $giam = 100 - 100*$product->price/$product->price_old;
                                     }
 
-                                    $ban = 0;
-                                    if(!empty($product->quantity) && !empty($product->sold)){
-                                        $ban = 100 - 100*$product->sold/$product->quantity;
-                                    }
+                                    $ban = random_int(1, 50);
+                                    /*if(!empty($product->quantity) && !empty($product->number_like)){
+                                        $ban = 100 - 100*$product->quantity/$product->number_like;
+                                    }*/
                          ?>
 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-12 product-item">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-6 product-item">
                                 <div class="product-item-inner">
                                     <?php if($giam>0){ ?>
                                         <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
@@ -87,7 +87,8 @@ $slide_home= slide_home($setting['id_slide']);
         
                                     <div class="progress-box">
                                         <div class="product-progress">
-                                            <div class="text-progress">Sản phẩm <?php echo $product->sold ?> Đã bán</div>
+                                            <!-- <div class="text-progress"> <?php echo $product->sold ?> Sản phẩm đã bán</div> -->
+                                            <div class="text-progress"> <?php echo $ban  ?> Sản phẩm đã bán</div>
                                             <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
@@ -95,11 +96,14 @@ $slide_home= slide_home($setting['id_slide']);
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p><?php echo $product->point ?> <span>(<?php echo $product->evaluatecount ?>)</span></p>
+                                            <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
+                                            <p><?php echo number_format(@$product->point,1); ?> <span>(<?php echo @$product->evaluatecount ?>)</span></p>
+                                        <?php } ?>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
-                                            <p><?php echo $product->sold ?>  Đã bán</p>
+                                            <p><?php echo $product->sold ?>  Đã bán</p> 
+                                            <!-- <p><?php echo $ban ?>  Đã bán</p> -->
                                             <img src="<?php echo $urlThemeActive ?>asset/image/heart.png" alt="">
                                         </div>
                                     </div>

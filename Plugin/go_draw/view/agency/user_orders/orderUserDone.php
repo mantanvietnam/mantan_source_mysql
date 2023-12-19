@@ -35,7 +35,9 @@
                                             foreach ($listData as $key => $value) {
                                                 echo '  <tr>
                                                           <td scope="row">'.$value->id.'</td>
-                                                          <td>';
+                                                          <td>
+                                                            Gói sản phẩm <b>'.$value->name_combo.'</b> gồm:
+                                                          ';
                                                           
                                                           if(!empty($value->product)){
                                                             echo '<table class="noborder">';

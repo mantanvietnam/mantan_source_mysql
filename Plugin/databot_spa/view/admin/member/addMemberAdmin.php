@@ -36,6 +36,16 @@
                     <label class="form-label" for="basic-default-fullname">Email</label>
                     <input type="email" class="form-control" placeholder="" name="email" id="email" value="<?php echo @$data->email;?>" />
                   </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Loại tài khoản</label>
+                    <div class="input-group input-group-merge">
+                      <select class="form-select" name="type" id="type" disabled>
+                        <option value="1" <?php if(!empty($data->type) && $data->type=='1') echo 'selected'; ?> >Chủ Spa</option>
+                        <option value="0" <?php if(isset($data->type) && $data->type=='0') echo 'selected'; ?> >Nhân viên</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-6">
@@ -59,12 +69,63 @@
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Số cơ sở</label>
-                     <input type="number"  class="form-control" id="number_spa" name="number_spa" value="<?php echo @$data->number_spa;?>" placeholder=""  />
+                    <input type="number"  class="form-control" id="number_spa" name="number_spa" value="<?php echo @$data->number_spa;?>" placeholder=""  />
                   </div>
-
-                
                 </div>
+                
+                <label for="" class="form-label">Module chức năng được sử dụng</label>
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="customer" <?php if(!empty($data->module) && in_array('customer', $data->module)) echo 'checked';?> > Khách hàng
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="staff" <?php if(!empty($data->module) && in_array('staff', $data->module)) echo 'checked';?> > Nhân viên
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="calendar" <?php if(!empty($data->module) && in_array('calendar', $data->module)) echo 'checked';?> > Đặt lịch hẹn
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="campain" <?php if(!empty($data->module) && in_array('campain', $data->module)) echo 'checked';?> > Chiến dịch marketing
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="zalo" <?php if(!empty($data->module) && in_array('zalo', $data->module)) echo 'checked';?> > Kết nối Zalo
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="sms" <?php if(!empty($data->module) && in_array('sms', $data->module)) echo 'checked';?> > Tin nhắn SMS
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="room" <?php if(!empty($data->module) && in_array('room', $data->module)) echo 'checked';?> > Phòng - Giường
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="product" <?php if(!empty($data->module) && in_array('product', $data->module)) echo 'checked';?> > Sản phẩm - Dịch vụ
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="prepaid_cards" <?php if(!empty($data->module) && in_array('prepaid_cards', $data->module)) echo 'checked';?> > Thẻ trả trước
+                </div>
+                
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="combo" <?php if(!empty($data->module) && in_array('combo', $data->module)) echo 'checked';?> > Combo liệu trình
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="bill" <?php if(!empty($data->module) && in_array('bill', $data->module)) echo 'checked';?> > Phiếu thu, chi, công nợ
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <input type="checkbox" name="module[]" value="static" <?php if(!empty($data->module) && in_array('static', $data->module)) echo 'checked';?> > Báo cáo - Thống kê
+                </div>
+
               </div>
+
+
+
               <button type="submit" class="btn btn-primary">Lưu</button>
             <?= $this->Form->end() ?>
           </div>

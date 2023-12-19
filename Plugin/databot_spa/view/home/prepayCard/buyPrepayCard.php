@@ -51,7 +51,6 @@
     .top .left{
         display: flex;
         padding: 0px 20px;
-        border-bottom: 1px solid #566a7f;
         position: relative;
         display: flex;
         align-items: center;
@@ -139,14 +138,18 @@
 	               </div>
 	           </div>
 		 	</div>
-		 	<div class="card mb-4">
-		 		<a class="tableService" data-bs-toggle="collapse" href="#collapseService" role="button" aria-expanded="false" aria-controls="collapseExample">Thẻ trả trước <i class='bx bx-plus' style="float: right;"></i></a>
-		 		<?php if(!empty($listData)){ ?>
-				<div class="collapse" id="collapseService">
-				  <div class="card card-body">
-				  	<div class="row diagram">
-				    <?php	foreach($listData as $key => $item){ ?>
-				    			<div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $item->image ?>');" onclick="addProduct('<?php echo $item->id ?>','<?php echo $item->name ?>',<?php echo $item->price_sell ?>, <?php echo $item->price ?>);" id='service<?php echo $item->id ?>'>
+            <div class="card mb-4">
+                <h4 class="fw-bold m-2">Thẻ trả trước</h4>
+                <?php
+                    echo @$mess;
+                 if(!empty($listData)){ ?>
+                    
+                <div >
+                  <div class="card card-body">
+                    <div class="row diagram">
+
+                    <?php   foreach($listData as $key => $item){ ?>
+                                <div class="col-xs-6 col-sm-3 col-md-3 clear-room context-menu-two" style=" background-image: url('<?php echo $item->image ?>');" onclick="addProduct('<?php echo $item->id ?>','<?php echo $item->name ?>',<?php echo $item->price_sell ?>, <?php echo $item->price ?>);" id='service<?php echo $item->id ?>'>
                                     <div class="item_produc">
                                         <div class="customer-name"><span class="service_name"><?php echo $item->name ?></span></div>
                                         <div class="customer-name"><span class="service_name"><?php echo $item->duration ?> phút</span></div>
@@ -154,14 +157,12 @@
                                     </div>
                                     
                                  </div> 
-				  <?php   } ?>
-				</div>
-				  </div>
-				</div>
-				 <?php   } ?>
-		 	</div>
-
-		 	
+                  <?php   } ?>
+                    </div>
+                  </div>
+                </div>
+                 <?php   } ?>
+            </div>
 
 		 	
 		 	
@@ -170,7 +171,7 @@
             <div class="card mb-4">
                 <h4 class="fw-bold py-3 mb-4 info-order">Thông tin đơn hàng</h4>
                  <div class="top row">
-                    <div class="left col-md-4">
+                    <div class="left col-md-10">
                         <i class="bx bx-time" aria-hidden="true"></i>&nbsp;
                         <div class="input-group">
                             <input type="text" name="time" id="time" value="<?php echo date('d/m/Y H:i')?>" class="form-control datetimepicker"  required />
@@ -248,8 +249,8 @@
 
                                             </p>
                                         </li>
-                                        <li style="display: contents;"><span>chú ý</span><br/>
-                                            <textarea class="form-control phone-mask" rows="8" name="note"></textarea>
+                                        <li style="display: contents;"><span>Ghi chú</span><br/>
+                                            <textarea class="form-control phone-mask" rows="3" name="note"></textarea>
                                         </li> 
 
                                          
@@ -529,6 +530,7 @@
         });
     });
 </script>
+
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

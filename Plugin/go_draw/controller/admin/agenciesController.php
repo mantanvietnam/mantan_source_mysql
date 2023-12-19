@@ -37,6 +37,7 @@ function listAgencyAdmin($input)
         ->limit($limit)
         ->page($page)
         ->where($conditions)
+        ->order(['id'=>'desc'])
         ->all()
         ->toList();
     $totalUser = $agencyModel->find()
@@ -133,7 +134,15 @@ function viewDetailAgencyAdmin($input)
                     $agency->name = $dataSend['name'];
                     $agency->address = $dataSend['address'];
                     $agency->phone = $dataSend['phone'];
+                    $agency->image = $dataSend['image'];
+                    $agency->email = $dataSend['email'];
+                    $agency->lat_gps = $dataSend['lat_gps'];
+                    $agency->long_gps = $dataSend['long_gps'];
                     $agency->status = $dataSend['status'];
+                    $agency->province_id = $dataSend['province_id'];
+                    $agency->district_id = $dataSend['district_id'];
+                    $agency->ward_id = $dataSend['ward_id'];
+
                     $agencyModel->save($agency);
 
                     $masterAccount->agency_id = $agency->id;
@@ -156,13 +165,25 @@ function viewDetailAgencyAdmin($input)
                 $agency->name = $dataSend['name'];
                 $agency->address = $dataSend['address'];
                 $agency->phone = $dataSend['phone'];
+                $agency->image = $dataSend['image'];
+                $agency->email = $dataSend['email'];
+                $agency->lat_gps = $dataSend['lat_gps'];
+                $agency->long_gps = $dataSend['long_gps'];
                 $agency->status = $dataSend['status'] ?? 1;
+                $agency->province_id = $dataSend['province_id'];
+                $agency->district_id = $dataSend['district_id'];
+                $agency->ward_id = $dataSend['ward_id'];
+
                 $agencyModel->save($agency);
+
+                if(!empty($dataSend['master_account_password']) && !empty($dataSend['master_account_password_confirmation']) && $dataSend['master_account_password']==$dataSend['master_account_password_confirmation']){
+                    $masterAccount->password = md5($dataSend['master_account_password']);
+                }
 
                 $masterAccount->name = $dataSend['master_account_name'];
                 $masterAccount->code_pin = $dataSend['master_account_code_pin'];
                 $accountModel->save($masterAccount);
-
+               
                 $mess = '<p class="text-success">Lưu dữ liệu thành công</p>';
             } else {
                 $mess = '<p class="text-danger">Bạn chưa nhập đúng thông tin</p>';
@@ -170,9 +191,16 @@ function viewDetailAgencyAdmin($input)
         }
     }
 
+    $listCity = [];
+    if(function_exists('getProvince')){
+        $listCity = getProvince();
+    }
+
     setVariable('data', $agency);
     setVariable('masterAccount', $masterAccount);
     setVariable('mess', $mess);
+    setVariable('listCity', $listCity);
+
     if (isset($listStaffAccount)) {
         setVariable('listStaffAccount', $listStaffAccount);
     }

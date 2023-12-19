@@ -4,7 +4,9 @@
     global $modelAlbums;
     global $modelAlbuminfos;
 ?>
-<?php getHeader();?>
+
+    <?php getHeader();?>
+
     
     <main>
         <?php
@@ -40,9 +42,14 @@
         }
         ?>
 
-        <section id="section-logo-home">
+        <!-- <section id="section-logo-home">
             <div class="container-fluid logo-home-box">
                 <div class="logo-home-item">
+
+                    <div class="logo-home-img logo-home-0">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/gateway.png" alt="">
+                    </div>
+
                     <div class="logo-home-img logo-home-1">
                         <img src="<?php echo $urlThemeActive;?>/asset/img/Logo-set-with-GG-EU-emblem (1).png" alt="">
                     </div>
@@ -53,7 +60,7 @@
                 </div>
                 
             </div>
-        </section>
+        </section> -->
 
         <!-- WARM Facility -->
         <section id="section-facility" data-aos="fade-up">
@@ -97,8 +104,10 @@
             <div class="project-content">
                 <div class="project-slide">
                     <?php 
+                    // debug($home_projects);
                     if(!empty($home_projects)){
                         foreach($home_projects as $key => $value){
+                            if($value->status == 'active')
                             echo'
                             <div class="project-item">
                                 <div class="project-item-title">

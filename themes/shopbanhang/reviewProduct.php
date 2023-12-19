@@ -7,6 +7,7 @@ $settinghom = setting();
 // debug($slide_home);
 // debug($list_product);
 ?>
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 <main>
     <section id="section-breadcrumb">
         <div class="breadcrumb-center">
@@ -42,7 +43,7 @@ $settinghom = setting();
                                             if(!empty($item->evaluate)){
                                      ?>
                                     <div class="item-slick-product">
-                                        <a href="/product/<?php echo $item->slug ?>">
+                                        <a href="/review_san_pham?id_product=<?php echo $item->id ?>">
                                             <img src="<?php echo $item->image; ?>">
                                             <p><?php echo $item->title; ?></p>
                                         </a>
@@ -50,10 +51,9 @@ $settinghom = setting();
                                     <?php }}} ?>
 
                                     </div>
-                                    <?php if(!empty($list_product)){
-                                        foreach($list_product as $key => $item){
-                                            if(!empty($item->evaluate)){
-                                              foreach($item->evaluate as $k => $value){  
+                                    <?php
+                                            if(!empty($evaluate)){
+                                              foreach($evaluate as $k => $value){  
                                                     $value->image = json_decode($value->image, true);
                                      ?>
                                         <div class="content-unbox posts">
@@ -64,41 +64,62 @@ $settinghom = setting();
                                                 <div class="text-detail">
                                                     <h4>
                                                         <span><?php echo $value->full_name ?></span> đã viết đánh giá sản phẩm
-                                                        <span><?php echo $item->title ?></span>
+                                                        <span><?php echo $value->product->title ?></span>
                                                     </h4>
-                                                    <div class="five-star">
-                                                        <ul>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-solid fa-star"></i></li>
-                                                            <li><i class="fa-regular fa-star"></i></li>
-                                                        </ul>
-                                                        <p>2 ngày trước</p>
+                                                    <div class="five-star product-detail-rate-star">
+                                                        
+                                                         <?php $point = 100 - ($value->point/5) / 1 * 100 ?>
+                                                        <div class="stars" style="color: gold;">
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <i class='bx bxs-star'></i>
+                                                                <div class="overlay" style="width: <?php echo $point ?>%"></div>
+
+                                                            </div> 
+                                                      
                                                     </div>
 
                                                 </div>
                                                 <div class="icon-product">
-                                                    <img src="<?php echo $item->image ?>">
+                                                      <a href="/san-pham/<?php echo $value->product->slug ?>.html"><img src="<?php echo $value->product->image ?>"></a>
                                                 </div>
                                             </div>
                                             <div class="image-unbox">
                                                 <p><?php echo $value->content ?></p>
-                                                <div class="slide-rate-image">
-                                                 <?php if(!empty($value->image)){
+                                                
+                                                <?php 
+                                                    if(!empty($value->image)){
+                                                        $check = false;
+
                                                         foreach($value->image as $image) {
-                                                        if(!empty($image)){
-                                                    ?>
-                                                    <img src="<?php echo $image;?>" alt="">
-                                                <?php }}} ?>
-                                                </div>
+                                                            if(!empty($image)){
+                                                                $check = true;
+                                                            }
+                                                        }
+
+                                                        if($check){
+                                                            echo '<div class="slide-rate-image">';
+                                                            
+                                                            foreach($value->image as $image) {
+                                                                if(!empty($image)){
+                                                                    echo '<img src="'.$image.'" alt="">';
+                                                                }
+                                                            }
+
+                                                            echo '</div>';
+                                                        }
+                                                    } 
+                                                ?>
+                                                
                                             </div>
                                             <!-- <div class="icon-interact">
                                                 <a class="like"><i class="fa-regular fa-thumbs-up"></i>1145</a>
                                                 <a class="share"><i class="fa-solid fa-share"></i>214</a>
                                             </div> -->
                                         </div>
-                                    <?php }}}} ?>
+                                    <?php }} ?>
                                     
 
                                     <!-- <div class="icon-loading">
@@ -111,26 +132,26 @@ $settinghom = setting();
                                         <p>Tìm kiếm theo sao</p>
                                     </div>
                                     <div class="star-rating">
-                                        <div class="item-star-rating">
-                                            <button>Tất cả</button>
+                                        <div class="item-star-rating <?php if(empty($_GET['point']) && empty($_GET['image']) && empty($_GET['id_product'])) echo 'active' ?>">
+                                            <a href="/review_san_pham ">Tất cả</a>
                                         </div>
-                                        <div class="item-star-rating">
-                                            <button>1 sao</button>
+                                        <div class="item-star-rating  <?php if(@$_GET['point']==1) echo 'active' ?>">
+                                            <a href="/review_san_pham?point=1">1 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
-                                            <button>2 sao</button>
+                                        <div class="item-star-rating <?php if(@$_GET['point']==2) echo 'active' ?>">
+                                            <a href="/review_san_pham?point=2">2 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
-                                            <button>3 sao</button>
+                                        <div class="item-star-rating <?php if(@$_GET['point']==3) echo 'active' ?>">
+                                            <a href="/review_san_pham?point=3">3 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
-                                            <button>4 sao</button>
+                                        <div class="item-star-rating <?php if(@$_GET['point']==4) echo 'active' ?>">
+                                            <a href="/review_san_pham?point=4">4 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
-                                            <button>5 sao</button>
+                                        <div class="item-star-rating <?php if(@$_GET['point']==5) echo 'active' ?>">
+                                            <a href="/review_san_pham?point=5">5 sao</a>
                                         </div>
-                                        <div class="item-star-rating">
-                                            <button>Có hình ảnh/video</button>
+                                        <div class="item-star-rating <?php if(@$_GET['image']=='{"1":"","2":"","3":"","4":"","5":""}') echo 'active' ?>">
+                                            <a href='/review_san_pham?image={"1":"","2":"","3":"","4":"","5":""}'>Có hình ảnh/video</a>
                                         </div>
                                     </div>
                                 </div>

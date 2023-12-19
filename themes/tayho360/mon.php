@@ -151,7 +151,7 @@
 <?php }elseif(getdate()['mon']==11){  ?>
     <ul class="slide-time-event absolute"  data-flickity='{"initialIndex": ,s"asNavFor": ".navc", "cellAlign": "center", "contain": true, "draggable": false, "pageDots": false }'>
         <li class="month-start-event" data-month="11">Tháng11</li>
-        <li class="month-start-event" data-month="12">Tháng12</li>s
+        <li class="month-start-event" data-month="12">Tháng12</li>
         <li class="month-start-event" data-month="1">Tháng 1</li>
         <li class="month-start-event" data-month="2">Tháng 2</li>
         <li class="month-start-event" data-month="3">Tháng 3</li>

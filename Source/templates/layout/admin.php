@@ -167,13 +167,16 @@
               </a>
             </li>
 
+            <?php if($infoAdmin->type=='boss' || in_array('infoSite', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="/options/infoSite" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cog"></i>
                 <div>Cài đặt</div>
               </a>
             </li>
+            <?php }?>
 
+            <?php if($infoAdmin->type=='boss' || in_array('posts', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-news"></i>
@@ -193,14 +196,18 @@
                 </li>
               </ul>
             </li>
+            <?php }?>
 
+            <?php if($infoAdmin->type=='boss' || in_array('posts', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="/pages/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Trang tĩnh</div>
               </a>
             </li>
+            <?php }?>
 
+            <?php if($infoAdmin->type=='boss' || in_array('albums', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-photo-album"></i>
@@ -220,7 +227,9 @@
                 </li>
               </ul>
             </li>
+            <?php }?>
 
+            <?php if($infoAdmin->type=='boss' || in_array('videos', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-video"></i>
@@ -240,7 +249,9 @@
                 </li>
               </ul>
             </li>
+            <?php }?>
 
+            <?php if($infoAdmin->type=='boss' || in_array('themes', $infoAdmin->permission) || in_array('menus', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -248,25 +259,42 @@
               </a>
 
               <ul class="menu-sub">
+                <?php if($infoAdmin->type=='boss' || in_array('themes', $infoAdmin->permission)){ ?>
                 <li class="menu-item">
                   <a href="/options/themes" class="menu-link">
                     <div>Kho giao diện</div>
                   </a>
                 </li>
+                <?php }?>
+
+                <?php if($infoAdmin->type=='boss' || in_array('menus', $infoAdmin->permission)){ ?>
                 <li class="menu-item">
                   <a href="/options/menus" class="menu-link">
                     <div>Trình đơn</div>
                   </a>
                 </li>
+                <?php }?>
               </ul>
             </li>
+            <?php }?>
 
+            <?php if($infoAdmin->type=='boss' || in_array('plugins', $infoAdmin->permission)){ ?>
             <li class="menu-item">
               <a href="/options/plugins" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-extension"></i>
                 <div>Mở rộng</div>
               </a>
             </li>
+            <?php }?>
+
+            <?php if($infoAdmin->type=='boss' || in_array('admins', $infoAdmin->permission)){ ?>
+            <li class="menu-item">
+              <a href="/admins/listAdmin" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div>Tài khoản quản trị</div>
+              </a>
+            </li>
+            <?php }?>
 
             <?php 
               global $hookMenuAdminMantan;
@@ -284,12 +312,14 @@
                     if(!empty($menu['sub'])){
                       foreach ($menu['sub'] as $sub) {
                         if(empty($sub['sub'])){
-                          echo '<li class="menu-item">
-                                  <a href="'.$sub['url'].'" class="menu-link">
-                                    <i class="menu-icon tf-icons '.$sub['classIcon'].'"></i>
-                                    <div>'.$sub['title'].'</div>
-                                  </a>
-                                </li>';
+                          if($infoAdmin->type=='boss' || in_array($sub['permission'], $infoAdmin->permission)){
+                            echo '<li class="menu-item">
+                                    <a href="'.$sub['url'].'" class="menu-link">
+                                      <i class="menu-icon tf-icons '.$sub['classIcon'].'"></i>
+                                      <div>'.$sub['title'].'</div>
+                                    </a>
+                                  </li>';
+                          }
                         }else{
                           echo '<li class="menu-item">
                                   <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -299,11 +329,13 @@
 
                                   <ul class="menu-sub">';
                                     foreach ($sub['sub'] as $itemSub) {
-                                      echo '<li class="menu-item">
-                                              <a href="'.$itemSub['url'].'" class="menu-link">
-                                                <div>'.$itemSub['title'].'</div>
-                                              </a>
-                                            </li>';
+                                      if($infoAdmin->type=='boss' || in_array($itemSub['permission'], $infoAdmin->permission)){
+                                        echo '<li class="menu-item">
+                                                <a href="'.$itemSub['url'].'" class="menu-link">
+                                                  <div>'.$itemSub['title'].'</div>
+                                                </a>
+                                              </li>';
+                                      }
                                     }
                           echo    '</ul>
                                 </li>';

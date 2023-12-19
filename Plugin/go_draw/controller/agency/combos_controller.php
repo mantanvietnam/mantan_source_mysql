@@ -97,7 +97,8 @@ function viewCombo($input)
 	    $modelProducts = $controller->loadModel('Products');
 
 		if(!empty($input['request']->getAttribute('params')['pass'][1])){
-			$slug = str_replace('.html', '', $input['request']->getAttribute('params')['pass'][1]);
+			$slug = explode('.html', $input['request']->getAttribute('params')['pass'][1]);
+			$slug = $slug[0];
 
 			$infoCombo = $modelCombos->find()->where(['slug'=>$slug])->first();
 

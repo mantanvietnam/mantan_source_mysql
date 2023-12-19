@@ -8,12 +8,14 @@ function listOrderAdmin($input)
 
     $metaTitleMantan = 'Danh sách đơn hàng';
 
-	$modelOrder = $controller->loadModel('Orders');
+    $modelProduct = $controller->loadModel('Products');
+    $modelOrder = $controller->loadModel('Orders');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
 
-	$conditions = array();
-	$limit = 20;
-	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
-	if($page<1) $page = 1;
+    $conditions = array();
+    $limit = 20;
+    $page = (!empty($_GET['page']))?(int)$_GET['page']:1;
+    if($page<1) $page = 1;
     $order = array('id'=>'desc');
 
     if(!empty($_GET['id'])){
@@ -32,8 +34,110 @@ function listOrderAdmin($input)
         $conditions['status'] = $_GET['status'];
     }
 
-    
-    $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+   if(!empty($_GET['date_start'])){
+        $date_start = explode('/', $_GET['date_start']);
+        $conditions['create_at >='] = mktime(0,0,0,$date_start[1],$date_start[0],$date_start[2]);
+    }
+
+    if(!empty($_GET['date_end'])){
+        $date_end = explode('/', $_GET['date_end']);
+        $conditions['create_at <='] = mktime(23,59,59,$date_end[1],$date_end[0],$date_end[2]);
+            
+    }
+
+    if(!empty($_GET['action']) && $_GET['action']=='Excel'){
+        $listData = $modelOrder->find()->where($conditions)->order($order)->all()->toList();
+        $titleExcel =   [
+            ['name'=>'Thời gian', 'type'=>'text', 'width'=>25],
+            ['name'=>'Họ và tên', 'type'=>'text', 'width'=>25],
+            ['name'=>'Số điện thoại', 'type'=>'text', 'width'=>25],
+            ['name'=>'Địa chỉ', 'type'=>'text', 'width'=>25],
+            ['name'=>'Model', 'type'=>'text', 'width'=>15],
+            ['name'=>'Số lượng', 'type'=>'text', 'width'=>35],
+            ['name'=>'Màu sắc ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Thành tiền ', 'type'=>'text', 'width'=>10],
+            ['name'=>'Thu khách ', 'type'=>'text', 'width'=>15],
+            ['name'=>'NV chốt ', 'type'=>'text', 'width'=>15],
+            ['name'=>'Chú ý', 'type'=>'text', 'width'=>15],
+            ['name'=>'Mã vận đơn', 'type'=>'text', 'width'=>15],
+            ['name'=>'phí shíp', 'type'=>'text', 'width'=>15],
+            ['name'=>'tình trạng', 'type'=>'text', 'width'=>15],    
+        ];
+        $dataExcel = [];
+        if(!empty($listData)){
+            foreach ($listData as $key => $value) {
+                $discount = '';
+                if($value->discount){
+                   $pay = json_decode($value->discount, true);
+
+                   if(!empty($pay['code1']) && !empty($pay['discount_price1'])){
+                        $discount .=  $pay['code1'] .': -'.number_format($pay['discount_price1']).'đ';
+                    }
+                    if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
+                        $discount .=  $pay['code2'] .': -'.number_format($pay['discount_price2']).'đ';
+                    }
+                    if(!empty($pay['code3']) && !empty($pay['discount_price3'])){
+                        $discount .=  $pay['code3'] .': -'.number_format($pay['discount_price3']).'đ';
+                    }
+                }
+                $status= '';
+                if($value->status=='new'){ 
+                    $status= 'Đơn mới';
+                 }elseif($value->status=='browser'){
+                    $status= 'Đã duyệt';
+                 }elseif($value->status=='delivery'){
+                    $status= 'Đang giao';
+                 }elseif($value->status=='done'){
+                    $status= 'Đã xong';
+                 }else{
+                    $status= 'Đã hủy';
+                 }
+
+                $detail_order = $modelOrderDetail->find()->where(['id_order'=>$value->id])->all()->toList();
+                if(!empty($detail_order)){
+                    foreach ($detail_order as $k => $item) {
+                        $product = $modelProduct->find()->where(['id'=>$item->id_product ])->first();
+                        if(!empty($product)){
+                            $dataExcel[] = [
+                                            date('H:i d/m/Y', $value->create_at), 
+                                            @$value->full_name,   
+                                            @$value->phone,   
+                                            @$value->address,   
+                                            $product->title,
+                                            $item->quantity,
+                                            '',
+                                            $item->price*$item->quantity,
+                                            '', 
+                                            '',
+                                            @$value->note_user,
+                                            @$value->id,
+                                            '',
+                                            $status,
+                                        ];
+                        }
+                    }
+                }
+            }
+        }
+       export_excel($titleExcel,$dataExcel,'danh_sach_don_hang');
+    }else{
+        $listData = $modelOrder->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    }
+    if(!empty($listData)){
+        foreach($listData as $key => $item){
+            $detail_order = $modelOrderDetail->find()->where(['id_order'=>$item->id])->all()->toList();
+            if(!empty($detail_order)){
+                foreach ($detail_order as $k => $value) {
+                    $product = $modelProduct->find()->where(['id'=>$value->id_product ])->first();
+                    if(!empty($product)){
+                        $detail_order[$k]->product = $product->title;
+                    }
+                }
+
+                $listData[$key]->detail_order = $detail_order;
+            }
+        }
+    }
 
     // phân trang
     $totalData = $modelOrder->find()->where($conditions)->all()->toList();
@@ -81,7 +185,7 @@ function deleteOrderAdmin($input)
     global $controller;
 
     $modelOrder = $controller->loadModel('Orders');
-    $modelOrderDetail = $controller->loadModel('OrderDetail');
+    $modelOrderDetail = $controller->loadModel('OrderDetails');
     
     if(!empty($_GET['id'])){
         $data = $modelOrder->get((int) $_GET['id']);
@@ -122,22 +226,23 @@ function viewOrderAdmin($input)
                     $present = array();
 
                     if(!empty($product->id_product) ){
-                    $id_product = explode(',', @$product->id_product);
-               
-                    foreach($id_product as $item){
-                        $presentf = $modelProduct->find()->where(['id'=>$item])->first();
-
-                       ;
-                        if(!empty($presentf)){
-                            $present[] = $presentf;
+                        $id_product = explode(',', @$product->id_product);
+                        foreach($id_product as $item){
+                            $presentf = $modelProduct->find()->where(['code'=>$item])->first();
+                            $presentf->numberOrder = $value->quantity;
+                            if(!empty($presentf)){
+                                $present[] = $presentf;
+                            }
                         }
+                        
                     }
-                    
-            }
-            $product->present = $present;
-                $detail_order[$key]->product = $product;
+                    $product->present = $present;
+                    $detail_order[$key]->product = $product;
                 }
             }
+
+            // debug($detail_order);die;
+
             setVariable('order', $order);
             setVariable('detail_order', $detail_order);
         }else{
@@ -165,7 +270,7 @@ function treatmentOrder($input){
         $order->status = $_GET['status'];
 
         $modelOrder->save($order);
-         return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
 
     }
 }

@@ -10,7 +10,7 @@ function listPrepayCard($input)
 
 	$modelPrepayCard = $controller->loadModel('PrepayCards');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listPrepayCard', 'prepaid_cards'))){
 		$infoUser = $session->read('infoUser');
 
          $mess = '';
@@ -97,7 +97,7 @@ function listPrepayCard($input)
         setVariable('listData', $listData);
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -111,7 +111,7 @@ function addPrepayCard($input){
 
     $metaTitleMantan = 'Thông tin thẻ dịch vụ';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addPrepayCard', 'prepaid_cards'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelPrepayCard = $controller->loadModel('PrepayCards');
 		$modelTrademarks = $controller->loadModel('Trademarks');
@@ -162,7 +162,7 @@ function addPrepayCard($input){
 
         setVariable('data', $data);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 function deletePrepayCard($input){
@@ -171,7 +171,7 @@ function deletePrepayCard($input){
 
     $modelPrepayCard = $controller->loadModel('PrepayCards');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deletePrepayCard', 'prepaid_cards'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -184,7 +184,7 @@ function deletePrepayCard($input){
 
         return $controller->redirect('/listPrepayCard');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 function buyPrepayCard($input){
@@ -202,7 +202,8 @@ function buyPrepayCard($input){
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	$modelBill = $controller->loadModel('Bills');
 	$modelMembers = $controller->loadModel('Members');
-	if(!empty($session->read('infoUser'))){
+	
+    if(!empty(checkLoginManager('buyPrepayCard', 'prepaid_cards'))){
 		$infoUser = $session->read('infoUser');
 		$order = array('id'=>'desc');
 		$conditions = array('id_member'=>$infoUser->id_member, 'id_spa'=>$session->read('id_spa'));
@@ -270,7 +271,7 @@ function buyPrepayCard($input){
 	    setVariable('listStaffs', $listStaffs);
 	    setVariable('listData', $listData);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 function printInfoBillCard($input){
@@ -283,7 +284,7 @@ function printInfoBillCard($input){
 
     $metaTitleMantan = 'in đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('printInfoBillCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
 
         $modelBill = $controller->loadModel('Bills');
@@ -318,7 +319,7 @@ function printInfoBillCard($input){
         	return $controller->redirect('/dashboard');
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -327,9 +328,9 @@ function listCustomerPrepayCard($input){
     global $metaTitleMantan;
     global $session;
 
-    $metaTitleMantan = 'Danh sách thẻ trước';
+    $metaTitleMantan = 'Danh sách khách mua thẻ trước';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCustomerPrepayCard', 'prepaid_cards'))){
         $user = $session->read('infoUser');
 
         $modelBill = $controller->loadModel('Bills');
@@ -376,7 +377,7 @@ function listCustomerPrepayCard($input){
             setVariable('listData', $listData);
         
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

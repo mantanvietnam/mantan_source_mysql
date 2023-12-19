@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Đăng ký phần mềm quản lý SPA  </title>
+    <title>Đăng ký phần mềm quản lý DATA SPA  </title>
 
     <meta name="description" content="" />
 
@@ -83,7 +83,7 @@
                 </a>
               </div> -->
               <!-- /Logo -->
-              <h4 class="mb-2">Phần mềm quản lý SPA! 👋</h4>
+              <h4 class="mb-2">Phần mềm quản lý DATA SPA 👋</h4>
               <p class="mb-4">Đăng ký sử dụng phần mềm quản lý SPA</p>
               <?php echo @$mess;?>
               <form id="formAuthentication" class="mb-3" action="" method="POST">

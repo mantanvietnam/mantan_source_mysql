@@ -1,4 +1,55 @@
 <?php 
+function deletePageLayerAPI($input)
+{
+	global $isRequestPost;
+	global $controller;
+	global $modelCategories;
+
+	$return = array('code'=>0);
+
+	$modelProductDetail = $controller->loadModel('ProductDetails');
+	$modelMember = $controller->loadModel('Members');
+	$modelProduct = $controller->loadModel('Products');
+
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['idProduct']) && !empty($dataSend['token']) && isset($dataSend['page'])){
+			$dataMembr = $modelMember->find()->where(['token'=>$dataSend['token']])->first();
+
+			if(!empty($dataMembr)){
+				$product = $modelProduct->find()->where(['id'=>$dataSend['idProduct'], 'user_id'=>$dataMembr->id])->first();
+				
+				if(!empty($product)){
+					$listLayer = $modelProductDetail->find()->where(array('products_id'=>$dataSend['idProduct']))->all()->toList();
+
+					if(!empty($listLayer)){
+						foreach ($listLayer as $key => $value) {
+							$content = json_decode($value->content, true);
+
+							if(empty($content['page'])) $content['page'] = 0;
+
+							if($content['page'] == $dataSend['page']){
+								$modelProductDetail->delete($value);
+							}
+						}
+					}
+				}else{
+					$return = array('code'=>3, 'mess'=>'Bạn không có quyền xóa layer của mẫu thiết kế này');
+				}
+			}else{
+				$return = array('code'=>2, 'mess'=>'Sai mã token');
+			}
+		}else{
+			$return = array('code'=>1, 'mess'=>'Gửi thiếu dữ liệu');
+		}
+	}else{
+		$return = array('code'=>1, 'mess'=>'Gửi thiếu dữ liệu');
+	}
+
+	return $return;
+}
+
 // xóa layer
 function deleteLayerAPI($input){
 	global $isRequestPost;
@@ -199,6 +250,8 @@ function addLayerImageAPI($input){
 		            // layer mới
 		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
 		            if(!empty($product)){
+		            	if(empty($dataSend['page'])) $dataSend['page'] = 0;
+
 			            $sizeBackground = getimagesize($product->thumn);
 
 			            $tyle = $sizeBackground[0]*100/30;
@@ -208,8 +261,9 @@ function addLayerImageAPI($input){
 			            
 			            $new->name = 'Layer '.$idlayer;
 			            $new->products_id = $dataSend['idproduct'];
-			            $new->content = json_encode(getLayer($idlayer,'image',$thumbnail['linkOnline'],$tyle, $tyle));
+			            $new->content = json_encode(getLayer($idlayer, 'image', $thumbnail['linkOnline'], $tyle, $tyle, '', '', '', 'Arial','#000','10vw', '', 0, $dataSend['page']));
 			            $new->sort = $idlayer;
+
 			            
 			            $new->created_at = date('Y-m-d H:i:s');
 			            
@@ -269,6 +323,8 @@ function addLayerImageUrlAPI($input){
 		            // layer mới
 		            $product = $modelProduct->find()->where(array('id'=>$dataSend['idproduct'], 'user_id'=>$user->id))->first();
 		            if(!empty($product)){
+		            	if(empty($dataSend['page'])) $dataSend['page'] = 0;
+
 			            $sizeBackground = getimagesize($product->thumn);
 
 			            $tyle = $sizeBackground[0]*100/30;
@@ -278,8 +334,10 @@ function addLayerImageUrlAPI($input){
 			            
 			            $new->name = 'Layer '.$idlayer;
 			            $new->products_id = $dataSend['idproduct'];
-			            $new->content = json_encode(getLayer($idlayer,'image',$dataSend['imageUrl'],$tyle, $tyle));
+			            $new->content = json_encode(getLayer($idlayer, 'image', $dataSend['imageUrl'], $tyle, $tyle, '', '', '', 'Arial','#000','10vw', '', 0, $dataSend['page']));
 			            $new->sort = $idlayer;
+
+			            
 			            
 			            $new->created_at = date('Y-m-d H:i:s');
 			            
@@ -473,9 +531,11 @@ function addLayerText($input){
 				// lấy tk người dùng 
 				$dataMembr = $modelMember->get($dataProduct->user_id);
 				if ($dataMembr->token == $dataSend['token']) {
+					if(empty($dataSend['page'])) $dataSend['page'] = 0;
 					
 					$datalayer = $modelProductDetail->newEmptyEntity();
-					$datalayer->content = json_encode(getLayer($idlayer, 'text', '', '80', '30', @$dataSend['text'],'','', $dataSend['font'],$dataSend['color'] ,$dataSend['size']));
+					$datalayer->content = json_encode(getLayer($idlayer, 'text', '', '80', '30', @$dataSend['text'],'','', $dataSend['font'],$dataSend['color'] ,$dataSend['size'], '', 0, $dataSend['page']));
+
 					$datalayer->name =  'layer '.$idlayer;
 					$datalayer->created_at = date('Y-m-d H:i:s');
 					$datalayer->products_id =  @$dataSend['idproduct'];
@@ -851,4 +911,3 @@ function addListLayerAPI($input){
 	return $return;
 }
 ?>
-

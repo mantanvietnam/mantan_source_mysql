@@ -21,7 +21,7 @@
         $price_total = 0;
 
         if(empty($list_product)){ ?>
-            <section id="section-cart-empty" style="display: none">
+            <section id="section-cart-empty">
                 <div class="container">
                     <div class="section-cart-empty-inner">
                         <div class="cart-empty-image">
@@ -46,7 +46,7 @@
                                     <p>Số lượng</p>
                                 </div>
 
-                                <div class="cart-table">
+                               
                                     <?php
                                         foreach ($list_product as $key => $value) {
                                             $link = '/product/'.$value->slug.'.html';
@@ -60,7 +60,9 @@
                                             $price_buy = $value->price * $value->numberOrder;
                                             $price_total += $price_buy;
 
-                                            echo '  <div class="cart-table-image">
+                                            echo '  
+                                            <div class="cart-table">
+                                                    <div class="cart-table-image">
                                                         <img src="'.$value->image.'" alt="">
                                                     </div>
                                                     <div class="cart-table-info">
@@ -83,18 +85,19 @@
 
                                                     <div class="cart-delete">
                                                         <div class="cart-delete-inner">
-                                                            <a href="/"><i class="fa-solid fa-trash-can"></i></a>
+                                                            <a href="/deleteProductCart/?id_product='.$value->id.'"><i class="fa-solid fa-trash-can"></i></a>
                                                         </div>
+                                                    </div>
                                                     </div>';
                                         }
                                     ?>
-                                </div>
+                               
                             </div>
             
                             <div class="col-lg-4 col-md-4 col-sm-4 col-12 cart-right">
                                 <div class="cart-right-inner">
                                     <div class="form-contact-title">
-                                        <h3>Yêu cầu tư vấn sản phẩm</h3>
+                                        <h3>Đặt mua sản phẩm</h3>
                                     </div>
 
                                     <form action="/createOrder" method="post">
@@ -116,8 +119,8 @@
                                                 <textarea type="text" id="message" name="note_user" rows="4" class="form-control md-textarea" placeholder="Nội dung liên hệ"></textarea>
                                             </div>
 
-                                            <div class="button-submit-contact">
-                                                <a href="">Gửi yêu cầu </a>
+                                            <div class="button-submit-contact text-center">
+                                                <button type="submit" class="btn btn-dark">TẠO ĐƠN MUA HÀNG</button>
                                             </div>
                                         </div>
                                     </form>

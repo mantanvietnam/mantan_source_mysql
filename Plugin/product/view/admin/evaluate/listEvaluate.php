@@ -11,7 +11,7 @@
         <thead>
           <tr class="">
             <th>ID</th>
-            <th>ảnh đạt điện</th>
+            <th>ảnh đạt diện</th>
             <th>Họ và tên</th>
             <th>điểm</th>
             <th>Nội dung</th>

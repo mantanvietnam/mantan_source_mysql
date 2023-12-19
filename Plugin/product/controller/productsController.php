@@ -10,22 +10,20 @@ function listProduct($input)
 
 	$modelProduct = $controller->loadModel('Products');
 
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
+
 	$conditions = array();
 	$limit = 20;
 	$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 	if($page<1) $page = 1;
-    $order = array('id'=>'desc');
+    $order = array('Products.id'=>'desc');
 
-    if(!empty($_GET['id'])){
-        $conditions['id'] = (int) $_GET['id'];
+    if(!empty($_GET['code'])){
+        $conditions['code'] =  $_GET['code'];
     }
 
     if(!empty($_GET['title'])){
         $conditions['title LIKE'] = '%'.$_GET['title'].'%';
-    }
-
-    if(!empty($_GET['id_category'])){
-        $conditions['id_category'] = (int) $_GET['id_category'];
     }
 
     if(!empty($_GET['id_manufacturer'])){
@@ -45,23 +43,56 @@ function listProduct($input)
     if(!empty($_GET['status'])){
         $conditions['status'] = $_GET['status'];
     }
-    
-    $listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
 
+    if(!empty($_GET['id_category'])){
+        $conditions['cp.id_category'] = (int)$_GET['id_category'];
+            $listData = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+            $totalData = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->where($conditions)->all()->toList();
+
+
+
+    }else{
+        $listData = $modelProduct->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+        $totalData = $modelProduct->find()->where($conditions)->all()->toList();
+    }
     if(!empty($listData)){
-        $category[0] = $modelCategories->newEmptyEntity();
 
     	foreach ($listData as $key => $value) {
-    		if(empty($category[$value->id_category])){
-    			$category[$value->id_category] = $modelCategories->get( (int) $value->id_category);
-    		}
+
+                 $conditionsCategorie = ['id_product'=>$value->id];
+                $category  =    $modelCategorieProduct->find()->where(array($conditionsCategorie))->all()->toList();
+                if(!empty($category)){
+                    foreach ($category as $k => $item) {
+                        if(!empty($item->id_category)){
+                            $category[$k]->name_category = @$modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
+                          
+                        }
+
+                         
+    
+                    }
+                } 
+                $listData[$key]->category = $category;
+            
     		
-    		$listData[$key]->name_category = (!empty($category[$value->id_category]->name))?$category[$value->id_category]->name:'';
+    		
     	}
     }
-
     // phân trang
-    $totalData = $modelProduct->find()->where($conditions)->all()->toList();
     $totalData = count($totalData);
 
     $balance = $totalData % $limit;
@@ -118,14 +149,13 @@ function addProduct($input)
 
     $metaTitleMantan = 'Thông tin sản phẩm';
 
-	$modelProduct = $controller->loadModel('Products');
+    $modelProduct = $controller->loadModel('Products');
+	$modelCategorieProduct = $controller->loadModel('CategorieProducts');
 	$mess= '';
 
 	// lấy data edit
     if(!empty($_GET['id'])){
-        $data = $modelProduct->get( (int) $_GET['id']);
-
-        
+        $data = $modelProduct->get( (int) $_GET['id']);  
     }else{
         $data = $modelProduct->newEmptyEntity();
     }
@@ -136,7 +166,7 @@ function addProduct($input)
         if(!empty($dataSend['title'])){
 	        // tạo dữ liệu save
 	        $data->title = str_replace(array('"', "'"), '’', @$dataSend['title']);
-            $data->id_category = (int) @$dataSend['id_category'];
+            // $data->id_category = (int) @$dataSend['id_category'];
             $data->hot = (int) @$dataSend['hot'];
             $data->description = @$dataSend['description'];
             $data->keyword = @$dataSend['keyword'];
@@ -147,6 +177,8 @@ function addProduct($input)
             $data->code = @$dataSend['code'];
             $data->price = (int) @$dataSend['price'];
             $data->price_old = (int) @$dataSend['price_old'];
+            $data->quantity_initial = (int) @$dataSend['quantity_initial'];
+            $data->number_like = (int) @$dataSend['number_like'];
             $data->quantity = (int) @$dataSend['quantity'];
             $data->id_manufacturer = (int) @$dataSend['id_manufacturer'];
 	        $data->status = @$dataSend['status'];
@@ -157,7 +189,7 @@ function addProduct($input)
             $data->pricepro_discount = @$dataSend['pricepro_discount'];
 
 
-	        
+
              
 	        // tạo slug
             $slug = createSlugMantan($dataSend['title']);
@@ -182,6 +214,26 @@ function addProduct($input)
 
 	        $modelProduct->save($data);
 
+             
+
+            // lưu danh mục sản phẩm
+                if(!empty($dataSend['id_category'])){
+                    $conditions = ['id_product'=>$data->id];
+                    $modelCategorieProduct->deleteAll($conditions);
+
+                    foreach ($dataSend['id_category'] as $id_category) {
+                        $category = $modelCategorieProduct->newEmptyEntity();
+
+                        $category->id_product = $data->id;;
+                        $category->id_category = $id_category;
+
+                        $modelCategorieProduct->save($category);
+                    }
+                }else{
+                    $conditions = ['id_product'=>$data->id];
+                    $modelCategorieProduct->deleteAll($conditions);
+                }
+
 
 
 
@@ -204,12 +256,24 @@ function addProduct($input)
     $conditions = array('type' => 'category_product');
     $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
+    $listCategoryCheck = [];
+        if(!empty($data->id)){
+            $listCheck = $modelCategorieProduct->find()->where(['id_product'=>$data->id])->all()->toList();
+
+            if(!empty($listCheck)){
+                foreach ($listCheck as $check) {
+                    $listCategoryCheck[] = $check->id_category;
+                }
+            }
+        }
+
     $conditions = array('type' => 'manufacturer_product');
     $listManufacturer = $modelCategories->find()->where($conditions)->all()->toList();
 
     setVariable('data', $data);
     setVariable('mess', $mess);
     setVariable('listCategory', $listCategory);
+    setVariable('listCategoryCheck', $listCategoryCheck);
     setVariable('listManufacturer', $listManufacturer);
 }
 
@@ -434,10 +498,10 @@ function listReview($input){
 
         foreach ($listData as $key => $value) {
             if(!empty($value->id_user)){
-                $listData[$key]->user = $modelCustomers->get( (int) $value->id_user);
+                $listData[$key]->user = $modelCustomers->find()->where(array('id'=>$value->id_user))->first();
             }
             if(!empty($value->id_product)){
-                $listData[$key]->product = $modelProduct->get( (int) $value->id_product);
+                $listData[$key]->product = $modelProduct->find()->where(array('code'=>$value->id_product))->first();
             }
             
          
@@ -520,6 +584,7 @@ function upReview(){
         if($data){
             if(!empty($_GET['id_product'])){
                 $data->id_product = $_GET['id_product'];
+                $data->image = $_GET['image'];
                 $data->status = 'active';
             }else{
                 $data->id_product = '';
@@ -533,5 +598,29 @@ function upReview(){
     }
 
     return $controller->redirect('/plugins/admin/product-view-admin-product-listReview.php');
+}
+
+function addNumberShare(){
+    global $controller;
+
+    $modelReview = $controller->loadModel('Reviews');
+    
+    if(!empty($_POST['id'])){
+        $data = $modelReview->get($_POST['id']);
+        
+        if($data){
+          $data->number_share +=1;
+            
+
+            $modelReview->save($data);
+            $return  =array('code'=>1);
+        }else{
+            $return  =array('code'=>0);
+        }
+    }else{
+        $return  =array('code'=>2);
+    }
+
+    return $return;
 }
 ?>

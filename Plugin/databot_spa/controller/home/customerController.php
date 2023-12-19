@@ -16,7 +16,7 @@ function listCustomer($input)
 	$modelProduct = $controller->loadModel('Products');
 	$modelCustomerPrepaycard = $controller->loadModel('CustomerPrepaycards');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array('id_member'=>$infoUser->id_member);
@@ -205,7 +205,7 @@ function listCustomer($input)
 	    setVariable('listData', $listData);
 	    setVariable('listStaff', $listStaff);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -228,7 +228,7 @@ function addCustomer($input)
 	
 	$mess= '';
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -315,17 +315,9 @@ function addCustomer($input)
 	    $category = array('type'=>'category_customer', 'id_member'=>$infoUser->id_member);
 	    $dataGroup = $modelCategories->find()->where($category)->order(['name' => 'ASC'])->all()->toList();
 
-	    if(empty($dataGroup)){
-	    	return $controller->redirect('listCategoryCustomer?error=requestCategoryCustomer');
-	    }
-
 	    // danh sách dịch vụ
 	    $service = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
 	    $dataService = $modelService->find()->where($service)->order(['name' => 'ASC'])->all()->toList();
-
-	     if(empty($dataService)){
-	    	return $controller->redirect('listService?error=requestSourceCustomer');
-	    }
 
 	    // danh sách sản phẩm
 	    $product = array('id_member'=>$infoUser->id_member, 'id_spa'=>(int) $session->read('id_spa'));
@@ -335,7 +327,7 @@ function addCustomer($input)
 	    $source = array('type'=>'category_source_customer', 'id_member'=>$infoUser->id_member);
 	    $dataSource = $modelCategories->find()->where($source)->order(['name' => 'ASC'])->all()->toList();
 	   	
-	   	
+
 	    if(empty($dataGroup)){
 	    	return $controller->redirect('/listCategoryCustomer/?error=requestCategoryCustomer');
 	    }
@@ -344,6 +336,7 @@ function addCustomer($input)
 	    	return $controller->redirect('/listSourceCustomer/?error=requestSourceCustomer');
 	    }
 
+	    /*
 	    if(empty($dataService)){
 	    	return $controller->redirect('/listService/?error=requestService');
 	    }
@@ -351,7 +344,7 @@ function addCustomer($input)
 	    if(empty($dataProduct)){
 	    	return $controller->redirect('/listProduct/?error=requestProduct');
 	    }
-	    
+	    */
 
 	    setVariable('data', $data);
 	    setVariable('dataMember', $dataMember); 
@@ -363,7 +356,7 @@ function addCustomer($input)
 	    setVariable('mess', $mess);
 	    setVariable('infoUser', $infoUser);
     }else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -373,7 +366,7 @@ function deleteCustomer($input){
 	
 	$modelCustomer = $controller->loadModel('Customers');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deleteCustomer', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -386,7 +379,7 @@ function deleteCustomer($input){
 
 		return $controller->redirect('/listCustomer');
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -398,7 +391,7 @@ function listCategoryCustomer($input){
 
     $metaTitleMantan = 'Nhóm khách hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCategoryCustomer', 'customer'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -435,7 +428,7 @@ function listCategoryCustomer($input){
             $infoCategory->keyword = $dataSend['value_name'];
             $infoCategory->description = $dataSend['value_id'];
             $infoCategory->type = 'category_customer';
-            $infoCategory->slug = createSlugMantan($infoCategory->name).'-'.time();
+            $infoCategory->slug = $dataSend['value_phone'];
 
             $modelCategories->save($infoCategory);
 
@@ -449,7 +442,7 @@ function listCategoryCustomer($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -461,7 +454,7 @@ function listSourceCustomer($input){
     global $urlHomes;
 
     $metaTitleMantan = 'Nguồn khách hàng';
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listSourceCustomer', 'customer'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -512,7 +505,7 @@ function listSourceCustomer($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -524,7 +517,7 @@ function deleteCategoryCustomer($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa nhóm khách hàng';
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteCategoryCustomer', 'customer'))){
         $infoUser = $session->read('infoUser');
         $modelCustomer = $controller->loadModel('Customers');
 
@@ -533,17 +526,17 @@ function deleteCategoryCustomer($input){
             $data = $modelCategories->find()->where($conditions)->first();
 
             if(!empty($_GET['type'])){
-            switch ($_GET['type']) {
-                case 'Source':
-                    $checkCustomer = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
-                    break;
-                case 'Category':
-                   	$checkCustomer = $modelCustomer->find()->where(array('id_group'=>$data->id))->all()->toList();
-                    break;
+	            switch ($_GET['type']) {
+	                case 'Source':
+	                    $checkCustomer = $modelCustomer->find()->where(array('source'=>$data->id))->all()->toList();
+	                    break;
+	                case 'Category':
+	                   	$checkCustomer = $modelCustomer->find()->where(array('id_group'=>$data->id))->all()->toList();
+	                    break;
 
-          
-            }
-        }
+	          
+	            }
+	        }
             
 
             if(empty($checkCustomer)){
@@ -562,7 +555,96 @@ function deleteCategoryCustomer($input){
         	return array('code'=>0);
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
+
+function addDataCustomer($input){
+	global $isRequestPost;
+    global $modelCategories;
+    global $metaTitleMantan;
+    global $session;
+    global $controller;
+    global $urlHomes;
+
+    $metaTitleMantan = 'Thêm khách hàng bằng Excel';
+    
+    if(!empty(checkLoginManager('addDataCustomer', 'customer'))){
+        $infoUser = $session->read('infoUser');
+        
+        $modelCustomer = $controller->loadModel('Customers');
+
+        $mess= '';
+
+		if($isRequestPost){
+			$dataSeries = uploadAndReadExcelData('dataCustomer');
+
+			if($dataSeries){
+				unset($dataSeries[0]);
+
+				$double = [];
+
+				foreach ($dataSeries as $key => $value) {
+					if(!empty($value[0]) && !empty($value[1])){
+						$value[1] = trim(str_replace(array(' ','.','-'), '', $value[1]));
+			        	$value[1] = str_replace('+84','0',$value[1]);
+
+			        	$conditions = ['phone'=>$value[1],'id_member'=>$infoUser->id_member];
+			        	$checkPhone = $modelCustomer->find()->where($conditions)->first();
+
+			        	if(empty($checkPhone)){
+							$data = $modelCustomer->newEmptyEntity();
+							
+							$data->created_at = date('Y-m-d H:i:s');
+							$data->updated_at = date('Y-m-d H:i:s');
+							$data->point = 0;
+							$data->medical_history = '';
+					        $data->drug_allergy_history = '';
+					        $data->request_current = '';
+					        $data->advisory = '';
+					        $data->advise_towards = '';
+					        $data->id_member =(int) $infoUser->id_member;
+					        $data->id_spa = (int) $session->read('id_spa');
+							
+							$data->name = $value[0];
+							$data->phone = $value[1];
+							$data->email = $value[2];
+							$data->address = $value[3];
+							$data->avatar = (!empty($value[4]))?$value[4]:$urlHomes.'/plugins/databot_spa/view/home/assets/img/avatar-default.png';
+							$data->sex = (int) $value[5];
+							$data->birthday = $value[6];
+							$data->cmnd = $value[7];
+							$data->id_staff = (int) $value[8];
+							$data->id_group = (int) $value[9];
+							$data->link_facebook = $value[10];
+							$data->job = $value[11];
+							$data->source = (int) $value[12];
+							$data->id_service =(int) $value[13];
+							$data->id_product =(int) $value[14];
+							$data->note = $value[15];
+
+					        $modelCustomer->save($data);
+					    }else{
+					    	$double[] = $value[1];
+					    }
+				        
+				    }else{
+				    	$mess= '<p class="text-danger">Bạn không được để trống tên và số điện thoại</p>';
+				    }
+				}
+
+				if(!empty($double)){
+					$mess= '<p class="text-danger">Các khách hàng sau đã có tài khoản từ trước: '.implode(', ', $double).'</p>';
+				}
+
+				$mess .= '<p class="text-success">Lưu dữ liệu thành công</p>';
+			}
+		}
+			
+		setVariable('mess', $mess);
+    }else{
+        return $controller->redirect('/');
+    }
+}
+
 ?>

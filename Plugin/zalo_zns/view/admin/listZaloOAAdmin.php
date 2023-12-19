@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Quản lý Zalo OA</h4>
-  <p><a href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> <button onclick="$('#addMoneyModal').modal('show');" type="button" class="btn btn-danger"><i class='bx bx-dollar'></i> Nạp tiền Zalo OA</button></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -33,6 +33,8 @@
     <h5 class="card-header">Danh sách Zalo OA</h5>
     
     <div class="card-body row">
+      <p>Link callback: <?php echo $urlHomes;?>callbackZalo</p>
+      <p>Số dư tài khoản: <?php echo number_format($money_zalo_zns);?>đ</p>
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -41,6 +43,7 @@
               <th>ID OA</th>
               <th>ID APP</th>
               <th>Khóa bảo mật</th>
+              <th>Deadline</th>
               <th>Sửa</th>
               <th>Xóa</th>
             </tr>
@@ -49,12 +52,19 @@
             <?php 
               if(!empty($listData)){
                 foreach ($listData as $item) {
+                  
+                  if(empty($item->access_token)){
+                    $access_token = '<a target="_blank" href="https://developers.zalo.me/app/'.$item->id_app.'/oa/settings" class="btn btn-primary">Cấp quyền</a>';
+                  }else{
+                    $access_token = date('H:i d/m/Y', $item->deadline);
+                  }
 
                   echo '<tr>
                           <td>'.$item->id.'</td>
                           <td>'.$item->id_oa.'</td>
                           <td>'.$item->id_app.'</td>
                           <td>'.$item->secret_key.'</td>
+                          <td>'.$access_token.'</td>
 
                           <td align="center">
                             <a class="dropdown-item" href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php/?id='.$item->id.'">
@@ -125,4 +135,17 @@
     </div>
   </div>
   <!--/ Responsive Table -->
+</div>
+
+<div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quét mã QR để nạp tiền</h5>
+      </div>
+      <div class="modal-body">
+        <img src="https://img.vietqr.io/image/TPB-06931228686-compact2.png?amount=500000&addInfo=ZALO <?php echo $_SERVER['HTTP_HOST'];?>&accountName=Tran Ngoc Manh" class="img-fluid">
+      </div>
+    </div>
+  </div>
 </div>

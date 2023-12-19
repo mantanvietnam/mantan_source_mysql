@@ -418,6 +418,9 @@ function addProductToStore($input)
     	$modelAgencyOrderProductHistories = $controller->loadModel('AgencyOrderProductHistories');
 	    $modelProducts = $controller->loadModel('Products');
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
+	    $modelWarehouseHistories = $controller->loadModel('WarehouseHistories');
+	    $modelAgencyAccounts = $controller->loadModel('AgencyAccounts');
+		$modelAgencies = $controller->loadModel('Agencies');
 		
 		$user = $session->read('infoUser');
 
@@ -460,12 +463,34 @@ function addProductToStore($input)
                            $checkProduct->amount = 0;
                        	}
 
-                       $checkProduct->agency_id = $order->agency_id;
-                       $checkProduct->product_id = $item->product_id;
-                       $checkProduct->price = $item->price;
-                       $checkProduct->amount += $item->amount;
+                       	$checkProduct->agency_id = $order->agency_id;
+                       	$checkProduct->product_id = $item->product_id;
+                       	$checkProduct->price = $item->price;
+                       	$checkProduct->amount += $item->amount;
 
-                       $listAgencyProduct[] = $checkProduct;
+                       	$listAgencyProduct[] = $checkProduct;
+
+                       	// trừ hàng trong kho admin
+                       	$info_product = $modelProducts->get($item->product_id);
+			            $info_product->amount_in_stock -= $item->amount;
+
+			            $modelProducts->save($info_product);
+
+			            // tạo phiếu xuất kho
+			            $userAcc = $modelAgencyAccounts->get($session->read('infoUser')->id);
+						$user = $modelAgencies->get($userAcc->agency_id);
+
+			            $warehouse = $modelWarehouseHistories->newEmptyEntity();
+
+			            $warehouse->product_id = (int) $item->product_id;
+			            $warehouse->amount = (int) $item->amount;
+			            $warehouse->total_price = $item->amount*$item->price;
+			            $warehouse->price_average = $item->price;
+			            $warehouse->note = 'Xuất sản phẩm '.$info_product->name.' về kho của đại lý '.$user->name;
+			            $warehouse->updated_at = date('Y-m-d H:i:s');
+			            $warehouse->type = 'minus';
+
+			            $modelWarehouseHistories->save($warehouse);
 	                   
 	               	}
 

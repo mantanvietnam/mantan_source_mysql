@@ -24,5 +24,3 @@ class CommentsTable extends Table
 
 
 ?>
-
-    

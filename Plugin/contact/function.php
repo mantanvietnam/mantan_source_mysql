@@ -18,7 +18,7 @@ $categoryMenu[0]['sub'] = array(array ( 'url' => '/contact',
 
 addMenusAppearance($categoryMenu);
 
-function sendEmailContact($email='',$fullName='',$phone='',$subject='', $content='')
+function sendEmailContact($email='',$fullName='',$phone='', $contacht='')
 {
     $to = array();
 
@@ -27,14 +27,14 @@ function sendEmailContact($email='',$fullName='',$phone='',$subject='', $content
     
         $cc = array();
         $bcc = array();
-        $subject = 'Liên hệ mới từ [WARN]';
+        $subject = 'Liên hệ mới từ [Web Bumas]';
 
         $content='<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Liên hệ mới từ [WARN]</title>
+            <title>Liên hệ mới từ [Web Bumas]</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <style>
@@ -66,12 +66,11 @@ function sendEmailContact($email='',$fullName='',$phone='',$subject='', $content
                 <div class="nd">
                     <div class="main" style=" font-size: 16px;">
                         Full name: '.$fullName.'<br/> 
-                        Address: '.$address.'<br/> 
                         Email: '.$email.'<br/> 
                         Phone: '.$phone.'<br/>
                         contacht: '.$contacht.'<br>
                         <br/>
-                        <a href="http://warm.creatio.vn">http://warm.creatio.vn</a>
+                        <a href="https://bumas.vn">https://bumas.vn</a>
                         
                         <br><br>
                         

@@ -1,5 +1,6 @@
 <?php
-global $routesPlugin;
+    global $routesPlugin;
+
     // Admin
     $routesPlugin['adminDeleteAccountApi']= 'go_draw/view/adminDeleteAccountApi.php';
     $routesPlugin['adminUpdateStaffAccountApi']= 'go_draw/view/adminUpdateStaffAccountApi.php';
@@ -12,7 +13,9 @@ global $routesPlugin;
     $routesPlugin['login']= 'go_draw/view/agency/agency_accounts/login.php';
     $routesPlugin['logout']= 'go_draw/view/agency/agency_accounts/logout.php';
     $routesPlugin['changePass']= 'go_draw/view/agency/agency_accounts/changePass.php';
+    $routesPlugin['profile']= 'go_draw/view/agency/agency_accounts/profile.php';
     $routesPlugin['checkBoos']= 'go_draw/view/agency/agency_accounts/checkBoos.php';
+    
 
     $routesPlugin['listCombo']= 'go_draw/view/agency/combos/listCombo.php';
     $routesPlugin['viewCombo']= 'go_draw/view/agency/combos/viewCombo.php';
@@ -29,6 +32,11 @@ global $routesPlugin;
 
     $routesPlugin['orderAgencyProcess']= 'go_draw/view/agency/agency_orders/orderAgencyProcess.php';
     $routesPlugin['orderAgencyDone']= 'go_draw/view/agency/agency_orders/orderAgencyDone.php';
+
+    // kiểm tra combo
+    $routesPlugin['checkCombo']= 'go_draw/view/agency/user_orders/checkCombo.php';
+    $routesPlugin['viewComboAgency']= 'go_draw/view/agency/user_orders/viewComboAgency.php';
+    $routesPlugin['addCartComboUser']= 'go_draw/view/agency/user_orders/addCartComboUser.php';
 
     // đơn hàng mua sản phẩm với hệ thống listProduct
     $routesPlugin['listProduct']= 'go_draw/view/agency/products/listProduct.php';
@@ -62,8 +70,10 @@ global $routesPlugin;
 	$routesPlugin['orderUserProcess']= 'go_draw/view/agency/user_orders/orderUserProcess.php';
 	$routesPlugin['processUserOrder']= 'go_draw/view/agency/user_orders/processUserOrder.php';
 	$routesPlugin['checkoutOrderUser']= 'go_draw/view/agency/user_orders/checkoutOrderUser.php';
+    $routesPlugin['orderUserPrintBill']= 'go_draw/view/agency/user_orders/orderUserPrintBill.php';
 
 	$routesPlugin['orderUserDone']= 'go_draw/view/agency/user_orders/orderUserDone.php';
+    $routesPlugin['staticAgency']= 'go_draw/view/agency/user_orders/staticAgency.php';
 
     // đơn hàng combo
     $routesPlugin['sellComboProduct']= 'go_draw/view/agency/user_combo_orders/sellComboProduct.php';
@@ -78,4 +88,24 @@ global $routesPlugin;
     $routesPlugin['register']= 'go_draw/view/home/user/register.php';
     $routesPlugin['logoutUser']= 'go_draw/view/home/user/logoutUser.php';
     $routesPlugin['loginUser']= 'go_draw/view/home/user/loginUser.php';
+    $routesPlugin['changePassUser']= 'go_draw/view/home/user/changePassUser.php';
+    $routesPlugin['changeProfile']= 'go_draw/view/home/user/changeProfile.php';
+    $routesPlugin['verified']= 'go_draw/view/home/user/verified.php';
+    $routesPlugin['forgotPass']= 'go_draw/view/home/user/forgotPass.php';
+    $routesPlugin['confirm']= 'go_draw/view/home/user/confirm.php';
+    
+
+    $routesPlugin['search-agency']= 'go_draw/view/home/agencies/searchAgency.php';
+    $routesPlugin['myOrder']= 'go_draw/view/home/user_orders/myOrder.php';
+    
+    $routesPlugin['myGallery']= 'go_draw/view/home/user_pictures/myGallery.php';
+    $routesPlugin['addImage']= 'go_draw/view/home/user_pictures/addImage.php';
+    $routesPlugin['topImage']= 'go_draw/view/home/user_pictures/topImage.php';
+    $routesPlugin['detailImage']= 'go_draw/view/home/user_pictures/detailImage.php';
+    $routesPlugin['deleteImage']= 'go_draw/view/home/user_pictures/deleteImage.php';
+    $routesPlugin['addLike']= 'go_draw/view/home/user_pictures/addLike.php';
+
+    // thông tin cửa hàng
+    $routesPlugin['store']= 'go_draw/view/home/agencies/store.php';
+    $routesPlugin['detailCombo']= 'go_draw/view/home/combos/detailCombo.php';
 

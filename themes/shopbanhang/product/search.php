@@ -18,28 +18,34 @@ $slide_home= slide_home($setting['id_slide']);
             </div>
         </section>
 
-        <section id="section-banner-home">
-            <div class="container">
-                <div class="banner-home-slide">
-                    <?php if(!empty($slide_home->imageinfo)){
-                        foreach($slide_home->imageinfo as $key => $item){ ?>
-                <div class="banner-home-item">
-                    <img src="<?php echo $item->image ?>" alt="">
+        <div class="container">
+            <section id="section-banner-home">
+                <div class="">
+                    <div class="banner-home-slide">
+                        <?php if(!empty($slide_home->imageinfo)){
+                            foreach($slide_home->imageinfo as $key => $item){ ?>
+                    <div class="banner-home-item">
+                        <a href="<?php echo $item->link ?>">
+                        <img src="<?php echo $item->image ?>" alt="">
+                        </a>
+                    </div>
+                <?php }} ?>
+                    </div>
                 </div>
-            <?php }} ?>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
+      
 
         <section id="section-group-by">
             <div class="container">
                 <div class="search-form-category">
-                    <form onsubmit="" action="/search-product" method="get" id="myForm" class="form-custom-1 py-3">
+                    <form action="/search-product" method="get" id="myForm" >
                         <div class="row">
                             <div class="search-category-product col-lg-3 col-md-3 col-sm-3 col-12">
                                 <img src="<?php echo $urlThemeActive ?>asset/image/iconsearch.png" alt="">
-                                <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="" value="<?php echo @$_GET['key'] ?>" name="key" aria-describedby="">
+                                <input placeholder="Tìm kiếm theo sản phẩm" type="text" class="form-control" id="key" value="<?php echo @$_GET['key'] ?>" name="key" aria-describedby="">
                                 <input class="form-check-input" type="hidden" name="category_id" id="inlineCheckbox1" value="<?php echo @$_GET['category_id']; ?>">
+                                <input class="form-check-input" type="hidden" id="selaqqqqqqqq"   name="selaa" id="inlineCheckbox1" value="qqq">
                             </div>
                             <div class="product-select col-lg-9 col-md-9 col-sm-9 col-12">
                                 <div class="product-select-box">
@@ -47,8 +53,10 @@ $slide_home= slide_home($setting['id_slide']);
                                         <div class="heading-check">
                                             <span>Khuyễn mãi</span>
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox"  onclick="document.getElementById('myForm').submit();"  name="sela" id="inlineCheckbox1" <?php  if(!empty($_GET['sela'])){ echo 'checked'; } ?> value="sela">
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" id="sela" onclick="actioncheckbox(<?php  if(!empty($_GET['sela'])){ echo '1'; }else{ echo '0'; } ?>)"  name="sela" id="inlineCheckbox1" <?php  if(!empty($_GET['sela'])){ echo 'checked'; } ?> value="sela">
+
+                                             
                                         </div>
                                     </div>
 
@@ -56,14 +64,13 @@ $slide_home= slide_home($setting['id_slide']);
                                         <div class="heading-check">
                                             <span>Sắp xếp</span>
                                         </div>
-                                        <select class="form-select form-select-sm" id="order"   name="order" aria-label=".form-select-sm example">
+                                        <select class="form-select form-select-sm" id="order"  onchange="actionSelect(this);"  name="order">
                                             <option value="">Sắp xếp theo</option>
-                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==1){ echo 'selected'; } ?> value="1">Sản phẩm bán chạy nhất</option>
-                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==2){ echo 'selected'; } ?> value="2">Giá từ cao đến thấp</option>
-                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==3){ echo 'selected'; } ?> value="3">Giá từ thấp đến cao</option>
-                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==4){ echo 'selected'; } ?> value="4">Sản phẩm mới nhất</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==1){ echo 'selected'; } ?> data-link="/search-product?order=1" value="1">Sản phẩm bán chạy nhất</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==2){ echo 'selected'; } ?> data-link="/search-product?order=2" value="2">Giá từ cao đến thấp</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==3){ echo 'selected'; } ?> data-link="/search-product?order=3" value="3">Giá từ thấp đến cao</option>
+                                            <option <?php  if(!empty($_GET['order']) && @$_GET['order']==4){ echo 'selected'; } ?> data-link="/search-product?order=4" value="4">Sản phẩm mới nhất</option>
                                         </select>
-                                        <!-- <button type="submit" class="btn btn-primary">Gửi</button> -->
                                     </div>
                                 </div>
                             </div>
@@ -93,27 +100,35 @@ $slide_home= slide_home($setting['id_slide']);
                                     <?php 
                                         if(!empty($category_all)){
                                             foreach ($category_all as $key => $value) {
-                                                echo '  <li><a href="/category/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                if(@$value->description!='combo'){
+                                                    echo '  <li><a href="/danh-muc/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                }
                                             }
                                         }
                                         ?>
                                 </ul>
                             </div>
                             
-                            <!-- <div class="category-product-item">
+                            <div class="category-product-item">
                                 <ul>
                                     <div class="category-product-menu-title">
                                         <p>Combo quà tặng</p>
                                     </div>
-                                    <li><a href="">Quà tặng dành cho cha mẹ</a></li>
-                                    <li><a href="">Bumas Care</a></li>
-                                    <li><a href="">Bumas Home</a></li>
+                                    <?php 
+                                        if(!empty($category_all)){
+                                            foreach ($category_all as $key => $value) {
+                                                if(@$value->description=='combo'){
+                                                    echo '  <li><a href="/danh-muc/'.$value->slug.'.html">'.$value->name.'</a></li>';
+                                                }
+                                            }
+                                        }
+                                        ?>
                                 </ul>
-                            </div> -->
+                            </div> 
 
                             <div class="banner-category">
                                 <div class="banner-category-image">
-                                    <img src="<?php echo @$setting['baner_sele'] ?>" alt="">
+                                    <img src="<?php echo @$setting['baner_product'] ?>" alt="">
                                 </div>
                             </div>
 
@@ -154,24 +169,24 @@ $slide_home= slide_home($setting['id_slide']);
                             <!-- sản phẩm -->
                             <?php  if(!empty($list_product)){
                                 foreach ($list_product as $product) {
-                                    $link = '/product/'.$product->slug.'.html';
+                                    $link = '/san-pham/'.$product->slug.'.html';
                                      $giam = 0;
                                     if(!empty($product->price_old) && !empty($product->price)){
                                         $giam = 100 - 100*$product->price/$product->price_old;
                                     }
 
-                                    $ban = 0;
-                                    if(!empty($product->quantity) && !empty($product->sold)){
-                                        if($product->quantity>$product->sold){
-                                            $ban = 100*$product->sold/$product->quantity;
-                                        }
+                                     $ban = 0;
+                                    if(!empty($product->quantity) && !empty($product->number_like)){
+                                        $ban = 100 - 100*$product->quantity/$product->number_like;
                                     }
                                  ?>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-6 product-item">
                                 <div class="product-item-inner">
-                                    <?php if($giam>0){ ?>
+                                    
+                                    <?php if(!empty($product->flash_sale)){
+                                    if($giam>0 ){ ?>
                                         <div class="ribbon ribbon-top-right"><span><?php echo number_format($giam) ?>%</span></div>
-                                    <?php } ?>  
+                                    <?php }} ?>
                                     <div class="product-img">
                                         <a href="<?php echo $link ?>"><img src="<?php echo $product->image ?>" alt=""></a>
                                     </div>
@@ -186,23 +201,28 @@ $slide_home= slide_home($setting['id_slide']);
                                         </div>
         
                                         <div class="product-discount">
-                                            <?php if(!empty($product->price_old)){ ?>
-                                            <del><?php  echo number_format($product->price_old); ?>đ</del><!-- <span> (50%)</span> -->
-                                            <?php } ?>
+                                           <?php if(!empty($product->price_old)){ ?>
+                                            <del><?php  echo number_format($product->price_old); ?>đ</del><?php if(empty($product->flash_sale)){
+                                    if($giam>0 ){ ?> <span> (<?php echo number_format($giam) ?>%)</span>   <?php }} ?>
+                                            <?php }else{ echo '&nbsp;';} ?>
                                         </div>
                                     </div>
         
+                                     <?php if (!empty($product->flash_sale)){ ?>
                                     <div class="progress-box">
                                         <div class="product-progress">
                                             <div class="text-progress">Sản phẩm <?php echo $product->sold ?> Đã bán</div>
                                             <div class="sale-progress-val" style="width: <?php echo $ban; ?>%"></div>
                                         </div>
                                     </div>
+                                     <?php }else{ echo '<div class="mb-5"></div>'; } ?>
         
                                     <div class="product-rate">
                                         <div class="rate-best-item rate-star">
                                             <img src="<?php echo $urlThemeActive ?>asset/image/star.png" alt="">
-                                            <p>4.8 <span>(34)</span></p>
+                                             <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
+                                             <p><?php echo number_format(@$product->point,1); ?> <span>(<?php echo @$product->evaluatecount ?>)</span></p>
+                                         <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
                                         </div>
         
                                         <div class="rate-best-item rate-sold">
@@ -213,7 +233,7 @@ $slide_home= slide_home($setting['id_slide']);
                                 </div>
                             </div>
                             <?php }} ?>
-                             <div class="col-12 col-md-12 col-lg-12">
+                             <!-- <div class="col-12 col-md-12 col-lg-12">
                                 <div class="demo-inline-spacing">
                                   <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-center">
@@ -253,20 +273,44 @@ $slide_home= slide_home($setting['id_slide']);
                                     </ul>
                                   </nav>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>  
                     </div>
                 </div>
             </div>
         </section>
     </main>
- <script type="text/javascript">
+<!--  <script type="text/javascript">
      const dropdown = document.getElementById("order");
 
 dropdown.addEventListener("change", function() {
   
   document.getElementById("myForm").submit();
 });
- </script>
+ </script> -->
+
+  <script>
+function actionSelect(select)
+{
+    var action= select.value;
+    var link= $(select).find('option:selected').attr('data-link');
+    window.location= link;
+   
+    
+}
+
+function actioncheckbox(select)
+{
+    if(select!=1){
+        window.location= '/search-product?sela=sela';
+    }else{
+        window.location= '/search-product';
+    }
+    
+}
+
+    </script>
+
+
 <?php
 getFooter();?>

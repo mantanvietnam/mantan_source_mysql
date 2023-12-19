@@ -1,6 +1,6 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Bài học</h4>
+    <h4 class="fw-bold py-3 mb-4">Danh mục sản phẩm</h4>
 
     <!-- Basic Layout -->
       <div class="row">
@@ -26,7 +26,7 @@
                             echo '<tr>
                                     <td><a target="_blank" href="/category/'.$item->slug.'.html">'.$item->name.'</a></td>
                                     <td align="center">
-                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\' );">
+                                      <a class="dropdown-item" href="javascript:void(0);" onclick="editData('.$item->id.', \''.$item->name.'\', \''.$item->image.'\', \''.$item->keyword.'\', \''.$item->description.'\', \''.$item->status.'\' );">
                                         <i class="bx bx-edit-alt me-1"></i>
                                       </a>
                                     </td>
@@ -62,13 +62,7 @@
                 <input type="hidden" name="idCategoryEdit" id="idCategoryEdit" value="" />
                 <div class="mb-3">
                   <label class="form-label" for="basic-default-phone">Tên chủ đề</label>
-                  <input
-                    type="text"
-                    class="form-control phone-mask"
-                    name="name"
-                    id="name"
-                    value=""
-                  />
+                  <input type="text" class="form-control phone-mask" name="name" id="name" value=""/>
                 </div>
 
                 <div class="mb-3">
@@ -86,6 +80,16 @@
                   <input type="text" class="form-control" placeholder="" name="description" id="description" value="" />
                 </div>
 
+                <div class="mb-3">
+                  <label class="form-label">Trạng thái</label>
+                  <div class="input-group input-group-merge">
+                    <select class="form-select" name="status" id="status">
+                      <option value="active"  >Kích hoạt</option>
+                      <option value="lock"  >Khóa</option>
+                    </select>
+                  </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Lưu</button>
               <?= $this->Form->end() ?>
             </div>
@@ -97,12 +101,13 @@
   </div>
 
   <script type="text/javascript">
-    function editData(id, name, image, keyword, description){
+    function editData(id, name, image, keyword, description,status){
       $('#idCategoryEdit').val(id);
       $('#name').val(name);
       $('#image').val(image);
       $('#keyword').val(keyword);
       $('#description').val(description);
+      $('#status').val(status);
     }
 
     function deleteCategory(id){

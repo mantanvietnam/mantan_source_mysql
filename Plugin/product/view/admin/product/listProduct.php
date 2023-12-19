@@ -10,8 +10,8 @@
       <div class="card-body">
         <div class="row gx-3 gy-2 align-items-center">
           <div class="col-md-1">
-            <label class="form-label">ID</label>
-            <input type="text" class="form-control" name="id" value="<?php if(!empty($_GET['id'])) echo $_GET['id'];?>">
+            <label class="form-label">Mã SP</label>
+            <input type="text" class="form-control" name="code" value="<?php if(!empty($_GET['code'])) echo $_GET['code'];?>">
           </div>
 
           <div class="col-md-3">
@@ -95,10 +95,11 @@
       <table class="table table-bordered">
         <thead>
           <tr class="">
-            <th>ID</th>
+            <th>Mã SP</th>
             <th>Hình minh họa</th>
             <th>Danh mục</th>
             <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
             <th>Trạng thái</th>
             <th>câu hỏi</th>
             <th>Flash sale</th>
@@ -110,6 +111,14 @@
           <?php 
             if(!empty($listData)){
               foreach ($listData as $item) {
+                $category_name = '';
+                if(!empty($item->category)){
+                  foreach($item->category as $value){
+                     if(!empty($value->name_category)){
+                      $category_name .= $value->name_category.',</br> ';
+                     }
+                  }
+                }
                 $flash_sale = '';
                 if(@$item->flash_sale==1){
                   $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc bỏ Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=0"><i class="bx bx-check-square"></i></a>';
@@ -117,10 +126,14 @@
                   $flash_sale = '<a class="dropdown-item" onclick="return confirm(\'Bạn có chắc áp Flash sale không?\');" href="/plugins/admin/product-view-admin-product-addFlashSale.php/?id='.$item->id.'&flash_sale=1"><i class="bx bxs-check-square"></i></a>';
                 }
                 echo '<tr>
-                        <td>'.$item->id.'</td>
+                        <td>'.$item->code.'</td>
                         <td><img src="'.$item->image.'" width="100" /></td>
-                        <td>'.$item->name_category.'</td>
+                        <td>'.$category_name.'</td>
                         <td><a target="_blank" href="/product/'.$item->slug.'.html">'.$item->title.'</a></td>
+                        <td> Sl ban đầu:'.$item->number_like.'<br/>
+                              Sl còn:'.$item->quantity.'<br/>
+                            SL đã bán:'.$item->sold.'<br/>
+                        </td>
                         <td>'.$item->status.'</td>
                         <td align="center">
                         câu hỏi<br/>

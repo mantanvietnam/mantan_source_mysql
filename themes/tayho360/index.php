@@ -677,7 +677,7 @@ function eventhome(){
 }
 
 function loadEventNextPrev(e) {
-  var month = $('.slick-active').attr('data-month');
+  var month = $('.slick-current').attr('data-month');
 
   if(e = 1){
     month = Number(month) + 1;

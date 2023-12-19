@@ -13,7 +13,7 @@ function listStaff($input)
     $modelMember = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 		$conditions = array('id_member'=>$infoUser->id_member);
 		$limit = 20;
@@ -87,6 +87,10 @@ function listStaff($input)
         $order = array('name'=>'asc');
         $listCategory = $modelCategories->find()->where($conditionsCategories)->order($order)->all()->toList();
 
+        if(empty($listCategory)){
+        	return $controller->redirect('/listGroupStaff/?error=requestGroupStaff');
+        }
+
 	    setVariable('page', $page);
 	    setVariable('totalPage', $totalPage);
 	    setVariable('totalData', $totalData);
@@ -97,7 +101,7 @@ function listStaff($input)
 	    setVariable('listCategory', $listCategory);
 	    setVariable('listData', $listData);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -114,21 +118,26 @@ function addStaff($input){
     $modelMembers = $controller->loadModel('Members');
 	$modelSpas = $controller->loadModel('Spas');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
 	    if(!empty($_GET['id'])){
 	        $data = $modelMembers->get( (int) $_GET['id']);
+	        
 	    }else{
 	        $data = $modelMembers->newEmptyEntity();
 	        $data->created_at = date('Y-m-d H:i:s');
 	    }
 
+	    $listPermissionMenu = getListPermission();
+
 	    $mess ='';
 
 		if($isRequestPost){
 	        $dataSend = $input['request']->getData();
+
+	        
 
 	        if(!empty($dataSend['name']) && !empty($dataSend['phone'])){
 	        	$dataSend['phone'] = trim(str_replace(array(' ','.','-'), '', @$dataSend['phone']));
@@ -154,6 +163,7 @@ function addStaff($input){
 			        $data->id_group =(int) @$dataSend['id_group'];
 			        $data->avatar = (!empty($dataSend['avatar']))?$dataSend['avatar']:'https://spa.databot.vn/plugins/databot_spa/view/home/assets/img/avatar-default.png';
 					$data->email = $dataSend['email'];
+					$data->permission = json_encode(@$dataSend['check_list_permission']);
 					$data->address = $dataSend['address'];
 					$data->birthday = $dataSend['birthday'];
 					$data->status = (int) $dataSend['status']; //1: kích hoạt, 0: khóa
@@ -178,13 +188,17 @@ function addStaff($input){
         if(empty($listCategory)){
         	return $controller->redirect('/listGroupStaff/?error=requestGroupStaff');
         }
+        if(!empty($data->permission)){
+        	$data->permission = json_decode($data->permission, true);
+        }
 
 	    setVariable('data', $data);
 	    setVariable('mess', $mess);
+	    setVariable('listPermissionMenu', $listPermissionMenu);
         setVariable('listCategory', $listCategory);
 
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -199,7 +213,7 @@ function lockStaff($input){
 
     $modelMember = $controller->loadModel('Members');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('lockStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -250,7 +264,7 @@ function changePassStaff($input){
 	}
 
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -268,7 +282,7 @@ function listGroupStaff(){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelMemberGroup = $controller->loadModel('MemberGroups');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listGroupStaff', 'staff'))){
 		$mess = '';
         if(!empty($_GET['error'])){
             switch ($_GET['error']) {
@@ -349,7 +363,7 @@ function listGroupStaff(){
 	    
 	    setVariable('listData', $listData);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -367,7 +381,7 @@ function addGroupStaff($input){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelMemberGroup = $controller->loadModel('MemberGroups');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addGroupStaff', 'staff'))){
 		$infoUser = $session->read('infoUser');
 
 		// lấy data edit
@@ -404,7 +418,7 @@ function addGroupStaff($input){
 	    setVariable('mess', $mess);
 
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -418,7 +432,7 @@ function deteleGroupStaff($input){
 
     $metaTitleMantan = 'Thông tin Nhóm nhân viên';
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deteleGroupStaff', 'staff'))){
         $infoUser = $session->read('infoUser');
         $modelMembers = $modelMember->loadModel('Members');
 
@@ -439,7 +453,7 @@ function deteleGroupStaff($input){
             }
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 ?>

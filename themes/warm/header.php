@@ -168,13 +168,30 @@ https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.min.cs
                             ?>
 
                         </ul>
-                        <form class="search-menu d-flex" role="search">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <form action="/search" class="search-menu d-flex" role="search">
+                            <input class="form-control" type="search" name="key" placeholder="Search" aria-label="Search">
                             <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                       </div>
                     </div>
                 </nav>
+            </div>
+        </section>
+
+        <section id="section-logo-home">
+            <div class="container-fluid logo-home-box">
+                <div class="logo-home-item">
+                    
+
+                    <div class="logo-home-img logo-home-1">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/combo-logo.png" alt="">
+                    </div>
+        
+                    <div class="logo-home-img logo-home-2">
+                        <img src="<?php echo $urlThemeActive;?>/asset/img/logo-afd.png" alt="">
+                    </div>
+                </div>
+                
             </div>
         </section>
     </header>

@@ -16,6 +16,12 @@ $menus[0]['sub'][2]= array( 'title'=>'Cài đặt trang Review',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'sttingReviewTheme'
                         );
+$menus[0]['sub'][3]= array( 'title'=>'Cài đặt trang About us',
+                            'url'=>'/plugins/admin/shopbanhang-admin-settingAboutusTheme.php',
+                            'classIcon'=>'bx bx-cog',
+                            'permission'=>'settingAboutuTheme'
+                        );
+
 
 addMenuAdminMantan($menus);
 
@@ -55,6 +61,16 @@ function getByIdCategory($id){
 
 
     return $Categories;
+}
+
+function checkFlasl(){
+
+    global $controller; 
+    $modelProduct = $controller->loadModel('Products');
+
+    $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1,'status'=>'active'])->all()->toList();
+
+    return $product_flasl;
 }
 
 

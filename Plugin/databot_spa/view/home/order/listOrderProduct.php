@@ -1,6 +1,7 @@
 <?php include(__DIR__ . '/../header.php'); ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">Danh sách đơn sản phẩm</h4>
+    <p><a href="/orderProduct" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
     <div class="data-content">
         <form id="" action="" class="form-horizontal" method="get" enctype="">
             <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken; ?>" />
@@ -67,9 +68,9 @@
                                             <?php
                                             if (!empty($listData)) {
                                                 foreach ($listData as $key => $item) {
-                                                    $type = 'Chưa xử lý';
+                                                    $type = 'Chưa thanh toán';
                                                     if ($item->status == 1) {
-                                                        $type = 'Đã xử lý';
+                                                        $type = 'Đã thanh toán';
                                                     } elseif ($item->status == 2) {
                                                         $type = 'Dang sử lý';
                                                     } elseif ($item->status == 3) {
@@ -127,7 +128,7 @@
                                                 }
                                             } else {
                                                 echo '<tr>
-                                                        <td colspan="10" align="center">Chưa có sản phẩm nào</td>
+                                                        <td colspan="10" align="center">Chưa có đơn nào</td>
                                                       </tr>';
                                             } ?>
                                         </tbody>

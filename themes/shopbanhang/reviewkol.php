@@ -36,6 +36,9 @@ $settinghom = setting();
                                 <div class="comment-customer-item">
                                     <div class="comment-customer-img">
                                         <img src="<?php echo $item->image ?>" alt="" data-bs-toggle="modal" data-bs-target="#modalvideoreviewslide<?php echo $key; ?>">
+                                        <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreviewslide<?php echo $key; ?>">
+                                            <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                        </div>
                                     </div>
                                 </div>
                                 <?php }} ?>
@@ -48,6 +51,9 @@ $settinghom = setting();
                                 <div class="modal fade" id="modalvideoreviewslide<?php echo $key; ?>" tabindex="-1" aria-labelledby="modalvideoreviewslide<?php echo $key; ?>Label" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                       <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
                                         <div class="modal-body">
                                             <?php echo $item->description ?>
                                         </div>
@@ -67,7 +73,7 @@ $settinghom = setting();
                                     </div>
 
                                     <div class="commnet-text-hastag">
-                                        <p><?php echo $item->link ?> </p>
+                                        <p><?php echo $item->hastag ?> </p>
                                     </div>
 
                                    <!--  <div class="icon-video">
@@ -99,6 +105,9 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo11'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview1">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview1">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -119,6 +128,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo12'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview2">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview2">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -147,6 +159,10 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo21'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview3">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview3">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
+                                                    
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -167,6 +183,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo22'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview4">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview4">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -198,6 +217,9 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo31'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview5">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview5">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -218,6 +240,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo32'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview6">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview6">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -246,6 +271,9 @@ $settinghom = setting();
                                             <div class="video-1">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo41'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview7">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview7">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -266,6 +294,9 @@ $settinghom = setting();
                                             <div class="video-2">
                                                 <div class="image-modal">
                                                     <img src="<?php echo $setting['imagevideo42'] ?>" data-bs-toggle="modal" data-bs-target="#modalvideoreview8">
+                                                    <div class="pro-review-link" data-bs-toggle="modal" data-bs-target="#modalvideoreview8">
+                                                        <img src="<?php echo $urlThemeActive ?>/asset/image/play.png" alt="">
+                                                    </div>
                                                 </div>
                                                 <div class="detail-review-video">
                                                     <p>
@@ -296,6 +327,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview1" tabindex="-1" aria-labelledby="modalvideoreview1Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                        <?php echo $setting['embedded11'] ?>
                                     </div>
@@ -308,6 +342,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview2" tabindex="-1" aria-labelledby="modalvideoreview2Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded12'] ?>
                                     </div>
@@ -321,6 +358,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview3" tabindex="-1" aria-labelledby="modalvideoreview3Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded21'] ?>
                                     </div>
@@ -333,6 +373,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview4" tabindex="-1" aria-labelledby="modalvideoreview4Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded22'] ?>
                                     </div>
@@ -346,6 +389,9 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview5" tabindex="-1" aria-labelledby="modalvideoreview5Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                                     <div class="modal-body">
                                         <?php echo $setting['embedded31'] ?>
                                     </div>
@@ -371,9 +417,12 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview7" tabindex="-1" aria-labelledby="modalvideoreview7Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                    <div class="modal-body">
-                                        <?php echo $setting['embedded41'] ?>
-                                    </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo $setting['embedded41'] ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -383,9 +432,12 @@ $settinghom = setting();
                             <div class="modal fade" id="modalvideoreview8" tabindex="-1" aria-labelledby="modalvideoreview8Label" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                    <div class="modal-body">
-                                        <?php echo $setting['embedded42'] ?>
-                                    </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php echo $setting['embedded42'] ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

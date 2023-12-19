@@ -69,8 +69,23 @@ function settingHomeTheme($input){
                         'sela_title3' => @$dataSend['sela_title3'],
                         'background_sele' => @$dataSend['background_sele'],
                         'baner_product' => @$dataSend['baner_product'],
+                        'link_nho1' => @$dataSend['link_nho1'],
+                        'link_nho2' => @$dataSend['link_nho2'],
+                        'link_nho3' => @$dataSend['link_nho3'],
+                        'text_mobile' => @$dataSend['text_mobile'],
+                        'text_mobile_ofsale' => @$dataSend['text_mobile_ofsale'],
+                        'link_mobile' => @$dataSend['link_mobile'],
+                        'link_mobile_ofsale' => @$dataSend['link_mobile_ofsale'],
+                        'menu' => @$dataSend['menu'],
 
                        'targetTime' => @$targetTime,
+
+                       'image-mobile' => @$dataSend['image-mobile'],
+
+                    //    Bo sung
+                    'contact-zalo-link' => @$dataSend['contact-zalo-link'],
+                    'contact-phone-link' => @$dataSend['contact-phone-link'],
+
                     );
 
     
@@ -181,6 +196,7 @@ function sttingReviewTheme($input){
                         'name_video_42' => @$dataSend['name_video_42'],
                         'imagevideo42' => @$dataSend['imagevideo42'],
                         'embedded42' => @$dataSend['embedded42'],
+                        
                     );
 
         $data->key_word = 'sttingReviewTheme';
@@ -200,12 +216,104 @@ function sttingReviewTheme($input){
     setVariable('mess', $mess);
 }
 
+function settingAboutusTheme($input){
+    global $modelOptions;
+    global $metaTitleMantan;
+    global $isRequestPost;
+
+    $metaTitleMantan = 'Cài đặt giao diện Review';
+    $mess= '';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+    if(empty($data)){
+        $data = $modelOptions->newEmptyEntity();
+    }
+
+    if($isRequestPost){
+        $dataSend = $input['request']->getData();
+       
+
+        
+        $value = array( 'image_banner' => @$dataSend['image_banner'],
+                        'content' => @$dataSend['content'],
+                        'image_left' => @$dataSend['image_left'],
+                        'content_right' => @$dataSend['content_right'],
+                        'content_left' => @$dataSend['content_left'],
+                        'image_right' => @$dataSend['image_right'],
+                        'mission' => @$dataSend['mission'],
+                        'image_core1' => @$dataSend['image_core1'],
+                        'name_core1' => @$dataSend['name_core1'],
+                        'image_core2' => @$dataSend['image_core2'],
+                        'name_core2' => @$dataSend['name_core2'],
+                        'image_core3' => @$dataSend['image_core3'],
+                        'name_core3' => @$dataSend['name_core3'],
+                        'image_core4' => @$dataSend['image_core4'],
+                        'name_core4' => @$dataSend['name_core4'],
+                        'image_core5' => @$dataSend['image_core5'],
+                        'name_core5' => @$dataSend['name_core5'],
+                        'image_impression1' => @$dataSend['image_impression1'],
+                        'name_impression1' => @$dataSend['name_impression1'],
+                        'image_impression2' => @$dataSend['image_impression2'],
+                        'name_impression2' => @$dataSend['name_impression2'],
+                        'image_impression3' => @$dataSend['image_impression3'],
+                        'name_impression3' => @$dataSend['name_impression3'],
+                        'image_impression4' => @$dataSend['image_impression4'],
+                        'name_impression4' => @$dataSend['name_impression4'],
+                        'image_impression5' => @$dataSend['image_impression5'],
+                        'name_impression5' => @$dataSend['name_impression5'],
+                        'image' => @$dataSend['image'],
+                        'content_below' => @$dataSend['content_below'],
+
+                        'image_mission1' => @$dataSend['image_mission1'],
+                        'image_mission2' => @$dataSend['image_mission2'],
+
+                    );
+
+        $data->key_word = 'settingAboutusTheme';
+        $data->value = json_encode($value);
+
+        $modelOptions->save($data);
+
+        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
+    }
+
+    $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+    setVariable('setting', $data_value);
+    setVariable('mess', $mess);
+}
+
+function aboutus(){
+    global $controller;
+    global $modelOptions;
+     global $metaTitleMantan;
+    $metaTitleMantan = 'Câu chuyện về bumas';
+
+    $conditions = array('key_word' => 'settingAboutusTheme');
+    $data = $modelOptions->find()->where($conditions)->first();
+
+     $data_value = array();
+    if(!empty($data->value)){
+        $data_value = json_decode($data->value, true);
+    }
+
+
+    setVariable('setting', $data_value);
+
+
+}
+
 function indexTheme($input){
     global $modelAlbums;
     global $modelAlbuminfos;
     global $controller; 
     global $modelCategories;
     global $modelOptions;
+    global $modelPosts;
 
     $conditions = array('key_word' => 'settingHomeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -232,7 +340,7 @@ function indexTheme($input){
         $news->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$news->id])->all()->toList();
     }
 
-    $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1])->all()->toList();
+    $product_flasl = $modelProduct->find()->limit(4)->where(['flash_sale'=>1,'status'=>'active'])->all()->toList();
 
     if(!empty($product_flasl)){
         foreach($product_flasl as $key => $item){
@@ -242,7 +350,7 @@ function indexTheme($input){
             $point = 0;
             if(!empty($product_flasl[$key]->evaluate)){
                 foreach($product_flasl[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -252,7 +360,7 @@ function indexTheme($input){
             }
         }
     }
-    $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->all()->toList();
+    $product_sold = $modelProduct->find()->limit(4)->where(['sold >='=>1])->order(array('sold'=>'desc'))->all()->toList();
 
     if(!empty($product_sold)){
         foreach($product_sold as $key => $item){
@@ -262,7 +370,7 @@ function indexTheme($input){
             $point = 0;
             if(!empty($product_sold[$key]->evaluate)){
                 foreach($product_sold[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -274,41 +382,61 @@ function indexTheme($input){
     }
     $product_search = $modelProduct->find()->limit(4)->where(['hot'=>1])->all()->toList();
 
+    $listDataPost = $modelPosts->find()->limit(3)->where(array('pin'=>1))->all()->toList();
+
     setVariable('setting', $data_value);
     setVariable('product_flasl', $product_flasl);
     setVariable('product_sold', $product_sold);
     setVariable('product_search', $product_search);
     setVariable('slide_home', $slide_home);
     setVariable('news', $news);
+    setVariable('listDataPost', $listDataPost);
 
 }
 
 function news(){
     global $modelPosts;
     global $controller;
+    global $modelCategories;
+    global $modelAlbums;
+    global $modelAlbuminfos;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Tin tức';
 
     $order = array('id'=>'desc');
 
-    $listDatatop= $modelPosts->find()->limit(1)->where(array('pin'=>1))->order($order)->all()->toList();
-    $listDataView= $modelPosts->find()->limit(4)->where(array('view >'=>1))->order(array('view'=>'desc'))->all()->toList();
-    $listDataNew= $modelPosts->find()->limit(4)->where(array())->order($order)->all()->toList();
-    $listDataCategory1= $modelPosts->find()->limit(3)->where(array('idCategory'=>4))->order($order)->all()->toList();
-    $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>9))->order($order)->all()->toList();
-    $listDataPost= $modelPosts->find()->limit(12)->where(array())->order($order)->all()->toList();
+    $listDatatop= $modelPosts->find()->limit(1)->where(array('pin'=>1, 'type'=>'post'))->order($order)->all()->toList();
+    $listDataView= $modelPosts->find()->limit(4)->where(array('view >'=>1, 'type'=>'post'))->order(array('view'=>'desc'))->all()->toList();
+    $listDataNew= $modelPosts->find()->limit(4)->where(array('type'=>'post'))->order($order)->all()->toList();
+    $listDataCategory1= $modelPosts->find()->limit(3)->where(array('idCategory'=>4, 'type'=>'post'))->order($order)->all()->toList();
+    $listDataCategory2= $modelPosts->find()->limit(3)->where(array('idCategory'=>9, 'type'=>'post'))->order($order)->all()->toList();
+    $listDataPost= $modelPosts->find()->limit(12)->where(array('type'=>'post'))->order($order)->all()->toList();
 
+    $Category1 = $modelCategories->find()->where(array('id'=>4))->first()->name;
+    $Category2 = $modelCategories->find()->where(array('id'=>9))->first()->name;
 
+    $slide_news = $modelAlbums->find()->where(['id'=>'4'])->first();
+    if(!empty($slide_news)){
+        $slide_news->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_news->id])->all()->toList();
+    }
 
     setVariable('listDataPost', $listDataPost);
     setVariable('listDatatop', $listDatatop);
     setVariable('listDataNew', $listDataNew);
     setVariable('listDataCategory1', $listDataCategory1);
     setVariable('listDataCategory2', $listDataCategory2);
+    setVariable('Category1', $Category1);
+    setVariable('Category2', $Category2);
     setVariable('listDataView', $listDataView);
+    setVariable('slide_news', $slide_news);
+
 
 }
 
 function guarantee(){
     global $modelOptions;
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Chính sách bảo hành';
 
     $conditions = array('key_word' => 'sttingGuaranteeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
@@ -324,7 +452,8 @@ function guarantee(){
 
 function instruction(){
     global $modelOptions;
-
+     global $metaTitleMantan;
+    $metaTitleMantan = 'Hướng dẫn kích hoạt bảo hành';
     $conditions = array('key_word' => 'sttingGuaranteeTheme');
     $data = $modelOptions->find()->where($conditions)->first();
 
@@ -394,7 +523,8 @@ function reviewkol(){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
-
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Nhận xét từ các KOL, KOC';
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
@@ -445,7 +575,8 @@ function reviewBeatbox(){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
-
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Khách hàng đập hộp';
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
@@ -464,30 +595,29 @@ function reviewBeatbox(){
     if(!empty($slide_home)){
         $slide_home->imageinfo = $modelAlbuminfos->find()->where(['id_album'=>(int)$slide_home->id])->all()->toList();
     }
-
     $conditions = array();
     $conditions['status'] = 'active';
 
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
-
-
-    if(!empty($list_product)){
-        foreach($list_product as $key => $item){
-            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
-            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
-            foreach($review as $k => $value){
-                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
-            }
-            $list_product[$key]->review = $review;
-        }
+    $conditionsreview = array();
+    if(!empty($_GET['code'])){
+        $conditionsreview['id_product'] = $_GET['code'];
     }
 
-    
+    $review = $modelReview->find()->where($conditionsreview)->all()->toList();
+  
+    foreach($review as $k => $value){
+        if(!empty($value->id_product)){
+            $review[$k]->product = $modelProduct->find()->where(['code'=>$value->id_product])->first();
+        }
 
+        $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
+    }
 
     setVariable('setting', $data_value);
     setVariable('list_product', $list_product);
+    setVariable('review', $review);
     setVariable('slide_home', $slide_home);
 }
 
@@ -497,7 +627,8 @@ function reviewProduct(){
     global $controller; 
     global $modelCategories;
     global $modelOptions;
-
+    global $metaTitleMantan;
+    $metaTitleMantan = 'Review sản phẩm';
     $conditions = array('key_word' => 'sttingReviewTheme');
     $data = $modelOptions->find()->where($conditions)->first();
     $modelProduct = $controller->loadModel('Products');
@@ -522,24 +653,33 @@ function reviewProduct(){
 
     $list_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
 
-
-
-    if(!empty($list_product)){
-        foreach($list_product as $key => $item){
-            $list_product[$key]->evaluate = $modelEvaluate->find()->where(['id_product'=>$item->id])->all()->toList();
-            $review = $modelReview->find()->where(['id_product'=>$item->id])->all()->toList();
-            foreach($review as $k => $value){
-                $review[$k]->user = $modelCustomer->find()->where(['id'=>$value->id_user])->first();
-            }
-            $list_product[$key]->review = $review;
-        }
+    $conditionsEvaluat = array();
+    if(!empty($_GET['id_product'])){
+        $conditionsEvaluat['id_product'] = $_GET['id_product'];
     }
+
+    if(!empty($_GET['point'])){
+        $conditionsEvaluat['point'] = $_GET['point'];
+    }
+
+    if(!empty($_GET['image'])){
+        $conditionsEvaluat['image !='] = $_GET['image'];
+    }
+    $evaluate = $modelEvaluate->find()->where($conditionsEvaluat)->order($order)->all()->toList();
+
+
+
+   
+            foreach($evaluate as $k => $value){
+                $evaluate[$k]->product = $modelProduct->find()->where(['id'=>$value->id_product])->first();
+            }
 
     
 
 
     setVariable('setting', $data_value);
     setVariable('list_product', $list_product);
+    setVariable('evaluate', $evaluate);
     setVariable('slide_home', $slide_home);
 }
 

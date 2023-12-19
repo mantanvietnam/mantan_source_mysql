@@ -22,14 +22,14 @@ function addlike ($input){
         $data->type=$_POST['type'];
         $data->idcustomer=$_POST['idcustomer'];
         $conditions = array('id'=>$data->idobject);
-        if($data->type=="product"){
-            $bject = $modelProduct->find()->where($conditions)->first();
-            if(!empty($bject)){
-                $bject->number_like += 1;
-                $modelProduct->save($bject);
+            if($data->type=="product"){
+                $bject = $modelProduct->find()->where($conditions)->first();
+                if(!empty($bject)){
+                    $bject->number_like += 1;
+                    $modelProduct->save($bject);
+                }
+                
             }
-            
-        }
 
         $modelLike->save($data);
         $return = array('code'=>1,
@@ -50,30 +50,22 @@ function delelelike ($input){
     global $session;
     $mess ="ok";
     $infoUser = $session->read('infoUser');
+
+    $modelProduct = $controller->loadModel('Products');
     $modelLike = $controller->loadModel('Likes');
-    $modelGovernanceAgency = $controller->loadModel('Governanceagencys');
-    $modelFestival = $controller->loadModel('Festivals');
-    $modelRestaurant = $controller->loadModel('Restaurants');
-    $modelTour = $controller->loadModel('Tours');
-    $modelHotel = $controller->loadModel('Hotels');
-    $modelHistoricalsite = $controller->loadModel('Historicalsites');
-    $modelPlace = $controller->loadModel('Places');
-    $modelService = $controller->loadModel('Services');
-    $modelEventcenter = $controller->loadModel('Eventcenters');
-    $modelCraftvillage = $controller->loadModel('Craftvillages');
-    $modelHotel = $controller->loadModel('Hotels');
+    
     if(!empty($_POST)){
         $condition['idobject']=$_POST['idobject'];
         $condition['type']=$_POST['type'];
         $condition['idcustomer']=$_POST['idcustomer'];
 
         $data = $modelLike->find()->where($condition)->first();
-        $conditions = array('id'=>$data->idobject);
-        if($data->type=="co_quan_hanh_chinh"){
-            $bject = $modelGovernanceAgency->find()->where($conditions)->first();
+        $conditionProduct = array('id'=>$data->idobject);
+        if($data->type=="product"){
+            $bject = $modelProduct->find()->where($conditionProduct)->first();
             if(!empty($bject)){
                 $bject->number_like -= 1;
-                $modelGovernanceAgency->save($bject);
+                $modelProduct->save($bject);
             }
             
         }
@@ -93,7 +85,7 @@ function delelelike ($input){
         
 }
 
-function addComment ($input){
+function addComment($input){
 
     global $isRequestPost;
     global $modelUser;
@@ -456,6 +448,7 @@ function replyCommentAdmin($input){
     if(!empty($_GET['id'])){
         $data = $modelComment->get($_GET['id']);
         $data->reply = $_GET['reply'];
+        $data->comment = $_GET['comment'];
         $data->updated_at = time();
         $modelComment->save($data);
 

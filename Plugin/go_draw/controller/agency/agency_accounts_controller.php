@@ -35,7 +35,7 @@ function login($input)
 
 		    			$session->write('infoUser', $info_customer);
 		    			
-						return $controller->redirect('/sellComboProduct');
+						return $controller->redirect('/checkCombo');
 					}else{
 						$mess= '<p class="text-danger">Tài khoản của bạn đã bị khóa</p>';
 					}
@@ -49,7 +49,7 @@ function login($input)
 
 	    setVariable('mess', $mess);
 	}else{
-		return $controller->redirect('/sellComboProduct');
+		return $controller->redirect('/checkCombo');
 	}
 }
 
@@ -109,6 +109,48 @@ function changePass($input)
 	}
 }
 
+function profile($input)
+{
+	global $session;
+	global $controller;
+	global $metaTitleMantan;
+	global $isRequestPost;
+
+	$metaTitleMantan = 'Thông tin tài khoản';
+
+	$modelAgencyAccounts = $controller->loadModel('AgencyAccounts');
+	$modelAgencies = $controller->loadModel('Agencies');
+
+	if(!empty($session->read('infoUser'))){
+		$mess = '';
+
+		$userAcc = $modelAgencyAccounts->get($session->read('infoUser')->id);
+		$user = $modelAgencies->get($userAcc->agency_id);
+
+		if($isRequestPost){
+			$dataSend = $input['request']->getData();
+
+			if(!empty($dataSend['name'])){
+					$user->name = $dataSend['name'];
+					$user->address = $dataSend['address'];
+					$user->phone = $dataSend['phone'];
+
+					$modelAgencies->save($user);
+
+					$mess= '<p class="text-success">Lưu thông tin thành công</p>';
+				
+			}else{
+				$mess= '<p class="text-danger">Bạn gửi thiếu thông tin</p>';
+			}
+		}
+
+		setVariable('mess', $mess);
+		setVariable('user', $user);
+	}else{
+		return $controller->redirect('/login');
+	}
+}
+
 function checkBoos($input)
 {
 	global $session;
@@ -123,6 +165,10 @@ function checkBoos($input)
 	if(!empty($session->read('infoUser'))){
 		$mess = '';
 
+		if(!empty($_GET['redirect'])){
+			$session->write('redirect', $_GET['redirect']);
+		}
+
 		if($isRequestPost){
 			$dataSend = $input['request']->getData();
 
@@ -131,7 +177,12 @@ function checkBoos($input)
 			if(!empty($dataSend['code_pin']) && $dataSend['code_pin']==$infoAgency->code_pin){
 				$session->write('isAgencyBoss', true);
 
-				return $controller->redirect('/listProduct');
+				if(!empty($session->read('redirect'))){
+					return $controller->redirect($session->read('redirect'));
+				}else{
+					return $controller->redirect('/warehouse');
+				}
+				
 			}else{
 				$mess= '<p class="text-danger">Sai mã PIN</p>';
 			}

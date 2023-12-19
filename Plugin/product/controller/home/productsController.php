@@ -19,6 +19,7 @@ function product($input)
     $modelDiscountCodes = $controller->loadModel('DiscountCodes');
     $modelEvaluate = $controller->loadModel('Evaluates');
     $modelView = $controller->loadModel('Views');
+    $modelCategorieProduct = $controller->loadModel('CategorieProducts');
 
     if(!empty($_GET['id']) || !empty($input['request']->getAttribute('params')['pass'][1])){
         if(!empty($_GET['id'])){
@@ -55,12 +56,29 @@ function product($input)
                 $product->evaluate = json_decode(@$product->evaluate, true);
             }
 
+
+            $conditionsCategorie = ['id_product'=>$product->id];
+            $category = $modelCategorieProduct->find()->where(array($conditionsCategorie))->all()->toList();
+            if(!empty($category)){
+                foreach ($category as $key => $item) {
+                    if(!empty($item->id_category)){
+                        $category[$key]->name_category = @$modelCategories->find()->where(array('id'=>$item->id_category))->first()->name;
+                          
+                    }
+
+                         
+    
+                }
+                $product->category = $category;
+            }
+
             // SẢN PHẨM KHÁC
-            $conditions = array('id !='=>$product->id, 'id_category'=>$product->id_category, 'status'=>'active');
+            $category = $modelCategorieProduct->find()->where(array('id_product'=> $product->id))->first();
+            $conditions = array('Products.id !='=>$product->id, 'cp.id_category'=>@$category->id_category, 'status'=>'active');
 			$limit = 4;
 			$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 			if($page<1) $page = 1;
-		    $order = array('id'=>'desc');
+		    $order = array('Products.id'=>'desc');
 
             $product->question = $modelQuestion->find()->where(['id_product'=>$product->id])->all()->toList();
             $product->evaluates = $modelEvaluate->find()->where(['id_product'=>$product->id])->all()->toList();
@@ -84,7 +102,7 @@ function product($input)
             $point = 0;
             if(!empty($product->evaluates)){
                 foreach($product->evaluates as $key => $item){
-                    $point = $item->point;
+                    $point += $item->point;
                 }
             }
             if(!empty($product->evaluatecount)){
@@ -98,7 +116,7 @@ function product($input)
                 $id_product = explode(',', @$product->id_product);
                
                 foreach($id_product as $item){
-                    $presentf = $modelProduct->find()->where(['id'=>$item])->first();
+                    $presentf = $modelProduct->find()->where(['code'=>$item])->first();
                     if(!empty($presentf)){
                         $present[] = $presentf;
                     }
@@ -107,7 +125,14 @@ function product($input)
 
             $product->present = $present;
 
-		    $other_product = $modelProduct->find()->where($conditions)->order($order)->all()->toList();
+		    $other_product = $modelProduct->find()
+                        ->join([
+                            'table' => 'categorie_products',
+                            'alias' => 'cp',
+                            'type' => 'INNER',
+                            'conditions' => 'cp.id_product = Products.id',
+                        ])
+                        ->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();;
 
             if(!empty($other_product)){
                 foreach($other_product as $key => $item){
@@ -117,7 +142,7 @@ function product($input)
                     $point = 0;
                     if(!empty($other_product[$key]->evaluate)){
                         foreach($other_product[$key]->evaluate as $k => $s){
-                            $point = $s->point;
+                            $point += $s->point;
                         }
                     }
 
@@ -132,7 +157,7 @@ function product($input)
             $manufacturer = $modelCategories->find()->where(['id'=>$product->id_manufacturer])->first();
 
             // DANH MỤC SẢN PHẨM
-            $category = $modelCategories->find()->where(['id'=>$product->id_category])->first();
+            // /$category = $modelCategories->find()->where(['id'=>$product->id_category])->first();
 
             // LƯU LỊCH SỬ XEM
             if(empty($session->read('product_view'))){
@@ -147,10 +172,10 @@ function product($input)
                 }
             }
             
-
+            
             setVariable('product', $product);
             setVariable('other_product', $other_product);
-            setVariable('category', $category);
+            // setVariable('category', $category);
             setVariable('manufacturer', $manufacturer);
             setVariable('list_product_view', $list_product_view);
         }else{
@@ -195,7 +220,7 @@ function allProduct($input)
             $point = 0;
             if(!empty($list_product[$key]->evaluate)){
                 foreach($list_product[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -238,7 +263,7 @@ function allProduct($input)
         $urlPage = $urlPage . '?page=';
     }
 
-    $conditions = array('type' => 'category_product');
+    $conditions = array('type' => 'category_product', 'status'=>'active');
     $category_all = $modelCategories->find()->where($conditions)->all()->toList();
 
     $conditions = array('type' => 'manufacturer_product');
@@ -298,7 +323,7 @@ function search($input)
     }
 
     if(!empty($_GET['sela'])){
-        $conditions['price_old >'] = 0;
+        $conditions['flash_sale'] = 1;
     }
 
     if(!empty($_GET['category'])){
@@ -326,7 +351,7 @@ function search($input)
             $point = 0;
             if(!empty($list_product[$key]->evaluate)){
                 foreach($list_product[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -336,6 +361,7 @@ function search($input)
             }
         }
     }
+
 
     // phân trang
     $totalData = $modelProduct->find()->where($conditions)->all()->toList();
@@ -369,7 +395,7 @@ function search($input)
         $urlPage = $urlPage . '?page=';
     }
 
-    $conditions = array('type' => 'category_product');
+    $conditions = array('type' => 'category_product', 'status'=>'active');
     $category_all = $modelCategories->find()->where($conditions)->all()->toList();
 
     $conditions = array('type' => 'manufacturer_product');
@@ -399,7 +425,7 @@ function sela($input)
     global $metaDescriptionMantan;
     global $metaImageMantan;
 
-    $metaTitleMantan = 'Tất cả sản phẩm';
+    $metaTitleMantan = 'Sản phẩm khuyến Mãi';
 
     $modelProduct = $controller->loadModel('Products');
     $modelEvaluate = $controller->loadModel('Evaluates');
@@ -422,7 +448,7 @@ function sela($input)
             $point = 0;
             if(!empty($list_product[$key]->evaluate)){
                 foreach($list_product[$key]->evaluate as $k => $s){
-                    $point = $s->point;
+                    $point += $s->point;
                 }
             }
 
@@ -466,7 +492,7 @@ function sela($input)
         $urlPage = $urlPage . '?page=';
     }
 
-    $conditions = array('type' => 'category_product');
+    $conditions = array('type' => 'category_product', 'status'=>'active');
     $category_all = $modelCategories->find()->where($conditions)->all()->toList();
 
     $conditions = array('type' => 'manufacturer_product');
@@ -570,5 +596,3 @@ function addReview(){
     }
 }
 ?>
-
-

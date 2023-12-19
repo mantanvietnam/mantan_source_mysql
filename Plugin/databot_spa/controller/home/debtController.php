@@ -7,7 +7,7 @@ function listCollectionDebt($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listCollectionDebt', 'bill'))){
 	    $metaTitleMantan = 'Danh sách công nợ phải thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -159,7 +159,7 @@ function listCollectionDebt($input){
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -174,7 +174,7 @@ function addCollectionDebt($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải thu';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addCollectionDebt', 'bill'))){
         $modelMember
 
         		 = $controller->loadModel('Members');
@@ -236,7 +236,7 @@ function addCollectionDebt($input){
 
 	    setVariable('listStaffs', $listStaffs);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -251,7 +251,7 @@ function paymentCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('paymentCollectionBill', 'bill'))){
         $modelMember = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelDebts = $controller->loadModel('Debts');
@@ -291,7 +291,7 @@ function paymentCollectionBill($input){
         	return $controller->redirect('/listCollectionDebt?mess=paymentError');
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -303,7 +303,7 @@ function listPayableDebt($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listPayableDebt', 'bill'))){
 	    $metaTitleMantan = 'Danh sách công nợ phải trả';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -455,7 +455,7 @@ function listPayableDebt($input){
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -470,10 +470,8 @@ function addPayableDebt($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty($session->read('infoUser'))){
-        $modelMember
-
-        		 = $controller->loadModel('Members');
+    if(!empty(checkLoginManager('addPayableDebt', 'bill'))){
+        $modelMember= $controller->loadModel('Members');
 		$modelDebts = $controller->loadModel('Debts');
 
         $infoUser = $session->read('infoUser');
@@ -529,7 +527,7 @@ function addPayableDebt($input){
         setVariable('mess', $mess);
         setVariable('listStaffs', $listStaffs);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -544,7 +542,7 @@ function paymentBill($input){
 
     $metaTitleMantan = 'Thông tin công nợ phải trả';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('paymentBill', 'bill'))){
         $modelMember= $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 		$modelDebts = $controller->loadModel('Debts');
@@ -584,8 +582,7 @@ function paymentBill($input){
         	return $controller->redirect('/listPayableDebt?mess=paymentError');
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 ?>
-

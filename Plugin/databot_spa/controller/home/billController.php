@@ -8,7 +8,7 @@ function listCollectionBill($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listCollectionBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -154,7 +154,7 @@ function listCollectionBill($input){
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -168,7 +168,7 @@ function detailCollectionBill($input){
 
     $metaTitleMantan = 'Tạo đơn hàng';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('detailCollectionBill', 'bill'))){
 		$user = $session->read('infoUser');
 
 		$modelCombo = $controller->loadModel('Combos');
@@ -224,7 +224,7 @@ function detailCollectionBill($input){
         setVariable('order', $order);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -239,7 +239,7 @@ function addCollectionBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu thu';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addCollectionBill', 'bill'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 
@@ -297,7 +297,7 @@ function addCollectionBill($input){
         setVariable('user', $infoUser);
         setVariable('listStaffs', $listStaffs);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -310,7 +310,7 @@ function listBill($input){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -456,7 +456,7 @@ function listBill($input){
 	    setVariable('mess', $mess);
 	    setVariable('listStaffs', $listStaffs);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -471,7 +471,7 @@ function addBill($input){
 
     $metaTitleMantan = 'Thông tin phiếu chi';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addBill', 'bill'))){
         $modelMembers = $controller->loadModel('Members');
 		$modelBill = $controller->loadModel('Bills');
 
@@ -528,7 +528,7 @@ function addBill($input){
         setVariable('mess', $mess);
         setVariable('listStaffs', $listStaffs);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -538,7 +538,7 @@ function deleteBill($input){
     
     $modelBill = $controller->loadModel('Bills');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteBill', 'bill'))){
     	$infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -555,7 +555,7 @@ function deleteBill($input){
         }
        
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -567,7 +567,7 @@ function printCollectionBill(){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('printCollectionBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -584,7 +584,7 @@ function printCollectionBill(){
 
 		$data->date = getdate($data->time);
 	}else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -596,7 +596,7 @@ function printBill(){
 	global $session;
 	global $type_collection_bill;
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('printBill', 'bill'))){
 	    $metaTitleMantan = 'Danh sách phiếu thu';
 
 	    $modelMember = $controller->loadModel('Members');
@@ -613,7 +613,7 @@ function printBill(){
 
 		$data->date = getdate($data->time);
 	}else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

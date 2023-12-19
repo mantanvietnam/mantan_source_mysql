@@ -8,100 +8,103 @@ function listEvent($input){
     
     $_SESSION['urlCallBack']= $urlNow;
       
-        $page= (isset($_GET['page']))? (int) $_GET['page']:1;
-        if($page<=0) $page=1;
-        $limit= 9;
-         $getmonth   = getmonth();
-        
-        $order = array('created'=>'desc');
-        $conditions = array();
+    $page= (isset($_GET['page']))? (int) $_GET['page']:1;
+    if($page<=0) $page=1;
+    $limit= 9;
+     $getmonth   = getmonth();
+    
+    $order = array('id'=>'desc');
+    $conditions = array();
 
-        if(!empty($_GET['name'])){
-             $key=createSlugMantan($_GET['name']);
-            $conditions['urlSlug LIKE']= '%'.$key.'%';
-        }
+    if(!empty($_GET['name'])){
+         $key=createSlugMantan($_GET['name']);
+        $conditions['urlSlug LIKE']= '%'.$key.'%';
+    }
 
-        $conditions['status']= 1;
+    $conditions['status']= 1;
 
-        if(!empty($_GET['month'])){
-                $conditions['month']= $_GET['month'];
-        }
+    if(!empty($_GET['month'])){
+            $conditions['month']= $_GET['month'];
+    }
 
-        if(!empty($_GET['year'])){
-            $conditions['year']= $_GET['year'];
-        }
-        $listData = $modelEvent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
-        $month = getdate()['mon'];
-        $year = getdate()['year'];
+    if(!empty($_GET['year'])){
+        $conditions['year']= $_GET['year'];
+    }
+
+    $listData = $modelEvent->find()->limit($limit)->page($page)->where($conditions)->order($order)->all()->toList();
+    
+    $month = getdate()['mon'];
+    $year = getdate()['year'];
 
 
     $conditionsmonth = array('month' => $month, 'year' => $year, 'outstanding' =>'1' , 'status' => '1' );
 
-        $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order($order)->all()->toList();
+    $listDataEvent= $modelEvent->find()->limit(1)->page(1)->where($conditionsmonth)->order($order)->all()->toList();
 
-            if(!empty($listData)){
-                foreach ($listData as $key => $value) {
-                    $conditions_scan = array('id'=>$value->id);
-                    $static = $modelEvent->find()->where($conditions_scan)->all()->toList();
-                    $listData[$key]->number_scan = count($static);
-                }
-            }
+    if(!empty($listData)){
+        foreach ($listData as $key => $value) {
+            $conditions_scan = array('id'=>$value->id);
+            $static = $modelEvent->find()->where($conditions_scan)->all()->toList();
+            $listData[$key]->number_scan = count($static);
+        }
+    }
 
-            // phân trang
-            $totalData = $modelEvent->find()->where($conditions)->all()->toList();
-            $totalData = count($totalData);
+    // phân trang
+    $totalData = $modelEvent->find()->where($conditions)->all()->toList();
+    $totalData = count($totalData);
 
-            $balance = $totalData % $limit;
-            $totalPage = ($totalData - $balance) / $limit;
-            if ($balance > 0)
-                $totalPage+=1;
+    $balance = $totalData % $limit;
+    $totalPage = ($totalData - $balance) / $limit;
+    if ($balance > 0)
+        $totalPage+=1;
 
-            $back = $page - 1;
-            $next = $page + 1;
-            if ($back <= 0)
-                $back = 1;
-            if ($next >= $totalPage)
-                $next = $totalPage;
+    $back = $page - 1;
+    $next = $page + 1;
+    if ($back <= 0)
+        $back = 1;
+    if ($next >= $totalPage)
+        $next = $totalPage;
 
-            if (isset($_GET['page'])) {
-                $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
-                $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
-            } else {
-                $urlPage = $urlCurrent;
-            }
-            if (strpos($urlPage, '?') !== false) {
-                if (count($_GET) >= 1) {
-                    $urlPage = $urlPage . '&page=';
-                } else {
-                    $urlPage = $urlPage . 'page=';
-                }
-            } else {
-                $urlPage = $urlPage . '?page=';
-            }
-       global $metaTitleMantan;
-        global $metaKeywordsMantan;
-        global $metaDescriptionMantan;
+    if (isset($_GET['page'])) {
+        $urlPage = str_replace('&page=' . $_GET['page'], '', $urlCurrent);
+        $urlPage = str_replace('page=' . $_GET['page'], '', $urlPage);
+    } else {
+        $urlPage = $urlCurrent;
+    }
+    if (strpos($urlPage, '?') !== false) {
+        if (count($_GET) >= 1) {
+            $urlPage = $urlPage . '&page=';
+        } else {
+            $urlPage = $urlPage . 'page=';
+        }
+    } else {
+        $urlPage = $urlPage . '?page=';
+    }
 
-        $metaTitleMantanDefault= $metaTitleMantan;
-        $metaKeywordsMantanDefault= $metaKeywordsMantan;
-        $metaDescriptionMantanDefault= $metaDescriptionMantan;
+    global $metaTitleMantan;
+    global $metaKeywordsMantan;
+    global $metaDescriptionMantan;
+
+    $metaTitleMantanDefault= $metaTitleMantan;
+    $metaKeywordsMantanDefault= $metaKeywordsMantan;
+    $metaDescriptionMantanDefault= $metaDescriptionMantan;
 
 
-        $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Sự kiện');
-        $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
-        $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
-                    
-        $metaTitleMantan= str_replace('%categoryName%', 'Sự kiện', $metaTitleMantan);
+    $metaTitleMantan= str_replace('%title%', $metaTitleMantanDefault, 'Sự kiện');
+    $metaTitleMantan= str_replace('%keyword%', $metaKeywordsMantanDefault, $metaTitleMantan);
+    $metaTitleMantan= str_replace('%description%', $metaDescriptionMantanDefault, $metaTitleMantan);
+                
+    $metaTitleMantan= str_replace('%categoryName%', 'Sự kiện', $metaTitleMantan);
 
-        setVariable('listData',$listData);
-        setVariable('getmonth',$getmonth);
-        setVariable('listDataEvent',$listDataEvent  );
+    setVariable('listData',$listData);
+    setVariable('getmonth',$getmonth);
+    setVariable('listDataEvent',$listDataEvent  );
 
-        setVariable('page',$page);
-        setVariable('totalPage',$totalPage);
-        setVariable('back',$back);
-        setVariable('next',$next);
-        setVariable('urlPage',$urlPage);
+    setVariable('page',$page);
+    setVariable('totalPage',$totalPage);
+    setVariable('back',$back);
+    setVariable('next',$next);
+    setVariable('urlPage',$urlPage);
 }
 
 function detailEvent($input){
@@ -2244,5 +2247,4 @@ function map(){
         $metaTitleMantan= str_replace('%categoryName%', 'Danh lam thắng cảnh', $metaTitleMantan);
 
 }
- ?>
-
+?>

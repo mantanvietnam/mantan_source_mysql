@@ -16,10 +16,10 @@ $infoUser = $session->read('infoUser');
                 </div>
         
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-left">
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-12 footer-item footer-left">
                         <div class="footer-info">
                             <div class="copyright">
-                                <strong><?php echo $setting['company'] ?></strong>
+                                <?php echo $setting['company'] ?>
                             </div>
                             <div class="footer-info-list">
                                 <div class="footer-info-item">
@@ -33,15 +33,15 @@ $infoUser = $session->read('infoUser');
                                 </div>
 
                                 <div class="footer-info-item">
-                                    <p>Tổng đài hỗ trợ (08:00-21:00, miễn phí gọi)</p>  
+                                    <p>Tổng đài hỗ trợ (08:00-17:00)</p>  
                                     <p>Gọi mua: <span class="blue-text"><?php echo $setting['call_buy'] ?></span></p>  
-                                    <p>Khiếu nại: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
+                                    <p>Hỗ trợ: <span class="blue-text"><?php echo $setting['complain'] ?></span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-center">
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 footer-item footer-center">
                         <div class="menu-footer menu-footer1">
                             <div class="footer-menu-name footer-menu-name1">
                                 <p>Danh mục</p>
@@ -75,17 +75,17 @@ $infoUser = $session->read('infoUser');
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 footer-item footer-right">
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-12 footer-item footer-right">
                         <div class="footer-social">
                             <div class="footer-menu-name">
                                 <p>KẾT NỐI VỚI CHÚNG TÔI</p>
                             </div>
                             <div class="group-social">
                                 <ul>
-                                    <li><a href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
-                                    <li><a href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/mail.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['facebook'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/face.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['youtube'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/youtube.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['instagram'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/insta.png" alt=""></a></li>
+                                    <li><a target="_blank" href="<?php echo $setting['email'] ?>"><img src="<?php echo $urlThemeActive ?>asset/image/tiktok.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -98,16 +98,14 @@ $infoUser = $session->read('infoUser');
 
                         <section id="section-blog-contact" class="footer-blog-contact">
                             <div class="title-section-sub">
-                                <p>Để cập nhập những tin tức về sức khỏe, làm đẹp,.. và những ưu đãi đặc biệt sớm nhất</p>
+                                <p>Đăng ký nhận tin để nhận những khuyến mãi hấp dẫn</p>
                             </div>
 
                             <div class="form-blog-contact">
-                                <form action="">
                                     <div class="input-blog-contact">
-                                        <input type="email" class="form-control" placeholder="Nhập email của bạn" required>
-                                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                        <input type="email" name="emailSubscribe" id="emailSubscribe" class="form-control" placeholder="Nhập email của bạn" required>
+                                        <button onclick="addSubscribe()" class="btn btn-primary">Đăng ký</button>
                                     </div>
-                                </form>
                             </div>
                         </section>
                     </div>
@@ -127,6 +125,9 @@ $infoUser = $session->read('infoUser');
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-6 col-12 modal-left">
@@ -139,27 +140,67 @@ $infoUser = $session->read('infoUser');
                                     </div>
 
                                     <div class="modal-left-login-social">
-                                        <div class="login-social-item">
+                                        <div class="login-social-item" onclick="loginFB();">
                                             <i class="fa-brands fa-facebook" style="color: #0D6EFD"></i><a href="">Tiếp tục với Facebook</a>
                                         </div>
+                                        
+                                        <div id="fb-root"></div>
+                                        <script type="text/javascript">
+                                        //<![CDATA[
+                                        window.fbAsyncInit = function() {
+                                           FB.init({
+                                             appId      : '202676052887175', // App ID
+                                             channelURL : '', // Channel File, not required so leave empty
+                                             status     : true, // check login status
+                                             cookie     : true, // enable cookies to allow the server to access the session
+                                             oauth      : true, // enable OAuth 2.0
+                                             xfbml      : false  // parse XFBML
+                                           });
+                                        };
+                                        // logs the user in the application and facebook
+                                        function loginFB(){
+                                            FB.getLoginStatus(function(r){
+                                                 if(r.status === 'connected'){
+                                                        window.location.href = 'fbconnect.php';
+                                                 }else{
+                                                    FB.login(function(response) {
+                                                            if(response.authResponse) {
+                                                          //if (response.perms)
+                                                                window.location.href = 'fbconnect.php';
+                                                        } else {
+                                                          // user is not logged in
+                                                        }
+                                                 },{scope:'email'}); // which data to access from user profile
+                                             }
+                                            });
+                                        }
+                                        // Load the SDK Asynchronously
+                                        (function() {
+                                           var e = document.createElement('script'); e.async = true;
+                                           e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                                           document.getElementById('fb-root').appendChild(e);
+                                        }());
+                                        //]]>
+                                        </script>
+
                                         <div class="login_f gg">
-                      <?php
-                      global $google_clientId;
-                      global $google_clientSecret;
-                      global $google_redirectURL;
+                                            <?php
+                                              global $google_clientId;
+                                              global $google_clientSecret;
+                                              global $google_redirectURL;
 
-                      $client = new Google_Client();
-                      $client->setClientId($google_clientId);
-                      $client->setClientSecret($google_clientSecret);
-                      $client->setRedirectUri($google_redirectURL);
-                      $client->setApplicationName('Đăng nhập Ezpics');
-                      //$client->setApprovalPrompt('force');
+                                              $client = new Google_Client();
+                                              $client->setClientId($google_clientId);
+                                              $client->setClientSecret($google_clientSecret);
+                                              $client->setRedirectUri($google_redirectURL);
+                                              $client->setApplicationName('Đăng nhập Ezpics');
+                                              //$client->setApprovalPrompt('force');
 
-                      $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
+                                              $client->addScope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me');
 
-                      $authUrl = $client->createAuthUrl();
-                      ?>
-                  </div>
+                                              $authUrl = $client->createAuthUrl();
+                                            ?>
+                                        </div>
                                         <div class="login-social-item">
                                             <i class="fa-brands fa-google" style="color: red"></i><a href="<?php echo filter_var($authUrl, FILTER_SANITIZE_URL) ?>">Tiếp tục với Google</a>
                                         </div>
@@ -187,11 +228,12 @@ $infoUser = $session->read('infoUser');
                                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                         
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại">
+                                            <input type="text" class="form-control" name="email" id="email" placeholder="Số điện thoại/Email">
                                         </div>
 
-                                        <div class="mb-3">
+                                        <div class="mb-3 password-container">
                                             <input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
+                                            <span class="toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye-slash"></i></span>
                                         </div>
                                         <p id="messlogin"></p>
                                         <div class="group-button-login">
@@ -214,6 +256,9 @@ $infoUser = $session->read('infoUser');
             <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-6 col-12 modal-left">
@@ -250,23 +295,23 @@ $infoUser = $session->read('infoUser');
                                     <form action="" method="post">
                                         <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Họ và tên">
+                                            <input type="text" required="" class="form-control" name="full_name" id="full_name" placeholder="Họ và tên">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
+                                            <input type="number"  required="" class="form-control" name="phone" id="phone" placeholder="Số điện thoại">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="emailReg" id="emailReg" placeholder="email">
+                                            <input type="email"  required="" class="form-control" name="emailReg" id="emailReg" placeholder="Email">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" name="passReg" id="passReg" placeholder="Mật khẩu">
+                                            <input type="password"  required="" class="form-control" name="passReg" id="passReg" placeholder="Mật khẩu">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" name="passAgain" id="passAgain" placeholder="Mật khẩu xác thực">
+                                            <input type="password"  required="" class="form-control" name="passAgain" id="passAgain" placeholder="Nhập lại mật khẩu ">
                                         </div>
                                         <p id="messReg"></p>
                                         <a class="btn btn-primary" onclick="register()">Tiếp tục</a>
@@ -291,6 +336,9 @@ $infoUser = $session->read('infoUser');
             <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-12 modal-right">
@@ -323,44 +371,49 @@ $infoUser = $session->read('infoUser');
         </div>
 
         <!-- mã xác nhân  -->
-        <div class="modal-login modal-forgotpass">
- 
-            
+        <div class="modal-login modal-forgotpass">  
             <!-- Modal -->
             <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12 modal-right">
-                                <div class="or-login">
-                                    <div class="forgot-text-title">
-                                        Mã xác nhận 
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 modal-right">
+                                    <div class="or-login">
+                                        <div class="forgot-text-title">
+                                            Mã xác nhận 
+                                        </div>
+                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button> -->
+
                                     </div>
+                                    <p id="confirm"></p>
+                                    <form action="">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
+                                        </div>
+                                        <a onclick="confirm()" class="btn btn-primary">Tiếp tục</a>
+                                    </form>
                                 </div>
-                                <p id="confirm"></p>
-                                <form action="">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="code" placeholder="Mã xác nhận ">
-                                    </div>
-                                    <a onclick="confirm()" class="btn btn-primary">Tiếp tục</a>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
-
+        
+        <!-- Nut bam xác nhận modal -->
          <!-- mã xác nhân  -->
         <div class="modal-login modal-forgotpass">
- 
-            
             <!-- Modal -->
             <div class="modal fade" id="exampleModalcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 modal-right">
@@ -388,9 +441,12 @@ $infoUser = $session->read('infoUser');
  
             
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModalpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-dismiss="modal">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 modal-right">
@@ -413,6 +469,35 @@ $infoUser = $session->read('infoUser');
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
+        </div>
+
+
+         <!-- mật khẩu   -->
+        <div class="modal-login modal-forgotpass">  
+            <!-- Modal -->
+            <div class="modal fade" id="modalemailSubscribe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 modal-right">
+                                    <div class="or-login">
+                                        <div class="forgot-text-title" id="messSubscribe">
+                                            
+                                        </div>
+                                      
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -452,33 +537,52 @@ $infoUser = $session->read('infoUser');
         var passReg = $('#passReg').val();
         var passAgin = $('#passAgain').val();
         console.log(full_name);
-        console.log(phone);
+        console.log(phone.length);
         console.log(email);
         console.log(passReg);
-        console.log(passAgin);  
-        $.ajax({
-            method: "POST",
-            data:{
-                  full_name: full_name,
-                  phone: phone,  
-                  email: email,
-                  pass: passReg,  
-                  passAgain: passAgin,  
-                },
-            url: "/apis/register",
-        })
-        .done(function(msg) {
-            console.log(msg);
-            if(msg.code==1){
-                location.reload();
-            }else{
-                var html = '<p class="text-danger">'+msg.messages+'</p>';
-                document.getElementById("messReg").innerHTML = html;
+        console.log(passAgin);
 
+        if(phone.length ==10){  
+            if(kiemTraEmailHopLe(email)){
+                $.ajax({
+                    method: "POST",
+                    data:{
+                          full_name: full_name,
+                          phone: phone,  
+                          email: email,
+                          pass: passReg,  
+                          passAgain: passAgin,  
+                        },
+                    url: "/apis/register",
+                })
+                .done(function(msg) {
+                    console.log(msg);
+                    if(msg.code==1){
+                        location.reload();
+                    }else{
+                        var html = '<p class="text-danger">'+msg.messages+'</p>';
+                        document.getElementById("messReg").innerHTML = html;
+
+                    }
+                   
+                });
+            }else{
+                    var html = '<p class="text-danger">Email không đúng</p>';
+                    document.getElementById("messReg").innerHTML = html;
             }
-           
-        });
+        }else{
+             var html = '<p class="text-danger">Số điên thoại không đúng</p>';
+                    document.getElementById("messReg").innerHTML = html;
+        }
     }
+
+    function kiemTraEmailHopLe(email) {
+  // Biểu thức chính quy cho kiểm tra email cơ bản
+  var bieuThucChinhQuy = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  // Kiểm tra email với biểu thức chính quy
+  return bieuThucChinhQuy.test(email);
+}
 
     function forgotpassword(){
         var email = $('#exampleCheck1').val();
@@ -532,7 +636,7 @@ $infoUser = $session->read('infoUser');
                 exampleModalcode.classList.remove("show");
             }else{
                 var html = '<p class="text-danger">'+msg.messages+'</p>';
-                document.getElementById("c").innerHTML = html;
+                document.getElementById("confirm").innerHTML = html;
 
             }
            
@@ -565,13 +669,41 @@ $infoUser = $session->read('infoUser');
            
         });
     }
+
+    function addSubscribe(){
+        var email = $('#emailSubscribe').val();
+          console.log(code);
+        var modalemailSubscribe =  document.getElementById("modalemailSubscribe");
+        var addClass =  document.getElementById("addClass");
+
+
+       
+        $.ajax({
+            method: "POST",
+            data:{email: email,
+                },
+            url: "/apis/addSubscribeAPI",
+        })
+        .done(function(msg) {
+            console.log(msg);
+                document.getElementById("messSubscribe").innerHTML = msg.mess;
+                modalemailSubscribe.style.display = 'block';
+                modalemailSubscribe.classList.add("show");
+                addClass.classList.add("show");
+                addClass.classList.add("modal-backdrop");
+                addClass.classList.add("fade");
+
+           
+        });
+    }
     
     </script>
-
+ 
     <script src="<?php echo $urlThemeActive ?>asset/js/slick.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/main.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/mainplusproduct.js"></script>
     <script src="<?php echo $urlThemeActive ?>asset/js/review.js"></script>
+    <div id="addClass"></div>
 
 
 

@@ -1,7 +1,7 @@
 <?php
 	$menus= array();
 	$menus[0]['title']= 'Like comment';
-   $menus[0]['sub'][0]= array('title'=>'Danh sách bình luận','classIcon'=>'fa-link','url'=>'/plugins/admin/like_comment-admin-listCommentAdmin.php','permission'=>'listLinkWeb',);
+   $menus[0]['sub'][0]= array('title'=>'Danh sách bình luận','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/like_comment-admin-listCommentAdmin.php','permission'=>'listCommentAdmin',);
     // $menus[0]['sub'][1]= array('title'=>'Nhóm liên kết','classIcon'=>'fa-users','url'=>'/plugins/admin/linkWeb-admin-listLinkWebCategoryAdmin.php','permission'=>'groupLinkWeb',);
     
     addMenuAdminMantan($menus); 
@@ -54,7 +54,8 @@
     	$modelComment = $controller->loadModel('Comments');
     	$conditions= array();
     	$conditions['idobject']= $idobject;
-    	$conditions['type']= $type;
+        $conditions['type']= $type;
+    	$conditions['status']= 'active';
       $order = array('id'=>'desc');
 
     	$data =	$modelComment->find()->limit(10)->page(1)->where($conditions)->order($order)->all()->toList();

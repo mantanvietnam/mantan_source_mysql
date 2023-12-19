@@ -7,7 +7,7 @@ function listCategoryProduct($input){
 
     $metaTitleMantan = 'Danh sách danh mục sản phẩm';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCategoryProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -55,7 +55,7 @@ function listCategoryProduct($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -68,7 +68,7 @@ function deleteCategoryProduct($input){
 
     $metaTitleMantan = 'Xóa danh mục sản phẩm';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteCategoryProduct', 'product'))){
         $infoUser = $session->read('infoUser');
         $modelProducts = $controller->loadModel('Products');
 
@@ -92,7 +92,7 @@ function deleteCategoryProduct($input){
             }
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -105,7 +105,7 @@ function listTrademarkProduct($input){
 
     $metaTitleMantan = 'Nhãn hiệu sản phẩm';
 
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listTrademarkProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         $mess = '';
@@ -156,7 +156,7 @@ function listTrademarkProduct($input){
         setVariable('listData', $listData);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -168,7 +168,7 @@ function deleteTrademarkProduct($input){
     global $controller;
 
     $metaTitleMantan = 'Xóa nhãn hiệu sản phẩm';
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteTrademarkProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -193,7 +193,7 @@ function deleteTrademarkProduct($input){
             }
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -207,7 +207,7 @@ function listProduct(){
 
     $metaTitleMantan = 'Danh sách sản phẩm';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listProduct', 'product'))){
 
         $mess= '';
         
@@ -310,7 +310,7 @@ function listProduct(){
         setVariable('listTrademar', $listTrademar);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -325,7 +325,7 @@ function addProduct($input){
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addProduct', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelTrademarks = $controller->loadModel('Trademarks');
@@ -404,7 +404,7 @@ function addProduct($input){
         setVariable('listCategory', $listCategory);
         setVariable('listTrademar', $listTrademar);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -417,7 +417,7 @@ function deleteProduct($input){
     $modelWarehouseProducts = $controller->loadModel('WarehouseProductDetails');
     $modelCombo = $controller->loadModel('Combos');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('deleteProduct', 'product'))){
         $infoUser = $session->read('infoUser');
 
         if(!empty($_GET['id'])){
@@ -458,7 +458,7 @@ function deleteProduct($input){
 
         return $controller->redirect('/listProduct');
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -470,7 +470,7 @@ function addProductWarehouse($input){
 
     $metaTitleMantan = 'Thông tin sản phẩm';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('addProductWarehouse', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -593,7 +593,7 @@ function addProductWarehouse($input){
 
         setVariable('listWarehouse', $listWarehouse);
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -605,7 +605,7 @@ function importHistorytWarehouse($input){
 
     $metaTitleMantan = 'Lịch sử nhập hàng vào kho';
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('importHistorytWarehouse', 'product'))){
         $modelMembers = $controller->loadModel('Members');
         $modelProducts = $controller->loadModel('Products');
         $modelWarehouses = $controller->loadModel('Warehouses');
@@ -728,7 +728,7 @@ function importHistorytWarehouse($input){
         setVariable('mess', @$mess);
 
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 

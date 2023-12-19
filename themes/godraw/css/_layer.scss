@@ -302,7 +302,7 @@ main {
     height: calc(100vh - 70px);
   }
   @media (max-width: 1023px) {
-    height: calc(100vh - 60px);
+    // height: calc(100vh - 60px);
   }
   &.main-cover {
     height: 100vh;

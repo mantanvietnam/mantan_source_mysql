@@ -12,7 +12,8 @@ function listSpa($input){
 	
 	$metaTitleMantan = 'Danh sách cơ sở kinh doanh';
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('listSpa', 'customer'))){
+
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array();
@@ -97,7 +98,7 @@ function listSpa($input){
 	    setVariable('listData', $listData);
 
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 } 
 
@@ -114,7 +115,7 @@ function addSpa($input){
 	$modelSpas = $controller->loadModel('Spas');
 	$modelWarehouse = $controller->loadModel('Warehouses');
 
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('addSpa', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 		$conditions = array();
@@ -174,7 +175,7 @@ function addSpa($input){
 
 	    setVariable('data', $data);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 
@@ -186,7 +187,7 @@ function deleteSpa($input){
 
 	$modelSpas = $controller->loadModel('Spas');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deleteSpa', 'customer'))){
 		$infoUser = $session->read('infoUser');
 
 	    if(!empty($_GET['id'])){
@@ -199,7 +200,7 @@ function deleteSpa($input){
 
 		return $controller->redirect('/listSpa?status=3');
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 ?>

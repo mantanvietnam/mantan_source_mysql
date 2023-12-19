@@ -9,7 +9,7 @@ function listProduct($input)
 
 	if(!empty($session->read('infoUser')) && $session->read('infoUser')->type == 1){
 		if(empty($session->read('isAgencyBoss'))){
-			return $controller->redirect('/checkBoos');
+			return $controller->redirect('/checkBoos/?redirect=/listProduct');
 		}
 
 	    $metaTitleMantan = 'Sản phẩm nhà cung cấp';
@@ -18,7 +18,8 @@ function listProduct($input)
 		
 		$user = $session->read('infoUser');
 
-		$conditions = array('status'=>1);
+		$conditions = array('status'=>1, 'deleted_at IS'=> null);
+
 		$limit = 20;
 		$page = (!empty($_GET['page']))?(int)$_GET['page']:1;
 		if($page<1) $page = 1;

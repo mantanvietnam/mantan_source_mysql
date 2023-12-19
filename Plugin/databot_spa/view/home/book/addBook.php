@@ -3,7 +3,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/listBook">Lịch hẹn</a> /</span>
+    <span class="text-muted fw-light"><a href="/listBookCalendar">Lịch hẹn</a> /</span>
     Thông tin lịch hẹn
   </h4>
 
@@ -54,7 +54,7 @@
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="basic-default-fullname">Dịch vụ (*)</label>
                       <select class="form-select" name="id_service" id="id_service" required>
-                        <option value="" >Chọn dịch vụ</option>
+                        <option value="">Chọn dịch vụ</option>
                         <?php foreach($dataService as $key => $item){ ?>
                           <option value="<?php echo $item->id ?>" <?php if(isset($data->id_service) && $data->id_service== $item->id) echo 'selected'; ?> ><?php echo $item->name ?></option>
                         <?php } ?>
@@ -86,7 +86,6 @@
                           <option value="2" <?php if(!empty($data->status) && $data->status==2) echo 'selected';?>>Không đến</option>
                           <option value="3" <?php if(!empty($data->status) && $data->status==3) echo 'selected';?>>Đã đến</option>
                           <option value="4" <?php if(!empty($data->status) && $data->status==4) echo 'selected';?>>Hủy lịch</option>
-                          <option value="5" <?php if(!empty($data->status) && $data->status==5) echo 'selected';?>>Đặt online</option>
                         </select>
                     </div>
                     <div class="mb-3 col-md-3">
@@ -115,9 +114,9 @@
 
                     <div class="mb-3 col-md-12">
                        <label class="form-label" for="basic-default-fullname">Kiểu đặt</label>
-                      <div class="form-group d-flex justify-content-around">
+                      <div class="form-group d-flex justify-content-around" >
                           <label class="i-checks i-checks-sm">
-                              <input type="checkbox" name="type1"  class="staffcheck"  <?php if(!empty($data->type1)) echo 'checked ';  ?> value="1">
+                              <input type="checkbox" name="type1" class="staffcheck"  <?php if(!empty($data->type1)) echo 'checked ';  ?> value="1">
                               
                               <span>&nbsp;&nbsp;&nbsp;&nbsp; Lịch tư vấn</span>
                           </label>

@@ -10,7 +10,7 @@ function listCustomerCampaign($input)
     $modelCampainCustomers = $controller->loadModel('CampainCustomers');
     $modelCustomer = $controller->loadModel('Customers');
     
-    if(!empty($session->read('infoUser'))){
+    if(!empty(checkLoginManager('listCustomerCampaign', 'campain'))){
         $mess= '';
 
         if(!empty($_GET['idCampaign'])){
@@ -136,7 +136,7 @@ function listCustomerCampaign($input)
         	return $controller->redirect('/listCampain');
         }
     }else{
-        return $controller->redirect('/login');
+        return $controller->redirect('/');
     }
 }
 
@@ -146,7 +146,7 @@ function deleteCustomerCampain($input){
 	
 	$modelCampainCustomers = $controller->loadModel('CampainCustomers');
 	
-	if(!empty($session->read('infoUser'))){
+	if(!empty(checkLoginManager('deleteCustomerCampain','campain'))){
 		$infoUser = $session->read('infoUser');
 
 		if(!empty($_GET['id'])){
@@ -159,7 +159,7 @@ function deleteCustomerCampain($input){
 
 		return $controller->redirect('/listCustomerCampaign/?idCampaign='.$data->id_campain);
 	}else{
-		return $controller->redirect('/login');
+		return $controller->redirect('/');
 	}
 }
 ?>

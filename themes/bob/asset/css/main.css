@@ -265,6 +265,7 @@ img{
 }
 
 #section-home-introduce .row-home-introduce .home-inrtroduce-box{
+    text-align: center;
 }
 
 /* section category product */
@@ -502,7 +503,9 @@ img{
 
 /* Đăng dự án miễn phí */
 #section-home-contact{
-    max-height: 548px;
+    /* max-height: 548px; */
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #section-home-contact .home-contact-left{
@@ -1077,12 +1080,16 @@ img{
 
 #section-news-content .news-content-inner .news-title{
     text-align: center;
-    max-width: 624px;
+    /* max-width: 624px; */
     line-height: 130%;
     margin: auto;
     margin-top: 16px;
     font-weight: bold;
     font-size: 48px;
+}
+
+.navbar-project{
+    margin-top: 30px;
 }
 
 #section-news-content .news-content-inner .news-date{

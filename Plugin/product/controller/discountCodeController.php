@@ -116,7 +116,8 @@ function addDiscountCodeAdmin($input)
             $data->name = @$dataSend['name'];
             $data->code = strtoupper(@$dataSend['code']);
             $data->discount = @$dataSend['discount'];
-            $data->id_product = @$dataSend['id_product'];
+            $data->maximum_price_reduction = @$dataSend['maximum_price_reduction'];
+            $data->id_customers = @$dataSend['id_customers'];
             $data->number_user = @$dataSend['number_user'];
             $data->category = @$dataSend['category'];
             if(!empty($dataSend['deadline_at'])){

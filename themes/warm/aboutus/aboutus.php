@@ -344,7 +344,7 @@
         
                         <div class="col-lg-5 col-md-5 col-12 keydate-right">
                             <span><span class="odometer4 number-project">0</span><span class="tranform-text">&nbsp;Projects</span>
-                            <p>Bac Kan, Dien Bien, Son La, Lang Son, Quang Tri, Quang Nam, Ninh Thuan, Vinh Long, Hau Giang, Ca Mau; and other potential projects</p>
+                            <p>Dien Bien, Son La, Quang Tri, Quang Nam, Ninh Thuan, Vinh Long, Hau Giang, Ca Mau; and other potential projects</p>
                         </div>
                     </div>
                 </div>

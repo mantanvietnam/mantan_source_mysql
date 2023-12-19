@@ -74,9 +74,19 @@ $infoUser = $session->read('infoUser');
                                 foreach ($list_product as $key => $value) { 
                                      if(!empty($value->present)){
                                     foreach($value->present as $item){ ?>
-                                    <div class="product-order-gift-img">
-                                        <div class="product-order-gift-img-inner">
-                                            <img src="<?php echo @$item->image ?>" alt="">
+                                    <div class="product-order-gift-box-inner">
+                                        <div class="product-order-gift-img">
+                                            <div class="product-order-gift-img-inner">
+                                                <img src="<?php echo @$item->image ?>" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="product-order-detail">
+                                            <div class="product-order-name">
+                                                <?php echo $item->title ?>
+                                            </div>
+                                            <div class="cart-product-gift-number">
+                                                <span>Số lượng: <?php echo @$item->numberOrder ?></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <?php }}}} ?>
@@ -93,7 +103,16 @@ $infoUser = $session->read('infoUser');
                                     </div>
 
                                     <div class="cart-price-item-price">
-                                        <?php echo number_format($pay['totalPays']); ?>
+                                        <?php echo number_format($pay['totalPays']); ?>đ
+                                    </div>
+                                </div>
+                                <div class="cart-price-item">
+                                    <div class="cart-price-item-title">
+                                        Giá vận chuyển
+                                    </div>
+
+                                    <div class="cart-price-item-price">
+                                        35.000đ
                                     </div>
                                 </div>
 
@@ -141,7 +160,17 @@ $infoUser = $session->read('infoUser');
                                 </div>
                             <?php } ?>
                                 <!-- Giá tổng chiết khẩu -->
-                                
+                                 <div class="cart-price-total">
+                                    <div class="cart-price-item">
+                                        <div class="cart-price-item-title">
+                                           Tổng chiết khấu   
+                                        </div>
+    
+                                        <div class="cart-price-item-price">
+                                            <?php echo number_format( (int) @$pay['discount_price3']+ (int) @$pay['discount_price1']+ (int) @$pay['discount_price2']); ?>đ
+                                        </div>
+                                    </div>
+                                </div>
                                  <!-- Thành tiền -->
                                  <div class="cart-price-total">
                                     <div class="cart-price-total-item">
@@ -171,12 +200,12 @@ $infoUser = $session->read('infoUser');
 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" required="" name="full_name" value="<?php echo $infoUser->full_name ?>" placeholder="Họ và tên" aria-label="Username">
-                                        <input type="text" class="form-control" required="" name="phone" value="<?php echo $infoUser->phone ?>" placeholder="điện thoại" aria-label="Server">
+                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" class="form-control input-required" required="" name="full_name" value="<?php echo @$infoUser->full_name ?>" placeholder="Họ và tên (*)" aria-label="Username">
+                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" class="form-control input-required" required="" name="phone" value="<?php echo @$infoUser->phone ?>" placeholder="Điện thoại (*)" aria-label="Server">
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <input type="email" class="form-control"  required="" value="<?php echo $infoUser->email ?>" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" value="<?php echo @$infoUser->email ?>" placeholder="Email">
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +220,7 @@ $infoUser = $session->read('infoUser');
                                 
                                 <div class="order-right-group-input">
                                     <div class="input-group mb-3">
-                                        <input type="text" id="address" name="address"  required="" class="form-control" placeholder="Nhập địa chỉ" aria-label="Amount (to the nearest dollar)">
+                                        <input oninvalid="this.setCustomValidity('Nhập đầy đủ đầy thông tin')" oninput="setCustomValidity('')" type="text" id="address" name="address"  required="" class="form-control" placeholder="Nhập địa chỉ (*)" aria-label="Amount (to the nearest dollar)">
                                          <input type="hidden" id="id_customer" name="id_address" class="form-control" placeholder="Username" aria-label="Username">
                                     </div>
 
@@ -210,8 +239,8 @@ $infoUser = $session->read('infoUser');
                                 <div class="order-right-group-input">
                                    
                                     <div class="input-group mb-3">
-                                        <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
-                                        <label>Thanh toán chuyển khoản</label>
+                                        <!-- <input type="radio" name="payment" value="1"  required="" placeholder="Username" aria-label="Username">
+                                        <label>Thanh toán chuyển khoản</label> -->
                                         <input type="radio" name="payment" value="2"  required="" placeholder="Server" aria-label="Server">
                                         <label>Nhận hàng rồi thanh toán </label>
                                     </div>
@@ -232,9 +261,11 @@ $infoUser = $session->read('infoUser');
                                     </div>
                                 </div>
                             </div>
-
+                           
                             <div class="order-right-group-button">
                                 <button type="submit" class="btn btn-primary">Đặt hàng</button>
+
+                                <a href="/gio-hang" > <button type="button" class="btn btn-primary">Quay lại</button></a>
                             </div>
                         </form>
                     </div>
@@ -242,6 +273,26 @@ $infoUser = $session->read('infoUser');
             </div>
         </section>
     </main>
+
+     <script>
+        // Sự kiện xảy ra khi người dùng nhấn nút "Back"
+        window.addEventListener('popstate', function(event) {
+            // Tải lại trang
+            location.reload();
+        });
+    </script>
+
+
+ <script>
+        // Use the replaceState method to replace the current history entry
+        history.replaceState(null, document.title, location.href);
+
+        // Add a popstate event listener
+        window.addEventListener('popstate', function(event) {
+            // Restore the current state by pushing a new state
+            history.pushState(null, document.title, location.href);
+        });
+    </script>
 <script type="text/javascript">
     // tìm khách hàng 
     $(function() {

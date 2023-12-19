@@ -7,6 +7,7 @@
 	$routesPlugin['searchProductApi']= 'databot_spa/view/api/customer/searchProductApi.php'; 
 	$routesPlugin['searchServicesApi']= 'databot_spa/view/api/customer/searchServicesApi.php'; 
 	$routesPlugin['searchComboApi']= 'databot_spa/view/api/customer/searchComboApi.php'; 
+	$routesPlugin['searchStaffApi']= 'databot_spa/view/api/customer/searchStaffApi.php'; 
 
 	// member 
 	$routesPlugin['login']= 'databot_spa/view/home/member/login.php';
@@ -18,6 +19,7 @@
 	$routesPlugin['confirm']= 'databot_spa/view/home/member/confirm.php';
 	$routesPlugin['register']= 'databot_spa/view/home/member/register.php';
 	$routesPlugin['managerSelectSpa']= 'databot_spa/view/home/member/managerSelectSpa.php';
+	$routesPlugin['error_permission']= 'databot_spa/view/home/member/error_permission.php';
 
 	$routesPlugin['listProduct']= 'databot_spa/view/home/product/listProduct.php';
 	$routesPlugin['listCategoryProduct']= 'databot_spa/view/home/product/listCategoryProduct.php';
@@ -43,6 +45,7 @@
 	$routesPlugin['listCategoryCustomer']= 'databot_spa/view/home/customer/listCategoryCustomer.php';
 	$routesPlugin['deleteCategoryCustomer']= 'databot_spa/view/home/customer/deleteCategoryCustomer.php';
 	$routesPlugin['listSourceCustomer']= 'databot_spa/view/home/customer/listSourceCustomer.php';
+	$routesPlugin['addDataCustomer']= 'databot_spa/view/home/customer/addDataCustomer.php';
 	
 	$routesPlugin['listStaff']= 'databot_spa/view/home/staff/listStaff.php';
 	$routesPlugin['addStaff']= 'databot_spa/view/home/staff/addStaff.php';
@@ -70,6 +73,7 @@
 	$routesPlugin['deleteCombo']= 'databot_spa/view/home/combo/deleteCombo.php';
 
 	$routesPlugin['listBook']= 'databot_spa/view/home/book/listBook.php';
+	$routesPlugin['listBookCalendar']= 'databot_spa/view/home/book/listBookCalendar.php';
 	$routesPlugin['addBook']= 'databot_spa/view/home/book/addBook.php';
 	$routesPlugin['deleteBook']= 'databot_spa/view/home/book/deleteBook.php';
 
@@ -131,6 +135,19 @@
 	$routesPlugin['transactionHistories']= 'databot_spa/view/home/transaction/transactionHistories.php';
 	$routesPlugin['createRequestAddMoney']= 'databot_spa/view/home/transaction/createRequestAddMoney.php';
 	$routesPlugin['updateBankingAPI']= 'databot_spa/view/home/transaction/updateBankingAPI.php';
+
+
+	// chiết khấu 
+	$routesPlugin['listAgency']= 'databot_spa/view/home/agency/listAgency.php';
+
+	// zalo
+	$routesPlugin['settingZaloMarketing']= 'databot_spa/view/home/zalo/settingZaloMarketing.php';
+	$routesPlugin['callbackZalo']= 'databot_spa/view/home/zalo/callbackZalo.php';
+	$routesPlugin['callbackZaloOA']= 'databot_spa/view/home/zalo/callbackZaloOA.php';
+	$routesPlugin['addFriendZaloMarketing']= 'databot_spa/view/home/zalo/addFriendZaloMarketing.php';
+	$routesPlugin['sendMessZaloOA']= 'databot_spa/view/home/zalo/sendMessZaloOA.php';
+
+	$routesPlugin['listTemplateZNSZalo']= 'databot_spa/view/home/zalo_templates/listTemplateZNSZalo.php';
 	
 
 ?>

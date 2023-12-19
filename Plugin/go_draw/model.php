@@ -23,3 +23,6 @@ include('model/agency_order_back_store_histories.php');
 include('model/agency_order_products.php');
 include('model/agency_order_product_details.php');
 include('model/agency_order_product_histories.php');
+include('model/warehouse_histories.php');
+include('model/user_pictures.php');
+include('model/user_likes.php');
