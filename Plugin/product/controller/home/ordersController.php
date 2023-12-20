@@ -25,7 +25,10 @@ function cart($input)
 
 				foreach($id_product as $k => $item){
 					$presentf = $modelProduct->find()->where(['code'=>$item])->first();
-					$presentf->numberOrder = $product->numberOrder;
+					if (!empty($product->numberOrder)) {
+						$presentf->numberOrder = $product->numberOrder;
+					}
+					
 					if(!empty($presentf)){
 						$present[] = $presentf;
 					}
@@ -41,7 +44,7 @@ function cart($input)
                // debug($id_prodiscount);
 				foreach($id_prodiscount as $item){
 					$presentf = $modelProduct->find()->where(['code'=>$item, 'quantity >'=>0])->first();
-					$presentf->numberOrder = $product->numberOrder;
+					// $presentf->numberOrder = $product->numberOrder;
                      // debug($presentf);
 					if(!empty($presentf)){
 
@@ -254,7 +257,7 @@ function createOrder($input)
 
 			$modelOrder->save($data);
 
-// tạo chi tiết đơn hàng
+			// tạo chi tiết đơn hàng
 			foreach($list_product as $product){
 				$dataDetail = $modelOrderDetail->newEmptyEntity();
 
@@ -265,7 +268,7 @@ function createOrder($input)
 				$modelOrderDetail->save($dataDetail);
 			}
 
-// gửi thông báo cho admin qua Smax bot
+			// gửi thông báo cho admin qua Smax bot
 			if(function_exists('sendNotificationAdmin')){
 				$settingSmaxBotProduct = $modelOptions->find()->where(['key_word' => 'settingSmaxBotProduct'])->first();
 				if(!empty($settingSmaxBotProduct->value)){
@@ -410,7 +413,7 @@ function checkproductAll(){
 
 	if(!empty($_REQUEST['status'])){
 
-//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
+	//$product = $modelProduct->find()->where(['id'=>$_REQUEST['id_product']])->first();
 
 		$list_product = $session->read('product_order');
 

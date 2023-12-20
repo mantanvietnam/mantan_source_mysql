@@ -510,7 +510,7 @@ $price_total = 0;
                                     <div class="cart-price-item-price" id="pricetotal">
                                       <?php echo number_format(@$price_total); ?>đ
                                     </div>
-                                    <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>">
+                                    <!-- <input type="hidden" name="totalPays" id="totalPays" value="<?php echo $price_total; ?>"> -->
                                 </div>
                                <?php 
                                $ship = 0;
