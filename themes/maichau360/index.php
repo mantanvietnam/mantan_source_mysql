@@ -93,15 +93,19 @@ global $urlThemeActive;
                             </div>
                         </div>
                         <?php } }else { ?>
-                           <div class="item-events-slide">
-                            <div class="item-event-home absolute">
-                                <div class="box-img-item-eh">
-                                    <img src="<?= $urlThemeActive ?>/images/1fe55f76625bca05934a.jpg" alt="">
-                                </div>
+                        <div class="item-events-slide">
+                            <div class="events-slide-img">
+                                <img src="<?= $urlThemeActive ?>/images/1fe55f76625bca05934a.jpg" alt="">
                             </div>
-                            <div class="info-event-home">
-                                <div class="name-event-home">
-                                    <p>Chưa có sự kiện nào đang diễn ra.</p>
+                            <div class="events-slide-content">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-7 col-sm-12">
+                                        <div class="events-slide-content-box">
+                                            <div class="events-slide-detail">
+                                                    <h3>Chưa có sự kiện nào đang diễn ra.</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
