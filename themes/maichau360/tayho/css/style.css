@@ -4336,7 +4336,7 @@ color: #188181;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     line-height: 34px !important;
 	font-weight: bold;
 }
@@ -4869,6 +4869,10 @@ main {
     padding: 12px 12px;
     background-color: #4D9F91;
     border-radius: 50px;
+}
+
+#news-banner .news-banner-content .news-search-btn button{
+	border: none;
 }
 
 .news-overlay {
