@@ -271,6 +271,63 @@
  </div>
 </div>
 
+<div class="modal fade" id="checkinbet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+   <div class="modal-content">
+   <form class="no-margin" action="/checkinbetBook" method="POST">
+   <input type="hidden" name="_csrfToken" value="<?php echo $csrfToken;?>">
+   <div class="modal-body">
+      <label><b>Thông tin check in</b></label>
+      <div class="row">
+        <div class="col-md-5 mb-3">
+          <input type="hidden" name="id_book" id="id_book" value="">
+          
+       
+          <label class="form-label">Nhân viên phụ trách</label>
+          <select class="form-select" name="idStaff" id="idStaff">
+            <option value="">Chọn nhân viên</option>
+            <?php 
+            if(!empty($listStaffs)){
+              foreach ($listStaffs as $staff) {
+                echo "<option value='".$staff->id."'>".$staff->name."</option>";
+              }
+            }
+            ?>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Giường & phòng</label>
+          <select name="id_bed" id="id_bed" required="" class="form-select">
+            <option value="">Chọn giường</option>
+            <?php 
+            if(!empty($listRoom)){
+              foreach ($listRoom as $room) { 
+                  echo '<optgroup label="'.$room->name.'">';
+                  if(!empty($room->bed)){
+                      foreach($room->bed as $bed){
+                         if(!empty($data->id_bed) && $data->id_bed==$bed->id){
+                              $selected = 'selected';
+                         }
+                                         
+                          echo '<option data-unit="'.@$bed->id.'"  value="'.$bed->id.'" '.$selected.'>'.$bed->name.'</option>';
+                     }
+                  }
+                  echo '</optgroup>';
+              }
+            }
+            ?>
+          </select>
+        </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" data-action="create"><i class="bx bx-save"></i> Check ins</button>
+   </div>
+  </form>
+  </div>
+ </div>
+</div>
+
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js'></script>
 
@@ -361,6 +418,7 @@
                     end: "'.date('Y-m-d', $time_book).'",
                     service: "'.$data->Services['name'].'",
                     staff: "'.$data->Members['name'].'",
+                    id_staff: "'.$data->Members['id'].'",
                     bed: "'.$data->Beds['name'].'",
                     status: "'.$status.'",
                     type: "'.implode(', ', $type).'",
@@ -406,11 +464,12 @@
       },
 
       eventClick: function(info) {
+        console.log(info.event.extendedProps);
         listEvent = calendar.getEvents();
 
         //display a modal
         var modal = 
-        '<div class="modal fade">\
+        '<div class="modal fade" id="modalinfo">\
           <div class="modal-dialog modal-lg">\
            <div class="modal-content">\
            <form class="no-margin">\
@@ -452,7 +511,7 @@
               </table>\
            </div>\
            <div class="modal-footer">\
-            <a href="" class="btn btn-primary"><i class="bx bxs-edit"></i> Check in</a>\
+           <button type="button" class="btn btn-primary" onclick="checkin('+info.event.extendedProps.idBook+','+info.event.extendedProps.id_staff+');"><i class="bx bxs-edit"></i> Check in</button>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>\
            </div>\
@@ -594,6 +653,20 @@
       alert('Bạn không được để trống các trường bắt buộc');
     }
   }
+
+  function checkin(id, id_staff){
+
+     $('#idStaff').val(id_staff);
+     $('#id_book').val(id);
+
+    //document.getElementById("createBookModal").style.display = 'none';
+    $('#modalinfo').remove();
+    $('.modal-backdrop').remove();
+    $('#checkinbet').modal('show');
+  }
+
+  
+
 </script>
 
 <script type="text/javascript">
