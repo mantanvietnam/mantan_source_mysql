@@ -14,7 +14,7 @@
                 <div class="logo-banner-box">
                     <div class="container">
                         <div class="logo-warm">
-                            <img src="<?php echo $urlThemeActive;?>/asset/img/WARM-horz-EN-_1_.jpg" alt="">
+                            <a href="/"><img src="<?php echo $urlThemeActive;?>/asset/img/WARM-horz-EN-_1_.jpg" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="col-lg-7 col-md-12 col-sm-12 col-12 facility-content-right">
-                            <iframe src="https://www.youtube.com/embed/lrMdIYQch1o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                        
+                            <iframe src="https://www.youtube.com/embed/w-8lCaT5VDE?si=oJkRnunbgGKaeqEp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                        
                         </div>
                     </div>
                 </div>
