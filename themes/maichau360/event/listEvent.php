@@ -38,12 +38,17 @@ global $urlThemeActive;
             </div>
             <div class="news-search">
                 <div class="news-search-input">
-                    <input type="text" placeholder="Tìm kiếm tin tức và sự kiện...">
+                    <form>
+                        <input type="text" name="name" value="<?php echo @$_GET['name'] ?>" placeholder="Tìm kiếm tin tức và sự kiện...">
                     <div class="news-search-btn">
-                        <a href="">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                        <button type="submit">
+                             <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                           
                         </a>
                     </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>

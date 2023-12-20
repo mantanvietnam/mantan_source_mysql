@@ -452,6 +452,7 @@
               </table>\
            </div>\
            <div class="modal-footer">\
+            <a href="" class="btn btn-primary"><i class="bx bxs-edit"></i> Check in</a>\
             <a href="/addBook/?id='+info.event.extendedProps.idBook+'" class="btn btn-primary"><i class="bx bxs-edit"></i> Sửa hẹn</a>\
             <button type="button" class="btn btn-danger" data-action="delete"><i class="bx bxs-trash"></i> Xóa hẹn</button>\
            </div>\

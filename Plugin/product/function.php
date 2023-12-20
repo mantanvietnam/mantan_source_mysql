@@ -149,7 +149,7 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
     Địa chỉ: '.$address.'<br/>
     Chú ý: '.nl2br($note).'<br/><br/> <p>
 
-    <h4 class="text-align"> đơn hàng </h4>
+    <h4 class="text-align"> Chi tiết đơn hàng </h4>
     <table class="table table-bordered" style=" width: 85%;">
     <thead>
     <tr>
@@ -166,7 +166,15 @@ function getContentEmailOrderSuccess($fullName='',$email='',$phone='',$address='
 
         $content .= '<tr>
         <td scope="row"> <img src="'.$item->image.'" width="100" alt=""></td>
-        <td>'.$item->title.'</td>
+        <td>'.$item->title.'<br/>';
+        if(!empty($item->present)){
+          $content .='Quà tặng<br/>';
+          foreach($item->present as $k => $value){
+            $content .= $value->title.'
+            <img src="'.$value->image.'" width="80" alt=""><br/>';
+          }
+        }
+        $content .='</td>
         <td>'.number_format($item->price).'đ</td>
         <td>'.number_format($item->numberOrder).'</td>
         <td>'.number_format($item->price*$item->numberOrder).'</td>
@@ -292,7 +300,7 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
     Địa chỉ: '.$address.'<br/>
     Chú ý: '.nl2br($note).'<br/><br/> <p>
 
-    <h4 class="text-align"> đơn hàng </h4>
+    <h4 class="text-align">Chi tiết đơn hàng</h4>
     <table class="table table-bordered" style=" width: 85%;">
     <thead>
     <tr>
@@ -309,7 +317,15 @@ function getContentEmailAdmin($fullName='',$email='',$phone='',$address='',$note
 
         $content .= '<tr>
         <td scope="row"> <img src="'.$item->image.'" width="100" alt=""></td>
-        <td>'.$item->title.'</td>
+        <td>'.$item->title.'<br/>';
+        if(!empty($item->present)){
+          $content .='<strong>Quà tặng</strong><br/>';
+          foreach($item->present as $k => $value){
+            $content .= $value->title.'
+            <img src="'.$value->image.'" width="80" alt=""><br/>';
+          }
+        }
+        $content .='</td>
         <td>'.number_format($item->price).'đ</td>
         <td>'.number_format($item->numberOrder).'</td>
         <td>'.number_format($item->price*$item->numberOrder).'</td>

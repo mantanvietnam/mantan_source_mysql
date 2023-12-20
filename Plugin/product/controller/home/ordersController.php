@@ -41,7 +41,7 @@ function cart($input)
                // debug($id_prodiscount);
 				foreach($id_prodiscount as $item){
 					$presentf = $modelProduct->find()->where(['code'=>$item, 'quantity >'=>0])->first();
-					$presentf->numberOrder = $product->$numberOrder;
+					$presentf->numberOrder = $product->numberOrder;
                      // debug($presentf);
 					if(!empty($presentf)){
 
@@ -592,6 +592,20 @@ function pay($input){
 		$listproduct = array();
 		foreach($list_product as $product){
 			if(@$product->statuscart='true'){
+				$present = array();
+				if(!empty(@$product->id_product)){
+					$id_product = explode(',', @$product->id_product);
+
+					foreach($id_product as $k => $item){
+						$presentf = $modelProduct->find()->where(['code'=>$item])->first();
+						$presentf->numberOrder = $product->numberOrder;
+						if(!empty($presentf)){
+							$present[] = $presentf;
+						}
+					}
+				}
+				$product->present = $present;
+
 				$listproduct[] = $product;
 				$dataDetail = $modelOrderDetail->newEmptyEntity();
 

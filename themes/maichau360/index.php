@@ -96,7 +96,7 @@ global $urlThemeActive;
                            <div class="item-events-slide">
                             <div class="item-event-home absolute">
                                 <div class="box-img-item-eh">
-                                    <img src="<?= $urlThemeActive ?>/img/thaianhimg/eventhome.png" alt="">
+                                    <img src="<?= $urlThemeActive ?>/images/1fe55f76625bca05934a.jpg" alt="">
                                 </div>
                             </div>
                             <div class="info-event-home">
