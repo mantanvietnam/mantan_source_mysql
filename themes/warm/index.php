@@ -17,7 +17,7 @@
                 <div class="logo-banner-box">
                     <div class="container">
                         <div class="logo-warm">
-                            <img src="'; echo $urlThemeActive; echo'/asset/img/WARM-horz-EN-_1_.jpg" alt="">
+                            <a href="/"><img src="'; echo $urlThemeActive; echo'/asset/img/WARM-horz-EN-_1_.jpg" alt=""></a>
                         </div>
                     </div>
                 </div>
