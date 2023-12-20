@@ -1,3 +1,5 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap'); */
+
 @font-face {
     font-family: "Vollkorn";
     src: url("/themes/godraw/fonts/Vollkorn-Regular.ttf") format("truetype");
@@ -538,25 +540,9 @@ img.khung-tranh {
     right: 0;
 }
 
-.footer-page {
-    /* display: block !important; */
-}
 
-.content-footer .social ul li img {
-    width: 33px;
-}
 
-.content-footer .social {
-    padding-left: 0;
-    padding-right: 35px
-}
 
-.box-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
 
 .item-slide-relative {
     /* position: relative; */
@@ -1352,7 +1338,28 @@ header {
     cursor: pointer;
 }
 
+/* Footer css*/
+.footer-page {
+    /* display: block !important; */
+}
 
+.content-footer .social ul li img {
+    width: 33px;
+}
+
+.content-footer .social {
+    padding-left: 0;
+    padding-right: 35px
+}
+
+.box-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/*  */
 
 @media(min-width: 1440px) and (max-width: 1920px) {
     

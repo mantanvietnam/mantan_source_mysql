@@ -132,10 +132,44 @@
                             </li> -->
                            
                           
-                        <?php }?>
+                        <?php }else{ 
+                            $menu = getMenusDefault();
 
+                            if(!empty($menu)){
+                                foreach($menu as $key => $value){
+                                    if(!empty($value->sub)){
+                                        echo '  <li>
+                                                    <a href="javascript:void(0);">
+                                                        '.$value->name.'
+                                                    </a>
+                                                    <div class="submenu">
+                                                        <ul>';
 
+                                                        foreach ($value->sub as $sub) {
+                                                            $active = '';
+                                                            if(strpos($urlCurrent, $sub->link) !== false){
+                                                                $active = 'active';
+                                                            }
 
+                                                            echo '<li><a class="'.$active.'" href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                        }
+                                        echo        '
+                                                        </ul>
+                                                    </div>
+                                                </li>';
+                                    }else{
+                                        $active = '';
+                                        if(strpos($urlCurrent, $value->link) !== false){
+                                            $active = 'active';
+                                        }
+
+                                        echo '  <li>
+                                                    <a class="'.$active.'" href="'.$value->link.'">'.$value->name.'</a>
+                                                </li>';
+                                    }
+                                }
+                            }
+                        }?>
                     </ul>
                 </div>
                 
@@ -217,7 +251,32 @@
                     <li><a href="/profile">Thông tin tài khoản</a></li>
                     <li><a href="/changePass">Đổi mật khẩu</a></li>
                     <li><a href="/logout">Đăng xuất</a></li>
-                    <?php }?>
+                    <?php }else {
+                        if(!empty($menu)){
+                            foreach($menu as $key => $value){
+                                if(!empty($value->sub)){
+                                    echo '  <li>
+                                                <a href="javascript:void(0);">
+                                                    '.$value->name.'
+                                                </a>
+                                                <div class="submenu">
+                                                    <ul>';
+
+                                                    foreach ($value->sub as $sub) {
+                                                        echo '<li><a href="'.$sub->link.'">'.$sub->name.'</a></li>';
+                                                    }
+                                    echo        '
+                                                    </ul>
+                                                </div>
+                                            </li>';
+                                }else{
+                                    echo '  <li>
+                                                <a href="'.$value->link.'">'.$value->name.'</a>
+                                            </li>';
+                                }
+                            }
+                        }
+                    }?>
                 </ul>
             </div>
             
