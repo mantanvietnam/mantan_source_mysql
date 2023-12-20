@@ -2171,7 +2171,10 @@ strong {
 }
 
 .box-confirm-cart-top {
-    display: flex;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 12px;
 }
 
 .box-confirm-cart {
