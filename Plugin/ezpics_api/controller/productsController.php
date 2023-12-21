@@ -417,10 +417,14 @@ function createProductAPI($input)
 			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
 
 			if(!empty($infoUser)){
-				if($infoUser->type == 1){
-					$type = !empty($dataSend['type'])?$dataSend['type']:'user_create';
+				if($dataSend['type'] == 'user_series'){
+					$type = 'user_series';
 				}else{
-					$type = !empty($dataSend['type'])?$dataSend['type']:'user_edit';
+					if($infoUser->type == 1){
+						$type = 'user_create';
+					}else{
+						$type = 'user_edit';
+					}
 				}
 				
 				$name = $dataSend['name'];

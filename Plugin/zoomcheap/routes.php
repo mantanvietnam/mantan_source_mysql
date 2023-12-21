@@ -23,6 +23,7 @@
 	$routesPlugin['listLink']= 'zoomcheap/view/home/link/listLink.php';
 	$routesPlugin['addLink']= 'zoomcheap/view/home/link/addLink.php';
 	$routesPlugin['r']= 'zoomcheap/view/home/link/redirectLink.php';
+	$routesPlugin['wait']= 'zoomcheap/view/home/link/wait.php';
 
 
 	$routesPlugin['checkDeadlineOrderAPI']= 'zoomcheap/view/home/checkDeadlineOrderAPI.php';

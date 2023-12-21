@@ -15,7 +15,7 @@
 
           <div class="col-md-2">
             <label class="form-label">Loại</label>
-            <select name="status" class="form-select color-dropdown">
+            <select name="type" class="form-select color-dropdown">
               <option value="">Tất cả</option>
               <option value="100" <?php if(!empty($_GET['type']) && $_GET['type']=='100') echo 'selected';?> >100 người</option>
               <option value="300" <?php if(!empty($_GET['type']) && $_GET['type']=='300') echo 'selected';?> >300 người</option>
