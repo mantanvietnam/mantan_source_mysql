@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <!-- <link rel="stylesheet" type="text/css" title="" href="<?php echo $urlThemeActive;?>/css/update.css"> -->
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>

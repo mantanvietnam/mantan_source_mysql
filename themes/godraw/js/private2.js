@@ -182,3 +182,50 @@ $( ".menu-mm-mobie a" ).on( "click", function() {
   $( ".nav-mobile" ).toggleClass('open_menu');
   console.log('a');
 });
+
+// Keo tha
+document.addEventListener('DOMContentLoaded', function () {
+  var zoomedElement = document.querySelector('.item-for .avr img');
+  var zoomContainer = document.querySelector('.item-for');
+
+  var hammer = new Hammer(zoomContainer);
+  var lastScale = 1;
+  var lastX = 0;
+  var lastY = 0;
+  var isDragging = false;
+
+  hammer.get('pinch').set({ enable: true });
+  hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+  hammer.on('pinch pan press', function (event) {
+    switch (event.type) {
+      case 'pinch':
+        var newScale = Math.max(1, Math.min(lastScale * event.scale, 3));
+        zoomedElement.style.transform = `scale(${newScale}) translate(${lastX}px, ${lastY}px)`;
+        lastScale = newScale;
+        break;
+
+      case 'pan':
+        if (lastScale !== 1) {
+          var newX = lastX + event.deltaX;
+          var newY = lastY + event.deltaY;
+          zoomedElement.style.transform = `scale(${lastScale}) translate(${newX}px, ${newY}px)`;
+          lastX = newX;
+          lastY = newY;
+        }
+        break;
+
+      case 'press':
+        isDragging = true;
+        break;
+    }
+  });
+
+  hammer.on('panend', function () {
+    if (isDragging) {
+      isDragging = false;
+      lastX = parseInt(zoomedElement.style.transform.split(' ')[1], 10) || 0;
+      lastY = parseInt(zoomedElement.style.transform.split(' ')[2], 10) || 0;
+    }
+  });
+});
