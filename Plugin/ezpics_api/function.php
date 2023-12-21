@@ -1180,6 +1180,10 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
 
                 $modelManagerFile->save($dataFile);
             }
+        }else{
+            if(!empty($_POST['background'])){
+                $thumb = $_POST['background'];
+            }
         }
 
         if(isset($_FILES['thumbnail']) && empty($_FILES['thumbnail']["error"])){
