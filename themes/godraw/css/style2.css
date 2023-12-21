@@ -1621,10 +1621,31 @@ header {
 }
 
 @media(max-width: 500px) {
+    .button-login-red{
+        width: 175px;
+    }
+
+    .head-form h3 {
+        font-size: 15px;
+    }
+
     #slide-home-shop  {
         justify-content: start;
         padding-top: 70px;
     }
+
+    .arrow span{
+        width: 16px;
+        height: 17px;
+        margin: 0;
+    }
+
+    .arrow {
+        left: -5px;
+        top: 3px
+    }
+
+    
 
 
     .iconmarket i {
@@ -2132,7 +2153,7 @@ header {
         bottom: 667px;
     } */
     .button-login-red a {
-        font-size: 17px;
+        font-size: 15px;
     }
 }
 

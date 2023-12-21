@@ -30,4 +30,6 @@
 	$routesPlugin['danh-muc']= 'product/view/home/category.php';
 	$routesPlugin['san-pham']= 'product/view/home/product.php';
 	$routesPlugin['gio-hang']= 'product/view/home/cart.php';
+	$routesPlugin['cua-hang']= 'product/view/home/allProduct.php';
+	$routesPlugin['thanh-toan']= 'product/view/home/pay.php';
 ?>
