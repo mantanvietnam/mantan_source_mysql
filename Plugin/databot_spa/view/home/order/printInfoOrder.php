@@ -32,7 +32,6 @@
             }
         </style>
     </head>
-   
     <body>
         <div class="container">
             <header class="text-center">
@@ -129,6 +128,12 @@
         <div id="dialog-confirm" title="Thông báo" style="display: none;">
             <p>Thanh toán thành công</p>
         </div>
+<?php   
+    $url = '/';
+    if(@$_GET['type']=="checkout"){
+         $url = '/listRoomBed';
+    }
+ ?>
         <script type="text/javascript">
             function closeFunction()
             {
@@ -145,11 +150,11 @@
                                   "In hóa đơn": function() {
                                     $( this ).dialog( "close" );
                                     window.print();
-                                    window.location= '/';
+                                    window.location= '<?php echo $url ?>';
                                 },
                                 Cancel: function() {
                                       //$( this ).dialog( "close" );
-                                      window.location= '/';
+                                      window.location= '<?php echo $url ?>';
                                   }
                               }
                           });

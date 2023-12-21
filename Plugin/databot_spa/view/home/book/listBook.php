@@ -129,6 +129,7 @@
           <tbody>
             <?php 
               if(!empty($listData)){
+
                 foreach ($listData as $item) {
                   $arr = explode(',', @$item->type);
                   $type = [];

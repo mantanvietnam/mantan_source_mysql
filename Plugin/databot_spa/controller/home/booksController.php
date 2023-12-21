@@ -500,7 +500,7 @@ function checkinbetBook($input){
 
 	        $modelOrderDetail->save($detail);
 	         
-	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product);
+	        return $controller->redirect('/addUserService?id='.$detail->id.'&id_bed='.$dataSend['id_bed'].'&id_service='.$detail->id_product.'&id_staff='.@$dataSend['idStaff']);
 
 	    }
 
