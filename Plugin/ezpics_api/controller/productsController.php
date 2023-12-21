@@ -424,13 +424,19 @@ function createProductAPI($input)
 				}
 				
 				$name = $dataSend['name'];
+				$background = @$dataSend['background'];
 				$price = (int) @$dataSend['price'];
 				$sale_price = (int) @$dataSend['sale_price'];
 				$category_id = (int) @$dataSend['category_id'];
 				$color = @$dataSend['color'];
-				$warehouse =  explode(',', @$dataSend['warehouse_id']);
 
-	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color);
+				$warehouse = [];
+				if(!empty($dataSend['warehouse_id'])){
+					$warehouse =  explode(',', @$dataSend['warehouse_id']);
+				}
+				
+
+	            return createNewProduct($infoUser, $name, $price, $sale_price, $type, $category_id, $warehouse, $color, $background);
 	        }else{
 	        	$return = array('code'=>3,
 							'messages'=>array(array('text'=>'Không tồn tại tài khoản người dùng'))

@@ -1144,7 +1144,7 @@ function zipImage($urlLocalFile='')
     }
 }
 
-function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='')
+function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='user_edit', $category_id=1, $warehouse='', $color='', $backgroundUpload= '')
 {
     global $controller;
 
@@ -1181,8 +1181,8 @@ function createNewProduct($infoUser, $name='', $price=0, $sale_price=0, $type='u
                 $modelManagerFile->save($dataFile);
             }
         }else{
-            if(!empty($_POST['background'])){
-                $thumb = $_POST['background'];
+            if(!empty($backgroundUpload)){
+                $thumb = $backgroundUpload;
             }
         }
 
