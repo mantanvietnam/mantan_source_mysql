@@ -201,7 +201,7 @@
                 <div class="right-mb">
                     <ul>
                         
-                        <li><a href="javascript:void(0)" class="mm-bar"><img src="/plugins/go_draw/view/agency/images/bar.svg" class="img-fluid" alt=""></a></li>
+                        <li><a href="javascript:void(0)" class="mm-bar"><img src="/themes/godraw//images/bar-white.svg" class="img-fluid" alt=""></a></li>
                     </ul>
                 </div>
             </div>

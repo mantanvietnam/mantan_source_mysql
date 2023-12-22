@@ -143,9 +143,15 @@ section {
     display: block;
 }
 
-body {
+/* body {
     line-height: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
+
+.menu-mobile{
+    will-change: transform;
+} */
 
 ol,
 ul {
@@ -1129,6 +1135,7 @@ strong {
 .news-tell .news-tell-item {
     max-height: 23px;
     margin: 0 21px;
+    max-width: 100px;
 }
 
 .news-tell .news-tell-item img {
@@ -1198,7 +1205,7 @@ strong {
     background: none;
     cursor: pointer;
     color: #7a7777;
-    z-index: 100;
+    z-index: 3;
     border: 1px solid #7a7777;
     width: 50px;
     height: 50px;
