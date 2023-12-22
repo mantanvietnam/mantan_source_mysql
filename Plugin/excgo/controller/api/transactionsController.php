@@ -100,12 +100,12 @@ function generateQRCodeApi($input): array
         if (isset($dataSend['amount'])) {
             $amount = $dataSend['amount'];
             $addInfo = "$currentUser->phone_number $transactionKey";
-            $url = $urlTransaction . "amount=$amount&addInfo=$addInfo&accountName=Tran Ngoc Manh";
+            $url = $urlTransaction . "amount=$amount&addInfo=$addInfo&accountName=CTY CP THUONG MAI VA DV EXC-GO";
             $data = [
                 'url' => $url,
                 'bank' => 'Ngân hàng Tiên Phong Bank (TPB)',
-                'account_number' => '06931228668',
-                'account_name' => 'Trần Ngọc Mạnh',
+                'account_number' => '26689898989',
+                'account_name' => 'CTY CP THUONG MAI VA DV EXC-GO',
                 'content' => $addInfo
             ];
 
