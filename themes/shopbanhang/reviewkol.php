@@ -96,7 +96,7 @@ $settinghom = setting();
                         <div class="list-video">
                             <div class="container-fluid">
                                 <div class="row row-video-1">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-1">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-1">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product1'] ?></p>
                                             <div class="double-line-1"></div>
@@ -150,7 +150,7 @@ $settinghom = setting();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-2">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-2">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product2'] ?></p>
                                             <div class="double-line-2"></div>
@@ -208,7 +208,7 @@ $settinghom = setting();
                                 </div>
 
                                 <div class="row row-video-2">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-3">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product3'] ?></p>
                                             <div class="double-line-1"></div>
@@ -262,7 +262,7 @@ $settinghom = setting();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 combo-4">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 combo-4">
                                         <div class="title-review-product">
                                             <p><?php echo $setting['name_product4'] ?></p>
                                             <div class="double-line-2"></div>

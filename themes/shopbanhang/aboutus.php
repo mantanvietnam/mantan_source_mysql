@@ -11,7 +11,7 @@ $infoUser = $session->read('infoUser');
             <div class="breadcrumb-center">
                 <ul class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/">Home</a></li>
-                  <li class="breadcrumb-item"><a href="#">About us</a></li>
+                  <li class="breadcrumb-item"><a href="#">Về BUMAS</a></li>
                 </ul>
             </div>
         </section>

@@ -13,7 +13,7 @@ $infoUser = $session->read('infoUser');
         <section id="section-order">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-12 order-left">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 order-left">
                         <div class="order-left-inner">
                             <div class="title-order-left">
                                 Thông tin đơn hàng
@@ -187,7 +187,7 @@ $infoUser = $session->read('infoUser');
                         </div>
                     </div>
 
-                    <div class="col-lg-8 co-md-8 col-sm-8 col-12 order-right">
+                    <div class="col-lg-8 co-md-8 col-sm-12 col-12 order-right">
                         <form action="" method="post">
                             <input type="hidden" value="<?php echo $csrfToken;?>" name="_csrfToken">
                             <div class="order-right-info">
