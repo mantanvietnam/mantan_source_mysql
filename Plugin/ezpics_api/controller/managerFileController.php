@@ -13,7 +13,7 @@ function getMyFileAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$conditions = array('user_id'=>$infoUser->id);
@@ -53,7 +53,7 @@ function removeBackgroundImageAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				if($infoUser->account_balance >= $price_remove_background){

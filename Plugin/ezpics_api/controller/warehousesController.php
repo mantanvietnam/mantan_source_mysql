@@ -189,7 +189,7 @@ function buyWarehousesAPI($input)
 			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'status'=>1, 'deadline_at >='=> date('Y-m-d H:i:s')))->first();
 
 			if(!empty($Warehouse)){
-				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUser = getMemberByToken($dataSend['token']);
 				$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
 				if(!empty($infoUser)){
 				$WarehouseUser = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id))->first();
@@ -382,45 +382,49 @@ function getListBuyWarehousesAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 
-
-		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-		if(!empty($infoUser)){
-
-			// lấy kho 
-			$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id, 'deadline_at >=' => date('Y-m-d H:i:s')))->all()->toList();
-			if(!empty($data)){
-				// debug($data);
-
-				 // die;
-				$listData = array();
-				foreach($data as $key => $item){
-					$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1))->first();
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token']);
+			
+			if(!empty($infoUser)){
+				// lấy kho 
+				$data = $modelWarehouseUsers->find()->where(array('user_id'=>$infoUser->id, 'deadline_at >=' => date('Y-m-d H:i:s')))->all()->toList();
+				
+				if(!empty($data)){
+					$listData = array();
+					foreach($data as $key => $item){
+						$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$item->warehouse_id, 'status'=>1))->first();
 
 
-					if(!empty($dataWarehouse)){
-						if($dataWarehouse->user_id!=$infoUser->id){
-							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
-							$dataWarehouse->deadline_at = $item->deadline_at;
-							$ngay = date('Y-m-d', strtotime($item->deadline_at));
-							$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
-							$listData[] = $dataWarehouse;
+						if(!empty($dataWarehouse)){
+							if($dataWarehouse->user_id!=$infoUser->id){
+								$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
+								$dataWarehouse->deadline_at = $item->deadline_at;
+								$ngay = date('Y-m-d', strtotime($item->deadline_at));
+								$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
+								$listData[] = $dataWarehouse;
+							}
 						}
 					}
+					
+					$return = array('code'=>1,
+									'data'=> $listData,
+						 			'mess'=>'Bạn lấy data thành công',
+						 		);
+				}else{
+					$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho nào');
 				}
-				$return = array('code'=>1,
-								'data'=> $listData,
-					 			'mess'=>'Bạn lấy data thành công',
-					 		);
 			}else{
-				$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho nào');
+				$return = array('code'=>2,
+								'mess'=>'Bạn chưa đăng nhập'
+						);
 			}
 		}else{
-			$return = array('code'=>2,
-							'mess'=>'Bạn chưa đăng nhập'
+			$return = array('code'=>0,
+							'mess'=>'Gửi thiếu dữ liệu'
 					);
-					}
-		
+		}	
 	}
+
 	return $return;
 }
 
@@ -437,21 +441,23 @@ function checkBuyWarehousesAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		
+		if(!empty($dataSend['token']) && !empty($dataSend['idWarehouse'])){
+			$infoUser = getMemberByToken($dataSend['token']);
+			
+			if(!empty($infoUser)){
 
-		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-		if(!empty($infoUser)){
+				// lấy kho 
+				$conditions = array('warehouse_id'=>$dataSend['idWarehouse']);
+				$conditions['user_id'] = $infoUser->id;
+				$conditions['deadline_at >='] =date('Y-m-d H:i:s');
+				$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'], 'user_id'=>$infoUser->id))->first();
 
-			// lấy kho 
-			$conditions = array('warehouse_id'=>$dataSend['idWarehouse']);
-			$conditions['user_id'] = $infoUser->id;
-			$conditions['deadline_at >='] =date('Y-m-d H:i:s');
-			$checkWarehouses = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'], 'user_id'=>$infoUser->id))->first();
-
-			if(empty($checkWarehouses)){
-				$data = $modelWarehouseUsers->find()->where($conditions)->first();
-				if(!empty($data)){
-					$listData = array();
-						$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id,'status'=>1))->first();
+				if(empty($checkWarehouses)){
+					$data = $modelWarehouseUsers->find()->where($conditions)->first();
+					
+					if(!empty($data)){
+						$listData = array();
+							$dataWarehouse = $modelWarehouses->find()->where(array('id'=>$data->warehouse_id,'status'=>1))->first();
 						if($dataWarehouse){
 							$dataWarehouse->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$dataWarehouse->slug.'-'.$dataWarehouse->id.'.html';
 							$dataWarehouse->deadline_at = $data->deadline_at;
@@ -459,23 +465,27 @@ function checkBuyWarehousesAPI($input){
 							$dataWarehouse->date_use = floor((strtotime($ngay) - strtotime(date('Y-m-d'))) / (60 * 60 * 24));
 							$listData = $dataWarehouse;
 						}
-						
-					$return = array('code'=>1,
-									'data'=> $listData,
-						 			'mess'=>'Bạn đã mua kho này',
-						 		);
+							
+						$return = array('code'=>1,
+										'data'=> $listData,
+							 			'mess'=>'Bạn đã mua kho này',
+							 		);
+					}else{
+						$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho này');
+					}
 				}else{
-					$return = array('code'=>0, 'mess'=>'Bạn chưa mua kho này');
+					$return = array('code'=>3, 'mess'=>'Kho này do bạn tạo');
 				}
 			}else{
-				$return = array('code'=>3, 'mess'=>'Kho này do bạn tạo');
+				$return = array('code'=>2,
+								'mess'=>'Bạn chưa đăng nhập'
+						);
 			}
 		}else{
-			$return = array('code'=>2,
-							'mess'=>'Bạn chưa đăng nhập'
-					);
-					}
-		
+			$return = array('code'=>0,
+							'mess'=>'Gửi thiếu dữ liệu'
+						);
+		}
 	}
 	return $return;
 }
@@ -498,7 +508,7 @@ function buyProductWarehousesAPI($input)
 	$return = array('code'=>0);
 	if($isRequestPost){
 		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token']) && !empty($dataSend['idProduct'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$WarehouseUsers = $modelWarehouseUsers->find()->where(array('warehouse_id'=>$dataSend['idWarehouse'], 'user_id'=>@$infoUser->id, 'deadline_at >=' => date('Y-m-d H:i:s')))->first();
@@ -649,7 +659,7 @@ function extendWarehousesAPI($input)
 			$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'status'=>1))->first();
 
 			if(!empty($Warehouse)){
-				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUser = getMemberByToken($dataSend['token']);
 				$infoUserSell = $modelMember->find()->where(array('id'=>$Warehouse->user_id))->first();
 				
 				if(!empty($infoUser)){
@@ -820,7 +830,7 @@ function addWarehouseAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 	    if(!empty($dataSend['name']) && !empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 			if(!empty($infoUser)){
 			    if(isset($_FILES['file']) && empty($_FILES['file']["error"])){
 			    	$thumbnail = uploadImage($infoUser->id, 'file');
@@ -914,7 +924,7 @@ function addWarehouseLostMoneyAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 	    if(!empty($dataSend['name']) && !empty($dataSend['token']) && !empty($dataSend['price'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 			if(!empty($infoUser)){
 				if($infoUser->account_balance>$price_warehouses){
 					if($dataSend['price']>=$price_min_create_warehouses){
@@ -1034,32 +1044,38 @@ function getListWarehouseDesignerAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-		if(!empty($infoUser)){
 
-			// lấy kho 
-			$data = $modelWarehouses->find()->where(array('user_id'=>$infoUser->id))->all()->toList();
-			if(!empty($data)){
-				$listData = array();
-				foreach($data as $key => $item){
-					$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
-					$data[$key] =$item;
-					$users = $modelWarehouseUsers->find()->where(['warehouse_id'=>$item->id])->all()->toList();
-	    			$data[$key]->number_user = count($users);
+		if(!empty($dataSend['token'])){
+			$infoUser = getMemberByToken($dataSend['token']);
+			
+			if(!empty($infoUser)){
 
-	    			$products = $modelWarehouseProducts->find()->where(['warehouse_id'=>$item->id])->all()->toList();
-	    			$data[$key]->number_product = count($products);
+				// lấy kho 
+				$data = $modelWarehouses->find()->where(array('user_id'=>$infoUser->id))->all()->toList();
+				if(!empty($data)){
+					$listData = array();
+					foreach($data as $key => $item){
+						$item->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$item->slug.'-'.$item->id.'.html';
+						$data[$key] =$item;
+						$users = $modelWarehouseUsers->find()->where(['warehouse_id'=>$item->id])->all()->toList();
+		    			$data[$key]->number_user = count($users);
+
+		    			$products = $modelWarehouseProducts->find()->where(['warehouse_id'=>$item->id])->all()->toList();
+		    			$data[$key]->number_product = count($products);
+					}
+					$return = array('code'=>1,
+									'data'=> $data,
+						 			'mess'=>'Bạn lấy data thành công',
+						 		);
+				}else{
+					$return = array('code'=>2, 'mess'=>'Kho không tồn tại');
 				}
-				$return = array('code'=>1,
-								'data'=> $data,
-					 			'mess'=>'Bạn lấy data thành công',
-					 		);
 			}else{
-				$return = array('code'=>2, 'mess'=>'Kho không tồn tại');
-			}
-		}else{
 				$return = array('code'=>3, 'mess'=>'bạn chưa đăng nhập');
 			}
+		}else{
+			$return = array('code'=>0, 'mess'=>'Gửi thiếu dữ liệu');
+		}
 	}
 	return $return;
 }
@@ -1083,44 +1099,45 @@ function updateWarehouseAPI($input)
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 	    if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
+			
 			if(!empty($infoUser)){
 		        // lấy kho 
-			$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'user_id'=>$infoUser->id ))->first();
-			if(!empty($data)){
-				if(isset($_FILES['file']) && empty($_FILES['file']["error"])){
-		        	$thumbnail = uploadImage($infoUser->id, 'file');
-		        	if(!empty($thumbnail['linkOnline'])){
-				        $thumbnail = $thumbnail['linkOnline'];
+				$data = $modelWarehouses->find()->where(array('id'=>$dataSend['idWarehouse'],'user_id'=>$infoUser->id ))->first();
+				if(!empty($data)){
+					if(isset($_FILES['file']) && empty($_FILES['file']["error"])){
+			        	$thumbnail = uploadImage($infoUser->id, 'file');
+			        	if(!empty($thumbnail['linkOnline'])){
+					        $thumbnail = $thumbnail['linkOnline'];
 
-				        // lưu vào database file
-				        $dataFile = $modelManagerFile->newEmptyEntity();
-						$dataFile->link = $thumbnail;
-				        $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
-				        $dataFile->created_at = date('Y-m-d H:i:s');
-						$modelManagerFile->save($dataFile);
-						$data->thumbnail = $thumbnail;
-			    	}
-		        }
-		        	$data->name = $dataSend['name'];
-			        $data->user_id = $infoUser->id;
-			        $data->price = (int) $dataSend['price'];
-			        $data->date_use = (int) $dataSend['date_use'];
-			        $data->link_open_app = '';
-			        $data->keyword = $dataSend['keyword'];
-			        $data->description = $dataSend['description'];
+					        // lưu vào database file
+					        $dataFile = $modelManagerFile->newEmptyEntity();
+							$dataFile->link = $thumbnail;
+					        $dataFile->type = 0; // 0 là user up, 1 là cap, 2 là payment
+					        $dataFile->created_at = date('Y-m-d H:i:s');
+							$modelManagerFile->save($dataFile);
+							$data->thumbnail = $thumbnail;
+				    	}
+			        }
+			        	$data->name = $dataSend['name'];
+				        $data->user_id = $infoUser->id;
+				        $data->price = (int) $dataSend['price'];
+				        $data->date_use = (int) $dataSend['date_use'];
+				        $data->link_open_app = '';
+				        $data->keyword = $dataSend['keyword'];
+				        $data->description = $dataSend['description'];
 
-			        $modelWarehouses->save($data);
+				        $modelWarehouses->save($data);
 
-					$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
-				
-				$return = array('code'=>1,
-								'data'=> $data,
-					 			'mess'=>'Bạn sửa thành công',
-					 		);
-			}else{
-				$return = array('code'=>4, 'mess'=>'Kho không tồn tại');
-			}
+						$data->link_share = 'https://designer.ezpics.vn/detailWarehouse/'.$data->slug.'-'.$data->id.'.html';
+					
+					$return = array('code'=>1,
+									'data'=> $data,
+						 			'mess'=>'Bạn sửa thành công',
+						 		);
+				}else{
+					$return = array('code'=>4, 'mess'=>'Kho không tồn tại');
+				}
 			}else{
 			    $return = array('code'=>3,
 								'mess'=>'Bạn chưa đăng nhập'
@@ -1152,7 +1169,7 @@ function addUserWarehouseAPI($input){
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
 		if(!empty($dataSend['idWarehouse']) && !empty($dataSend['token']) && !empty($dataSend['phone'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$Warehouse = $modelWarehouses->find()->where(array('id'=>(int) $dataSend['idWarehouse'],'user_id'=>$infoUser->id))->first();

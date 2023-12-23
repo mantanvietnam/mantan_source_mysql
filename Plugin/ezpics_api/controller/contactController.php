@@ -14,7 +14,7 @@ function saveContactAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['content'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$data = $modelContact->newEmptyEntity();
@@ -59,7 +59,7 @@ function saveRequestDesignerAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['content'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$data = $modelContact->newEmptyEntity();
@@ -114,7 +114,7 @@ function saveReportAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['content'])){
-			$checkPhone = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$checkPhone = getMemberByToken($dataSend['token']);
 
 			if(!empty($checkPhone)){
 				$data = $modelContact->newEmptyEntity();

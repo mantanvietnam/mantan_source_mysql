@@ -16,7 +16,7 @@ function getHistoryTransactionAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$conditions = array('member_id'=>$infoUser->id);
@@ -73,7 +73,7 @@ function saveRequestBankingAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token']) && !empty($dataSend['money'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($dataSend['discountCode'])){
 
@@ -165,7 +165,7 @@ function saveRequestWithdrawAPI($input)
 
 		if(!empty($dataSend['token']) && !empty($dataSend['money'])){
 			if($dataSend['money']>=500000){
-				$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+				$infoUser = getMemberByToken($dataSend['token']);
 
 				if(!empty($infoUser)){
 					if($infoUser->account_balance >= $dataSend['money']){
@@ -229,7 +229,7 @@ function addMoneyApplePayAPI($input)
 	if(!empty($_POST['token']) && !empty($_POST['money']) && !empty($_POST['purchaseID']) && !empty($_POST['transactionDate'])){
 		$dataSend = $input['request']->getData();
 
-		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$infoUser = getMemberByToken($dataSend['token']);
 
 		if(!empty($infoUser)){
 			$transactionDate = $dataSend['transactionDate']/1000;
@@ -408,70 +408,76 @@ function orderCreateContentAPI($input){
 
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-		$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
-		if(!empty($infoUser)){
-			$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
-			if(!empty($dataProduct)){
-				if($infoUser->member_pro==1 && $infoUser->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s') ){
-					$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
-				}else{
-					if(@$dataSend['type']=='ecoin'){
-						if($infoUser->ecoin >=1){
-							// trừ tiền tài khoản mua
-							$infoUser->ecoin -= 1;
-							$modelMember->save($infoUser);
+		
+		if(!empty($dataSend['token']) && !empty($dataSend['idProduct'])){
+			$infoUser = getMemberByToken($dataSend['token']);
 
-							// tạo đơn mua hàng của người mua (lịch sử giao dịch)
-							$ecoin = $modelTransactionEcoins->newEmptyEntity();
-							$ecoin->member_id = $infoUser->id;
-							$ecoin->product_id = '';
-							$ecoin->ecoin = 1;
-							$ecoin->note = 'Trừ Ecoin mua nội dung mẫu thiết kế là:'.$dataProduct->id;
-							$ecoin->status = 1;
-							$ecoin->type =0;
-							$ecoin->created_at =date('Y-m-d 00:00:00');
-							$ecoin->updated_at =date('Y-m-d 00:00:00');
-
-							$modelTransactionEcoins->save($ecoin);
-							$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
-
-							// gửi thông báo công ecoin
-					        $dataSendNotificationEcoin= array('title'=>'Trừ thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được trừ Ecoin khi mua nội dung mẫu thiết kế bằng Ecoin bị trừ 1 ecoin','action'=>'addMoneySuccess');
-
-					        if(!empty($infoUser->token_device)){
-					            sendNotification($dataSendNotificationEcoin, $infoUser->token_device);
-					        }
-
-						}else{
-							$return = array('code'=>0, 'mess'=>'Bạn không đủ Ecoin');
-						}
+			if(!empty($infoUser)){
+				$dataProduct = $modelProduct->find()->where(array('id'=>$dataSend['idProduct']))->first();
+				if(!empty($dataProduct)){
+					if($infoUser->member_pro==1 && $infoUser->deadline_pro->format('Y-m-d H:i:s') > date('Y-m-d H:i:s') ){
+						$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
 					}else{
-						if($infoUser->account_balance >= $price_create_content){
+						if(@$dataSend['type']=='ecoin'){
+							if($infoUser->ecoin >=1){
+								// trừ tiền tài khoản mua
+								$infoUser->ecoin -= 1;
+								$modelMember->save($infoUser);
 
-							$order = $modelOrder->newEmptyEntity();
-							$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
-		                    $order->member_id = $infoUser->id;
-		                    $order->product_id = $dataProduct->id;
-		                    $order->total = $price_create_content;
-		                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
-		                    $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
-		                    $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
-		                    $order->created_at = date('Y-m-d H:i:s');
-		                    $modelOrder->save($order);
+								// tạo đơn mua hàng của người mua (lịch sử giao dịch)
+								$ecoin = $modelTransactionEcoins->newEmptyEntity();
+								$ecoin->member_id = $infoUser->id;
+								$ecoin->product_id = '';
+								$ecoin->ecoin = 1;
+								$ecoin->note = 'Trừ Ecoin mua nội dung mẫu thiết kế là:'.$dataProduct->id;
+								$ecoin->status = 1;
+								$ecoin->type =0;
+								$ecoin->created_at =date('Y-m-d 00:00:00');
+								$ecoin->updated_at =date('Y-m-d 00:00:00');
 
-		                    $infoUser->account_balance -= $price_create_content;
-							$modelMember->save($infoUser);
-							$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
+								$modelTransactionEcoins->save($ecoin);
+								$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
+
+								// gửi thông báo công ecoin
+						        $dataSendNotificationEcoin= array('title'=>'Trừ thêm Ecoin','time'=>date('H:i d/m/Y'),'content'=>'bạn được trừ Ecoin khi mua nội dung mẫu thiết kế bằng Ecoin bị trừ 1 ecoin','action'=>'addMoneySuccess');
+
+						        if(!empty($infoUser->token_device)){
+						            sendNotification($dataSendNotificationEcoin, $infoUser->token_device);
+						        }
+
+							}else{
+								$return = array('code'=>0, 'mess'=>'Bạn không đủ Ecoin');
+							}
 						}else{
-							$return = array('code'=>0, 'mess'=>'Bạn không đủ tiền');
+							if($infoUser->account_balance >= $price_create_content){
+
+								$order = $modelOrder->newEmptyEntity();
+								$order->code = 'CC'.time().$infoUser->id.rand(0,10000);
+			                    $order->member_id = $infoUser->id;
+			                    $order->product_id = $dataProduct->id;
+			                    $order->total = $price_create_content;
+			                    $order->status = 2; // 1: chưa xử lý, 2 đã xử lý
+			                    $order->type = 6; // 0: mua hàng, 1: nạp tiền, 2: rút tiền, 3: bán hàng, 4: xóa ảnh nền,5 chiết khấu,6 tạo nội dung
+			                    $order->meta_payment = 'Bạn mua nội dung mẫu ID '.$dataProduct->id;
+			                    $order->created_at = date('Y-m-d H:i:s');
+			                    $modelOrder->save($order);
+
+			                    $infoUser->account_balance -= $price_create_content;
+								$modelMember->save($infoUser);
+								$return = array('code'=>1, 'mess'=>'Bạn đã mua nội dung thành công');
+							}else{
+								$return = array('code'=>0, 'mess'=>'Bạn không đủ tiền');
+							}
 						}
 					}
+				}else{
+					$return = array('code'=>3, 'mess'=>'Mẫu này không đúng');
 				}
 			}else{
-				$return = array('code'=>3, 'mess'=>'Mẫu này không đúng');
+				$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
 			}
 		}else{
-			$return = array('code'=>2, 'mess'=>'Bạn chưa đăng nhập');
+			$return = array('code'=>0, 'mess'=>'Gửi thiếu dữ liệu');
 		}
 	}
 
@@ -496,7 +502,8 @@ function memberBuyProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token'], ))->first();
+		
+		$user = getMemberByToken($dataSend['token']);
 
 		$pricepro = $price_pro;
 		$ecoin = $price_pro/1000;
@@ -688,7 +695,7 @@ function memberExtendProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$user = getMemberByToken($dataSend['token']);
 		$pricepro = $price_pro;
 		$ecoin = $price_pro/1000;
 		if(!empty($dataSend['discountCode'])){
@@ -911,7 +918,7 @@ function memberTrialProAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$user = getMemberByToken($dataSend['token']);
 		
 
 		if(!empty($user)){
@@ -973,10 +980,11 @@ function checkDeadline($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>3, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$user = getMemberByToken($dataSend['token']);
 
 		if(!empty($user)){
-			$data = $modelMember->find()->where(array('token'=>$dataSend['token'], 'deadline_pro <='=> date('Y-m-d H:i:s'),"member_pro" => 1))->first();
+			$data = $modelMember->find()->where(array('OR'=>[['token'=>$dataSend['token']],['token_web'=>$dataSend['token']]], 'deadline_pro <='=> date('Y-m-d H:i:s'),"member_pro" => 1))->first();
+			
 			if(!empty($data)){
 				$data->member_pro = 0;
 				$modelMember->save($data);
@@ -1085,7 +1093,7 @@ function memberBuyProMonthAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$user = getMemberByToken($dataSend['token']);
 
 		$pricepro = $price_pro;
 
@@ -1279,7 +1287,7 @@ function memberExtendProMonthAPI($input){
 		if(empty($dataSend['token'])){
 			return array('code'=>8, 'mess'=>'bạn nhập thiếu dữ liệu');
 		}
-		$user = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+		$user = getMemberByToken($dataSend['token']);
 		$pricepro = $price_pro;
 		if(!empty($dataSend['discountCode'])){
 
@@ -1509,7 +1517,7 @@ function getHistoryTransactionEcoinAPI($input)
 		$dataSend = $input['request']->getData();
 
 		if(!empty($dataSend['token'])){
-			$infoUser = $modelMember->find()->where(array('token'=>$dataSend['token']))->first();
+			$infoUser = getMemberByToken($dataSend['token']);
 
 			if(!empty($infoUser)){
 				$conditions = array('member_id'=>$infoUser->id);

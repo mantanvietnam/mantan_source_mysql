@@ -54,6 +54,25 @@ function createToken($length=30)
     return substr(str_shuffle($chars), 0, $length).time();
 }
 
+function getMemberByToken($token='')
+{
+    global $controller;
+
+    $modelMember = $controller->loadModel('Members');
+    $checkData = [];
+
+    if(!empty($token)){
+        $conditions = [ 'OR' => [
+                                    ['token'=>$token],
+                                    ['token_web'=>$token]
+                                ]
+                        ];
+        $checkData = $modelMember->find()->where(array('token'=>$token))->first();
+    }
+
+    return $checkData;
+}
+
 function removeBackground($link_image_local='',$create_new= false)
 {
     //$linkImage = removeBackgroundRemoveBG($link_image_local, $create_new);
