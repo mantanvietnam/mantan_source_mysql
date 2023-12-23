@@ -67,7 +67,7 @@ function getMemberByToken($token='')
                                     ['token_web'=>$token]
                                 ]
                         ];
-        $checkData = $modelMember->find()->where(array('token'=>$token))->first();
+        $checkData = $modelMember->find()->where($conditions)->first();
     }
 
     return $checkData;
