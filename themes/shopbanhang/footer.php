@@ -24,7 +24,8 @@ $infoUser = $session->read('infoUser');
                             <div class="footer-info-list">
                                 <div class="footer-info-item">
                                     <p><?php echo $setting['address'] ?></p>
-                                    <p>ĐT:<span class="blue-text"><?php echo $setting['phone'] ?></span>-Fax:<span class="blue-text"><?php echo $setting['fax'] ?></span></p>
+                                    <p>ĐT:<span class="blue-text"><?php echo $setting['phone'] ?></span>
+                                        <!-- -Fax:<span class="blue-text"><?php echo $setting['fax'] ?></span></p> -->
                                 </div>
 
                                 <div class="footer-info-item">
