@@ -143,7 +143,7 @@ function lockMemberAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/exc_go-view-admin-member-listMemberAdmin.php');
+	return $controller->redirect('/plugins/admin/exc_go-view-admin-member-listMemberAdmin');
 }
 
 

@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php">Thư viện ảnh</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin">Thư viện ảnh</a> /</span>
     Thông tin thư viện ảnh
   </h4>
 

@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">2TOP CRM - TỪ THIỆN</h4>
-  <p><a href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Chương trình từ thiện</h5>
@@ -29,7 +29,7 @@
                         <td>'.$item->title.'</td>
                         <td>'.date('d/m/Y', $item->time_event_start).' đến '.date('d/m/Y', $item->time_event_end).'</td>
                         <td>'.$item->address.'</td>
-                        <td><a href="/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM.php/?id_charity='.$item->id.'">'.number_format($item->person_donate).'</a></td>
+                        <td><a href="/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM/?id_charity='.$item->id.'">'.number_format($item->person_donate).'</a></td>
                         <td>'.number_format($item->money_donate).'đ</td>
                         <td>'.$item->status.'</td>
                         
@@ -40,13 +40,13 @@
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/2top_crm_donate-view-admin-charity-addCharityCRM/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_donate-view-admin-charity-deleteCharityCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_donate-view-admin-charity-deleteCharityCRM/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

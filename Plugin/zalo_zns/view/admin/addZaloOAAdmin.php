@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin.php">Quản lý Zalo OA</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/zalo_zns-view-admin-listZaloOAAdmin">Quản lý Zalo OA</a> /</span>
     Thông tin Zalo OA
   </h4>
 

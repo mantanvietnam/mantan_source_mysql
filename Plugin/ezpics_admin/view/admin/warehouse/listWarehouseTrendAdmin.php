@@ -71,9 +71,7 @@
                       </td>
                       <td><?php echo number_format($item->price); ?></td>
                       <td align="center"><?php echo $status ?></td>
-                      <td><a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addTrendWarehouseAdmin.php/?status=0id=<?php echo @$item->id ?>" style=" margin: 20px; ">
-                            <i class="bx bx-trash me-1"></i>
-                            </a></td>
+                      <td><a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn bỏ mẫu thiết kế không?');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-addTrendWarehouseAdmin/?status=0id=<?php echo @$item->id ?>" style=" margin: 20px; "><i class="bx bx-trash me-1"></i></a></td>
                     </tr>
              <?php   }
               }else{
@@ -103,7 +101,7 @@
                   }elseif($item->status==1){
                     $s = '<span class="text-primary">Chờ duyệt</span>';
                   
-                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
+                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-warehouse-lockProductAdmin/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
                       &nbsp;&nbsp;&nbsp;&nbsp;';
                   }elseif($item->status==2){
                     $s = ' <span class="text-success">Đang đăng bán</span>';
@@ -212,7 +210,7 @@
               <h5 class="modal-title" id="exampleModalLabel1">ID sản phẩm lên xu hướng</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/plugins/admin/ezpics_admin-view-admin-warehouse-addTrendWarehouseAdmin.php" method="GET">
+            <form action="/plugins/admin/ezpics_admin-view-admin-warehouse-addTrendWarehouseAdmin" method="GET">
               <div class="modal-footer">
                 
                 <input type="hidden" value="1"  name="status">

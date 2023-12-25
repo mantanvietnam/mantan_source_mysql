@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin đăng ký design</h4>
-  <!-- <p><a href="/plugins/admin/tayho360-admin-event-addEventAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+  <!-- <p><a href="/plugins/admin/tayho360-admin-event-addEventAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -69,12 +69,12 @@
                           <td>'.$status.'</td>
                          
                           <td align="center">
-                            <a class="dropdown-item"  href="/plugins/admin/ezpics_designer-view-admin-designRegistration-addDesignRegistrationAdmin.php/?id='.$item->id.'">
+                            <a class="dropdown-item"  href="/plugins/admin/ezpics_designer-view-admin-designRegistration-addDesignRegistrationAdmin/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_designer-view-admin-designRegistration-deleteDesignRegistrationAdmin.php/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_designer-view-admin-designRegistration-deleteDesignRegistrationAdmin/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>

@@ -3,13 +3,13 @@ $menus= array();
 $menus[0]['title']= "Hệ thống đại lý";
 
 $menus[0]['sub'][0]= array(	'title'=>'Đại lý',
-							'url'=>'/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin.php',
+							'url'=>'/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listMemberAdmin'
 						);
 
 $menus[0]['sub'][1]= array(	'title'=>'Hệ thống',
-							'url'=>'/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin.php',
+							'url'=>'/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listSystemAdmin'
 						);

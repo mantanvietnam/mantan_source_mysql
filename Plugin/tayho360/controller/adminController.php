@@ -145,7 +145,7 @@ function addGovernanceAgencysAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin?status=2');
             }else{
 
                 $modelCustomer = $controller->loadModel('Customers');
@@ -166,7 +166,7 @@ function addGovernanceAgencysAdmin($input)
                         }
                     }
                 }
-                return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin?status=1');
             }
             
         }else{
@@ -262,7 +262,7 @@ function deleteGovernanceAgencysAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin?status=3');
 }
 
 // Lễ Hội Festival
@@ -412,7 +412,7 @@ function addFestivalAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin?status=2');
             }else{
                 $modelCustomer = $controller->loadModel('Customers');
                 $conditions = ['token_device IS NOT'=>null];
@@ -431,7 +431,7 @@ function addFestivalAdmin($input)
                         }
                     }
                 }
-                return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin?status=1');
             }
             
         }else{
@@ -456,7 +456,7 @@ function deleteFestivalAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-festival-listFestivalAdmin?status=3');
 }
 
 // Dịch vụ hỗ trợ du lịch Tour
@@ -614,7 +614,7 @@ function addTourAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin?status=2');
             }else{
                 $modelCustomer = $controller->loadModel('Customers');
                 $conditions = ['token_device IS NOT'=>null];
@@ -633,7 +633,7 @@ function addTourAdmin($input){
                         }
                     }
                 }
-                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin?status=1');
             }
             
         }else{
@@ -658,7 +658,7 @@ function deleteTourAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-tour-listTourAdmin?status=3');
 }
 
 function listBookTourAdmin(){
@@ -756,7 +756,7 @@ function deleteBookTourAdmin(){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-tour-listBookTourAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-tour-listBookTourAdmin?status=3');
 }
 
 // lịch trình
@@ -883,9 +883,9 @@ function addReportAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listReportAdmin.php?status=2&idtour='.$dataSend['idtour']);
+                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listReportAdmin?status=2&idtour='.$dataSend['idtour']);
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listReportAdmin.php?status=1&idtour='.$dataSend['idtour']);
+                return $controller->redirect('/plugins/admin/tayho360-admin-tour-listReportAdmin?status=1&idtour='.$dataSend['idtour']);
             }
             
         }else{
@@ -910,7 +910,7 @@ function deleteReportAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-tour-listReportAdmin.php?status=3&idtour='.$_GET['idtour']);
+    return $controller->redirect('/plugins/admin/tayho360-admin-tour-listReportAdmin?status=3&idtour='.$_GET['idtour']);
 }
 
 // Điểm đến làng nghề craftvillage 
@@ -1055,7 +1055,7 @@ function addCraftvillageAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin?status=2');
             }else{
                  $modelCustomer = $controller->loadModel('Customers');
                 $conditions = ['token_device IS NOT'=>null];
@@ -1074,7 +1074,7 @@ function addCraftvillageAdmin($input){
                         }
                     }
                 }
-                return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin?status=1');
             }
             
         }else{
@@ -1099,7 +1099,7 @@ function deleteCraftvillageAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin?status=3');
 }
 
 // Nhà hàng Restaurant
@@ -1242,9 +1242,9 @@ function addRestaurantAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin?status=1');
             }
             
         }else{
@@ -1269,7 +1269,7 @@ function deleteRestaurantAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin?status=3');
 }
 
 function listBookTableAdmin(){
@@ -1367,7 +1367,7 @@ function deleteBookTableAdmin(){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin?status=3');
 }
 
 // Khách sạn hotel
@@ -1520,9 +1520,9 @@ function addHotelAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin?status=1');
             }
             
         }else{
@@ -1547,7 +1547,7 @@ function deleteHotelAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-hotel-listHotelAdmin?status=3');
 }
 
 function listBookhotelAdmin(){
@@ -1645,7 +1645,7 @@ function deleteBookhotelAdmin(){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listBookhotelAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-restaurant-listBookhotelAdmin?status=3');
 }
 
 
@@ -1775,9 +1775,9 @@ function addImage360Admin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin?status=1');
             }
             
         }else{
@@ -1802,7 +1802,7 @@ function deleteImage360Admin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-image360-listImage360Admin?status=3');
 }
 
 // Sự kện Event
@@ -1962,9 +1962,9 @@ function addEventAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin?status=1');
             }
             
         }else{
@@ -1989,7 +1989,7 @@ function deleteEventAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-event-listEventAdmin?status=3');
 }
 
 // Danh Lam place
@@ -2133,9 +2133,9 @@ function addPlaceAdmin($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin?status=1');
             }
             
         }else{
@@ -2160,7 +2160,7 @@ function deletePlaceAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-place-listPlaceAdmin?status=3');
 }
 
 
@@ -2310,9 +2310,9 @@ function addServiceAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin?status=1');
             }
             
         }else{
@@ -2384,7 +2384,7 @@ function addExceServiceAdmin($input)
                 }
             }
 
-         return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin.php?status=1');
+         return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin?status=1');
             
             
         }else{
@@ -2406,7 +2406,7 @@ function deleteServiceAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-service-listServiceAdmin?status=3');
 }
 
 // Trung tâm hội nghị sự kện Eventcenter
@@ -2554,9 +2554,9 @@ function addEventcenterAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin?status=1');
             }
             
         }else{
@@ -2581,7 +2581,7 @@ function deleteEventcenterAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin?status=3');
 }
 
 function addNotificationAdmin($input)

@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin.php">Mẫu chữ</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin">Mẫu chữ</a> /</span>
     Thông tin mẫu chữ
   </h4>
 

@@ -98,11 +98,11 @@ function addSearchKeyAdmin($input)
             $data->slug = createSlugMantan(@$_GET['keyword']);
 
             $modelSearchKey->save($data);
-        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics.php?status=1');
+        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics?status=1');
             
             
     }
-    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics.php?status=1');
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyEzpics?status=1');
 }
 
 
@@ -117,6 +117,6 @@ function deleteSearchKeyAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-searchKey-listSearchKeyAdmin?status=3');
 }
 ?>

@@ -11,14 +11,14 @@ $menus= array();
 $menus[0]['title']= 'Quản lý SPA';
 
 $menus[0]['sub'][0]= array('title'=>'Tài khoản quản trị SPA',
-                            'url'=>'/plugins/admin/databot_spa-view-admin-member-listMemberAdmin.php',
+                            'url'=>'/plugins/admin/databot_spa-view-admin-member-listMemberAdmin',
                             'classIcon'=>'bx bxs-data',
-                            'permission'=>'listMemberAdmin.php',
+                            'permission'=>'listMemberAdmin',
                         );
 $menus[0]['sub'][1]= array('title'=>'Danh sách SPA',
-                            'url'=>'/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php',
+                            'url'=>'/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin',
                             'classIcon'=>'bx bxs-data',
-                            'permission'=>'listSpaAdmin.php',
+                            'permission'=>'listSpaAdmin',
                         );
 
 addMenuAdminMantan($menus);

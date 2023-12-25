@@ -255,7 +255,7 @@ function lockMemberAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin');
 }
 
 function addMoneyManager($input){
@@ -326,7 +326,7 @@ function addMoneyManager($input){
 
 
 
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=4');	
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin?statuss=4');	
 				}elseif($_GET['type']=='minus'){
 
 					 $dataSendNotification= array('title'=>'Bạn bị trừ tiền ','time'=>date('H:i d/m/Y'),'content'=>'lý do bạn bị trừ là:  '.$dataSend['note'].'đ vào trong tài khoản ạ','action'=>'addMoneySuccess',);
@@ -338,7 +338,7 @@ function addMoneyManager($input){
                         if(!empty($data->email)){
                     		sendEmailMinusMoney($data->email, $data->name, $dataSend['coin'], @$dataSend['note']);
                     	}
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php?statuss=5');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin?statuss=5');
 				}				
 
 
@@ -350,7 +350,7 @@ function addMoneyManager($input){
 		setVariable('data', $data);
 	}else{
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin.php');																									
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-member-listMemberAdmin');																									
 	}
 
 

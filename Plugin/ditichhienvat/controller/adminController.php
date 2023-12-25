@@ -152,9 +152,9 @@ function addHistoricalSitesAdmin($input)
 	        $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin?status=1');
             }
             
 	    }else{
@@ -181,7 +181,7 @@ function deleteHistoricalSitesAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php?status=3');
+	return $controller->redirect('/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin?status=3');
 }
 
 /*Xã Phường ward */
@@ -311,9 +311,9 @@ function addWardAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-ward-listWardAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-ward-listWardAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-ward-listWardAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-ward-listWardAdmin?status=1');
             }
             
         }else{
@@ -339,7 +339,7 @@ function deleteWardAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ditichhienvat-admin-ward-listWardAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ditichhienvat-admin-ward-listWardAdmin?status=3');
 }
 
 /*hiện vật artifact */
@@ -561,9 +561,9 @@ function addArtifactAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin?status=1');
             }
             
         }else{
@@ -591,7 +591,7 @@ function deleteArtifactAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin?status=3');
 }
 
 function addWordArtfactAdmin($input){
@@ -739,7 +739,7 @@ function addWordArtfactAdmin($input){
             }
         }
        // die;
-        return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=1');
+        return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin?status=1');
 
     }
 
@@ -874,9 +874,9 @@ function addCategoryartifactAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin?status=1');
             }
             
         }else{
@@ -902,7 +902,7 @@ function deleteCategoryartifactAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin?status=3');
 }
 
 
@@ -934,7 +934,7 @@ function updatetechnique($input){
             }
          die;
 
-        return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php?status=1');
+        return $controller->redirect('/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin?status=1');
 }
 
  ?>

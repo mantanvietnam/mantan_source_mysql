@@ -71,7 +71,7 @@
                         <td>'.$item->id.'</td>
                         <td>'.$item->name_test.'</td>
                         <td>
-                          <a href="/plugins/admin/2top_crm-view-admin-customer-addCustomerCRM.php/?id='.$item->customer->id.'">'.$item->customer->full_name.'</a><br/>
+                          <a href="/plugins/admin/2top_crm-view-admin-customer-addCustomerCRM/?id='.$item->customer->id.'">'.$item->customer->full_name.'</a><br/>
                           '.$item->customer->phone.'<br/>
                           '.$item->customer->email.'<br/><br/>
 
@@ -82,7 +82,7 @@
                         <td>'.date('H:i', $item->time_start).' đến '.date('H:i', $item->time_end).'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-history-deleteHistoryTestCRM.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/2top_crm_training-view-admin-history-deleteHistoryTestCRM/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

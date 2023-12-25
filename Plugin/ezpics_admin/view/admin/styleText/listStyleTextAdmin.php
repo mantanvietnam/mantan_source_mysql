@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/plugins/ezpics_admin/view/admin/css/ezpics_admin.css" />
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Mẫu chữ</h4>
-  <p><a href="/plugins/admin/ezpics_admin-view-admin-styleText-addStyleTextAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/ezpics_admin-view-admin-styleText-addStyleTextAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Responsive Table -->
   <div class="card row">
@@ -30,13 +30,13 @@
                           <td>'.$item->status.'</td>
                           
                           <td align="center">
-                             <a  class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-styleText-addStyleTextAdmin.php?id='.$item->id.'" title="Sửa">
+                             <a  class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-styleText-addStyleTextAdmin?id='.$item->id.'" title="Sửa">
                               <i class="bx bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
 
                           <td align="center">
-                            <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-styleText-deleteStyleTextAdmin.php/?id='.$item->id.'">
+                            <a class="btn rounded-pill btn-icon btn-outline-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn xóa mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-styleText-deleteStyleTextAdmin/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>

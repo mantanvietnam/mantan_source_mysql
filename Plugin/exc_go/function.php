@@ -6,13 +6,13 @@ $menus= array();
 $menus[0]['title']= 'Exc-go';
 
 $menus[1]['sub'][0]= array('title'=>'Thông tin thành viên',
-                            'url'=>'/plugins/admin/exc_go-view-admin-member-listMemberAdmin.php',
+                            'url'=>'/plugins/admin/exc_go-view-admin-member-listMemberAdmin',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listMemberAdmin',
                         );
 
 $menus[2]['sub'][0]= array('title'=>'Thông tin xe',
-                            'url'=>'/plugins/admin/exc_go-view-admin-car-listCarAdmin.php',
+                            'url'=>'/plugins/admin/exc_go-view-admin-car-listCarAdmin',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'listCarAdmin',
                         );

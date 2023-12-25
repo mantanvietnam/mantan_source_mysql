@@ -76,7 +76,7 @@ function deleteStyleTextAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin');
 }
 
 function addStyleTextAdmin($input){
@@ -174,7 +174,7 @@ function addStyleTextAdmin($input){
 
         $modelStyleTexts->save($data);
         
-        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin.php');
+        return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-styleText-listStyleTextAdmin');
     }
 
     $listFont = $modelFont->find()->all()->toList();

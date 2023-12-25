@@ -158,7 +158,7 @@ function addKey($input)
     $listCategory = $modelCategories->find()->where($conditions)->all()->toList();
 
     if(empty($listCategory)){
-        return $controller->redirect('/plugins/admin/keys-view-admin-category-listCategoryKey.php');
+        return $controller->redirect('/plugins/admin/keys-view-admin-category-listCategoryKey');
     }
 
     setVariable('data', $data);
@@ -179,7 +179,7 @@ function deleteKey($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey.php');
+	return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey');
 }
 
 function refreshKey($input){
@@ -198,6 +198,6 @@ function refreshKey($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey.php');
+    return $controller->redirect('/plugins/admin/keys-view-admin-key-listKey');
 }
 ?>

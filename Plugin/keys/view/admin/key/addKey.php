@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/keys-view-admin-key-listKey.php">Quản lý khóa</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/keys-view-admin-key-listKey">Quản lý khóa</a> /</span>
     Thông tin khóa
   </h4>
 

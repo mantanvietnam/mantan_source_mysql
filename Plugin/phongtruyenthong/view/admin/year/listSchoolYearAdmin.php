@@ -120,10 +120,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/phongtruyenthong-view-admin-year-listSchoolYearAdmin.php';
+            window.location = '/plugins/admin/phongtruyenthong-view-admin-year-listSchoolYearAdmin';
           })
           .fail(function() {
-            window.location = '/plugins/admin/phongtruyenthong-view-admin-year-listSchoolYearAdmin.php';
+            window.location = '/plugins/admin/phongtruyenthong-view-admin-year-listSchoolYearAdmin';
           });
       }
     }

@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin đặt khách sạn</h4>
-  <!-- <p><a href="/plugins/admin/tayho360-admin-restaurant-addRestaurantAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+  <!-- <p><a href="/plugins/admin/tayho360-admin-restaurant-addRestaurantAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
 <!--   <form action="" method="GET">
            <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -56,12 +56,12 @@
                         <td><?php echo @$item->note; ?></td>
                         
                       <!--   <td align="center">
-                          <a class="dropdown-item" href="tayho360-admin-restaurant-addRestaurantAdmin.php/?id=<?php echo @$item->id ?>">
+                          <a class="dropdown-item" href="tayho360-admin-restaurant-addRestaurantAdmin/?id=<?php echo @$item->id ?>">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td> -->
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteBookTourAdmin.php/?id=<?php echo @$item->id ?>">
+                          <a class="dropdown-item" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="/plugins/admin/tayho360-admin-tour-deleteBookTourAdmin/?id=<?php echo @$item->id ?>">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

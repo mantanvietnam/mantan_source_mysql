@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-warehouse_histories-historyProductWarehouseAdmin.php">Lịch sử nhập kho</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-warehouse_histories-historyProductWarehouseAdmin">Lịch sử nhập kho</a> /</span>
         Phiếu nhập kho
     </h4>
 

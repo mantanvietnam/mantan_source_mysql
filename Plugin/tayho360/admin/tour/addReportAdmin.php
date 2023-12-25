@@ -1,8 +1,8 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-tour-listTourAdmin.php">Tour</a> /</span>
-    <span class="text-muted fw-light"><a href="tayho360-admin-tour-listReportAdmin.php/?idtour=<?php echo($_GET['idtour']) ?>">Lịch trình</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-tour-listTourAdmin">Tour</a> /</span>
+    <span class="text-muted fw-light"><a href="tayho360-admin-tour-listReportAdmin/?idtour=<?php echo($_GET['idtour']) ?>">Lịch trình</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";

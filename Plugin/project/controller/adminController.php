@@ -138,7 +138,7 @@ function deleteProjectAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/project-view-admin-project-listProjectAdmin.php');
+	return $controller->redirect('/plugins/admin/project-view-admin-project-listProjectAdmin');
 }
 
 function listLibraryAdmin($input)
@@ -277,7 +277,7 @@ function deleteLibraryAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/project-view-admin-library-listLibraryAdmin.php');
+    return $controller->redirect('/plugins/admin/project-view-admin-library-listLibraryAdmin');
 }
 
 function listMediapreAdmin($input)
@@ -427,7 +427,7 @@ function deleteMediapreAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/project-view-admin-mediapre-listMediapreAdmin.php');
+    return $controller->redirect('/plugins/admin/project-view-admin-mediapre-listMediapreAdmin');
 }
 
 function settingMediaAdmin($input){
@@ -659,7 +659,7 @@ function deleteOpportunitiesAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/project-view-admin-Opportunities-listOpportunitiesAdmin.php');
+    return $controller->redirect('/plugins/admin/project-view-admin-Opportunities-listOpportunitiesAdmin');
 }
 
 function sttingWarmteamAdmin($input){

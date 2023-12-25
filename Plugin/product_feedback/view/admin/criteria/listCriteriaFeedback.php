@@ -115,10 +115,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/product_feedback-view-admin-criteria-listCriteriaFeedback.php';
+            window.location = '/plugins/admin/product_feedback-view-admin-criteria-listCriteriaFeedback';
           })
           .fail(function() {
-            window.location = '/plugins/admin/product_feedback-view-admin-criteria-listCriteriaFeedback.php';
+            window.location = '/plugins/admin/product_feedback-view-admin-criteria-listCriteriaFeedback';
           });
       }
     }

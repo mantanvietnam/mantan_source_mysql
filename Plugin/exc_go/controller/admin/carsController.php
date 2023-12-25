@@ -121,7 +121,7 @@ function lockCarAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/exc_go-view-admin-car-listCarAdmin.php');
+	return $controller->redirect('/plugins/admin/exc_go-view-admin-car-listCarAdmin');
 }
 
 ?>

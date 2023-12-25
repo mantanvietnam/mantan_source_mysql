@@ -107,7 +107,7 @@
                   }elseif($item->status==1){
                     $status = '<span class="text-primary">Chờ duyệt</span>
                     <br>
-                     <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
+                     <a class="btn rounded-pill btn-icon btn-secondary" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt"><i class="bx bxs-message-square-check" ></i></a>
                       <br/>
                       <br/>';
                   }elseif($item->status==2){
@@ -147,7 +147,7 @@
                           </td>
                           <td style="text-align: center;">'.$status.'</td>
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-addTrendProductAdmin.php/?status=0&id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-addTrendProductAdmin/?status=0&id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>
@@ -180,7 +180,7 @@
                   }elseif($item->status==1){
                     $s = '<span class="text-primary">Chờ duyệt</span>';
                   
-                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin.php/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
+                    $status = ' <a class="btn btn btn-success" onclick="return confirm(\'Bạn có chắc chắn muốn duyệt mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-lockProductAdmin/?id='.$item->id.'&status=2&page='.@$_GET['page'].'" title="Duyệt">Duyệt</a>
                       &nbsp;&nbsp;&nbsp;&nbsp;';
                   }elseif($item->status==2){
                     $s = ' <span class="text-success">Đang đăng bán</span>';
@@ -220,7 +220,7 @@
                           </p>
                           <p ><b>Trạng thái:</b> '.$s.'</p>
                           <p style="text-align: center;"> '.$status.'&nbsp;&nbsp;&nbsp;&nbsp;'.@$linkopenapp.'  &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-addTrendProductAdmin.php/?status=0id='.$item->id.'" style=" margin: 20px; ">
+                            <a class="btn btn-danger" onclick="return confirm(\'Bạn có chắc chắn muốn bỏ mẫu thiết kế không?\');" href="/plugins/admin/ezpics_admin-view-admin-product-addTrendProductAdmin/?status=0id='.$item->id.'" style=" margin: 20px; ">
                              bỏ
                             </a>
                           </p>
@@ -291,7 +291,7 @@
               <h5 class="modal-title" id="exampleModalLabel1">ID sản phẩm lên xu hướng</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/plugins/admin/ezpics_admin-view-admin-product-addTrendProductAdmin.php" method="GET">
+            <form action="/plugins/admin/ezpics_admin-view-admin-product-addTrendProductAdmin" method="GET">
               <div class="modal-footer">
                 
                 <input type="hidden" value="1"  name="status">

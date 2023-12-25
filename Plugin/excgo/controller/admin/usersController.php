@@ -78,7 +78,7 @@ function updateStatusUserAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin.php');
+    return $controller->redirect('/plugins/admin/excgo-view-admin-user-listUserAdmin');
 }
 
 function viewUserDetailAdmin($input)
@@ -270,7 +270,7 @@ function acceptUpgradeToDriverAdmin($input)
             }
         }
 
-        return $controller->redirect("/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=$user->id");
+        return $controller->redirect("/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=$user->id");
     }
 }
 
@@ -405,7 +405,7 @@ function updateStatusWithdrawRequestAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin.php');
+    return $controller->redirect('/plugins/admin/excgo-view-admin-withdrawRequest-listWithdrawRequestAdmin');
 }
 
 function updateUserCoinAdmin($input)

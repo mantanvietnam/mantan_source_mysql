@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Quản lý Zalo OA</h4>
-  <p><a href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> <button onclick="$('#addMoneyModal').modal('show');" type="button" class="btn btn-danger"><i class='bx bx-dollar'></i> Nạp tiền Zalo OA</button></p>
+  <p><a href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a> <button onclick="$('#addMoneyModal').modal('show');" type="button" class="btn btn-danger"><i class='bx bx-dollar'></i> Nạp tiền Zalo OA</button></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -67,13 +67,13 @@
                           <td>'.$access_token.'</td>
 
                           <td align="center">
-                            <a class="dropdown-item" href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin.php/?id='.$item->id.'">
+                            <a class="dropdown-item" href="/plugins/admin/zalo_zns-view-admin-addZaloOAAdmin/?id='.$item->id.'">
                               <i class="bx bx-edit-alt me-1"></i>
                             </a>
                           </td>
 
                           <td align="center">
-                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/zalo_zns-view-admin-deleteZaloOAAdmin.php/?id='.$item->id.'">
+                            <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/zalo_zns-view-admin-deleteZaloOAAdmin/?id='.$item->id.'">
                               <i class="bx bx-trash me-1"></i>
                             </a>
                           </td>

@@ -147,6 +147,6 @@ function deleteCharityCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_donate-view-admin-charity-listCharityCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_donate-view-admin-charity-listCharityCRM');
 }
 ?>

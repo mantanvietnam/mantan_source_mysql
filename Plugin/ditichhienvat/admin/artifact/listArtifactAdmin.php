@@ -1,8 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin hiện vật</h4>
-  <p><a href="/plugins/admin/ditichhienvat-admin-artifact-addArtifactAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
+  <p><a href="/plugins/admin/ditichhienvat-admin-artifact-addArtifactAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a>
   &nbsp;&nbsp;&nbsp;
-  <!--   <a href="/plugins/admin/ditichhienvat-admin-artifact-addWordArtfactAdmin.php" class="btn btn-danger"><i class='bx bxs-file-doc'></i> Thêm word</a> -->
+  <!--   <a href="/plugins/admin/ditichhienvat-admin-artifact-addWordArtfactAdmin" class="btn btn-danger"><i class='bx bxs-file-doc'></i> Thêm word</a> -->
   </p>
 
   <!-- Responsive Table -->
@@ -60,12 +60,12 @@
                         <td>'.$item->period.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="ditichhienvat-admin-artifact-addArtifactAdmin.php/?id='.$item->id.'" >
+                          <a class="dropdown-item" href="ditichhienvat-admin-artifact-addArtifactAdmin/?id='.$item->id.'" >
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ditichhienvat-admin-artifact-deleteArtifactAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ditichhienvat-admin-artifact-deleteArtifactAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

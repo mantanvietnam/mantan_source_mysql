@@ -116,10 +116,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/keys-view-admin-category-listCategoryKey.php';
+            window.location = '/plugins/admin/keys-view-admin-category-listCategoryKey';
           })
           .fail(function() {
-            window.location = '/plugins/admin/keys-view-admin-category-listCategoryKey.php';
+            window.location = '/plugins/admin/keys-view-admin-category-listCategoryKey';
           });
       }
     }

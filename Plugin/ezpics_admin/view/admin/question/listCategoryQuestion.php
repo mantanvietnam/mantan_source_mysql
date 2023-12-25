@@ -121,10 +121,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/ezpics_admin-view-admin-question-listCategoryQuestion.php';
+            window.location = '/plugins/admin/ezpics_admin-view-admin-question-listCategoryQuestion';
           })
           .fail(function() {
-            window.location = '/plugins/admin/ezpics_admin-view-admin-question-listCategoryQuestion.php';
+            window.location = '/plugins/admin/ezpics_admin-view-admin-question-listCategoryQuestion';
           });
       }
     }

@@ -199,6 +199,6 @@ function deleteReportCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-report-listReportCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-report-listReportCRM');
 }
 ?>

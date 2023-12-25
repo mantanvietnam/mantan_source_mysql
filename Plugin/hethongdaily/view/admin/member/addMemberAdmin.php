@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin.php">Hệ thống</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/hethongdaily-view-admin-member-listMemberAdmin">Hệ thống</a> /</span>
     Thông tin đại lý hệ thống
   </h4>
 

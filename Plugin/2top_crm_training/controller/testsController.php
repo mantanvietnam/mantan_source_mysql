@@ -196,7 +196,7 @@ function deleteTestCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-test-listTestCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-test-listTestCRM');
 }
 
 ?>

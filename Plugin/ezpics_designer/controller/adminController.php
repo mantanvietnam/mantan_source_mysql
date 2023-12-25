@@ -139,7 +139,7 @@ function addDesignRegistrationAdmin($input){
 		}
 		$modelmember->save($data);
 
-		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin.php?status=2');
+		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin?status=2');
 
 		  
     }
@@ -161,7 +161,7 @@ function deleteDesignRegistrationAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin.php?status=3');
+	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin?status=3');
 }
 
 function listMemberAdmin($input){
@@ -304,7 +304,7 @@ function addMemberAdmin($input){
 		}
 		$modelmember->save($data);
 
-		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=2');
+		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin?status=2');
 
 		  
     }
@@ -326,7 +326,7 @@ function deleteMemberAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=3');
+	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin?status=3');
 }
 
 
@@ -470,7 +470,7 @@ function addOrderProductAdmin($input){
 		}
 		$modelmember->save($data);
 
-		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=2');
+		return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin?status=2');
 
 		  
     }
@@ -492,6 +492,6 @@ function deleteOrderProductAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php?status=3');
+	return $controller->redirect('/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin?status=3');
 }
 ?>

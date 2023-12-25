@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php">Đơn hàng</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin">Đơn hàng</a> /</span>
         Thông tin đơn hàng
     </h4>
 
@@ -35,7 +35,7 @@
                                                     endif;
                                                     ?>
                                                 </select>
-                                                <a class="btn btn-primary" href="<?php echo '/plugins/admin/go_draw-view-admin-agency-viewDetailAgencyAdmin.php/?id=' . @$agency->agency_id; ?>">
+                                                <a class="btn btn-primary" href="<?php echo '/plugins/admin/go_draw-view-admin-agency-viewDetailAgencyAdmin/?id=' . @$agency->agency_id; ?>">
                                                   <i class="bx bx-edit-alt me-1"></i>
                                                 </a>
                                             </div>

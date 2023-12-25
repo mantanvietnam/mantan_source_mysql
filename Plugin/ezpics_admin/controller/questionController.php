@@ -177,7 +177,7 @@ function addQuestion($input){
         $data->created_at = date('Y-m-d H:i:s');
 
         $modelQuestion->save($data);
-         return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-question-listQuestion.php');
+         return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-question-listQuestion');
     }
 
     $condit = array('type' => 'question_categories');
@@ -207,6 +207,6 @@ function deleteQuestion($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-question-listQuestion.php');
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-question-listQuestion');
 }
  ?>
