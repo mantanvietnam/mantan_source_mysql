@@ -32,7 +32,7 @@ $key_transaction = 'ezpics';
 $menus= array();
 $menus[0]['title']= 'Ezpics';
 $menus[0]['sub'][6]= array('title'=>'Cài đặt Font chữ',
-                            'url'=>'/plugins/admin/ezpics_api-view-admin-font-listFontAdmin.php',
+                            'url'=>'/plugins/admin/ezpics_api-view-admin-font-listFontAdmin',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingsEzpics',
                         );

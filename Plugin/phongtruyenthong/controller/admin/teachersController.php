@@ -130,7 +130,7 @@ function deleteTeacherAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-teacher-listTeacherAdmin.php');
+	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-teacher-listTeacherAdmin');
 }
 
 function listPositionAdmin($input)

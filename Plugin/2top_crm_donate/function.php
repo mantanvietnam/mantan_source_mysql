@@ -2,24 +2,24 @@
 $menus= array();
 $menus[0]['title']= 'Từ thiện';
 $menus[0]['sub'][0]= array(	'title'=>'Chương trình từ thiện',
-							'url'=>'/plugins/admin/2top_crm_donate-view-admin-charity-listCharityCRM.php',
+							'url'=>'/plugins/admin/2top_crm_donate-view-admin-charity-listCharityCRM',
 							'classIcon'=>'bx bx-donate-heart',
 							'permission'=>'listCharityCRM'
 						);
 $menus[0]['sub'][1]= array( 'title'=>'Danh sách đóng góp',
-                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM.php',
+                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-donate-listDonateCharityCRM',
                             'classIcon'=>'bx bx-money-withdraw',
                             'permission'=>'listDonateCharityCRM'
                         );
 
 $menus[0]['sub'][2]= array( 'title'=>'Cài đặt chung',
-                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-setting-settingCharityCRM.php',
+                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-setting-settingCharityCRM',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingCharityCRM'
                         );
 
 $menus[0]['sub'][3]= array( 'title'=>'Hướng dẫn APIs',
-                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-guide-guideCharityAPIsCRM.php',
+                            'url'=>'/plugins/admin/2top_crm_donate-view-admin-guide-guideCharityAPIsCRM',
                             'classIcon'=>'bx bx-support',
                             'permission'=>'guideCharityAPIsCRM'
                         );
@@ -29,7 +29,7 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingsEzpics',
 							'sub'=> array(array('title'=>'Chủ đề',
-												'url'=>'/plugins/admin/ezpics-view-admin-category-listCategoryEzpics.php',
+												'url'=>'/plugins/admin/ezpics-view-admin-category-listCategoryEzpics',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'listCategoryEzpics',
 											)

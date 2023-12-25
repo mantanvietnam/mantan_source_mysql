@@ -27,5 +27,5 @@ function deleteRoomAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-order-listOrderZoomAdmin.php');
+	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-order-listOrderZoomAdmin');
 }

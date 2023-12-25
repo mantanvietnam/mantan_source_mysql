@@ -137,9 +137,9 @@ function addIngredientAdmin($input)
         $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
         if(!empty($_GET['id'])){
-            return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php?status=2');
+            return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin?status=2');
         }else{
-            return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php?status=1');
+            return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin?status=1');
         }
     }
 
@@ -162,7 +162,7 @@ function deleteIngredientAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-ingredient-listIngredientAdmin?status=3');
 }
 
 function listCategoryIngredientEzpics($input){

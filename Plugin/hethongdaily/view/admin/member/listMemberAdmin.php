@@ -1,7 +1,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Đại lý</h4>
   
-  <p><a href="/plugins/admin/hethongdaily-view-admin-member-addMemberAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/hethongdaily-view-admin-member-addMemberAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -108,7 +108,7 @@
                             </td>
                             <td>'.$item->status.'</td>
                             <td align="center">
-                              <a class="dropdown-item" href="/plugins/admin/hethongdaily-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                              <a class="dropdown-item" href="/plugins/admin/hethongdaily-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                                 <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                               </a>
                             </td>

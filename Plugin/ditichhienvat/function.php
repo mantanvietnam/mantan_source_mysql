@@ -2,23 +2,23 @@
 $menus= array();
 $menus[0]['title']= "Di tích và hiện vật";
 $menus[0]['sub'][0]= array(	'title'=>'Phường / Xã',
-							'url'=>'/plugins/admin/ditichhienvat-admin-ward-listWardAdmin.php',
+							'url'=>'/plugins/admin/ditichhienvat-admin-ward-listWardAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listWardAdmin'
 						);
 $menus[0]['sub'][1]= array(	'title'=>'Điểm đến di tích',
-							'url'=>'/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin.php',
+							'url'=>'/plugins/admin/ditichhienvat-admin-historicalSites-listHistoricalSitesAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listHistoricalSitesAdmin'
 						);
 $menus[0]['sub'][2]= array(	'title'=>'Hiện vật',
-							'url'=>'/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin.php',
+							'url'=>'/plugins/admin/ditichhienvat-admin-artifact-listArtifactAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listArtifactAdmin'
 						);
 
 $menus[0]['sub'][3]= array(	'title'=>'Danh mục hiện vật',
-							'url'=>'/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin.php',
+							'url'=>'/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listCategoryartifactAdmin'
 						);

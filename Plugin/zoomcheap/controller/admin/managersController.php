@@ -182,7 +182,7 @@ function addMoneyManagerAdmin($input)
 		setVariable('data', $data);
 	}else{
 
-	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin.php');																									
+	return $controller->redirect('/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin');																									
 	}
 
 
@@ -218,7 +218,7 @@ function changePassManagerAdmin($input)
         setVariable('mess', $mess);
     }else{
 
-        return $controller->redirect('/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin.php');                                                                                                   
+        return $controller->redirect('/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin');                                                                                                   
     }
 
 

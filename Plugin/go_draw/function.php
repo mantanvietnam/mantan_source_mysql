@@ -3,50 +3,50 @@
 $menus = array();
 $menus[0]['title'] = 'Sản phẩm';
 $menus[0]['sub'][0] = array('title' => 'Cài đặt sản phẩm',
-    'url' => '/plugins/admin/go_draw-view-admin-product-listProductAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-product-listProductAdmin',
     'classIcon' => 'bx bxs-data',
     'permission' => 'listProduct'
 );
 
 /*
 $menus[0]['sub'][] = array('title' => 'Đơn hàng combo',
-    'url' => '/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listOrderAdmin'
 );
 */
 $menus[0]['sub'][] = array('title' => 'Đơn hàng đại lý',
-    'url' => '/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-agency_order_product-listAgencyOrderProductAdmin',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listAgencyOrderProductAdmin'
 );
 
 $menus[0]['sub'][] = array('title' => 'Yêu cầu trả hàng',
-    'url' => '/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin',
     'classIcon' => 'bx bx-cart-add',
     'permission' => 'listAgencyBackProductAdmin'
 );
 
 $menus[0]['sub'][] = array('title' => 'Tài khoản đại lý',
-    'url' => '/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin',
     'classIcon' => 'bx bx-home',
     'permission' => 'listAgencyAdmin'
 );
 
 $menus[0]['sub'][] = array('title' => 'Combo sản phẩm',
-    'url' => '/plugins/admin/go_draw-view-admin-combo-listComboAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-combo-listComboAdmin',
     'classIcon' => 'bx bx-collection',
     'permission' => 'listComboAdmin'
 );
 
 $menus[0]['sub'][] = array('title' => 'Thành viên',
-    'url' => '/plugins/admin/go_draw-view-admin-user-listUserAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-user-listUserAdmin',
     'classIcon' => 'bx bx-user',
     'permission' => 'listUserAdmin'
 );
 
 $menus[0]['sub'][] = array('title' => 'Lịch sử bán hàng đại lý',
-    'url' => '/plugins/admin/go_draw-view-admin-user_orders-listUserOrderAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-user_orders-listUserOrderAdmin',
     'classIcon' => 'bx bx-user',
     'permission' => 'listUserOrderAdmin'
 );
@@ -58,17 +58,17 @@ $menus[0]['sub'][] = array('title' => 'Lịch sử đơn hàng',
     'permission' => 'listOrderHistoryAdmin',
     'sub' => array(
         array('title' => 'Đơn hàng của đại lý',
-            'url' => '/plugins/admin/go_draw-view-admin-order_history-listAgencyOrderHistoryAdmin.php',
+            'url' => '/plugins/admin/go_draw-view-admin-order_history-listAgencyOrderHistoryAdmin',
             'classIcon' => 'bx bx-category',
             'permission' => 'listAgencyOrderHistoryAdmin',
         ),
         array('title' => 'Đơn hàng của user',
-            'url' => '/plugins/admin/go_draw-view-admin-order_history-listUserOrderHistoryAdmin.php',
+            'url' => '/plugins/admin/go_draw-view-admin-order_history-listUserOrderHistoryAdmin',
             'classIcon' => 'bx bx-category',
             'permission' => 'listUserOrderHistoryAdmin',
         ),
         array('title' => 'Đơn hàng combo của user',
-            'url' => '/plugins/admin/go_draw-view-admin-order_history-listUserOrderComboHistoryAdmin.php',
+            'url' => '/plugins/admin/go_draw-view-admin-order_history-listUserOrderComboHistoryAdmin',
             'classIcon' => 'bx bx-category',
             'permission' => 'listUserOrderComboHistoryAdmin',
         ),
@@ -78,7 +78,7 @@ $menus[0]['sub'][] = array('title' => 'Lịch sử đơn hàng',
 */
 
 $menus[0]['sub'][] = array('title' => 'Danh mục sản phẩm',
-    'url' => '/plugins/admin/go_draw-view-admin-category-listCategoryAdmin.php',
+    'url' => '/plugins/admin/go_draw-view-admin-category-listCategoryAdmin',
         'classIcon' => 'bx bx-category',
         'permission' => 'listCategoryAdmin',
 );

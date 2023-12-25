@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/project-view-admin-library-listLibraryAdmin.php">Library</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/project-view-admin-library-listLibraryAdmin">Library</a> /</span>
     Thông tin Library
   </h4>
   <!-- Basic Layout -->

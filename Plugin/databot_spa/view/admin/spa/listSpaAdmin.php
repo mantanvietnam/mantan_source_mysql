@@ -66,7 +66,7 @@
                             </td>
                             <td>'.$item->created_at.'</td>
                             <td align="center">
-                              <a class="dropdown-item"  href="/plugins/admin/databot_spa-view-admin-spa-addSpaAdmin.php/?id='.$item->id.'">
+                              <a class="dropdown-item"  href="/plugins/admin/databot_spa-view-admin-spa-addSpaAdmin/?id='.$item->id.'">
                                 <i class="bx bx-edit-alt me-1"></i>
                               </a>
                             </td>

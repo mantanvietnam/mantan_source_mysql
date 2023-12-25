@@ -121,10 +121,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/ezpics_admin-view-admin-category-listCategoryEzpics.php';
+            window.location = '/plugins/admin/ezpics_admin-view-admin-category-listCategoryEzpics';
           })
           .fail(function() {
-            window.location = '/plugins/admin/ezpics_admin-view-admin-category-listCategoryEzpics.php';
+            window.location = '/plugins/admin/ezpics_admin-view-admin-category-listCategoryEzpics';
           });
       }
     }

@@ -263,6 +263,6 @@ function deleteMember($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/smartqr-view-admin-member-listMember.php');
+	return $controller->redirect('/plugins/admin/smartqr-view-admin-member-listMember');
 }
 ?>

@@ -123,10 +123,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin.php';
+            window.location = '/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin';
           })
           .fail(function() {
-            window.location = '/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin.php';
+            window.location = '/plugins/admin/hethongdaily-view-admin-system-listSystemAdmin';
           });
       }
     }

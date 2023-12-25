@@ -2,7 +2,7 @@
     $menus= array();
     $menus[0]['title']= 'Static';
     $menus[0]['sub'][0]= array( 'title'=>'Static Setting',
-                            'url'=>'/plugins/admin/static-settingStatic.php',
+                            'url'=>'/plugins/admin/static-settingStatic',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'settingStatic'
                         );

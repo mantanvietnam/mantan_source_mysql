@@ -154,6 +154,6 @@ function deleteLessonCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM');
 }
 ?>

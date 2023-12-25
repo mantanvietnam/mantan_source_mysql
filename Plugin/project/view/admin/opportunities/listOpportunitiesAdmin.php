@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin Opportunities</h4> 
-  <p><a href="/plugins/admin/project-view-admin-opportunities-addOpportunitiesAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/project-view-admin-opportunities-addOpportunitiesAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -72,7 +72,7 @@
 
 
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/project-view-admin-opportunities-addOpportunitiesAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/project-view-admin-opportunities-addOpportunitiesAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>

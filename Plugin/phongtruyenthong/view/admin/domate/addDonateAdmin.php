@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin.php">Quyên góp</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/phongtruyenthong-view-admin-domate-listDonateAdmin">Quyên góp</a> /</span>
     Thông tin quyên góp
   </h4>
   <!-- Basic Layout -->

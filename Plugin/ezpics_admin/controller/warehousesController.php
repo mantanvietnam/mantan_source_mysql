@@ -260,7 +260,7 @@ function lockWarehouse($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php');
+	return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin');
 }
 
 function listWarehouseTrendAdmin($input)
@@ -376,16 +376,16 @@ function addTrendWarehouseAdmin($input)
          		$modelWarehouses->save($data);
 
          		if(!empty($_GET['page'])){
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php?mess='.$_GET['status'].'&page='.$_GET['page']);
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin?mess='.$_GET['status'].'&page='.$_GET['page']);
 				}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php?mess='.$_GET['status']);
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin?mess='.$_GET['status']);
 				}
         	}
         }else{
         	if(!empty($_GET['page'])){
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouses-listWarehouseTrendAdmin.php?mess=2page='.$_GET['page']);
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouses-listWarehouseTrendAdmin?mess=2page='.$_GET['page']);
 				}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin.php?mess=2');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseTrendAdmin?mess=2');
 				}
         }
 	}	
@@ -647,7 +647,7 @@ function deteleWarehouses($input){
 
 
 
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin.php?mess=delete');
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-warehouse-listWarehouseAdmin?mess=delete');
 	
 }
 ?>

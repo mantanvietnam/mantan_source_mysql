@@ -44,19 +44,19 @@ $menus= array();
 $menus[0]['title']= 'Ezpics';
 
 $menus[0]['sub'][0]= array('title'=>'Thông tin đăng ký design',
-                            'url'=>'/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin.php',
+                            'url'=>'/plugins/admin/ezpics_designer-view-admin-designRegistration-listDesignRegistrationAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listDesignRegistrationAdmin',
                             
                         );
 $menus[0]['sub'][1]= array('title'=>'Thông tin Người dùng',
-                            'url'=>'/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin.php',
+                            'url'=>'/plugins/admin/ezpics_designer-view-admin-member-listMemberAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listDesignRegistrationAdmin',
                             
                         );
 $menus[0]['sub'][2]= array('title'=>'Order mẫu thiết kế',
-                            'url'=>'/plugins/admin/ezpics_designer-view-admin-orderProduct-listOrderProductAdmin.php',
+                            'url'=>'/plugins/admin/ezpics_designer-view-admin-orderProduct-listOrderProductAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listDesignRegistrationAdmin',
                             

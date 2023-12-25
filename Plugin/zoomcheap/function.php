@@ -7,37 +7,37 @@ use GuzzleHttp\Client;
 $menus= array();
 $menus[0]['title']= 'Zoom Cheap';
 $menus[0]['sub'][0]= array(	'title'=>'Khách hàng',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-manager-listManagerAdmin',
 							'classIcon'=>'bx bxs-user-detail',
 							'permission'=>'listManagerAdmin'
 						);
 
 $menus[0]['sub'][1]= array(	'title'=>'Lịch sử nạp tiền',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryPlusAdmin.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryPlusAdmin',
 							'classIcon'=>'bx bx-history',
 							'permission'=>'listHistoryPlusAdmin'
 						);
 
 $menus[0]['sub'][5]= array(	'title'=>'Lịch sử trừ tiền',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryMinusAdmin.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-history-listHistoryMinusAdmin',
 							'classIcon'=>'bx bx-history',
 							'permission'=>'listHistoryMinusAdmin'
 						);
 
 $menus[0]['sub'][2]= array(	'title'=>'Đơn hàng thuê Zoom',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-order-listOrderZoomAdmin.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-order-listOrderZoomAdmin',
 							'classIcon'=>'bx bx-history',
 							'permission'=>'listOrderZoomAdmin'
 						);
 
 $menus[0]['sub'][3]= array(	'title'=>'Tài khoản Zoom',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin',
 							'classIcon'=>'bx bxl-zoom',
 							'permission'=>'listAccountZoomAdmin'
 						);
 
 $menus[0]['sub'][4]= array(	'title'=>'Cài đặt giá',
-							'url'=>'/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin.php',
+							'url'=>'/plugins/admin/zoomcheap-view-admin-price-listPriceAdmin',
 							'classIcon'=>'bx bxl-zoom',
 							'permission'=>'listPriceAdmin'
 						);

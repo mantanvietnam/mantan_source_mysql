@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin.php">Danh mục hiện vật</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/ditichhienvat-admin-categoryartifact-listCategoryartifactAdmin">Danh mục hiện vật</a> /</span>
     <?php 
      if(!empty($_GET['id'])){
         echo "Sửa thông tin";

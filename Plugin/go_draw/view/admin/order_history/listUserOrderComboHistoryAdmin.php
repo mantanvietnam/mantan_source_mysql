@@ -95,7 +95,7 @@
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php/?id=' . $item->id . '"
+                          href="/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin/?id=' . $item->id . '"
                         >
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>

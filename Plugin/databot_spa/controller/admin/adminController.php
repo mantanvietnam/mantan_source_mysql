@@ -108,7 +108,7 @@ function addSpaAdmin($input){
         $data = $modelSpas->get( (int) $_GET['id']);
 
     }else{
-        return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php');
+        return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin');
             
     }
 
@@ -122,9 +122,9 @@ function addSpaAdmin($input){
         $data->slug = createSlugMantan($dataSend['name']).'-'.time();
         $modelSpas->save($data);
         if(!empty($_GET['id'])){
-            return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php?status=2');
+            return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin?status=2');
         }else{
-            return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php');
+            return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin');
         }
     }
     setVariable('data', $data);
@@ -151,7 +151,7 @@ function deleteSpaAdmin($input){
             $modelSpas->delete($data);
         }
     }
-    return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/databot_spa-view-admin-spa-listSpaAdmin?status=3');
 }
 
  ?>

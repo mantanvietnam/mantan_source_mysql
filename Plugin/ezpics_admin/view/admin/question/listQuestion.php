@@ -2,7 +2,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Câu hỏi</h4>
-  <p><a href="/plugins/admin/ezpics_admin-view-admin-question-addQuestion.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/ezpics_admin-view-admin-question-addQuestion" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -77,13 +77,13 @@
                         <td>'.$item->category->name.'</td>
                        
                         <td align="center">
-                           <a  class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-question-addQuestion.php?id='.$item->id.'" title="Sửa">
+                           <a  class="dropdown-item" href="/plugins/admin/ezpics_admin-view-admin-question-addQuestion?id='.$item->id.'" title="Sửa">
                             <i class="bx bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa câu hỏi này không?\');" href="/plugins/admin/ezpics_admin-view-admin-question-deleteQuestion.php/?id='.$item->id.'" title="Xóa">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa câu hỏi này không?\');" href="/plugins/admin/ezpics_admin-view-admin-question-deleteQuestion/?id='.$item->id.'" title="Xóa">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

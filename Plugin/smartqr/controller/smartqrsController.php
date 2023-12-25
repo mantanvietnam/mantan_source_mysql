@@ -91,7 +91,7 @@ function staticQR($input)
         setVariable('listData', $listData);
         setVariable('infoQR', $infoQR);
     }else{
-        return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR.php');
+        return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR');
     }
 }
 
@@ -155,7 +155,7 @@ function deleteQR($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR.php');
+	return $controller->redirect('/plugins/admin/smartqr-view-admin-smartqr-listQR');
 }
 
 // for member -----------------------------------------------------

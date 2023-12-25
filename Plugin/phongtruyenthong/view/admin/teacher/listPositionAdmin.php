@@ -118,10 +118,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/phongtruyenthong-view-admin-teacher-listPositionAdmin.php';
+            window.location = '/plugins/admin/phongtruyenthong-view-admin-teacher-listPositionAdmin';
           })
           .fail(function() {
-            window.location = '/plugins/admin/phongtruyenthong-view-admin-teacher-listPositionAdmin.php';
+            window.location = '/plugins/admin/phongtruyenthong-view-admin-teacher-listPositionAdmin';
           });
       }
     }

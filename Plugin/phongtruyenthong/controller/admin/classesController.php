@@ -188,6 +188,6 @@ function deleteClassAdmin($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-class-listClassAdmin.php');
+	return $controller->redirect('/plugins/admin/phongtruyenthong-view-admin-class-listClassAdmin');
 }
 ?>

@@ -65,7 +65,7 @@ function updateStatusProvinceAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/excgo-view-admin-province-listProvinceAdmin.php');
+    return $controller->redirect('/plugins/admin/excgo-view-admin-province-listProvinceAdmin');
 }
 
 function addProvinceAdmin($input)

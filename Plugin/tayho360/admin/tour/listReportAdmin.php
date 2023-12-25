@@ -1,9 +1,9 @@
 <div class="container-xxl flex-grow-1 container-p-y">
    <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-tour-listTourAdmin.php">Tour</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/tayho360-admin-tour-listTourAdmin">Tour</a> /</span>
     Lịch trình
   </h4>
-  <p><a href="/plugins/admin/tayho360-admin-tour-addReportAdmin.php?idtour=<?php echo($_GET['idtour']) ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/tayho360-admin-tour-addReportAdmin?idtour=<?php echo($_GET['idtour']) ?>" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   
   <div class="card row">
@@ -29,12 +29,12 @@
                         <td>'.$item->name.'</td>
                         <td> '.$item->introductory.'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/tayho360-admin-tour-addReportAdmin.php/?id='.$item->id.'&idtour='.$_GET['idtour'].'">
+                          <a class="dropdown-item" href="/plugins/admin/tayho360-admin-tour-addReportAdmin/?id='.$item->id.'&idtour='.$_GET['idtour'].'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteReportAdmin.php/?id='.$item->id.'&idtour='.$_GET['idtour'].'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/tayho360-admin-tour-deleteReportAdmin/?id='.$item->id.'&idtour='.$_GET['idtour'].'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>

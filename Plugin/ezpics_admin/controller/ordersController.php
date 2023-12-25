@@ -918,20 +918,20 @@ function transactioncMoneyEzpics($input){
             		}
 
             		if(!empty($_GET['page'])){
-						return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=1&page='.$_GET['page']);
+						return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics?mess=1&page='.$_GET['page']);
 					}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=1');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics?mess=1');
 					}
 				}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?mess=2');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics?mess=2');
 				}
 			}
 		}
 	}
 	if(!empty($_GET['page'])){
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php?page='.$_GET['page']);
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics?page='.$_GET['page']);
 	}else{
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics.php');
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryWithdrawMoneyEzpics');
 	}
 }
 
@@ -994,18 +994,18 @@ function confirmReceiptMoneyEzpics($input){
 		            }
 
             		if(!empty($_GET['page'])){
-						return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php?mess=1&page='.$_GET['page']);
+						return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics?mess=1&page='.$_GET['page']);
 					}else{
-					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php?mess=1');
+					return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics?mess=1');
 					}
 				
 			}
 		}
 	}
 	if(!empty($_GET['page'])){
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php?page='.$_GET['page']);
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics?page='.$_GET['page']);
 	}else{
-		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics.php');
+		return $controller->redirect('/plugins/admin/ezpics_admin-view-admin-transaction-listTransactionHistoryBankingEzpics');
 	}
 }
 

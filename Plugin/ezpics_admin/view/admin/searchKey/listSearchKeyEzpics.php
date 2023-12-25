@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin lịch sử  tìm kiếm </h4>
- <!-- <p><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
+ <!-- <p><a href="/plugins/admin/ezpics_admin-view-admin-discountCode-addDiscountCodeAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
   <!-- Responsive Table -->
   <form action="" method="GET">
            <!-- table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
@@ -65,7 +65,7 @@
                         <td>'.@$item->keyword.'</td>
                         <td>'.@$item->number_search.'</td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-searchKey-deleteSearchKeyAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/ezpics_admin-view-admin-searchKey-deleteSearchKeyAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -93,7 +93,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel1">Sửa keyword: <?php echo $items->id; ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                               </div>
-                             <form action="/plugins/admin/ezpics_admin-view-admin-searchKey-addSearchKeyAdmin.php" method="GET">
+                             <form action="/plugins/admin/ezpics_admin-view-admin-searchKey-addSearchKeyAdmin" method="GET">
                                <div class="modal-footer">
                                 <input type="hidden" value="<?php echo $items->id; ?>"  name="id">
                                 <input type="hidden" value="0"  name="status">

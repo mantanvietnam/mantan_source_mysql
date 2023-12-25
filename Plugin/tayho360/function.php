@@ -10,95 +10,95 @@ $menus[0]['title']= 'Dữ liệu 360';
 
 
 $menus[0]['sub'][0]= array('title'=>'Cơ quan hành chính',
-							'url'=>'/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin.php',
+							'url'=>'/plugins/admin/tayho360-admin-governanceAgencys-listGovernanceAgencysAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listGovernanceAgencysAdmin',
 							
 						);
 $menus[0]['sub'][1]= array('title'=>'Dịch vụ hỗ trợ du lịch',
-                            'url'=>'/plugins/admin/tayho360-admin-service-listServiceAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-service-listServiceAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listTourAdmin',
                             
                         );
 $menus[0]['sub'][2]= array('title'=>'Lễ hội',
-							'url'=>'/plugins/admin/tayho360-admin-festival-listFestivalAdmin.php',
+							'url'=>'/plugins/admin/tayho360-admin-festival-listFestivalAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listFestivalAdmin',
 							
 						);
 $menus[0]['sub'][4]= array('title'=>'Điểm đến làng nghề',
-							'url'=>'/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin.php',
+							'url'=>'/plugins/admin/tayho360-admin-craftvillage-listCraftvillageAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listCraftvillageAdmin',
 							
 						);
 
 $menus[0]['sub'][6]= array('title'=>'Danh lam',
-							'url'=>'/plugins/admin/tayho360-admin-place-listPlaceAdmin.php',
+							'url'=>'/plugins/admin/tayho360-admin-place-listPlaceAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listPlaceAdmin',
 							
 						);
 $menus[0]['sub'][7]= array('title'=>'Ảnh 360',
-							'url'=>'/plugins/admin/tayho360-admin-image360-listImage360Admin.php',
+							'url'=>'/plugins/admin/tayho360-admin-image360-listImage360Admin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listImage360Admin',
 							
 						);
 $menus[0]['sub'][8]= array('title'=>'Sự kiện',
-							'url'=>'/plugins/admin/tayho360-admin-event-listEventAdmin.php',
+							'url'=>'/plugins/admin/tayho360-admin-event-listEventAdmin',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listEventAdmin',
 							
 						);
 $menus[0]['sub'][9]= array('title'=>'Trung tâm hội nghị sự kiện',
-                            'url'=>'/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-eventcenter-listEventcenterAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listEventcenterAdmin',
                             
                         );
 
 $menus[0]['sub'][5]= array('title'=>'Nhà hàng',
-                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listRestaurantAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listRestaurantAdmin',
                             
                         );
 
 $menus[0]['sub'][10]= array('title'=>'Đặt bàn nhà hàng',
-                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-restaurant-listBookTableAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTableAdmin',
                             
                         );
 $menus[0]['sub'][3]= array('title'=>'Tour',
-                            'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listTourAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listTourAdmin',
                             
                         );
 $menus[0]['sub'][11]= array('title'=>'Đặt tour',
-                            'url'=>'/plugins/admin/tayho360-admin-tour-listBookTourAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-tour-listBookTourAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTourAdmin',
                             
                         );
 $menus[0]['sub'][12]= array('title'=>'Khách sạn',
-                            'url'=>'/plugins/admin/tayho360-admin-hotel-listHotelAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-hotel-listHotelAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTourAdmin',
                             
                         );
 $menus[0]['sub'][13]= array('title'=>'Đặt khách sạn',
-                            'url'=>'/plugins/admin/tayho360-admin-hotel-listBookhotelAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-hotel-listBookhotelAdmin',
                             'classIcon'=>'bx bxs-data',
                             'permission'=>'listBookTourAdmin',
                             
                         );
 
 $menus[0]['sub'][14]= array( 'title'=>'Thông báo',
-                            'url'=>'/plugins/admin/tayho360-admin-notification-addNotificationAdmin.php',
+                            'url'=>'/plugins/admin/tayho360-admin-notification-addNotificationAdmin',
                             'classIcon'=>'bx bx-bell',
                             'permission'=>'addNotificationAdmin'
                         );

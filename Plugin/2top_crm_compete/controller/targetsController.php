@@ -125,6 +125,6 @@ function deleteTargetCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-target-listTargetCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm_compete-view-admin-target-listTargetCRM');
 }
 ?>

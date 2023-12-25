@@ -167,6 +167,6 @@ function deleteCustomerCRM($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/2top_crm-view-admin-customer-listCustomerCRM.php');
+	return $controller->redirect('/plugins/admin/2top_crm-view-admin-customer-listCustomerCRM');
 }
 ?>

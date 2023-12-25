@@ -3,7 +3,7 @@ $menus= array();
 $menus[0]['title']= 'Smax Bot';
 
 $menus[0]['sub'][0]= array( 'title'=>'Cài đặt chung',
-                            'url'=>'/plugins/admin/smaxbot-view-admin-setting-settingSmaxbot.php',
+                            'url'=>'/plugins/admin/smaxbot-view-admin-setting-settingSmaxbot',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingSmaxbot'
                         );

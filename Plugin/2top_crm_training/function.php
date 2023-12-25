@@ -2,25 +2,25 @@
 $menus= array();
 $menus[0]['title']= 'Đào tạo';
 $menus[0]['sub'][0]= array(	'title'=>'Bài học',
-							'url'=>'/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM.php',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-lesson-listLessonCRM',
 							'classIcon'=>'bx bxs-graduation',
 							'permission'=>'listLessonCRM'
 						);
 
 $menus[0]['sub'][1]= array(	'title'=>'Bài thi',
-							'url'=>'/plugins/admin/2top_crm_training-view-admin-test-listTestCRM.php',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-test-listTestCRM',
 							'classIcon'=>'bx bx-timer',
 							'permission'=>'listTestCRM'
 						);
 
 $menus[0]['sub'][2]= array(	'title'=>'Câu hỏi',
-							'url'=>'/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM.php',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-question-listQuestionCRM',
 							'classIcon'=>'bx bx-question-mark',
 							'permission'=>'listQuestionCRM'
 						);
 
 $menus[0]['sub'][3]= array(	'title'=>'Lịch sử thi',
-							'url'=>'/plugins/admin/2top_crm_training-view-admin-history-listHistoryTestCRM.php',
+							'url'=>'/plugins/admin/2top_crm_training-view-admin-history-listHistoryTestCRM',
 							'classIcon'=>'bx bx-history',
 							'permission'=>'listHistoryTestCRM'
 						);
@@ -30,12 +30,12 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settings2TopCRMTraining',
 							'sub'=> array(array('title'=>'Danh mục đào tạo',
-												'url'=>'/plugins/admin/2top_crm_training-view-admin-category-listCategoryLessonCRM.php',
+												'url'=>'/plugins/admin/2top_crm_training-view-admin-category-listCategoryLessonCRM',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'listCategoryLessonCRM',
 											),
 										array('title'=>'Cài đặt chung',
-												'url'=>'/plugins/admin/2top_crm_training-view-admin-setting-settingTrainingCRM.php',
+												'url'=>'/plugins/admin/2top_crm_training-view-admin-setting-settingTrainingCRM',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'settingTrainingCRM',
 											),
@@ -43,7 +43,7 @@ $menus[0]['sub'][4]= array('title'=>'Cài đặt',
 						);
 
 $menus[0]['sub'][5]= array( 'title'=>'Hướng dẫn APIs',
-                            'url'=>'/plugins/admin/2top_crm_training-view-admin-guide-guideTrainingAPIsCRM.php',
+                            'url'=>'/plugins/admin/2top_crm_training-view-admin-guide-guideTrainingAPIsCRM',
                             'classIcon'=>'bx bx-support',
                             'permission'=>'guideTrainingAPIsCRM'
                         );
