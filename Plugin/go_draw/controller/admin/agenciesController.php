@@ -75,7 +75,7 @@ function updateStatusAgencyAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin.php');
+    return $controller->redirect('/plugins/admin/go_draw-view-admin-agency-listAgencyAdmin');
 }
 
 function viewDetailAgencyAdmin($input)

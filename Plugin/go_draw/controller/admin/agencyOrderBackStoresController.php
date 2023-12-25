@@ -145,14 +145,14 @@ function viewAgencyBackProductAdmin($input)
 
             
         } else {
-            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin.php');
+            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin');
         }
 
 
         setVariable('data', $order);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin.php');
+        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order_back_stores-listAgencyBackProductAdmin');
     }
 }
 

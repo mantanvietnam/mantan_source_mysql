@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thành viên</h4>
-  <p><a href="/plugins/admin/zoomcheap-view-admin-manager-addManagerExcel.php" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
+  <p><a href="/plugins/admin/zoomcheap-view-admin-manager-addManagerExcel" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -83,13 +83,13 @@
  
                if($item->status==0){
                  $status = '
-                  <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=1">
+                  <a class="btn btn-success"  title="Kích hoạt tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=1">
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Khóa ';
                 }
                 else{
                 $status = '
-                  <a class=" btn btn-danger"  title="Khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin.php/?id='.$item->id.'&status=0">
+                  <a class=" btn btn-danger"  title="Khóa tài khoản" onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');" href="/plugins/admin/exc_go-view-admin-member-lockMemberAdmin/?id='.$item->id.'&status=0">
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Kích hoạt ';
                 }
@@ -113,7 +113,7 @@
                         <td>'.$type.' </td>
                         <td> 
                         <p align="center">
-                        <a class="btn btn-success" href="/plugins/admin/exc_go-view-admin-member-addMemberAdmin.php/?id='.$item->id.'">
+                        <a class="btn btn-success" href="/plugins/admin/exc_go-view-admin-member-addMemberAdmin/?id='.$item->id.'">
                           <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                         </a>
                         </p>

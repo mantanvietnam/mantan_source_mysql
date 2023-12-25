@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Khách hàng</h4>
-  <p><a href="/plugins/admin/zoomcheap-view-admin-manager-addManagerExcel.php" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
+  <p><a href="/plugins/admin/zoomcheap-view-admin-manager-addManagerExcel" class="btn btn-primary"><i class='bx bx-plus'></i> Nhập excel</a></p>
   <!-- Form Search -->
   <form method="get" action="">
     <div class="card mb-4">
@@ -69,15 +69,15 @@
                          
                         </td>
                         <td align="center">
-                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addMoneyManagerAdmin.php/?type=plus&id='.$item->id.'">+ Nạp tiền </a>
+                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addMoneyManagerAdmin/?type=plus&id='.$item->id.'">+ Nạp tiền </a>
                         </td>
 
                         <td align="center">
-                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addMoneyManagerAdmin.php/?type=minus&id='.$item->id.'">- Trừ tiền </a>
+                        <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-addMoneyManagerAdmin/?type=minus&id='.$item->id.'">- Trừ tiền </a>
                         </td>
 
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-changePassManagerAdmin.php/?id='.$item->id.'">Đổi pass </a>
+                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-manager-changePassManagerAdmin/?id='.$item->id.'">Đổi pass </a>
                         </td>
                       </tr>';
               }

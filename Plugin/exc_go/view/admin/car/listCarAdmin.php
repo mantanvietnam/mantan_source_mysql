@@ -73,13 +73,13 @@
               foreach ($listData as $item) {
                if($item->status==0){
                  $status = '
-                  <a class="btn btn-success"  title="Kích hoạt xe" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockCarAdmin.php/?id='.$item->id.'&status=1">
+                  <a class="btn btn-success"  title="Kích hoạt xe" onclick="return confirm(\'Bạn có chắc chắn muốn Kích hoạt xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockCarAdmin/?id='.$item->id.'&status=1">
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Khóa ';
                 }
                 else{
                 $status = '
-                  <a class=" btn btn-danger"  title="Khóa xe" onclick="return confirm(\'Bạn có chắc chắn muốn khóa xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockCarAdmin.php/?id='.$item->id.'&status=0">
+                  <a class=" btn btn-danger"  title="Khóa xe" onclick="return confirm(\'Bạn có chắc chắn muốn khóa xe không?\');" href="/plugins/admin/exc_go-view-admin-member-lockCarAdmin/?id='.$item->id.'&status=0">
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Kích hoạt ';
                 }

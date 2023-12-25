@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-user-listUserAdmin.php">Thành viên</a> /</span>
+        <span class="text-muted fw-light"><a href="/plugins/admin/excgo-view-admin-user-listUserAdmin">Thành viên</a> /</span>
         Thông tin thành viên
     </h4>
     <!-- Basic Layout -->
@@ -26,7 +26,7 @@
                           <p>Người dùng yêu cầu nâng cấp tài khoản thành tài xế</p>
                           <a class=" btn btn-primary"  title="Kích hoạt tài khoản"
                              onclick="return confirm('Bạn có chắc chắn muốn chấp nhận yêu cầu của thành viên này không?');"
-                             href=<?php echo "/plugins/admin/excgo-view-admin-user-acceptUpgradeToDriverAdmin.php/?id=$isRequestUpgrade->user_id" ?>
+                             href=<?php echo "/plugins/admin/excgo-view-admin-user-acceptUpgradeToDriverAdmin/?id=$isRequestUpgrade->user_id" ?>
                           >
                             Chấp nhận
                           </a>

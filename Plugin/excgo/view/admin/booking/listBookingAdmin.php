@@ -101,12 +101,12 @@
                         <td><?php echo $item->id ?></td>
                         <td><?php echo $item->DepartureProvinces['name'] . ' - ' . $item->DestinationProvinces['name'] ?></td>
                         <td>
-                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=" . $item->PostedUsers['id'] ?>">
+                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . $item->PostedUsers['id'] ?>">
                                 <?php echo $item->PostedUsers['name'] ?>
                             </a>
                         </td>
                         <td>
-                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=" . $item->ReceivedUsers['id'] ?>">
+                            <a href="<?php echo "/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=" . $item->ReceivedUsers['id'] ?>">
                                 <?php echo $item->ReceivedUsers['name'] ?>
                             </a>
                         </td>
@@ -115,7 +115,7 @@
                         <td>
                           <p align="center">
                               <a class="btn btn-primary"
-                                 href="<?php echo "/plugins/admin/excgo-view-admin-booking-viewBookingDetailAdmin.php/?id=$item->id" ?>"
+                                 href="<?php echo "/plugins/admin/excgo-view-admin-booking-viewBookingDetailAdmin/?id=$item->id" ?>"
                               >
                                   <i class="bx bx-edit-alt me-1" style="font-size: 22px;"></i>
                               </a>

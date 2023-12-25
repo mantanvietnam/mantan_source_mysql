@@ -71,7 +71,7 @@
                   if(!empty($item->infoRoom->info['id'])){
                     $infoRoom = '<p>ID: '.@$item->infoRoom->info['id'].'</p>
                               <p>Mật khẩu: '.@$item->infoRoom->info['password'].'</p>
-                              <p class="text-center"><a onclick="return confirm(\'Bạn có chắc chắn muốn xóa phòng họp không?\');" href="/plugins/admin/zoomcheap-view-admin-order-deleteRoomAdmin.php?idOrder='.$item->id.'"><i class="bx bx-trash"></i></a></p>';
+                              <p class="text-center"><a onclick="return confirm(\'Bạn có chắc chắn muốn xóa phòng họp không?\');" href="/plugins/admin/zoomcheap-view-admin-order-deleteRoomAdmin?idOrder='.$item->id.'"><i class="bx bx-trash"></i></a></p>';
                   }
                 }
 

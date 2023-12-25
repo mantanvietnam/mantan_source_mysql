@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin tài khoản zoom</h4> 
-  <p><a href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
 
   <!-- Form Search -->
   <form method="get" action="">
@@ -66,7 +66,7 @@
                         <td>'.@$item->infoRoom->info['id'].'</td>
                         <td>'.@$item->infoRoom->info['password'].'</td>
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/zoomcheap-view-admin-zoom-addZoom/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>

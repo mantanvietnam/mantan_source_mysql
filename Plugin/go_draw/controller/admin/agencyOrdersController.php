@@ -143,7 +143,7 @@ function addAgencyOrderAdmin($input)
                 }
             }
         } else {
-            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php');
+            return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin');
         }
 
         $listCombo = $comboModel->find()->where(['status' => 1])->all();
@@ -152,7 +152,7 @@ function addAgencyOrderAdmin($input)
         setVariable('listCombo', $listCombo);
         setVariable('mess', $mess);
     }else{
-        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin.php');
+        return $controller->redirect('/plugins/admin/go_draw-view-admin-agency_order-listAgencyOrderAdmin');
     }
 }
 

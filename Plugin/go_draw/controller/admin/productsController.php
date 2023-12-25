@@ -109,7 +109,7 @@ function deleteProductAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/go_draw-view-admin-product-listProductAdmin.php');
+    return $controller->redirect('/plugins/admin/go_draw-view-admin-product-listProductAdmin);
 }
 
 function addProductAdmin($input)

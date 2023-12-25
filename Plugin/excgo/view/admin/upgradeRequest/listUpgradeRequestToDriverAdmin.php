@@ -74,7 +74,7 @@
                             $status = '
                   <a class="btn btn-success"  title="Khóa tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn khóa người dùng không?\');"
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin.php/?id=' . $item->id . '&status=0"
+                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=0"
                   >
                            <i class="bx bx-lock-open-alt me-1" style="font-size: 22px;"></i>
                   </a><br/>Đã kích hoạt ';
@@ -82,7 +82,7 @@
                             $status = '
                   <a class=" btn btn-danger"  title="Kích hoạt tài khoản" 
                     onclick="return confirm(\'Bạn có chắc chắn muốn kích hoạt người dùng không?\');" 
-                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin.php/?id=' . $item->id . '&status=1"
+                    href="/plugins/admin/excgo-view-admin-user-updateStatusUserAdmin/?id=' . $item->id . '&status=1"
                   >
                            <i class="bx bx-lock-alt me-1" style="font-size: 22px;"></i>
                   </a><br/> Đã khóa ';
@@ -106,7 +106,7 @@
                         <td> 
                         <p align="center">
                         <a class="btn btn-primary" 
-                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin.php/?id=' . $item->id . '"
+                          href="/plugins/admin/excgo-view-admin-user-viewUserDetailAdmin/?id=' . $item->id . '"
                         >
                           <i class="bx bx-show-alt me-1" style="font-size: 22px;"></i>
                         </a>

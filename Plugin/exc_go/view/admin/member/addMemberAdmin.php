@@ -1,7 +1,7 @@
 <!-- Helpers -->
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light"><a href="/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin.php">Thành viên</a> /</span>
+    <span class="text-muted fw-light"><a href="/plugins/admin/zoomcheap-view-admin-zoom-listAccountZoomAdmin">Thành viên</a> /</span>
     Thông tin thành viên
   </h4>
   <!-- Basic Layout -->
