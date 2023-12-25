@@ -736,10 +736,10 @@ function detailOrder(){
 				setVariable('order', $order);
 				setVariable('detail_order', $detail_order);
 			}else{
-				return $controller->redirect('/listOrder.php');
+				return $controller->redirect('/listOrder');
 			}
 		}else{
-			return $controller->redirect('/listOrder.php');
+			return $controller->redirect('/listOrder');
 		}
 	}else{
 		$controller->redirect('/');

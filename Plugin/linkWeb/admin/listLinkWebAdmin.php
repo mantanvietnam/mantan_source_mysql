@@ -1,6 +1,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Thông tin link liên kết</h4>
-  <p><a href="/plugins/admin/linkWeb-admin-addLinkWebAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
+  <p><a href="/plugins/admin/linkWeb-admin-addLinkWebAdmin" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p>
   <!-- Responsive Table -->
   <div class="card row">
     <h5 class="card-header">Danh sách Thông tin link liên kết</h5>
@@ -31,7 +31,7 @@
                         <td>'.$item->link.'</td>
                         
                         <td align="center">
-                          <a class="dropdown-item" href="/plugins/admin/linkWeb-admin-addLinkWebAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" href="/plugins/admin/linkWeb-admin-addLinkWebAdmin/?id='.$item->id.'">
                             <i class="bx bx-edit-alt me-1"></i>
                           </a>
                         </td>

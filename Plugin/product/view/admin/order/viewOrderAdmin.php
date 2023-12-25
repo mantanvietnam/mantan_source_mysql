@@ -97,21 +97,21 @@
 
           <div class="row m-5 ">
             <?php if($order->status=='new'){ ?>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=browser&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn duyệt đơn hàng này không?')" class="btn btn-primary ">Duyệt</a></div>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
+              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=browser&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn duyệt đơn hàng này không?')" class="btn btn-primary ">Duyệt</a></div>
+              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
             <?php }elseif($order->status=='browser'){ ?>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=delivery&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn giao hàng đơn hàng này không?');" class="btn btn-primary">giao hàng </a></div>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
+              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=delivery&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn giao hàng đơn hàng này không?');" class="btn btn-primary">giao hàng </a></div>
+              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
 
             <?php }elseif($order->status=='delivery'){ ?>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=done&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn hoàng thành đơn này?');" class="btn btn-primary">đã xong</a></div>
-              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder.php?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
+              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=done&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn hoàng thành đơn này?');" class="btn btn-primary">đã xong</a></div>
+              <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-treatmentOrder?status=cancel&id=<?php echo $order->id ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');" class="btn btn-danger">hủy</a></div>
             <?php }elseif($order->status=='done'){
               echo '<div class="col-md-3">đã xong</div>';
             } elseif($order->status=='cancel'){
               echo '<div class="col-md-3">đã hủy</div>';
             } ?>
-            <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-listOrderAdmin.php" class="btn btn-primary">quay lại</a></div>
+            <div class="col-md-3"><a href="/plugins/admin/product-view-admin-order-listOrderAdmin" class="btn btn-primary">quay lại</a></div>
           </div>
 
 

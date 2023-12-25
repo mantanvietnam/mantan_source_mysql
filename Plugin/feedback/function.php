@@ -1,7 +1,7 @@
 <?php
 	$menus= array();
 	$menus[0]['title']= 'Feedback';
-    $menus[0]['sub'][0]= array('title'=>'Feedback khách hàng','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/feedback-admin-listFeedbackAdmin.php','permission'=>'listFeedbackAdmin',);
+    $menus[0]['sub'][0]= array('title'=>'Feedback khách hàng','classIcon'=>'bx bx-list-ul','url'=>'/plugins/admin/feedback-admin-listFeedbackAdmin','permission'=>'listFeedbackAdmin',);
     
     addMenuAdminMantan($menus); 
 

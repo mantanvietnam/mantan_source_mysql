@@ -120,10 +120,10 @@
           data: {}
         })
           .done(function( msg ) {
-            window.location = '/plugins/admin/product-view-admin-category-listCategoryProduct.php';
+            window.location = '/plugins/admin/product-view-admin-category-listCategoryProduct';
           })
           .fail(function() {
-            window.location = '/plugins/admin/product-view-admin-category-listCategoryProduct.php';
+            window.location = '/plugins/admin/product-view-admin-category-listCategoryProduct';
           });
       }
     }

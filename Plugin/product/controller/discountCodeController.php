@@ -131,10 +131,10 @@ function addDiscountCodeAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin?status=2');
             }else{
               
-                return $controller->redirect('/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin?status=1');
             }
             
         }else{
@@ -159,6 +159,6 @@ function deleteDiscountCodeAdmin($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin.php?status=3');
+    return $controller->redirect('/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin?status=3');
 }
 ?>

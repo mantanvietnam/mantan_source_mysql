@@ -124,9 +124,9 @@ function addFeedbackAdmin($input)
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
             if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/feedback-admin-listFeedbackAdmin.php?status=2');
+                return $controller->redirect('/plugins/admin/feedback-admin-listFeedbackAdmin?status=2');
             }else{
-                return $controller->redirect('/plugins/admin/feedback-admin-listFeedbackAdmin.php?status=1');
+                return $controller->redirect('/plugins/admin/feedback-admin-listFeedbackAdmin?status=1');
             }
         }else{
             $mess= '<p class="text-danger">Bạn chưa nhập tên </p>';
@@ -151,6 +151,6 @@ function deleteFeedbackAdmin($input){
         }
     }
 
-    return $controller->redirect('plugins/admin/feedback-admin-listFeedbackAdmin.php?status=3');
+    return $controller->redirect('plugins/admin/feedback-admin-listFeedbackAdmin?status=3');
 }
 ?>

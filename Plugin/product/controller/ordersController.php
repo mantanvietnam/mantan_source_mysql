@@ -196,7 +196,7 @@ function deleteOrderAdmin($input)
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+    return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin');
 }
 
 function viewOrderAdmin($input)
@@ -246,10 +246,10 @@ function viewOrderAdmin($input)
             setVariable('order', $order);
             setVariable('detail_order', $detail_order);
         }else{
-            return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+            return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin');
         }
     }else{
-        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin');
     }
 }
 
@@ -270,7 +270,7 @@ function treatmentOrder($input){
         $order->status = $_GET['status'];
 
         $modelOrder->save($order);
-        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin.php');
+        return $controller->redirect('/plugins/admin/product-view-admin-order-listOrderAdmin');
 
     }
 }

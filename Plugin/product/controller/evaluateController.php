@@ -10,7 +10,7 @@ function listEvaluate($input){
     $modelEvaluate = $controller->loadModel('Evaluates');
 
     if(!isset($_GET['id_product'])){
-        return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listProduct.php');
+        return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listProduct');
     }
     
     $conditions = array();
@@ -127,9 +127,9 @@ function addEvaluate($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listEvaluate.php?status=2&id_product='.$_GET['id_product']);
+                return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listEvaluate?status=2&id_product='.$_GET['id_product']);
             }else{
-                return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listEvaluate.php?status=1&id_product='.$_GET['id_product']);
+                return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listEvaluate?status=1&id_product='.$_GET['id_product']);
             }
             
         }else{
@@ -154,6 +154,6 @@ function deleteEvaluate($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listEvaluate.php?status=3&id_product='.$_GET['id_product']);
+    return $controller->redirect('/plugins/admin/product-view-admin-evaluate-listEvaluate?status=3&id_product='.$_GET['id_product']);
 }
  ?>

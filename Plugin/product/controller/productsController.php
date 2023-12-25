@@ -288,7 +288,7 @@ function deleteProduct($input){
         }
 	}
 
-	return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct.php');
+	return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct');
 }
 
 function addFlashSale($input){
@@ -307,7 +307,7 @@ function addFlashSale($input){
 
 
 
-    return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct.php');
+    return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct');
 }
 
 
@@ -323,7 +323,7 @@ function listQuestion($input){
     $modelQuestion = $controller->loadModel('Questions');
 
     if(!isset($_GET['id_product'])){
-        return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct.php');
+        return $controller->redirect('/plugins/admin/product-view-admin-product-listProduct');
     }
     
     $conditions = array();
@@ -434,9 +434,9 @@ function addQuestion($input){
             $mess= '<p class="text-success">Lưu dữ liệu thành công</p>';
 
              if(!empty($_GET['id'])){
-                return $controller->redirect('/plugins/admin/product-view-admin-product-ListQuestion.php?status=2&id_product='.$_GET['id_product']);
+                return $controller->redirect('/plugins/admin/product-view-admin-product-ListQuestion?status=2&id_product='.$_GET['id_product']);
             }else{
-                return $controller->redirect('/plugins/admin/product-view-admin-product-ListQuestion.php?status=1&id_product='.$_GET['id_product']);
+                return $controller->redirect('/plugins/admin/product-view-admin-product-ListQuestion?status=1&id_product='.$_GET['id_product']);
             }
             
         }else{
@@ -461,7 +461,7 @@ function deleteQuestion($input){
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-product-ListQuestion.php?status=3&id_product='.$_GET['id_product']);
+    return $controller->redirect('/plugins/admin/product-view-admin-product-ListQuestion?status=3&id_product='.$_GET['id_product']);
 }
 
 function listReview($input){
@@ -566,7 +566,7 @@ function deleteReview(){
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-product-listReview.php');
+    return $controller->redirect('/plugins/admin/product-view-admin-product-listReview');
 }
 
 function upReview(){
@@ -593,7 +593,7 @@ function upReview(){
         }
     }
 
-    return $controller->redirect('/plugins/admin/product-view-admin-product-listReview.php');
+    return $controller->redirect('/plugins/admin/product-view-admin-product-listReview');
 }
 
 function addNumberShare(){

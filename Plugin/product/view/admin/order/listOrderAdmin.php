@@ -124,12 +124,12 @@
              <td width="10%">'.date('H:i d/m/Y', $item->create_at).'</td>
              <td width="10%" align="center">'.$status.'</td>
              <td width="5%" align="center">
-             <a class="dropdown-item" href="/plugins/admin/product-view-admin-order-viewOrderAdmin.php/?id='.$item->id.'">
+             <a class="dropdown-item" href="/plugins/admin/product-view-admin-order-viewOrderAdmin/?id='.$item->id.'">
              <i class="bx bx-edit-alt me-1"></i>
              </a>
              </td>
              <td width="5%" align="center">
-             <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-order-deleteOrderAdmin.php/?id='.$item->id.'">
+             <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/product-view-admin-order-deleteOrderAdmin/?id='.$item->id.'">
              <i class="bx bx-trash me-1"></i>
              </a>
              </td>

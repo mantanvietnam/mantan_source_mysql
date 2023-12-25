@@ -2,13 +2,13 @@
 $menus= array();
 $menus[0]['title']= 'Sản phẩm';
 $menus[0]['sub'][0]= array(	'title'=>'Sản phẩm',
-							'url'=>'/plugins/admin/product-view-admin-product-listProduct.php',
+							'url'=>'/plugins/admin/product-view-admin-product-listProduct',
 							'classIcon'=>'bx bxs-data',
 							'permission'=>'listProduct'
 						);
 
 $menus[0]['sub'][1]= array(	'title'=>'Đơn hàng',
-							'url'=>'/plugins/admin/product-view-admin-order-listOrderAdmin.php',
+							'url'=>'/plugins/admin/product-view-admin-order-listOrderAdmin',
 							'classIcon'=>'bx bx-cart-add',
 							'permission'=>'listOrderAdmin'
 						);
@@ -18,29 +18,29 @@ $menus[0]['sub'][10]= array('title'=>'Cài đặt',
 							'classIcon'=>'bx bx-cog',
 							'permission'=>'settingsProducts',
 							'sub'=> array(  array('title'=>'Danh mục sản phẩm',
-												'url'=>'/plugins/admin/product-view-admin-category-listCategoryProduct.php',
+												'url'=>'/plugins/admin/product-view-admin-category-listCategoryProduct',
 												'classIcon'=>'bx bx-category',
 												'permission'=>'listCategoryProduct',
 											),
                       array('title'=>'Nhà sản xuất',
-                          'url'=>'/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct.php',
+                          'url'=>'/plugins/admin/product-view-admin-manufacturer-listManufacturerProduct',
                           'classIcon'=>'bx bx-category',
                           'permission'=>'listManufacturerProduct',
                       ),
                      /* array('title'=>'Gửi thông báo',
-                          'url'=>'/plugins/admin/product-view-admin-smaxbot-settingSmaxbotAdmin.php',
+                          'url'=>'/plugins/admin/product-view-admin-smaxbot-settingSmaxbotAdmin',
                           'classIcon'=>'bx bx-category',
                           'permission'=>'settingSmaxbotAdmin',
                       ),*/
                       array('title'=>'Mã giảm giá ',
-                          'url'=>'/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin.php',
+                          'url'=>'/plugins/admin/product-view-admin-discountCode-listDiscountCodeAdmin',
                           'classIcon'=>'bx bx-category',
                           'permission'=>'listDiscountCodeAdmin',
                       ),
 									)
 						);
 $menus[0]['sub'][11]= array( 'title'=>'Review sản phẩm',
-              'url'=>'/plugins/admin/product-view-admin-product-listReview.php',
+              'url'=>'/plugins/admin/product-view-admin-product-listReview',
               'classIcon'=>'bx bx-cart-add',
               'permission'=>'listReview'
             );

@@ -1,25 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4">Thông tin Binh luận</h4>
-  <!-- <p><a href="/plugins/admin/tayho360-admin-festival-addFestivalAdmin.php" class="btn btn-primary"><i class='bx bx-plus'></i> Thêm mới</a></p> -->
-  <!-- Responsive Table -->
- <!--  <form action="" method="GET">
-           <table class="table table-bordered" style="border: 1px solid #ddd!important; margin-top: 10px;">  
-            <tbody><tr>
-                <td>
-                    <label>Tên Binh luận</label>
-                    <input type="" name="name" class="form-control" placeholder="Tên lễ hội" value="">
-                </td>
-                 <td >
-                    <br>
-                    <input type="submit" name="" style="margin-top: 7px;" value="Tìm kiếm">
-                </td>
-              
-            </tr>
-        
-        </tbody></table>
-    </form> -->
+  <h4 class="fw-bold py-3 mb-4">Thông tin bình luận</h4>
+  
   <div class="card row">
-    <h5 class="card-header">Danh sách Thông tin Binh luận</h5>
+    <h5 class="card-header">Danh sách Thông tin bình luận</h5>
       <p><?php echo @$mess;?></p>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -54,7 +37,7 @@
                           </a>
                         </td>
                         <td align="center">
-                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/like_comment-deleleCommentAdmin.php/?id='.$item->id.'">
+                          <a class="dropdown-item" onclick="return confirm(\'Bạn có chắc chắn muốn xóa không?\');" href="/plugins/admin/like_comment-deleleCommentAdmin/?id='.$item->id.'">
                             <i class="bx bx-trash me-1"></i>
                           </a>
                         </td>
@@ -137,7 +120,7 @@
                             <div style=" padding: 20px; ">
                               <p><label>Sản phẩn :</label> <?php echo $item->product->title ?></p>
                               <p><label>Khách hàng :</label> <?php echo $custom->full_name ?></p>
-                            <form action="/plugins/admin/like_comment-admin-replyCommentAdmin.php" method="GET">
+                            <form action="/plugins/admin/like_comment-admin-replyCommentAdmin" method="GET">
 
                               <p><label>bình luận:</label> </p>
                               <div class="modal-footer">
