@@ -126,8 +126,54 @@ function dashboard($input)
 		$conditionServicet = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa'),'type'=>'service' ,'time >='=> strtotime(date("Y-m-d 00:00:00")));
 		$totalOrderService = count($modelOrder->find()->where($conditionServicet)->all()->toList());
 
-		$conditionbook = array('id_member'=>$user->id_member, 'id_spa'=>$session->read('id_spa') ,'time_book >='=> strtotime(date("Y-m-d 00:00:00")));
-		$totalbook = count($modelBook->find()->where($conditionbook)->all()->toList());
+		$conditionbook = array('Books.id_member'=>$user->id_member, 'Books.id_spa'=>$session->read('id_spa') ,'Books.time_book >='=> strtotime(date("Y-m-d 00:00:00")));
+
+		$listBooking = $modelBook
+	    			->find()
+	    			->select([
+			            'Books.id',
+			            'Books.name',
+			            'Books.time_book',
+			            'Books.status',
+			            'Books.repeat_book',
+			            'Books.apt_times',
+			            'Books.apt_step',
+			            'Services.name',
+			            'Members.name',
+			            'Members.id',
+			            'Beds.name',
+			        ])
+	    			->join([
+				            [
+				                'table' => 'services',
+				                'alias' => 'Services',
+				                'type' => 'LEFT',
+				                'conditions' => [
+				                    'Books.id_service = Services.id',
+				                ],
+				            ],
+				            [
+				                'table' => 'members',
+				                'alias' => 'Members',
+				                'type' => 'LEFT',
+				                'conditions' => [
+				                    'Books.id_staff = Members.id',
+				                ],
+				            ],
+				            [
+				                'table' => 'beds',
+				                'alias' => 'Beds',
+				                'type' => 'LEFT',
+				                'conditions' => [
+				                    'Books.id_bed = Beds.id',
+				                ],
+				            ],
+				        ])
+	    			->where($conditionbook)->all()->toList();
+
+		$totalbook = count($listBooking);
+
+
 		
 		$total = 0;
 
@@ -157,6 +203,7 @@ function dashboard($input)
 	    setVariable('totalOrderService', $totalOrderService);
 	    setVariable('totalOrderCombo', $totalOrderCombo);
 	    setVariable('totalbook', $totalbook);
+	    setVariable('listBooking', $listBooking);
 	    setVariable('total', $total);
 	}else{
 		return $controller->redirect('/login');
