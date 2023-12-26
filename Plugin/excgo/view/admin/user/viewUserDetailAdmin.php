@@ -114,16 +114,17 @@
 
                     <div class="row">
                       <label class="form-label">Hình ảnh xe</label>
-                        <?php if (isset($car) && count($car)):
-                          foreach ($car as $item):
+                        <?php 
+                        if (isset($car) && count($car)){
+                            foreach ($car as $item){
+                                echo '  <div class="col-md-6 mb-3 text-center">
+                                          <img src="'.$item->path.'" width="450px" height="300px" class="mb-3">
+                                        </div>';
+                            }
+                        } else {
+                          echo '<p> Chưa có hình ảnh </p>';
+                        }
                         ?>
-                            <div class="col-md-6 mb-3 text-center">
-                              <img src="<?php echo $item->path ?>" width="450px" height="300px" class="mb-3">
-                            </div>
-                        <?php endforeach;
-                          else: ?>
-                          <p> Chưa có hình ảnh </p>
-                        <? endif; ?>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Lưu</button>
@@ -133,4 +134,4 @@
         </div>
 
     </div>
-</div><?php
+</div>
