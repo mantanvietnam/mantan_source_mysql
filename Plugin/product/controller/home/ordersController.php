@@ -552,8 +552,7 @@ function pay($input){
 		$dataSend = $input['request']->getData();
 		/*debug($dataSend);
 		debug($pay);
-		die();
-*/
+		die();*/
 		if(empty($dataSend['id_address']) && !empty($infoUser)){
 			$address = $modelAddress->newEmptyEntity();
 			$address->address_name = $dataSend['address'];
@@ -790,33 +789,97 @@ function discount($input){
     }
      
    $category[$key]=$data;
-}*/
+	}*/
 
-foreach($categoryDiscountCode as $key => $item){
-	$data = array();
-	$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
-	$data['name'] = $item;
-	if(!empty($discountCode) && !empty($infoUser)){
-		foreach(@$discountCode as $k => $value){
-			if(!empty($value->id_customers)){
+	foreach($categoryDiscountCode as $key => $item){
+		$data = array();
+		$discountCode = $modelDiscountCode->find()->where(array('category'=>$key))->all()->toList(); 
+		$data['name'] = $item;
+		if(!empty($discountCode) && !empty($infoUser)){
+			foreach(@$discountCode as $k => $value){
+				if(!empty($value->id_customers)){
 
-				$id_customer = explode(',', $value->id_customers);
-				if( in_array($infoUser->id, $id_customer)){
+					$id_customer = explode(',', $value->id_customers);
+					if( in_array($infoUser->id, $id_customer)){
+						$data['discountCode'][$k] = $value;
+					}
+				}else{
 					$data['discountCode'][$k] = $value;
 				}
-			}else{
-				$data['discountCode'][$k] = $value;
 			}
 		}
+
+		$category[$key]=$data;
 	}
-
-	$category[$key]=$data;
-}
-setVariable('data', $category);
-}else{
-	return $controller->redirect('/cart');
+	setVariable('data', $category);
+	}else{
+		return $controller->redirect('/cart');
+	}
 }
 
+function getOrderAPI($input){
+	global $controller;
+	global $urlCurrent;
+	global $modelCategories;
+	global $metaTitleMantan;
+	global $isRequestPost;
 
+	$metaTitleMantan = 'Chi tiết đơn hàng';
+	$modelProduct = $controller->loadModel('Products');
+	$modelOrder = $controller->loadModel('Orders');
+	$modelOrderDetail = $controller->loadModel('OrderDetails');
+	$return = [];
+	if($isRequestPost){
+		$dataSend = $input['request']->getData();
+
+		if(!empty($dataSend['id'])){
+			$order = $modelOrder->find()->where(['id'=>$dataSend['id']])->first();
+			if(!empty($order)){
+				$infoOrder = $modelOrderDetail->find()->where(['id_order'=>$dataSend['id']])->all()->toList();
+				if(!empty($infoOrder)){
+					foreach($infoOrder as $key => $item){
+						$product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
+						if(!empty(@$product->id_product)){
+							$id_product = explode(',', @$product->id_product);
+							$present = [];
+							foreach($id_product as $k => $value){
+								$presentf = $modelProduct->find()->where(['code'=>$value])->first()->title;
+								
+								if(!empty($presentf)){
+									$present[] = $presentf;
+								}
+								$item->present = $present;
+
+							}
+						}
+							$item->name = $product->title;
+							$infoOrder[$key] = $item;
+
+					}
+					$pay = json_decode($order->discount, true);
+					// $discount = [];
+					$discount[$pay['code1']] = $pay['discount_price1'];
+					$discount[$pay['code2']] = $pay['discount_price2'];
+					$discount[$pay['code3']] = $pay['discount_price3'];
+					if(!empty($discount)){
+						$order->discount = $discount;
+					}else{
+						$order->discount = '';
+					}
+					
+					$order->infoOrder = $infoOrder;
+				}
+				$return = array('code'=> 1 ,'data'=>$order, 'mess'=> 'Lấy đơn hàng thành công');
+			}else{
+				$return = array('code'=> 3 , 'mess'=> 'Đơn hàng không tồn tại');
+			}
+		}else{
+			$return = array('code'=> 2 , 'mess'=> 'Bạn thiếu dữ liệu');
+		}
+	}
+	return $return;
+
+
+	
 }
 ?>
