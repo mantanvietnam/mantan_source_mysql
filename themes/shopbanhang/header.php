@@ -721,7 +721,7 @@ global $urlCurrent;
         <div class="list-contact">
             <a id="button-contact-2">
                 <div class="con-phone-bottom-box">
-                    <img class="icon-phone-bottom" src="<?php echo $urlThemeActive ?>/asset/image/icon mẹ.png" alt=""> 
+                    <img class="icon-phone-bottom" src="<?php echo $urlThemeActive ?>/asset/image/icon-me.png" alt=""> 
                 </div>
                 <div class="icon-close">
                     <i class="fa-solid fa-xmark"></i>
