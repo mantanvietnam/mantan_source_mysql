@@ -367,7 +367,7 @@
                                         </div>
                                     </div>
                                     <div class="item item-submit text-center">
-                                        <input type="submit" class="btn_field" value="ĐĂNG KÝ">
+                                        <input type="button" class="btn_field" value="ĐĂNG KÝ" onclick="this.form.submit(); this.disabled=true; this.value='Loading ...';">
                                     </div>
                                 </form>
                             </div>

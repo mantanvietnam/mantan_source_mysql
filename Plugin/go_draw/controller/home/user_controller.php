@@ -345,10 +345,12 @@ function forgotPass($input)
 	global $isRequestPost;
 	global $controller;
 	global $session;
+	global $modelOptions;
 
     $metaTitleMantan = 'Quên mật khẩu';
 
     $modelUsers = $controller->loadModel('Users');
+    $modelZaloOas = $controller->loadModel('ZaloOas');
 
     if(empty($session->read('infoMember'))){
     	$mess = '';
@@ -371,9 +373,51 @@ function forgotPass($input)
 							$info_customer->otp = $otp;
 							
 							$modelUsers->save($info_customer);
+							
+							// gửi mã về email
 							sendEmailCodeForgotPass($info_customer->email, $info_customer->name, $info_customer->otp);
 							
-							return $controller->redirect('/confirm/?phone='.$info_customer->phone);
+							// gửi mã về Zalo
+							if(function_exists('sendZNSZalo')){
+								$money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
+		    					$money_zalo = (int) $money_zalo_zns->value;
+
+		    					if($money_zalo>=500){
+		    						$zaloOA = $modelZaloOas->find()->first();
+
+		    						if(!empty($zaloOA->access_token)){
+		    							$template_id = 297430;
+		    							$params = ['otp' => $info_customer->otp];
+		    							$phone = $info_customer->phone;
+		    							$id_oa = $zaloOA->id_oa;
+		    							$app_id = $zaloOA->id_app;
+
+		    							$sendZalo = sendZNSZalo($template_id, $params, $phone, $id_oa, $app_id);
+
+		    							if($sendZalo['error'] == 0){
+		    								$money_zalo_zns->value -= 500;
+
+		    								$modelOptions->save($money_zalo_zns);
+		    							}else{
+		    								$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo, mã lỗi '.$sendZalo['error'].'</p>';		
+
+		    								//return $controller->redirect('/verified/?status=errorSendZalo&code='.$sendZalo['error']);
+		    							}
+		    						}else{
+		    							$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo do chưa có token</p>';	
+
+		    							//return $controller->redirect('/verified/?status=errorTokenEmpty');
+		    						}
+		    					}else{
+		    						$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo do tài khoản không đủ tiền</p>';	
+
+		    						//return $controller->redirect('/verified/?status=errorMoneyEmpty');
+		    					}
+							}
+
+							if(empty($mess)){
+								return $controller->redirect('/confirm/?phone='.$info_customer->phone);
+							}
 						}else{
 							return $controller->redirect('/verified/?phone='.$info_customer->phone);
 						}

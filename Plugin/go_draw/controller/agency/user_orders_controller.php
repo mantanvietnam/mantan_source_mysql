@@ -406,6 +406,7 @@ function checkoutOrderUser($input)
 	global $modelCategories;
 	global $session;
 	global $isRequestPost;
+	global $modelOptions;
 
 	if(!empty($session->read('infoUser'))){
 	    $metaTitleMantan = 'Thanh toán đơn hàng';
@@ -416,6 +417,8 @@ function checkoutOrderUser($input)
 	    $modelAgencyProducts = $controller->loadModel('AgencyProducts');
 	    $modelUserOrderHistories = $controller->loadModel('UserOrderHistories');
 	    $modelUsers = $controller->loadModel('Users');
+	    $modelZaloOas = $controller->loadModel('ZaloOas');
+	    $modelCombos = $controller->loadModel('Combos');
 
 	    if($isRequestPost){
 	    	$dataSend = $input['request']->getData();
@@ -424,6 +427,9 @@ function checkoutOrderUser($input)
 		    	$infoOrder = $modelUserOrders->find()->where(['id'=>(int) $dataSend['id'], 'agency_id'=>(int) $session->read('infoUser')->id])->first();
 
 		    	if(!empty($infoOrder)){
+		    		// combo sản phẩm mua
+		    		$infoCombo = $modelCombos->find()->where(['id'=>$infoOrder->combo_id])->first();
+
 		    		// hoàn lại sản phẩm
 		    		$infoOrder->product = $modelUserOrderDetails->find()->where(['order_id'=>$infoOrder->id])->all()->toList();
 		    		$total_price = 0;
@@ -483,6 +489,50 @@ function checkoutOrderUser($input)
 			    	$infoUserBuy->total_coin += $total_price/1000;
 
 			    	$modelUsers->save($infoUserBuy);
+
+			    	// gửi zalo thông báo
+		    		if(function_exists('sendZNSZalo')){
+						$money_zalo_zns = $modelOptions->find()->where(['key_word' => 'money_zalo_zns'])->first();
+    					$money_zalo = (int) $money_zalo_zns->value;
+
+    					if($money_zalo>=500){
+    						$zaloOA = $modelZaloOas->find()->first();
+
+    						if(!empty($zaloOA->access_token)){
+    							$template_id = 304484;
+    							$params = [	'order_code' => $infoOrder->id,
+    										'note'=>'',
+    										'list_product'=> $infoCombo->name,
+    										'cost'=> number_format($total_price).'đ',
+    										'payment_status'=>'Hoàn thành',
+    										'customer_name'=> $infoUserBuy->name,
+    									];
+    							$phone = $infoUserBuy->phone;
+    							$id_oa = $zaloOA->id_oa;
+    							$app_id = $zaloOA->id_app;
+
+    							$sendZalo = sendZNSZalo($template_id, $params, $phone, $id_oa, $app_id);
+
+    							if($sendZalo['error'] == 0){
+    								$money_zalo_zns->value -= 500;
+
+    								$modelOptions->save($money_zalo_zns);
+    							}else{
+    								$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo, mã lỗi '.$sendZalo['error'].'</p>';		
+
+    								//return $controller->redirect('/verified/?status=errorSendZalo&code='.$sendZalo['error']);
+    							}
+    						}else{
+    							$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo do chưa có token</p>';	
+
+    							//return $controller->redirect('/verified/?status=errorTokenEmpty');
+    						}
+    					}else{
+    						$mess = '<p class="text-danger">Lỗi gửi mã xác thực Zalo do tài khoản không đủ tiền</p>';	
+
+    						//return $controller->redirect('/verified/?status=errorMoneyEmpty');
+    					}
+					}
 
 					return $controller->redirect('/orderUserPrintBill/?id='.$dataSend['id']);
 		    	}else{
