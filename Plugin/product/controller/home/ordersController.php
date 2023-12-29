@@ -635,6 +635,10 @@ function pay($input){
 		getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
 		$session->write('product_order', []);
 
+		if(function_exists(getOrderLarkSuite())){
+			 getOrderLarkSuite($data->id);
+		}
+
 
 
 		return $controller->redirect('/completeOrder?id='.$data->id);
@@ -822,102 +826,13 @@ function discount($input){
 
 function getOrderAPI($input){
 	 
-	 $dataPost= array("app_id"=> "cli_a5f00d2e2a38900a","app_secret"=>"UoxVAzu7PyaPMTjXu7PRqhfAYSAWLYuU");
-
-	 $listData= sendDataConnectMantan('https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal', $dataPost);
-            $listData= str_replace('ï»¿', '', utf8_encode($listData));
-            $s= json_decode($listData, true);
-
-
-
-     $headers = array(
-        'Authorization: Bearer ' .$s['app_access_token'],
-        'Content-Type: application/json');
-
-
-
-
-
-	global $controller;
-	global $urlCurrent;
-	global $modelCategories;
-	global $metaTitleMantan;
-	global $isRequestPost;
-
-	$metaTitleMantan = 'Chi tiết đơn hàng';
-	$modelProduct = $controller->loadModel('Products');
-	$modelOrder = $controller->loadModel('Orders');
-	$modelOrderDetail = $controller->loadModel('OrderDetails');
-	$return = [];
+    global $isRequestPost;
+	
 	if($isRequestPost){
 		$dataSend = $input['request']->getData();
-
-		if(!empty($dataSend['id'])){
-			$order = $modelOrder->find()->where(['id'=>$dataSend['id']])->first();
-			if(!empty($order)){
-				$infoOrder = $modelOrderDetail->find()->where(['id_order'=>$dataSend['id']])->all()->toList();
-				unset($order->note_user);
-				unset($order->note_admin);
-				$order->shipp = 35000;
-				if(!empty($infoOrder)){
-					foreach($infoOrder as $key => $item){
-						$product = $modelProduct->find()->where(['id'=>$item->id_product])->first();
-						if(!empty(@$product->id_product)){
-							$id_product = explode(',', @$product->id_product);
-							$present = [];
-							foreach($id_product as $k => $value){
-								$presentf = $modelProduct->find()->where(['code'=>$value])->first()->title;
-								
-								if(!empty($presentf)){
-									$present[] = $presentf;
-								}
-								$item->present = $present;
-
-							}
-						}
-							$item->name = $product->title;
-							$infoOrder[$key] = $item;
-
-					}
-					$pay = json_decode($order->discount, true);
-					// $discount = [];
-					if(!empty($pay['code1']) && !empty($pay['discount_price1'])){					
-						$discount[$pay['code1']] = $pay['discount_price1'];
-					}
-					if(!empty($pay['code2']) && !empty($pay['discount_price2'])){
-						$discount[$pay['code2']] = $pay['discount_price2'];
-					}
-					if(!empty($pay['code3']) && !empty($pay['discount_price3'])){					
-						$discount[$pay['code3']] = $pay['discount_price3'];
-					}
-					if(!empty($discount)){
-						$order->discount = $discount;
-					}else{
-						$order->discount = '';
-					}
-					
-					$order->infoOrder = $infoOrder;
-					
-				}
-				$dataO = array('data'=>$order);
-			
-
-	$list= sendDataConnectMantan('https://open.larksuite.com/open-apis/bitable/v1/apps/'.$s['app_access_token'].'/tables/'.$s['expire'].'/records/batch_create', $dataO,$headers, 'raw');
-
-	       $list= str_replace('ï»¿', '', utf8_encode($list));
-            $list= json_decode($list, true);
-  
-    
-
-				$return = array('data'=>$dataO);
-			}else{
-				$return = array('code'=> 3 , 'mess'=> 'Đơn hàng không tồn tại');
-			}
-		}else{
-			$return = array('code'=> 2 , 'mess'=> 'Bạn thiếu dữ liệu');
-		}
+		return getOrderLarkSuite($dataSend['id']);
 	}
-	return $return;
+	
 
 
 	

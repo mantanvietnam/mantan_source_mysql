@@ -35,7 +35,7 @@
                   <textarea  class="form-control"  name="embedded11"><?php echo @$setting['embedded11']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 1</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 1</label>
                   <input type="text" class="form-control" name="youtube_11" value="<?php echo @$setting['youtube_11'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-">
@@ -48,7 +48,7 @@
                   <label class="form-label" for="basic-default-fullname">Mã nhúng tích tiktok 2</label>
                   <textarea  class="form-control"  name="embedded12"><?php echo @$setting['embedded12']; ?></textarea>
                 </div> <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 2</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 2</label>
                   <input type="text" class="form-control" name="youtube_12" value="<?php echo @$setting['youtube_12'];?>" />
                 </div>
                  <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -71,7 +71,7 @@
                   <textarea  class="form-control"  name="embedded21"><?php echo @$setting['embedded21']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 1</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 1</label>
                   <input type="text" class="form-control" name="youtube_21" value="<?php echo @$setting['youtube_21'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-">
@@ -85,7 +85,7 @@
                   <textarea  class="form-control"  name="embedded22"><?php echo @$setting['embedded22']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 2</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 2</label>
                   <input type="text" class="form-control" name="youtube_22" value="<?php echo @$setting['youtube_22'];?>" />
                 </div>
 
@@ -109,7 +109,7 @@
                   <textarea  class="form-control"  name="embedded31"><?php echo @$setting['embedded31']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 1</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 1</label>
                   <input type="text" class="form-control" name="youtube_31" value="<?php echo @$setting['youtube_31'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-">
@@ -123,7 +123,7 @@
                   <textarea  class="form-control"  name="embedded32"><?php echo @$setting['embedded32']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 2</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 2</label>
                   <input type="text" class="form-control" name="youtube_32" value="<?php echo @$setting['youtube_32'];?>" />
                 </div>
                 <!--  -->
@@ -146,7 +146,7 @@
                   <textarea  class="form-control"  name="embedded41"><?php echo @$setting['embedded41']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 1</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 1</label>
                   <input type="text" class="form-control" name="youtube_41" value="<?php echo @$setting['youtube_41'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-">
@@ -160,7 +160,7 @@
                   <textarea  class="form-control"  name="embedded42"><?php echo @$setting['embedded42']; ?></textarea>
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                  <label class="form-label" for="basic-default-fullname">Code youtube 2</label>
+                  <label class="form-label" for="basic-default-fullname">Mã youtube 2</label>
                   <input type="text" class="form-control" name="youtube_42" value="<?php echo @$setting['youtube_42'];?>" />
                 </div>
                 <div class="mb-3 col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
