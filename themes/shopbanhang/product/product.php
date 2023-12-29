@@ -111,8 +111,9 @@
 
                         <div class="rate-left-text">
                             <?php if(!empty($product->point) && !empty($product->evaluatecount)){ ?>
-                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> |   <span class="margin-product"><?php echo $product->sold ?>&nbsp;&nbsp;đã bán</span> </span>
-                            <?php }else{ echo '<p><span>(0)</span></p>'; } ?>
+                                <span><a href="#section-product-detail-rate"><?php echo  number_format(@$product->point, 1) ?> (<?php echo $product->evaluatecount ?> đánh giá) </a> |    
+                            <?php }else{ echo '<span>(0)</span>'; } ?>
+                            <span class="margin-product"><?php echo $product->sold ?>&nbsp;&nbsp;đã bán</span></span>
                         </div>
                     </div>
 

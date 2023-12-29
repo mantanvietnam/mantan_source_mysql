@@ -79,7 +79,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="container-fluid">
                     <div class="topbar-mobile-inner">
                         <div class="topbar-logo">
-                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logo_mobile.png" alt=""></a>
+                            <a href="/"><img src="<?php echo @$setting['image_logo'] ?>" alt=""></a>
                         </div>
 
                         <form class="menu-form-search d-flex" role="search" action="/search-product" method="get" id="myForm">
@@ -102,7 +102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-12 topbar-logo">
-                            <a href="/"><img src="<?php echo $urlThemeActive ?>asset/image/logophong.png" alt=""></a>
+                            <a href="/"><img src="<?php echo @$setting['image_logo'] ?>" alt=""></a>
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-sm-3 col-12 topbar-phone">

@@ -11,7 +11,7 @@ $infoUser = $session->read('infoUser');
             <div class="container">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-12">
                     <div class="logo-footer">
-                        <img src="<?php echo $urlThemeActive ?>asset/image/logophong.png" alt="">
+                        <img src="<?php echo @$setting['image_logo'] ?>" alt="">
                     </div>
                 </div>
         

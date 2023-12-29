@@ -6,7 +6,7 @@ $menus[0]['sub'][0]= array( 'title'=>'Cài đặt trang chủ',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'settingHomeTheme'
                         );
-$menus[0]['sub'][1]= array( 'title'=>'Cài đặt chính sách bảo mật',
+$menus[0]['sub'][1]= array( 'title'=>'Cài đặt chính sách bảo hành',
                             'url'=>'/plugins/admin/shopbanhang-admin-sttingGuaranteeTheme',
                             'classIcon'=>'bx bx-cog',
                             'permission'=>'sttingGuaranteeTheme'
