@@ -635,9 +635,9 @@ function pay($input){
 		getContentEmailAdmin(@$dataSend['full_name'],@$dataSend['email'],@$dataSend['phone'],@$dataSend['address'],@$dataSend['note_user'],$listproduct, $pay, $data);
 		$session->write('product_order', []);
 
-		if(function_exists(getOrderLarkSuite())){
+		
 			 getOrderLarkSuite($data->id);
-		}
+		
 
 
 

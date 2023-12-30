@@ -2,7 +2,7 @@
    global $routesTheme;
 
    $routesTheme['news'] = 'shopbanhang/news.php';
-   $routesTheme['chinh-sach-bao-mat'] = 'shopbanhang/guarantee.php';
+   $routesTheme['chinh-sach-bao-hanh'] = 'shopbanhang/guarantee.php';
    $routesTheme['huong-dan-kich-hoat-bao-hanh'] = 'shopbanhang/instruction.php';
    $routesTheme['review'] = 'shopbanhang/review.php';
    $routesTheme['nhan-xet-tu-kol'] = 'shopbanhang/reviewkol.php';
