@@ -50,7 +50,7 @@ function getOrderLarkSuite($id){
 
         $headers = array(
                 'Authorization: Bearer ' .$s['app_access_token'],
-                'Content-Type: application/json');
+                'Content-Type: application/json; charset=utf-8');
    
         $modelProduct = $controller->loadModel('Products');
         $modelOrder = $controller->loadModel('Orders');
