@@ -230,7 +230,7 @@ function receiveBookingApi($input): array
                 if (!is_null($booking->received_by)) {
                     return apiResponse(4, 'Cuốc xe đã được nhận');
                 }
-                $receivedFee = ceil($booking->price / $booking->introduce_fee);
+                $receivedFee = ceil($booking->price * $booking->introduce_fee / 100);
                 $deposit = $booking->deposit;
 
                 if ($currentUser->total_coin < ($receivedFee + $deposit)) {
